@@ -27,6 +27,14 @@ where data safety is not a top priority, because the data stored in
 classic queues is not replicated. If data safety is important,
 we recommend using quorum queues or streams.
 
+Classic queues are the original as well as the default queue type
+for RabbitMQ.
+
+Classic queues are currently being modernised to improve their
+stability and performance. As a result of this effort there
+exists [two versions](#versions) of classic queues. The version
+only impacts how the data is stored on and read from disk.
+
 ## <a id="features" class="anchor" href="#features">Features</a>
 
 Classic queues fully support [queue exclusivity](queues.html),
@@ -121,7 +129,7 @@ use a different index for messages depending on the version, as well
 as operate differently regarding the embedding of small messages in
 the index.
 
-Version 1 is the default and the historical implementation of classic
+Version 1 is the default and the original implementation of classic
 queues. The index in version 1 uses a combination of a journal and
 segment files. When reading messages from segment files it loads
 an entire segment file in memory, which can lead to memory issues
