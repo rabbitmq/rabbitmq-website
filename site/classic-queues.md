@@ -171,6 +171,7 @@ Some related guides include:
  * [File and Directory Locations](./relocate.html)
  * [Runtime Tuning](./runtime.html)
  * [Queues](./queues.html#runtime-characteristics) and their runtime characteristics
+ * [Lazy Queues](./lazy-queues.html) for **RabbitMQ before 3.12**
 
 ### <a id="file-handles" class="anchor" href="#file-handles">File Handles</a>
 

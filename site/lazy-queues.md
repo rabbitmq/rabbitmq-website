@@ -25,6 +25,10 @@ behave in a similar manner to lazy queues. They may however
 keep a small number of messages in memory (up to 2048 at the
 time of writing) based on the consumption rate.
 
+We recommend users of **RabbitMQ 3.11** and below to either
+upgrade to **RabbitMQ 3.12** or enable **lazy mode** to avoid
+running into memory issues.
+
 Classic queues operating in **lazy mode**
 move their contents to disk as early as practically possible,
 and only load them in RAM when requested by consumers,
