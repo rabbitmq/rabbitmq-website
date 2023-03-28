@@ -61,7 +61,7 @@ support at-least-once dead-lettering, suported by quorum queues.
 
 [Per-consumer QoS prefetch](./consumer-prefetch.html) should be
 preferred over global QoS prefetch, even though classic queues support
-both optiojs. Global QoS prefetch is a deprecated feature that will be
+both options. Global QoS prefetch is a deprecated feature that will be
 removed in **RabbitMQ 4.0**.
 
 While classic queues can be declared as transient, this makes queue
@@ -117,7 +117,7 @@ index.
 
 Embedded messages are written in its queue index when
 using classic queues version 1; and in its
-**_**per-queue message store** when using classic
+**per-queue message store** when using classic
 queues version 2.
 
 Larger messages are written to a shared message store.
