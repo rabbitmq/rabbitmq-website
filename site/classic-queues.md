@@ -154,10 +154,22 @@ When setting a new version via policy the queue will immediately
 convert its data on disk. It is possible to upgrade to version 2
 or downgrade to version 1. Note that for large queues the conversion
 may take some time and results in the queue being unavailable while
-the conversion is running.
+the conversion is running. As a point of reference, on our test machine,
+the migration takes:
+
+* 2 seconds to migrate 1000 queues with 1000 100-byte messages each
+* 9 seconds to migrate a queue with 1 million 100-byte messages
+* 3 seconds to migrate a queue with 1 million 5000-byte messages
+  (with the default embedding size of 4096 bytes, 5000-byte
+  messages are in the message store so there is less data to migrate)
+
+Given the numbers above, unless there is a lot of queues with a lot of messages,
+the migration should complete in a matter of seconds.
 
 The default version can be set through configuration by setting
-`classic_queue.default_version` in rabbitmq.conf.
+`classic_queue.default_version` in rabbitmq.conf. Changing the default version
+only affects newly declared queues. Pre-existing queues will remain on version 1,
+until explicitly migrated or deleted and redeclared.
 
 ## <a id="resource-use" class="anchor" href="#resource-use">Resource Use</a>
 
