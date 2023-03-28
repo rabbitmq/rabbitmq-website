@@ -143,8 +143,11 @@ disk when necessary. It will load more messages based on the
 current consumption rate. Version 2 does not embed messages
 in its index, instead a per-queue message store is used.
 
-Version 2 was added in **RabbitMQ 3.10.0**. It is possible to
-switch back and forth between version 1 and version 2.
+Version 2 was added in **RabbitMQ 3.10.0** and was significantly
+improved in **RabbitMQ 3.12.0**. It is currently possible to
+switch back and forth between version 1 and version 2. In the future,
+version 1 will be removed and the migration to version 2 will be performed
+automatically on node startup after the upgrade.
 
 The version can be changed using the `queue-version` policy.
 When setting a new version via policy the queue will immediately
@@ -160,7 +163,7 @@ The default version can be set through configuration by setting
 
 Classic queues aim to provide reasonably good throughput in the majority
 of situations without configuration. However, some configuration is
-soemtimes useful. This section covers a few configurable values that
+sometimes useful. This section covers a few configurable values that
 affect stability, throughput, latency and I/O characteristics of a node.
 Consider getting accustomed to [benchmarking with PerfTest](https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/)
 in addition to get the most out of your queues.
@@ -210,7 +213,7 @@ descriptors available to properly function, in theory. In
 practice only busy queues will need that many; other queues
 will function just fine with 3 or 4 file handles.
 
-As a result from not using the file handle management subsystem,
+As a result of not using the file handle management subsystem,
 version 2 does not track as many I/O statistics; only the numbers
 of reads and writes. Other metrics can be obtained at the OS level.
 
@@ -219,7 +222,7 @@ of reads and writes. Other metrics can be obtained at the OS level.
 Classic queues may keep up to 2048 messages in memory, depending
 on the consume rate. Classic queues will however avoid reading
 larger messages from disk too early. In **RabbitMQ 3.12** this
-means messages larger than the embed size.
+means messages larger than the embed size (by default, 4096 bytes).
 
 The index in version 1 has to read entire segment files in order
 to access the messages inside. This can lead to memory usage spikes,
