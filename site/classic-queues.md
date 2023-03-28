@@ -48,9 +48,12 @@ Classic queues support [dead letter exchanges](./dlx.html) with
 the exception of [at-least-once dead-lettering](./quorum-queues.html#dead-lettering).
 
 Messages stored in classic queues are always persisted to disk
-except when **all** of the following conditions are true: the queue is declared as transient,
-messages are published as transient by clients, and publisher confirms are not used.
-However, classic queues v1 tend to accumulate messages in memory.
+except when:
+
+ * the queue is declared as transient or messages are transient
+ * messages are smaller than the embed limit (defaults to 4096 bytes)
+ * for **RabbitMQ 3.12** and above: the queue is short (queues may
+   keep up to 2048 messages in memory at most, depending on the consume rate)
 
 Classic queues do not support [poison message handling](https://en.wikipedia.org/wiki/Poison_message),
 unlike [quorum queues](./quorum-queues.html). Classic queues also do not
