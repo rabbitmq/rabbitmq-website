@@ -149,7 +149,7 @@ see <a href="./documentation.html">All Documentation Guides</a>.
  * [Reliable Message Delivery](reliability.html)
 
 
-## Message Store and Resource Management
+## Resource Management
 
  * [Memory Usage Analysis](memory-use.html)
  * [Memory Management](memory.html)
@@ -157,15 +157,14 @@ see <a href="./documentation.html">All Documentation Guides</a>.
  * [Free Disk Space Alarms](disk-alarms.html)
  * [Runtime Tuning](runtime.html)
  * [Flow Control](flow-control.html)
- * [Message Store Configuration](persistence-conf.html)
  * [Queue and Message TTL](ttl.html)
  * [Queue Length Limits](maxlength.html)
- * [Lazy Queues](lazy-queues.html)
 
 
 ## Queue and Consumer Features
 
  * [Queues guide](queues.html)
+ * [Classic Queues](classic-queues.html)
  * [Consumers guide](consumers.html)
  * [Queue and Message TTL](ttl.html)
  * [Queue Length Limits](maxlength.html)
