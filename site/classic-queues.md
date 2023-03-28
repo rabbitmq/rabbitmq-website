@@ -83,9 +83,9 @@ Both [persistent and transient messages](./publishers.html#message-properties)
 are always persisted to disk except when:
 
  * the queue is declared as transient or messages are transient
- * messages are smaller than the embed limit (defaults to 4096 bytes)
- * for **RabbitMQ 3.12** and above: the queue is short (queues may
-   keep up to 2048 messages in memory at most, depending on the consume rate)
+ * messages are smaller than the embedding threshold (defaults to 4096 bytes)
+ * for **RabbitMQ 3.12** and later versions: the queue is short (queues may
+   keep up to 2048 messages in memory at most, depending on the consumer delivery rate)
 
 In general messages are not kept in memory unless the rate of
 consumption of messages is high enough that the messages that
