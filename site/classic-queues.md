@@ -47,14 +47,6 @@ and adhere to settings [controlled using policies](./parameters.html#policies).
 Classic queues support [dead letter exchanges](./dlx.html) with
 the exception of [at-least-once dead-lettering](./quorum-queues.html#dead-lettering).
 
-Messages stored in classic queues are always persisted to disk
-except when:
-
- * the queue is declared as transient or messages are transient
- * messages are smaller than the embed limit (defaults to 4096 bytes)
- * for **RabbitMQ 3.12** and above: the queue is short (queues may
-   keep up to 2048 messages in memory at most, depending on the consume rate)
-
 Classic queues do not support [poison message handling](https://en.wikipedia.org/wiki/Poison_message),
 unlike [quorum queues](./quorum-queues.html). Classic queues also do not
 support at-least-once dead-lettering, suported by quorum queues.
@@ -87,12 +79,13 @@ all other messages are written to disk directly.
 Classic queues use an on-disk index for storing message locations on disk
 as well as a message store for persisting messages.
 
-Both [persistent and transient messages](./publishers.html#message-properties) can be written to disk.
-Persistent messages and transient messages sent with publisher
-confirms enabled will be written to disk as soon as they reach
-the queue. Other transient messages will likely be written to
-disk as well unless there is a chance that they will be
-consumed fairly quickly.
+Both [persistent and transient messages](./publishers.html#message-properties)
+are always persisted to disk except when:
+
+ * the queue is declared as transient or messages are transient
+ * messages are smaller than the embed limit (defaults to 4096 bytes)
+ * for **RabbitMQ 3.12** and above: the queue is short (queues may
+   keep up to 2048 messages in memory at most, depending on the consume rate)
 
 In general messages are not kept in memory unless the rate of
 consumption of messages is high enough that the messages that
