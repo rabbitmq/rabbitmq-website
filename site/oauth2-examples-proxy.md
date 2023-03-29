@@ -27,7 +27,7 @@ First, deploy **Key Cloak**. It comes preconfigured with all the required scopes
 make start-keycloak
 </pre>
 
-**Key Cloak** comes configured with its own signing key. And [rabbitmq.conf](../conf/oauth2-proxy/rabbitmq.conf)
+**Key Cloak** comes configured with its own signing key. And [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/oauth2-proxy/rabbitmq.conf)
 is also configured with the same signing key.
 
 To access KeyCloak management interface go to http://0.0.0.0:8080/ and enter `admin` as username and password.
@@ -41,7 +41,7 @@ There is a dedicated **KeyCloak realm** called `Test` configured as follows:
 ## Start RabbitMQ
 
 To start RabbitMQ run the following two commands. The first one tells RabbitMQ to pick up the
-rabbit.conf found under [conf/oauth2-proxy/rabbitmq.conf](../conf/keycloak/rabbitmq.conf)
+rabbit.conf found under [conf/oauth2-proxy/rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/oauth2-proxy/rabbitmq.conf)
 
 <pre class="lang-plain">
 export MODE=oauth2-proxy
@@ -50,7 +50,7 @@ make start-rabbitmq
 
 **NOTE**: Oauth2-proxy requires that the `aud` claim matches the client's id. However, RabbitMQ requires the
 `aud` field to match `rabbitmq` which is the designated `resource_server_id`. Given that it has been
-impossible to configure keycloak with both values, [rabbitmq.conf](../conf/oauth2-proxy/rabbitmq.conf) has
+impossible to configure keycloak with both values, [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/oauth2-proxy/rabbitmq.conf) has
 the setting below which disables validation of the audience claim.
 
 <pre class="lang-ini">
@@ -66,7 +66,7 @@ To start Oauth2-proxy we run the following command:
 make start-oauth2-proxy
 </pre>
 
-Oauth2-proxy is configured using [Alpha configuration](../conf/oauth2-proxy/alpha-config.yaml). This type of configuration permits injecting the access token into the HTTP **Authorization** header.
+Oauth2-proxy is configured using [Alpha configuration](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/oauth2-proxy/alpha-config.yaml). This type of configuration permits injecting the access token into the HTTP **Authorization** header.
 
 
 ## Access Management ui
