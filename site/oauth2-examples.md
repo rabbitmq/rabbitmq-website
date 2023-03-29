@@ -40,6 +40,7 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
 	- [KeyCloak](oauth2-examples-keycloak.html)
 	- [https://auth0.com/](oauth2-examples-oauth0.html)
 	- [Azure Active Directory](oauth2-examples-azure.html)  
+    - [OAuth2 Proxy](oauth2-examples-proxy.html)
 * [Understanding the environment](#understand-the-environment)
 	- [RabbitMQ server](#rabbitmq-server)
 	- [UAA server](#uaa-server)
@@ -151,8 +152,18 @@ in `advanced.config`:
 
 ### <a id="identity-provider-initiated-logon" class="anchor" href="#identity-provider-initiated-logon">Identity-Provider initiated logon</a>
 
-When RabbitMQ is provided as a service from a web portal, it is easy to navigate to the RabbitMQ Management UI
-with a single click. The web portal retrieves a token before taking the user to the RabbitMQ Management UI web page.
+Alike Service-Provider initiated logon, with Idp-initiated logon users land to RabbitMQ management ui with a valid token.
+These two scenarios below are examples of Idp-initiated logon:
+
+* RabbitMQ is behind a web portal which conveniently allow users to navigate directly to RabbitMQ fully authenticated
+* There is an OAuth2 proxy in between users and RabbitMQ which intercepts their requests and forwards them to RabbitMQ injecting the token into the HTTP `Authorization` header  
+
+The latter scenario is demonstrated [here](oauth2-examples-proxy.html). The former scenario is covered in the following section.
+
+#### Idp-initiated logon via the login endpoint
+
+A web portal offers their authenticated users, the option to navigate to RabbitMQ by submitting a form with their OAuth  token in `access_token` form field as it is illustrated below:
+
 
 <pre class="lang-plain">
     [ Idp | WebPortal ] ----&gt; 2. /login [access_token: TOKEN]----   [ RabbitMQ Cluster ]            
@@ -161,9 +172,7 @@ with a single click. The web portal retrieves a token before taking the user to 
       1. rabbit_admin from a browser                                   3. validate token        
 </pre>
 
-How it works, firstly, the `rabbit_admin` user navigates to the web portal and clicks on the hyperlink associated with a RabbitMQ
-cluster. Next, the web portal obtains a token and redirects the user to RabbitMQ `/login` endpoint with the token within the HTTP form field `access_token`. Finally,
-RabbitMQ validates the token in the http request and if it is valid, it redirects the user to the overview page.
+If the access token is valid, RabbitMQ redirects the user to the overview page.
 
 By default, the RabbitMQ Management UI is configured with **service-provider initiated logon**, to configure **Identity-Provider initiated logon**,
 add one entry to `advanced.config`. For example:
@@ -172,7 +181,6 @@ add one entry to `advanced.config`. For example:
  ...
  {rabbitmq_management, [
     {oauth_enabled, true},
-    {oauth_client_id, "rabbit_client_code"},
     {oauth_provider_url, "http://localhost:8080"},      
     {oauth_initiated_logon_type, idp_initiated},
     ...
