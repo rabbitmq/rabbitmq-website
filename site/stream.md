@@ -19,9 +19,12 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-Streams are a new persistent and replicated data structure _in RabbitMQ 3.9_ which models
+Streams are a persistent and replicated data structure which models
 an append-only log with non-destructive consumer semantics.
-They can be used as a regular AMQP 0.9.1 queue or through a
+
+This feature is available in all [currently maintained release series](./versions.html).
+
+Streams can be used as a regular AMQP 0.9.1 queue or through a
 [dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
 plugin and associated client(s).
 Please see the [stream core and stream plugin comparison page](./stream-core-plugin-comparison.html) for the feature matrix.
