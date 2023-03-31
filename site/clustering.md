@@ -271,7 +271,7 @@ rabbitmq-diagnostics status --erlang-cookie "cookie-value"
 
 Both are **the least secure options** and generally **not recommended**.
 
-### Troubleshooting
+### <a id="cookie-file-troubleshooting" class="anchor" href="#cookie-file-troubleshooting">Troubleshooting</a> Cookie-based Authentication
 
 When a node starts, it will [log](./logging.html) the home directory location of its effective user:
 
@@ -321,22 +321,6 @@ more information and cookie mismatches can be identified better:
 </pre>
 
 See the [CLI Tools guide](./cli.html) for more information.
-
-### <a id="cookie-file-troubleshooting" class="anchor" href="#cookie-file-troubleshooting">Troubleshooting</a> Cookie-based Authentication
-
-#### Server Nodes
-
-When a node starts, it will [log](./logging.html) the home directory location of its effective user:
-
-<pre class="lang-plaintext">
-node           : rabbit@cdbf4de5f22d
-home dir       : /var/lib/rabbitmq
-</pre>
-
-Unless any [server directories](./relocate.html) were overridden, that's the directory where
-the cookie file will be looked for, and created by the node on first boot if it does not already exist.
-
-In the example above, the cookie file location will be `/var/lib/rabbitmq/.erlang.cookie`.
 
 #### Hostname Resolution
 
