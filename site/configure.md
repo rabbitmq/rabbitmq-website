@@ -408,6 +408,9 @@ cluster name:
 cluster_name = deployment-$(DEPLOYMENT_ID)
 </pre>
 
+Environment variable values are interpolated as strings before the config file is parsed and validated.
+This means that they can be used to override numerical settings (such as ports) or paths (such as TLS certificate and private key paths).
+
 In addition, RabbitMQ respects a [number of environment variables](#customise-environment) for when a value must be known before
 the configuration file is loaded.
 
