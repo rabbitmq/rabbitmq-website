@@ -22,7 +22,7 @@ limitations under the License.
 If you have questions about RabbitMQ or need help, there are several ways
 to get it:
 
- * Freely available [community resources](#community-resources) (mailing list, community Slack channel and so on)
+ * Freely available [community resources](#community-resources) (mailing list, Discord server, community Slack, and so on)
  * [Paid commercial support](#paid-support) from VMware and other vendors
 
 There's also a separate email address for [responsible disclosure of security issues](#security).
