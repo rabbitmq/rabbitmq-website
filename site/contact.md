@@ -39,11 +39,18 @@ ask questions and share your experiences with RabbitMQ.
 The list offers a free, best effort support from the community and the RabbitMQ core team.
 There is no guarantee of response or specific turnaround time.
 
+### Discord Community Server
+
+Feel free to join our [Discord community server](https://discord.gg/VwWnkG3GWy).
+
+The channel offers free of charge, best effort support from the community.
+There is no guarantee of response or specific turnaround time.
+
 ### Community Slack
 
-Feel free to join our [RabbitMQ community Slack](https://rabbitmq-slack.herokuapp.com/).
+Feel free to join our [RabbitMQ community Slack](https://slack.rabbitmq.com/).
 
-The channel offers a free, best effort support from the community.
+The channel offers free of charge, best effort support from the community.
 There is no guarantee of response or specific turnaround time.
 
 ### GitHub
