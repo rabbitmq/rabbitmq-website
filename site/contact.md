@@ -41,14 +41,14 @@ There is no guarantee of response or specific turnaround time.
 
 ### Discord Community Server
 
-Feel free to join our [Discord community server](https://discord.gg/VwWnkG3GWy).
+Feel free to join our [Discord community server](https://rabbitmq.com/discord/).
 
 The channel offers free of charge, best effort support from the community.
 There is no guarantee of response or specific turnaround time.
 
 ### Community Slack
 
-Feel free to join our [RabbitMQ community Slack](https://slack.rabbitmq.com/).
+Feel free to join our [RabbitMQ community Slack](https://rabbitmq.com/slack/).
 
 The channel offers free of charge, best effort support from the community.
 There is no guarantee of response or specific turnaround time.
