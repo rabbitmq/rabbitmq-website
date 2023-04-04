@@ -22,7 +22,7 @@ limitations under the License.
 If you have questions about RabbitMQ or need help, there are several ways
 to get it:
 
- * Freely available [community resources](#community-resources) (mailing list, community Slack channel and so on)
+ * Freely available [community resources](#community-resources) (mailing list, Discord server, community Slack, and so on)
  * [Paid commercial support](#paid-support) from VMware and other vendors
 
 There's also a separate email address for [responsible disclosure of security issues](#security).
@@ -39,11 +39,18 @@ ask questions and share your experiences with RabbitMQ.
 The list offers a free, best effort support from the community and the RabbitMQ core team.
 There is no guarantee of response or specific turnaround time.
 
+### Discord Community Server
+
+Feel free to join our [Discord community server](https://rabbitmq.com/discord/).
+
+The channel offers free of charge, best effort support from the community.
+There is no guarantee of response or specific turnaround time.
+
 ### Community Slack
 
-Feel free to join our [RabbitMQ community Slack](https://rabbitmq-slack.herokuapp.com/).
+Feel free to join our [RabbitMQ community Slack](https://rabbitmq.com/slack/).
 
-The channel offers a free, best effort support from the community.
+The channel offers free of charge, best effort support from the community.
 There is no guarantee of response or specific turnaround time.
 
 ### GitHub
