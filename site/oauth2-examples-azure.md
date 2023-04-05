@@ -75,6 +75,8 @@ App roles are defined by using the [Azure portal](https://portal.azure.com) duri
     * **Value**: `Application_ID.tag:administrator` (where *Application_ID* is the value of the *Application (client) ID* noted earlier in this tutorial)
     * **Description**: briefly describe what this role aims to (here just to give admin access to the RabbitMQ Management UI)
     * **Do you want to enable this app role**: `yes` (check the box)
+  
+    <g-emoji class="g-emoji" alias="bulb" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4a1.png">💡</g-emoji> You can use any other predefined constant instead of `Application_ID`. See full documentation [here](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial#about-permissions).
 
 4. Click on **Apply**.
 
@@ -89,7 +91,7 @@ App roles are defined by using the [Azure portal](https://portal.azure.com) duri
     * **Value**: `Application_ID.configure:*/*` (where *Application_ID* is the value of the *Application (client) ID* noted earlier in this tutorial)
     * **Description**: briefly describe what this role aims to (here to give permissions to configure all resources on all the vhosts available on the RabbitMQ instance)
     * **Do you want to enable this app role**: `yes` (check the box)
-
+ 
 3. Click on **Apply**.
 
 ## Assign App Roles to users
