@@ -179,8 +179,8 @@ Examples for [RabbitMQ streams](streams.html) on the [RabbitMQ blog](https://blo
 ## Getting Help
 
 If you have any questions or comments regarding RabbitMQ, feel free to
-ask them on [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users)
-or the public [RabbitMQ community Slack](https://rabbitmq-slack.herokuapp.com/).
+ask them on [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users),
+[RabbitMQ community Discord server](https://rabbitmq.com/discord/), or the public [RabbitMQ community Slack](https://rabbitmq.com/slack/).
 
 
 ## AMQP 0-9-1 Overview and Quick Reference

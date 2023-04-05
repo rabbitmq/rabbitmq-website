@@ -27,6 +27,6 @@ limitations under the License.
     <p>
         If you're having trouble going through this tutorial you can contact us through the
         <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">mailing list</a>
-        or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+        or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
     </p>
   </div>
