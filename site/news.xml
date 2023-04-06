@@ -36,6 +36,175 @@ limitations under the License.
     -->
 
     <doc:item>
+      <doc:date iso="2023-03-31T14:00:00+00:00">31 March 2023</doc:date>
+      <doc:title>RabbitMQ 3.11.13 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.13</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.11.13,
+          a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.11.x/">RabbitMQ 3.11.x</a> series.
+        </p>
+        <p>
+          This is a maintenance release that contains bug fixes and usability improvements.
+          Release notes can be found <a href="./changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 25.x</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2023-03-30T14:00:00+00:00">30 March 2023</doc:date>
+      <doc:title>RabbitMQ 3.11.12 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.12</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.11.12,
+          a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.11.x/">RabbitMQ 3.11.x</a> series.
+        </p>
+        <p>
+          This is a maintenance release that contains bug fixes and usability improvements.
+          Release notes can be found <a href="./changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 25.x</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2023-03-22T14:00:00+00:00">22 March 2022</doc:date>
+      <doc:title>RabbitMQ 3.10.20 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.20</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.10.20,
+          a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.10.x/">RabbitMQ 3.10.x</a> series.
+        </p>
+        <p>
+          This is a maintenance release that contains bug fixes and usability improvements.
+          Release notes can be found <a href="./changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 24.3</a> and
+          supports Erlang versions through <a href="https://www.erlang.org/blog/my-otp-25-highlights/">the latest Erlang 25.3</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2023-03-20T14:00:00+00:00">20 March 2023</doc:date>
+      <doc:title>RabbitMQ 3.11.11 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.11</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.11.11,
+          a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.11.x/">RabbitMQ 3.11.x</a> series.
+        </p>
+        <p>
+          This is a maintenance release that contains bug fixes and usability improvements.
+          Release notes can be found <a href="./changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 25.x</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2023-03-09T14:00:00+00:00">09 March 2023</doc:date>
+      <doc:title>RabbitMQ 3.9.29 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.29</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.9.29.
+        </p>
+        <p>
+          This is a maintenance release.
+          Release notes can be found <a href="./changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 24.2</a> and
+          <a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">supports Erlang 24</a>,
+          including Erlang 24.3.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2023-03-02T14:00:00+00:00">2 March 2023</doc:date>
       <doc:title>RabbitMQ 3.11.10 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.10</doc:link>
@@ -64,7 +233,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -96,7 +265,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -130,7 +299,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -162,7 +331,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -197,7 +366,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -231,7 +400,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -266,7 +435,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -312,7 +481,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -347,7 +516,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -381,7 +550,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -415,7 +584,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -450,7 +619,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -485,7 +654,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -519,7 +688,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -554,7 +723,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -589,7 +758,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -610,7 +779,7 @@ limitations under the License.
         <p>
           In case you have questions, feel free to contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -644,7 +813,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -679,7 +848,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -714,7 +883,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -748,7 +917,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -783,7 +952,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -818,7 +987,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -852,7 +1021,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -887,7 +1056,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -977,7 +1146,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1012,7 +1181,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1047,7 +1216,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1082,7 +1251,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1116,7 +1285,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1151,7 +1320,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1185,7 +1354,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1219,7 +1388,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1254,7 +1423,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1288,7 +1457,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1322,7 +1491,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1357,7 +1526,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1391,7 +1560,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1426,7 +1595,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1461,7 +1630,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1495,7 +1664,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1530,7 +1699,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1565,7 +1734,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1599,7 +1768,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1664,7 +1833,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1698,7 +1867,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1733,7 +1902,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1767,7 +1936,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1801,7 +1970,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1835,7 +2004,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1869,7 +2038,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1903,7 +2072,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1937,7 +2106,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -1971,7 +2140,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2005,7 +2174,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2039,7 +2208,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2073,7 +2242,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2107,7 +2276,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2141,7 +2310,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2175,7 +2344,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2209,7 +2378,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2243,7 +2412,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2277,7 +2446,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2311,7 +2480,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2345,7 +2514,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2379,7 +2548,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2413,7 +2582,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2447,7 +2616,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2481,7 +2650,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2515,7 +2684,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2549,7 +2718,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2615,7 +2784,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2649,7 +2818,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2683,7 +2852,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2718,7 +2887,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2746,7 +2915,7 @@ limitations under the License.
           on this release, as well as general suggestions for features and
           enhancements in future releases. Contact us via the
           <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
-          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -2768,7 +2937,7 @@ limitations under the License.
         <p>
           As always, we welcome any questions, bug reports, and other feedback
           on this release, as well as general suggestions for features and
-          enhancements in future releases. Contact us via <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>
+          enhancements in future releases. Contact us via <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>
           or the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
           Google group.
         </p>
@@ -2800,7 +2969,7 @@ limitations under the License.
         <p>
           As always, we welcome any questions, bug reports, and other feedback
           on this release, as well as general suggestions for features and
-          enhancements in future releases. Contact us via <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>
+          enhancements in future releases. Contact us via <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>
           or the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
           Google group.
         </p>
@@ -2831,7 +3000,7 @@ limitations under the License.
         <p>
           As always, we welcome any questions, bug reports, and other feedback
           on this release, as well as general suggestions for features and
-          enhancements in future releases. Contact us via <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>
+          enhancements in future releases. Contact us via <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>
           or the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
           Google group.
         </p>
@@ -2864,7 +3033,7 @@ limitations under the License.
         <p>
           As always, we welcome any questions, bug reports, and other feedback
           on this release, as well as general suggestions for features and
-          enhancements in future releases. Contact us via <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>
+          enhancements in future releases. Contact us via <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>
           or the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
           Google group.
         </p>

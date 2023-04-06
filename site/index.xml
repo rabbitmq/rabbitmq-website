@@ -263,7 +263,8 @@ limitations under the License.
               <h1>Community</h1>
               <br/>
               <a class='btn orangebtn' href='https://groups.google.com/forum/#!forum/rabbitmq-users' target="_blank" rel="noopener noreferrer">Mailing List</a>
-              <a class='btn' href='https://rabbitmq-slack.herokuapp.com/' target="_blank" rel="noopener noreferrer">Slack Channel</a>
+              <a class='btn' href='https://rabbitmq.com/discord/' target="_blank" rel="noopener noreferrer">Discord Server</a>
+              <a class='btn' href='https://rabbitmq.com/slack/' target="_blank" rel="noopener noreferrer">Slack Channel</a>
               <br/><br/>
               <p>Meet your fellow Rabbits to share stories, advice, and get help.</p>
               <h2>Issues &amp; Bug Reports</h2>
@@ -277,7 +278,7 @@ limitations under the License.
               <div class='container'>
                 <h1>Contact Us</h1>
                 <h2>Commercial inquiries</h2>
-                <p><a href='mailto:rabbitmq-sales@pivotal.io'>VMware Sales</a> | <a href='https://support.pivotal.io' target="_blank" rel="noopener noreferrer">VMware Support</a></p>
+                <p><a href='mailto:rabbitmq-sales@pivotal.io'>VMware Sales</a> | <a href='https://tanzu.vmware.com/rabbitmq' target="_blank" rel="noopener noreferrer">VMware Support</a></p>
                 <h2>Other inquiries</h2>
                 <p><a href="./contact.html">Contact us</a></p>
                 <h2>Report a security vulnerability</h2>

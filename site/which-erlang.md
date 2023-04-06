@@ -45,6 +45,9 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.11.13</li>
+        <li>3.11.12</li>
+        <li>3.11.11</li>
         <li>3.11.10</li>
         <li>3.11.9</li>
         <li>3.11.8</li>
@@ -65,7 +68,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>25.2</li>
+        <li>25.3</li>
       </ul>
     </td>
     <td>
@@ -85,6 +88,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.10.20</li>
         <li>3.10.19</li>
       </ul>
     </td>
@@ -95,7 +99,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>25.2</li>
+        <li>25.3</li>
       </ul>
     </td>
     <td>
@@ -328,6 +332,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
   <tr>
     <td>
       <ul>
+        <li>3.9.29</li>
         <li>3.9.28</li>
       </ul>
     </td>

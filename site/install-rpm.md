@@ -22,7 +22,8 @@ limitations under the License.
 This guide covers RabbitMQ installation on RPM-based Linux (Red Hat Enterprise Linux, CentOS Stream, Fedora, openSUSE).
 
 RabbitMQ is included in standard Fedora and RHEL repositories.
-However, the versions included are
+
+With the [exception of Fedora](https://packages.fedoraproject.org/pkgs/rabbitmq-server/rabbitmq-server/), the versions included can be
 many releases behind [latest RabbitMQ releases](changelog.html)
 and may provide RabbitMQ versions that are already [out of support](versions.html).
 

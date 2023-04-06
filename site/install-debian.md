@@ -22,7 +22,7 @@ limitations under the License.
 This guide covers RabbitMQ installation on Debian, Ubuntu and distributions based on one of them.
 
 RabbitMQ is included in standard Debian and Ubuntu repositories.
-However, the versions included are
+However, the [versions included](https://packages.ubuntu.com/search?keywords=rabbitmq-server&searchon=names&suite=all&section=all) are
 many releases behind [latest RabbitMQ releases](changelog.html)
 and may provide RabbitMQ versions that are already [out of support](versions.html).
 
@@ -167,6 +167,9 @@ Below is shell snippet that performs those steps. They are documented in more de
 
 <pre class="lang-bash">
 #!/usr/bin/sh
+
+## Update package indices
+sudo apt-get update -y
 
 sudo apt-get install curl gnupg apt-transport-https -y
 
@@ -885,7 +888,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            └─2861 inet_gethost 4
 
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.11.5. Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.11.13. Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -943,7 +946,7 @@ The output will look similar to this:
 
 <pre class="lang-ini">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.11.5. Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.11.13. Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log

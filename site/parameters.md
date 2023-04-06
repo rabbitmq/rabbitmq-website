@@ -269,7 +269,7 @@ of matching queues (exchanges).
 **At most one policy matches** a queue or exchange. Since multiple policies can match a single
 name, a mechanism is needed to resolve such policy conflicts. This mechanism is called policy priorities.
 Every policy has a a numeric priority associated with it. This priority can be specified when declaring
-a policy. If not explicitly provided, the priority of 1 will be used.
+a policy. If not explicitly provided, the priority of 0 will be used.
 
 Matching policies are then sorted by priority and the one with the highest priority will take
 effect.
