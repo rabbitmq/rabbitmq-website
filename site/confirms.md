@@ -392,31 +392,36 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
 
 ### <a id="channel-qos-prefetch" class="anchor" href="#channel-qos-prefetch">Channel Prefetch Setting (QoS)</a>
 
-Because messages are sent (pushed) to clients
-asynchronously, there is usually more than one message "in
-flight" on a channel at any given moment. In addition,
-manual acknowledgements from clients are also inherently
-asynchronous in nature. So there's a sliding window of
-delivery tags that are unacknowledged. Developers would
-often prefer to cap the size of this window to avoid the
-unbounded buffer problem on the consumer end. This is done
-by setting a "prefetch count" value using the
+Messages are delivered (sent) to clients
+asynchronously, and there can be more than one message "in
+flight" on a channel at any given moment. Manual acknowledgements
+from clients are also inherently asynchronous in nature but
+flow in the opposite direction.
+
+This means a sliding window of deliveries that are unacknowledged.
+
+For most consumers, it makes sense to limit the size of this window to avoid the
+unbounded buffer (heap) growth problem on the consumer end.
+This is done by setting a "prefetch count" value using the
 `basic.qos` method. The value defines the max
 number of unacknowledged deliveries that are permitted on a
-channel. Once the number reaches the configured count,
+channel. When the number reaches the configured count,
 RabbitMQ will stop delivering more messages on the channel
-unless at least one of the outstanding ones is acknowledged.
-(A value of `0` is treated as infinite, allowing any number
-of unacknowledged messages.)
+until at least one of the outstanding ones is acknowledged.
 
-For example, given that there are delivery tags 5, 6, 7, and
+A value of `0` means "no limit", allowing any number
+of unacknowledged messages.
+
+For example, given that there are four deliveries with delivery tags 5, 6, 7, and
 8 unacknowledged on channel `Ch` and channel
 `Ch`'s prefetch count is set to 4, RabbitMQ will
 not push any more deliveries on `Ch` unless at
 least one of the outstanding deliveries is acknowledged.
+
 When an acknowledgement frame arrives on that channel with
 `delivery_tag` set to `5` (or `6`, `7`, or `8`),
-RabbitMQ will notice and deliver one more message. Acknowledging [multiple messages at once](#consumer-acks-multiple-parameter)
+RabbitMQ will notice and deliver one more message.
+Acknowledging [multiple messages at once](#consumer-acks-multiple-parameter)
 will make more than one message available for delivery.
 
 It's worth reiterating that the flow of deliveries and
