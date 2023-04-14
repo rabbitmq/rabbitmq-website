@@ -1227,21 +1227,20 @@ mirroring_sync_batch_size = 4096
   </tr>
 
   <tr>
-    <td><code>queue_master_locator</code></td>
+    <td><code>queue_leader_locator</code></td>
     <td>
       queue leader location strategy. Available strategies are:
       <ul>
-        <li><code>min-masters</code></li>
+        <li><code>balanced</code></li>
         <li><code>client-local</code></li>
-        <li><code>random</code></li>
       </ul>
       See the
-      <a href="./ha.html#queue-master-location">documentation
+      <a href="./ha.html#queue-leader-location">documentation
       on queue leader location</a> for more information.
       <p>
         Default:
 <pre class="lang-ini">
-queue_master_locator = client-local
+queue_leader_locator = balanced
 </pre>
       </p>
     </td>

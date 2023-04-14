@@ -271,7 +271,7 @@ are only suitable for client-specific transient state.
 It is common to make exclusive queues server-named.
 
 Exclusive queues are declared on the "client-local" node (the node that the client declaring
-the queue is connected to), regardless of the `queue_master_locator` value.
+the queue is connected to), regardless of the `queue_leader_locator` value.
 
 ## <a id="distributed" class="anchor" href="#distributed">Replicated and Distributed Queues</a>
 
