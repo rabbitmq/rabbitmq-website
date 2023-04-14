@@ -198,6 +198,7 @@ The tutorials here use a number of popular technologies,
 however, there are [ports available](https://github.com/rabbitmq/rabbitmq-tutorials) for
 many more languages and client libraries, for example:
 
+ * [Rust]()
  * [Clojure](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/clojure) (using [Langohr](http://clojurerabbitmq.info))
  * [Erlang](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/erlang) (using [RabbitMQ Erlang client](https://github.com/rabbitmq/rabbitmq-erlang-client))
  * [Haskell](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/haskell) (using [Network.AMQP](http://hackage.haskell.org/package/amqp))
