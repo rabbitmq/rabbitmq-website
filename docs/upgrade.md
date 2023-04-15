@@ -151,7 +151,7 @@ Please refer to the [Erlang Version Requirements](./which-erlang) guide.
 
 ## Features that Do Not Support In-place Upgrades {#unsupported-inplace-upgrade}
 
-[Priority queue](./priority) on disk data currently cannot be migrated in place between 3.6 and 3.7 (a later series).
+[Priority queue](./priority) on disk data currently cannot be migrated in place between 3.6 and any later series.
 If an upgrade is performed in place, such queues would start empty (without any messages) after node restart.
 
 To migrate an environment with priority queues and preserve their content (messages),
@@ -162,8 +162,8 @@ a [blue-green upgrade](./blue-green-upgrade) strategy should be used.
 
 Unless otherwise specified in release notes, RabbitMQ plugin API
 introduces no breaking changes within a release series (e.g. between
-`3.6.11` and `3.6.16`). If upgrading to a new minor version
-(e.g. `3.7.0`), plugin must be upgraded to their versions that support
+`3.12.5` and `3.12.13`). If upgrading to a new minor or major version
+(e.g. `3.13.1`), plugin must be upgraded to their versions that support
 the new RabbitMQ version series.
 
 In rare cases patch versions of RabbitMQ can break some plugin APIs.
@@ -213,8 +213,9 @@ You should make sure the new version [uses the same data directory](./relocate).
 RabbitMQ does not support downgrades; it's strongly advised to back node's data directory up before
 upgrading.
 
-Single node deployments are often local development or test environments. In such cases, if you need to upgrade multiple versions
-(eg. from `3.8.15` to `3.12.5`), it's easier to simply delete everything in the data directory and go directly
+Single node deployments are often local development or test environments. In such cases, if
+the upgrade involves jumping multiple release series (eg. from `3.8.15` to `3.13.1`),
+it's easier to simply delete everything in the data directory and go directly
 to the desired version. Effectively, it's no longer an upgrade but a fresh installation of the new version.
 Please note that this process will **delete all data** in your RabbitMQ (definitions and messages), but this is usually
 not a problem in a developement/test environment. The definitions can be preserved using [export/import](./definitions).
@@ -248,38 +249,6 @@ same cluster: this allows a rolling upgrade of cluster members without
 shutting down the cluster entirely.
 
 To learn more, please read the [feature flags documentation](./feature-flags).
-
-#### Before RabbitMQ 3.8 {#rolling-upgrade-before-3.8}
-
-With RabbitMQ up-to and including 3.7.x, when upgrading from one major
-or minor version of RabbitMQ to another (i.e. from 3.0.x to 3.1.x, or
-from 2.x.x to 3.x.x), the whole cluster must be taken down for the
-upgrade. Clusters that include nodes that run different release series
-are not supported.
-
-Rolling upgrades from one patch version to
-another (i.e. from 3.12.x to 3.12.y) are supported except when indicated otherwise
-in the release notes.
-It is **strongly recommended to consult release notes before upgrading**.
-
-Some patch releases known to require a cluster-wide restart:
-
-* 3.6.7 and later cannot be mixed with earlier versions from the 3.6.x series
-* 3.6.6 and later cannot be mixed with later versions from the 3.6.x series
-* 3.0.0 cannot be mixed with later versions from the 3.0.x series
-
-**A RabbitMQ node will fail to [re-]join a peer running an incompatible version**.
-
-When upgrading Erlang it's advised to run all nodes on the same major series
-(e.g. 26.x or 25.3.x). Even though it is possible to run a cluster with mixed
-major Erlang versions, they can have subtle and important incompatibilities.
-
-Running mixed Erlang versions can result in internal inter-node communication
-protocol incompatibilities. When a node detects such an incompatibility it will
-refuse to join its peer (cluster).
-
-Upgrading to a new minor or patch version of Erlang usually can be done using
-a rolling upgrade.
 
 
 ### When to Restart Nodes {#rolling-upgrades-restarting-nodes}
@@ -325,7 +294,7 @@ This strategy involves node identity changes and replica transfers to the newly 
 With quorum queues and streams that have large data sets, this means that the cluster will
 experience substantial network traffic volume and disk I/O spikes that a rolling in-place upgrade would not.
 
-Consider using [in-place upgrades]](#in-place) or [Blue/Green deployment upgrades](./blue-green-upgrade) instead.
+Consider using [in-place upgrades](#in-place) or [Blue/Green deployment upgrades](./blue-green-upgrade) instead.
 :::
 
 A Grow-then-Shrink upgrade usually involves the following steps. Consider a three node cluster with nodes
@@ -404,7 +373,7 @@ an online majority, therefore it is highly recommended to add and remove a singl
 
 ### What is Maintenance Mode?
 
-Maintenance mode is a special node operation mode introduced in latest RabbitMQ releases.
+Maintenance mode is a special node operation mode that can be useful during upgrades.
 The mode is explicitly turned on and off by the operator using a bunch of new CLI commands covered below.
 For mixed-version cluster compatibility, this feature must be [enabled using a feature flag](./feature-flags)
 once all cluster members have been upgraded to a version that supports it:
@@ -539,30 +508,7 @@ restarting nodes.
 
 ### Known Erlang OTP Bugs that Can Affect Upgrades {#otp-bugs}
 
-Known bugs in the Erlang runtime can affect upgrades. Most common issues involve nodes hanging
-during shutdown, which blocks subsequent upgrade steps:
-
-* [OTP-14441](https://bugs.erlang.org/browse/ERL-430): fixed in Erlang/OTP `19.3.6` and `20.0`
-* [OTP-14509](https://bugs.erlang.org/browse/ERL-448): fixed in Erlang/OTP `19.3.6.2` and `20.0.2`
-
-Please note that both issues affect old and [no longer supported version of Erlang](./which-erlang).
-
-A node that suffered from the above bugs will fail to shut down and stop responding to inbound
-connections, including those of CLI tools. Such node's OS process has to be terminated
-(e.g. using `kill -9` on UNIX systems).
-
-In the presence of many messages it can take a node several minutes to shut down
-cleanly, so if a node responds to CLI tool commands it could be performing various shutdown activities
-such as moving enqueued messages to disk.
-
-The following commands can be used to verify whether a node is affected by the above bugs.
-An affected node will not respond to CLI connections in a reasonable amount of time
-when performing the following basic commands:
-
-```bash
-rabbitmq-diagnostics ping
-rabbitmq-diagnostics status
-```
+There are currently no known bugs in the [supported Erlang series](./which-erlang) that can affect upgrades.
 
 ### Quorum Queues {#quorum-queues}
 
@@ -596,7 +542,8 @@ rabbitmq-queues -n rabbit@to-be-stopped quorum_status <queue name>
 
 ### Mirrored Queues Replica Synchronisation {#mirrored-queues-synchronisation}
 
-In environments that use [classic mirrored queues](./ha), it is important to make sure that all mirrored queues on a node
+In environments that use [classic mirrored queues](./ha) (a **deprecated feature scheduled for removal**),
+it is important to make sure that all mirrored queues on a node
 have a synchronised follower replica (mirror) **before stopping that node**.
 
 RabbitMQ will not promote unsynchronised queue mirrors on controlled queue leader shutdown when
@@ -719,24 +666,12 @@ for instructions on how to upgrade RabbitMQ.
 
 ## Recommended Upgrade Steps {#recommended-upgrade-steps}
 
-### Select a Version to Upgrade to
+### Understand What the Most Recent Release Is
 
-Patch releases contain bugfixes and features which do not break
-compatibility with plugins and clusters. Rarely there are exceptions
-to this statement: when this happens, the release notes will
-indicate when two patch releases are incompatible.
+ See [Release Information](/release-information) to find out what the most recent
+ available version is.
 
-Minor version releases contain new features and bugfixes
-which do not fit a patch release.
-
-As soon as a new minor version is released (e.g. 3.7.0), previous version series (3.6)
-will have patch releases for critical bug fixes only.
-
-There will be no new patch releases for [versions after EOL](/release-information).
-
-Version 3.5.x reached its end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
-It's recommended to always upgrade at least to the latest patch release in a series.
-
+ Upgrading to the oldest series is highly recommended.
 
 
 ### Carefully Read the Release Notes Up to the Selected RabbitMQ Version
@@ -749,26 +684,28 @@ one currently deployed and the target one.
 ### Enable Required Feature Flags Before Attempting the Upgrade
 
 Some versions, such as 3.11 and 3.12, [require some or all previously existing feature flags](./feature-flags#core-feature-flags)
-to be enabled **before** the upgrade. If you enabled all feature flags after the
-previous upgrade, you should be ready to go. However, it's better to verify
-than run into issues. You can check the current state of your feature flags with:
+to be enabled **before** the upgrade. If all feature flags were enabled after the
+previous upgrade, this should already be the case. However, it's better to verify
+the state of feature flags with
 
-```
-rabbitmqctl list_feature_flags
+```bash
+rabbitmqctl list_feature_flags --formatter=pretty_table
 ```
 
-and enable all feature flags with:
+and enable all feature flags with
 
-```
+```bash
 rabbitmqctl enable_feature_flag all
 ```
 
-You should repeat these steps [at the end of the upgrade process](#enable-ff-after-upgrade)
+Repeat these steps [at the end of the upgrade process](#enable-ff-after-upgrade)
 to fully take advantage of the new features and be prepared for the next upgrade in the future.
 
 ### Check Currently Used RabbitMQ Version
 
-Some upgrade paths, e.g. from 3.4.x to 3.7.x, will require an intermediate upgrade.
+Some upgrade paths, e.g. from 3.10.x to 3.13.x, will require an intermediate upgrade
+or even multiple intermediate upgrades.
+
 See the [RabbitMQ Version Upgradability](#rabbitmq-version-upgradability) section above.
 
 
@@ -894,8 +831,8 @@ Depending on cluster configuration, you can use either [single node upgrade](#si
 
 ### Verify that the Upgrade Has Succeeded
 
-Like you did before the upgrade, verify the health and data to
-make sure your RabbitMQ nodes are in good shape and the service is
+Like you did before the upgrade, verify the health and [monitoring data](./monitoring/) to
+make sure all cluster nodes are in good shape and the service is
 running again.
 
 ### Enable New Feature Flags {#enable-ff-after-upgrade}
