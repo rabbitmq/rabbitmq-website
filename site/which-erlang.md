@@ -45,6 +45,40 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.12.0</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>25.0</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>25.3</li>
+      </ul>
+    </td>
+    <td>
+      <ul class="notes">
+        <li>
+          Erlang 26 introduces a number of breaking changes related to networking and TLS.
+          RabbitMQ compatibility with Erlang 26 will be announced separately.
+        </li>
+        <li>
+          As of Erlang 25.1, OpenSSL 3.0 support in Erlang is considered to
+          be mature enough for production.
+        </li>
+        <li>
+          Erlang 25 before 25.0.2 is affected by <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-37026">CVE-2022-37026</a>,
+          a CVE with critical severity (CVSS 3.x Base Score: 9.8)
+        </li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <ul>
         <li>3.11.13</li>
         <li>3.11.12</li>
         <li>3.11.11</li>
