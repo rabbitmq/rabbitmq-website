@@ -294,7 +294,7 @@ To publish to a **Topic Exchange**, you need to have the following scope:
 - **write** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
 > e.g. `rabbitmq.write:*/*/*`
 
-OAuth 2.0 authorisation backend supports variable expansion in topic scopes. It supports any JWT claim whose value is a plain string and the `vhost` variable. For example, if a user has connected with the token below against the vhost `prod` should have write permission to send to any exchanged starting with `x-prod-` and any routing key starting with `u-bob-`:
+OAuth 2.0 authorisation backend supports variable expansion when checking permission on topics. It supports any JWT claim whose value is a plain string and the `vhost` variable. For example, if a user has connected with the token below against the vhost `prod` should have write permission to send to any exchanged starting with `x-prod-` and any routing key starting with `u-bob-`:
 
 <pre class="json">
 {
