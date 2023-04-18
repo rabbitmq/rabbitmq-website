@@ -512,7 +512,8 @@ connected user, the permission `^{username}-.*` is expanded to
 
 If a different authorisation backend (e.g. [LDAP](ldap.html),
 [HTTP](https://github.com/rabbitmq/rabbitmq-auth-backend-http),
-[AMQP](https://github.com/rabbitmq/rabbitmq-auth-backend-amqp)) is used, please refer
+[AMQP](https://github.com/rabbitmq/rabbitmq-auth-backend-amqp),
+[OAuth2](oauth2.html)) is used, please refer
 to the documentation of those backends.
 
 If a custom authorisation backend is used, topic
