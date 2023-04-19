@@ -48,7 +48,9 @@ This guide provides recommendations in a few areas:
 
 and more.
 
-## <a id="storage" class="anchor" href="#storage">Use Durable Local Storage</a>
+## <a id="storage" class="anchor" href="#storage">Storage Considerations</a>
+
+### <a href="storage-durability" class="anchor" href="#storage-durability">Use Durable Store</a>
 
 Modern RabbitMQ 3.x features, most notably quorum queues and streams, are not designed with transient storage in mind.
 
@@ -67,7 +69,33 @@ would have to be enabled to remove their prior identities.
 
 Transient entities (such as queues) and RAM node support will be removed in RabbitMQ 4.0.
 
+### <a href="storage-nas" class="anchor" href="#storage-nas">
+
+Network-attached storage (NAS) can be used for RabbitMQ node data directories, provided that
+the NAS volume
+
+ * It offers low I/O latency
+ * It can guarantee no significant latency spikes (for example, due to sharing with other I/O-heavy services)
+
 Quorum queues, streams, and other RabbitMQ features will benefit from fast local SSD and NVMe storage.
+When possible, prefer local storage to NAS.
+
+### <a href="storage-isolation" class="anchor" href="#storage-isolation">
+
+RabbitMQ nodes must never share their data directories. Ideally, should should not share their
+disk I/O with other services for most predictable latency and throughput.
+
+### <a href="storage-filesystems" class="anchor" href="#storage-filesystems">
+
+RabbitMQ nodes can use most widely used local filesystems: ext4, btfs, and so on.
+
+Avoid using distributed filesystems for node data directories:
+
+ * RabbitMQ's storage subsystem assumes the standard local filesystem semantics for `fsync(2)`
+   and other key operations. Distributed filesystems often [deviate from these standard guarantees](https://docs.ceph.com/en/latest/cephfs/posix/)
+ * Distributed filesystems are usually designed for shared access to a subset of directories.
+   Sharing a data directory between RabbitMQ nodes is **an absolute no-no** and
+   is guaranteed to result in data corruption since nodes will not coordinate their writes 
 
 
 ## <a id="users-and-permissions" class="anchor" href="#users-and-permissions">Virtual Hosts, Users, Permissions</a>
