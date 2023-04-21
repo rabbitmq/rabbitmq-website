@@ -33,8 +33,8 @@ Key sections of this guide are
  * [Ways of installing](#installation-methods) the latest RabbitMQ version on Debian and Ubuntu
  * [Supported Ubuntu and Debian distributions](#supported-distributions)
  * [Privilege requirements](#sudo-requirements)
- * Quick start installation snippet that [uses Cloudsmith](#apt-quick-start-cloudsmith) repositories
  * Quick start installation snippets that [uses PackageCloud](#apt-quick-start-packagecloud) and Launchpad repositories
+ * Quick start installation snippet that [uses Cloudsmith](#apt-quick-start-cloudsmith) repositories
  * [Manage the service](#managing-service) (start it, stop it, and get its status)
  * How to [inspect node and service logs](#server-logs)
 
@@ -44,8 +44,9 @@ on [Ubuntu Launchpad](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-e
 Those looking for a more detailed description of the installation steps performed
 should refer to
 
-* Manual installation using [apt and the Cloudsmith](#apt-cloudsmith) repository
 * Manual installation using [apt the PackageCloud](#apt-packagecloud) and Launchpad repositories
+* Manual installation using [apt and the Cloudsmith](#apt-cloudsmith) repository
+
 
 More advanced topics include
 
@@ -79,7 +80,7 @@ i.e. inline with [distribution EOL policy](https://wiki.debian.org/DebianRelease
 
 Currently the list of supported Debian-based distributions includes
 
- * Ubuntu 18.04 through 22.10
+ * Ubuntu 18.04 through 23.04
  * Debian Buster (10), Bullseye (11), and Sid ("unstable")
 
 The package may work on other Debian-based distributions
@@ -493,10 +494,11 @@ In order to set up an apt repository that provides the correct package, a few
 decisions have to be made. One is determining the distribution name. It often
 matches the Debian or Ubuntu release used:
 
+ * `jammy` for Ubuntu 23.04
  * `jammy` for Ubuntu 22.04
  * `focal` for Ubuntu 20.04
  * `bionic` for Ubuntu 18.04
- * `buster` for Debian Buster
+ * `buster` for Debian Buster, Bullseye, and Sid
 
 Not all distributions are covered (indexed). For example, freshly released ones usually
 won't be recognized by the package hosting services.
@@ -510,6 +512,7 @@ with the RabbitMQ apt repository on PackageCloud.
 
 | Release         | Distribution |
 |-----------------|--------------|
+| Ubuntu 23.04    | `jammy`      |
 | Ubuntu 22.04    | `jammy`      |
 | Ubuntu 20.04    | `focal`      |
 | Ubuntu 18.04    | `bionic`     |
@@ -1069,7 +1072,7 @@ supported (indexed) by the Erlang Debian packages maintained by Team RabbitMQ:
  * `jammy` for Ubuntu 22.04
  * `focal` for Ubuntu 20.04
  * `bionic` for Ubuntu 18.04
- * `bionic` for Debian Buster and later versions
+ * `bionic` for Debian Buster, Bullseye, and Sid
 
 However, not all distributions are covered (indexed).
 But there are good news: since the package indexed for these distributions is identical,
@@ -1082,6 +1085,7 @@ with the Launchpad repository.
 
 | Release         | Distribution Name |
 |-----------------|-----------|
+| Ubuntu 23.04    | `jammy`   |
 | Ubuntu 22.04    | `jammy`   |
 | Ubuntu 20.04    | `focal`   |
 | Ubuntu 18.04    | `bionic`  |
