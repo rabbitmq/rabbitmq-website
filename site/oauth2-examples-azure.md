@@ -118,13 +118,12 @@ Now that some roles have been created for your application, you still need to as
 
 9. Repeat the operations for all the roles you want to assign.
 
-## About custom signing keys
+## Configure Custom Signing Keys
 
-You do not need to create a custom signing key for your application. If you create one though, you must append an `appid` query parameter containing the *app ID* to the  `jwks_uri`.
+It is optional to create a signing key for your application. If you create one though, you must append an `appid` query parameter containing the *app ID* to the `jwks_uri`. Otherwise, the standard jwks_uri endpoint will not include the custom signing key and RabbitMQ will not find the signing key to validate the token's signature.
 
-For example, if you try `https://login.microsoftonline.com/{tenant}/.well-known/openid-configuration?appid=<my-app-id>` it returns a `jwks_uri` with the value  `https://login.microsoftonline.com/{tenant}/discovery/keys?appid=<my-app-id>`.
+For example, given your application id, `{my-app-id}` and your tenant `{tenant}`, the OIDC discovery endpoint uri would be `https://login.microsoftonline.com/{tenant}/.well-known/openid-configuration?appid={my-app-id}`. The returned payload contains the `jwks_uri` attribute whose value is something like `https://login.microsoftonline.com/{tenant}/discovery/keys?appid=<my-app-idp>`. RabbitMQ should be configured with that `jwks_uri` value.
 
-If you do not use the above `jwks_uri`, the standard jwks_uri will not return your custom signing key and RabbitMQ will not be able to find the signing key to validate the token's signature.
 
 ## Configure RabbitMQ to use Azure AD as OAuth 2.0 authentication backend
 
