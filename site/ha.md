@@ -269,14 +269,13 @@ be reasonably evenly distributed across cluster nodes.
 Queue leaders can be distributed between nodes using several
 strategies. Which strategy is used is controlled in three ways,
 namely, using the `x-queue-master-locator` [optional queue argument](queues.html#optional-arguments), setting the `queue-master-locator`
-policy key or by defining the `queue_master_locator`
+policy key or by defining the `queue_leader_locator`
 key in [`the configuration file`](configure.html#configuration-files). Here are the possible strategies and how to set them:
 
- * Pick the node hosting the minimum number of leaders:
- `min-masters`
+ * Pick the node hosting the minimum number of leaders of the same queue type:
+ `balanced`
  * Pick the node the client that declares the queue is
  connected to: `client-local`
- * Pick a random node: `random`
 
 ### <a id="fixed-leader-promotion" class="anchor" href="#fixed-leader-promotion">"nodes" Policy and Migrating Leaders</a>
 

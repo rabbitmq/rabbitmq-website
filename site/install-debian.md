@@ -33,8 +33,8 @@ Key sections of this guide are
  * [Ways of installing](#installation-methods) the latest RabbitMQ version on Debian and Ubuntu
  * [Supported Ubuntu and Debian distributions](#supported-distributions)
  * [Privilege requirements](#sudo-requirements)
- * Quick start installation snippet that [uses Cloudsmith](#apt-quick-start-cloudsmith) repositories
  * Quick start installation snippets that [uses PackageCloud](#apt-quick-start-packagecloud) and Launchpad repositories
+ * Quick start installation snippet that [uses Cloudsmith](#apt-quick-start-cloudsmith) repositories
  * [Manage the service](#managing-service) (start it, stop it, and get its status)
  * How to [inspect node and service logs](#server-logs)
 
@@ -44,8 +44,9 @@ on [Ubuntu Launchpad](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-e
 Those looking for a more detailed description of the installation steps performed
 should refer to
 
-* Manual installation using [apt and the Cloudsmith](#apt-cloudsmith) repository
 * Manual installation using [apt the PackageCloud](#apt-packagecloud) and Launchpad repositories
+* Manual installation using [apt and the Cloudsmith](#apt-cloudsmith) repository
+
 
 More advanced topics include
 
@@ -79,7 +80,7 @@ i.e. inline with [distribution EOL policy](https://wiki.debian.org/DebianRelease
 
 Currently the list of supported Debian-based distributions includes
 
- * Ubuntu 18.04 through 22.10
+ * Ubuntu 18.04 through 23.04
  * Debian Buster (10), Bullseye (11), and Sid ("unstable")
 
 The package may work on other Debian-based distributions
@@ -106,12 +107,26 @@ apt repositories:
  </thead>
  <tbody>
   <tr>
+     <td>25.x</td>
+     <td>
+       <ul>
+        <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad</li>
+        <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a></li>
+        <li><a href="#apt-cloudsmith">Debian packages of Erlang</a> from Team RabbitMQ on Cloudsmith.io</li>
+       </ul>
+     </td>
+     <td>
+       <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0">starting with 3.10.0</a></strong>, required starting with <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.0">3.11.0</a>.
+       See <a href="./which-erlang.html">Erlang compatibility guide</a>.
+     </td>
+  </tr>
+
+  <tr>
      <td>24.x</td>
      <td>
        <ul>
+        <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a></li>
         <li><a href="#apt-cloudsmith">Debian packages of Erlang</a> from Team RabbitMQ on Cloudsmith.io</li>
-        <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad</li>
-         <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a></li>
        </ul>
      </td>
      <td>
@@ -120,20 +135,6 @@ apt repositories:
      </td>
    </tr>
 
-  <tr>
-     <td>23.x</td>
-     <td>
-       <ul>
-        <li><a href="#apt-cloudsmith">Debian packages of Erlang</a> from Team RabbitMQ on Cloudsmith.io</li>
-        <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad</li>
-         <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a></li>
-       </ul>
-     </td>
-     <td>
-       <strong>Supported <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/wlPIWz3UYHQ">starting with 3.8.4</a></strong>.
-       See <a href="./which-erlang.html">Erlang compatibility guide</a>.
-     </td>
-   </tr>
  </tbody>
 </table>
 
@@ -167,6 +168,9 @@ Below is shell snippet that performs those steps. They are documented in more de
 
 <pre class="lang-bash">
 #!/usr/bin/sh
+
+## Update package indices
+sudo apt-get update -y
 
 sudo apt-get install curl gnupg apt-transport-https -y
 
@@ -490,10 +494,11 @@ In order to set up an apt repository that provides the correct package, a few
 decisions have to be made. One is determining the distribution name. It often
 matches the Debian or Ubuntu release used:
 
+ * `jammy` for Ubuntu 23.04
  * `jammy` for Ubuntu 22.04
  * `focal` for Ubuntu 20.04
  * `bionic` for Ubuntu 18.04
- * `buster` for Debian Buster
+ * `buster` for Debian Buster, Bullseye, and Sid
 
 Not all distributions are covered (indexed). For example, freshly released ones usually
 won't be recognized by the package hosting services.
@@ -507,6 +512,7 @@ with the RabbitMQ apt repository on PackageCloud.
 
 | Release         | Distribution |
 |-----------------|--------------|
+| Ubuntu 23.04    | `jammy`      |
 | Ubuntu 22.04    | `jammy`      |
 | Ubuntu 20.04    | `focal`      |
 | Ubuntu 18.04    | `bionic`     |
@@ -617,13 +623,13 @@ Effective package pinning policy can be verified with
 sudo apt-cache policy
 </pre>
 
-The following preference file example will pin all `erlang-*` packages to `23.3`
+The following preference file example will pin all `erlang-*` packages to `25.3`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: erlang*
-Pin: version 1:23.3
+Pin: version 1:25.3
 Pin-Priority: 1000
 </pre>
 
@@ -638,13 +644,13 @@ Pin-Priority: 1000
 </pre>
 
 
-In the example below, the `esl-erlang` package is pinned to `23.3.1`
+In the example below, the `esl-erlang` package is pinned to `24.3.1`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: esl-erlang
-Pin: version 1:23.3.1
+Pin: version 1:24.3.1
 Pin-Priority: 1000
 </pre>
 
@@ -885,7 +891,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            └─2861 inet_gethost 4
 
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.11.5. Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.11.13. Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -943,7 +949,7 @@ The output will look similar to this:
 
 <pre class="lang-ini">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.11.5. Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.11.13. Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -969,32 +975,34 @@ By default, the package will set up `logrotate` to run weekly on files located i
 This additional section covers installation of modern Erlang packages from Launchpad. To install
 modern Erlang and RabbitMQ, please refer to the sections above:
 
- * [Install RabbitMQ from Cloudsmith](#apt-cloudsmith)
  * [Install RabbitMQ from PackageCloud](#apt-packagecloud) and Launchpad
+ * [Install RabbitMQ from Cloudsmith](#apt-cloudsmith)
 
-### Modern Erlang on Debian
+### Modern Erlang on Ubuntu and Debian
 
 Standard Debian and Ubuntu repositories tend to provide outdated versions of Erlang/OTP. Team RabbitMQ maintains
 an apt repository that includes [packages of latest Erlang/OTP releases](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang)
 on Launchpad.
 
-RabbitMQ core team focus around package is on the current and prior release of Debian-based distributions, i.e. inline with [distribution EOL policy](https://wiki.debian.org/DebianReleases).
+RabbitMQ core team focus around package is on the current and prior release of Debian-based distributions,
+which is in line with [distribution EOL policy](https://wiki.debian.org/DebianReleases).
 
-The repository currently supports the following Ubuntu distributions:
+The Erlang packages currently support the following Ubuntu distributions:
 
  * Ubuntu 22.04 (Jammy)
  * Ubuntu 20.04 (Focal)
  * Ubuntu 18.04 (Bionic)
 
-The following Debian releases can currently use the same apt repository:
+and the following Debian releases:
 
- * Debian 10 (Buster)
  * Debian 11 (Bullseye)
+ * Debian 10 (Buster)
 
-The repo currently provides most recent patch releases in the following Erlang series:
+Launchpad PPA only provides the most recent release of Erlang 25.3.x.
+Cloudsmith currently provides the most recent patch release in the following Erlang series:
 
+ * 25.x
  * 24.x
- * 23.x
 
 In order to use the repository, it is necessary to
 
@@ -1064,7 +1072,7 @@ supported (indexed) by the Erlang Debian packages maintained by Team RabbitMQ:
  * `jammy` for Ubuntu 22.04
  * `focal` for Ubuntu 20.04
  * `bionic` for Ubuntu 18.04
- * `bionic` for Debian Buster and later versions
+ * `bionic` for Debian Buster, Bullseye, and Sid
 
 However, not all distributions are covered (indexed).
 But there are good news: since the package indexed for these distributions is identical,
@@ -1077,11 +1085,12 @@ with the Launchpad repository.
 
 | Release         | Distribution Name |
 |-----------------|-----------|
+| Ubuntu 23.04    | `jammy`   |
 | Ubuntu 22.04    | `jammy`   |
 | Ubuntu 20.04    | `focal`   |
 | Ubuntu 18.04    | `bionic`  |
-| Debian Buster   | `bionic`  |
 | Debian Bullseye | `bionic`  |
+| Debian Buster   | `bionic`  |
 | Debian Sid      | `bionic`  |
 
 ### <a id="installing-erlang-package" class="anchor" href="#installing-erlang-package">Install Erlang Packages</a>
