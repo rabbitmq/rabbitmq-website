@@ -122,8 +122,9 @@ Now that some roles have been created for your application, you still need to as
 
 You do not need to create a custom signing key for your application. If you create one though, you must append an `appid` query parameter containing the *app ID* to the  `jwks_uri`.
 
-For example `https://login.microsoftonline.com/{tenant}/.well-known/openid-configuration?appid=<my-app-id>` contains a `jwks_uri` of  `https://login.microsoftonline.com/{tenant}/discovery/keys?appid=<my-app-id>`.
+For example, if you try `https://login.microsoftonline.com/{tenant}/.well-known/openid-configuration?appid=<my-app-id>` it returns a `jwks_uri` with the value  `https://login.microsoftonline.com/{tenant}/discovery/keys?appid=<my-app-id>`.
 
+If you do not use the above `jwks_uri`, the standard jwks_uri will not return your custom signing key and RabbitMQ will not be able to find the signing key to validate the token's signature.
 
 ## Configure RabbitMQ to use Azure AD as OAuth 2.0 authentication backend
 
