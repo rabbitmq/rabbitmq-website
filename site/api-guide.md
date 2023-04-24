@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guide covers [RabbitMQ Java client](./java-client.html) and its public API.
-It assumes that the [most recent major version of the client](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22amqp-client%22) is used
+It assumes that the [most recent major version of the client](https://central.sonatype.com/artifact/com.rabbitmq/amqp-client) is used
 and the reader is familiar with [the basics](./getstarted.html).
 
 Key sections of the guide are:
