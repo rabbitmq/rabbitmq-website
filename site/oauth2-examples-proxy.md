@@ -2,7 +2,7 @@
 
 Let's test the following flow:
 
-* Access management ui via a browser thru OAuth2-Proxy
+* Access the RabbitMQ Management UI using a browser through OAuth2 Proxy
 
 <pre class="lang-plain">
                     [ Keycloak ] 3. authenticate
@@ -20,19 +20,18 @@ Let's test the following flow:
 - Docker
 - make
 
-## Deploy Key Cloak
+## Deploy Keycloak
 
-First, deploy **Key Cloak**. It comes preconfigured with all the required scopes, users and clients.
+Deploy Keycloak by running the following command:
 <pre class="bash">
 make start-keycloak
 </pre>
 
-**Key Cloak** comes configured with its own signing key. And [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/oauth2-proxy/rabbitmq.conf)
-is also configured with the same signing key.
+Note: Keycloak is preconfigured with the required scopes, users, and clients. It is configured with its own signing key and the [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/oauth2-proxy/rabbitmq.conf) file is also configured with the same signing key.
 
-To access KeyCloak management interface go to http://0.0.0.0:8080/ and enter `admin` as username and password.
+To access Keycloak Management UI, go to http://0.0.0.0:8080/ and enter `admin` as username and password.
 
-There is a dedicated **KeyCloak realm** called `Test` configured as follows:
+There is a dedicated **Keycloak realm** called `Test` configured as follows:
 
 * [rsa](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys) signing key
 * [rsa provider](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys/providers)
@@ -41,14 +40,14 @@ There is a dedicated **KeyCloak realm** called `Test` configured as follows:
 ## Start RabbitMQ
 
 To start RabbitMQ run the following two commands. The first one tells RabbitMQ to pick up the
-rabbit.conf found under [conf/oauth2-proxy/rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/oauth2-proxy/rabbitmq.conf)
+rabbitmq.conf found under [conf/oauth2-proxy/rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/oauth2-proxy/rabbitmq.conf)
 
 <pre class="lang-plain">
 export MODE=oauth2-proxy
 make start-rabbitmq
 </pre>
 
-**NOTE**: Oauth2-proxy requires that the `aud` claim matches the client's id. However, RabbitMQ requires the
+**NOTE**: Oauth2 Proxy requires that the `aud` claim matches the client's id. However, RabbitMQ requires the
 `aud` field to match `rabbitmq` which is the designated `resource_server_id`. Given that it has been
 impossible to configure keycloak with both values, [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/oauth2-proxy/rabbitmq.conf) has
 the setting below which disables validation of the audience claim.
@@ -60,16 +59,16 @@ auth_oauth2.verify_aud = false
 
 ## Start OAuth2 Proxy
 
-To start Oauth2-proxy we run the following command:
+To start OAuth2 Proxy, run the following command:
 
 <pre class="lang-plain">
 make start-oauth2-proxy
 </pre>
 
-Oauth2-proxy is configured using [Alpha configuration](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/oauth2-proxy/alpha-config.yaml). This type of configuration permits injecting the access token into the HTTP **Authorization** header.
+Oauth2 Proxy is configured using [Alpha configuration](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/oauth2-proxy/alpha-config.yaml). This type of configuration inserts the access token into the HTTP **Authorization** header.
 
 
-## Access Management ui
+## Access Management UI
 
-Go to http://0.0.0.0:4180/, click on the link **Sign in with Keycloak OIDC**, and enter the credentials
-`rabbit_admin` as username and `rabbit_admin` as password. You should be redirected to RabbitMQ management ui.
+Go to http://0.0.0.0:4180/, click on the **Sign in with Keycloak OIDC** link, and enter the credentials
+`rabbit_admin` as username and `rabbit_admin` as password. You should be redirected to RabbitMQ management UI.
