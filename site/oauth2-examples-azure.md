@@ -118,6 +118,13 @@ Now that some roles have been created for your application, you still need to as
 
 9. Repeat the operations for all the roles you want to assign.
 
+## About custom signing keys
+
+You do not need to create a custom signing key for your application. If you create one though, you must append an `appid` query parameter containing the *app ID* to the  `jwks_uri`.
+
+For example `https://login.microsoftonline.com/{tenant}/.well-known/openid-configuration?appid=<my-app-id>` contains a `jwks_uri` of  `https://login.microsoftonline.com/{tenant}/discovery/keys?appid=<my-app-id>`.
+
+
 ## Configure RabbitMQ to use Azure AD as OAuth 2.0 authentication backend
 
 The configuration on Azure side is done. You now have to configure RabbitMQ to use the resources you just created.
