@@ -37,6 +37,7 @@ This guide covers:
 
  * [Basic usage](#usage) of management UI and [HTTP API](#http-api)
  * General plugin [configuration](#configuration)
+ * [Reverse proxy (Nginx or Apache)](#http-api-proxy) in front of the HTTP API
  * How to [enable HTTPS for management UI](#single-listener-https) and its underlying API
  * How this plugin [operates in multi-node clusters](#clustering)
  * How to [disable metric collection](#disable-stats) to use [Prometheus](prometheus.html) exclusively for monitoring
