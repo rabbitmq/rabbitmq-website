@@ -456,6 +456,61 @@ Some API endpoints return a lot of information. The volume can be reduced
 by filtering what columns are returned by `HTTP GET` requests. See
 [latest HTTP API documentation](https://rawcdn.githack.com/rabbitmq/rabbitmq-server/&version-server-tag;/deps/rabbitmq_management/priv/www/api/index.html) for details.
 
+### <a id="http-api-proxy" class="anchor" href="#http-api-proxy">Using a Reverse Proxy in front of the HTTP API</a>
+
+It may be necessary to put a reverse proxy in front of a RabbitMQ cluster. Reverse proxy setup for RabbitMQ
+may require careful handling of encoded slashes in paths if default virtual host (`/`) is used.
+
+If default virtual host is not used, the additional settings to support encoded URIs
+will not be necessary. In other words, both Nginx and Apache configuration will require
+the standard minimum for any HTTP-based service.
+
+#### Nginx
+
+If RabbitMQ HTTP API access is configured for the root location (`/`),
+the location must not have a slash at the end:
+
+<pre class="lang-plaintext">
+# trailing slash in the location must be omitted only if default RabbitMQ virtual host is used
+location / {
+    proxy_pass http://rabbitmq-host:15672;
+}
+</pre>
+
+If a different location will be used to proxy requests to the HTTP API,
+a [URI rewrite](https://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite) rule must be used:
+
+<pre class="lang-plaintext">
+# these rewrites are only if default RabbitMQ virtual host is used
+location ~* /rabbitmq/api/(.*?)/(.*) {
+    proxy_pass http://rabbitmq-host:15672/api/$1/%2F/$2?$query_string;
+}
+
+location ~* /rabbitmq/(.*) {
+    rewrite ^/rabbitmq/(.*)$ /$1 break;
+    proxy_pass http://rabbitmq-host:15672;
+}
+</pre>
+
+
+#### Apache
+
+To support encoded slashes in URIs, Apache requires users to explicitly enable
+[`AllowEncodedSlashes`](https://httpd.apache.org/docs/2.4/mod/core.html).
+
+<pre class="lang-plaintext">
+# required only if default RabbitMQ virtual host is used
+AllowEncodedSlashes On
+</pre>
+
+for the Apache virtual host. The location also needs a [`nocanon` setting](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html):
+
+<pre class="lang-plaintext">
+ProxyPassReverse http://rabbitmq-host:15672/
+# "nocanon" is required only if default RabbitMQ virtual host is used
+ProxyPass http://rabbitmq-host:15672/ nocanon
+</pre>
+
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
 There are several configuration options which affect the
