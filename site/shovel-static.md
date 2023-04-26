@@ -449,7 +449,7 @@ are available to static shovels, such as TLS certificate and private key.
       <td>publish_fields</td>
       <td>
           <p>
-            This optional key is similar to <code></code> but controls the publishing settings
+            This optional key is similar to <code>publish_properties</code> but controls the publishing settings
             instead of message properties that are accessible to consumers. It takes the form of
           </p>
 <pre class="lang-erlang">
@@ -688,8 +688,8 @@ AMQP 0.9.1 destination might look like this:
 {rabbitmq_shovel,
  [ {shovels, [ {my_first_shovel,
                 [ {source,
-                   [ {protocol, amqp10,
-                      uris, [ "amqp://fred:secret@host1.domain/my_vhost",
+                   [ {protocol, amqp10},
+                     {uris, [ "amqp://fred:secret@host1.domain/my_vhost",
                             ]},
                      {source_address, &lt;&lt;"my-source"&gt;&gt;},
                      {prefetch_count, 10}
