@@ -471,7 +471,7 @@ the standard minimum for any HTTP-based service.
 If RabbitMQ HTTP API access is configured for the root location (`/`),
 the location must not have a slash at the end:
 
-<pre class="lang-plaintext">
+<pre class="lang-nginxconf">
 # trailing slash in the location must be omitted only if default RabbitMQ virtual host is used
 location / {
     proxy_pass http://rabbitmq-host:15672;
@@ -481,7 +481,7 @@ location / {
 If a different location will be used to proxy requests to the HTTP API,
 a [URI rewrite](https://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite) rule must be used:
 
-<pre class="lang-plaintext">
+<pre class="lang-nginxconf">
 # these rewrites are only if default RabbitMQ virtual host is used
 location ~* /rabbitmq/api/(.*?)/(.*) {
     proxy_pass http://rabbitmq-host:15672/api/$1/%2F/$2?$query_string;
@@ -499,14 +499,14 @@ location ~* /rabbitmq/(.*) {
 To support encoded slashes in URIs, Apache requires users to explicitly enable
 [`AllowEncodedSlashes`](https://httpd.apache.org/docs/2.4/mod/core.html).
 
-<pre class="lang-plaintext">
+<pre class="lang-apacheconf">
 # required only if default RabbitMQ virtual host is used
 AllowEncodedSlashes On
 </pre>
 
 for the Apache virtual host. The location also needs a [`nocanon` setting](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html):
 
-<pre class="lang-plaintext">
+<pre class="lang-apacheconf">
 ProxyPassReverse http://rabbitmq-host:15672/
 # "nocanon" is required only if default RabbitMQ virtual host is used
 ProxyPass http://rabbitmq-host:15672/ nocanon
