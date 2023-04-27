@@ -133,19 +133,21 @@ limitations under the License.
       <script type="text/javascript">
         // code highlighting
         window.addEventListener("load", function() {
-          const selectors = "pre.lang-bash, \
+          const selectors = "pre.lang-apacheconf, \
+                             pre.lang-bash, \
                              pre.lang-csharp, \
+                             pre.lang-clojure, \
                              pre.lang-elixir, \
                              pre.lang-erlang, \
                              pre.lang-go, \
                              pre.lang-groovy, \
                              pre.lang-haskell, \
-                             pre.lang-html, \
                              pre.lang-ini, \
                              pre.lang-java, \
                              pre.lang-javascript, \
                              pre.lang-json, \
                              pre.lang-makefile, \
+                             pre.lang-nginxconf, \
                              pre.lang-objectivec, \
                              pre.lang-php, \
                              pre.lang-plaintext, \
