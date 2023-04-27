@@ -358,6 +358,12 @@ For more information about concepts mentioned above, see:
     </col>
  </table>
 
+ <p class="note">
+   <strong>Note:</strong> using <a href="https://github.com/rancher/local-path-provisioner" target="_blank">local-path provisioner</a> does not enforce a disk size.
+   This means that RabbitMQ will report more disk available than the configured in <code>.spec.peristence.storage</code>. This happens because the
+   Persistent Disk is created as a local folder in the Kubernetes node hosting the Pod.
+ </p>
+
 ### <a name='resource-reqs' class='anchor' href='#resource-reqs'>Resource Requirements</a>
 
 **Description:** Specify the resource requests and limits of the `RabbitmqCluster` Pods.
