@@ -33,6 +33,31 @@ To monitor RabbitMQ Cluster Operator, run:
 kubectl apply --filename https://raw.githubusercontent.com/rabbitmq/cluster-operator/main/observability/prometheus/monitors/rabbitmq-cluster-operator-podmonitor.yml
 </pre>
 
+If <code>Prometheus</code> is deployed with a label selector for Pod or Service monitor, for example:
+
+<pre class="lang-yaml">
+  apiVersion: monitoring.coreos.com/v1
+  kind: Prometheus
+  metadata:
+    name: prometheus
+  spec:
+    serviceAccountName: prometheus
+    serviceMonitorSelector:
+      matchLabels:
+        team: frontend
+    podMonitorSelector:
+      matchLabels:
+        team: frontend
+</pre>
+
+It is required to add the same labels to the <code>ServiceMonitor</code> deployed with the previous command.
+To label the <code>ServiceMonitor</code> and <code>PodMonitor</code> deployed in previous steps, run:
+
+<pre class="lang-bash">
+  kubectl label ServiceMonitor rabbitmq team=frontend
+  kubectl label PodMonitor rabbitmq-cluster-operator team=frontend
+</pre>
+
 `ServiceMonitor` and `PodMonitor` can be created in any namespace, as long as the Prometheus Operator has permissions to find it.
 For more information about these permissions, see [Configure Permissions for the Prometheus Operator](#config-perm) below.
 
