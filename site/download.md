@@ -106,6 +106,7 @@ Other guides related to Kubernetes:
 
  * [Chef cookbook](https://github.com/rabbitmq/chef-cookbook)
  * [Puppet module](https://github.com/puppetlabs/puppetlabs-rabbitmq)
+ * [Kurtosis Starlark package](https://github.com/kurtosis-tech/rabbitmq-package)
 
 
 ## Release Signing Key
