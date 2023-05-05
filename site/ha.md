@@ -846,6 +846,11 @@ network takes longer than [net_ticktime](nettick.html)
 to send one batch of messages, then nodes in the cluster could
 think they are in the presence of a network partition.
 
+The amount of data sent over the network can also be controlled by setting 
+the parameter `mirroring_sync_max_throughput`. The parameter specifies the 
+number of bytes per second that is being transferred. The default is `0`, which disables 
+this feature.
+
 ### <a id="configuring-synchronisation" class="anchor" href="#configuring-synchronisation">Configuring Synchronisation</a>
 
 Let's start with the most important aspect of queue
