@@ -300,7 +300,7 @@ It supports JWT claims whose value is a plain string, plus the `vhost` variable.
 For example, a user connected with the token below to the vhost `prod` should have
 a write permission on all exchanges starting with `x-prod-`, and any routing key starting with `u-bob-`:
 
-<pre class="json">
+<pre class="lang-json">
 {
   "sub" : "bob",
   "scope" : [ "rabbitmq.write:*/q-{vhost}-*/u-{sub}-*" ]
