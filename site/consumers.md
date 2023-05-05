@@ -421,6 +421,28 @@ The timeout can be deactivated using [`advanced.config`](configure.html#advanced
 
 Instead of disabling the timeout entirely, consider using a high value (for example, a few hours).
 
+Starting with RabbitMQ 3.11.15, the timeout value can also be set on the per-queue and per-consumer basis.
+
+### Using an Optional Queue Argument
+
+Set the `x-consumer-timeout` [optional queue argument](#optional-arguments) on a queue when the queue is declared.
+The value must be in milliseconds.
+
+### Using an Optional Consumer Argument
+
+Set the `x-consumer-timeout` optional consumer argument when the consumer is registered.
+The value must be in milliseconds.
+
+### Using a Policy
+
+<pre class="lang-bash">
+# override consumer timeout for a group of queues using a policy
+rabbitmqctl set_policy queue_consumer_timeout \
+    "\.* '{"consumer_timeout":3600000}' \
+    --priority 0 \
+    --apply-to classic_queues
+</pre>
+
 
 ## <a id="exclusivity" class="anchor" href="#exclusivity">Exclusivity</a>
 
