@@ -40,6 +40,7 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
 	- [KeyCloak](oauth2-examples-keycloak.html)
 	- [https://auth0.com/](oauth2-examples-oauth0.html)
 	- [Azure Active Directory](oauth2-examples-azure.html)  
+    - [OAuth2 Proxy](oauth2-examples-proxy.html)
 * [Understanding the environment](#understand-the-environment)
 	- [RabbitMQ server](#rabbitmq-server)
 	- [UAA server](#uaa-server)
@@ -151,8 +152,19 @@ in `advanced.config`:
 
 ### <a id="identity-provider-initiated-logon" class="anchor" href="#identity-provider-initiated-logon">Identity-Provider initiated logon</a>
 
-When RabbitMQ is provided as a service from a web portal, it is easy to navigate to the RabbitMQ Management UI
-with a single click. The web portal retrieves a token before taking the user to the RabbitMQ Management UI web page.
+Like Service-Provider initiated logon, with Idp-initiated logon users get to the RabbitMQ Management UI with a valid token.
+The following scenarios are examples of Idp-initiated logon:
+
+* RabbitMQ is behind a web portal which conveniently allow users to navigate directly to RabbitMQ fully authenticated.
+* There is an OAuth2 proxy in between users and RabbitMQ which intercepts their requests and forwards them to RabbitMQ inserting the token into the HTTP `Authorization` header.  
+
+The latter scenario is demonstrated [here](oauth2-examples-proxy.html). The former scenario is covered in the following section.
+
+#### Idp-initiated Logon using the Login Endpoint
+
+A Web portal offers their authenticated users the option to navigate to RabbitMQ
+by submitting a form with their OAuth token in the `access_token` form field as provided below:
+
 
 <pre class="lang-plain">
     [ Idp | WebPortal ] ----&gt; 2. /login [access_token: TOKEN]----   [ RabbitMQ Cluster ]            
@@ -161,9 +173,7 @@ with a single click. The web portal retrieves a token before taking the user to 
       1. rabbit_admin from a browser                                   3. validate token        
 </pre>
 
-How it works, firstly, the `rabbit_admin` user navigates to the web portal and clicks on the hyperlink associated with a RabbitMQ
-cluster. Next, the web portal obtains a token and redirects the user to RabbitMQ `/login` endpoint with the token within the HTTP form field `access_token`. Finally,
-RabbitMQ validates the token in the http request and if it is valid, it redirects the user to the overview page.
+If the access token is valid, RabbitMQ redirects the user to the **Overview** page.
 
 By default, the RabbitMQ Management UI is configured with **service-provider initiated logon**, to configure **Identity-Provider initiated logon**,
 add one entry to `advanced.config`. For example:
@@ -172,7 +182,6 @@ add one entry to `advanced.config`. For example:
  ...
  {rabbitmq_management, [
     {oauth_enabled, true},
-    {oauth_client_id, "rabbit_client_code"},
     {oauth_provider_url, "http://localhost:8080"},      
     {oauth_initiated_logon_type, idp_initiated},
     ...
@@ -362,7 +371,7 @@ previous use cases, you need to launch rabbitmq first like this `make start-rabb
 make start-mqtt-publish TOKEN=$(bin/jwt_token scopes-for-mqtt.json legacy-token-key private.pem public.pem)
 </pre>
 
-> IMPORTANT: If you try to access the management ui and authenticate with UAA using rabbit_admin you
+> IMPORTANT: If you try to access the Management UI and authenticate with UAA using rabbit_admin you
 wont be able to do bind a queue with routing_key `test` to the `amq.topic` exchange because that user
 in UAA does not have the required permissions. In our handcrafted token, you have granted ourselves the right permissions/scopes.
 
@@ -647,7 +656,7 @@ make stop-perftest-consumer CONSUMER=consumer_with_roles
 
 ### <a id="preferred-username-claims" class="anchor" href="#preferred-username-claims">Preferred username claims</a>
 
-RabbitMQ needs to figure out the username associated to the token so that it can display it in the management ui.
+RabbitMQ needs to figure out the username associated to the token so that it can display it in the Management UI.
 By default, RabbitMQ will first look for the `sub` claim and if it is not found it uses the `client_id`.
 
 Most authorization servers return the user's GUID in the `sub` claim rather than the actual user's username or email address, anything the user can relate to. When the `sub` claim does not carry a *user-friendly username*, you can configure one or several claims to extract the username from the token.
@@ -817,12 +826,12 @@ This user is configured under `{uaa_repo}/uaa/src/main/webapp/WEB-INF/spring/oau
 
 The Make target `make setup-users-and-clients` accomplishes a few things:
 
-* Created `rabbit_client` client -in UAA- which is going to be used by RabbitMQ server to authenticate management users coming to the management ui.
-* Created `rabbit_admin` user -in UAA- which is going to be the full administrator user with full access
-* Created `rabbit_monitor` user -in UAA- which is going to be the monitoring user with just the *monitoring* *user tag*
-* Created `consumer` client -in UAA- which is going to be the RabbitMQ User for the consumer application
-* Created `producer` client -in UAA- which is going to be the RabbitMQ User for the producer application
-* Obtained tokens -from UAA- for the two end users and for the two clients
+* Created `rabbit_client` client -in UAA- which is going to be used by RabbitMQ server to authenticate management users coming to the Management UI.
+* Created `rabbit_admin` user -in UAA- which is going to be the full administrator user with full access.
+* Created `rabbit_monitor` user -in UAA- which is going to be the monitoring user with just the *monitoring* *user tag*.
+* Created `consumer` client -in UAA- which is going to be the RabbitMQ User for the consumer application.
+* Created `producer` client -in UAA- which is going to be the RabbitMQ User for the producer application.
+* Obtained tokens -from UAA- for the two end users and for the two clients.
 
 
 
@@ -929,7 +938,7 @@ First of all, lets quickly go thru how RabbitMQ uses the OAuth Access Tokens; ho
 
 RabbitMQ expects a [JWS](https://tools.ietf.org/html/rfc7515) in the password field.
 
-For end users, the best way to come to the management ui is by the following url, replacing `{token}` with an actual encoded JWT.
+For end users, the best way to come to the Management UI is by the following url, replacing `{token}` with an actual encoded JWT.
 This is how `make open` command is able to open the browser and login the user using a JWT.
 
 <pre class="lang-bash">
@@ -1023,7 +1032,7 @@ Let's examine the following token which corresponds to end-user `rabbit_admin`.
 </pre>
 
 These are the fields relevant for RabbitMQ:
-- `sub` ([Subject](https://tools.ietf.org/html/rfc7519#page-9)) this is the identify of the subject of the token. **RabbitMQ uses this field to identify the user**. This token corresponds to the `rabbit_admin` end user. If you logged into the management ui, you would see it in the top-right corner. If this were an AMPQ user, you would see it on each connection listed in the connections tab.  
+- `sub` ([Subject](https://tools.ietf.org/html/rfc7519#page-9)) this is the identify of the subject of the token. **RabbitMQ uses this field to identify the user**. This token corresponds to the `rabbit_admin` end user. If you logged into the Management UI, you would see it in the top-right corner. If this were an AMPQ user, you would see it on each connection listed in the connections tab.  
   UAA would add 2 more fields relative to the *subject*: a `user_id` with the same value as the `sub` field, and `user_name` with user's name. In UAA, the `sub`/`user_id` fields contains the user identifier, which is a GUID.
 
 - `client_id` (not part of the RFC-7662) identifies the OAuth client that obtained the JWT. You used `rabbit_client` client to obtain the JWT for `rabbit_admin` user. **RabbitMQ also [uses](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2/blob/master/src/rabbit_auth_backend_oauth2.erl#L169) this field to identify the user**.

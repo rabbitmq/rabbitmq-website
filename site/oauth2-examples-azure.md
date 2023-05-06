@@ -118,13 +118,21 @@ Now that some roles have been created for your application, you still need to as
 
 9. Repeat the operations for all the roles you want to assign.
 
+## Configure Custom Signing Keys
+
+It is optional to create a signing key for your application. If you create one though, you must append an `appid` query parameter containing the *app ID* to the `jwks_uri`. Otherwise, the standard jwks_uri endpoint will not include the custom signing key and RabbitMQ will not find the signing key to validate the token's signature.
+
+For example, given your application id, `{my-app-id}` and your tenant `{tenant}`, the OIDC discovery endpoint uri would be `https://login.microsoftonline.com/{tenant}/.well-known/openid-configuration?appid={my-app-id}`. The returned payload contains the `jwks_uri` attribute whose value is something like `https://login.microsoftonline.com/{tenant}/discovery/keys?appid=<my-app-idp>`. RabbitMQ should be configured with that `jwks_uri` value.
+
+
 ## Configure RabbitMQ to use Azure AD as OAuth 2.0 authentication backend
 
-The configuration on Azure side is done. You now have to configure RabbitMQ to use the resources you just created.
+The configuration on Azure side is done. Next, configure RabbitMQ to use these resources.
 
 [rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/azure/rabbitmq.config) is a sample RabbitMQ advanced configuration to **enable Azure AD as OAuth 2.0 authentication backend** for the RabbitMQ Management UI.
 
-Update it with the following values (you should have noted these in the previous steps):
+Update it with the following values:
+
 * **Tenant ID** associated to the app that you registered in Azure AD
 * **Application ID** associated to the app that you registered in Azure AD
 * Value of the **jwks_uri** key from `https://login.microsoftonline.com/{TENANT_ID}/v2.0/.well-known/openid-configuration`
@@ -150,10 +158,11 @@ $ vi rabbitmq.config
 ].
 </pre>
 
-> **IMPORTANT**: Please update the file available in this tutorial ([here](../conf/azure/rabbitmq.config)), as it will be automatically loaded in the RabbitMQ instance that you are going to deploy later in this tutorial
+> **Important**: Please update the file available in this tutorial ([here](../conf/azure/rabbitmq.config)), as it will be automatically loaded in the RabbitMQ instance that you are going to deploy later in this tutorial
 
-### Generate SSL certificate and key
-> **IMPORTANT**: Remember when you have registered your app on Azure AD that it only allows **https** protocol for OAuth 2.0 **Redirect URI**? You will thus need to enable HTTPS for RabbitMQ Management UI amd its underlying API.
+### Generate a TLS Certificate and Key Pair
+
+> **Important**: Remember when you have registered your app on Azure AD that it only allows **https** protocol for OAuth 2.0 **Redirect URI**? You will thus need to enable HTTPS for RabbitMQ Management UI amd its underlying API.
 
 For the purpose of this tutorial, you can generate a self-signed certificate/key pair.
 
