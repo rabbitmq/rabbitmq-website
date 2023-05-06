@@ -162,7 +162,8 @@ The latter scenario is demonstrated [here](oauth2-examples-proxy.html). The form
 
 #### Idp-initiated Logon using the Login Endpoint
 
-A web portal offers their authenticated users the option to navigate to RabbitMQ by submitting a form with their OAuth token in the `access_token` form field as provided below:
+A Web portal offers their authenticated users the option to navigate to RabbitMQ
+by submitting a form with their OAuth token in the `access_token` form field as provided below:
 
 
 <pre class="lang-plain">

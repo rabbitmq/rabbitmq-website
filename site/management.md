@@ -401,9 +401,7 @@ In addition to the `connect-src` CSP header, RabbitMQ also needs the CSP directi
 ### Identity-Provider initiated logon
 
 By default, the RabbitMQ Management UI uses the OAuth 2.0 **authorization code flow** to authenticate and authorize users.
-However, there are scenarios where users preferred to be automatically redirected to RabbitMQ without getting
-involved in additional logon flows. This is common in Oauth2 proxies and in Web Portals where with a single click, users navigate straight to a RabbitMQ cluster's management UI with a token obtained under the covers. This is known as
-**Identity-Provider initiated logon**.
+However, there are scenarios where users prefer to be automatically redirected to RabbitMQ without getting involved in additional logon flows. By using OAuth2 proxies and web portals, these additional logon flows can be avoided. With a single click, users navigate straight to a RabbitMQ Management UI with a token obtained under the covers. This is known as **Identity-Provider initiated logon**.
 
 RabbitMQ exposes a new setting called `management.oauth_initiated_logon_type` whose default value `sp_initiated`.
 To enable an **Identity-Provider initiated logon** you set it to `idp_initiated`.
@@ -414,7 +412,7 @@ management.oauth_initiated_logon_type = idp_initiated
 management.oauth_provider_url = https://my-web-portal
 </pre>
 
-With the settings above, the management UI exposes the HTTP endpoint `/login` which accepts `content-type: application/x-www-form-urlencoded` and it expects the JWT token in the `access_token` form field. This is the endpoint where the web portal would redirect users to access the RabbitMQ Management ui.
+With the previous settings, the management UI exposes the HTTP endpoint `/login` which accepts `content-type: application/x-www-form-urlencoded` and it expects the JWT token in the `access_token` form field. This is the endpoint where the Web portal will redirect users to the management UI.
 Additionally, RabbitMQ also accepts a JWT token in the HTTP `Authorization` header when the user lands on the management UI.
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>

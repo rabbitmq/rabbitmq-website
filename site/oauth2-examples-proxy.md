@@ -15,7 +15,7 @@ Let's test the following flow:
             1. rabbit_admin from a browser
 </pre>
 
-## Prerequisites to follow this guide
+## Prerequisites for Using OAuth 2 Proxy and Keycloak
 
 - Docker
 - make
