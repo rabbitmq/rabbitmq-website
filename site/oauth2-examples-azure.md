@@ -127,11 +127,12 @@ For example, given your application id, `{my-app-id}` and your tenant `{tenant}`
 
 ## Configure RabbitMQ to use Azure AD as OAuth 2.0 authentication backend
 
-The configuration on Azure side is done. You now have to configure RabbitMQ to use the resources you just created.
+The configuration on Azure side is done. Next, configure RabbitMQ to use these resources.
 
 [rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/azure/rabbitmq.config) is a sample RabbitMQ advanced configuration to **enable Azure AD as OAuth 2.0 authentication backend** for the RabbitMQ Management UI.
 
-Update it with the following values (you should have noted these in the previous steps):
+Update it with the following values:
+
 * **Tenant ID** associated to the app that you registered in Azure AD
 * **Application ID** associated to the app that you registered in Azure AD
 * Value of the **jwks_uri** key from `https://login.microsoftonline.com/{TENANT_ID}/v2.0/.well-known/openid-configuration`
@@ -157,10 +158,11 @@ $ vi rabbitmq.config
 ].
 </pre>
 
-> **IMPORTANT**: Please update the file available in this tutorial ([here](../conf/azure/rabbitmq.config)), as it will be automatically loaded in the RabbitMQ instance that you are going to deploy later in this tutorial
+> **Important**: Please update the file available in this tutorial ([here](../conf/azure/rabbitmq.config)), as it will be automatically loaded in the RabbitMQ instance that you are going to deploy later in this tutorial
 
-### Generate SSL certificate and key
-> **IMPORTANT**: Remember when you have registered your app on Azure AD that it only allows **https** protocol for OAuth 2.0 **Redirect URI**? You will thus need to enable HTTPS for RabbitMQ Management UI amd its underlying API.
+### Generate a TLS Certificate and Key Pair
+
+> **Important**: Remember when you have registered your app on Azure AD that it only allows **https** protocol for OAuth 2.0 **Redirect URI**? You will thus need to enable HTTPS for RabbitMQ Management UI amd its underlying API.
 
 For the purpose of this tutorial, you can generate a self-signed certificate/key pair.
 
