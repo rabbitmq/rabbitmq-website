@@ -384,12 +384,29 @@ and CentOS Stream 9.
 ## Zero dependency Erlang RPM
 ##
 
-[rabbitmq_erlang]
-name=rabbitmq_erlang
-baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/8/$basearch
+[modern-erlang]
+name=modern-erlang-el8
+# uses a Cloudsmith mirror @ yum1.novemberain.com.
+# Unlike Cloudsmith, it does not have traffic quotas
+baseurl=https://yum1.novemberain.com/el/8/$basearch
 repo_gpgcheck=1
 enabled=1
-# Cloudsmith's repository key and RabbitMQ package signing key
+gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
+gpgcheck=1
+sslverify=1
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+metadata_expire=300
+pkg_gpgcheck=1
+autorefresh=1
+type=rpm-md
+
+[modern-erlang-noarch]
+name=modern-erlang-el8-noarch
+# uses a Cloudsmith mirror @ yum1.novemberain.com.
+# Unlike Cloudsmith, it does not have traffic quotas
+baseurl=https://yum1.novemberain.com/el/8/noarch
+repo_gpgcheck=1
+enabled=1
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
        https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 gpgcheck=1
@@ -400,12 +417,13 @@ pkg_gpgcheck=1
 autorefresh=1
 type=rpm-md
 
-[rabbitmq_erlang-noarch]
-name=rabbitmq_erlang-noarch
-baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/8/noarch
+[modern-erlang-source]
+name=modern-erlang-el8-source
+# uses a Cloudsmith mirror @ yum1.novemberain.com.
+# Unlike Cloudsmith, it does not have traffic quotas
+baseurl=https://yum1.novemberain.com/el/8/SRPMS
 repo_gpgcheck=1
 enabled=1
-# Cloudsmith's repository key and RabbitMQ package signing key
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
        https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 gpgcheck=1
@@ -414,21 +432,6 @@ sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300
 pkg_gpgcheck=1
 autorefresh=1
-type=rpm-md
-
-[rabbitmq_erlang-source]
-name=rabbitmq_erlang-source
-baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/8/SRPMS
-repo_gpgcheck=1
-enabled=1
-gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
-gpgcheck=0
-sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-metadata_expire=300
-pkg_gpgcheck=1
-autorefresh=1
-type=rpm-md
 
 
 ##
