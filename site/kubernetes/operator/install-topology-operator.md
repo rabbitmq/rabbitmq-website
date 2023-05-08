@@ -166,9 +166,10 @@ RabbitMQ will append the domain name to the connection string.
 This information describes how to modify the configuration of the RabbitMQ Messaging Topology Operator
 in a Kubernetes cluster.
 
-To change the configuration to suit your needs, you must add the configuration environment variables and set them to the
-values you want by editing the Topology Operator deployment manifest. This is the YAML manifest artefact that is released
-with every new version of the RabbitMQ Cluster Operator on GitHub. The environment variables that can be set are listed
+To change the configuration, add or update the configuration environment variables
+by editing the Topology Operator deployment manifest. This is the YAML manifest artefact that is released
+with every new version of the RabbitMQ Cluster Operator on GitHub.
+The environment variables that can be set are listed
 in the table in [Topology Operator Environment Variables](#parameters).
 
 #### <a class="anchor" id="parameters" href="#parameters">Parameters</a>

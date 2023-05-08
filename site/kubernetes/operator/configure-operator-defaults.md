@@ -21,7 +21,7 @@ This information describes how to modify the configuration of the [RabbitMQ Clus
 You might want to do this to control how the Cluster Operator configures `RabbitmqClusters`. For example, it can be useful when you are configuring the
 operator to automatically use the RabbitMQ container images that are stored in a private registry.
 
-To change the configuration to suit your needs, you must add the configuration environment variables and set them to the values you want by editing the
+To change the configuration, add or update the configuration environment variables by editing the
 Cluster Operator deployment manifest. This is the YAML manifest artefact that is released with every new version of the RabbitMQ Cluster Operator on GitHub.
 The environment variables that can be set are listed in the table in [Cluster Operator Environment Variables](#parameters).
 
@@ -62,8 +62,10 @@ When the Cluster Operator is deployed, update the manifest by completing the fol
     </pre>
 3. Save the manifest. The Cluster Operator Pod is updated to use this configuration.
 
-**Important**: Future GitHub releases for the RabbitMQ Cluster Operator will not have the changes that you are making now so you must make these updates everytime
-you update the Cluster Operator. You can consider using templating to add these variables automatically. For example, you can use a `ytt overlay`.
+**Important**: Future GitHub releases for the RabbitMQ Cluster Operator will not have your changes.
+Therefore, these updates must be synced every time
+the Cluster Operator is updated. Consider using templating to add these variables automatically.
+For example, using a `ytt overlay`.
 
 ## Example of Using `ytt overlay` to add Cluster Operator Environment Variables Automatically
 
