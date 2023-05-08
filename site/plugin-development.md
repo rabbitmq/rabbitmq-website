@@ -208,18 +208,6 @@ The following table should explain the purpose of the various files in the repos
     </td>
   </tr>
   <tr>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-metronome/blob/master/src/rabbitmq_metronome.app.src"><code>src/rabbitmq_metronome.app.src</code></a></td>
-    <td>
-      This file declares the dependencies required by the plugin
-      (<code>rabbit</code> and <code>amqp_client</code>). These
-      applications will be available and started before starting
-      the plugin. Note that the real <tt>.app</tt> file is
-      generated from this <tt>.app.src</tt>; there is no need to
-      fill in the list of modules. You can let the <tt>vsn</tt>
-      field empty: it will inherit RabbitMQ's version.
-    </td>
-  </tr>
-  <tr>
     <td><a href="https://github.com/rabbitmq/rabbitmq-metronome/blob/master/src/rabbit_metronome.erl"><code>src/rabbit_metronome.erl</code></a></td>
     <td>
       Implementation of the Erlang "application" behaviour. Provides a means for the Erlang VM to start and
@@ -241,7 +229,7 @@ The following table should explain the purpose of the various files in the repos
     </td>
   </tr>
   <tr>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-metronome/blob/master/test/src/rabbit_metronome_tests.erl"><code>test/rabbit_metronome_tests.erl</code></a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-metronome/blob/master/test/metronome_SUITE.erl"><code>test/metronome_SUITE.erl</code></a></td>
     <td>
       Automated tests for the plugin.
     </td>

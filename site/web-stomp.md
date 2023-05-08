@@ -234,8 +234,8 @@ about the proxy protocol.
 
 ## <a id="advanced-options" class="anchor" href="#advanced-options">Advanced Options</a>
 
-The Web STOMP plugin uses the Cowboy HTTP and WebSocket server under the hood.  Cowboy
-provides [a number of options](https://ninenines.eu/docs/en/cowboy/2.4/manual/cowboy_http/)
+The Web STOMP plugin uses the Cowboy HTTP and WebSocket server under the hood. Cowboy
+provides [a number of options](https://ninenines.eu/docs/en/cowboy/2.10/manual/cowboy_http/)
 that can be used to customize the behavior of the server
 w.r.t. WebSocket connection handling.
 
