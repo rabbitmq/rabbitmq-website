@@ -92,19 +92,19 @@ a couple of safety best practices are highly recommended.
 It's possible to specify broker and dependency version
 requirements for a plugin using the
 <code>broker_version_requirements</code> key in plugin's
-<code>.app.src</code> file. The requirements are specified as a list of
+application environment. The requirements are specified as a list of
 minimum version in each release series.
 Consider the following example:
 
 <pre class="lang-erlang">
 {application, my_plugin,[
     %% ...
-    {broker_version_requirements, ["3.8.0", "3.7.26"]}
+    {broker_version_requirements, ["3.11.15", "3.10.22"]}
 ]}
 </pre>
 
 The above requires RabbitMQ
-3.7.x starting with 3.7.26 and 3.8.x starting with 3.8.0.
+3.10.x starting with 3.10.22 and 3.11.x starting with 3.11.15.
 Note that when new major and minor (feature) RabbitMQ versions
 come out, **it is necessary for plugin maintainers to update the list**.
 
@@ -118,12 +118,12 @@ For example:
 <pre class="lang-erlang">
 {application, my_plugin, [
     %% ...
-    {dependency_version_requirements, [{rabbitmq_management, ["3.8.0", "3.7.26"]}]}
+    {dependency_version_requirements, [{rabbitmq_management, ["3.11.0", "3.10.22"]}]}
 ]}
 </pre>
 
-means the plugin depends on `rabbitmq_management` 3.7.x starting
-with 3.7.26 and all versions in the 3.8.x series.
+means the plugin depends on `rabbitmq_management` 3.10.x starting
+with 3.10.22 and all versions in the 3.11.x series.
 
 
 ## <a id="plugin-hello-world" class="anchor" href="#plugin-hello-world">Example Plugin: Metronome</a>
@@ -196,7 +196,7 @@ The following table should explain the purpose of the various files in the repos
       to the internal format used by RabbitMQ and its runtime.
 
       Metronome schema contains mappings for the <code>metronome.exchange</code> setting,
-      setting the exchange used by the plugin. Default value is defined in <code>rabbitmq_metronome.app.src</code>.
+      setting the exchange used by the plugin.
 
       Configuration will be regenerated when the plugin is
       enabled. Plugin-specific values in the config will cause error if
