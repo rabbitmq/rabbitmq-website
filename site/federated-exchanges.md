@@ -49,7 +49,7 @@ control link connection parameters. Upstreams can be managed using [CLI tools](.
 or the HTTP API with [an additional plugin](https://github.com/rabbitmq/rabbitmq-federation-management).
 
 Here is a diagram showing a single upstream exchange (the source exchange) in one
-node linking to a set of two downstream exchanges in two other nodes:
+node linking to a single downstream exchange (the federated exchange) in another node:
 
 <img src="./img/federation/federated-exchange.svg" alt="Basic federated exchange" title="Basic federated exchange"/>
 
@@ -97,7 +97,7 @@ and reconfigured on the fly as system topology changes. There are two key pieces
 * Upstreams: these are remote endpoints in a federated system
 * Federation policies: these control what exchanges are federated and what upstreams (sources) they will connect to
 
-Both of those are configured on the upstream nodes or clusters.
+Both of those are configured on the downstream nodes or clusters.
 
 To add an upstream, use the `rabbitmqctl set_parameter` command. It accepts three parameters:
 
@@ -122,7 +122,7 @@ rabbitmqctl.bat set_parameter federation-upstream origin "{""uri"":""amqp://loca
 More upstream definition parameters are covered in the [Federation Reference guide](./federation-reference.html).
 
 Once an upstream has been specified, a policy that controls federation can be added. It is added just like
-any other [policy](./parameters.html#policies), using <code></code>:
+any other [policy](./parameters.html#policies), using:
 
 <pre class="lang-bash">
 # Adds a policy named "exchange-federation"
@@ -213,10 +213,8 @@ exchange.
 ## <a id="topology-diagrams" class="anchor" href="#topology-diagrams">Example Topologies</a>
 
 We illustrate some example federation topologies. Where RabbitMQ
-brokers are shown in these diagrams indicated by
-
-(indicated by a <img src="./img/rabbitmq_logo_30x30.png" height="15"/>)
-
+brokers are shown in these diagrams indicated by a
+<img src="./img/rabbitmq_logo_30x30.png" height="15"/>
 it can be a cluster of nodes or a standalone node.
 
 <table>
@@ -269,7 +267,7 @@ it can be a cluster of nodes or a standalone node.
       <td>Fan-out</td>
       <td>
         <p>
-          One source exchange (which it is _not_ necessary to federate)
+          One source exchange (which it is not necessary to federate)
           is linked to by a tree of exchanges, which can extend to any depth.
           In this case messages published to the source exchange can be
           received by any consumer connected to any broker in the tree.

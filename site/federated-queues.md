@@ -75,6 +75,7 @@ possible are consumed from the same queue as they were published
 to, and the federation mechanism only needs to move messages
 around in order to perform load balancing.
 
+Brokers running different versions of RabbitMQ can be connected using federation.
 
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
@@ -89,12 +90,6 @@ Since <code>basic.get</code> is a synchronous method, the node serving a request
 block while contacting all the other nodes to retrieve more
 messages. This wouldn't sit well with federation's availability and partition tolerance-oriented
 design and use cases.
-
-Brokers running different versions of RabbitMQ can be connected
-using federation. However, since queue federation requires
-consumer priorities, it is not possible to federate a queue with a
-broker running a RabbitMQ version prior to 3.2.0.
-
 
 ## <a id="usage" class="anchor" href="#usage">Usage and Configuration</a>
 
@@ -111,7 +106,7 @@ and reconfigured on the fly as system topology changes. There are two key pieces
 * Upstreams: these are remote endpoints in a federated system
 * Federation policies: these control what queues are federated and what upstreams (peers) they will connect to
 
-Both of those are configured on the upstream nodes or clusters.
+Both of those are configured on the downstream nodes or clusters.
 
 To add an upstream, use the `rabbitmqctl set_parameter` command. It accepts three parameters:
 
