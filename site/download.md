@@ -125,7 +125,7 @@ Other guides related to Kubernetes:
  * [API guide](./api-guide.html)
  * [API reference](https://rabbitmq.github.io/rabbitmq-java-client/api/current/) (JavaDoc)
  * [License and other information](./java-client.html)
- * [Older versions](http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/)
+ * [Older versions](https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/)
 
 ### Java [Stream Protocol](./streams.html) Client
 
