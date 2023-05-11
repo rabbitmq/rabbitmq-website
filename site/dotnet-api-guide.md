@@ -906,6 +906,22 @@ var connection = connectionFactory.CreateConnection();
 
 </pre>
 
+In production, make sure to use HTTPS for the token endpoint URI and configure
+a `HttpClientHandler` appropriately for the `HttpClient` :
+
+<pre class="lang-csharp">
+...
+HttpClientHandler httpClientHandler = buildHttpClientHandlerWithTLSEnabled();
+
+ICredentialsProvider credentialsProvider = new OAuth2ClientCredentialsProvider("prod-uaa-1",
+    new OAuth2Client("client_id", "client_secret", new Uri("http://somedomain.com/token"),
+     OAuth2ClientCredentialsProvider.EMPTY, httpClientHandler));
+</pre>
+
+Note: In case your Authorization server requires extra request parameters beyond what the specification
+requires, you can do so by adding `<key, value>` pairs to a `Dictionary` and passing it to the
+`OAuth2ClientCredentialsProvider` constructor rather than an `EMPTY` one as shown above.
+
 
 ### <a id="oauth2-refreshing-token" class="anchor" href="#oauth2-refreshing-token">Refreshing the Token</a>
 
@@ -914,9 +930,9 @@ expired tokens. To avoid this, it is possible to call
 `ICredentialsProvider#Refresh()` before expiration and send the new
 token to the server. This is cumbersome
 from an application point of view, so the .Net client provides
-help with the `DefaultCredentialsRefreshService`. This utility
-tracks used tokens, refreshes them before they expire, and send
-the new tokens for the connections it is responsible for.
+help with the `TimerBasedCredentialRefresher`. This utility
+schedules a timer for every token received. Once the timer expires, it reports the
+connection which in turn calls `ICredentialsProvider#Refresh()`.
 
 The following snippet shows how to create a `TimerBasedCredentialRefresher`
 instance and set it up on the `ConnectionFactory`:
@@ -939,4 +955,4 @@ var connection = connectionFactory.CreateConnection();
 
 The `TimerBasedCredentialRefresher` schedules a refresh after 2/3
 of the token validity time, e.g. if the token expires in 60 minutes,
-it will be refreshed after 40 minutes. 
+it will be refreshed after 40 minutes.
