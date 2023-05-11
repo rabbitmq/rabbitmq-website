@@ -37,6 +37,7 @@ Key sections of the guide are:
 * [Async Consumer Implementations](#consuming-async)
 * [Concurrency Considerations and Safety](#concurrency)
 * [Automatic Recovery From Network Failures](#recovery)
+* [OAuth 2 support](#oauth2-support)
 
 An [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitMQ.Client.html) is available separately.
 
@@ -874,3 +875,68 @@ growing between recoveries.
 Acknowledgements with stale delivery tags will not be
 sent. Applications that use manual acknowledgements and automatic
 recovery must be capable of handling redeliveries.
+
+## <a id="oauth2-support" class="anchor" href="#oauth2-support">OAuth 2 Support</a>
+
+The client can authenticate against an OAuth 2 server like [UAA](https://github.com/cloudfoundry/uaa).
+The [OAuth 2 plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_oauth2)
+must be enabled on the server side and configured to use the same OAuth 2 server as the client.
+
+### <a id="oauth2-getting-token" class="anchor" href="#oauth2-getting-token">Getting the OAuth 2 Token</a>
+
+The .Net client provides the `OAuth2ClientCredentialsProvider`
+class to get a JWT token using the [OAuth 2 Client Credentials flow](https://tools.ietf.org/html/rfc6749#section-4.4).
+The client will send the access token in the password field when opening a connection.
+The broker will then verify the access token signature, validity, and permissions
+before authorising the connection and granting access to the requested
+virtual host.
+
+<pre class="lang-csharp">
+using RabbitMQ.Client.Impl.OAuth2;
+
+...
+
+ICredentialsProvider credentialsProvider = new OAuth2ClientCredentialsProvider("prod-uaa-1",
+    new OAuth2Client("client_id", "client_secret", new Uri("http://somedomain.com/token")));
+
+var connectionFactory = new ConnectionFactory {
+        CredentialsProvider = credentialsProvider
+};            
+var connection = connectionFactory.CreateConnection();
+
+</pre>
+
+
+### <a id="oauth2-refreshing-token" class="anchor" href="#oauth2-refreshing-token">Refreshing the Token</a>
+
+Tokens expire and the broker will refuse operations on connections with
+expired tokens. To avoid this, it is possible to call
+`ICredentialsProvider#Refresh()` before expiration and send the new
+token to the server. This is cumbersome
+from an application point of view, so the .Net client provides
+help with the `DefaultCredentialsRefreshService`. This utility
+tracks used tokens, refreshes them before they expire, and send
+the new tokens for the connections it is responsible for.
+
+The following snippet shows how to create a `TimerBasedCredentialRefresher`
+instance and set it up on the `ConnectionFactory`:
+
+<pre class="lang-csharp">
+using RabbitMQ.Client.Impl.OAuth2;
+
+...
+
+ICredentialsProvider credentialsProvider = new OAuth2ClientCredentialsProvider("prod-uaa-1",
+    new OAuth2Client("client_id", "client_secret", new Uri("http://somedomain.com/token")));
+ICredentialsRefresher credentialsRefresher = new TimerBasedCredentialRefresher();
+
+var connectionFactory = new ConnectionFactory {
+        CredentialsProvider = credentialsProvider,
+        CredentialsRefresher = credentialsRefresher
+};            
+var connection = connectionFactory.CreateConnection();
+</pre>
+
+The `TimerBasedCredentialRefresher` schedules a refresh after 2/3
+of the token validity time, e.g. if the token expires in 60 minutes,
+it will be refreshed after 40 minutes. 
