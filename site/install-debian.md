@@ -167,7 +167,7 @@ All steps covered below are **mandatory** unless otherwise specified.
 Below is shell snippet that performs those steps. They are documented in more detail below.
 
 <pre class="lang-bash">
-#!/usr/bin/sh
+#!/bin/sh
 
 ## Update package indices
 sudo apt-get update -y
@@ -381,7 +381,7 @@ Below is shell snippet that performs those steps and assumes that Ubuntu 22.04 i
 They are documented in more detail below.
 
 <pre class="lang-bash">
-#!/usr/bin/sh
+#!/bin/sh
 
 sudo apt-get install curl gnupg apt-transport-https -y
 
