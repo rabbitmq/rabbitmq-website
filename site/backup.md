@@ -2,6 +2,18 @@
 
 ## Overview
 
+Modern versions of RabbitMQ (3.8.0+) only support backup restore from disk
+when they are restored to a RabbitMQ node with exactly the same node name as they
+node the data was backed up from. Node renaming is not supported if either quorum
+queues or streams are used.
+
+It is better to rely on other disaster recovery solutions,
+or use a separate standby cluster for disaster recovery.
+[VMware RabbitMQ](https://www.vmware.com/products/rabbitmq.html) offers a number of extensions for
+warm standby replication to a dedicated disaster
+recovery cluster.
+
+
 This guide covers backup and restore procedures for various types of data
 a RabbitMQ node may contain.
 
