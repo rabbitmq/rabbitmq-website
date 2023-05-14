@@ -40,7 +40,21 @@ published separately.
     <th class="centre">Release Notes</th>
   </tr>
 
-  <!-- headers -->
+  <!-- releases -->
+
+  <tr>
+    <td class="centre">3.11.16</td>
+    <td class="centre">13 May 2023</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Usability improvements</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.16">Release notes</a>
+    </td>
+  </tr>
 
   <tr>
     <td class="centre">3.11.15</td>
