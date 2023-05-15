@@ -62,7 +62,7 @@ for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
     grep 'ha-mode'
 done
 ```
-## Finding the Features in use by Mirrored Classic Queues and the Actions to take depending on the Feature
+## Features in use by Mirrored Classic Queues where Migration is Complex
 When one or more of the following features are used by mirrored classic queues, straightforward migration to quorum queues is not possible. The way that application interacts with a broker needs to be changed. This information explains how to find whether some of these features are being used in a running system, and what changes need to be made for easier migration.
 
 ### Priority Queues
@@ -79,6 +79,40 @@ To find out if  `overflow` set to `reject-publish-dlx` is configured for the mir
 
 ### Global QoS for consumers
 
+Global [QoS prefetch](https://rabbitmq.com/quorum-queues.html#global-qos) where a channel sets a single prefetch limit for all consumers using that channel is not supported by quorum queues. If this functionality is required, try achieving the same results using alternative methods, for example, one solution might be to use a lower per-consumer QoS (given the known application load pattern).
+
+To find out if this feature is used, run the following command on a running system and check for a non-empty output:
+
+```bash
+rabbitmqctl list_channels pid name global_prefetch_count | sed -n '/\t0$/!p'
+```
+
+A list of channel PIDs that have global QoS enabled are returned. Then, run the following command to map the channel PID to a queue name to verify if it is a mirrored classic queue. 
+
+```bash
+rabbitmqctl list_consumers queue_name channel_pid
+```
+### `x-cancel-on-ha-failover` for consumers
+
+Mirrored queues consumers can be [automatically
+cancelled](https://www.rabbitmq.com/ha.html#cancellation) when a queue
+leader fails over. This can cause a loss of information about which
+messages were sent to which consumer, and redelivery of such messages.
+
+Quorum queues are less exposed to such behaviour - the only case when
+it still can happen is when a whole node goes down. For other leader
+changes (e.g. caused by rebalancing), there will be no redeliveries.
+
+And redeliveries can also happen for inflight messages when the
+consumer is cancelled or the channel is closed. So application needs
+to be prepared for redeliveries anyway, without specifically asking
+for such information.
+
+## Features in use by Mirrored Classic Queues that Simply need to be removed from Source Code or moved to a Policy
+
+The following features don't complete any function when quorum queues are being
+used. The best way to handle them is to remove them from the source
+code completely or move them to a policy instead.
 
 
 
