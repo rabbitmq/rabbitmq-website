@@ -3,7 +3,7 @@
 ## Overview
 
 Modern versions of RabbitMQ (3.8.0+) only support backup restore from disk
-when they are restored to a RabbitMQ node with exactly the same node name as they
+when they are restored to a RabbitMQ node with exactly the same node name as the
 node the data was backed up from. Node renaming is not supported if either quorum
 queues or streams are used.
 
