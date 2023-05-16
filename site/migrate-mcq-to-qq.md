@@ -26,7 +26,7 @@ You should migrate to mirrored classic queues for the following reasons:
 
 **Note**: While quorum queues are the best choice of queue type, they are not 100% compatible feature wise with mirrored classic queues. In [quorum queue documentation](https://www.rabbitmq.com/quorum-queues.html#feature-matrix), you can review the feature matrix table which lists the differences between mirrored classic queues and quorum queues. These differences require different steps to successfully migrate from mirrored classic queues to quorum queues. Some of the steps can require a lot of configuration, while others require changes in the way an application interacts with RabbitMQ. It is also important to note that migrated applications should be thoroughly against quorum queues, as behaviour can be different under the load and in edge cases.
 
-## The Migration Routes: Migrate the Queues by Virtual Host OR Migrate in place
+## Deciding which Migration Route to take: Compatibility Considerations
 
 [Migrating the Queues by Virtual Host](#migrate-the-queues-by-virtual-host) is probably the most efficient migration path you can take if it is an option for you. If all the incompatible features are cleaned up or moved to policies, the existing code is able to work both with mirrored classic queues and quorum queues by only changing connection parameters to the new vhost that you created for the quorum queues.
 
@@ -118,14 +118,13 @@ is to move `x-queue-mode` from the source code to a policy.
 [Transcient queues](https://www.rabbitmq.com/queues.html#durability) are deleted on a node/cluster boot. 
 
 The plan is to remove transcient queues in future RabbitMQ releases.
-the only option for transcient queues will be exclusive queues. This
-affects only durability of queue definitions, messages can still be marked
+The only option for transcient queues then will be exclusive queues. This only
+affects the durability of queue definitions. Messages can still be marked
 transient.
 
-For such queues a decision have to be made one way or another: is this
-queue content important enough to get availability guarantees of
-quorum queues, or it's better to downgrade it to a classic (but
-durable) queue.
+You must make decision for transcient queues, is the content of the 
+queue important enough to get availability guarantees of
+quorum queues, or is it better to downgrade the transcient queue to a classic non-mirrored queue (classic mirrored queues are being removed but classic non-mirrored queues will still be available).
 
 ### Exclusive queues
 
