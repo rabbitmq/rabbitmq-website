@@ -129,7 +129,7 @@ queue important enough to get availability guarantees of quorum queues, or is it
 
 For exclusive queues that are not mirrored, you must decide whether to leave the queue as an exclusive queue or change it to a replicated queue during migration. Therefore, you must be careful not to make exclusive queue declarations with an explicit `x-queue-type: quorum` argument.
 
-## General Prerequisites
+## General Prerequisites before Migrating to Quorum Queues
 
 1. A minimum of 3 nodes in the RabbitMQ cluster is required (there is no reason to use quorum queues with a smaller amount of replicas).
 2. The Management plugin should be running on at least one node. It is used to export/import definitions for a single host,
