@@ -24,7 +24,13 @@ You should migrate to mirrored classic queues for the following reasons:
 * Quorum queues can sustain much higher throughput levels in almost all use cases. A quorum queue can sustain a 30000 messages throughput (using 1kb messages), while offering high levels of data safety and replicating data to all 3 nodes in a cluster. Classic mirrored queues only offer a third of that throughput and provide much lower levels of data safety. 
 * Quorum queues are more reliable, faster for most workloads. and require little maintenance. For more information, go to [Quorum Queues](https://www.rabbitmq.com/quorum-queues.html). 
 
-**Note**: While quorum queues are the best choice of queue type, they are not 100% compatible feature wise with mirrored classic queues. In [quorum queue documentation](https://www.rabbitmq.com/quorum-queues.html#feature-matrix), you can review the feature matrix table which lists the differences between mirrored classic queues and quorum queues. These differences require different steps to successfully migrate from mirrored classic queues to quorum queues. Some of the steps require some configuration changes, while others require changes in the way an application interacts with RabbitMQ. It is also important to note that migrated applications should be thoroughly tested against quorum queues because the behaviour can differ under the load and in edge cases.
+**Note**: 
+
+* While quorum queues are the best choice of queue type, they are not 100% compatible feature wise with mirrored classic queues. When you are deciding about whether to migrate from mirrored classic queues to quorum queues, it is recommended to review the [quorum queue documentation](https://www.rabbitmq.com/quorum-queues.html) first, you can review the [feature matrix table]((https://www.rabbitmq.com/quorum-queues.html#feature-matrix) which provides a comparison of both types of queues (mirrored classic queues beside quorum queues)
+
+* The level of complexity involved in migrating from mirrored classic queues to quorum queues depends on the features that are currently being used by the mirrored classic queues. Some of the steps require some configuration changes, while others require changes in the way an application interacts with RabbitMQ. 
+
+* It is also important to note that migrated applications should be thoroughly tested against quorum queues because the behaviour can differ under the load and in edge cases. 
 
 ## Deciding which Migration Route to take: Compatibility Considerations
 
@@ -36,7 +42,9 @@ Before deciding which migration method you can use, you must first find the mirr
 
 ## <a id="find-mcq" class="anchor" href="#find-mcq">Finding the Mirrored Classic Queues for Migration</a>
 
-Run the following commands to retrieve the list of mirrored classic queues that must be migrated. Note the following command uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from any RabbitMQ version later than 3.10.13/3.11.5, or manually match the policy name to it's definition.
+All mirrored classic queues that include a policy key  `ha-mode` in its policy must be migrated to a different type of queue. All these queues are listed as mirrored classic queues in the Management UI and CLI. 
+
+To find these mirrored classic queues that must be migrated, run the following script (which uses `rabbitmqctl` to enumerate all such queues across all vhosts as tab-separated values). Note, the command in the script uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from any RabbitMQ version later than 3.10.13/3.11.5, or manually match the policy name to it's definition.
 
 ```bash
 #!/bin/sh
@@ -142,7 +150,9 @@ For exclusive queues that are not mirrored, you must decide whether to leave the
 This procedure to migrate from mirrored classic queues to quorum queues
 is similar to a [blue-green cluster upgrade](https://rabbitmq.com/blue-green-upgrade.html),
 except you are migrating to a new virtual host on the same
-RabbitMQ cluster. Then, you use the [Federation Plugin](https://rabbitmq.com/federation.html) to seamlessly migrate from the old virtual host to the new one.
+RabbitMQ cluster (the steps in the following sections use a new virtual host on the existing cluster to provide an empty namespace to create the new quorum queues using the old names.). 
+
+Then, you use the [Federation Plugin](https://rabbitmq.com/federation.html) to seamlessly migrate from the old virtual host to the new one.
 
 **Important**: You can set the default queue type for the new virtual host. Setting it to
 `quorum` creates all the queues without an explicit type as 
@@ -156,7 +166,7 @@ host with quorum queues. The only change you need to make is to update the virtu
 
 ### Create the Destination Virtual Host
 
-Create the new virtual host with the correct default queue type (quorum). It should be selected from the
+[Create the new virtual host](https://rabbitmq.com/vhosts.html#creating) with the correct default queue type (quorum). It should be selected from the
 **queue type** drop down list when the new virtual host is being added via
 management UI. Alternatively, it can also be created using the CLI interface by specifying
 the default queue type and adding some permissions:
@@ -165,7 +175,7 @@ the default queue type and adding some permissions:
 rabbitmqctl add_vhost NEW_VHOST --default-queue-type quorum
 rabbitmqctl set_permissions -p NEW_VHOST USERNAME '.*' '.*' '.*'
 ```
-
+Ensure all required users have access and can connect to the new virtual host by following the steps in the [set permissions](https://rabbitmq.com/rabbitmqctl.8.html#set_permissions).
 ### Create the Federation Upstream
 
 A new [federation upstream](https://www.rabbitmq.com/federation.html#getting-started) should be created for the NEW\_VHOST with the
@@ -235,8 +245,7 @@ virtual host by updating the connection parameters.
 
 Producers can now be also pointed to the new virtual host.
 
-When the consumers are stopped, turn off federated exchanges in the old vhost and enabled them in the new
-one.
+When the consumers are stopped, turn off federated exchanges in the old vhost and enabled them in the new one.
 
 Under sufficient system load messages from the old virtual host will
 not be picked up. If message ordering is important then ordering should
