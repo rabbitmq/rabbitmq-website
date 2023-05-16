@@ -110,8 +110,8 @@ code, or move them to a policy.
 
 Mirrored classic queues can optionally operate in [lazy
 mode](https://rabbitmq.com/lazy-queues.html#overview). For quorum
-queues this is the only way of operation. The best way to handle this
-for migration is to move `x-queue-mode` from the source code to a policy.
+queues this is the only way of operation. The best way to handle the migration of these mirrored classic queues
+is to move `x-queue-mode` from the source code to a policy.
 
 ### Transcient Queues
 
