@@ -71,7 +71,7 @@ the list of queues output that is provided by running the command in the **Findi
 
 Priority queues are not created using a policy, therefore no policy changes required when migrating them. Classic mirrored queues create a separate queue for every priority behind the scenes. To migrate a single mirrored classic queues that uses the "priority" feature, you must create the required number amount of quorum queues. Once the quorum queues are created, adjust the publishing and consumption of these new quorum queues accordingly.
 
-### Queue Length Limit overflow set to reject-publish-dlx
+### Queue Length Limit overflow set to `reject-publish-dlx`
 
 The queue length exceeded with `overflow` set to [`reject-publish-dlx`](https://rabbitmq.com/maxlength.html#overflow-behaviour) is not supported by quorum queues. The `reject-publish-dlx` value is not supported.
 
