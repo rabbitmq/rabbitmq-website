@@ -129,10 +129,9 @@ durable) queue.
 
 ### Exclusive queues
 
-[Exclusive queues](https://www.rabbitmq.com/queues.html#exclusive-queues) are not mirrored even if the policy states it is. An
-attempt to declare an exclusive quorum queue will result in an
-error. This is clearly one of the cases where migration is not needed,
-but care must be taken as to avoid exclusive queue declarations with
+[Exclusive queues](https://www.rabbitmq.com/queues.html#exclusive-queues) are not mirrored. An attempt to create an exclusive mirrored queue creates a  non-mirrored queue so the mirroring policy is ignored.
+
+For exclusive queues that are not mirrored before migration, you must decide before migrating whether to leave that queue as an exclusive queue or change it to a replicated queue during migration. Therefore, you must be careful not to make exclusive queue declarations with
 an explicit `x-queue-type: quorum` argument.
 
 
