@@ -34,9 +34,13 @@ You should migrate to mirrored classic queues for the following reasons:
 
 ## Deciding which Migration Route to take: Compatibility Considerations
 
-[Migrating the Queues by Virtual Host](#migrate-the-queues-by-virtual-host) is probably the most efficient migration path you can take if it is an option for you. If all the incompatible features are cleaned up or moved to policies, the existing code work with both  mirrored classic queues and quorum queues. You only need to change the connection parameters to the new virtual host that you created for the quorum queues.
+Incompatible features can be either referenced in policies or in the source code. RabbitMQ completes strict validation of arguments for queue declaration and consumption. Therefore, for migration, you must clean up all the mentions of incompatible features from the source code. For some of these features, it is as simple as just removing corresponding strings but other features require a change in the way queues are being used. All these features are described below.
 
-[Migrating in Place](#migrate-in-place) means you re-use the same virtual host. You must be able to stop all consumers and producers for a given queue.
+The general policies and arguments related to mirroring are:`ha-mode`, `ha-params` `ha-sync-mode`, `ha-promote-on-shutdown`, `ha-promote-on-failure`, and `queue-master-locator`.
+
+The migration process you take can be one of the following:
+* [Migrating the Queues by Virtual Host](#migrate-the-queues-by-virtual-host) is probably the most efficient migration path you can take if it is an option for you. If all the incompatible features are cleaned up or moved to policies, the existing code work with both  mirrored classic queues and quorum queues. You only need to change the connection parameters to the new virtual host that you created for the quorum queues.
+* [Migrating in Place](#migrate-in-place) means you re-use the same virtual host. You must be able to stop all consumers and producers for a given queue.
 
 Before deciding which migration method you can use, you must first find the mirrored classic queues and the features they are using. 
 
@@ -54,7 +58,7 @@ for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
     grep 'ha-mode'
 done
 ```
-It can be easier to just list the queues that are actually mirrored on the running system. This way, you don't have guess whether HA-policies are applied. Note, the following command uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from any RabbitMQ version later than 3.10.13/3.11.5, or manually match the policy name to it's definition.
+It can be easier to list the queues that are actually mirrored on the running system. This way, you don't have guess whether HA-policies are applied. Note, the following command uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from any RabbitMQ version later than 3.10.13/3.11.5, or manually match the policy name to it's definition.
 
 ```bash
 #!/bin/sh
@@ -66,7 +70,7 @@ for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
 done
 ```
 
-## Mirrored Classic Queue Features that require Configuration Changes for Migration
+## Mirrored Classic Queue Features that require Changes in the Way the Queue is Used
 When one or more of the following features are used by mirrored classic queues, straightforward migration to quorum queues is not possible. The way the application interacts with a broker needs to be changed. This information explains how to find whether some of these features are being used in a running system, and what changes you must make for an easier migration.
 
 ### Priority Queues
