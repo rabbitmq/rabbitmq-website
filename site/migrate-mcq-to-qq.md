@@ -24,15 +24,11 @@ You should migrate to mirrored classic queues for the following reasons:
 * Quorum queues can sustain much higher throughput levels in almost all use cases. A quorum queue can sustain a 30000 messages throughput (using 1kb messages), while offering high levels of data safety and replicating data to all 3 nodes in a cluster. Classic mirrored queues only offer a third of that throughput and provide much lower levels of data safety. 
 * Quorum queues are more reliable, faster for most workloads. and require little maintenance. For more information, go to Quorum Queues. 
 
-**Note**: While Quorum queues are the best choice of queue type, they are not 100% compatible feature wise with Mirrored Classic queues. In Quorum Queue documentation, you can review the feature matrix table which lists the differences between Mirrored Classic Queues and Quorum Queues. These differences require different steps to successfully migrate from mirrored classic queues to quoruem. Some of the steps can be easy to implement, while others require changes in the way an application interacts with RabbitMQ. 
-
-*****All of them are thoroughly documented further.
-
-And it goes without saying that migrated applications should be thoroughly tested against quorum queues, as behaviour can be somewhat different under the load and in edge cases.***
+**Note**: While quorum queues are the best choice of queue type, they are not 100% compatible feature wise with mirrored classic queues. In [quorum queue documentation](https://www.rabbitmq.com/quorum-queues.html#feature-matrix), you can review the feature matrix table which lists the differences between mirrored classic queues and quorum queues. These differences require different steps to successfully migrate from mirrored classic queues to quorum queues. Some of the steps can require a lot of configuration, while others require changes in the way an application interacts with RabbitMQ. It is also important to note that migrated applications should be thoroughly against quorum queues, as behaviour can be somewhat different under the load and in edge cases.
 
 ## The Migration Routes: Migrate the Queues by Virtual Host OR Migrate in place
 
-Migrating the Queues by Virtual Host is probably the most efficient migration path you can take if it is an option for you. If all the incompatible features are cleaned up or moved to policies, the existing code is able to work both with mirrored and quorum queues by only changing connection parameters to the new vhost that you created for the quorum queues.
+[Migrating the Queues by Virtual Host])#migrate-the-queues-by-virtual-host) is probably the most efficient migration path you can take if it is an option for you. If all the incompatible features are cleaned up or moved to policies, the existing code is able to work both with mirrored and quorum queues by only changing connection parameters to the new vhost that you created for the quorum queues.
 
 Migrating in Place means you re-use the same virtual host. You must be able to stop all consumers and producers for a given queue.
 
@@ -140,8 +136,8 @@ error. This is clearly one of the cases where migration is not needed,
 but care must be taken as to avoid exclusive queue declarations with
 an explicit `x-queue-type: quorum` argument.
 
-## Migrate the Queues by Virtual Host {#new-virtual-host-migration}
 
+### <a id="migrate-the-queues-by-virtual-host" class="anchor" href="#migrate-the-queues-by-virtual-host">Migrate the Queues by Virtual Host</a>
 This procedure to migrate from mirrored classic queues to quorum queues
 is similar to a [blue-green cluster upgrade](https://rabbitmq.com/blue-green-upgrade.html),
 except you are migrating to a new virtual host on the same
