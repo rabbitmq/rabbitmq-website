@@ -79,7 +79,7 @@ To find out if  `overflow` set to `reject-publish-dlx` is configured for the mir
 
 Global [QoS prefetch](https://rabbitmq.com/quorum-queues.html#global-qos) where a channel sets a single prefetch limit for all consumers using that channel is not supported by quorum queues. If this functionality is required, try achieving the same results using alternative methods, for example, one solution might be to use a lower per-consumer QoS (given the known application load pattern).
 
-To find out if this feature is used, run the following command on a running system and check for a non-empty output:
+To find out if this feature is used, run the following command on a running system and check for non-empty output:
 
 ```bash
 rabbitmqctl list_channels pid name global_prefetch_count | sed -n '/\t0$/!p'
