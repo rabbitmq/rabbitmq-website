@@ -129,8 +129,16 @@ queue important enough to get availability guarantees of quorum queues, or is it
 
 For exclusive queues that are not mirrored, you must decide whether to leave the queue as an exclusive queue or change it to a replicated queue during migration. Therefore, you must be careful not to make exclusive queue declarations with an explicit `x-queue-type: quorum` argument.
 
+## General Prerequisites
 
-### <a id="migrate-the-queues-by-virtual-host" class="anchor" href="#migrate-the-queues-by-virtual-host">Migrate the Queues by Virtual Host</a>
+1. A minimum of 3 nodes in the RabbitMQ cluster is required (there is no reason to use quorum queues with a smaller amount of replicas).
+2. The Management plugin should be running on at least one node. It is used to export/import definitions for a single host,
+   which simplifies definitions cleanup. (`rabbitmqadmin` CLI command is also using the plugin behind the scenes).
+3. The [Shovel plugin](https://www.rabbitmq.com/shovel.html) should be enabled.
+
+
+
+## <a id="migrate-the-queues-by-virtual-host" class="anchor" href="#migrate-the-queues-by-virtual-host">Migrate the Queues by Virtual Host</a>
 This procedure to migrate from mirrored classic queues to quorum queues
 is similar to a [blue-green cluster upgrade](https://rabbitmq.com/blue-green-upgrade.html),
 except you are migrating to a new virtual host on the same
@@ -145,13 +153,6 @@ there is no explicit `x-queue-type` arguments in the source code, then
 you can use the same code to work both the old
 virtual host with classic mirrored queues and the new virtual
 host with quorum queues. The only change you need to make is to update the virtual host connection parameters to connect to the new virtual host.
-
-### General Prerequisites
-
-1. A minimum of 3 nodes in the RabbitMQ cluster is required (there is no reason to use quorum queues with a smaller amount of replicas).
-2. The Management plugin should be running on at least one node. It is used to export/import definitions for a single host,
-   which simplifies definitions cleanup. (`rabbitmqadmin` CLI command is also using the plugin behind the scenes).
-3. The [Shovel plugin](https://www.rabbitmq.com/shovel.html) should be enabled.
 
 ### Create the Destination Virtual Host
 
@@ -256,7 +257,7 @@ After the queue is drained, the shovel can be deleted:
 ```bash
 rabbitmqctl clear_parameter shovel migrate-QUEUE_TO_MIGRATE
 ```
-### <a id="migrate-in-place" class="anchor" href="#migrate-in-place">Migrate in Place</a>
+## <a id="migrate-in-place" class="anchor" href="#migrate-in-place">Migrate in Place</a>
 
 Migrating this way trades uptime so that you can 
 complete the migration in an existing virtual host and cluster.
