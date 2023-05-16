@@ -16,7 +16,7 @@ limitations under the License.
 -->
 
 # Migrating Mirrored Classic Queues to Quorum Queues
-Quorum Queues are now the optimum choice of queue type replacing mirrored classic queues. This information explains why, the reasons why you should migrate from mirrored classic queues to quorum queues, and includes procedures for some of the migration routes you can take. 
+Quorum Queues are now the optimum choice of queue type replacing mirrored classic queues. This information explains why, the reasons why you should migrate from mirrored classic queues to quorum queues, the ways to handle features during the migration, and includes procedures for some of the migration routes you can take. 
 
 You should migrate to mirrored classic queues for the following reasons:
 
@@ -73,11 +73,13 @@ Priority queues are not created using a policy, therefore no policy changes requ
 
 ### Queue Length Limit overflow set to reject-publish-dlx
 
-The queue length exceeded with `overflow` set to [`reject-publish-dlx`](https://rabbitmq.com/maxlength.html#overflow-behaviour) is not supported by quorum queues. **The code needs to be updated to use publisher confirms and to do dead lettering by itself**.
+The queue length exceeded with `overflow` set to [`reject-publish-dlx`](https://rabbitmq.com/maxlength.html#overflow-behaviour) is not supported by quorum queues. The `reject-publish-dlx` value is not supported.
+
+With mirrored classic queues, publishing to a full queue with `reject-publish-dlx` resulted in RabbitMQ republishing a rejected message to a dead letter exchange. With quorum queues, to apply the same logic, you must change `reject-publish-dlx` to `reject-publish`. Then, handle negative acknowledgements: after getting a negative acknowledgement, the application must publish the message again to a different exchange.
 
 To find out if  `overflow` set to `reject-publish-dlx` is configured for the mirrored classic queues you want to migrate, check for the `x-max-priority` string in the list of queues output that is provided by running the command in the **Finding the Mirrored Classic Queues for Migration**  section or you can also search for the ``reject-publish-dlx`` string in the source code.
 
-### Global QoS for consumers
+### Global QoS for Consumers
 
 Global [QoS prefetch](https://rabbitmq.com/quorum-queues.html#global-qos) where a channel sets a single prefetch limit for all consumers using that channel is not supported by quorum queues. If this functionality is required, try achieving the same results using alternative methods, for example, one solution might be to use a lower per-consumer QoS (given the known application load pattern).
 
@@ -92,28 +94,51 @@ A list of channel PIDs that have global QoS enabled are returned. Then, run the 
 ```bash
 rabbitmqctl list_consumers queue_name channel_pid
 ```
-### `x-cancel-on-ha-failover` for consumers
+### `x-cancel-on-ha-failover` for Consumers
 
 Mirrored queues consumers can be [automatically
 cancelled](https://www.rabbitmq.com/ha.html#cancellation) when a queue
 leader fails over. This can cause a loss of information about which
-messages were sent to which consumer, and redelivery of such messages.
+messages were sent to which consumer, and result in the same messages being sent again (duplicate messages). 
 
-Quorum queues are less exposed to such behaviour - the only case when
-it still can happen is when a whole node goes down. For other leader
-changes (e.g. caused by rebalancing), there will be no redeliveries.
+Quorum queues will not have the same results in this situation i.e. duplicate messages are not sent again except when there is a complete node failure,  or messages are resent for inflight messages when the consumer is cancelled or the channel is closed.
 
-And redeliveries can also happen for inflight messages when the
-consumer is cancelled or the channel is closed. So application needs
-to be prepared for redeliveries anyway, without specifically asking
-for such information.
+In summary, with mirrored classic queues, you can observe possible duplicates in some cases. With quorum queues, this observation is not possible but you should note that duplicates messages can still happen for some of the reasons they happened when using mirrored classic queues. However, duplicate messages occur less frequent with quorum queues.
 
 ## Features in use by Mirrored Classic Queues that Simply need to be removed from Source Code or moved to a Policy
 
 The following features don't complete any function when quorum queues are being
-used. The best way to handle them is to remove them from the source
-code completely or move them to a policy instead.
+used. The best way to handle them is to completed remove them from the source
+code, or move them to a policy instead.
 
+### Lazy Queues
+
+Mirrored classic queues can optionally operate in [lazy
+mode](https://rabbitmq.com/lazy-queues.html#overview). For quorum
+queues this is the only way of operation. The best way to handle this
+for migration is to move `x-queue-mode` from the source code to a policy.
+
+### Transcient Queues
+
+[Transcient queues](https://www.rabbitmq.com/queues.html#durability) are deleted on a node/cluster boot. 
+
+The plan is to remove transcient queues in future RabbitMQ releases.
+the only option for ephemeral queues will be exclusive queues. This
+affects only durability of queue definitions, messages can still be marked
+transient.
+
+For such queues a decision have to be made one way or another: is this
+queue content important enough to get availability guarantees of
+quorum queues, or it's better to downgrade it to a classic (but
+durable) queue.
+
+### Exclusive queues
+
+[Exclusive queues](https://www.rabbitmq.com/queues.html#exclusive-queues) are not mirrored even if the policy states it is. An
+attempt to declare an exclusive quorum queue will result in an
+error. This is clearly one of the cases where migration is not needed,
+but care must be taken as to avoid exclusive queue declarations with
+an explicit `x-queue-type: quorum` argument.
 
 
 
