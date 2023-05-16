@@ -240,8 +240,7 @@ virtual host by updating the connection parameters.
 
 Producers can now be also pointed to the new virtual host.
 
-The time when consumers are stopped is also the time where federated
-exchanges should be disabled in the old vhost and enabled in the new
+When the consumers are stopped, turn off federated exchanges in the old vhost and enabled them in the new
 one.
 
 Under sufficient system load messages from the old virtual host will
