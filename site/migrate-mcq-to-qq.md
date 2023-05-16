@@ -220,11 +220,8 @@ The following changes needs to be made to this file before loading it back into 
 4. Policies that are empty after the previous step should be dropped.
 5. Federation with the old vhost should be added to any remaining
    policies, pointing to the federation upstream created earlier:
-   `"federation-upstream-set":"quorum-migration-upstream"`
-6. If there is no catch-all policy (applying to queues with pattern
-   `.*`), it needs to be created and also point to the federation
-   upstream. This ensures that every queue in the old vhost will be
-   federated.
+   `"federation-upstream-set":"quorum-migration-upstream"`.
+6. If there is no catch-all policy (applying to queues with pattern `.*`), it needs to be created and also point to the federation upstream. This ensures that every queue in the old vhost will be federated.
 7. Policies that apply federation rules to exchanges need to be
    removed for the period of the migration to avoid duplicate
    messages.
