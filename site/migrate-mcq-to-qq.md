@@ -65,7 +65,7 @@ When one or more of the following features are used by mirrored classic queues, 
 To find out if a classic mirrored queue uses the "priority " feature, you can check for the `x-max-priority` string in
 the list of queues output that is provided by running the command in the [Finding the Mirrored Classic Queues for Migration](#find-mcq) section or you can also search for the `x-max-priority` string in the source code. For more information on how the priority is implemented, go to [Priority Queue Support](https://www.rabbitmq.com/priority.html).
 
-Priority queues are not created using a policy, therefore no policy changes required when migrating them. Classic mirrored queues create a separate queue for every priority behind the scenes. To migrate a single mirrored classic queues that uses the "priority" feature, you must create the required number amount of quorum queues. Once the quorum queues are created, adjust the publishing and consumption of these new quorum queues accordingly.
+Priority queues are not created using a policy, therefore no policy changes are required when migrating them. Classic mirrored queues create a separate queue for every priority behind the scenes. To migrate a single mirrored classic queues that uses the "priority" feature, you must create the required number amount of quorum queues. Once the quorum queues are created, adjust the publishing and consumption of these new quorum queues accordingly.
 
 ### Queue Length Limit overflow set to `reject-publish-dlx`
 
