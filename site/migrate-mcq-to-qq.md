@@ -140,8 +140,7 @@ an explicit `x-queue-type: quorum` argument.
 This procedure to migrate from mirrored classic queues to quorum queues
 is similar to a [blue-green cluster upgrade](https://rabbitmq.com/blue-green-upgrade.html),
 except you are migrating to a new virtual host on the same
-RabbitMQ cluster. The [Federation Plugin](https://rabbitmq.com/federation.html) is then being
-used to seamlessly migrate from the old virtual host to the new one.
+RabbitMQ cluster. Then, use the [Federation Plugin](https://rabbitmq.com/federation.html) to seamlessly migrate from the old virtual host to the new one.
 
 **Important**: You can set the default queue type for the new virtual host. Setting it to
 `quorum` creates all the queues without an explicit type as 
