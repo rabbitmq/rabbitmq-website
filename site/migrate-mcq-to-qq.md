@@ -210,7 +210,7 @@ The following changes needs to be made to this file before loading it back into 
    - Remove the `x-max-priority` argument.
    - Change the `x-overlow` argument when it is set to `reject-publish-dlx`. Change it to `reject-publish`.
    - Remove the `x-queue-mode` argument.
-   - Change `durable` attribute to `true`
+   - Change `durable` attribute to `true`.
 3. Change the following keys in the policies:
    - Remove everything starting with `ha-`: `ha-mode`, `ha-params`,
      `ha-sync-mode`, `ha-sync-batch-size`, `ha-promote-on-shutdown`,
