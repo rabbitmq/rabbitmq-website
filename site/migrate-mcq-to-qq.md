@@ -36,7 +36,7 @@ Before deciding which migration method you can use, you must first find the mirr
 
 ## Finding the Mirrored Classic Queues for Migration
 
-Run the following commands to retrieve the list of mirrored classic queues that must be migrated. Note the following command uses `effective_policy_definition` paramters, which is only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from a fresh??? version of RabbitMQ, or manually match the policy name to it's definition.
+Run the following commands to retrieve the list of mirrored classic queues that must be migrated. Note the following command uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from a fresh??? version of RabbitMQ, or manually match the policy name to it's definition.
 
 ```bash
 #!/bin/sh
