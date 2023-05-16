@@ -26,7 +26,7 @@ You should migrate to mirrored classic queues for the following reasons:
 
 **Note**: 
 
-* While quorum queues are the best choice of queue type, they are not 100% compatible feature wise with mirrored classic queues. When you are deciding about whether to migrate from mirrored classic queues to quorum queues, it is recommended to review the [quorum queue documentation](https://www.rabbitmq.com/quorum-queues.html) first, you can review the [feature matrix table]((https://www.rabbitmq.com/quorum-queues.html#feature-matrix) which provides a comparison of both types of queues (mirrored classic queues beside quorum queues)
+* While quorum queues are the best choice of queue type, they are not 100% compatible feature wise with mirrored classic queues. When you are deciding about whether to migrate from mirrored classic queues to quorum queues, it is recommended to review the [quorum queue documentation](https://www.rabbitmq.com/quorum-queues.html) first, you can review the [feature matrix table](https://www.rabbitmq.com/quorum-queues.html#feature-matrix) which provides a comparison of both types of queues (mirrored classic queues beside quorum queues)
 
 * The level of complexity involved in migrating from mirrored classic queues to quorum queues depends on the features that are currently being used by the mirrored classic queues. Some of the steps require some configuration changes, while others require changes in the way an application interacts with RabbitMQ. 
 
@@ -44,7 +44,17 @@ Before deciding which migration method you can use, you must first find the mirr
 
 All mirrored classic queues that include a policy key  `ha-mode` in its policy must be migrated to a different type of queue. All these queues are listed as mirrored classic queues in the Management UI and CLI. 
 
-To find these mirrored classic queues that must be migrated, run the following script (which uses `rabbitmqctl` to enumerate all such queues across all vhosts as tab-separated values). Note, the command in the script uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from any RabbitMQ version later than 3.10.13/3.11.5, or manually match the policy name to it's definition.
+To find the mirrored classic queues that must be migrated, run the following script (which uses `rabbitmqctl` to count all the queues across all vhosts as tab-separated values). 
+
+```bash
+#!/bin/sh
+printf "%s\t%s\t%s\t%s\t%s\t%s\n" vhost policy_name pattern apply_to definition priority
+for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
+  rabbitmqctl -q list_policies -p "$vhost" |
+    grep 'ha-mode'
+done
+```
+It can be easier to just list the queues that are actually mirrored on the running system. This way, you don't have guess whether HA-policies are applied. Note, the following command uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from any RabbitMQ version later than 3.10.13/3.11.5, or manually match the policy name to it's definition.
 
 ```bash
 #!/bin/sh
@@ -55,17 +65,7 @@ for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
 	xargs -x -r -L1 -d '\n' printf "%s\t%s\n" "$vhost"
 done
 ```
-All mirrored classic queues have `ha-mode` in their effective policy
-definition. The policies that apply it can be found using the following script:
 
-```bash
-#!/bin/sh
-printf "%s\t%s\t%s\t%s\t%s\t%s\n" vhost policy_name pattern apply_to definition priority
-for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
-  rabbitmqctl -q list_policies -p "$vhost" |
-    grep 'ha-mode'
-done
-```
 ## Mirrored Classic Queue Features that require Configuration Changes for Migration
 When one or more of the following features are used by mirrored classic queues, straightforward migration to quorum queues is not possible. The way the application interacts with a broker needs to be changed. This information explains how to find whether some of these features are being used in a running system, and what changes you must make for an easier migration.
 
