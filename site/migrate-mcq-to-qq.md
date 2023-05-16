@@ -213,7 +213,7 @@ The following changes needs to be made to this file before loading it back into 
    - Change `durable` attribute to `true`.
 3. Change the following keys in the policies:
    - Remove everything starting with `ha-`: `ha-mode`, `ha-params`,
-     `ha-sync-mode`, `ha-sync-batch-size`, `ha-promote-on-shutdown`,
+     `ha-sync-mode`, `ha-sync-batch-size`, `ha-promote-on-shutdown`, and 
      `ha-promote-on-failure`
    - Remove the `queue-mode`.
    - Change `overflow` when it is set to `reject-publish-dlx`. Change it to `reject-publish`.
