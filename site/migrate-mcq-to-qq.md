@@ -22,13 +22,13 @@ You should migrate to mirrored classic queues for the following reasons:
 
 * Classic mirrored queues were deprecated in RabbitMQ version 3.9. They will be removed completely in RabbitMQ version 4.0.
 * Quorum queues can sustain much higher throughput levels in almost all use cases. A quorum queue can sustain a 30000 messages throughput (using 1kb messages), while offering high levels of data safety and replicating data to all 3 nodes in a cluster. Classic mirrored queues only offer a third of that throughput and provide much lower levels of data safety. 
-* Quorum queues are more reliable, faster for most workloads. and require little maintenance. For more information, go to Quorum Queues. 
+* Quorum queues are more reliable, faster for most workloads. and require little maintenance. For more information, go to [Quorum Queues](https://www.rabbitmq.com/quorum-queues.html). 
 
-**Note**: While quorum queues are the best choice of queue type, they are not 100% compatible feature wise with mirrored classic queues. In [quorum queue documentation](https://www.rabbitmq.com/quorum-queues.html#feature-matrix), you can review the feature matrix table which lists the differences between mirrored classic queues and quorum queues. These differences require different steps to successfully migrate from mirrored classic queues to quorum queues. Some of the steps can require a lot of configuration, while others require changes in the way an application interacts with RabbitMQ. It is also important to note that migrated applications should be thoroughly against quorum queues, as behaviour can be different under the load and in edge cases.
+**Note**: While quorum queues are the best choice of queue type, they are not 100% compatible feature wise with mirrored classic queues. In [quorum queue documentation](https://www.rabbitmq.com/quorum-queues.html#feature-matrix), you can review the feature matrix table which lists the differences between mirrored classic queues and quorum queues. These differences require different steps to successfully migrate from mirrored classic queues to quorum queues. Some of the steps require some configuration changes, while others require changes in the way an application interacts with RabbitMQ. It is also important to note that migrated applications should be thoroughly tested against quorum queues because the behaviour can differ under the load and in edge cases.
 
 ## Deciding which Migration Route to take: Compatibility Considerations
 
-[Migrating the Queues by Virtual Host](#migrate-the-queues-by-virtual-host) is probably the most efficient migration path you can take if it is an option for you. If all the incompatible features are cleaned up or moved to policies, the existing code is able to work both with mirrored classic queues and quorum queues by only changing connection parameters to the new vhost that you created for the quorum queues.
+[Migrating the Queues by Virtual Host](#migrate-the-queues-by-virtual-host) is probably the most efficient migration path you can take if it is an option for you. If all the incompatible features are cleaned up or moved to policies, the existing code work with both  mirrored classic queues and quorum queues. You only need to change the connection parameters to the new virtual host that you created for the quorum queues.
 
 [Migrating in Place](#migrate-in-place) means you re-use the same virtual host. You must be able to stop all consumers and producers for a given queue.
 
@@ -36,7 +36,7 @@ Before deciding which migration method you can use, you must first find the mirr
 
 ## <a id="find-mcq" class="anchor" href="#find-mcq">Finding the Mirrored Classic Queues for Migration</a>
 
-Run the following commands to retrieve the list of mirrored classic queues that must be migrated. Note the following command uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from a fresh??? version of RabbitMQ, or manually match the policy name to it's definition.
+Run the following commands to retrieve the list of mirrored classic queues that must be migrated. Note the following command uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from any RabbitMQ version later than 3.10.13/3.11.5, or manually match the policy name to it's definition.
 
 ```bash
 #!/bin/sh
@@ -58,14 +58,14 @@ for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
     grep 'ha-mode'
 done
 ```
-## Features in use by Mirrored Classic Queues where Migration is Complex
-When one or more of the following features are used by mirrored classic queues, straightforward migration to quorum queues is not possible. The way that application interacts with a broker needs to be changed. This information explains how to find whether some of these features are being used in a running system, and what changes need to be made for easier migration.
+## Mirrored Classic Queues Features that require Configuration Changes for Migration
+When one or more of the following features are used by mirrored classic queues, straightforward migration to quorum queues is not possible. The way the application interacts with a broker needs to be changed. This information explains how to find whether some of these features are being used in a running system, and what changes you must make for an easier migration.
 
 ### Priority Queues
 To find out if a classic mirrored queue uses the "priority " feature, you can check for the `x-max-priority` string in
-the list of queues output that is provided by running the command in Finding the Mirrored Classic Queues for Migration](#find-mcq) or you can also search for the `x-max-priority` string in the source code. For more information on how the priority is implemented, go to [Priority Queue Support](https://www.rabbitmq.com/priority.html).
+the list of queues output that is provided by running the command in [Finding the Mirrored Classic Queues for Migration](#find-mcq) or you can also search for the `x-max-priority` string in the source code. For more information on how the priority is implemented, go to [Priority Queue Support](https://www.rabbitmq.com/priority.html).
 
-Priority queues are not created using a policy, therefore no policy changes are required when migrating them. Classic mirrored queues create a separate queue for every priority behind the scenes. To migrate a single mirrored classic queues that uses the "priority" feature, you must create the required number amount of quorum queues. Once the quorum queues are created, adjust the publishing and consumption of these new quorum queues accordingly.
+Priority queues are not created using a policy, therefore no policy changes are required when migrating them. Classic mirrored queues create a separate queue for every priority behind the scenes. To migrate a single mirrored classic queue that uses the "priority" feature, you must create the required number amount of quorum queues. Once the quorum queues are created, adjust the publishing and consumption of these new quorum queues accordingly.
 
 ### Queue Length Limit overflow set to `reject-publish-dlx`
 
@@ -96,11 +96,11 @@ Mirrored queues consumers can be [automatically
 cancelled](https://www.rabbitmq.com/ha.html#cancellation) when a queue
 leader fails over. This can cause loss of information about which messages were sent to which consumer, and result in the same messages being sent again (duplicate messages). 
 
-Quorum queues will not have the same results in this situation i.e. duplicate messages are not sent again except when there is a complete node failure,  or messages are resent for inflight messages when the consumer is cancelled or the channel is closed.
+Quorum queues will not have the same results in this situation i.e. duplicate messages are not sent again except when there is a node failure, or messages are resent for inflight messages when the consumer is cancelled or the channel is closed.
 
 In summary, with mirrored classic queues, you can observe possible duplicates in some cases. With quorum queues, this observation is not possible but duplicates messages can still happen (less frequently) for some of the reasons they happened when using mirrored classic queues. 
 
-## Features in use by Mirrored Classic Queues that Simply need to be removed from Source Code or moved to a Policy
+## Mirrored Classic Queues Features that can be removed from Source Code or moved to a Policy
 
 The following features don't complete any function when quorum queues are
 used. The best way to handle these features is to remove them from the source
@@ -118,26 +118,23 @@ is to move `x-queue-mode` from the source code to a policy.
 [Transcient queues](https://www.rabbitmq.com/queues.html#durability) are deleted on a node/cluster boot. 
 
 The plan is to remove transcient queues in future RabbitMQ releases.
-The only option for transcient queues then will be exclusive queues. This only
-affects the durability of queue definitions. Messages can still be marked
-transient.
+The only option for transcient queues then will be exclusive queues. This only affects the durability of queue definitions. Messages can still be marked transient.
 
-You must make decision for transcient queues, is the content of the 
-queue important enough to get availability guarantees of
-quorum queues, or is it better to downgrade the transcient queue to a classic non-mirrored queue (classic mirrored queues are being removed but classic non-mirrored queues will still be available).
+You must make a decision about transcient queues before migration, is the content of the 
+queue important enough to get availability guarantees of quorum queues, or is it better to downgrade the transcient queue to a classic non-mirrored queue (classic mirrored queues are being removed but classic non-mirrored queues will still be available).
 
 ### Exclusive queues
 
 [Exclusive queues](https://www.rabbitmq.com/queues.html#exclusive-queues) are not mirrored. An attempt to create an exclusive mirrored queue creates a  non-mirrored queue so the mirroring policy is ignored.
 
-For exclusive queues that are not mirrored, you must decide before migrating whether to leave the queue as an exclusive queue or change it to a replicated queue during migration. Therefore, you must be careful not to make exclusive queue declarations with an explicit `x-queue-type: quorum` argument.
+For exclusive queues that are not mirrored, you must decide whether to leave the queue as an exclusive queue or change it to a replicated queue during migration. Therefore, you must be careful not to make exclusive queue declarations with an explicit `x-queue-type: quorum` argument.
 
 
 ### <a id="migrate-the-queues-by-virtual-host" class="anchor" href="#migrate-the-queues-by-virtual-host">Migrate the Queues by Virtual Host</a>
 This procedure to migrate from mirrored classic queues to quorum queues
 is similar to a [blue-green cluster upgrade](https://rabbitmq.com/blue-green-upgrade.html),
 except you are migrating to a new virtual host on the same
-RabbitMQ cluster. Then, use the [Federation Plugin](https://rabbitmq.com/federation.html) to seamlessly migrate from the old virtual host to the new one.
+RabbitMQ cluster. Then, you use the [Federation Plugin](https://rabbitmq.com/federation.html) to seamlessly migrate from the old virtual host to the new one.
 
 **Important**: You can set the default queue type for the new virtual host. Setting it to
 `quorum` creates all the queues without an explicit type as 
@@ -259,7 +256,7 @@ After the queue is drained, the shovel can be deleted:
 ```bash
 rabbitmqctl clear_parameter shovel migrate-QUEUE_TO_MIGRATE
 ```
-## ### <a id="migrate-in-place" class="anchor" href="#migrate-in-place">Migrate in Place</a>
+### <a id="migrate-in-place" class="anchor" href="#migrate-in-place">Migrate in Place</a>
 
 Migrating this way trades uptime so that you can 
 complete the migration in an existing virtual host and cluster.
