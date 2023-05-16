@@ -204,7 +204,7 @@ rabbitmqadmin export -V OLD_VHOST OLD_VHOST.json
 The following changes needs to be made to this file before loading it back into the NEW_VHOST:
 
 1. Remove the `x-queue-type` declarations for queues that you want to have
-   as classic ones in the old virtual host, and as quorum ones in the
+   as classic mirrored queues in the old virtual host, and as quorum ones in the
    new virtual host.
 2. Other changes that must be applied to queue definitions:
    - Remove the `x-max-priority` argument.
