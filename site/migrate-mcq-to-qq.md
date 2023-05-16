@@ -63,7 +63,7 @@ When one or more of the following features are used by mirrored classic queues, 
 
 ### Priority Queues
 To find out if a classic mirrored queue uses the "priority " feature, you can check for the `x-max-priority` string in
-the list of queues output that is provided by running the command in the [Finding the Mirrored Classic Queues for Migration](#find-mcq) section or you can also search for the `x-max-priority` string in the source code. For more information on how the priority is implemented, go to [Priority Queue Support](https://www.rabbitmq.com/priority.html).
+the list of queues output that is provided by running the command in the [Finding the Mirrored Classic Queues for Migration](#find-mcq) or you can also search for the `x-max-priority` string in the source code. For more information on how the priority is implemented, go to [Priority Queue Support](https://www.rabbitmq.com/priority.html).
 
 Priority queues are not created using a policy, therefore no policy changes are required when migrating them. Classic mirrored queues create a separate queue for every priority behind the scenes. To migrate a single mirrored classic queues that uses the "priority" feature, you must create the required number amount of quorum queues. Once the quorum queues are created, adjust the publishing and consumption of these new quorum queues accordingly.
 
@@ -73,7 +73,7 @@ The queue length exceeded with `overflow` set to [`reject-publish-dlx`](https://
 
 With mirrored classic queues, publishing to a full queue with `reject-publish-dlx` resulted in RabbitMQ republishing a rejected message to a dead letter exchange. With quorum queues, to apply the same logic, you must change `reject-publish-dlx` to `reject-publish`. Then, handle negative acknowledgements: after getting a negative acknowledgement, the application must publish the message again to a different exchange.
 
-To find out if  `overflow` set to `reject-publish-dlx` is configured for the mirrored classic queues you want to migrate, check for the `x-max-priority` string in the list of queues output that is provided by running the command in the **Finding the Mirrored Classic Queues for Migration**  section or you can also search for the ``reject-publish-dlx`` string in the source code.
+To find out if  `overflow` set to `reject-publish-dlx` is configured for the mirrored classic queues you want to migrate, check for the `x-max-priority` string in the list of queues output that is provided by running the command in the [Finding the Mirrored Classic Queues for Migration](#find-mcq) or you can also search for the ``reject-publish-dlx`` string in the source code.
 
 ### Global QoS for Consumers
 
