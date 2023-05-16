@@ -222,9 +222,7 @@ The following changes needs to be made to this file before loading it back into 
    policies, pointing to the federation upstream created earlier:
    `"federation-upstream-set":"quorum-migration-upstream"`.
 6. If there is no catch-all policy (applying to queues with pattern `.*`), it needs to be created and also point to the federation upstream. This ensures that every queue in the old vhost will be federated.
-7. Policies that apply federation rules to exchanges need to be
-   removed for the period of the migration to avoid duplicate
-   messages.
+7. Policies that apply federation rules to exchanges must be removed for the period of the migration to avoid duplicate messages.
 
 Now the modified schema can be loaded into the new virtual host from the Management
 UI or by running the following command from the CLI:
