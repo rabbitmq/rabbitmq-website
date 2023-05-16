@@ -131,8 +131,7 @@ durable) queue.
 
 [Exclusive queues](https://www.rabbitmq.com/queues.html#exclusive-queues) are not mirrored. An attempt to create an exclusive mirrored queue creates a  non-mirrored queue so the mirroring policy is ignored.
 
-For exclusive queues that are not mirrored before migration, you must decide before migrating whether to leave that queue as an exclusive queue or change it to a replicated queue during migration. Therefore, you must be careful not to make exclusive queue declarations with
-an explicit `x-queue-type: quorum` argument.
+For exclusive queues that are not mirrored, you must decide before migrating whether to leave the queue as an exclusive queue or change it to a replicated queue during migration. Therefore, you must be careful not to make exclusive queue declarations with an explicit `x-queue-type: quorum` argument.
 
 
 ### <a id="migrate-the-queues-by-virtual-host" class="anchor" href="#migrate-the-queues-by-virtual-host">Migrate the Queues by Virtual Host</a>
