@@ -30,7 +30,7 @@ You should migrate to mirrored classic queues for the following reasons:
 
 [Migrating the Queues by Virtual Host](#migrate-the-queues-by-virtual-host) is probably the most efficient migration path you can take if it is an option for you. If all the incompatible features are cleaned up or moved to policies, the existing code is able to work both with mirrored classic queues and quorum queues by only changing connection parameters to the new vhost that you created for the quorum queues.
 
-Migrating in Place means you re-use the same virtual host. You must be able to stop all consumers and producers for a given queue.
+[Migrating in Place](#migrate-in-place) means you re-use the same virtual host. You must be able to stop all consumers and producers for a given queue.
 
 Before deciding which migration method you can use, you must first find the mirrored classic queues and the features they are using. 
 
@@ -270,7 +270,7 @@ After the queue is drained, the shovel can be deleted:
 ```bash
 rabbitmqctl clear_parameter shovel migrate-QUEUE_TO_MIGRATE
 ```
-## Migrate in Place {#in-place-migration}
+## ### <a id="migrate-in-place" class="anchor" href="#migrate-in-place">Migrate in Place</a>
 
 Migrating this way trades uptime so that you can 
 complete the migration in an existing virtual host and cluster.
