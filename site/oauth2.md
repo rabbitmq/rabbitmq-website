@@ -168,6 +168,8 @@ NOTE: `jwks_url` takes precedence over `signing_keys` if both are provided.
 | `auth_oauth2.resource_server_id`         | [The Resource Server ID](#resource-server-id-and-scope-prefixes)
 | `auth_oauth2.resource_server_type`       | [The Resource Server Type](#rich-authorization-request)
 | `auth_oauth2.additional_scopes_key`      | Configure the plugin to also look in other fields (maps to `additional_rabbitmq_scopes` in the old format).
+| `auth_oauth2.scope_prefix`               | Configure prefix for all scopes. Default value is the value of  
+`auth_oauth2.resource_server_id` |
 | `auth_oauth2.preferred_username_claims`  | List of JWT claims to look for username associated to the token
 | `auth_oauth2.default_key`                | ID of the default signing key.
 | `auth_oauth2.signing_keys`               | Paths to signing key files.
@@ -206,13 +208,23 @@ auth_oauth2.https.hostname_verification = wildcard
 auth_oauth2.algorithms.1 = HS256
 auth_oauth2.algorithms.2 = RS256
 </pre>
-### <a id="resource-server-id" class="anchor" href="#resource-server-id">Resource Server ID and Scope Prefixes</a>
 
-OAuth 2.0 (and thus UAA-provided) tokens use scopes to communicate what set of permissions particular
+### <a id="resource-server-id" class="anchor" href="#resource-server-id">Resource Server ID and scope prefix</a>
+
+OAuth 2.0 tokens use scopes to communicate what set of permissions particular
 client has been granted. The scopes are free form strings.
 
-`resource_server_id` is a prefix used for scopes in UAA to avoid scope collisions (or unintended overlap).
-It is an empty string by default.
+By default, `resource_server_id` followed by the dot (`.`) character is the prefix used for scopes to avoid scope collisions (or unintended overlap).
+However, in some environments, it is not possible to use `resource_server_id` as the prefix for all scopes. For these environments, there is a new setting called `scope_prefix` which overrides the default scope prefix. Empty strings are allowed.
+
+Given the below configuration, the scope associated to the permission `read:*/*` is `api://read:*/*`.
+<pre class="lang-ini">
+...
+auth_oauth2.scope_prefix = api://
+...
+
+</pre>
+
 
 ### <a id="token-validation" class="anchor" href="#token-validation">Token validation</a>
 
@@ -273,9 +285,12 @@ These are the typical permissions examples:
 
 See the [wildcard matching test suite](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_auth_backend_oauth2/test/wildcard_match_SUITE.erl) and [scopes test suite](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_auth_backend_oauth2/test/scope_SUITE.erl) for more examples.
 
-Scopes should be prefixed with `resource_server_id`. For example,
-if `resource_server_id` is "my_rabbit", a scope to enable read from any vhost will
+Scopes, by default, are prefixed with `resource_server_id` followed by the dot (`.`) character if `scope_prefix`
+is not configured. For example, if `resource_server_id` is "my_rabbit", a scope to enable read from any vhost will
 be `my_rabbit.read:*/*`.
+
+If `scope_prefix` is configured then scopes are prefixed as follows: `<scope_prefix><permission>`. For example,
+if `scope_prefix` is `api://` and the permission is `read:*/*` the scope would be `api://read:*/*`
 
 ### <a id="topic-exchange-scopes" class="anchor" href="#topic-exchange-scopes">Topic Exchange scopes</a>
 
