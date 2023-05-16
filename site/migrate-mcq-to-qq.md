@@ -94,8 +94,7 @@ rabbitmqctl list_consumers queue_name channel_pid
 
 Mirrored queues consumers can be [automatically
 cancelled](https://www.rabbitmq.com/ha.html#cancellation) when a queue
-leader fails over. This can cause a loss of information about which
-messages were sent to which consumer, and result in the same messages being sent again (duplicate messages). 
+leader fails over. This can cause loss of information about which messages were sent to which consumer, and result in the same messages being sent again (duplicate messages). 
 
 Quorum queues will not have the same results in this situation i.e. duplicate messages are not sent again except when there is a complete node failure,  or messages are resent for inflight messages when the consumer is cancelled or the channel is closed.
 
