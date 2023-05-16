@@ -140,7 +140,7 @@ error. This is clearly one of the cases where migration is not needed,
 but care must be taken as to avoid exclusive queue declarations with
 an explicit `x-queue-type: quorum` argument.
 
-## Migrate the Queues by Virtual Host {#new-vhost-migration}
+## Migrate the Queues by Virtual Host {#new-virtual-host-migration}
 
 This procedure to migrate from mirrored classic queues to quorum queues
 is similar to a [blue-green cluster upgrade](https://rabbitmq.com/blue-green-upgrade.html),
@@ -274,7 +274,7 @@ After the queue is drained, the shovel can be deleted:
 ```bash
 rabbitmqctl clear_parameter shovel migrate-QUEUE_TO_MIGRATE
 ```
-## Migrate in Place 
+## Migrate in Place {#in-place-migration}
 
 Migrating this way trades uptime so that you can 
 complete the migration in an existing virtual host and cluster.
