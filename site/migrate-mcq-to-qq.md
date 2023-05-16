@@ -98,7 +98,7 @@ leader fails over. This can cause loss of information about which messages were 
 
 Quorum queues will not have the same results in this situation i.e. duplicate messages are not sent again except when there is a complete node failure,  or messages are resent for inflight messages when the consumer is cancelled or the channel is closed.
 
-In summary, with mirrored classic queues, you can observe possible duplicates in some cases. With quorum queues, this observation is not possible but you should note that duplicates messages can still happen for some of the reasons they happened when using mirrored classic queues. However, duplicate messages occur less frequent with quorum queues.
+In summary, with mirrored classic queues, you can observe possible duplicates in some cases. With quorum queues, this observation is not possible but duplicates messages can still happen (less frequently) for some of the reasons they happened when using mirrored classic queues. 
 
 ## Features in use by Mirrored Classic Queues that Simply need to be removed from Source Code or moved to a Policy
 
