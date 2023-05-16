@@ -140,5 +140,161 @@ error. This is clearly one of the cases where migration is not needed,
 but care must be taken as to avoid exclusive queue declarations with
 an explicit `x-queue-type: quorum` argument.
 
+## Migrate the Queues by Virtual Host {#new-vhost-migration}
+
+This procedure to migrate from mirrored classic queues to quorum queues
+is similar to a [blue-green cluster upgrade](https://rabbitmq.com/blue-green-upgrade.html),
+except you are migrating to a new virtual host on the same
+RabbitMQ cluster. [Federation Plugin](https://rabbitmq.com/federation.html) is then being
+used to seamlessly migrate from the old virtual host to the new one.
+
+**Important**: You can set the default queue type for the new virtual host. Setting it to
+`quorum` creates all the queues without an explicit type as 
+quorum queues (except for exclusive, non-durable, or auto-delete queues).
+
+If all incompatible features were cleaned up from the source code, and
+there is no explicit `x-queue-type` arguments in the source code, then
+you can use the same code to work both the old
+virtual host with classic mirrored queues and the new virtual
+host with quorum queues. The only change you need to make is to update the virtual host connection parameters to connect to the new virtual host.
+
+### General Prerequisites
+
+1. A minimum of 3 nodes in the RabbitMQ cluster is required (there is no reason to use quorum queues with a smaller amount of replicas).
+2. The Management plugin should be running on at least one node. It is used to export/import definitions for a single host,
+   which simplifies definitions cleanup. (`rabbitmqadmin` CLI command is also using the plugin behind the scenes).
+3. The [Shovel plugin](https://www.rabbitmq.com/shovel.html) should be enabled.
+
+### Create the Destination Virtual Host
+
+Create the new virtual host with the correct default queue type (quorum). It should be selected from the
+**queue type** drop down list when the new virtual host is being added via
+management UI. Alternatively, it can also be created using the CLI interface by specifying
+the default queue type and adding some permissions:
+
+```bash
+rabbitmqctl add_vhost NEW_VHOST --default-queue-type quorum
+rabbitmqctl set_permissions -p NEW_VHOST USERNAME '.*' '.*' '.*'
+```
+
+### Create the Federation Upstream
+
+A new [federation upstream](https://www.rabbitmq.com/federation.html#getting-started) should be created for the NEW\_VHOST with the
+URI pointing to the OLD\_VHOST: `amqp:///OLD_VHOST`. (Note that the
+default vhost URI is `amqp:///%2f`).
+
+The federation upstream can be created using the management UI or the CLI:
+```bash
+rabbitmqctl set_parameter federation-upstream quorum-migration-upstream \
+    --vhost NEW_VHOST \
+    '{"uri":"amqp:///OLD_VHOST", "trust-user-id":true}'
+```
+
+When this form of URI with an empty hostname is used, there is no
+need to specify credentials. Connection is only possible within
+bounds of a single cluster.
+
+If the `user-id` in messages is being used for any purpose, it can also be
+preserved as shown in the CLI example above.
+
+### Moving Definitions
+
+Export the definitions from the source virtual host to a file. This is
+available on the **Overview** page of the management UI (don't forget to
+select a single virtual host). Alternatively, you can export the definitions using the CLI with the folloiwing command:
+
+```bash
+rabbitmqadmin export -V OLD_VHOST OLD_VHOST.json
+```
+
+The following changes needs to be made to this file before loading it back into the NEW_VHOST:
+
+1. Remove the `x-queue-type` declarations for queues that you want to have
+   as classic ones in the old virtual host, and as quorum ones in the
+   new virtual host.
+2. Other changes that must be applied to queue definitions:
+   - Remove the `x-max-priority` argument.
+   - Change the `x-overlow` argument when it is set to `reject-publish-dlx`. Change it to `reject-publish`.
+   - Remove the `x-queue-mode` argument.
+   - Change `durable` attribute to `true`
+3. Change the following keys in the policies:
+   - Remove everything starting with `ha-`: `ha-mode`, `ha-params`,
+     `ha-sync-mode`, `ha-sync-batch-size`, `ha-promote-on-shutdown`,
+     `ha-promote-on-failure`
+   - Remove the `queue-mode`.
+   - Change `overflow` when it is set to `reject-publish-dlx`. Change it to `reject-publish`.
+4. Policies that are empty after the previous step should be dropped.
+5. Federation with the old vhost should be added to any remaining
+   policies, pointing to the federation upstream created earlier:
+   `"federation-upstream-set":"quorum-migration-upstream"`
+6. If there is no catch-all policy (applying to queues with pattern
+   `.*`), it needs to be created and also point to the federation
+   upstream. This ensures that every queue in the old vhost will be
+   federated.
+7. Policies that apply federation rules to exchanges need to be
+   removed for the period of the migration to avoid duplicate
+   messages.
+
+Now the modified schema can be loaded into the new virtual host from the Management
+UI or by running the following command from the CLI:
+
+```bash
+rabbitadmin import -V NEW_VHOST NEW_VHOST.json
+```
+
+### Point Consumers to the New Virtual Host
+
+At this point it should be possible to point consumers to the new
+virtual host by updating the connection parameters.
+
+### Point Producers to the New Virtual Host
+
+Producers can now be also pointed to the new virtual host.
+
+The time when consumers are stopped is also the time where federated
+exchanges should be disabled in the old vhost and enabled in the new
+one.
+
+Under sufficient system load messages from the old virtual host will
+not be picked up. If message ordering is important then ordering should
+be completed in these steps: stop producers, shovel remaining messages to the new
+virtual host, and start consumers on the new virtual host.
+
+### Shovel Remaining Messages to the New Virtual Host
+
+For every non-empty queue in the old virtual host, a shovel needs to be configured. For example:
+
+```bash
+rabbitmqctl set_parameter shovel migrate-QUEUE_TO_MIGRATE \
+  '{"src-protocol": "amqp091", "src-uri": "amqp:///OLD_VHOST", "src-queue": "QUEUE_TO_MIGRATE",
+    "dest-protocol": "amqp091", "dest-uri": "amqp:///NEW_VHOST", "dest-queue": "QUEUE_TO_MIGRATE"}'
+```
+
+After the queue is drained, the shovel can be deleted:
+```bash
+rabbitmqctl clear_parameter shovel migrate-QUEUE_TO_MIGRATE
+```
+## Migrate in Place 
+
+Migrating this way trades uptime so that you can 
+complete the migration in an existing virtual host and cluster.
+
+For each queue (or some group of queues) being migrated, it should be
+possible to stop all the consumers and producers for the duration of the 
+migration.
+
+### Preparing Producers and Consumers
+
+All incompatible features should be cleaned up. In addition, every place where queues are being declared, it would be better to make the
+`x-queue-type` argument configurable without changing the application code.
+
+### The Migration Steps
+
+1. Stop the consumers and producers.
+2. Shovel the messages to a new temporary queue.
+3. Delete the old queue.
+4. Create a new quorum queue with the same name as the original queue.
+5. Shovel the contents of the temporary queue to the new quorum queue.
+6. Configure the consumers to use `x-queue-type` of `quorum` and they can be started.
 
 
