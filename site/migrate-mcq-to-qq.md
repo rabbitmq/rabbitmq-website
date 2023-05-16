@@ -195,7 +195,7 @@ preserved as shown in the CLI example above.
 
 Export the definitions from the source virtual host to a file. This is
 available on the **Overview** page of the management UI (don't forget to
-select a single virtual host). Alternatively, you can export the definitions using the CLI with the folloiwing command:
+select a single virtual host). Alternatively, you can export the definitions using the CLI with the following command:
 
 ```bash
 rabbitmqadmin export -V OLD_VHOST OLD_VHOST.json
