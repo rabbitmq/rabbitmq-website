@@ -34,7 +34,7 @@ You should migrate to mirrored classic queues for the following reasons:
 
 Before deciding which migration method you can use, you must first find the mirrored classic queues and the features they are using. 
 
-## ### <a id="find-mcq" class="anchor" href="#find-mcq">Finding the Mirrored Classic Queues for Migration</a>
+## <a id="find-mcq" class="anchor" href="#find-mcq">Finding the Mirrored Classic Queues for Migration</a>
 
 Run the following commands to retrieve the list of mirrored classic queues that must be migrated. Note the following command uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from a fresh??? version of RabbitMQ, or manually match the policy name to it's definition.
 
