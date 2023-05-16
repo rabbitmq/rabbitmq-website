@@ -118,7 +118,7 @@ is to move `x-queue-mode` from the source code to a policy.
 [Transcient queues](https://www.rabbitmq.com/queues.html#durability) are deleted on a node/cluster boot. 
 
 The plan is to remove transcient queues in future RabbitMQ releases.
-the only option for ephemeral queues will be exclusive queues. This
+the only option for transcient queues will be exclusive queues. This
 affects only durability of queue definitions, messages can still be marked
 transient.
 
