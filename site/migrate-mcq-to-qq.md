@@ -102,7 +102,7 @@ In summary, with mirrored classic queues, you can observe possible duplicates in
 
 ## Features in use by Mirrored Classic Queues that Simply need to be removed from Source Code or moved to a Policy
 
-The following features don't complete any function when quorum queues are being
+The following features don't complete any function when quorum queues are
 used. The best way to handle them is to completed remove them from the source
 code, or move them to a policy instead.
 
