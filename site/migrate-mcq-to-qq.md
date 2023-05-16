@@ -58,7 +58,7 @@ for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
     grep 'ha-mode'
 done
 ```
-## Mirrored Classic Queues Features that require Configuration Changes for Migration
+## Mirrored Classic Queue Features that require Configuration Changes for Migration
 When one or more of the following features are used by mirrored classic queues, straightforward migration to quorum queues is not possible. The way the application interacts with a broker needs to be changed. This information explains how to find whether some of these features are being used in a running system, and what changes you must make for an easier migration.
 
 ### Priority Queues
@@ -100,7 +100,7 @@ Quorum queues will not have the same results in this situation i.e. duplicate me
 
 In summary, with mirrored classic queues, you can observe possible duplicates in some cases. With quorum queues, this observation is not possible but duplicates messages can still happen (less frequently) for some of the reasons they happened when using mirrored classic queues. 
 
-## Mirrored Classic Queues Features that can be removed from Source Code or moved to a Policy
+## Mirrored Classic Queue Features that can be removed from Source Code or moved to a Policy
 
 The following features don't complete any function when quorum queues are
 used. The best way to handle these features is to remove them from the source
