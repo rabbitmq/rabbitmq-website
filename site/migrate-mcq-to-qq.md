@@ -28,7 +28,7 @@ You should migrate to mirrored classic queues for the following reasons:
 
 ## The Migration Routes: Migrate the Queues by Virtual Host OR Migrate in place
 
-[Migrating the Queues by Virtual Host])#migrate-the-queues-by-virtual-host) is probably the most efficient migration path you can take if it is an option for you. If all the incompatible features are cleaned up or moved to policies, the existing code is able to work both with mirrored and quorum queues by only changing connection parameters to the new vhost that you created for the quorum queues.
+[Migrating the Queues by Virtual Host](#migrate-the-queues-by-virtual-host) is probably the most efficient migration path you can take if it is an option for you. If all the incompatible features are cleaned up or moved to policies, the existing code is able to work both with mirrored and quorum queues by only changing connection parameters to the new vhost that you created for the quorum queues.
 
 Migrating in Place means you re-use the same virtual host. You must be able to stop all consumers and producers for a given queue.
 
