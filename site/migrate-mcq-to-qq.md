@@ -168,13 +168,13 @@ host with quorum queues. The only change you need to make is to update the virtu
 
 ### Create the Destination Virtual Host
 
-[Create the new virtual host](https://rabbitmq.com/vhosts.html#creating) with the correct default queue type (quorum) in either the existing cluster or a new cluster. The queue type should be selected from the **queue type** drop down list when the new virtual host is being added via management UI. Alternatively, it can also be created using the CLI interface by specifying the default queue type and adding some permissions:
+[Create the new virtual host](https://rabbitmq.com/vhosts.html#creating) with the correct default queue type (quorum) in the existing cluster. The queue type should be selected from the **queue type** drop down list when the new virtual host is being added via management UI. Alternatively, it can also be created using the CLI interface by specifying the default queue type and adding the permissions. Ensure all required users have access and can connect to the new virtual host by following the steps in the [set permissions](https://rabbitmq.com/rabbitmqctl.8.html#set_permissions). 
 
 ```bash
 rabbitmqctl add_vhost NEW_VHOST --default-queue-type quorum
 rabbitmqctl set_permissions -p NEW_VHOST USERNAME '.*' '.*' '.*'
 ```
-Ensure all required users have access and can connect to the new virtual host by following the steps in the [set permissions](https://rabbitmq.com/rabbitmqctl.8.html#set_permissions).
+
 ### Create the Federation Upstream
 
 A new [federation upstream](https://rabbitmq.com/blue-green-upgrade.html#setup-federation) should be created for the NEW\_VHOST with the
@@ -190,10 +190,10 @@ rabbitmqctl set_parameter federation-upstream quorum-migration-upstream \
 
 When this form of URI with an empty hostname is used, there is no
 need to specify credentials. Connection is only possible within
-bounds of a single cluster.
+the bounds of a single cluster.
 
 If the `user-id` in messages is being used for any purpose, it can also be
-preserved as shown in the CLI example above.
+preserved as shown in the previous CLI example.
 
 ### Moving Definitions
 
@@ -205,7 +205,7 @@ select a single virtual host). Alternatively, you can export the definitions usi
 rabbitmqadmin export -V OLD_VHOST OLD_VHOST.json
 ```
 
-The following changes needs to be made to this file before loading it back into the NEW_VHOST:
+Make the following changes to this file before loading it back into the NEW_VHOST:
 
 1. Remove the `x-queue-type` declarations for queues that you want to have
    as classic mirrored queues in the old virtual host, and as quorum ones in the
@@ -214,7 +214,7 @@ The following changes needs to be made to this file before loading it back into 
    - Remove the `x-max-priority` argument.
    - Change the `x-overlow` argument when it is set to `reject-publish-dlx`. Change it to `reject-publish`.
    - Remove the `x-queue-mode` argument.
-   - Change `durable` attribute to `true`.
+   - Change the `durable` attribute to `true`.
 3. Change the following keys in the policies:
    - Remove everything starting with `ha-`: `ha-mode`, `ha-params`,
      `ha-sync-mode`, `ha-sync-batch-size`, `ha-promote-on-shutdown`, and 
@@ -222,10 +222,10 @@ The following changes needs to be made to this file before loading it back into 
    - Remove the `queue-mode`.
    - Change `overflow` when it is set to `reject-publish-dlx`. Change it to `reject-publish`.
 4. Policies that are empty after the previous step should be dropped.
-5. Federation with the old vhost should be added to any remaining
+5. Federation with the old virtual host should be added to any remaining
    policies, pointing to the federation upstream created earlier:
    `"federation-upstream-set":"quorum-migration-upstream"`.
-6. If there is no catch-all policy (applying to queues with pattern `.*`), it needs to be created and also point to the federation upstream. This ensures that every queue in the old vhost will be federated.
+6. If there is no catch-all policy (applying to queues with pattern `.*`), you must create this policy and point it to the federation upstream. This ensures that every queue in the old virtual host will be federated.
 7. Policies that apply federation rules to exchanges must be removed for the period of the migration to avoid duplicate messages.
 
 Now the modified schema can be loaded into the new virtual host from the Management
@@ -237,15 +237,13 @@ rabbitadmin import -V NEW_VHOST NEW_VHOST.json
 
 ### Point Consumers to use Quorum Queues in the new Virtual Host
 
-Consumers of the migrated queues can now access the new queues by updating the connection parameters to connect to the new virtual host. The federation linksstart to pull in messages from the original queues.
+Consumers of the migrated queues can now access the new queues by updating the connection parameters to connect to the new virtual host. The federation links start to pull in messages from the original queues.
 
-As with a blue-green cluster, after all consumers are migrated, you might need to also add shovels to [move the backlog of the original queues to the new queues](#shovel-remaining-messages) more efficiently than federation. For more information, refer to [Drain Messages](https://rabbitmq.com/blue-green-upgrade.html#drain-messages).
+As with a blue-green cluster, after all consumers are migrated, you might need to also [add shovels to move the backlog of the original queues to the new queues](#shovel-remaining-messages) more efficiently than federation. For more information, refer to [Drain Messages](https://rabbitmq.com/blue-green-upgrade.html#drain-messages).
 
 ### Point Producers to the New Virtual Host
 
-Once the original queues are empty (or nearly empty if you do not require full message ordering), the producers should be stopped, reconfigured to use the new queue declarations and vhost like the consumers, and restarted. Federated exchanges in the old virtual host should also be stopped and equivalent exchanges should be added in the new virtual host. The original queues can be removed once they are fully empty and no messages are passing through them.
-
-When the consumers are stopped, turn off federated exchanges in the old virtual host and turn them on the in the new one. The original queues can be removed once they are completely empty and no messages are passing through them.
+Once the original queues are empty (or nearly empty if you do not require full message ordering), the producers should be stopped and reconfigured to use the new queue declarations and virtual host like the consumers, and restarted. Federated exchanges in the old virtual host should also be stopped and equivalent exchanges should be added in the new virtual host. The original queues can be removed once they are empty and no messages are passing through them.
 
 Under sufficient system, load messages from the old virtual host will
 not be picked up. If message ordering is important, then ordering should
