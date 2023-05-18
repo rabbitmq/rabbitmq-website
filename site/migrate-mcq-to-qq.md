@@ -28,19 +28,19 @@ You should migrate to mirrored classic queues for the following reasons:
 
 * While quorum queues are the best choice of queue type, they are not 100% compatible feature wise with mirrored classic queues. When you are deciding about whether to migrate from mirrored classic queues to quorum queues, it is recommended to review the [quorum queue documentation](https://www.rabbitmq.com/quorum-queues.html) first, you can review the [feature matrix table](https://www.rabbitmq.com/quorum-queues.html#feature-matrix) which provides a comparison of both types of queues (mirrored classic queues beside quorum queues)
 
-* The level of complexity involved in migrating from mirrored classic queues to quorum queues depends on the features that are currently being used by the mirrored classic queues. Some of the steps require some configuration changes, while others require changes in the way an application interacts with RabbitMQ. 
+* The level of complexity involved in migrating from mirrored classic queues to quorum queues depends on the features that are currently being used by the mirrored classic queues. Some of the steps require some configuration changes, refer to [Mirrored Classic Queue Features that require Changes in the Way the Queue is Used](#mcq-changes-way-queue-is-used), while others require changes in the way an application interacts with RabbitMQ, refer to [Mirrored Classic Queue Features that can be removed from Source Code or moved to a Policy](#mcq-features-to-remove). 
 
 * It is also important to note that migrated applications should be thoroughly tested against quorum queues because the behaviour can differ under the load and in edge cases. 
 
 ## Deciding which Migration Route to take: Compatibility Considerations
 
-Incompatible features can be either referenced in policies or in the source code. RabbitMQ completes strict validation of arguments for queue declaration and consumption. Therefore, for migration, you must clean up all the mentions of incompatible features from the source code. For some of these features, it is as simple as just removing corresponding strings but other features require a change in the way queues are being used. All these features are described below.
+Incompatible features can be either referenced in policies or in the source code. RabbitMQ completes strict validation of arguments for queue declaration and consumption. Therefore, for migration, you must clean up all the mentions of incompatible features from the source code. For some of these features, it is as simple as just removing corresponding strings, refer to refer to [Mirrored Classic Queue Features that can be removed from Source Code or moved to a Policy](#mcq-features-to-remove), but other features require a change in the way queues are being used, refer to [Mirrored Classic Queue Features that require Changes in the Way the Queue is Used](#mcq-changes-way-queue-is-used).
 
 The general policies and arguments related to mirroring are:`ha-mode`, `ha-params` `ha-sync-mode`, `ha-promote-on-shutdown`, `ha-promote-on-failure`, and `queue-master-locator`.
 
 The migration process you take can be one of the following:
-* [Migrating the Queues by Virtual Host](#migrate-the-queues-by-virtual-host) is probably the most efficient migration path you can take if it is an option for you. If all the incompatible features are cleaned up or moved to policies, the existing code work with both  mirrored classic queues and quorum queues. You only need to change the connection parameters to the new virtual host that you created for the quorum queues.
-* [Migrating in Place](#migrate-in-place) means you re-use the same virtual host. You must be able to stop all consumers and producers for a given queue.
+* [Migrating the Queues by Virtual Host](#migrate-the-queues-by-virtual-host) is probably the most efficient migration path you can take if it is an option for you. If all the incompatible features are cleaned up or moved to policies, the existing code should work with both mirrored classic queues and quorum queues. You only need to change the connection parameters to the new virtual host that you created for the quorum queues.
+* [Migrating in Place](#migrate-in-place) means you re-use the same virtual host. You must be able to stop all consumers and producers for a given queue while the migration is in progress.
 
 Before deciding which migration method you can use, you must first find the mirrored classic queues and the features they are using. 
 
@@ -48,7 +48,7 @@ Before deciding which migration method you can use, you must first find the mirr
 
 All mirrored classic queues that include a policy key  `ha-mode` in its policy must be migrated to a different type of queue. All these queues are listed as mirrored classic queues in the Management UI and CLI. 
 
-To find the mirrored classic queues that must be migrated, run the following script (which uses `rabbitmqctl` to count all the queues across all vhosts as tab-separated values). 
+To find the mirrored classic queues that must be migrated, run the following script (which uses `rabbitmqctl` to count all the queues across all the virtual hosts as tab-separated values). 
 
 ```bash
 #!/bin/sh
@@ -70,7 +70,7 @@ for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
 done
 ```
 
-## Mirrored Classic Queue Features that require Changes in the Way the Queue is Used
+## <a id="mcq-changes-way-queue-is-used" class="anchor" href="#mcq-changes-way-queue-is-used">Mirrored Classic Queue Features that require Changes in the Way the Queue is Used</a>
 When one or more of the following features are used by mirrored classic queues, straightforward migration to quorum queues is not possible. The way the application interacts with a broker needs to be changed. This information explains how to find whether some of these features are being used in a running system, and what changes you must make for an easier migration.
 
 ### Priority Queues
@@ -112,7 +112,7 @@ Quorum queues will not have the same results in this situation i.e. duplicate me
 
 In summary, with mirrored classic queues, you can observe possible duplicates in some cases. With quorum queues, this observation is not possible but duplicates messages can still happen (less frequently) for some of the reasons they happened when using mirrored classic queues. 
 
-## Mirrored Classic Queue Features that can be removed from Source Code or moved to a Policy
+## <a id="mcq-features-to-remove" class="anchor" href="#mcq-features-to-remove">Mirrored Classic Queue Features that can be removed from Source Code or moved to a Policy</a>
 
 The following features don't complete any function when quorum queues are
 used. The best way to handle these features is to remove them from the source
@@ -148,13 +148,11 @@ For exclusive queues that are not mirrored, you must decide whether to leave the
    which simplifies definitions cleanup. (`rabbitmqadmin` CLI command is also using the plugin behind the scenes).
 3. The [Shovel plugin](https://www.rabbitmq.com/shovel.html) should be enabled.
 
-
-
 ## <a id="migrate-the-queues-by-virtual-host" class="anchor" href="#migrate-the-queues-by-virtual-host">Migrate the Queues by Virtual Host</a>
 This procedure to migrate from mirrored classic queues to quorum queues
 is similar to a [blue-green cluster upgrade](https://rabbitmq.com/blue-green-upgrade.html),
 except you are migrating to a new virtual host on the same
-RabbitMQ cluster (the steps in the following sections use a new virtual host on the existing cluster to provide an empty namespace to create the new quorum queues using the old names.). 
+RabbitMQ cluster. The steps in the following sections use a new virtual host on the existing cluster to provide an empty namespace to create the new quorum queues using the old queue names. 
 
 Then, you use the [Federation Plugin](https://rabbitmq.com/federation.html) to seamlessly migrate from the old virtual host to the new one.
 
@@ -164,16 +162,13 @@ quorum queues (except for exclusive, non-durable, or auto-delete queues).
 
 If all incompatible features were cleaned up from the source code, and
 there is no explicit `x-queue-type` arguments in the source code, then
-you can use the same code to work both the old
+you the same code should work for both the old
 virtual host with classic mirrored queues and the new virtual
 host with quorum queues. The only change you need to make is to update the virtual host connection parameters to connect to the new virtual host.
 
 ### Create the Destination Virtual Host
 
-[Create the new virtual host](https://rabbitmq.com/vhosts.html#creating) with the correct default queue type (quorum). It should be selected from the
-**queue type** drop down list when the new virtual host is being added via
-management UI. Alternatively, it can also be created using the CLI interface by specifying
-the default queue type and adding some permissions:
+[Create the new virtual host](https://rabbitmq.com/vhosts.html#creating) with the correct default queue type (quorum) in either the existing cluster or a new cluster. The queue type should be selected from the **queue type** drop down list when the new virtual host is being added via management UI. Alternatively, it can also be created using the CLI interface by specifying the default queue type and adding some permissions:
 
 ```bash
 rabbitmqctl add_vhost NEW_VHOST --default-queue-type quorum
@@ -182,7 +177,7 @@ rabbitmqctl set_permissions -p NEW_VHOST USERNAME '.*' '.*' '.*'
 Ensure all required users have access and can connect to the new virtual host by following the steps in the [set permissions](https://rabbitmq.com/rabbitmqctl.8.html#set_permissions).
 ### Create the Federation Upstream
 
-A new [federation upstream](https://www.rabbitmq.com/federation.html#getting-started) should be created for the NEW\_VHOST with the
+A new [federation upstream](https://rabbitmq.com/blue-green-upgrade.html#setup-federation) should be created for the NEW\_VHOST with the
 URI pointing to the OLD\_VHOST: `amqp:///OLD_VHOST`. (Note that the
 default vhost URI is `amqp:///%2f`).
 
@@ -240,23 +235,24 @@ UI or by running the following command from the CLI:
 rabbitadmin import -V NEW_VHOST NEW_VHOST.json
 ```
 
-### Point Consumers to the New Virtual Host
+### Point Consumers to use Quorum Queues in the new Virtual Host
 
-At this point it should be possible to point consumers to the new
-virtual host by updating the connection parameters.
+Consumers of the migrated queues can now access the new queues by updating the connection parameters to connect to the new virtual host. The federation linksstart to pull in messages from the original queues.
+
+As with a blue-green cluster, after all consumers are migrated, you might need to also add shovels to [move the backlog of the original queues to the new queues](#shovel-remaining-messages) more efficiently than federation. For more information, refer to [Drain Messages](https://rabbitmq.com/blue-green-upgrade.html#drain-messages).
 
 ### Point Producers to the New Virtual Host
 
-Producers can now be also pointed to the new virtual host.
+Once the original queues are empty (or nearly empty if you do not require full message ordering), the producers should be stopped, reconfigured to use the new queue declarations and vhost like the consumers, and restarted. Federated exchanges in the old virtual host should also be stopped and equivalent exchanges should be added in the new virtual host. The original queues can be removed once they are fully empty and no messages are passing through them.
 
-When the consumers are stopped, turn off federated exchanges in the old vhost and enabled them in the new one.
+When the consumers are stopped, turn off federated exchanges in the old virtual host and turn them on the in the new one. The original queues can be removed once they are completely empty and no messages are passing through them.
 
-Under sufficient system load messages from the old virtual host will
-not be picked up. If message ordering is important then ordering should
+Under sufficient system, load messages from the old virtual host will
+not be picked up. If message ordering is important, then ordering should
 be completed in these steps: stop producers, shovel remaining messages to the new
 virtual host, and start consumers on the new virtual host.
 
-### Shovel Remaining Messages to the New Virtual Host
+### <a id="shovel-remaining-messages" class="anchor" href="#shovel-remaining-messages">Shovel Remaining Messages to the New Virtual Host</a> 
 
 For every non-empty queue in the old virtual host, a shovel needs to be configured. For example:
 
