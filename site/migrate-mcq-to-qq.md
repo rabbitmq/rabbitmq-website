@@ -235,13 +235,13 @@ UI or by running the following command from the CLI:
 rabbitadmin import -V NEW_VHOST NEW_VHOST.json
 ```
 
-### Point Consumers to use Quorum Queues in the new Virtual Host
+### Point Consumers to use Quorum Queues in the New Virtual Host
 
 Consumers of the migrated queues can now access the new queues by updating the connection parameters to connect to the new virtual host. The federation links start to pull in messages from the original queues.
 
 As with a blue-green cluster, after all consumers are migrated, you might need to also [add shovels to move the backlog of the original queues to the new queues](#shovel-remaining-messages) more efficiently than federation. For more information, refer to [Drain Messages](https://rabbitmq.com/blue-green-upgrade.html#drain-messages).
 
-### Point Producers to the New Virtual Host
+### Update the Producers to Use the Exchanges in the new Virtual Host
 
 Once the original queues are empty (or nearly empty if you do not require full message ordering), the producers should be stopped and reconfigured to use the new queue declarations and virtual host like the consumers, and restarted. Federated exchanges in the old virtual host should also be stopped and equivalent exchanges should be added in the new virtual host. The original queues can be removed once they are empty and no messages are passing through them.
 
@@ -286,5 +286,3 @@ All incompatible features should be cleaned up. In addition, every place where q
 4. Create a new quorum queue with the same name as the original queue.
 5. Shovel the contents of the temporary queue to the new quorum queue.
 6. Configure the consumers to use `x-queue-type` of `quorum` and they can be started.
-
-
