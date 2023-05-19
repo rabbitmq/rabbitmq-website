@@ -32,13 +32,10 @@ against a given release of RabbitMQ. They are built at
 release time, and also when requested by a plugin
 author.
 
-Bugfix releases do not affect plugin compatibility.  
+Bugfix releases usually do not affect plugin compatibility.
 
-When RabbitMQ is upgraded, all community plugins must be re-installed, which can result in installing newer versions of them. Alternatively,they can be deactivated before or during the upgrade.
-
-If you are the author of a plugin and would like it listed
-here, please [get in touch](contact.html)!
-
+When RabbitMQ is upgraded, all community plugins must be re-installed, which can result in installing newer versions of them.
+Alternatively, they can be deactivated before or during the upgrade.
 
 ## <a id="routing" class="anchor" href="#routing">Routing</a>
 
@@ -182,30 +179,6 @@ here, please [get in touch](contact.html)!
         <li><a href="https://github.com/rabbitmq/rabbitmq-boot-steps-visualiser/releases">Releases</a></li>
         <li>Author: <b>Alvaro Videla</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-boot-steps-visualiser">rabbitmq/rabbitmq-boot-steps-visualiser</a></li>
-      </ul>
-    </td>
-  </tr>
-</table>
-
-
-## <a id="queues" class="anchor" href="#queues">Queue Types</a>
-
-<table class="plugins">
-  <tr>
-    <th>rabbitmq_priority_queue</th>
-  </tr>
-  <tr>
-    <td>
-      <i>
-        As of RabbitMQ 3.5.0 the <a href="priority.html">priority queue</a> plugin is
-        integrated into the broker. Users of the plugin
-        upgrading from previous versions of RabbitMQ should:
-      </i>
-      <ul>
-        <li>Install the new version of RabbitMQ</li>
-        <li>Invoke: <code>rabbitmq-plugins disable rabbitmq_priority_queue</code></li>
-        <li>Remove the plugin</li>
-        <li>Start the server</li>
       </ul>
     </td>
   </tr>
