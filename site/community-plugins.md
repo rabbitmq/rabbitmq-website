@@ -21,11 +21,8 @@ limitations under the License.
 
 Binary downloads of plugins, which are contributed by authors in the
 community are available. These plugins do not ship with the RabbitMQ
-server. You can use the download links on this page to download the latest
-build of the plugin, which is compiled against the latest feature
-release of RabbitMQ. 
-
-Refer to [how to install additional plugins](installing-plugins.html) for information on how to install the plugins. 
+server. Refer to [Installing Additional Plugins](installing-plugins.html) for information on how to install the plugins. Note, the latest
+build of the plugin, is compiled against the latest feature release of RabbitMQ. 
 
 There is no guarantee that these plugins work
 against a given release of RabbitMQ. They are built at
