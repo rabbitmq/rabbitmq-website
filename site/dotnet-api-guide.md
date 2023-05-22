@@ -37,7 +37,7 @@ Key sections of the guide are:
 * [Async Consumer Implementations](#consuming-async)
 * [Concurrency Considerations and Safety](#concurrency)
 * [Automatic Recovery From Network Failures](#recovery)
-* [OAuth 2 support](#oauth2-support)
+* [OAuth 2 Support](#oauth2-support)
 
 An [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitMQ.Client.html) is available separately.
 
@@ -880,14 +880,14 @@ recovery must be capable of handling redeliveries.
 
 The client can authenticate against an OAuth 2 server like [UAA](https://github.com/cloudfoundry/uaa).
 The [OAuth 2 plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_oauth2)
-must be enabled on the server side and configured to use the same OAuth 2 server as the client.
+must be turned on on the server side and configured to use the same OAuth 2 server as the client.
 
 ### <a id="oauth2-getting-token" class="anchor" href="#oauth2-getting-token">Getting the OAuth 2 Token</a>
 
 The .Net client provides the `OAuth2ClientCredentialsProvider`
 class to get a JWT token using the [OAuth 2 Client Credentials flow](https://tools.ietf.org/html/rfc6749#section-4.4).
-The client will send the access token in the password field when opening a connection.
-The broker will then verify the access token signature, validity, and permissions
+The client sends the access token in the password field when opening a connection.
+The broker then verifies the access token signature, validity, and permissions
 before authorising the connection and granting access to the requested
 virtual host.
 
@@ -906,7 +906,7 @@ var connection = connectionFactory.CreateConnection();
 
 </pre>
 
-In production, make sure to use HTTPS for the token endpoint URI and configure
+In production, ensure you use HTTPS for the token endpoint URI and configure
 a `HttpClientHandler` appropriately for the `HttpClient` :
 
 <pre class="lang-csharp">
@@ -919,19 +919,17 @@ ICredentialsProvider credentialsProvider = new OAuth2ClientCredentialsProvider("
 </pre>
 
 Note: In case your Authorization server requires extra request parameters beyond what the specification
-requires, you can do so by adding `<key, value>` pairs to a `Dictionary` and passing it to the
+requires, you can add `<key, value>` pairs to a `Dictionary` and passing it to the
 `OAuth2ClientCredentialsProvider` constructor rather than an `EMPTY` one as shown above.
 
 
 ### <a id="oauth2-refreshing-token" class="anchor" href="#oauth2-refreshing-token">Refreshing the Token</a>
 
-Tokens expire and the broker will refuse operations on connections with
-expired tokens. To avoid this, it is possible to call
-`ICredentialsProvider#Refresh()` before expiration and send the new
-token to the server. This is cumbersome
-from an application point of view, so the .Net client provides
+When tokens expire, the broker refuses further operations over the connection. It is possible to call
+`ICredentialsProvider#Refresh()` before expiring and send the new
+token to the server. This is not convenient for applications so, the .Net client provides
 help with the `TimerBasedCredentialRefresher`. This utility
-schedules a timer for every token received. Once the timer expires, it reports the
+schedules a timer for every token received. When the timer expires, it reports the
 connection which in turn calls `ICredentialsProvider#Refresh()`.
 
 The following snippet shows how to create a `TimerBasedCredentialRefresher`
@@ -954,5 +952,5 @@ var connection = connectionFactory.CreateConnection();
 </pre>
 
 The `TimerBasedCredentialRefresher` schedules a refresh after 2/3
-of the token validity time, e.g. if the token expires in 60 minutes,
-it will be refreshed after 40 minutes.
+of the token validity time. For example, if the token expires in 60 minutes,
+it is refreshed after 40 minutes.
