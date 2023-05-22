@@ -34,7 +34,7 @@ You should migrate to mirrored classic queues for the following reasons:
 
 ## Deciding which Migration Route to take: Compatibility Considerations
 
-Incompatible features can be either referenced in policies or in the source code. RabbitMQ strictly validates arguments for queue declaration and consumption. Therefore, for migration, you must clean up all information about incompatible features in the source code. For some features, changes in the way that queues are used is required, refer to [Mirrored Classic Queue Features that require Changes in the Way the Queue is Used](#mcq-changes-way-queue-is-used).For other features, it is as simple as just removing corresponding strings from the source code or moving the feature to a policy, refer to [Mirrored Classic Queue Features that can be removed from Source Code or moved to a Policy](#mcq-features-to-remove), 
+Incompatible features can be either referenced in policies or in the source code. RabbitMQ strictly validates arguments for queue declaration and consumption. Therefore, for migration, you must clean up all information about incompatible features in the source code. For some features, changes in the way that queues are used is required, refer to [Mirrored Classic Queue Features that require Changes in the Way the Queue is Used](#mcq-changes-way-queue-is-used). For other features, it is as simple as just removing corresponding strings from the source code or moving the feature to a policy, refer to [Mirrored Classic Queue Features that can be removed from Source Code or moved to a Policy](#mcq-features-to-remove), 
 
 The general policies and arguments related to mirroring are:`ha-mode`, `ha-params` `ha-sync-mode`, `ha-promote-on-shutdown`, `ha-promote-on-failure`, and `queue-master-locator`.
 
