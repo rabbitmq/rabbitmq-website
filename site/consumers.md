@@ -430,9 +430,11 @@ The timeout can be deactivated using [`advanced.config`](configure.html#advanced
 
 Instead of disabling the timeout entirely, consider using a high value (for example, a few hours).
 
+### Per-queue Configuration
+
 Starting with RabbitMQ 3.11.15, the timeout value can also be configured per-queue.
 
-###  Per-queue Delivery Timeouts Using a Policy
+#### Per-queue Delivery Timeouts Using a Policy
 
 Set the `consumer-timeout` policy key.
 
@@ -447,7 +449,7 @@ rabbitmqctl set_policy queue_consumer_timeout \
     --apply-to classic_queues
 </pre>
 
-### Per-queue Delivery Timeouts Using an Optional Queue Argument
+#### Per-queue Delivery Timeouts Using an Optional Queue Argument
 
 Set the `x-consumer-timeout` [optional queue argument](#optional-arguments) on a queue when the queue is declared.
 The timeout is specifiedin milliseconds.
