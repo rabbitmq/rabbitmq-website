@@ -22,7 +22,7 @@ You should migrate to mirrored classic queues for the following reasons:
 
 * Classic mirrored queues were deprecated in RabbitMQ version 3.9. They will be removed completely in RabbitMQ version 4.0.
 * Quorum queues can sustain much higher throughput levels in almost all use cases. A quorum queue can sustain a 30000 message throughput (using 1kb messages), while offering high levels of data safety, and replicating data to all 3 nodes in a cluster. Classic mirrored queues only offer a third of that throughput and provide much lower levels of data safety. 
-* Quorum queues are more reliable, faster for most workloads. and require little maintenance. For more information, go to [Quorum Queues](https://www.rabbitmq.com/quorum-queues.html). 
+* Quorum queues are more reliable, faster for most workloads, and require little maintenance. For more information, go to [Quorum Queues](https://www.rabbitmq.com/quorum-queues.html). 
 
 **Note**: 
 
@@ -34,7 +34,7 @@ You should migrate to mirrored classic queues for the following reasons:
 
 ## Deciding which Migration Route to take: Compatibility Considerations
 
-Incompatible features can be either referenced in policies or in the source code. RabbitMQ completes strict validation of arguments for queue declaration and consumption. Therefore, for migration, you must clean up all information about incompatible features in the source code. For some of these features, it is as simple as just removing corresponding strings, refer to [Mirrored Classic Queue Features that can be removed from Source Code or moved to a Policy](#mcq-features-to-remove), but other features require a change in the way queues are being used, refer to [Mirrored Classic Queue Features that require Changes in the Way the Queue is Used](#mcq-changes-way-queue-is-used).
+Incompatible features can be either referenced in policies or in the source code. RabbitMQ strictly validates arguments for queue declaration and consumption. Therefore, for migration, you must clean up all information about incompatible features in the source code. For some of these features, it is as simple as just removing corresponding strings, refer to [Mirrored Classic Queue Features that can be removed from Source Code or moved to a Policy](#mcq-features-to-remove), but other features require a change in the way queues are being used, refer to [Mirrored Classic Queue Features that require Changes in the Way the Queue is Used](#mcq-changes-way-queue-is-used).
 
 The general policies and arguments related to mirroring are:`ha-mode`, `ha-params` `ha-sync-mode`, `ha-promote-on-shutdown`, `ha-promote-on-failure`, and `queue-master-locator`.
 
@@ -46,19 +46,9 @@ Before deciding which migration method you can use, you must first find the mirr
 
 ## <a id="find-mcq" class="anchor" href="#find-mcq">Finding the Mirrored Classic Queues for Migration</a>
 
-All mirrored classic queues that include a policy key  `ha-mode` in its policy must be migrated to a different type of queue. All these queues are listed as mirrored classic queues in the Management UI and CLI. 
-
 To find the mirrored classic queues that must be migrated, run the following script (which uses `rabbitmqctl` to count all the queues across all the virtual hosts as tab-separated values). 
 
-```bash
-#!/bin/sh
-printf "%s\t%s\t%s\t%s\t%s\t%s\n" vhost policy_name pattern apply_to definition priority
-for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
-  rabbitmqctl -q list_policies -p "$vhost" |
-    grep 'ha-mode'
-done
-```
-It can be easier to list the queues that are actually mirrored on the running system. This way, you don't have guess whether HA-policies are applied. Note, the following command uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from any RabbitMQ version later than 3.10.13/3.11.5, or manually match the policy name to it's definition.
+Note, the following command uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from any RabbitMQ version later than 3.10.13/3.11.5, or manually match the policy name to it's definition.
 
 ```bash
 #!/bin/sh
@@ -67,6 +57,16 @@ for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
   rabbitmqctl -q list_queues -p "$vhost" name durable policy effective_policy_definition arguments mirror_pids type |
 	sed -n '/\t\[[^\t]\+\tclassic$/{s/\t\[[^\t]\+\tclassic$//; p}' |
 	xargs -x -r -L1 -d '\n' printf "%s\t%s\n" "$vhost"
+done
+```
+All mirrored classic queues that include  `ha-mode` in their effective policy definition must be migrated to a different type of queue. All these queues are listed as mirrored classic queues in the Management UI and CLI. Find the policies that apply it by running the following script:
+
+```bash
+#!/bin/sh
+printf "%s\t%s\t%s\t%s\t%s\t%s\n" vhost policy_name pattern apply_to definition priority
+for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
+  rabbitmqctl -q list_policies -p "$vhost" |
+    grep 'ha-mode'
 done
 ```
 
@@ -104,13 +104,11 @@ rabbitmqctl list_consumers queue_name channel_pid
 ```
 ### `x-cancel-on-ha-failover` for Consumers
 
-Mirrored queues consumers can be [automatically
+Classic mirrored queues consumers can be [automatically
 cancelled](https://www.rabbitmq.com/ha.html#cancellation) when a queue
 leader fails over. This can cause loss of information about which messages were sent to which consumer, and result in the same messages being sent again (duplicate messages). 
 
-Quorum queues will not have the same results in this situation i.e. duplicate messages are not sent again except when there is a node failure, or messages are resent for inflight messages when the consumer is cancelled or the channel is closed.
-
-In summary, with mirrored classic queues, you can observe possible duplicates in some cases. With quorum queues, this observation is not possible but duplicates messages can still happen (less frequently) for some of the reasons they happened when using mirrored classic queues. 
+Some of the cases for duplicate messages are covered by `x-cancel-on-ha-failover` and others are not. Most of the cases covered by `x-cancel-on-ha-failover` do not exist with quorum queues but those that are not covered are still there. Therefore, your application must be able to handle duplicates, which it should be able to do anyway.
 
 ## <a id="mcq-features-to-remove" class="anchor" href="#mcq-features-to-remove">Mirrored Classic Queue Features that can be removed from Source Code or moved to a Policy</a>
 
