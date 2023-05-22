@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-## Migrating Mirrored Classic Queues to Quorum Queues
+## Migrating RabbitMQ Mirrored Classic Queues to Quorum Queues
 Quorum Queues are now the optimum choice of queue type replacing mirrored classic queues. This information explains why, the reasons why you should migrate from mirrored classic queues to quorum queues, the ways to handle features during the migration, and includes procedures for some of the migration routes you can take. 
 
 You should migrate to mirrored classic queues for the following reasons:
