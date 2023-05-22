@@ -432,7 +432,7 @@ Instead of disabling the timeout entirely, consider using a high value (for exam
 
 ### Per-queue Configuration
 
-Starting with RabbitMQ 3.11.15, the timeout value can also be configured per-queue.
+Starting with RabbitMQ 3.12, the timeout value can also be configured per-queue.
 
 #### Per-queue Delivery Timeouts Using a Policy
 
@@ -443,10 +443,7 @@ Whether the timeout should be enforced is evaluated periodically, at one minute 
 
 <pre class="lang-bash">
 # override consumer timeout for a group of queues using a policy
-rabbitmqctl set_policy queue_consumer_timeout \
-    "\.* '{"consumer_timeout":3600000}' \
-    --priority 0 \
-    --apply-to classic_queues
+rabbitmqctl set_policy queue_consumer_timeout "with_delivery_timeout\.*" '{"consumer_timeout":3600000}' --apply-to classic_queues
 </pre>
 
 #### Per-queue Delivery Timeouts Using an Optional Queue Argument
