@@ -37,6 +37,9 @@ Bugfix releases usually do not affect plugin compatibility.
 When RabbitMQ is upgraded, all community plugins must be re-installed, which can result in installing newer versions of them.
 Alternatively, they can be deactivated before or during the upgrade.
 
+If you are the author of a plugin and would like it listed
+here, please [get in touch](contact.html)!
+
 ## <a id="routing" class="anchor" href="#routing">Routing</a>
 
 <table class="plugins">
