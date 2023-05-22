@@ -430,15 +430,9 @@ The timeout can be deactivated using [`advanced.config`](configure.html#advanced
 
 Instead of disabling the timeout entirely, consider using a high value (for example, a few hours).
 
-Starting with RabbitMQ 3.11.15, the timeout value can also be set on the per-queue and per-consumer basis.
+Starting with RabbitMQ 3.11.15, the timeout value can also be configured per-queue.
 
-### Using an Optional Queue Argument
-
-Set the `x-consumer-timeout` [optional queue argument](#optional-arguments) on a queue when the queue is declared.
-The timeout is specifiedin milliseconds.
-Whether the timeout should be enforced is evaluated periodically, at one minute intervals.
-
-### Using a Policy
+###  Per-queue Delivery Timeouts Using a Policy
 
 Set the `consumer-timeout` policy key.
 
@@ -453,18 +447,11 @@ rabbitmqctl set_policy queue_consumer_timeout \
     --apply-to classic_queues
 </pre>
 
-### Using an Optional Consumer Argument
+### Per-queue Delivery Timeouts Using an Optional Queue Argument
 
-Set the `x-consumer-timeout` optional consumer argument when the consumer is registered.
-The value must be in milliseconds.
+Set the `x-consumer-timeout` [optional queue argument](#optional-arguments) on a queue when the queue is declared.
+The timeout is specifiedin milliseconds.
 Whether the timeout should be enforced is evaluated periodically, at one minute intervals.
-
-Multiple consumers on a shared channel should not have this argument configured to different values.
-When this is the case, the lower timeout will have precedence as it will close
-the channel when the time is up.
-
-If multiple consumers of the same type (with the same purpose) should have this timeout
-lowered compared to the global one, consider setting this value per queue as demonstrated above.
 
 
 ## <a id="exclusivity" class="anchor" href="#exclusivity">Exclusivity</a>
