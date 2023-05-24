@@ -161,6 +161,95 @@ spec:
 Apply the edited manifest. Once the Pod has applied the changes, subsequent HTTP API requests to
 RabbitMQ will append the domain name to the connection string.
 
+### Modifying the RabbitMQ Messaging Topology Operator Default Configuration
+
+This information describes how to modify the configuration of the RabbitMQ Messaging Topology Operator
+in a Kubernetes cluster.
+
+To change the configuration, add or update the configuration environment variables
+by editing the Topology Operator deployment manifest. This is the YAML manifest artefact that is released
+with every new version of the RabbitMQ Cluster Operator on GitHub.
+The environment variables that can be set are listed
+in the table in [Topology Operator Environment Variables](#parameters).
+
+#### <a class="anchor" id="parameters" href="#parameters">Parameters</a>
+
+The following table listes the Topology Operator environment variables that are available to set in the deployment manifest.
+
+<table>
+  <tr>
+    <th>
+      Variable Name
+    </th>
+    <th>
+      Effect when Set
+    </th>
+    <th>
+      Effect when not Set
+    </th>
+  </tr>
+  <tr>
+    <td>
+      OPERATOR_SCOPE_NAMESPACE
+    </td>
+    <td>
+      Namespace, or list of namespaces, which the operator will reconcile and watch RabbitmqClusters (independent of installation namespace).
+      Use a comma separator, without spaces e.g. "project-1,project-2,rabbitmq-testing"
+    </td>
+    <td>
+      All namespaces are watched and reconciled
+    </td>
+  </tr>
+  <tr>
+    <td>
+      ENABLE_DEBUG_PPROF
+    </td>
+    <td>
+      The default value is false because this variable should NOT be used in production. When it is set to true, it exposes a set of debug endpoints
+      on the Operator Pod's metrics port for CPU and [memory profiling of the Operator with pprof](./debug-operator.md#operator-resource-usage-profiling).
+    </td>
+    <td>
+      The pprof debug endpoint will not be exposed on the Operator Pod.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      LEASE_DURATION
+    </td>
+    <td>
+      Time, in seconds, that non-leader candidates will wait to force acquire leadership. This is measured against time of last observed ack.
+      Default is 15 seconds. The value must be a string e.g. `"30"`.
+    </td>
+    <td>
+      Default value is set to 15 seconds.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      RENEW_DEADLINE
+    </td>
+    <td>
+      Renew deadline is the duration that the acting controlplane will retry refreshing leadership before giving up. Default is 10 seconds.
+      The value must be a string e.g. `"10"`.
+    </td>
+    <td>
+      Default value is set to 10 seconds.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      RETRY_PERIOD
+    </td>
+    <td>
+      Retry period is the duration the LeaderElector clients should wait between tries of actions. Default is 2 seconds.
+      The value must be a string e.g. `"3"`.
+    </td>
+    <td>
+      Default value is set to 2 seconds.
+    </td>
+  </tr>
+</table>
+
 ### Older Operator Versions
 
 To install a specific version of the Operator, obtain the manifest link from the

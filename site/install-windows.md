@@ -82,11 +82,11 @@ This is covered in more detail in the [Windows-specific Issues](./windows-quirks
 ### Dependencies
 
 RabbitMQ requires a 64-bit [supported version of Erlang](./which-erlang.html) for Windows to be installed.
-Latest binary builds for Windows can be obtained from the [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree.html) page.
 
-Note that Erlang must be installed **using an administrative account** or it won't be
-discoverable to the RabbitMQ Windows service.
+[Erlang 25.3](https://www.erlang.org/patches/otp-25.3.2) is the latest supported version.
+Binary builds of other (for example, earlier) versions of Erlang for Windows can be obtained from the [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree.html) page.
 
+Erlang **must be installed using an administrative account** or it won't be discoverable to the RabbitMQ Windows service.
 Once a supported version of Erlang is installed, download the RabbitMQ installer, `rabbitmq-server-{version}.exe`
 and run it. It installs RabbitMQ as a Windows service and starts it using the default configuration.
 

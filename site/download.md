@@ -40,7 +40,7 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.11-ma
 
 ### RabbitMQ 3.12 Preview Releases
 
- * RabbitMQ 3.12 is the next feature release, currently [available for community testing](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0-rc.1),
+ * RabbitMQ 3.12 is the next feature release, currently [available for community testing](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0-rc.3),
  including via the [community Docker image](https://hub.docker.com/_/rabbitmq/).
 
 ## VMware RabbitMQ® (Commercial Edition)
@@ -125,7 +125,7 @@ Other guides related to Kubernetes:
  * [API guide](./api-guide.html)
  * [API reference](https://rabbitmq.github.io/rabbitmq-java-client/api/current/) (JavaDoc)
  * [License and other information](./java-client.html)
- * [Older versions](http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/)
+ * [Older versions](https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/)
 
 ### Java [Stream Protocol](./streams.html) Client
 

@@ -79,57 +79,8 @@ to download a version of the RabbitMQ Erlang Client library other than the above
 ## GitHub Repositories
 
 The RabbitMQ Erlang client depends on the RabbitMQ server repository,
-a shared library and a code generation library.
+a shared library and a code generation library. They all reside in the
+[RabbitMQ server repository](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x) under `deps`.
 
 Please see the <a href="./build-erlang-client.html">Erlang client build guide</a> for instructions on
 compiling from source code.
-
-<table>
-  <thead>
-    <td>Snapshot</td>
-    <td>Clone</td>
-    <td>Repository</td>
-  </thead>
-
-  <tr>
-    <td>
-      <a href="https://github.com/rabbitmq/rabbitmq-erlang-client/archive/master.zip">Erlang client</a>
-    </td>
-    <td>
-<pre class="lang-bash">
-git clone https://github.com/rabbitmq/rabbitmq-erlang-client.git
-</pre>
-    </td>
-    <td>
-      <a href="https://github.com/rabbitmq/rabbitmq-java-client">Repository on GitHub</a>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <a href="https://github.com/rabbitmq/rabbitmq-server/archives//master.zip">RabbitMQ Server</a>
-    </td>
-    <td>
-<pre class="lang-bash">
-git clone https://github.com/rabbitmq/rabbitmq-server.git
-</pre>
-    </td>
-    <td>
-      <a href="https://github.com/rabbitmq/rabbitmq-server">Repository on GitHub</a>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <a href="https://github.com/rabbitmq/rabbitmq-codegen/archives/master.zip">RabbitMQ Code Generator</a>
-    </td>
-    <td>
-<pre class="lang-bash">
-git clone https://github.com/rabbitmq/rabbitmq-codegen.git
-</pre>
-    </td>
-    <td>
-      <a href="https://github.com/rabbitmq/rabbitmq-codegen">Repository on GitHub</a>
-    </td>
-  </tr>
-</table>

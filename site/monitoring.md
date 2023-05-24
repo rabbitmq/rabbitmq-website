@@ -722,7 +722,7 @@ Includes all checks in stage 3 plus a check on all enabled listeners
 To inspect all listeners enabled on a node, use [`rabbitmq-diagnostics listeners`](./rabbitmq-diagnostics.8.html):
 
 <pre class="lang-bash">
-rabbitmq-diagnostics -q listeners
+rabbitmq-diagnostics -q listeners --node rabbit@target-hostname
 # =&gt; Interface: [::], port: 25672, protocol: clustering, purpose: inter-node and CLI tool communication
 # =&gt; Interface: [::], port: 5672, protocol: amqp, purpose: AMQP 0-9-1 and AMQP 1.0
 # =&gt; Interface: [::], port: 5671, protocol: amqp/ssl, purpose: AMQP 0-9-1 and AMQP 1.0 over TLS
@@ -730,13 +730,14 @@ rabbitmq-diagnostics -q listeners
 # =&gt; Interface: [::], port: 15671, protocol: https, purpose: HTTP API over TLS (HTTPS)
 </pre>
 
-[`rabbitmq-diagnostics check_port_connectivity`](./rabbitmq-diagnostics.8.html) is a command that
+[`rabbitmq-diagnostics check_port_connectivity [--address &lt;address&gt;]`](./rabbitmq-diagnostics.8.html) is a command that
 performs the basic TCP connectivity check mentioned above:
 
 <pre class="lang-bash">
-# This check will try to open a TCP connections to the discovered listener ports.
-# Target node hostname resolution is used to determine the IP address.
-rabbitmq-diagnostics -q check_port_connectivity
+# This check will try to open a TCP connection to the discovered listener ports.
+# Since nodes can be configured to listen to specific interfaces, an --address should
+# be provided, or CLI tools will have to rely on the configured hostname resolver to know where to connect.
+rabbitmq-diagnostics -q check_port_connectivity --node rabbit@target-hostname --address &lt;ip-address-to-connect-to&gt;
 # If the check succeeds, the exit code will be 0
 </pre>
 
@@ -752,7 +753,7 @@ checks whether any virtual host dependencies may have failed. This is done for a
 virtual hosts.
 
 <pre class="lang-bash">
-rabbitmq-diagnostics -q check_virtual_hosts
+rabbitmq-diagnostics -q check_virtual_hosts --node rabbit@target-hostname
 # if the check succeeded, exit code will be 0
 </pre>
 
