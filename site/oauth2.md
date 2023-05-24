@@ -221,7 +221,6 @@ Given the below configuration, the scope associated to the permission `read:*/*`
 ...
 auth_oauth2.scope_prefix = api://
 ...
-
 </pre>
 
 
