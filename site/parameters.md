@@ -397,6 +397,16 @@ was 20, it would be used. Operator policies, therefore, don't
 just overwrite regular policy values. They enforce limits but
 try to not override user-provided policies where possible.
 
+When the same key is provided by both [client-provided `x-arguments`](./queues.html#optional-arguments) and by a user policy,
+the former take precedence.
+
+However, if an operator policy is also used, that will take precedence over the client-provided
+arguments, too. Operator policies are a protection mechanism and override client-provided values
+and user policy values.
+
+Use operator policies to introduce guardrails for application-controlled parameters related
+to resource use (e.g. peak disk space usage).
+
 ### <a id="operator-policy-definition" class="anchor" href="#operator-policy-definition">Defining Operator Policies</a>
 
 Operator policies are defined in a way very similar to regular (user) policies.
