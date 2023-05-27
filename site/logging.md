@@ -92,10 +92,10 @@ The following example overrides log file name:
 log.file = rabbit.log
 </pre>
 
-The following example overrides log file directory:
+The following example overrides log file location:
 
 <pre class="lang-ini">
-log.dir = /data/logs/rabbitmq
+log.file = /opt/custom/var/log/rabbit.log
 </pre>
 
 The following example instructs RabbitMQ to log to a file at the `debug` level:
