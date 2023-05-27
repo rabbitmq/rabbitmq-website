@@ -33,7 +33,6 @@ Key sections of this guide are
  * [Ways of installing](#installation-methods) the latest RabbitMQ version on Debian and Ubuntu
  * [Supported Ubuntu and Debian distributions](#supported-distributions)
  * [Privilege requirements](#sudo-requirements)
- * Quick start installation snippets that [uses PackageCloud](#apt-quick-start-packagecloud) and Launchpad repositories
  * Quick start installation snippet that [uses a Cloudsmith mirror](#apt-quick-start-cloudsmith) repositories
  * [Manage the service](#managing-service) (start it, stop it, and get its status)
  * How to [inspect node and service logs](#server-logs)

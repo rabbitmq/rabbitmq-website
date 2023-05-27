@@ -37,7 +37,7 @@ There are two ways of installing these RPMs:
 Some of the topics covered in this guide are:
 
  * [Supported distributions](#supported-distributions)
- * Package installation from Yum repositories on [Cloudsmith.io](#cloudsmith) and [PackageCloud](#package-cloud)
+ * Package installation from Yum repositories on a [Cloudsmith.io](#cloudsmith) mirror
  * How to install a [latest supported Erlang/OTP version](#install-erlang)
  * [Package dependencies](#package-dependencies)
  * [Privilege requirements](#sudo-requirements)
