@@ -46,7 +46,7 @@ published separately.
     <td class="centre"></td>
     <td class="centre">27 May 2023</td>
     <td>
-          Team RabbitMQ account on PackageCloud <a href="https://github.com/rabbitmq/rabbitmq-server/discussions/8386">are currently unavailable</a>.
+          Team RabbitMQ's account on PackageCloud <a href="https://github.com/rabbitmq/rabbitmq-server/discussions/8386">is currently unavailable</a>.
           Please switch to our Cloudsmith mirror for <a href="https://rabbitmq.com/install-debian.html#apt-quick-start-cloudsmith">Debian</a> and
           <a href="https://rabbitmq.com/install-rpm.html#cloudsmith">RPM</a> package repositories.
     </td>
