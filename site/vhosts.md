@@ -129,7 +129,7 @@ rabbitmqctl add_vhost qa1 --description "QA environment 1" --default-queue-type 
 demonstrated above:
 
 <pre class="lang-bash">
-rabbitmqctl update_vhost_metadata qa-1662 --description "QA environment for issue 1662" --default-queue-type quorum --tags qa,project-a,qa-1662
+rabbitmqctl update_vhost_metadata qa1 --description "QA environment for issue 1662" --default-queue-type quorum --tags qa,project-a,qa-1662
 </pre>
 
 To inspect virtual host metadata, use `rabbitmqctl list_vhots` and provide the additional column(s):
