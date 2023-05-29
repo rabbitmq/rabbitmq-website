@@ -229,21 +229,15 @@ tool provides.
 
 An overview page with key runtime metrics:
 
-<a href="img/monitoring/observer_cli/diagnostics-observer-overview.png">
-  <img class="screenshot" src="img/monitoring/observer_cli/diagnostics-observer-overview.png" alt="rabbitmq-diagnostics observer overview" title="rabbitmq-diagnostics observer overview" />
-</a>
+  <img class="screenshot" src="./img/monitoring/observer_cli/diagnostics-observer-overview.png" alt="rabbitmq-diagnostics observer overview" title="rabbitmq-diagnostics observer overview" />
 
 Memory allocator stats:
 
-<a href="img/monitoring/observer_cli/diagnostics-observer-heap-inspector.png">
-  <img class="screenshot" src="img/monitoring/observer_cli/diagnostics-observer-heap-inspector.png" alt="rabbitmq-diagnostics memory breakdown" title="rabbitmq-diagnostics observer memory breakdown" />
-</a>
+  <img class="screenshot" src="./img/monitoring/observer_cli/diagnostics-observer-heap-inspector.png" alt="rabbitmq-diagnostics memory breakdown" title="rabbitmq-diagnostics observer memory breakdown" />
 
 A client connection process metrics:
 
-<a href="img/monitoring/observer_cli/diagnostics-observer-connection-process.png">
-  <img class="screenshot" src="img/monitoring/observer_cli/diagnostics-observer-connection-process.png" alt="rabbitmq-diagnostics connection process" title="rabbitmq-diagnostics observer connection process" />
-</a>
+  <img class="screenshot" src="./img/monitoring/observer_cli/diagnostics-observer-connection-process.png" alt="rabbitmq-diagnostics connection process" title="rabbitmq-diagnostics observer connection process" />
 
 
 ## <a id="overhead" class="anchor" href="#overhead">Resource Use and Overhead of Monitoring</a>

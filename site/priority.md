@@ -19,10 +19,13 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-RabbitMQ has priority queue implementation in the core as of version `3.5.0`.
-Any queue can be turned into a priority one using client-provided [optional arguments](./queues.html#optional-arguments)
-(but, unlike other features that use optional arguments, not policies).
-The implementation supports a limited number of priorities: 255. Values between 1 and 10 are recommended.
+RabbitMQ provides a priority queue implementation for classic queues.
+Any queue can be turned into a priority one using client-provided [optional arguments](./queues.html#optional-arguments).
+Priority declaration [using policies](#using-policies) is [not supported by design](#using-policies).
+
+The implementation supports a limited number of priorities: 255.
+Values between 1 and 5 are **highly recommended**: the value has a direct tie to priority queue
+resource footprint.
 
 
 ## <a id="definition" class="anchor" href="#definition">Using Client-provided Optional Arguments</a>

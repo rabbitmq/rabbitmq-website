@@ -84,6 +84,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.11.17</li>
         <li>3.11.16</li>
         <li>3.11.15</li>
         <li>3.11.14</li>
@@ -134,6 +135,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.10.23</li>
         <li>3.10.22</li>
         <li>3.10.21</li>
         <li>3.10.20</li>
@@ -313,7 +315,7 @@ are recommended.
 Most recent versions can be obtained from a number of sources:
 
  * Debian Erlang packages from Team RabbitMQ on [Cloudsmith and its mirror](install-debian.html#apt-cloudsmith) or [Launchpad](install-debian.html#apt-launchpad-erlang)
- * [Zero dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from Team RabbitMQ, also available [from Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/rabbitmq-erlang/setup/#formats-rpm)
+ * [Zero dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from Team RabbitMQ, also available [from a Cloudsmith mirror](install-rpm.html#cloudsmith)
  * As part of [RabbitMQ Docker image](https://github.com/docker-library/rabbitmq/)
  * [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree.html) provides binary builds of patch releases for Windows
  * [Erlang Solutions](https://packages.erlang-solutions.com/erlang/) package repositories

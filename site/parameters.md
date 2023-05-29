@@ -35,10 +35,14 @@ of a component name, a name and a value.
 Global parameters are not tied to a particular virtual host and they consist
 of a name and value.
 
-One special case of parameters usage is [policies](#policies), which are used for specifying
-optional arguments for groups of queues and exchanges, as well
+One special case of parameters usage is [policies](#policies).
+
+Policies is **the recommended way** of specifying
+[optional arguments](./queues.html#optional-arguments) for groups of queues and exchanges, as well
 as plugins such as [Federation](federation.html)
-and [Shovel](shovel.html). Policies are vhost-scoped.
+and [Shovel](shovel.html).
+
+Policies are vhost-scoped.
 
 ## <a id="parameter-management" class="anchor" href="#parameter-management">Global and Per-vhost Parameters</a>
 
@@ -111,6 +115,14 @@ Vhost-scoped parameters are used by the federation and shovel plugins.
 Global parameters are used by the MQTT plugin.
 
 ## <a id="policies" class="anchor" href="#policies">Policies</a>
+
+Policies is **the recommended way** of configuring [optional arguments](./queues.html#optional-arguments)
+for queues, exchanges, and some plugins.
+
+Two notable exceptions are the queue type
+and the [maximum number of priorities](./priority.html) of classic queues. Those values intentionally
+cannot be configured by policies: their values are fixed at queue declaration time.
+
 ### <a id="why-policies-exist" class="anchor" href="#why-policies-exist">Why Policies Exist</a>
 
 Before we explain what policies are and how to use them it would
@@ -118,9 +130,10 @@ be helpful to explain why they were introduced to RabbitMQ.
 
 In addition to mandatory properties
 (e.g. `durable` or `exclusive`),
-queues and exchanges in RabbitMQ have optional parameters
-(arguments), sometimes referred to as
-`x-arguments`. Those are provided by clients when
+queues and exchanges in RabbitMQ have [optional arguments](./queues.html#optional-arguments),
+sometimes referred to as `x-arguments`.
+
+Those are provided by clients when
 they declare queues (exchanges) and control various optional
 features, such as [queue length limit](maxlength.html) or
 [TTL](ttl.html).
@@ -396,6 +409,16 @@ the value of 50 will be used. If, however, regular policy's value
 was 20, it would be used. Operator policies, therefore, don't
 just overwrite regular policy values. They enforce limits but
 try to not override user-provided policies where possible.
+
+When the same key is provided by both [client-provided `x-arguments`](./queues.html#optional-arguments) and by a user policy,
+the former take precedence.
+
+However, if an operator policy is also used, that will take precedence over the client-provided
+arguments, too. Operator policies are a protection mechanism and override client-provided values
+and user policy values.
+
+Use operator policies to introduce guardrails for application-controlled parameters related
+to resource use (e.g. peak disk space usage).
 
 ### <a id="operator-policy-definition" class="anchor" href="#operator-policy-definition">Defining Operator Policies</a>
 

@@ -186,9 +186,9 @@ curl -4su guest:guest -X GET localhost:15672/api/auth/hash_password/foobarbaz
 ### This is the algorithm:
 
  * Generate a random 32 bit salt. In this example, we will use `908D C60A`. When RabbitMQ creates or updates a user, a random salt is generated.
- * Concatenate the generated salt with the UTF-8 representation of the desired password.
+ * Prepend the generated salt with the UTF-8 representation of the desired password.
    If the password is `test12`, at this step, the intermediate result would be `908D C60A 7465 7374 3132`
  * Take the hash (this example assumes the default [hashing function](#changing-algorithm), SHA-256): `A5B9 24B3 096B 8897 D65A 3B5F 80FA 5DB62 A94 B831 22CD F4F8 FEAD 10D5 15D8 F391`
- * Concatenate the salt again: `908D C60A A5B9 24B3 096B 8897 D65A 3B5F 80FA 5DB62 A94 B831 22CD F4F8 FEAD 10D5 15D8 F391`
+ * Prepend the salt again: `908D C60A A5B9 24B3 096B 8897 D65A 3B5F 80FA 5DB62 A94 B831 22CD F4F8 FEAD 10D5 15D8 F391`
  * Convert the value to base64 encoding: `kI3GCqW5JLMJa4iX1lo7X4D6XbYqlLgxIs30+P6tENUV2POR`
  * Use the finaly base64-encoded value as the `password_hash` value in HTTP API requests and generated definition files
