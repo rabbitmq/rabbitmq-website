@@ -229,9 +229,7 @@ tool provides.
 
 An overview page with key runtime metrics:
 
-<a href="./img/monitoring/observer_cli/diagnostics-observer-overview.png">
   <img class="screenshot" src="./img/monitoring/observer_cli/diagnostics-observer-overview.png" alt="rabbitmq-diagnostics observer overview" title="rabbitmq-diagnostics observer overview" />
-</a>
 
 Memory allocator stats:
 
