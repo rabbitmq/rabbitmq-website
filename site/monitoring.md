@@ -233,15 +233,11 @@ An overview page with key runtime metrics:
 
 Memory allocator stats:
 
-<a href="./img/monitoring/observer_cli/diagnostics-observer-heap-inspector.png">
   <img class="screenshot" src="./img/monitoring/observer_cli/diagnostics-observer-heap-inspector.png" alt="rabbitmq-diagnostics memory breakdown" title="rabbitmq-diagnostics observer memory breakdown" />
-</a>
 
 A client connection process metrics:
 
-<a href="./img/monitoring/observer_cli/diagnostics-observer-connection-process.png">
   <img class="screenshot" src="./img/monitoring/observer_cli/diagnostics-observer-connection-process.png" alt="rabbitmq-diagnostics connection process" title="rabbitmq-diagnostics observer connection process" />
-</a>
 
 
 ## <a id="overhead" class="anchor" href="#overhead">Resource Use and Overhead of Monitoring</a>
