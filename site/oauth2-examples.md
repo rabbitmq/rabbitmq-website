@@ -71,9 +71,9 @@ will see how to set up UAA and RabbitMQ. If you are new to OAuth 2.0, it is a go
 and you want to learn how to configure RabbitMQ to talk to one of OAuth 2.0 server tested on this tutorial, you can jump
 straight to them. They are:
 
-- [KeyCloak](use-cases/keycloak.md)
-- [https://auth0.com/](use-cases/oauth0.md)
-- [Azure Active Directory](use-cases/azure.md)
+- [KeyCloak](./oauth2-examples-keycloak.html)
+- [https://auth0.com/](./oauth2-examples-oauth0.html)
+- [Azure Active Directory](./oauth2-examples-azure.html)
 - [UAA](#uaa-asymmetrical-signing-keys)
 
 
