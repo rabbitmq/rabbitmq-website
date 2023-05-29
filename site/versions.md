@@ -42,14 +42,14 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
     <td>3.11</td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/&version-server-tag;" target="_blank" rel="noopener noreferrer">&version-server;</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.0" target="_blank" rel="noopener noreferrer">28 September 2022</a></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>31 December, 2023</td>
+    <td>31 July, 2024</td>
+    <td>22 months</td>
   </tr>
 
   <tr>
     <td>3.10</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.22" target="_blank" rel="noopener noreferrer">3.10.22</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.23" target="_blank" rel="noopener noreferrer">3.10.23</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0" target="_blank" rel="noopener noreferrer">3 May 2022</a></td>
     <td>31 July, 2023</td>
     <td>31 December, 2023</td>
