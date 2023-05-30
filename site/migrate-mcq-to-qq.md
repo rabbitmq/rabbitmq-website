@@ -85,7 +85,7 @@ The queue length exceeded with `overflow` set to [`reject-publish-dlx`](https://
 
 With mirrored classic queues, publishing to a full queue with `reject-publish-dlx` resulted in RabbitMQ republishing a rejected message to a dead letter exchange. With quorum queues, to apply the same logic, you must change `reject-publish-dlx` to `reject-publish`. Then, handle negative acknowledgements: after getting a negative acknowledgement, the application must publish the message again to a different exchange.
 
-To find out if  `overflow` set to `reject-publish-dlx` is configured for the mirrored classic queues you want to migrate, check for the `x-max-priority` string in the list of queues output that is provided by running the command in [Finding the Mirrored Classic Queues for Migration](#find-mcq) or you can also search for the ``reject-publish-dlx`` string in the source code.
+To find out if  `overflow` set to `reject-publish-dlx` is configured for the mirrored classic queues you want to migrate, check for the `reject-publish-dlx` string in the list of queues output that is provided by running the command in [Finding the Mirrored Classic Queues for Migration](#find-mcq) or you can also search for the `reject-publish-dlx` string in the source code.
 
 ### Global QoS for Consumers
 
