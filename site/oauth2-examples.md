@@ -4,7 +4,7 @@
 
 This tutorial-style guide has two primary goals:
 
-1. Explore how applications and end users can [authenticate](./access-control) with RabbitMQ server using OAuth 2.0 protocol rather than
+1. Explore how applications and end users can [authenticate](./access-control.html) with RabbitMQ server using OAuth 2.0 protocol rather than
    the traditional username/password pairs or x.509 certificates.
 2. Explore what it takes to set up RabbitMQ Server with OAuth 2.0 authentication mechanism.
    Additionally it explains how to stand up ([UAA](https://github.com/cloudfoundry/uaa)) as an OAuth 2.0 Authorization Server and all the operations to create OAuth clients, users and obtain their tokens.
