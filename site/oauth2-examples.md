@@ -335,7 +335,7 @@ Note: in this example, RabbitMQ is already configured with the [`rabbitmq_mqtt` 
 
 This is no different than using AMQP or JMS protocols, all that matters is to pass an empty username and a JWT token as password.
 However, **what it is really different** is how you encode the permissions. In this use case you are going to proceed as you did it in the previous use case where you handcrafted the JWT token rather than requesting it to UAA. Here is the the scopes required to publish
-a message to a mqtt topic ([scopes-for-mqtt.json](jwts/scopes-for-mqtt.json))
+a message to a mqtt topic ([scopes-for-mqtt.json](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/jwts/scopes-for-mqtt.json))
 
 <pre class="lang-javascript">
 {
@@ -614,7 +614,7 @@ This command will stop RabbitMQ if it is already running
 You cannot use UAA to issue the tokens because you cannot configure UAA to use a custom field for scopes.
 Instead you are going to issue the token ourselves with the command `bin/jwt_token`.
 
-Launch a producer application with the token [producer-role-in-scope.json](jwts/producer-roles-in-extra-scope.json):
+Launch a producer application with the token [producer-role-in-scope.json](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/jwts/producer-roles-in-extra-scope.json):
 
 <pre class="lang-bash">
 make start-perftest-producer-with-token PRODUCER=producer_with_roles TOKEN=$(bin/jwt_token producer-role-in-extra-scope.json legacy-token-key private.pem public.pem)
@@ -626,13 +626,13 @@ To inspect the logs:
 docker logs producer_with_roles -f
 </pre>
 
-Launch a consumer application with the token [consumer-roles-in-extra-scope.json](jwts/consumer-roles-in-extra-scope.json):
+Launch a consumer application with the token [consumer-roles-in-extra-scope.json](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/jwts/consumer-roles-in-extra-scope.json):
 
 <pre class="lang-bash">
 make start-perftest-consumer-with-token CONSUMER=consumer_with_roles TOKEN=$(bin/jwt_token consumer-roles-in-extra-scope.json legacy-token-key private.pem public.pem)
 </pre>
 
-Access management api with the token [producer-roles-in-extra-scope.json](jwts/producer-roles-in-extra-scope.json)
+Access management api with the token [producer-roles-in-extra-scope.json](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/jwts/producer-roles-in-extra-scope.json)
 
 <pre class="lang-bash">
 make curl-with-token URL="http://localhost:15672/api/overview" TOKEN=$(bin/jwt_token producer-roles-in-extra-scope.json legacy-token-key private.pem public.pem)
@@ -704,7 +704,7 @@ private-public key pair RabbitMQ is configured with.
 
 *Use a Rich Authorization Token to access the management rest api*
 
-You are going use this token [jwts/rar-token.json](jwts/rar-token.json) to access an endpoint of the management rest api.
+You are going use this token [jwts/rar-token.json](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/jwts/rar-token.json) to access an endpoint of the management rest api.
 
 <pre class="lang-bash">
 make curl-with-token URL=http://localhost:15672/api/overview TOKEN=$(bin/jwt_token rar-token.json legacy-token-key private.pem public.pem)
