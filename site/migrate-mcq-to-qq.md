@@ -129,11 +129,11 @@ To migrate mirrored lazy classic queues, remove the `x-queue-mode=lazy` declarat
 
 [Transient queues](https://www.rabbitmq.com/queues.html#durability) are deleted on a node/cluster boot. 
 
-The plan is to remove transcient queues in future RabbitMQ releases.
-The only option for transcient queues then will be exclusive queues. This only affects the durability of queue definitions. Messages can still be marked transient.
+The plan is to remove transient queues in future RabbitMQ releases.
+The only option for transient queues then will be exclusive queues. This only affects the durability of queue definitions. Messages can still be marked transient.
 
-You must make a decision about transcient queues before migration, is the content of the 
-queue important enough to get availability guarantees of quorum queues, or is it better to downgrade the transcient queue to a classic non-mirrored queue (classic mirrored queues are being removed but classic non-mirrored queues will still be available).
+You must make a decision about transient queues before migration, is the content of the 
+queue important enough to get availability guarantees of quorum queues, or is it better to downgrade the transient queue to a classic non-mirrored queue (classic mirrored queues are being removed but classic non-mirrored queues will still be available).
 
 ### Exclusive Queues
 
