@@ -44,7 +44,7 @@ published separately.
 
   <tr>
     <td class="centre">3.12.0</td>
-    <td class="centre">2 June 2022</td>
+    <td class="centre">2 June 2023</td>
     <td>
       <ul>
         <li><a href="https://blog.rabbitmq.com/posts/2023/03/native-mqtt/">New implementation of MQTTv3</a> can support millions of concurrent connections</li>
