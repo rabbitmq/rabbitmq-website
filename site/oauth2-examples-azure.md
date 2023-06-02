@@ -158,13 +158,7 @@ $ vi rabbitmq.config
 ].
 </pre>
 
-<<<<<<< HEAD
-> **Important**: Please update the file available in this tutorial ([here](../conf/azure/rabbitmq.config)), as it will be automatically loaded in the RabbitMQ instance that you are going to deploy later in this tutorial
-||||||| 48a4027d
-> **IMPORTANT**: Please update the file available in this tutorial ([here](../conf/azure/rabbitmq.config)), as it will be automatically loaded in the RabbitMQ instance that you are going to deploy later in this tutorial
-=======
 > **Important**: Please update the [configuration file provided with this tutorial](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/azure/rabbitmq.config), as it will be automatically loaded in the RabbitMQ instance that you are going to deploy later in this tutorial
->>>>>>> stable
 
 ### Generate a TLS Certificate and Key Pair
 
