@@ -91,7 +91,7 @@ Run the following 2 commands to get the environment ready to see Oauth 2.0 plugi
   1. `make start-uaa` to get UAA server running
   2. `make start-rabbitmq` to start RabbitMQ server
 
-The last command starts a RabbitMQ server with [this](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq.config) configuration file.
+The last command starts a RabbitMQ server with [specific configuration file](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq.config).
 
 ## <a id="access-management-ui" class="anchor" href="#access-management-ui">Access Management UI using OAuth 2.0 tokens</a>
 
@@ -692,7 +692,7 @@ RabbitMQ supports JWT tokens compliant with the extension. Below is a sample exa
 *Get the environment ready*
 
 To demonstrate this new capability you have to deploy RabbitMQ with the appropriate configuration file
-under [conf/uaa/rabbitmq-for-rar-tokens.config](conf/uaa/rabbitmq-for-rar-tokens.config).
+under [conf/uaa/rabbitmq-for-rar-tokens.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq-for-rar-tokens.config).
 
 <pre class="lang-bash">
 export CONFIG=rabbitmq-for-rar-tokens.config
@@ -861,7 +861,7 @@ Sample *scope*(s):
 * `rabbitmq.write:uaa_vhost/x-*` grants `write` permissions on `uaa_vhost` on any *resource* that starts with `x-`
 * `rabbitmq.tag:monitoring` grants `monitoring` *user tag*
 
-> Be aware that you have used `rabbitmq` resource_server_id in the sample scopes. RabbitMQ must be configured with this same `resource_server_id`. Check out [conf/symmetric_keys/rabbitmq.config](rabbitmq.config)
+> Be aware that you have used `rabbitmq` resource_server_id in the sample scopes. RabbitMQ must be configured with this same `resource_server_id`. Check out [conf/symmetric_keys/rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa-symmetrical/rabbitmq.config)
 
 
 ### About signing key required to configure RabbitMQ

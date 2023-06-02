@@ -150,7 +150,7 @@ $ vi rabbitmq.config
 ].
 </pre>
 
-> **IMPORTANT**: Please update the file available in this tutorial ([here](../conf/azure/rabbitmq.config)), as it will be automatically loaded in the RabbitMQ instance that you are going to deploy later in this tutorial
+> **IMPORTANT**: Please update the [configuration file provided with this tutorial](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/azure/rabbitmq.config), as it will be automatically loaded in the RabbitMQ instance that you are going to deploy later in this tutorial
 
 ### Generate SSL certificate and key
 > **IMPORTANT**: Remember when you have registered your app on Azure AD that it only allows **https** protocol for OAuth 2.0 **Redirect URI**? You will thus need to enable HTTPS for RabbitMQ Management UI amd its underlying API.
