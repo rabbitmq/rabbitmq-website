@@ -4,7 +4,7 @@
 # running in driver mode. This does that, assuming you have a
 # public-umbrella as a peer of rabbitmq-website.
 
-SERVER=../rabbitmq-public-umbrella/rabbitmq-server
+SERVER="${1:-../rabbitmq-server}"
 
 if [ ! -d ${SERVER} ] ; then
     echo ${SERVER} not found
