@@ -28,12 +28,11 @@ version-specific notes and [ways of provisioning](#erlang-repositories) recent E
 
 RabbitMQ supports up to [two most recent Erlang release series](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ).
 
-At the moment they are Erlang `25.x` and `24.3.x`.
+At the moment they are Erlang `26.x` and `25.x`.
 
 ### Erlang 26 Support
 
-Erlang 26 introduces a number of breaking changes related to networking and TLS.
-RabbitMQ compatibility with Erlang 26 will be announced separately.
+Erlang 26 is supported starting with RabbitMQ 3.12.0.
 
 
 ## <a id="compatibility-matrix" class="anchor" href="#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a>
@@ -66,7 +65,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     <td>
       <ul class="notes">
         <li>
-          This release series provides initial Erlang 26 compatibility.
+          This release series is compatible wtih Erlang 26.
         </li>
         <li>
           OpenSSL 3.0 support in Erlang is considered to
