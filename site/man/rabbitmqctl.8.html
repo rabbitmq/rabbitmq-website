@@ -427,9 +427,8 @@
       <li>Rename the local database directories (note, you do not need to do
           this if you have set the RABBITMQ_MNESIA_DIR environment variable):
         <p class="Pp"></p>
-        <div class="00">
-        <pre>
-mv \
+        <div class="Bd Bd-indent Li">
+        <pre>mv \
   /var/lib/rabbitmq/mnesia/rabbit\@misshelpful \
   /var/lib/rabbitmq/mnesia/rabbit\@cordelia
 mv \
@@ -437,8 +436,7 @@ mv \
   /var/lib/rabbitmq/mnesia/rabbit\@cordelia-rename
 mv \
   /var/lib/rabbitmq/mnesia/rabbit\@misshelpful-plugins-expand \
-  /var/lib/rabbitmq/mnesia/rabbit\@cordelia-plugins-expand
-        </pre>
+  /var/lib/rabbitmq/mnesia/rabbit\@cordelia-plugins-expand</pre>
         </div>
         <p class="Pp"></p>
       </li>
@@ -1188,7 +1186,12 @@ mv \
       <dt id="arguments~3"><a class="permalink" href="#arguments~3"><code class="Cm">arguments</code></a></dt>
       <dd>Queue arguments.</dd>
       <dt id="policy~2"><a class="permalink" href="#policy~2"><code class="Cm">policy</code></a></dt>
-      <dd>Effective policy name for the queue.</dd>
+      <dd>Name of the user policy that is applied to the queue.</dd>
+      <dt id="operator_policy"><a class="permalink" href="#operator_policy"><code class="Cm">operator_policy</code></a></dt>
+      <dd>Name of the operator policy that is applied to the queue.</dd>
+      <dt id="effective_policy_definition"><a class="permalink" href="#effective_policy_definition"><code class="Cm">effective_policy_definition</code></a></dt>
+      <dd>Effective policy definition for the queue: both user and operator
+          policy definitions merged.</dd>
       <dt id="pid~3"><a class="permalink" href="#pid~3"><code class="Cm">pid</code></a></dt>
       <dd>Erlang process identifier of the queue.</dd>
       <dt id="owner_pid"><a class="permalink" href="#owner_pid"><code class="Cm">owner_pid</code></a></dt>

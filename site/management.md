@@ -295,6 +295,7 @@ against the OAuth 2 server, this must be configured separately. Currently,
 * [Keycloak](https://www.keycloak.org/)
 * [Auth0](https://auth0.com/)
 * [Azure](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/auth-oauth2)
+* [OAuth2 Proxy](https://oauth2-proxy.github.io/oauth2-proxy/)
 
 **Important**: from the OAuth 2.0 point of view, the RabbitMQ Management UI is a **public app** which
 means it cannot securely store credentials such as the *client_secret*. This means that RabbitMQ does not need to present a client_secret when authenticating users.
@@ -306,19 +307,23 @@ then a *client_secret* **must** be configured using the `oauth_client_secret` se
 To redirect users to the UAA server to authenticate, use the following configuration:
 
 <pre class="lang-ini">
-management.enable_uaa = true
 management.oauth_enabled = true
 management.oauth_client_id = rabbit_user_client
+management.oauth_client_secret = rabbit_user_client
 management.oauth_provider_url = https://my-uaa-server-host:8443/uaa
+management.oauth_scopes = openid profile rabbitmq.*
 </pre>
+
+> **Important**: UAA supports regular expression in scopes, e.g. `rabbitmq.*`. The above configuration
+assumes that the `resource_server_id` configured in the oauth2 backend matches the value `rabbitmq`.
 
 > **Important**: Since RabbitMQ 3.10, RabbitMQ uses `authorization_code` grant type. `implicit` flow is deprecated.
 
-> **Important**: `management.oauth_client_secret` is an optional setting. It is only required when the authorization server used requires it
+> **Important**: `management.oauth_client_secret` is an optional setting. UAA 75.21.0 and earlier versions require `oauth_client_secret` regardless if the oauth client is configured as confidental.
 
 ### Allow Basic and OAuth 2 authentication
 
-When using `management.enable_uaa = true`, it is still possible to authenticate
+When using `management.oauth_enabled = true`, it is still possible to authenticate
 with [HTTP basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication)
 against the HTTP API. This means both of the following examples will work:
 
@@ -338,10 +343,10 @@ To switch to authenticate using OAuth 2 exclusively for management UI access, se
 
 <pre class="lang-ini">
 management.disable_basic_auth = true
-management.enable_uaa = true
-management.oauth_enabled = true
 management.oauth_client_id = rabbit_user_client
+management.oauth_client_secret = rabbit_user_client
 management.oauth_provider_url = https://my-uaa-server-host:8443/uaa
+management.oauth_scopes = openid profile rabbitmq.*
 </pre>
 
 When setting `management.disable_basic_auth` to `true`, only the `Bearer` (token-based) authorization method will
@@ -359,22 +364,13 @@ endpoints require the token to be passed in the `token` query string parameter.
 
 It is possible to configure which OAuth 2.0 scopes RabbitMQ should claim when redirecting the user to the authorization server.
 
-If `management.enable_uaa = true`, by default, RabbitMQ requests the following scopes to UAA:
-  * `openid`
-  * `profile`
-  * <*resource_server_id*>`.*` , e.g. `rabbitmq.*` if `resource_server_id` had the value `rabbitmq`
+If `management.oauth_enabled = true` and `management.oauth_scopes` is not set, RabbitMQ default to `openid profile`.
 
-However, if `management.enable_uaa = false`, RabbitMQ only requests these scopes:
-  * `openid`
-  * `profile`
-
-Which means that you have to configure which scopes you want RabbitMQ requests to the
-authorization server. It may be <*resource_server_id*>`.*` if you want to request all scopes or specific ones
-such as:
+Depending on the Authorization server, we may use regular expression in scopes, e.g. <*resource_server_id*>`.*`, or
+instead we have to explicitly ask for them, e.g.:
   * <*resource_server_id*>`.tag:administrator`
   * <*resource_server_id*>`.read:*/*/*`
 
-The scopes are configured using the `management.oauth_scopes` setting. The value must be a space-separated list of scopes.
 
 ### Configure OpenID Connect Discovery endpoint
 
@@ -401,18 +397,10 @@ In addition to the `connect-src` CSP header, RabbitMQ also needs the CSP directi
 ### Identity-Provider initiated logon
 
 By default, the RabbitMQ Management UI uses the OAuth 2.0 **authorization code flow** to authenticate and authorize users.
-However, there are scenarios where users preferred to be automatically redirected to RabbitMQ without getting
-involved in additional logon flows. This is common in Web Portals where with a single click, users navigate
-straight to a RabbitMQ cluster's management UI with a token obtained under the covers. This is known as
-**Identity-Provider initiated logon**.
+However, there are scenarios where users prefer to be automatically redirected to RabbitMQ without getting involved in additional logon flows. By using OAuth2 proxies and web portals, these additional logon flows can be avoided. With a single click, users navigate straight to a RabbitMQ Management UI with a token obtained under the covers. This is known as **Identity-Provider initiated logon**.
 
 RabbitMQ exposes a new setting called `management.oauth_initiated_logon_type` whose default value `sp_initiated`.
 To enable an **Identity-Provider initiated logon** you set it to `idp_initiated`.
-
-After you set `management.oauth_initiated_logon_type` to `idp_initiated` and
-`oauth_enabled: true` and `oauth_provider_url` are configured, the management UI exposes the HTTP endpoint `/login` which accepts `content-type: application/x-www-form-urlencoded` and it expects the JWT token in the `access_token` form field. This is the endpoint where the web portal would redirect users to access the RabbitMQ Management ui.
-
-This is the minimum required configuration for a RabbitMQ cluster configured with `idp_initiated` logon type:
 
 <pre class="lang-ini">
 management.oauth_enabled = true
@@ -420,6 +408,8 @@ management.oauth_initiated_logon_type = idp_initiated
 management.oauth_provider_url = https://my-web-portal
 </pre>
 
+With the previous settings, the management UI exposes the HTTP endpoint `/login` which accepts `content-type: application/x-www-form-urlencoded` and it expects the JWT token in the `access_token` form field. This is the endpoint where the Web portal will redirect users to the management UI.
+Additionally, RabbitMQ also accepts a JWT token in the HTTP `Authorization` header when the user lands on the management UI.
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
 
