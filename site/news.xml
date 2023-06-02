@@ -36,6 +36,35 @@ limitations under the License.
     -->
 
     <doc:item>
+      <doc:date iso="2023-06--2T12:00:00+00:00">2 June 2023</doc:date>
+      <doc:title>RabbitMQ 3.12.0 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.12.0.
+        </p>
+        <p>
+          This release includes a <a href="https://blog.rabbitmq.com/posts/2023/03/native-mqtt/">significantly more efficient implementation of MQTTv3</a>,
+          <a href="https://blog.rabbitmq.com/posts/2023/05/rabbitmq-3.12-performance-improvements/">performance and efficiency improvements</a>, and a number
+          of other features. Release notes can be found in the <a href="changelog.html">change log</a>.
+        </p>
+        <p>
+          Binary and source distributions of the new release can be found in the
+          <a href="https://rabbitmq.com/download.html">installation guide</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via our <a href="https://rabbitmq.com/discord/">community Discord server</a>
+          or <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2023-05-29T14:00:00+00:00">29 May 2023</doc:date>
       <doc:title>RabbitMQ 3.11.17 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.17</doc:link>
