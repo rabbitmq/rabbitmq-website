@@ -36,6 +36,86 @@ limitations under the License.
     -->
 
     <doc:item>
+      <doc:date iso="2023-05-29T14:00:00+00:00">29 May 2023</doc:date>
+      <doc:title>RabbitMQ 3.11.17 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.17</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.11.17,
+          a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.11.x/">RabbitMQ 3.11.x</a> series.
+        </p>
+        <p>
+          This is a maintenance release that contains bug fixes.
+          Release notes can be found <a href="./changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 25.x</a>
+          and supports Erlang versions through <a href="https://www.erlang.org/blog/my-otp-25-highlights/">the latest Erlang 25.3</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="/install-debian.html">Debian</a> and <a href="/intall-rpm.html">dnf (yum) repositories</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2023-05-25T14:00:00+00:00">25 May 2022</doc:date>
+      <doc:title>RabbitMQ 3.10.23 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.23</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.10.23,
+          a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.10.x/">RabbitMQ 3.10.x</a> series.
+        </p>
+        <p>
+          This is a maintenance release that contains bug fixes.
+          Release notes can be found <a href="./changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 24.3</a> and
+          supports Erlang versions through <a href="https://www.erlang.org/blog/my-otp-25-highlights/">the latest Erlang 25.3</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="/install-debian.html">Debian</a> and <a href="/intall-rpm.html">dnf (yum) repositories</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2023-05-27T14:00:00+00:00">27 May 2023</doc:date>
+      <doc:title>PackageCloud Repositories are Unavailable</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/discussions/8386</doc:link>
+      <doc:text>
+        <p>
+          Team RabbitMQ's account on PackageCloud <a href="https://github.com/rabbitmq/rabbitmq-server/discussions/8386">is currently unavailable</a>.
+          Please switch to our Cloudsmith mirror for <a href="https://rabbitmq.com/install-debian.html#apt-quick-start-cloudsmith">Debian</a> and <a href="https://rabbitmq.com/install-rpm.html#cloudsmith">RPM</a>
+          package repositories.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2023-05-13T14:00:00+00:00">13 May 2023</doc:date>
       <doc:title>RabbitMQ 3.11.16 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.16</doc:link>
@@ -53,7 +133,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          on <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>, as well as in <a href="/install-debian.html">Debian</a> and <a href="/intall-rpm.html">dnf (yum) repositories</a>.
+          <a href="/install-debian.html">Debian</a> and <a href="/intall-rpm.html">dnf (yum) repositories</a>.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -87,7 +167,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          on <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>, as well as in <a href="/install-debian.html">Debian</a> and <a href="/intall-rpm.html">dnf (yum) repositories</a>.
+          <a href="/install-debian.html">Debian</a> and <a href="/intall-rpm.html">dnf (yum) repositories</a>.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -122,7 +202,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          on <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>, as well as in <a href="/install-debian.html">Debian</a> and <a href="/intall-rpm.html">dnf (yum) repositories</a>.
+          <a href="/install-debian.html">Debian</a> and <a href="/intall-rpm.html">dnf (yum) repositories</a>.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -152,8 +232,7 @@ limitations under the License.
           This release <a href="which-erlang.html">requires Erlang/OTP 25.x</a>.
         </p>
         <p>
-          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -188,7 +267,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -219,7 +298,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -253,7 +332,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -288,7 +367,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -319,7 +398,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -354,7 +433,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -388,7 +467,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -423,7 +502,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -454,7 +533,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -489,7 +568,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -521,7 +600,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -555,7 +634,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -590,7 +669,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -636,7 +715,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -671,7 +750,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -705,7 +784,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -739,7 +818,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -774,7 +853,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -809,7 +888,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -843,7 +922,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -878,7 +957,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -913,7 +992,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -968,7 +1047,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1003,7 +1082,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1038,7 +1117,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1072,7 +1151,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1107,7 +1186,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1142,7 +1221,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1176,7 +1255,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1211,7 +1290,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1301,7 +1380,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1336,7 +1415,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1371,7 +1450,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1406,7 +1485,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1440,7 +1519,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1475,7 +1554,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1509,7 +1588,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1543,7 +1622,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1578,7 +1657,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1612,7 +1691,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1646,7 +1725,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1681,7 +1760,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1715,7 +1794,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1750,7 +1829,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1785,7 +1864,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1819,7 +1898,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1854,7 +1933,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1889,7 +1968,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1923,7 +2002,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -1988,7 +2067,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2022,7 +2101,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2057,7 +2136,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2091,7 +2170,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2125,7 +2204,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2159,7 +2238,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2193,7 +2272,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2227,7 +2306,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2261,7 +2340,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2295,7 +2374,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2329,7 +2408,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2363,7 +2442,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2397,7 +2476,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2431,7 +2510,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2465,7 +2544,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2499,7 +2578,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2533,7 +2612,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2567,7 +2646,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2601,7 +2680,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2635,7 +2714,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2669,7 +2748,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2703,7 +2782,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2737,7 +2816,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2771,7 +2850,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2805,7 +2884,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2839,7 +2918,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2873,7 +2952,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2939,7 +3018,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -2973,7 +3052,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -3007,7 +3086,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -3042,7 +3121,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
-          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -3125,7 +3204,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a> and <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>, as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>
@@ -3156,7 +3235,7 @@ limitations under the License.
         </p>
         <p>
           Binary builds and packages of the new release can be found on
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a> and <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>, as well as Debian and RPM repositories.
           See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
         </p>
         <p>

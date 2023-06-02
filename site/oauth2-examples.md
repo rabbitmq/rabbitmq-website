@@ -4,7 +4,7 @@
 
 This tutorial-style guide has two primary goals:
 
-1. Explore how applications and end users can [authenticate](./access-control) with RabbitMQ server using OAuth 2.0 protocol rather than
+1. Explore how applications and end users can [authenticate](./access-control.html) with RabbitMQ server using OAuth 2.0 protocol rather than
    the traditional username/password pairs or x.509 certificates.
 2. Explore what it takes to set up RabbitMQ Server with OAuth 2.0 authentication mechanism.
    Additionally it explains how to stand up ([UAA](https://github.com/cloudfoundry/uaa)) as an OAuth 2.0 Authorization Server and all the operations to create OAuth clients, users and obtain their tokens.
@@ -72,9 +72,9 @@ will see how to set up UAA and RabbitMQ. If you are new to OAuth 2.0, it is a go
 and you want to learn how to configure RabbitMQ to talk to one of OAuth 2.0 server tested on this tutorial, you can jump
 straight to them. They are:
 
-- [KeyCloak](use-cases/keycloak.md)
-- [https://auth0.com/](use-cases/oauth0.md)
-- [Azure Active Directory](use-cases/azure.md)
+- [KeyCloak](./oauth2-examples-keycloak.html)
+- [https://auth0.com/](./oauth2-examples-oauth0.html)
+- [Azure Active Directory](./oauth2-examples-azure.html)
 - [UAA](#uaa-asymmetrical-signing-keys)
 
 
@@ -92,7 +92,7 @@ Run the following 2 commands to get the environment ready to see Oauth 2.0 plugi
   1. `make start-uaa` to get UAA server running
   2. `make start-rabbitmq` to start RabbitMQ server
 
-The last command starts a RabbitMQ server with [this](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq.config) configuration file.
+The last command starts a RabbitMQ server with [specific configuration file](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq.config).
 
 ## <a id="access-management-ui" class="anchor" href="#access-management-ui">Access Management UI using OAuth 2.0 tokens</a>
 
@@ -344,7 +344,7 @@ Note: in this example, RabbitMQ is already configured with the [`rabbitmq_mqtt` 
 
 This is no different than using AMQP or JMS protocols, all that matters is to pass an empty username and a JWT token as password.
 However, **what it is really different** is how you encode the permissions. In this use case you are going to proceed as you did it in the previous use case where you handcrafted the JWT token rather than requesting it to UAA. Here is the the scopes required to publish
-a message to a mqtt topic ([scopes-for-mqtt.json](jwts/scopes-for-mqtt.json))
+a message to a mqtt topic ([scopes-for-mqtt.json](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/jwts/scopes-for-mqtt.json))
 
 <pre class="lang-javascript">
 {
@@ -623,7 +623,7 @@ This command will stop RabbitMQ if it is already running
 You cannot use UAA to issue the tokens because you cannot configure UAA to use a custom field for scopes.
 Instead you are going to issue the token ourselves with the command `bin/jwt_token`.
 
-Launch a producer application with the token [producer-role-in-scope.json](jwts/producer-roles-in-extra-scope.json):
+Launch a producer application with the token [producer-role-in-scope.json](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/jwts/producer-roles-in-extra-scope.json):
 
 <pre class="lang-bash">
 make start-perftest-producer-with-token PRODUCER=producer_with_roles TOKEN=$(bin/jwt_token producer-role-in-extra-scope.json legacy-token-key private.pem public.pem)
@@ -635,13 +635,13 @@ To inspect the logs:
 docker logs producer_with_roles -f
 </pre>
 
-Launch a consumer application with the token [consumer-roles-in-extra-scope.json](jwts/consumer-roles-in-extra-scope.json):
+Launch a consumer application with the token [consumer-roles-in-extra-scope.json](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/jwts/consumer-roles-in-extra-scope.json):
 
 <pre class="lang-bash">
 make start-perftest-consumer-with-token CONSUMER=consumer_with_roles TOKEN=$(bin/jwt_token consumer-roles-in-extra-scope.json legacy-token-key private.pem public.pem)
 </pre>
 
-Access management api with the token [producer-roles-in-extra-scope.json](jwts/producer-roles-in-extra-scope.json)
+Access management api with the token [producer-roles-in-extra-scope.json](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/jwts/producer-roles-in-extra-scope.json)
 
 <pre class="lang-bash">
 make curl-with-token URL="http://localhost:15672/api/overview" TOKEN=$(bin/jwt_token producer-roles-in-extra-scope.json legacy-token-key private.pem public.pem)
@@ -701,7 +701,7 @@ RabbitMQ supports JWT tokens compliant with the extension. Below is a sample exa
 *Get the environment ready*
 
 To demonstrate this new capability you have to deploy RabbitMQ with the appropriate configuration file
-under [conf/uaa/rabbitmq-for-rar-tokens.config](conf/uaa/rabbitmq-for-rar-tokens.config).
+under [conf/uaa/rabbitmq-for-rar-tokens.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq-for-rar-tokens.config).
 
 <pre class="lang-bash">
 export CONFIG=rabbitmq-for-rar-tokens.config
@@ -713,7 +713,7 @@ private-public key pair RabbitMQ is configured with.
 
 *Use a Rich Authorization Token to access the management rest api*
 
-You are going use this token [jwts/rar-token.json](jwts/rar-token.json) to access an endpoint of the management rest api.
+You are going use this token [jwts/rar-token.json](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/jwts/rar-token.json) to access an endpoint of the management rest api.
 
 <pre class="lang-bash">
 make curl-with-token URL=http://localhost:15672/api/overview TOKEN=$(bin/jwt_token rar-token.json legacy-token-key private.pem public.pem)
@@ -870,7 +870,7 @@ Sample *scope*(s):
 * `rabbitmq.write:uaa_vhost/x-*` grants `write` permissions on `uaa_vhost` on any *resource* that starts with `x-`
 * `rabbitmq.tag:monitoring` grants `monitoring` *user tag*
 
-> Be aware that you have used `rabbitmq` resource_server_id in the sample scopes. RabbitMQ must be configured with this same `resource_server_id`. Check out [conf/symmetric_keys/rabbitmq.config](rabbitmq.config)
+> Be aware that you have used `rabbitmq` resource_server_id in the sample scopes. RabbitMQ must be configured with this same `resource_server_id`. Check out [conf/symmetric_keys/rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa-symmetrical/rabbitmq.config)
 
 
 ### About signing key required to configure RabbitMQ

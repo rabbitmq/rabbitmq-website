@@ -99,8 +99,8 @@ Other guides related to Kubernetes:
 
 ## Debian (Apt) and RPM (Yum) Repositories
 
- * [Package Cloud](https://packagecloud.io/rabbitmq/)
- * [Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/)
+ * [Debian](install-debian.html#apt-quick-start-cloudsmith)
+ * [RPM](install-rpm.html#cloudsmith)
 
 ## Provisioning Tools (Chef, Puppet, etc)
 

@@ -83,7 +83,7 @@ initialises a fresh database with the following resources:
  * a [virtual host](./vhosts.html) named <code>/</code> (a slash)
  * a user named <code>guest</code> with a default password of <code>guest</code>, granted full access to the <code>/</code> virtual host
 
-If a blank node [imports definitions on boot](/definitions.html#import-on-boot-nuances),
+If a blank node [imports definitions on boot](./definitions.html#import-on-boot-nuances),
 this default user will not be created.
 
 It is **highly recommended** to [pre-configure a new user with a generated username and password](#seeding) or [delete](rabbitmqctl.8.html#delete_user)

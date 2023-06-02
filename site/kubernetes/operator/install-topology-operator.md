@@ -206,10 +206,24 @@ The following table listes the Topology Operator environment variables that are 
     </td>
     <td>
       The default value is false because this variable should NOT be used in production. When it is set to true, it exposes a set of debug endpoints
-      on the Operator Pod's metrics port for CPU and [memory profiling of the Operator with pprof](./debug-operator.md#operator-resource-usage-profiling).
+      on the Operator Pod's metrics port for CPU and <a href="debug-operator.html" target="_blank">memory profiling of
+      the Operator with pprof</a>.
     </td>
     <td>
       The pprof debug endpoint will not be exposed on the Operator Pod.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      SYNC_PERIOD
+    </td>
+    <td>
+      Configure the operator to reconcile all owned objects periodically. It accepts string values with a time suffix e.g. "15m". It accepts any value
+      parseable by <a href="https://pkg.go.dev/time#ParseDuration" target="_blank">time.ParseDuration</a> function. By default, sync period is disabled,
+      and reconciliation happens only when owned resources are updated.
+    </td>
+    <td>
+      Reconciliation will only happen when a resource is updated.
     </td>
   </tr>
   <tr>

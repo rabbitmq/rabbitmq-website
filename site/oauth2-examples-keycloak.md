@@ -65,7 +65,7 @@ make start-perftest-producer-with-token PRODUCER=producer TOKEN=$(bin/keycloak/t
 
 In the following information, OAuth 2.0 authentication is tested with the AMQP protocol and the Pika library. These tests specifically demonstrate how to refresh a token on a live AMQP connection.
 
-You can see the Python sample application [here](../pika_keycloak).
+The sample Python application [can be found on GitHub](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/pika-client).
 
 To run this sample code proceed as follows:
 <pre class="lang-bash">

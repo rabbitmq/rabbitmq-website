@@ -103,6 +103,73 @@ and delays should be introduced between operations.
 way of pre-configuring many virtual hosts at deployment time.
 
 
+## <a id="metadata" class="anchor" href="#metadata">Virtual Host Metadata</a>
+
+Virtual hosts can have metadata associated with them:
+
+ * A description
+ * A set of tags
+ * Default queue type configured for the virtual host
+
+All these settings are optional. They can be provided at virtual host creation time
+or updated later.
+
+### Using CLI Tools
+
+The `rabbitmqctl add_vhost` command accepts a virtual host name as well as a number of optional flags.
+
+Here's an example that creates a virtual host named `qa1` with [quorum queues](./quorum-queues.html) for default queue type,
+a description and two tags:
+
+<pre class="lang-bash">
+rabbitmqctl add_vhost qa1 --description "QA environment 1" --default-queue-type quorum --tags qa,project-a
+</pre>
+
+`rabbitmqctl update_vhost_metadata` can be used to update all or some of the metadata values
+demonstrated above:
+
+<pre class="lang-bash">
+rabbitmqctl update_vhost_metadata qa1 --description "QA environment for issue 1662" --default-queue-type quorum --tags qa,project-a,qa-1662
+</pre>
+
+To inspect virtual host metadata, use `rabbitmqctl list_vhots` and provide the additional column(s):
+
+<pre class="lang-bash">
+rabbitmqctl -q --formatter=pretty_table list_vhosts name description tags default_queue_type
+</pre>
+
+
+### Using HTTP API
+
+The `PUT /api/vhosts/{name}` [HTTP API](./management.html) endpoint
+accepts a number of optional keys.
+
+Here's an example that uses [curl](https://curl.haxx.se/) to create a virtual host `qa1` by contacting
+a node at `rabbitmq.local:15672`. [Quorum queues](./quorum-queues.html) will be used for default queue type,
+a description and two tags:
+
+<pre class="lang-bash">
+curl -u userename:pa$sw0rD -X PUT http://rabbitmq.local:15672/api/vhosts/qa1 \
+                           -H "content-type: application/json" \
+                           --data-raw '{"description": "QA environment 1", "tags": "qa,project-a", "default_queue_type": "quorum"}'
+</pre>
+
+can be used to update all or some of the metadata values
+demonstrated above:
+
+<pre class="lang-bash">
+curl -u userename:pa$sw0rD -X PUT http://rabbitmq.local:15672/api/vhosts/qa1 \
+                           -H "content-type: application/json" \
+                           --data-raw '{"description": "QA environment for issue 1662", "tags": "qa,project-a,qa-1662", "default_queue_type": "quorum"}'
+</pre>
+
+Virtual host metadata is returned by the `GET /api/vhosts/{name}` endpoint:
+
+<pre class="lang-bash">
+curl -u userename:pa$sw0rD -X GET http://rabbitmq.local:15672/api/vhosts/qa1
+</pre>
+
+
 ## <a id="deleting" class="anchor" href="#deleting">Deleting a Virtual Host</a>
 
 A virtual host can be deleted using CLI tools or an [HTTP API](./management.html) endpoint.
@@ -131,21 +198,6 @@ a node at `rabbitmq.local:15672`:
 <pre class="lang-bash">
 curl -u userename:pa$sw0rD -X DELETE http://rabbitmq.local:15672/api/vhosts/vh1
 </pre>
-
-
-## Virtual Hosts and STOMP
-
-Like AMQP 0-9-1, STOMP includes the [concept of virtual hosts](https://stomp.github.io/stomp-specification-1.2.html#CONNECT_or_STOMP_Frame). See
-the [STOMP guide](./stomp.html) for details.
-
-
-## Virtual Hosts and MQTT
-
-Unlike AMQP 0-9-1 and STOMP, MQTT doesn't have the concept of virtual
-hosts. MQTT connections use a single RabbitMQ host by default. There
-are MQTT-specific convention and features that make it possible for
-clients to connect to a specific vhosts without any client library
-modifications. See the [MQTT guide](./mqtt.html) for details.
 
 
 ## <a id="limits" class="anchor" href="#limits">Limits</a>
@@ -196,3 +248,18 @@ To lift the limit, set it to a negative value:
 <pre class="lang-bash">
 rabbitmqctl set_vhost_limits -p vhost_name '{"max-queues": -1}'
 </pre>
+
+
+## Virtual Hosts and STOMP
+
+Like AMQP 0-9-1, STOMP includes the [concept of virtual hosts](https://stomp.github.io/stomp-specification-1.2.html#CONNECT_or_STOMP_Frame). See
+the [STOMP guide](./stomp.html) for details.
+
+
+## Virtual Hosts and MQTT
+
+Unlike AMQP 0-9-1 and STOMP, MQTT doesn't have the concept of virtual
+hosts. MQTT connections use a single RabbitMQ host by default. There
+are MQTT-specific convention and features that make it possible for
+clients to connect to a specific vhosts without any client library
+modifications. See the [MQTT guide](./mqtt.html) for details.

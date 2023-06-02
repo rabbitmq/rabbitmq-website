@@ -45,6 +45,7 @@ Some key topics covered in this guide are
  * [Replicated queue types](#distributed)
  * [Temporary](#temporary-queues) and [exclusive](#exclusive-queues) queues
  * [Runtime resource](#runtime-characteristics) usage by queue replicas
+ * [Optional queue arguments](#optional-arguments) ("x-arguments")
  * [Queue metrics](#metrics)
  * [TTL](#ttl-and-limits) and length limits
  * [Priority queues](#priorities)
@@ -165,6 +166,23 @@ The way optional arguments are provided by clients varies from client library
 to client library but is usually an argument next to the <code>durable</code>,
 <code>auto_delete</code> and other arguments of the function (method) that
 declares queues.
+
+### <a id="optional-arguments-precedence" class="anchor" href="#optional-arguments-precedence">Optional Arguments and Policy-Defined Key Precedence</a>
+
+When the same key is provided by both client-provided `x-arguments` and by a [policy](./parameters.html#policies),
+the former take precedence.
+
+However, if an [operator policy](./parameters.html#operator-policies) is also used, that will take precedence over the client-provided
+arguments, too. Operator policies are a protection mechanism and override client-provided values
+and user policy values.
+
+For numerical values such as [maximum queue length](./maxlength.html) or [TTL](./ttl.html),
+the lower value of the two will be used. If an application needs or chooses to use a lower value,
+that will be allowed by an operator policy. A value higher than that defined in the operator policy,
+however, cannot be used.
+
+Use operator policies to introduce guardrails for application-controlled parameters related
+to resource use (e.g. peak disk space usage).
 
 
 ## <a id="message-ordering" class="anchor" href="#message-ordering">Message Ordering</a>
