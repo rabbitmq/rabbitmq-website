@@ -175,7 +175,7 @@ will have at most one policy matching (see <a href="#combining-policy-definition
 and each policy then injects a set of key-value pairs (policy definition) on to the matching
 queues (exchanges).
 
-Policies can match only queues, only exchanges, or both.
+Policies can match only queues of a specific type, all queues, only exchanges, or all queues and exchanges.
 This is controlled using the `apply-to` flag when a policy is created.
 
 Policies can change at any time. When a policy definition is
@@ -268,10 +268,17 @@ to match exchange or queue names.
 In the event that more than one policy can match a given
 exchange or queue, the policy with the greatest priority applies.
 
-The `"apply-to"` argument can be `"exchanges"`,
-`"queues"` or `"all"`. The `"apply-to"`
-and `"priority"` settings are optional, in which case the
-defaults are `"all"` and `"0"` respectively.
+The `"apply-to"` argument can be one of the following:
+
+* `"exchanges"`, applies to exchanges only
+* `"queues"`, applies to all types of queues, including streams
+* `"classic_queues"`, applies to classic queues only
+* `"quorum_queues"`, applies to quorum queues only
+* `"streams"`, applies to streams only
+* `"all"`, applies to all exchanges and queues (including streams)
+
+The `"apply-to"` and `"priority"` settings are optional.
+The default values are `"all"` and `"0"` respectively.
 
 ### <a id="policy-priorities" class="anchor" href="#policy-priorities">Policy Priorities</a>
 
