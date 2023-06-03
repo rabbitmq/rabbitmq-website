@@ -50,6 +50,7 @@ for the original RabbitMQ protocol.
  * [Supported Erlang/OTP Versions](./which-erlang.html)
  * [Supported RabbitMQ Versions](./versions.html)
  * [Changelog](./changelog.html)
+ * [Snapshot (Nightly) Builds](./snapshots.html)
 
 #### Operating Systems and Platforms
 
@@ -62,10 +63,6 @@ for the original RabbitMQ protocol.
  * [MacOS via Homebrew](./install-homebrew.html)
  * [Amazon EC2](./ec2.html)
  * [Solaris](./install-solaris.html)
-
-#### Snapshots
-
- * [Snapshot (Nightly) Builds](./snapshots.html)
 
 
 ### Upgrading
@@ -107,7 +104,9 @@ for the original RabbitMQ protocol.
  * [AMQP 0-9-1 Authentication Mechanisms](authentication.html)
  * [Virtual Hosts](vhosts.html)
  * [Credentials and Passwords](passwords.html)
- * x509 (TLS) [Certificate-based client authentication](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl/tree/v3.8.x)
+ * x509 (TLS) [Certificate-based client authentication](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl/tree/v3.12.x)
+ * [OAuth 2 Support](https://rabbitmq.com/oauth2.html)
+ * [OAuth 2 Examples](https://rabbitmq.com/oauth2-examples.html) for common identity providers
  * [LDAP](ldap.html)
  * [Validated User ID](./validated-user-id.html)
  * [Authentication Failure Notifications](./auth-notification.html)
