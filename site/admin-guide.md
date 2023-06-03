@@ -66,6 +66,7 @@ see <a href="./documentation.html">All Documentation Guides</a>.
  * [rabbitmq-plugins](rabbitmq-plugins.8.html): plugin management
  * [rabbitmq-queues](rabbitmq-queues.8.html): operations on quorum queues
  * [rabbitmq-streams](rabbitmq-streams.8.html): operations on streams
+ * [rabbitmq-upgrade](./rabbitmq-upgrade.8.html): operations related to [upgrades](./upgrade.html)
  * [rabbitmqadmin](management-cli.html) ([HTTP API](management.html)-based zero dependency management tool)
  * [man pages](manpages.html)
 
@@ -90,7 +91,9 @@ see <a href="./documentation.html">All Documentation Guides</a>.
  * [AMQP 0-9-1 Authentication Mechanisms](authentication.html)
  * [Virtual Hosts](vhosts.html)
  * [Credentials and Passwords](passwords.html)
- * x509 (TLS) [Certificate-based client authentication](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl/tree/v3.8.x)
+ * x509 (TLS) [Certificate-based client authentication](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl/tree/v3.12.x)
+ * [OAuth 2 Support](https://rabbitmq.com/oauth2.html)
+ * [OAuth 2 Examples](https://rabbitmq.com/oauth2-examples.html) for common identity providers
  * [LDAP](ldap.html)
  * [Validated User ID](validated-user-id.html)
  * [Authentication Failure Notifications](auth-notification.html)
