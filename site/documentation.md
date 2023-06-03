@@ -80,6 +80,7 @@ for the original RabbitMQ protocol.
  * [rabbitmq-plugins](./rabbitmq-plugins.8.html): plugin management
  * [rabbitmq-queues](./rabbitmq-queues.8.html): operations on quorum queues
  * [rabbitmq-streams](./rabbitmq-streams.8.html): operations on streams
+ * [rabbitmq-upgrade](./rabbitmq-upgrade.8.html): operations related to [upgrades](./upgrade.html)
  * [rabbitmqadmin](./management-cli.html) ([HTTP API](./management.html)-based zero dependency management tool)
  * [man pages](./manpages.html)
 
