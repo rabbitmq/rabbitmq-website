@@ -44,6 +44,7 @@ for the original RabbitMQ protocol.
 ### [Installation and Provisioning](download.html):
 
  * [Packages and repositories](./download.html)
+ * [Installation with Easypanel](./easypanel.html)
  * [Kubernetes Operator](./kubernetes/operator/operator-overview.html)
  * [Provisioning Tools](./download.html) (Docker image, Chef cookbook, Puppet module, etc)
  * [Package Signatures](./signatures.html)
