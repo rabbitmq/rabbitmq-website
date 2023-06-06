@@ -101,7 +101,7 @@ both community and those with a commercial license.
 
 ## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>
 
-RabbitMQ 3.12, the next release series, is expected in the first half of 2023.
+RabbitMQ 3.13, the next release series, is expected to be released end of 2023.
 
 ## <a id="out-of-support" class="anchor" href="#out-of-support">Release Series That are Out of Support</a>
 
