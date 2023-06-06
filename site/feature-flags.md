@@ -382,7 +382,7 @@ The following feature flags are provided by RabbitMQ core.
   </tr>
 </table>
 
-### <a id="feature-flags-rabbitmq_management_agent" class="anchor" href="#feature-flags-rabbitmq_management_agent">rabbitmq_management_agent Feature Flags</a>
+### <a id="rabbitmq_management_agent-feature-flags" class="anchor" href="#rabbitmq_management_agent-feature-flags">rabbitmq_management_agent Feature Flags</a>
 
 The following feature flags are provided by plugin [rabbimq_management_agent](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_management_agent).
 
@@ -412,7 +412,7 @@ The following feature flags are provided by plugin [rabbimq_management_agent](ht
   </tr>
 </table>
 
-### <a id="feature-flags-rabbitmq_mqtt" class="anchor" href="#feature-flags-rabbitmq_mqtt">rabbitmq_rabbitmq_mqtt Feature Flags</a>
+### <a id="rabbitmq_mqtt-feature-flags" class="anchor" href="#rabbitmq_mqtt-feature-flags">rabbitmq_rabbitmq_mqtt Feature Flags</a>
 
 The following feature flags are provided by plugin [rabbimq_mqtt](https://www.rabbitmq.com/mqtt.html).
 
