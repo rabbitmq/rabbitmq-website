@@ -146,7 +146,7 @@ For exclusive queues, however, you must decide whether to leave the queue as exc
 1. A RabbitMQ cluster with an odd number of nodes. A minimum of 3 nodes in the RabbitMQ cluster is required for high availability.
 2. The Management plugin should be running on at least one node. It is used to export/import definitions for a single host,
    which simplifies definitions cleanup. (`rabbitmqadmin` CLI command is also using the plugin behind the scenes).
-3. To quickly move (shovel) the backlog of original queues to the new queues, enable the [Shovel plugin](https://www.rabbitmq.com/shovel.html).
+3. To quickly move (shovel) the backlog of original queues to the new queues, enable the . The [Shovel plugin](https://www.rabbitmq.com/shovel.html) can be used to move the backlog of original messages to the new queues. Shovels can be created programmatically using a HTTP API extension or using the RabbitMQ Management UI.
 
 ## <a id="migrate-the-queues-by-virtual-host" class="anchor" href="#migrate-the-queues-by-virtual-host">Migrate the Queues by Virtual Host</a>
 
