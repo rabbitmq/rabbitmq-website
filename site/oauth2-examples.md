@@ -40,7 +40,7 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
 	- [KeyCloak](oauth2-examples-keycloak.html)
 	- [https://auth0.com/](oauth2-examples-oauth0.html)
 	- [Azure Active Directory](oauth2-examples-azure.html)  
-    - [OAuth2 Proxy](oauth2-examples-proxy.html)
+    - [OAuth2 Proxy](./oauth2-examples-proxy.html)
 * [Understanding the environment](#understand-the-environment)
 	- [RabbitMQ server](#rabbitmq-server)
 	- [UAA server](#uaa-server)
@@ -158,7 +158,7 @@ The following scenarios are examples of Idp-initiated logon:
 * RabbitMQ is behind a web portal which conveniently allow users to navigate directly to RabbitMQ fully authenticated.
 * There is an OAuth2 proxy in between users and RabbitMQ which intercepts their requests and forwards them to RabbitMQ inserting the token into the HTTP `Authorization` header.  
 
-The latter scenario is demonstrated [here](oauth2-examples-proxy.html). The former scenario is covered in the following section.
+The latter scenario is demonstrated [here](./oauth2-examples-proxy.html). The former scenario is covered in the following section.
 
 #### Idp-initiated Logon using the Login Endpoint
 
