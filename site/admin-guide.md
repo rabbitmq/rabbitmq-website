@@ -167,7 +167,7 @@ see <a href="./documentation.html">All Documentation Guides</a>.
 ## Queue and Consumer Features
 
  * [Queues guide](queues.html)
- * [Classic Queues](classic-queues.html)
+ * [Classic Queues](./classic-queues.html)
  * [Consumers guide](consumers.html)
  * [Queue and Message TTL](ttl.html)
  * [Queue Length Limits](maxlength.html)
