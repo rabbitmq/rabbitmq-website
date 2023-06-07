@@ -347,11 +347,16 @@ metrics about their operations to help with sizing and any possible capacity cha
 
 ## <a id="unsubscribing" class="anchor" href="#unsubscribing">Cancelling a Consumer (Unsubscribing)</a>
 
-To cancel a consumer its identifier (consumer tag) must be known.
+To cancel a consumer, its identifier (consumer tag) must be known.
 
 After a consumer is cancelled there will be no future deliveries dispatched
 to it. Note that there can still be "in flight" deliveries dispatched previously.
-Cancelling a consumer will not discard them.
+Cancelling a consumer will neither discard nor requeue them.
+
+A cancelled consumer will not observe any new deliveries besides those in-flight at
+the moment of processing `basic.cancel` method by RabbitMQ. All previously unconfirmed
+deliveries will not be affected in any way. To re-queue in-flight deliveries, the
+application must close the channel.
 
 ### Java Client
 
