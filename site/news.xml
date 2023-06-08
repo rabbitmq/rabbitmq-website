@@ -36,6 +36,73 @@ limitations under the License.
     -->
 
     <doc:item>
+      <doc:date iso="2023-06-08T14:00:00+00:00">7 June 2023</doc:date>
+      <doc:title>RabbitMQ 3.11.18 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.18</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.11.18,
+          a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.11.x/">RabbitMQ 3.11.x</a> series.
+        </p>
+        <p>
+          This is a maintenance release that contains bug fixes.
+          Release notes can be found <a href="./changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 25.x</a>
+          and supports Erlang versions through <a href="https://www.erlang.org/blog/my-otp-25-highlights/">the latest Erlang 25.3</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="/install-debian.html">Debian</a> and <a href="/intall-rpm.html">dnf (yum) repositories</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2023-06-07T14:00:00+00:00">7 June 2022</doc:date>
+      <doc:title>RabbitMQ 3.10.24 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.24</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.10.24,
+          a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.10.x/">RabbitMQ 3.10.x</a> series.
+        </p>
+        <p>
+          This is a maintenance release that contains bug fixes.
+          Release notes can be found <a href="./changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 24.3</a> and
+          supports Erlang versions through <a href="https://www.erlang.org/blog/my-otp-25-highlights/">the latest Erlang 25.3</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="/install-debian.html">Debian</a> and <a href="/intall-rpm.html">dnf (yum) repositories</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group, <a href="https://rabbitmq.com/discord/">RabbitMQ community Discord</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2023-06--2T12:00:00+00:00">2 June 2023</doc:date>
       <doc:title>RabbitMQ 3.12.0 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0</doc:link>

@@ -43,6 +43,32 @@ published separately.
   <!-- releases -->
 
   <tr>
+    <td class="centre">3.11.18</td>
+    <td class="centre">June 7 2023</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.18">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.10.24</td>
+    <td class="centre">June 7 2023</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.24">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.12.0</td>
     <td class="centre">2 June 2023</td>
     <td>
