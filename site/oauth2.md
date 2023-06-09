@@ -44,7 +44,7 @@ This guide covers
 The OAuth 2 plugin must be enabled (or [pre-configured](/plugins.html#enabled-plugins-file)) before it can be used,
 like all other plugins:
 
-<pre class="lang-shell">
+<pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_auth_backend_oauth2
 </pre>
 
@@ -57,6 +57,7 @@ one of the backends or the only one backend, like in the example below:
 auth_backends.1 = rabbit_auth_backend_oauth2
 </pre>
 
+Next, let's take a look at the workflows the OAuth 2 plugin supports.
 
 ### <a id="authorization-workflow" class="anchor" href="#authorization-workflow">Authorization Workflow</a>
 
