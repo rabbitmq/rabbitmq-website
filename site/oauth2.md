@@ -41,6 +41,23 @@ This guide covers
 
 ## <a id="how-it-works" class="anchor" href="#how-it-works">How it works</a>
 
+The OAuth 2 plugin must be enabled (or [pre-configured](/plugins.html#enabled-plugins-file)) before it can be used,
+like all other plugins:
+
+<pre class="lang-shell">
+rabbitmq-plugins enable rabbitmq_auth_backend_oauth2
+</pre>
+
+Then it must be specified as one of the [authN and authZ backends](/access-control.html#backends). It can be
+one of the backends or the only one backend, like in the example below:
+
+<pre class="lang-ini">
+# note that the module name begins with a "rabbit_", not "rabbitmq_", like in the name
+# of the plugin
+auth_backends.1 = rabbit_auth_backend_oauth2
+</pre>
+
+
 ### <a id="authorization-workflow" class="anchor" href="#authorization-workflow">Authorization Workflow</a>
 
 This plugin does not communicate with any OAuth 2.0 provider. It decodes an access token provided by the client and authorises a user based on the data stored in the token.
