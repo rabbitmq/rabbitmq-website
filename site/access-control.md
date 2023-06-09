@@ -587,6 +587,15 @@ The following aliases are available:
  * <code>amqp</code> for <code>rabbit_auth_backend_amqp</code> (from the [AMQP 0-9-1 auth backend plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-amqp))
  * <code>dummy</code> for <code>rabbit_auth_backend_dummy</code>
 
+Some plugins do not currently have a shortcut. In this case, a full module (not the name of the plugin!) must
+be used:
+
+<pre class="lang-ini">
+# note that the module name begins with a "rabbit_", not "rabbitmq_", like in the name
+# of the plugin
+auth_backends.1 = rabbit_auth_backend_oauth2
+</pre>
+
 When using third party plugins, providing a full module name is necessary.
 
 The following example configures RabbitMQ to use the [LDAP backend](./ldap.html)
