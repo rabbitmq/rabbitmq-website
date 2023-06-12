@@ -118,7 +118,8 @@ see <a href="./documentation.html">All Documentation Guides</a>.
  * [Client Connections](connections.html)
  * [AMQP 0-9-1 Channels](channels.html)
  * [Internal Event Exchange](event-exchange.html)
- * [Per Virtual Host Limits](vhosts.html)
+ * [Per Virtual Host Limits](vhosts.html#limits)
+ * [Per User Limits](user-limits.html)
  * [Message Tracing](firehose.html)
  * [Capturing Traffic with Wireshark](amqp-wireshark.html)
 
