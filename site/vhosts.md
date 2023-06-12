@@ -23,15 +23,16 @@ RabbitMQ is multi-tenant system: connections, exchanges, queues, bindings, user 
 policies and some other things belong to **virtual hosts**, logical groups of
 entities. If you are familiar with [virtual hosts in Apache](https://httpd.apache.org/docs/2.4/vhosts/)
 or [server blocks in Nginx](https://www.nginx.com/resources/wiki/start/topics/examples/server_blocks/), the idea is similar.
+
 There is, however, one important difference: virtual hosts in Apache are defined
 in the configuration file; that's not the case with RabbitMQ: virtual hosts are
-[created](#creating) and [deleted](#deleting) using `rabbitmqctl` or HTTP API instead.
+[created](#creating) and [deleted](#deleting) using `rabbitmqctl` or the HTTP API instead.
 
 ## <a id="logical-separation" class="anchor" href="#logical-separation">Logical and Physical Separation</a>
 
 Virtual hosts provide logical grouping and separation of
 resources. Separation of physical resources is not a goal of virtual
-hosts and should be considered an implementation detail.
+hosts, although [certain resources can be limited](#limits) for individual virtual hosts.
 
 For example, [resource permissions](./access-control.html) in RabbitMQ are
 scoped per virtual host. A user doesn't have global permissions, only

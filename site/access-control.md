@@ -42,7 +42,7 @@ This guide covers a variety of authentication, authorisation and user management
  * How to [revoke access](#revoke) for a user
  * [Shell escaping](#passwords-and-shell-escaping) of characters in generated passwords
  * How to [pre-create users](#seeding) and their permissions
- * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz)
+ * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz))
 
 [Password-based](./passwords.html) authentication has a companion guide.
 A closely related topic of [TLS support](./ssl.html) is also covered in a dedicated guide.

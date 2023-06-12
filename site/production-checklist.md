@@ -40,6 +40,7 @@ This guide provides recommendations in a few areas:
 
  * Recommendations related to [virtual hosts, users and permissions](#users-and-permissions)
  * [Monitoring and resource usage](#monitoring-and-resource-usage)
+ * [Per-virtual host and per-user limits](#limits)
  * [Security](#security)
  * [Clustering](#clustering) and multi-node deployments
  * [Application-level](#apps) practices and considerations
@@ -200,6 +201,19 @@ See [Networking guide](networking.html) for more information.
 
 It is highly recommended that logs of all RabbitMQ nodes and applications (when possible) are collected
 and aggregated. Logs can be crucially important in investigating unusual system behaviour.
+
+
+## <a id="limits" class="anchor" href="#limits">Per-Virtual Host and Per-User Resource Limits</a>
+
+It is possible to [limit the maximum number of concurrent connections and queues](/vhosts.html#limits) a virtual host will
+allow the users to open (declare).
+
+These limits can be used as guard rails in environments where applications
+cannot be trusted and monitored in detail, for example, when RabbitMQ clusters
+are offered as a service.
+
+Similarly, it is possible to [configure concurrent connection and channel limits
+for individual users](/user-limits.html).
 
 
 ## <a id="security" class="anchor" href="#security">Security Considerations</a>
