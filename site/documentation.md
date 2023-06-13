@@ -147,6 +147,7 @@ for the original RabbitMQ protocol.
 ### Replicated Queue Types, Streams, High Availability
 
  * [Quorum Queues](quorum-queues.html): a modern highly available replicated queue type
+ * [Classic Mirrored Queue to Quorum Queue migration](./migrate-mcq-to-qq.html) guide
  * [Streams](streams.html): a messaging abstraction that allows for repeatable consumption
  * [RabbitMQ Stream plugin](stream.html): the plugin and binary protocol behind RabbitMQ streams
 
