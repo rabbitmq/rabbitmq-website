@@ -19,23 +19,9 @@ limitations under the License.
 
 ## <a id="interstitial" class="anchor" href="#interstitial">Wait, There's a Better Way: Next Generation Highly Available Queues and Streams</a>
 
-<<<<<<< HEAD
-This guide covers a [**deprecated and scheduled for removal feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/): mirroring (queue contents replication) of mirored classic queues.
-[Quorum queues](quorum-queues.html) is an alternative, more modern queue type
-that offers high availability via replication and focuses on data safety.
-As of RabbitMQ 3.10, quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and
-provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues. Use the [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq.html) information for options for your RabbitMQ installations that currently use classic mirrored queues and require an alternative.
-||||||| parent of d492a282 (Adding MCQ to QQ documentation to RabbitMQ OSS Docs)
-This guide covers a [**deprecated and scheduled for removal feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/): mirroring (queue contents replication) of classic queues.
-[Quorum queues](quorum-queues.html) is an alternative, more modern queue type
-that offers high availability via replication and focuses on data safety.
-As of RabbitMQ 3.10, quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and
-provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues.
-=======
 This guide covers a [**deprecated and scheduled for removal feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/): mirroring (queue contents replication) of classic queues.[Quorum queues](quorum-queues.html) are an alternative to mirrored classic queues. 
 
 Quorum queues are a more advanced queue type, which offers high availability using  replication and focuses on data safety. From RabbitMQ 3.10, quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues. You can [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq.html) now.
->>>>>>> d492a282 (Adding MCQ to QQ documentation to RabbitMQ OSS Docs)
 
 [Streams](streams.html) is a messaging data structure available as of [RabbitMQ 3.9](changelog.html),
 and is also replicated.
