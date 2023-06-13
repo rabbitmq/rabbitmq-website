@@ -237,120 +237,208 @@ By default a new and unclustered node will start with all supported feature flag
 
 The environment variable has precedence over the configuration parameter.
 
-## <a id="core-feature-flags" class="anchor" href="#core-feature-flags">List of Core Feature Flags</a>
+## <a id="list-of-feature-flags" class="anchor" href="#list-of-feature-flags">List of Feature Flags</a>
 
-The feature flags listed below are those provided by RabbitMQ core or
-one of the tier-1 plugins bundled with RabbitMQ.
+The feature flags listed below are provided by RabbitMQ core or one of the tier-1 plugins bundled with RabbitMQ.
+
+Column `Required` shows the RabbitMQ version **before** which a feature flag MUST have been enabled.
+For example, if a feature flag is required in 3.12.0, this feature flag must be enabled in 3.11.x (or earlier) before upgrading to 3.12.x.
+Otherwise, if a RabbitMQ node is upgraded to 3.12.x while this feature flag is disabled, the RabbitMQ node will refuse to start in 3.12.x.
+
+Column `Stable` shows the RabbitMQ version that introduced a feature flag.
+For example, if a feature flag is stable in 3.11.0, that feature flag SHOULD be enabled promptly after upgrading all nodes in a RabbitMQ cluster to version 3.11.x.
+
+### <a id="core-feature-flags" class="anchor" href="#core-feature-flags">Core Feature Flags</a>
+
+The following feature flags are provided by RabbitMQ core.
 
 <table>
   <tr>
+   <th>Required</th>
+   <th>Stable</th>
    <th>Feature flag name</th>
    <th>Description</th>
-   <th>Lifecycle</th>
   </tr>
 
   <tr>
-    <td><a id="ff-empty_basic_get_metric" class="anchor" href="#ff-empty_basic_get_metric">empty_basic_get_metric</a></td>
+    <td></td>
+    <td>3.12.0</td>
+    <td>restart_streams</td>
     <td>
-      Count AMQP 0-9-1 <em>basic.get</em> issued on empty queues in statistics.
+      Support for restarting streams with optional preferred next leader argument. Used to implement stream leader rebalancing
     </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>3.12.0</td>
+    <td>stream_sac_coordinator_unblock_group</td>
     <td>
-    <table class="feature-flag-lifecycle">
-      <tr><th>Introduction:</th><td>3.8.0</td></tr>
-      <tr><th>Removal:</th><td>-</td></tr>
-    </table>
+      <a href="https://github.com/rabbitmq/rabbitmq-server/issues/7743">Bug fix</a> to unblock a group of consumers in a super stream partition
     </td>
+  </tr>
+  <tr>
+    <td>3.12.0</td>
+    <td>3.11.0</td>
+    <td>classic_mirrored_queue_version</td>
+    <td>
+      Support setting version for classic mirrored queues
+    </td>
+  </tr>
+  <tr>
+    <td>3.12.0</td>
+    <td>3.11.0</td>
+    <td>direct_exchange_routing_v2</td>
+    <td>
+      v2 direct exchange routing implementation
+    </td>
+  </tr>
+  <tr>
+    <td>3.12.0</td>
+    <td>3.11.0</td>
+    <td>feature_flags_v2</td>
+    <td>
+      Feature flags subsystem v2
+    </td>
+  </tr>
+  <tr>
+    <td>3.12.0</td>
+    <td>3.11.0</td>
+    <td>listener_records_in_ets</td>
+    <td>
+      Store listener records in ETS instead of Mnesia
+    </td>
+  </tr>
+  <tr>
+    <td>3.12.0</td>
+    <td>3.11.0</td>
+    <td>stream_single_active_consumer</td>
+    <td>
+      <a href="https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams/">Single active consumer for streams</a>
+    </td>
+  </tr>
+  <tr>
+    <td>3.12.0</td>
+    <td>3.11.0</td>
+    <td>tracking_records_in_ets</td>
+    <td>
+      Store tracking records in ETS instead of Mnesia
+    </td>
+  </tr>
+  <tr>
+    <td>3.12.0</td>
+    <td>3.10.9</td>
+    <td>classic_queue_type_delivery_support</td>
+    <td>
+      <a href="https://github.com/rabbitmq/rabbitmq-server/issues/5931">Bug fix</a> for classic queue deliveries using mixed versions
+    </td>
+  </tr>
+  <tr>
+    <td>3.12.0</td>
+    <td>3.9.0</td>
+    <td>stream_queue</td>
+    <td>
+      Support queues of type <a href="https://www.rabbitmq.com/stream.html">stream</a>
+    </td>
+  </tr>
+  <tr>
+    <td>3.11.0</td>
+    <td>3.8.10</td>
+    <td>user_limits</td>
+    <td>
+      Configure connection and channel limits for a user
+    </td>
+  </tr>
+  <tr>
+    <td>3.11.0</td>
+    <td>3.8.8</td>
+    <td>maintenance_mode_status</td>
+    <td>
+      Maintenance mode status
+    </td>
+  </tr>
+  <tr>
+    <td>3.11.0</td>
+    <td>3.8.0</td>
+    <td>implicit_default_bindings</td>
+    <td>
+      Default bindings are now implicit, instead of being stored in the database
+    </td>
+  </tr>
+  <tr>
+    <td>3.11.0</td>
+    <td>3.8.0</td>
+    <td>quorum_queue</td>
+    <td>
+      Support queues of type <a href="https://www.rabbitmq.com/quorum-queues.html">quorum</a>
+    </td>
+  </tr>
+  <tr>
+    <td>3.11.0</td>
+    <td>3.8.0</td>
+    <td>virtual_host_metadata</td>
+    <td>
+      Virtual host metadata (description, tags, etc.)
+    </td>
+  </tr>
+</table>
+
+### <a id="rabbitmq_management_agent-feature-flags" class="anchor" href="#rabbitmq_management_agent-feature-flags">rabbitmq_management_agent Feature Flags</a>
+
+The following feature flags are provided by plugin [rabbimq_management_agent](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_management_agent).
+
+<table>
+  <tr>
+   <th>Required</th>
+   <th>Stable</th>
+   <th>Feature flag name</th>
+   <th>Description</th>
   </tr>
 
   <tr>
-    <td><a id="ff-implicit_default_bindings" class="anchor" href="#ff-implicit_default_bindings">implicit_default_bindings</a></td>
+    <td>3.12.0</td>
+    <td>3.8.10</td>
+    <td>drop_unroutable_metric</td>
     <td>
-      Cleans up explicit default exchange bindings now that they are managed implicitly.
+      Count unroutable publishes to be dropped in stats
     </td>
+  </tr>
+  <tr>
+    <td>3.12.0</td>
+    <td>3.8.10</td>
+    <td>empty_basic_get_metric</td>
     <td>
-    <table class="feature-flag-lifecycle">
-      <tr><th>Introduction:</th><td>3.8.0</td></tr>
-      <tr><th>Removal:</th><td>-</td></tr>
-    </table>
+      Count AMQP basic.get on empty queues in stats
     </td>
+  </tr>
+</table>
+
+### <a id="rabbitmq_mqtt-feature-flags" class="anchor" href="#rabbitmq_mqtt-feature-flags">rabbitmq_rabbitmq_mqtt Feature Flags</a>
+
+The following feature flags are provided by plugin [rabbimq_mqtt](https://www.rabbitmq.com/mqtt.html).
+
+<table>
+  <tr>
+   <th>Required</th>
+   <th>Stable</th>
+   <th>Feature flag name</th>
+   <th>Description</th>
   </tr>
 
   <tr>
-    <td><a id="ff-quorum_queue" class="anchor" href="#ff-quorum_queue">quorum_queue</a></td>
-    <td>
-      Enables <a href="./quorum-queues.html">quorum queue</a> type.
-    </td>
-    <td>
-      <table class="feature-flag-lifecycle">
-        <tr><th>Introduction:</th><td>3.8.0</td></tr>
-        <tr><th>Removal:</th><td>-</td></tr>
-      </table>
-    </td>
+    <td></td>
+    <td>3.12.0</td>
+    <td>delete_ra_cluster_mqtt_node</td>
+	<td>
+	  <a href="https://blog.rabbitmq.com/posts/2023/03/native-mqtt/#what-else-improves-with-native-mqtt-in-312">Delete Ra cluster mqtt_node since MQTT client IDs are tracked locally</a>
+	</td>
   </tr>
-
   <tr>
-    <td><a id="ff-stream_queue" class="anchor" href="#ff-stream_queue">stream_queue</a></td>
-    <td>
-      Enables <a href="./streams.html">streams</a>.
-    </td>
-    <td>
-      <table class="feature-flag-lifecycle">
-        <tr><th>Introduction:</th><td>3.9.0</td></tr>
-        <tr><th>Removal:</th><td>-</td></tr>
-      </table>
-    </td>
-  </tr>
-
-  <tr>
-    <td><a id="ff-drop_unroutable_metric" class="anchor" href="#ff-drop_unroutable_metric">drop_unroutable_metric</a></td>
-    <td>
-      Dropped <a href="./publishers.html#unroutable">unroutable message</a> metrics.
-    </td>
-    <td>
-    <table class="feature-flag-lifecycle">
-      <tr><th>Introduction:</th><td>3.8.0</td></tr>
-      <tr><th>Removal:</th><td>-</td></tr>
-    </table>
-    </td>
-  </tr>
-
-  <tr>
-    <td><a id="ff-maintenance_mode_status" class="anchor" href="#ff-maintenance_mode_status">maintenance_mode_status</a></td>
-    <td>
-      Enable <a href="./upgrade.html#maintenance-mode">maintenance mode</a>, so nodes can be drained for maintenance or upgrade operations.
-    </td>
-    <td>
-    <table class="feature-flag-lifecycle">
-      <tr><th>Introduction:</th><td>3.8.8</td></tr>
-      <tr><th>Removal:</th><td>-</td></tr>
-    </table>
-    </td>
-  </tr>
-
-  <tr>
-    <td><a id="ff-user_limits" class="anchor" href="#ff-user_limits">user_limits</a></td>
-    <td>
-      Enable connection and queue limits associated with a given user.
-    </td>
-    <td>
-    <table class="feature-flag-lifecycle">
-      <tr><th>Introduction:</th><td>3.8.10</td></tr>
-      <tr><th>Removal:</th><td>-</td></tr>
-    </table>
-    </td>
-  </tr>
-
-  <tr>
-    <td><a id="ff-virtual_host_metadata" class="anchor" href="#ff-virtual_host_metadata">virtual_host_metadata</a></td>
-    <td>
-      Enable virtual host metadata.
-    </td>
-    <td>
-    <table class="feature-flag-lifecycle">
-      <tr><th>Introduction:</th><td>3.8.0</td></tr>
-      <tr><th>Removal:</th><td>-</td></tr>
-    </table>
-    </td>
+    <td></td>
+    <td>3.12.0</td>
+    <td>rabbit_mqtt_qos0_queue</td>
+	<td>
+	  Support <a href="https://blog.rabbitmq.com/posts/2023/03/native-mqtt/#new-mqtt-qos-0-queue-type">pseudo queue type for MQTT QoS 0 subscribers</a> omitting a queue process
+	</td>
   </tr>
 </table>
 

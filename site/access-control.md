@@ -42,7 +42,7 @@ This guide covers a variety of authentication, authorisation and user management
  * How to [revoke access](#revoke) for a user
  * [Shell escaping](#passwords-and-shell-escaping) of characters in generated passwords
  * How to [pre-create users](#seeding) and their permissions
- * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz)
+ * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz))
 
 [Password-based](./passwords.html) authentication has a companion guide.
 A closely related topic of [TLS support](./ssl.html) is also covered in a dedicated guide.
@@ -587,6 +587,15 @@ The following aliases are available:
  * <code>http</code> for <code>rabbit_auth_backend_http</code> (from the [HTTP auth backend plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-http))
  * <code>amqp</code> for <code>rabbit_auth_backend_amqp</code> (from the [AMQP 0-9-1 auth backend plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-amqp))
  * <code>dummy</code> for <code>rabbit_auth_backend_dummy</code>
+
+Some plugins do not currently have a shortcut. In this case, a full module (not the name of the plugin!) must
+be used:
+
+<pre class="lang-ini">
+# note that the module name begins with a "rabbit_", not "rabbitmq_", like in the name
+# of the plugin
+auth_backends.1 = rabbit_auth_backend_oauth2
+</pre>
 
 When using third party plugins, providing a full module name is necessary.
 
