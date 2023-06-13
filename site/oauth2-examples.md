@@ -654,13 +654,13 @@ Most authorization servers return the user's GUID in the `sub` claim rather than
 
 Given this configuration:
 
-```
+<pre class="lang-erlang">
   ...
   {rabbitmq_auth_backend_oauth2, [
     {resource_server_id, <<"rabbitmq">>},
     {preferred_username_claims, [<<"user_name">>,<<"email">>]},
   ...
-```
+</pre>
 
 RabbitMQ would first look for the `user_name` claim and if it is not found it looks for `email`. Else it uses its default lookup mechanism which first looks for `sub` and then `client_id`.
 
