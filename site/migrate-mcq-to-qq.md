@@ -15,9 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-## Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues
+# Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues
 
-Which is better: mirrored classic queues or quorum queues? Quorum Queues are the much better choice and they will be the only choice starting with RabbitMQ version 4.0. This information explains why, the reasons why you should migrate from mirrored classic queues to quorum queues, the ways to handle features during the migration, and includes procedures for some of the migration routes you can take. 
+Which is better: mirrored classic queues or quorum queues? Quorum Queues are the much better choice and they will be [the only option starting with RabbitMQ version 4.0](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/). This information explains why, the reasons why you should migrate from mirrored classic queues to quorum queues, the ways to handle features during the migration, and includes procedures for some of the migration routes you can take.
 
 You should migrate to mirrored classic queues for the following reasons:
 
@@ -39,9 +39,11 @@ Incompatible features can be either referenced in policies or in the source code
 
 The general policies and arguments related to mirroring are:`ha-mode`, `ha-params` `ha-sync-mode`, `ha-promote-on-shutdown`, `ha-promote-on-failure`, and `queue-master-locator`.
 
-The migration process you take can be one of the following:
-* [Migrating the Queues by Virtual Host](#migrate-the-queues-by-virtual-host) is probably the most efficient migration path you can take if it is an option for you. If all the incompatible features are cleaned up or moved to policies, the existing code should work with both mirrored classic queues and quorum queues. You only need to change the connection parameters to connect to the new virtual host that you created for the quorum queues.
-* [Migrating in Place](#migrate-in-place) means you re-use the same virtual host. You must be able to stop all consumers and producers for a given queue while the migration is in progress.
+There are several migration paths available:
+
+ * [Blue-Green Deployment](./blue-green-upgrade.html)
+ * [Migrating the Queues by Virtual Host](#migrate-the-queues-by-virtual-host) is probably the most efficient migration path you can take if it is an option for you. If all the incompatible features are cleaned up or moved to policies, the existing code should work with both mirrored classic queues and quorum queues. You only need to change the connection parameters to connect to the new virtual host that you created for the quorum queues
+ * [Migrating in Place](#migrate-in-place) means you re-use the same virtual host. You must be able to stop all consumers and producers for a given queue while the migration is in progress
 
 Before deciding which migration method you can use, you must first find the mirrored classic queues and the features they are using. 
 
@@ -51,7 +53,7 @@ To find the mirrored classic queues that must be migrated, run the following scr
 
 Note, the following command uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from any RabbitMQ version later than 3.10.13/3.11.5, or manually match the policy name to it's definition.
 
-```bash
+<pre class="lang-bash">
 #!/bin/sh
 printf "%s\t%s\t%s\n" vhost queue_name mirrors
 for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
@@ -59,17 +61,18 @@ for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
 	sed -n '/\t\[[^\t]\+\tclassic$/{s/\t\[[^\t]\+\tclassic$//; p}' |
 	xargs -x -r -L1 -d '\n' printf "%s\t%s\n" "$vhost"
 done
-```
+</pre>
+
 All mirrored classic queues that include `ha-mode` in their effective policy definition must be migrated to a different type of queue. All these queues are listed as mirrored classic queues in the Management UI and CLI. Find the policies that apply it by running the following script:
 
-```bash
+<pre class="lang-bash">
 #!/bin/sh
 printf "%s\t%s\t%s\t%s\t%s\t%s\n" vhost policy_name pattern apply_to definition priority
 for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
   rabbitmqctl -q list_policies -p "$vhost" |
     grep 'ha-mode'
 done
-```
+</pre>
 
 ## <a id="mcq-changes-way-queue-is-used" class="anchor" href="#mcq-changes-way-queue-is-used">Mirrored Classic Queue Features that require Changes in the Way the Queue is Used</a>
 
@@ -96,15 +99,15 @@ Global [QoS prefetch](https://rabbitmq.com/quorum-queues.html#global-qos) where 
 
 To find out if this feature is used, run the following command on a running system and check for non-empty output:
 
-```bash
+<pre class="lang-bash">
 rabbitmqctl list_channels pid name global_prefetch_count | sed -n '/\t0$/!p'
-```
+</pre>
 
 A list of channel PIDs that have global QoS turned on are returned. Then, run the following command to map the channel PID to a queue name to verify if it is a mirrored classic queue. 
 
-```bash
+<pre class="lang-bash">
 rabbitmqctl list_consumers queue_name channel_pid
-```
+</pre>
 
 ### `x-cancel-on-ha-failover` for Consumers
 
@@ -183,11 +186,12 @@ URI pointing to the OLD\_VHOST: `amqp:///OLD_VHOST`. (Note that the
 default vhost URI is `amqp:///%2f`).
 
 The federation upstream can be created using the management UI or the CLI:
-```bash
+
+<pre class="lang-bash">
 rabbitmqctl set_parameter federation-upstream quorum-migration-upstream \
     --vhost NEW_VHOST \
     '{"uri":"amqp:///OLD_VHOST", "trust-user-id":true}'
-```
+</pre>
 
 When this form of URI with an empty hostname is used, there is no
 need to specify credentials. Connection is only possible within
@@ -198,13 +202,13 @@ preserved as shown in the previous CLI example.
 
 ### Moving Definitions
 
-Export the definitions from the source virtual host to a file. This is
+Export the [definitions](./definitions.html) from the source virtual host to a file. This is
 available on the **Overview** page of the management UI (don't forget to
 select a single virtual host). Alternatively, you can export the definitions using the CLI with the following command:
 
-```bash
+<pre class="lang-bash">
 rabbitmqadmin export -V OLD_VHOST OLD_VHOST.json
-```
+</pre>
 
 Make the following changes to this file before loading it back into the NEW_VHOST:
 
@@ -232,9 +236,9 @@ Make the following changes to this file before loading it back into the NEW_VHOS
 Now the modified schema can be loaded into the new virtual host from the Management
 UI or by running the following command from the CLI:
 
-```bash
+<pre class="lang-bash">
 rabbitadmin import -V NEW_VHOST NEW_VHOST.json
-```
+</pre>
 
 ### Point Consumers to use Quorum Queues in the New Virtual Host
 
@@ -255,16 +259,18 @@ virtual host, and start consumers on the new virtual host.
 
 For every non-empty queue in the old virtual host, a shovel needs to be configured. For example:
 
-```bash
+<pre class="lang-bash">
 rabbitmqctl set_parameter shovel migrate-QUEUE_TO_MIGRATE \
   '{"src-protocol": "amqp091", "src-uri": "amqp:///OLD_VHOST", "src-queue": "QUEUE_TO_MIGRATE",
     "dest-protocol": "amqp091", "dest-uri": "amqp:///NEW_VHOST", "dest-queue": "QUEUE_TO_MIGRATE"}'
-```
+</pre>
 
 After the queue is drained, the shovel can be deleted:
-```bash
+
+<pre class="lang-bash">
 rabbitmqctl clear_parameter shovel migrate-QUEUE_TO_MIGRATE
-```
+</pre>
+
 ## <a id="migrate-in-place" class="anchor" href="#migrate-in-place">Migrate in Place</a>
 
 Migrating this way trades uptime so that you can 
