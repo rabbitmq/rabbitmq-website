@@ -22,7 +22,7 @@ limitations under the License.
 The quorum queue is a modern queue type for RabbitMQ implementing a durable,
 replicated FIFO queue based on the [Raft consensus algorithm](https://raft.github.io/).
 
-Quorum queues and [streams](./streams.html) now replace the original, replicated [mirrored classic queue](ha.html). Mirrored classic queues are [now deprecated and scheduled for removal](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/). Use the [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq.html) information for options for your RabbitMQ installations that currently use classic mirrored queues and require an alternative now.
+Quorum queues and [streams](./streams.html) now replace the original, replicated [mirrored classic queue](ha.html). Mirrored classic queues are [now deprecated and scheduled for removal](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/). Use the [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq.html) information for options for your RabbitMQ installations that currently use classic mirrored queues and require an alternative.
 
 Quorum queues are optimized for [set of use cases](#use-cases) where [data safety](#data-safety) is
 a top priority. This is covered in [Motivation](#motivation).
