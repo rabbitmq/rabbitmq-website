@@ -71,13 +71,13 @@ A [full cluster stop](#full-stop-upgrades) may be required for feature version u
 
 Current release series upgrade compatibility with **rolling** upgrade:
 
-| From     | To     | Notes                                                        |
-|----------|--------|--------------------------------------------------------------|
-| 3.11.x   | 3.12.x | All feature flags should be enabled **before** this upgrade  |
-| 3.10.x   | 3.11.x | Some feature flags should be enabled **before** this upgrade |
-| 3.9.x    | 3.10.x |                                                              |
-| 3.8.x    | 3.9.x  |                                                              |
-| 3.7.18   | 3.8.x  |                                                              |
+| From     | To     | Notes                                                         |
+|----------|--------|---------------------------------------------------------------|
+| 3.11.18  | 3.12.x | All feature flags **must** be enabled **before** the upgrade  |
+| 3.10.x   | 3.11.x | Some feature flags **must** be enabled **before** the upgrade |
+| 3.9.x    | 3.10.x |                                                               |
+| 3.8.x    | 3.9.x  |                                                               |
+| 3.7.18   | 3.8.x  |                                                               |
 
 Current release series upgrade compatibility with **full stop** upgrade:
 
@@ -209,9 +209,9 @@ upgrade. Clusters that include nodes that run different release series
 are not supported.
 
 Rolling upgrades from one patch version to
-another (i.e. from 3.6.x to 3.6.y) are supported except when indicated otherwise
+another (i.e. from 3.12.x to 3.12.y) are supported except when indicated otherwise
 in the release notes.
-It is strongly recommended to consult release notes before upgrading.
+It is **strongly recommended to consult release notes before upgrading**.
 
 Some patch releases known to require a cluster-wide restart:
 
