@@ -657,8 +657,8 @@ Given this configuration:
 <pre class="lang-erlang">
   ...
   {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, <<"rabbitmq">>},
-    {preferred_username_claims, [<<"user_name">>,<<"email">>]},
+    {resource_server_id, &lt;&lt;"rabbitmq"&gt;&gt;},
+    {preferred_username_claims, [&lt;&lt;"user_name"&gt;&gt; ,&lt;&lt;"email"&gt;&gt;]},
   ...
 </pre>
 
