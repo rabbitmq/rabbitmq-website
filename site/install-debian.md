@@ -393,7 +393,7 @@ The following preference file example will pin all `erlang-*` packages to `25.3`
 <pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: erlang*
-Pin: version 1:25.3
+Pin: version 1:25.3.2.2-1
 Pin-Priority: 1000
 </pre>
 
@@ -403,18 +403,7 @@ The following preference file example will pin `rabbitmq-server` package to `&ve
 <pre class="lang-ini">
 # /etc/apt/preferences.d/rabbitmq
 Package: rabbitmq-server
-Pin: version 1:&version-server;
-Pin-Priority: 1000
-</pre>
-
-
-In the example below, the `esl-erlang` package is pinned to `24.3.1`
-(assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
-
-<pre class="lang-ini">
-# /etc/apt/preferences.d/erlang
-Package: esl-erlang
-Pin: version 1:24.3.1
+Pin: version 1:&version-server;-&serverDebMinorVersion;
 Pin-Priority: 1000
 </pre>
 
