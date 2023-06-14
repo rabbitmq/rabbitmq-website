@@ -19,6 +19,13 @@ It is important to consider a number of things before upgrading RabbitMQ.
 
 Changes between RabbitMQ versions are documented in the [change log](changelog.html).
 
+## Important Note on Upgrading to 3.12
+
+<p class="box-warning">
+RabbitMQ 3.12 requires all previously existing feature flags to be enabled before the upgrade.
+
+The upgrade will fail if you miss this step.
+</p>
 
 ## <a id="basics" class="anchor" href="#basics">Basics</a>
 
@@ -64,25 +71,27 @@ A [full cluster stop](#full-stop-upgrades) may be required for feature version u
 
 Current release series upgrade compatibility with **rolling** upgrade:
 
-| From     | To     |
-|----------|--------|
-| 3.10.x   | 3.11.x |
-| 3.9.x    | 3.10.x |
-| 3.8.x    | 3.9.x  |
-| 3.7.18   | 3.8.x  |
+| From     | To     | Notes                                                        |
+|----------|--------|--------------------------------------------------------------|
+| 3.11.x   | 3.12.x | All feature flags should be enabled **before** this upgrade  |
+| 3.10.x   | 3.11.x | Some feature flags should be enabled **before** this upgrade |
+| 3.9.x    | 3.10.x |                                                              |
+| 3.8.x    | 3.9.x  |                                                              |
+| 3.7.18   | 3.8.x  |                                                              |
 
 Current release series upgrade compatibility with **full stop** upgrade:
 
-| From     | To     |
-|----------|--------|
-| 3.10.x   | 3.11.x |
-| 3.9.x    | 3.10.x |
-| 3.8.x    | 3.9.x  |
-| 3.7.27   | 3.9.x  |
-| 3.6.x    | 3.8.x  |
-| 3.6.x    | 3.7.x  |
-| 3.5.x    | 3.7.x  |
-| =< 3.4.x | 3.6.16 |
+| From     | To     | Notes                                                        |
+|----------|--------|--------------------------------------------------------------|
+| 3.11.x   | 3.12.x | All feature flags should be enabled **before** this upgrade  |
+| 3.10.x   | 3.11.x | Some feature flags should be enabled **before** this upgrade |
+| 3.9.x    | 3.10.x |                                                              |
+| 3.8.x    | 3.9.x  |                                                              |
+| 3.7.27   | 3.9.x  |                                                              |
+| 3.6.x    | 3.8.x  |                                                              |
+| 3.6.x    | 3.7.x  |                                                              |
+| 3.5.x    | 3.7.x  |                                                              |
+| =< 3.4.x | 3.6.16 |                                                              |
 
 `3.7.18` and later `3.7.x` versions support [rolling upgrades](#rolling-upgrades) to `3.8.x` using [feature flags](./feature-flags.html).
 
@@ -137,49 +146,6 @@ capacity to run the workload with the new version. Always consult with
 the release notes of all versions between the one currently deployed and the
 target one in order to find out about changes which could impact
 your workload and resource usage.
-
-### <a id="stats-db-in-3.6.7" class="anchor" href="#stats-db-in-3.6.7">Management stats DB in RabbitMQ 3.6.7</a>
-
-In RabbitMQ versions before `3.6.7` all management stats in a cluster
-were collected on a single node (the stats DB node). This put a lot
-of additional load on this node. Starting with RabbitMQ `3.6.7` each
-cluster node stores its own stats. It means that metrics (e.g. rates)
-for each node are stored and calculated locally. Therefore all nodes
-will consume a bit more memory and CPU resources to handle that. The
-benefit is that there is no single overloaded stats node.
-
-When an HTTP API request comes in, the stats are aggregated on the node
-which handles the request. If HTTP API requests are not distributed
-between cluster nodes, it can put some additional load on that node's
-CPU and memory resources. In practice stats database-related overload is
-a thing of the past.
-
-Individual node resource usage change is workload-specific. The best way
-to measure it is by reproducing a comparable workload in a temporary QA
-environment before upgrading production systems.
-
-### <a id="memory-reporting-in-3.6.11" class="anchor" href="#memory-reporting-in-3.6.11">Memory reporting accuracy in RabbitMQ 3.6.11</a>
-
-In RabbitMQ versions before `3.6.11` memory used by the node was
-calculated using a runtime-provided mechanism that's not very precise.
-The actual memory allocated by the
-OS process usually was higher.
-
-Starting with RabbitMQ `3.6.11` a number of strategies is available. On Linux, MacOS, and BSD
-systems, operating system facilities will be used to compute the total amount of memory
-allocated by the node. It is possible to go back to the previous strategy, although
-that's not recommended. See the [Memory Usage guide](memory-use.html) for details.
-
-After upgrading from a version prior to `3.6.11` to
-`3.6.11` or later, the memory usage reported by the management
-UI will increase. The effective node memory footprint didn't actually change
-but the calculation is now more accurate and no longer underreports.
-
-Nodes that often hovered around their RAM high watermark will see more
-frequent memory alarms and publishers will be blocked more often. On the upside
-this means that RabbitMQ nodes are less likely to be killed by the out-of-memory (OOM) mechanism
-of the OS.
-
 
 ## <a id="clusters" class="anchor" href="#clusters">Single Node and Cluster Upgrades</a>
 
@@ -636,6 +602,26 @@ Always consult with the release notes of all versions between the
 one currently deployed and the target one.
 
 
+### Enable Required Feature Flags Before Attempting the Upgrade
+
+Some versions, such as 3.11 and 3.12, [require some or all previously existing feature flags](https://www.rabbitmq.com/feature-flags.html#core-feature-flags)
+to be enabled **before** the upgrade. If you enabled all feature flags after the
+previous upgrade, you should be ready to go. However, it's better to verify
+than run into issues. You can check the current state of your feature flags with:
+
+```
+rabbitmqctl list_feature_flags
+```
+
+and enable all feature flags with:
+
+```
+rabbitmqctl enable_feature_flag all
+```
+
+You should repeat these steps [at the end of the upgrade process](#enable-ff-after-upgrade)
+to fully take advantage of the new features and be prepared for the next upgrade in the future.
+
 ### Check Currently Used RabbitMQ Version
 
 Some upgrade paths, e.g. from 3.4.x to 3.7.x, will require an intermediate upgrade.
@@ -768,8 +754,8 @@ Like you did before the upgrade, verify the health and data to
 make sure your RabbitMQ nodes are in good shape and the service is
 running again.
 
-### Check New Feature Flags
+### <a id="enable-ff-after-upgrade" class="anchor" href="#enable-ff-after-upgrade">Enable New Feature Flags</a>
 
-If the new version provides new feature flags, you can
+If the new version provides new feature flags, you should
 now enable them if you upgraded all nodes and you are
 sure you do not want to rollback. See the [feature flags guide](feature-flags.html).
