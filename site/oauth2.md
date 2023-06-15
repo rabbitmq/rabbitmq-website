@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This [RabbitMQ authentication/authorisation backend](https://www.rabbitmq.com/access-control.html) plugin lets applications (clients) and users authenticate and authorize using JWT-encoded OAuth 2.0 access tokens.
+This [RabbitMQ authentication/authorisation backend](./access-control.html) plugin lets applications (clients) and users authenticate and authorize using JWT-encoded OAuth 2.0 access tokens.
 
 This guide covers
 
@@ -41,14 +41,14 @@ This guide covers
 
 ## <a id="how-it-works" class="anchor" href="#how-it-works">How it works</a>
 
-The OAuth 2 plugin must be enabled (or [pre-configured](/plugins.html#enabled-plugins-file)) before it can be used,
+The OAuth 2 plugin must be enabled (or [pre-configured](./plugins.html#enabled-plugins-file)) before it can be used,
 like all other plugins:
 
 <pre class="lang-shell">
 rabbitmq-plugins enable rabbitmq_auth_backend_oauth2
 </pre>
 
-Then it must be specified as one of the [authN and authZ backends](/access-control.html#backends). It can be
+Then it must be specified as one of the [authN and authZ backends](./access-control.html#backends). It can be
 one of the backends or the only one backend, like in the example below:
 
 <pre class="lang-ini">
@@ -68,7 +68,7 @@ The token can be any [JWT token](https://jwt.io/introduction/) which contains th
 
 To use this plugin, all RabbitMQ nodes must be
 
-1. [configured to use the rabbit_auth_backend_oauth2 backend](https://www.rabbitmq.com/access-control.html).
+1. [configured to use the rabbit_auth_backend_oauth2 backend](./access-control.html).
 2. configured with a resource service ID (`resource_server_id`) that matches the scope prefix (e.g. `rabbitmq` in `rabbitmq.read:*/*`).
 3. configured with a signing key used by RabbitMQ to validate the JWT token signatures.
 
@@ -349,8 +349,8 @@ To learn more about OAuth 2.0 clients, see the [OAuth 2.0 client specification](
 
 ### <a id="scope-and-tags" class="anchor" href="#scope-and-tags">Scope and Tags</a>
 
-Users in RabbitMQ can have [tags associated with them](https://www.rabbitmq.com/access-control.html#user-tags).
-Tags are used to [control access to the management plugin](https://www.rabbitmq.com/management.html#permissions).
+Users in RabbitMQ can have [tags associated with them](./access-control.html#user-tags).
+Tags are used to [control access to the management plugin](./management.html#permissions).
 
 In the OAuth context, tags can be added as part of the scope, using a format like `&lt;resource_server_id>.tag:&lt;tag>`. For
 example, if `resource_server_id` is "my_rabbit", a scope to grant access to the management plugin with
@@ -452,7 +452,7 @@ For more information about wildcard patterns, check the section [Scope-to-Permis
 
 The `actions` field can be either a string containing a single action or a Json array containing zero or many actions.
 
-The supported actions map to either [RabbitMQ permissions](https://www.rabbitmq.com/access-control.html#authorisation):
+The supported actions map to either [RabbitMQ permissions](./access-control.html#authorisation):
 
 - `configure`
 - `read`
