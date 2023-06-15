@@ -19,14 +19,14 @@ limitations under the License.
 
 ## Overview
 
-Similarly to [per-virtual host resource limits](/vhosts.html#limits), it is possible to limit
+Similarly to [per-virtual host resource limits](./vhosts.html#limits), it is possible to limit
 how many connections and channels a specific user can open.
 
 These limits can be used as guard rails in environments where applications
 cannot be trusted and monitored in detail, for example, when RabbitMQ clusters
 are offered as a service.
 
-The limits can be configured using [`rabbitmqctl set_user_limits`](/cli.html) or the [HTTP API](/management.html#http-api).
+The limits can be configured using [`rabbitmqctl set_user_limits`](./cli.html) or the [HTTP API](./management.html#http-api).
 
 ## <a id="connections" class="anchor" href="#connections">Maximum Number of Connections</a>
 
@@ -103,7 +103,7 @@ connection limit.
 
 ## <a id="clearing" class="anchor" href="#clearing">Clearing User Limits</a>
 
-To clear all limits for a user, use [`rabbitmqctl clear_user_limits`](/cli.html) or the [HTTP API](/management.html#http-api).
+To clear all limits for a user, use [`rabbitmqctl clear_user_limits`](./cli.html) or the [HTTP API](./management.html#http-api).
 
 Here are some examples that clear all limits for user `user1`:
 

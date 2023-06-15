@@ -205,7 +205,7 @@ and aggregated. Logs can be crucially important in investigating unusual system 
 
 ## <a id="limits" class="anchor" href="#limits">Per-Virtual Host and Per-User Resource Limits</a>
 
-It is possible to [limit the maximum number of concurrent connections and queues](/vhosts.html#limits) a virtual host will
+It is possible to [limit the maximum number of concurrent connections and queues](./vhosts.html#limits) a virtual host will
 allow the users to open (declare).
 
 These limits can be used as guard rails in environments where applications
@@ -213,7 +213,7 @@ cannot be trusted and monitored in detail, for example, when RabbitMQ clusters
 are offered as a service.
 
 Similarly, it is possible to [configure concurrent connection and channel limits
-for individual users](/user-limits.html).
+for individual users](./user-limits.html).
 
 
 ## <a id="security" class="anchor" href="#security">Security Considerations</a>
