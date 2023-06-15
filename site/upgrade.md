@@ -83,7 +83,7 @@ Current release series upgrade compatibility with **full stop** upgrade:
 
 | From     | To     | Notes                                                        |
 |----------|--------|--------------------------------------------------------------|
-| 3.11.18   | 3.12.x | All feature flags should be enabled **before** this upgrade  |
+| 3.11.18  | 3.12.x | All feature flags should be enabled **before** this upgrade  |
 | 3.10.x   | 3.11.x | Some feature flags should be enabled **before** this upgrade |
 | 3.9.x    | 3.10.x |                                                              |
 | 3.8.x    | 3.9.x  |                                                              |
