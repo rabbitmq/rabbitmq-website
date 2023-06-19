@@ -118,7 +118,8 @@ see <a href="./documentation.html">All Documentation Guides</a>.
  * [Client Connections](connections.html)
  * [AMQP 0-9-1 Channels](channels.html)
  * [Internal Event Exchange](event-exchange.html)
- * [Per Virtual Host Limits](vhosts.html)
+ * [Per Virtual Host Limits](vhosts.html#limits)
+ * [Per User Limits](user-limits.html)
  * [Message Tracing](firehose.html)
  * [Capturing Traffic with Wireshark](amqp-wireshark.html)
 
@@ -167,7 +168,7 @@ see <a href="./documentation.html">All Documentation Guides</a>.
 ## Queue and Consumer Features
 
  * [Queues guide](queues.html)
- * [Classic Queues](classic-queues.html)
+ * [Classic Queues](./classic-queues.html)
  * [Consumers guide](consumers.html)
  * [Queue and Message TTL](ttl.html)
  * [Queue Length Limits](maxlength.html)

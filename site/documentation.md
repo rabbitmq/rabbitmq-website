@@ -132,7 +132,8 @@ for the original RabbitMQ protocol.
  * [Client Connections](connections.html)
  * [AMQP 0-9-1 Channels](channels.html)
  * [Internal Event Exchange](event-exchange.html)
- * [Per Virtual Host Limits](vhosts.html)
+ * [Per Virtual Host Limits](vhosts.html#limits)
+ * [Per User Limits](user-limits.html)
  * [Message Tracing](firehose.html)
  * [Capturing Traffic with Wireshark](./amqp-wireshark.html)
 
@@ -146,6 +147,7 @@ for the original RabbitMQ protocol.
 ### Replicated Queue Types, Streams, High Availability
 
  * [Quorum Queues](quorum-queues.html): a modern highly available replicated queue type
+ * [Migrating Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq.html)
  * [Streams](streams.html): a messaging abstraction that allows for repeatable consumption
  * [RabbitMQ Stream plugin](stream.html): the plugin and binary protocol behind RabbitMQ streams
 

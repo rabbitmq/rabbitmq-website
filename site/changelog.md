@@ -24,9 +24,9 @@ See <a href="./versions.html">RabbitMQ support timeline</a> to find out what rel
 are supported.
 For guidance on upgrades, see the [Upgrade](./upgrade.html) and [Blue/Green Deployment Upgrade](./blue-green-upgrade.html) guides.
 
-[Java client release notes](https://github.com/rabbitmq/rabbitmq-java-client/releases)
-and [.NET client release notes](https://github.com/rabbitmq/rabbitmq-dotnet-client/releases) are
-published separately.
+[Java client](https://github.com/rabbitmq/rabbitmq-java-client/releases), [Java Stream client](https://github.com/rabbitmq/rabbitmq-stream-java-client/releases),
+[.NET client](https://github.com/rabbitmq/rabbitmq-dotnet-client/releases), and [.NET Stream client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client/releases) are
+released separately.
 
 ## Releases
 
