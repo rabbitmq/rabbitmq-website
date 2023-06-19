@@ -726,7 +726,7 @@ docker logs producer_with_roles -f
 </pre>
 
 
-For more information on this new capability check out the [plugin's documentation](https://github.com/rabbitmq/rabbitmq-server/tree/rich_auth_request/deps/rabbitmq_auth_backend_oauth2#rich-authorization-request).
+For more information on this new capability check out the [OAuth 2 guide](./oauth2.html#rich-authorization-request).
 
 
 ## <a id="understanding-environment" class="anchor" href="#understanding-environment">Understand the Environment</a>
