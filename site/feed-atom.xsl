@@ -69,7 +69,7 @@ limitations under the License.
       <author>
           <name>RabbitMQ</name>
           <uri>https://www.rabbitmq.com/</uri>
-          <email>info@rabbitmq.com</email>
+          <email>rabbitmq-core@groups.vmware.com</email>
       </author>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">

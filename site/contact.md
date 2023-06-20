@@ -82,12 +82,12 @@ There's a [Web interface to Libera](https://web.libera.chat/) if you don't have 
 
 ### <a id="security" class="anchor" href="#security">Responsible Disclosure of Vulnerabilities</a>
 
-Please use [GitHub Security Advisories](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability) or email [security@rabbitmq.com](mailto:security@rabbitmq.com) for responsible disclosure
+Please use [GitHub Security Advisories](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability) or email [rabbitmq-core@groups.vmware.com](mailto:rabbitmq-core@groups.vmware.com) for responsible disclosure
 of vulnerabilities. All emails not related to vulnerability disclosure will be ignored.
 
 ### Contacting the Core Team in Private
 
-To contact the team privately, please email on [info@rabbitmq.com](mailto:info@rabbitmq.com).
+To contact the team privately, please email on [rabbitmq-core@groups.vmware.com](mailto:rabbitmq-core@groups.vmware.com).
 Please note that this is **not a support channel**.
 
 The list **must only** be used for things that need to be discussed in private.
