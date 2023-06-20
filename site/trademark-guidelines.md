@@ -385,7 +385,7 @@ limitations under the License.
       <strong>
         MORE QUESTIONS?
       </strong> If you have questions about this policy, please
-      contact us at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+      contact us at <a href="mailto:rabbitmq-core@groups.vmware.com">rabbitmq-core@groups.vmware.com</a>.
     </p>
   </li>
 </ol>
