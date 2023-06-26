@@ -236,7 +236,7 @@ about the durability of their state.
 
 ## <a id="consensus" class="anchor" href="#consensus">Consensus Features</a>
 
-As of RabbitMQ 3.8, this plugin requires a quorum (majority) of nodes to be online.
+This plugin requires a quorum (majority) of nodes to be online.
 This is because client ID tracking now uses a consensus protocol which requires
 a quorum of nodes to be online in order to make progress.
 

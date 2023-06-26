@@ -221,7 +221,7 @@ STOMP supports multiple different destinations, including those that assume pre-
 
 ### Metrics
 
-Starting with RabbitMQ 3.8, there's a new metric for unroutable dropped messages:
+There's a metric for unroutable dropped messages:
 
 <img class="screenshot" src="img/monitoring/publishers/mgmt-ui-unroutable-message-metrics.png" alt="Unroutable message metrics" title="Unroutable message metrics" />
 
