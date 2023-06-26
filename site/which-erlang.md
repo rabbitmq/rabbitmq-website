@@ -114,8 +114,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     <td>
       <ul class="notes">
         <li>
-          Erlang 26 introduces a number of breaking changes related to networking and TLS.
-          RabbitMQ compatibility with Erlang 26 will be announced separately.
+          Erlang 26 is supported starting with Erlang 3.12.0.
         </li>
         <li>
           As of Erlang 25.1, OpenSSL 3.0 support in Erlang is considered to
