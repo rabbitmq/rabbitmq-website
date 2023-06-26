@@ -63,7 +63,7 @@ For more information about these permissions, see [Configure Permissions for the
 
 Prometheus Operator will detect `ServiceMonitor` and `PodMonitor` objects and automatically configure and reload Prometheus' [scrape config](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
 
-To validate whether Prometheus successfully scrapes metrics, open the Prometheus web UI in your browser and navigate to the `Status -> Targets` page where you should see
+To validate whether Prometheus successfully scrapes metrics, open the Prometheus web UI in your browser (ask your administrator for the URL) and navigate to the `Status -> Targets` page where you should see
 an entry for the Cluster Operator (e.g. `podMonitor/<podMonitorNamespace>/rabbitmq-cluster-operator/0 (1/1 up)`) and one entry for each deployed RabbitMQ cluster (e.g. `serviceMonitor/<serviceMonitorNamespace>/rabbitmq/0 (1/1 up)`).
 
 ### Prometheus Alerts
