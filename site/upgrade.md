@@ -250,7 +250,7 @@ In practice this will put more load on the remaining cluster nodes.
 This can impact performance and stability of the cluster.
 It's not recommended to perform rolling upgrades under high load.
 
-Starting with RabbitMQ 3.8.8, nodes can be put into maintenance mode to prepare them for
+Nodes can be put into maintenance mode to prepare them for
 shutdown during rolling upgrades.
 
 

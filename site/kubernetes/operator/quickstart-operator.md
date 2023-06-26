@@ -164,15 +164,15 @@ In order to make sure RabbitMQ has started correctly, let's view the RabbitMQ lo
 kubectl logs hello-world-server-0
 ...
 
- Starting RabbitMQ 3.8.9 on Erlang 23.2.1
- Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
- Licensed under the MPL 2.0. Website: https://rabbitmq.com
-
-  ##  ##      RabbitMQ 3.8.9
+  ##  ##      RabbitMQ 3.12.1
   ##  ##
   ##########  Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
   ######  ##
   ##########  Licensed under the MPL 2.0. Website: https://rabbitmq.com
+
+  Erlang:      26.0.1 [jit]
+  TLS Library: OpenSSL - OpenSSL 1.1.1u  30 May 2023
+  Release series support status: supported
 
   Doc guides: https://rabbitmq.com/documentation.html
   Support:    https://rabbitmq.com/contact.html

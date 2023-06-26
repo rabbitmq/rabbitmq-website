@@ -91,8 +91,8 @@ It is also possible to list and enable feature flags from the
 As covered earlier, the feature flags subsystem's primary goal is to
 allow upgrades regardless of the version of RabbitMQ, if possible.
 
-Therefore, as of RabbitMQ 3.8.0, it will be possible to upgrade to the
-next patch, minor or major release, except if it is stated otherwise
+Feature flags make it possible to safely perform a rolling upgrade to the
+next patch or minor release, except if it is stated otherwise
 in the release notes. Indeed, there are some changes which cannot be
 implemented as feature flags.
 
@@ -508,8 +508,8 @@ resolves to multiple IP addresses.
 This situation may happen during a rolling upgrade if the management UI
 is open in a browser with periodic automatic refresh.
 
-For example, if the management UI was loaded from a RabbitMQ 3.7.x node
-but it then queries a RabbitMQ 3.8.x node, the JavaScript code running
+For example, if the management UI was loaded from a RabbitMQ 3.11.x node
+but it then queries a RabbitMQ 3.12.x node, the JavaScript code running
 in the browser may fail with exceptions due to HTTP API changes.
 
 #### What Happens When a Feature Flag is Enabled
