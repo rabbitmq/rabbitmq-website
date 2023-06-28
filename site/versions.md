@@ -26,7 +26,7 @@ what series are no longer supported.
 For guidance on upgrades, see the [Upgrade](./upgrade.html) and
 [Blue/Green Deployment Upgrade](./blue-green-upgrade.html) guides.
 
-## <a id="currently-supported" class="anchor" href="#currently-supported">Currently Supported Release Series</a>
+## <a id="currently-supported" class="anchor" href="#currently-supported">Currently Supported &product-name; Release Series</a>
 
 <table class="release-series">
   <tr>
