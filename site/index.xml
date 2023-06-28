@@ -22,7 +22,7 @@ limitations under the License.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:x="https://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Messaging that just works</title>
+    <title>RabbitMQ: easy to use, flexible messaging and streaming</title>
   </head>
   <body suppress-rhs="true">
     <x:modal mode="www">
@@ -51,7 +51,7 @@ limitations under the License.
               <p>
                 RabbitMQ is lightweight and easy to deploy on premises
                 and in the cloud. It supports multiple messaging
-                protocols. RabbitMQ can be deployed in distributed and
+                protocols and <a href="./streams.html">streaming</a>. RabbitMQ can be deployed in distributed and
                 federated configurations to meet high-scale,
                 high-availability requirements.
               </p>

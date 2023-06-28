@@ -77,7 +77,7 @@ limitations under the License.
       <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
       <script async="true" type="text/javascript" src="/js/site.js"></script>
 
-      <title><xsl:value-of select="//html:title"/> — RabbitMQ</title>
+      <title><xsl:value-of select="//html:title"/> — &product-name;</title>
       <xsl:apply-templates/>
     </head>
   </xsl:template>
