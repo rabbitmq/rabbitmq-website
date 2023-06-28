@@ -66,7 +66,7 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
   </tr>
 </table>
 
-## <a id="extended-support" class="anchor" href="#extended-support">Release Series That are Only Covered by Extended Support</a>
+## <a id="extended-support" class="anchor" href="#extended-support">&product-name; Release Series That are Only Covered by Extended Support</a>
 
 <table class="release-series">
   <tr>
