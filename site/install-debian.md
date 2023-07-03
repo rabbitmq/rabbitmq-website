@@ -75,7 +75,7 @@ i.e. inline with [distribution EOL policy](https://wiki.debian.org/DebianRelease
 Currently the list of supported Debian-based distributions includes
 
  * Ubuntu 20.04 through 23.04
- * Debian Bullseye (11), Bookworm (12), and Sid ("unstable")
+ * Debian Bullseye (11), Bookworm (12), and Trixie ("testing")
 
 The package may work on other Debian-based distributions
 if [dependencies](#manual-installation) are satisfied (e.g. using a backports repository)
