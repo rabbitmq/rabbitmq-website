@@ -150,6 +150,225 @@ This guide will focus on the Debian repositories maintained by Team RabbitMQ <a 
 and <a href="#apt-cloudsmith-erlang">on Cloudsmith.io</a>.
 
 
+
+
+
+## <a id="apt-packagecloud" class="anchor" href="#apt-packagecloud">Using RabbitMQ Apt Repositories on PackageCloud</a>
+
+Team RabbitMQ maintains an [apt repository on PackageCloud](https://packagecloud.io/rabbitmq/rabbitmq-server),
+a package hosting service. It provides packages for most recent RabbitMQ releases.
+
+PackageCloud provides [repository setup instructions](https://packagecloud.io/rabbitmq/rabbitmq-server/install) that include
+a convenient one-liner. Please **always inspect scripts** that are downloaded from the Internet and executed via
+a privileged shell!
+
+Note that the PackageCloud script **does not** currently follow Debian best practices in terms of GPG key handling
+and the rest of this section does.
+
+This guide will focus on a more traditional and explicit way of setting up an additional apt repository
+and installing packages.
+
+All steps covered below are **mandatory** unless otherwise specified.
+
+### <a id="apt-quick-start-packagecloud" class="anchor" href="#apt-quick-start-packagecloud">PackageCloud Quick Start Script</a>
+
+Below is shell snippet that performs those steps. They are documented in more detail below.
+
+<pre class="lang-bash">
+#!/bin/sh
+
+## Update package indices
+sudo apt-get update -y
+
+sudo apt-get install curl gnupg apt-transport-https -y
+
+## Team RabbitMQ's main signing key
+curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/com.rabbitmq.team.gpg > /dev/null
+## Launchpad PPA that provides modern Erlang releases
+curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xf77f1eda57ebb1cc" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg > /dev/null
+## PackageCloud RabbitMQ repository
+curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/io.packagecloud.rabbitmq.gpg > /dev/null
+
+## Add apt repositories maintained by Team RabbitMQ
+sudo tee /etc/apt/sources.list.d/rabbitmq.list &lt;&lt;EOF
+## Provides modern Erlang/OTP releases
+##
+## "bionic" as distribution name should work for any reasonably recent Ubuntu or Debian release.
+## See the release to distribution mapping table in RabbitMQ doc guides to learn more.
+deb [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
+deb-src [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
+
+## Provides RabbitMQ
+##
+## "bionic" as distribution name should work for any reasonably recent Ubuntu or Debian release.
+## See the release to distribution mapping table in RabbitMQ doc guides to learn more.
+deb [signed-by=/usr/share/keyrings/io.packagecloud.rabbitmq.gpg] https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ bionic main
+deb-src [signed-by=/usr/share/keyrings/io.packagecloud.rabbitmq.gpg] https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ bionic main
+EOF
+
+## Update package indices
+sudo apt-get update -y
+
+## Install Erlang packages
+sudo apt-get install -y erlang-base \
+                        erlang-asn1 erlang-crypto erlang-eldap erlang-ftp erlang-inets \
+                        erlang-mnesia erlang-os-mon erlang-parsetools erlang-public-key \
+                        erlang-runtime-tools erlang-snmp erlang-ssl \
+                        erlang-syntax-tools erlang-tftp erlang-tools erlang-xmerl
+
+## Install rabbitmq-server and its dependencies
+sudo apt-get install rabbitmq-server -y --fix-missing
+</pre>
+
+### Enable apt HTTPS Transport
+
+In order for apt to be able to download RabbitMQ and Erlang packages from services such as PackageCloud, Cloudsmith.io or Launchpad,
+the `apt-transport-https` package must be installed:
+
+<pre class="lang-bash">
+sudo apt-get install apt-transport-https
+</pre>
+
+### Add Repository Signing Key
+
+In order for `apt` to use the repository, [RabbitMQ signing key](signatures.html) must be available to the system for validation.
+
+<pre class="lang-bash">
+## Team RabbitMQ's main signing key
+curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/com.rabbitmq.team.gpg > /dev/null
+## Launchpad PPA that provides modern Erlang releases
+curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xf77f1eda57ebb1cc" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg > /dev/null
+## PackageCloud RabbitMQ repository
+curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/io.packagecloud.rabbitmq.gpg > /dev/null
+</pre>
+
+See the [guide on signatures](signatures.html) to learn more.
+
+#### Add a Source List File
+
+As with all 3rd party apt repositories, a file describing the RabbitMQ and Erlang package repositories
+must be placed under the `/etc/apt/sources.list.d/` directory.
+`/etc/apt/sources.list.d/rabbitmq.list` is the recommended location.
+
+The file should have a source (repository) definition line that uses the following
+pattern:
+
+<pre class="lang-ini">
+# Source repository definition example.
+
+## Provides modern Erlang/OTP releases
+##
+## "bionic" as distribution name should work for any reasonably recent Ubuntu or Debian release.
+## See the release to distribution mapping table in RabbitMQ doc guides to learn more.
+deb [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
+deb-src [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
+
+## Provides RabbitMQ
+##
+## "bionic" as distribution name should work for any reasonably recent Ubuntu or Debian release.
+## See the release to distribution mapping table in RabbitMQ doc guides to learn more.
+deb [signed-by=/usr/share/keyrings/io.packagecloud.rabbitmq.gpg] https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ bionic main
+deb-src [signed-by=/usr/share/keyrings/io.packagecloud.rabbitmq.gpg] https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ bionic main
+</pre>
+
+The next couple of sections discusses what distribution and component values
+are supported.
+
+#### Distribution
+
+In order to set up an apt repository that provides the correct package, a few
+decisions have to be made. One is determining the distribution name. It often
+matches the Debian or Ubuntu release used:
+
+ * `jammy` for Ubuntu 22.04
+ * `focal` for Ubuntu 20.04
+ * `bionic` for Ubuntu 18.04
+ * `buster` for Debian Buster
+ * `bullseye` for Debian Bullseye
+
+Not all distributions are covered (indexed). For example, freshly released ones usually
+won't be recognized by the package hosting services.
+But there are good news: since the package indexed for these distributions is the same,
+any reasonably recent distribution name would suffice in practice.
+For example, users of Debian Sid or Debian Bullseye
+can both use `bullseye` for distribution name.
+
+Below is a table of OS release and distribution names that should be used
+with the RabbitMQ apt repository on PackageCloud.
+
+| Release         | Distribution |
+|-----------------|--------------|
+| Ubuntu 22.04    | `jammy`      |
+| Ubuntu 20.04    | `focal`      |
+| Ubuntu 18.04    | `bionic`     |
+| Debian Buster   | `buster`     |
+| Debian Bullseye | `bullseye`   |
+| Debian Sid      | `bullseye`     |
+
+To add the apt repository to the source list directory (`/etc/apt/sources.list.d`), use:
+
+<pre class="lang-bash">
+sudo tee /etc/apt/sources.list.d/rabbitmq.list &lt;&lt;EOF
+## Provides modern Erlang/OTP releases
+##
+## "bionic" as distribution name should work for any reasonably recent Ubuntu or Debian release.
+## See the release to distribution mapping table in RabbitMQ doc guides to learn more.
+deb [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
+deb-src [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
+
+## Provides RabbitMQ
+##
+## Replace $distribution with the name of the Ubuntu release used.
+## On Debian, "deb/ubuntu" should be replaced with "deb/debian"
+deb [signed-by=/usr/share/keyrings/io.packagecloud.rabbitmq.gpg] https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ $distribution main
+deb-src [signed-by=/usr/share/keyrings/io.packagecloud.rabbitmq.gpg] https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ $distribution main
+EOF
+</pre>
+
+where `$distribution` is the name of the Debian or Ubuntu distribution used (see the table above).
+
+So, for example, on Debian Buster it would be
+
+<pre class="lang-bash">
+sudo tee /etc/apt/sources.list.d/rabbitmq.list &lt;&lt;EOF
+## Provides modern Erlang/OTP releases
+##
+## The Ubuntu PPA is not aware of Debian distribution names.
+## "bionic" as distribution name should work for any reasonably recent Ubuntu or Debian release.
+deb [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
+deb-src [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
+
+## Provides RabbitMQ
+##
+deb [signed-by=/usr/share/keyrings/io.packagecloud.rabbitmq.gpg] https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ buster main
+deb-src [signed-by=/usr/share/keyrings/io.packagecloud.rabbitmq.gpg] https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ buster main
+EOF
+</pre>
+
+#### Install Packages
+
+After updating the list of `apt` sources it is necessary to run `apt-get update`:
+
+<pre class="lang-bash">
+sudo apt-get update -y
+</pre>
+
+Then install the package with
+
+<pre class="lang-bash">
+## Install Erlang packages
+sudo apt-get install -y erlang-base \
+                        erlang-asn1 erlang-crypto erlang-eldap erlang-ftp erlang-inets \
+                        erlang-mnesia erlang-os-mon erlang-parsetools erlang-public-key \
+                        erlang-runtime-tools erlang-snmp erlang-ssl \
+                        erlang-syntax-tools erlang-tftp erlang-tools erlang-xmerl
+
+## Install rabbitmq-server and its dependencies
+sudo apt-get install rabbitmq-server -y --fix-missing
+</pre>
+
+
+
 ## <a id="apt-cloudsmith" class="anchor" href="#apt-cloudsmith">Using RabbitMQ Apt Repositories on Cloudsmith</a>
 
 Team RabbitMQ maintains two [apt repositories on Cloudsmith](https://cloudsmith.io/~rabbitmq/repos/),
@@ -219,7 +438,7 @@ sudo apt-get install curl gnupg -y
 
 ### Enable apt HTTPS Transport
 
-In order for apt to be able to download RabbitMQ and Erlang packages from the Cloudsmith.io mirror or Launchpad,
+In order for apt to be able to download RabbitMQ and Erlang packages from services such as PackageCloud, Cloudsmith.io or Launchpad,
 the `apt-transport-https` package must be installed:
 
 <pre class="lang-bash">
@@ -290,7 +509,7 @@ For example, users of Debian Sid or Debian Bullseye
 can both use `bullseye` for distribution name.
 
 Below is a table of OS release and distribution names that should be used
-with the RabbitMQ apt repositories.
+with the RabbitMQ apt repository on PackageCloud.
 
 | Release         | Distribution |
 |-----------------|--------------|
@@ -723,7 +942,10 @@ By default, the package will set up `logrotate` to run weekly on files located i
 ## <a id="apt-launchpad-erlang" class="anchor" href="#apt-launchpad-erlang">Install Erlang from an Apt Repository (PPA) on Launchpad</a>
 
 This additional section covers installation of modern Erlang packages from Launchpad. To install
-modern Erlang and RabbitMQ, please refer to [Install RabbitMQ from a Cloudsmith mirror](#apt-cloudsmith).
+modern Erlang and RabbitMQ, please refer to the sections above:
+
+ * [Install RabbitMQ from PackageCloud](#apt-packagecloud) and Launchpad
+ * [Install RabbitMQ from Cloudsmith](#apt-cloudsmith)
 
 ### Modern Erlang on Ubuntu
 
@@ -777,8 +999,7 @@ See the [guide on signatures](signatures.html) to learn more.
 
 ### <a id="erlang-apt-https-transport" class="anchor" href="#erlang-apt-https-transport">Enable apt HTTPS Transport</a>
 
-In order for apt to be able to download RabbitMQ and Erlang packages from the Cloudsmith.io mirror or Launchpad,
-the `apt-transport-https` package must be installed:
+In order for apt to be able to download RabbitMQ and Erlang packages from services such as PackageCloud, Cloudsmith.io or Launchpad, the `apt-transport-https` package must be installed:
 
 <pre class="lang-bash">
 sudo apt-get install apt-transport-https
