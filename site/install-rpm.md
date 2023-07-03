@@ -26,11 +26,11 @@ into standard RPM-based distribution repositories can be
 many releases behind [latest RabbitMQ releases](changelog.html)
 and may provide RabbitMQ versions that are already [out of support](versions.html).
 
-Team RabbitMQ produces our own RPM packages and distributes them [using a Cloudsmith mirror](#apt-cloudsmith).
+Team RabbitMQ produces our own RPM packages and distributes them [using a Cloudsmith mirror](#apt-cloudsmith) and [PackageCloud](#apt-packagecloud).
 
 There are two ways of installing these RPMs:
 
- * Installing the package using Yum repositories (this option is highly recommended) from a [Cloudsmith.io](#cloudsmith) mirror
+ * Installing the package using Yum repositories (this option is highly recommended) from a [Cloudsmith.io](#cloudsmith) mirror or [PackageCloud](#package-cloud)
  * [Downloading](#downloads) the package and installing it with `rpm`.
    This option will require manual installation of all [package dependencies](#package-dependencies) and makes upgrades more difficult.
 
