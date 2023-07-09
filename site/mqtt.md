@@ -219,9 +219,14 @@ error and **fail to subscribe**.
 
 Below is a `rabbitmq.conf` example that opts in to use quorum queues for durable subscriptions:
 
-<pre class="">
-# must ONLY be enabled for new clusters before any clients declare durable
-# subscriptions
+<pre class="lang-ini">
+# Must ONLY be enabled for new clusters before any clients declare durable
+# subscriptions.
+#
+# Quorum queues should NOT be used in environments with high connection and queue
+# churn, see https://rabbitmq.com/networking.html#dealing-with-high-connection-churn.
+# Consumers that churn through queues (use very short-lived queues) will not get
+# any quorum queue benefits anyway.
 mqtt.durable_queue_type = quorum
 </pre>
 
