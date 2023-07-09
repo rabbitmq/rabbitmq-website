@@ -142,7 +142,7 @@ for many workloads.
 
 #### Non-durable Queues
 
-Regular queues can be [non-durable](queues.html). Quorum queues are always durable per their
+Classic queues can be [non-durable](queues.html). Quorum queues are always durable per their
 assumed [use cases](#use-cases).
 
 #### Exclusivity
@@ -155,7 +155,7 @@ Quorum queues are not meant to be used as [temporary queues](./queues.html#tempo
 
 #### TTL (before RabbitMQ 3.10)
 
-Quorum queues support [Queue TTL](./ttl.html#queue-ttl), but do not support message TTL.
+Before RabbitMQ 3.10, quorum queues supported [Queue TTL](./ttl.html#queue-ttl), but do not message TTL.
 
 #### TTL (since RabbitMQ 3.10)
 
