@@ -492,3 +492,11 @@ PUT /api/operator-policies/%2f/transient-queue-ttl
         </td>
     </tr>
 </table>
+
+Modification of operator policies via the HTTP API and Web UI can be disabled
+in configuration. This makes operator policies read-only for all users via the
+HTTP API and Web UI.
+
+<pre>
+management.restrictions.operator_policy_changes.disabled = true
+</pre>
