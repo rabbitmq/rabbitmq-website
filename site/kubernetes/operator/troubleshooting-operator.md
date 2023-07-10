@@ -143,7 +143,7 @@ Potential solution to resolve this issue:
  * Check whether your Kubernetes cluster is healthy, specifically the `kube-apiserver` component
  * Check whether any security network policies could prevent the Operator from reaching the Kubernetes API server
 
-### <a id="status-conditions" class="anchor" href="#status-conditions> RabbitMQ cluster status conditions </a>
+### <a id="status-conditions" class="anchor" href="#status-conditions"> RabbitMQ cluster status conditions </a>
 
 A RabbitMQ instance has status.conditions that describe the current state of the RabbitMQ cluster.
 To get the status, run:
