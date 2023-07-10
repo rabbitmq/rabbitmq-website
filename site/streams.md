@@ -104,7 +104,7 @@ just as any other RabbitMQ queue.
 If declaring using [management UI](./management.html), the `stream` type must be specified using
 the queue type drop down menu.
 
-Streams support 3 additional [queue arguments](./queues.html#optional-arguments)
+Streams support additional [queue arguments](./queues.html#optional-arguments)
 that are best configured using a [policy](./parameters.html#policies)
 
 * `x-max-length-bytes`
@@ -120,6 +120,13 @@ Sets the maximum age of the stream. See [retention](#retention). Default: not se
 Unit: bytes. A stream is divided up into fixed size segment files on disk.
 This setting controls the size of these.
 Default: (500000000 bytes).
+
+* `x-stream-filter-size-bytes`
+
+Unit: bytes.
+The size of the Bloom filter used for [filtering](#filtering).
+The value must be between 16 and 255.
+Default: 16.
 
 The following snippet shows how to set the maximum size of a stream to 20 GB, with
 segment files of 100 MB:
@@ -266,6 +273,58 @@ Super streams add complexity compared to individual streams, so they should not 
 Consider using super streams only if you are sure you reached the limits of individual streams.
 
 A [blog post](https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-preview-super-streams) provides an overview of super streams.
+
+### <a id="filtering" class="anchor" href="#filtering">Filtering</a>
+
+RabbitMQ Stream provides a server-side filtering feature that avoids reading all the messages of a stream and filtering only on the client side.
+This helps to save network bandwidth when a consuming application needs only a subset of messages, e.g. the messages from a given geographical region.
+
+A message must be published with an associated filter value for the filtering feature to work.
+This value is specified with the `x-stream-filter-value` header:
+
+<pre class="lang-java">
+channel.basicPublish(
+  "", // default exchange
+  "my-stream",
+  new AMQP.BasicProperties.Builder()
+    .headers(Collections.singletonMap(
+      "x-stream-filter-value", "california" // set filter value
+    ))
+    .build(),
+  body
+);
+</pre>
+
+A consumer must use the `x-stream-filter` argument if it wants to receive only messages for a given filter value:
+
+<pre class="lang-java">
+channel.basicQos(100); // QoS must be specified
+channel.basicConsume(
+  "my-stream",
+  false,
+  Collections.singletonMap("x-stream-filter", "california"), // set filter
+  (consumerTag, message) -> {
+    Map&lt;String, Object&gt; headers = message.getProperties().getHeaders();
+    // there must be some client-side filter logic
+    if ("california".equals(headers.get("x-stream-filter-value"))) {
+      // message processing
+      // ...
+    }
+    channel.basicAck(message.getEnvelope().getDeliveryTag(), false); // ack is required
+  },
+  consumerTag -> { });
+</pre>
+
+As shown in the snippet above, there must be some client-side filtering logic as well because server-side filtering is _probabilistic_: messages that do not match the filter value can still be sent to the consumer. 
+The server uses a [Bloom filter](https://en.wikipedia.org/wiki/Bloom_filter), a space-efficient probabilistic data structure, where false positives are possible.
+Despite this, the filtering saves some bandwidth, which is its primary goal.
+
+Additional notes on filtering:
+
+* It is possible to publish messages with and without a filter value in the same stream.
+* Messages without a filter value are not sent when a filter is set by a consumer.
+Set the `x-stream-match-unfiltered` argument to `true` to change this behavior and receive _unfiltered_ messages as well.
+* The `x-stream-filter` consumer argument accepts a string but also an array of strings to receive messages for different filter values.
 
 ## <a id="feature-comparison" class="anchor" href="#feature-comparison">Feature Comparison with Regular Queues</a>
 
