@@ -401,14 +401,14 @@ semantics, they are limited only to a few arguments:
  * message-ttl
  * max-length
  * max-length-bytes
-
-The arguments above are all numeric. The reason for that is explained
-in the following section.
+ * ha-mode
+ * ha-params
+ * ha-sync-mode
 
 ### <a id="operator-policy-conflicts" class="anchor" href="#operator-policy-conflicts">Conflict Resolution with Regular Policies</a>
 
-An operator policy and a regular one can contain the same
-keys in their definitions. When it happens, the smaller
+An operator policy and a regular policy can contain the same
+keys in their definitions. When it happens, the more conservative
 value is chosen as effective. For example, if a matching
 operator policy definition sets `max-length` to
 50 and a matching regular policy definition uses the value of 100,
@@ -416,6 +416,72 @@ the value of 50 will be used. If, however, regular policy's value
 was 20, it would be used. Operator policies, therefore, don't
 just overwrite regular policy values. They enforce limits but
 try to not override user-provided policies where possible.
+
+<table>
+    <tr>
+        <th>expires</th>
+        <td>
+            <ul>
+                <li>lower value</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <th>message-ttl</th>
+        <td>
+            <ul>
+                <li>lower value</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <th>max-length</th>
+        <td>
+            <ul>
+                <li>lower value</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <th>max-length-bytes</th>
+        <td>
+            <ul>
+                <li>lower value</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <th>ha-mode</th>
+        <td>
+          The order of preference:
+
+          <ol>
+            <li>all</li>
+            <li>exactly</li>
+            <li>nodes</li>
+          </ol>
+        </td>
+    </tr>
+    <tr>
+        <th>ha-params</th>
+        <td>
+          <ul>
+            <li>higher value when both values are integers</li>
+            <li>integer value when only one value is an integer</li>
+            <li>longer list when both values are a list of nodes</li>
+            <li>operator policy value when both values are an equal length list of nodes</li>
+          </ul>
+        </td>
+    </tr>
+    <tr>
+        <th>ha-sync-mode</th>
+        <td>
+            <ul>
+                <li>operator policy value</li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
 When the same key is provided by both [client-provided `x-arguments`](./queues.html#optional-arguments) and by a user policy,
 the former take precedence.
