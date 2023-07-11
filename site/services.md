@@ -45,7 +45,7 @@ based on the [RabbitMQ Operator for Kubernetes](https://www.rabbitmq.com/kuberne
 ## <a id="training" class="anchor" href="#training">Training</a>
 
 The following companies provide free, virtual, or instructor-led courses for RabbitMQ:
-[VMware](https://academy.pivotal.io/store-catalog),
+[VMware](https://tanzu.academy/courses/rabbitmq-icm),
 [Erlang Solutions](https://www.erlang-solutions.com/products/rabbitmq.html) and
 [LearnQuest](http://www.learnquest.com/course-detail.aspx?cnum=rabbitmq-e1xc).
 These <strong>training courses</strong> cover learning messaging with RabbitMQ, use cases, patterns,
