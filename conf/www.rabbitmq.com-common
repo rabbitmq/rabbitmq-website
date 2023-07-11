@@ -30,9 +30,6 @@
         Require all granted
     </Directory>
 
-    # /how appeared on some printed materials
-    Redirect permanent /how http://www.rabbitmq.com/how.html
-
     # From former versions of the website
     Redirect permanent /server.html /download.html
     Redirect permanent /install.html /download.html
