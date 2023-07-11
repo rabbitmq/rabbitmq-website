@@ -453,11 +453,13 @@ try to not override user-provided policies where possible.
     <tr>
         <th>ha-mode</th>
         <td>
-          <ul>
+          The order of preference:
+
+          <ol>
             <li>all</li>
             <li>exactly</li>
             <li>nodes</li>
-          </ul>
+          </ol>
         </td>
     </tr>
     <tr>
