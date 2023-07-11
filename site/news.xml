@@ -8446,74 +8446,6 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
 
       <doc:item>
-    <doc:date iso="2009-09-30T00:00:00Z">30 September 2009</doc:date>
-    <doc:title>
-   RabbitMQ provides VMware users with a reliable cloud bus based on open AMQP messaging
-    </doc:title>
-
-    <doc:link>http://www.vmware.com/appliances/</doc:link>
-
-    <doc:text>
-<p>We are delighted to be providing RabbitMQ open messaging to support the
-VMware vCloud  Initiative, their customers and the growing cloud
-ecosystem," Alexis Richardson, CEO, RabbitMQ.  "Customers want choice, and
-RabbitMQ delivers choice by lowering the cost of scale, and by removing
-lock-in.  RabbitMQ is the market leading implementation of AMQP, the
-interoperable open business messaging protocol, and is distributed on most
-major development platforms. Already businesses are using RabbitMQ to scale up
-business-critical application functionality on multiple leading public and
-private cloud infrastructures.  Our support for the VMware vCloud Initiative
-is a natural extension.  RabbitMQ has an open source license making it ideal
-for elastic deployments, and for integration in platforms such as Spring and
-Ruby on Rails.</p>
-
-    <p>The virtual appliance is available to download for free from the <a href="http://www.vmware.com/appliances/">VMware virtual appliance marketplace</a>.</p>
-
-    </doc:text>
-      </doc:item>
-      <doc:item>
-    <doc:date iso="2009-07-22T00:00:00Z">22 July 2009</doc:date>
-    <doc:title>
-   Catch up online
-    </doc:title>
-
-    <doc:link>http://delicious.com/alexisrichardson/rabbitmq+video</doc:link>
-
-    <doc:text>
-<p>The RabbitMQ team have been busy giving presentations about the use of RabbitMQ at events
-like Google London, Oxford Geek Night, Erlang Factory etc. Many of these presentations were
-filmed, and you can catch up online.</p>
-
-
-
-    <p>Check out
-<a href="http://delicious.com/alexisrichardson/rabbitmq+video">these bookmarks on Delicious</a>.</p>
-
-<p>There have also been many exciting developments in the RabbitMQ community recently. Keep an eye
-on <a href="how.html">this page</a> for a summary of who is doing what, and how, with RabbitMQ.</p>
-
-    </doc:text>
-      </doc:item>
-
-      <doc:item>
-    <doc:date iso="2009-07-15T00:00:00Z">15 July 2009</doc:date>
-    <doc:title>
-   Kaazing adds support for AMQP and RabbitMQ
-    </doc:title>
-
-    <doc:link>http://news.prnewswire.com/ViewContent.aspx?ACCT=109&amp;STORY=/www/story/07-14-2009/0005059766&amp;EDATE=</doc:link>
-
-    <doc:text>
-
-<p>Kaazing Corporation, makers of gateways that connect web-based applications to high-volume, real-time message traffic, today announced support for the Advanced Message Queuing Protocol (AMQP) in the most recent release of the company's flagship product, Kaazing Enterprise Gateway (KEG).</p>
-
-<p>For details see <a href="http://news.prnewswire.com/ViewContent.aspx?ACCT=109&amp;STORY=/www/story/07-14-2009/0005059766&amp;EDATE=">the full release</a>.</p>
-
-    </doc:text>
-      </doc:item>
-
-
-      <doc:item>
     <doc:date iso="2009-06-17T00:00:00Z">17 June 2009</doc:date>
     <doc:title>
    RabbitMQ 1.6.0 release
@@ -8685,7 +8617,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
       <ul class="plain">
     <li><a href="http://gojko.net/2009/03/11/qcon-london-2009-mom-interoperability-finally/">Gojko Adzic's review</a></li>
   </ul>
-  <p>If you're looking for a place to start <a href="./how.html">try here</a>.</p>
+  <p>If you're looking for a place to start <a href="./getstarted.html">try here</a>.</p>
 
     </doc:text>
       </doc:item>
@@ -8701,7 +8633,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
     <doc:text>
       <p>The LShift/RabbitMQ team is pleased to announce its second visit to Qcon London, please do come and say hello.</p>
-      <p>In honour of the event, and while we work on a new website, we produced this overview of <a href="https://www.rabbitmq.com/how.html">how to use RabbitMQ</a>.</p>
+      <p>In honour of the event, and while we work on a new website, see our suite of <a href="https://www.rabbitmq.com/getstarted.html">RabbitMQ tutorials</a>.</p>
 
     </doc:text>
       </doc:item>
