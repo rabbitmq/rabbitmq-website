@@ -59,9 +59,10 @@ Client libraries:
 
 Higher level frameworks:
 
- * [EasyNetQ](http://easynetq.com), an easy to use, opinionated .NET API for RabbitMQ
  * [NServiceBus](http://particular.net/nservicebus), the most popular open-source service bus for .NET.
  * [Brighter](https://www.goparamore.io/), a Command Processor & Dispatcher implementation with support for task queues
+ * [Cambion](https://cambion.whitestone.no/), an MIT licensed open-source distributed application framework for .NET
+ * [EasyNetQ](http://easynetq.com), an easy to use, opinionated .NET API for RabbitMQ
  * [MassTransit](https://masstransit.io/), an open-source distributed application framework for .NET.
 
 Miscellaneous projects:
