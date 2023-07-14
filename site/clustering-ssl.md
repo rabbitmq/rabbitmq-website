@@ -259,8 +259,7 @@ and requires peers to present a certificate:
     {keyfile,    "/full/path/to/client_key.pem"},
     {password,   "password-if-keyfile-is-encrypted"},
     {secure_renegotiate, true},
-    {verify, verify_peer},
-    {fail_if_no_peer_cert, true}
+    {verify, verify_peer}
   ]}
 ].
 </pre>
@@ -331,8 +330,7 @@ to be set if necessary.
         {keyfile, "C:/Path/To/client_key.pem"},
         {password, "password-if-keyfile-is-encrypted"},
         {secure_renegotiate, true},
-        {verify, verify_peer},
-        {fail_if_no_peer_cert, true}
+        {verify, verify_peer}
     ]}
 ].
 </pre>
