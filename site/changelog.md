@@ -72,7 +72,7 @@ released separately.
 
   <tr>
     <td class="centre">3.10.25</td>
-    <td class="centre">July 12 2023</td>
+    <td class="centre">July 18 2023</td>
     <td>
       <ul>
         <li>Bug fixes</li>
