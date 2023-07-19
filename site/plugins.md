@@ -523,7 +523,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
       Provides a client x509 certificate trust store.
       <ul>
         <li>
-          <a href="https://github.com/rabbitmq/rabbitmq-trust-store/blob/v3.9.x/README.md">README for this plugin</a>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_trust_store/README.md">README for this plugin</a>
         </li>
       </ul>
     </td>
@@ -561,7 +561,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
       and a basic canvas-based collaboration tool.
       <ul>
         <li>
-          <a href="https://github.com/rabbitmq/rabbitmq-web-stomp-examples/blob/v3.9.x/README.md">README for this plugin</a>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_web_stomp_examples/README.md">README for this plugin</a>
         </li>
       </ul>
     </td>
@@ -575,7 +575,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
       and a basic canvas-based collaboration tool.
       <ul>
         <li>
-          <a href="https://github.com/rabbitmq/rabbitmq-web-mqtt-examples/blob/v3.7.x/README.md">README for this plugin</a>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_web_mqtt_examples/README.md">README for this plugin</a>
         </li>
       </ul>
     </td>
