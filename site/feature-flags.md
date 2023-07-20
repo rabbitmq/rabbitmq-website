@@ -426,6 +426,14 @@ The following feature flags are provided by plugin [rabbimq_mqtt](https://www.ra
 
   <tr>
     <td></td>
+    <td>3.13.0</td>
+    <td>mqtt_v5</td>
+	<td>
+	  Support <a href="https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html">MQTT 5.0</a>
+	</td>
+  </tr>
+  <tr>
+    <td></td>
     <td>3.12.0</td>
     <td>delete_ra_cluster_mqtt_node</td>
 	<td>
