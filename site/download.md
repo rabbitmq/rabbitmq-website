@@ -27,8 +27,6 @@ Experimenting with RabbitMQ on your workstation? Try the [community Docker image
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.12-management
 </pre>
 
-
-
 ## Open Source RabbitMQ Server
 
 ### Installation Guides
@@ -37,6 +35,12 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.12-ma
  * Windows: [Chocolatey package](https://community.chocolatey.org/packages/rabbitmq) | [Windows Installer](install-windows.html) | [Binary build](install-windows-manual.html)
  * MacOS: [Homebrew](install-homebrew.html) | [Generic binary build](install-generic-unix.html)
  * [Erlang/OTP for RabbitMQ](./which-erlang.html)
+
+### Preview Releases
+
+You can contribute to open source RabbitMQ by helping the community test [preview releases](https://github.com/rabbitmq/rabbitmq-server/releases).
+They are marked as pre-releases on GitHub.
+
 
 ## VMware RabbitMQ® (Commercial Edition)
 
