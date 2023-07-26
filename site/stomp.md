@@ -202,6 +202,13 @@ stomp.proxy_protocol = true
 See the [Networking Guide](./networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
+## <a id="frame-size-limit" class="anchor" href="#frame-size-limit">Frame Size Limit</a>
+
+By default frame size limit is 4Mb. When a frame exceeds the limit it's an error and connection closed.
+
+<pre class="lang-ini">
+stomp.max_frame_size = 4 * 1024 * 1024
+</pre>
 
 ## <a id="d" class="anchor" href="#d">Destinations</a>
 The STOMP specification does not prescribe what kinds of destinations
