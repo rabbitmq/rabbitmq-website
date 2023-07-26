@@ -218,7 +218,7 @@ the message.
 
 <pre class="lang-python">
 def callback(ch, method, properties, body):
-    print(" [x] Received %r" % body)
+    print(f" [x] Received {body}")
 </pre>
 
 Next, we need to tell RabbitMQ that this particular callback function should
@@ -288,7 +288,7 @@ def main():
     channel.queue_declare(queue='hello')
 
     def callback(ch, method, properties, body):
-        print(" [x] Received %r" % body)
+        print(f" [x] Received {body}")
 
     channel.basic_consume(queue='hello', on_message_callback=callback, auto_ack=True)
 
