@@ -283,7 +283,7 @@ channel.exchange_declare(exchange='logs', exchange_type='fanout')
 
 message = ' '.join(sys.argv[1:]) or "info: Hello World!"
 channel.basic_publish(exchange='logs', routing_key='', body=message)
-print(" [x] Sent %r" % message)
+print(f" [x] Sent {message}")
 connection.close()
 </pre>
 
@@ -314,7 +314,7 @@ channel.queue_bind(exchange='logs', queue=queue_name)
 print(' [*] Waiting for logs. To exit press CTRL+C')
 
 def callback(ch, method, properties, body):
-    print(" [x] %r" % body)
+    print(f" [x] {body}")
 
 channel.basic_consume(
     queue=queue_name, on_message_callback=callback, auto_ack=True)
