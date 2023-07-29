@@ -38,6 +38,7 @@ to size and configure both RabbitMQ nodes and applications.
 
 This guide provides recommendations in a few areas:
 
+ * Storage types: use durable local storage
  * Recommendations related to [virtual hosts, users and permissions](#users-and-permissions)
  * [Monitoring and resource usage](#monitoring-and-resource-usage)
  * [Per-virtual host and per-user limits](#limits)
@@ -46,6 +47,26 @@ This guide provides recommendations in a few areas:
  * [Application-level](#apps) practices and considerations
 
 and more.
+
+## <a id="storage" class="anchor" href="#storage">Use Durable Local Storage</a>
+
+Modern RabbitMQ 3.x features, most notably quorum queues and streams, are not designed with transient storage in mind.
+
+Data safety features of [quorum queues](./quorum-queues.html) and [streams](./streams.html) expect
+node data storage to be durable. Both data structures also assume reasonably stable latency of I/O
+operations, something that network-attached storage will not be always ready to provide in practice.
+
+Quorum queue and stream replicas hosted on restarted nodes that use transient storage will have
+to perform a full sync of the entire data set on the leader replica. This can result in massive
+data transfers and network link overload that could have been avoided by using durable storage.
+
+When a node are restarted, the rest of the cluster expects them to retain the information
+about its cluster peers. When this is not the case, restarted nodes may be able to rejoin
+as new nodes but a [special peer clean up mechanism](https://rabbitmq.com/cluster-formation.html#node-health-checks-and-cleanup)
+would have to be enabled to remove their prior identities.
+
+Transient entities (such as queues) and RAM node support will be removed in RabbitMQ 4.0.
+
 
 ## <a id="users-and-permissions" class="anchor" href="#users-and-permissions">Virtual Hosts, Users, Permissions</a>
 
