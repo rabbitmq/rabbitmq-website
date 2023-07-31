@@ -86,7 +86,7 @@ Miscellaneous projects:
 
  * &#x2713; [pika](http://pypi.python.org/pypi/pika), a pure-Python AMQP 0-9-1 client ([source code](https://github.com/pika/pika),
    [API reference](http://readthedocs.org/docs/pika/en/latest/index.html))
- * [rstream](https://github.com/qweeze/rstream): RabbitMQ Stream Python client
+ * &#x2713; [rstream](https://github.com/qweeze/rstream): RabbitMQ Stream Python client
  * [rbfly](https://gitlab.com/wrobell/rbfly): RabbitMQ Stream Python client
  * [aio-pika](https://github.com/mosquito/aio-pika), a pure-Python AMQP 0-9-1 client built for Python 3 and asyncio ([source code](https://github.com/mosquito/aio-pika),
    [API reference](https://aio-pika.readthedocs.org/))
@@ -185,6 +185,7 @@ Miscellaneous projects:
  * [SimpleAmqpClient](https://github.com/alanxz/SimpleAmqpClient), a C++ wrapper around rabbitmq-c
  * [amqpcpp](https://github.com/akalend/amqpcpp), a C++ message library for RabbitMQ
  * [AMQP-CPP](https://github.com/CopernicaMarketingSoftware/AMQP-CPP), a C++ RabbitMQ client
+ * [RabbitMQ C stream client](https://github.com/GianfrancoGGL/rabbitmq-stream-c-client)
 
 
 ## <a id="monitoring-tools" class="anchor" href="#monitoring-tools">Monitoring</a>
