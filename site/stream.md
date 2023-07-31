@@ -34,7 +34,21 @@ This page covers the Stream plugin, which allows to interact with streams using 
 For an overview of the concepts and the ways to operate streams, please see the
 [guide on RabbitMQ streams](streams.html).
 
-Client libraries for the stream protocol are available on several platforms: [Java](https://github.com/rabbitmq/rabbitmq-stream-java-client), [Go](https://github.com/rabbitmq/rabbitmq-stream-go-client), [.NET](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client), Python ([rbly](https://gitlab.com/wrobell/rbfly), [rstream](https://pypi.org/project/rstream/)), [Erlang](https://gitlab.com/evnu/lake), [Elixir](https://github.com/VictorGaiva/rabbitmq-stream), [Rust](https://github.com/rabbitmq/rabbitmq-stream-rust-client), [NodeJS](https://github.com/coders51/rabbitmq-stream-js-client).
+Client libraries for the stream protocol are available on several platforms.
+
+*Note:* items with a check mark (&#x2713;) are officially supported by Team RabbitMQ and VMware.
+
+
+* [&#x2713; RabbitMQ Java Stream Client](https://github.com/rabbitmq/rabbitmq-stream-java-client) 
+* [&#x2713; RabbitMQ Golang Stream Client](https://github.com/rabbitmq/rabbitmq-stream-go-client)
+* [&#x2713; RabbitMQ .NET Stream Client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client)
+* [&#x2713; RabbitMQ Rust Stream Client](https://github.com/rabbitmq/rabbitmq-stream-rust-client)
+* [&#x2713; RabbitMQ Python Stream Client (rstream)](https://pypi.org/project/rstream/)
+* [RabbitMQ Python Stream Client (rblyr)](https://gitlab.com/wrobell/rbfly)
+* [RabbitMQ NodeJS Stream Client](https://github.com/coders51/rabbitmq-stream-js-client)
+* [RabbitMQ Erlang Stream Client (lake)](https://gitlab.com/evnu/lake) 
+* [RabbitMQ Elixir Stream Client ](https://github.com/VictorGaiva/rabbitmq-stream)
+* [RabbitMQ C Stream Client ](https://github.com/GianfrancoGGL/rabbitmq-stream-c-client)
 
 ## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
