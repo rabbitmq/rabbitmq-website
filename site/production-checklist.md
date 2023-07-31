@@ -67,6 +67,8 @@ would have to be enabled to remove their prior identities.
 
 Transient entities (such as queues) and RAM node support will be removed in RabbitMQ 4.0.
 
+Quorum queues, streams, and other RabbitMQ features will benefit from fast local SSD and NVMe storage.
+
 
 ## <a id="users-and-permissions" class="anchor" href="#users-and-permissions">Virtual Hosts, Users, Permissions</a>
 
