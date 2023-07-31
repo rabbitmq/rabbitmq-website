@@ -60,8 +60,8 @@ Quorum queue and stream replicas hosted on restarted nodes that use transient st
 to perform a full sync of the entire data set on the leader replica. This can result in massive
 data transfers and network link overload that could have been avoided by using durable storage.
 
-When a node are restarted, the rest of the cluster expects them to retain the information
-about its cluster peers. When this is not the case, restarted nodes may be able to rejoin
+When nodes are restarted, the rest of the cluster expects them to retain the information
+about their cluster peers. When this is not the case, restarted nodes may be able to rejoin
 as new nodes but a [special peer clean up mechanism](https://rabbitmq.com/cluster-formation.html#node-health-checks-and-cleanup)
 would have to be enabled to remove their prior identities.
 
