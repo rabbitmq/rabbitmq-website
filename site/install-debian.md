@@ -26,7 +26,7 @@ However, the [versions included](https://packages.ubuntu.com/search?keywords=rab
 many releases behind [latest RabbitMQ releases](changelog.html)
 and may provide RabbitMQ versions that are already [out of support](versions.html).
 
-Team RabbitMQ produces our own Debian packages and distributes them [using Cloudsmith](#apt-cloudsmith) and [PackageCloud](#apt-packagecloud).
+Team RabbitMQ produces our own Debian packages and distributes them [using Cloudsmith](#apt-cloudsmith).
 
 Key sections of this guide are
 
@@ -43,26 +43,21 @@ on [Launchpad](https://launchpad.net/~rabbitmq) or a [Cloudsmith.io](#apt-clouds
 Those looking for a more detailed description of the installation steps performed
 should refer to
 
-* Manual installation using [apt the PackageCloud](#apt-packagecloud) and Launchpad repositories
 * Manual installation using [apt and the Cloudsmith](#apt-cloudsmith) repository
-
 
 More advanced topics include
 
  * [Version Pinning](#apt-pinning) of apt packages
 
-
 ## <a id="installation-methods" class="anchor" href="#installation-methods">How to Install Latest RabbitMQ on Debian and Ubuntu</a>
 
 ### With Apt
 
-There are two options available for installing modern RabbitMQ on Debian and Ubuntu:
+Currently, the recommended option for installing modern RabbitMQ on Debian and Ubuntu
+is using apt repositories [on a Cloudsmith mirror](#apt-cloudsmith) ([quick start script](#apt-quick-start-cloudsmith)).
 
- * Option A: using apt repositories [on Cloudsmith](#apt-cloudsmith) ([quick start script](#apt-quick-start-cloudsmith))
- * Option B: using a combination of apt repositories [on PackageCloud](#apt-packagecloud) and Launchpad ([quick start script](#apt-quick-start-packagecloud))
-
-Both options will install a [modern version of Erlang](which-erlang.html) using [Erlang apt repositories](#erlang-repositories)
-on Cloudsmith or Launchpad.
+The repositories provide a [modern version of Erlang](which-erlang.html). Alternatively, the latest
+version of Erlang is available [via a Launchpad PPA and other repositories](#erlang-repositories).
 
 ### Manually Using Dpkg
 
