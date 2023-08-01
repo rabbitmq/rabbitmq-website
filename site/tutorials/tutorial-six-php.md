@@ -260,7 +260,7 @@ $callback = function ($req) {
         array('correlation_id' => $req->get('correlation_id'))
     );
 
-    $req->delivery_info['channel']->basic_publish(
+    $req->getChannel()->basic_publish(
         $msg,
         '',
         $req->get('reply_to')
