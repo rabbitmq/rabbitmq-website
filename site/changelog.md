@@ -43,6 +43,30 @@ released separately.
   <!-- releases -->
 
   <tr>
+    <td class="centre"></td>
+    <td class="centre">July 31 2023</td>
+    <td>
+      <ul>
+        <li>RabbitMQ 3.10.x series is now only <a href="./versions.html">covered by extended commercial support</a></li>
+      </ul>
+    </td>
+    <td class="centre">
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre"></td>
+    <td class="centre">July 31 2023</td>
+    <td>
+      <ul>
+        <li>RabbitMQ 3.9.x series has <a href="./versions.html">reached end of life</a></li>
+      </ul>
+    </td>
+    <td class="centre">
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.12.2</td>
     <td class="centre">July 18 2023</td>
     <td>
@@ -381,6 +405,7 @@ released separately.
     </td>
     <td class="centre">
       <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.29">Release notes</a>
+      <li>This is the <a href="./versions.html">final 3.9.x release</a></li>
     </td>
   </tr>
 
