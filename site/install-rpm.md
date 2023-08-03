@@ -187,9 +187,9 @@ and Amazon Linux 2023.
 
 [modern-erlang]
 name=modern-erlang-el8
-# uses a Cloudsmith mirror @ yum1.novemberain.com.
-# Unlike Cloudsmith, it does not have traffic quotas
-baseurl=https://yum1.novemberain.com/erlang/el/8/$basearch
+# uses a Cloudsmith mirror @ yum.novemberain.com.
+# Unlike Cloudsmith, it does not have any traffic quotas
+baseurl=https://yum.novemberain.com/erlang/el/8/$basearch
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
@@ -203,9 +203,9 @@ type=rpm-md
 
 [modern-erlang-noarch]
 name=modern-erlang-el8-noarch
-# uses a Cloudsmith mirror @ yum1.novemberain.com.
-# Unlike Cloudsmith, it does not have traffic quotas
-baseurl=https://yum1.novemberain.com/erlang/el/8/noarch
+# uses a Cloudsmith mirror @ yum.novemberain.com.
+# Unlike Cloudsmith, it does not have any traffic quotas
+baseurl=https://yum.novemberain.com/erlang/el/8/noarch
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
@@ -220,9 +220,9 @@ type=rpm-md
 
 [modern-erlang-source]
 name=modern-erlang-el8-source
-# uses a Cloudsmith mirror @ yum1.novemberain.com.
-# Unlike Cloudsmith, it does not have traffic quotas
-baseurl=https://yum1.novemberain.com/erlang/el/8/SRPMS
+# uses a Cloudsmith mirror @ yum.novemberain.com.
+# Unlike Cloudsmith, it does not have any traffic quotas
+baseurl=https://yum.novemberain.com/erlang/el/8/SRPMS
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
@@ -241,7 +241,7 @@ autorefresh=1
 
 [rabbitmq-el8]
 name=rabbitmq-el8
-baseurl=https://yum1.novemberain.com/rabbitmq/el/8/$basearch
+baseurl=https://yum.novemberain.com/rabbitmq/el/8/$basearch
 repo_gpgcheck=1
 enabled=1
 # Cloudsmith's repository key and RabbitMQ package signing key
@@ -257,7 +257,7 @@ type=rpm-md
 
 [rabbitmq-el8-noarch]
 name=rabbitmq-el8-noarch
-baseurl=https://yum1.novemberain.com/rabbitmq/el/8/noarch
+baseurl=https://yum.novemberain.com/rabbitmq/el/8/noarch
 repo_gpgcheck=1
 enabled=1
 # Cloudsmith's repository key and RabbitMQ package signing key
@@ -273,7 +273,7 @@ type=rpm-md
 
 [rabbitmq-el8-source]
 name=rabbitmq-el8-source
-baseurl=https://yum1.novemberain.com/rabbitmq/el/8/SRPMS
+baseurl=https://yum.novemberain.com/rabbitmq/el/8/SRPMS
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
@@ -301,9 +301,9 @@ and targets **CentOS Stream 9**, Amazon Linux 2023, and modern Fedora releases.
 
 [modern-erlang]
 name=modern-erlang-el9
-# uses a Cloudsmith mirror @ yum1.novemberain.com.
-# Unlike Cloudsmith, it does not have traffic quotas
-baseurl=https://yum1.novemberain.com/erlang/el/9/$basearch
+# uses a Cloudsmith mirror @ yum.novemberain.com.
+# Unlike Cloudsmith, it does not have any traffic quotas
+baseurl=https://yum.novemberain.com/erlang/el/9/$basearch
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
@@ -317,9 +317,9 @@ type=rpm-md
 
 [modern-erlang-noarch]
 name=modern-erlang-el9-noarch
-# uses a Cloudsmith mirror @ yum1.novemberain.com.
-# Unlike Cloudsmith, it does not have traffic quotas
-baseurl=https://yum1.novemberain.com/erlang/el/9/noarch
+# uses a Cloudsmith mirror @ yum.novemberain.com.
+# Unlike Cloudsmith, it does not have any traffic quotas
+baseurl=https://yum.novemberain.com/erlang/el/9/noarch
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
@@ -334,9 +334,9 @@ type=rpm-md
 
 [modern-erlang-source]
 name=modern-erlang-el9-source
-# uses a Cloudsmith mirror @ yum1.novemberain.com.
-# Unlike Cloudsmith, it does not have traffic quotas
-baseurl=https://yum1.novemberain.com/erlang/el/9/SRPMS
+# uses a Cloudsmith mirror @ yum.novemberain.com.
+# Unlike Cloudsmith, it does not have any traffic quotas
+baseurl=https://yum.novemberain.com/erlang/el/9/SRPMS
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
@@ -355,7 +355,7 @@ autorefresh=1
 
 [rabbitmq-el9]
 name=rabbitmq-el9
-baseurl=https://yum1.novemberain.com/rabbitmq/el/9/$basearch
+baseurl=https://yum.novemberain.com/rabbitmq/el/9/$basearch
 repo_gpgcheck=1
 enabled=1
 # Cloudsmith's repository key and RabbitMQ package signing key
@@ -371,7 +371,7 @@ type=rpm-md
 
 [rabbitmq-el9-noarch]
 name=rabbitmq-el9-noarch
-baseurl=https://yum1.novemberain.com/rabbitmq/el/9/noarch
+baseurl=https://yum.novemberain.com/rabbitmq/el/9/noarch
 repo_gpgcheck=1
 enabled=1
 # Cloudsmith's repository key and RabbitMQ package signing key
@@ -387,7 +387,7 @@ type=rpm-md
 
 [rabbitmq-el9-source]
 name=rabbitmq-el9-source
-baseurl=https://yum1.novemberain.com/rabbitmq/el/9/SRPMS
+baseurl=https://yum.novemberain.com/rabbitmq/el/9/SRPMS
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
