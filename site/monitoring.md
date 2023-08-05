@@ -465,6 +465,10 @@ compared to their previous values and historical mean/percentile values.
 Individual queue metrics are made available through the [HTTP API](management.html#http-api)
 via the `GET /api/queues/{vhost}/{qname}` endpoint.
 
+The table below lists some key metrics that can be useful for monitoring queue state.
+Some other metrics (such as queue state and "idle period") should be considered **internal metrics**
+used by RabbitMQ contributors.
+
 <table>
   <thead>
     <tr><td>Metric</td><td>JSON field name</td></tr>
