@@ -44,7 +44,7 @@ Client libraries for the stream protocol are available on several platforms.
 * [&#x2713; RabbitMQ .NET Stream Client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client)
 * [&#x2713; RabbitMQ Rust Stream Client](https://github.com/rabbitmq/rabbitmq-stream-rust-client)
 * [&#x2713; RabbitMQ Python Stream Client (rstream)](https://pypi.org/project/rstream/)
-* [RabbitMQ Python Stream Client (rblyr)](https://gitlab.com/wrobell/rbfly)
+* [RabbitMQ Python Stream Client (rbfly)](https://gitlab.com/wrobell/rbfly)
 * [RabbitMQ NodeJS Stream Client](https://github.com/coders51/rabbitmq-stream-js-client)
 * [RabbitMQ Erlang Stream Client (lake)](https://gitlab.com/evnu/lake) 
 * [RabbitMQ Elixir Stream Client ](https://github.com/VictorGaiva/rabbitmq-stream)
