@@ -64,7 +64,7 @@ stomp.listeners.tcp.1 = 127.0.0.1:61613
 stomp.listeners.tcp.2 = ::1:61613
 </pre>
 
-### TCP Listener Options
+#### TCP Listener Options
 
 The plugin supports TCP listener option configuration.
 
@@ -87,7 +87,7 @@ stomp.tcp_listen_options.exit_on_close = true
 stomp.tcp_listen_options.send_timeout  = 120
 </pre>
 
-## <a id="tls" class="anchor" href="#tls">TLS Support</a>
+### <a id="tls" class="anchor" href="#tls">TLS Support</a>
 
 To use TLS for STOMP connections, [TLS must be configured](./ssl.html) in the broker. To enable
 TLS-enabled STOMP connections, add a TLS listener for STOMP using the `stomp.listeners.ssl.*` configuration keys.
@@ -190,7 +190,7 @@ Implicit connect is *not* enabled by default.
 **Note:** A client causing an implicit connect will *not* receive a
 `CONNECTED` frame from the server.
 
-## <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
+### <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
 
 The STOMP plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
 This feature is turned off by default. To turn it on for STOMP clients:
@@ -202,7 +202,7 @@ stomp.proxy_protocol = true
 See the [Networking Guide](./networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
-## <a id="frame-size-limit" class="anchor" href="#frame-size-limit">Frame Size Limit</a>
+### <a id="frame-size-limit" class="anchor" href="#frame-size-limit">Frame Size Limit</a>
 
 By default frame size limit is 4Mb. When a frame exceeds the limit it's an error and connection closed.
 
@@ -225,7 +225,7 @@ STOMP gateway;
 * `/topic` -- `SEND` and `SUBSCRIBE` to transient and durable topics;
 * `/temp-queue/` -- create temporary queues (in `reply-to` headers only).
 
-#### AMQP 0-9-1 Semantics
+### AMQP 0-9-1 Semantics
 The `destination` header on a `MESSAGE` frame is set as though the
 message originated from a `SEND` frame:
 

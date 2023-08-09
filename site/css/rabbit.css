@@ -131,12 +131,6 @@ a {
   -ms-transition: all .2s;
 }
 
-h1 a,
-h2 a,
-h3 a {
-  font-weight: bold;
-}
-
 a.anchor {
   color: #808080;
   text-decoration: none;
@@ -158,7 +152,14 @@ h1, h2  {
   margin: 20px 0 0.5em 0;
   padding: 0;
   line-height: 1.3em;
-  font-weight: 400;
+}
+
+h1, h1 a.anchor,
+h2, h2 a.anchor,
+h3, h3 a.anchor,
+h4, h4 a.anchor{
+  font-weight: 500;
+  color: #000000;
 }
 
 h1 {
@@ -166,6 +167,14 @@ h1 {
 }
 
 h2 {
+  font-size: 31px;
+}
+
+h3 {
+  font-size: 25px;
+}
+
+h4 {
   font-size: 20px;
 }
 
