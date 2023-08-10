@@ -19,74 +19,242 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-RabbitMQ supports MQTT 3.1.1 via a plugin that ships in the core distribution.
+RabbitMQ supports MQTT versions
+[3.1](https://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html),
+[3.1.1](https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html), and
+[5.0](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html)
+via a plugin that ships in the core distribution.
 
-Key covered topics are:
+This guide covers the following topics:
 
- * [Clustering requirements](#requirements) of this plugin
- * [Supported MQTT 3.1.1 features](#features) as well as [limitations](#limitations)
  * [How to enable the plugin](#enabling-plugin)
- * [Users and authentication](#authentication), [remote connection](#local-vs-remote) limitations of the default user
- * [Implementation overview](#implementation)
- * [Subscription durability](#durability) and [session stickiness](#stickiness)
- * How to [use quorum queues](#quorum-queues) for durable subscriptions and when not to do it
- * [Consensus-based Features](#consensus)
+ * [Supported MQTT features](#features) and [limitations](#limitations)
+ * [MQTT plugin implementation overview](#implementation)
+ * When (not) to use [quorum queues](#quorum-queues)
+ * [Users and authentication](#authentication) and [remote connections](#local-vs-remote)
  * [Key configurable settings](#config) of the plugin
  * [TLS support](#tls)
  * [Virtual hosts](#virtual-hosts)
- * [Sparkplug support](#sparkplug-support), [Proxy protocol](#proxy-protocol)
- * How to disable the plugin and [decomission a node](#disabling-plugin)
-
- and more.
-
-
-## <a id="requirements" class="anchor" href="#requirements">Clustering Requirements</a>
-
-### The Quorum Requirement
-
-As of 3.8, the plugin [requires a quorum of cluster nodes](#consensus) to be present.
-This means two nodes out of three, three out of five and so on.
-
-The plugin can also be used on a single node but **does not support** clusters of two nodes.
-
-In case the majority of cluster nodes is down, remaining cluster nodes would not be able to
-accept new MQTT client connections.
-
-There are other [documented limitations](#limitations).
-
-### Enabled on All Nodes
-
-The plugin must be enabled on all cluster nodes.
-
-
-## <a id="features" class="anchor" href="#features"> Supported MQTT 3.1.1 features</a>
-
-* QoS0 and QoS1 publish & consume
-* QoS2 publish (downgraded to QoS1)
-* Last Will and Testament (LWT)
-* TLS
-* Session stickiness
-* Retained messages with pluggable storage backends
-
-MQTT clients can interoperate with other protocols. All the functionality in
-the [management UI](./management.html) and several other plugins can be
-used with MQTT, although there may be some limitations or the need to
-tweak the defaults.
-
+ * [Metrics](#metrics)
+ * [Performance and scalability check list](#scalability)
+ * [Proxy protocol](#proxy-protocol)
+ * [Sparkplug support](#sparkplug-support)
 
 ## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
 The MQTT plugin is included in the RabbitMQ distribution. Before clients can successfully
-connect, it must be enabled using [rabbitmq-plugins](./cli.html):
+connect, it must be enabled on all cluster nodes using [rabbitmq-plugins](rabbitmq-plugins.8.html):
 
 <pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_mqtt
 </pre>
 
-Now that the plugin is enabled, MQTT clients will be able to connect provided that
-they have a set of credentials for an existing user with the appropriate permissions.
+## <a id="features" class="anchor" href="#features"> Supported MQTT features</a>
 
-### <a id="authentication" class="anchor" href="#authentication">Users and Authentication</a>
+RabbitMQ supports most MQTT 5.0 features including the following:
+
+* [QoS 0 (at most once)](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901235) and [QoS 1 (at least once)](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901236) publish & subscribe
+* TLS, OAuth 2.0
+* [Clean](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901039) and non-clean sessions
+* [Message Expiry Interval](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901112)
+* [Subscription Identifier](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901166) and [Subscription Options](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901169)
+* [Will messages](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901040) including [Will Delay Interval](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901062)
+* [Request / Response](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901253) including interoperability with other protocols such as AMQP 0.9.1 and AMQP 1.0
+* [Topic Alias](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901113)
+* [Retained](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901104) messages with the limitations described in section [Retained Messages and Stores](#retained)
+* [MQTT over a WebSocket](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901285) via the [RabbitMQ Web MQTT Plugin](web-mqtt.html)
+
+The [MQTT 5.0 blog post](https://blog.rabbitmq.com/posts/2023/07/mqtt5) provides a complete list of supported MQTT 5.0 features including their usage and implementation details.
+
+MQTT clients can interoperate with other protocols.
+For example, MQTT publishers can send messages to AMQP 0.9.1 or AMQP 1.0 consumers if these consumers consume from a queue
+that is bound to the MQTT [topic exchange](tutorials/amqp-concepts.html#exchange-topic) (configured via `mqtt.exchange` and defaulting to `amq.topic`).
+Likewise an AMQP 0.9.1, AMQP 1.0, or STOMP publisher can send messages to an MQTT subscriber if the publisher publishes to the MQTT topic exchange.
+
+## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
+
+The following MQTT features are unsupported:
+
+* [QoS 2 (exactly once)](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901237)
+* [Shared subscriptions](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901250)
+* A [Will Message](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901040) that is both [delayed](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901062) and [retained](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901042) is not retained.
+
+The following MQTT features are supported with limitations:
+
+* Retained messages are stored and queried only node local. See [Retained Messages and Stores](#retained).
+* Overlapping subscriptions with different QoS levels can result in duplicate messages being delivered.
+Applications need to account for this.
+For example when the same MQTT client creates a QoS 0 subscription for topic filter `/sports/football/epl/#` and a QoS 1 subscription for topic filter `/sports/football/#`,
+it will be delivered duplicate messages.
+
+## <a id="implementation" class="anchor" href="#implementation">How the MQTT plugin works</a>
+
+RabbitMQ MQTT plugin targets MQTT 3.1, 3.1.1, and 5.0 supporting a broad range
+of MQTT clients. It also makes it possible for MQTT clients to interoperate
+with [AMQP 0-9-1, AMQP 1.0, and STOMP](https://www.rabbitmq.com/protocols.html) clients.
+There is also support for multi-tenancy.
+
+### Mapping MQTT to the AMQP 0.9.1 model
+
+RabbitMQ core implements the AMQP 0.9.1 protocol.
+The plugin builds on top of the AMQP 0.9.1 entities: [exchanges](tutorials/amqp-concepts.html#exchanges), [queues](queues.html), and bindings.
+Messages published to MQTT topics are routed by an AMQP 0.9.1 topic exchange.
+MQTT subscribers consume from queues bound to the topic exchange.
+
+The MQTT plugin creates a dedicated queue per MQTT subscriber. To be more precise, there could be 0, 1, or 2 queues per MQTT connection:
+
+* There are 0 queues for an MQTT connection if the MQTT client never sends a [SUBSCRIBE](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901161) packet. The MQTT client is only publishing messages.
+* There is 1 queue for an MQTT connection if the MQTT client creates one or multiple subscriptions with the same QoS level.
+* There are 2 queues for an MQTT connection if the MQTT client creates subscriptions with both QoS levels: QoS 0 and QoS 1.
+
+When listing queues you will observe the queue naming pattern `mqtt-subscription-<MQTT client ID>qos[0|1]` where `<MQTT client ID>` is the MQTT [client identifier](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901059) and `[0|1]` is either `0` for a QoS 0 subscription or `1` for a QoS 1 subscription.
+Having a separate queue per MQTT subscriber allows every MQTT subscriber to receive its own copy of the application message.
+
+The plugin creates queues transparently for MQTT subscribing clients.
+The MQTT specification does not define the concept of queues and MQTT clients are not aware that these queues exist.
+A queue is an implementation detail of how RabbitMQ implements the MQTT protocol.
+
+### Queue Types
+
+An MQTT client can publish a message to any queue type.
+For that to work, a [classic queue](classic-queues.html), [quorum queue](quorum-queues.html), or [stream](streams.html) must be bound to the topic exchange with a binding key matching the topic of the [PUBLISH](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901100) packet.
+
+The MQTT plugin creates a classic queue, quorum queue, or [MQTT QoS 0 queue](#qos0-queue-type) per MQTT subscriber.
+By default, the plugin creates a classic queue.
+
+The plugin can be configured to create quorum queues (instead of classic queues) for subscribers whose MQTT session lasts longer than their MQTT network connection.
+This is explained in section [Quorum Queues](#quorum-queues).
+
+If [feature flag](feature-flags.html) `rabbit_mqtt_qos0_queue` is enabled, the plugin creates an MQTT QoS 0 queue for QoS 0 subscribers whose MQTT session last as long as their MQTT network connection.
+This is explained in section [MQTT QoS 0 queue type](#qos0-queue-type).
+
+### [Queue Properties](queues.html#properties) and [Arguments](queues.html#optional-arguments)
+
+Since RabbitMQ 3.12 all queues created by the MQTT plugin
+
+* are [durable](queues.html#durability), i.e. queue metadata is stored on disk.
+* are [exclusive](queues.html#exclusive-queues) if the MQTT session lasts as long as the MQTT network connection.
+In that case, RabbitMQ will delete all state for the MQTT client - including its queue - when the network connection (and session) ends.
+Only the subscribing MQTT client can consume from its queue.
+* are not `auto-delete`. For example, if an MQTT client subscribes to a topic and subsequently unsubscribes, the queue will not be deleted.
+However, the queue will be deleted when the MQTT session ends.
+* have a [Queue TTL](ttl.html#queue-ttl) set (queue argument `x-expires`) if the MQTT session expires and outlasts the MQTT network connection.
+The Queue TTL (in milliseconds) is determined by the minimum of the [Session Expiry Interval](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901048) (in seconds) requested by the MQTT client in the [CONNECT](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901033) packet and the server side configured `mqtt.max_session_expiry_interval_seconds`.
+
+The default value for `mqtt.max_session_expiry_interval_seconds` is 86400 (1 day).
+A RabbitMQ operator can force all MQTT sessions to end as soon as their network connections end by setting this parameter to `0`.
+
+A RabbitMQ operator can allow MQTT sessions to last forever by setting this parameter to `infinity`.
+This carries a risk: short-lived clients that don't use clean sessions can leave queues and messages behind, which will consume resources and require manual cleanup.
+
+RabbitMQ deletes any state for the MQTT client when the MQTT session ends.
+This state includes the client's queue(s) including QoS 0 and QoS 1 messages and the queue bindings (i.e. the client's subscriptions).
+
+### Topic level separator and wildcards
+
+The MQTT protocol specification defines slash ("/") as [topic level separator](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901243) whereas
+AMQP 0-9-1 defines a dot (".") as topic level separator. This plugin translates patterns under the hood
+to bridge the two.
+
+For example, MQTT topic `cities/london` becomes AMQP 0.9.1 topic `cities.london` and vice versa.
+Therefore, when an MQTT client publishes a message with topic `cities/london`, if an AMQP 0.9.1 client wants to receive that message, it should create a binding from its queue
+to the topic exchange with binding key `cities.london`.
+
+Vice versa, when an AMQP 0.9.1 client publishes a message with topic `cities.london`, if an MQTT client wants to receive that message, it should create an MQTT subscription with topic filter `cities/london`.
+
+This has one important limitation: MQTT topics that have dots in them won't work as expected and are to be avoided, the same goes for AMQP 0-9-1 routing and binding keys that contains slashes.
+
+Furthermore, MQTT defines the plus sign ("+") as [single-level wildcard](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901245) whereas AMQP 0.9.1
+defines the asterisk sign ("*") to match a single word:
+
+| MQTT | AMQP 0.9.1 | Description |
+|---|---|---|
+| / (slash) | . (dot) | topic level separator |
+| + (plus) | * (asterisk) | single-level wildcard (match a single word) |
+| # (hash) | # (hash) | multi-level wildcard (match zero or more words) |
+
+## <a id="quorum-queues" class="anchor" href="#quorum-queues">Using Quorum Queues</a>
+
+Using the `mqtt.durable_queue_type` option, it is possible to opt in to use [quorum queues](quorum-queues.html) for subscribers whose MQTT session lasts longer than their MQTT network connection.
+
+**This value must only be enabled for new clusters** before any clients declare durable subscriptions.
+Since a queue type cannot be changed after declaration, if the value of this setting is changed for an existing cluster, clients with an existing durable state would run into a queue type mismatch error and **fail to subscribe**.
+
+Below is a [rabbitmq.conf](configure.html#config-file) example that opts in to use quorum queues:
+
+<pre class="lang-ini">
+# must ONLY be enabled for new clusters before any clients declare durable subscriptions
+mqtt.durable_queue_type = quorum
+</pre>
+
+Currently, this setting applies to **all** MQTT clients that:
+
+1. subscribe with QoS 1, and
+2. connected with a [Session Expiry Interval](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901048) greater than 0 (MQTT 5.0) or set CleanSession to 0 (MQTT 3.1.1)
+
+The second condition means that the MQTT session outlasts the MQTT network connection.
+
+While quorum queues are designed for data safety and predictable efficient recovery
+from replica failures, they also have downsides. A quorum queue by definition requires
+at least three replicas in the cluster. Therefore quorum queues take longer to declare
+and delete, and are not a good fit for environments with [high client connection churn](networking.html#dealing-with-high-connection-) or
+environments with many (hundreds of thousands) subscribers.
+
+Quorum queues are a great fit for a few (hundreds) longer lived clients that actually care a great deal about data safety.
+
+## <a id="qos0-queue-type" class="anchor" href="#qos0-queue-type">MQTT QoS 0 queue type</a>
+
+The MQTT plugin creates an MQTT QoS 0 queue if the following three conditions are met:
+
+1. [Feature flag](feature-flags.html) `rabbit_mqtt_qos0_queue` is enabled.
+2. The MQTT client subscribes with QoS 0.
+3. The MQTT 5.0 client connects with a [Session Expiry Interval](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901048) of 0, or the MQTT 3.1.1 client connects with CleanSession set to 1.
+
+The third condition means that the MQTT session lasts only as long as the network connection.
+
+The MQTT QoS 0 queue type can be thought of as a “pseudo” or “virtual” queue:
+It is very different from the other queue types (classic queues, quorum queues, and streams) in the sense that this new queue type is neither a separate Erlang process nor does it store messages on disk.
+Instead, this queue type is a subset of the Erlang process mailbox.
+MQTT messages are directly sent to the MQTT connection process of the subscribing client.
+In other words, MQTT messages are sent to any “online” MQTT subscribers.
+
+It is more accurate to think of the queue being "skipped".
+The fact that sending messages directly to the MQTT connection process is implemented as a queue type is to simplify routing of messages and protocol interoperability,
+such that messages can not only be sent from the MQTT publishing connection process, but also from an AMQP 0.9.1 [channel](channels.html) process.
+The latter enables sending messages from an AMQP 0.9.1, AMQP 1.0 or STOMP client directly to the MQTT subscriber connection process skipping a dedicated queue process.
+
+The benefits of using the MQTT QoS 0 queues type are:
+
+1. Support for larger fanouts, e.g. sending a message from the "cloud" (RabbitMQ) to all devices (MQTT clients).
+1. Lower memory usage
+1. Lower publisher confirm latency
+1. Lower end-to-end latency
+
+Because the MQTT QoS 0 queue type has no flow control, MQTT messages might arrive faster in the MQTT connection process mailbox than being delivered from the MQTT connection process to the MQTT subscribing client.
+This can happen when the network connection between MQTT subscribing client and RabbitMQ is poor or in a large fan-in scenario where many publishers overload a single MQTT subscribing client.
+
+### Overload protection
+
+To protect against high memory usage due to MQTT QoS 0 messages piling up in the MQTT connection process mailbox, RabbitMQ intentionally drops QoS 0 messages from the MQTT QoS 0 queue if both conditions are true:
+
+1. the number of messages in the MQTT connection process mailbox exceeds the configured `mqtt.mailbox_soft_limit` (defaults to 200), and
+1. the socket sending to the MQTT client is busy (not sending fast enough due to TCP backpressure).
+
+Note that there can be other messages in the process mailbox (e.g. applications messages sent from the MQTT subscribing client to RabbitMQ or confirmations from another queue type to the MQTT connection process) which are obviously not dropped.
+However, these other messages also contribute to the `mqtt.mailbox_soft_limit`.
+
+Setting `mqtt.mailbox_soft_limit` to 0 disables the overload protection mechanism meaning QoS 0 messages are never dropped intentionally by RabbitMQ.
+Setting `mqtt.mailbox_soft_limit` to a very high value decreases the likelihood of intentionally dropping QoS 0 messages while increasing the risk of causing a cluster wide memory alarm
+(especially if the message payloads are large or if there are many overloaded queues of type `rabbit_mqtt_qos0_queue`).
+
+The `mqtt.mailbox_soft_limit` can be thought of a [queue length limit](maxlength.html) (although not precisely because, as mentioned previously, the Erlang process mailbox can contain other messages than MQTT application messages).
+This is why the configuration key `mqtt.mailbox_soft_limit` contains the word `soft`.
+The described overload protection mechanism corresponds roughly to [overflow behaviour](maxlength.html#overflow-behaviour) `drop-head` that exists in classic queues and quorum queues.
+
+The [Native MQTT](https://blog.rabbitmq.com/posts/2023/03/native-mqtt/#new-mqtt-qos-0-queue-type) blog post describes the MQTT QoS 0 queue type in more detail.
+
+## <a id="authentication" class="anchor" href="#authentication">Users and Authentication</a>
+MQTT clients will be able to connect provided that they have a set of credentials for an existing user with the appropriate permissions.
 
 For an MQTT connection to succeed, it must successfully authenticate and the user must
 have the [appropriate permissions](./access-control.html) to the virtual host used by the
@@ -99,7 +267,7 @@ to certain limitations (listed below) enforced for a reasonable level of securit
 by default.
 
 Users and their permissions can be managed using [rabbitmqctl](./cli.html), [management UI](./management.html)
-or HTTP API.
+or [HTTP API](management.html#http-api).
 
 For example, the following commands create a new user for MQTT connections with full access
 to the default [virtual host](./vhosts.html) used by this plugin:
@@ -113,29 +281,7 @@ rabbitmqctl set_user_tags mqtt-test management
 
 Note that colons may not appear in usernames.
 
-
-## <a id="implementation" class="anchor" href="#implementation">How it Works</a>
-
-RabbitMQ MQTT plugin targets MQTT 3.1.1 and supports a broad range
-of MQTT clients. It also makes it possible for MQTT clients to interoperate
-with [AMQP 0-9-1, AMQP 1.0, and STOMP](https://www.rabbitmq.com/protocols.html) clients.
-There is also support for multi-tenancy.
-
-The plugin builds on top of RabbitMQ core protocol's entities: exchanges and queues. Messages published
-to MQTT topics use a topic exchange (`amq.topic` by default) internally. Subscribers consume from
-RabbitMQ queues bound to the topic exchange. This both enables interoperability
-with other protocols and makes it possible to use the [Management plugin](./management.html)
-to inspect queue sizes, message rates, and so on.
-
-Note that MQTT uses slashes ("/") for topic segment separators and
-AMQP 0-9-1 uses dots.  This plugin translates patterns under the hood
-to bridge the two, for example, `cities/london` becomes
-`cities.london` and vice versa. This has one important limitation:
-MQTT topics that have dots in them won't work as expected and are to
-be avoided, the same goes for AMQP 0-9-1 routing keys that contains
-slashes.
-
-## <a id="local-vs-remote" class="anchor" href="#local-vs-remote">Local vs. Remote Client Connections</a>
+### <a id="local-vs-remote" class="anchor" href="#local-vs-remote">Local vs. Remote Client Connections</a>
 
 When an MQTT client provides no login credentials, the plugin uses the
 `guest` account by default which will not allow non-`localhost`
@@ -144,7 +290,7 @@ that make sure remote clients can successfully connect:
 
  * Create one or more new user(s), grant them full permissions to the virtual host used by the MQTT plugin and make clients
    that connect from remote hosts use those credentials. This is the recommended option.
- * Set `default_user` and `default_pass` via [MQTT plugin configuration](#config) to a non-`guest` user who has the
+ * Set `default_user` and `default_pass` via [plugin configuration](#config) to a non-`guest` user who has the
 [appropriate permissions](./access-control.html).
 
 
@@ -173,99 +319,6 @@ The use of anonymous connections is highly discouraged and it is a subject
 to certain limitations (see above) enforced for a reasonable level of security
 by default.
 
-### <a id="durability" class="anchor" href="#durability">Subscription Durability</a>
-
-MQTT 3.1 assumes two primary usage scenarios:
-
- * Transient clients that use transient (non-persistent) messages
- * Stateful clients that use durable subscriptions (non-clean sessions, QoS1)
-
-This section briefly covers how these scenarios map to RabbitMQ queue durability and persistence
-features.
-
-Transient (QoS0) subscription use non-durable, auto-delete queues
-that will be deleted when the client disconnects.
-
-Durable (QoS1) subscriptions use durable queues. Whether the queues are
-auto-deleted is controlled by the client's clean session flag. Clients with
-clean sessions use auto-deleted queues, others use non-auto-deleted ones.
-
-For transient (QoS0) publishes, the plugin will publish messages as transient
-(non-persistent). Naturally, for durable (QoS1) publishes, persistent
-messages will be used internally.
-
-Queues created for MQTT subscribers will have names starting with `mqtt-subscription-`,
-one per subscription QoS level. The queues will have [queue TTL](ttl.html) depending
-on MQTT plugin configuration, 24 hours by default.
-
-**RabbitMQ does not support QoS2 subscriptions**. RabbitMQ
-automatically downgrades QoS 2 publishes and subscribes to QoS
-1. Messages published as QoS 2 will be sent to subscribers as QoS 1.
-Subscriptions with QoS 2 will be downgraded to QoS1 during SUBSCRIBE
-request (SUBACK responses will contain the actually provided QoS
-level).
-
-
-### <a id="quorum-queues" class="anchor" href="#quorum-queues">Using Quorum Queues</a>
-
-Starting with RabbitMQ 3.10, it is possible to opt in to use [quorum queues](quorum-queues.html) for durable subscriptions
-using the  `mqtt.durable_queue_type` option.
-
-**This value must only be enabled for new clusters**, before any clients declare durable subscriptions.
-Because queue type cannot be changed after
-declaration, if the value of this setting is changed for
-an existing cluster, clients with existing durable state would run into a queue type mismatch
-error and **fail to subscribe**.
-
-Below is a `rabbitmq.conf` example that opts in to use quorum queues for durable subscriptions:
-
-<pre class="">
-# must ONLY be enabled for new clusters before any clients declare durable
-# subscriptions
-mqtt.durable_queue_type = quorum
-</pre>
-
-While quorum queues are designed for data safety and predictable efficient recovery
-from replica failures, they also have downsides. A quorum queue by definition requires
-at least three replicas in the cluster. Therefore quorum queues take longer to declare
-and delete, and are not a good fit for environments with [high client connection churn](networking.html#dealing-with-high-connection-).
-
-Quorum queues are a great fit for longer lived clients that actually care a great deal
-about the durability of their state.
-
-
-## <a id="consensus" class="anchor" href="#consensus">Consensus Features</a>
-
-This plugin requires a quorum (majority) of nodes to be online.
-This is because client ID tracking now uses a consensus protocol which requires
-a quorum of nodes to be online in order to make progress.
-
-If a quorum of nodes is down or lost, the plugin won't be able to accept new client
-connections until the quorum is restored.
-
-This also means that **two node clusters are not supported** since the loss of just one
-node out of two means the loss of a quorum of online nodes.
-
-### Memory Footprint of Raft Log Memory Tables
-
-RabbitMQ's Raft implementation keeps a portion of the operation log in memory as well as on disk.
-In environments where the MQTT plugin is the only Raft-based feature used
-(namely where [quorum queues](./quorum-queues.html) are not used), reducing the portion of
-the log stored in memory will reduce memory footprint of the plugin in case of
-[high connection churn](./connections.html#high-connection-churn).
-
-The configuration key of interest is `raft.wal_max_size_bytes`:
-
-<pre class="lang-ini">
-# if quorum queues are not used, configure a lower max WAL segment
-# limit compared to the default of 512 MiB, e.g. 64 MiB
-raft.wal_max_size_bytes = 67108864
-</pre>
-
-If [quorum queues](./quorum-queues.html) are adopted at a later point, this setting
-should be revisited to be closer to the default one.
-
-
 ## <a id="config" class="anchor" href="#config">Plugin Configuration</a>
 
 Here is a sample [configuration](./configure.html#config-file) that demonstrates a number of MQTT plugin settings:
@@ -283,9 +336,9 @@ mqtt.default_pass     = guest
 
 mqtt.vhost            = /
 mqtt.exchange         = amq.topic
-# 24 hours by default
-mqtt.subscription_ttl = 86400000
 mqtt.prefetch         = 10
+# 24 hours by default
+mqtt.max_session_expiry_interval_seconds = 86400
 </pre>
 
 ### <a id="tcp-listeners" class="anchor" href="#tcp-listeners">TCP Listeners</a>
@@ -313,7 +366,7 @@ mqtt.listeners.tcp.1 = 127.0.0.1:1883
 mqtt.listeners.tcp.2 = ::1:1883
 </pre>
 
-### TCP Listener Options
+### <a id="listener-opts" class="anchor" href="#listener-opts">TCP Listener Options</a>
 
 The plugin supports TCP listener option configuration.
 
@@ -326,6 +379,7 @@ mqtt.listeners.tcp.1 = 127.0.0.1:1883
 mqtt.listeners.tcp.2 = ::1:1883
 
 mqtt.tcp_listen_options.backlog = 4096
+mqtt.tcp_listen_options.buffer  = 131072
 mqtt.tcp_listen_options.recbuf  = 131072
 mqtt.tcp_listen_options.sndbuf  = 131072
 
@@ -518,41 +572,108 @@ to reconnect to switch to a new virtual host.
 is considered more specific than the port-to-vhost mapping with the `mqtt_port_to_vhost_mapping`
 global parameter and so takes precedence over it.
 
-### <a id="stickiness" class="anchor" href="#stickiness">Session Stickiness (Clean and Non-clean Sessions) and Queue/Subscription TTL</a>
+### <a id="flow" class="anchor" href="#flow">[Flow Control](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901251)</a>
 
-The `subscription_ttl` option controls the lifetime of non-clean sessions. This
-option is interpreted in the same way as the [queue TTL](https://www.rabbitmq.com/ttl.html#queue-ttl)
-parameter, so the value `86400000` means 24 hours. To disable the TTL feature, just set
-the `subscription_ttl`  to `undefined` in the configuration file:
+The `prefetch` option controls the maximum number of unacknowledged PUBLISH packets with QoS=1 that will be delivered.
+This option is interpreted in the same way as [consumer prefetch](consumer-prefetch.html).
 
-<pre class="lang-ini">
-listeners.tcp.default = 5672
-mqtt.default_user     = guest
-mqtt.default_pass     = guest
-mqtt.allow_anonymous  = true
-mqtt.vhost            = /
-mqtt.exchange         = amq.topic
-mqtt.subscription_ttl = undefined
-mqtt.prefetch         = 10
-...
-</pre>
-
-Note that disabling queue TTL carries a risk: short-lived clients that don't use clean sessions
-can leave queues and messages behind, which will consume resources and require manual
-cleanup.
-
-The `prefetch` option controls the maximum number of unacknowledged messages that
-will be delivered. This option is interpreted in the same way as the [AMQP 0-9-1 prefetch-count](https://www.rabbitmq.com/amqp-0-9-1-reference.html#basic.qos.prefetch-count)
-field, so a value of `0` means "no limit".
-
-
+An MQTT 5.0 client can define a lower number by setting [Receive Maximum](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901049) in the CONNECT packet.
 
 ### <a id="custom-exchanges" class="anchor" href="#custom-exchanges">Custom Exchanges</a>
 
-The `exchange` option determines which exchange messages from MQTT clients are published
-to. If a non-default exchange is chosen then it must be created before clients
-publish any messages. The exchange is expected to be a topic exchange.
+The `exchange` option determines which exchange messages from MQTT clients are published to.
+The exchange must be created before clients publish any messages. The exchange is expected to be a [topic exchange](tutorials/amqp-concepts.html#exchange-topic).
 
+The default topic exchange `amq.topic` is pre-declared: It therefore exists when RabbitMQ is started.
+
+## <a id="retained" class="anchor" href="#retained">Retained Messages and Stores</a>
+
+The plugin supports retained messages with the limitations described in this section.
+The message store implementation is pluggable and the plugin ships with two implementation out of the box:
+
+ * [ETS](https://www.erlang.org/doc/man/ets.html)-based (in memory), implemented in module <code>rabbit_mqtt_retained_msg_store_ets</code>
+ * [DETS](https://www.erlang.org/doc/man/dets.html)-based (on disk), implemented in module <code>rabbit_mqtt_retained_msg_store_dets</code>
+
+Both implementations have limitations and trade-offs.
+With the first one, the maximum number of messages that can be retained is limited by RAM.
+With the second one, there is a limit of 2 GB per vhost. Both are **node-local**:
+Retained messages are neither replicated to nor queried from remote cluster nodes.
+
+An example that works is the following: An MQTT Client publishes a retained message to node A with topic `topic/1`.
+Thereafter another client subscribes with topic filter `topic/1` on node A.
+The new subscriber will receive the retained message.
+
+However, if a client publishes a retained message on node A and another client subsequently subscribes on node B,
+that subscribing client will not receive any retained message stored on node A.
+
+Furthermore, if the topic filter contains wildcards (the [multi-level wildcard character](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901244) “#” or the [single-level wildcard character](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901245) “+”), no retained messages are sent.
+
+To configure the store, use the <code>mqtt.retained_message_store</code> configuration key:
+
+<pre class="lang-ini">
+## use DETS (disk-based) store for retained messages
+mqtt.retained_message_store = rabbit_mqtt_retained_msg_store_dets
+## only used by DETS store (in milliseconds)
+mqtt.retained_message_store_dets_sync_interval = 2000
+</pre>
+
+The value must be a module that implements the store:
+
+ * <code>rabbit_mqtt_retained_msg_store_ets</code> for RAM-based
+ * <code>rabbit_mqtt_retained_msg_store_dets</code> for disk-based (This is the default value.)
+
+These implementations are suitable for development but sometimes won't be for production needs.
+The MQTT specification does not define consistency or replication requirements for retained
+message stores, therefore RabbitMQ allows for custom ones to meet the consistency and
+availability needs of a particular environment. For example, stores based on [Riak](http://basho.com/riak/)
+and [Cassandra](http://cassandra.apache.org/) would be suitable for most production environments as
+those data stores provide [tunable consistency](https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/reference/strong-consistency.md).
+
+Message stores must implement the <code>rabbit_mqtt_retained_msg_store</code> behaviour.
+
+## <a id="metrics" class="anchor" href="#metrics">Metrics</a>
+
+### Prometheus
+
+This plugin emits the Prometheus metrics listed in [Global Counters](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_prometheus/metrics.md#global-counters).
+
+The values for Prometheus label `protocol` are `mqtt310`, `mqtt311`, and `mqtt50` depending on whether the MQTT client uses MQTT 3.1, MQTT 3.1.1, or MQTT 5.0.
+
+The values for Prometheus label `queue_type` are `rabbit_classic_queue`, `rabbit_quorum_queue`, and `rabbit_mqtt_qos0_queue` depending on the queue type the MQTT client consumes from.
+(Note that MQTT clients never consume from [streams](streams.html) directly although they can publish messages to streams.)
+
+### RabbitMQ Management API
+
+The Management API delivers metrics for MQTT Connections (e.g. network traffic from / to client) and for Classic Queues and Quorum Queues (e.g. how many messages they contain).
+However, Management API metrics that are tied to AMQP 0.9.1 [channels](channels.html), e.g message rates, are not available since 3.12.
+
+## <a id="scalability" class="anchor" href="#scalability">Performance and Scalability Check List</a>
+
+MQTT is the standard protocol for the Internet of Things (IoT).
+A common IoT workload is that many MQTT devices publish sensor data periodically to the MQTT broker.
+There could be hundreds of thousands, sometimes even millions of IoT devices that connect to the MQTT broker.
+The blog post [Native MQTT](https://blog.rabbitmq.com/posts/2023/03/native-mqtt) demonstrates performance benchmarks of such workloads.
+
+This section aims at providing a non-exhaustive checklist with tips and tricks to configure RabbitMQ as an efficient MQTT broker that supports many client connections:
+
+1. Set `management_agent.disable_metrics_collector = true` to disable metrics collection in the [Management plugin](management.html).
+The RabbitMQ Management plugin has not been designed for excessive metrics collection.
+In fact, metrics delivery via the management API is [deprecated](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/#disable-metrics-delivery-via-the-management-api--ui). Instead, use a tool that has been designed for collecting and querying a huge number of metrics: Prometheus.
+1. MQTT packets and subscriptions with QoS 0 provide much better performance than QoS 1.
+Unlike AMQP 0.9.1 and AMQP 1.0, MQTT is not designed to maximise throughput: For example, there are no [multi-acks](confirms.html#consumer-acks-multiple-parameter).
+Every [PUBLISH](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901100) packet with QoS 1 needs to be acknowledged individually.
+1. Decrease TCP buffer sizes as described in section [TCP Listener Options](#listener-opts).
+This substantially reduces memory usage in RabbitMQ when many clients connect.
+1. Less topic levels (in an MQTT topic and MQTT topic filter) perform better than more topic levels.
+For example, prefer to structure your topic as `city/name` instead of `continent/country/city/name`, if possible.
+Each topic level in a topic filter currently creates its own entry in the database used by RabbitMQ.
+Therefore, creating and deleting many subscriptions will be faster when the are fewer topic levels.
+Also, routing messages with fewer topic levels is faster.
+1. In workloads with high subscription churn, increase Mnesia configuration parameter `dump_log_write_threshold` (e.g. `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-mnesia dump_log_write_threshold 20000"`)
+1. When connecting many clients, increase the maximum number of Erlang processes (e.g. `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+P 10000000`)
+and the maximum number of open ports (e.g. `ERL_MAX_PORTS=10000000`).
+
+Consult the [Networking](networking.html) and [Configuration](configure.html) guides for more information.
 
 ## <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
 
@@ -572,7 +693,7 @@ about the proxy protocol.
 that provides guidance for the design of an MQTT system. In Sparkplug,
 MQTT topics must start with `spAvM.N` or `spBvM.N`, where `M` and `N` are integers.
 This unfortunately conflicts with the way the RabbitMQ MQTT plugin [translates MQTT
-topics into AMQP routing keys](#implementation).
+topics into AMQP 0.9.1 routing keys](#implementation).
 
 To solve this, the `sparkplug` configuration entry can be set to `true`:
 
@@ -582,78 +703,3 @@ mqtt.sparkplug = true
 
 When the Sparkplug support is enabled, the MQTT plugin will not translate the
 `spAvM.N`/`spBvM.N` part of the names of topics.
-
-
-## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
-
-### Presence of a Quorum of Nodes
-
-See [Consensus Features](#consensus).
-
-### Overlapping Subscriptions
-
-Overlapping subscriptions from the same client
-(e.g. `/sports/football/epl/#` and `/sports/football/#`) can result in
-duplicate messages being delivered. Applications
-need to account for this.
-
-### Retained Message Stores
-
-See Retained Messages above. Different retained message stores have
-different benefits, trade-offs, and limitations.
-
-
-## <a id="disabling-plugin" class="anchor" href="#disabling-plugin">Disabling the Plugin</a>
-
-Before the plugin is disabled on a node, or a node removed from the cluster, it must be decommissioned using [`rabbitmqctl`](./cli.html):
-
-<pre class="lang-bash">
-rabbitmqctl decommission_mqtt_node &lt;node&gt;
-</pre>
-
-## <a id="retained" class="anchor" href="#retained">Retained Messages and Stores</a>
-
-The plugin supports retained messages. Message store implementation is pluggable
-and the plugin ships with two implementation out of the box:
-
- * ETS-based (in memory), implemented in the <code>rabbit_mqtt_retained_msg_store_ets</code> module
- * DETS-based (on disk), implemented in the <code>rabbit_mqtt_retained_msg_store_dets</code>
-
-Both implementations have limitations and trade-offs.
-With the first one, maximum number of messages that can be retained is limited by RAM.
-With the second one, there is a limit of 2 GB per vhost. Both are node-local
-(messages retained on one broker node are not replicated to other nodes in the cluster).
-
-To configure the store, use <code>rabbitmq_mqtt.retained_message_store</code> configuration key:
-
-<pre class="lang-ini">
-mqtt.default_user     = guest
-mqtt.default_pass     = guest
-mqtt.allow_anonymous  = true
-mqtt.vhost            = /
-mqtt.exchange         = amq.topic
-mqtt.subscription_ttl = 1800000
-mqtt.prefetch         = 10
-
-## use DETS (disk-based) store for retained messages
-mqtt.retained_message_store = rabbit_mqtt_retained_msg_store_dets
-## only used by DETS store
-mqtt.retained_message_store_dets_sync_interval = 2000
-
-mqtt.listeners.ssl = none
-mqtt.listeners.tcp.default = 1883
-</pre>
-
-The value must be a module that implements the store:
-
- * <code>rabbit_mqtt_retained_msg_store_ets</code> for RAM-based
- * <code>rabbit_mqtt_retained_msg_store_dets</code> for disk-based
-
-These implementations are suitable for development but sometimes won't be for production needs.
-MQTT 3.1 specification does not define consistency or replication requirements for retained
-message stores, therefore RabbitMQ allows for custom ones to meet the consistency and
-availability needs of a particular environment. For example, stores based on [Riak](http://basho.com/riak/)
-and [Cassandra](http://cassandra.apache.org/) would be suitable for most production environments as
-those data stores provide [tunable consistency](https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/reference/strong-consistency.md).
-
-Message stores must implement the <code>rabbit_mqtt_retained_msg_store</code> behaviour.

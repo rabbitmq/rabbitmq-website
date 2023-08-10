@@ -127,20 +127,26 @@ There are several common types of publisher errors that are handled using differ
 
 In AMQP 1.0 publishing happens within a context of a link.
 
-### MQTT 3.1
+### MQTT
 
-In MQTT 3.1.1, messages are published on a connection to a topic. Topics perform both routing and storage.
-In RabbitMQ, a topic is backed by a [queue](queues.html) internally.
+In MQTT, messages are published on a connection to a topic.
+The server side MQTT connection process routes messages via the [topic exchange](tutorials/amqp-concepts.html#exchange-topic) to [queues](queues.html).
 
-When publisher chooses to use QoS 1, published messages are acknowledged by the routing node
-using a [PUBACK frame](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718043),
-the publisher acknowledgement mechanism in MQTT 3.1.
+When publisher chooses to use QoS 1, published messages are acknowledged by RabbitMQ
+using a [PUBACK packet](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901121).
 
 Publishers can provide a hint to the server that the published message on the topic
-must be retained (stored for future delivery to new subscribers). Only the latest published message for each topic
+must be [retained](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901104) (stored for future delivery to new subscribers). Only the latest published message for each topic
 can be retained.
 
-Other than closing the connection, there is no mechanism by which the server can communicate
+The MQTT 5.0 PUBACK packet includes a [reason code](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901124) that tells the publisher whether publishing was successful.
+Reason codes returned by RabbitMQ include:
+
+ * `0 - Success`: **All** the queues the message was routed to successfully accepted the message.
+ * `16 - No matching subscribers`: RabbitMQ could not route the message to any queue (because there are no bindings defined to the topic exchange).
+ * `131 - Implementation specific error`: RabbitMQ rejected the message (for example when a target classic queue is unavailable).
+
+In MQTT 3.1 and 3.1.1, other than closing the connection, there is no mechanism by which the server can communicate
 a publishing error to the client.
 
 See the [MQTT](mqtt.html) and [MQTT-over-WebSockets](web-mqtt.html) guides to learn more.

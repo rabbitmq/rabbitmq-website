@@ -28,7 +28,7 @@ RabbitMQ supports several protocols:
  * [AMQP 0-9-1](./specification.html) with [extensions](extensions.html)
  * [AMQP 1.0](https://www.amqp.org/resources/download)
  * [RabbitMQ Stream Protocol](stream.html)
- * [MQTT](mqtt.html) 3.1.1
+ * [MQTT](mqtt.html) 3.1 through 5.0
  * [STOMP](stomp.html) 1.0 through 1.2
 
 Note that despite the similarities in naming, AMQP 0-9-1 and AMQP 1.0 are different protocols, not
@@ -146,9 +146,9 @@ AMQP 1.0 has a model that includes connections, sessions and links.
 After successfully opening a connection and authenticating, an application opens one or more sessions. It then
 attaches links to the session in order to publish and consume messages.
 
-#### MQTT 3.1
+#### MQTT
 
-MQTT 3.1 connections follow the flow described above. MQTT supports optional authentication.
+MQTT connections follow the flow described above. MQTT supports optional authentication.
 When it is used, RabbitMQ uses a pre-configured set of credentials.
 
 #### STOMP

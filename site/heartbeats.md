@@ -160,13 +160,11 @@ header when connecting. See [STOMP specification](https://stomp.github.io/stomp-
 
 ## <a id="mqtt" class="anchor" href="#mqtt">Heartbeats in MQTT</a>
 
-[MQTT 3.1.1 includes heartbeats](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/csprd02/mqtt-v3.1.1-csprd02.html#_Toc385349238) under a different name
-("keepalives").  RabbitMQ MQTT plugin fully supports this
-feature.
+[MQTT includes heartbeats](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901045) under a different name ("keepalives").
+RabbitMQ MQTT plugin fully supports this feature.
 
-Keepalives in MQTT are opt-in. To enable them, set the
-`keepalive` interval when connecting. Please
-consult your MQTT client's documentation for examples.
+Keepalives in MQTT are opt-in. To enable them, set the `keepalive` interval when connecting.
+Please consult your MQTT client's documentation for examples.
 
 ## <a id="shovel-and-federation" class="anchor" href="#shovel-and-federation">Heartbeats in Shovel and Federation Plugins</a>
 
