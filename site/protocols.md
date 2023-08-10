@@ -59,7 +59,7 @@ targeted towards clients in constrained devices. It has
 well defined messaging semantics for publish / subscribe,
 but not for other messaging idioms.
 
-RabbitMQ supports MQTT 3.1 via a [plugin](mqtt.html).
+RabbitMQ supports MQTT versions 3.1, 3.1.1, and 5.0 via a [plugin](mqtt.html).
 
 
 ## <a id="amqp-10" class="anchor" href="#amqp-10">AMQP 1.0</a>
