@@ -101,11 +101,11 @@ The plugin builds on top of the AMQP 0.9.1 entities: [exchanges](tutorials/amqp-
 Messages published to MQTT topics are routed by an AMQP 0.9.1 topic exchange.
 MQTT subscribers consume from queues bound to the topic exchange.
 
-The MQTT plugin creates a dedicated queue per MQTT subscriber. To be more precise, there could be 0, 1, or 2 queues per MQTT connection:
+The MQTT plugin creates a dedicated queue per MQTT subscriber. To be more precise, there could be 0, 1, or 2 queues per MQTT session:
 
-* There are 0 queues for an MQTT connection if the MQTT client never sends a [SUBSCRIBE](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901161) packet. The MQTT client is only publishing messages.
-* There is 1 queue for an MQTT connection if the MQTT client creates one or multiple subscriptions with the same QoS level.
-* There are 2 queues for an MQTT connection if the MQTT client creates subscriptions with both QoS levels: QoS 0 and QoS 1.
+* There are 0 queues for an MQTT session if the MQTT client never sends a [SUBSCRIBE](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901161) packet. The MQTT client is only publishing messages.
+* There is 1 queue for an MQTT session if the MQTT client creates one or multiple subscriptions with the same QoS level.
+* There are 2 queues for an MQTT session if the MQTT client creates subscriptions with both QoS levels: QoS 0 and QoS 1.
 
 When listing queues you will observe the queue naming pattern `mqtt-subscription-<MQTT client ID>qos[0|1]` where `<MQTT client ID>` is the MQTT [client identifier](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901059) and `[0|1]` is either `0` for a QoS 0 subscription or `1` for a QoS 1 subscription.
 Having a separate queue per MQTT subscriber allows every MQTT subscriber to receive its own copy of the application message.
@@ -138,7 +138,7 @@ In that case, RabbitMQ will delete all state for the MQTT client - including its
 Only the subscribing MQTT client can consume from its queue.
 * are not `auto-delete`. For example, if an MQTT client subscribes to a topic and subsequently unsubscribes, the queue will not be deleted.
 However, the queue will be deleted when the MQTT session ends.
-* have a [Queue TTL](ttl.html#queue-ttl) set (queue argument `x-expires`) if the MQTT session expires and outlasts the MQTT network connection.
+* have a [Queue TTL](ttl.html#queue-ttl) set (queue argument `x-expires`) if the MQTT session expires eventually (i.e. session expiry is not disabled by the RabbitMQ operator, see below) and outlasts the MQTT network connection.
 The Queue TTL (in milliseconds) is determined by the minimum of the [Session Expiry Interval](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901048) (in seconds) requested by the MQTT client in the [CONNECT](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901033) packet and the server side configured `mqtt.max_session_expiry_interval_seconds`.
 
 The default value for `mqtt.max_session_expiry_interval_seconds` is 86400 (1 day).
@@ -667,7 +667,7 @@ This substantially reduces memory usage in RabbitMQ when many clients connect.
 1. Less topic levels (in an MQTT topic and MQTT topic filter) perform better than more topic levels.
 For example, prefer to structure your topic as `city/name` instead of `continent/country/city/name`, if possible.
 Each topic level in a topic filter currently creates its own entry in the database used by RabbitMQ.
-Therefore, creating and deleting many subscriptions will be faster when the are fewer topic levels.
+Therefore, creating and deleting many subscriptions will be faster when there are fewer topic levels.
 Also, routing messages with fewer topic levels is faster.
 1. In workloads with high subscription churn, increase Mnesia configuration parameter `dump_log_write_threshold` (e.g. `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-mnesia dump_log_write_threshold 20000"`)
 1. When connecting many clients, increase the maximum number of Erlang processes (e.g. `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+P 10000000`)
