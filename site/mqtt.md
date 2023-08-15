@@ -31,6 +31,7 @@ This guide covers the following topics:
  * [Supported MQTT features](#features) and [limitations](#limitations)
  * [MQTT plugin implementation overview](#implementation)
  * When (not) to use [quorum queues](#quorum-queues)
+ * [MQTT QoS 0 queue type](#qos0-queue-type)
  * [Users and authentication](#authentication) and [remote connections](#local-vs-remote)
  * [Key configurable settings](#config) of the plugin
  * [TLS support](#tls)
@@ -250,6 +251,11 @@ Setting `mqtt.mailbox_soft_limit` to a very high value decreases the likelihood 
 The `mqtt.mailbox_soft_limit` can be thought of a [queue length limit](maxlength.html) (although not precisely because, as mentioned previously, the Erlang process mailbox can contain other messages than MQTT application messages).
 This is why the configuration key `mqtt.mailbox_soft_limit` contains the word `soft`.
 The described overload protection mechanism corresponds roughly to [overflow behaviour](maxlength.html#overflow-behaviour) `drop-head` that exists in classic queues and quorum queues.
+
+The following Prometheus metric reported by a given RabbitMQ node shows how many QoS 0 messages were dropped in total across all queues of type `rabbit_mqtt_qos0_queue` during the lifetime of that node:
+<pre class="lang-bash">
+rabbitmq_global_messages_dead_lettered_maxlen_total{queue_type="rabbit_mqtt_qos0_queue",dead_letter_strategy="disabled"} 0
+</pre>
 
 The [Native MQTT](https://blog.rabbitmq.com/posts/2023/03/native-mqtt/#new-mqtt-qos-0-queue-type) blog post describes the MQTT QoS 0 queue type in more detail.
 
