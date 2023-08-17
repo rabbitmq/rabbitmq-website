@@ -225,7 +225,8 @@ STOMP gateway;
 * `/topic` -- `SEND` and `SUBSCRIBE` to transient and durable topics;
 * `/temp-queue/` -- create temporary queues (in `reply-to` headers only).
 
-### AMQP 0-9-1 Semantics
+### Semantics
+
 The `destination` header on a `MESSAGE` frame is set as though the
 message originated from a `SEND` frame:
 
@@ -280,7 +281,8 @@ Queue destinations deliver each message to at most one
 subscriber. Messages sent when no subscriber exists will be queued
 until a subscriber connects to the queue.
 
-#### AMQP 0-9-1 Semantics
+#### Semantics
+
 For `SUBSCRIBE` frames, these destinations create a shared queue `<name>`. A
 subscription against the queue `<name>` is created for the current STOMP
 session.
@@ -298,7 +300,8 @@ durable, non-exclusive, non-autodeleted.
 To address existing queues created outside the STOMP adapter,
 destinations of the form `/amq/queue/<name>` can be used.
 
-#### AMQP 0-9-1 Semantics
+#### Semantics
+
 For both `SEND` and `SUBSCRIBE` frames no queue is created.
 For `SUBSCRIBE` frames, it is an error if the queue does not exist.
 
@@ -322,7 +325,7 @@ topic exchanges](./tutorials/amqp-concepts.html).
 Messages sent to a topic destination that has no active subscribers
 are simply discarded.
 
-#### AMQP 0-9-1 Semantics
+#### Semantics
 
 For `SEND` frames, the message is sent to the `amq.topic` exchange
 with the routing key `<name>`.
@@ -370,7 +373,7 @@ durable:true
 auto-delete:false
 </pre>
 
-#### AMQP 0-9-1 Semantics
+#### Semantics
 
 For `SEND` frames, the message is sent to the `amq.topic` exchange
 with the routing key `<name>`.
@@ -443,7 +446,7 @@ destinations in the `destination` header. Messages cannot be sent to
 `/temp-queue` destinations, and subscriptions to reply queues are
 created automatically.
 
-#### AMQP 0-9-1 Semantics
+#### Semantics
 
 Each `/temp-queue/` corresponds to a distinct anonymous, exclusive,
 auto delete queue. As such, there is no need for explicit clean up of
