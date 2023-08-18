@@ -15,9 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues
+# Migrate your product-name; Mirrored Classic Queues to Quorum Queues
 
-Which is better: mirrored classic queues or quorum queues? Quorum Queues are the much better choice and they will be [the only option starting with RabbitMQ version 4.0](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/). This information explains why, the reasons why you should migrate from mirrored classic queues to quorum queues, the ways to handle features during the migration, and includes procedures for some of the migration routes you can take.
+Which is better: mirrored classic queues or quorum queues? Quorum queues are the much better choice and they will be [the only option starting with RabbitMQ version 4.0](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/). This information explains why, the reasons why you should migrate from mirrored classic queues to quorum queues, the ways to handle features during the migration, and includes procedures for some of the migration routes you can take.
 
 You should migrate to mirrored classic queues for the following reasons:
 
@@ -144,14 +144,14 @@ You do not need to complete any migration tasks for [exclusive queues](https://w
 
 For exclusive queues, however, you must decide whether to leave the queue as exclusive or change it to a replicated queue during migration. Be careful not to make exclusive queue declarations with an explicit `x-queue-type: quorum` argument.
 
-## General Prerequisites before Migrating to Quorum Queues
+## General Prerequisites before Migrating from Mirrored Classic Queues to Quorum Queues
 
 1. A RabbitMQ cluster with an odd number of nodes. A minimum of 3 nodes in the RabbitMQ cluster is required for high availability.
 2. The Management plugin should be running on at least one node. It is used to export/import definitions for a single host,
    which simplifies definitions cleanup. (`rabbitmqadmin` CLI command is also using the plugin behind the scenes).
 3. To quickly move (shovel) the backlog of original queues to the new queues, enable the . The [Shovel plugin](https://www.rabbitmq.com/shovel.html) can be used to move the backlog of original messages to the new queues. Shovels can be created programmatically using a HTTP API extension or using the RabbitMQ Management UI.
 
-## <a id="migrate-the-queues-by-virtual-host" class="anchor" href="#migrate-the-queues-by-virtual-host">Migrate the Queues by Virtual Host</a>
+## <a id="migrate-the-queues-by-virtual-host" class="anchor" href="#migrate-the-queues-by-virtual-host">Migrate Mirrored Classic Queues to Quorum Queues by Virtual Host</a>
 
 This procedure to migrate from mirrored classic queues to quorum queues
 is similar to a [blue-green cluster upgrade](https://rabbitmq.com/blue-green-upgrade.html),
@@ -271,7 +271,7 @@ After the queue is drained, the shovel can be deleted:
 rabbitmqctl clear_parameter shovel migrate-QUEUE_TO_MIGRATE
 </pre>
 
-## <a id="migrate-in-place" class="anchor" href="#migrate-in-place">Migrate in Place</a>
+## <a id="migrate-in-place" class="anchor" href="#migrate-in-place">Migrate Mirrored Classic Queues to Quorum Queues in Place</a>
 
 Migrating this way trades uptime so that you can 
 complete the migration in an existing virtual host and cluster.
