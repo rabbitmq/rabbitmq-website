@@ -50,7 +50,7 @@ and more.
 
 ## <a id="storage" class="anchor" href="#storage">Storage Considerations</a>
 
-### <a href="storage-durability" class="anchor" href="#storage-durability">Use Durable Store</a>
+### <a id="storage-durability" class="anchor" href="#storage-durability">Use Durable Storage</a>
 
 Modern RabbitMQ 3.x features, most notably quorum queues and streams, are not designed with transient storage in mind.
 
@@ -69,7 +69,7 @@ would have to be enabled to remove their prior identities.
 
 Transient entities (such as queues) and RAM node support will be removed in RabbitMQ 4.0.
 
-### <a href="storage-nas" class="anchor" href="#storage-nas">
+### <a id="storage-nas" class="anchor" href="#storage-nas">Network-attached Storage (NAS)</a>
 
 Network-attached storage (NAS) can be used for RabbitMQ node data directories, provided that
 the NAS volume
@@ -80,12 +80,12 @@ the NAS volume
 Quorum queues, streams, and other RabbitMQ features will benefit from fast local SSD and NVMe storage.
 When possible, prefer local storage to NAS.
 
-### <a href="storage-isolation" class="anchor" href="#storage-isolation">
+### <a id="storage-isolation" class="anchor" href="#storage-isolation">Storage Isolation</a>
 
 RabbitMQ nodes must never share their data directories. Ideally, should should not share their
 disk I/O with other services for most predictable latency and throughput.
 
-### <a href="storage-filesystems" class="anchor" href="#storage-filesystems">
+### <a id="storage-filesystems" class="anchor" href="#storage-filesystems">Choice of a Filesystem</a>
 
 RabbitMQ nodes can use most widely used local filesystems: ext4, btfs, and so on.
 
