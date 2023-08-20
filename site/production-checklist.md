@@ -38,7 +38,7 @@ to size and configure both RabbitMQ nodes and applications.
 
 This guide provides recommendations in a few areas:
 
- * Storage types: use durable local storage
+ * [Storage](#storage) considerations for node data directories
  * Recommendations related to [virtual hosts, users and permissions](#users-and-permissions)
  * [Monitoring and resource usage](#monitoring-and-resource-usage)
  * [Per-virtual host and per-user limits](#limits)
