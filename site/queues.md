@@ -19,7 +19,7 @@ limitations under the License.
 
 ## What is a product-name; Queue?
 
-A queue in product-name; is an ordered collection of messages. Messages are enqueued and dequeued (delivered to consumers) in a ([FIFO ("first in, first out")](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)) manner. Refer to [what is a queue?](##whatisaqueue) for a more detailed definition of a queue in general. 
+A queue in product-name; is an ordered collection of messages. Messages are enqueued and dequeued (delivered to consumers) in a ([FIFO ("first in, first out")](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)) manner. Refer to [what is a queue?](#whatisaqueue) for a more detailed definition of a queue in general. 
 
 Many features in a messaging system are related to queues. Some RabbitMQ queue features such as priorities and [requeueing](./confirms.html) by consumers can affect the ordering as observed by consumers. 
 
