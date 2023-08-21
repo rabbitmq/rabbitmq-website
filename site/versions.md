@@ -26,7 +26,7 @@ what series are no longer supported.
 For guidance on upgrades, see the [Upgrade](./upgrade.html) and
 [Blue/Green Deployment Upgrade](./blue-green-upgrade.html) guides.
 
-## <a id="currently-supported" class="anchor" href="#currently-supported">Currently Supported Release Series</a>
+## <a id="currently-supported" class="anchor" href="#currently-supported">Currently Supported &product-name; Release Series</a>
 
 <table class="release-series">
   <tr>
@@ -42,31 +42,22 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
     <td>3.12</td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/&version-server-tag;" target="_blank" rel="noopener noreferrer">&version-server;</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0" target="_blank" rel="noopener noreferrer">02 June 2023</a></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>30 June 2024</td>
+    <td>31 December 2024</td>
+    <td>18 months</td>
   </tr>
 
   <tr>
     <td>3.11</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.19" target="_blank" rel="noopener noreferrer">3.11.19</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.21" target="_blank" rel="noopener noreferrer">3.11.21</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.0" target="_blank" rel="noopener noreferrer">28 September 2022</a></td>
     <td>31 December, 2023</td>
     <td>31 July, 2024</td>
     <td>22 months</td>
   </tr>
-
-  <tr>
-    <td>3.10</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.24" target="_blank" rel="noopener noreferrer">3.10.24</a></td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0" target="_blank" rel="noopener noreferrer">3 May 2022</a></td>
-    <td>31 July, 2023</td>
-    <td>31 December, 2023</td>
-    <td>19 months</td>
-  </tr>
 </table>
 
-## <a id="extended-support" class="anchor" href="#extended-support">Release Series That are Only Covered by Extended Support</a>
+## <a id="extended-support" class="anchor" href="#extended-support">&product-name; Release Series That are Only Covered by Extended Support</a>
 
 <table class="release-series">
   <tr>
@@ -79,12 +70,12 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
   </tr>
 
   <tr>
-    <td>3.9</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.29" target="_blank" rel="noopener noreferrer">3.9.29</a></td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank" rel="noopener noreferrer">26 July 2021</a></td>
-    <td>31 January, 2023</td>
+    <td>3.10</td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.25" target="_blank" rel="noopener noreferrer">3.10.25</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0" target="_blank" rel="noopener noreferrer">3 May 2022</a></td>
     <td>31 July, 2023</td>
-    <td>24 months</td>
+    <td>31 December, 2023</td>
+    <td>19 months</td>
   </tr>
 </table>
 
@@ -112,6 +103,14 @@ RabbitMQ 3.13, the next release series, is expected to be released end of 2023.
     <th>First Release</th>
     <th>End of Life</th>
     <th>In service for</th>
+  </tr>
+
+  <tr>
+    <td>3.9</td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.29" target="_blank" rel="noopener noreferrer">3.9.29</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank" rel="noopener noreferrer">26 July 2021</a></td>
+    <td>31 July, 2023</td>
+    <td>24 months</td>
   </tr>
 
   <tr>

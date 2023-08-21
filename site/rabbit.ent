@@ -16,12 +16,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+<!ENTITY product-name "RabbitMQ">
+
 <!ENTITY version-java-client "5.18.0">
 <!ENTITY version-dotnet-client "6.4.0">
-<!ENTITY version-server "3.12.1">
+<!ENTITY version-server "3.12.3">
 <!ENTITY version-server-series "v3.12.x">
-<!ENTITY version-erlang-client "3.12.1">
-<!ENTITY version-server-tag "v3.12.1">
+<!ENTITY version-erlang-client "3.12.3">
+<!ENTITY version-server-tag "v3.12.3">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">

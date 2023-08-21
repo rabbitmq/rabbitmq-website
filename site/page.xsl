@@ -77,7 +77,7 @@ limitations under the License.
       <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
       <script async="true" type="text/javascript" src="/js/site.js"></script>
 
-      <title><xsl:value-of select="//html:title"/> — RabbitMQ</title>
+      <title><xsl:value-of select="//html:title"/> — &product-name;</title>
       <xsl:apply-templates/>
     </head>
   </xsl:template>
@@ -104,7 +104,8 @@ limitations under the License.
                   <p>
                     If you have questions about the contents of this guide or
                     any other topic related to RabbitMQ, don't hesitate to ask them
-                    on the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
+                    using <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a>
+                    or our community <a href="https://rabbitmq.com/discord">Discord server</a>.
                   </p>
                 </div>
 

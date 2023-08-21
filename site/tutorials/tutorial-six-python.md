@@ -50,7 +50,7 @@ which sends an RPC request and blocks until the answer is received:
 <pre class="lang-python">
 fibonacci_rpc = FibonacciRpcClient()
 result = fibonacci_rpc.call(4)
-print("fib(4) is %r" % result)
+print(f"fib(4) is {result}")
 </pre>
 
 > #### A note on RPC
@@ -238,7 +238,7 @@ def fib(n):
 def on_request(ch, method, props, body):
     n = int(body)
 
-    print(" [.] fib(%s)" % n)
+    print(f" [.] fib({n})")
     response = fib(n)
 
     ch.basic_publish(exchange='',
@@ -320,7 +320,7 @@ fibonacci_rpc = FibonacciRpcClient()
 
 print(" [x] Requesting fib(30)")
 response = fibonacci_rpc.call(30)
-print(" [.] Got %r" % response)
+print(f" [.] Got {response}")
 </pre>
 
 The client code is slightly more involved:

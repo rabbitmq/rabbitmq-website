@@ -23,6 +23,16 @@ This guide is a companion to the main [Windows installation guide](./install-win
 It documents known conditions and scenarios which can cause RabbitMQ Windows service
 or CLI tools to malfunction.
 
+## <a id="antivirus-software" class="anchor" href="#antivirus-software">Anti-virus Software</a>
+
+Anti-virus and related security software can prevent nodes from accepting or opening network connections,
+accessing files on disk, and so on. This results in failures that are sporadic and very difficult to reason about.
+
+It is **highly recommended** that RabbitMQ processes, ports, the Windows service, and node data
+directory are all excluded from scanning by such tools.
+
+An even better option would to be run RabbitMQ nodes on dedicated hosts with a configured
+firewall but without any anti-virus software.
 
 ## <a id="erlang-distribution-port" class="anchor" href="#erlang-distribution-port">Erlang Distribution Port</a>
 

@@ -34,7 +34,21 @@ This page covers the Stream plugin, which allows to interact with streams using 
 For an overview of the concepts and the ways to operate streams, please see the
 [guide on RabbitMQ streams](streams.html).
 
-Client libraries for the stream protocol are available on several platforms: [Java](https://github.com/rabbitmq/rabbitmq-stream-java-client), [Go](https://github.com/rabbitmq/rabbitmq-stream-go-client), [.NET](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client), Python ([rbly](https://gitlab.com/wrobell/rbfly), [rstream](https://pypi.org/project/rstream/)), [Erlang](https://gitlab.com/evnu/lake), [Elixir](https://github.com/VictorGaiva/rabbitmq-stream), [Rust](https://github.com/rabbitmq/rabbitmq-stream-rust-client), [NodeJS](https://github.com/coders51/rabbitmq-stream-js-client).
+Client libraries for the stream protocol are available on several platforms.
+
+*Note:* items with a check mark (&#x2713;) are officially supported by the RabbitMQ Team at VMware.
+
+
+* [&#x2713; RabbitMQ Java Stream Client](https://github.com/rabbitmq/rabbitmq-stream-java-client) 
+* [&#x2713; RabbitMQ Golang Stream Client](https://github.com/rabbitmq/rabbitmq-stream-go-client)
+* [&#x2713; RabbitMQ .NET Stream Client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client)
+* [&#x2713; RabbitMQ Rust Stream Client](https://github.com/rabbitmq/rabbitmq-stream-rust-client)
+* [&#x2713; RabbitMQ Python Stream Client (rstream)](https://pypi.org/project/rstream/)
+* [RabbitMQ Python Stream Client (rbfly)](https://gitlab.com/wrobell/rbfly)
+* [RabbitMQ NodeJS Stream Client](https://github.com/coders51/rabbitmq-stream-js-client)
+* [RabbitMQ Erlang Stream Client (lake)](https://gitlab.com/evnu/lake) 
+* [RabbitMQ Elixir Stream Client ](https://github.com/VictorGaiva/rabbitmq-stream)
+* [RabbitMQ C Stream Client ](https://github.com/GianfrancoGGL/rabbitmq-stream-c-client)
 
 ## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
@@ -94,15 +108,34 @@ stream.tcp_listen_options.exit_on_close = true
 stream.tcp_listen_options.send_timeout  = 120
 </pre>
 
-### <a id="protocol" class="anchor" href="#protocol">Protocol</a>
+### <a id="heartbeats" class="anchor" href="#heartbeats">Heartbeat Timeout</a>
 
-It is possible to set the maximum size of frames (default is 1 MiB) and the heartbeat (default is
-60 seconds), if needed:
+The `heartbeat timeout` value defines after what period of time
+the peer TCP connection should be considered unreachable (down) by RabbitMQ
+and client libraries.
+
+A [similar mechanism](./heartbeats.html) is used by the messaging protocols that RabbitMQ supports.
+
+The default value for stream protocol connections is 60 seconds.
 
 <pre class="lang-ini">
-stream.frame_max = 2097152 # in bytes
-stream.heartbeat = 120 # in seconds
+# use a lower heartbeat timeout value
+stream.heartbeat = 20
 </pre>
+
+Setting heartbeat timeout value too low can lead to false
+positives (peer being considered unavailable while it is not
+really the case) due to transient network congestion,
+short-lived server flow control, and so on.
+
+This should be taken into consideration when picking a timeout
+value.
+
+Several years worth of feedback from the users and client
+library maintainers suggest that values lower than 5 seconds
+are fairly likely to cause false positives, and values of 1
+second or lower are very likely to do so. Values within the 5
+to 20 seconds range are optimal for most environments.
 
 ### <a id="flow-control" class="anchor" href="#flow-control">Flow Control</a>
 
@@ -165,6 +198,18 @@ stream.advertised_port = 12345
 </pre>
 
 The [Connecting to Streams](https://blog.rabbitmq.com/posts/2021/07/connecting-to-streams/) blog post covers why the `advertised_host` and `advertised_port` settings are necessary in some deployments.
+
+
+### <a id="frame-size" class="anchor" href="#frame-size">Maximum Frame Size</a>
+
+RabbitMQ Stream protocol uses a maximum frame size limit. The default is 1 MiB and the value
+can be increased if necessary:
+
+<pre class="lang-ini">
+# in bytes
+stream.frame_max = 2097152
+</pre>
+
 
 ## <a id="tls" class="anchor" href="#tls">TLS Support</a>
 

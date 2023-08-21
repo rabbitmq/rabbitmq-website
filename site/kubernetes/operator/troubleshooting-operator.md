@@ -15,6 +15,7 @@ Certain errors have dedicated sections:
 + [Pods restart on startup](#pods-restart-on-startup)
 + [Pods are stuck in the terminating state](#pods-stuck-in-terminating-state)
 + [Cluster Operator fails on startup](#operator-failure-on-startup)
++ [RabbitMQ cluster status conditions](#status-conditions)
 
 ### <a id="cluster-fails-to-deploy" class="anchor" href="#cluster-fails-to-deploy">RabbitMQ Cluster Fails to Deploy</a>
 
@@ -141,3 +142,49 @@ Potential solution to resolve this issue:
    * `Get https://ADDRESS:443/api: connect: connection refused`
  * Check whether your Kubernetes cluster is healthy, specifically the `kube-apiserver` component
  * Check whether any security network policies could prevent the Operator from reaching the Kubernetes API server
+
+### <a id="status-conditions" class="anchor" href="#status-conditions"> RabbitMQ cluster status conditions </a>
+
+A RabbitMQ instance has status.conditions that describe the current state of the RabbitMQ cluster.
+To get the status, run:
+<pre class="lang-bash">
+kubectl describe rmq RMQ_NAME
+</pre>
+
+Example status conditions may look like:
+<pre class="lang-yaml">
+Name:         test-rabbit
+Namespace:    rabbitmq-system
+API Version:  rabbitmq.com/v1beta1
+Kind:         RabbitmqCluster
+...
+Status:
+  Binding:
+    Name:  sample-default-user
+  Conditions:
+    Last Transition Time:  2023-07-07T11:57:10Z
+    Reason:                AllPodsAreReady
+    Status:                True
+    Type:                  AllReplicasReady # true when all RabbitMQ pods are 'ready'
+    Last Transition Time:  2023-07-07T11:57:10Z
+    Reason:                AtLeastOneEndpointAvailable
+    Status:                True
+    Type:                  ClusterAvailable # true when at least one RabbitMQ pod is 'ready'
+    Last Transition Time:  2023-07-07T11:55:58Z
+    Reason:                NoWarnings
+    Status:                True
+    Type:                  NoWarnings
+    Last Transition Time:  2023-07-07T11:57:11Z
+    Message:               Finish reconciling
+    Reason:                Success
+    Status:                True
+    Type:                  ReconcileSuccess
+...
+</pre>
+If the status condition `ReconcileSuccess` is false, that means the last reconcile has errored and RabbitMQ cluster configuration could be out of date. Checking out Cluster Operator logs is useful to understand why reconcile failed.
+
+To get Operator logs:
+
+<pre class="lang-bash">
+kubectl -n rabbitmq-system logs -l app.kubernetes.io/name=rabbitmq-cluster-operator
+</pre>

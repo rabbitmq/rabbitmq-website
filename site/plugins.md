@@ -327,269 +327,267 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
   </thead>
 
   <tbody>
-    <tr>
-      <th>rabbitmq_amqp1_0</th>
-      <td>
-        AMQP 1.0 protocol support.
+  <tr>
+    <th>rabbitmq_amqp1_0</th>
+    <td>
+      AMQP 1.0 protocol support.
+      This plugin is several years old and is moderately
+      mature. It may have certain limitations with its current
+      architecture but most major AMQP 1.0 features should be in
+      place.
+      <ul>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_amqp1_0/README.md">README for this plugin</a>
+        </li>
+      </ul>
+    </td>
+  </tr>
 
-        This plugin is several years old and is moderately
-        mature. It may have certain limitations with its current
-        architecture but most major AMQP 1.0 features should be in
-        place.
+  <tr>
+    <th>rabbitmq_auth_backend_ldap</th>
+    <td>
+      Authentication and authorisation plugin using an external
+      LDAP server.
+      <ul>
+        <li><a href="ldap.html">Documentation for the LDAP
+        plugin</a></li>
+      </ul>
+    </td>
+  </tr>
 
-        <ul>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_amqp1_0/README.md">README for this plugin</a>
-          </li>
-        </ul>
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_auth_backend_oauth2</th>
+    <td>
+      Authentication and authorisation plugin using OAuth 2.0 protocol.
+      <ul>
+        <li><a href="oauth2.html">Documentation for the OAuth 2.0 plugin</a></li>
+      </ul>
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_auth_backend_ldap</th>
-      <td>
-        Authentication and authorisation plugin using an external
-        LDAP server.
-        <ul>
-          <li><a href="ldap.html">Documentation for the LDAP
-          plugin</a></li>
-        </ul>
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_auth_backend_http</th>
+    <td>
+      Authentication and authorisation plugin that uses an external HTTP API.
+      <ul>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_auth_backend_http/README.md">README for this plugin</a>
+        </li>
+      </ul>
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_auth_backend_oauth2</th>
-      <td>
-        Authentication and authorisation plugin using OAuth 2.0 protocol.
-        <ul>
-          <li><a href="oauth2.html">Documentation for the OAuth 2.0 plugin</a></li>
-        </ul>
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_auth_mechanism_ssl</th>
+    <td>
+      Authentication mechanism plugin using SASL EXTERNAL to authenticate
+      using TLS (x509) client certificates.
+      <ul>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_auth_mechanism_ssl/README.md">README for this plugin</a>
+        </li>
+      </ul>
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_auth_backend_http</th>
-      <td>
-        Authentication and authorisation plugin that uses an external HTTP API.
+  <tr>
+    <th>rabbitmq_consistent_hash_exchange</th>
+    <td>
+      Consistent hashing exchange.
+      <ul>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_consistent_hash_exchange/README.md">README for this plugin</a>
+        </li>
+      </ul>
+    </td>
+  </tr>
 
-        <ul>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_auth_backend_http/README.md">README for this plugin</a>
-          </li>
-        </ul>
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_federation</th>
+    <td>
+      Scalable messaging across WANs and administrative
+      domains.
+      <ul>
+        <li><a href="federation.html">Documentation for the
+        federation plugin</a></li>
+      </ul>
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_auth_mechanism_ssl</th>
-      <td>
-        Authentication mechanism plugin using SASL EXTERNAL to authenticate
-        using TLS (x509) client certificates.
+  <tr>
+    <th>rabbitmq_federation_management</th>
+    <td>
+      Shows federation status in the management API and UI. Only
+      of use when using rabbitmq_federation in conjunction with
+      <code>rabbitmq_management</code>. In a heterogeneous cluster this
+      should be installed on the same nodes as rabbitmq_management.
+    </td>
+  </tr>
 
-        <ul>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_auth_mechanism_ssl/README.md">README for this plugin</a>
-          </li>
-        </ul>
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_jms_topic_exchange</th>
+    <td>
+      A special exchange type to be used with the <a href="https://github.com/rabbitmq/rabbitmq-jms-client">RabbitMQ JMS client</a>.
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_consistent_hash_exchange</th>
-      <td>
-        Consistent hashing exchange.
+  <tr>
+    <th>rabbitmq_management</th>
+    <td>
+      A management / monitoring API over HTTP, along with a
+      browser-based UI.
+      <ul>
+        <li><a href="management.html">Documentation for the
+        management plugin</a></li>
+      </ul>
+    </td>
+  </tr>
 
-        <ul>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_consistent_hash_exchange/README.md">README for this plugin</a>
-          </li>
-        </ul>
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_management_agent</th>
+    <td>
+      When installing the management plugin on <em>some</em>
+      of the nodes in a cluster,
+      <code>rabbitmq_management_agent</code> must be enabled on all
+      on <em>all</em> cluster nodes nodes, otherwise stats for some nodes
+      will not be collected.
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_federation</th>
-      <td>
-        Scalable messaging across WANs and administrative
-        domains.
-        <ul>
-          <li><a href="federation.html">Documentation for the
-          federation plugin</a></li>
-        </ul>
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_mqtt</th>
+    <td>
+      MQTT 3.1.1 support.
+      <ul>
+        <li><a href="mqtt.html">Documentation for the MQTT plugin</a></li>
+      </ul>
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_federation_management</th>
-      <td>
-        Shows federation status in the management API and UI. Only
-        of use when using rabbitmq_federation in conjunction with
-        <code>rabbitmq_management</code>. In a heterogeneous cluster this
-        should be installed on the same nodes as rabbitmq_management.
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_prometheus</th>
+    <td>
+      Prometheus monitoring support.
+      <ul>
+        <li><a href="prometheus.html">Documentation for monitoring with the Prometheus plugin</a></li>
+      </ul>
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_jms_topic_exchange</th>
-      <td>
-        A special exchange type to be used with the <a href="https://github.com/rabbitmq/rabbitmq-jms-client">RabbitMQ JMS client</a>.
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_shovel</th>
+    <td>
+      A plug-in for RabbitMQ that shovels messages from a queue on
+      one broker to an exchange on another broker.
+      <ul>
+        <li>
+          <a href="./shovel.html">Documentation for the Shovel plugin</a>
+        </li>
+      </ul>
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_management</th>
-      <td>
-        A management / monitoring API over HTTP, along with a
-        browser-based UI.
-        <ul>
-          <li><a href="management.html">Documentation for the
-          management plugin</a></li>
-        </ul>
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_shovel_management</th>
+    <td>
+      Shows <a href="./shovel.html">Shovel</a> status in the management API and UI.
+      Only of use when using <code>rabbitmq_shovel</code> in
+      conjunction with <code>rabbitmq_management</code>. In a
+      heterogeneous cluster this should be installed on the same
+      nodes as <a href="./plugins.html">RabbitMQ management plugin</a>.
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_management_agent</th>
-      <td>
-        When installing the management plugin on <em>some</em>
-        of the nodes in a cluster,
-        <code>rabbitmq_management_agent</code> must be enabled on all
-        on <em>all</em> cluster nodes nodes, otherwise stats for some nodes
-        will not be collected.
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_stomp</th>
+    <td>
+      Provides <a href="http://stomp.github.io/stomp-specification-1.2.html">STOMP protocol</a> support in RabbitMQ.
+      <ul>
+        <li><a href="stomp.html">Documentation for the STOMP plugin</a><br/></li>
+      </ul>
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_mqtt</th>
-      <td>
-        MQTT support.
 
-        <ul>
-          <li><a href="mqtt.html">Documentation for the MQTT plugin</a></li>
-        </ul>
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_mqtt</th>
+    <td>
+      MQTT support.
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_prometheus</th>
-      <td>
-        Prometheus monitoring support.
+  <tr>
+    <th>rabbitmq_tracing</th>
+    <td>
+      Adds message tracing to the management plugin. Logs
+      messages from the <a href="firehose.html">firehose</a> in
+      a couple of formats.
+    </td>
+  </tr>
 
-        <ul>
-          <li><a href="prometheus.html">Documentation for monitoring with the Prometheus plugin</a></li>
-        </ul>
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_trust_store</th>
+    <td>
+      Provides a client x509 certificate trust store.
+      <ul>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_trust_store/README.md">README for this plugin</a>
+        </li>
+      </ul>
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_shovel</th>
-      <td>
-        A plug-in for RabbitMQ that shovels messages from a queue on
-        one broker to an exchange on another broker.
+  <tr>
+    <th>rabbitmq_web_stomp</th>
+    <td>
+      STOMP-over-WebSockets: a bridge exposing <code>rabbitmq_stomp</code> to web
+      browsers using WebSockets.
+      <ul>
+        <li><a href="web-stomp.html">Documentation for the
+        web-stomp plugin</a></li>
+      </ul>
+    </td>
+  </tr>
 
-        <ul>
-          <li>
-            <a href="./shovel.html">Documentation for the Shovel plugin</a>
-          </li>
-        </ul>
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_web_mqtt</th>
+    <td>
+      MQTT-over-WebSockets: a bridge exposing <a href="./mqtt.html">rabbitmq_mqtt</a> to Web
+      browsers using WebSockets.
+      <ul>
+        <li><a href="web-mqtt.html">Documentation for the
+        web-mqtt plugin</a></li>
+      </ul>
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_shovel_management</th>
-      <td>
-        Shows <a href="./shovel.html">Shovel</a> status in the management API and UI.
-        Only of use when using <code>rabbitmq_shovel</code> in
-        conjunction with <code>rabbitmq_management</code>. In a
-        heterogeneous cluster this should be installed on the same
-        nodes as <a href="./plugins.html">RabbitMQ management plugin</a>.
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_web_stomp_examples</th>
+    <td>
+      Adds some basic examples to
+      <code>rabbitmq_web_stomp</code>: a simple "echo" service
+      and a basic canvas-based collaboration tool.
+      <ul>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_web_stomp_examples/README.md">README for this plugin</a>
+        </li>
+      </ul>
+    </td>
+  </tr>
 
-    <tr>
-      <th>rabbitmq_stomp</th>
-      <td>
-        Provides <a href="http://stomp.github.io/stomp-specification-1.2.html">STOMP protocol</a> support in RabbitMQ.
-        <ul>
-          <li><a href="stomp.html">Documentation for the STOMP plugin</a><br/></li>
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <th>rabbitmq_tracing</th>
-      <td>
-        Adds message tracing to the management plugin. Logs
-        messages from the <a href="firehose.html">firehose</a> in
-        a couple of formats.
-      </td>
-    </tr>
-
-    <tr>
-      <th>rabbitmq_trust_store</th>
-      <td>
-        Provides a client x509 certificate trust store.
-        <ul>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-trust-store/blob/v3.9.x/README.md">README for this plugin</a>
-          </li>
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <th>rabbitmq_web_stomp</th>
-      <td>
-        STOMP-over-WebSockets: a bridge exposing <code>rabbitmq_stomp</code> to web
-        browsers using WebSockets.
-        <ul>
-          <li><a href="web-stomp.html">Documentation for the
-          web-stomp plugin</a></li>
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <th>rabbitmq_web_mqtt</th>
-      <td>
-        MQTT-over-WebSockets: a bridge exposing <a href="./mqtt.html">rabbitmq_mqtt</a> to Web
-        browsers using WebSockets.
-        <ul>
-          <li><a href="web-mqtt.html">Documentation for the
-          web-mqtt plugin</a></li>
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <th>rabbitmq_web_stomp_examples</th>
-      <td>
-        Adds some basic examples to
-        <code>rabbitmq_web_stomp</code>: a simple "echo" service
-        and a basic canvas-based collaboration tool.
-
-        <ul>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-web-stomp-examples/blob/v3.9.x/README.md">README for this plugin</a>
-          </li>
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <th>rabbitmq_web_mqtt_examples</th>
-      <td>
-        Adds some basic examples to
-        <code>rabbitmq_web_mqtt</code>: a simple "echo" service
-        and a basic canvas-based collaboration tool.
-
-        <ul>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-web-mqtt-examples/blob/v3.7.x/README.md">README for this plugin</a>
-          </li>
-        </ul>
-      </td>
-    </tr>
+  <tr>
+    <th>rabbitmq_web_mqtt_examples</th>
+    <td>
+      Adds some basic examples to
+      <code>rabbitmq_web_mqtt</code>: a simple "echo" service
+      and a basic canvas-based collaboration tool.
+      <ul>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_web_mqtt_examples/README.md">README for this plugin</a>
+        </li>
+      </ul>
+    </td>
+  </tr>
   </tbody>
 </table>
 

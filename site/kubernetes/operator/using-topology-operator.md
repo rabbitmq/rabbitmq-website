@@ -10,6 +10,7 @@ This guide has the following sections:
 * [Cluster Operator Requirements](#requirements)
 * [Scope across multiple namespaces](#namespace-scope)
 * [Non Operator managed RabbitMQ](#non-operator)
+* [Custom Connection URI](#uri-annotation)
 * [Queues and policies](#queues-policies)
 * [Users and user permissions](#users-permissions)
 * [Exchanges and bindings](#exchanges-bindings)
@@ -119,6 +120,17 @@ spec:
 </pre>
 
 Note that `spec.rabbitmqClusterReference` is an immutable field. You cannot update the connectionSecret name after creation.
+
+## <a id='uri-annotation' class='anchor' href='#uri-annotation'>Custom Connection URI</a>
+
+* For RabbitmqClusters that cannot be connected by its Kubernetes service object (for example if the TLS certificate is generated for a custom domain, not the Kubernetes service),
+you can annotate Rabbitmqclusters with a custom connection URI. Messaging Topology Operator will use the provided information to connect instead of Kubernetes dns.
+* This feature is released since Messaging Topology Operator `1.12.0`.
+
+To annotate RabbitmqClusters,
+<pre class="lang-bash">
+kubectl annotate rmq RMQ-NAME rabbitmq.com/operator-connection-uri=https://test:1234
+</pre>
 
 ## <a id='queues-policies' class='anchor' href='#queues-policies'>Queues and Policies</a>
 

@@ -45,7 +45,7 @@ existing queue types either can not provide or provide with downsides:
     to bind multiple queues. Stream consumers will also be able to read from replicas
     allowing read load to be spread across the cluster.
 
-2. Replay / Time-travelling
+2. Replay (Time-travelling)
 
     As all current RabbitMQ queue types have destructive consume behaviour, i.e. messages
     are deleted from the queue when a consumer is finished with them, it is not
@@ -58,7 +58,7 @@ existing queue types either can not provide or provide with downsides:
     any of the existing log based messaging systems. Streams have been designed
     with performance as a major goal.
 
-4. Large logs
+4. Large backlogs
 
     Most RabbitMQ queues are designed to converge towards the empty state and are
     optimised as such and can perform worse when there are millions of messages on a

@@ -887,6 +887,8 @@ prometheus.ssl.cacertfile = /full/path/to/ca_certificate.pem
 prometheus.ssl.certfile   = /full/path/to/server_certificate.pem
 prometheus.ssl.keyfile    = /full/path/to/server_key.pem
 prometheus.ssl.password   = password-if-keyfile-is-encrypted
+## To enforce TLS (disable the non-TLS port):
+# prometheus.tcp.listener = none
 </pre>
 
 
@@ -901,6 +903,8 @@ prometheus.ssl.password   = password-if-keyfile-is-encrypted
 prometheus.ssl.verify     = verify_peer
 prometheus.ssl.depth      = 2
 prometheus.ssl.fail_if_no_peer_cert = true
+## To enforce TLS (disable the non-TLS port):
+# prometheus.tcp.listener = none
 </pre>
 
 

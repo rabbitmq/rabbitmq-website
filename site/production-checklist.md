@@ -38,6 +38,7 @@ to size and configure both RabbitMQ nodes and applications.
 
 This guide provides recommendations in a few areas:
 
+ * [Storage](#storage) considerations for node data directories
  * Recommendations related to [virtual hosts, users and permissions](#users-and-permissions)
  * [Monitoring and resource usage](#monitoring-and-resource-usage)
  * [Per-virtual host and per-user limits](#limits)
@@ -46,6 +47,56 @@ This guide provides recommendations in a few areas:
  * [Application-level](#apps) practices and considerations
 
 and more.
+
+## <a id="storage" class="anchor" href="#storage">Storage Considerations</a>
+
+### <a id="storage-durability" class="anchor" href="#storage-durability">Use Durable Storage</a>
+
+Modern RabbitMQ 3.x features, most notably quorum queues and streams, are not designed with transient storage in mind.
+
+Data safety features of [quorum queues](./quorum-queues.html) and [streams](./streams.html) expect
+node data storage to be durable. Both data structures also assume reasonably stable latency of I/O
+operations, something that network-attached storage will not be always ready to provide in practice.
+
+Quorum queue and stream replicas hosted on restarted nodes that use transient storage will have
+to perform a full sync of the entire data set on the leader replica. This can result in massive
+data transfers and network link overload that could have been avoided by using durable storage.
+
+When nodes are restarted, the rest of the cluster expects them to retain the information
+about their cluster peers. When this is not the case, restarted nodes may be able to rejoin
+as new nodes but a [special peer clean up mechanism](https://rabbitmq.com/cluster-formation.html#node-health-checks-and-cleanup)
+would have to be enabled to remove their prior identities.
+
+Transient entities (such as queues) and RAM node support will be removed in RabbitMQ 4.0.
+
+### <a id="storage-nas" class="anchor" href="#storage-nas">Network-attached Storage (NAS)</a>
+
+Network-attached storage (NAS) can be used for RabbitMQ node data directories, provided that
+the NAS volume
+
+ * It offers low I/O latency
+ * It can guarantee no significant latency spikes (for example, due to sharing with other I/O-heavy services)
+
+Quorum queues, streams, and other RabbitMQ features will benefit from fast local SSD and NVMe storage.
+When possible, prefer local storage to NAS.
+
+### <a id="storage-isolation" class="anchor" href="#storage-isolation">Storage Isolation</a>
+
+RabbitMQ nodes must never share their data directories. Ideally, should should not share their
+disk I/O with other services for most predictable latency and throughput.
+
+### <a id="storage-filesystems" class="anchor" href="#storage-filesystems">Choice of a Filesystem</a>
+
+RabbitMQ nodes can use most widely used local filesystems: ext4, btfs, and so on.
+
+Avoid using distributed filesystems for node data directories:
+
+ * RabbitMQ's storage subsystem assumes the standard local filesystem semantics for `fsync(2)`
+   and other key operations. Distributed filesystems often [deviate from these standard guarantees](https://docs.ceph.com/en/latest/cephfs/posix/)
+ * Distributed filesystems are usually designed for shared access to a subset of directories.
+   Sharing a data directory between RabbitMQ nodes is **an absolute no-no** and
+   is guaranteed to result in data corruption since nodes will not coordinate their writes 
+
 
 ## <a id="users-and-permissions" class="anchor" href="#users-and-permissions">Virtual Hosts, Users, Permissions</a>
 
