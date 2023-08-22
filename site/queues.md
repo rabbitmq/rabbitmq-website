@@ -15,11 +15,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# product-name; Queues
+# Queues
 
-## What is a product-name; Queue?
+## What is a Queue?
 
-A queue in product-name; is an ordered collection of messages. Messages are enqueued and dequeued (delivered to consumers) in a ([FIFO ("first in, first out")](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)) manner. Refer to [what is a queue?](#whatisaqueue) for a more detailed definition of a queue in general. 
+A queue in product-name; is an ordered collection of messages. Messages are enqueued and dequeued (delivered to consumers) in a ([FIFO ("first in, first out")](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)) manner. 
+
+To define a [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) in generic terms, it is a sequential data structure with two primary operations: an item can be **enqueued** (added) at the tail and **dequeued** (consumed) from the head. 
+
+Queues play a major role in the messaging technology space. Many messaging protocols and tools assume that [publishers](./publishers.html) and [consumers](./consumers.html) communicate using a queue-like storage mechanism.
 
 Many features in a messaging system are related to queues. Some RabbitMQ queue features such as priorities and [requeueing](./confirms.html) by consumers can affect the ordering as observed by consumers. 
 
@@ -36,7 +40,6 @@ because many features still operate at the queue level, even for those protocols
 
 The information about RabbitMQ queues covered in this topic includes:
 
- * [What is a Queue?](#whatisaqueue)
  * [Queue Names](#names)
  * [Queue Properties](#properties)
  * [Message Ordering](#message-ordering) in a queue
@@ -52,12 +55,6 @@ The information about RabbitMQ queues covered in this topic includes:
 For topics related to consumers, see the [Consumers guide](./consumers.html).
 [Classic queues](./classic-queues.html), [quorum queues](./quorum-queues.html)
 and [streams](./streams.html) also have dedicated guides.
-
-## <a id="whatisaqueue" class="anchor" href="#whatisaqueue">What is a Queue?</a>
-
-A [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) is a sequential data structure with two primary operations: an item can be **enqueued** (added) at the tail and **dequeued** (consumed) from the head. 
-
-Queues play a major role in the messaging technology space. Many messaging protocols and tools assume that [publishers](./publishers.html) and [consumers](./consumers.html) communicate using a queue-like storage mechanism.
 
 ## <a id="names" class="anchor" href="#names">Queue Names</a>
 
