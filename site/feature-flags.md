@@ -2,8 +2,8 @@
 
 ## Overview
 
-In a mixed version cluster (e.g. some versions are 3.7.x and some are
-3.8.x) some nodes will support a different set of features, behave
+In a mixed version cluster (e.g. some versions are 3.11.x and some are
+3.12.x) during an upgrade, some nodes will support a different set of features, behave
 differently in certain scenarios, and otherwise not act exactly the
 same: they are different versions after all.
 
@@ -14,7 +14,8 @@ nodes in the cluster will disable the feature (behavior).
 
 The feature flag subsystem allows RabbitMQ nodes with different versions
 to determine if they are compatible and then communicate together,
-regardless of their version.
+despite having different versions and thus potentially having different
+feature sets or implementation details.
 
 This subsystem was introduced in RabbitMQ 3.8.0 to allow **[rolling
 upgrades](./upgrade.html#rolling-upgrades) of cluster members without
@@ -38,7 +39,7 @@ RabbitMQ 3.11 requires feature flags introduced in 3.8 to be enabled prior to th
     1. it supports all feature flags enabled in the cluster and
     2. if the cluster supports all the feature flags enabled on that node.
 
-RabbitMQ 3.7.x and 3.8.x nodes are compatible as long as no 3.8.x
+For example, RabbitMQ 3.12.x and 3.11.x nodes are compatible as long as no 3.12.x
 feature flags are enabled.
 
 <p class="box-warning">
@@ -89,7 +90,7 @@ It is also possible to list and enable feature flags from the
 ## <a id="version-compatibility" class="anchor" href="#version-compatibility">Feature Flags and RabbitMQ Versions</a>
 
 As covered earlier, the feature flags subsystem's primary goal is to
-allow upgrades regardless of the version of RabbitMQ, if possible.
+allow upgrades regardless of the version of cluster members, to the extent possible.
 
 Feature flags make it possible to safely perform a rolling upgrade to the
 next patch or minor release, except if it is stated otherwise
@@ -100,15 +101,16 @@ implemented as feature flags.
 <img src="./img/feature-flags/feature-flags-and-rabbitmq-versions.svg" style="width: 100%; max-width: 647px;" alt="Feature flags compatibility with different RabbitMQ versions." title="Feature flags compatibility with different RabbitMQ versions."/>
 </div>
 
-It is also possible to upgrade from RabbitMQ 3.7.x to 3.8.x. Indeed,
-RabbitMQ 3.7.x does not have the feature flags subsystem and RabbitMQ
-3.8.x considers that a 3.7.x node has an empty list of feature flags.
-Therefore, as long as the 3.8.x node has all its feature flags disabled,
-it is compatible with a 3.7.x node.
-
 However, note that only upgrading from one minor to the next minor
-or major is supported. To upgrade from e.g. 3.6.16 to 3.8.7, it is
-necessary to upgrade to 3.7.28 first. Likewise if there is one or more
+or major is supported. To upgrade from e.g. 3.9.16 to 3.12.3, it is
+necessary to upgrade to 3.9.29 first, then to the latest 3.10 patch release,
+then the latest 3.11 release, then 3.12.3. After certain steps in the
+upgrade process it will also be necessary to enable all stable feature
+flags available in that version. For example, 3.12.0 is a release
+that requires all feature flags to be enabled before a node can be
+upgraded to it.
+
+Likewise if there is one or more
 minor release branches between the minor version used and the next
 major release. That might work (i.e. there could be no incompatible
 changes between major releases), but this scenario is unsupported by design
@@ -237,6 +239,23 @@ By default a new and unclustered node will start with all supported feature flag
 
 The environment variable has precedence over the configuration parameter.
 
+
+## <a id="graduation" class="anchor" href="#graduation">Feature Flag Maturation and Graduation Process</a>
+
+After their initial introduction into RabbitMQ, feature flags are *optional*, that is,
+they only surve the purpose of allowing for a safe rolling cluster upgrade. Some feature flags
+do not have to be enabled unless a specific feature is used.
+
+Over time, however, features become more mature, and future development of RabbitMQ
+assumes that a certain set of features is available and can be relied on by the
+users and developers alike. When that happens, feature flags *graduate* to core (required) features
+in the next minor feature release.
+
+It is very important to enable all feature flags after performing a rolling cluster upgrade:
+in the future these flags will become mandatory, and proactively enabling them will allow
+for a smoother upgrade experience in the future.
+
+
 ## <a id="list-of-feature-flags" class="anchor" href="#list-of-feature-flags">List of Feature Flags</a>
 
 The feature flags listed below are provided by RabbitMQ core or one of the tier-1 plugins bundled with RabbitMQ.
@@ -247,6 +266,7 @@ Otherwise, if a RabbitMQ node is upgraded to 3.12.x while this feature flag is d
 
 Column `Stable` shows the RabbitMQ version that introduced a feature flag.
 For example, if a feature flag is stable in 3.11.0, that feature flag SHOULD be enabled promptly after upgrading all nodes in a RabbitMQ cluster to version 3.11.x.
+
 
 ### <a id="core-feature-flags" class="anchor" href="#core-feature-flags">Core Feature Flags</a>
 
@@ -441,6 +461,7 @@ The following feature flags are provided by plugin [rabbimq_mqtt](https://www.ra
 	</td>
   </tr>
 </table>
+
 
 ## <a id="implementation" class="anchor" href="#implementation">How Do Feature Flags Work?</a>
 
