@@ -15,9 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# product-name; Classic Queues
+# Classic Queues
 
-## <a id="overview" class="anchor" href="#overview">What is a product-name; Classic Queue</a>
+## <a id="overview" class="anchor" href="#overview">What is a Classic Queue</a>
 
 A product-name; classic queue (the original queue type) is a versatile queue type suitable for use cases where data safety is not a priority because the data stored in classic queues is not replicated. 
 Classic queues uses the **non-replicated** FIFO queue implementation. 
@@ -171,7 +171,7 @@ The default version can be set through configuration by setting
 only affects newly declared queues. Pre-existing queues will remain on version 1,
 until explicitly migrated or deleted and redeclared.
 
-## <a id="resource-use" class="anchor" href="#resource-use">Resources Use with Classic Queues</a>
+## <a id="resource-use" class="anchor" href="#resource-use">Resource Use with Classic Queues</a>
 
 Classic queues aim to provide reasonably good throughput in the majority
 of situations without configuration. However, some configuration is

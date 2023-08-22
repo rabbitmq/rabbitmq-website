@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Defining a product-name; Quorum Queue
+# Defining a Quorum Queue
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 

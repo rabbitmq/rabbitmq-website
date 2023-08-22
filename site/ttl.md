@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# product-name; Time-To-Live and Expiration 
+# Time-To-Live and Expiration 
 
 ## <a id="overview" class="anchor" href="#overview">Time-To-Live Feature</a>
 
