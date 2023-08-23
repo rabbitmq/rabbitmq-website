@@ -244,7 +244,7 @@ A [blog post](https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-prev
 
 Super streams are a way to scale out by partitioning a large stream into smaller streams.
 They integrate with [single active consumer](#single-active-consumer) to preserve message order within a partition.
-Super streams are available in RabbitMQ 3.11 and more.
+Super streams are available starting with RabbitMQ 3.11.
 
 A super stream is a logical stream made of individual, regular streams.
 It is a way to scale out publishing and consuming with RabbitMQ Streams: a large logical stream is divided into partition streams, splitting up the storage and the traffic on several cluster nodes.
