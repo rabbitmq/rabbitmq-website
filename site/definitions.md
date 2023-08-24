@@ -166,7 +166,7 @@ The below snippet demonstrates how the definitions file can be modified to
     "users": [
         {
             "name": "guest",
-            "password": "guest",
+            "password_hash": "9/1i+jKFRpbTRV1PtRnzFFYibT3cEpP92JeZ8YKGtflf4e/u",
             "tags": ["administrator"]
         }
     ],
