@@ -27,7 +27,7 @@ Classic queues will remain a supported non-replicated queue type.
 upgrade to **RabbitMQ 3.12** now and switch to quorum queues if possible (refer to [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq.md) if you want to do this)
 or turn on `lazy` queue mode for classic queues to avoid running into memory issues.
 
-[Quorum queues](quorum-queues.html) an the alternative to classic queues. Quorum Queues are a more modern queue type
+[Quorum queues](quorum-queues.html) is the alternative to classic queues. Quorum Queues are a more modern queue type
 that offers high availability via replication and focuses on data safety.
 From RabbitMQ 3.10 onwwards, quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and
 provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues.
