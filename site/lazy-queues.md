@@ -19,7 +19,7 @@ It is important to read [There is a Better Way: The Next Generation of Classic Q
 work in a similar manner to how classic queues worked with `lazy` mode running on them. Classic queues in **RabbitMQ 3.12** may however 
 keep a small number of messages in memory (up to 2048 at the time of writing) based on the consumption rate. 
 
- - Quorum queues should be your default choice for a replicated queue type.**
+ - **Quorum queues should be your default choice for a replicated queue type.**
 Classic queue mirroring will be removed in a future version of RabbitMQ. 
 Classic queues will remain a supported non-replicated queue type.
 
