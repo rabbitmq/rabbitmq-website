@@ -9,7 +9,7 @@ These messages are loaded into RAM only when they are requested by consumers.
 The other queue mode is the `default` mode. 
 If no mode is specified during declaration, then the `default` mode is used.
 
-It is important to read [There is a Better Way: The Next Generation of Classic Queue Storage is to use Quorum Queues](#interstitial)] next.
+It is important to read [There is a Better Way: The Next Generation of Classic Queue Storage is to use Quorum Queues](#interstitial) next.
 
 ## <a id="interstitial" class="anchor" href="#interstitial">There is a Better Way: The Next Generation of Classic Queue Storage is to use Quorum Queues</a>
 
