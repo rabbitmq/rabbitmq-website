@@ -24,7 +24,7 @@ Classic queue mirroring will be removed in a future version of RabbitMQ.
 Classic queues will remain a supported non-replicated queue type.
 
  - **The recommendation is:** If you are using **RabbitMQ 3.11** and earlier versions, either
-upgrade to **RabbitMQ 3.12** now and switch to quorum queues if possible (refer to [Migrate your product-name; Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq.md) if you want to do this)
+upgrade to **RabbitMQ 3.12** now and switch to quorum queues if possible (refer to [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq.md) if you want to do this)
 or turn on `lazy` queue mode for classic queues to avoid running into memory issues.
 
 [Quorum queues](quorum-queues.html) an the alternative to classic queues. Quorum Queues are a more modern queue type
