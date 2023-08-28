@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Classic Queues Support the Priority Feature
+# Classic Queues Support Priorities
 
 ## <a id="overview" class="anchor" href="#overview">What is a Priority Queue</a>
 
