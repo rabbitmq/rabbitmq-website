@@ -19,11 +19,15 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-RabbitMQ supports adding "priorities" to classic queues. Priorities between 1 and 255 are supported, however, **values between 1 and 5 are highly recommended**. It is important to know that higher numbers equals higher priorities but as a result, the resource footprint is higher also. Classic queues with "priority" implementation are often known as "priority queues". 
+RabbitMQ supports adding "priorities" to classic queues. Queues with the "priority" feature enabled are commonly referred to as "priority queues".
+Priorities between 1 and 255 are supported, however, **values between 1 and 5 are highly recommended**. It is important to know that higher priority
+values require more CPU and memory resources, since RabbitMQ needs to internally maintain a sub-queue for each priority from 1, up to the maximum value
+configured for a given queue.
 
 A classic queue can become a priority queue by using client-provided [optional arguments](./queues.html#optional-arguments).
 
-Declaring a classic queue as a priority queue [using policies](#using-policies) is [not supported by design](#using-policies). For the reasons why, refer to [Why Policy Definition is not Supported](#using-policies).
+Declaring a classic queue as a priority queue [using policies](#using-policies) is [not supported by design](#using-policies).
+For the reasons why, refer to [Why Policy Definition is not Supported](#using-policies).
 
 ## <a id="definition" class="anchor" href="#definition">Using Client-provided Optional Arguments</a>
 
@@ -79,28 +83,34 @@ If priority queues are what you want, this information previously stated **value
 
 If a consumer connects to an empty priority queue to which
 messages are subsequently published, the messages may not spend
-any time waiting in the priority queue before the consumer accepts these messages (all the messages are accepted immediately). In this scenario, the priority queue does not get any opportunity to prioritise the messages, priority is not needed. 
+any time waiting in the priority queue before the consumer accepts these messages (all the messages are accepted immediately).
+In this scenario, the priority queue does not get any opportunity to prioritise the messages, priority is not needed.
 
-However, in most cases, the previous situation is not the norm, therefore you should use the `basic.qos` ([prefetch](./confirms.md#channel-qos-prefetchconsumer-prefetch)) method in manual acknowledgement mode on your consumers to limit the number of messages that can be out for delivery at any time and allow messages to be prioritised. `basic.qos` is a value a consumer sets when connecting to a queue. It indicates how many messages the consumer can handle at one time. 
+However, in most cases, the previous situation is not the norm, therefore you should use the `basic.qos` ([prefetch](./confirms.md#channel-qos-prefetchconsumer-prefetch))
+method in manual acknowledgement mode on your consumers to limit the number of messages that can be out for delivery at any time and allow messages to be prioritised.
+`basic.qos` is a value a consumer sets when connecting to a queue. It indicates how many messages the consumer can handle at one time.
 
-The following example attempts to explain how consumers work with priority queues in more detail and also to highlight that sometimes when priority queues work with consumers, higher prioritised messages may in practice need to wait for lower priority messages to be processed first.
+The following example attempts to explain how consumers work with priority queues in more detail and also to highlight that sometimes when priority queues work with consumers,
+higher prioritised messages may in practice need to wait for lower priority messages to be processed first.
 
 ### Example
- - A new consumer connects to an empty classic (non-prioritised) queue with a consumer prefetch (`basic.qos`) of 10. 
+- A new consumer connects to an empty classic (non-prioritised) queue with a consumer prefetch (`basic.qos`) of 10.
 
- - A message is published and sent to the consumer, this messaged is immediately accepted/consumed. 
+- A message is published and immedaitely sent to the consumer for processing
 
- - 5 more messages are then published extremely quickly and sent to the consumer immediately, because, the consumer only has 1 message out of 10 previously consumed, it accepts these 5 messages.
+- 5 more messages are then published quickly and sent to the consumer immediately, because, the consumer has only 1 in-flight (unacknowledged) message out of 10 declared as qos (prefetch)
 
 - Next, 10 more messages are published quickly and sent to the consumer, only 4 out of the 10 messages are sent to the consumer (because the original `basic.qos` (consumer prefetch) value of 10 is now full), the remaining 5 messages must wait in the queue (ready messages).
 
-- The consumer now acknowledges 5 messages so now 5 out of the 6 messages waiting above are then sent to the consumer. 
+- The consumer now acknowledges 5 messages so now 5 out of the 6 messages waiting above are then sent to the consumer.
 
 #### Now Add Priorities
 
-- 10 low priority messages are published, they are immediately sent to the consumer (`basic.qos` (consumer prefetch) has now reached it limit, it was set at 10 previously).
+- as in the example above, let's say a consumer conencts with a prefetch of 10
 
-- A top-priority message is published at the same time but the prefetch is exceeded now so the top-priority message needs to wait for the messages with lower priority to be processed first.
+- 10 low priority messages are published and immediately sent to the consumer (`basic.qos` (consumer prefetch) has now reached its limit)
+
+- A top-priority message is published, but the prefetch is exceeded now so the top-priority message needs to wait for the messages with lower priority to be processed first.
 
 
 ## <a id="interaction-with-other-features" class="anchor" href="#interaction-with-other-features">Interaction with Other Features</a>
