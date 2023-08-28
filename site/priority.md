@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Priority Queue Support for Classic Queues
+# Classic Queues have a Priority Feature
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
