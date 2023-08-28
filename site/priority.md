@@ -15,11 +15,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Classic Queues have a Priority Feature
+# Classic Queues Support the Priority Feature
 
-## <a id="overview" class="anchor" href="#overview">Overview</a>
+## <a id="overview" class="anchor" href="#overview">What is a Priority Queue</a>
 
-RabbitMQ supports adding "priorities" to classic queues. Queues with the "priority" feature turned on are commonly referred to as "priority queues".
+RabbitMQ supports adding "priorities" to classic queues. Classic queues with the "priority" feature turned on are commonly referred to as "priority queues".
 Priorities between 1 and 255 are supported, however, **values between 1 and 5 are highly recommended**. It is important to know that higher priority
 values require more CPU and memory resources, since RabbitMQ needs to internally maintain a sub-queue for each priority from 1, up to the maximum value
 configured for a given queue.
