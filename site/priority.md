@@ -27,7 +27,7 @@ configured for a given queue.
 A classic queue can become a priority queue by using client-provided [optional arguments](./queues.html#optional-arguments).
 
 Declaring a classic queue as a priority queue [using policies](#using-policies) is [not supported by design](#using-policies).
-For the reasons why, refer to [Why Policy Definition is not Supported](#using-policies).
+For the reasons why, refer to [Why Policy Definition is not Supported for Priority Queues](#using-policies).
 
 ## <a id="definition" class="anchor" href="#definition">Using Client-provided Optional Arguments</a>
 
@@ -131,7 +131,7 @@ queue to enforce the limit. This means that higher priority
 messages might be dropped to make way for lower priority ones,
 which might not be what you would expect.
 
-## <a id="using-policies" class="anchor" href="#using-policies">Why Policy Definition is not Supported</a>
+## <a id="using-policies" class="anchor" href="#using-policies">Why Policy Definition is not Supported for Priority Queues</a>
 
 The most convenient way to define optional arguments for a queue is using [policies](./parameters.html). Policies are the recommended way to configure [TTL](./ttl.html), [queue length limits](maxlength.html), and
 other [optional queue arguments](queues.html).
