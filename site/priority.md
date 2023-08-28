@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-RabbitMQ supports adding "priorities" to classic queues. Queues with the "priority" feature enabled are commonly referred to as "priority queues".
+RabbitMQ supports adding "priorities" to classic queues. Queues with the "priority" feature turned on are commonly referred to as "priority queues".
 Priorities between 1 and 255 are supported, however, **values between 1 and 5 are highly recommended**. It is important to know that higher priority
 values require more CPU and memory resources, since RabbitMQ needs to internally maintain a sub-queue for each priority from 1, up to the maximum value
 configured for a given queue.
@@ -96,9 +96,9 @@ higher prioritised messages may in practice need to wait for lower priority mess
 ### Example
 - A new consumer connects to an empty classic (non-prioritised) queue with a consumer prefetch (`basic.qos`) of 10.
 
-- A message is published and immedaitely sent to the consumer for processing
+- A message is published and immediately sent to the consumer for processing.
 
-- 5 more messages are then published quickly and sent to the consumer immediately, because, the consumer has only 1 in-flight (unacknowledged) message out of 10 declared as qos (prefetch)
+- 5 more messages are then published quickly and sent to the consumer immediately, because, the consumer has only 1 in-flight (unacknowledged) message out of 10 declared as qos (prefetch).
 
 - Next, 10 more messages are published quickly and sent to the consumer, only 4 out of the 10 messages are sent to the consumer (because the original `basic.qos` (consumer prefetch) value of 10 is now full), the remaining 5 messages must wait in the queue (ready messages).
 
@@ -106,39 +106,35 @@ higher prioritised messages may in practice need to wait for lower priority mess
 
 #### Now Add Priorities
 
-- as in the example above, let's say a consumer conencts with a prefetch of 10
+- As in the example above, a consumer connects with a `basic.qos` (consumer prefetch) value of 10.
 
 - 10 low priority messages are published and immediately sent to the consumer (`basic.qos` (consumer prefetch) has now reached its limit)
 
 - A top-priority message is published, but the prefetch is exceeded now so the top-priority message needs to wait for the messages with lower priority to be processed first.
 
-
 ## <a id="interaction-with-other-features" class="anchor" href="#interaction-with-other-features">Interaction with Other Features</a>
 
-In general priority queues have all the features of standard
+In general, priority queues have all the features of standard
 RabbitMQ queues: they support persistence, paging, mirroring,
 and so on. There are a couple of interactions that developers should be
 aware of.
 
-[Messages which should expire](./ttl.html) will still
+[Messages which should expire](./ttl.html) still
 only expire from the head of the queue. This means that unlike
 with normal queues, even per-queue TTL can lead to expired
 lower-priority messages getting stuck behind non-expired
 higher priority ones. These messages will never be delivered,
 but they will appear in queue statistics.
 
-[Queues which have a max-length set](./maxlength.html) will, as usual, drop messages from the head of the
+[Queues which have a max-length set](./maxlength.html) drop messages as usual from the head of the
 queue to enforce the limit. This means that higher priority
 messages might be dropped to make way for lower priority ones,
 which might not be what you would expect.
 
-
 ## <a id="using-policies" class="anchor" href="#using-policies">Why Policy Definition is not Supported</a>
 
-The most convenient way to define optional arguments for a queue is via [policies](./parameters.html).
-Policies are the recommended way to configure [TTL](./ttl.html), [queue length limits](maxlength.html) and
+The most convenient way to define optional arguments for a queue is using [policies](./parameters.html). Policies are the recommended way to configure [TTL](./ttl.html), [queue length limits](maxlength.html), and
 other [optional queue arguments](queues.html).
 
 However, policies cannot be used to configure priorities because policies are dynamic
-and can be changed after a queue has been declared. Priority queues can never change the number of priorities they
-support after queue declaration, so policies would not be a safe option to use.
+and can be changed after a queue has been declared. Priority queues can never change the number of priorities they support after queue declaration, so policies would not be a safe option to use.
