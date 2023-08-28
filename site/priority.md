@@ -15,18 +15,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Priority Queue Support
+# Priority Queue Support for Classic Queues
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-RabbitMQ provides a priority queue implementation for classic queues.
-Any queue can be turned into a priority one using client-provided [optional arguments](./queues.html#optional-arguments).
-Priority declaration [using policies](#using-policies) is [not supported by design](#using-policies).
+RabbitMQ supports adding "priorities" to classic queues. Priorities between 1 and 255 are supported, however, **values between 1 and 5 are highly recommended**. It is important to know that higher numbers equals higher priorities but as a result, the resource footprint is higher also. Classic queues with "priority" implementation are often known as "priority queues". 
 
-The implementation supports a limited number of priorities: 255.
-Values between 1 and 5 are **highly recommended**: the value has a direct tie to priority queue
-resource footprint.
+A classic queue can become a priority queue by using client-provided [optional arguments](./queues.html#optional-arguments).
 
+Declaring a classic queue as a priority queue [using policies](#using-policies) is [not supported by design](#using-policies). For the reasons why, refer to [Why Policy Definition is not Supported](#using-policies).
 
 ## <a id="definition" class="anchor" href="#definition">Using Client-provided Optional Arguments</a>
 
@@ -42,62 +39,69 @@ args.put("x-max-priority", 10);
 ch.queueDeclare("my-priority-queue", true, false, false, args);
 </pre>
 
-Publishers then can publish prioritised messages using the
+Publishers can then publish prioritised messages using the
 `priority` field of
 `basic.properties`. Larger numbers indicate higher
 priority.
 
-Priority declaration [using policies](#using-policies) is [not supported by design](#using-policies).
+## <a id="behaviour" class="anchor" href="#behaviour">Priority Queue Behaviour</a>
 
-## <a id="behaviour" class="anchor" href="#behaviour">Behaviour</a>
-
-The AMQP 0-9-1 spec is a bit vague about how priorities are expected to work.
-It says that all queues MUST support at least 2 priorities, and MAY
+The AMQP 0-9-1 spec is a little vague about how priorities are expected to work.
+It states that all queues MUST support at least 2 priorities, and MAY
 support up to 10. It does not define how messages without a
 priority property are treated.
 
-In contrast to the AMQP 0-9-1 spec, RabbitMQ queues by default do not
+In contrast to the AMQP 0-9-1 spec, by default, RabbitMQ classic queues do not
 support priorities. When creating priority queues, a maximum priority
-can be chosen as developer sees fit. When choosing the value, a couple
-of things must be taken into account.
+can be chosen as you see fit. When choosing a priority value, the following factors need to be considered:
 
-There is some in-memory and on-disk cost per priority level
+ - There is some in-memory and on-disk cost per priority level
 per queue. There is also an additional CPU cost, especially
 when consuming, so you may not wish to create huge numbers of
 levels.
 
-The message `priority` field is defined as an
+ - The message `priority` field is defined as an
 unsigned byte, so in practice priorities should be between 0
 and 255.
 
-Messages without a `priority` property are treated as
+ - Messages without a `priority` property are treated as
 if their priority were 0. Messages with a priority which is
 higher than the queue's maximum are treated as if they were
 published with the maximum priority.
 
 
-## <a id="resource-usage" class="anchor" href="#resource-usage">Max Number of Priorities and Resource Usage</a>
+## <a id="resource-usage" class="anchor" href="#resource-usage">Maximum Number of Priorities and Resource Usage</a>
 
-If priority queues are desired, we recommend using between 1 and 10.
-Currently using more priorities will consume more CPU resources by using more Erlang processes.
+If priority queues are what you want, this information previously stated **values between 1 and 5 are highly recommended**. If you must go higher than 5, values between 1 and 10 are sufficient (keep it to a single digit number) because currently using more priorities consumes more CPU resources by using more Erlang processes.
 [Runtime scheduling](./runtime.html) would also be affected.
 
-## <a id="interaction-with-consumers" class="anchor" href="#interaction-with-consumers">Interaction with Consumers</a>
+## <a id="interaction-with-consumers" class="anchor" href="#interaction-with-consumers">How Priority Queues Work with Consumers</a>
 
-It's important to understand how consumers work when working
-with priority queues. By default, consumers may be sent a large
-number of messages before they acknowledge any, limited only by
-network backpressure.
-
-So if such a hungry consumer connects to an empty queue to which
+If a consumer connects to an empty priority queue to which
 messages are subsequently published, the messages may not spend
-any time at all waiting in the queue. In this case the priority
-queue will not get any opportunity to prioritise them.
+any time waiting in the priority queue before the consumer accepts these messages (all the messages are accepted immediately). In this scenario, the priority queue does not get any opportunity to prioritise the messages, priority is not needed. 
 
-In most cases you will want to use the `basic.qos`
-method in manual acknowledgement mode on your consumers, to
-limit the number of messages that can be out for delivery at any
-time and thus allow messages to be prioritised.
+However, in most cases, the previous situation is not the norm, therefore you should use the `basic.qos` ([prefetch](./confirms.md#channel-qos-prefetchconsumer-prefetch)) method in manual acknowledgement mode on your consumers to limit the number of messages that can be out for delivery at any time and allow messages to be prioritised. `basic.qos` is a value a consumer sets when connecting to a queue. It indicates how many messages the consumer can handle at one time. 
+
+The following example attempts to explain how consumers work with priority queues in more detail and also to highlight that sometimes when priority queues work with consumers, higher prioritised messages may in practice need to wait for lower priority messages to be processed first.
+
+### Example
+ - A new consumer connects to an empty classic (non-prioritised) queue with a consumer prefetch (`basic.qos`) of 10. 
+
+ - A message is published and sent to the consumer, this messaged is immediately accepted/consumed. 
+
+ - 5 more messages are then published extremely quickly and sent to the consumer immediately, because, the consumer only has 1 message out of 10 previously consumed, it accepts these 5 messages.
+
+- Next, 10 more messages are published quickly and sent to the consumer, only 4 out of the 10 messages are sent to the consumer (because the original `basic.qos` (consumer prefetch) value of 10 is now full), the remaining 5 messages must wait in the queue (ready messages).
+
+- The consumer now acknowledges 5 messages so now 5 out of the 6 messages waiting above are then sent to the consumer. 
+
+#### Now Add Priorities
+
+- 10 low priority messages are published, they are immediately sent to the consumer (`basic.qos` (consumer prefetch) has now reached it limit, it was set at 10 previously).
+
+- A top-priority message is published at the same time but the prefetch is exceeded now so the top-priority message needs to wait for the messages with lower priority to be processed first.
+
 
 ## <a id="interaction-with-other-features" class="anchor" href="#interaction-with-other-features">Interaction with Other Features</a>
 
