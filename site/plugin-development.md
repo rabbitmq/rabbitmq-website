@@ -275,6 +275,6 @@ To run Common Test test suites, use
 
 Finally, you can produce an <code>.ez</code> file, suitable for distribution with:
 
-<pre class="lang-bash">make dist</pre>
+<pre class="lang-bash">DIST_AS_EZS=yes make dist</pre>
 
 The file appears in the <tt>plugins</tt> directory under repository root.
