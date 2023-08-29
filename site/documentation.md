@@ -105,7 +105,7 @@ for the original RabbitMQ protocol.
  * [AMQP 0-9-1 Authentication Mechanisms](authentication.html)
  * [Virtual Hosts](vhosts.html)
  * [Credentials and Passwords](passwords.html)
- * x509 (TLS) [Certificate-based client authentication](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl/tree/v3.12.x)
+ * x509 (TLS) [Certificate-based client authentication](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_mechanism_ssl)
  * [OAuth 2 Support](https://rabbitmq.com/oauth2.html)
  * [OAuth 2 Examples](https://rabbitmq.com/oauth2-examples.html) for common identity providers
  * [LDAP](ldap.html)
