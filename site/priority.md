@@ -55,7 +55,7 @@ It states that all queues MUST support at least 2 priorities, and MAY
 support up to 10. It does not define how messages without a
 priority property are treated.
 
-In contrast to the AMQP 0-9-1 spec, by default, RabbitMQ classic queues do not
+By default, RabbitMQ classic queues do not
 support priorities. When creating priority queues, a maximum priority
 can be chosen as you see fit. When choosing a priority value, the following factors need to be considered:
 
