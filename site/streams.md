@@ -19,13 +19,13 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">What is a Stream</a>
 
-RabbitMQ Streams is a persistent replicated data structure can can complete the same tasks as queues: they buffer messages from producers that are read by consumers.
+RabbitMQ Streams is a persistent replicated data structure that can complete the same tasks as queues: they buffer messages from producers that are read by consumers.
 However, streams differ from queues in two important ways: how messages are stored and consumed.
 
 Streams model an append-only log of messages that can be repeatedly read until they expire.
-Streams are always persistent and replicated. A more technial description of this stream behavior is “non-destructive consumer semantics”.
+Streams are always persistent and replicated. A more technical description of this stream behavior is “non-destructive consumer semantics”.
 
-To read messages from a stream in RabbitMQ, one or more consumers subscribe to it and read the same message as many times as they want.
+To read messages from a stream in RabbitMQ, one or more consumers subscribe to it and read the same messages as many times as they want.
 
 Data in a stream can be used via a RabbitMQ client library or through a
 [dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc) plugin and associated client(s).
@@ -233,7 +233,7 @@ but some have some queue specific behaviour.
  * [Consumer acknowledgements](./confirms.html) (keep [QoS Prefetch Limitations](#global-qos) in mind)
  * Cancellation of consumers
 
-### <a id="single-active-consumer" class="anchor" href="#single-active-consumer">Single Active Consumer Feature for Streams/a>
+### <a id="single-active-consumer" class="anchor" href="#single-active-consumer">Single Active Consumer Feature for Streams</a>
 
 Single active consumer for streams is a feature available in RabbitMQ 3.11 and more.
 It provides _exclusive consumption_ and _consumption continuity_ on a stream.
