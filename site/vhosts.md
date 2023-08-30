@@ -171,6 +171,22 @@ curl -u userename:pa$sw0rD -X GET http://rabbitmq.local:15672/api/vhosts/qa1
 </pre>
 
 
+## <a id="default-queue-type" class="anchor" href="#default-queue-type">Default Queue Type</a>
+
+When a client declares a queue without explicitly specifying its type, a configurable default
+type is used. The default can be overridden by specifying it in virtual host metadata (see above).
+
+Supported queue types are:
+
+ * "quorum"
+ * "stream"
+ * "classic"
+
+The default is only effective for new queue declarations; updating the default will not affect
+queue type of any existing queues or streams because queue type is immutable and cannot
+be changed after declaration.
+
+
 ## <a id="deleting" class="anchor" href="#deleting">Deleting a Virtual Host</a>
 
 A virtual host can be deleted using CLI tools or an [HTTP API](./management.html) endpoint.
