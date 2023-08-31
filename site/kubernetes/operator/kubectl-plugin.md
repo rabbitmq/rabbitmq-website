@@ -12,7 +12,7 @@ The only prerequisites to using the plugin are a working installation of kubectl
 Each plugin command automates many interactions with the kubernetes API and the RabbitMQ cluster operator.
 For a more detailed guide on using the operator and how to deploy Custom Resource objects it manages, see the
 [Using RabbitMQ Cluster Operator](./using-operator.html) page.
----
+
 ## <a id='install' class='anchor' href='#install'>Install the plugin</a>
 
 ### <a id='krew' class='anchor' href='#krew'>Setup Krew</a>
