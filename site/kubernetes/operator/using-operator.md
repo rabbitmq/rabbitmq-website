@@ -1,12 +1,13 @@
-# Using RabbitMQ Cluster Kubernetes Operator
+# Using the RabbitMQ Cluster Kubernetes Operator
 
-## <a id='overview' class='anchor' href='#overview'>Overview</a>
+## <a id='overview' class='anchor' href='#overview'>How to use the RabbitMQ Cluster Kubernetes Operator</a>
 
-This guide covers how to deploy Custom Resource objects that will
-be managed by the [RabbitMQ Cluster Kubernetes Operator](./operator-overview.html).
-If RabbitMQ Cluster Kubernetes Operator is not installed,
-see the [installation guide](./install-operator.html). For instructions on getting started quickly, see the [quickstart guide](./quickstart-operator.html).
-This guide is structured in the following sections:
+Use this information to learn how to deploy custom resource objects that are then managed by the [RabbitMQ Cluster Kubernetes Operator](./operator-overview.html).
+
+If the RabbitMQ Cluster Kubernetes Operator is not installed at this point,
+refer to [installing the RabbitMQ Cluster Operator in a Kubernetes Cluster](./install-operator.html) now. For instructions on getting started quickly, refer to the [quickstart](./quickstart-operator.html) information.
+
+This following information is structured into these sections:
 
 * [Confirm Service Availability](#service-availability)
 * [Apply Pod Security Policies](#psp)
@@ -26,7 +27,7 @@ This guide is structured in the following sections:
 * [Pause Reconciliation for a RabbitMQ Instance](#pause)
 * [Configure Log Level for the Operator](#operator-log)
 
-Additional information about using the operator on Openshift can be found at
+Additional information about using the RabbitMQ Cluster Kubernetes Operator on Openshift can be found at
 [Using the RabbitMQ Kubernetes Operators on Openshift](using-on-openshift.html).
 
 ## <a id='service-availability' class='anchor' href='#service-availability'>Confirm Service Availability</a>
