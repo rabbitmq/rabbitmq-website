@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues
+# Migrate your &product-name; Mirrored Classic Queues to Quorum Queues
 
 Which is better: mirrored classic queues or quorum queues? Quorum Queues are the much better choice and they will be [the only option starting with RabbitMQ version 4.0](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/). This information explains why, the reasons why you should migrate from mirrored classic queues to quorum queues, the ways to handle features during the migration, and includes procedures for some of the migration routes you can take.
 
