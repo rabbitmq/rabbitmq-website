@@ -550,6 +550,52 @@ Runtime's memory allocator behavior can be tuned, please refer to
 documentation.
 
 
+## <a id="page-cache" class="anchor" href="#page-cache">Kernel Page Cache</a>
+
+Besides the memory allocated and used directly by a RabbitMQ node, files read by that node
+can be cached by the operating system. This cache improves I/O operation efficiency and is
+evicted (cleared) when the OS detects that a high percentage of available memory is in used.
+
+Workloads that use [RabbitMQ streams](./streams.html) often lead to large kernel page cache size,
+in particular when consumers access messages that span days or weeks.
+
+Some monitoring tools do not include the size of page cache into process monitoring metrics. Others
+add it to the residential set size (RSS)
+footprint of the process. This can lead to confusion: the **page cache is not maintained or controlled
+by RabbitMQ nodes. It is maintained, controlled and evicted (cleared) by the operating system kernel**.
+
+This is particularly [common in Kubernetes-based deployments](https://github.com/kubernetes/kubernetes/issues/43916).
+
+### What Does a Large Page Cache Size Tell Us About a Workload?
+
+Usually a large page cache size simply indicates that the workload is I/O heavy and likely uses streams
+with large data sets. It does not indicate a memory leak by the node: the cache will be cleared
+by the kernel when it detects that the system runs low on available memory.
+
+### Inspecting Page Cache without Containerization (in Virtual or Physical Machines)
+
+In non-containerized environments (e.g. RabbitMQ nodes run in virtual machines or on bare metal hardware),
+use
+
+<pre class="lang-bash">
+cat /proc/meminfo | grep -we "Cached"
+</pre>
+
+to inspect the size of the kernel page cache.
+
+### Inspecting Page Cache Size in Containerized Environments
+
+In containerized environments such as Kubernetes, the following two `/sys` pseudo filesystem
+paths can be used to inspect both RSS and page cache footprint:
+
+<pre class="lang-bash">
+cat /sys/fs/cgroup/memory/memory.stat
+cat /sys/fs/cgroup/memory/memory.usage_in_bytes
+</pre>
+
+The two key metrics are named `rss` (for resident set size) and `cache` (for page cache).
+
+
 ## <a id="memory-breakdown-and-monitoring" class="anchor" href="#memory-breakdown-and-monitoring">Memory Use Monitoring</a>
 
 It is recommended that production systems monitor memory usage of all cluster nodes,

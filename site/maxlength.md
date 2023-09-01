@@ -19,20 +19,17 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-The maximum length of a [queue](queues.html) can be limited to a set number of
-messages, or a set number of bytes (the total of all message
-body lengths, ignoring message properties and any overheads), or
-both.
+You can set a maximum length on a [queue](queues.html). The maximum length limit can be set to a number of
+messages, or set to a number of bytes (the total of all message body lengths, ignoring message properties and any overheads), or both.
 
-For any given queue, the maximum length (of either type) can be
-defined using a [policy](./parameters.html#policies) (this option is highly recommended)
+To set the maximum length (of either type), you can
+define it using a [policy](./parameters.html#policies) (this option is highly recommended)
 or by clients using the [queue's optional arguments](./queues.html#optional-arguments).
-In the case where both the effective queue policy and arguments specify a maximum length,
-the minimum of the two values will be used.
+In a scenario where the maximum length is defined using both ways, that is, using a policy and using the arguments, then the minimum of the two values specified is used.
 
-Queue length settings also can be enforced by [operator policies](./parameters.html#operator-policies).
+Queue length settings configured using [operator policies](./parameters.html#operator-policies).
 
-In all cases the number of messages in the **ready** state is used; [messages unacknowledged by consumers](./confirms.html)
+In all cases, the number of messages in the **ready** state are used. [Messages unacknowledged by consumers](./confirms.html)
 do not count towards the limit.
 
 The number of **ready** messages and their footprint in bytes can be observed
@@ -199,7 +196,7 @@ rabbitmqctl list_policies --formatter=pretty_table --silent
 # => └───────┴─────────┴────────────┴──────────┴───────────────────┴──────────┘
 </pre>
 
-### Using Management UI
+### Using the Management UI
 
 Both optional queue arguments and effective policy for a queue can be seen on the Queues tab or individual queue page:
 

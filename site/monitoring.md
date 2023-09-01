@@ -767,68 +767,19 @@ The checks verify that one node has started and the deployment process can proce
 If the check does not pass, the deployment of the node is considered to be incomplete and the deployment process
 will typically wait and retry for a period of time. One popular example of such environment is Kubernetes
 where an operator-defined [readiness probe](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
-can prevent a deployment from proceeding when the [`OrderedReady` pod management policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees) is used.
+can prevent a deployment from proceeding when the [`OrderedReady` pod management policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees)
+is used (which is not recommended to use with RabbitMQ!) or when a rolling restart is performed.
 
 Given the [peer syncing behavior during node restarts](./clustering.html#restarting-schema-sync), such a health check can prevent a cluster-wide restart
 from completing in time. Checks that explicitly or implicitly assume a fully booted node that's rejoined
 its cluster peers will fail and block further node deployments.
 
-Most health check, even relatively basic ones, implicitly assume that the node has
-finished booting. They are not suitable for nodes that are [awaiting schema table sync](./clustering.html#restarting-schema-sync) from a peer.
+Moreover, most CLI commands (such as `rabbitmq-diagnistics`) has a performance impact because the CLI joins the [Erlang
+distribution](https://www.erlang.org/doc/reference_manual/distributed.html) (the same mechanism used for clustering RabbitMQ nodes).
+Joining and leaving this cluster on every probe execution has unnecessary overhead.
 
-One very common example of such check is
-
-<pre class="lang-bash">
-# will exit with an error for the nodes that are currently waiting for
-# a peer to sync schema tables from
-rabbitmq-diagnostics check_running
-</pre>
-
-One health check that does not expect a node to be fully booted and have schema tables synced is
-
-<pre class="lang-bash">
-# a very basic check that will succeed for the nodes that are currently waiting for
-# a peer to sync schema from
-rabbitmq-diagnostics ping
-</pre>
-
-This basic check would allow the deployment to proceed and the nodes to eventually rejoin each other,
-assuming they are [compatible](./upgrade.html).
-
-#### Optional Check 1
-
-This check verifies that an expected set of plugins is enabled. It is orthogonal to
-the primary checks.
-
-[`rabbitmq-plugins list --enabled`](./rabbitmq-plugins.8.html#list) is the command that lists enabled plugins
-on a node:
-
-<pre class="lang-bash">
-rabbitmq-plugins -q list --enabled --minimal
-# =&gt; Configured: E = explicitly enabled; e = implicitly enabled
-# =&gt; | Status: * = running on rabbit@mercurio
-# =&gt; |/
-# =&gt; [E*] rabbitmq_auth_mechanism_ssl       3.8.0
-# =&gt; [E*] rabbitmq_consistent_hash_exchange 3.8.0
-# =&gt; [E*] rabbitmq_management               3.8.0
-# =&gt; [E*] rabbitmq_management_agent         3.8.0
-# =&gt; [E*] rabbitmq_shovel                   3.8.0
-# =&gt; [E*] rabbitmq_shovel_management        3.8.0
-# =&gt; [E*] rabbitmq_top                      3.8.0
-# =&gt; [E*] rabbitmq_tracing                  3.8.0
-</pre>
-
-A health check that verifies that a specific plugin, [`rabbitmq_shovel`](shovel.html)
-is enabled and running:
-
-<pre class="lang-bash">
-rabbitmq-plugins -q is_enabled rabbitmq_shovel
-# if the check succeeded, exit code will be 0
-</pre>
-
-The probability of false positives is generally low but rises
-in environments where environment variables that can affect [rabbitmq-plugins](./cli.html)
-are overridden.
+[RabbitMQ Kubernetes Operator](kubernetes/operator/operator-overview.html) configures a TCP port check on the AMQP port
+as the `readinessProbe` and defines no `livenessProbe` at all. This should be considered the best practice.
 
 ## <a id="clusters" class="anchor" href="#clusters">Monitoring of Clusters</a>
 

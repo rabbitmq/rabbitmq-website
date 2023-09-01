@@ -539,18 +539,19 @@ will be refused eventually. The period of time depends on the
 Authentication and authorisation are pluggable. Plugins can provide implementations
 of
 
- * authentication ("authn") backends
- * authorisation ("authz") backends
+ * authentication ("authn") backends: they determine client identity and decide whether the client should be allowed to connect
+ * authorisation ("authz") backends: they determine whether an identified (authenticated) client is authorized to perform a certain operation
 
-It is possible for a plugin to provide both.
+It is possible and common for a plugin to provide both backends.
+
 For example the internal, [LDAP](ldap.html)
 and [HTTP](https://github.com/rabbitmq/rabbitmq-auth-backend-http)
 backends do so.
 
-Some plugins, for example, the <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">Source IP range one</a>,
+Some plugins, for example, the [Source IP range one](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range),
 only provide an authorisation backend. Authentication is supposed to be handled by the internal database, LDAP, etc.
 
-A special [cache backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.9.x/deps/rabbitmq_auth_backend_cache)
+A special [cache backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_backend_cache)
 can be used in [combination](#combined-backends) with other backends to significantly
 reduce the load they generate on external services, such as LDAP or HTTP servers.
 

@@ -15,20 +15,27 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Time-To-Live and Expiration
+# Time-To-Live and Expiration 
 
-## <a id="overview" class="anchor" href="#overview">Overview</a>
+## <a id="overview" class="anchor" href="#overview">Time-To-Live Feature</a>
 
-RabbitMQ allows you to set TTL (time to live) for both messages and queues. Expired
-messages and queues will be deleted: the specifics will be covered in more detail
-later in this guide.
+With product-name;, you can set a TTL (time-to-live) argument or policy for messages and queues. As the name suggests, TTL specifies the time period that the messages and queues "live for". 
 
-TTL behavior is controlled by [optional queue arguments](queues.html) and best done using a [policy](./parameters.html).
+Message TTL determines how long messages can be retained in a queue. If the retention period of a message in a queue exceeds the message TTL of the queue, the message expires and is discarded.
 
-Message TTL can be applied to a single queue, a group of
-queues or applied on the message-by-message basis.
+"Discarded" means that the message will not be delivered to any of subscribed consumers and won't be accessible through `basic.get` method applied directly on queue. Message TTL can be applied to a single queue, a group of queues, or applied on the message-by-message basis.
+
+TTL can also be set on queues, not just queue contents. This feature can be used together with the auto-delete queue property. Setting TTL (expiration) on queues generally only makes sense for transient (non-durable) classic queues. Streams do not support expiration.
+
+Queues will expire after a period of time only when they are not used (a queue is used if it has online consumers).
+
+Expired messages and queues will be deleted.
+
+TTL behavior is controlled by [optional queue arguments](queues.html) and the best way to configure it is using a [policy](./parameters.html).
 
 TTL settings also can be enforced by [operator policies](./parameters.html#operator-policies).
+
+The follow on information in this topic describes how to define message TTL for queues, per-message TTL in publishers, the caveats, and how to define queue TTL. 
 
 ## <a id="per-queue-message-ttl" class="anchor" href="#per-queue-message-ttl">Per-Queue Message TTL in Queues</a>
 
