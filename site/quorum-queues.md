@@ -172,6 +172,11 @@ The `drop-head` and `reject-publish` overflow behaviours are supported but they
 do not support `reject-publish-dlx` configurations as Quorum queues take a different
 implementation approach than classic queues.
 
+The current implementation of `reject-publish` overflow behaviour does not strictly
+enforce the limit and allows a quorum queue to overshoot its limit by at least
+one message, therefore it should be taken with care in scenarios where a precise
+limit is required.
+
 When a quorum queue reaches the max-length limit and `reject-publish` is configured
 it notifies each publishing channel who from thereon will reject all messages back to
 the client. This means that quorum queues may overshoot their limit by some small number
