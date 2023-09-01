@@ -10,14 +10,13 @@ To find out more about using the RabbitMQ Cluster operator and how to deploy Cus
 Ensure you have the following tools installed: 
 
 * [Krew](https://krew.sigs.k8s.io/docs/user-guide/setup/install/) is the plugin manager for kubectl command-line tool. 
+* [kubectl](https://kubernetes.io/docs/tasks/tools/)
 
 After installing `krew`, verify the installation:
 
 <pre class="lang-bash">
 kubectl krew
 </pre>
-
-* [kubectl](https://kubernetes.io/docs/tasks/tools/) 
 
 ### <a id='install' class='anchor' href='#install'>Install the Cluster Operator Plugin for kubectl</a>
 
