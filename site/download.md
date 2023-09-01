@@ -110,7 +110,7 @@ Other guides related to Kubernetes:
 
 ## Release Signing Key
 
- * [Release Signing Key](https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc) <code>0x6B73A36E6026DFCA</code> (on GitHub)
+ * [Release Signing Key](https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc) <code>0x6B73A36E6026DFCA</code> (on GitHub)
  * [How to Verify Release Artifact Signatures](./signatures.html)
  * [Release Signing Key](./rabbitmq-release-signing-key.asc) (alternative download location on rabbitmq.com)
 

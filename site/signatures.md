@@ -30,7 +30,7 @@ also verify repository signatures.
 ## <a id="signing-keys" class="anchor" href="#signing-keys">Signing Keys</a>
 
 RabbitMQ release artifacts, both binary and source,
-are signed using [GnuPG](http://www.gnupg.org/) and [our release signing key](https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc).
+are signed using [GnuPG](http://www.gnupg.org/) and [our release signing key](https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc).
 
 Services that distribute packages can do signing on behalf of the publisher. [Package Cloud](#package-cloud) is one such
 service used by RabbitMQ. Users who provision packages from Package Cloud must import the Package Cloud-provided signing keys
@@ -41,7 +41,7 @@ instead of those used by the RabbitMQ team.
 
 ### <a id="importing-gpg" class="anchor" href="#importing-gpg">With GPG</a>
 
-Before signatures can be verified, RabbitMQ [signing key](https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc)
+Before signatures can be verified, RabbitMQ [signing key](https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc)
 must be downloaded. The key can be obtained directly or using [keys.openpgp.org](https://keys.openpgp.org/).
 The direct download method is recommended because most key servers are prone to overload, abuse and attacks.
 
@@ -51,7 +51,7 @@ The key is distributed via [GitHub](https://github.com/rabbitmq/signing-keys/rel
 [rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
 
 <pre class="lang-bash">
-curl -L https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc --output rabbitmq-release-signing-key.asc
+curl -L https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc --output rabbitmq-release-signing-key.asc
 gpg --import rabbitmq-release-signing-key.asc
 </pre>
 
@@ -90,7 +90,7 @@ Main RabbitMQ signing key is distributed via [GitHub](https://github.com/rabbitm
 [rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
 
 <pre class="lang-bash">
-curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc | sudo gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
+curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc | sudo gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
 </pre>
 
 #### Using a Key Server
@@ -125,7 +125,7 @@ The key is distributed via [GitHub](https://github.com/rabbitmq/signing-keys/rel
 [rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
 
 <pre class="lang-bash">
-rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
+rpm --import https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc
 </pre>
 
 ## <a id="checking-signatures" class="anchor" href="#checking-signatures">Verifying Signatures</a>
@@ -185,7 +185,7 @@ To import the key:
 
 <pre class="lang-bash">
 # import the Cloudsmith key
-curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key -o cloudsmith-rabbitmq-key.asc
+curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key -o cloudsmith-rabbitmq-key.asc
 gpg --import cloudsmith-rabbitmq-key.asc
 </pre>
 
