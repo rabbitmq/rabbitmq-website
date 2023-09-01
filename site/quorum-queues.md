@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-The product-name; quorum queue is a modern queue type, which implements a durable,
+The RabbitMQ quorum queue is a modern queue type, which implements a durable,
 replicated FIFO queue based on the [Raft consensus algorithm](https://raft.github.io/).
 
 Quorum queues are designed to be safer and provide simpler, well defined failure handling semantics that users should find easier to reason about when designing and operating their systems.
