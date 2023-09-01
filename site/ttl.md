@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Time-To-Live Feature</a>
 
-With product-name;, you can set a TTL (time-to-live) argument or policy for messages and queues. As the name suggests, TTL specifies the time period that the messages and queues "live for". 
+With RabbitMQ, you can set a TTL (time-to-live) argument or policy for messages and queues. As the name suggests, TTL specifies the time period that the messages and queues "live for". 
 
 Message TTL determines how long messages can be retained in a queue. If the retention period of a message in a queue exceeds the message TTL of the queue, the message expires and is discarded.
 
