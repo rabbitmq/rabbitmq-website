@@ -1,4 +1,4 @@
-# Using the RabbitMQ Cluster Kubernetes Operator
+# Using the &product-name; Cluster Kubernetes Operator
 
 ## <a id='overview' class='anchor' href='#overview'>How to use the RabbitMQ Cluster Kubernetes Operator</a>
 
