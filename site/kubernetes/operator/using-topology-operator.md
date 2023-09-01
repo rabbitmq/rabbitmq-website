@@ -1,11 +1,12 @@
-# Using RabbitMQ Messaging Topology Kubernetes Operator
+# Using the &product-name; Messaging Topology Kubernetes Operator
 
-## <a id='overview' class='anchor' href='#overview'>Overview</a>
+Use this information to learn how to deploy Custom Resource objects that will be managed by the Messaging Topology Operator.
 
-This guide covers how to deploy Custom Resource objects that will be managed by the Messaging Topology Operator.
-If RabbitMQ Messaging Topology Operator is not installed, see the [quickstart guide](https://github.com/rabbitmq/messaging-topology-operator/#quickstart).
+## <a id='overview' class='anchor' href='#overview'>How to Use the RabbitMQ Message Topology Operator</a>
 
-This guide has the following sections:
+If RabbitMQ Messaging Topology Operator is not installed, see the [quickstart information](https://github.com/rabbitmq/messaging-topology-operator/#quickstart) to deploy it.
+
+This information includes the following sections:
 
 * [Cluster Operator Requirements](#requirements)
 * [Scope across multiple namespaces](#namespace-scope)
@@ -30,14 +31,14 @@ This guide has the following sections:
   [Using the RabbitMQ Kubernetes Operators on Openshift](./using-on-openshift.html).
 </p>
 
-## <a id='requirements' class='anchor' href='#requirements'> Cluster Operator Requirements</a>
+## <a id='requirements' class='anchor' href='#requirements'> RabbitMQ Cluster Operator Requirements</a>
 
 * Messaging Topology Operator can be used with RabbitMQ clusters deployed using the Kubernetes [Cluster Operator](https://github.com/rabbitmq/cluster-operator).
 The minimal version required for Cluster Operator is `1.7.0`.
 * Messaging Topology Operator custom resources can only be created in the same namespace as the RabbitMQ cluster is deployed. For a RabbitmqCluster deployed in namespace
 "my-test-namespace", all Messaging Topology custom resources for this RabbitMQ cluster, such as `queues.rabbitmq.com` and `users.rabbitmq.com`, can only be created in namespace "my-test-namespace".
 
-## <a id='namespace-scope' class='anchor' href='#namespace-scope'>Scope across multiple namespaces</a>
+## <a id='namespace-scope' class='anchor' href='#namespace-scope'>Scope Across Multiple Namespaces</a>
 
 Messaging Topology Operator can reconcile its objects in *any* namespace. However, by default, it will limit its interactions to `RabbitmqCluster` objects within
 same namespace as the topology object, for example `Queue`. In other words, Messaging Topology Operator will reconcile a `Queue` object, in namespace `default`,
@@ -79,18 +80,18 @@ spec:
     namespace: rabbitmq-service
 </pre>
 
-### <a id='namespace-scope-note' class='anchor' href='#namespace-scope-note'>A note about forbidden cross-namespace objects</a>
+### <a id='namespace-scope-note' class='anchor' href='#namespace-scope-note'>Important Information about Forbidden Cross-Namespace Objects</a>
 
-If topology objects, for example `Queue`, target a `RabbitmqCluster`, and such `RabbitmqCluster` does not allow requests from the topology object's
-namespace, a [status condition](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) will be created with an error message,
-and the object **will not be reconciled**, until it is updated.
+If topology objects, for example `Queue`, target a `RabbitmqCluster`, and such `RabbitmqCluster` do not allow requests from the topology object's
+namespace, a [status condition](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) is created with an error message,
+and the object **is not reconciled**, until it is updated.
 
 For example, `RabbitmqCluster` in namespace `ns1` allows topologies from `my-app`, and topology object `Queue` in namespace `not-allowed` targets said
 `RabbitmqCluster`, Messaging Topology Operator will log an error message, update a status condition in the `Queue` object, and give up reconciling the
 `Queue` object. If the `RabbitmqCluster` object is updated to allow topology objects from namespace `not-allowed`, the `Queue` object **must be manually
 updated** to trigger a reconciliation; for example, by adding a label to the `Queue` object.
 
-## <a id='non-operator' class='anchor' href='#non-operator'>Non Operator managed RabbitMQ</a>
+## <a id='non-operator' class='anchor' href='#non-operator'>Non Operator Managed RabbitMQ</a>
 
 * For any RabbitMQ that's not deployed by [Cluster Operator](https://github.com/rabbitmq/cluster-operator), a connection secret can be provided to create RabbitMQ topology objects.
 * This feature is released since Messaging Topology Operator `1.4.0`.
@@ -382,7 +383,7 @@ for: "test-queue.yaml": admission webhook "vqueue.kb.io" denied the request: Que
 
 Properties that cannot be updated is documented in the [Messaging Topology Operator API docs](https://github.com/rabbitmq/messaging-topology-operator/blob/main/docs/api/rabbitmq.com.ref.asciidoc).
 
-## <a id='delete' class='anchor' href='#delete'>Delete a resource</a>
+## <a id='delete' class='anchor' href='#delete'>Delete a Resource</a>
 
 Deleting custom resources will delete the corresponding resources in the RabbitMQ cluster. Messaging Topology Operator sets kubernetes
 [finalizers](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#finalizers) on all custom
@@ -432,7 +433,7 @@ spec:
 
 Other available command line flags for the zap logger can be found documented in [controller runtime](https://github.com/kubernetes-sigs/controller-runtime/blob/v0.10.2/pkg/log/zap/zap.go#L240-L246).
 
-### <a id='sync-period' class='anchor' href='#sync-period'>Time based reconciliation</a>
+### <a id='sync-period' class='anchor' href='#sync-period'>Time Based Reconciliation</a>
 
 By default, Messaging Topology Operator reconciles topology objects when there are create/update/delete events for that particular custom resource.
 From version `1.6.0`, you can configure the Operator to perform reconciliation for all topology objects in a specific frequency by setting an environment variable in the Operator deployment:
