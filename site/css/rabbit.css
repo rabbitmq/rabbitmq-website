@@ -944,7 +944,7 @@ body#index #getstarted,
 
 /* Homepage hero: Summit 2 */
 
-#hero #hero-summit {
+/* #hero #hero-summit {
   background: url(../img/home/banner/home-banner-summit-promo-desktop.svg) no-repeat center center;
   padding: 70px 0 40px;
 }
@@ -978,7 +978,7 @@ body#index #getstarted,
   #hero #hero-summit #date {
     display: none;
   }
-}
+} */
 
 /* Homepage hero: Webinar */
 
