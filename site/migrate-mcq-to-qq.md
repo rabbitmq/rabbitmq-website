@@ -15,7 +15,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-
 # Migrate your &product-name; Mirrored Classic Queues to Quorum Queues
 
 Which is better: mirrored classic queues or quorum queues? [Quorum queues](./quorum-queues.html) are the much better choice and they will be [the only option starting with RabbitMQ version 4.0](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/).
