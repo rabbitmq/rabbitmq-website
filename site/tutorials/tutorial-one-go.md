@@ -38,6 +38,21 @@ on behalf of the consumer.
   <img src="../img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60"/>
 </div>
 
+> #### Keep in mind
+> This tutorial assumes the reader has basic Go and UNIX command line knowledge.
+
+Let's start by creating the home of our project, our starting point `main.go` and starting the module:
+<pre class="lang-bash">
+  $ mkdir tutorial-one-go && cd $_
+  $ go mod init
+  $ touch main.go
+</pre>
+
+We will need two more folders for this, so let's create them as well!
+<pre class="lang-bash">
+  $ mkdir {receive, send}
+</pre>
+
 > #### The Go RabbitMQ client library
 >
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
@@ -52,7 +67,7 @@ on behalf of the consumer.
 > go get github.com/rabbitmq/amqp091-go
 > </pre>
 
-Now we have amqp installed, we can write some
+Now that we have everything ready, we can write some
 code.
 
 ### Sending
@@ -63,14 +78,14 @@ code.
 
 We'll call our message publisher (sender) `send.go` and our message consumer (receiver)
 `receive.go`.  The publisher will connect to RabbitMQ, send a single message,
-then exit.
+then exit. Remember to create each file in their respective folder of the same name!
 
 In
-[`send.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/send.go),
+[send/`send.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/send.go),
 we need to import the library first:
 
 <pre class="lang-go">
-package main
+package send
 
 import (
   "context"
@@ -92,7 +107,7 @@ func failOnError(err error, msg string) {
 }
 </pre>
 
-then connect to RabbitMQ server
+Then, inside a new function `Send()`, we will connect to the RabbitMQ server:
 
 <pre class="lang-go">
 conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
@@ -146,8 +161,6 @@ Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
 whatever you like there.
 
-[Here's the whole send.go script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/send.go).
-
 > #### Sending doesn't work!
 >
 > If this is your first time using RabbitMQ and you don't see the "Sent"
@@ -170,10 +183,10 @@ keep the consumer running to listen for messages and print them out.
   <img src="../img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`receive.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/receive.go)) has the same import and helper function as `send`:
+The code (in [receive/`receive.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/receive.go)) has the same import and helper function as `send`:
 
 <pre class="lang-go">
-package main
+package receive
 
 import (
   "log"
@@ -244,20 +257,43 @@ log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
 &lt;-forever
 </pre>
 
-[Here's the whole receive.go script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/receive.go).
-
 ### Putting it all together
 
-Now we can run both scripts. In a terminal, run the publisher:
+Now we're almost ready to go! Remember, Go projects have a starting point and that is the `main()` function on our `main.go` file we created a bit earlier. Let's set it up first.
+
+We will need the help of the `os` package for this one, as it provides us with a bunch of helpful ways to interact with the operational system (and vice-versa).
+<pre class="lang-go">
+package main
+
+import (
+	"os"
+
+	// your send and receive packages should be imported here
+)
+
+func main() {
+	arg1 := os.Args[1]
+
+	if arg1 == "send" {
+		send.Send()
+	}
+
+	if arg1 == "receive" {
+		receive.Receive()
+	}
+}
+</pre>
+
+And now we can send a message with:
 
 <pre class="lang-bash">
-go run send.go
+go run main.go send
 </pre>
 
 then, run the consumer:
 
 <pre class="lang-bash">
-go run receive.go
+go run main.go receive
 </pre>
 
 The consumer will print the message it gets from the publisher via
