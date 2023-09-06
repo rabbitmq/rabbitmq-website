@@ -630,7 +630,10 @@ Several factors can limit how many concurrent connections a single node can supp
 Most operating systems limit the number of file handles that
 can be opened at the same time. When an OS process (such as RabbitMQ's Erlang VM) reaches
 the limit, it won't be able to open any new files or accept any more
-TCP connections.
+TCP connections. The limit will also affect how much memory the [Erlang runtime](./runtime.html)
+will allocate upfront. This means that the limit on some modern distributions
+[can be too high](https://blog.rabbitmq.com/posts/2022/08/high-initial-memory-consumption-of-rabbitmq-nodes-on-centos-stream-9/) and need
+lowering.
 
 How the limit is configured [varies from OS to OS](https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/performance/open-files-limit.md) and distribution to distribution, e.g. depending on whether systemd is used.
 For Linux, Controlling System Limits on Linux
