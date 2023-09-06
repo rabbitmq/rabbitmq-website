@@ -125,8 +125,7 @@ exchange with the `foo` routing key. If the queue
 the message originally landed on is declared with
 `x-dead-letter-routing-key` set to
 `bar`, then the message is published to
-its dead letter exchange with the bar` routing key
-`.
+its dead letter exchange with the `bar` routing key.
 
 Note, if a specific routing key was not set for the
 queue, messages on it are dead-lettered with <em>all</em>
