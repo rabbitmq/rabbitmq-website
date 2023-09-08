@@ -165,6 +165,6 @@ RabbitMQ provides Grafana dashboards to visualize the metrics scraped by Prometh
 
 Follow the instructions in the [Grafana Configuration](../../prometheus.html#grafana-configuration) information to import dashboards to Grafana.
 
-Alternatively, if Grafana is deployed by the [Grafana Helm chart](https://github.com/grafana/helm-charts/tree/main/charts/grafana), `kubectl apply` the `ConfigMaps` in the [grafana/dashboards](https://github.com/rabbitmq/cluster-operator/tree/main/observability/grafana/dashboards] directory to import the RabbitMQ Grafana dashboards [using a sidecar container](https://github.com/grafana/helm-charts/tree/main/charts/grafana#sidecar-for-dashboards).
+Alternatively, if Grafana is deployed by the [Grafana Helm chart](https://github.com/grafana/helm-charts/tree/main/charts/grafana), `kubectl apply` the `ConfigMaps` in the [grafana/dashboards](https://github.com/rabbitmq/cluster-operator/tree/main/observability/grafana/dashboards) directory to import the RabbitMQ Grafana dashboards [using a sidecar container](https://github.com/grafana/helm-charts/tree/main/charts/grafana#sidecar-for-dashboards).
 
 The [RabbitMQ-Alerts dashboard](https://github.com/rabbitmq/cluster-operator/blob/main/observability/grafana/dashboards/rabbitmq-alerts.yml) provides a history of all past RabbitMQ alerts across all RabbitMQ clusters in Kubernetes.
