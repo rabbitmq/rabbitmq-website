@@ -87,6 +87,7 @@ It is also possible to list and enable feature flags from the
  * If nodes A and B are clustered and "*Juicer machine*" was enabled
    while node B was stopped, node B cannot re-join the cluster on restart.
 
+
 ## <a id="version-compatibility" class="anchor" href="#version-compatibility">Feature Flags and RabbitMQ Versions</a>
 
 As covered earlier, the feature flags subsystem's primary goal is to
@@ -125,6 +126,7 @@ for the following reasons:
    minor releases to allow for a transition period.
 
 The deprecation/removal policy of feature flags is yet to be defined.
+
 
 ## <a id="how-to-list-feature-flags" class="anchor" href="#how-to-list-feature-flags">How to List Supported Feature Flags</a>
 
@@ -179,6 +181,7 @@ a list of columns to display. The available columns are:
  * `doc_url`: the URL to a webpage to learn more about the feature flag.
  * `stability`: indicates if the feature flag is *stable* or
    *experimental*.
+
 
 ## <a id="how-to-enable-feature-flags" class="anchor" href="#how-to-enable-feature-flags">How to Enable Feature Flags</a>
 
@@ -507,17 +510,16 @@ The feature flags subsystem covers inter-node communication only. This
 means the following scenarios are not covered and may not work as
 initially expected.
 
-##### Using `rabbitmqctl` on a remote node
+#### Using `rabbitmqctl` on a remote node
 
 Controlling a remote node with `rabbitmqctl` is only supported if the
-remote node is running the same version of RabbitMQ than `rabbitmqctl`
-comes from.
+remote node is running the same version of RabbitMQ as`rabbitmqctl`.
 
 If [CLI tools](./cli.html) from a different minor/major version of RabbitMQ is
 used on a remote node, they may fail to work as expected or even have unexpected
 side effects on the node.
 
-##### Load-balancing Requests to the HTTP API
+#### Load-balancing Requests to the HTTP API
 
 If a request sent to the HTTP API exposed by the [Management
 plugin](./management.html) goes through a load balancer, including one
@@ -709,18 +711,18 @@ To run a testsuite in the context of a mixed-version cluster:
 
  1. Clone the `rabbitmq-public-umbrella` repository and checkout the
     appropriate branch or tag. This will be the **secondary Umbrella**.
-    In this example, the `v3.7.x` branch is used:
+    In this example, the `v3.11.x` branch is used:
 
     <pre class="lang-bash">
-    git clone https://github.com/rabbitmq/rabbitmq-public-umbrella.git secondary-umbrella
+    git clone https://github.com/rabbitmq/rabbitmq-server.git secondary-umbrella
     cd secondary-umbrella
-    git checkout v3.7.x
+    git checkout v3.11.x
     make co
     </pre>
 
     <p class="box-info">
-    Currently, when using the `v3.7.x` branch, `deps/rabbit_common` and
-    `deps/rabbit` must use the `v3.7.x-versions-compatibility` branch.
+    Currently, when using the `v3.11.x` branch, `deps/rabbit_common` and
+    `deps/rabbit` must use the `v3.11.x-versions-compatibility` branch.
     </p>
 
  2. Compile RabbitMQ or the plugin being tested in the secondary
