@@ -36,6 +36,37 @@ limitations under the License.
     -->
 
     <doc:item>
+      <doc:date iso="2023-09-1214:00:00+00:00">12 September 2023</doc:date>
+      <doc:title>RabbitMQ 3.11.23 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.23</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.11.23,
+          a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.11.x/">RabbitMQ 3.11.x</a> series.
+        </p>
+        <p>
+          This is a maintenance release that contains bug fixes.
+          Release notes can be found <a href="./changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 25.x</a>
+          and supports Erlang versions through <a href="https://www.erlang.org/blog/my-otp-25-highlights/">the latest Erlang 25.3</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="/install-debian.html">Debian</a> and <a href="/install-rpm.html">dnf (yum) repositories</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a>
+          <a href="https://rabbitmq.com/discord/">RabbitMQ Discord server</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2023-08-24T14:00:00+00:00">24 August 2023</doc:date>
       <doc:title>RabbitMQ 3.12.4 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.4</doc:link>
@@ -63,8 +94,8 @@ limitations under the License.
         <p>
           As always, we welcome any questions, bug reports, and other feedback
           on this release, as well as general suggestions for features and
-          enhancements in future releases. Contact us via <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a>,
-          <a href="https://rabbitmq.com/discord/">RabbitMQ Discord server</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
+          enhancements in future releases. Contact us via <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a>
+          <a href="https://rabbitmq.com/discord/">RabbitMQ Discord server</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -94,8 +125,8 @@ limitations under the License.
         <p>
           As always, we welcome any questions, bug reports, and other feedback
           on this release, as well as general suggestions for features and
-          enhancements in future releases. Contact us via <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a>,
-          <a href="https://rabbitmq.com/discord/">RabbitMQ Discord server</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
+          enhancements in future releases. Contact us via <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a>
+          <a href="https://rabbitmq.com/discord/">RabbitMQ Discord server</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -128,8 +159,8 @@ limitations under the License.
         <p>
           As always, we welcome any questions, bug reports, and other feedback
           on this release, as well as general suggestions for features and
-          enhancements in future releases. Contact us via <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a>,
-          <a href="https://rabbitmq.com/discord/">RabbitMQ Discord server</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
+          enhancements in future releases. Contact us via <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a>
+          <a href="https://rabbitmq.com/discord/">RabbitMQ Discord server</a>.
         </p>
       </doc:text>
     </doc:item>
@@ -159,8 +190,8 @@ limitations under the License.
         <p>
           As always, we welcome any questions, bug reports, and other feedback
           on this release, as well as general suggestions for features and
-          enhancements in future releases. Contact us via <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a>,
-          <a href="https://rabbitmq.com/discord/">RabbitMQ Discord server</a> or <a href="https://rabbitmq.com/slack/">RabbitMQ community Slack</a>.
+          enhancements in future releases. Contact us via <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a>
+          <a href="https://rabbitmq.com/discord/">RabbitMQ Discord server</a>.
         </p>
       </doc:text>
     </doc:item>
