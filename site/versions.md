@@ -49,7 +49,7 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
 
   <tr>
     <td>3.11</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.22" target="_blank" rel="noopener noreferrer">3.11.22</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.23" target="_blank" rel="noopener noreferrer">3.11.23</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.0" target="_blank" rel="noopener noreferrer">28 September 2022</a></td>
     <td>31 December, 2023</td>
     <td>31 July, 2024</td>
@@ -78,6 +78,7 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
     <td>19 months</td>
   </tr>
 </table>
+
 
 ## <a id="terminology" class="anchor" href="#terminology">Definition of Community and Extended Commercial Support</a>
 
