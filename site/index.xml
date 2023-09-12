@@ -172,7 +172,7 @@ limitations under the License.
                 <p>
                   All network traffic exchanged by nodes in a deployment is compressed by default.
                   For JSON message payloads, bandwidth usage is reduced by 16x.
-                  <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1.4/rmq/GUID-clustering-compression-rabbitmq.html">Learn more</a>
+                  <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/clustering-compression-rabbitmq.html">Learn more</a>
                 </p>
               </div>
             </div>
@@ -183,7 +183,7 @@ limitations under the License.
                 <p>
                   VMware RabbitMQ supports continuous schema definition and message replication to a remote cluster,
                   which makes it easy to run a standby cluster for disaster recovery.
-                  <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1.4/rmq/GUID-standby-replication.html">Learn more</a>
+                  <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html">Learn more</a>
                 </p>
               </div>
             </div>

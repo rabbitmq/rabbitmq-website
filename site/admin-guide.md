@@ -128,7 +128,7 @@ see <a href="./documentation.html">All Documentation Guides</a>.
 
  * [Clustering](clustering.html)
  * [Cluster Formation and Peer Discovery](cluster-formation.html)
- * [Intra-cluster Compression](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1.4/rmq/GUID-clustering-compression-rabbitmq.html)
+ * [Intra-cluster Compression](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html)
 
 ### Replicated Queue Types, Streams, High Availability
 

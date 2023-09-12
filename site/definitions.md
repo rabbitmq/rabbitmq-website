@@ -31,7 +31,7 @@ Every node in a cluster has its own replica of all definitions. When a part of d
 the update is performed on all nodes in a single transaction. This means that
 in practice, definitions can be exported from any cluster node with the same result.
 
-[VMware RabbitMQ](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/index.html) supports [Warm Standby Replication](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1.4/rmq/GUID-standby-replication.html) to a remote cluster,
+[VMware RabbitMQ](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/index.html) supports [Warm Standby Replication](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html) to a remote cluster,
 which makes it easy to run a warm standby cluster for disaster recovery.
 
 Definition import on node boot is the recommended way of [pre-configuring nodes at deployment time](#import-on-boot).

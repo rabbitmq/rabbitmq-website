@@ -70,7 +70,7 @@ such as
  * [Heartbeats](#heartbeats) (a.k.a. keepalives)
  * [proxies and load balancers](#intermediaries)
 
-[VMware RabbitMQ](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/index.html) provides an [Intra-cluster Compression](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1.4/rmq/GUID-clustering-compression-rabbitmq.html) feature.
+[VMware RabbitMQ](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/index.html) provides an [Intra-cluster Compression](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html) feature.
 
 A methodology for [troubleshooting of networking-related issues](./troubleshooting-networking.html)
 is covered in a separate guide.
