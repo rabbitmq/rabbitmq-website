@@ -68,8 +68,8 @@ RabbitMQ and related plugins produce events with the following routing keys:
 
 Queue, Exchange and Binding events:
 
-- `queue.deleted`
 - `queue.created`
+- `queue.deleted`
 - `exchange.created`
 - `exchange.deleted`
 - `binding.created`
