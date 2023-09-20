@@ -123,6 +123,10 @@ The default version can be set through configuration by setting
 classic_queue.default_version = 2
 </pre>
 
+The queue version can also be set by supplying the `x-queue-version`
+queue declaration argument with an integer specifying the desired
+version.
+
 ## <a id="cq-v1" class="anchor" href="#cq-v1">How Classic Queue v1 Persistence Overview</a>
 
 First, some background: both persistent and transient messages

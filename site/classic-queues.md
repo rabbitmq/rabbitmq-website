@@ -171,6 +171,10 @@ The default version can be set through configuration by setting
 only affects newly declared queues. Pre-existing queues will remain on version 1,
 until explicitly migrated or deleted and redeclared.
 
+The queue version can also be set by supplying the `x-queue-version`
+queue declaration argument with an integer specifying the desired
+version.
+
 ## <a id="resource-use" class="anchor" href="#resource-use">Resource Use with Classic Queues</a>
 
 Classic queues aim to provide reasonably good throughput in the majority
