@@ -26,7 +26,7 @@ limitations under the License.
       <a href="news.atom"><img src="./img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" />Subscribe to this atom feed</a>
     </p>
     <p>
-      Also keep an eye on the <a href="changelog.html">change log</a> and <a href="http://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
+      Also keep an eye on the <a href="changelog.html">change log</a> and <a href="https://rabbitmq.com/discord">RabbitMQ community Discord server</a>.
     </p>
     <doc:feed>
     <!-- Please give news items a doc:date/@iso.  It is used in the
