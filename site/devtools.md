@@ -92,6 +92,7 @@ Miscellaneous projects:
    [API reference](https://aio-pika.readthedocs.org/))
  * [aioamqp](https://pypi.org/project/aioamqp/), a pure-Python AMQP 0-9-1 library using asyncio ([source code](https://github.com/Polyconseil/aioamqp),
    [docs](https://aioamqp.readthedocs.io/en/latest/))
+ * [FastStream](https://pypi.org/project/faststream/), a powerful and easy-to-use Python library for building asynchronous services that interact with event streams. ([source code](https://github.com/airtai/faststream), [docs](https://faststream.airt.ai))
 
 Miscellaneous projects:
 
