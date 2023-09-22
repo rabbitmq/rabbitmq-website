@@ -112,6 +112,5 @@ maintained by the RabbitMQ team.
 
 (2) Includes only security patches. The library reaches end of life (EOL) once the extended support period ends.
 
-(3) Long-Term Support (LTS) releases of the JDK are fully supported (currently JDK 8, 11, and 17). Intermediate releases
-(e.g. 19 and 20) are supported on a best-effort basis, meaning bug reports are accepted and addressed as far as technically
-possible but without any service level guarantees.
+(3) Long-Term Support (LTS) releases of the JDK are fully supported (currently JDK 8, 11, 17, and 21).
+Intermediate releases (e.g. 20 and 22) are supported on a best-effort basis, meaning bug reports are accepted and addressed as far as technically possible but without any service level guarantees.
