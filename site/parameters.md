@@ -496,7 +496,7 @@ try to not override user-provided policies where possible.
         <td> </td>
         <td>
             <ul>
-                <li>lower value</li>
+                <li>lesser value</li>
             </ul>
         </td>
         <td> </td>
@@ -505,12 +505,12 @@ try to not override user-provided policies where possible.
         <th>expires</th>
         <td>
             <ul>
-                <li>lower value</li>
+                <li>lesser value</li>
             </ul>
         </td>
         <td>
             <ul>
-                <li>lower value between policies</li>
+                <li>lesser value of the two policies</li>
                 <li>policy precedence over queue arguments</li>
             </ul>
         </td>
@@ -534,7 +534,7 @@ try to not override user-provided policies where possible.
         <th>ha-params</th>
         <td>
           <ul>
-            <li>higher value when both values are integers</li>
+            <li>greater value when both values are integers</li>
             <li>integer value when only one value is an integer</li>
             <li>longer list when both values are a list of nodes</li>
             <li>operator policy value when both values are an equal length list of nodes</li>
@@ -558,7 +558,7 @@ try to not override user-provided policies where possible.
         <td> </td>
         <td>
             <ul>
-                <li>lower value</li>
+                <li>lesser value</li>
             </ul>
         </td>
         <td> </td>
@@ -568,7 +568,7 @@ try to not override user-provided policies where possible.
         <td> </td>
         <td>
             <ul>
-                <li>lower value</li>
+                <li>lesser value</li>
             </ul>
         </td>
         <td> </td>
@@ -577,12 +577,12 @@ try to not override user-provided policies where possible.
         <th>max-length</th>
         <td>
             <ul>
-                <li>lower value</li>
+                <li>lesser value</li>
             </ul>
         </td>
         <td>
             <ul>
-                <li>lower value</li>
+                <li>lesser value</li>
             </ul>
         </td>
         <td> </td>
@@ -591,17 +591,17 @@ try to not override user-provided policies where possible.
         <th>max-length-bytes</th>
         <td>
             <ul>
-                <li>lower value</li>
+                <li>lesser value</li>
             </ul>
         </td>
         <td>
             <ul>
-                <li>lower value</li>
+                <li>lesser value</li>
             </ul>
         </td>
         <td>
             <ul>
-                <li>lower value between policies</li>
+                <li>lesser value of the two policies</li>
                 <li>policy precedence over queue arguments</li>
             </ul>
         </td>
@@ -610,12 +610,12 @@ try to not override user-provided policies where possible.
         <th>message-ttl</th>
         <td>
             <ul>
-                <li>lower value</li>
+                <li>lesser value</li>
             </ul>
         </td>
         <td>
             <ul>
-                <li>lower value</li>
+                <li>lesser value</li>
             </ul>
         </td>
         <td> </td>
@@ -625,7 +625,7 @@ try to not override user-provided policies where possible.
         <td> </td>
         <td>
             <ul>
-                <li>higher value</li>
+                <li>greater value</li>
             </ul>
         </td>
         <td> </td>
