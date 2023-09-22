@@ -397,13 +397,80 @@ Because operator policies can unexpectedly change queue
 attributes and, in turn, application assumptions and
 semantics, they are limited only to a few arguments:
 
- * expires
- * message-ttl
- * max-length
- * max-length-bytes
- * ha-mode
- * ha-params
- * ha-sync-mode
+<table>
+  <thead>
+    <td></td>
+    <td><strong>Classic</strong></td>
+    <td><strong>Quorum</strong></td>
+    <td><strong>Stream</strong></td>
+  </thead>
+  <tr>
+    <th>delivery-limit</th>
+    <td> </td>
+    <td> <span>&#10003;</span> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <th>expires</th>
+    <td> <span>&#10003;</span> </td>
+    <td> <span>&#10003;</span> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <th>ha-mode</th>
+    <td> <span>&#10003;</span> </td>
+    <td> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <th>ha-params</th>
+    <td> <span>&#10003;</span> </td>
+    <td> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <th>ha-sync-mode</th>
+    <td> <span>&#10003;</span> </td>
+    <td> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <th>max-in-memory-bytes</th>
+    <td> </td>
+    <td> <span>&#10003;</span> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <th>max-in-memory-length</th>
+    <td> </td>
+    <td> <span>&#10003;</span> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <th>max-length</th>
+    <td> <span>&#10003;</span> </td>
+    <td> <span>&#10003;</span> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <th>max-length-bytes</th>
+    <td> <span>&#10003;</span> </td>
+    <td> <span>&#10003;</span> </td>
+    <td> <span>&#10003;</span> </td>
+  </tr>
+  <tr>
+    <th>message-ttl</th>
+    <td> <span>&#10003;</span> </td>
+    <td> <span>&#10003;</span> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <th>target-group-size</th>
+    <td> </td>
+    <td> <span>&#10003;</span> </td>
+    <td> </td>
+  </tr>
+</table>
 
 ### <a id="operator-policy-conflicts" class="anchor" href="#operator-policy-conflicts">Conflict Resolution with Regular Policies</a>
 
@@ -418,37 +485,36 @@ just overwrite regular policy values. They enforce limits but
 try to not override user-provided policies where possible.
 
 <table>
+    <thead>
+        <td></td>
+        <td><strong>Classic</strong></td>
+        <td><strong>Quorum</strong></td>
+        <td><strong>Stream</strong></td>
+    </thead>
+    <tr>
+        <th>delivery-limit</th>
+        <td> </td>
+        <td>
+            <ul>
+                <li>lesser value</li>
+            </ul>
+        </td>
+        <td> </td>
+    </tr>
     <tr>
         <th>expires</th>
         <td>
             <ul>
-                <li>lower value</li>
+                <li>lesser value</li>
             </ul>
         </td>
-    </tr>
-    <tr>
-        <th>message-ttl</th>
         <td>
             <ul>
-                <li>lower value</li>
+                <li>lesser value of the two policies</li>
+                <li>policy precedence over queue arguments</li>
             </ul>
         </td>
-    </tr>
-    <tr>
-        <th>max-length</th>
-        <td>
-            <ul>
-                <li>lower value</li>
-            </ul>
-        </td>
-    </tr>
-    <tr>
-        <th>max-length-bytes</th>
-        <td>
-            <ul>
-                <li>lower value</li>
-            </ul>
-        </td>
+        <td> </td>
     </tr>
     <tr>
         <th>ha-mode</th>
@@ -461,17 +527,21 @@ try to not override user-provided policies where possible.
             <li>nodes</li>
           </ol>
         </td>
+        <td> </td>
+        <td> </td>
     </tr>
     <tr>
         <th>ha-params</th>
         <td>
           <ul>
-            <li>higher value when both values are integers</li>
+            <li>greater value when both values are integers</li>
             <li>integer value when only one value is an integer</li>
             <li>longer list when both values are a list of nodes</li>
             <li>operator policy value when both values are an equal length list of nodes</li>
           </ul>
         </td>
+        <td> </td>
+        <td> </td>
     </tr>
     <tr>
         <th>ha-sync-mode</th>
@@ -480,6 +550,85 @@ try to not override user-provided policies where possible.
                 <li>operator policy value</li>
             </ul>
         </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <th>max-in-memory-bytes</th>
+        <td> </td>
+        <td>
+            <ul>
+                <li>lesser value</li>
+            </ul>
+        </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <th>max-in-memory-length</th>
+        <td> </td>
+        <td>
+            <ul>
+                <li>lesser value</li>
+            </ul>
+        </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <th>max-length</th>
+        <td>
+            <ul>
+                <li>lesser value</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>lesser value</li>
+            </ul>
+        </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <th>max-length-bytes</th>
+        <td>
+            <ul>
+                <li>lesser value</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>lesser value</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>lesser value of the two policies</li>
+                <li>policy precedence over queue arguments</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <th>message-ttl</th>
+        <td>
+            <ul>
+                <li>lesser value</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>lesser value</li>
+            </ul>
+        </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <th>target-group-size</th>
+        <td> </td>
+        <td>
+            <ul>
+                <li>greater value</li>
+            </ul>
+        </td>
+        <td> </td>
     </tr>
 </table>
 
