@@ -43,6 +43,19 @@ released separately.
   <!-- releases -->
 
   <tr>
+    <td class="centre">3.12.6</td>
+    <td class="centre">September 22 2023</td>
+    <td>
+      <ul>
+        <li>Important dependency update</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.6">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.12.5</td>
     <td class="centre">September 20 2023</td>
     <td>
