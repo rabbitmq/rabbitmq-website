@@ -32,6 +32,7 @@ The steps recommended in this guide are:
  * Verify [effective configuration](#verify-config)
  * Verify that the node [listens for TLS connections](#verify-listeners)
  * Verify [file permissions](#verify-file-permissions)
+ * Verify [file format](#verify-file-format) used by the certificate and private key files
  * Verify [TLS support in Erlang/OTP](#verify-tls-support-in-erlang)
  * Verify certificate/key pairs and test with alternative TLS client or server [using OpenSSL command line tools](#openssl-tools)
  * Verify available and configured [cipher suites](#verify-cipher-suites) and certificate key usage options
@@ -109,6 +110,14 @@ differs between Erlang/OTP versions).
 
 When [new style configuration format](./configure.html#config-file-formats) is used to configure certificate and private
 key paths, the node will check if the files exist on boot and refuse to start if that's not the case.
+
+## <a id="verify-file-format" class="anchor" href="#verify-file-format">Check Certificate, Private Key and CA Bundle File Format</a>
+
+RabbitMQ nodes require that all certificate, private key and CA certificate bundle files be
+in the [PEM format](https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail). Other formats will not be accepted.
+
+Files in other formats can be [converted to PEM files](https://aboutssl.org/convert-certificate-to-pem-crt-to-pem-crt-to-pem-der-to-pem/)
+using OpenSSL CLI tools.
 
 ## <a id="verify-tls-support-in-erlang" class="anchor" href="#verify-tls-support-in-erlang">Check TLS Support in Erlang</a>
 
