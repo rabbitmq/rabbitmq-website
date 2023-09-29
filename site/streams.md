@@ -519,6 +519,7 @@ will most likely need operator involvement to be recovered.
 ## <a id="configuration" class="anchor" href="#configuration">Configuring Streams</a>
 
 For stream protocol port, TLS and other configuration, see the [Stream plugin guide](stream.html).
+For required stream replication ports see the [Networking guide](networking.html#ports).
 
 
 ## <a id="resource-use" class="anchor" href="#resource-use">How Streams Use Resources</a>
