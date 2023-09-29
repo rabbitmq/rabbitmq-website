@@ -168,7 +168,7 @@ Make sure the following ports are accessible:
  * 4369: [epmd](http://erlang.org/doc/man/epmd.html), a peer discovery service used by RabbitMQ nodes and CLI tools
  * 5672, 5671: used by AMQP 0-9-1 and AMQP 1.0 clients without and with TLS
  * 5552, 5551: used by the [RabbitMQ Stream protocol](streams.html) clients without and with TLS
- * 6000 through 6500: used by [RabbitMQ Stream](stream.html) replication
+ * 6000 through 6500: used for [stream](streams.html) replication
  * 25672: used for inter-node and CLI tools communication (Erlang distribution server port)
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
