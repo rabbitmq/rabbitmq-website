@@ -15,7 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+
 # .NET/C# Client API Guide
+
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
@@ -112,6 +114,7 @@ discover in the library implementation. Applications cannot rely on
 any classes, interfaces, member variables etc. that appear within
 private namespaces remaining stable across releases of the library.
 
+
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
 This client does not support unsigned 64-bit integers, represented in
@@ -158,6 +161,7 @@ factory.Uri = new Uri("amqp://user:pass@hostName:port/vhost");
 IConnection conn = factory.CreateConnection();
 </pre>
 
+
 ### <a id="endpoints-list" class="anchor" href="#endpoints-list">Using Lists of Endpoints</a>
 
 It is possible to specify a list of endpoints to use when connecting. The first
@@ -179,6 +183,7 @@ var endpoints = new System.Collections.Generic.List&lt;AmqpTcpEndpoint&gt; {
 };
 IConnection conn = factory.CreateConnection(endpoints);
 </pre>
+
 
 ### <a id="connecting-uri" class="anchor" href="#connecting-uri"></a>
 
@@ -360,6 +365,7 @@ defaults as necessary, giving full control where needed.
 
 This "short version, long version" pattern is used throughout the API.
 
+
 ### <a id="passive-declaration" class="anchor" href="#passive-declaration">Passive Declaration</a>
 
 Queues and exchanges can be declared "passively". A passive declare simply checks that the entity
@@ -385,6 +391,7 @@ response.ConsumerCount;
 `IModel#ExchangeDeclarePassive`'s return value contains no useful information. Therefore
 if the method returns and no channel exceptions occurs, it means that the exchange does exist.
 
+
 ### <a id="nowait-methods" class="anchor" href="#nowait-methods">Operations with Optional Responses</a>
 
 Some common operations also have a "no wait" version which won't wait for server
@@ -397,6 +404,7 @@ The "no wait" versions are more efficient but offer lower safety guarantees, e.g
 are more dependent on the [heartbeat mechanism](./heartbeats.html) for detection of failed operations.
 When in doubt, start with the standard version. The "no wait" versions are only needed in scenarios
 with high topology (queue, binding) churn.
+
 
 ### <a id="deleting-entities" class="anchor" href="#deleting-entities">Deleting Entities and Purging Messages</a>
 
@@ -528,6 +536,7 @@ When calling the API methods, you always refer to consumers by their
 consumer tags, which can be either client- or server-generated as
 explained in the [AMQP 0-9-1 specification](./specification.html) document.
 
+
 ## <a id="consuming-memory-safety" class="anchor" href="#consuming-memory-safety">Consumer Memory Safety Requirements</a>
 
 As of [version 6.0](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/main/CHANGELOG.md) of
@@ -540,6 +549,7 @@ accessed by applications.
 **Important**: consumer interface implementations **must deserialize or copy delivery payload before delivery handler method returns**.
 Retaining a reference to the payload is not safe: the memory allocated for it can be deallocated at any moment
 after the handler returns.
+
 
 ## <a id="consuming-async" class="anchor" href="#consuming-async">Async Consumer Implementations</a>
 
@@ -576,6 +586,7 @@ string consumerTag = channel.BasicConsume(queueName, false, consumer);
 // ensure we get a delivery
 bool waitRes = latch.WaitOne(2000);
 </pre>
+
 
 ## <a id="basic-get" class="anchor" href="#basic-get">Fetching Individual Messages (Polling or "pull API")</a>
 
@@ -617,6 +628,7 @@ The above example uses [manual acknowledgements](./confirms.html) (`autoAck = fa
 
 There is a number of concurrency-related topics for a library user to consider.
 
+
 ### <a id="concurrency-channel-sharing" class="anchor" href="#concurrency-channel-sharing">Sharing Channels Between Threads</a>
 
 `IModel` instance usage by more than
@@ -654,6 +666,7 @@ Consumers that can be multi-threaded or use a thread pool internally, including 
 consumers, must use mutual exclusion of [acknowledgements](./confirms.html) operations
 on a shared channel.
 
+
 ### <a id="concurrency-thread-usage" class="anchor" href="#concurrency-thread-usage">Per-Connection Thread Use</a>
 
 Each `IConnection` instance is, in the current implementation,
@@ -686,6 +699,7 @@ library. Such callbacks include:
 * the `BasicReturn` event on `IModel`
 * any of the various shutdown events on `IConnection`, `IModel` etc.
 
+
 ### <a id="consumer-callbacks-and-ordering" class="anchor" href="#consumer-callbacks-and-ordering">Consumer Callbacks and Ordering</a>
 
 As of version `3.5.0` application callback handlers <strong>can</strong> invoke blocking
@@ -694,6 +708,7 @@ However, per-channel operation order is preserved. In other words, if messages A
 in this order on the same channel, they will be processed in this order. If messages A and B
 were delivered on different channels, they can be processed in any order (or in parallel).
 Consumer callbacks are invoked in tasks dispatched a [TaskScheduler](https://msdn.microsoft.com/en-us/library/dd997402%28v=vs.110%29.aspx).
+
 
 ## <a id="basic-return" class="anchor" href="#basic-return">Handling Unroutable Messages</a>
 
@@ -717,6 +732,7 @@ publishes a message with the "mandatory" flag set to an exchange of
 
 
 ## <a id="recovery" class="anchor" href="#recovery">Automatic Recovery From Network Failures</a>
+
 
 ### <a id="connection-recovery" class="anchor" href="#connection-recovery">Connection Recovery</a>
 
@@ -761,6 +777,7 @@ ConnectionFactory factory = new ConnectionFactory();
 factory.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
 </pre>
 
+
 ### <a id="recovery-triggers" class="anchor" href="#recovery-triggers">When Will Connection Recovery Be Triggered?</a>
 
 Automatic connection recovery, if enabled, will be triggered by the following events:
@@ -796,12 +813,14 @@ Channel-level exceptions will not trigger any kind of recovery as they usually
 indicate a semantic issue in the application (e.g. an attempt to consume from a
 non-existent queue).
 
+
 ### <a id="publishers" class="anchor" href="#publishers">Effects on Publishing</a>
 
 Messages that are published using <code>IModel.BasicPublish</code> when connection is down
 will be lost. The client does not enqueue them for delivery after connection has recovered.
 To ensure that published messages reach RabbitMQ applications need to use [Publisher Confirms](confirms.html)
 and account for connection failures.
+
 
 ### <a id="topology-recovery" class="anchor" href="#topology-recovery">Topology Recovery</a>
 
@@ -815,6 +834,7 @@ IConnection conn = factory.CreateConnection();
 factory.AutomaticRecoveryEnabled = true;
 factory.TopologyRecoveryEnabled  = false;
 </pre>
+
 
 ### <a id="automatic-recovery-limitations" class="anchor" href="#automatic-recovery-limitations">Failure Detection and Recovery Limitations</a>
 
@@ -857,6 +877,7 @@ Closed channels won't be recovered even after connection recovery kicks in.
 This includes both explicitly closed channels and the channel-level exception
 case above.
 
+
 ### <a id="basic-ack-and-recovery" class="anchor" href="#basic-ack-and-recovery">Manual Acknowledgements and Automatic Recovery</a>
 
 When manual acknowledgements are used, it is possible that
@@ -876,72 +897,79 @@ Acknowledgements with stale delivery tags will not be
 sent. Applications that use manual acknowledgements and automatic
 recovery must be capable of handling redeliveries.
 
+
 ## <a id="oauth2-support" class="anchor" href="#oauth2-support">OAuth 2 Support</a>
 
 The client can authenticate against an OAuth 2 server like [UAA](https://github.com/cloudfoundry/uaa).
 The [OAuth 2 plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_oauth2)
-must be turned on on the server side and configured to use the same OAuth 2 server as the client.
+must be turned on on the server side and configured to use the same OAuth 2
+server as the client.
+
 
 ### <a id="oauth2-getting-token" class="anchor" href="#oauth2-getting-token">Getting the OAuth 2 Token</a>
 
-The .Net client provides the `OAuth2ClientCredentialsProvider`
-class to get a JWT token using the [OAuth 2 Client Credentials flow](https://tools.ietf.org/html/rfc6749#section-4.4).
-The client sends the access token in the password field when opening a connection.
-The broker then verifies the access token signature, validity, and permissions
-before authorising the connection and granting access to the requested
-virtual host.
+The .Net client provides the `OAuth2ClientCredentialsProvider` class to get a
+JWT token using the [OAuth 2 Client Credentials flow](https://tools.ietf.org/html/rfc6749#section-4.4).
+The client sends the access token in the password field when opening a
+connection. The broker then verifies the access token signature, validity, and
+permissions before authorising the connection and granting access to the
+requested virtual host.
 
 <pre class="lang-csharp">
-using RabbitMQ.Client.Impl.OAuth2;
+using RabbitMQ.Client.OAuth2;
 
-...
-
-ICredentialsProvider credentialsProvider = new OAuth2ClientCredentialsProvider("prod-uaa-1",
-    new OAuth2Client("client_id", "client_secret", new Uri("http://somedomain.com/token")));
+var tokenEndpointUri = new Uri("http://somedomain.com/token");
+var oAuth2Client = new OAuth2ClientBuilder("client_id", "client_secret", tokenEndpointUri).Build();
+ICredentialsProvider credentialProvider = new OAuth2ClientCredentialsProvider("prod-uaa-1", oAuth2Client);
 
 var connectionFactory = new ConnectionFactory {
         CredentialsProvider = credentialsProvider
 };            
 var connection = connectionFactory.CreateConnection();
-
 </pre>
 
 In production, ensure you use HTTPS for the token endpoint URI and configure
 a `HttpClientHandler` appropriately for the `HttpClient` :
 
 <pre class="lang-csharp">
-...
 HttpClientHandler httpClientHandler = buildHttpClientHandlerWithTLSEnabled();
 
-ICredentialsProvider credentialsProvider = new OAuth2ClientCredentialsProvider("prod-uaa-1",
-    new OAuth2Client("client_id", "client_secret", new Uri("http://somedomain.com/token"),
-     OAuth2ClientCredentialsProvider.EMPTY, httpClientHandler));
+var tokenEndpointUri = new Uri("https://somedomain.com/token");
+
+var oAuth2ClientBuilder = new OAuth2ClientBuilder("client_id", "client_secret", tokenEndpointUri)
+oAuth2ClientBuilder.SetHttpClientHandler(httpClientHandler);
+var oAuth2Client = oAuth2ClientBuilder.Build();
+
+ICredentialsProvider credentialsProvider = new OAuth2ClientCredentialsProvider("prod-uaa-1", oAuth2Client);
+
+var connectionFactory = new ConnectionFactory {
+        CredentialsProvider = credentialsProvider
+};            
+var connection = connectionFactory.CreateConnection();
 </pre>
 
-Note: In case your Authorization server requires extra request parameters beyond what the specification
-requires, you can add `<key, value>` pairs to a `Dictionary` and passing it to the
-`OAuth2ClientCredentialsProvider` constructor rather than an `EMPTY` one as shown above.
+Note: In case your Authorization server requires extra request parameters
+beyond what the specification requires, you can add `<key, value>` pairs to a
+`Dictionary` and passing it to the `OAuth2ClientCredentialsProvider`
+constructor rather than an `EMPTY` one as shown above.
 
 
 ### <a id="oauth2-refreshing-token" class="anchor" href="#oauth2-refreshing-token">Refreshing the Token</a>
 
-When tokens expire, the broker refuses further operations over the connection. It is possible to call
-`ICredentialsProvider#Refresh()` before expiring and send the new
-token to the server. This is not convenient for applications so, the .Net client provides
-help with the `TimerBasedCredentialRefresher`. This utility
-schedules a timer for every token received. When the timer expires, it reports the
-connection which in turn calls `ICredentialsProvider#Refresh()`.
+When tokens expire, the broker refuses further operations over the connection.
+It is possible to call `ICredentialsProvider#Refresh()` before expiring and
+send the new token to the server. This is not convenient for applications so,
+the .Net client provides help with the `TimerBasedCredentialRefresher`. This
+utility schedules a timer for every token received. When the timer expires, it
+raises an event in which the connection calls `ICredentialsProvider#Refresh()`.
 
 The following snippet shows how to create a `TimerBasedCredentialRefresher`
 instance and set it up on the `ConnectionFactory`:
 
 <pre class="lang-csharp">
-using RabbitMQ.Client.Impl.OAuth2;
-
+using RabbitMQ.Client.OAuth2;
 ...
 
-ICredentialsProvider credentialsProvider = new OAuth2ClientCredentialsProvider("prod-uaa-1",
-    new OAuth2Client("client_id", "client_secret", new Uri("http://somedomain.com/token")));
 ICredentialsRefresher credentialsRefresher = new TimerBasedCredentialRefresher();
 
 var connectionFactory = new ConnectionFactory {
@@ -951,6 +979,6 @@ var connectionFactory = new ConnectionFactory {
 var connection = connectionFactory.CreateConnection();
 </pre>
 
-The `TimerBasedCredentialRefresher` schedules a refresh after 2/3
-of the token validity time. For example, if the token expires in 60 minutes,
-it is refreshed after 40 minutes.
+The `TimerBasedCredentialRefresher` schedules a refresh after 2/3 of the token
+validity time. For example, if the token expires in 60 minutes, it is refreshed
+after 40 minutes.
