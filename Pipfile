@@ -8,6 +8,7 @@ lxml = "*"
 markdown = "*"
 
 [dev-packages]
+black = "*"
 
 [scripts]
 preview = 'python driver.py'

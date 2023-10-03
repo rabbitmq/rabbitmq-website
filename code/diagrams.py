@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-HELP="""
+HELP = """
 The Magical Diagram Pre-Processing Script
 
 Usage %(name)s <src file> [png dir] [temporary dir]
@@ -41,7 +41,8 @@ import sys
 import re
 
 
-regexp = re.compile('''
+regexp = re.compile(
+    """
 <div\s*class="diagram"\s*>
 \s*
 <img\s*src="(?P<src>[^"]*)"\s*height="(?P<height>[0-9]*)"\s*/>
@@ -53,41 +54,51 @@ regexp = re.compile('''
 </div>
 \s*
 </div>
-''', re.MULTILINE | re.DOTALL | re.VERBOSE)
+""",
+    re.MULTILINE | re.DOTALL | re.VERBOSE,
+)
+
 
 def extract(data):
     return [m.groupdict() for m in regexp.finditer(data)]
 
+
 def main(src_file, img_dir, tmp_dir):
-    diagrams = extract(file(src_file, 'r').read())
+    diagrams = extract(file(src_file, "r").read())
 
     for diagram in diagrams:
-        png_filename = os.path.split(diagram['src'])[1]
+        png_filename = os.path.split(diagram["src"])[1]
         png = os.path.join(img_dir, png_filename)
-        dot = os.path.join(tmp_dir, png_filename + '.dot')
+        dot = os.path.join(tmp_dir, png_filename + ".dot")
 
         data = "# height %s\n%s" % (
-            diagram['height'],
-            diagram['dot'].replace('&gt;', '>').replace('&lt;', '<')
-            )
+            diagram["height"],
+            diagram["dot"].replace("&gt;", ">").replace("&lt;", "<"),
+        )
 
         if os.path.exists(dot) and os.path.exists(png):
-            if hashlib.md5(file(dot, 'r').read()).hexdigest() == \
-                    hashlib.md5(data).hexdigest():
-               continue
+            if (
+                hashlib.md5(file(dot, "r").read()).hexdigest()
+                == hashlib.md5(data).hexdigest()
+            ):
+                continue
 
-        if os.path.exists(png): os.remove(png)
-        file(dot, 'w').write(data)
+        if os.path.exists(png):
+            os.remove(png)
+        file(dot, "w").write(data)
 
-        cmd = '''dot -Gsize="10,%.3f" -Tpng -o%s %s''' % (
-            int(diagram['height'])/96.0, png, dot)
-        print cmd
+        cmd = """dot -Gsize="10,%.3f" -Tpng -o%s %s""" % (
+            int(diagram["height"]) / 96.0,
+            png,
+            dot,
+        )
+        print(cmd)
         os.system(cmd)
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print HELP % {'name':sys.argv[0]}
+        print(HELP % {"name": sys.argv[0]})
         sys.exit()
     src_file = sys.argv[1]
     img_dir = sys.argv[2] if len(sys.argv) > 2 else "site/img/tutorials"
