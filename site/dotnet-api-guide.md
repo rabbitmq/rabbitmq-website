@@ -903,8 +903,7 @@ recovery must be capable of handling redeliveries.
 The client can authenticate against an OAuth 2 server like [UAA](https://github.com/cloudfoundry/uaa).
 The [OAuth 2 plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_oauth2)
 must be turned on on the server side and configured to use the same OAuth 2
-server as the client.
-
+server as the client. This section assumes that the [most recent major version of the OAuth2 client library](https://www.nuget.org/packages/RabbitMQ.Client.OAuth2) is used.
 
 ### <a id="oauth2-getting-token" class="anchor" href="#oauth2-getting-token">Getting the OAuth 2 Token</a>
 
