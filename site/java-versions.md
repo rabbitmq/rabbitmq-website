@@ -79,6 +79,13 @@ maintained by the RabbitMQ team.
   </tr>
 
   <tr>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-stream-perf-test" target="_blank" rel="noopener noreferrer">Stream PerfTest</a> 0.x</td>
+    <td>Currently supported</td>
+    <td></td>
+    <td>11, 17, 21</td>
+  </tr>
+
+  <tr>
     <td><a href="https://github.com/rabbitmq/hop" target="_blank" rel="noopener noreferrer">Hop</a> 5.x</td>
     <td>Currently supported</td>
     <td></td>
