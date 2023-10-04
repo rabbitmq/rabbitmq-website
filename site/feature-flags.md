@@ -17,29 +17,30 @@ to determine if they are compatible and then communicate together,
 despite having different versions and thus potentially having different
 feature sets or implementation details.
 
-This subsystem was introduced in RabbitMQ 3.8.0 to allow **[rolling
-upgrades](./upgrade.html#rolling-upgrades) of cluster members without
-shutting down the entire cluster**.
+This subsystem was introduced in to allow for **[rolling upgrades](./upgrade.html#rolling-upgrades)
+of cluster members without shutting down the entire cluster**.
 
 <p class="box-warning">
 Feature flags are not meant to be used as a form of cluster configuration.
 After a successful rolling upgrade, users should enable all feature flags.
 
-Each feature flag will become mandatory at some point. For example,
+Each feature flag will become mandatory (graduate) at some point. For example,
 <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/3.11.0.md#compatibility-notes">
 RabbitMQ 3.11 requires feature flags introduced in 3.8 to be enabled prior to the upgrade</a>.
 </p>
 
+
 ## <a id="tldr" class="anchor" href="#tldr">Quick summary (TL;DR)</a>
 
-### The Two Main Rules
+### Feature Flag Ground Rules
 
- * A feature flag can be enabled only if all nodes in the cluster support it.
+ * A feature flag can be enabled only if all nodes in the cluster support it
  * A node can join or re-join a cluster only if:
-    1. it supports all feature flags enabled in the cluster and
-    2. if the cluster supports all the feature flags enabled on that node.
+    1. it supports all the feature flags enabled in the cluster and
+    2. if every other cluster member supports all the feature flags enabled on that node
+ * Once enabled, a feature flag cannot be disabled
 
-For example, RabbitMQ 3.12.x and 3.11.x nodes are compatible as long as no 3.12.x
+For example, RabbitMQ 3.12.x and 3.11.x nodes are compatible as long as no 3.12.x-specific
 feature flags are enabled.
 
 <p class="box-warning">
@@ -53,7 +54,7 @@ Please always read <a href="./changelog.html">release notes</a> to see if a roll
 upgrade to the next minor or major RabbitMQ version is possible.
 </p>
 
-### The Two Main Commands
+### Key CLI Tool Commands
 
  *  To list feature flags:
     <pre class="lang-bash">rabbitmqctl list_feature_flags</pre>
@@ -63,7 +64,7 @@ upgrade to the next minor or major RabbitMQ version is possible.
 It is also possible to list and enable feature flags from the
 [Management plugin UI](./management.html), in "*Admin > Feature flags*".
 
-### The Two Examples
+### Examples
 
 #### Example 1: Compatible Nodes
 
@@ -231,9 +232,13 @@ It is also possible to list and enable feature flags from the
 
 It is **impossible to disable a feature flag** once it is enabled.
 
+
 ## <a id="how-to-start-new-node-disabled-feature-flags" class="anchor" href="#how-to-start-new-node-disabled-feature-flags">How to Configure the List of Feature Flags to Enable on Startup</a>
 
-By default a new and unclustered node will start with all supported feature flags enabled, but this setting can be overridden. There are two ways to [configure](configure.html) the list of feature flags to enable out-of-the-box when starting a node for the **first** time:
+By default a new and unclustered node will start with all supported feature flags enabled, but this setting can be overridden.
+**Since enabled feature flags cannot be disabled, overrding the list of enabled feature flags is a safe thing to do for the first node boot only**. 
+
+There are two ways to do this:
 
  1. Using the `RABBITMQ_FEATURE_FLAGS` environment variable:
   <pre class="lang-bash">RABBITMQ_FEATURE_FLAGS=quorum_queue,implicit_default_bindings</pre>
