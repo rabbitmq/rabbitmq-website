@@ -73,10 +73,11 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
           be mature enough for production.
         </li>
         <li>
-          Erlang 26.1 <a href="https://github.com/erlang/otp/pull/7392">support FIPS mode on OpenSSL 3</a>
+          // Erlang 26.1 <a href="https://github.com/erlang/otp/pull/7392">supports FIPS mode on OpenSSL 3</a>
         </li>
       </ul>
     </td>
+  </tr>
   <tr>
     <td>
       <ul>
