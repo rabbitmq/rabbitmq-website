@@ -35,7 +35,7 @@ of a component name, a name and a value.
 Global parameters are not tied to a particular virtual host and they consist
 of a name and value.
 
-One special case of parameters usage is [policies](#policies).
+One special case of parameters usage is [policies](#policies), including [operator policies](#operator-policies).
 
 Policies is **the recommended way** of specifying
 [optional arguments](./queues.html#optional-arguments) for groups of queues and exchanges, as well
