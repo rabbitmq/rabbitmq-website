@@ -28,14 +28,16 @@ do not mesh well with the use of a configuration file:
 
 RabbitMQ calls these items _parameters_. Parameters can be
 set by invoking [`rabbitmqctl`](man/rabbitmqctl.8.html)
-or through [the management plugin](management.html)'s HTTP API.
-There are 2 kinds of parameters: vhost-scoped parameters and global parameters.
+or through [the HTTP API](management.html).
+
+There are two kinds of parameters: vhost-scoped parameters and global parameters.
 Vhost-scoped parameters are tied to a virtual host and consist
 of a component name, a name and a value.
+
 Global parameters are not tied to a particular virtual host and they consist
 of a name and value.
 
-One special case of parameters usage is [policies](#policies), including [operator policies](#operator-policies).
+One special case of parameters usage is [policies](#policies).
 
 Policies is **the recommended way** of specifying
 [optional arguments](./queues.html#optional-arguments) for groups of queues and exchanges, as well
@@ -43,6 +45,16 @@ as plugins such as [Federation](federation.html)
 and [Shovel](shovel.html).
 
 Policies are vhost-scoped.
+
+[Operator policies](#operator-policies) allow cluster operators override certain arguments
+defined in regular policies. This special policy type was designed for defining
+guardrails, for example, limiting maximum queue size, enforcing a quorum queue and stream
+initial replication factor, and so on.
+
+Operator policies are particularly important in environments where RabbitMQ is offered
+as a service, that is, where it is operated by one team but consumed by multiple other
+teams or external customers. 
+
 
 ## <a id="parameter-management" class="anchor" href="#parameter-management">Global and Per-vhost Parameters</a>
 
