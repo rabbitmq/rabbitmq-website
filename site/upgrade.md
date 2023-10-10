@@ -151,13 +151,9 @@ your workload and resource usage.
 
 ### <a id="single-node-upgrade" class="anchor" href="#single-node-upgrade">Upgrading a Single Node Installation</a>
 
-When upgrading a single node installation, simply stop the node, install a new version and start it back.
-The node will perform all the necessary local database migrations on start. Depending on the nature
-of migrations and data set size this can take some time.
-
-A data directory backup is performed before applying any migrations. The backup is deleted after
-successful upgrade. Upgrades therefore can temporarily double the amount of disk space node's data
-directory uses.
+Upgrading single node installation is similar to upgrading clusters. [Feature flags](feature-flags.html) should be enabled after each
+upgrade (it's always a good idea to double-check by enabling them before the next upgrade as well - if they are already
+enabled, it will just do nothing). You should also follow the [upgrade compatibility matrix](#rabbitmq-version-upgradability).
 
 Client (application) connections will be dropped when the node stops. Applications need to be
 prepared to handle this and reconnect.
@@ -168,6 +164,12 @@ You should make sure the new version [uses the same data directory](relocate.htm
 
 RabbitMQ does not support downgrades; it's strongly advised to back node's data directory up before
 upgrading.
+
+Single node deployments are often local development or test environments. In such cases, if you need to upgrade multiple versions
+(eg. from `3.8.15` to `3.12.5`), it's easier to simply delete everything in the data directory and go directly
+to the desired version. Effectively, it's no longer an upgrade but a fresh installation of the new version.
+Please note that this process will **delete all data** in your RabbitMQ (definitions and messages), but this is usually
+not a problem in a developement/test environment. The definitions can be preserved using [export/import](definitions.html).
 
 ### <a id="multiple-nodes-upgrade" class="anchor" href="#multiple-nodes-upgrade">Upgrading Multiple Nodes</a>
 
