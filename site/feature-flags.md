@@ -122,20 +122,23 @@ for the following reasons:
 
  * Skipping minor versions is not tested in CI.
  * Non-sequential releases may or may not support the same set of feature
-   flags. Support for older feature flags can be removed. Flag present for
-   several minor branches, they are removed and their associated
-   feature/behavior is now implicitly enabled by default, preventing clustering
-   with older nodes. Feature flags are kept around for a number (say, two) of
-   minor releases to allow for a transition period.
+   flags. Feature flags present for several minor branches can be marked as
+   required and their associated feature/behavior is now implicitly enabled by
+   default. The compatibility code is removed in the process, preventing
+   clustering with older nodes. Remember their purpose is to allow upgrades,
+   they are not a configuration mechanism.
 
-The deprecation/removal policy of feature flags is yet to be defined.
+Their is no policy defining the life cycle of a feature flag in general. E.g.
+there is no guaranty that a feature flag will go from "stable" to "required"
+after N minor releasees. Because new code builds on top of existing code,
+feature flags are marked as required and the compatibility code is removed
+whenever it is needed.
 
 ## <a id="how-to-list-feature-flags" class="anchor" href="#how-to-list-feature-flags">How to List Supported Feature Flags</a>
 
-When a node starts for the first time, all supported feature flags
-are enabled by default. When a node is upgraded to a newer version of
-RabbitMQ, new feature flags are enabled by default if it is a single
-isolated node, or remain disabled by default if it belongs to a cluster.
+When a node starts for the first time, all stable feature flags are enabled by
+default. When a node is upgraded to a newer version of RabbitMQ, new feature
+flags are left disabled.
 
 **To list the feature flags**, use `rabbitmqctl list_feature_flags`:
 
@@ -181,7 +184,7 @@ a list of columns to display. The available columns are:
    feature flag.
  * `desc`: the description of the feature flag.
  * `doc_url`: the URL to a webpage to learn more about the feature flag.
- * `stability`: indicates if the feature flag is *stable* or
+ * `stability`: indicates if the feature flag is *required*, *stable* or
    *experimental*.
 
 ## <a id="how-to-enable-feature-flags" class="anchor" href="#how-to-enable-feature-flags">How to Enable Feature Flags</a>
@@ -200,7 +203,7 @@ rabbitmqctl enable_feature_flag &lt;name&gt;
 **To enable all feature flags**, use `rabbitmqctl enable_feature_flag all`:
 
 <pre class="lang-bash">
-rabbitmqctl enable_feature_flag &lt;all&gt;
+rabbitmqctl enable_feature_flag all
 </pre>
 
 The `list_feature_flags` command can be used again to verify the feature
@@ -232,12 +235,17 @@ It is also possible to list and enable feature flags from the
 
 It is **impossible to disable a feature flag** once it is enabled.
 
-## <a id="how-to-start-new-node-disabled-feature-flags" class="anchor" href="#how-to-start-new-node-disabled-feature-flags">How to Configure the List of Feature Flags to Enable on Startup</a>
+## <a id="how-to-start-new-node-disabled-feature-flags" class="anchor" href="#how-to-start-new-node-disabled-feature-flags">How to Override the List of Feature Flags to Enable on Initial Startup</a>
 
-By default a new and unclustered node will start with all supported feature
-flags enabled, but this setting can be overridden. **Since enabled feature
-flags cannot be disabled, overrding the list of enabled feature flags is a safe
+By default a new and unclustered node will start with all stable feature flags
+enabled, but this setting can be overridden. **Since enabled feature flags
+cannot be disabled, overriding the list of enabled feature flags is a safe
 thing to do for the first node boot only**.
+
+This mechanism is only useful to allow a user to expand an existing cluster
+with a node running a newer version of RabbitMQ compared to the rest of the
+cluster. The compatibility with the new node is still verified and adding it to
+the cluster may still fail if it is incompatible.
 
 There are two ways to do this:
 
@@ -248,14 +256,15 @@ There are two ways to do this:
 
 The environment variable has precedence over the configuration parameter.
 
+Obviously, required feature flags will always be enabled, regardless of this.
+
 ## <a id="graduation" class="anchor" href="#graduation">Feature Flag Maturation and Graduation Process</a>
 
 After their initial introduction into RabbitMQ, feature flags are *optional*,
-that is, they only surve the purpose of allowing for a safe rolling cluster
-upgrade. Some feature flags do not have to be enabled unless a specific feature
-is used.
+that is, they only serve the purpose of allowing for a safe rolling cluster
+upgrade.
 
-Over time, however, features become more mature, and future development of
+Over time, however, features become more mature and future development of
 RabbitMQ assumes that a certain set of features is available and can be relied
 on by the users and developers alike. When that happens, feature flags
 *graduate* to core (required) features in the next minor feature release.
