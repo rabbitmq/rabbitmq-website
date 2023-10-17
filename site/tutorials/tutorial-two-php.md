@@ -93,8 +93,8 @@ messages from the queue and perform the task, so let's call it `worker.php`:
 
 <pre class="lang-php">
 $callback = function ($msg) {
-  echo ' [x] Received ', $msg->body, "\n";
-  sleep(substr_count($msg->body, '.'));
+  echo ' [x] Received ', $msg->getBody(), "\n";
+  sleep(substr_count($msg->getBody(), '.'));
   echo " [x] Done\n";
 };
 
@@ -214,8 +214,8 @@ from the worker, once we're done with a task.
 
 <pre class="lang-php">
 $callback = function ($msg) {
-  echo ' [x] Received ', $msg->body, "\n";
-  sleep(substr_count($msg->body, '.'));
+  echo ' [x] Received ', $msg->getBody(), "\n";
+  sleep(substr_count($msg->getBody(), '.'));
   echo " [x] Done\n";
   $msg->ack();
 };
@@ -357,7 +357,7 @@ a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
 <pre class="lang-php">
-$channel->basic_qos(null, 1, null);
+$channel->basic_qos(null, 1, false);
 </pre>
 
 > #### Note about queue size
@@ -418,17 +418,19 @@ $channel->queue_declare('task_queue', false, true, false, false);
 echo " [*] Waiting for messages. To exit press CTRL+C\n";
 
 $callback = function ($msg) {
-    echo ' [x] Received ', $msg->body, "\n";
-    sleep(substr_count($msg->body, '.'));
+    echo ' [x] Received ', $msg->getBody(), "\n";
+    sleep(substr_count($msg->getBody(), '.'));
     echo " [x] Done\n";
     $msg->ack();
 };
 
-$channel->basic_qos(null, 1, null);
+$channel->basic_qos(null, 1, false);
 $channel->basic_consume('task_queue', '', false, false, false, false, $callback);
 
-while ($channel->is_open()) {
-    $channel->wait();
+try {
+    $channel->consume();
+} catch (\Throwable $exception) {
+    echo $exception->getMessage();
 }
 
 $channel->close();
