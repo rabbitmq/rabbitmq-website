@@ -510,10 +510,7 @@ applies to MQTT. For example, if `tonyg` is the
 connected user, the permission `^{username}-.*` is expanded to
 `^tonyg-.*`
 
-If a different authorisation backend (e.g. [LDAP](ldap.html),
-[HTTP](https://github.com/rabbitmq/rabbitmq-auth-backend-http),
-[AMQP](https://github.com/rabbitmq/rabbitmq-auth-backend-amqp),
-[OAuth2](oauth2.html)) is used, please refer
+If a [different authorisation backend](#backends) is used, please refer
 to the documentation of those backends.
 
 If a custom authorisation backend is used, topic
@@ -542,14 +539,16 @@ of
  * authentication ("authn") backends: they determine client identity and decide whether the client should be allowed to connect
  * authorisation ("authz") backends: they determine whether an identified (authenticated) client is authorized to perform a certain operation
 
-It is possible and common for a plugin to provide both backends.
-
-For example the internal, [LDAP](ldap.html)
-and [HTTP](https://github.com/rabbitmq/rabbitmq-auth-backend-http)
-backends do so.
+It is possible and common for a plugin to provide both backends. The available tier 1 plugins which provide both authentication and authorisation are
+* [LDAP](ldap.html)
+* [HTTP](https://github.com/rabbitmq/rabbitmq-auth-backend-http)
 
 Some plugins, for example, the [Source IP range one](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range),
 only provide an authorisation backend. Authentication is supposed to be handled by the internal database, LDAP, etc.
+
+The available tier 1 alternative authorisation backend plugins are
+* [OAuth2](oauth2.html)
+* [AMQP 0.9.1](https://github.com/rabbitmq/rabbitmq-auth-backend-amqp)
 
 A special [cache backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_backend_cache)
 can be used in [combination](#combined-backends) with other backends to significantly
