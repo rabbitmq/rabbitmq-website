@@ -55,7 +55,7 @@ on behalf of the consumer.
 > <pre class="lang-javascript">
 > {
 >     "require": {
->         "php-amqplib/php-amqplib": ">=3.0"
+>         "php-amqplib/php-amqplib": "^3.2"
 >     }
 > }
 > </pre>
@@ -64,7 +64,7 @@ on behalf of the consumer.
 >you can run the following:
 >
 > <pre class="lang-bash">
-> composer.phar install
+> php composer.phar install
 > </pre>
 >
 >There's also a [Composer installer for Windows](https://github.com/composer/windows-setup).
@@ -194,8 +194,10 @@ $callback = function ($msg) {
 
 $channel->basic_consume('hello', '', false, true, false, false, $callback);
 
-while ($channel->is_open()) {
-    $channel->wait();
+try {
+    $channel->consume();
+} catch (\Throwable $exception) {
+    echo $exception->getMessage();
 }
 </pre>
 
