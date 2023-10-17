@@ -510,7 +510,7 @@ applies to MQTT. For example, if `tonyg` is the
 connected user, the permission `^{username}-.*` is expanded to
 `^tonyg-.*`
 
-If [alternative authorisation backend](#backends) are used, refer
+If [alternative authorisation backends](#backends) are used, refer
 to the documentation of those backends.
 
 If a custom authorisation backend is used, topic
