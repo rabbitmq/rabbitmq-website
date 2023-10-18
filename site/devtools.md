@@ -152,6 +152,10 @@ Miscellaneous projects:
 
  * [amqp-client](https://github.com/cloudamqp/amqp-client.cr), an AMQP 0-9-1 client for Crystal
 
+## <a id="julia-dev" class="anchor" href="#julia-dev">Julia</a>
+
+ * [AMQPClient.jl](https://github.com/JuliaComputing/AMQPClient.jl), an AMQP 0-9-1 client for Julia
+
 ## <a id="alt-jvm-dev" class="anchor" href="#alt-jvm-dev">Other JVM Languages</a>
 
 ### Scala
