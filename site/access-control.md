@@ -531,7 +531,7 @@ will be refused eventually. The period of time depends on the
 [authorization backend](#backends) used.
 
 
-## <a id="backends" class="anchor" href="#backends">Alternative Authentication and Authorisation Backends</a>
+## <a id="backends" class="anchor" href="#backends">Authentication and Authorisation Backends</a>
 
 Authentication and authorisation are pluggable. Plugins can provide implementations
 of:
@@ -539,11 +539,14 @@ of:
  * authentication ("authn") backends: they determine client identity and decide whether the client should be allowed to connect
  * authorisation ("authz") backends: they determine whether an identified (authenticated) client is authorized to perform a certain operation
 
-It is possible and common for a plugin to provide both backends. The available tier 1 plugins which provide both authentication and authorisation backends are:
+It is possible and common for a plugin to provide both backends. RabbitMQ ships with
+the following [built-in plugins](./plugins.html) which provide both authentication and authorisation backends:
+
 * [LDAP](ldap.html)
 * [HTTP](https://github.com/rabbitmq/rabbitmq-auth-backend-http)
 
-The available tier 1 alternative authorisation backend plugins are
+The following built-in plugins provide authorisation backend implementations:
+
 * [OAuth2](oauth2.html)
 * [AMQP 0.9.1](https://github.com/rabbitmq/rabbitmq-auth-backend-amqp)
 
