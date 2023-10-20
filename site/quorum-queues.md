@@ -695,7 +695,7 @@ the block device that hosts RabbitMQ node data directory:
 <pre class="lang-bash">
 # This is JUST AN EXAMPLE.
 # The name of the block device in your environment may vary.
-# Values between 256 and 4096 are commonly used.
+# Values between 256 and 4096 in steps of 256 are most commonly used.
 #
 # Sets readahead for device /dev/sda to 4096.
 blockdev --setra 4096 /dev/sda
