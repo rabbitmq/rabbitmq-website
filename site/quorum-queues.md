@@ -841,7 +841,7 @@ and specify the block device that hosts RabbitMQ node data directory:
 
 <pre class="lang-bash">
 # This is JUST AN EXAMPLE.
-# The name of the block device in your environment may vary.
+# The name of the block device in your environment will be different.
 #
 # Displays effective readahead value device /dev/sda.
 sudo blockdev --getra /dev/sda
@@ -852,7 +852,7 @@ the block device that hosts RabbitMQ node data directory:
 
 <pre class="lang-bash">
 # This is JUST AN EXAMPLE.
-# The name of the block device in your environment may vary.
+# The name of the block device in your environment will be different.
 # Values between 256 and 4096 in steps of 256 are most commonly used.
 #
 # Sets readahead for device /dev/sda to 4096.
