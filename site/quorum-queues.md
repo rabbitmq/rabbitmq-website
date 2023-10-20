@@ -671,6 +671,36 @@ Just like mirrored queues, quorum queues are also affected by cluster sizes.
 The more replicas a quorum queue has, the lower its throughput generally will
 be since more work has to be done to replicate data and achieve consensus.
 
+### <a id="wal-segment-entry-count" class="anchor" href="#wal-segment-entry-count">WAL Segment File Entry Count</a>
+
+Workloads with small messages and higher message rates can benefit from the following
+configuration change that increases the number of Raft log entries (such as enqueued messages)
+that are allowed in a single write-ahead log file:
+
+<pre class="lang-bash">
+# Positive values up to 65535 are allowed, the default is 4096.
+raft.segment_max_entries = 32768
+</pre>
+
+Values greater than `65535` are **not supported**.
+
+### <a id="linux-readahead" class="anchor" href="#linux-readahead">Linux Readahead</a>
+
+In addition, the aforementioned workloads with a higher rate of small messages can benefit from
+a higher `readahead`, a configurable block device parameter of storage devices on Linux.
+
+To configure `readahead`, use [`blockdev --setra`](https://man7.org/linux/man-pages/man8/blockdev.8.html) for
+the block device that hosts RabbitMQ node data directory:
+
+<pre class="lang-bash">
+# This is JUST AN EXAMPLE.
+# The name of the block device in your environment may vary.
+# Values between 256 and 4096 are commonly used.
+#
+# Sets readahead for device /dev/sda to 4096.
+blockdev --setra 4096 /dev/sda
+</pre>
+
 
 ## <a id="configuration" class="anchor" href="#configuration">Quorum Queue Configuration</a>
 
