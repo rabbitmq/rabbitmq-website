@@ -52,7 +52,7 @@ Topics covered in this information include:
  * How to [declare a quorum queue](#usage)
  * [Replication](#replication)-related topics: [replica management](#replica-management), [replica leader rebalancing](#replica-rebalancing), optimal number of replicas, etc
  * What guarantees quorum queues offer in terms of [leader failure handling](#leader-election), [data safety](#data-safety) and [availability](#availability)
- * [Performance](#performance) characteristics
+ * [Performance](#performance) characteristics of quorum queues and [performance tuning](#performance-tuning) relevant to them
  * [Poison message handling](#poison-message-handling) provided by quorum queues
  * [Configurable settings](#configuration) of quorum queues
  * Resource use of quorum queues, most importantly their [memory footprint](#resource-use)
@@ -655,11 +655,14 @@ and compared against durable [classic mirrored queues](./ha.html) in 3, 5 and 7 
 message sizes.
 
 In scenarios using both consumer acks and publisher confirms
-quorum queues have been observed to have [superior throughput](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) to
-classic mirrored queues.
+quorum queues have been observed to have superior throughput to
+classic mirrored queues. For example, take a look at [these benchmarks with 3.10](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/)
+and [another with 3.12](https://blog.rabbitmq.com/posts/2023/05/rabbitmq-3.12-performance-improvements/#significant-improvements-to-quorum-queues).
 
 As quorum queues persist all data to disks before doing anything it is recommended
-to use the fastest disks possible. Quorum queues also benefit from consumers
+to use the fastest disks possible and certain [Performance Tuning](#performance-tuning) settings.
+
+Quorum queues also benefit from consumers
 using higher prefetch values to ensure consumers aren't starved whilst
 acknowledgements are flowing through the system and allowing messages
 to be delivered in a timely fashion.
@@ -667,42 +670,12 @@ to be delivered in a timely fashion.
 Due to the disk I/O-heavy nature of quorum queues, their throughput decreases
 as message sizes increase.
 
-Just like mirrored queues, quorum queues are also affected by cluster sizes.
+Quorum queue throughput is also affected by the number of replicas.
 The more replicas a quorum queue has, the lower its throughput generally will
 be since more work has to be done to replicate data and achieve consensus.
 
-### <a id="wal-segment-entry-count" class="anchor" href="#wal-segment-entry-count">WAL Segment File Entry Count</a>
 
-Workloads with small messages and higher message rates can benefit from the following
-configuration change that increases the number of Raft log entries (such as enqueued messages)
-that are allowed in a single write-ahead log file:
-
-<pre class="lang-bash">
-# Positive values up to 65535 are allowed, the default is 4096.
-raft.segment_max_entries = 32768
-</pre>
-
-Values greater than `65535` are **not supported**.
-
-### <a id="linux-readahead" class="anchor" href="#linux-readahead">Linux Readahead</a>
-
-In addition, the aforementioned workloads with a higher rate of small messages can benefit from
-a higher `readahead`, a configurable block device parameter of storage devices on Linux.
-
-To configure `readahead`, use [`blockdev --setra`](https://man7.org/linux/man-pages/man8/blockdev.8.html) for
-the block device that hosts RabbitMQ node data directory:
-
-<pre class="lang-bash">
-# This is JUST AN EXAMPLE.
-# The name of the block device in your environment may vary.
-# Values between 256 and 4096 in steps of 256 are most commonly used.
-#
-# Sets readahead for device /dev/sda to 4096.
-blockdev --setra 4096 /dev/sda
-</pre>
-
-
-## <a id="configuration" class="anchor" href="#configuration">Quorum Queue Configuration</a>
+## <a id="configuration" class="anchor" href="#configuration">Configurable Settings</a>
 
 There are a few new configuration parameters that can be tweaked using
 the [advanced](configure.html#advanced-config-file) config file.
@@ -834,3 +807,48 @@ created and deleted it _may_ threaten the long term stability of the
 RabbitMQ system (if the size of the atom table reaches the maximum limit,
 about 1M by default). It is not recommended to use quorum queues in this manner
 at this point.
+
+
+## <a id="performance-tuning" class="anchor" href="#performance-tuning">Quorum Queue Performance Tuning</a>
+
+### <a id="wal-segment-entry-count" class="anchor" href="#wal-segment-entry-count">Tuning: WAL Segment File Entry Count</a>
+
+Workloads with small messages and higher message rates can benefit from the following
+configuration change that increases the number of Raft log entries (such as enqueued messages)
+that are allowed in a single write-ahead log file:
+
+<pre class="lang-bash">
+# Positive values up to 65535 are allowed, the default is 4096.
+raft.segment_max_entries = 32768
+</pre>
+
+Values greater than `65535` are **not supported**.
+
+### <a id="linux-readahead" class="anchor" href="#linux-readahead">Tuning: Linux Readahead</a>
+
+In addition, the aforementioned workloads with a higher rate of small messages can benefit from
+a higher `readahead`, a configurable block device parameter of storage devices on Linux.
+
+To inspect the effective `readahead` value, use [`blockdev --getra`](https://man7.org/linux/man-pages/man8/blockdev.8.html)
+and specify the block device that hosts RabbitMQ node data directory:
+
+
+<pre class="lang-bash">
+# This is JUST AN EXAMPLE.
+# The name of the block device in your environment may vary.
+#
+# Displays effective readahead value device /dev/sda.
+sudo blockdev --getra /dev/sda
+</pre>
+
+To configure `readahead`, use [`blockdev --setra`](https://man7.org/linux/man-pages/man8/blockdev.8.html) for
+the block device that hosts RabbitMQ node data directory:
+
+<pre class="lang-bash">
+# This is JUST AN EXAMPLE.
+# The name of the block device in your environment may vary.
+# Values between 256 and 4096 in steps of 256 are most commonly used.
+#
+# Sets readahead for device /dev/sda to 4096.
+sudo blockdev --setra 4096 /dev/sda
+</pre>
