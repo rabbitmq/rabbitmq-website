@@ -494,12 +494,12 @@ To support encoded slashes in URIs, Apache requires users to explicitly enable
 AllowEncodedSlashes On
 </pre>
 
-for the Apache virtual host. The location also needs a [`nocanon` setting](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html):
+for the Apache virtual host. Apache needs both [mod_proxy](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html) and [mod_proxy_http](https://httpd.apache.org/docs/2.4/mod/mod_proxy_http.html) enabled. The location also needs a [`nocanon` setting](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html):
 
 <pre class="lang-apacheconf">
-ProxyPassReverse http://rabbitmq-host:15672/
+ProxyPassReverse / http://rabbitmq-host:15672/
 # "nocanon" is required only if default RabbitMQ virtual host is used
-ProxyPass http://rabbitmq-host:15672/ nocanon
+ProxyPass / http://rabbitmq-host:15672/ nocanon
 </pre>
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
