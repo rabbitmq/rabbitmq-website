@@ -511,7 +511,7 @@ connected user, the permission `^{username}-.*` is expanded to
 `^tonyg-.*`
 
 If a different authorisation backend (e.g. [LDAP](ldap.html),
-[HTTP](https://github.com/rabbitmq/rabbitmq-auth-backend-http),
+[HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_http),
 [AMQP](https://github.com/rabbitmq/rabbitmq-auth-backend-amqp),
 [OAuth2](oauth2.html)) is used, please refer
 to the documentation of those backends.
@@ -544,7 +544,7 @@ of
 
 It is possible for a plugin to provide both.
 For example the internal, [LDAP](ldap.html)
-and [HTTP](https://github.com/rabbitmq/rabbitmq-auth-backend-http)
+and [HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_http)
 backends do so.
 
 Some plugins, for example, the <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">Source IP range one</a>,
@@ -584,7 +584,7 @@ The following aliases are available:
 
  * <code>internal</code> for <code>rabbit_auth_backend_internal</code>
  * <code>ldap</code> for <code>rabbit_auth_backend_ldap</code> (from the [LDAP plugin](./ldap.html))
- * <code>http</code> for <code>rabbit_auth_backend_http</code> (from the [HTTP auth backend plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-http))
+ * <code>http</code> for <code>rabbit_auth_backend_http</code> (from the [HTTP auth backend plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_http))
  * <code>amqp</code> for <code>rabbit_auth_backend_amqp</code> (from the [AMQP 0-9-1 auth backend plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-amqp))
  * <code>dummy</code> for <code>rabbit_auth_backend_dummy</code>
 
@@ -614,7 +614,7 @@ auth_backends.1 = ldap
 auth_backends.2 = internal
 </pre>
 
-Same as above but will fall back to the [HTTP backend](https://github.com/rabbitmq/rabbitmq-auth-backend-http)
+Same as above but will fall back to the [HTTP backend](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_http)
 instead:
 
 <pre class="lang-ini">
