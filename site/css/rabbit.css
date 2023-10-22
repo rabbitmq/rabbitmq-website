@@ -910,7 +910,7 @@ body#index #getstarted,
 
 /* Homepage hero: Summit 1 */
 
-#hero #hero-summit-one {
+/* #hero #hero-summit-one {
   background: url(../img/home/banner/summit-one/early-bird-desktop.svg) no-repeat center center;
   background-size: cover;
   padding: 70px 0;
@@ -940,13 +940,14 @@ body#index #getstarted,
     padding-bottom: 180px;
     text-align: center;
   }
-}
+} */
 
 /* Homepage hero: Summit 2 */
 
 #hero #hero-summit {
-  background: url(../img/home/banner/home-banner-summit-promo-desktop.svg) no-repeat center center;
+  background: url(../img/home/banner/summit-one/early-bird-desktop.svg) no-repeat center center;
   padding: 70px 0 40px;
+  text-align: right;
 }
 
 #hero #hero-summit .container {
@@ -960,14 +961,14 @@ body#index #getstarted,
 
 @media(max-width: 800px) {
   #hero #hero-summit {
-    background: url(../img/home/banner/home-banner-summit-promo-tablet.svg) no-repeat right;
+    background: url(../img/home/banner/summit-one/early-bird-tablet.svg) no-repeat right;
     background-size: cover;
   }
 }
 
 @media(max-width: 660px) {
   #hero #hero-summit {
-    background: url(../img/home/banner/home-banner-summit-promo-smartphone.svg) no-repeat bottom right;
+    background: url(../img/home/banner/summit-one/early-bird-phone.svg) no-repeat bottom right;
     background-size: 100%;
     padding-bottom: 180px;
     text-align: center;

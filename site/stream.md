@@ -50,6 +50,8 @@ Client libraries for the stream protocol are available on several platforms.
 * [RabbitMQ Elixir Stream Client ](https://github.com/VictorGaiva/rabbitmq-stream)
 * [RabbitMQ C Stream Client ](https://github.com/GianfrancoGGL/rabbitmq-stream-c-client)
 
+Use [Stream PerfTest](https://github.com/rabbitmq/rabbitmq-stream-perf-test) to simulate workloads and measure the performance of your RabbitMQ stream system.
+
 ## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
 The Stream plugin is included in the RabbitMQ distribution. Before clients can successfully

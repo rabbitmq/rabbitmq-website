@@ -1,4 +1,4 @@
-# Using TLS with Messaging Topology Kubernetes Operator
+# Using TLS with the Messaging Topology Kubernetes Operator
 
 If the RabbitmqClusters managed by the Messaging Topology Operator are configured to serve the HTTP API
 and management UI over HTTPS, it will be necessary for the Topology Operator to [trust the Certificate Authority](../../ssl.html#peer-verification) (CA)

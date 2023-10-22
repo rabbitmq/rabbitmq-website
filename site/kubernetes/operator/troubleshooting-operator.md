@@ -1,10 +1,8 @@
-# Troubleshooting Cluster Operator
+# Troubleshooting the Cluster Operator
 
-This guide describes how to troubleshoot common problems with RabbitMQ Cluster Kubernetes Operator.
+Use this information to troubleshoot common problems with the RabbitMQ Cluster Kubernetes Operator.
 
-This guide may be helpful for DIY RabbitMQ on Kubernetes deployments but such environments
-are not its primary focus.
-
+Note, the following information may be helpful for "do it yourself" (DIY) RabbitMQ on Kubernetes deployments but such environments are not its primary focus.
 
 ## <a id="errors" class="anchor" href="#errors">Common Scenarios and Errors</a>
 

@@ -15,59 +15,48 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Queues NOSYNTAX
+# Queues
 
-## Introduction
+## What is a Queue?
 
-This guide provides an overview of queues in RabbitMQ. Since
-many features in a messaging system are related to queues, it
-is not meant to be an exhaustive guide but rather an overview
-that provides links to other guides.
+A queue in RabbitMQ is an ordered collection of messages. Messages are enqueued and dequeued (delivered to consumers) in a ([FIFO ("first in, first out")](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)) manner. 
 
-This guide covers queues primarily in the context of [AMQP 0-9-1](tutorials/amqp-concepts.html),
-however, much of the content is applicable to other supported protocols.
+To define a [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) in generic terms, it is a sequential data structure with two primary operations: an item can be **enqueued** (added) at the tail and **dequeued** (consumed) from the head. 
 
-Some protocols (e.g. STOMP and MQTT) are based around the idea of topics.
-For them, queues act as data accumulation buffer for consumers.
+Queues play a major role in the messaging technology space. Many messaging protocols and tools assume that [publishers](./publishers.html) and [consumers](./consumers.html) communicate using a queue-like storage mechanism.
+
+Many features in a messaging system are related to queues. Some RabbitMQ queue features such as priorities and [requeueing](./confirms.html) by consumers can affect the ordering as observed by consumers. 
+
+The information in this topic includes an overview of queues in RabbitMQ and also links out to other topics so you can learn more about using queues in RabbitMQ.
+
+This information primarily covers queues in the context of the [AMQP 0-9-1](tutorials/amqp-concepts.html) protocol, however, much of the content is applicable to other supported protocols.
+
+Some protocols (for example: STOMP and MQTT) are based around the idea of topics.
+For these protocols, queues act as a data accumulation buffer for consumers.
 However, it is still important to understand the role queues play
 because many features still operate at the queue level, even for those protocols.
 
-[Streams](./streams.html) is an alternative messaging data structure available in RabbitMQ.
-Streams provide different features from queues.
+[Streams](./streams.html) is an alternative messaging data structure available in RabbitMQ. Streams provide different features from queues.
 
-Some key topics covered in this guide are
+The information about RabbitMQ queues covered in this topic includes:
 
- * [Queue basics](#basics)
- * [Queue names](#names)
- * [Queue properties](#properties)
- * [Message ordering](#message-ordering) in a queue
- * [Queue durability](#durability) and how it relates to message persistence
- * [Replicated queue types](#distributed)
+ * [Queue Names](#names)
+ * [Queue Properties](#properties)
+ * [Message Ordering](#message-ordering) in a queue
+ * [Queue Durability](#durability) and how it relates to message persistence
+ * [Replicated Queue Types](#distributed)
  * [Temporary](#temporary-queues) and [exclusive](#exclusive-queues) queues
- * [Runtime resource](#runtime-characteristics) usage by queue replicas
- * [Optional queue arguments](#optional-arguments) ("x-arguments")
- * [Queue metrics](#metrics)
+ * [Runtime Resource](#runtime-characteristics) usage by queue replicas
+ * [Optional Queue Arguments](#optional-arguments) ("x-arguments")
+ * [Queue Metrics](#metrics)
  * [TTL](#ttl-and-limits) and length limits
- * [Priority queues](#priorities)
+ * [Priority Queues](#priorities)
 
 For topics related to consumers, see the [Consumers guide](./consumers.html).
 [Classic queues](./classic-queues.html), [quorum queues](./quorum-queues.html)
 and [streams](./streams.html) also have dedicated guides.
 
-## <a id="basics" class="anchor" href="#basics">The Basics</a>
-
-A [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) is a sequential data structure
-with two primary operations: an item can be **enqueued** (added) at the tail and **dequeued** (consumed)
-from the head. Queues play a prominent role in the messaging technology space:
-many messaging protocols and tools assume that [publishers](./publishers.html) and [consumers](./consumers.html)
-communicate using a queue-like storage mechanism.
-
-Queues in RabbitMQ are [FIFO ("first in, first out")](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)).
-Some queue features, namely priorities and [requeueing](./confirms.html) by consumers, can affect
-the ordering as observed by consumers.
-
-
-## <a id="names" class="anchor" href="#names">Names</a>
+## <a id="names" class="anchor" href="#names">Queue Names</a>
 
 Queues have names so that applications can reference them.
 
@@ -98,7 +87,7 @@ bindings (routing) for the queue, so that publishers can use well-known
 exchanges instead of the server-generated queue name directly.
 
 
-## <a id="properties" class="anchor" href="#properties">Properties</a>
+## <a id="properties" class="anchor" href="#properties">Queue Properties</a>
 
 Queues have properties that define how they behave. There is a set
 of mandatory properties and a map of optional ones:
@@ -185,7 +174,7 @@ Use operator policies to introduce guardrails for application-controlled paramet
 to resource use (e.g. peak disk space usage).
 
 
-## <a id="message-ordering" class="anchor" href="#message-ordering">Message Ordering</a>
+## <a id="message-ordering" class="anchor" href="#message-ordering">Message Ordering in RabbitMQ</a>
 
 Queues in RabbitMQ are ordered collections of messages.
 Messages are enqueued and dequeued (delivered to consumers) in the [FIFO manner](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)).

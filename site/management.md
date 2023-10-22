@@ -163,7 +163,7 @@ The UI application supports recent versions of Google Chrome, Safari, Firefox, a
 
 ### <a id="usage-ui-clusters" class="anchor" href="#usage-ui-clusters">Management UI Access in Clusters</a>
 
-Any cluster node with `rabbitmq-management` plugin enabled can be
+Any cluster node with `rabbitmq_management` plugin enabled can be
 used for management UI access or data collection by monitoring tools.
 It will reach out to other nodes and collect their stats, then aggregate and return a response
 to the client.
@@ -494,12 +494,12 @@ To support encoded slashes in URIs, Apache requires users to explicitly enable
 AllowEncodedSlashes On
 </pre>
 
-for the Apache virtual host. The location also needs a [`nocanon` setting](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html):
+for the Apache virtual host. Apache needs both [mod_proxy](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html) and [mod_proxy_http](https://httpd.apache.org/docs/2.4/mod/mod_proxy_http.html) enabled. The location also needs a [`nocanon` setting](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html):
 
 <pre class="lang-apacheconf">
-ProxyPassReverse http://rabbitmq-host:15672/
+ProxyPassReverse / http://rabbitmq-host:15672/
 # "nocanon" is required only if default RabbitMQ virtual host is used
-ProxyPass http://rabbitmq-host:15672/ nocanon
+ProxyPass / http://rabbitmq-host:15672/ nocanon
 </pre>
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
@@ -1040,9 +1040,17 @@ the metrics from the node won't be available.
 ### <a id="clustering-inter-node-connectivity" class="anchor" href="#clustering-inter-node-connectivity">Aggregation Queries in Clusters</a>
 
 In cluster, HTTP API performs cluster-wide queries when handling client
-requests, which means it can be affected by network partitions and slow downs.
+requests, which means it can be affected by network partitions, network slowdowns,
+and unresponsive nodes.
+
 Timeouts for inter-node aggregation queries are controlled via the
-[net tick mechanism](nettick.html).
+[net tick mechanism](nettick.html). Lowering the value may help reduce
+the delay introduced by nodes that have recently become unresponsive.
+Values lower than 10s **can produce false positives and must be avoided**.
+
+In contrast to the HTTP API, the [Prometheus monitoring endpoint](./prometheus.html) only serves
+node-local data and is generally not affected by failures or unavailability of other nodes
+in the cluster.
 
 
 ## <a id="proxy" class="anchor" href="#proxy">(Reverse HTTP) Proxy Setup</a>

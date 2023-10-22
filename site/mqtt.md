@@ -266,7 +266,8 @@ For an MQTT connection to succeed, it must successfully authenticate and the use
 have the [appropriate permissions](./access-control.html) to the virtual host used by the
 plugin (see below).
 
-MQTT clients can (and usually do) specify a set of credentials when they connect.
+MQTT clients can (and usually do) specify a set of credentials when they connect. The credentials
+can be a username and password pair, or a x.509 certificate (see below).
 
 The plugin supports anonymous authentication but its use is highly discouraged and it is a subject
 to certain limitations (listed below) enforced for a reasonable level of security

@@ -70,7 +70,7 @@ such as
  * [Heartbeats](#heartbeats) (a.k.a. keepalives)
  * [proxies and load balancers](#intermediaries)
 
-[VMware RabbitMQ](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/index.html) provides an [Intra-cluster Compression](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1.4/rmq/GUID-clustering-compression-rabbitmq.html) feature.
+[VMware RabbitMQ](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/index.html) provides an [Intra-cluster Compression](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html) feature.
 
 A methodology for [troubleshooting of networking-related issues](./troubleshooting-networking.html)
 is covered in a separate guide.
@@ -168,7 +168,7 @@ Make sure the following ports are accessible:
  * 4369: [epmd](http://erlang.org/doc/man/epmd.html), a peer discovery service used by RabbitMQ nodes and CLI tools
  * 5672, 5671: used by AMQP 0-9-1 and AMQP 1.0 clients without and with TLS
  * 5552, 5551: used by the [RabbitMQ Stream protocol](streams.html) clients without and with TLS
- * 6000 through 6500: used by [RabbitMQ Stream](stream.html) replication
+ * 6000 through 6500: used for [stream](streams.html) replication
  * 25672: used for inter-node and CLI tools communication (Erlang distribution server port)
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
@@ -630,7 +630,10 @@ Several factors can limit how many concurrent connections a single node can supp
 Most operating systems limit the number of file handles that
 can be opened at the same time. When an OS process (such as RabbitMQ's Erlang VM) reaches
 the limit, it won't be able to open any new files or accept any more
-TCP connections.
+TCP connections. The limit will also affect how much memory the [Erlang runtime](./runtime.html)
+will allocate upfront. This means that the limit on some modern distributions
+[can be too high](https://blog.rabbitmq.com/posts/2022/08/high-initial-memory-consumption-of-rabbitmq-nodes-on-centos-stream-9/) and need
+lowering.
 
 How the limit is configured [varies from OS to OS](https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/performance/open-files-limit.md) and distribution to distribution, e.g. depending on whether systemd is used.
 For Linux, Controlling System Limits on Linux

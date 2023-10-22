@@ -92,6 +92,7 @@ Miscellaneous projects:
    [API reference](https://aio-pika.readthedocs.org/))
  * [aioamqp](https://pypi.org/project/aioamqp/), a pure-Python AMQP 0-9-1 library using asyncio ([source code](https://github.com/Polyconseil/aioamqp),
    [docs](https://aioamqp.readthedocs.io/en/latest/))
+ * [FastStream](https://pypi.org/project/faststream/), a powerful and easy-to-use Python library for building asynchronous services that interact with event streams. ([source code](https://github.com/airtai/faststream), [docs](https://faststream.airt.ai))
 
 Miscellaneous projects:
 
@@ -150,6 +151,10 @@ Miscellaneous projects:
 ## <a id="crystal-dev" class="anchor" href="#crystal-dev">Crystal</a>
 
  * [amqp-client](https://github.com/cloudamqp/amqp-client.cr), an AMQP 0-9-1 client for Crystal
+
+## <a id="julia-dev" class="anchor" href="#julia-dev">Julia</a>
+
+ * [AMQPClient.jl](https://github.com/JuliaComputing/AMQPClient.jl), an AMQP 0-9-1 client for Julia
 
 ## <a id="alt-jvm-dev" class="anchor" href="#alt-jvm-dev">Other JVM Languages</a>
 

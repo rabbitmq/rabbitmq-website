@@ -385,8 +385,10 @@ The [Quorum Queues guide](./quorum-queues.html) covers this topic in more detail
 
 ## <a id="clustering-and-clients" class="anchor" href="#clustering-and-clients">Clustering and Clients</a>
 
+### Messaging Protocols
+
 Assuming all cluster members
-are available, a client can connect to any node and
+are available, a messaging (AMQP 0-9-1, AMQP 1.0, MQTT, STOMP) client can connect to any node and
 perform any operation. Nodes will route operations to the
 [quorum queue leader](./quorum-queues.html) or [queue leader replica](ha.html#leader-migration-data-locality)
 transparently to clients.
@@ -407,6 +409,21 @@ operations on queues that have a quorum of replicas online.
 With classic mirrored queues, there are scenarios where it may not be possible for a client to transparently continue
 operations after connecting to a different node. They usually involve
 [non-mirrored queues hosted on a failed node](./ha.html#non-mirrored-queue-behavior-on-node-failure).
+
+### Stream Clients
+
+RabbitMQ Stream protocol clients **behave differently from messaging protocols clients**: they are
+more cluster topology-aware. For publishing, they can connect to any node, and that node
+will forward all relevant operations to the node that hosts the leader replica of the stream.
+
+However, stream consumers should connect to one of the nodes hosting the replicas of
+the target stream. The protocol includes a topology discovery operation, so well-behaved client
+libraries will select one of the suitable nodes. This won't be the case when a load balancer is used,
+however.
+
+See [Connecting to Streams](https://blog.rabbitmq.com/posts/2021/07/connecting-to-streams/#well-behaved-clients)
+to learn more.
+
 
 ## <a id="clustering-and-observability" class="anchor" href="#clustering-and-observability">Clustering and Observability</a>
 

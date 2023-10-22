@@ -31,15 +31,27 @@ targets what .NET standard (or .NET framework) version.
   <thead>
     <td><strong>Library Release Series</strong></td>
     <td><strong>Required .NET Framework/Standard/Flavor Versions</strong></td>
+    <td>Support status</td>
   </thead>
 
   <tr>
     <td>
-      6.x (in development)
+      7.x (in development)
     </td>
     <td>
-      .NET 4.6.1+ or a .NET Standard 2.0+ implementation (e.g. .NET Core 3.x)
+      .NET Framework 4.6.1+ or a .NET 5 through 7
     </td>
+    <td>in development</td>
+  </tr>
+
+  <tr>
+    <td>
+      6.x
+    </td>
+    <td>
+      .NET Framework 4.6.1+ or a .NET 5 through 7
+    </td>
+    <td>supported</td>
   </tr>
 
   <tr>
@@ -47,8 +59,9 @@ targets what .NET standard (or .NET framework) version.
       5.x
     </td>
     <td>
-      .NET 4.5.1+ or a .NET Standard 1.5+ implementation (e.g. .NET Core 2.x)
+      .NET Framework 4.5.1+ or a .NET 5 through 6
     </td>
+    <td>end of life</td>
   </tr>
 
   <tr>
@@ -56,8 +69,9 @@ targets what .NET standard (or .NET framework) version.
       4.x
     </td>
     <td>
-      .NET 4.5.1+ or a .NET Standard 1.5+ implementation (e.g. .NET Core 2.x)
+      .NET Framework 4.5.1+ or a .NET Standard 1.5+ implementation
     </td>
+    <td>end of life</td>
   </tr>
 
   <tr>
@@ -65,8 +79,9 @@ targets what .NET standard (or .NET framework) version.
       3.4.x
     </td>
     <td>
-      .NET 3.5
+      .NET Framework 3.5
     </td>
+    <td>end of life</td>
   </tr>
 
   <tr>
@@ -74,8 +89,9 @@ targets what .NET standard (or .NET framework) version.
       3.3.x
     </td>
     <td>
-      .NET 2.0
+      .NET Framework 2.0
     </td>
+    <td>end of life</td>
   </tr>
 </table>
 

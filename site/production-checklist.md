@@ -82,7 +82,7 @@ When possible, prefer local storage to NAS.
 
 ### <a id="storage-isolation" class="anchor" href="#storage-isolation">Storage Isolation</a>
 
-RabbitMQ nodes must never share their data directories. Ideally, should should not share their
+RabbitMQ nodes must never share their data directories. Ideally, should not share their
 disk I/O with other services for most predictable latency and throughput.
 
 ### <a id="storage-filesystems" class="anchor" href="#storage-filesystems">Choice of a Filesystem</a>
