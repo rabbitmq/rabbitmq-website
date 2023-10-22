@@ -510,7 +510,10 @@ applies to MQTT. For example, if `tonyg` is the
 connected user, the permission `^{username}-.*` is expanded to
 `^tonyg-.*`
 
-If [alternative authorisation backends](#backends) are used, refer
+f a different authorisation backend (e.g. [LDAP](ldap.html),
+[HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_backend_http),
+[AMQP](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq-auth-backend-amqp),
+[OAuth2](oauth2.html)) is used, please refer
 to the documentation of those backends.
 
 If a custom authorisation backend is used, topic
@@ -543,14 +546,17 @@ It is possible and common for a plugin to provide both backends. RabbitMQ ships 
 the following [built-in plugins](./plugins.html) which provide both authentication and authorisation backends:
 
 * [LDAP](ldap.html)
-* [HTTP](https://github.com/rabbitmq/rabbitmq-auth-backend-http)
+* [HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_backend_http)
 
 The following built-in plugins provide authorisation backend implementations:
 
 * [OAuth2](oauth2.html)
-* [AMQP 0.9.1](https://github.com/rabbitmq/rabbitmq-auth-backend-amqp)
+* [AMQP 0.9.1](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq-auth-backend-amqp)
 
-Other non-tier 1 third party plugins such as [Source IP range one](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range) also only provide an authorisation backend. Authentication is supposed to be handled by the internal database, LDAP, etc.
+Some plugins such as [Source IP range one](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range)
+also only provide an authorisation backend.
+
+Authentication is supposed to be handled by the internal database, LDAP, etc.
 
 A special [cache backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_backend_cache)
 can be used in [combination](#combined-backends) with other backends to significantly
@@ -586,7 +592,7 @@ The following aliases are available:
 
  * <code>internal</code> for <code>rabbit_auth_backend_internal</code>
  * <code>ldap</code> for <code>rabbit_auth_backend_ldap</code> (from the [LDAP plugin](./ldap.html))
- * <code>http</code> for <code>rabbit_auth_backend_http</code> (from the [HTTP auth backend plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-http))
+ * <code>http</code> for <code>rabbit_auth_backend_http</code> (from the [HTTP auth backend plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_http))
  * <code>amqp</code> for <code>rabbit_auth_backend_amqp</code> (from the [AMQP 0-9-1 auth backend plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-amqp))
  * <code>dummy</code> for <code>rabbit_auth_backend_dummy</code>
 
@@ -616,7 +622,7 @@ auth_backends.1 = ldap
 auth_backends.2 = internal
 </pre>
 
-Same as above but will fall back to the [HTTP backend](https://github.com/rabbitmq/rabbitmq-auth-backend-http)
+Same as above but will fall back to the [HTTP backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_backend_http)
 instead:
 
 <pre class="lang-ini">
