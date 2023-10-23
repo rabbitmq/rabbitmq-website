@@ -45,7 +45,8 @@ limitations under the License.
           a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.12.x/">RabbitMQ 3.12.x</a> series.
         </p>
         <p>
-          This is a maintenance release that contains bug fixes.
+          This is a maintenance release that addresses <a href="https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-w6cq-9cf4-gqpg">CVE-2023-46118</a>
+          as well as a round bug fixes.
           Release notes can be found <a href="./changelog.html">in the change log</a>.
         </p>
         <p>
@@ -79,7 +80,8 @@ limitations under the License.
           a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.11.x/">RabbitMQ 3.11.x</a> series.
         </p>
         <p>
-          This is a maintenance release that contains bug fixes.
+          This is a maintenance release that addresses <a href="https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-w6cq-9cf4-gqpg">CVE-2023-46118</a>
+          as well as a round bug fixes.
           Release notes can be found <a href="./changelog.html">in the change log</a>.
         </p>
         <p>

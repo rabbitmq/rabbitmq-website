@@ -47,6 +47,7 @@ released separately.
     <td class="centre">October 18 2023</td>
     <td>
       <ul>
+        <li>A patch for <a href="https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-w6cq-9cf4-gqpg">CVE-2023-46118</a></li>
         <li>Bug fixes</li>
       </ul>
     </td>
@@ -60,6 +61,7 @@ released separately.
     <td class="centre">October 18 2023</td>
     <td>
       <ul>
+        <li>A patch for <a href="https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-w6cq-9cf4-gqpg">CVE-2023-46118</a></li>
         <li>Bug fixes</li>
       </ul>
     </td>
