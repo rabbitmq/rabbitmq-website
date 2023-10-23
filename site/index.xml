@@ -26,17 +26,7 @@ limitations under the License.
   </head>
   <body suppress-rhs="true">
     <x:modal mode="www">
-      <div id="hero" class='center'>
-        <div class='container'>
-          <div id='hero-summit'>
-            <div class='container'>
-              <h1>RabbitMQ Summit 2023<br/>Oct 20 | Berlin, Germany</h1>
-              <h2><a href="https://rabbitmqsummit.com/?utm_source=rabbitmq-website&amp;utm_medium=homepage-banner&amp;utm_campaign=rabbitmq-summit-2023" target="_blank" onclick="_gaq.push(['_trackEvent', 'RabbitMQ Summit Link', 'Click', 'Homepage Banner']);">Tickets on Sale</a></h2>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- <div id="hero">
+      <div id="hero">
         <div class='container'>
           <div id='hero-pipeline-webinar'>
             <div class='container'>
@@ -48,7 +38,7 @@ limitations under the License.
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
       <div id='intro'>
         <div class='container'>
           <div class='column twothirds'>
