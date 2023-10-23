@@ -191,6 +191,7 @@ Miscellaneous projects:
  * [amqpcpp](https://github.com/akalend/amqpcpp), a C++ message library for RabbitMQ
  * [AMQP-CPP](https://github.com/CopernicaMarketingSoftware/AMQP-CPP), a C++ RabbitMQ client
  * [RabbitMQ C stream client](https://github.com/GianfrancoGGL/rabbitmq-stream-c-client)
+ * [rmqcpp](https://github.com/bloomberg/rmqcpp), reliable message delivery ON by default, easy to use, testable, async-capable C++ API
 
 
 ## <a id="monitoring-tools" class="anchor" href="#monitoring-tools">Monitoring</a>
