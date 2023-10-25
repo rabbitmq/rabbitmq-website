@@ -18,7 +18,7 @@ limitations under the License.
 
 <!ENTITY product-name "RabbitMQ">
 
-<!ENTITY version-java-client "5.19.0">
+<!ENTITY version-java-client "5.20.0">
 <!ENTITY version-dotnet-client "6.6.0">
 <!ENTITY version-server "3.12.7">
 <!ENTITY version-server-series "v3.12.x">
