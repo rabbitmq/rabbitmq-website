@@ -314,7 +314,7 @@ more details.
 Even more plugins can be found on GitHub, GitLab, Bitbucket and similar
 services.
 
-## <a id="tier1-plugins" class="anchor" href="#tier1-plugins">Tier 1 (Core) Plugins</a>
+## <a id="tier1-plugins" class="anchor" href="#tier1-plugins">Tier 1 (Core) Plugins in Open Source RabbitMQ</a>
 
 The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
@@ -580,6 +580,35 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
       </ul>
     </td>
   </tr>
+  </tbody>
+</table>
+
+## <a id="commercial-plugins" class="anchor" href="#commercial-plugins">Additional Plugins in VMware RabbitMQ®</a>
+
+The table below lists of plugins only available in [VMware RabbitMQ®](https://tanzu.vmware.com/rabbitmq).
+
+<table class="plugins">
+  <thead>
+    <tr>
+      <th>Plugin name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <th>rabbitmq_schema_definition_sync</th>
+      <td>
+        Part of <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html">Warm Standby Replication</a>.
+      </td>
+    </tr>
+
+    <tr>
+      <th>rabbitmq_standby_replication</th>
+      <td>
+        Part of <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html">Warm Standby Replication</a>.
+      </td>
+    </tr>
   </tbody>
 </table>
 

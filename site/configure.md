@@ -51,7 +51,7 @@ A RabbitMQ node can be configured using a number of mechanisms responsible
 for different areas:
 
 <table>
-  <caption>Ways of configuration RabbitMQ</caption>
+  <caption>Ways of configuring RabbitMQ</caption>
   <thead>
     <td><strong>Mechanism</strong></td>
     <td><strong>Description</strong></td>
@@ -62,17 +62,9 @@ for different areas:
       <a href="#configuration-files">Configuration File(s)</a>
     </td>
     <td>
-      contains server and plugin settings for
-
-      <ul>
-        <li><a href="./networking.html">TCP listeners and other networking-related settings</a></li>
-        <li><a href="./ssl.html">TLS</a></li>
-        <li><a href="./alarms.html">resource constraints (alarms)</a></li>
-        <li><a href="./access-control.html">authentication and authorisation backends</a></li>
-        <li><a href="./persistence-conf.html">message store settings</a></li>
-      </ul>
-
-      and so on.
+      Contains server and plugin settings for TCP listeners and other <a href="./networking.html">networking-related settings</a>,
+      <a href="./ssl.html">TLS</a>, <a href="./alarms.html">resource constraints (alarms)</a>, <a href="./access-control.html">authentication and authorisation backends</a>,
+      <a href="./persistence-conf.html">message store settings</a>, and more.
     </td>
   </tr>
   <tr>
@@ -80,7 +72,7 @@ for different areas:
       <a href="#customise-environment">Environment Variables</a>
     </td>
     <td>
-      define <a href="./cli.html#node-names">node name</a>, file and directory locations, runtime flags taken from the shell, or set in
+      Used to define <a href="./cli.html#node-names">node name</a>, file and directory locations, runtime flags taken from the shell, or set in
       the environment configuration file, <code>rabbitmq-env.conf</code> (Linux, MacOS, BSD)
       and <code>rabbitmq-env-conf.bat</code> (Windows)
     </td>
