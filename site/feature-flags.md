@@ -738,19 +738,14 @@ To run a testsuite in the context of a mixed-version cluster:
 
  1. Clone the `rabbitmq-public-umbrella` repository and checkout the
     appropriate branch or tag. This will be the **secondary Umbrella**.
-    In this example, the `v3.11.x` branch is used:
+    In this example, the `v3.12.x` branch is used:
 
     <pre class="lang-bash">
     git clone https://github.com/rabbitmq/rabbitmq-server.git secondary-umbrella
     cd secondary-umbrella
-    git checkout v3.11.x
+    git checkout v3.12.x
     make co
     </pre>
-
-    <p class="box-info">
-    Currently, when using the `v3.11.x` branch, `deps/rabbit_common` and
-    `deps/rabbit` must use the `v3.11.x-versions-compatibility` branch.
-    </p>
 
  2. Compile RabbitMQ or the plugin being tested in the secondary
     Umbrella. The `rabbitmq-federation` plugin is used as an example:

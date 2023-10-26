@@ -35,7 +35,7 @@ HTTP API intentionally doesn't expose certain operations.
 the management plugin enabled. Navigate to `http://{hostname}:15672/cli/rabbitmqadmin` to download it.
 The tool requires a supported version of Python to be installed.
 
-Alternatively, `rabbitmqadmin` can be downloaded [from GitHub](https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/v3.11.x/deps/rabbitmq_management/bin/rabbitmqadmin).
+Alternatively, `rabbitmqadmin` can be downloaded [from GitHub](https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/v3.12.x/deps/rabbitmq_management/bin/rabbitmqadmin).
 
 
 ## Getting Started

@@ -25,12 +25,12 @@ an append-only log with non-destructive consumer semantics.
 This feature is available in all [currently maintained release series](./versions.html).
 
 Streams can be used as a regular AMQP 0.9.1 queue or through a
-[dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
+[dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
 plugin and associated client(s).
 Please see the [stream core and stream plugin comparison page](./stream-core-plugin-comparison.html) for the feature matrix.
 
 This page covers the Stream plugin, which allows to interact with streams using this
-[new binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc).
+[new binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc).
 For an overview of the concepts and the ways to operate streams, please see the
 [guide on RabbitMQ streams](streams.html).
 
@@ -160,18 +160,18 @@ This setting applies only to **publishers**, it does not apply to consumers.
 
 This section covers the stream protocol credit flow mechanism that allows consumers to control how the broker dispatches messages.
 
-A consumer provides an initial number of credits when it creates its [subscription](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc#subscribe).
+A consumer provides an initial number of credits when it creates its [subscription](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc#subscribe).
 A credit represents a *chunk* of messages that the broker is allowed to send to the consumer.
 
 A *chunk* is a batch of messages.
-This is the storage and transportation unit used in RabbitMQ Stream, that is messages are stored contiguously in a chunk and they are [delivered](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc#deliver) as part of a chunk.
+This is the storage and transportation unit used in RabbitMQ Stream, that is messages are stored contiguously in a chunk and they are [delivered](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc#deliver) as part of a chunk.
 A chunk can be made of one to several thousands of messages, depending on the ingress.
 
 So if a consumer creates a subscription with 5 initial credits, the broker will send 5 chunks of messages.
 The broker substracts a credit every time it delivers a chunk.
 When there is no credit left for a subscription, the broker stops sending messages.
 So in our example the broker will stop sending messages for this subscription after it delivers 5 chunks.
-This is not what we usually want, so the consumer can provide [credits](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc#credit) to its subscription to get more messages.
+This is not what we usually want, so the consumer can provide [credits](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc#credit) to its subscription to get more messages.
 
 
 This is up to the consumer (i.e. client library and/or application) to provide credits, depending on how fast it processes messages.

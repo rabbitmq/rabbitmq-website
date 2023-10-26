@@ -87,7 +87,7 @@ branches.
 ## <a id="release-branches" class="anchor" href="#release-branches">Release series branches</a>
 
 There is also a separate branch for every release series that is currently
-maintained. These branches are named after the series: <code>v3.11.x</code>, <code>v3.10.x</code>,
+maintained. These branches are named after the series: <code>v3.12.x</code>, <code>v3.11.x</code>,
 and so on.
 
 It plays the same role as the <code>main</code> branch except that it carries merged,
@@ -96,12 +96,12 @@ the next general release.
 
 Pull requests that are meant to ship in currently maintained release series are backported
 to these branches after being merged into the `main` branch. In the process they are
-labelled with `backport-v3.11.x`, `backport-v3.10.x`, and similar labels
+labelled with `backport-v3.12.x`, `backport-v3.11.x`, and similar labels
 on GitHub.
 
-For example, if a pull request is labelled with `backport-v3.10.x`, it means that it was
-backported, or at least considered for backporting, to the `v3.10.x` branch to ship
-in a 3.10.x release.
+For example, if a pull request is labelled with `backport-v3.12.x`, it means that it was
+backported, or at least considered for backporting, to the `v3.12.x` branch to ship
+in a 3.12.x release.
 
 ## <a id="tags" class="anchor" href="#tags">Tags</a>
 
@@ -110,7 +110,7 @@ the code: mostly importantly, releases. Generally, both the core repositories an
 repositories of plugins intended to work with the named
 snapshot are tagged.
 
-For example, if you are using RabbitMQ server version 3.11.5,
+For example, if you are using RabbitMQ server version 3.12.7,
 then examining the output of <code>git tag</code> yields:
 
 <pre class="lang-bash">
