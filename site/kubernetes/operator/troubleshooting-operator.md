@@ -74,6 +74,31 @@ Since RabbitMQ nodes [resolve their own and peer hostnames during boot](../../cl
 CoreDNS [caching timeout may need to be decreased](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#stable-network-id) from default 30 seconds
 to a value in the 5-10 seconds range.
 
+### <a id="pods-crash-loop" class="anchor" href="#pods-crash-loop">Pods in CrashLoopBackOff State</a>
+Since Kubernetes restarts failing pods, if a RabbitMQ node can't start, it will likely enter
+the CrashLoopBackOff state - it attempts to start, fails and is restarted again. In such situations
+it might be hard to debug or fix the problem, if that requires accessing the pod or its data.
+
+In some cases, you know you can fix the problem by starting a fresh node, which will synchronise everything from
+the other nodes in the cluster. Here's how you can do that:
+
+<p class="box-warning">
+The procedure below completely deletes a pod (RabbitMQ node) and its disk.
+This means the data from that node will be lost. Make sure you understand the consequences.
+</p>
+
+1. `kubectl rabbitmq pause-reconciliation RMQ_NAME` (or add a label if you don't have the kubectl-rabbitmq plugin/CLI) - this means the Operator won't "fix" (overwrite) manual changes to the underlying objects
+1. `kubectl delete statefulset --cascade=orphan RMQ_NAME-server` - delete the statefulset so that it doesn't "fix" the pods (recreate the missing pod after we delete it)
+1. `kubectl delete pod RMQ_SERVER-server-2` (you can delete any pod you want here)
+1. `kubectl delete pvc RMQ_NAME-server-2`
+1. `kubectl delete pv PV_NAME` if needed (this will completely delete the previous disk/data)
+1. `kubectl rabbitmq resume-reconciliation RMQ_NAME` (or delete the label) - the Operator fixes the deployment by recreating the StatefulSet and the StatefulSet recreates the missing pod and PVC
+
+You can adapt this procedure to other situations as well - for example rather than deleting the disk,
+you can start a pod and attach the volume to investigate the contents.
+
+The only RabbitMQ specific parts of this process are the first and last steps. [Leran more about pausing RabbitmqCluster reconciliation](using-operator.html#pause). The other commands are common Kubernetes administration tasks.
+
 ### <a id="pods-stuck-in-terminating-state" class="anchor" href="#pods-stuck-in-terminating-state">Pods Are Stuck in the Terminating State</a>
 
 symptom: "After deleting a RabbitmqCluster instance, some Pods
