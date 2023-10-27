@@ -1,9 +1,0 @@
-#!/bin/sh
-
-SRV_DIR=/srv/www.rabbitmq.com
-COMMUNITY_PLUGINS_DIR=/home/rabbitmq/extras/community-plugins/
-
-$SRV_DIR/code/find-community-plugins $COMMUNITY_PLUGINS_DIR $SRV_DIR/site-src
-
-$SRV_DIR/code/compile $SRV_DIR/site-src $SRV_DIR/site www index.xml > /dev/null
-$SRV_DIR/code/compile $SRV_DIR/site-src $SRV_DIR/site www community-plugins.xml > /dev/null
