@@ -74,13 +74,12 @@ const config = {
           src: 'img/logo-rabbitmq.svg',
         },
         items: [
-          /* TODO: Add documentation.
           {
             type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            sidebarId: 'docsSidebar',
             position: 'left',
-            label: 'Tutorial',
-          },*/
+            label: 'Docs',
+          },
           /* TODO: Add blog.
           {to: '/blog', label: 'Blog', position: 'left'}, */
           /* TODO: Configure Algolia once documentation and blog are
