@@ -29,9 +29,9 @@ Potential solution to resolve this issue:
 
  * Run `kubectl describe pod POD-NAME` to see if there are any warnings (eg. `0/1 nodes are available: 1 Insufficient memory.`)
  * Correct the <code>imagePullSecrets</code> and <code>storageClassName</code>
-   configurations. See [imagePullSecrets](./using-operator.html#image-pull-secrets),
-   [Persistence](./using-operator.html#persistence), and
-   [Update a RabbitMQ Instance](./using-operator.html#update).
+   configurations. See [imagePullSecrets](./using-operator#image-pull-secrets),
+   [Persistence](./using-operator#persistence), and
+   [Update a RabbitMQ Instance](./using-operator#update).
  * If the issue persists after updating the above configurations, view the status
    of your RabbitMQ cluster resources by following in the procedure in
    [Check the Status of an Instance](#check-instance-status)
@@ -55,7 +55,7 @@ Kubernetes cluster, but you have not created the necessary `PodSecurityPolicy` a
 corresponding role-based access control (RBAC) resources.
 
 Potential solution is to create the PodSecurityPolicy and RBAC resources by following the procedure in
-[Pod Security Policies](./using-operator.html#psp).
+[Pod Security Policies](./using-operator#psp).
 
 ### <a id="pods-restart-on-startup" class="anchor" href="#pods-restart-on-startup">Pods Restart on Startup</a>
 The RabbitMQ container might fail at Pod startup and log a message such as
@@ -70,7 +70,7 @@ Error during startup: {error,no_epmd_port}
 
 The Pod restarts and becomes `Ready` eventually.
 
-Since RabbitMQ nodes [resolve their own and peer hostnames during boot](../../clustering.html#hostname-resolution-requirement),
+Since RabbitMQ nodes [resolve their own and peer hostnames during boot](../../clustering#hostname-resolution-requirement),
 CoreDNS [caching timeout may need to be decreased](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#stable-network-id) from default 30 seconds
 to a value in the 5-10 seconds range.
 

@@ -24,7 +24,7 @@ Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into thi
 This metadata is called **definitions** in RabbitMQ parlance.
 
 Definitions can be [exported](#export) to a file and then [imported](#import) into another cluster or
-used for schema [backup](backup.html) or data seeding.
+used for schema [backup](./backup) or data seeding.
 
 Definitions are stored in an internal database and replicated across all cluster nodes.
 Every node in a cluster has its own replica of all definitions. When a part of definitions changes,
@@ -40,20 +40,20 @@ Definition import on node boot is the recommended way of [pre-configuring nodes 
 
 Definitions are exported as a JSON file in a number of ways.
 
- * [`rabbitmqctl export_definitions`](cli.html) is the only option that does not require [management plugin](management.html) to be enabled
+ * [`rabbitmqctl export_definitions`](./cli) is the only option that does not require [management plugin](./management) to be enabled
  * The `GET /api/definitions` API endpoint
- * [`rabbitmqadmin export`](management-cli.html) which uses the above HTTP API endpoint
+ * [`rabbitmqadmin export`](./management-cli) which uses the above HTTP API endpoint
  * There's a definitions pane on the Overview page
 
-Definitions can be exported for a specific [virtual host](vhosts.html) or the entire cluster (all virtual host).
+Definitions can be exported for a specific [virtual host](./vhosts) or the entire cluster (all virtual host).
 When definitions are exported for just one virtual host, some information (contents of the other
 virtual hosts or users without any permissions to the target virtual host) will be
 excluded from the exported file.
 
-Exported user data contains password hashes as well as [password hashing function](passwords.html) information. While brute forcing passwords with hashing functions such as SHA-256 or SHA-512 is not a completely trivial task,
+Exported user data contains password hashes as well as [password hashing function](./passwords) information. While brute forcing passwords with hashing functions such as SHA-256 or SHA-512 is not a completely trivial task,
 user records should be **considered sensitive information**.
 
-To export definitions using [`rabbitmqctl`](cli.html), use `rabbitmqctl export_definitions`:
+To export definitions using [`rabbitmqctl`](./cli), use `rabbitmqctl export_definitions`:
 
 ```bash
 # Does not require management plugin to be enabled
@@ -93,7 +93,7 @@ curl -u {username}:{password} -X GET http://{hostname}:15672/api/definitions | j
 
 ## <a id="import" class="anchor" href="#import">Definition Import</a>
 
-To import definitions using [`rabbitmqctl`](cli.html), use `rabbitmqctl import_definitions`:
+To import definitions using [`rabbitmqctl`](./cli), use `rabbitmqctl import_definitions`:
 
 ```ini
 # Does not require management plugin to be enabled
@@ -125,7 +125,7 @@ smaller definition files but with larger files, [importing definitions after nod
 cluster deployment (formation) is recommended.
 
 Modern releases support definition import directly in the core,
-without the need to [preconfigure](plugins.html#enabled-plugins-file) the [management plugin](management.html).
+without the need to [preconfigure](./plugins#enabled-plugins-file) the [management plugin](./management).
 
 To import definitions from a local file on node boot,
 set the `load_definitions` config key to a path of a previously exported JSON file with definitions:

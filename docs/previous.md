@@ -21,11 +21,11 @@ limitations under the License.
 
 [Historical versions of the website](http://previous.rabbitmq.com) that correspond with the final release of historical stable branches:
 
- * [RabbitMQ 3.6.x](http://previous.rabbitmq.com/v3_6_x/documentation.html)
- * [RabbitMQ 3.5.x](http://previous.rabbitmq.com/v3_5_7/documentation.html)
- * [RabbitMQ 3.4.x](http://previous.rabbitmq.com/v3_4_x/documentation.html)
- * [RabbitMQ 3.3.x](http://previous.rabbitmq.com/v3_3_x/documentation.html)
- * [RabbitMQ 3.2.x](http://previous.rabbitmq.com/v3_2_x/documentation.html)
- * [RabbitMQ 3.1.x](http://previous.rabbitmq.com/v3_1_x/documentation.html)
- * [RabbitMQ 3.0.x](http://previous.rabbitmq.com/v3_0_x/documentation.html)
- * [RabbitMQ 2.8.x](http://previous.rabbitmq.com/v2_8_x/documentation.html)
+ * [RabbitMQ 3.6.x](http://previous.rabbitmq.com/v3_6_x/./documentation)
+ * [RabbitMQ 3.5.x](http://previous.rabbitmq.com/v3_5_7/./documentation)
+ * [RabbitMQ 3.4.x](http://previous.rabbitmq.com/v3_4_x/./documentation)
+ * [RabbitMQ 3.3.x](http://previous.rabbitmq.com/v3_3_x/./documentation)
+ * [RabbitMQ 3.2.x](http://previous.rabbitmq.com/v3_2_x/./documentation)
+ * [RabbitMQ 3.1.x](http://previous.rabbitmq.com/v3_1_x/./documentation)
+ * [RabbitMQ 3.0.x](http://previous.rabbitmq.com/v3_0_x/./documentation)
+ * [RabbitMQ 2.8.x](http://previous.rabbitmq.com/v2_8_x/./documentation)

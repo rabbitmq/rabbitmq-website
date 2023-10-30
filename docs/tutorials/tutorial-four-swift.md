@@ -286,6 +286,6 @@ Move on to [tutorial 5][next] to find out how to listen
 for messages based on a pattern.
 
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
-[previous]:tutorial-three-swift.html
-[next]:tutorial-five-swift.html
+[previous]:./tutorial-three-swift
+[next]:./tutorial-five-swift
 [source]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/tutorial4/tutorial4/ViewController.swift

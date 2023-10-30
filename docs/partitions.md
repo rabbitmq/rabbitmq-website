@@ -21,8 +21,8 @@ limitations under the License.
 
 This guide covers one specific aspect of clustering: network
 failures between nodes, their effects and recovery options.
-For a general overview of clustering, see [Clustering](./clustering.html)
-and [Peer Discovery and Cluster Formation](./cluster-formation.html) guides.
+For a general overview of clustering, see [Clustering](./clustering)
+and [Peer Discovery and Cluster Formation](./cluster-formation) guides.
 
 Clustering can be used to achieve different goals: increased
 data safety through replication, increased availability for
@@ -38,7 +38,7 @@ and can tolerate unavailability to a different extent, different
 ## <a id="detecting" class="anchor" href="#detecting">Detecting Network Partitions</a>
 
 Nodes determine if its peer is down if another
-node is unable to contact it for a [period of time](nettick.html), 60 seconds by default.
+node is unable to contact it for a [period of time](./nettick), 60 seconds by default.
 If two nodes come back into contact, both having thought the other is down, the nodes will
 determine that a partition has occurred. This will be written to
 the RabbitMQ log in a form like:
@@ -47,9 +47,9 @@ the RabbitMQ log in a form like:
 2020-05-18 06:55:37.324 [error] &lt;0.341.0&gt; Mnesia(rabbit@warp10): ** ERROR ** mnesia_event got {inconsistent_database, running_partitioned_network, rabbit@hostname2}
 ```
 
-Partition presence can be identified via server [logs](./logging.html),
-[HTTP API](./management.html) (for [monitoring](./monitoring.html))
-and a [CLI command](./cli.html):
+Partition presence can be identified via server [logs](./logging),
+[HTTP API](./management) (for [monitoring](./monitoring))
+and a [CLI command](./cli):
 
 ```bash
 rabbitmq-diagnostics cluster_status
@@ -108,12 +108,12 @@ thinking the other has crashed. This scenario is known as split-brain.
 Queues, bindings, exchanges can
 be created or deleted separately.
 
-[Quorum queues](./quorum-queues.html) will elect a new leader on the
+[Quorum queues](./quorum-queues) will elect a new leader on the
 majority side. Quorum queue replicas on the minority side will no longer
 make progress (i.e. accept new messages, deliver to consumers, etc), all this work will be
 done by the new leader.
 
-[Classic mirrored queues](ha.html) which are split across the partition will end up with
+[Classic mirrored queues](./ha) which are split across the partition will end up with
 one leader on each side of the partition, again with both sides
 acting independently.
 
@@ -162,7 +162,7 @@ authority for the state of the system (schema, messages)
 to use; any changes which have occurred on other partitions will be lost.
 
 Stop all nodes in the other partitions, then start them all up
-again. When they [rejoin the cluster](./clustering.html#restarting) they
+again. When they [rejoin the cluster](./clustering#restarting) they
 will restore state from the trusted partition.
 
 Finally, you should also restart all the nodes in the trusted
@@ -220,7 +220,7 @@ partitions is chosen in an unspecified way).
 
 You can enable either mode by setting the configuration
 parameter <code>cluster_partition_handling</code>
-for the <code>rabbit</code> application in the [configuration file](configure.html#configuration-files) to:
+for the <code>rabbit</code> application in the [configuration file](./configure#configuration-files) to:
 
 <ul>
   <li><code>autoheal</code></li>
@@ -235,7 +235,7 @@ If using the <code>pause_if_all_down</code> mode, additional parameters are requ
   <li><code>recover</code>: recover action, can be <code>ignore</code> or <code>autoheal</code></li>
 </ul>
 
-Example [config snippet](./configure.html#config-file) that uses <code>pause_if_all_down</code>:
+Example [config snippet](./configure#config-file) that uses <code>pause_if_all_down</code>:
 
 ```
 cluster_partition_handling = pause_if_all_down
@@ -254,7 +254,7 @@ It's important to understand that allowing RabbitMQ to deal with
 network partitions automatically comes with trade offs.
 
 As stated in the introduction, to connect RabbitMQ clusters over generally unreliable
-links, prefer [Federation](federation.html) or the [Shovel](shovel.html).
+links, prefer [Federation](./federation) or the [Shovel](./shovel).
 
 With that said, here are some guidelines to help the operator determine
 which mode may or may not be appropriate:

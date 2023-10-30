@@ -43,7 +43,7 @@ limitations under the License.
 </div-->
 
 
-In the [first tutorial](tutorial-one-go.html) we
+In the [first tutorial](./tutorial-one-go) we
 wrote programs to send and receive messages from a named queue. In this
 one we'll create a _Work Queue_ that will be used to distribute
 time-consuming tasks among multiple workers.
@@ -230,7 +230,7 @@ But we don't want to lose any tasks. If a worker dies, we'd like the
 task to be delivered to another worker.
 
 In order to make sure a message is never lost, RabbitMQ supports
-[message _acknowledgments_](../confirms.html). An ack(nowledgement) is sent back by the
+[message _acknowledgments_](../confirms). An ack(nowledgement) is sent back by the
 consumer to tell RabbitMQ that a particular message has been received,
 processed and that RabbitMQ is free to delete it.
 
@@ -244,7 +244,7 @@ even if the workers occasionally die.
 A timeout (30 minutes by default) is enforced on consumer delivery acknowledgement.
 This helps detect buggy (stuck) consumers that never acknowledge deliveries.
 You can increase this timeout as described in
-[Delivery Acknowledgement Timeout](../consumers.html#acknowledgement-timeout).
+[Delivery Acknowledgement Timeout](../consumers#acknowledgement-timeout).
 
 In this tutorial we will use manual message acknowledgements by passing
 a `false` for the "auto-ack" argument and then send a proper acknowledgment
@@ -286,7 +286,7 @@ after the worker terminates, all unacknowledged messages are redelivered.
 
 Acknowledgement must be sent on the same channel that received the
 delivery. Attempts to acknowledge using a different channel will result
-in a channel-level protocol exception. See the [doc guide on confirmations](../confirms.html)
+in a channel-level protocol exception. See the [doc guide on confirmations](../confirms)
 to learn more.
 
 > #### Forgotten acknowledgment
@@ -384,7 +384,7 @@ err = ch.PublishWithContext(ctx,
 > message -- it may be just saved to cache and not really written to the
 > disk. The persistence guarantees aren't strong, but it's more than enough
 > for our simple task queue. If you need a stronger guarantee then you can use
-> [publisher confirms](../confirms.html).
+> [publisher confirms](../confirms).
 
 
 Fair dispatch
@@ -604,5 +604,5 @@ RabbitMQ is restarted.
 For more information on `amqp.Channel` methods and message properties, you can browse the
 [amqp API reference](https://pkg.go.dev/github.com/rabbitmq/amqp091-go).
 
-Now we can move on to [tutorial 3](tutorial-three-go.html) and learn how
+Now we can move on to [tutorial 3](./tutorial-three-go) and learn how
 to deliver the same message to many consumers.

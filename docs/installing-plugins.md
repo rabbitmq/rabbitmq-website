@@ -21,7 +21,7 @@ limitations under the License.
 
 This guide describes installation of 3rd party plugins.
 For an overview of the plugin mechanism, plugin activation and
-the list of tier 1 (core) plugins, see the [main Plugins guide](./plugins.html).
+the list of tier 1 (core) plugins, see the [main Plugins guide](./plugins).
 
 
 ## <a id="installing-custom-plugins" class="anchor" href="#installing-custom-plugins">Installing 3rd Party Plugins</a>
@@ -34,10 +34,10 @@ directories specified by <span class="envvar">$RABBITMQ_PLUGINS_DIR</span>.
 Assuming that plugins correctly specify a dependency on the core RabbitMQ server
 and their files were copied to the correct directory, they will show up in
 `rabbitmq-plugins list` and can be enabled with
-`rabbitmq-plugins enable`. This is covered the [Plugins guide](./plugins.html).
+`rabbitmq-plugins enable`. This is covered the [Plugins guide](./plugins).
 
 The plugins directory location is determined by the `RABBITMQ_PLUGINS_DIR`> environment variable.
-Its [default location](./relocate.html) depends on how RabbitMQ was installed. Some common values are:
+Its [default location](./relocate) depends on how RabbitMQ was installed. Some common values are:
 
 <table>
   <tr>
@@ -98,7 +98,7 @@ particular version of the plugins is distributed in the same
 archive as the broker with that version.  The source code
 repositories can all be found on [GitHub](https://github.com/rabbitmq).
 
-See the [plugin development](plugin-development.html) guide for more information on building plugins from source.
+See the [plugin development](./plugin-development) guide for more information on building plugins from source.
 
 Note that plugin releases might have dependencies to a particular
 version of RabbitMQ server, or at least the tip of a specific branch.

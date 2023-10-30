@@ -22,15 +22,15 @@ limitations under the License.
 RabbitMQ releases include a binary package for Linux, MacOS, and *BSD systems.
 It is minimalistic and not opinionated in how it is installed, configured and managed.
 This package is recommended in environments where more opinionated installation options
-(the [Debian](./install-debian.html) or [RPM packages](./install-rpm.html), [Homebrew](./install-homebrew.html), BSD ports) cannot be used.
+(the [Debian](./install-debian) or [RPM packages](./install-rpm), [Homebrew](./install-homebrew), BSD ports) cannot be used.
 It is also the most convenient option for running multiple versions on the same machine
 in development environments.
 
-There's a separate [binary package for Windows](./install-windows-manual.html).
+There's a separate [binary package for Windows](./install-windows-manual).
 
-Unlike with the cases of [Debian](./install-debian.html), [RPM](./install-rpm.html) and [Windows installer](./install-windows.html) packages,
+Unlike with the cases of [Debian](./install-debian), [RPM](./install-rpm) and [Windows installer](./install-windows) packages,
 [node management](#managing-node) with this package type is performed solely using
-[RabbitMQ CLI tools](./cli.html) or by the operator setting up e.g. a `systemd` service manually.
+[RabbitMQ CLI tools](./cli) or by the operator setting up e.g. a `systemd` service manually.
 
 ## <a id="downloads" class="anchor" href="#downloads">Downloads</a>
 
@@ -59,7 +59,7 @@ Unlike with the cases of [Debian](./install-debian.html), [RPM](./install-rpm.ht
 
 ### <a id="install-erlang" class="anchor" href="#install-erlang">Make Sure Erlang/OTP is Installed</a>
 
-This package requires a [supported version of Erlang](./which-erlang.html) to be installed
+This package requires a [supported version of Erlang](./which-erlang) to be installed
 in order to run.
 
 ### <a id="install" class="anchor" href="#install">Install the Server</a>
@@ -68,7 +68,7 @@ in order to run.
 
 Contained in the tarball is a directory named `rabbitmq_server-&version-server;`. This directory is the node base directory. It should be
 moved to a suitable application directory on the system, such as `/usr/local`.
-The `sbin` directory in that directory contains server and [CLI tool](./cli.html) scripts.
+The `sbin` directory in that directory contains server and [CLI tool](./cli) scripts.
 It is a good candidate for including into `PATH`.
 
 
@@ -76,10 +76,10 @@ It is a good candidate for including into `PATH`.
 
 ### <a id="managing-node" class="anchor" href="#managing-node">Running and Managing the Node</a>
 
-Unlike some other installation methods, namely the [Debian](./install-debian.html) and [RPM packages](./install-rpm.html), RabbitMQ
+Unlike some other installation methods, namely the [Debian](./install-debian) and [RPM packages](./install-rpm), RabbitMQ
 generic UNIX binary build does not require `sudo`. It can be uncompressed
-into any location and started and managed using the scripts and [CLI tools](./cli.html) under `sbin`.
-Default [data directory location](./relocate.html) will be under `./var`,
+into any location and started and managed using the scripts and [CLI tools](./cli) under `sbin`.
+Default [data directory location](./relocate) will be under `./var`,
 that is, in the installation directory.
 
 #### Starting the Server
@@ -100,27 +100,27 @@ it will exit with an error.
 
 #### Configuring the Server
 
-[RabbitMQ configuration file](configure.html#configuration-files) located at `$RABBITMQ_HOME/etc/rabbitmq/rabbitmq.conf`
+[RabbitMQ configuration file](./configure#configuration-files) located at `$RABBITMQ_HOME/etc/rabbitmq/rabbitmq.conf`
 is the primary way of configuring the node.
 
-It is possible to [use environment variables](configure.html#customise-general-unix-environment) to control certain settings.
+It is possible to [use environment variables](./configure#customise-general-unix-environment) to control certain settings.
 The recommended way of doing that is using the `$RABBITMQ_HOME/etc/rabbitmq/rabbitmq-env.conf` file.
 
 Neither of these files exist after installation, so they must be created first.
 
-See RabbitMQ [configuration guide](configure.html) to learn more.
+See RabbitMQ [configuration guide](./configure) to learn more.
 
 ### <a id="file-locations" class="anchor" href="#file-locations">File Locations</a>
 
 The generic binary build is designed to run without granted
-permissions to directories outside of its base one. The [directories and files](./relocate.html) used by default are
+permissions to directories outside of its base one. The [directories and files](./relocate) used by default are
 all held under the installation directory `rabbitmq_server-&version-server;`
 which is in the <span class="envvar">$RABBITMQ_HOME</span>
 variable in the scripts.
 
-The node can be [instructed](./relocate.html) to use more
-conventional system directories for [configuration](configure.html),
-node data directory, [log](./logging.html) files, [plugins](./plugins.html) and so on.
+The node can be [instructed](./relocate) to use more
+conventional system directories for [configuration](./configure),
+node data directory, [log](./logging) files, [plugins](./plugins) and so on.
 In order to make the node use operating system defaults, locate the following line
 
 ```bash
@@ -142,8 +142,8 @@ node user won't have permissions for.
 
 In particular `RABBITMQ_MNESIA_BASE` and
 `RABBITMQ_LOG_BASE` may need to be created (the server will attempt to create them at startup), and the
-[enabled plugins file](./plugins.html) (`RABBITMQ_ENABLED_PLUGINS_FILE`) will need
-to be writable by [rabbitmq-plugins](./cli.html).
+[enabled plugins file](./plugins) (`RABBITMQ_ENABLED_PLUGINS_FILE`) will need
+to be writable by [rabbitmq-plugins](./cli).
 
 The configuration files will be looked for in `/etc/rabbitmq/`.
 
@@ -153,7 +153,7 @@ The configuration files will be looked for in `/etc/rabbitmq/`.
 RabbitMQ nodes bind to ports (open server TCP sockets) in order to accept client
 and CLI tool connections. Other processes and tools such as SELinux may prevent
 RabbitMQ from binding to a port. When that happens, the node will fail to start.
-Refer to the [Networking Guide](networking.html#ports) for more details.
+Refer to the [Networking Guide](./networking#ports) for more details.
 
 ## <a id="default-user-access" class="anchor" href="#default-user-access">Default User Access</a>
 
@@ -163,7 +163,7 @@ credentials. <strong>By default, these credentials can only be
 used when connecting to the broker as localhost</strong> so you
 will need to take action before connecting from any other machine.
 
-See the documentation on [access control](access-control.html) for information on how to create more users and delete
+See the documentation on [access control](./access-control) for information on how to create more users and delete
 the `guest` user.
 
 ## <a id="managing" class="anchor" href="#managing">Managing the Node</a>
@@ -176,7 +176,7 @@ commands will report the node absence if no broker is running.
  * Invoke `rabbitmqctl stop` or `rabbitmqctl shutdown` to stop the server
  * Invoke `rabbitmq-diagnostics status` to check whether it is running
 
-See [CLI tools guide](./cli.html) to learn more.
+See [CLI tools guide](./cli) to learn more.
 
 
 ## <a id="kernel-resource-limits" class="anchor" href="#kernel-resource-limits">Controlling System Limits on Linux</a>
@@ -199,7 +199,7 @@ please refer to the excellent [Riak guide on open file limit tuning](https://git
 
 ### <a id="verifying-limits" class="anchor" href="#verifying-limits">Verifying the Limit</a>
 
-[RabbitMQ management UI](management.html) displays the number of file descriptors available for it to use on the Overview tab.
+[RabbitMQ management UI](./management) displays the number of file descriptors available for it to use on the Overview tab.
 
 ```bash
 rabbitmq-diagnostics status
@@ -217,5 +217,5 @@ OS-specific ways of doing that for a running process, such as the `/proc` filesy
 ### <a id="chef-puppet-bosh" class="anchor" href="#chef-puppet-bosh">Configuration Management Tools</a>
 
 Configuration management tools (e.g. Chef, Puppet, BOSH) provide assistance
-with system limit tuning. Our [developer tools](devtools.html#devops-tools) guide
+with system limit tuning. Our [developer tools](./devtools#devops-tools) guide
 lists relevant modules and projects.

@@ -20,18 +20,18 @@ limitations under the License.
 ## <a id="interstitial" class="anchor" href="#interstitial">Wait, There's a Better Way: Next Generation Highly Available Queues and Streams</a>
 
 This guide covers a [**deprecated and scheduled for removal feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/): mirroring (queue contents replication) of classic queues.
-[Quorum queues](quorum-queues.html) and/or [streams](streams.html) should be used instead of mirrored classic queues. 
+[Quorum queues](./quorum-queues) and/or [streams](./streams) should be used instead of mirrored classic queues. 
 
-Quorum queues are a more advanced queue type, which offers high availability using  replication and focuses on data safety. From RabbitMQ 3.10, quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues. You can [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq.html) now.
+Quorum queues are a more advanced queue type, which offers high availability using  replication and focuses on data safety. From RabbitMQ 3.10, quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues. You can [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq) now.
 
-[Streams](streams.html) is a messaging data structure available as of [RabbitMQ 3.9](changelog.html),
+[Streams](./streams) is a messaging data structure available as of [RabbitMQ 3.9](./changelog),
 and is also replicated.
 
 Quorum queues should be the **default choice** for a replicated queue type.
 Classic queue mirroring will be **removed in a future version** of RabbitMQ:
 classic queues will remain a supported non-replicated queue type.
 
-[Classic queues version 2](https://rabbitmq.com/persistence-conf.html#queue-version) can be used with mirroring.
+[Classic queues version 2](https://rabbitmq.com/./persistence-conf#queue-version) can be used with mirroring.
 However, combining v1 and v2 members is not recommended. It may happen if some nodes default to version 1 while other
 nodes default to version 2 (a new mirror will use the local node's default version if not explicitly set). Version 2
 is significantly faster in many situations and can overload a v1 mirror. The easiest solution is to switch to version 2
@@ -53,13 +53,13 @@ Topics covered in this guide include
 
 and more.
 
-This guide assumes general familiarity with [RabbitMQ clustering](./clustering.html).
+This guide assumes general familiarity with [RabbitMQ clustering](./clustering).
 
 
 ## <a id="what-is-mirroring" class="anchor" href="#what-is-mirroring">What is Queue Mirroring</a>
 
 **Important**: mirroring of classic queues will be **removed in a future version** of RabbitMQ.
-Consider using [quorum queues](quorum-queues.html) or a non-replicated classic queue instead.
+Consider using [quorum queues](./quorum-queues) or a non-replicated classic queue instead.
 
 By default, contents of a queue within a RabbitMQ cluster are located on
 a single node (the node on which the queue was
@@ -73,9 +73,9 @@ node commonly referred as the leader node for that queue. Each queue has
 its own leader node. All operations for a given queue are first applied
 on the queue's leader node and then propagated to mirrors. This
 involves enqueueing publishes, delivering messages to consumers, tracking
-[acknowledgements from consumers](./confirms.html) and so on.
+[acknowledgements from consumers](./confirms) and so on.
 
-Queue mirroring implies [a cluster of nodes](./clustering.html).
+Queue mirroring implies [a cluster of nodes](./clustering).
 It is therefore not recommended for use
 across a WAN (though of course, clients can still connect
 from as near and as far as needed).
@@ -105,18 +105,18 @@ replaced or removed in a future version.
 
 ## <a id="ways-to-configure" class="anchor" href="#ways-to-configure">How Mirroring is Configured</a>
 
-Mirroring parameters are configured using [policies](./parameters.html#policies). A policy matches
+Mirroring parameters are configured using [policies](./parameters#policies). A policy matches
 one or more queues by name (using a regular expression pattern) and
 contains a definition (a map of optional arguments) that are added to the total set of
 properties of the matching queues.
 
-Please see [Runtime Parameters and Policies](./parameters.html#policies) for more information on policies.
+Please see [Runtime Parameters and Policies](./parameters#policies) for more information on policies.
 
 
 ## <a id="mirroring-arguments" class="anchor" href="#mirroring-arguments">Queue Arguments that Control Mirroring</a>
 
 As we've covered above, queues have mirroring enabled
-via [policy](parameters.html#policies). Policies
+via [policy](./parameters#policies). Policies
 can change at any time; it is valid to create a non-mirrored
 queue, and then make it mirrored at some later point (and
 vice versa). There is a difference between a non-mirrored
@@ -219,7 +219,7 @@ for some queues (or even not use any mirroring).
 ## <a id="how-to-check-i-a-queue-is-mirrored" class="anchor" href="#how-to-check-i-a-queue-is-mirrored">How to Check if a Queue is Mirrored?</a>
 
 Mirrored queues will have a policy name and the number of additional replicas (mirrors)
-next to it on the queue page in the [management UI](./management.html).
+next to it on the queue page in the [management UI](./management).
 
 Below is an example of a queue named `two.replicas` which has a leader
 and a mirror:
@@ -256,7 +256,7 @@ rabbitmqctl list_queues name policy pid mirror_pids
 If a queue that's expected to be mirroring is not, this usually means that its name
 doesn't match that specified in the policy that controls mirroring or that another
 policy takes priority (and does not enable mirroring).
-See [Runtime Parameters and Policies](./parameters.html#policies) to learn more.
+See [Runtime Parameters and Policies](./parameters#policies) to learn more.
 
 
 ## <a id="leader-migration-data-locality" class="anchor" href="#leader-migration-data-locality">Queue Leader Replicas, Leader Migration, Data Locality</a>
@@ -273,9 +273,9 @@ be reasonably evenly distributed across cluster nodes.
 
 Queue leaders can be distributed between nodes using several
 strategies. Which strategy is used is controlled in three ways,
-namely, using the `x-queue-master-locator` [optional queue argument](queues.html#optional-arguments), setting the `queue-master-locator`
+namely, using the `x-queue-master-locator` [optional queue argument](./queues#optional-arguments), setting the `queue-master-locator`
 policy key or by defining the `queue_leader_locator`
-key in [`the configuration file`](configure.html#configuration-files). Here are the possible strategies and how to set them:
+key in [`the configuration file`](./configure#configuration-files). Here are the possible strategies and how to set them:
 
  * Pick the node hosting the minimum number of leaders of the same queue type:
  `balanced`
@@ -543,7 +543,7 @@ client need to take any action or be informed of the failure.
 Note that mirror failures may not be detected immediately and
 the interruption of the per-connection flow control mechanism
 can delay message publication. The details are described
-in the [Inter-node Communication Heartbeats](nettick.html) guide.
+in the [Inter-node Communication Heartbeats](./nettick) guide.
 
 If the leader fails, then one of the mirrors will be promoted to
 leader as follows:
@@ -572,13 +572,13 @@ leader as follows:
    to the queue leader and then replicated to all mirrors. Should the leader fail,
    the messages continue to be sent to the mirrors and will be added
    to the queue once the promotion of a mirror to the leader completes.
-6. Messages published by clients using [publisher confirms](confirms.html) will still be
+6. Messages published by clients using [publisher confirms](./confirms) will still be
    confirmed even if the leader (or any mirrors) fail
    between the message being published and a confirmation received
    by the publisher. From the point of view of the publisher,
    publishing to a mirrored queue is no different from publishing to a non-mirrored one.
 
-If consumers use [automatic acknowledgement mode](./confirms.html), then messages can be lost. This is no different
+If consumers use [automatic acknowledgement mode](./confirms), then messages can be lost. This is no different
 from non-mirrored queues, of course: the broker considers a message
 _acknowledged_ as soon as it has been sent to a consumer in automatic acknowledgement mode.
 
@@ -593,7 +593,7 @@ than throughput, the automatic acknowledgement mode is the way to go.
 
 ### <a id="confirms-transactions" class="anchor" href="#confirms-transactions">Publisher Confirms and Transactions</a>
 
-Mirrored queues support both [publisher confirms](confirms.html) and
+Mirrored queues support both [publisher confirms](./confirms) and
 transactions. The semantics chosen are that in the case of both confirms and
 transactions, the action spans all mirrors of the
 queue. So in the case of a transaction, a
@@ -610,7 +610,7 @@ that similarly are routed to multiple queues.
 ### <a id="flow-control" class="anchor" href="#flow-control">Flow Control</a>
 
 RabbitMQ uses a credit-based algorithm to <a
-href="memory.html#per-connection">limit the rate of
+href="./memory#per-connection">limit the rate of
 message publication</a>.  Publishers are permitted to
 publish when they receive credit from all mirrors of a
 queue.  Credit in this context means permission to
@@ -620,7 +620,7 @@ all mirrors issue credit or until the remaining nodes
 consider the mirror to be disconnected from the cluster.
 Erlang detects such disconnections by periodically sending
 a tick to all nodes. The tick interval can be controlled
-with the [net_ticktime](nettick.html)
+with the [net_ticktime](./nettick)
 configuration setting.
 
 ### <a id="cancellation" class="anchor" href="#cancellation">Leader Failures and Consumer Cancellation</a>
@@ -638,7 +638,7 @@ If so, they can consume with the argument
 `x-cancel-on-ha-failover` set to
 `true`. Their consuming will then be cancelled
 on failover and a [consumer
-cancellation notification](consumer-cancel.html) sent. It is then the
+cancellation notification](./consumer-cancel) sent. It is then the
 consumer's responsibility to reissue
 `basic.consume` to start consuming again.
 
@@ -739,7 +739,7 @@ which means permanent loss of a leader with this promotion strategy equates to l
 queue contents.
 
 Systems that use the `when-synced` promotion strategy must use
-[publisher confirms](./confirms.html) in order to detect queue unavailability
+[publisher confirms](./confirms) in order to detect queue unavailability
 and broker's inability to enqueue messages.
 
 ### <a id="start-stop" class="anchor" href="#start-stop">Stopping Nodes and Synchronisation</a>
@@ -855,7 +855,7 @@ For example, if you set `ha-sync-batch-size` to
 queue is 1KB, then each synchronisation message between nodes
 will be ~49MB. You need to make sure that your network
 between queue mirrors can accommodate this kind of traffic. If the
-network takes longer than [net_ticktime](nettick.html)
+network takes longer than [net_ticktime](./nettick)
 to send one batch of messages, then nodes in the cluster could
 think they are in the presence of a network partition.
 

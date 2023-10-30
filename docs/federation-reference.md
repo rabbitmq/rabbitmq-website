@@ -20,9 +20,9 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guides provides a reference on all the fields that can be set
-when defining various parameters related to [federation](federation.html).
+when defining various parameters related to [federation](./federation).
 
-Please refer to [other federation-related guides](federation.html) to learn about the concepts
+Please refer to [other federation-related guides](./federation) to learn about the concepts
 and how to get started.
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration Reference</a>
@@ -55,7 +55,7 @@ rabbitmqctl set_policy federate-me '^federated\.' '{"federation-upstream":"up-1"
 
 Note that you cannot use the <code>federation-upstream</code>
 and <code>federation-upstream-set</code> keys together in a
-policy. For more detail on policies, see the <a href="parameters.html#policies">policy</a> documentation.
+policy. For more detail on policies, see the <a href="./parameters#policies">policy</a> documentation.
 
 ### <a id="upstreams" class="anchor" href="#upstreams">Upstreams</a>
 
@@ -85,9 +85,9 @@ The upstream definition object can contain the following keys:
     <tr>
       <td><code>uri</code></td>
       <td>
-        The  <a href="./uri-spec.html">AMQP URI(s)</a> for the upstream.
-        See the <a href="./uri-query-parameters.html">query parameter reference</a> for the underlying client library extensions
-        (including those for <a href="./ssl.html">TLS</a>) which are available to federation.
+        The  <a href="./uri-spec">AMQP URI(s)</a> for the upstream.
+        See the <a href="./uri-query-parameters">query parameter reference</a> for the underlying client library extensions
+        (including those for <a href="./ssl">TLS</a>) which are available to federation.
 
         The value can either be a string, or a list of
         strings. If more than one string is provided, the federation
@@ -102,7 +102,7 @@ The upstream definition object can contain the following keys:
     <tr>
       <td><code>prefetch-count</code></td>
       <td>
-        The <a href="./confirms.html">maximum number of deliveries pending acknowledgement</a> on a link at
+        The <a href="./confirms">maximum number of deliveries pending acknowledgement</a> on a link at
         any given time. Default is <code>1000</code>. Increasing this value can improve link
         throughput up to a point but will also result in higher memory usage of the link.
       </td>
@@ -142,7 +142,7 @@ The upstream definition object can contain the following keys:
       <td><code>trust-user-id</code></td>
       <td>
         Determines how federation should interact with
-        the <a href="validated-user-id.html">validated user-id</a> feature.
+        the <a href="./validated-user-id">validated user-id</a> feature.
         If set to <code>true</code>, federation will pass through any validated user-id from
         the upstream, even though it cannot validate it itself.
         If set to <code>false</code> or not set, it will
@@ -158,7 +158,7 @@ The upstream definition object can contain the following keys:
 
 #### Applying to Federated Exchanges Only
 
-The following upstream parameters are only applicable to <a href="./federated-exchanges.html">federated exchanges</a>.
+The following upstream parameters are only applicable to <a href="./federated-exchanges">federated exchanges</a>.
 
 <table>
   <thead>
@@ -195,26 +195,26 @@ The following upstream parameters are only applicable to <a href="./federated-ex
       <td><code>expires</code></td>
       <td>
         The expiry time (in milliseconds) after which
-        an <a href="federated-exchanges.html#implementation">upstream queue</a> for
+        an <a href="./federated-exchanges#implementation">upstream queue</a> for
         a federated exchange may be deleted if a connection to the upstream is lost.
         The default is <code>'none'</code>, meaning no expiration will be applied to the queue.
 
         This setting controls how long the upstream queue will
         last before it is eligible for deletion if the connection is lost.
 
-        This value controls <a href="./ttl.html">TTL settings</a> for the upstream queue.
+        This value controls <a href="./ttl">TTL settings</a> for the upstream queue.
       </td>
     </tr>
 
     <tr>
       <td><code>message-ttl</code></td>
       <td>
-        The expiry time for messages in the <a href="federated-exchanges.html#implementation">upstream queue</a>
+        The expiry time for messages in the <a href="./federated-exchanges#implementation">upstream queue</a>
         for a federated exchange (see <code>expires</code>), in milliseconds.
         Default is <code>'none'</code>, meaning messages should never expire.
         This does not apply to federated queues.
 
-        This value controls <a href="./ttl.html">TTL settings</a> for the messages in the upstream queue.
+        This value controls <a href="./ttl">TTL settings</a> for the messages in the upstream queue.
       </td>
     </tr>
   </tbody>

@@ -18,37 +18,37 @@ used by applications running on Kubernetes or outside of Kubernetes.
 
 Documentation of Cluster Operator spans several guides:
 
- * [Quickstart guide](quickstart-operator.html) for RabbitMQ Cluster Kubernetes Operator
- * [Installing](install-operator.html) RabbitMQ Cluster Kubernetes Operator
- * [Configuring Defaults](configure-operator-defaults.html) for RabbitMQ Cluster Operator
- * [RabbitMQ Plugin for kubectl](kubectl-plugin.html)
- * [Using](using-operator.html) RabbitMQ Cluster Kubernetes Operator
- * [Monitoring RabbitMQ Clusters on Kubernetes](operator-monitoring.html)
- * [Troubleshooting RabbitMQ Clusters on Kubernetes](troubleshooting-operator.html)
- * [Upgrading the RabbitMQ Kubernetes Operators](upgrade-operator.html)
- * [Using the RabbitMQ Kubernetes Operators on Openshift](using-on-openshift.html)
+ * [Quickstart guide](./quickstart-operator) for RabbitMQ Cluster Kubernetes Operator
+ * [Installing](./install-operator) RabbitMQ Cluster Kubernetes Operator
+ * [Configuring Defaults](./configure-operator-defaults) for RabbitMQ Cluster Operator
+ * [RabbitMQ Plugin for kubectl](./kubectl-plugin)
+ * [Using](./using-operator) RabbitMQ Cluster Kubernetes Operator
+ * [Monitoring RabbitMQ Clusters on Kubernetes](./operator-monitoring)
+ * [Troubleshooting RabbitMQ Clusters on Kubernetes](./troubleshooting-operator)
+ * [Upgrading the RabbitMQ Kubernetes Operators](./upgrade-operator)
+ * [Using the RabbitMQ Kubernetes Operators on Openshift](./using-on-openshift)
 
 In addition, a separate Operator for managing cluster objects collectively
 known as the messaging topology: virtual hosts, user, queues, etc.
 It is covered in the following guides:
 
- * [Installing](install-topology-operator.html) RabbitMQ Messaging Topology Operator
- * [Using](using-topology-operator.html) RabbitMQ Messaging Topology Operator
- * [Using TLS](tls-topology-operator.html) with Messaging Topology Kubernetes Operator
- * [Troubleshooting](troubleshooting-topology-operator.html) Messaging Topology Kubernetes Operator
+ * [Installing](./install-topology-operator) RabbitMQ Messaging Topology Operator
+ * [Using](./using-topology-operator) RabbitMQ Messaging Topology Operator
+ * [Using TLS](./tls-topology-operator) with Messaging Topology Kubernetes Operator
+ * [Troubleshooting](./troubleshooting-topology-operator) Messaging Topology Kubernetes Operator
 
 The Operator provides the following key features:
 
 * Provisioning of single-node and multi-node RabbitMQ clusters
 * Automatic reconciliation of deployed clusters whenever their actual state does not match the expected state
-* Monitoring of RabbitMQ clusters using [Prometheus and Grafana](../../prometheus.html)
-* Scaling up and automated [rolling upgrades](../../upgrade.html) of RabbitMQ clusters
+* Monitoring of RabbitMQ clusters using [Prometheus and Grafana](../../prometheus)
+* Scaling up and automated [rolling upgrades](../../upgrade) of RabbitMQ clusters
 
 ### <a id='op-design-principles' class='anchor' href='#op-design-principles'> RabbitMQ Cluster Kubernetes Operator Design Principles</a>
 
 RabbitMQ Cluster Kubernetes Operator was designed with the following ideas and concepts in mind:
 
-* It should provide [RabbitMQ node configuration](../../configure.html) flexibility
+* It should provide [RabbitMQ node configuration](../../configure) flexibility
 * It should provide reasonably safe defaults where possible
 * It should simplify RabbitMQ operations
 
@@ -65,12 +65,12 @@ The only exception to this, is when a field is removed from the spec, by user ac
 Deleted `Secret` objects will be recreated by the Kubernetes Operator but the newly generated secret value will
 not be deployed to the RabbitMQ cluster. For example, if the `Secret` with administrator credentials is deleted,
 a new `Secret` will be created with new username and password, but those will not be reflected in the RabbitMQ cluster.
-It works the same way for any `Secret` value, e.g. the value of the [shared inter-node authentication secret](../../clustering.html#erlang-cookie)
+It works the same way for any `Secret` value, e.g. the value of the [shared inter-node authentication secret](../../clustering#erlang-cookie)
 known as the Erlang cookie.
 
 #### RabbitMQ Cluster Operator Feature Flags
 
-Cluster Operator does not support disabling any [RabbitMQ feature flags](../../feature-flags.html#how-to-disable-feature-flags).
+Cluster Operator does not support disabling any [RabbitMQ feature flags](../../feature-flags#how-to-disable-feature-flags).
 The Operator lists all available feature flags and enables all of them at cluster start.
  
 ## <a id='topology-operator' class='anchor' href='#topology-operator'>RabbitMQ Messaging Topology Operator</a>
@@ -79,10 +79,10 @@ The RabbitMQ Messaging Topology Operator supports managing RabbitMQ messaging to
 
 Documentation for the Messaging Topology Operator is structured as follows:
 
- * [Installing RabbitMQ Messaging Topology Operator](./install-topology-operator.html)
- * [Using RabbitMQ Messaging Topology Operator](./using-topology-operator.html)
- * [TLS for Messaging Topology Operator](./tls-topology-operator.html)
- * [Troubleshooting Messaging Topology Operator](./troubleshooting-topology-operator.html)
+ * [Installing RabbitMQ Messaging Topology Operator](./install-topology-operator)
+ * [Using RabbitMQ Messaging Topology Operator](./using-topology-operator)
+ * [TLS for Messaging Topology Operator](./tls-topology-operator)
+ * [Troubleshooting Messaging Topology Operator](./troubleshooting-topology-operator)
 
 ## <a id='source' class='anchor' href='#source'>The Source Code for these Kubernetes Operators</a>
 

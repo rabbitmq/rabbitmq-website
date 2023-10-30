@@ -20,13 +20,13 @@ limitations under the License.
 ## Overview
 
 Client connection, channels, queues, consumers, and other parts of the
-system [naturally generate events](logging.html#internal-events). For example, when a connection is
+system [naturally generate events](./logging#internal-events). For example, when a connection is
 accepted, authenticated and access to the target virtual host is
 authorised, it will emit an event of type `connection_created`. When a
 connection is closed or fails for any reason, a `connection_closed`
 event is emitted.
 
-[Monitoring](monitoring.html) and auditing services can be interested in observing those
+[Monitoring](./monitoring) and auditing services can be interested in observing those
 events. RabbitMQ has a minimalistic mechanism for event notifications
 that can be exposed to RabbitMQ clients with a plugin.
 

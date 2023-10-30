@@ -2,7 +2,7 @@
 
 ## <a id='overview' class='anchor' href='#overview'>Overview</a>
 
-This guide details the Openshift-specific considerations when [deploying the RabbitMQ Cluster Kubernetes Operator](using-operator.html)
+This guide details the Openshift-specific considerations when [deploying the RabbitMQ Cluster Kubernetes Operator](./using-operator)
 and the RabbitMQ Messaging Topology Kubernetes Operator. For the most part, the user experience is the same when
 using these operators on Openshift; the following guide details the additional work required to leverage Openshift's
 security practices, as well as detail on how the operators work on Openshift.
@@ -23,7 +23,7 @@ the following resources:
 * Service
 * ValidatingWebhookConfiguration
 
-You may then run [the installation instructions](./install-operator.html) as normal with this user.
+You may then run [the installation instructions](./install-operator) as normal with this user.
 
 ## <a id='arbitrary-user-ids' class='anchor' href='#arbitrary-user-ids'>Support for Arbitrary User IDs</a>
 

@@ -1,6 +1,6 @@
 # RabbitMQ Cluster Kubernetes Operator Quickstart
 
-This is the fastest way to get up and running with a RabbitMQ cluster deployed by the Cluster Operator. More detailed resources are available for [installation](./install-operator.html), [usage](./using-operator.html) and [API reference](./using-operator.html).
+This is the fastest way to get up and running with a RabbitMQ cluster deployed by the Cluster Operator. More detailed resources are available for [installation](./install-operator), [usage](./using-operator) and [API reference](./using-operator).
 
 ## Prerequisites
 
@@ -20,9 +20,9 @@ This guide goes through the following steps:
 
 ## The `kubectl rabbitmq` Plugin
 
-Many steps in the quickstart - installing the operator, accessing the Management UI, fetching credentials for the RabbitMQ Cluster, are made easier by the `kubectl rabbitmq` plugin. While there are instructions to follow along without using the plugin, getting the plugin will make these commands simpler. To install the plugin, look at its [installation instructions](./install-operator.html).
+Many steps in the quickstart - installing the operator, accessing the Management UI, fetching credentials for the RabbitMQ Cluster, are made easier by the `kubectl rabbitmq` plugin. While there are instructions to follow along without using the plugin, getting the plugin will make these commands simpler. To install the plugin, look at its [installation instructions](./install-operator).
 
-For extensive documentation on the plugin see the [`kubectl` Plugin guide](./kubectl-plugin.html).
+For extensive documentation on the plugin see the [`kubectl` Plugin guide](./kubectl-plugin).
 
 ## Install the RabbitMQ Cluster Operator
 
@@ -174,10 +174,10 @@ kubectl logs hello-world-server-0
   TLS Library: OpenSSL - OpenSSL 1.1.1u  30 May 2023
   Release series support status: supported
 
-  Doc guides: https://rabbitmq.com/documentation.html
-  Support:    https://rabbitmq.com/contact.html
-  Tutorials:  https://rabbitmq.com/getstarted.html
-  Monitoring: https://rabbitmq.com/monitoring.html
+  Doc guides: https://rabbitmq.com/./documentation
+  Support:    https://rabbitmq.com/./contact
+  Tutorials:  https://rabbitmq.com/./getstarted
+  Monitoring: https://rabbitmq.com/./monitoring
 
 ...
 ```
@@ -256,6 +256,6 @@ Now that you are up and running with the basics, you can explore what the Cluste
 
 You can do so by:
 
-1. Looking at [more examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/) such as [monitoring the deployed RabbitMQ Cluster using Prometheus](https://www.rabbitmq.com/prometheus.html), [enabling TLS](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/tls), etc.
-2. Looking at the [API reference documentation](./using-operator.html).
+1. Looking at [more examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/) such as [monitoring the deployed RabbitMQ Cluster using Prometheus](https://www.rabbitmq.com/./prometheus), [enabling TLS](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/tls), etc.
+2. Looking at the [API reference documentation](./using-operator).
 3. Checking out our [GitHub repository](https://github.com/rabbitmq/cluster-operator/) and contributing to this guide, other docs, and the codebase!

@@ -32,9 +32,9 @@ communicate with conforming messaging middleware brokers.
 
 ### <a id="brokers-role" class="anchor" href="#brokers-role">Brokers and Their Role</a>
 
-Messaging brokers receive messages from _[publishers](../publishers.html)_
+Messaging brokers receive messages from _[publishers](../publishers)_
 (applications that publish them, also known as producers) and route them to
-_[consumers](../consumers.html)_ (applications that process them).
+_[consumers](../consumers)_ (applications that process them).
 
 Since it is a network protocol, the publishers,
 consumers and the broker can all reside on
@@ -84,7 +84,7 @@ entities and routing schemes are primarily defined by applications
 themselves, not a broker administrator. Accordingly,
 provision is made for protocol operations that declare
 queues and exchanges, define bindings between them,
-subscribe to [queues](../queues.html) and so on.
+subscribe to [queues](../queues) and so on.
 
 This gives application developers a lot of freedom but
 also requires them to be aware of potential definition
@@ -267,7 +267,7 @@ hash (dictionary) for example.
 
 ## <a id="queues" class="anchor" href="#queues">Queues</a>
 
-[Queues](../queues.html) in the AMQP 0-9-1 model are very similar to queues in
+[Queues](../queues) in the AMQP 0-9-1 model are very similar to queues in
 other message- and task-queueing systems: they store
 messages that are consumed by applications. Queues share
 some properties with exchanges, but also have some additional
@@ -307,12 +307,12 @@ In AMQP 0-9-1, queues can be declared as durable or transient.
 Metadata of a durable queue is stored on disk, while metadata of a transient queue is
 stored in memory when possible.
 
-The same distinction is made for [messages at publishing time](../publishers.html#message-properties).
+The same distinction is made for [messages at publishing time](../publishers#message-properties).
 
 In environments and use cases where durability is important, applications
 must use durable queues *and* make sure that publish mark published messages as persisted.
 
-This topic is covered in more detailed in the [Queues guide](../queues.html#durability).
+This topic is covered in more detailed in the [Queues guide](../queues#durability).
 
 
 ## <a id="bindings" class="anchor" href="#bindings">Bindings</a>
@@ -339,14 +339,14 @@ duplicated work application developers have to do.
 
 If a message cannot be routed to any queue (for example,
 because there are no bindings for the exchange it was published
-to) it is either [dropped or returned to the publisher](../publishers.html#unroutable),
+to) it is either [dropped or returned to the publisher](../publishers#unroutable),
 depending on message attributes the publisher has set.
 
 
 ## <a id="consumers" class="anchor" href="#consumers">Consumers</a>
 
 Storing messages in queues is useless unless applications
-can _[consume](../consumers.html)_ them. In the AMQP 0-9-1 Model, there
+can _[consume](../consumers)_ them. In the AMQP 0-9-1 Model, there
 are two ways for applications to do this:
 
  * Subscribe to have messages delivered to them ("push API"): this is the recommended option
@@ -366,7 +366,7 @@ messages. Consumer tags are just strings.
 
 ### <a id="consumer-acknowledgements" class="anchor" href="#consumer-acknowledgements">Message Acknowledgements</a>
 
-[Consumer applications](../consumers.html) – that is, applications that receive and process
+[Consumer applications](../consumers) – that is, applications that receive and process
 messages – may occasionally fail to process individual
 messages, lose connection to the server or fail in many other ways.
 
@@ -374,7 +374,7 @@ There is also the possibility
 of network issues causing problems. This raises a question:
 when should the broker remove messages from queues? The
 AMQP 0-9-1 specification gives consumers control over this. There are
-two [acknowledgement modes](../confirms.html):
+two [acknowledgement modes](../confirms):
 
  * After broker sends a message to an application (using either `basic.deliver` or `basic.get-ok` method).
  * After the application sends back an acknowledgement (using the `basic.ack` method).
@@ -414,8 +414,8 @@ there is no way to reject multiple messages as you can do
 with acknowledgements. However, if you are using RabbitMQ,
 then there is a solution. RabbitMQ provides an AMQP 0-9-1
 extension known as _negative acknowledgements_ or _nacks_. For
-more information, please refer to the [Confirmations](../confirms.html)
-and [basic.nack extension](../nack.html) guides.
+more information, please refer to the [Confirmations](../confirms)
+and [basic.nack extension](../nack) guides.
 
 ### <a id="messages-prefetch" class="anchor" href="#messages-prefetch">Prefetching Messages</a>
 
@@ -472,7 +472,7 @@ message itself. Publishing messages as persistent affects
 performance (just like with data stores, durability comes at a
 certain cost in performance).
 
-Learn more in the [Publishers guide](../publishers.html).
+Learn more in the [Publishers guide](../publishers).
 
 
 ## <a id="amqp-methods" class="anchor" href="#amqp-methods">AMQP 0-9-1 Methods</a>
@@ -482,7 +482,7 @@ _methods_. Methods are operations (like HTTP methods)
 and have nothing in common with methods in object-oriented
 programming languages. Protocol methods in AMQP 0-9-1 are grouped into
 _classes_. Classes are just logical groupings of AMQP
-methods. The [AMQP 0-9-1 reference](../amqp-0-9-1-reference.html) has full details of all the AMQP methods.
+methods. The [AMQP 0-9-1 reference](../amqp-0-9-1-reference) has full details of all the AMQP methods.
 
 Let us take a look at the _exchange_ class, a group
 of methods related to operations on exchanges. It includes
@@ -555,7 +555,7 @@ broker. However, it is undesirable to keep many TCP
 connections open at the same time because doing so consumes
 system resources and makes it more difficult to configure
 firewalls. AMQP 0-9-1 connections are multiplexed with
-_[channels](../channels.html)_ that can be thought of as "lightweight
+_[channels](../channels)_ that can be thought of as "lightweight
 connections that share a single TCP connection".
 
 Every protocol operation performed by a client happens on a channel.
@@ -576,7 +576,7 @@ and not share channels between them.
 
 To make it possible for a single broker to host multiple
 isolated "environments" (groups of users, exchanges,
-queues and so on), AMQP 0-9-1 includes the concept of _[virtual hosts](../vhosts.html)_ (vhosts).
+queues and so on), AMQP 0-9-1 includes the concept of _[virtual hosts](../vhosts)_ (vhosts).
 They are similar to virtual hosts used by many popular Web servers and provide completely isolated
 environments in which AMQP entities live. Protocol clients
 specify what vhosts they want to use during connection negotiation.
@@ -586,16 +586,16 @@ specify what vhosts they want to use during connection negotiation.
 
 AMQP 0-9-1 has several extension points:
 
- * [Custom exchange types](../devtools.html#miscellaneous) let developers
+ * [Custom exchange types](../devtools#miscellaneous) let developers
    implement routing schemes that exchange types provided out-of-the-box do
    not cover well, for example, geodata-based routing.
  * Declaration of exchanges and queues can include additional attributes that the broker
-   can use. For example, [per-queue message TTL](../ttl.html) in RabbitMQ is implemented this way.
+   can use. For example, [per-queue message TTL](../ttl) in RabbitMQ is implemented this way.
  * Broker-specific extensions to the protocol. See, for example,
-   [extensions that RabbitMQ implements](../extensions.html).
- * [New AMQP 0-9-1 method classes](../amqp-0-9-1-quickref.html#class.confirm) can be introduced.
- * Brokers can be extended with [additional plugins](../plugins.html),
-   for example, the [RabbitMQ management](../management.html)
+   [extensions that RabbitMQ implements](../extensions).
+ * [New AMQP 0-9-1 method classes](../amqp-0-9-1-quickref#class.confirm) can be introduced.
+ * Brokers can be extended with [additional plugins](../plugins),
+   for example, the [RabbitMQ management](../management)
    frontend and HTTP API are implemented as a plugin.
 
 These features make the AMQP 0-9-1 Model even more flexible
@@ -604,7 +604,7 @@ and applicable to a very broad range of problems.
 
 ## <a id="amqp-clients" class="anchor" href="#amqp-clients">AMQP 0-9-1 Clients Ecosystem</a>
 
-There are [many AMQP 0-9-1 clients](../devtools.html) for many
+There are [many AMQP 0-9-1 clients](../devtools) for many
 popular programming languages and platforms. Some of them follow AMQP terminology
 closely and only provide implementation of AMQP methods. Some
 others have additional features, convenience methods

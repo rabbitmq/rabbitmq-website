@@ -74,11 +74,11 @@ that RabbitMQ node is unreachable due to a heartbeat, it needs
 to re-connect.
 
 It is important to not confuse the timeout value with the interval one.
-RabbitMQ [configuration](configure.html) exposes the timeout value,
+RabbitMQ [configuration](./configure) exposes the timeout value,
 so do the officially supported client libraries. However some clients might expose
 the interval, potentially causing confusion.
 
-Any traffic (e.g. protocol operations, published messages, [acknowledgements](./confirms.html)) counts for a valid
+Any traffic (e.g. protocol operations, published messages, [acknowledgements](./confirms)) counts for a valid
 heartbeat. Clients may choose to send heartbeat frames
 regardless of whether there was any other traffic on the
 connection but some only do it when necessary.
@@ -97,7 +97,7 @@ as frame delivery will be too infrequent to make a practical difference.
 
 Unless [TCP keepalives](#tcp-keepalives) are used instead with an adequately low inactivity detection period,
 *deactivating heartbeats is highly discouraged*. If heartbeats are deactivated, it will make timely peer unavailability
-detection much less likely, which *would pose a significant risk to data safety*, in particular for [publishers](./publishers.html).
+detection much less likely, which *would pose a significant risk to data safety*, in particular for [publishers](./publishers).
 
 
 ## <a id="using-heartbeats-in-java" class="anchor" href="#using-heartbeats-in-java">Enabling Heartbeats with Java Client</a>
@@ -168,11 +168,11 @@ Please consult your MQTT client's documentation for examples.
 
 ## <a id="shovel-and-federation" class="anchor" href="#shovel-and-federation">Heartbeats in Shovel and Federation Plugins</a>
 
-[Shovel](shovel.html) and [Federation](federation.html) plugins open Erlang client
+[Shovel](./shovel) and [Federation](./federation) plugins open Erlang client
 connections to RabbitMQ nodes under the hood. As such, they can be configured
 to use a desired heartbeat value.
 
-Please refer to the [AMQP 0-9-1 URI query parameters reference](./uri-query-parameters.html)
+Please refer to the [AMQP 0-9-1 URI query parameters reference](./uri-query-parameters)
 for details.
 
 ## <a id="tcp-keepalives" class="anchor" href="#tcp-keepalives">TCP Keepalives</a>
@@ -193,7 +193,7 @@ be configured to use a reasonably low timeout value.
 
 TCP keepalives cover all TCP connections on a host, both inbound
 and outgoing. This makes them useful in scenarios with a high outgoing
-connection churn, for example, [Shovel](shovel.html) or [Federation](federation.html) plugin
+connection churn, for example, [Shovel](./shovel) or [Federation](./federation) plugin
 links that are often deactivated and re-activated (re-enabled) or interrupted.
 
 TCP keepalives can also be used instead of heartbeats by configuring them to lower system-specific
@@ -201,7 +201,7 @@ values. In that case [heartbeats can be deactivated](#disabling). The main benef
 of this approach is that all TCP connections on a machine will use identical values
 regardless of the protocol and client library used.
 
-See the [Networking guide](networking.html) for details.
+See the [Networking guide](./networking) for details.
 
 ## <a id="tcp-proxies" class="anchor" href="#tcp-proxies">Heartbeats and TCP Proxies</a>
 
@@ -222,11 +222,11 @@ Also see the section on low timeouts and false positives above.
 
 ## <a id="troubleshooting" class="anchor" href="#troubleshooting">Troubleshooting Active and Defunct Connections</a>
 
-RabbitMQ nodes will [log connections](./logging.html#connection-lifecycle-events) closed due to missed heartbeats. So will all
+RabbitMQ nodes will [log connections](./logging#connection-lifecycle-events) closed due to missed heartbeats. So will all
 officially supported client libraries. Inspecting server and client logs will provide
 valuable information and should be the first troubleshooting step.
 
 It may be necessary to inspect the connections open to or from a node,
 their state, origin, username and effective heartbeat timeout value.
-[Network Troubleshooting](./troubleshooting-networking.html) guide
+[Network Troubleshooting](./troubleshooting-networking) guide
 provides an overview of the tools available to help with that.

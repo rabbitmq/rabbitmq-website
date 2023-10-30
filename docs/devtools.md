@@ -19,29 +19,29 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-RabbitMQ is [officially supported](platforms.html) on a number of
+RabbitMQ is [officially supported](./platforms) on a number of
 operating systems and has several official client libraries. In addition, the RabbitMQ community
 has created numerous clients, adaptors and tools that we list here for
 your convenience.
 
-Please [contact us](contact.html) with suggestions for things you
+Please [contact us](./contact) with suggestions for things you
 would like to see added to this list.
 
 *Note:* items with a check mark (&#x2713;) are officially supported by Team RabbitMQ and VMware.
 
 ## <a id="workload-simulation" class="anchor" href="#workload-simulation">Load Testing and Workload Simulation</a>
 
- * &#x2713; [PerfTest](https://perftest.rabbitmq.com/) for [quorum](./quorum-queues.html) and classic queues
- * &#x2713; [Stream PerfTest](https://rabbitmq.github.io/rabbitmq-stream-java-client/stable/htmlsingle/#the-performance-tool) for [streams](./streams.html)
+ * &#x2713; [PerfTest](https://perftest.rabbitmq.com/) for [quorum](./quorum-queues) and classic queues
+ * &#x2713; [Stream PerfTest](https://rabbitmq.github.io/rabbitmq-stream-java-client/stable/htmlsingle/#the-performance-tool) for [streams](./streams)
 
 ## <a id="java-dev" class="anchor" href="#java-dev">Java and Spring</a>
 
 ### Java
- * &#x2713; [RabbitMQ Java client](java-client.html) and its [developer guide](api-guide.html)
+ * &#x2713; [RabbitMQ Java client](./java-client) and its [developer guide](./api-guide)
  * &#x2713; [RabbitMQ Stream Java client](https://github.com/rabbitmq/rabbitmq-stream-java-client)
- * &#x2713; [RabbitMQ JMS client](jms-client.html)
+ * &#x2713; [RabbitMQ JMS client](./jms-client)
  * [Reactor RabbitMQ](https://github.com/reactor/reactor-rabbitmq), a reactive API for RabbitMQ based on
-   [Reactor](https://projectreactor.io/) and [RabbitMQ Java Client](java-client.html)
+   [Reactor](https://projectreactor.io/) and [RabbitMQ Java Client](./java-client)
 
 ### Spring Framework
 
@@ -54,7 +54,7 @@ would like to see added to this list.
 
 Client libraries:
 
- * &#x2713; [RabbitMQ .NET Client](dotnet.html) (supports .NET Core and .NET 4.6.1+)
+ * &#x2713; [RabbitMQ .NET Client](./dotnet) (supports .NET Core and .NET 4.6.1+)
  * &#x2713; [RabbitMQ Stream .NET client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client)
 
 Higher level frameworks:
@@ -195,12 +195,12 @@ Miscellaneous projects:
 
 ## <a id="monitoring-tools" class="anchor" href="#monitoring-tools">Monitoring</a>
 
- * See [Monitoring](./monitoring.html) and [Prometheus](./prometheus.html) guides.
+ * See [Monitoring](./monitoring) and [Prometheus](./prometheus) guides.
 
 
 ## <a id="viz" class="anchor" href="#viz">Visualisation</a>
 
- * [Rabbit Viz](https://plexsystems.github.io/rabbit-viz/), a tool for visualizing [exported definition files](./backup.html#rabbitmq-definitions).
+ * [Rabbit Viz](https://plexsystems.github.io/rabbit-viz/), a tool for visualizing [exported definition files](./backup#rabbitmq-definitions).
 
 
 ## <a id="unity-dev" class="anchor" href="#unity-dev">Unity 3D</a>
@@ -210,7 +210,7 @@ Miscellaneous projects:
 
 ## <a id="erlang-dev" class="anchor" href="#erlang-dev">Erlang</a>
 
- * &#x2713; [RabbitMQ Erlang client](erlang-client-user-guide.html)
+ * &#x2713; [RabbitMQ Erlang client](./erlang-client-user-guide)
  * [RabbitMQ Stream Erlang client](https://gitlab.com/evnu/lake)
  * [bunny_farm](https://github.com/muxspace/bunny_farm), a simplifying wrapper for the Erlang client
  * [RabbitMQ Messaging Patterns](https://github.com/videlalvaro/rmq_patterns), a library of messaging patterns implemented in Erlang
@@ -243,8 +243,8 @@ Miscellaneous projects:
 
 ## <a id="rabbitmq-cli" class="anchor" href="#rabbitmq-cli">CLI Tools</a>
 
- * &#x2713; [RabbitMQ CLI tools](./cli.html)
- * &#x2713; [rabbitmqadmin](./management-cli.html), a command line tool that targets RabbitMQ HTTP API
+ * &#x2713; [RabbitMQ CLI tools](./cli)
+ * &#x2713; [rabbitmqadmin](./management-cli), a command line tool that targets RabbitMQ HTTP API
  * [amqp-utils](https://github.com/dougbarth/amqp-utils), command line utils for interacting with an AMQP based queue (in Ruby)
  * [amqptools](https://github.com/rmt/amqptools), command line AMQP clients (in C)
  * [rabtap](https://github.com/jandelgado/rabtap), RabbitMQ wire tap and swiss army knife command line tool (in go)
@@ -282,7 +282,7 @@ Miscellaneous projects:
 
 ## <a id="protocol-analysis" class="anchor" href="#protocol-analysis">Traffic Capture and Protocol Analysis</a>
 
- * [Wireshark](amqp-wireshark.html) is the world's foremost
+ * [Wireshark](./amqp-wireshark) is the world's foremost
    network protocol analyzer
 
 

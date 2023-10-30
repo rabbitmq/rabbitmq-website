@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-two-dotnet.html) we created a work
+In the [previous tutorial](./tutorial-two-dotnet) we created a work
 queue. The assumption behind a work queue is that each task is
 delivered to exactly one worker. In this part we'll do something
 completely different -- we'll deliver a message to multiple
@@ -174,7 +174,7 @@ var queueName = channel.QueueDeclare().QueueName;
 ```
 
 You can learn more about the `exclusive` flag and other queue
-properties in the [guide on queues](../queues.html).
+properties in the [guide on queues](../queues).
 
 At that point `queueName` contains a random queue name. For example
 it may look like `amq.gen-JzTY20BRgKO-HjmUJj0wLg`.
@@ -344,7 +344,7 @@ Console.ReadLine();
 
 [(ReceiveLogs.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogs/ReceiveLogs.cs)
 
-Follow the setup instructions from [tutorial one](tutorial-one-dotnet.html) to
+Follow the setup instructions from [tutorial one](./tutorial-one-dotnet) to
 generate the `EmitLogs` and `ReceiveLogs` projects.
 
 If you want to save logs to a file, just open a console and type:
@@ -385,5 +385,5 @@ exchange `logs` goes to two queues with server-assigned names. And
 that's exactly what we intended.
 
 To find out how to listen for a subset of messages, let's move on to
-[tutorial 4](tutorial-four-dotnet.html)
+[tutorial 4](./tutorial-four-dotnet)
 

@@ -22,7 +22,7 @@ limitations under the License.
 This guide covers
 
  * [Plugin support](#overview) in RabbitMQ
- * How to [enable a plugin](#ways-to-enable-plugins) using [CLI tools](./cli.html)
+ * How to [enable a plugin](#ways-to-enable-plugins) using [CLI tools](./cli)
  * [Plugin directories](#plugin-directories)
  * How to [preconfigure plugins](#enabled-plugins-file) on a node at deployment time
  * [Troubleshooting](#troubleshooting) of a number of common issues
@@ -30,28 +30,28 @@ This guide covers
 
 and more.
 
-[Plugin development](./plugin-development.html) is covered in a separate guide.
+[Plugin development](./plugin-development) is covered in a separate guide.
 
 
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
 
 RabbitMQ supports plugins. Plugins extend core broker functionality in a variety of ways: with support
-for more protocols, system state [monitoring](./monitoring.html), additional AMQP 0-9-1 exchange types,
-node [federation](federation.html), and more. A number of features are implemented as plugins
+for more protocols, system state [monitoring](./monitoring), additional AMQP 0-9-1 exchange types,
+node [federation](./federation), and more. A number of features are implemented as plugins
 that ship in the core distribution.
 
-This guide covers the plugin mechanism and plugins that ship in the [latest release](./changelog.html) of the RabbitMQ distribution.
+This guide covers the plugin mechanism and plugins that ship in the [latest release](./changelog) of the RabbitMQ distribution.
 3rd party plugins can be installed separately. A set of [curated plugins](#plugin-tiers) is also available.
 
-Plugins are activated when a node is started or at runtime when a [CLI tool](cli.html)
+Plugins are activated when a node is started or at runtime when a [CLI tool](./cli)
 is used. For a plugin to be activated at boot, it must be enabled. To enable a plugin, use
-the [rabbitmq-plugins](cli.html):
+the [rabbitmq-plugins](./cli):
 
 ```bash
 rabbitmq-plugins enable &lt;plugin-name&gt;
 ```
 
-For example, to enable the Kubernetes [peer discovery](./cluster-formation.html) plugin:
+For example, to enable the Kubernetes [peer discovery](./cluster-formation) plugin:
 
 ```bash
 rabbitmq-plugins enable rabbitmq_peer_discovery_k8s
@@ -63,13 +63,13 @@ And to disable a plugin, use:
 rabbitmq-plugins disable &lt;plugin-name&gt;
 ```
 
-For example, to disable the [`rabbitmq-top`](./memory-use.html#breakdown-top) plugin:
+For example, to disable the [`rabbitmq-top`](./memory-use#breakdown-top) plugin:
 
 ```bash
 rabbitmq-plugins disable rabbitmq_top
 ```
 
-A list of plugins available locally (in the node's [plugins directory](./relocate.html)) as well
+A list of plugins available locally (in the node's [plugins directory](./relocate)) as well
 as their status (enabled or disabled) can be obtained using `rabbitmq-plugins list`:
 
 ```bash
@@ -91,10 +91,10 @@ the tool will not contact any nodes and instead will modify the file containing
 the list of enabled plugins (appropriately named `enabled_plugins`) directly.
 This option is often optimal for node provisioning automation.
 
-The `enabled_plugins` file is usually [located](./relocate.html) in the node
+The `enabled_plugins` file is usually [located](./relocate) in the node
 data directory or under `/etc`, together with configuration files. The file contains
-a list of plugin names ending with a dot. For example, when [rabbitmq_management](./management.html) and
-[rabbitmq_shovel](shovel.html) plugins are enabled,
+a list of plugin names ending with a dot. For example, when [rabbitmq_management](./management) and
+[rabbitmq_shovel](./shovel) plugins are enabled,
 the file contents will look like this:
 
 ```erlang
@@ -111,7 +111,7 @@ When a plugin must be disabled, it should be removed from the list and the node 
 
 For more information on `rabbitmq-plugins`,
 consult [the manual
-page](man/rabbitmq-plugins.8.html).
+page](./man/rabbitmq-plugins.8).
 
 
 ## <a id="plugin-directories" class="anchor" href="#plugin-directories">Plugin Directories</a>
@@ -120,9 +120,9 @@ RabbitMQ loads plugins from the local filesystem. Plugins are distributed as
 archives (`.ez` files) with compiled code modules and metadata.
 Since some plugins [ship with RabbitMQ](#plugin-tiers), every
 node has at least one default plugin directory. The path varies between
-package types and can be [overridden](./relocate.html) using the
-`RABBITMQ_PLUGINS_DIR` [environment variable](./configure.html#customise-environment).
-Please see [File and Directory Locations guide](./relocate.html) to learn about the default
+package types and can be [overridden](./relocate) using the
+`RABBITMQ_PLUGINS_DIR` [environment variable](./configure#customise-environment).
+Please see [File and Directory Locations guide](./relocate) to learn about the default
 value on various platforms.
 
 The built-in plugin directory is by definition version-independent: its contents will change
@@ -151,7 +151,7 @@ by them.
 
 3rd party plugin directories will differ from platform to platform and installation method
 to installation method. For example, `/usr/lib/rabbitmq/plugins` is a 3rd party plugin directory
-path used by RabbitMQ [Debian packages](./install-debian.html).
+path used by RabbitMQ [Debian packages](./install-debian).
 
 Plugin directory can be located by executing the `rabbitmq-plugins directories` command on the host
 with a running RabbitMQ node:
@@ -172,7 +172,7 @@ installed RabbitMQ version changes between upgrades.
 When plugin directories are overriden using an environment variable, the same variable
 must also be set identically for the local OS user that invokes CLI tools.
 
-If this is not done, [`rabbitmq-plugins` in offline mode](cli.html#offline-mode) will not
+If this is not done, [`rabbitmq-plugins` in offline mode](./cli#offline-mode) will not
 locate the correct directory.
 
 
@@ -181,7 +181,7 @@ locate the correct directory.
 The list of currently enabled plugins on a node is stored in a file.
 The file is commonly known as the enabled plugins file. Depending on the package type
 it is usually located under the `etc` directory or under the node's
-data directory. Its path can be [overridden](configure.html) using the `RABBITMQ_ENABLED_PLUGINS_FILE`
+data directory. Its path can be [overridden](./configure) using the `RABBITMQ_ENABLED_PLUGINS_FILE`
 environment variable. As a user you don't usually have to think about that file as it is
 managed by the node and `rabbitmq-plugins` (when used in `--offline` mode).
 
@@ -205,7 +205,7 @@ directory that is then added to its code path. This directory is known
 as the expanded plugins directory. It is usually managed entirely by RabbitMQ
 but if node directories are changed to non-standard ones, that directory will likely
 need to be overridden, too. It can be done using the `RABBITMQ_PLUGINS_EXPAND_DIR`
-[environment variable](./configure.html#customise-environment). The directory
+[environment variable](./configure#customise-environment). The directory
 must be readable and writable by the effective operating system user of the RabbitMQ node.
 
 
@@ -262,7 +262,7 @@ which rabbitmq-plugins
 
 In some environments, in particular development ones, `rabbitmq-plugins`
 comes from a different installation than the running server node. This can be the case
-when a node is installed using a [binary build package](./install-generic-unix.html)
+when a node is installed using a [binary build package](./install-generic-unix)
 but CLI tools come from the local package manager such as `apt` or Homebrew.
 
 In that case CLI tools will have a different [enabled plugins file](#enabled-plugins-file)
@@ -313,12 +313,12 @@ a dependency, it won't be listed in the enabled plugins file and thus its CLI co
 
 Plugins that ship with the RabbitMQ distributions are often referred
 to as tier 1 plugins. Provided that a standard distribution package is
-used they do not need to be [installed](./installing-plugins.html) but do need to be
+used they do not need to be [installed](./installing-plugins) but do need to be
 enabled before they can be used.
 
 In addition to the plugins bundled with the server, team RabbitMQ
 offers binary downloads of curated plugins which have been
-contributed by authors in the community. See the [community plugins page](community-plugins.html) for
+contributed by authors in the community. See the [community plugins page](./community-plugins) for
 more details.
 
 Even more plugins can be found on GitHub, GitLab, Bitbucket and similar
@@ -359,7 +359,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
       Authentication and authorisation plugin using an external
       LDAP server.
       <ul>
-        <li><a href="ldap.html">Documentation for the LDAP
+        <li><a href="./ldap">Documentation for the LDAP
         plugin</a></li>
       </ul>
     </td>
@@ -370,7 +370,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
     <td>
       Authentication and authorisation plugin using OAuth 2.0 protocol.
       <ul>
-        <li><a href="oauth2.html">Documentation for the OAuth 2.0 plugin</a></li>
+        <li><a href="./oauth2">Documentation for the OAuth 2.0 plugin</a></li>
       </ul>
     </td>
   </tr>
@@ -418,7 +418,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
       Scalable messaging across WANs and administrative
       domains.
       <ul>
-        <li><a href="federation.html">Documentation for the
+        <li><a href="./federation">Documentation for the
         federation plugin</a></li>
       </ul>
     </td>
@@ -447,7 +447,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
       A management / monitoring API over HTTP, along with a
       browser-based UI.
       <ul>
-        <li><a href="management.html">Documentation for the
+        <li><a href="./management">Documentation for the
         management plugin</a></li>
       </ul>
     </td>
@@ -469,7 +469,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
     <td>
       MQTT 3.1.1 support.
       <ul>
-        <li><a href="mqtt.html">Documentation for the MQTT plugin</a></li>
+        <li><a href="./mqtt">Documentation for the MQTT plugin</a></li>
       </ul>
     </td>
   </tr>
@@ -479,7 +479,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
     <td>
       Prometheus monitoring support.
       <ul>
-        <li><a href="prometheus.html">Documentation for monitoring with the Prometheus plugin</a></li>
+        <li><a href="./prometheus">Documentation for monitoring with the Prometheus plugin</a></li>
       </ul>
     </td>
   </tr>
@@ -491,7 +491,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
       one broker to an exchange on another broker.
       <ul>
         <li>
-          <a href="./shovel.html">Documentation for the Shovel plugin</a>
+          <a href="./shovel">Documentation for the Shovel plugin</a>
         </li>
       </ul>
     </td>
@@ -500,11 +500,11 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
   <tr>
     <th>rabbitmq_shovel_management</th>
     <td>
-      Shows <a href="./shovel.html">Shovel</a> status in the management API and UI.
+      Shows <a href="./shovel">Shovel</a> status in the management API and UI.
       Only of use when using <code>rabbitmq_shovel</code> in
       conjunction with <code>rabbitmq_management</code>. In a
       heterogeneous cluster this should be installed on the same
-      nodes as <a href="./plugins.html">RabbitMQ management plugin</a>.
+      nodes as <a href="./plugins">RabbitMQ management plugin</a>.
     </td>
   </tr>
 
@@ -513,7 +513,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
     <td>
       Provides <a href="http://stomp.github.io/stomp-specification-1.2.html">STOMP protocol</a> support in RabbitMQ.
       <ul>
-        <li><a href="stomp.html">Documentation for the STOMP plugin</a><br/></li>
+        <li><a href="./stomp">Documentation for the STOMP plugin</a><br/></li>
       </ul>
     </td>
   </tr>
@@ -530,7 +530,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
     <th>rabbitmq_tracing</th>
     <td>
       Adds message tracing to the management plugin. Logs
-      messages from the <a href="firehose.html">firehose</a> in
+      messages from the <a href="./firehose">firehose</a> in
       a couple of formats.
     </td>
   </tr>
@@ -553,7 +553,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
       STOMP-over-WebSockets: a bridge exposing <code>rabbitmq_stomp</code> to web
       browsers using WebSockets.
       <ul>
-        <li><a href="web-stomp.html">Documentation for the
+        <li><a href="./web-stomp">Documentation for the
         web-stomp plugin</a></li>
       </ul>
     </td>
@@ -562,10 +562,10 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
   <tr>
     <th>rabbitmq_web_mqtt</th>
     <td>
-      MQTT-over-WebSockets: a bridge exposing <a href="./mqtt.html">rabbitmq_mqtt</a> to Web
+      MQTT-over-WebSockets: a bridge exposing <a href="./mqtt">rabbitmq_mqtt</a> to Web
       browsers using WebSockets.
       <ul>
-        <li><a href="web-mqtt.html">Documentation for the
+        <li><a href="./web-mqtt">Documentation for the
         web-mqtt plugin</a></li>
       </ul>
     </td>

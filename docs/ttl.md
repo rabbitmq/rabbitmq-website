@@ -31,16 +31,16 @@ Queues will expire after a period of time only when they are not used (a queue i
 
 Expired messages and queues will be deleted.
 
-TTL behavior is controlled by [optional queue arguments](queues.html) and the best way to configure it is using a [policy](./parameters.html).
+TTL behavior is controlled by [optional queue arguments](./queues) and the best way to configure it is using a [policy](./parameters).
 
-TTL settings also can be enforced by [operator policies](./parameters.html#operator-policies).
+TTL settings also can be enforced by [operator policies](./parameters#operator-policies).
 
 The follow on information in this topic describes how to define message TTL for queues, per-message TTL in publishers, the caveats, and how to define queue TTL. 
 
 ## <a id="per-queue-message-ttl" class="anchor" href="#per-queue-message-ttl">Per-Queue Message TTL in Queues</a>
 
 Message TTL can be set for a given queue by setting the
-`message-ttl` argument with a [policy](./parameters.html#policies)
+`message-ttl` argument with a [policy](./parameters#policies)
 or by specifying the same argument at the time of queue declaration.
 
 A message that has been in the queue for longer than the configured TTL is said to
@@ -128,7 +128,7 @@ exchange is set then messages will be dead-lettered.
 ## <a id="per-message-ttl-in-publishers" class="anchor" href="#per-message-ttl-in-publishers">Per-Message TTL in Publishers</a>
 
 A TTL can be specified on a per-message basis, by setting the
-[`expiration` property](./publishers.html#message-properties) when publishing a message.
+[`expiration` property](./publishers#message-properties) when publishing a message.
 
 The value of the `expiration` field describes the
 TTL period in milliseconds. The same constraints as for
@@ -139,7 +139,7 @@ will (only) accept the string representation of the number.
 When both a per-queue and a per-message TTL are specified, the
 lower value between the two will be chosen.
 
-This example uses [RabbitMQ Java client](./api-guide.html)
+This example uses [RabbitMQ Java client](./api-guide)
 to publish a message which can reside in the queue for at most 60 seconds:
 
 ```java
@@ -197,7 +197,7 @@ purging, or queue deletion).
 ## <a id="queue-ttl" class="anchor" href="#queue-ttl">Queue TTL</a>
 
 TTL can also be set on queues, not just queue contents.
-This feature can be used together with the [auto-delete queue property](queues.html).
+This feature can be used together with the [auto-delete queue property](./queues).
 
 Setting TTL (expiration) on queues generally only makes sense
 for transient (non-durable) classic queues. Streams
@@ -208,7 +208,7 @@ are not used (a queue is used if it has online consumers).
 
 Expiry time can be set for a given queue by setting the
 `x-expires` argument to `queue.declare`,
-or by setting the `expires` [policy](parameters.html#policies). This controls for
+or by setting the `expires` [policy](./parameters#policies). This controls for
 how long a queue can be unused before it is automatically
 deleted. Unused means the queue has no consumers, the
 queue has not been recently redeclared (redeclaring renews the lease),

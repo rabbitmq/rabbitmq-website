@@ -3,7 +3,7 @@
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 Log files is a very important aspect of system observability,
-much like [monitoring](monitoring.html).
+much like [monitoring](./monitoring).
 
 Developers and operators should inspect logs when troubleshooting an issue or assessing the
 state of the system.
@@ -52,12 +52,12 @@ listing a file output next to other desired log outputs, such as the standard st
 
 ## <a id="log-file-location" class="anchor" href="#log-file-location">Log File Location</a>
 
-Please see the [File and Directory Location](relocate.html) guide to find default log file location for various platforms.
+Please see the [File and Directory Location](./relocate) guide to find default log file location for various platforms.
 
-There are two ways to configure log file location. One is the [configuration file](configure.html). This option is recommended.
+There are two ways to configure log file location. One is the [configuration file](./configure). This option is recommended.
 The other is the `RABBITMQ_LOGS` environment variable. It can be useful in development environments.
 
-Use [RabbitMQ management UI](management.html) or [`rabbitmq-diagnostics -q log_location`](cli.html)
+Use [RabbitMQ management UI](./management) or [`rabbitmq-diagnostics -q log_location`](./cli)
 to find when a node stores its log file(s).
 
 The `RABBITMQ_LOGS` variable value can be either a file path or a hyphen (`-`).
@@ -71,7 +71,7 @@ if the environment variable is set, the configuration key `log.file` will not ha
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
-RabbitMQ starts logging early on node start. See the [Configuration guide](configure.html)
+RabbitMQ starts logging early on node start. See the [Configuration guide](./configure)
 for a general overview of how to configure RabbitMQ.
 
 ### <a id="logging-to-a-file" class="anchor" href="#logging-to-a-file">Logging to a File</a>
@@ -80,7 +80,7 @@ Logging to a file is one of the most common options for RabbitMQ installations. 
 RabbitMQ nodes only log to a file if explicitly configured to do so using
 the configuration keys listed below:
 
- * `log.file`: log file path or `false` to deactivate the file output. Default value is taken from the `RABBITMQ_LOGS` [environment variable or configuration file](configure.html)
+ * `log.file`: log file path or `false` to deactivate the file output. Default value is taken from the `RABBITMQ_LOGS` [environment variable or configuration file](./configure)
  * `log.file.level`: log level for the file output. Default level is `info`
  * `log.file.formatter`: controls log entry format, text lines or JSON
  * `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` for log file rotation settings
@@ -134,7 +134,7 @@ The rest of this guide describes more options, including [more advanced ones](#a
 ### <a id="log-rotation" class="anchor" href="#log-rotation">Log Rotation</a>
 
 RabbitMQ nodes always append to the log files, so a complete log history is preserved.
-Log file rotation is not performed by default. [Debian](install-debian.html) and [RPM](install-rpm.html) packages will set up
+Log file rotation is not performed by default. [Debian](./install-debian) and [RPM](./install-rpm) packages will set up
 log [rotation via `logrotate`](#logrotate) after package installation.
 
 `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` settings control log file rotation
@@ -179,7 +179,7 @@ log.file.rotation.count = 5
 On Linux, BSD and other UNIX-like systems, [logrotate](https://linux.die.net/man/8/logrotate) is an alternative
 way of log file rotation and compression.
 
-RabbitMQ [Debian](./install-debian.html) and [RPM](./install-rpm.html) packages will set up `logrotate` to run weekly on files
+RabbitMQ [Debian](./install-debian) and [RPM](./install-rpm) packages will set up `logrotate` to run weekly on files
 located in default `/var/log/rabbitmq` directory. Rotation configuration can be found in `/etc/logrotate.d/rabbitmq-server`.
 
 
@@ -278,7 +278,7 @@ log.syslog.transport = tcp
 log.syslog.protocol = rfc5424
 ```
 
-To use TLS, a standard set of <a href="ssl.html">TLS options</a> must be provided:
+To use TLS, a standard set of <a href="./ssl">TLS options</a> must be provided:
 
 ```ini
 log.syslog = true
@@ -327,7 +327,7 @@ log.syslog.formatter = json
 ```
 
 Less commonly used [Syslog client](https://github.com/schlagert/syslog) options can
-be configured using the <a href="./configure.html#configuration-files">advanced config file</a>.
+be configured using the <a href="./configure#configuration-files">advanced config file</a>.
 
 
 ## <a id="json" class="anchor" href="#json">JSON Logging</a>
@@ -458,9 +458,9 @@ with a less verbose level.
 
 There are two ways of changing effective log levels:
 
- * Via [configuration file(s)](configure.html): this is more flexible but requires
+ * Via [configuration file(s)](./configure): this is more flexible but requires
    a node restart between changes
- * Using [CLI tools](./cli.html), `rabbitmqctl set_log_level &lt;level&gt;`: the changes are transient (will not survive node restart) but can be used to
+ * Using [CLI tools](./cli), `rabbitmqctl set_log_level &lt;level&gt;`: the changes are transient (will not survive node restart) but can be used to
    activate and deactivate, for example, [debug logging](#debug-logging) at runtime for a period of time.
 
 To set log level to `debug` on a running node:
@@ -478,7 +478,7 @@ rabbitmqctl -n rabbit@target-host set_log_level info
 
 ## <a id="log-tail" class="anchor" href="#log-tail">Tailing Logs Using CLI Tools</a>
 
-Modern releases support tailing logs of a node using [CLI tools](./cli.html). This is convenient
+Modern releases support tailing logs of a node using [CLI tools](./cli). This is convenient
 when log file location is not known or is not easily accessible but CLI tool connectivity
 is allowed.
 
@@ -599,7 +599,7 @@ The entry includes client IP address and port (<code>127.0.0.1:52771</code>) as 
 IP address and port of the server (<code>127.0.0.1:5672</code>). This information can be useful
 when troubleshooting client connections.
 
-Once a connection successfully authenticates and is granted access to a [virtual host](./vhosts.html),
+Once a connection successfully authenticates and is granted access to a [virtual host](./vhosts),
 that is also logged:
 
 ```
@@ -608,9 +608,9 @@ that is also logged:
 
 The examples above include two values that can be used as connection identifiers
 in various scenarios: connection name (`127.0.0.1:57919 -> 127.0.0.1:5672`) and an Erlang process ID of the connection (`&lt;0.620.0&gt;`).
-The latter is used by [rabbitmqctl](./cli.html) and the former is used by the [HTTP API](./management.html).
+The latter is used by [rabbitmqctl](./cli) and the former is used by the [HTTP API](./management).
 
-A [client connection](connections.html) can be closed cleanly or abnormally. In the
+A [client connection](./connections) can be closed cleanly or abnormally. In the
 former case the client closes AMQP 0-9-1 (or 1.0, or STOMP, or
 MQTT) connection gracefully using a dedicated library function
 (method). In the latter case the client closes TCP connection
@@ -674,8 +674,8 @@ When used interactively, results can be piped to a command line JSON processor s
 rabbitmq-diagnostics consume_event_stream | jq
 ```
 
-The events can also be exposed to applications for [consumption](./consumers.html)
-with [a plugin](event-exchange.html).
+The events can also be exposed to applications for [consumption](./consumers)
+with [a plugin](./event-exchange).
 
 Events are published as messages with blank bodies. All event metadata is stored in
 message metadata (properties, headers).
@@ -684,7 +684,7 @@ Below is a list of published events.
 
 ### Core Broker
 
-[Queue](queues.html), Exchange and Binding events:
+[Queue](./queues), Exchange and Binding events:
 
  * `queue.deleted`
  * `queue.created`
@@ -693,26 +693,26 @@ Below is a list of published events.
  * `binding.created`
  * `binding.deleted`
 
-[Connection](connections.html) and [Channel](channels.html) events:
+[Connection](./connections) and [Channel](./channels) events:
 
  * `connection.created`
  * `connection.closed`
  * `channel.created`
  * `channel.closed`
 
-[Consumer](./consumers.html) events:
+[Consumer](./consumers) events:
 
  * `consumer.created`
  * `consumer.deleted`
 
-[Policy and Parameter](./parameters.html) events:
+[Policy and Parameter](./parameters) events:
 
  * `policy.set`
  * `policy.cleared`
  * `parameter.set`
  * `parameter.cleared`
 
-[Virtual host](./vhosts.html) events:
+[Virtual host](./vhosts) events:
 
  * `vhost.created`
  * `vhost.deleted`
@@ -729,26 +729,26 @@ User management events:
  * `user.password.cleared`
  * `user.tags.set`
 
-[Permission](./access-control.html) events:
+[Permission](./access-control) events:
 
  * `permission.created`
  * `permission.deleted`
  * `topic.permission.created`
  * `topic.permission.deleted`
 
-[Alarm](./alarms.html) events:
+[Alarm](./alarms) events:
 
  * `alarm.set`
  * `alarm.cleared`
 
-### [Shovel Plugin](shovel.html)
+### [Shovel Plugin](./shovel)
 
 Worker events:
 
  * `shovel.worker.status`
  * `shovel.worker.removed`
 
-### [Federation Plugin](federation.html)
+### [Federation Plugin](./federation)
 
 Link events:
 
@@ -759,7 +759,7 @@ Link events:
 ## <a id="log-exchange" class="anchor" href="#log-exchange">Consuming Log Entries Using a System Log Exchange</a>
 
 RabbitMQ can forward log entries to a system exchange, `amq.rabbitmq.log`, which
-will be declared in the default [virtual host](vhosts.html).
+will be declared in the default [virtual host](./vhosts).
 
 This feature is deactivated by default.
 To activate this logging, set the `log.exchange` configuration key to `true`:

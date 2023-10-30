@@ -22,7 +22,7 @@ limitations under the License.
 
 
 
-In the [second tutorial](tutorial-two-javascript.html) we learned how to
+In the [second tutorial](./tutorial-two-javascript) we learned how to
 use _Work Queues_ to distribute time-consuming tasks among multiple
 workers.
 
@@ -83,7 +83,7 @@ channel.sendToQueue('rpc_queue', Buffer.from('10'), {
 >
 > * `persistent`: Marks a message as persistent (with a value of `true`)
 >    or transient (`false`). You may remember this property
->    from [the second tutorial](tutorial-two-javascript.html).
+>    from [the second tutorial](./tutorial-two-javascript).
 > * `content_type`: Used to describe the mime-type of the encoding.
 >    For example for the often used JSON encoding it is a good practice
 >    to set this property to: `application/json`.
@@ -364,5 +364,5 @@ complex (but important) problems, like:
    (eg checking bounds, type) before processing.
 
 >
->If you want to experiment, you may find the [management UI](../management.html) useful for viewing the queues.
+>If you want to experiment, you may find the [management UI](../management) useful for viewing the queues.
 >

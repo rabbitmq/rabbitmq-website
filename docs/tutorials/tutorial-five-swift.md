@@ -209,5 +209,5 @@ with more than two routing key parameters.
 ([source][source])
 
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
-[previous]:tutorial-four-swift.html
+[previous]:./tutorial-four-swift
 [source]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/tutorial5/tutorial5/ViewController.swift

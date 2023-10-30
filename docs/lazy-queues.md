@@ -27,12 +27,12 @@ Classic queues will remain a supported non-replicated queue type.
 upgrade to **RabbitMQ 3.12** now and switch to quorum queues if possible (refer to [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq.md) if you want to do this)
 or turn on `lazy` queue mode for classic queues to avoid running into memory issues.
 
-[Quorum queues](quorum-queues.html) are the alternative to classic queues. Quorum Queues are a more modern queue type
+[Quorum queues](./quorum-queues) are the alternative to classic queues. Quorum Queues are a more modern queue type
 that offers high availability via replication and focuses on data safety.
 From RabbitMQ 3.10 onwwards, quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and
 provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues.
 
-[Streams](streams.html) are another messaging data structure available as of [RabbitMQ 3.9](changelog.html),
+[Streams](./streams) are another messaging data structure available as of [RabbitMQ 3.9](./changelog),
 and is also replicated. 
 
 ## <a id="overview" class="anchor" href="#overview">A Deeper Dive into Lazy Queues</a>
@@ -51,7 +51,7 @@ By default, queues keep an in-memory cache of messages that is filled up as mess
 The idea of this cache is to be able to deliver messages to consumers as fast as possible.
 Note that persistent messages can be written to disk as they enter the broker **and** kept in RAM at the same time.
 
-Whenever the broker [considers it needs to free up memory](memory.html), messages from this cache will be [paged out to disk](persistence-conf.html).
+Whenever the broker [considers it needs to free up memory](./memory), messages from this cache will be [paged out to disk](./persistence-conf).
 Paging a batch of messages to disk takes time and blocks the queue process,
 making it unable to receive new messages while it's paging.
 Even though recent versions of RabbitMQ improved the paging algorithm,
@@ -67,11 +67,11 @@ This comes at a cost of increased disk I/O.
 Queues can be made to run in `default` mode or `lazy` mode by:
 
 <ul class="plain">
-  <li>applying a queue <a href="parameters.html#policies">policy</a> (recommended)</li>
+  <li>applying a queue <a href="./parameters#policies">policy</a> (recommended)</li>
   <li>setting the mode via <code>queue.declare</code> arguments</li>
 </ul>
 
-When both a [policy](parameters.html) and queue arguments specify a queue mode,
+When both a [policy](./parameters) and queue arguments specify a queue mode,
 the queue argument has priority over the policy value if both are specified.
 
 If a queue mode is set via an optional argument at the time of declaration,
@@ -102,7 +102,7 @@ To specify a queue mode using a policy, add the key `queue-mode` to a policy def
 
 This ensures the queue called `lazy-queue` will work in the `lazy` mode.
 
-Policies can also be defined via [management UI](management.html).
+Policies can also be defined via [management UI](./management).
 
 ### Changing Queue Mode at Runtime
 
@@ -159,7 +159,7 @@ This example in Java declares a queue with the queue mode set to `"lazy"`:
 A lazy queue will move its messages to disk as soon as practically possible, even if the message was published
 as transient by the publisher. This generally will result in higher disk I/O utilisation.
 
-A regular queue will [keep messages in memory for longer](memory.html).
+A regular queue will [keep messages in memory for longer](./memory).
 This will result in delayed disk I/O which is less even (has more spikes)
 since more data will need to be written to disk at once.
 
@@ -260,7 +260,7 @@ When a node is running and under normal operation, lazy queues will keep all mes
 the only exception being in-flight messages.
 
 When a RabbitMQ node starts, all queues, including the lazy ones, will load up to **16,384** messages into RAM.
-If [queue index embedding](persistence-conf.html) is turned on (the `queue_index_embed_msgs_below` configuration parameter is greater than 0),
+If [queue index embedding](./persistence-conf) is turned on (the `queue_index_embed_msgs_below` configuration parameter is greater than 0),
 the payloads of those messages will be loaded into RAM as well.
 
 For example, a lazy queue with **20,000** messages of **4,000** bytes each, will load **16,384** messages into memory.
@@ -275,7 +275,7 @@ hosted on the node.
 
 Setting `queue_index_embed_msgs_below` to `0` will turn off payload embedding in the queue index.
 As a result, lazy queues will not load message payloads into memory on node startup.
-See the [Persistence Configuration guide](persistence-conf.html) for details.
+See the [Persistence Configuration guide](./persistence-conf) for details.
 
 When setting `queue_index_embed_msgs_below` to `0` all messages will be stored
 to the message store. With many messages across many lazy queues,
@@ -290,7 +290,7 @@ All messages in the message store are stored in 16MB files called segment files 
 Each queue has its own file descriptor for each segment file it has to access.
 For example, if 100 queues store 10GB worth of messages, there will
 be 640 files in the message store and up to 64000 file descriptors.
-Make sure the nodes have a high enough [open file limit](./production-checklist.html#resource-limits-file-handle-limit)
+Make sure the nodes have a high enough [open file limit](./production-checklist#resource-limits-file-handle-limit)
 and overprovision it when in doubt (e.g. to 300K or 500K).
 For new installations it is possible to increase file size used by the message store using
 `msg_store_file_size_limit` configuration key. **Never change segment file size for existing installations**
@@ -325,7 +325,7 @@ The total system memory required for the queue process to finish starting is **5
 
 ### Mirroring of Lazy Queues
 
-When enabling [automatic queue mirroring](./ha.html#unsynchronised-mirrors), consider the expected on disk
+When enabling [automatic queue mirroring](./ha#unsynchronised-mirrors), consider the expected on disk
 data set of the queues involved. Queues with a sizeable data set
 (say, tens of gigabytes or more) will have to replicate it to
 the newly added mirror(s), which can put a significant load on

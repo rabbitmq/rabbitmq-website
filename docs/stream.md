@@ -22,17 +22,17 @@ limitations under the License.
 Streams are a persistent and replicated data structure which models
 an append-only log with non-destructive consumer semantics.
 
-This feature is available in all [currently maintained release series](./versions.html).
+This feature is available in all [currently maintained release series](./versions).
 
 Streams can be used as a regular AMQP 0.9.1 queue or through a
 [dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
 plugin and associated client(s).
-Please see the [stream core and stream plugin comparison page](./stream-core-plugin-comparison.html) for the feature matrix.
+Please see the [stream core and stream plugin comparison page](./stream-core-plugin-comparison) for the feature matrix.
 
 This page covers the Stream plugin, which allows to interact with streams using this
 [new binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc).
 For an overview of the concepts and the ways to operate streams, please see the
-[guide on RabbitMQ streams](streams.html).
+[guide on RabbitMQ streams](./streams).
 
 Client libraries for the stream protocol are available on several platforms.
 
@@ -55,7 +55,7 @@ Use [Stream PerfTest](https://github.com/rabbitmq/rabbitmq-stream-perf-test) to 
 ## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
 The Stream plugin is included in the RabbitMQ distribution. Before clients can successfully
-connect, it must be enabled using [rabbitmq-plugins](./cli.html):
+connect, it must be enabled using [rabbitmq-plugins](./cli):
 
 ```bash
 rabbitmq-plugins enable rabbitmq_stream
@@ -70,7 +70,7 @@ all interfaces on port 5552 and have a default user login/passcode
 of `guest`/`guest`.
 
 The port stream listener will listen on can be changed
-via [`rabbitmq.conf`](./configure.html#configuration-files).
+via [`rabbitmq.conf`](./configure#configuration-files).
 
 Below is a minimalistic configuration file which changes the listener
 port to 12345:
@@ -92,8 +92,8 @@ stream.listeners.tcp.2 = ::1:5552
 The plugin supports TCP listener option configuration.
 
 The settings use a common prefix, `stream.tcp_listen_options`, and control
-things such as TCP buffer sizes, inbound TCP connection queue length, whether [TCP keepalives](./heartbeats.html#tcp-keepalives)
-are enabled and so on. See the [Networking guide](./networking.html) for details.
+things such as TCP buffer sizes, inbound TCP connection queue length, whether [TCP keepalives](./heartbeats#tcp-keepalives)
+are enabled and so on. See the [Networking guide](./networking) for details.
 
 ```ini
 stream.listeners.tcp.1 = 127.0.0.1:5552
@@ -116,7 +116,7 @@ The `heartbeat timeout` value defines after what period of time
 the peer TCP connection should be considered unreachable (down) by RabbitMQ
 and client libraries.
 
-A [similar mechanism](./heartbeats.html) is used by the messaging protocols that RabbitMQ supports.
+A [similar mechanism](./heartbeats) is used by the messaging protocols that RabbitMQ supports.
 
 The default value for stream protocol connections is 60 seconds.
 
@@ -215,7 +215,7 @@ stream.frame_max = 2097152
 
 ## <a id="tls" class="anchor" href="#tls">TLS Support</a>
 
-To use TLS for stream connections, [TLS must be configured](./ssl.html) in the broker. To enable
+To use TLS for stream connections, [TLS must be configured](./ssl) in the broker. To enable
 TLS-enabled stream connections, add a TLS listener for streams using the `stream.listeners.ssl.*` configuration keys.
 
 The plugin will use core RabbitMQ server

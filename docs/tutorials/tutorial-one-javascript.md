@@ -42,7 +42,7 @@ on behalf of the consumer.
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
-> languages](http://rabbitmq.com/devtools.html). We'll
+> languages](http://rabbitmq.com/./devtools). We'll
 > use the [amqp.node client](http://www.squaremobius.net/amqp.node/) in this tutorial.
 >
 > First, install amqp.node using [npm](https://www.npmjs.com):
@@ -140,7 +140,7 @@ setTimeout(function() {
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
-> href="https://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/./configure#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 
@@ -236,5 +236,5 @@ the publisher from another terminal.
 > rabbitmqctl.bat list_queues
 > ```
 
-Time to move on to [part 2](tutorial-two-javascript.html) and build a simple _work queue_.
+Time to move on to [part 2](./tutorial-two-javascript) and build a simple _work queue_.
 

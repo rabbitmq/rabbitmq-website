@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-three-dotnet.html) we built a
+In the [previous tutorial](./tutorial-three-dotnet) we built a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
@@ -346,7 +346,7 @@ Console.WriteLine(" Press [enter] to exit.");
 Console.ReadLine();
 ```
 
-Create projects as usual (see [tutorial one](tutorial-one-dotnet.html) for
+Create projects as usual (see [tutorial one](./tutorial-one-dotnet) for
 advice).
 
 If you want to save only 'warning' and 'error' (and not 'info') log
@@ -377,5 +377,5 @@ dotnet run error "Run. Run. Or it will explode."
 (Full source code for [(EmitLogDirect.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLogDirect/EmitLogDirect.cs)
 and [(ReceiveLogsDirect.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogsDirect/ReceiveLogsDirect.cs))
 
-Move on to [tutorial 5](tutorial-five-dotnet.html) to find out how to listen
+Move on to [tutorial 5](./tutorial-five-dotnet) to find out how to listen
 for messages based on a pattern.

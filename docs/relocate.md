@@ -29,17 +29,17 @@ This guide covers:
   * Default locations for various operating systems
   * Other topics related to file and directory locations
 
-This guide accompanies the main [Configuration guide](configure.html).
+This guide accompanies the main [Configuration guide](./configure).
 
 ## <a id="locations" class="anchor" href="#locations">Overriding Locations</a>
 
-A number of [environment variables](configure.html) specifies where
+A number of [environment variables](./configure) specifies where
 RabbitMQ should locate certain things. In most environments default
 values should work just fine.
 
 ### <a id="directory-and-path-restrictions" class="anchor" href="#directory-and-path-restrictions">Path and Directory Name Restrictions</a>
 
-Some of the environment variable configure paths and locations (node's base or data directory, [plugin source and expansion directories](./plugins.html),
+Some of the environment variable configure paths and locations (node's base or data directory, [plugin source and expansion directories](./plugins),
 and so on). Those paths have must exclude a number of characters:
 
  * `*` and `?` (on Linux, macOS, BSD and other UNIX-like systems)
@@ -53,8 +53,8 @@ When changing file or directory locations, it is important to
 make sure that they have sufficient permissions for RabbitMQ
 node OS process to read and write from. It's best to assume
 that most directories and files used by RabbitMQ require read,
-write, and file creation permissions. [Debian](./install-debian.html),
-[RPM](./install-rpm.html) and [Windows installer](./install-windows.html) scripts
+write, and file creation permissions. [Debian](./install-debian),
+[RPM](./install-rpm) and [Windows installer](./install-windows) scripts
 will set up file system permissions suitable for most
 environments, however, when strict default permissions are
 used system-wide, it may be necessary to run additional
@@ -81,9 +81,9 @@ file and directories have sufficient permissions
     <td>
       The path to the configuration file, without
       the <code>.config</code> extension. If
-      the <a href="configure.html#configuration-files">configuration
+      the <a href="./configure#configuration-files">configuration
       file</a> is present it is used by the server to configure
-      RabbitMQ components. See <a href="./configure.html">Configuration guide</a>
+      RabbitMQ components. See <a href="./configure">Configuration guide</a>
       for more information.
     </td>
   </tr>
@@ -92,7 +92,7 @@ file and directories have sufficient permissions
     <td>
       Path to a directory of RabbitMQ configuration files in the new-style (.conf) format.
       The files will be loaded in alphabetical order. Prefixing each files with a number
-      is a common practice. See <a href="./configure.html">Configuration guide</a>
+      is a common practice. See <a href="./configure">Configuration guide</a>
       for more information.
     </td>
   </tr>
@@ -121,14 +121,14 @@ file and directories have sufficient permissions
     <td>RABBITMQ_SCHEMA_DIR</td>
     <td>
       The directory where RabbitMQ keeps its configuration schema used by
-      the <a href="./configure.html#configuration-files">new style configuration file</a>.
+      the <a href="./configure#configuration-files">new style configuration file</a>.
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_LOG_BASE</td>
     <td>
-      This base directory contains the RabbitMQ server's <a href="./logging.html">log
+      This base directory contains the RabbitMQ server's <a href="./logging">log
       files</a>, unless <b>RABBITMQ_LOGS</b> is set.
     </td>
   </tr>
@@ -145,11 +145,11 @@ file and directories have sufficient permissions
     <td>RABBITMQ_PLUGINS_DIR</td>
     <td>
       The list of directories where <a
-      href="./plugins.html">plugin</a> archive files are located and extracted
+      href="./plugins">plugin</a> archive files are located and extracted
       from. This is <code>PATH</code>-like variable, where
       different paths are separated by an OS-specific separator
       (<code>:</code> for Unix, <code>;</code> for Windows).
-      Plugins can be <a href="./plugins.html#plugin-directories">installed</a> to any of the
+      Plugins can be <a href="./plugins#plugin-directories">installed</a> to any of the
       directories listed here.
     </td>
   </tr>
@@ -157,7 +157,7 @@ file and directories have sufficient permissions
   <tr>
     <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
     <td>
-      Working directory used to <a href="./plugins.html#plugin-expansion">expand enabled plugins</a> when starting
+      Working directory used to <a href="./plugins#plugin-expansion">expand enabled plugins</a> when starting
       the server. It is
       important that effective RabbitMQ user has sufficient permissions
       to read and create files and subdirectories in this directory.
@@ -243,7 +243,7 @@ Debian and RPM package installations use an empty
       <p>
         <small>
           Note that `/usr/lib/rabbitmq/plugins`
-          is used only when RabbitMQ is <a href="installing-plugins.html">installed</a>
+          is used only when RabbitMQ is <a href="./installing-plugins">installed</a>
           into the standard (default) location.
         </small>
       </p>

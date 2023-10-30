@@ -22,7 +22,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-three-spring-amqp.html) we built a
+In the [previous tutorial](./tutorial-three-spring-amqp) we built a
 simple fanout exchange. We were able to broadcast messages to many
 receivers.
 
@@ -430,7 +430,7 @@ public class Tut4Receiver {
 ```
 
 
-Compile as usual (see [tutorial one](tutorial-one-spring-amqp.html)
+Compile as usual (see [tutorial one](./tutorial-one-spring-amqp)
 for maven compilation and executing the options from the jar).
 
 ```bash
@@ -458,5 +458,5 @@ Full source code for [Tut4Receiver.java source](https://github.com/rabbitmq/rabb
 and [Tut4Sender.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut4/Tut4Sender.java).
 The configuration is in [Tut4Config.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut4/Tut4Config.java).
 
-Move on to [tutorial 5](tutorial-five-spring-amqp.html) to find out how to listen
+Move on to [tutorial 5](./tutorial-five-spring-amqp) to find out how to listen
 for messages based on a pattern.

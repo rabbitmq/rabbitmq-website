@@ -1,9 +1,9 @@
 # &product-name; Cluster Operator Plugin for kubectl
 
-Installing the RabbitMQ Cluster Operator plugin for kubectl makes installing the [RabbitMQ Cluster Kubernetes Operator](./operator-overview.html) into any Kubernetes instance easier because each plugin command automates many interactions with the kubernetes API and the RabbitMQ Cluster Operator. The plugin also includes several commands for common workflows with RabbitMQ clusters.
+Installing the RabbitMQ Cluster Operator plugin for kubectl makes installing the [RabbitMQ Cluster Kubernetes Operator](./operator-overview) into any Kubernetes instance easier because each plugin command automates many interactions with the kubernetes API and the RabbitMQ Cluster Operator. The plugin also includes several commands for common workflows with RabbitMQ clusters.
 
 To find out more about using the RabbitMQ Cluster operator and how to deploy Custom Resource objects it manages, refer to the
-[Using RabbitMQ Cluster Operator](./using-operator.html) information.
+[Using RabbitMQ Cluster Operator](./using-operator) information.
 
 ## Before Installing the RabbitMQ Cluster Operator Plugin for kubectl
 
@@ -110,7 +110,7 @@ The previous command lists the default user secrets for the named RabbitMQ clust
 kubectl rabbitmq manage INSTANCE
 ```
 
-The previous command opens the RabbitMQ [Management UI](../../management.html) in a browser.
+The previous command opens the RabbitMQ [Management UI](../../management) in a browser.
 
 ### <a id='debug' class='anchor' href='#debug'>Set the Log Level on all RabbitMQ Nodes for Debugging</a>
 
@@ -118,7 +118,7 @@ The previous command opens the RabbitMQ [Management UI](../../management.html) i
 kubectl rabbitmq debug INSTANCE
 ```
 
-The previous command sets the log level on all nodes to debug. For a detailed breakdown on RabbitMQ logging, refer to the [Logging](../../logging.html) information.
+The previous command sets the log level on all nodes to debug. For a detailed breakdown on RabbitMQ logging, refer to the [Logging](../../logging) information.
 
 ### <a id='tail' class='anchor' href='#tail'>Tail Logs</a>
 
@@ -140,7 +140,7 @@ kubectl krew install tail
 kubectl rabbitmq observe INSTANCE INDEX
 ```
 
-The previous command opens the [`rabbitmq-diagnostics`](../../rabbitmq-diagnostics.8.html) observer interface for a given node.
+The previous command opens the [`rabbitmq-diagnostics`](../../man/rabbitmq-diagnostics.8) observer interface for a given node.
 
 ### <a id='feature-flags' class='anchor' href='#feature-flags'>Turn on All Feature Flags</a>
 
@@ -148,7 +148,7 @@ The previous command opens the [`rabbitmq-diagnostics`](../../rabbitmq-diagnosti
 kubectl rabbitmq enable-all-feature-flags INSTANCE 
 ```
 
-The previous command uses [`rabbitmqctl`](../../cli.html) to activate or turn on all possible [feature flags](../../feature-flags.html).
+The previous command uses [`rabbitmqctl`](../../cli) to activate or turn on all possible [feature flags](../../feature-flags).
 
 ### <a id='pause-reconciliation' class='anchor' href='#pause-reconciliation'>Pause Reconciliation on the RabbitMQ Cluster</a>
 

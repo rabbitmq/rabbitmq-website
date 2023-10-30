@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers federated queues, a subset of functionality offered by the [Federation plugin](federation.html).
+This guide covers federated queues, a subset of functionality offered by the [Federation plugin](./federation).
 
 Some covered topics include:
 
@@ -29,9 +29,9 @@ Some covered topics include:
 * [Limitations](#limitations) and [pitfalls](#pitfalls) of queue federation
 * [Implementation details](#details)
 
-A separate [Federation plugin reference](./federation-reference.html) guide is available.
+A separate [Federation plugin reference](./federation-reference) guide is available.
 
-In addition to [federated exchanges](federated-exchanges.html), RabbitMQ supports federated queues.
+In addition to [federated exchanges](./federated-exchanges), RabbitMQ supports federated queues.
 This feature provides a way of balancing the load of a single logical queue
 across nodes or clusters. It does so by moving messages to other federation
 peers (nodes or clusters) when the local queue has no consumers.
@@ -48,7 +48,7 @@ need to be reconfigured. They are assumed to be located on a separate node or in
 cluster.
 
 An upstream definition is a URI with certain recognised query parameters that
-control link connection parameters. Upstreams can be managed using [CLI tools](cli.html)
+control link connection parameters. Upstreams can be managed using [CLI tools](./cli)
 or the HTTP API with [an additional plugin](https://github.com/rabbitmq/rabbitmq-federation-management).
 
 The following diagram demonstrates several federated and unfederated
@@ -82,7 +82,7 @@ Brokers running different versions of RabbitMQ can be connected using federation
 Federated queues include a number of limitations or differences compared to their non-federated peers
 as well as federated exchanges.
 
-Queue federation will not propagate [bindings](./tutorials/amqp-concepts.html) from the downstream to the upstreams.
+Queue federation will not propagate [bindings](./tutorials/amqp-concepts) from the downstream to the upstreams.
 
 Applications that use <code>basic.get</code> (consume via polling, a highly discouraged practice)
 cannot retrieve messages over federation if there aren't any in a local queue (on the node the client is connected to).
@@ -100,7 +100,7 @@ and what other nodes messages should be consumed from, _downstream_
 
 <img src="./img/federation/federated_queues01.png" width="700" alt="Federated queue policies" />
 
-Federation configuration uses [runtime parameters and policies](parameters.html), which means it can be configured
+Federation configuration uses [runtime parameters and policies](./parameters), which means it can be configured
 and reconfigured on the fly as system topology changes. There are two key pieces of configuration involved:
 
 * Upstreams: these are remote endpoints in a federated system
@@ -129,7 +129,7 @@ rabbitmqctl.bat set_parameter federation-upstream origin "{""uri"":""amqp://remo
 ```
 
 Once an upstream has been specified, a policy that controls federation can be added.
-It is added just like any other [policy](parameters.html#policies), using `rabbitmqctl set_policy`:
+It is added just like any other [policy](./parameters#policies), using `rabbitmqctl set_policy`:
 
 ```bash
 # Adds a policy named "queue-federation"
@@ -154,7 +154,7 @@ the one with the highest priority will be used. Multiple policy definitions will
 priorities are equal.
 
 Once configured, a federation link (connection) will be opened for every matching queue and upstream pair.
-By "matching queue" here we mean a queue that is matched by the [federation policy pattern](parameters.html#policies).
+By "matching queue" here we mean a queue that is matched by the [federation policy pattern](./parameters#policies).
 If no queues matched, no links will be started.
 
 To deactivate federation for the matching queues, delete the policy using its name:
@@ -187,14 +187,14 @@ across all nodes and "wrap around".
 ## <a id="details" class="anchor" href="#details">Implementation</a>
 
 The federated queue will connect to all its upstream queues
-using AMQP 0-9-1 (optionally [secured with TLS](ssl.html)).
+using AMQP 0-9-1 (optionally [secured with TLS](./ssl)).
 
 The federated queue will only retrieve messages when it has run
 out of messages locally, it has consumers that need messages, and
 the upstream queue has "spare" messages that are not being
 consumed. The intent is to ensure that messages are only
 transferred between federated queues when needed. This is
-implemented using [consumer priorities](consumer-priority.html).
+implemented using [consumer priorities](./consumer-priority).
 
 If messages are forwarded from one queue to another then message
 ordering is only preserved for messages which have made exactly
@@ -208,7 +208,7 @@ for example if you set `x-max-length` on a federated
 queue then that queue will have its length limited (possibly
 discarding messages when it gets full) but other queues that are
 federated with it will not be affected. Note in particular that
-when [per-queue or per-message TTL](ttl.html) is in
+when [per-queue or per-message TTL](./ttl) is in
 use, a message will have its timer reset when it is transferred to
 another queue.
 

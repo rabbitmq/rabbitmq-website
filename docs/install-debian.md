@@ -23,8 +23,8 @@ This guide covers RabbitMQ installation on Debian, Ubuntu and distributions base
 
 RabbitMQ is included in standard Debian and Ubuntu repositories.
 However, the [versions included](https://packages.ubuntu.com/search?keywords=rabbitmq-server&searchon=names&suite=all&section=all) are
-many releases behind [latest RabbitMQ releases](changelog.html)
-and may provide RabbitMQ versions that are already [out of support](versions.html).
+many releases behind [latest RabbitMQ releases](./changelog)
+and may provide RabbitMQ versions that are already [out of support](./versions).
 
 Team RabbitMQ produces our own Debian packages and distributes them [using Cloudsmith](#apt-cloudsmith).
 
@@ -37,7 +37,7 @@ Key sections of this guide are
  * [Manage the service](#managing-service) (start it, stop it, and get its status)
  * How to [inspect node and service logs](#server-logs)
 
-[Supported Erlang versions](which-erlang.html) will be provisioned from one of the [modern Erlang apt repositories](#erlang-repositories)
+[Supported Erlang versions](./which-erlang) will be provisioned from one of the [modern Erlang apt repositories](#erlang-repositories)
 on [Launchpad](https://launchpad.net/~rabbitmq) or a [Cloudsmith.io](#apt-cloudsmith) mirror.
 
 Those looking for a more detailed description of the installation steps performed
@@ -56,7 +56,7 @@ More advanced topics include
 Currently, the recommended option for installing modern RabbitMQ on Debian and Ubuntu
 is using apt repositories [on a Cloudsmith mirror](#apt-cloudsmith) ([quick start script](#apt-quick-start-cloudsmith)).
 
-The repositories provide a [modern version of Erlang](which-erlang.html). Alternatively, the latest
+The repositories provide a [modern version of Erlang](./which-erlang). Alternatively, the latest
 version of Erlang is available [via a Launchpad PPA and other repositories](#erlang-repositories).
 
 ### Manually Using Dpkg
@@ -86,7 +86,7 @@ but their testing and support is done on a best effort basis.
 
 RabbitMQ needs Erlang/OTP to run. Erlang/OTP packages in
 standard Debian and Ubuntu repositories can be significantly out of date
-and not [supported by modern RabbitMQ versions](which-erlang.html).
+and not [supported by modern RabbitMQ versions](./which-erlang).
 
 Most recent Erlang/OTP release series are available from a number of alternative
 apt repositories:
@@ -110,7 +110,7 @@ apt repositories:
      </td>
      <td>
        <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0">starting with 3.12.0</a></strong>, will be required starting with <code>3.13.0</code>.
-       See <a href="./which-erlang.html">Erlang compatibility guide</a>.
+       See <a href="./which-erlang">Erlang compatibility guide</a>.
      </td>
   </tr>
 
@@ -125,7 +125,7 @@ apt repositories:
      </td>
      <td>
        <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0">starting with 3.10.0</a></strong>, required starting with <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.0">3.11.0</a>.
-       See <a href="./which-erlang.html">Erlang compatibility guide</a>.
+       See <a href="./which-erlang">Erlang compatibility guide</a>.
      </td>
   </tr>
 
@@ -139,7 +139,7 @@ apt repositories:
      </td>
      <td>
        <strong>Supported <a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">starting with 3.8.16</a></strong>.
-       See <a href="./which-erlang.html">Erlang compatibility guide</a>.
+       See <a href="./which-erlang">Erlang compatibility guide</a>.
      </td>
    </tr>
 
@@ -252,7 +252,7 @@ curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/3.0/clouds
 curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key | sudo gpg --dearmor | sudo tee /usr/share/keyrings/rabbitmq.9F4587F226208342.gpg > /dev/null
 ```
 
-See the [guide on signatures](signatures.html) to learn more.
+See the [guide on signatures](./signatures) to learn more.
 
 #### Add a Source List File
 
@@ -517,7 +517,7 @@ that all [package dependencies](#package-dependencies) are met.
 
 RabbitMQ Debian package will require `sudo` privileges to install and manage.
 In environments where `sudo` isn't available, consider using the
-[generic binary build](install-generic-unix.html) instead.
+[generic binary build](./install-generic-unix) instead.
 
 ## <a id="running-debian" class="anchor" href="#running-debian">Run RabbitMQ Server</a>
 
@@ -537,12 +537,12 @@ systemctl start rabbitmq-server
 ## <a id="configuration" class="anchor" href="#configuration">Configuring RabbitMQ</a>
 
 On most systems, a node should be able to start and run with all defaults.
-Please refer to the [Configuration guide](configure.html) to learn more
-and [Production Checklist](production-checklist.html) for guidelines beyond
+Please refer to the [Configuration guide](./configure) to learn more
+and [Production Checklist](./production-checklist) for guidelines beyond
 development environments.
 
 Note: the node is set up to run as system user `rabbitmq`.
-If [location of the node database or the logs](relocate.html) is changed,
+If [location of the node database or the logs](./relocate) is changed,
 the files and directories must be owned by this user.
 
 
@@ -551,7 +551,7 @@ the files and directories must be owned by this user.
 RabbitMQ nodes bind to ports (open server TCP sockets) in order to accept client
 and CLI tool connections. Other processes and tools such as SELinux may prevent
 RabbitMQ from binding to a port. When that happens, the node will fail to start.
-Refer to the [Networking Guide](networking.html#ports) for more details.
+Refer to the [Networking Guide](./networking#ports) for more details.
 
 ## <a id="default-user-access" class="anchor" href="#default-user-access">Default User Access</a>
 
@@ -562,7 +562,7 @@ used when connecting to the broker as localhost</strong> so you
 will need to take action before connecting from any other
 machine.
 
-See the documentation on [access control](access-control.html) for information on how to create more users and delete
+See the documentation on [access control](./access-control) for information on how to create more users and delete
 the `guest` user.
 
 
@@ -615,7 +615,7 @@ The file has to be installed on Docker hosts at `/etc/docker/daemon.json`:
 
 ### <a id="verifying-limits" class="anchor" href="#verifying-limits">Verifying the Limit</a>
 
-[RabbitMQ management UI](management.html) displays the number of file descriptors available
+[RabbitMQ management UI](./management) displays the number of file descriptors available
 for it to use on the Overview tab.
 
 ```bash
@@ -686,7 +686,7 @@ Dec 26 10:21:32 localhost.localdomain rabbitmq-server[957]: completed with 6 plu
 ```
 
 `rabbitmqctl`, `rabbitmq-diagnostics`,
-and other [CLI tools](cli.html) will be available in `PATH` and can be invoked by a `sudo`-enabled user:
+and other [CLI tools](./cli) will be available in `PATH` and can be invoked by a `sudo`-enabled user:
 
 ```bash
 # checks if the local node is running and CLI tools can successfully authenticate with it
@@ -704,15 +704,15 @@ sudo rabbitmq-diagnostics environment
 ```
 
 All `rabbitmqctl` commands will report an error if no node is running.
-See the [CLI tools](cli.html) and [Monitoring](monitoring.html) guides to learn more.
+See the [CLI tools](./cli) and [Monitoring](./monitoring) guides to learn more.
 
 
 ## <a id="server-logs" class="anchor" href="#server-logs">Log Files and Management</a>
 
-[Server logs](logging.html) can be found under the [configurable](relocate.html) directory, which usually
+[Server logs](./logging) can be found under the [configurable](./relocate) directory, which usually
 defaults to `/var/log/rabbitmq` when RabbitMQ is installed via a Linux package manager.
 
-`RABBITMQ_LOG_BASE` can be used to override [log directory location](relocate.html).
+`RABBITMQ_LOG_BASE` can be used to override [log directory location](./relocate).
 
 Assuming a `systemd`-based distribution, system service logs can be
 inspected using
@@ -744,7 +744,7 @@ Dec 26 11:03:06 localhost rabbitmq-server[968]: completed with 6 plugins.
 
 ### Log Rotation
 
-The broker always appends to the [log files](logging.html), so a complete log history is retained.
+The broker always appends to the [log files](./logging), so a complete log history is retained.
 
 [logrotate](https://linux.die.net/man/8/logrotate) is the recommended way of log file rotation and compression.
 By default, the package will set up `logrotate` to run weekly on files located in default
@@ -795,7 +795,7 @@ sudo apt-get install curl gnupg -y
 
 ### <a id="erlang-apt-repo-signing-key" class="anchor" href="#erlang-apt-repo-signing-key">Add Repository Signing Key</a>
 
-In order to use the repository, add [RabbitMQ signing key](signatures.html) to the system.
+In order to use the repository, add [RabbitMQ signing key](./signatures) to the system.
 This will enable apt to trust packages signed by that key.
 
 ```bash
@@ -806,7 +806,7 @@ curl -1sLf "https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbi
 curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xf77f1eda57ebb1cc" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg > /dev/null
 ```
 
-See the [guide on signatures](signatures.html) to learn more.
+See the [guide on signatures](./signatures) to learn more.
 
 ### <a id="erlang-apt-https-transport" class="anchor" href="#erlang-apt-https-transport">Enable apt HTTPS Transport</a>
 

@@ -24,7 +24,7 @@ Priorities between 1 and 255 are supported, however, **values between 1 and 5 ar
 values require more CPU and memory resources, since RabbitMQ needs to internally maintain a sub-queue for each priority from 1, up to the maximum value
 configured for a given queue.
 
-A classic queue can become a priority queue by using client-provided [optional arguments](./queues.html#optional-arguments).
+A classic queue can become a priority queue by using client-provided [optional arguments](./queues#optional-arguments).
 
 Declaring a classic queue as a priority queue [using policies](#using-policies) is [not supported by design](#using-policies).
 For the reasons why, refer to [Why Policy Definition is not Supported for Priority Queues](#using-policies).
@@ -77,7 +77,7 @@ published with the maximum priority.
 ## <a id="resource-usage" class="anchor" href="#resource-usage">Maximum Number of Priorities and Resource Usage</a>
 
 If priority queues are what you want, this information previously stated **values between 1 and 5 are highly recommended**. If you must go higher than 5, values between 1 and 10 are sufficient (keep it to a single digit number) because currently using more priorities consumes more CPU resources by using more Erlang processes.
-[Runtime scheduling](./runtime.html) would also be affected.
+[Runtime scheduling](./runtime) would also be affected.
 
 ## <a id="interaction-with-consumers" class="anchor" href="#interaction-with-consumers">How Priority Queues Work with Consumers</a>
 
@@ -119,22 +119,22 @@ RabbitMQ queues: they support persistence, paging, mirroring,
 and so on. There are a couple of interactions that developers should be
 aware of.
 
-[Messages which should expire](./ttl.html) still
+[Messages which should expire](./ttl) still
 only expire from the head of the queue. This means that unlike
 with normal queues, even per-queue TTL can lead to expired
 lower-priority messages getting stuck behind non-expired
 higher priority ones. These messages will never be delivered,
 but they will appear in queue statistics.
 
-[Queues which have a max-length set](./maxlength.html) drop messages as usual from the head of the
+[Queues which have a max-length set](./maxlength) drop messages as usual from the head of the
 queue to enforce the limit. This means that higher priority
 messages might be dropped to make way for lower priority ones,
 which might not be what you would expect.
 
 ## <a id="using-policies" class="anchor" href="#using-policies">Why Policy Definition is not Supported for Priority Queues</a>
 
-The most convenient way to define optional arguments for a queue is using [policies](./parameters.html). Policies are the recommended way to configure [TTL](./ttl.html), [queue length limits](maxlength.html), and
-other [optional queue arguments](queues.html).
+The most convenient way to define optional arguments for a queue is using [policies](./parameters). Policies are the recommended way to configure [TTL](./ttl), [queue length limits](./maxlength), and
+other [optional queue arguments](./queues).
 
 However, policies cannot be used to configure priorities because policies are dynamic
 and can be changed after a queue has been declared. Priority queues can never change the number of priorities they support after queue declaration, so policies would not be a safe option to use.

@@ -95,7 +95,7 @@ Traced message headers containing metadata about the original message:
     <td>array</td>
     <td>
       routing key plus contents of
-      <a href="sender-selected.html">`CC` and
+      <a href="./sender-selected">`CC` and
       `BCC` headers</a>
     </td>
   </tr>
@@ -124,6 +124,6 @@ Traced message body corresponding to the body of the original message.
 
 ## <a id="tracing-plugin" class="anchor" href="#tracing-plugin">Tracing plugin</a>
 
-The `rabbitmq_tracing` <a href="plugins.html">plugin</a> builds on top of the tracer
+The `rabbitmq_tracing` <a href="./plugins">plugin</a> builds on top of the tracer
 and provides a GUI to capture traced messages and log them
 in text or JSON format files.

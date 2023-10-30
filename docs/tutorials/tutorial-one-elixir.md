@@ -45,7 +45,7 @@ digraph G {
 >
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open, general-purpose
 > protocol for messaging. There are a number of clients for RabbitMQ
-> in [many different languages](../devtools.html).  In this tutorial
+> in [many different languages](../devtools).  In this tutorial
 > series we're going to use [amqp](http://github.com/pma/amqp).
 >
 > To install it you can use the [`hex`](http://hex.pm/) package
@@ -132,7 +132,7 @@ _hello_ queue.
 In RabbitMQ a message can never be sent directly to the queue, it always
 needs to go through an _exchange_. But let's not get dragged down by the
 details &#8210; you can read more about _exchanges_ in [the third part of this
-tutorial](tutorial-three-elixir.html). All we need to know now is how to use a default exchange
+tutorial](./tutorial-three-elixir). All we need to know now is how to use a default exchange
 identified by an empty string. This exchange is special &#8210; it
 allows us to specify exactly to which queue the message should go.
 The queue name needs to be specified in the `routing_key` parameter:
@@ -160,7 +160,7 @@ AMQP.Connection.close(connection)
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
-> href="https://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/./configure#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 
@@ -260,7 +260,7 @@ created a queue above &#8210; using `AMQP.Queue.declare`.
 > rabbitmqctl.bat list_queues
 > ```
 
-The `no_ack` parameter will be described [later on](tutorial-two-elixir.html).
+The `no_ack` parameter will be described [later on](./tutorial-two-elixir).
 
 And finally, we enter a never-ending recursion that waits for data and displays messages
 whenever necessary.
@@ -334,5 +334,5 @@ receive further messages, and may be interrupted with Ctrl-C, Ctrl-C.
 Try to run `send.exs` again in a new terminal.
 
 We've learned how to send and receive a message from a named
-queue. It's time to move on to [part 2](tutorial-two-elixir.html)
+queue. It's time to move on to [part 2](./tutorial-two-elixir)
 and build a simple _work queue_.

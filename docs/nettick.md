@@ -28,7 +28,7 @@ Periodic tick messages are exchanged between all pairs of nodes to
 maintain the connections and to detect disconnections.
 Network interruptions could otherwise go undetected for a fairly long
 period of time (depending on the transport and OS kernel settings e.g. for TCP).
-Fundamentally this is the same problem that [heartbeats](./heartbeats.html)
+Fundamentally this is the same problem that [heartbeats](./heartbeats)
 seek to address in messaging protocols, just between different peers:
 RabbitMQ cluster nodes and CLI tools.
 
@@ -67,11 +67,11 @@ make the cluster more resilient to short network outages, but it will take
 longer for remaining nodes to detect crashed nodes. Conversely, reducing the
 `net_ticktime` across all nodes in a cluster will reduce detection
 latency, but increases the risk of detecting spurious
-[partitions](partitions.html).
+[partitions](./partitions).
 
 The impact of changing the default `net_ticktime` should be
 carefully considered. All nodes in a cluster must use the same
-`net_ticktime`. The following sample [advanced.config](./configure.html#advanced-config-file)
+`net_ticktime`. The following sample [advanced.config](./configure#advanced-config-file)
 configuration demonstrates doubling the default `net_ticktime` from
 60 to 120 seconds:
 
@@ -93,5 +93,5 @@ as emphasised above.
 ## <a id="windows-quirks" class="anchor" href="#windows-quirks">Windows Quirks</a>
 
 Due to how RabbitMQ starts as a Windows service, you can't use a configuration
-file to set `net_ticktime`. Please see [this section](./windows-quirks.html#net-ticktime) in the [Windows Quirks](./windows-quirks.html)
+file to set `net_ticktime`. Please see [this section](./windows-quirks#net-ticktime) in the [Windows Quirks](./windows-quirks)
 document to set `net_ticktime` when running RabbitMQ as a Windows service.

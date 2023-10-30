@@ -42,7 +42,7 @@ limitations under the License.
 </div-->
 
 
-In the [first tutorial](tutorial-one-dotnet.html) we
+In the [first tutorial](./tutorial-one-dotnet) we
 wrote programs to send and receive messages from a named queue. In this
 one we'll create a _Work Queue_ that will be used to distribute
 time-consuming tasks among multiple workers.
@@ -78,7 +78,7 @@ to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
 `NewTask`:
 
-Like [tutorial one](tutorial-one-dotnet.html) we need to generate two projects.
+Like [tutorial one](./tutorial-one-dotnet) we need to generate two projects.
 
 ```powershell
 dotnet new console --name NewTask
@@ -204,7 +204,7 @@ But we don't want to lose any tasks. If a worker dies, we'd like the
 task to be delivered to another worker.
 
 In order to make sure a message is never lost, RabbitMQ supports
-[message _acknowledgments_](../confirms.html). An ack(nowledgement) is sent back by the
+[message _acknowledgments_](../confirms). An ack(nowledgement) is sent back by the
 consumer to tell RabbitMQ that a particular message has been received,
 processed and that RabbitMQ is free to delete it.
 
@@ -218,9 +218,9 @@ even if the workers occasionally die.
 A timeout (30 minutes by default) is enforced on consumer delivery acknowledgement.
 This helps detect buggy (stuck) consumers that never acknowledge deliveries.
 You can increase this timeout as described in
-[Delivery Acknowledgement Timeout](../consumers.html#acknowledgement-timeout).
+[Delivery Acknowledgement Timeout](../consumers#acknowledgement-timeout).
 
-[Manual message acknowledgments](../confirms.html) are turned on by default. In previous
+[Manual message acknowledgments](../confirms) are turned on by default. In previous
 examples we explicitly turned them off by setting the autoAck
 ("automatic acknowledgement mode") parameter to true. It's time to
 remove this flag and manually send a proper acknowledgment from the
@@ -244,7 +244,7 @@ after the worker node is terminated, all unacknowledged messages will be redeliv
 
 Acknowledgement must be sent on the same channel that received the
 delivery. Attempts to acknowledge using a different channel will result
-in a channel-level protocol exception. See the [doc guide on confirmations](../confirms.html)
+in a channel-level protocol exception. See the [doc guide on confirmations](../confirms)
 to learn more.
 
 > #### Forgotten acknowledgment
@@ -328,7 +328,7 @@ properties.Persistent = true;
 > message -- it may be just saved to cache and not really written to the
 > disk. The persistence guarantees aren't strong, but it's more than enough
 > for our simple task queue. If you need a stronger guarantee then you can use
-> [publisher confirms](../confirms.html).
+> [publisher confirms](../confirms).
 
 
 ## Fair Dispatch
@@ -488,5 +488,5 @@ RabbitMQ is restarted.
 For more information on `IModel` methods and `IBasicProperties`, you can browse the
 [RabbitMQ .NET client API reference online](https://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitMQ.Client.html).
 
-Now we can move on to [tutorial 3](tutorial-three-dotnet.html) and learn how
+Now we can move on to [tutorial 3](./tutorial-three-dotnet) and learn how
 to deliver the same message to many consumers.

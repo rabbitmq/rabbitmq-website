@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-four-go.html) we improved our
+In the [previous tutorial](./tutorial-four-go) we improved our
 logging system. Instead of using a `fanout` exchange only capable of
 dummy broadcasting, we used a `direct` one, and gained a possibility
 of selectively receiving the logs.
@@ -152,7 +152,7 @@ start off with a working assumption that the routing keys of logs will
 have two words: "`<facility>.<severity>`".
 
 The code is almost the same as in the
-[previous tutorial](tutorial-four-go.html).
+[previous tutorial](./tutorial-four-go).
 
 The code for `emit_log_topic.go`:
 
@@ -359,5 +359,5 @@ with more than two routing key parameters.
 (Full source code for [emit_log_topic.go](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/emit_log_topic.go)
 and [receive_logs_topic.go](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/receive_logs_topic.go))
 
-Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-go.html)
+Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](./tutorial-six-go)
 

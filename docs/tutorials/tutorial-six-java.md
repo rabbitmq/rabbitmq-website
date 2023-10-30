@@ -22,7 +22,7 @@ limitations under the License.
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 
-In the [second tutorial](tutorial-two-java.html) we learned how to
+In the [second tutorial](./tutorial-two-java) we learned how to
 use _Work Queues_ to distribute time-consuming tasks among multiple
 workers.
 
@@ -103,7 +103,7 @@ import com.rabbitmq.client.AMQP.BasicProperties;
 >
 > * `deliveryMode`: Marks a message as persistent (with a value of `2`)
 >    or transient (any other value). You may remember this property
->    from [the second tutorial](tutorial-two-java.html).
+>    from [the second tutorial](./tutorial-two-java).
 > * `contentType`: Used to describe the mime-type of the encoding.
 >    For example for the often used JSON encoding it is a good practice
 >    to set this property to: `application/json`.
@@ -266,7 +266,7 @@ The client code is slightly more involved:
 Now is a good time to take a look at our full example source code (which includes basic exception handling) for
 [RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/RPCClient.java) and [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/RPCServer.java).
 
-Compile and set up the classpath as usual (see [tutorial one](tutorial-one-java.html)):
+Compile and set up the classpath as usual (see [tutorial one](./tutorial-one-java)):
 
 ```bash
 javac -cp $CP RPCClient.java RPCServer.java
@@ -307,5 +307,5 @@ complex (but important) problems, like:
    (eg checking bounds, type) before processing.
 
 >
->If you want to experiment, you may find the [management UI](../management.html) useful for viewing the queues.
+>If you want to experiment, you may find the [management UI](../management) useful for viewing the queues.
 >

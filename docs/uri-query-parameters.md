@@ -20,12 +20,12 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This page is a less-formal companion to the <a
-href="uri-spec.html">URI specification</a>, documenting how the
+href="./uri-spec">URI specification</a>, documenting how the
 officially-supported clients interpret URI parameters. Currently
 only the Erlang client does so.
 
-The [Federation](federation-reference.html#upstreams)
-and [Shovel](shovel.html#uris) plugins specify
+The [Federation](./federation-reference#upstreams)
+and [Shovel](./shovel#uris) plugins specify
 connections to other brokers using URIs, and are implemented
 using the Erlang client, so they take all the parameters
 described here for it.
@@ -92,9 +92,9 @@ against the hostname `myhost`.
       Only of use for the <code>amqps</code> scheme and used to
       configure verification of the server's x509 (TLS)
       certificate. <b>Note:</b> It is highly recommended to use
-      both values. See the <a href="ssl.html">TLS guide</a> to
+      both values. See the <a href="./ssl">TLS guide</a> to
       learn more about TLS support in RabbitMQ in general and specifically the
-      <a href="ssl.html#erlang-client">Erlang client</a>
+      <a href="./ssl#erlang-client">Erlang client</a>
       section.
     </td>
   </tr>
@@ -111,7 +111,7 @@ against the hostname `myhost`.
   <tr>
     <td><code>heartbeat</code></td>
     <td>
-      <a href="./heartbeats.html">Heartbeat</a> timeout value in seconds (an integer)
+      <a href="./heartbeats">Heartbeat</a> timeout value in seconds (an integer)
       to negotiate with the server.
     </td>
   </tr>
@@ -130,7 +130,7 @@ against the hostname `myhost`.
   </tr>
 </table>
 
-[TLS options](./ssl.html) can also be specified globally using the
+[TLS options](./ssl) can also be specified globally using the
 `amqp_client.ssl_options` configuration key in the `rabbitmq.config` or
 `advanced.config` file in this manner:
 
@@ -149,4 +149,4 @@ against the hostname `myhost`.
 They will be merged with the TLS parameters from the URI (the latter will take
 precedence) and affect all outgoing RabbitMQ Erlang client connections on the
 node, including plugins that use the client internally (Federation, Shovel,
-etc). Please see the [TLS guide](./ssl.html) for details.
+etc). Please see the [TLS guide](./ssl) for details.

@@ -133,7 +133,7 @@ Lastly, we close the connection:
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
-> href="https://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/./configure#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 
@@ -193,9 +193,9 @@ If you want to check on the queue, try using `rabbitmqctl list_queues`.
 
 Hello World!
 
-Time to move on to [part 2](tutorial-two-objectivec.html) and build a simple _work queue_.
+Time to move on to [part 2](./tutorial-two-objectivec) and build a simple _work queue_.
 
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
 [controller]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/objective-c/tutorial1/tutorial1/ViewController.m
-[devtools]:http://rabbitmq.com/devtools.html
+[devtools]:http://rabbitmq.com/./devtools
 [nslog]:https://developer.apple.com/library/ios/technotes/tn2347/_index.html

@@ -6,7 +6,7 @@ Blue-green deployment is an upgrade strategy that is based on the idea of settin
 a second RabbitMQ cluster (the "green" one) next to the current production
 cluster (the "blue" one). Applications are then switched to the "green"
 cluster. When that migration is done, the "blue" cluster is decommissioned (shut down).
-To simplify the switch, [federated queues](https://www.rabbitmq.com/federated-queues.html)
+To simplify the switch, [federated queues](https://www.rabbitmq.com/./federated-queues)
 can be used to transfer enqueued messages from the "blue" to the "green" cluster.
 
 ## <a id="preparation" class="anchor" href="#preparation">Preparing the "green" Cluster</a>
@@ -19,14 +19,14 @@ After deploying a brand new "green" cluster, there are two steps to follow:
 ### Importing definitions
 
 The procedure of definitions export/import is
-covered in the [Backup guide](backup.html#definitions-export).
+covered in the [Backup guide](./backup#definitions-export).
 The "blue" is the source cluster and the "green" one is the target.
 
 ### <a id="setup-federation" class="anchor" href="#setup-federation">Configuring Queue Federation</a>
 
-[RabbitMQ Federation plugin](federation.html) makes it easy to move consumers
+[RabbitMQ Federation plugin](./federation) makes it easy to move consumers
 from "blue" to "green", without disrupting message consumption or losing messages.
-The principle of [federated queues](./federated-queues.html) is that the consumers
+The principle of [federated queues](./federated-queues) is that the consumers
 now connected to "green" will get messages published to "blue" as long as there are
 no consumers in "blue" (local consumers take precedence).
 
@@ -48,14 +48,14 @@ rabbitmqctl set_policy --apply-to queues blue-green-migration ".*" \
 ```
 
 Please read the guides linked above and the
-[federation reference](./federation-reference.html) for further details.
+[federation reference](./federation-reference) for further details.
 
 ## <a id="migrate-consumers" class="anchor" href="#migrate-consumers">Migrate Consumers Over</a>
 
 You can now switch your consumers to use the new "green" cluster. To achieve
 that, reconfigure your load balancer or your consumer applications, depending
 on your setup. The Upgrade guide covers [some client features which enable
-them to switch between nodes](upgrade.html#rabbitmq-restart-handling).
+them to switch between nodes](./upgrade#rabbitmq-restart-handling).
 
 At that point, your producers are still publishing to "blue", but thanks to
 the federation plugin, message are transferred to consumers connected to "green".
@@ -67,7 +67,7 @@ still have a backlog of messages in "blue". The federation plugin doesn't help
 here because it doesn't **move** messages, it only allows remote consumers to
 dequeue messages.
 
-In case of a large backlog, use the [Shovel plugin](./shovel-dynamic.html)
+In case of a large backlog, use the [Shovel plugin](./shovel-dynamic)
 on "green" to really drain messages in "blue". This would require doing something
 like the following for each queue with a backlog:
 

@@ -1,12 +1,12 @@
 # Monitoring &product-name; Instances Deployed by the Kubernetes Cluster Operator
 
-Use this information to learn how to [monitor](../../monitoring.html) RabbitMQ instances deployed by the [Kubernetes Cluster Operator](./operator-overview.html).
+Use this information to learn how to [monitor](../../monitoring) RabbitMQ instances deployed by the [Kubernetes Cluster Operator](./operator-overview).
 
 ## <a id='overview' class='anchor' href='#overview'>Introducing Monitoring in RabbitMQ</a>
 
-The Kubernetes Cluster Operator deploys RabbitMQ clusters with the [rabbitmq_prometheus plugin](../../prometheus.html) activated or turned on. This plugin exposes a Prometheus-compatible metrics endpoint.
+The Kubernetes Cluster Operator deploys RabbitMQ clusters with the [rabbitmq_prometheus plugin](../../prometheus) activated or turned on. This plugin exposes a Prometheus-compatible metrics endpoint.
 
-For detailed information on the RabbitMQ Prometheus configuration, check the [Prometheus ](../../prometheus.html) information.
+For detailed information on the RabbitMQ Prometheus configuration, check the [Prometheus ](../../prometheus) information.
 
 The following sections assume Prometheus is deployed and functional.
 How to configure Prometheus to monitor RabbitMQ depends on whether [Prometheus is installed by Prometheus Operator](#prom-operator) or [by other means](#prom-annotations).
@@ -163,7 +163,7 @@ for the [Alertmanager configuration file](https://prometheus.io/docs/alerting/la
 
 RabbitMQ provides Grafana dashboards to visualize the metrics scraped by Prometheus.
 
-Follow the instructions in the [Grafana Configuration](../../prometheus.html#grafana-configuration) information to import dashboards to Grafana.
+Follow the instructions in the [Grafana Configuration](../../prometheus#grafana-configuration) information to import dashboards to Grafana.
 
 Alternatively, if Grafana is deployed by the [Grafana Helm chart](https://github.com/grafana/helm-charts/tree/main/charts/grafana), `kubectl apply` the `ConfigMaps` in the [grafana/dashboards](https://github.com/rabbitmq/cluster-operator/tree/main/observability/grafana/dashboards) directory to import the RabbitMQ Grafana dashboards [using a sidecar container](https://github.com/grafana/helm-charts/tree/main/charts/grafana#sidecar-for-dashboards).
 

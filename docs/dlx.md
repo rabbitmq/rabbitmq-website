@@ -21,9 +21,9 @@ limitations under the License.
 
 Messages from a queue can be "dead-lettered", which means these messages are republished to an exchange when any of the following events occur. 
 
- * The message is [negatively acknowledged](./confirms.html) by a consumer using `basic.reject` or `basic.nack` with `requeue` parameter set to `false`.
- * The message expires due to [per-message TTL](./ttl.html), or
- * The message is dropped because its queue exceeded a [length limit](./maxlength.html)
+ * The message is [negatively acknowledged](./confirms) by a consumer using `basic.reject` or `basic.nack` with `requeue` parameter set to `false`.
+ * The message expires due to [per-message TTL](./ttl), or
+ * The message is dropped because its queue exceeded a [length limit](./maxlength)
 
 Note that if a queue expires, the messages in the queue are not "dead-lettered".
 
@@ -31,8 +31,8 @@ Dead letter exchanges (DLXs) are normal exchanges. They can be
 any of the usual types and are declared as normal.
 
 For any given queue, a DLX can be defined by clients using the
-[queue's arguments](./queues.html#optional-arguments), or in the server
-using [policies](./parameters.html#policies). In the
+[queue's arguments](./queues#optional-arguments), or in the server
+using [policies](./parameters#policies). In the
 case where both policy and arguments specify a DLX, the one
 specified in arguments overrules the one specified in policy.
 
@@ -69,7 +69,7 @@ Similarly, an explicit routing key can be specified by adding
 the key "dead-letter-routing-key" to the policy.
 
 Policies can also be defined using the management plugin, see
-the [policy documentation](parameters.html#policies) for more details.
+the [policy documentation](./parameters#policies) for more details.
 
 ## <a id="using-optional-queue-arguments" class="anchor" href="#using-optional-queue-arguments">Configuring a Dead Letter Exchange using Optional Queue Arguments</a>
 
@@ -131,7 +131,7 @@ Note, if a specific routing key was not set for the
 queue, messages on it are dead-lettered with <em>all</em>
 their original routing keys.  This includes routing keys
 added by the `CC` and `BCC` headers
-(refer to [Sender-selected distribution](sender-selected.html) for details about these two headers).
+(refer to [Sender-selected distribution](./sender-selected) for details about these two headers).
 
 
 It is possible to form a cycle of message dead-lettering.  For
@@ -144,13 +144,13 @@ dropped <em>if there was no rejections in the entire cycle</em>.
 ## <a id="safety" class="anchor" href="#safety">Safety</a>
 
 By default, dead-lettered messages are re-published <em>without</em> publisher
-[confirms](confirms.html) turned on internally. Therefore using DLX in a clustered
+[confirms](./confirms) turned on internally. Therefore using DLX in a clustered
 RabbitMQ environment is not guaranteed to be safe. Messages are removed from the
 original queue immediately after publishing to the DLX target queue. This ensures
 that there is no chance of excessive message build up that could exhaust broker
 resources. However, messages can be lost if the target queue is not available to accept messages.
 
-Since RabbitMQ 3.10 quorum queues support [at-least-once dead-lettering](./quorum-queues.html#dead-lettering)
+Since RabbitMQ 3.10 quorum queues support [at-least-once dead-lettering](./quorum-queues#dead-lettering)
 where messages are re-published with publisher confirms turned on internally.
 
 ## <a id="effects" class="anchor" href="#effects">Dead-Lettered Effects on Messages</a>
@@ -160,7 +160,7 @@ Dead-lettering a message modifies its headers:
  * the exchange name is replaced with that of the latest dead-letter exchange
  * the routing key may be replaced with that specified in a queue performing dead lettering,
  * if the above happens, the `CC` header will also be removed, and
- * the `BCC` header will be removed as per [Sender-selected distribution](sender-selected.html)
+ * the `BCC` header will be removed as per [Sender-selected distribution](./sender-selected)
 
 The dead-lettering process adds an array to the header of
 each dead-lettered message named `x-death`.
@@ -176,7 +176,7 @@ of several fields:
  * `routing-keys`: the routing keys (including `CC` keys but excluding
    `BCC` ones) the message was published with
  * `count`: how many times this message was dead-lettered in this queue for this reason
- * `original-expiration` (if the message was dead-lettered due to [per-message TTL](ttl.html#per-message-ttl)): the original `expiration` property of the message. The `expiration` property is removed from the message on dead-lettering to prevent it from expiring again in any queues it is routed to.
+ * `original-expiration` (if the message was dead-lettered due to [per-message TTL](./ttl#per-message-ttl)): the original `expiration` property of the message. The `expiration` property is removed from the message on dead-lettering to prevent it from expiring again in any queues it is routed to.
 
 New entries are prepended to the beginning of the `x-death`
 array. In the case where `x-death` already contains an entry with
@@ -187,9 +187,9 @@ The `reason` is a name describing why the
 message was dead-lettered and is one of the following:
 
  * `rejected`: the message was rejected with the `requeue` parameter set to `false`
- * `expired`: the [message TTL](./ttl.html) has expired
- * `maxlen`: the [maximum allowed queue length](./maxlength.html) was exceeded
- * `delivery_limit`: the message is returned more times than the limit (set by policy argument [delivery-limit](./quorum-queues.html#poison-message-handling) of quorum queues).
+ * `expired`: the [message TTL](./ttl) has expired
+ * `maxlen`: the [maximum allowed queue length](./maxlength) was exceeded
+ * `delivery_limit`: the message is returned more times than the limit (set by policy argument [delivery-limit](./quorum-queues#poison-message-handling) of quorum queues).
 
 Three top-level headers are added for the very first dead-lettering
 event. They are

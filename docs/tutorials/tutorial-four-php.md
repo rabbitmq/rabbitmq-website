@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-three-php.html) we built a
+In the [previous tutorial](./tutorial-three-php) we built a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
@@ -354,5 +354,5 @@ php emit_log_direct.php error "Run. Run. Or it will explode."
 and [(receive_logs_direct.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/receive_logs_direct.php))
 
 
-Move on to [tutorial 5](tutorial-five-php.html) to find out how to listen
+Move on to [tutorial 5](./tutorial-five-php) to find out how to listen
 for messages based on a pattern.

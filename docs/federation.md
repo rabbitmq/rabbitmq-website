@@ -57,10 +57,10 @@ queue lets a local consumer receive messages from an upstream queue.
 
 Federation links connect to upstreams using RabbitMQ Erlang client. Therefore
 they can connect to a specific vhost, use TLS, use multiple
-[authentication mechanisms](https://www.rabbitmq.com/authentication.html).
+[authentication mechanisms](https://www.rabbitmq.com/./authentication).
 
-For more details, see the documentation on <a href="federated-exchanges.html">federated
-exchanges</a> and [federated queues](federated-queues.html).
+For more details, see the documentation on <a href="./federated-exchanges">federated
+exchanges</a> and [federated queues](./federated-queues).
 
 
 ## <a id="how-is-it-configured" class="anchor" href="#how-is-it-configured">How is Federation Set Up?</a>
@@ -68,17 +68,17 @@ exchanges</a> and [federated queues](federated-queues.html).
 To use federation, one needs to configure two things
 
 * One or more upstreams that define federation connections
-  to other nodes. This can be done via [runtime parameters](./parameters.html)
+  to other nodes. This can be done via [runtime parameters](./parameters)
   or the [federation management plugin](https://github.com/rabbitmq/rabbitmq-federation-management) which
-  adds a federation management tab to the [management UI](./management.html).
-* One or more [policies](./parameters.html#policies) that match exchanges/queues and makes them
+  adds a federation management tab to the [management UI](./management).
+* One or more [policies](./parameters#policies) that match exchanges/queues and makes them
   federated.
 
 
 ## <a id="getting-started" class="anchor" href="#getting-started">Getting Started</a>
 
 The federation plugin is included in the RabbitMQ distribution. To
-enable it, use [rabbitmq-plugins](man/rabbitmq-plugins.8.html):
+enable it, use [rabbitmq-plugins](./man/rabbitmq-plugins.8):
 
 ```bash
 rabbitmq-plugins enable rabbitmq_federation
@@ -98,9 +98,9 @@ Information about federation upstreams is stored in the RabbitMQ
 database, along with users, permissions, queues, etc. There
 are three levels of configuration involved in federation:
 
-* **Upstreams**: each [upstream](federation-reference.html#upstreams) defines a remote connection endpoint.
-* **Upstream sets**: each [upstream set groups](federation-reference.html#upstream-sets) together a set of upstreams to use for federation.
-* **Policies**: each [policy](parameters.html#policies) selects a set of exchanges,
+* **Upstreams**: each [upstream](./federation-reference#upstreams) defines a remote connection endpoint.
+* **Upstream sets**: each [upstream set groups](./federation-reference#upstream-sets) together a set of upstreams to use for federation.
+* **Policies**: each [policy](./parameters#policies) selects a set of exchanges,
   queues or both, and applies a single upstream or an upstream
   set to those objects.
 
@@ -108,11 +108,11 @@ In practice, for simple use cases you can almost ignore the
 existence of upstream sets, since there is an implicitly-defined upstream set called `all`
 to which all upstreams are added.
 
-Upstreams and upstream sets are both instances of [runtime parameters](parameters.html).
+Upstreams and upstream sets are both instances of [runtime parameters](./parameters).
 Like exchanges and queues, each virtual host has its own distinct set of parameters and policies. For more
 generic information on parameters and policies, see the guide on
-[parameters and policies](parameters.html).
-For full details on the parameters used by federation, see the [federation reference](federation-reference.html).
+[parameters and policies](./parameters).
+For full details on the parameters used by federation, see the [federation reference](./federation-reference).
 
 Parameters and policies can be set in three ways - either with
 an invocation of `rabbitmqctl`, a call to the
@@ -238,10 +238,10 @@ three exchanges and two upstreams for each there will be six
 links.
 
 For simple use this should be all you need - you will probably
-want to look at the <a href="./uri-spec.html">AMQP URI
+want to look at the <a href="./uri-spec">AMQP URI
 reference</a>.
 
-The <a href="./federation-reference.html">federation reference</a> contains
+The <a href="./federation-reference">federation reference</a> contains
 more details on upstream parameters and upstream sets.
 
 
@@ -254,7 +254,7 @@ by operators.
 Should a link fail, e.g. due to a network interruption, it will
 attempt to re-connect. Reconnection period is a configurable value
 that's defined in upstream definition. See
-<a href="federation-reference.html">federation
+<a href="./federation-reference">federation
 reference</a> for more details on setting up upstreams and
 upstream sets.
 
@@ -283,7 +283,7 @@ can. To summarise how clustering and federation interact:
    downstream cluster. They will fail over to other nodes if
    the node they are running on crashes or stops.
  * Queue federation links will start on the same node as the
-   downstream queue. If the downstream queue is a [replicated one](quorum-queues.html), they
+   downstream queue. If the downstream queue is a [replicated one](./quorum-queues), they
    will start on the same node as the leader, and will be
    recreated on the same node as the new leader after any future leader elections.
  * To connect to an upstream cluster, you can specify multiple URIs in
@@ -295,15 +295,15 @@ can. To summarise how clustering and federation interact:
 
 Federation connections (links) can be secured with TLS. Because Federation uses
 a RabbitMQ client under the hood, it is necessary to both configure
-source broker to [listen for TLS connections](ssl.html)
+source broker to [listen for TLS connections](./ssl)
 and Federation/Erlang client to use TLS.
 
 To configure Federation to use TLS, one needs to
 
  * Use the `amqps` URI scheme instead of `amqp`
- * Specify CA certificate and client certificate/key pair via [URI query parameters](uri-query-parameters.html)
+ * Specify CA certificate and client certificate/key pair via [URI query parameters](./uri-query-parameters)
    when configuring upstream(s)
- * [Configure Erlang client to use TLS](ssl.html)
+ * [Configure Erlang client to use TLS](./ssl)
 
 Just like with "regular" client connections, server's CA should be
 trusted on the node where federation link(s) runs, and vice versa.
@@ -319,7 +319,7 @@ plugin.
 
 ### Using CLI Tools
 
-Federation link status can be inspected using [RabbitMQ CLI tools](cli.html).
+Federation link status can be inspected using [RabbitMQ CLI tools](./cli).
 
 Invoke:
 
@@ -414,7 +414,7 @@ rabbitmqctl federation_status
 
 ### Using the Management UI
 
-Enable the `rabbitmq_federation_management` [plugin](plugins.html) that extends
-[management UI](management.html) with a new page that displays federation links in the cluster.
+Enable the `rabbitmq_federation_management` [plugin](./plugins) that extends
+[management UI](./management) with a new page that displays federation links in the cluster.
 It can be found under `Admin` > `Federation Status`, or by using the
 `GET /api/federation-links` HTTP API endpoint.

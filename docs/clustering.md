@@ -33,11 +33,11 @@ This guide covers fundamental topics related to RabbitMQ clustering:
  * How to [remove a cluster node](#removing-nodes)
  * How to [reset a cluster node](#resetting-nodes) to a pristine (blank) state
 
-and more. [Cluster Formation and Peer Discovery](./cluster-formation.html) is a closely related guide
+and more. [Cluster Formation and Peer Discovery](./cluster-formation) is a closely related guide
 that focuses on peer discovery and cluster formation automation-related topics. For queue contents
-(message) replication, see the [Quorum Queues](./quorum-queues.html) guide.
+(message) replication, see the [Quorum Queues](./quorum-queues) guide.
 
-[VMware RabbitMQ](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/index.html) provides an [Intra-cluster Compression](clustering-compression.html) feature.
+[VMware RabbitMQ](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/index.html) provides an [Intra-cluster Compression](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/clustering-compression-rabbitmq.html) feature.
 
 A RabbitMQ cluster is a logical grouping of one or
 several nodes, each  sharing users, virtual hosts,
@@ -49,7 +49,7 @@ queues, exchanges, bindings, runtime parameters and other distributed state.
 
 A RabbitMQ cluster can be formed in a number of ways:
 
- * Declaratively by listing cluster nodes in [config file](configure.html)
+ * Declaratively by listing cluster nodes in [config file](./configure)
  * Declaratively using DNS-based discovery
  * Declaratively using [AWS (EC2) instance discovery](https://github.com/rabbitmq/rabbitmq-peer-discovery-aws) (via a plugin)
  * Declaratively using [Kubernetes discovery](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s) (via a plugin)
@@ -57,7 +57,7 @@ A RabbitMQ cluster can be formed in a number of ways:
  * Declaratively using [etcd-based discovery](https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd) (via a plugin)
  * Manually with `rabbitmqctl`
 
-Please refer to the [Cluster Formation guide](./cluster-formation.html) for details.
+Please refer to the [Cluster Formation guide](./cluster-formation) for details.
 
 The composition of a cluster can be altered dynamically.
 All RabbitMQ brokers start out as running on a single
@@ -76,16 +76,16 @@ different prefixes, e.g. `rabbit1@hostname` and `rabbit2@hostname`.
 
 In a cluster, nodes identify and contact each other using node names. This means
 that the hostname part of every node name [must resolve](#hostname-resolution-requirement).
-[CLI tools](./cli.html) also identify and address nodes using node names.
+[CLI tools](./cli) also identify and address nodes using node names.
 
 When a node starts up, it checks whether it has been assigned a node name. This is done
-via the `RABBITMQ_NODENAME` [environment variable](./configure.html#supported-environment-variables).
+via the `RABBITMQ_NODENAME` [environment variable](./configure#supported-environment-variables).
 If no value was explicitly configured,
 the node resolves its hostname and prepends `rabbit` to it to compute its node name.
 
 If a system uses fully qualified domain names (FQDNs) for hostnames, RabbitMQ nodes
 and CLI tools must be configured to use so called long node names.
-For server nodes this is done by setting the `RABBITMQ_USE_LONGNAME` [environment variable](./configure.html#supported-environment-variables)
+For server nodes this is done by setting the `RABBITMQ_USE_LONGNAME` [environment variable](./configure#supported-environment-variables)
 to `true`.
 
 For CLI tools, either `RABBITMQ_USE_LONGNAME` must be set or the `--longnames` option
@@ -125,13 +125,13 @@ a local file, a non-standard hosts file location, or a mix
 of methods.  Those methods can work in concert with the
 standard OS hostname resolution methods.
 
-To use FQDNs, see `RABBITMQ_USE_LONGNAME` in the [Configuration guide](./configure.html#supported-environment-variables).
+To use FQDNs, see `RABBITMQ_USE_LONGNAME` in the [Configuration guide](./configure#supported-environment-variables).
 See [Node Names](#node-names) above.
 
 
 ## <a id="ports" class="anchor" href="#ports">Port Access</a>
 
-RabbitMQ nodes [bind to ports](networking.html#ports) (open server TCP sockets) in order to accept client and CLI tool connections.
+RabbitMQ nodes [bind to ports](./networking#ports) (open server TCP sockets) in order to accept client and CLI tool connections.
 Other processes and tools such as SELinux may prevent RabbitMQ from binding to a port. When that happens,
 the node will fail to start.
 
@@ -139,20 +139,20 @@ CLI tools, client libraries and RabbitMQ nodes also open connections (client TCP
 Firewalls can prevent nodes and CLI tools from communicating with each other.
 The following ports are most relevant to inter-node communication in a cluster:
 
- * 4369: [epmd](networking.html#epmd), a helper discovery daemon used by RabbitMQ nodes and CLI tools
- * 6000 through 6500: used by [RabbitMQ Stream](stream.html) replication
+ * 4369: [epmd](./networking#epmd), a helper discovery daemon used by RabbitMQ nodes and CLI tools
+ * 6000 through 6500: used by [RabbitMQ Stream](./stream) replication
  * 25672: used for inter-node and CLI tools communication (Erlang distribution server port)
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
-   the cluster uses [federation](federation.html) or CLI tools are used on machines outside the subnet),
-   these ports should not be publicly exposed. See [networking guide](networking.html) for details.
+   the cluster uses [federation](./federation) or CLI tools are used on machines outside the subnet),
+   these ports should not be publicly exposed. See [networking guide](./networking) for details.
  * 35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
    and is allocated from a dynamic range (computed as server distribution port + 10000 through
    server distribution port + 10010).
 
-It is possible to [configure RabbitMQ](configure.html)
+It is possible to [configure RabbitMQ](./configure)
 to use different ports and specific network interfaces.
-See [RabbitMQ Networking guide](networking.html) to learn more.
+See [RabbitMQ Networking guide](./networking) to learn more.
 
 
 ## <a id="cluster-membership" class="anchor" href="#cluster-membership">Nodes in a Cluster</a>
@@ -165,26 +165,26 @@ are message queues, which by default reside on one node,
 though they are visible and reachable from all nodes. To
 replicate queues across nodes in a cluster, use a queue type
 that supports replication. This topic is covered in
-the [Quorum Queues](./quorum-queues.html) guide.
+the [Quorum Queues](./quorum-queues) guide.
 
 ### <a id="peer-equality" class="anchor" href="#peer-equality">Nodes are Equal Peers</a>
 
 Some distributed systems
 have leader and follower nodes. This is generally not true for RabbitMQ.
 All nodes in a RabbitMQ cluster are equal peers: there are no special nodes in RabbitMQ core.
-This topic becomes more nuanced when [quorum queues](quorum-queues.html) and plugins
+This topic becomes more nuanced when [quorum queues](./quorum-queues) and plugins
 are taken into consideration but for most intents and purposes,
 all cluster nodes should be considered equal.
 
-Many [CLI tool](./cli.html) operations can be executed against any node.
-An [HTTP API](./management.html) client can target any cluster node.
+Many [CLI tool](./cli) operations can be executed against any node.
+An [HTTP API](./management) client can target any cluster node.
 
 Individual plugins can designate (elect)
-certain nodes to be "special" for a period of time. For example, [federation links](federation.html)
+certain nodes to be "special" for a period of time. For example, [federation links](./federation)
 are colocated on a particular cluster node. Should that node fail, the links will
 be restarted on a different node.
 
-In older (long maintained) versions, [RabbitMQ management plugin](./management.html) used
+In older (long maintained) versions, [RabbitMQ management plugin](./management) used
 a dedicated node for stats collection and aggregation.
 
 ### <a id="erlang-cookie" class="anchor" href="#erlang-cookie">How CLI Tools Authenticate to Nodes (and Nodes to Each Other): the Erlang Cookie</a>
@@ -202,7 +202,7 @@ If the file does not exist, Erlang VM will try to create
 one with a randomly generated value when the RabbitMQ server
 starts up. Using such generated cookie files are appropriate in development
 environments only. Since each node will generate its own value independently,
-this strategy is not really viable in a [clustered environment](./clustering.html).
+this strategy is not really viable in a [clustered environment](./clustering).
 
 Erlang cookie generation should be done at cluster deployment stage, ideally using automation
 and orchestration tools.
@@ -239,7 +239,7 @@ For instance, this can be seen in the [RabbitMQ on Kubernetes examples repositor
 On Windows, the cookie location depends on a few factors:
 
  * Whether the `HOMEDRIVE` and `HOMEPATH` environment variables are both set
- * Erlang version: prior to 20.2 (these are no longer supported by any [maintained release series of RabbitMQ](versions.html)) or 20.2 and later
+ * Erlang version: prior to 20.2 (these are no longer supported by any [maintained release series of RabbitMQ](./versions)) or 20.2 and later
 
 ##### Erlang 20.2 or later
 
@@ -256,7 +256,7 @@ location for users running commands like `rabbitmqctl.bat`.
 ### Overriding Using CLI and Runtime Command Line Arguments
 
 As an alternative, the option "`-setcookie <value>`" can be added
-to `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="./configure.html">environment variable value</a>
+to `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="./configure">environment variable value</a>
 to override the cookie value used by a RabbitMQ node:
 
 ```bash
@@ -273,14 +273,14 @@ Both are **the least secure options** and generally **not recommended**.
 
 ### <a id="cookie-file-troubleshooting" class="anchor" href="#cookie-file-troubleshooting">Troubleshooting</a> Cookie-based Authentication
 
-When a node starts, it will [log](./logging.html) the home directory location of its effective user:
+When a node starts, it will [log](./logging) the home directory location of its effective user:
 
 ```
 node           : rabbit@cdbf4de5f22d
 home dir       : /var/lib/rabbitmq
 ```
 
-Unless any [server directories](./relocate.html) were overridden, that's the directory where
+Unless any [server directories](./relocate) were overridden, that's the directory where
 the cookie file will be looked for, and created by the node on first boot if it does not already exist.
 
 In the example above, the cookie file location will be `/var/lib/rabbitmq/.erlang.cookie`.
@@ -320,22 +320,22 @@ more information and cookie mismatches can be identified better:
 * Authentication failed (rejected by the remote node), please check the Erlang cookie
 ```
 
-See the [CLI Tools guide](./cli.html) for more information.
+See the [CLI Tools guide](./cli) for more information.
 
 #### Hostname Resolution
 
 Since hostname resolution is a [prerequisite for successful inter-node communication](#hostname-resolution-requirement),
-starting with [RabbitMQ `3.8.6`](./changelog.html), CLI tools provide two commands that help verify
+starting with [RabbitMQ `3.8.6`](./changelog), CLI tools provide two commands that help verify
 that hostname resolution on a node works as expected. The commands are not meant to replace
 [`dig`](https://en.wikipedia.org/wiki/Dig_(command)) and other specialised DNS tools but rather
 provide a way to perform most basic checks while taking [Erlang runtime hostname resolver features](https://erlang.org/doc/apps/erts/inet_cfg.html)
 into account.
 
-The commands are covered in the [Networking guide](./networking.html#dns-verify-resolution).
+The commands are covered in the [Networking guide](./networking#dns-verify-resolution).
 
 #### CLI Tools
 
-Starting with [version `3.8.6`](./changelog.html), `rabbitmq-diagnostics` includes a command
+Starting with [version `3.8.6`](./changelog), `rabbitmq-diagnostics` includes a command
 that provides relevant information on the Erlang cookie file used by CLI tools:
 
 ```bash
@@ -369,7 +369,7 @@ RABBITMQ_ERLANG_COOKIE value length: 0
 
 ## <a id="node-count" class="anchor" href="#node-count">Node Counts and Quorum</a>
 
-Because several features (e.g. [quorum queues](./quorum-queues.html), [client tracking in MQTT](./mqtt.html))
+Because several features (e.g. [quorum queues](./quorum-queues), [client tracking in MQTT](./mqtt))
 require a consensus between cluster members, odd numbers of cluster nodes are highly recommended:
 1, 3, 5, 7 and so on.
 
@@ -380,7 +380,7 @@ MQTT client connections won't be accepted, quorum queues would lose their availa
 From the consensus point of view, four or six node clusters would have the same availability
 characteristics as three and five node clusters.
 
-The [Quorum Queues guide](./quorum-queues.html) covers this topic in more detail.
+The [Quorum Queues guide](./quorum-queues) covers this topic in more detail.
 
 
 ## <a id="clustering-and-clients" class="anchor" href="#clustering-and-clients">Clustering and Clients</a>
@@ -390,7 +390,7 @@ The [Quorum Queues guide](./quorum-queues.html) covers this topic in more detail
 Assuming all cluster members
 are available, a messaging (AMQP 0-9-1, AMQP 1.0, MQTT, STOMP) client can connect to any node and
 perform any operation. Nodes will route operations to the
-[quorum queue leader](./quorum-queues.html) or [queue leader replica](ha.html#leader-migration-data-locality)
+[quorum queue leader](./quorum-queues) or [queue leader replica](./ha#leader-migration-data-locality)
 transparently to clients.
 
 With all supported messaging protocols a client is only connected to one node
@@ -403,12 +403,12 @@ as a connection option. The list of hosts will be used during initial connection
 as well as connection recovery, if the client supports it. See documentation guides
 for individual clients to learn more.
 
-With [quorum queues](./quorum-queues.html) and [streams](./streams.html), clients will only be able to perform
+With [quorum queues](./quorum-queues) and [streams](./streams), clients will only be able to perform
 operations on queues that have a quorum of replicas online.
 
 With classic mirrored queues, there are scenarios where it may not be possible for a client to transparently continue
 operations after connecting to a different node. They usually involve
-[non-mirrored queues hosted on a failed node](./ha.html#non-mirrored-queue-behavior-on-node-failure).
+[non-mirrored queues hosted on a failed node](./ha#non-mirrored-queue-behavior-on-node-failure).
 
 ### Stream Clients
 
@@ -428,10 +428,10 @@ to learn more.
 ## <a id="clustering-and-observability" class="anchor" href="#clustering-and-observability">Clustering and Observability</a>
 
 Client connections, channels and queues will be distributed across cluster nodes.
-Operators need to be able to inspect and [monitor](./monitoring.html) such resources
+Operators need to be able to inspect and [monitor](./monitoring) such resources
 across all cluster nodes.
 
-RabbitMQ [CLI tools](./cli.html) such as `rabbitmq-diagnostics` and `rabbitmqctl`
+RabbitMQ [CLI tools](./cli) such as `rabbitmq-diagnostics` and `rabbitmqctl`
 provide commands that inspect resources and cluster-wide state. Some commands focus on the state of a single node
 (e.g. `rabbitmq-diagnostics environment` and `rabbitmq-diagnostics status`), others
 inspect cluster-wide state. Some examples of the latter include `rabbitmqctl list_connections`,
@@ -452,7 +452,7 @@ semantically identical results. "Node-local" commands, however, will not produce
 identical results since two nodes rarely have identical state: at the very least their
 node names will be different!
 
-[Management UI](./management.html) works similarly: a node that has to respond to an HTTP API request
+[Management UI](./management) works similarly: a node that has to respond to an HTTP API request
 will fan out to other cluster members and aggregate their responses. In a cluster with multiple nodes that have management plugin
 enabled, the operator can use any node to access management UI. The same goes for monitoring tools that use
 the HTTP API to collect data about the state of the cluster. There is no need to issue a request to every cluster node in turn.
@@ -464,29 +464,29 @@ nodes. Nodes can be started and stopped at will,
 as long as they can contact a cluster member node
 known at the time of shutdown.
 
-[Quorum queue](quorum-queues.html) allows queue contents to be replicated
-across multiple cluster nodes with parallel replication and a predictable [leader election](#quorum-queues.html#leader-election)
-and [data safety](quorum-queues.html#data-safety) behavior as long as a majority of replicas are online.
+[Quorum queue](./quorum-queues) allows queue contents to be replicated
+across multiple cluster nodes with parallel replication and a predictable [leader election](#./quorum-queues#leader-election)
+and [data safety](./quorum-queues#data-safety) behavior as long as a majority of replicas are online.
 
-Non-replicated classic queues can also be used in clusters. Non-mirrored queue [behaviour in case of node failure](./ha.html#non-mirrored-queue-behavior-on-node-failure)
-depends on [queue durability](queues.html#durability).
+Non-replicated classic queues can also be used in clusters. Non-mirrored queue [behaviour in case of node failure](./ha#non-mirrored-queue-behavior-on-node-failure)
+depends on [queue durability](./queues#durability).
 
-RabbitMQ clustering has several modes of dealing with [network partitions](partitions.html),
+RabbitMQ clustering has several modes of dealing with [network partitions](./partitions),
 primarily consistency oriented. Clustering is meant to be used across LAN. It is
 not recommended to run clusters that span WAN.
-The [Shovel](shovel.html) or
-[Federation](federation.html)
+The [Shovel](./shovel) or
+[Federation](./federation)
 plugins are better solutions for connecting brokers across a
-WAN. Note that [Shovel and Federation are not equivalent to clustering](distributed.html).
+WAN. Note that [Shovel and Federation are not equivalent to clustering](./distributed).
 
 ### <a id="clustering-and-stats" class="anchor" href="#clustering-and-stats">Metrics and Statistics</a>
 
 Every node stores and aggregates its own metrics and stats, and provides an API for
 other nodes to access it. Some stats are cluster-wide, others are specific to individual nodes.
-Node that responds to an [HTTP API](./management.html) request contacts its peers
+Node that responds to an [HTTP API](./management) request contacts its peers
 to retrieve their data and then produces an aggregated result.
 
-In older (long unmaintained) versions [RabbitMQ management plugin](./management.html) used
+In older (long unmaintained) versions [RabbitMQ management plugin](./management) used
 a dedicated node for stats collection and aggregation.
 
 
@@ -495,7 +495,7 @@ a dedicated node for stats collection and aggregation.
 The following several sections provide a transcript of manually setting up and manipulating
 a RabbitMQ cluster across three machines: `rabbit1`, `rabbit2`,
 `rabbit3`. It is recommended that the example is studied before
-[more automation-friendly](./cluster-formation.html) cluster formation
+[more automation-friendly](./cluster-formation) cluster formation
 options are used.
 
 We assume that the user is logged into all three machines,
@@ -561,18 +561,18 @@ In order to link up our three nodes in a cluster, we tell
 two of the nodes, say `rabbit@rabbit2` and
 `rabbit@rabbit3`, to join the cluster of the
 third, say `rabbit@rabbit1`. Prior to that both
-newly joining members must be [reset](./rabbitmqctl.8.html#reset).
+newly joining members must be [reset](./man/rabbitmqctl.8#reset).
 
 We first join `rabbit@rabbit2` in a cluster
 with `rabbit@rabbit1`. To do that, on
 `rabbit@rabbit2` we stop the RabbitMQ
 application and join the `rabbit@rabbit1`
 cluster, then restart the RabbitMQ application. Note that
-a node must be [reset](./rabbitmqctl.8.html#reset) before it can join an existing cluster.
+a node must be [reset](./man/rabbitmqctl.8#reset) before it can join an existing cluster.
 Resetting the node <strong>removes all resources and data that were previously
 present on that node</strong>. This means that a node cannot be made a member
 of a cluster and keep its existing data at the same time. When that's desired,
-using the [Blue/Green deployment strategy](./blue-green-upgrade.html) or [backup and restore](./backup.html)
+using the [Blue/Green deployment strategy](./blue-green-upgrade) or [backup and restore](./backup)
 are the available options.
 
 ```bash
@@ -739,26 +739,26 @@ By adjusting these settings and tweaking the time window in which
 known peer has to come back it is possible to account for cluster-wide
 redeployment scenarios that can be longer than 5 minutes to complete.
 
-During [upgrades](./upgrade.html), sometimes the last node to stop
+During [upgrades](./upgrade), sometimes the last node to stop
 must be the first node to be started after the upgrade. That node will be designated to perform
 a cluster-wide schema migration that other nodes can sync from and apply when they
 rejoin.
 
 ### <a id="restarting-readiness-probes" class="anchor" href="#restarting-readiness-probes">Restarts and Health Checks (Readiness Probes)</a>
 
-In some environments, node restarts are controlled with a designated [health check](./monitoring.html#health-checks).
+In some environments, node restarts are controlled with a designated [health check](./monitoring#health-checks).
 The checks verify that one node has started and the deployment process can proceed to the next one.
 If the check does not pass, the deployment of the node is considered to be incomplete and the deployment process
 will typically wait and retry for a period of time. One popular example of such environment is Kubernetes
 where an operator-defined [readiness probe](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
 can prevent a deployment from proceeding when the [`OrderedReady` pod management policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees) is used. Deployments that use the `Parallel` pod management policy
-will not be affected but must worry about the [natural race condition during initial cluster formation](./cluster-formation.html#initial-formation-race-condition).
+will not be affected but must worry about the [natural race condition during initial cluster formation](./cluster-formation#initial-formation-race-condition).
 
 Given the [peer syncing behavior described above](#restarting-schema-sync), such a health check can prevent a cluster-wide restart
 from completing in time. Checks that explicitly or implicitly assume a fully booted node that's rejoined
 its cluster peers will fail and block further node deployments.
 
-[Most health check](./monitoring.html#health-checks), even relatively basic ones, implicitly assume that the node has
+[Most health check](./monitoring#health-checks), even relatively basic ones, implicitly assume that the node has
 finished booting. They are not suitable for nodes that are [awaiting schema table sync](#restarting-schema-sync) from a peer.
 
 One very common example of such check is
@@ -778,12 +778,12 @@ rabbitmq-diagnostics ping
 ```
 
 This basic check would allow the deployment to proceed and the nodes to eventually rejoin each other,
-assuming they are [compatible](./upgrade.html).
+assuming they are [compatible](./upgrade).
 
 
 ### <a id="restarting-with-hostname-changes" class="anchor" href="#restarting-with-hostname-changes">Hostname Changes Between Restarts</a>
 
-A node rejoining after a node name or host name change can start as [a blank node](./cluster-formation.html#peer-discovery-how-does-it-work)
+A node rejoining after a node name or host name change can start as [a blank node](./cluster-formation#peer-discovery-how-does-it-work)
 if its data directory path changes as a result. Such nodes will fail to rejoin the cluster.
 While the node is offline, its peers can be reset or started with a blank data directory.
 In that case the recovering node will fail to rejoin its peer as well since internal data store cluster
@@ -893,9 +893,9 @@ rabbitmqctl cluster_status
 
 In some cases the last node to go
 offline cannot be brought back up. It can be removed from the
-cluster using the `forget_cluster_node` [rabbitmqctl](./cli.html) command.
+cluster using the `forget_cluster_node` [rabbitmqctl](./cli) command.
 
-Alternatively `force_boot` [rabbitmqctl](./cli.html) command can be used
+Alternatively `force_boot` [rabbitmqctl](./cli) command can be used
 on a node to make it boot without trying to sync with any
 peers (as if they were last to shut down). This is
 usually only necessary if the last node to shut down or a
@@ -907,7 +907,7 @@ Sometimes it is necessary to remove a node from a
 cluster. The operator has to do this explicitly using a
 `rabbitmqctl` command.
 
-Some [peer discovery mechanisms](./cluster-formation.html)
+Some [peer discovery mechanisms](./cluster-formation)
 support node health checks and forced
 removal of nodes not known to the discovery backend. That feature is
 opt-in (deactivated by default).
@@ -1032,7 +1032,7 @@ rabbitmqctl start_app
 ```
 
 Besides `rabbitmqctl forget_cluster_node` and the automatic cleanup of unknown nodes
-by some [peer discovery](./cluster-formation.html) plugins, there are no scenarios
+by some [peer discovery](./cluster-formation) plugins, there are no scenarios
 in which a RabbitMQ node will permanently remove its peer node from a cluster.
 
 ### <a id="resetting-nodes" class="anchor" href="#resetting-nodes">How to Reset a Node</a>
@@ -1041,7 +1041,7 @@ Sometimes it may be necessary to reset a node (wipe all of its data) and later m
 Generally speaking, there are two possible scenarios: when the node is running, and when the node cannot start
 or won't respond to CLI tool commands e.g. due to an issue such as [ERL-430](https://bugs.erlang.org/browse/ERL-430).
 
-Resetting a node will delete all of its data, cluster membership information, configured [runtime parameters](./parameters.html),
+Resetting a node will delete all of its data, cluster membership information, configured [runtime parameters](./parameters),
 users, virtual hosts and any other node data. It will also permanently remove the node from its cluster.
 
 To reset a running and responsive node, first stop RabbitMQ on it using `rabbitmqctl stop_app`
@@ -1056,18 +1056,18 @@ rabbitmqctl reset
 ```
 
 In case of a non-responsive node, it must be stopped first using any means necessary.
-For nodes that fail to start this is already the case. Then [override](./relocate.html)
+For nodes that fail to start this is already the case. Then [override](./relocate)
 the node's data directory location or [re]move the existing data store. This will make the node
 start as a blank one. It will have to be instructed to [rejoin its original cluster](#cluster-formation), if any.
 
 A node that's been reset and rejoined its original cluster will sync all virtual hosts, users, permissions
-and topology (queues, exchanges, bindings), runtime parameters and policies. [Quorum queue](quorum-queues.html)
+and topology (queues, exchanges, bindings), runtime parameters and policies. [Quorum queue](./quorum-queues)
 contents will be replicated if the node will be selected to host a replica.
 Non-replicated queue contents on a reset node will be lost.
 
 ## <a id="upgrading" class="anchor" href="#upgrading">Upgrading clusters</a>
 You can find instructions for upgrading a cluster in
-[the upgrade guide](./upgrade.html#rabbitmq-cluster-configuration).
+[the upgrade guide](./upgrade#rabbitmq-cluster-configuration).
 
 
 ## <a id="single-machine" class="anchor" href="#single-machine">A Cluster on a Single Machine</a>
@@ -1085,9 +1085,9 @@ locations, and bind to different ports, including those
 used by plugins. See `RABBITMQ_NODENAME`,
 `RABBITMQ_NODE_PORT`, and
 `RABBITMQ_DIST_PORT` in the [Configuration
-guide](./configure.html#supported-environment-variables), as well as `RABBITMQ_MNESIA_DIR`,
+guide](./configure#supported-environment-variables), as well as `RABBITMQ_MNESIA_DIR`,
 `RABBITMQ_CONFIG_FILE`, and
-`RABBITMQ_LOG_BASE` in the [File and Directory Locations guide](./relocate.html).
+`RABBITMQ_LOG_BASE` in the [File and Directory Locations guide](./relocate).
 
 You can start multiple nodes on the same host manually by
 repeated invocation of `rabbitmq-server` (
@@ -1102,7 +1102,7 @@ rabbitmqctl -n hare start_app
 ```
 
 will set up a two node cluster, both nodes as disc nodes.
-Note that if the node [listens on any ports](networking.html) other
+Note that if the node [listens on any ports](./networking) other
 than AMQP 0-9-1 and AMQP 1.0 ones, those must be configured to avoid a collision as
 well. This can be done via command line:
 
@@ -1140,7 +1140,7 @@ defaults to the short name), and that full hostname is resolvable using DNS,
 you may want to investigate setting the environment variable
 `RABBITMQ_USE_LONGNAME=true`.
 
-See the section on [hostname resolution](./clustering.html#hostname-resolution-requirement) for more information.
+See the section on [hostname resolution](./clustering#hostname-resolution-requirement) for more information.
 
 
 ## <a id="firewall" class="anchor" href="#firewall">Firewalled Nodes</a>
@@ -1149,13 +1149,13 @@ Nodes can have a firewall enabled on them. In such case, traffic on certain port
 allowed by the firewall in both directions, or nodes won't be able to join each other and
 perform all the operations they expect to be available on cluster peers.
 
-Learn more in the [section on ports](#ports) above and dedicated [RabbitMQ Networking guide](networking.html).
+Learn more in the [section on ports](#ports) above and dedicated [RabbitMQ Networking guide](./networking).
 
 
 
 ## <a id="erlang" class="anchor" href="#erlang">Erlang Versions Across the Cluster</a>
 
-All nodes in a cluster are *highly recommended* to run the same major [version of Erlang](./which-erlang.html): `22.2.0`
+All nodes in a cluster are *highly recommended* to run the same major [version of Erlang](./which-erlang): `22.2.0`
 and `22.2.8` can be mixed but `21.3.6` and `22.2.6` can potentially introduce breaking changes in
 inter-node communication protocols. While such breaking changes are relatively rare, they are possible.
 

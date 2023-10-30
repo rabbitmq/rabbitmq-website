@@ -294,6 +294,6 @@ Move on to [tutorial 5][next] to find out how to listen
 for messages based on a pattern.
 
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
-[previous]:tutorial-three-objectivec.html
-[next]:tutorial-five-objectivec.html
+[previous]:./tutorial-three-objectivec
+[next]:./tutorial-five-objectivec
 [source]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/objective-c/tutorial4/tutorial4/ViewController.m

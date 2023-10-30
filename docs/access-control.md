@@ -22,7 +22,7 @@ limitations under the License.
 This document describes [authentication](#authentication) and [authorisation](#authorisation) features
 in RabbitMQ. Together they allow the operator to control access to the system.
 
-Different users can be granted access only to specific [virtual hosts](./vhosts.html). Their
+Different users can be granted access only to specific [virtual hosts](./vhosts). Their
 permissions in each virtual hosts also can be limited.
 
 RabbitMQ supports two major [authentication mechanisms](#mechanisms)
@@ -44,8 +44,8 @@ This guide covers a variety of authentication, authorisation and user management
  * How to [pre-create users](#seeding) and their permissions
  * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz))
 
-[Password-based](./passwords.html) authentication has a companion guide.
-A closely related topic of [TLS support](./ssl.html) is also covered in a dedicated guide.
+[Password-based](./passwords) authentication has a companion guide.
+A closely related topic of [TLS support](./ssl) is also covered in a dedicated guide.
 
 
 ## <a id="terminology-and-definitions" class="anchor" href="#terminology-and-definitions">Terminology and Definitions</a>
@@ -59,18 +59,18 @@ authorisation as "determining what the user is and isn't allowed to do."
 
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
 
-Clients use RabbitMQ features to [connect](connections.html) to it. Every connection has
-an associated user which is authenticated. It also targets a [virtual host](./vhosts.html) for which
+Clients use RabbitMQ features to [connect](./connections) to it. Every connection has
+an associated user which is authenticated. It also targets a [virtual host](./vhosts) for which
 the user must have a certain set of permissions.
 
-User credentials, target virtual host and (optionally) client [certificate](./ssl.html) are specified at connection
+User credentials, target virtual host and (optionally) client [certificate](./ssl) are specified at connection
 initiation time.
 
 There is a default pair of credentials called the [default user](#default-state). This user can only
 be [used for **host-local connections**](#loopback-users) by default. Remote connections that use
 it will be refused.
 
-[Production environments](./production-checklist.html) should not use the default user and create
+[Production environments](./production-checklist) should not use the default user and create
 new user accounts with generated credentials instead.
 
 
@@ -80,14 +80,14 @@ When the server first starts running, and detects that its
 database is uninitialised or has been reset or deleted (the node is a "blank node"), it
 initialises a fresh database with the following resources:
 
- * a [virtual host](./vhosts.html) named <code>/</code> (a slash)
+ * a [virtual host](./vhosts) named <code>/</code> (a slash)
  * a user named <code>guest</code> with a default password of <code>guest</code>, granted full access to the <code>/</code> virtual host
 
-If a blank node [imports definitions on boot](./definitions.html#import-on-boot-nuances),
+If a blank node [imports definitions on boot](./definitions#import-on-boot-nuances),
 this default user will not be created.
 
-It is **highly recommended** to [pre-configure a new user with a generated username and password](#seeding) or [delete](rabbitmqctl.8.html#delete_user)
-the `guest` user or at least [change its password](rabbitmqctl.8.html#change_password)
+It is **highly recommended** to [pre-configure a new user with a generated username and password](#seeding) or [delete](./man/rabbitmqctl.8#delete_user)
+the `guest` user or at least [change its password](./man/rabbitmqctl.8#change_password)
 to reasonably secure generated value that won't be known to the public.
 
 
@@ -96,13 +96,13 @@ to reasonably secure generated value that won't be known to the public.
 After an application connects to RabbitMQ and before it can perform operations, it must
 authenticate, that is, present and prove its identity. With that identity, RabbitMQ nodes can
 look up its permissions and [authorize](#authorisation) access to resources
-such as [virtual hosts](./vhosts.html), queues, exchanges, and so on.
+such as [virtual hosts](./vhosts), queues, exchanges, and so on.
 
-Two primary ways of authenticating a client are [username/password pairs](./passwords.html)
+Two primary ways of authenticating a client are [username/password pairs](./passwords)
 and [X.509 certificates](https://en.wikipedia.org/wiki/X.509). Username/password pairs
 can be used with a variety of [authentication backends](#backends) that verify the credentials.
 
-Connections that fail to authenticate will be closed with an error message in the [server log](./logging.html).
+Connections that fail to authenticate will be closed with an error message in the [server log](./logging).
 
 ### <a id="certificate-authentication" class="anchor" href="#certificate-authentication">Authentication using Client TLS (x.509) Certificate Data</a>
 
@@ -117,23 +117,23 @@ With this mechanism, any client-provided password will be ignored.
 By default, the <code>guest</code> user is prohibited from
 connecting from remote hosts; it can only connect over
 a loopback interface (i.e. <code>localhost</code>). This
-applies to [connections regardless of the protocol](connections.html).
+applies to [connections regardless of the protocol](./connections).
 Any other users will not (by default) be restricted in this way.
 
 The recommended way to address this in production systems
 is to create a new user or set of users with the permissions
 to access the necessary virtual hosts. This can be done
-using [CLI tools](./cli.html), [HTTP API or definitions import](./management.html).
+using [CLI tools](./cli), [HTTP API or definitions import](./management).
 
 This is configured via the <code>loopback_users</code> item
-in the [configuration file](configure.html#configuration-files).
+in the [configuration file](./configure#configuration-files).
 
 It is possible to allow the <code>guest</code> user to connect
 from a remote host by setting the
 <code>loopback_users</code> configuration to
 <code>none</code>.
 
-A minimalistic [RabbitMQ config file](configure.html)
+A minimalistic [RabbitMQ config file](./configure)
 which allows remote connections for <code>guest</code> looks like so:
 
 ```ini
@@ -148,7 +148,7 @@ loopback_users = none
 
 ## <a id="user-management" class="anchor" href="#user-management">Managing Users and Permissions</a>
 
-Users and permissions can be managed using [CLI tools](./cli.html) and definition import (covered below).
+Users and permissions can be managed using [CLI tools](./cli) and definition import (covered below).
 
 ### <a id="passwords-and-shell-escaping" class="anchor" href="#passwords-and-shell-escaping">Before We Start: Shell Escaping and Generated Passwords</a>
 
@@ -169,13 +169,13 @@ When generating passwords that will be passed on the command line,
 long (say, 40 to 100 characters) alphanumeric value with a very limited set of
 symbols (e.g. `:`, `=`) is the safest option.
 
-When users are created via [HTTP API](./management.html) without using a shell (e.g. `curl`),
+When users are created via [HTTP API](./management) without using a shell (e.g. `curl`),
 the control character limitation does not apply. However, different escaping rules may be necessary
 depending on the programming language used.
 
 ### Adding a User
 
-To add a user, use `rabbitmqctl add_user`. It has multiple ways of specifying a [password](./passwords.html):
+To add a user, use `rabbitmqctl add_user`. It has multiple ways of specifying a [password](./passwords):
 
 ```bash
 # will prompt for password, only use this option interactively
@@ -239,7 +239,7 @@ rabbitmqctl.bat delete_user 'username'
 
 ### Granting Permissions to a User
 
-To grant [permissions](#authorisation) to a user in a [virtual host](./vhosts.html), use `rabbitmqctl set_permissions`:
+To grant [permissions](#authorisation) to a user in a [virtual host](./vhosts), use `rabbitmqctl set_permissions`:
 
 ```bash
 # First ".*" for configure permission on every entity
@@ -257,7 +257,7 @@ rabbitmqctl.bat set_permissions -p 'custom-vhost' 'username' '.*' '.*' '.*'
 
 ### Clearing Permissions of a User in a Virtual Host
 
-To revoke [permissions](#authorisation) from a user in a [virtual host](./vhosts.html), use `rabbitmqctl clear_permissions`:
+To revoke [permissions](#authorisation) from a user in a [virtual host](./vhosts), use `rabbitmqctl clear_permissions`:
 
 ```bash
 # Revokes permissions in a virtual host
@@ -283,13 +283,13 @@ for v in $(rabbitmqctl list_vhosts --silent); do rabbitmqctl set_permissions -p 
 
 ## <a id="seeding" class="anchor" href="#seeding">Seeding (Pre-creating) Users and Permissions</a>
 
-[Production environments](./production-checklist.html) typically need to pre-configure (seed) a number
+[Production environments](./production-checklist) typically need to pre-configure (seed) a number
 of virtual hosts, users and user permissions.
 
 This can be done in a few ways:
 
- * Using [CLI tools](./cli.html)
- * [Definition export and import on node boot](./definitions.html) (recommended)
+ * Using [CLI tools](./cli)
+ * [Definition export and import on node boot](./definitions) (recommended)
  * Override [default credentials](#default-state) in configuration file(s)
 
 ### CLI Tools
@@ -305,11 +305,11 @@ This process involves the following steps:
  * Remove parts of the file that are not relevant
  * Configure the node to import the file on node boot or after
 
-See [importing definitions on node boot](./definitions.html#import-on-boot) in the definitions guide to learn more.
+See [importing definitions on node boot](./definitions#import-on-boot) in the definitions guide to learn more.
 
 ### Definition Import After Node Boot
 
-See [importing definitions after node boot](./definitions.html#import) in the definitions guide.
+See [importing definitions after node boot](./definitions#import) in the definitions guide.
 
 ### Override Default User Credentials
 
@@ -321,18 +321,18 @@ The settings are:
 
 ```ini
 # default is "guest", and its access is limited to localhost only.
-# See https://www.rabbitmq.com/access-control.html#default-state
+# See https://www.rabbitmq.com/./access-control#default-state
 default_user = a-user
 # default is "guest"
 default_pass = 768a852ed69ce916fa7faa278c962de3e4275e5f
 ```
 
-As with all values in [`rabbitmq.conf`](./configure.html#config-file), the `#` character
+As with all values in [`rabbitmq.conf`](./configure#config-file), the `#` character
 starts a comment so this character must be avoided in generated credentials.
 
 Default user credentials can also be encrypted.
-That requires the use of the [advanced configuration file](./configure.html#advanced-config-file), `advanced.config`.
-This topic is covered in more detail in [Configuration Value Encryption](./configure.html#configuration-encryption).
+That requires the use of the [advanced configuration file](./configure#advanced-config-file), `advanced.config`.
+This topic is covered in more detail in [Configuration Value Encryption](./configure#configuration-encryption).
 
 
 ## <a id="authorisation" class="anchor" href="#authorisation">Authorisation: How Permissions Work</a>
@@ -379,7 +379,7 @@ perform permission checks.
     <td>exchange.declare</td><td>(passive=true)</td><td></td><td/><td/>
   </tr>
   <tr>
-    <td>exchange.declare</td><td>(with <a href="ae.html">AE</a>)</td><td>exchange</td><td>exchange (AE)</td><td>exchange</td>
+    <td>exchange.declare</td><td>(with <a href="./ae">AE</a>)</td><td>exchange</td><td>exchange (AE)</td><td>exchange</td>
   </tr>
   <tr>
     <td>exchange.delete</td><td/><td>exchange</td><td/><td/>
@@ -391,7 +391,7 @@ perform permission checks.
     <td>queue.declare</td><td>(passive=true)</td><td></td><td/><td/>
   </tr>
   <tr>
-    <td>queue.declare</td><td>(with <a href="dlx.html">DLX</a>)</td><td>queue</td><td>exchange (DLX)</td><td>queue</td>
+    <td>queue.declare</td><td>(with <a href="./dlx">DLX</a>)</td><td>queue</td><td>exchange (DLX)</td><td>queue</td>
   </tr>
   <tr>
     <td>queue.delete</td><td/><td>queue</td><td/><td/>
@@ -450,7 +450,7 @@ permissions may only take effect when the user reconnects.
 
 For details of how to set up access control, please see the
 [User management](#user-management) section
-as well as the [rabbitmqctl man page](rabbitmqctl.8.html).
+as well as the [rabbitmqctl man page](./man/rabbitmqctl.8).
 
 
 ### <a id="user-tags" class="anchor" href="#user-tags">User Tags and Management UI Access</a>
@@ -458,10 +458,10 @@ as well as the [rabbitmqctl man page](rabbitmqctl.8.html).
 In addition to the permissions covered above, users can have tags
 associated with them. Currently only management UI access is  controlled by user tags.
 
-The tags are managed using [rabbitmqctl](./rabbitmqctl.8.html#set_user_tags).
+The tags are managed using [rabbitmqctl](./man/rabbitmqctl.8#set_user_tags).
 Newly created users do not have any tags set on them by default.
 
-Please refer to the [management plugin guide](./management.html#permissions) to learn
+Please refer to the [management plugin guide](./management#permissions) to learn
 more about what tags are supported and how they limit management UI access.
 
 
@@ -489,7 +489,7 @@ and thus the standard resource permissions apply. In addition for AMQP 0-9-1,
 binding routing keys between an AMQP 0-9-1 topic exchange and
 a queue/exchange are checked against the topic permissions configured, if any.
 For more information about how RabbitMQ handles authorisation for topics, please see
-the [STOMP](stomp.html) and [MQTT](mqtt.html)
+the [STOMP](./stomp) and [MQTT](./mqtt)
 documentation guides.
 
 When default authorisation backend is used, publishing to a
@@ -500,7 +500,7 @@ installation). With this authorisation backend, topic
 authorisation is optional: you don't need to approve any
 exchanges. To use topic authorisation therefore you need to opt in
 and define topic permissions for one or more exchanges. For details please see
-the [rabbitmqctl man page](man/rabbitmqctl.8.html).
+the [rabbitmqctl man page](./man/rabbitmqctl.8).
 
 Internal (default) authorisation backend supports variable expansion
 in permission patterns.
@@ -510,10 +510,10 @@ applies to MQTT. For example, if `tonyg` is the
 connected user, the permission `^{username}-.*` is expanded to
 `^tonyg-.*`
 
-f a different authorisation backend (e.g. [LDAP](ldap.html),
+f a different authorisation backend (e.g. [LDAP](./ldap),
 [HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_backend_http),
 [AMQP](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq-auth-backend-amqp),
-[OAuth2](oauth2.html)) is used, please refer
+[OAuth2](./oauth2)) is used, please refer
 to the documentation of those backends.
 
 If a custom authorisation backend is used, topic
@@ -543,14 +543,14 @@ of:
  * authorisation ("authz") backends: they determine whether an identified (authenticated) client is authorized to perform a certain operation
 
 It is possible and common for a plugin to provide both backends. RabbitMQ ships with
-the following [built-in plugins](./plugins.html) which provide both authentication and authorisation backends:
+the following [built-in plugins](./plugins) which provide both authentication and authorisation backends:
 
-* [LDAP](ldap.html)
+* [LDAP](./ldap)
 * [HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_backend_http)
 
 The following built-in plugins provide authorisation backend implementations:
 
-* [OAuth2](oauth2.html)
+* [OAuth2](./oauth2)
 * [AMQP 0.9.1](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq-auth-backend-amqp)
 
 Some plugins such as [Source IP range one](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range)
@@ -591,7 +591,7 @@ The example above uses an alias, <code>internal</code> for <code>rabbit_auth_bac
 The following aliases are available:
 
  * <code>internal</code> for <code>rabbit_auth_backend_internal</code>
- * <code>ldap</code> for <code>rabbit_auth_backend_ldap</code> (from the [LDAP plugin](./ldap.html))
+ * <code>ldap</code> for <code>rabbit_auth_backend_ldap</code> (from the [LDAP plugin](./ldap))
  * <code>http</code> for <code>rabbit_auth_backend_http</code> (from the [HTTP auth backend plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_http))
  * <code>amqp</code> for <code>rabbit_auth_backend_amqp</code> (from the [AMQP 0-9-1 auth backend plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-amqp))
  * <code>dummy</code> for <code>rabbit_auth_backend_dummy</code>
@@ -607,7 +607,7 @@ auth_backends.1 = rabbit_auth_backend_oauth2
 
 When using third party plugins, providing a full module name is necessary.
 
-The following example configures RabbitMQ to use the [LDAP backend](./ldap.html)
+The following example configures RabbitMQ to use the [LDAP backend](./ldap)
 for both authentication and authorisation. Internal database will not be consulted:
 
 ```ini
@@ -650,7 +650,7 @@ auth_backends.1.authn = internal
 auth_backends.1.authz = rabbit_auth_backend_ip_range
 ```
 
-The following example configures RabbitMQ to use the [LDAP backend](./ldap.html)
+The following example configures RabbitMQ to use the [LDAP backend](./ldap)
 for authentication and the internal backend for authorisation:
 
 ```ini
@@ -686,7 +686,7 @@ and <code>RABBIT-CR-DEMO</code>, and one — <code>EXTERNAL</code> —
 available as a [plugin](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl).
 
 More authentication mechanisms can be provided by plugins. See
-the [plugin development guide](plugin-development.html) for more information on general plugin
+the [plugin development guide](./plugin-development) for more information on general plugin
 development.
 
 ### <a id="available-mechanisms" class="anchor" href="#available-mechanisms">Built-in Authentication Mechanisms</a>
@@ -743,7 +743,7 @@ variable should be a list of atoms corresponding to
 mechanism names, for example
 <code>['PLAIN', 'AMQPLAIN']</code> by default. The server-side list is not
 considered to be in any particular order. See the
-[configuration file](configure.html#configuration-files)
+[configuration file](./configure#configuration-files)
 documentation.
 
 
@@ -789,7 +789,7 @@ preference order for network connections.
 
 ## <a id="troubleshooting-authn" class="anchor" href="#troubleshooting-authn">Troubleshooting Authentication</a>
 
-[Server logs](./logging.html) will contain entries about failed authentication
+[Server logs](./logging) will contain entries about failed authentication
 attempts:
 
 ```ini
@@ -800,9 +800,9 @@ PLAIN login refused: user 'user2' - invalid credentials
 ```
 
 Authentication failures on connections that [authenticate using X.509 certificates](#authentication)
-will be logged differently. See [TLS Troubleshooting guide](./troubleshooting-ssl.html) for details.
+will be logged differently. See [TLS Troubleshooting guide](./troubleshooting-ssl) for details.
 
-[rabbitmqctl authenticate_user](./cli.html) can be used to test authentication
+[rabbitmqctl authenticate_user](./cli) can be used to test authentication
 for a username and password pair:
 
 ```bash
@@ -814,13 +814,13 @@ the code of zero. In case of a failure, a non-zero exit code will be used and a 
 
 <code>rabbitmqctl authenticate_user</code> will use a CLI-to-node communication connection to attempt to authenticate
 the username/password pair against an internal API endpoint.
-The connection is assumed to be trusted. If that's not the case, its traffic can be [encrypted using TLS](./clustering-ssl.html).
+The connection is assumed to be trusted. If that's not the case, its traffic can be [encrypted using TLS](./clustering-ssl).
 
 Per AMQP 0-9-1 spec, authentication failures should result
 in the server closing TCP connection immediately. However,
 with RabbitMQ clients can opt in to receive a more specific
 notification using the [authentication failure
-notification](./auth-notification.html) extension to AMQP 0-9-1. Modern client libraries
+notification](./auth-notification) extension to AMQP 0-9-1. Modern client libraries
 support that extension transparently to the user: no configuration would be necessary and
 authentication failures will result in a visible returned error, exception or other way of communicating
 a problem used in a particular programming language or environment.
@@ -828,7 +828,7 @@ a problem used in a particular programming language or environment.
 
 ## <a id="troubleshooting-authz" class="anchor" href="#troubleshooting-authz">Troubleshooting Authorisation</a>
 
-[rabbitmqctl list_permissions](./cli.html) can be used to inspect a user's
+[rabbitmqctl list_permissions](./cli) can be used to inspect a user's
 permission in a given virtual host:
 
 ```bash
@@ -846,7 +846,7 @@ rabbitmqctl list_permissions --vhost gw1
 # =&gt; user2	^user2	^user2	^user2
 ```
 
-[Server logs](./logging.html) will contain entries about operation authorisation
+[Server logs](./logging) will contain entries about operation authorisation
 failures. For example, if a user does not have any permissions configured for a virtual host:
 
 ```ini

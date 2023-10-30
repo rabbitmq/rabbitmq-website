@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-four-elixir.html) we improved our
+In the [previous tutorial](./tutorial-four-elixir) we improved our
 logging system. Instead of using a `fanout` exchange only capable of
 dummy broadcasting, we used a `direct` one, and gained a possibility
 of selectively receiving the logs.
@@ -152,7 +152,7 @@ start off with a working assumption that the routing keys of logs will
 have two words: "`<facility>.<severity>`".
 
 The code is almost the same as in the
-[previous tutorial](tutorial-four-elixir.html).
+[previous tutorial](./tutorial-four-elixir).
 
 The code for `emit_log_topic.exs`:
 
@@ -249,4 +249,4 @@ with more than two routing key parameters.
 (Full source code for [emit_logs_topic.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/emit_log_topic.exs)
 and [receive_logs_topic.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/receive_logs_topic.exs))
 
-Move on to [tutorial 6](tutorial-six-elixir.html) to learn about *RPC*.
+Move on to [tutorial 6](./tutorial-six-elixir) to learn about *RPC*.

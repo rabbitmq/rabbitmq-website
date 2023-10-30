@@ -39,7 +39,7 @@ is "guest".
 
 If security is a serious concern, you should probably
 combine the use of this feature
-with [TLS-enabled](ssl.html) connections.
+with [TLS-enabled](./ssl) connections.
 
 Occasionally it may be useful to allow an application to forge a
 user-id. In order to permit this, the publishing user can have
@@ -47,7 +47,7 @@ its <code>impersonator</code> tag set. By default, no users have
 this tag set. In particular, the <code>administrator</code> tag
 does not allow this.
 
-The [federation plugin](federation.html) can deliver
+The [federation plugin](./federation) can deliver
 messages from an upstream on which the <code>user-id</code>
 property is set. By default it will clear this property (since
 it has no way to know whether the upstream broker is

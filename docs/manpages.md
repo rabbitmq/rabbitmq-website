@@ -17,22 +17,22 @@ limitations under the License.
 
 # Manual Pages
 
-This page lists the available manual pages taken from the [latest stable release](./changelog.html).
+This page lists the available manual pages taken from the [latest stable release](./changelog).
 
 ## <a id="section5" class="anchor" href="#section5">Section 5: File formats</a>
 
-* [rabbitmq-env.conf](rabbitmq-env.conf.5.html): environment variable-based [configuration](configure.html)
+* [rabbitmq-env.conf](./man/rabbitmq-env.conf.5): environment variable-based [configuration](./configure)
 
 
 ## <a id="section8" class="anchor" href="#section8">Section 8: System Management Commands</a>
 
- * [rabbitmqctl](rabbitmqctl.8.html): service management and [general operator commands](./cli.html)
- * [rabbitmq-diagnostics](rabbitmq-diagnostics.8.html): commands useful for diagnostics, [health checking](./monitoring.html),
+ * [rabbitmqctl](./man/rabbitmqctl.8): service management and [general operator commands](./cli)
+ * [rabbitmq-diagnostics](./man/rabbitmq-diagnostics.8): commands useful for diagnostics, [health checking](./monitoring),
    and observing system state
- * [rabbitmq-plugins](rabbitmq-plugins.8.html): [plugin management](./plugins.html)
- * [rabbitmq-upgrade](rabbitmq-upgrade.8.html): operational tasks related to upgrades
- * [rabbitmq-queues](rabbitmq-queues.8.html): operational tasks for queues
- * [rabbitmq-streams](rabbitmq-streams.8.html): operational tasks for streams
- * [rabbitmq-server](rabbitmq-server.8.html): starts a RabbitMQ server node
- * [rabbitmq-service](rabbitmq-service.8.html): Windows service management
- * [rabbitmq-echopid](rabbitmq-echopid.8.html): a Windows-specific utility tool
+ * [rabbitmq-plugins](./man/rabbitmq-plugins.8): [plugin management](./plugins)
+ * [rabbitmq-upgrade](./man/rabbitmq-upgrade.8): operational tasks related to upgrades
+ * [rabbitmq-queues](./man/rabbitmq-queues.8): operational tasks for queues
+ * [rabbitmq-streams](./man/rabbitmq-streams.8): operational tasks for streams
+ * [rabbitmq-server](./man/rabbitmq-server.8): starts a RabbitMQ server node
+ * [rabbitmq-service](./man/rabbitmq-service.8): Windows service management
+ * [rabbitmq-echopid](./man/rabbitmq-echopid.8): a Windows-specific utility tool

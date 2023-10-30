@@ -22,7 +22,7 @@ limitations under the License.
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 
-In the [second tutorial](tutorial-two-dotnet.html) we learned how to
+In the [second tutorial](./tutorial-two-dotnet) we learned how to
 use _Work Queues_ to distribute time-consuming tasks among multiple
 workers.
 
@@ -97,7 +97,7 @@ channel.BasicPublish(exchange: string.Empty,
 > the following:
 >
 > * `Persistent`: Marks a message as persistent (with a value of `true`)
->    or transient (any other value). Take a look at [the second tutorial](tutorial-two-dotnet.html).
+>    or transient (any other value). Take a look at [the second tutorial](./tutorial-two-dotnet).
 > * `DeliveryMode`: those familiar with the protocol may choose to use this
 >    property instead of `Persistent`. They control the same thing.
 > * `ContentType`: Used to describe the mime-type of the encoding.
@@ -430,7 +430,7 @@ Now is a good time to take a look at our full example source code (which include
 [RPCClient.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCClient/RPCClient.cs) and [RPCServer.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCServer/RPCServer.cs).
 
 
-Set up as usual (see [tutorial one](tutorial-one-dotnet.html)):
+Set up as usual (see [tutorial one](./tutorial-one-dotnet)):
 
 Our RPC service is now ready. We can start the server:
 
@@ -469,5 +469,5 @@ complex (but important) problems, like:
    (eg checking bounds, type) before processing.
 
 >
->If you want to experiment, you may find the [management UI](../management.html) useful for viewing the queues.
+>If you want to experiment, you may find the [management UI](../management) useful for viewing the queues.
 >

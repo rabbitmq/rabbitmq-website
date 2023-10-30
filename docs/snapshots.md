@@ -44,7 +44,7 @@ your RabbitMQ installation <i>cannot be rolled back to a previous (stable) versi
 installation, you should either remove it first, or configure the
 snapshot installation to use an alternative location for its
 persistent storage and (potentially) other configuration elements
-using the [provided instructions](relocate.html).
+using the [provided instructions](./relocate).
 
 Snapshot releases therefore are suitable for development and some QA
 environments but not intended to be used in production.
@@ -53,7 +53,7 @@ environments but not intended to be used in production.
 ## <a id="documentation" class="anchor" href="#documentation">Documentation of the 'main' branch</a>
 
 Documentation for default branch of the RabbitMQ distribution is continuously published to
-[next.rabbitmq.com](http://next.rabbitmq.com/documentation.html).
+[next.rabbitmq.com](http://next.rabbitmq.com/./documentation).
 Note that cutting edge branch documentation can lag behind code changes, sometimes
 intentionally so.
 
@@ -62,7 +62,7 @@ intentionally so.
 
 As with our published live releases, we continue to digitally
 sign the snapshot artefacts using [GnuPG](http://www.gnupg.org/) and
-[our release public signing key](./signatures.html).
+[our release public signing key](./signatures).
 
 ### <a id="direct-downloads" class="anchor" href="#direct-downloads">Direct Downloads</a>
 
@@ -75,7 +75,7 @@ Team RabbitMQ appreciates community feedback on snapshot builds.
 Please post it to the [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users)
 and specify what build was used plus as much context as possible:
 
- * Server [log file(s)](./logging.html)
+ * Server [log file(s)](./logging)
  * A code snippet or terminal (shell) transcript that demonstrates steps to reproduce the observations
  * `rabbitmqctl environment` output
  * `rabbitmq-diagnostics status` output

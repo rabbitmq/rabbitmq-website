@@ -20,15 +20,15 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 While much of the configuration for RabbitMQ lives in
-the [configuration file](configure.html), some things
+the [configuration file](./configure), some things
 do not mesh well with the use of a configuration file:
 
  * If they need to be the same across all nodes in a cluster
  * If they are likely to change at run time
 
 RabbitMQ calls these items _parameters_. Parameters can be
-set by invoking [`rabbitmqctl`](man/rabbitmqctl.8.html)
-or through [the HTTP API](management.html).
+set by invoking [`rabbitmqctl`](./man/rabbitmqctl.8)
+or through [the HTTP API](./management).
 
 There are two kinds of parameters: vhost-scoped parameters and global parameters.
 Vhost-scoped parameters are tied to a virtual host and consist
@@ -40,9 +40,9 @@ of a name and value.
 One special case of parameters usage is [policies](#policies).
 
 Policies is **the recommended way** of specifying
-[optional arguments](./queues.html#optional-arguments) for groups of queues and exchanges, as well
-as plugins such as [Federation](federation.html)
-and [Shovel](shovel.html).
+[optional arguments](./queues#optional-arguments) for groups of queues and exchanges, as well
+as plugins such as [Federation](./federation)
+and [Shovel](./shovel).
 
 Policies are vhost-scoped.
 
@@ -128,11 +128,11 @@ Global parameters are used by the MQTT plugin.
 
 ## <a id="policies" class="anchor" href="#policies">Policies</a>
 
-Policies is **the recommended way** of configuring [optional arguments](./queues.html#optional-arguments)
+Policies is **the recommended way** of configuring [optional arguments](./queues#optional-arguments)
 for queues, exchanges, and some plugins.
 
 Two notable exceptions are the queue type
-and the [maximum number of priorities](./priority.html) of classic queues. Those values intentionally
+and the [maximum number of priorities](./priority) of classic queues. Those values intentionally
 cannot be configured by policies: their values are fixed at queue declaration time.
 
 ### <a id="why-policies-exist" class="anchor" href="#why-policies-exist">Why Policies Exist</a>
@@ -142,13 +142,13 @@ be helpful to explain why they were introduced to RabbitMQ.
 
 In addition to mandatory properties
 (e.g. `durable` or `exclusive`),
-queues and exchanges in RabbitMQ have [optional arguments](./queues.html#optional-arguments),
+queues and exchanges in RabbitMQ have [optional arguments](./queues#optional-arguments),
 sometimes referred to as `x-arguments`.
 
 Those are provided by clients when
 they declare queues (exchanges) and control various optional
-features, such as [queue length limit](maxlength.html) or
-[TTL](ttl.html).
+features, such as [queue length limit](./maxlength) or
+[TTL](./ttl).
 
 Client-controlled properties in some of the protocols RabbitMQ supports
 generally work well but they can be inflexible: updating TTL values
@@ -200,11 +200,11 @@ queue is created, not just when the policy is created.
 
 Policies can be used to configure
 
- * [federation](federation.html)
- * [alternate exchanges](ae.html)
- * [dead lettering](dlx.html),
- * [per-queue TTLs](ttl.html)
- * [queue length limit](maxlength.html)
+ * [federation](./federation)
+ * [alternate exchanges](./ae)
+ * [dead lettering](./dlx),
+ * [per-queue TTLs](./ttl)
+ * [queue length limit](./maxlength)
 
  and other features.
 
@@ -295,7 +295,7 @@ The default values are `"all"` and `"0"` respectively.
 ### <a id="policy-priorities" class="anchor" href="#policy-priorities">Policy Priorities</a>
 
 Policy **patterns** are matched against exchange and queue **names** to determine what policy (if any)
-should then inject a set of key-value pairs (the definition of that policy) into the [optional arguments](queues.html#optional-arguments)
+should then inject a set of key-value pairs (the definition of that policy) into the [optional arguments](./queues#optional-arguments)
 of matching queues (exchanges).
 
 **At most one policy matches** a queue or exchange. Since multiple policies can match a single
@@ -397,7 +397,7 @@ and the policy definitions applied to them.
 ### <a id="why-operator-policies-exist" class="anchor" href="#why-operator-policies-exist">Difference From Regular Policies</a>
 
 Sometimes it is necessary for the operator to enforce certain policies.
-For example, it may be desirable to force [queue TTL](./ttl.html) but
+For example, it may be desirable to force [queue TTL](./ttl) but
 still let other users manage policies. Operator policies allow for that.
 
 Operator policies are much like regular ones but their
@@ -644,7 +644,7 @@ try to not override user-provided policies where possible.
     </tr>
 </table>
 
-When the same key is provided by both [client-provided `x-arguments`](./queues.html#optional-arguments) and by a user policy,
+When the same key is provided by both [client-provided `x-arguments`](./queues#optional-arguments) and by a user policy,
 the former take precedence.
 
 However, if an operator policy is also used, that will take precedence over the client-provided

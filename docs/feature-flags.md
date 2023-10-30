@@ -18,7 +18,7 @@ despite having different versions and thus potentially having different
 feature sets or implementation details.
 
 This subsystem was introduced to allow for **[rolling
-upgrades](./upgrade.html#rolling-upgrades) of cluster members without shutting
+upgrades](./upgrade#rolling-upgrades) of cluster members without shutting
 down the entire cluster**.
 
 :::caution
@@ -50,7 +50,7 @@ compatible with older release series. Therefore, <strong>a future
 version of RabbitMQ might still require a cluster-wide shutdown for
 upgrading</strong>.
 
-Please always read <a href="./changelog.html">release notes</a> to see if a
+Please always read <a href="./changelog">release notes</a> to see if a
 rolling upgrade to the next minor or major RabbitMQ version is possible.
 </p>
 
@@ -66,7 +66,7 @@ rolling upgrade to the next minor or major RabbitMQ version is possible.
     ```
 
 It is also possible to list and enable feature flags from the
-[Management plugin UI](./management.html), in "*Admin > Feature flags*".
+[Management plugin UI](./management), in "*Admin > Feature flags*".
 
 ### Examples
 
@@ -226,7 +226,7 @@ rabbitmqctl -q --formatter pretty_table list_feature_flags
 ```
 
 It is also possible to list and enable feature flags from the
-[Management Plugin UI](./management.html), in "*Admin > Feature flags*":
+[Management Plugin UI](./management), in "*Admin > Feature flags*":
 
 <div style={{textAlign: 'center',}}>
 <img src="./img/feature-flags/management-ui-ff-panel.png" style={{width: '100%', border: 'solid 1px #75757f',}} alt="Feature flags page on the Management Plugin User Interface, access this page by selecting Admin (which is a tab) and then Feature Flags (which is a menu option) ." title="Feature flags Page on the Management Plugin User Interface."/>
@@ -388,7 +388,7 @@ The following feature flags are provided by RabbitMQ core.
     <td>stream_queue</td>
     <td>
       Support queues of type <a
-      href="https://www.rabbitmq.com/stream.html">stream</a>
+      href="https://www.rabbitmq.com/./stream">stream</a>
     </td>
   </tr>
   <tr>
@@ -422,7 +422,7 @@ The following feature flags are provided by RabbitMQ core.
     <td>quorum_queue</td>
     <td>
       Support queues of type <a
-      href="https://www.rabbitmq.com/quorum-queues.html">quorum</a>
+      href="https://www.rabbitmq.com/./quorum-queues">quorum</a>
     </td>
   </tr>
   <tr>
@@ -469,7 +469,7 @@ The following feature flags are provided by plugin
 ### <a id="rabbitmq_mqtt-feature-flags" class="anchor" href="#rabbitmq_mqtt-feature-flags">rabbitmq_rabbitmq_mqtt Feature Flags</a>
 
 The following feature flags are provided by plugin
-[rabbimq_mqtt](https://www.rabbitmq.com/mqtt.html).
+[rabbimq_mqtt](https://www.rabbitmq.com/./mqtt).
 
 <table>
   <tr>
@@ -513,11 +513,11 @@ The following feature flags are provided by plugin
 
 There are two times when an operator has to consider feature flags:
 
- * When [extending an existing cluster](./clustering.html) by adding
+ * When [extending an existing cluster](./clustering) by adding
    nodes using a different version of RabbitMQ (older or newer), the
    operator needs to pay attention to feature flags: they might prevent
    clustering.
- * After [upgrading a cluster](./upgrade.html), the operator should take
+ * After [upgrading a cluster](./upgrade), the operator should take
    a look at the new feature flags and perhaps enable them.
 
 A node compares its own list of feature flags with remote nodes' list
@@ -554,14 +554,14 @@ initially expected.
 Controlling a remote node with `rabbitmqctl` is only supported if the
 remote node is running the same version of RabbitMQ as`rabbitmqctl`.
 
-If [CLI tools](./cli.html) from a different minor/major version of RabbitMQ is
+If [CLI tools](./cli) from a different minor/major version of RabbitMQ is
 used on a remote node, they may fail to work as expected or even have
 unexpected side effects on the node.
 
 #### Load-balancing Requests to the HTTP API
 
 If a request sent to the HTTP API exposed by the [Management
-plugin](./management.html) goes through a load balancer, including one
+plugin](./management) goes through a load balancer, including one
 from the management plugin UI, the API's behavior and its response may
 be different, depending on the version of the node which handled the
 request. This is exactly the same if the domain name of the HTTP API
@@ -656,7 +656,7 @@ The declaration is a module attribute which looks like this:
 -rabbit_feature_flag(
    {quorum_queue,
     #{desc          => "Support queues of type quorum",
-      doc_url       => "https://www.rabbitmq.com/quorum-queues.html",
+      doc_url       => "https://www.rabbitmq.com/./quorum-queues",
       stability     => stable,
       migration_fun => {?MODULE, quorum_queue_migration}
      }}).

@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-four-dotnet.html) we improved our
+In the [previous tutorial](./tutorial-four-dotnet) we improved our
 logging system. Instead of using a `fanout` exchange only capable of
 dummy broadcasting, we used a `direct` one, and gained a possibility
 of selectively receiving the logs.
@@ -152,7 +152,7 @@ start off with a working assumption that the routing keys of logs will
 have two words: "`<facility>.<severity>`".
 
 The code is almost the same as in the
-[previous tutorial](tutorial-four-dotnet.html).
+[previous tutorial](./tutorial-four-dotnet).
 
 The code for `EmitLogTopic.cs`:
 
@@ -274,4 +274,4 @@ with more than two routing key parameters.
 (Full source code for [EmitLogTopic.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLogTopic/EmitLogTopic.cs)
 and [ReceiveLogsTopic.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogsTopic/ReceiveLogsTopic.cs))
 
-Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-dotnet.html).
+Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](./tutorial-six-dotnet).

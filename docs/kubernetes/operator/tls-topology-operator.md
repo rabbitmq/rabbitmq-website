@@ -1,7 +1,7 @@
 # Using TLS with the Messaging Topology Kubernetes Operator
 
 If the RabbitmqClusters managed by the Messaging Topology Operator are configured to serve the HTTP API
-and management UI over HTTPS, it will be necessary for the Topology Operator to [trust the Certificate Authority](../../ssl.html#peer-verification) (CA)
+and management UI over HTTPS, it will be necessary for the Topology Operator to [trust the Certificate Authority](../../ssl#peer-verification) (CA)
 that signed the TLS certificates that the RabbitmqClusters use.
 
 One or more trusted certificates must be mounted as volumes to the trust store
@@ -11,7 +11,7 @@ of the Topology Operator Pod located at `/etc/ssl/certs/`
 
 This guide assumes you have the following:
 
-1. The [RabbitMQ Cluster Operator](operator-overview.html) and [Messaging Topology Operator](install-topology-operator.html) are installed on the Kubernetes cluster
+1. The [RabbitMQ Cluster Operator](./operator-overview) and [Messaging Topology Operator](./install-topology-operator) are installed on the Kubernetes cluster
 1. A signed TLS certificate and private key to be used by a RabbitmqCluster to serve traffic
 1. A TLS certificate of a CA which signed the server certificate and key, whose path is exported as $CA_PATH
 

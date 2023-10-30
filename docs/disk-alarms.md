@@ -45,7 +45,7 @@ The free space of the drive or partition that the broker database uses
 will be monitored at least every 10 seconds to determine whether the disk
 alarm should be raised or cleared.
 
-Monitoring will begin on node start. It will leave a [log entry](./logging.html) like this:
+Monitoring will begin on node start. It will leave a [log entry](./logging) like this:
 
 ```ini
 2019-04-01 12:02:11.564 [info] &lt;0.329.0&gt; Enabling free disk space monitoring
@@ -87,7 +87,7 @@ section below).
 The disk free space limit is configured with
 the <code>disk_free_limit</code> setting. By default 50MB is
 required to be free on the database partition (see the description of
-[file locations](./relocate.html) for the default database location).
+[file locations](./relocate) for the default database location).
 This configuration file sets the disk free space limit to 1GB:
 
 ```ini

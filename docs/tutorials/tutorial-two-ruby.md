@@ -42,7 +42,7 @@ limitations under the License.
 </div-->
 
 
-In the [first tutorial](tutorial-one-ruby.html) we
+In the [first tutorial](./tutorial-one-ruby) we
 wrote programs to send and receive messages from a named queue. In this
 one we'll create a _Work Queue_ that will be used to distribute
 time-consuming tasks among multiple workers.
@@ -185,7 +185,7 @@ But we don't want to lose any tasks. If a worker dies, we'd like the
 task to be delivered to another worker.
 
 In order to make sure a message is never lost, RabbitMQ supports
-[message _acknowledgments_](../confirms.html). An ack(nowledgement) is sent back by the
+[message _acknowledgments_](../confirms). An ack(nowledgement) is sent back by the
 consumer to tell RabbitMQ that a particular message has been received,
 processed and that RabbitMQ is free to delete it.
 
@@ -199,7 +199,7 @@ even if the workers occasionally die.
 A timeout (30 minutes by default) is enforced on consumer delivery acknowledgement.
 This helps detect buggy (stuck) consumers that never acknowledge deliveries.
 You can increase this timeout as described in
-[Delivery Acknowledgement Timeout](../consumers.html#acknowledgement-timeout).
+[Delivery Acknowledgement Timeout](../consumers#acknowledgement-timeout).
 
 Message acknowledgments are turned off by default.
 It's time to turn them on using the `:manual_ack` option and send a proper acknowledgment
@@ -221,7 +221,7 @@ after the worker terminates, all unacknowledged messages are redelivered.
 
 Acknowledgement must be sent on the same channel that received the
 delivery. Attempts to acknowledge using a different channel will result
-in a channel-level protocol exception. See the [doc guide on confirmations](../confirms.html)
+in a channel-level protocol exception. See the [doc guide on confirmations](../confirms)
 to learn more.
 
 > #### Forgotten acknowledgment
@@ -294,7 +294,7 @@ exchange.publish(message, persistent: true)
 > message -- it may be just saved to cache and not really written to the
 > disk. The persistence guarantees aren't strong, but it's more than enough
 > for our simple task queue. If you need a stronger guarantee then you can use
-> [publisher confirms](../confirms.html).
+> [publisher confirms](../confirms).
 
 
 Fair dispatch
@@ -415,5 +415,5 @@ RabbitMQ is restarted.
 For more information on `Bunny::Channel` methods and message properties, you can browse the
 [Bunny API reference](http://reference.rubybunny.info).
 
-Now we can move on to [tutorial 3](tutorial-three-ruby.html) and learn how
+Now we can move on to [tutorial 3](./tutorial-three-ruby) and learn how
 to deliver the same message to many consumers.

@@ -19,12 +19,12 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers an Erlang client for RabbitMQ (<a href="./tutorials/amqp-concepts.html">AMQP 0-9-1</a>).
+This guide covers an Erlang client for RabbitMQ (<a href="./tutorials/amqp-concepts">AMQP 0-9-1</a>).
 
-This user guide assumes that the reader is familiar with <a href="./tutorials/amqp-concepts.html">basic concepts of AMQP 0-9-1</a>.
+This user guide assumes that the reader is familiar with <a href="./tutorials/amqp-concepts">basic concepts of AMQP 0-9-1</a>.
 
-Refer to guides on [connections](connections.html), [channels](channels.html), [queues](queues.html),
-[publishers](./publishers.html), and [consumers](./consumers.html) to learn about those
+Refer to guides on [connections](./connections), [channels](./channels), [queues](./queues),
+[publishers](./publishers), and [consumers](./consumers) to learn about those
 key RabbitMQ concepts in more details.
 
 Some topics covered in this guide include
@@ -71,9 +71,9 @@ dep_rabbit_common = hex &version-erlang-client;
 The basic usage of the client follows these broad steps:
 
 1. Make sure the `amqp_client` Erlang application is started
-2. Establish a [connection](connections.html) to a RabbitMQ node
+2. Establish a [connection](./connections) to a RabbitMQ node
 3. Open a new channel on the connection
-4. Execute <a href="./amqp-0-9-1-quickref.html">AMQP 0-9-1 commands</a> with a channel such as
+4. Execute [AMQP 0-9-1 commands](./amqp-0-9-1-quickref) with a channel such as
    declaring exchanges and queues, defining bindings between them, publishing messages,
    registering consumers (subscribing), and so on
 5. Register optional event handlers such as [returned message handler](#returns)
@@ -100,7 +100,7 @@ The main two modules in the client library are:
  * `amqp_channel`, which exposes most AMQP 0-9-1 operations such as queue declaration
    or consumer registration
 
-Once a connection has been established and successfully [authenticated](./access-control.html),
+Once a connection has been established and successfully [authenticated](./access-control),
 and a channel has been opened, an application will typically use the
 `amqp_channel:call/{2,3}` and `amqp_channel:cast/{2,3}` functions
 together with AMQP 0-9-1 protocol method records to perform most operations.
@@ -135,7 +135,7 @@ connections. This communication method assumes that the application that uses
 the client runs on the same Erlang cluster as RabbitMQ nodes.
 
 The use of direct client should be limited to applications that are deployed
-side by side with RabbitMQ. [Shovel](shovel.html) and [Federation](./federation.html)
+side by side with RabbitMQ. [Shovel](./shovel) and [Federation](./federation)
 plugins are two examples of such applications.
 
 In most other cases, developers should prefer the more traditional network client covered above.
@@ -165,7 +165,7 @@ amqp_client.hrl in every module that uses the Erlang client:
 
 ## <a id="connecting" class="anchor" href="#connecting">Connecting to RabbitMQ</a>
 
-The `amqp_connection` module is used to start a [connection](connections.html) to a RabbitMQ node.
+The `amqp_connection` module is used to start a [connection](./connections) to a RabbitMQ node.
 In this example we will use a network connection, which is the recommended
 option for most use cases:
 
@@ -219,11 +219,11 @@ The `#amqp_params_network` record sets the following default values:
       <td>0</td>
     </tr>
     <tr>
-      <td><a href="./heartbeats.html">heartbeat</a></td>
+      <td><a href="./heartbeats">heartbeat</a></td>
       <td>0</td>
     </tr>
     <tr>
-      <td><a href="./ssl.html">ssl_options</a></td>
+      <td><a href="./ssl">ssl_options</a></td>
       <td>none</td>
     </tr>
     <tr>
@@ -261,7 +261,7 @@ set to an `#amqp_params_direct` record:
 ```
 
 Credentials are optional for direct connections, since Erlang
-distribution relies on [a shared secret](./clustering.html#erlang-cookie), the Erlang cookie, for authentication.
+distribution relies on [a shared secret](./clustering#erlang-cookie), the Erlang cookie, for authentication.
 
 If a username and password are provided then they will be used for authentication and
 made available to authentication backends.
@@ -271,7 +271,7 @@ unconditionally.
 
 If neither username nor password are provided, then the connection will be considered
 to be from a fully trusted user which can connect to any virtual host and has
-full [permissions](./access-control.html).
+full [permissions](./access-control).
 
 The `#amqp_params_direct` record sets the following default values:
 
@@ -308,7 +308,7 @@ The `#amqp_params_direct` record sets the following default values:
 ### <a id="amqp-uris" class="anchor" href="#amqp-uris">Connecting to RabbitMQ Using an AMQP URI</a>
 
 Instead of working with records such `#amqp_params_network` directly,
-<a href="./uri-spec.html">AMQP URIs</a> may be used.
+<a href="./uri-spec">AMQP URIs</a> may be used.
 
 The `amqp_uri:parse/1` function is provided for this purpose.
 It parses an URI and returns the equivalent `#amqp_params_network` or `#amqp_params_direct` record.
@@ -317,13 +317,13 @@ Diverging from the spec, if the hostname is omitted, the
 connection is assumed to be direct and an `#amqp_params_direct{}`
 record is returned.  In addition to the standard host, port, user,
 password and vhost parameters, extra parameters may be specified
-via the query string (e.g. "?heartbeat=5" to configure a [heartbeat timeout](./heartbeats.html)).
+via the query string (e.g. "?heartbeat=5" to configure a [heartbeat timeout](./heartbeats)).
 
 
 ## <a id="channels" class="anchor" href="#channels">Creating Channels</a>
 
 Once a connection has been established, use the `amqp_connection` module
-to open one or more [channels](channels.html) that will be used
+to open one or more [channels](./channels) that will be used
 to define the topology, publish and consume messages:
 
 ```erlang
@@ -338,7 +338,7 @@ a channel and will be used to execute protocol commands.
 ## <a id="methods" class="anchor" href="#methods">Using AMQP 0-9-1 Methods (Protocol Operations)</a>
 
 The client library's primary way of interacting with RabbitMQ nodes is by
-sending and handling [AMQP 0-9-1 methods](./specification.html)
+sending and handling [AMQP 0-9-1 methods](./specification)
 (also referred to as "commands" in this guide) that are represented by records.
 
 The client tries to use sensible default values for each record.
@@ -375,7 +375,7 @@ Declare = #'exchange.declare'{exchange = &lt;&lt;"my_exchange"&gt;&gt;},
 #'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare)
 ```
 
-Similarly, a [transient](./queues.html#durability) queue called `my_queue` is created by this code:
+Similarly, a [transient](./queues#durability) queue called `my_queue` is created by this code:
 
 ```erlang
 Declare = #'queue.declare'{queue = &lt;&lt;"my_queue"&gt;&gt;},
@@ -476,7 +476,7 @@ amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload})
 ```
 
 By default, the properties field of the `#amqp_msg{}` record contains
-a minimal set of [message properties](./publishers.html#message-properties) as a `#'P_basic'{}` properties record.
+a minimal set of [message properties](./publishers#message-properties) as a `#'P_basic'{}` properties record.
 
 If an application needs to override any of the defaults, for example,
 to send persistent messages, the `#amqp_msg{}` needs to
@@ -490,15 +490,15 @@ Msg = #amqp_msg{props = Props, payload = Payload},
 amqp_channel:cast(Channel, Publish, Msg)
 ```
 
-Full list of [message properties](./publishers.html#message-properties) can be found
+Full list of [message properties](./publishers#message-properties) can be found
 in the Publishers guide.
 
 The AMQP 0-9-1 `#'basic.publish'` method is [asynchronous](#call-or-cast):
 the server will not send a response to it. However, clients can opt in
-to have [unroutable messages](./publishers.html#unroutable) returned to them.
+to have [unroutable messages](./publishers#unroutable) returned to them.
 This is described in the section on [return message handlers](#returns).
 
-The above example does not use [Publisher Confirms](./confirms.html).
+The above example does not use [Publisher Confirms](./confirms).
 To await for all outstanding publishes to be confirmed after publishing
 a batch of messages, use `amqp_channel:wait_for_confirms/2` function.
 It will return a `true` if all outstanding publishes were successfully confirmed
@@ -577,7 +577,7 @@ notification and then proceeds to wait for delivery messages to
 arrive in its process mailbox.
 
 When messages are received, the loop does something useful with the message and
-sends an [acknowledgement](./confirms.html) back to the server.
+sends an [acknowledgement](./confirms) back to the server.
 If the consumer is cancelled, a cancellation notification will be sent to the
 consumer process. In this scenario, the receive loop just
 exits. If the application does not wish to explicitly acknowledge
@@ -668,15 +668,15 @@ amqp_channel:call(Channel, #'basic.qos'{prefetch_count = Prefetch})
 ```
 
 Applications are recommended to use a prefetch. Learn more in the
-[Publisher Confirms and Consumer Acknowledgements guide](./confirms.html).
+[Publisher Confirms and Consumer Acknowledgements guide](./confirms).
 
 
 ## <a id="blocked" class="anchor" href="#blocked">Blocked Connections</a>
 
 When a node detects that it is below a certain available resource threshold,
-it may <a href="alarms.html">choose to stop reading from publishers' network sockets</a>.
+it may <a href="./alarms">choose to stop reading from publishers' network sockets</a>.
 
-RabbitMQ supports <a href="connection-blocked.html">a mechanism to allow clients to be told this has taken place</a>.
+RabbitMQ supports <a href="./connection-blocked">a mechanism to allow clients to be told this has taken place</a>.
 
 Use `amqp_connection:register_blocked_handler/2` giving the
 pid of a process to which `#'connection.blocked'{}` and
@@ -762,8 +762,8 @@ will not produce a response for them.
 ## <a id="example" class="anchor" href="#example">A Basic Example</a>
 
 Below is a complete example of basic usage of the library. For the sake of simplicity
-it does not use [publisher confirms](./confirms.html) and uses a [polling consumer](#polling) which performs
-[manual acknowledgements](./confirms.html).
+it does not use [publisher confirms](./confirms) and uses a [polling consumer](#polling) which performs
+[manual acknowledgements](./confirms).
 
 ```erlang
 -module(amqp_example).

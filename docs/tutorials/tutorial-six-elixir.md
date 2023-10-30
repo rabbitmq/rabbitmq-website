@@ -22,7 +22,7 @@ limitations under the License.
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 
-In the [second tutorial](tutorial-two-elixir.html) we learned how to
+In the [second tutorial](./tutorial-two-elixir) we learned how to
 use _Work Queues_ to distribute time-consuming tasks among multiple
 workers.
 
@@ -96,7 +96,7 @@ AMQP.Basic.publish(channel,
 >
 > * `persistent`: Marks a message as persistent (with a value of `true`)
 >    or transient (any other value). You may remember this property
->    from [the second tutorial](tutorial-two-elixir.html).
+>    from [the second tutorial](./tutorial-two-elixir).
 > * `content_type`: Used to describe the mime-type of the encoding.
 >    For example for the often used JSON encoding it is a good practice
 >    to set this property to: `application/json`.
@@ -369,7 +369,7 @@ complex (but important) problems, like:
    (eg checking bounds) before processing.
 
 >
->If you want to experiment, you may find the [management UI](../management.html) useful for viewing the queues.
+>If you want to experiment, you may find the [management UI](../management) useful for viewing the queues.
 >
 
 (Full source code for [rpc_client.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/rpc_client.exs) and [rpc_server.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/rpc_server.exs))

@@ -28,7 +28,7 @@ As with other Python tutorials, we will use the [Pika](https://pypi.python.org/p
 
 ### What This Tutorial Focuses On
 
-In the [second tutorial](tutorial-two-python.html) we learned how to
+In the [second tutorial](./tutorial-two-python) we learned how to
 use _Work Queues_ to distribute time-consuming tasks among multiple
 workers.
 
@@ -103,7 +103,7 @@ channel.basic_publish(exchange='',
 >
 > * `delivery_mode`: Marks a message as persistent (with a value of `2`)
 >    or transient (any other value). You may remember this property
->    from [the second tutorial](tutorial-two-python.html).
+>    from [the second tutorial](./tutorial-two-python).
 > * `content_type`: Used to describe the mime-type of the encoding.
 >    For example for the often used JSON encoding it is a good practice
 >    to set this property to: `application/json`.
@@ -378,5 +378,5 @@ complex (but important) problems, like:
    (e.g. checking bounds) before processing.
 
 >
->If you want to experiment, you may find the [management UI](../management.html) useful for viewing the queues.
+>If you want to experiment, you may find the [management UI](../management) useful for viewing the queues.
 >

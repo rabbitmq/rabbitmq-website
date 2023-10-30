@@ -46,7 +46,7 @@ on behalf of the consumer.
 > RabbitMQ speaks multiple protocols. This tutorial covers AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
-> languages](http://rabbitmq.com/devtools.html). We'll
+> languages](http://rabbitmq.com/./devtools). We'll
 > use the php-amqplib in this tutorial, and [Composer](https://getcomposer.org/doc/00-intro.md)
 > for dependency management.
 >
@@ -143,7 +143,7 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/send.php).
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
-> href="https://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/./configure#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 
@@ -242,10 +242,10 @@ Ctrl-C to stop it), so try running the sender from another terminal.
 
 While this tutorial strives to keep things simple and focus on explaining RabbitMQ
 concepts, it is important to call out something that is specific to PHP applications.
-In many cases PHP application will not be able to use [long-lived connections](../connections.html#basics)
-that RabbitMQ assumes, creating a condition known as [high connection churn](../connections.html#high-connection-churn).
+In many cases PHP application will not be able to use [long-lived connections](../connections#basics)
+that RabbitMQ assumes, creating a condition known as [high connection churn](../connections#high-connection-churn).
 
 To avoid this, PHP users are recommended to use [a special proxy](https://github.com/cloudamqp/amqproxy)
 in production when possible. The proxy avoids connection churn or at least significantly reduces it.
 
-Now it is time to move on to [part 2](tutorial-two-php.html) and build a simple _work queue_.
+Now it is time to move on to [part 2](./tutorial-two-php) and build a simple _work queue_.

@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-three-elixir.html) we built a
+In the [previous tutorial](./tutorial-three-elixir) we built a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
@@ -352,5 +352,5 @@ mix run emit_log_direct.exs --error "Run. Run. Or it will explode."
 
 (Full source code for [emit_log_direct.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/emit_log_direct.exs) and [receive_logs_direct.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/receive_logs_direct.exs))
 
-Move on to [tutorial 5](tutorial-five-elixir.html) to find out how to listen
+Move on to [tutorial 5](./tutorial-five-elixir) to find out how to listen
 for messages based on a pattern.

@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-two-java.html) we created a work
+In the [previous tutorial](./tutorial-two-java) we created a work
 queue. The assumption behind a work queue is that each task is
 delivered to exactly one worker. In this part we'll do something
 completely different -- we'll deliver a message to multiple
@@ -163,7 +163,7 @@ String queueName = channel.queueDeclare().getQueue();
 ```
 
 You can learn more about the `exclusive` flag and other queue
-properties in the [guide on queues](../queues.html).
+properties in the [guide on queues](../queues).
 
 At that point `queueName` contains a random queue name. For example
 it may look like `amq.gen-JzTY20BRgKO-HjmUJj0wLg`.
@@ -362,5 +362,5 @@ exchange `logs` goes to two queues with server-assigned names. And
 that's exactly what we intended.
 
 To find out how to listen for a subset of messages, let's move on to
-[tutorial 4](tutorial-four-java.html)
+[tutorial 4](./tutorial-four-java)
 

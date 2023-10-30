@@ -28,7 +28,7 @@ This information includes the following sections:
 
 <p class="note">
   <strong>Note:</strong> Additional information about using the operator on Openshift can be found at
-  [Using the RabbitMQ Kubernetes Operators on Openshift](./using-on-openshift.html).
+  [Using the RabbitMQ Kubernetes Operators on Openshift](./using-on-openshift).
 </p>
 
 ## <a id='requirements' class='anchor' href='#requirements'> RabbitMQ Cluster Operator Requirements</a>
@@ -135,8 +135,8 @@ kubectl annotate rmq RMQ-NAME rabbitmq.com/operator-connection-uri=https://test:
 
 ## <a id='queues-policies' class='anchor' href='#queues-policies'>Queues and Policies</a>
 
-Messaging Topology Operator can declare [queues](../../queues.html) and
-[policies](../../parameters.html#how-policies-work) in a RabbitMQ cluster.
+Messaging Topology Operator can declare [queues](../../queues) and
+[policies](../../parameters#how-policies-work) in a RabbitMQ cluster.
 
 The following manifest will create a queue named 'test' in the default vhost:
 
@@ -172,15 +172,15 @@ spec:
     name: example-rabbit
 ```
 
-Note that it's not recommended setting [optional queue arguments](../../queues.html#optional-arguments) on queues directly. Once set,
-queue properties cannot be changed. Use [policies](../../parameters.html#policies) instead.
+Note that it's not recommended setting [optional queue arguments](../../queues#optional-arguments) on queues directly. Once set,
+queue properties cannot be changed. Use [policies](../../parameters#policies) instead.
 
 The Messaging Topology repo has more examples on [queues](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/queues)
 and [policies](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/policies).
 
 ### <a id='exchanges-bindings' class='anchor' href='#exchanges-bindings'> Exchanges and Bindings</a>
 
-Messaging Topology Operator can manage [exchanges and bindings](../../publishers.html#basics).
+Messaging Topology Operator can manage [exchanges and bindings](../../publishers#basics).
 The following manifest will create a fanout exchange:
 
 ```bash
@@ -220,7 +220,7 @@ and [bindings](https://github.com/rabbitmq/messaging-topology-operator/tree/main
 ### <a id='users-permissions' class='anchor' href='#users-permissions'>Users and User Permissions</a>
 
 You can use Messaging Topology Operator to create RabbitMQ users and assign user permissions.
-Learn more about user management in the [Access Control guide](../../access-control.html#user-management).
+Learn more about user management in the [Access Control guide](../../access-control#user-management).
 
 Messaging Topology Operator creates users with generated credentials by default.
 
@@ -295,7 +295,7 @@ and [permissions](https://github.com/rabbitmq/messaging-topology-operator/tree/m
 
 ## <a id='vhosts' class='anchor' href='#vhosts'>Virtual Hosts</a>
 
-Messaging Topology Operator can create [virtual hosts](../../vhosts.html).
+Messaging Topology Operator can create [virtual hosts](../../vhosts).
 
 The following manifest will create a vhost named 'test' in a RabbitmqCluster named 'example-rabbit':
 
@@ -313,7 +313,7 @@ spec:
 
 ## <a id='federation' class='anchor' href='#federation'>Federation</a>
 
-Messaging Topology Operator can define [Federation upstreams](../../federation.html).
+Messaging Topology Operator can define [Federation upstreams](../../federation).
 
 Because a Federation upstream URI contains credentials, it is provided through a Kubernetes Secret object.
 The 'uri' key is mandatory for the Secret object. Its value can be either a single URI or a comma-separated list of URIs.
@@ -340,7 +340,7 @@ More [federation examples](https://github.com/rabbitmq/messaging-topology-operat
 
 ## <a id='shovel' class='anchor' href='#shovel'>Shovel</a>
 
-Messaging Topology Operator can declare [dynamic Shovels](../../shovel-dynamic.html).
+Messaging Topology Operator can declare [dynamic Shovels](../../shovel-dynamic).
 
 Shovel source and destination URIs are provided through a Kubernetes Secret object.
 The Secret Object must contain two keys, 'srcUri' and 'destUri', and the value of each key can be either a single URI
@@ -401,12 +401,12 @@ user credentials set in the definitions.
 ## <a id='tls' class='anchor' href='#tls'>TLS</a>
 
 If the RabbitmqClusters managed by the Messaging Topology Operator are configured to serve the Management over HTTPS, there are some additional
-steps required to configure Messaging Topology Operator. Follow this [TLS dedicated guide](./tls-topology-operator.html) to configure
+steps required to configure Messaging Topology Operator. Follow this [TLS dedicated guide](./tls-topology-operator) to configure
 the Operator.
 
 ## <a id='vault' class='anchor' href='#vault'>(Optional) Use HashiCorp Vault</a>
 
-If the RabbitmqClusters managed by the Messaging Topology Operator are configured to store their default user credentials in Vault, there are some additional steps requires to configure Messaging Topology Operator. Follow this [Vault dedicated guide](./vault-topology-operator.html) to configure the operator.
+If the RabbitmqClusters managed by the Messaging Topology Operator are configured to store their default user credentials in Vault, there are some additional steps requires to configure Messaging Topology Operator. Follow this [Vault dedicated guide](./vault-topology-operator) to configure the operator.
 
 ## <a id='operator-log' class='anchor' href='#operator-log'>Configure Log Level for the Operator</a>
 

@@ -35,7 +35,7 @@ You might ask the following questions now? Do streams replace queues then? Shoul
 
 The following information details streams usage, and the administration and maintenance operations for streams.
 
-You should also review the [stream plugin](./stream.html) information to learn more about the usage of streams with the binary RabbitMQ Stream protocol and the [stream core and stream plugin comparison page](./stream-core-plugin-comparison.html) for the feature matrix.
+You should also review the [stream plugin](./stream) information to learn more about the usage of streams with the binary RabbitMQ Stream protocol and the [stream core and stream plugin comparison page](./stream-core-plugin-comparison) for the feature matrix.
 
 ### <a id="use-cases" class="anchor" href="#use-cases">Use Cases for Using Streams</a>
 
@@ -74,7 +74,7 @@ existing queue types either can not provide or provide with downsides:
 
 ## <a id="usage" class="anchor" href="#usage">How to Use RabbitMQ Streams</a>
 
-An AMQP 0.9.1 client library that can specify [optional queue and consumer arguments](./queues.html#optional-arguments)
+An AMQP 0.9.1 client library that can specify [optional queue and consumer arguments](./queues#optional-arguments)
 will be able to use streams as regular AMQP 0.9.1 queues.
 
 Just like queues, streams have to be declared first.
@@ -83,11 +83,11 @@ Just like queues, streams have to be declared first.
 
 To declare a stream, set the `x-queue-type` queue argument to `stream`
 (the default is `classic`). This argument must be provided by a client
-at declaration time; it cannot be set or changed using a [policy](./parameters.html#policies).
+at declaration time; it cannot be set or changed using a [policy](./parameters#policies).
 This is because policy definition or applicable policy can be changed dynamically but
 queue type cannot. It must be specified at the time of declaration.
 
-The following snippet shows how to create a stream with the [AMQP 0.9.1 Java client](./api-guide.html):
+The following snippet shows how to create a stream with the [AMQP 0.9.1 Java client](./api-guide):
 
 ```java
 ConnectionFactory factory = new ConnectionFactory();
@@ -108,11 +108,11 @@ so uneven cluster sizes is strongly recommended.
 A stream remains an AMQP 0.9.1 queue, so it can be bound to any exchange after its creation,
 just as any other RabbitMQ queue.
 
-If declaring using [management UI](./management.html), the `stream` type must be specified using
+If declaring using [management UI](./management), the `stream` type must be specified using
 the queue type drop down menu.
 
-Streams support additional [queue arguments](./queues.html#optional-arguments)
-that are best configured using a [policy](./parameters.html#policies)
+Streams support additional [queue arguments](./queues#optional-arguments)
+that are best configured using a [policy](./parameters#policies)
 
 * `x-max-length-bytes`
 
@@ -232,12 +232,12 @@ but some have some queue specific behaviour.
 
  * [Declaration](#declaring)
  * Queue deletion
- * [Publisher confirms](./confirms.html#publisher-confirms)
- * [Consumption](./consumers.html) (subscription): consumption requires QoS
+ * [Publisher confirms](./confirms#publisher-confirms)
+ * [Consumption](./consumers) (subscription): consumption requires QoS
  prefetch to be set. The acks works as a credit mechanism to advance the current
  offset of the consumer.
  * Setting [QoS prefetch](#global-qos) for consumers
- * [Consumer acknowledgements](./confirms.html) (keep [QoS Prefetch Limitations](#global-qos) in mind)
+ * [Consumer acknowledgements](./confirms) (keep [QoS Prefetch Limitations](#global-qos) in mind)
  * Cancellation of consumers
 
 ### <a id="single-active-consumer" class="anchor" href="#single-active-consumer">Single Active Consumer Feature for Streams</a>
@@ -264,9 +264,9 @@ A super stream is a logical stream made of individual, regular streams.
 It is a way to scale out publishing and consuming with RabbitMQ Streams: a large logical stream is divided into partition streams, splitting up the storage and the traffic on several cluster nodes.
 
 A super stream remains a logical entity: applications see it as one “large” stream, thanks to the smartness of client libraries.
-The topology of a super stream is based on the [AMQP 0.9.1 model](./tutorials/amqp-concepts.html), that is exchange, queues, and bindings between them.
+The topology of a super stream is based on the [AMQP 0.9.1 model](./tutorials/amqp-concepts), that is exchange, queues, and bindings between them.
 
-It is possible to create the topology of a super stream with any AMQP 0.9.1 library or with the [management plugin](./management.html), it requires to create a direct exchange, the "partition" streams, and bind them together.
+It is possible to create the topology of a super stream with any AMQP 0.9.1 library or with the [management plugin](./management), it requires to create a direct exchange, the "partition" streams, and bind them together.
 It may be easier to use the `rabbitmq-streams add_super_stream` command though.
 Here is how to use it to create an `invoices` super stream with 3 partitions:
 
@@ -339,7 +339,7 @@ Streams are not really queues in the traditional sense and thus do not
 align very closely with AMQP 0.9.1 queue semantics. Many features that other queue types
 support are not supported and will never be due to the nature of the queue type.
 
-An AMQP 0.9.1 client library that can use [regular queues](./queues.html) will be able to use streams
+An AMQP 0.9.1 client library that can use [regular queues](./queues) will be able to use streams
 as long as it uses consumer acknowledgements.
 
 Many features will never be supported by streams due to their non-destructive
@@ -349,47 +349,47 @@ read semantics.
 
 | Feature | Classic | Stream |
 | :-------- | :------- | ------ |
-| [Non-durable queues](./queues.html) | yes | no |
-| [Exclusivity](./queues.html) | yes | no |
+| [Non-durable queues](./queues) | yes | no |
+| [Exclusivity](./queues) | yes | no |
 | Per message persistence | per message | always |
 | Membership changes | automatic | manual  |
-| [TTL](./ttl.html) | yes | no (but see [Retention](#retention)) |
-| [Queue length limits](./maxlength.html) | yes | no (but see [Retention](#retention))|
-| [Lazy behaviour](./lazy-queues.html) | yes | inherent |
-| [Message priority](./priority.html) | yes | no |
-| [Consumer priority](./consumer-priority.html) | yes | no |
-| [Dead letter exchanges](./dlx.html) | yes | no |
-| Adheres to [policies](./parameters.html#policies) | yes | (see [Retention](#retention)) |
-| Reacts to [memory alarms](./alarms.html) | yes | no (uses minimal RAM) |
+| [TTL](./ttl) | yes | no (but see [Retention](#retention)) |
+| [Queue length limits](./maxlength) | yes | no (but see [Retention](#retention))|
+| [Lazy behaviour](./lazy-queues) | yes | inherent |
+| [Message priority](./priority) | yes | no |
+| [Consumer priority](./consumer-priority) | yes | no |
+| [Dead letter exchanges](./dlx) | yes | no |
+| Adheres to [policies](./parameters#policies) | yes | (see [Retention](#retention)) |
+| Reacts to [memory alarms](./alarms) | yes | no (uses minimal RAM) |
 | Poison message handling | no | no |
 | Global [QoS Prefetch](#global-qos) | yes | no |
 
 #### Non-durable Queues
 
 Streams are always durable per their assumed [use cases](#use-cases),
-they cannot be [non-durable](./queues.html#properties) like regular queues.
+they cannot be [non-durable](./queues#properties) like regular queues.
 
 #### Exclusivity
 
 Streams are always durable per their assumed [use cases](#use-cases), they cannot be
-[exclusive](./queues.html#exclusive-queues) like regular queues.
-They are not meant to be used as [temporary queues](./queues.html#temporary-queues).
+[exclusive](./queues#exclusive-queues) like regular queues.
+They are not meant to be used as [temporary queues](./queues#temporary-queues).
 
 
 #### Lazy Mode
 
 Streams store all data directly on disk, after a message has been written
-it does not use any memory until it is read. Streams are inherently [lazy](./lazy-queues.html), so to speak.
+it does not use any memory until it is read. Streams are inherently [lazy](./lazy-queues), so to speak.
 
 
 #### <a id="global-qos" class="anchor" href="#global-qos">Global QoS</a>
 
-Streams do not support global [QoS prefetch](./confirms.html#channel-qos-prefetch) where a channel sets a single
+Streams do not support global [QoS prefetch](./confirms#channel-qos-prefetch) where a channel sets a single
 prefetch limit for all consumers using that channel. If an attempt
 is made to consume from a stream from a channel with global QoS enabled
 a channel error will be returned.
 
-Use [per-consumer QoS prefetch](./consumer-prefetch.html), which is the default in several popular clients.
+Use [per-consumer QoS prefetch](./consumer-prefetch), which is the default in several popular clients.
 
 ## <a id="retention" class="anchor" href="#retention">Data Retention</a>
 
@@ -446,7 +446,7 @@ to a replica set of a stream.
 When a node has to be decommissioned (permanently removed from the cluster), it must be explicitly
 removed from the replica list of all streams it currently hosts replicas for.
 
-Two [CLI commands](./cli.html) are provided to perform the above operations,
+Two [CLI commands](./cli) are provided to perform the above operations,
 `rabbitmq-streams add_replica` and `rabbitmq-streams delete_replica`:
 
 ```bash
@@ -486,9 +486,9 @@ When a new stream is declared, the set of nodes that will host its
 replicas is randomly picked, but will always include the node the client that declares the stream is connected to.
 
 Which replica becomes the initial leader is controlled in three ways,
-namely, using the `x-queue-leader-locator` [optional queue argument](queues.html#optional-arguments), setting the `queue-leader-locator`
+namely, using the `x-queue-leader-locator` [optional queue argument](./queues#optional-arguments), setting the `queue-leader-locator`
 policy key or by defining the `queue_leader_locator`
-key in [the configuration file](configure.html#configuration-files). Here are the possible values:
+key in [the configuration file](./configure#configuration-files). Here are the possible values:
 
  * `client-local`: Pick the node the client that declares the stream is connected to. This is the default value.
  * `balanced`: If there are overall less than 1000 queues (classic queues, quorum queues, and streams),
@@ -563,7 +563,7 @@ system buffer or otherwise fail to reach the stream leader.
 A stream should be able to tolerate a minority of stream replicas becoming unavailable
 with no or little effect on availability.
 
-Note that depending on the [partition handling strategy](./partitions.html)
+Note that depending on the [partition handling strategy](./partitions)
 used RabbitMQ may restart itself during recovery and reset the node but as long as that
 does not happen, this availability guarantee should hold true.
 
@@ -577,8 +577,8 @@ will most likely need operator involvement to be recovered.
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuring Streams</a>
 
-For stream protocol port, TLS and other configuration, see the [Stream plugin guide](stream.html).
-For required stream replication ports see the [Networking guide](networking.html#ports).
+For stream protocol port, TLS and other configuration, see the [Stream plugin guide](./stream).
+For required stream replication ports see the [Networking guide](./networking#ports).
 
 
 ## <a id="resource-use" class="anchor" href="#resource-use">How Streams Use Resources</a>
@@ -590,7 +590,7 @@ All data is stored on disk with only unwritten data stored in memory.
 ## <a id="offset-tracking" class="anchor" href="#offset-tracking">Offset Tracking when using Streams</a>
 
 When using the broker provided offset tracking features (currently only available
-when using the [Stream plugin](./stream.html)) offsets are persisted in the stream
+when using the [Stream plugin](./stream)) offsets are persisted in the stream
 itself as non-message data. This means that as offset persistence is requested the
 stream will grow on disk by some small amount per offset persistence request.
 

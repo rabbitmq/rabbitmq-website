@@ -43,7 +43,7 @@ and more.
 ## <a id="terminology" class="anchor" href="#terminology">Terminology</a>
 
 The term "consumer" means different things in different contexts. In general, in the context of messaging
-and streaming, a consumer is an application (or application instance) that consumes and [acknowledges](./confirms.html)
+and streaming, a consumer is an application (or application instance) that consumes and [acknowledges](./confirms)
 messages. The same application can also publish messages and thus be a publisher at the same time.
 
 Messaging protocols also have the concept of a lasting subscription for message delivery.
@@ -91,15 +91,15 @@ runs.
 
 Consumers can be more dynamic and register in reaction to a system event, unsubscribing
 when they are no longer necessary. This is common with WebSocket clients
-used via [Web STOMP](./web-stomp.html) and [Web MQTT](web-mqtt.html) plugins, mobile clients and so on.
+used via [Web STOMP](./web-stomp) and [Web MQTT](./web-mqtt) plugins, mobile clients and so on.
 
 ### <a id="connection-recovery" class="anchor" href="#connection-recovery">Connection Recovery</a>
 
-Client can lose their connection to RabbitMQ. When connection loss is [detected](./heartbeats.html),
+Client can lose their connection to RabbitMQ. When connection loss is [detected](./heartbeats),
 message delivery stops.
 
 Some client libraries offer automatic connection recovery features that involves consumer recovery.
-[Java](./api-guide.html#recovery), [.NET](./dotnet-api-guide.html#recovery) and [Bunny](http://rubybunny.info/articles/error_handling.html)
+[Java](./api-guide#recovery), [.NET](./dotnet-api-guide#recovery) and [Bunny](http://rubybunny.info/articles/error_handling.html)
 are examples of such libraries.
 While connection recovery cannot cover 100% of scenarios and workloads, it generally works very well for consuming
 applications and is recommended.
@@ -130,11 +130,11 @@ It can later be used to cancel the consumer.
 
 ### Java Client
 
-See [Java client guide](./api-guide.html#consuming) for examples.
+See [Java client guide](./api-guide#consuming) for examples.
 
 ### .NET Client
 
-See [.NET client guide](./dotnet-api-guide.html#consuming) for examples.
+See [.NET client guide](./dotnet-api-guide#consuming) for examples.
 
 ### <a id="message-properties" class="anchor" href="#message-properties">Message Properties and Delivery Metadata</a>
 
@@ -158,13 +158,13 @@ and set by RabbitMQ at routing and delivery time:
       <td>Delivery tag</td>
       <td>Positive integer</td>
       <td>
-        Delivery identifier, see <a href="./confirms.html">Confirms</a>.
+        Delivery identifier, see <a href="./confirms">Confirms</a>.
       </td>
     </tr>
     <tr>
       <td>Redelivered</td>
       <td>Boolean</td>
-      <td>Set to `true` if this message was previously <a href="./confirms.html#consumer-nacks-requeue">delivered and requeued</a></td>
+      <td>Set to `true` if this message was previously <a href="./confirms#consumer-nacks-requeue">delivered and requeued</a></td>
     </tr>
     <tr>
       <td>Exchange</td>
@@ -239,19 +239,19 @@ at the time of publishing:
     <tr>
       <td>Correlation ID</td>
       <td>String</td>
-      <td>Helps correlate requests with responses, see <a href="./getstarted.html">tutorial 6</a></td>
+      <td>Helps correlate requests with responses, see <a href="./getstarted">tutorial 6</a></td>
       <td>No</td>
     </tr>
     <tr>
       <td>Reply To</td>
       <td>String</td>
-      <td>Carries response queue name, see <a href="./getstarted.html">tutorial 6</a></td>
+      <td>Carries response queue name, see <a href="./getstarted">tutorial 6</a></td>
       <td>No</td>
     </tr>
     <tr>
       <td>Expiration</td>
       <td>String</td>
-      <td><a href="./ttl.html">Per-message TTL</a></td>
+      <td><a href="./ttl">Per-message TTL</a></td>
       <td>No</td>
     </tr>
     <tr>
@@ -263,7 +263,7 @@ at the time of publishing:
     <tr>
       <td>User ID</td>
       <td>String</td>
-      <td>User ID, <a href="./validated-user-id.html">validated</a> if set</td>
+      <td>User ID, <a href="./validated-user-id">validated</a> if set</td>
       <td>No</td>
     </tr>
     <tr>
@@ -312,7 +312,7 @@ When registering a consumer applications can choose one of two delivery modes:
  * Automatic (deliveries require no acknowledgement, a.k.a. "fire and forget")
  * Manual (deliveries require client acknowledgement)
 
-Consumer acknowledgements are a subject of a [separate documentation guide](./confirms.html), together with
+Consumer acknowledgements are a subject of a [separate documentation guide](./confirms), together with
 publisher confirms, a closely related concept for publishers.
 
 ## <a id="prefetch" class="anchor" href="#prefetch">Limiting Simultaneous Deliveries with Prefetch</a>
@@ -320,12 +320,12 @@ publisher confirms, a closely related concept for publishers.
 With manual acknowledgement mode consumers have a way of limiting how many deliveries can be "in flight" (in transit
 over the network or delivered but unacknowledged). This can avoid consumer overload.
 
-This feature, together with consumer acknowledgements are a subject of a [separate documentation guide](./confirms.html).
+This feature, together with consumer acknowledgements are a subject of a [separate documentation guide](./confirms).
 
 
 ## <a id="metrics-capacity" class="anchor" href="#metrics-capacity">The Consumer Capacity Metric</a>
 
-RabbitMQ [management UI](./management.html) as well as [monitoring data](./monitoring.html) endpoints such as that for [Prometheus scraping](./prometheus.html)
+RabbitMQ [management UI](./management) as well as [monitoring data](./monitoring) endpoints such as that for [Prometheus scraping](./prometheus)
 display a metric called consumer capacity (previously consumer utilisation) for individual queues.
 
 The metric is computed as a fraction of the time that the queue is able to immediately deliver messages to consumers.
@@ -360,11 +360,11 @@ application must close the channel.
 
 ### Java Client
 
-See [Java client guide](./api-guide.html#consuming) for examples.
+See [Java client guide](./api-guide#consuming) for examples.
 
 ### .NET Client
 
-See [.NET client guide](./dotnet-api-guide.html#consuming) for examples.
+See [.NET client guide](./dotnet-api-guide#consuming) for examples.
 
 ## <a id="fetching" class="anchor" href="#fetching">Fetching Individual Messages ("Pull API")</a>
 
@@ -381,11 +381,11 @@ When in doubt, prefer using a regular long-lived consumer.
 
 ### Java Client
 
-See [Java client guide](./api-guide.html#getting) for examples.
+See [Java client guide](./api-guide#getting) for examples.
 
 ### .NET Client
 
-See [.NET client guide](./dotnet-api-guide.html#basic-get) for examples.
+See [.NET client guide](./dotnet-api-guide#basic-get) for examples.
 
 
 ## <a id="acknowledgement-timeout" class="anchor" href="#acknowledgement-timeout">Delivery Acknowledgement Timeout</a>
@@ -400,9 +400,9 @@ nodes out of disk space.
 If a consumer does not ack its delivery for more than the timeout value (30 minutes by default),
 its channel will be closed with a `PRECONDITION_FAILED` channel exception.
 
-The error will be [logged](logging.html) by the node that the consumer was
+The error will be [logged](./logging) by the node that the consumer was
 connected to. All outstanding deliveries on that channel, from all consumers,
-will be [requeued](confirms.html#automatic-requeueing).
+will be [requeued](./confirms#automatic-requeueing).
 
 Whether the timeout should be enforced is evaluated periodically, at one minute intervals.
 Values lower than one minute are not supported, and values lower than five minutes
@@ -410,7 +410,7 @@ are not recommended.
 
 ### Per-node Configuration
 
-The timeout value is configurable in [rabbitmq.conf](./configure.html#config-file) (in milliseconds):
+The timeout value is configurable in [rabbitmq.conf](./configure#config-file) (in milliseconds):
 
 ```ini
 # 30 minutes in milliseconds
@@ -422,7 +422,7 @@ consumer_timeout = 1800000
 consumer_timeout = 3600000
 ```
 
-The timeout can be deactivated using [`advanced.config`](configure.html#advanced-config-file). This is **not recommended**:
+The timeout can be deactivated using [`advanced.config`](./configure#advanced-config-file). This is **not recommended**:
 
 ```erlang
 %% advanced.config
@@ -460,7 +460,7 @@ Whether the timeout should be enforced is evaluated periodically, at one minute 
 
 ## <a id="exclusivity" class="anchor" href="#exclusivity">Exclusivity</a>
 
-When registering a consumer with an AMQP 0-9-1 client, [the `exclusive` flag](amqp-0-9-1-reference.html#basic.consume)
+When registering a consumer with an AMQP 0-9-1 client, [the `exclusive` flag](./amqp-0-9-1-reference#basic.consume)
 can be set to true to request the consumer to be the only one
 on the target queue. The call succeeds only if there's no consumer
 already registered to the queue at that time. This allows to make sure
@@ -495,7 +495,7 @@ Note that without the single active consumer feature enabled, messages
 would be dispatched to all consumers using round-robin.
 
 Please note: this section covers the single active consumer that's available to AMQP 0-9-1 and AMQP 1.0 clients
-on classic and quorum queues. It is not related to [Single Active Consumer on streams](https://rabbitmq.com/streams.html#single-active-consumer).
+on classic and quorum queues. It is not related to [Single Active Consumer on streams](https://rabbitmq.com/./streams#single-active-consumer).
 
 An attempt to enable SAC using an AMQP 0-9-1 client on a stream **will not work**.
 To use SAC on a stream, a [native RabbitMQ stream protocol client](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#single-active-consumer)
@@ -523,8 +523,8 @@ a new consumer.
 
 ### Determining Which Consumer is Currently Active
 
-The [management UI](./management.html) and the
-[CLI](./rabbitmqctl.8.html) can [report](#active-consumer) which consumer is the current
+The [management UI](./management) and the
+[CLI](./man/rabbitmqctl.8) can [report](#active-consumer) which consumer is the current
 active one on a queue where the feature is enabled.
 
 ### SAC Behavior
@@ -543,7 +543,7 @@ Please note the following about single active consumer:
  unacknowledged messages it requested with `basic.qos`.
  In this case, the other consumers are ignored and
  messages are enqueued.
- * It is not possible to enable single active consumer with a [policy](https://www.rabbitmq.com/parameters.html#policies).
+ * It is not possible to enable single active consumer with a [policy](https://www.rabbitmq.com/./parameters#policies).
  Here is the reason why. Policies in RabbitMQ are dynamic by nature, they can
  come and go, enabling and disabling the features they declare. Imagine suddenly
  disabling single active consumer on a queue: the broker would start sending messages to
@@ -554,8 +554,8 @@ Please note the following about single active consumer:
 
 ## <a id="active-consumer" class="anchor" href="#active-consumer">Consumer Activity</a>
 
-The [management UI](./management.html) and the `list_consumers`
-[CLI](./rabbitmqctl.8.html#list_consumers) command report an `active`
+The [management UI](./management) and the `list_consumers`
+[CLI](./man/rabbitmqctl.8#list_consumers) command report an `active`
 flag for consumers. The value of this flag depends on several parameters.
 
  * for classic queues, the flag is always `true`
@@ -579,7 +579,7 @@ by effective [prefetch](#prefetch) setting.
 When consumer priorities are in use, messages are delivered round-robin if multiple active consumers
 exist with the same high priority.
 
-Consumer priorities are covered in a [separate guide](./consumer-priority.html).
+Consumer priorities are covered in a [separate guide](./consumer-priority).
 
 
 ## <a id="exceptions" class="anchor" href="#exceptions">Exception Handling</a>
@@ -589,7 +589,7 @@ or any other consumer operations. Such exceptions should be logged, collected an
 
 If a consumer cannot process deliveries due to a dependency not being available or similar reasons
 it should clearly log so and cancel itself until it is capable of processing deliveries again.
-This will make the consumer's unavailability visible to RabbitMQ and [monitoring systems](./monitoring.html).
+This will make the consumer's unavailability visible to RabbitMQ and [monitoring systems](./monitoring).
 
 
 ## <a id="concurrency" class="anchor" href="#concurrency">Concurrency Considerations</a>
@@ -610,7 +610,7 @@ the number of cores available to them.
 
 ### Queue Parallelism Considerations
 
-A single RabbitMQ queue is [bounded to a single core](./queues.html#runtime-characteristics). Use more than
+A single RabbitMQ queue is [bounded to a single core](./queues#runtime-characteristics). Use more than
 one queue to improve CPU utilisation on the nodes. Plugins such as [sharding](https://github.com/rabbitmq/rabbitmq-sharding)
 and [consistent hash exchange](https://github.com/rabbitmq/rabbitmq-consistent-hash-exchange) can be helpful
 in increasing parallelism.

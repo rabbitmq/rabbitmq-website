@@ -22,12 +22,12 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [first tutorial](tutorial-one-spring-amqp.html) we showed how
+In the [first tutorial](./tutorial-one-spring-amqp) we showed how
 to use start.spring.io to leverage Spring Initializr to create a project
 with the RabbitMQ starter dependency to create Spring AMQP
 applications.
 
-In the [previous tutorial](tutorial-two-spring-amqp.html) we created
+In the [previous tutorial](./tutorial-two-spring-amqp) we created
 a new package `tut2` to place our configuration, sender and receiver and
 created a work queue with two consumers. The assumption behind a work
 queue is that each task is delivered to exactly one worker.
@@ -449,4 +449,4 @@ exchange `logs` goes to two queues with server-assigned names. And
 that's exactly what we intended.
 
 To find out how to listen for a subset of messages, let's move on to
-[tutorial 4](tutorial-four-spring-amqp.html)
+[tutorial 4](./tutorial-four-spring-amqp)

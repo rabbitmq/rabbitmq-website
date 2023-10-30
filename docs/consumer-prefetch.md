@@ -19,10 +19,10 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-Consumer prefetch is an extension to the [channel prefetch mechanism](./confirms.html).
+Consumer prefetch is an extension to the [channel prefetch mechanism](./confirms).
 
 AMQP 0-9-1 specifies the `basic.qos` method to make it possible to
-[limit the number of unacknowledged messages](./confirms.html) on a channel (or
+[limit the number of unacknowledged messages](./confirms) on a channel (or
 connection) when consuming (aka "prefetch count"). Unfortunately
 the channel is not the ideal scope for this - since a single
 channel may consume from multiple queues, the channel and the
@@ -125,7 +125,7 @@ the queues to enforce the global limit.
 ## <a id="default-limit" class="anchor" href="#default-limit">Configurable Default Prefetch</a>
 
 RabbitMQ can use a default prefetch that will be applied if the consumer doesn't specify one.
-The value can be configured as `rabbit.default_consumer_prefetch` in the [advanced configuration file](configure.html#advanced-config-file):
+The value can be configured as `rabbit.default_consumer_prefetch` in the [advanced configuration file](./configure#advanced-config-file):
 
 ```erlang
 %% advanced.config file

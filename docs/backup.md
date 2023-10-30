@@ -30,7 +30,7 @@ message store data.
 Nodes and clusters store information that can be thought of schema, metadata or topology.
 Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into this category.
 
-Definitions can be [exported and imported](./definitions.html) as JSON files.
+Definitions can be [exported and imported](./definitions) as JSON files.
 
 Definitions are stored in an internal database and replicated across all cluster nodes.
 Every node in a cluster has its own replica of all definitions. When a part of definitions changes,
@@ -44,7 +44,7 @@ as an internal store for messages, a single entity that's transparent to the use
 
 Each node has its own data directory and stores messages for the queues and streams that have
 their leader replica hosted on that node. Messages can be replicated between nodes if
-a [replicated queue type](quorum-queues.html) or [stream](streams.html) with multiple replicas is used.
+a [replicated queue type](./quorum-queues) or [stream](./streams) with multiple replicas is used.
 Messages are stored in subdirectories of the node's data directory.
 
 ### <a id="data-lifespan" class="anchor" href="#data-lifespan">Data Lifecycle</a>
@@ -65,11 +65,11 @@ Definitions can be exported to a JSON file. This is the recommended way of backi
 
 ### <a id="definitions-export" class="anchor" href="#definitions-export">Exporting Definitions</a>
 
-Definition export is covered in the dedicated [Definitions guide](./definitions.html#export).
+Definition export is covered in the dedicated [Definitions guide](./definitions#export).
 
 ### <a id="definitions-import" class="anchor" href="#definitions-import">Importing Definitions</a>
 
-Definition import is covered in the dedicated [Definitions guide](./definitions.html#import).
+Definition import is covered in the dedicated [Definitions guide](./definitions#import).
 
 Importing a definitions file is sufficient for creating a broker with
 an identical set of definitions (e.g. users, vhosts, permissions,
@@ -85,7 +85,7 @@ command against a running RabbitMQ node:
 rabbitmq-diagnostics status | grep -A 2 -B 2 "Node data directory"
 ```
 
-If the node isn't running, it is possible to inspect [default data directories](./relocate.html).
+If the node isn't running, it is possible to inspect [default data directories](./relocate).
 
 * For Debian and RPM packages: `/var/lib/rabbitmq/mnesia`
 * For Windows: `%APPDATA%\RabbitMQ\db`
@@ -97,7 +97,7 @@ copy the messages, skip copying the [message directories](#manual-messages-backu
 ### <a id="manual-definitions-restore" class="anchor" href="#manual-definitions-restore">Restoring from a Manual Definitions Backup</a>
 
 Internal node database stores node's name in certain records. Should node name change, the database must first
-be updated to reflect the change using the following [rabbitmqctl](./cli.html) command:
+be updated to reflect the change using the following [rabbitmqctl](./cli) command:
 
 ```sh
 rabbitmqctl rename_cluster_node &lt;oldnode&gt; &lt;newnode&gt;
@@ -114,7 +114,7 @@ the upgrade steps as needed and proceed booting.
 
 To back up messages on a node it **must be first stopped**.
 
-In the case of a cluster with [replicated queues](./quorum-queues.html), it is highly recommended
+In the case of a cluster with [replicated queues](./quorum-queues), it is highly recommended
 to stop the entire cluster over a period of time to take a backup. If instead one node is topped at a
 time, queues may accumulate duplicates, exactly like when you
 back up a single running node.
@@ -126,7 +126,7 @@ as a result miss a small percentage of recent publishes to them.
 
 Presently this is the only way of backing up messages.
 
-Message data is stored in the [node's data directory](./relocate.html) mentioned above.
+Message data is stored in the [node's data directory](./relocate) mentioned above.
 
 In RabbitMQ versions starting with 3.7.0 all messages data is combined in the
 `msg_stores/vhosts` directory and stored in a subdirectory per vhost.

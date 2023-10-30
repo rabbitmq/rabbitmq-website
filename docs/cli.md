@@ -21,12 +21,12 @@ limitations under the License.
 
 RabbitMQ ships with multiple command line tools, each with a set of related commands:
 
- * [`rabbitmqctl`](./rabbitmqctl.8.html) for service management and general operator tasks
- * [`rabbitmq-diagnostics`](./rabbitmq-diagnostics.8.html) for diagnostics and [health checking](./monitoring.html)
- * [`rabbitmq-plugins`](./rabbitmq-plugins.8.html) for [plugin management](./plugins.html)
- * [`rabbitmq-queues`](./rabbitmq-queues.8.html) for maintenance tasks on [queues](queues.html), in particular [quorum queues](./quorum-queues.html)
- * [`rabbitmq-streams`](./rabbitmq-streams.8.html) for maintenance tasks on [streams](streams.html)
- * [`rabbitmq-upgrade`](./rabbitmq-upgrade.8.html) for maintenance tasks related to [upgrades](./upgrade.html)
+ * [`rabbitmqctl`](./man/rabbitmqctl.8) for service management and general operator tasks
+ * [`rabbitmq-diagnostics`](./man/rabbitmq-diagnostics.8) for diagnostics and [health checking](./monitoring)
+ * [`rabbitmq-plugins`](./man/rabbitmq-plugins.8) for [plugin management](./plugins)
+ * [`rabbitmq-queues`](./man/rabbitmq-queues.8) for maintenance tasks on [queues](./queues), in particular [quorum queues](./quorum-queues)
+ * [`rabbitmq-streams`](./man/rabbitmq-streams.8) for maintenance tasks on [streams](./streams)
+ * [`rabbitmq-upgrade`](./man/rabbitmq-upgrade.8) for maintenance tasks related to [upgrades](./upgrade)
 
 they can be found under the `sbin` directory in installation root.
 
@@ -35,7 +35,7 @@ be named `rabbitmqctl.bat`.
 
 Additional tools are optional and can be obtained from GitHub:
 
- * [`rabbitmqadmin`](./management-cli.html) for operator tasks over [HTTP API](./management.html)
+ * [`rabbitmqadmin`](./management-cli) for operator tasks over [HTTP API](./management)
  * [`rabbitmq-collect-env`](https://github.com/rabbitmq/support-tools) which collects relevant cluster and environment information
     as well as server logs. This tool is specific to Linux and UNIX-like operating systems.
 
@@ -45,7 +45,7 @@ including virtual host, user and permission management, destructive operations
 on node's data and so on.
 
 `rabbitmqadmin` is built on top of the HTTP API and uses a different mechanism, and only
-requires that the [HTTP API](./management.html) port is open for outside connections.
+requires that the [HTTP API](./management) port is open for outside connections.
 
 Even though CLI tools ship with the server, most commands [can be used to operate on remote nodes](#remote-nodes).
 Plugins can [provide CLI commands](#command-discovery) that will be discovered by CLI tools for explicitly enabled plugins.
@@ -53,7 +53,7 @@ Plugins can [provide CLI commands](#command-discovery) that will be discovered b
 
 ## <a id="requirements" class="anchor" href="#requirements">System and Environment Requirements</a>
 
-RabbitMQ CLI tools require a [compatible Erlang/OTP](./which-erlang.html) version to be installed.
+RabbitMQ CLI tools require a [compatible Erlang/OTP](./which-erlang) version to be installed.
 
 The tools assume that system locale is a UTF-8 one (e.g. `en_GB.UTF-8` or `en_US.UTF-8`). If that's
 not the case, the tools may still function correctly but it cannot be guaranteed.
@@ -67,15 +67,15 @@ directory in installation root. With most package types that directory is added 
 This means that core tools such as `rabbitmq-diagnostics` and `rabbitmqctl` are available on every node
 that has RabbitMQ installed.
 
-[Generic UNIX package](./install-generic-unix.html) users have to make sure that the `sbin` directory under installation
+[Generic UNIX package](./install-generic-unix) users have to make sure that the `sbin` directory under installation
 root is added to `PATH` for simpler interactive use. Non-interactive use cases can use full or relative paths without
 modifications to the `PATH` environment variable.
 
-[`rabbitmqadmin`](./management-cli.html) is a standalone tool (no dependencies other than Python 3)
+[`rabbitmqadmin`](./management-cli) is a standalone tool (no dependencies other than Python 3)
 that can be downloaded from a running node or [directly from GitHub](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_management/bin/rabbitmqadmin).
 
-If interaction from a remote node is required, download and extract the [generic UNIX package](./install-generic-unix.html)
-or use the [Windows installer](./install-windows.html).
+If interaction from a remote node is required, download and extract the [generic UNIX package](./install-generic-unix)
+or use the [Windows installer](./install-windows).
 
 Besides [authentication](#authentication), all configuration for core CLI tools is optional.
 
@@ -115,7 +115,7 @@ rabbitmq-diagnostics status --help
 
 ## <a id="rabbitmqctl" class="anchor" href="#rabbitmqctl">rabbitmqctl</a>
 
-[rabbitmqctl](./rabbitmqctl.8.html) is the original CLI tool that ships with RabbitMQ.
+[rabbitmqctl](./man/rabbitmqctl.8) is the original CLI tool that ships with RabbitMQ.
 It supports a wide range of operations, mostly administrative (operational) in nature.
 
 This includes
@@ -135,7 +135,7 @@ and more.
 
 ## <a id="rabbitmq-plugins" class="anchor" href="#rabbitmq-plugins">rabbitmq-plugins</a>
 
-[rabbitmq-plugins](./rabbitmq-plugins.8.html) is a tool that manages plugins:
+[rabbitmq-plugins](./man/rabbitmq-plugins.8) is a tool that manages plugins:
 lists, enables and disables them. It ships with RabbitMQ.
 
 It supports both online (when target node is running) and offline mode (changes
@@ -148,7 +148,7 @@ take effect on node restart).
 `--offline` is a flag supported by `rabbitmq-plugins` commands. When provided, the tool will avoid
 contacting the target node and instead operate on plugin files directly.
 
-When the `--offline` flag is used, the command will rely on [environment variables](configure.html#customise-environment)
+When the `--offline` flag is used, the command will rely on [environment variables](./configure#customise-environment)
 to determine where to find the plugins directory of the local node.
 
 For example, it will respect and use the `RABBITMQ_PLUGINS_DIR` environment variable value
@@ -159,7 +159,7 @@ it must also be set identically for the local OS user that invokes CLI tools.
 ## <a id="authentication" class="anchor" href="#authentication">Authentication</a>
 
 With the exception of `rabbitmqadmin`, RabbitMQ tools use a [shared secret authentication mechanism](#erlang-cookie).
-This requires that [inter-node and CLI communication ports](networking.html) (by default)
+This requires that [inter-node and CLI communication ports](./networking) (by default)
 is open for external connections on the target node.
 
 
@@ -195,7 +195,7 @@ rabbitmqctl wait
 ```
 
 can only be run on the same host or in the same container as their target node. These commands typically
-rely on or modify something in the local environment, e.g. the local [enabled plugins file](./plugins.html).
+rely on or modify something in the local environment, e.g. the local [enabled plugins file](./plugins).
 
 
 ### <a id="node-names" class="anchor" href="#node-names">Node Names</a>
@@ -210,7 +210,7 @@ different prefixes, e.g. `rabbit1@hostname` and `rabbit2@hostname`.
 
 CLI tools identify and address server nodes using node names.
 Most CLI commands are invoked against a node called target node. To specify a target node,
-use the `--node` (`-n`) option. For example, to run a [health check](./monitoring.html)
+use the `--node` (`-n`) option. For example, to run a [health check](./monitoring)
 on node `rabbit@warp10.local`:
 
 ```bash
@@ -221,16 +221,16 @@ Some commands accept both a target node and another node name. For example,
 `rabbitmqctl forget_cluster_node` accepts both a target node (that will perform the action)
 and a name of the node to be removed.
 
-In a cluster, nodes identify and contact each other using node names. See [Clustering guide](./clustering.html#node-names)
+In a cluster, nodes identify and contact each other using node names. See [Clustering guide](./clustering#node-names)
 for details.
 
 When a node starts up, it checks whether it has been assigned a node name. This is done
-via the `RABBITMQ_NODENAME` [environment variable](./configure.html#supported-environment-variables).
+via the `RABBITMQ_NODENAME` [environment variable](./configure#supported-environment-variables).
 If no value was explicitly configured, the node resolves its hostname and prepends `rabbit` to it to compute its node name.
 
 If a system uses fully qualified domain names (FQDNs) for hostnames, RabbitMQ nodes
 and CLI tools must be configured to use so called long node names.
-For server nodes this is done by setting the `RABBITMQ_USE_LONGNAME` [environment variable](./configure.html#supported-environment-variables)
+For server nodes this is done by setting the `RABBITMQ_USE_LONGNAME` [environment variable](./configure#supported-environment-variables)
 to `true`.
 
 For CLI tools, either `RABBITMQ_USE_LONGNAME` must be set or the `--longnames` option
@@ -337,7 +337,7 @@ For instance, this can be seen in the [RabbitMQ on Kubernetes examples repositor
 On Windows, the cookie location depends on a few factors:
 
  * Whether the `HOMEDRIVE` and `HOMEPATH` environment variables are both set
- * Erlang version: prior to 20.2 (these are no longer supported by any [maintained release series of RabbitMQ](versions.html)) or 20.2 and later
+ * Erlang version: prior to 20.2 (these are no longer supported by any [maintained release series of RabbitMQ](./versions)) or 20.2 and later
 
 ##### Erlang 20.2 or later
 
@@ -354,7 +354,7 @@ location for users running commands like `rabbitmqctl.bat`.
 ### Overriding Using CLI and Runtime Command Line Arguments
 
 As an alternative, the option "`-setcookie <value>`" can be added
-to `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="./configure.html">environment variable value</a>
+to `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="./configure">environment variable value</a>
 to override the cookie value used by a RabbitMQ node:
 
 ```bash
@@ -373,7 +373,7 @@ Both are **the least secure options** and generally **not recommended**.
 
 #### CLI Tools
 
-Starting with [version `3.8.6`](./changelog.html), `rabbitmq-diagnostics` includes a command
+Starting with [version `3.8.6`](./changelog), `rabbitmq-diagnostics` includes a command
 that provides relevant information on the Erlang cookie file used by CLI tools:
 
 ```bash
@@ -407,27 +407,27 @@ RABBITMQ_ERLANG_COOKIE value length: 0
 
 #### Server Nodes
 
-When a node starts, it will [log](./logging.html) the home directory location of its effective user:
+When a node starts, it will [log](./logging) the home directory location of its effective user:
 
 ```
 node           : rabbit@cdbf4de5f22d
 home dir       : /var/lib/rabbitmq
 ```
 
-Unless any [server directories](./relocate.html) were overridden, that's the directory where
+Unless any [server directories](./relocate) were overridden, that's the directory where
 the cookie file will be looked for, and created by the node on first boot if it does not already exist.
 
 In the example above, the cookie file location will be `/var/lib/rabbitmq/.erlang.cookie`.
 
 #### Hostname Resolution
 
-Starting with [RabbitMQ `3.8.6`](./changelog.html), CLI tools provide two commands that help verify
+Starting with [RabbitMQ `3.8.6`](./changelog), CLI tools provide two commands that help verify
 that hostname resolution on a node works as expected. The commands are not meant to replace
 [`dig`](https://en.wikipedia.org/wiki/Dig_(command)) and other specialised DNS tools but rather
 provide a way to perform most basic checks while taking [Erlang runtime hostname resolver features](https://erlang.org/doc/apps/erts/inet_cfg.html)
 into account.
 
-The commands are covered in the [Networking guide](./networking.html#dns-verify-resolution).
+The commands are covered in the [Networking guide](./networking#dns-verify-resolution).
 
 ## <a id="cli-authentication-failures" class="anchor" href="#cli-authentication-failures">Authentication Failures</a>
 
@@ -489,7 +489,7 @@ so should CLI tools via the same environment variable or the `--longnames` comma
 
 #### Possible Reason 3: Inter-node Connections Require TLS
 
-If RabbitMQ is set up to [encrypt inter-node and CLI connections using TLS](https://www.rabbitmq.com/clustering-ssl.html),
+If RabbitMQ is set up to [encrypt inter-node and CLI connections using TLS](https://www.rabbitmq.com/./clustering-ssl),
 CLI tools also must use TLS and therefore require additional options.
 Non-TLS connections from other nodes and CLI tools will fail.
 
@@ -537,7 +537,7 @@ Just like with any network connection, CLI-to-node connections can fail due to
 
 and so on.
 
-[RabbitMQ Networking guide](networking.html) contains a section on troubleshooting of networking-related issues.
+[RabbitMQ Networking guide](./networking) contains a section on troubleshooting of networking-related issues.
 
 
 ## <a id="managing-nodes" class="anchor" href="#managing-nodes">Managing Nodes</a>
@@ -567,8 +567,8 @@ rabbitmq-diagnostics .bat status --node rabbit@target-hostname.local
 
 How RabbitMQ nodes are started depends on the package type used:
 
- * When using Debian and RPM packages on modern Linux distributions, nodes are [managed using `systemd`](./install-debian.html#managing-service)
- * When using Windows installer, nodes are usually [managed by the Windows service manager](./install-windows.html#managing)
+ * When using Debian and RPM packages on modern Linux distributions, nodes are [managed using `systemd`](./install-debian#managing-service)
+ * When using Windows installer, nodes are usually [managed by the Windows service manager](./install-windows#managing)
  * When using Homebrew formula, nodes are managed using `brew services`
  * When using generic UNIX build or binary Windows build, nodes are started using `sbin/rabbitmq-server` and `sbin/rabbitmq-server.bat`, respectively, in the installation root
 
@@ -598,9 +598,9 @@ rabbitmqctl.bat shutdown --node rabbit@target-hostname.local
 
 ## <a id="http-api-cli" class="anchor" href="#http-api-cli">rabbitmqadmin</a>
 
-[rabbitmqadmin](./management-cli.html) is a command line tool that's built on top of [RabbitMQ HTTP API](./management.html).
+[rabbitmqadmin](./management-cli) is a command line tool that's built on top of [RabbitMQ HTTP API](./management).
 It is not a replacement for `rabbitmqctl` and provides access to a subset of most commonly
-performed operations provided by the [management UI](./management.html).
+performed operations provided by the [management UI](./management).
 
 The tool requires Python 2.7.9 or a more recent version.
 
@@ -611,10 +611,10 @@ downloaded separately from a running node or [GitHub](https://github.com/rabbitm
 ## <a id="cli-and-clustering" class="anchor" href="#cli-and-clustering">"Node-local" and "Clusterwide" Commands</a>
 
 Client connections, channels and queues will be distributed across cluster nodes.
-Operators need to be able to inspect and [monitor](./monitoring.html) such resources
+Operators need to be able to inspect and [monitor](./monitoring) such resources
 across all cluster nodes.
 
-CLI tools such as [rabbitmqctl](./rabbitmqctl.8.html) and
+CLI tools such as [rabbitmqctl](./man/rabbitmqctl.8) and
 `rabbitmq-diagnostics` provide commands that inspect resources and
 cluster-wide state. Some commands focus on the state of a single node
 (e.g. `rabbitmq-diagnostics environment` and `rabbitmq-diagnostics

@@ -49,7 +49,7 @@ There is no guarantee of response or specific turnaround time.
 ### GitHub
 
 Most of RabbitMQ development happens in the open under the [rabbitmq GitHub organization](https://github.com/rabbitmq).
-See [our GitHub guide](./github.html) for an overview of our development process
+See [our GitHub guide](./github) for an overview of our development process
 and our [Contributor repository](https://github.com/rabbitmq/contribute/) for practical guides,
 for instance, on how to use Bazel for RabbitMQ development.
 
@@ -96,7 +96,7 @@ there is information about offerings, subscription fees, and a contact form [on 
 Alternatively, if you already have a support contract established with VMware,
 please see the [VMware support page](https://tanzu.vmware.com/support).
 For questions about booking training or consulting,
-please contact the [appropriate vendor](https://www.rabbitmq.com/services.html).
+please contact the [appropriate vendor](https://www.rabbitmq.com/./services).
 
 If you have questions about how to use RabbitMQ and do not want to
 purchase a support contract or learn about commercial offerings, please use the

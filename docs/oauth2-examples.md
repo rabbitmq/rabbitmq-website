@@ -4,7 +4,7 @@
 
 This tutorial-style guide has two primary goals:
 
-1. Explore how applications and end users can [authenticate](./access-control.html) with RabbitMQ server using OAuth 2.0 protocol rather than
+1. Explore how applications and end users can [authenticate](./access-control) with RabbitMQ server using OAuth 2.0 protocol rather than
    the traditional username/password pairs or x.509 certificates.
 2. Explore what it takes to set up RabbitMQ Server with OAuth 2.0 authentication mechanism.
    Additionally it explains how to stand up ([UAA](https://github.com/cloudfoundry/uaa)) as an OAuth 2.0 Authorization Server and all the operations to create OAuth clients, users and obtain their tokens.
@@ -37,10 +37,10 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
     - [Preferred username claims](#preferred-username-claims)
 	- [Use Rich Authorization Requests tokens](#use-rar-tokens)
 * Use different OAuth 2.0 servers
-	- [KeyCloak](oauth2-examples-keycloak.html)
-	- [https://auth0.com/](oauth2-examples-oauth0.html)
-	- [Azure Active Directory](oauth2-examples-azure.html)  
-    - [OAuth2 Proxy](./oauth2-examples-proxy.html)
+	- [KeyCloak](./oauth2-examples-keycloak)
+	- [https://auth0.com/](./oauth2-examples-oauth0)
+	- [Azure Active Directory](./oauth2-examples-azure)  
+    - [OAuth2 Proxy](./oauth2-examples-proxy)
 * [Understanding the environment](#understand-the-environment)
 	- [RabbitMQ server](#rabbitmq-server)
 	- [UAA server](#uaa-server)
@@ -72,9 +72,9 @@ will see how to set up UAA and RabbitMQ. If you are new to OAuth 2.0, it is a go
 and you want to learn how to configure RabbitMQ to talk to one of OAuth 2.0 server tested on this tutorial, you can jump
 straight to them. They are:
 
-- [KeyCloak](./oauth2-examples-keycloak.html)
-- [https://auth0.com/](./oauth2-examples-oauth0.html)
-- [Azure Active Directory](./oauth2-examples-azure.html)
+- [KeyCloak](./oauth2-examples-keycloak)
+- [https://auth0.com/](./oauth2-examples-oauth0)
+- [Azure Active Directory](./oauth2-examples-azure)
 - [UAA](#uaa-asymmetrical-signing-keys)
 
 
@@ -158,7 +158,7 @@ The following scenarios are examples of Idp-initiated logon:
 * RabbitMQ is behind a web portal which conveniently allow users to navigate directly to RabbitMQ fully authenticated.
 * There is an OAuth2 proxy in between users and RabbitMQ which intercepts their requests and forwards them to RabbitMQ inserting the token into the HTTP `Authorization` header.  
 
-The latter scenario is demonstrated [here](./oauth2-examples-proxy.html). The former scenario is covered in the following section.
+The latter scenario is demonstrated [here](./oauth2-examples-proxy). The former scenario is covered in the following section.
 
 #### Idp-initiated Logon using the Login Endpoint
 
@@ -340,7 +340,7 @@ It subscribes to a queue called `q-test-queue`
 
 This scenario explores the use case where you authenticate with a JWT token to RabbitMQ MQTT port.
 
-Note: in this example, RabbitMQ is already configured with the [`rabbitmq_mqtt` plugin](./mqtt.html).
+Note: in this example, RabbitMQ is already configured with the [`rabbitmq_mqtt` plugin](./mqtt).
 
 This is no different than using AMQP or JMS protocols, all that matters is to pass an empty username and a JWT token as password.
 However, **what it is really different** is how you encode the permissions. In this use case you are going to proceed as you did it in the previous use case where you handcrafted the JWT token rather than requesting it to UAA. Here is the the scopes required to publish
@@ -735,7 +735,7 @@ docker logs producer_with_roles -f
 ```
 
 
-For more information on this new capability check out the [OAuth 2 guide](./oauth2.html#rich-authorization-request).
+For more information on this new capability check out the [OAuth 2 guide](./oauth2#rich-authorization-request).
 
 
 ## <a id="understanding-environment" class="anchor" href="#understanding-environment">Understand the Environment</a>
@@ -744,10 +744,10 @@ For more information on this new capability check out the [OAuth 2 guide](./oaut
 
 You need to launch RabbitMQ with the following prerequisites:
 
-* Like with all other [plugins](./plugins.html), the OAuth 2.0 plugin must be enabled.
+* Like with all other [plugins](./plugins), the OAuth 2.0 plugin must be enabled.
 * Plugin is configured with the [same signing key as used by UAA](#about-signing-key-required-to-configure-rabbitmq)
-* The node is configured to use OAuth 2.0 [authN and authZ backend](./access-control.html)
-* [Management plugin](./management.html) is configured to use UAA
+* The node is configured to use OAuth 2.0 [authN and authZ backend](./access-control)
+* [Management plugin](./management) is configured to use UAA
 
 The following configuration snippets demonstrate these steps:
 
@@ -862,7 +862,7 @@ where:
 - `{routing_key_pattern}` is an optional wildcard pattern for routing key in topic authorization
 
 For more information, see [how scopes are translated to RabbitMQ permissions](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2#scope-to-permission-translation)
-and [RabbitMQ permissions](https://www.rabbitmq.com/access-control.html#permissions) documentation.
+and [RabbitMQ permissions](https://www.rabbitmq.com/./access-control#permissions) documentation.
 
 Sample *scope*(s):
 

@@ -43,7 +43,7 @@ limitations under the License.
   </div>
 </div-->
 
-In the [first tutorial](tutorial-one-spring-amqp.html) we
+In the [first tutorial](./tutorial-one-spring-amqp) we
 wrote programs to send and receive messages from a named queue. In this
 one we'll create a _Work Queue_ that will be used to distribute
 time-consuming tasks among multiple workers.
@@ -70,7 +70,7 @@ in the string as its complexity; every dot will account for one second
 of "work".  For example, a fake task described by `Hello...`
 will take three seconds.
 
-Please see the setup in [first tutorial](tutorial-one-spring-amqp.html)
+Please see the setup in [first tutorial](./tutorial-one-spring-amqp)
 if you have not setup the project. We will follow the same pattern
 as in the first tutorial: 1) create a package `tut2` and create
 `Tut2Config`, `Tut2Receiver`, and `Tut2Sender` classes. Start by creating a new
@@ -263,7 +263,7 @@ instance 2 [x] Received 'Hello..5'
 
 Doing a task can take a few seconds. You may wonder what happens if
 one of the consumers starts a long task and dies with it only partly done.
-Spring AMQP by default takes a conservative approach to [message acknowledgement](../confirms.html).
+Spring AMQP by default takes a conservative approach to [message acknowledgement](../confirms).
 If the listener throws an exception the container
 calls:
 
@@ -288,7 +288,7 @@ channel.basicAck()
 
 Acknowledgement must be sent on the same channel the delivery
 was received on. Attempts to acknowledge using a different channel
-will result in a channel-level protocol exception. See the [doc guide on confirmations](../confirms.html) to learn more.
+will result in a channel-level protocol exception. See the [doc guide on confirmations](../confirms) to learn more.
 Spring AMQP generally takes care of this but when used in combination with code
 that uses RabbitMQ Java client directly, this is something to keep in mind.
 
@@ -335,7 +335,7 @@ is a good place to modify the message payload or headers.
 > message -- it may be just saved to cache and not really written to the
 > disk. The persistence guarantees aren't strong, but it's more than enough
 > for our simple task queue. If you need a stronger guarantee then you can use
-> [publisher confirms](../confirms.html).
+> [publisher confirms](../confirms).
 
 ### Fair dispatch vs Round-robin dispatching
 
@@ -390,7 +390,7 @@ set to 1 the behavior would be the round robin delivery as described above.
 > limit consumer throughput.
 > A couple of cases where this configuration is applicable can be found in [Spring AMQP Consumer Documentation](https://docs.spring.io/spring-amqp/reference/#async-consumer)
 >
-> For more details on prefetch, please refer to the [Consumer Acknowledgements guide](../confirms.html#channel-qos-prefetch).
+> For more details on prefetch, please refer to the [Consumer Acknowledgements guide](../confirms#channel-qos-prefetch).
 
 However, with the `prefetchCount` set to 250 by default,
 this tells RabbitMQ not to give more than 250 messages to a worker
@@ -417,5 +417,5 @@ For understanding the underlying foundation for Spring AMQP you can find the
 [rabbitmq-java-client](https://rabbitmq.github.io/rabbitmq-java-client/api/current/).
 
 
-Now we can move on to [tutorial 3](tutorial-three-spring-amqp.html) and learn how
+Now we can move on to [tutorial 3](./tutorial-three-spring-amqp) and learn how
 to deliver the same message to many consumers.

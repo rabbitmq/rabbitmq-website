@@ -20,17 +20,17 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 The RabbitMQ management plugin provides an HTTP-based API
-for management and [monitoring](monitoring.html) of RabbitMQ nodes and clusters, along
-with a browser-based UI and a command line tool, [rabbitmqadmin](management-cli.html).
+for management and [monitoring](./monitoring) of RabbitMQ nodes and clusters, along
+with a browser-based UI and a command line tool, [rabbitmqadmin](./management-cli).
 
 It periodically collects and aggregates data about many aspects of the system. Those metrics
-are exposed to human operators in the UI. The API it provides can be used by [monitoring systems](monitoring.html),
-however, [Prometheus](prometheus.html) is the **recommended option** for long term storage,
+are exposed to human operators in the UI. The API it provides can be used by [monitoring systems](./monitoring),
+however, [Prometheus](./prometheus) is the **recommended option** for long term storage,
 alerting, visualisation, chart analysis and so on.
 
 The plugin also provides tools for [analysing memory usage](#memory) of the node,
 and other features related to monitoring, metrics, user, permission, and topology management.
-Previously it also provided [definition export and import functionality](definitions.html). Those are now
+Previously it also provided [definition export and import functionality](./definitions). Those are now
 core RabbitMQ features and do not require or rely on this plugin.
 
 This guide covers:
@@ -40,7 +40,7 @@ This guide covers:
  * [Reverse proxy (Nginx or Apache)](#http-api-proxy) in front of the HTTP API
  * How to [enable HTTPS for management UI](#single-listener-https) and its underlying API
  * How this plugin [operates in multi-node clusters](#clustering)
- * How to [disable metric collection](#disable-stats) to use [Prometheus](prometheus.html) exclusively for monitoring
+ * How to [disable metric collection](#disable-stats) to use [Prometheus](./prometheus) exclusively for monitoring
  * [OAuth 2](#oauth2-authentication) support
  * [Strict transport security](#hsts), [Content security policy](#csp), [cross-origin resource sharing](#cors), and [other security-related header](#other-security-headers) control
  * [Statistics collection interval](#statistics-interval)
@@ -59,7 +59,7 @@ use to extend the UI.
 
 ## <a id="external-monitoring" class="anchor" href="#external-monitoring">Management UI and External Monitoring Systems</a>
 
-The management UI and its [HTTP API](#http-api) is a built-in [monitoring option](./monitoring.html) for RabbitMQ.
+The management UI and its [HTTP API](#http-api) is a built-in [monitoring option](./monitoring) for RabbitMQ.
 This is a convenient option for development and in environments where
 external monitoring is difficult or impossible to introduce.
 
@@ -69,31 +69,31 @@ However, the management UI has a number of limitations:
  * A certain amount of overhead
  * It only stores recent data (think hours, not days or months)
  * It has a basic user interface
- * Its design [emphasizes ease of use over best possible availability](./management.html#clustering).
- * Management UI access is controlled via the [RabbitMQ permission tags system](./access-control.html)
+ * Its design [emphasizes ease of use over best possible availability](./management#clustering).
+ * Management UI access is controlled via the [RabbitMQ permission tags system](./access-control)
    (or a convention on JWT token scopes)
 
-Long term metric storage and visualisation services such as [Prometheus and Grafana](./prometheus.html)
+Long term metric storage and visualisation services such as [Prometheus and Grafana](./prometheus)
 or the [ELK stack](https://www.elastic.co/what-is/elk-stack) are more suitable options for production systems. They offer:
 
  * Decoupling of the monitoring system from the system being monitored
  * Lower overhead
  * Long term metric storage
- * Access to additional related metrics such as those of the [Erlang runtime](./runtime.html) ones
+ * Access to additional related metrics such as those of the [Erlang runtime](./runtime) ones
  * More powerful and customizable user interface
  * Ease of metric data sharing: both metric state and dashboards
  * Metric access permissions are not specific to RabbitMQ
  * Collection and aggregation of node-specific metrics which is more resilient to individual node failures
 
-RabbitMQ provides first class support for [Prometheus and Grafana](./prometheus.html) as of 3.8.
+RabbitMQ provides first class support for [Prometheus and Grafana](./prometheus) as of 3.8.
 It is recommended for production environments.
 
 
 ## <a id="getting-started" class="anchor" href="#getting-started">Getting Started</a>
 
 The management plugin is included in the RabbitMQ
-distribution. Like any other [plugin](./plugins.html), it must
-be enabled before it can be used. That's done using [rabbitmq-plugins](man/rabbitmq-plugins.8.html):
+distribution. Like any other [plugin](./plugins), it must
+be enabled before it can be used. That's done using [rabbitmq-plugins](./man/rabbitmq-plugins.8):
 
 ```bash
 rabbitmq-plugins enable rabbitmq_management
@@ -102,7 +102,7 @@ rabbitmq-plugins enable rabbitmq_management
 Node restart is not required after plugin activation.
 
 During automated deployments, the plugin can be enabled via
-[enabled plugin file](./plugins.html#enabled-plugins-file).
+[enabled plugin file](./plugins#enabled-plugins-file).
 
 
 ## <a id="usage" class="anchor" href="#usage">Usage</a>
@@ -116,7 +116,7 @@ it can be accessed by users with [sufficient privileges](#permissions) at either
 or `http://localhost:15672/` (provided that `localhost` resolves correctly).
 
 Note that the UI and HTTP API port — typically 15672 — does not support AMQP 0-9-1, AMQP 1.0, STOMP or MQTT connections.
-[Separate ports](./networking.html#ports) should be used by those clients.
+[Separate ports](./networking#ports) should be used by those clients.
 
 Users must be [granted permissions](#permissions) for management UI access.
 
@@ -127,27 +127,27 @@ Some of the features include:
 
 <ul>
   <li>
-    Declare, list and delete exchanges, <a href="./queues.html">queues</a>, bindings,
-    users, <a href="./vhosts.html">virtual hosts</a> and <a href="./access-control.html">user permissions</a>.
+    Declare, list and delete exchanges, <a href="./queues">queues</a>, bindings,
+    users, <a href="./vhosts">virtual hosts</a> and <a href="./access-control">user permissions</a>.
   </li>
   <li>
     Monitor queue length, message rates (globally and per queue, exchange or channel), resource usage of queue,
     node GC activity, data rates of client connections, and more.
   </li>
   <li>
-    Monitor node resource use: <a href="./networking.html#open-file-handle-limit">sockets and file descriptors</a>,
-    <a href="./memory-use.html">memory usage breakdown</a>, available disk space and bandwidth usage on inter-node communication
+    Monitor node resource use: <a href="./networking#open-file-handle-limit">sockets and file descriptors</a>,
+    <a href="./memory-use">memory usage breakdown</a>, available disk space and bandwidth usage on inter-node communication
     links.
   </li>
   <li>
     Manage users (provided administrative permissions of the current user).
   </li>
   <li>
-    Manage <a href="./parameters.html">policies and runtime parameters</a> (provided sufficient permissions of the current user).
+    Manage <a href="./parameters">policies and runtime parameters</a> (provided sufficient permissions of the current user).
   </li>
   <li>
-    <a href="./backup.html">Export schema</a> (vhosts, users, permissions, queues, exchanges, bindings, parameters,
-    policies) and <a href="./definitions.html">import it on node start</a>. This can be used for <a href="./backup.html">recovery purposes</a>
+    <a href="./backup">Export schema</a> (vhosts, users, permissions, queues, exchanges, bindings, parameters,
+    policies) and <a href="./definitions">import it on node start</a>. This can be used for <a href="./backup">recovery purposes</a>
     or setup automation of new nodes and clusters.
   </li>
   <li>
@@ -174,12 +174,12 @@ This is covered in the [following section](#permissions).
 
 ## <a id="permissions" class="anchor" href="#permissions">Access and Permissions</a>
 
-The management UI requires [authentication and authorisation](access-control.html), much like RabbitMQ requires
+The management UI requires [authentication and authorisation](./access-control), much like RabbitMQ requires
 it from connecting clients. In addition to successful authentication, management UI access is controlled by user tags.
-The tags are managed using [rabbitmqctl](./rabbitmqctl.8.html#set_user_tags).
+The tags are managed using [rabbitmqctl](./man/rabbitmqctl.8#set_user_tags).
 Newly created users do not have any tags set on them by default.
 
-See [Production Checklist](./production-checklist.html) for general recommendations on user and credential
+See [Production Checklist](./production-checklist) for general recommendations on user and credential
 management.
 
 <table>
@@ -255,7 +255,7 @@ Note that since "administrator" does everything "monitoring"
 does, and "monitoring" does everything "management" does,
 each user often needs a maximum of one tag.
 
-Normal RabbitMQ [permissions to resources](access-control.html) still apply to monitors and
+Normal RabbitMQ [permissions to resources](./access-control) still apply to monitors and
 administrators; just because a user is a monitor or
 administrator does not grant them full access to exchanges,
 queues and bindings through the management
@@ -265,11 +265,11 @@ All users can only list objects within the virtual
 hosts they have any permissions for.
 
 If access to management UI is impossible to due the lack of users
-with sufficient permissions or forgotten/incorrect permissions, [CLI tools](cli.html) must
-be used to manage the users and their credentials. [rabbitmqctl add_user](man/rabbitmqctl.8.html#)
-should be used to create a user, [rabbitmqctl set_permissions](man/rabbitmqctl.8.html#) to grant the
+with sufficient permissions or forgotten/incorrect permissions, [CLI tools](./cli) must
+be used to manage the users and their credentials. [rabbitmqctl add_user](./man/rabbitmqctl.8#)
+should be used to create a user, [rabbitmqctl set_permissions](./man/rabbitmqctl.8#) to grant the
 user the desired permissions and finally, [rabbitmqctl
-set_user_tags](./man/rabbitmqctl.8.html#set_user_tags) should be used to give the user management UI access permissions.
+set_user_tags](./man/rabbitmqctl.8#set_user_tags) should be used to give the user management UI access permissions.
 
 ### <a id="cli-examples" class="anchor" href="#cli-examples">Command Line Examples</a>
 
@@ -384,7 +384,7 @@ RabbitMQ follows the [OpenID Connect RP-Initiated Logout 1.0 ](https://openid.ne
 specification to implement the logout workflow. This means that the logout workflow is triggered from the Management UI when the user clicks on the **Logout** button. Logging out from RabbitMQ management UI not only logs the user out from the management UI itself but also from the Identity Provider.
 
 There are other two additional scenarios which can trigger a logout. One scenario occurs when the OAuth Token expires. Although RabbitMQ renews the token in the background before it expires, if the token expires, the user is logged out.
-The second scenario is when the management UI session exceeds the maximum allowed time configured on the [Login Session Timeout](https://www.rabbitmq.com/management.html#login-session-timeout).
+The second scenario is when the management UI session exceeds the maximum allowed time configured on the [Login Session Timeout](https://www.rabbitmq.com/./management#login-session-timeout).
 
 ### Special attention to CSP header `connect-src`
 
@@ -422,7 +422,7 @@ location for more information on the API. For convenience the same API reference
 
 ### <a id="http-api-monitoring" class="anchor" href="#http-api-monitoring">HTTP API and Monitoring</a>
 
-The API is intended to be used for basic observability tasks. [Prometheus and Grafana](prometheus.html)
+The API is intended to be used for basic observability tasks. [Prometheus and Grafana](./prometheus)
 are recommended for long term metric storage, alerting, anomaly detection, and so on.
 
 Any cluster node with `rabbitmq-management` plugin enabled can be
@@ -436,12 +436,12 @@ of the cluster.
 
 ### <a id="http-api-clients" class="anchor" href="#http-api-clients">HTTP API Clients and Tooling</a>
 
-[rabbitmqadmin](management-cli.html) is a Python command  line tool
+[rabbitmqadmin](./management-cli) is a Python command  line tool
 that interacts with the HTTP API. It can be downloaded from any RabbitMQ node that
 has the management plugin enabled at `http://<i>{node-hostname}</i>:15672/cli/`.
 
 For HTTP API clients in several languages,
-see [Developer Tools](./devtools.html).
+see [Developer Tools](./devtools).
 
 Some API endpoints return a lot of information. The volume can be reduced
 by filtering what columns are returned by `HTTP GET` requests. See
@@ -506,7 +506,7 @@ ProxyPass / http://rabbitmq-host:15672/ nocanon
 
 There are several configuration options which affect the
 management plugin. These are managed through the main
-RabbitMQ [configuration file](configure.html#configuration-files).
+RabbitMQ [configuration file](./configure#configuration-files).
 
 It is possible to configure HTTP API and management UI to
 use a different port or network interface, enable HTTPS
@@ -524,7 +524,7 @@ management.tcp.port = 15672
 ```
 
 It is possible to configure what interface the API endpoint will use, similarly
-to [messaging protocol listeners](./networking.html#interfaces), using
+to [messaging protocol listeners](./networking#interfaces), using
 the `management.tcp.ip` key:
 
 ```ini
@@ -540,11 +540,11 @@ rabbitmq-diagnostics -s listeners
 # => Interface: [::], port: 15671, protocol: https, purpose: HTTP API over TLS (HTTPS)
 ```
 
-or [tools such as `lsof`, `ss` or `netstat`](troubleshooting-networking.html#ports).
+or [tools such as `lsof`, `ss` or `netstat`](./troubleshooting-networking#ports).
 
 ### <a id="single-listener-https" class="anchor" href="#single-listener-https">HTTPS</a>
 
-The management plugin can be configured to use HTTPS. See the guide [on TLS](ssl.html)
+The management plugin can be configured to use HTTPS. See the guide [on TLS](./ssl)
 to learn more about certificate authorities, certificates and private key files.
 
 ```ini
@@ -556,7 +556,7 @@ management.ssl.keyfile    = /path/to/server_key.pem
 # management.ssl.password   = bunnies
 ```
 
-More [TLS options](ssl.html) can be configured for the HTTPS listener.
+More [TLS options](./ssl) can be configured for the HTTPS listener.
 
 ```ini
 management.ssl.port       = 15671
@@ -589,12 +589,12 @@ management.ssl.ciphers.9 = DHE-RSA-AES256-GCM-SHA384
 ## but it can be enabled if needed. Clients then will have to be configured with
 ## a certificate and private key pair.
 ##
-## See https://www.rabbitmq.com/ssl.html#peer-verification for details.
+## See https://www.rabbitmq.com/./ssl#peer-verification for details.
 # management.ssl.verify = verify_peer
 # management.ssl.fail_if_no_peer_cert = true
 ```
 
-The above example in the [classic config format](./configure.html#erlang-term-config-file):
+The above example in the [classic config format](./configure#erlang-term-config-file):
 
 ```erlang
 [
@@ -646,7 +646,7 @@ management.ssl.keyfile    = /path/to/server_key.pem
 ```
 
 The same configuration keys can be used to configure a single listener (just HTTP or HTTPS)
-and match those used by the [Web STOMP](./web-stomp.html) and [Web MQTT](./web-mqtt.html).
+and match those used by the [Web STOMP](./web-stomp) and [Web MQTT](./web-mqtt).
 
 ### <a id="advanced-options" class="anchor" href="#advanced-options">Advanced HTTP Options</a>
 
@@ -667,7 +667,7 @@ management.tcp.compress = true
 
 Some HTTP API endpoints respond quickly, others may need to return or stream
 a sizeable data set to the client (e.g. many thousands of connections) or perform
-an operation that takes time proportionally to the input (e.g. [import a large definitions file](definitions.html)).
+an operation that takes time proportionally to the input (e.g. [import a large definitions file](./definitions)).
 In those cases the amount of time it takes to process the request can exceed certain
 timeouts in the Web server as well as HTTP client.
 
@@ -738,7 +738,7 @@ plugin are calculated over this period.
 
 Increasing this value will reduce CPU resource consumption of
 stats collection in environments with a large number of stats emitting
-entities such as [connections](connections.html), [channels](channels.html), [queues](queues.html).
+entities such as [connections](./connections), [channels](./channels), [queues](./queues).
 
 In order to do so, set the value of the `collect_statistics_interval` configuration key
 to the desired interval in milliseconds and restart the node:
@@ -814,10 +814,10 @@ at least one retention setting (period).
 
 ### <a id="disable-stats" class="anchor" href="#disable-stats">Disable Statistics and Metric Collection</a>
 
-It is possible to disable the statistics in the UI and [HTTP API](#http-api) in order for these to be used only for operations. This can be a useful feature if external monitoring solutions such as [Prometheus and Grafana](./prometheus.html) are being used. If statistics are disabled in any of the following ways, all charts and detailed statistics will be hidden in the UI.
+It is possible to disable the statistics in the UI and [HTTP API](#http-api) in order for these to be used only for operations. This can be a useful feature if external monitoring solutions such as [Prometheus and Grafana](./prometheus) are being used. If statistics are disabled in any of the following ways, all charts and detailed statistics will be hidden in the UI.
 
 In order to completely disable the internal metrics collection, the `disable_metrics_collector` flag must be set in the `rabbitmq_management_agent` plugin.
-The [Prometheus plugin](./prometheus.html) will still work even if collection is disabled.
+The [Prometheus plugin](./prometheus) will still work even if collection is disabled.
 
 ```ini
 management_agent.disable_metrics_collector = true
@@ -825,7 +825,7 @@ management_agent.disable_metrics_collector = true
 
 Disabling the metrics collection is the preferred option if it is being used with an external monitoring system, as this reduced the overhead that statistics collection and aggregation causes in the broker. If the statistics are only temporary disabled, or are not required in some [HTTP API](#http-api) queries, the aggregation of the stats can be disabled in the `rabbitmq_management` plugin. The disable flag can be also passed as part of the query string in the URI.
 
-As at the moment the [Prometheus plugin](./prometheus.html) cannot report individual queue totals, there is a configuration option that allows to list `messages`, `messages_ready` and `messages_unacknowledged` in the `queues` endpoint.
+As at the moment the [Prometheus plugin](./prometheus) cannot report individual queue totals, there is a configuration option that allows to list `messages`, `messages_ready` and `messages_unacknowledged` in the `queues` endpoint.
 
 Below is a configuration example that disables the statistics but returns individual queue totals in the `queues` page:
 
@@ -1014,10 +1014,10 @@ management.sample_retention_policies.detailed.10 = 5
 Nodes and clusters store information that can be thought of schema, metadata or topology.
 Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into this category.
 
-Definitions can be exported and imported via the [`rabbitmqctl`](./cli.html) or the HTTP API
+Definitions can be exported and imported via the [`rabbitmqctl`](./cli) or the HTTP API
 provided by this plugin, including `rabbitmqadmin`.
 
-Please refer to the [Definitions guide](./definitions.html).
+Please refer to the [Definitions guide](./definitions).
 
 
 ## <a id="clustering" class="anchor" href="#clustering">Metrics Collection and HTTP API in Clusters</a>
@@ -1044,11 +1044,11 @@ requests, which means it can be affected by network partitions, network slowdown
 and unresponsive nodes.
 
 Timeouts for inter-node aggregation queries are controlled via the
-[net tick mechanism](nettick.html). Lowering the value may help reduce
+[net tick mechanism](./nettick). Lowering the value may help reduce
 the delay introduced by nodes that have recently become unresponsive.
 Values lower than 10s **can produce false positives and must be avoided**.
 
-In contrast to the HTTP API, the [Prometheus monitoring endpoint](./prometheus.html) only serves
+In contrast to the HTTP API, the [Prometheus monitoring endpoint](./prometheus) only serves
 node-local data and is generally not affected by failures or unavailability of other nodes
 in the cluster.
 
@@ -1101,7 +1101,7 @@ rabbitmqctl eval 'rabbit_mgmt_storage:reset_all().'
 ## <a id="memory" class="anchor" href="#memory">Memory Usage Analysis and Memory Management</a>
 
 Management UI can be used to inspect node's memory use, including displaying
-a per-category breakdown. See the [Memory Use Analysis](memory-use.html) guide
+a per-category breakdown. See the [Memory Use Analysis](./memory-use) guide
 for details.
 
 Management database builds around periodically emitted stats,
@@ -1127,7 +1127,7 @@ collect_statistics_interval = 30000
 Increasing the interval value to 30-60s will reduce CPU footprint and peak memory
 consumption for systems with large amounts of connections, channels and queues.
 This comes with a downside: metrics of said entities will refresh every 30-60 seconds.
-This can be perfectly reasonable in an [externally monitored](./monitoring.html#monitoring-frequency) production system
+This can be perfectly reasonable in an [externally monitored](./monitoring#monitoring-frequency) production system
 but will make management UI less convenient to use for operators.
 
 The memory usage of the channel and stats collector processes can be limited
@@ -1153,7 +1153,7 @@ all nodes in the cluster.
 It is possible to publish and consume messages using the [HTTP API](#http-api).
 This way of messaging is discouraged: prefer one of the binary messaging protocols supported
 by RabbitMQ. Publishing and consuming that way will be significantly more efficient and will
-provide access to various messaging protocol features such as [confirmations](./confirms.html).
+provide access to various messaging protocol features such as [confirmations](./confirms).
 
 Publishing over HTTP API can be useful in environments where
-[long lived messaging protocol connections](connections.html) is not an option.
+[long lived messaging protocol connections](./connections) is not an option.

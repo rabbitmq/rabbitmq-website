@@ -20,9 +20,9 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guide focuses on statically configured shovels. It assumes
-familiarity with the key concepts behind the [Shovel plugin](shovel.html).
+familiarity with the key concepts behind the [Shovel plugin](./shovel).
 
-Unlike with [dynamic shovels](./shovel-dynamic.html), static shovels are configured using the [advanced configuration file](configure.html).
+Unlike with [dynamic shovels](./shovel-dynamic), static shovels are configured using the [advanced configuration file](./configure).
 They are started on node boot and are primarily useful for permanently
 running workloads. Any changes to static shovel configuration would require
 a node restart, which makes them highly inflexible.
@@ -35,7 +35,7 @@ easier compared to a static shovel definition (which uses Erlang terms).
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
 The configuration for the Shovel plugin must be defined in the
-[advanced configuration file](configure.html#advanced-config-file).
+[advanced configuration file](./configure#advanced-config-file).
 
 It consists of a single `shovels` clause that lists the shovels that should
 be started on node boot:
@@ -96,7 +96,7 @@ for AMQP 0-9-1 and AMQP 1.0, respectively:
 {protocol, amqp091}
 ```
 
-`uris` is a list of <a href="./uri-spec.html">AMQP connection URIs</a>:
+`uris` is a list of <a href="./uri-spec">AMQP connection URIs</a>:
 
 ```erlang
 {uris, [
@@ -107,7 +107,7 @@ for AMQP 0-9-1 and AMQP 1.0, respectively:
 
 The URI syntax is extended to include a query part to
 permit the configuration of additional connection parameters.
-See the [query parameter reference](./uri-query-parameters.html) which
+See the [query parameter reference](./uri-query-parameters) which
 are available to static shovels, such as TLS certificate and private key.
 
 ### General Source Keys
@@ -144,7 +144,7 @@ They are described in the table below.
       <td>ack-mode</td>
       <td>
         <p>
-          Determines how the shovel should <a href="./confirms.html">acknowledge</a> consumed messages.
+          Determines how the shovel should <a href="./confirms">acknowledge</a> consumed messages.
           If set to <code>on-confirm</code> (the default), messages are
           acknowledged to the source broker after they have been confirmed
           by the destination. This handles network errors and broker
@@ -193,7 +193,7 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
   {declarations, <em>declaration_list</em>}
 ```
         <p>
-          The declarations follow method and property names used by the <a href="erlang-client-user-guide.html">RabbitMQ Erlang Client</a>.
+          The declarations follow method and property names used by the <a href="./erlang-client-user-guide">RabbitMQ Erlang Client</a>.
         </p>
         <p>
           A minimalistic declaration example:
@@ -340,7 +340,7 @@ for AMQP 0-9-1 and AMQP 1.0, respectively:
 {protocol, amqp091}
 ```
 
-`uris` is a list of <a href="./uri-spec.html">AMQP connection URIs</a>:
+`uris` is a list of <a href="./uri-spec">AMQP connection URIs</a>:
 
 ```erlang
 {uris, [
@@ -351,7 +351,7 @@ for AMQP 0-9-1 and AMQP 1.0, respectively:
 
 The URI syntax is extended to include a query part to
 permit the configuration of additional connection parameters.
-See the [query parameter reference](uri-query-parameters.html) which
+See the [query parameter reference](./uri-query-parameters) which
 are available to static shovels, such as TLS certificate and private key.
 
 ### General Destination Keys
@@ -401,7 +401,7 @@ are available to static shovels, such as TLS certificate and private key.
       <td>publish_properties</td>
       <td>
         <p>
-          This optional key controls <a href="./publishers.html#message-properties">message properties</a>
+          This optional key controls <a href="./publishers#message-properties">message properties</a>
           set or overridden by the shovel. It takes the following form
         </p>
 ```erlang
@@ -664,7 +664,7 @@ to the other source broker on failure, after a delay of 5
 seconds.
 
 When connected to the source it will declare a direct, fanout exchange
-called `"my_fanout"`, an anonymous queue with a [per-queue message ttl](./ttl.html#per-queue-message-ttl),
+called `"my_fanout"`, an anonymous queue with a [per-queue message ttl](./ttl#per-queue-message-ttl),
 and bind the queue to the exchange.
 
 When connected to the destination (the local broker) it will declare a
@@ -750,7 +750,7 @@ AMQP 1.0 destination might look like this:
                 % {uris, ["amqp://user:pass@host:5672?sasl=plain"]},
                 %% Note: this relies on default user credentials
                 %%       which has remote access restrictions, see
-                %%       https://www.rabbitmq.com/access-control.html to learn more
+                %%       https://www.rabbitmq.com/./access-control to learn more
                 {uris, ["amqp://host:5672"]},
                 {properties, [{user_id, &lt;&lt;"my-user"&gt;&gt;}]},
                 {application_properties, [{&lt;&lt;"my-prop"&gt;&gt;, &lt;&lt;"my-prop-value"&gt;&gt;}]},

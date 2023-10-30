@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-three-go.html) we built a
+In the [previous tutorial](./tutorial-three-go) we built a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
@@ -508,6 +508,6 @@ go run emit_log_direct.go error "Run. Run. Or it will explode."
 (Full source code for [(emit_log_direct.go source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/emit_log_direct.go)
 and [(receive_logs_direct.go source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/receive_logs_direct.go))
 
-Move on to [tutorial 5](tutorial-five-go.html) to find out how to listen
+Move on to [tutorial 5](./tutorial-five-go) to find out how to listen
 for messages based on a pattern.
 

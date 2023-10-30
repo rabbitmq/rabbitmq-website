@@ -39,7 +39,7 @@ running on [VMware Tanzu™ platform](https://tanzu.vmware.com/application-servi
 
 [Tanzu™ RabbitMQ® for Kubernetes](https://tanzu.vmware.com/content/blog/introducing-rabbitmq-for-kubernetes)
 simplifies the operational experience to make RabbitMQ available on a Kubernetes-based platform,
-based on the [RabbitMQ Operator for Kubernetes](https://www.rabbitmq.com/kubernetes/operator/operator-overview.html).
+based on the [RabbitMQ Operator for Kubernetes](https://www.rabbitmq.com/./kubernetes/operator/operator-overview).
 
 
 ## <a id="training" class="anchor" href="#training">Training</a>
@@ -65,4 +65,4 @@ tailored to suit your needs.
 ## Contacts for Commercial Support or Services
 
 For any questions about the commercial licensing, support, consulting training services listed in this guide,
-please reach out to the vendors or see the [contact us page](https://www.rabbitmq.com/contact.html#email).
+please reach out to the vendors or see the [contact us page](https://www.rabbitmq.com/./contact#email).

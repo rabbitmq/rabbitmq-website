@@ -41,7 +41,7 @@ asynchronously, and so in order to enable this behaviour,
 the client must present a `capabilities` table in
 its `client-properties` in which there is a key
 `consumer_cancel_notify` and a boolean value
-`true`. See the [section on capabilities](./connections.html#capabilities) for details.
+`true`. See the [section on capabilities](./connections#capabilities) for details.
 
 Our supported clients present this capability by default to
 the broker and thus will be sent the asynchronous

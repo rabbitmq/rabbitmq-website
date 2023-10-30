@@ -19,28 +19,28 @@ limitations under the License.
 
 ## Java
 
- * [Downloads and Installation](java-client.html)
- * [API Guide](api-guide.html)
+ * [Downloads and Installation](./java-client)
+ * [API Guide](./api-guide)
  * [API Reference](&dir-current-javadoc;)
- * [JMS Guide](jms-client.html)
+ * [JMS Guide](./jms-client)
  * [JMS Reference](https://github.com/rabbitmq/rabbitmq-jms-client/blob/main/jms-client-compliance.md)
- * [Command line tools](java-tools.html)
+ * [Command line tools](./java-tools)
 
 
 ## .NET/C# #
 
- * [Downloads and Installation](dotnet.html)
- * [API Guide](dotnet-api-guide.html)
+ * [Downloads and Installation](./dotnet)
+ * [API Guide](./dotnet-api-guide)
  * [API Reference](&url-dotnet-apidoc;/RabbitMQ.Client.html)
 
 ## Erlang
 
- * [Downloads and Installation](erlang-client.html)
- * [API Guide](erlang-client-user-guide.html)
+ * [Downloads and Installation](./erlang-client)
+ * [API Guide](./erlang-client-user-guide)
  * <a href="https://hexdocs.pm/amqp_client/" target="_blank" rel="noopener noreferrer">API Reference</a>
 
 ## Other Resources
 
-* [AMQP URI Parsing Spec](uri-spec.html)
+* [AMQP URI Parsing Spec](./uri-spec)
 
-See the [developer tools](devtools.html) for community-contributed code.
+See the [developer tools](./devtools) for community-contributed code.

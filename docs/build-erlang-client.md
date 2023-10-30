@@ -36,7 +36,7 @@ Additionally, you will need
 * The [Erlang](https://www.erlang.org/downloads)
   development and runtime tools. On a Debian-based
   system then you need the `erlang-nox`, `erlang-dev` and
-  `erlang-src` packages installed. See [Erlang Version Requirements guide](./which-erlang.html) to learn
+  `erlang-src` packages installed. See [Erlang Version Requirements guide](./which-erlang) to learn
   about the recommended ways of provisioning a recent supported version of Erlang.
  * A recent version of [Elixir](https://elixir-lang.org/)
  * a recent version of [GNU make](http://www.gnu.org/software/make/)

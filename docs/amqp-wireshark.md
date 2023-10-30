@@ -23,14 +23,14 @@ limitations under the License.
 contains enhanced support for AMQP traffic inspection and
 analysis. It can dissect (parse, visualise, filter) AMQP 0-9-1 and AMQP 1.0 traffic,
 including AMQP 0-9-1 <a href="amqp-0-9-1-errata.html#section_3">Errata</a>
-and RabbitMQ <a href="extensions.html">Extensions</a>.
+and RabbitMQ <a href="./extensions">Extensions</a>.
 
 Wireshark is based on the same foundation as [tcpdump](https://www.tcpdump.org/), `libpcap`, and can be used to inspect
 `pcap` traffic capture files taken in a server environment.
 
 Together, tcpdump and Wireshark provide a lot of information explaining what clients (applications) and RabbitMQ nodes
 do. This information can and should be used to derive insights into system behavior that is difficult
-to observe otherwise. These tools complement [monitoring systems](./monitoring.html) and allow operators and developers
+to observe otherwise. These tools complement [monitoring systems](./monitoring) and allow operators and developers
 troubleshoot a distributed system more efficiently.
 
 
@@ -64,7 +64,7 @@ Wireshark analyzes the AMQP 0-9-1 packet flow and displays
 additional information enclosed in square brackets:
 
  * Arguments of basic.publish include a publish sequence number, which is the sequence number used by
-   <a href="confirms.html">Publisher Confirms</a>
+   <a href="./confirms">Publisher Confirms</a>
  * Each acknowledged basic.publish or `basic.deliver` includes a reference to the frame that contains the
    corresponding `basic.ack` or `basic.nack` frame that acknowledged it (if any).
  * Similarly, each basic.ack contains a reference (possibly multiple) to frame(s) that is being confirmed by this Ack
@@ -74,9 +74,9 @@ additional information enclosed in square brackets:
 
 Wireshark automatically highlights AMQP 0-9-1 packets with:
 
- * [Connection errors](connections.html) (server-sent `connection.close` frames) and [channel errors](channels.html)
+ * [Connection errors](./connections) (server-sent `connection.close` frames) and [channel errors](./channels)
    (server-sent `channel.close` frames)
- * [Returned unroutable](./publishers.html) messages (`basic.return` frames)
+ * [Returned unroutable](./publishers) messages (`basic.return` frames)
 
 You may display summary of significant frames in a dedicated
 dialog. Go to Analyze > Expert Information and possibly apply
@@ -90,7 +90,7 @@ Wireshark enables you to inspect the AMQPS traffic, however you
 can decrypt only the traffic that have been encrypted using the
 RSA keys, excluding the RSA ephemeral and Diffie-Hellman
 Ephemeral (DHE/EDH) cipher suites. You should
-<a href="ssl.html#cipher-suites">set cipher suites</a> used
+<a href="./ssl#cipher-suites">set cipher suites</a> used
 by RabbitMQ and restrict the list to RSA only.
 
 In classic configuration format this would look something like this:

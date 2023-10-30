@@ -28,7 +28,7 @@ As with other Python tutorials, we will use the [Pika](https://pypi.python.org/p
 
 ### What This Tutorial Focuses On
 
-In the [previous tutorial](tutorial-two-python.html) we created a work
+In the [previous tutorial](./tutorial-two-python) we created a work
 queue. The assumption behind a work queue is that each task is
 delivered to exactly one worker. In this part we'll do something
 completely different -- we'll deliver a message to multiple
@@ -180,7 +180,7 @@ result = channel.queue_declare(queue='', exclusive=True)
 ```
 
 You can learn more about the `exclusive` flag and other queue
-properties in the [guide on queues](../queues.html).
+properties in the [guide on queues](../queues).
 
 Bindings
 --------
@@ -357,4 +357,4 @@ exchange `logs` goes to two queues with server-assigned names. And
 that's exactly what we intended.
 
 To find out how to listen for a subset of messages, let's move on to
-[tutorial 4](tutorial-four-python.html)
+[tutorial 4](./tutorial-four-python)

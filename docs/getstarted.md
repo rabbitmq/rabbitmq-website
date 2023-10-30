@@ -21,153 +21,153 @@ These tutorials cover the basics of creating messaging
 applications using RabbitMQ.
 
 You need to have the RabbitMQ server installed to go through
-the tutorials, please see the [installation guide](download.html) or
+the tutorials, please see the [installation guide](./download) or
 use the [Docker image](https://registry.hub.docker.com/_/rabbitmq/).
 
 Executable versions of these tutorials [are open source](https://github.com/rabbitmq/rabbitmq-tutorials),
 as is [this website](https://github.com/rabbitmq/rabbitmq-website).
 
 These tutorials focus on just one (the original) protocol supported by RabbitMQ.
-Examples for [RabbitMQ streams](streams.html) on the [RabbitMQ blog](https://blog.rabbitmq.com/categories/streams/).
+Examples for [RabbitMQ streams](./streams) on the [RabbitMQ blog](https://blog.rabbitmq.com/categories/streams/).
 
 <table id="tutorials">
   <tr>
   <td id="tutorial-one">
-    <h2><span class="tute-num">1</span> <a href="./tutorials/tutorial-one-python.html">"Hello World!"</a></h2>
+    <h2><span class="tute-num">1</span> <a href="./tutorials/tutorial-one-python">"Hello World!"</a></h2>
     <p>
       The simplest thing that does <em>something</em>
     </p>
     <p><img src="./img/tutorials/python-one.png" width="180" alt="Producer -> Queue -> Consuming: send and receive messages from a named queue."/></p>
     <ul>
-      <li><a href="./tutorials/tutorial-one-python.html">Python</a></li>
-      <li><a href="./tutorials/tutorial-one-java.html">Java</a></li>
-      <li><a href="./tutorials/tutorial-one-ruby.html">Ruby</a></li>
-      <li><a href="./tutorials/tutorial-one-php.html">PHP</a></li>
-      <li><a href="./tutorials/tutorial-one-dotnet.html">C#</a></li>
-      <li><a href="./tutorials/tutorial-one-javascript.html">JavaScript</a></li>
-      <li><a href="./tutorials/tutorial-one-go.html">Go</a></li>
-      <li><a href="./tutorials/tutorial-one-elixir.html">Elixir</a></li>
-      <li><a href="./tutorials/tutorial-one-objectivec.html">Objective-C</a></li>
-      <li><a href="./tutorials/tutorial-one-swift.html">Swift</a></li>
-      <li><a href="./tutorials/tutorial-one-spring-amqp.html">Spring AMQP</a></li>
+      <li><a href="./tutorials/tutorial-one-python">Python</a></li>
+      <li><a href="./tutorials/tutorial-one-java">Java</a></li>
+      <li><a href="./tutorials/tutorial-one-ruby">Ruby</a></li>
+      <li><a href="./tutorials/tutorial-one-php">PHP</a></li>
+      <li><a href="./tutorials/tutorial-one-dotnet">C#</a></li>
+      <li><a href="./tutorials/tutorial-one-javascript">JavaScript</a></li>
+      <li><a href="./tutorials/tutorial-one-go">Go</a></li>
+      <li><a href="./tutorials/tutorial-one-elixir">Elixir</a></li>
+      <li><a href="./tutorials/tutorial-one-objectivec">Objective-C</a></li>
+      <li><a href="./tutorials/tutorial-one-swift">Swift</a></li>
+      <li><a href="./tutorials/tutorial-one-spring-amqp">Spring AMQP</a></li>
     </ul>
   </td>
 
   <td id="tutorial-two">
-    <h2><span class="tute-num">2</span> <a href="./tutorials/tutorial-two-python.html">Work Queues</a></h2>
+    <h2><span class="tute-num">2</span> <a href="./tutorials/tutorial-two-python">Work Queues</a></h2>
     <p>
       Distributing tasks among workers (the <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/CompetingConsumers.html">competing consumers pattern</a>)
     </p>
     <p><img src="./img/tutorials/python-two.png" width="180" alt="Producer -> Queue -> Consuming: Work Queue used to distribute time-consuming tasks among multiple workers."/></p>
     <ul>
-        <li><a href="./tutorials/tutorial-two-python.html">Python</a></li>
-        <li><a href="./tutorials/tutorial-two-java.html">Java</a></li>
-        <li><a href="./tutorials/tutorial-two-ruby.html">Ruby</a></li>
-        <li><a href="./tutorials/tutorial-two-php.html">PHP</a></li>
-        <li><a href="./tutorials/tutorial-two-dotnet.html">C#</a></li>
-        <li><a href="./tutorials/tutorial-two-javascript.html">JavaScript</a></li>
-        <li><a href="./tutorials/tutorial-two-go.html">Go</a></li>
-        <li><a href="./tutorials/tutorial-two-elixir.html">Elixir</a></li>
-        <li><a href="./tutorials/tutorial-two-objectivec.html">Objective-C</a></li>
-        <li><a href="./tutorials/tutorial-two-swift.html">Swift</a></li>
-        <li><a href="./tutorials/tutorial-two-spring-amqp.html">Spring AMQP</a></li>
+        <li><a href="./tutorials/tutorial-two-python">Python</a></li>
+        <li><a href="./tutorials/tutorial-two-java">Java</a></li>
+        <li><a href="./tutorials/tutorial-two-ruby">Ruby</a></li>
+        <li><a href="./tutorials/tutorial-two-php">PHP</a></li>
+        <li><a href="./tutorials/tutorial-two-dotnet">C#</a></li>
+        <li><a href="./tutorials/tutorial-two-javascript">JavaScript</a></li>
+        <li><a href="./tutorials/tutorial-two-go">Go</a></li>
+        <li><a href="./tutorials/tutorial-two-elixir">Elixir</a></li>
+        <li><a href="./tutorials/tutorial-two-objectivec">Objective-C</a></li>
+        <li><a href="./tutorials/tutorial-two-swift">Swift</a></li>
+        <li><a href="./tutorials/tutorial-two-spring-amqp">Spring AMQP</a></li>
     </ul>
   </td>
 
   <td id="tutorial-three">
-    <h2><span class="tute-num">3</span> <a href="./tutorials/tutorial-three-python.html">Publish/Subscribe</a></h2>
+    <h2><span class="tute-num">3</span> <a href="./tutorials/tutorial-three-python">Publish/Subscribe</a></h2>
     <p>
       Sending messages to many consumers at once
     </p>
     <p><img src="./img/tutorials/python-three.png" height="50" width="180" alt="Producer -> Queue -> Consuming: deliver a message to multiple consumers. This pattern is known as publish/subscribe"/></p>
     <ul>
-      <li><a href="./tutorials/tutorial-three-python.html">Python</a></li>
-      <li><a href="./tutorials/tutorial-three-java.html">Java</a></li>
-      <li><a href="./tutorials/tutorial-three-ruby.html">Ruby</a></li>
-      <li><a href="./tutorials/tutorial-three-php.html">PHP</a></li>
-      <li><a href="./tutorials/tutorial-three-dotnet.html">C#</a></li>
-      <li><a href="./tutorials/tutorial-three-javascript.html">JavaScript</a></li>
-      <li><a href="./tutorials/tutorial-three-go.html">Go</a></li>
-      <li><a href="./tutorials/tutorial-three-elixir.html">Elixir</a></li>
-      <li><a href="./tutorials/tutorial-three-objectivec.html">Objective-C</a></li>
-      <li><a href="./tutorials/tutorial-three-swift.html">Swift</a></li>
-      <li><a href="./tutorials/tutorial-three-spring-amqp.html">Spring AMQP</a></li>
+      <li><a href="./tutorials/tutorial-three-python">Python</a></li>
+      <li><a href="./tutorials/tutorial-three-java">Java</a></li>
+      <li><a href="./tutorials/tutorial-three-ruby">Ruby</a></li>
+      <li><a href="./tutorials/tutorial-three-php">PHP</a></li>
+      <li><a href="./tutorials/tutorial-three-dotnet">C#</a></li>
+      <li><a href="./tutorials/tutorial-three-javascript">JavaScript</a></li>
+      <li><a href="./tutorials/tutorial-three-go">Go</a></li>
+      <li><a href="./tutorials/tutorial-three-elixir">Elixir</a></li>
+      <li><a href="./tutorials/tutorial-three-objectivec">Objective-C</a></li>
+      <li><a href="./tutorials/tutorial-three-swift">Swift</a></li>
+      <li><a href="./tutorials/tutorial-three-spring-amqp">Spring AMQP</a></li>
     </ul>
   </td>
   </tr>
 
   <tr>
   <td id="tutorial-four">
-    <h2><span class="tute-num">4</span> <a href="./tutorials/tutorial-four-python.html">Routing</a></h2>
+    <h2><span class="tute-num">4</span> <a href="./tutorials/tutorial-four-python">Routing</a></h2>
     <p>
       Receiving messages selectively
     </p>
     <p><img src="./img/tutorials/python-four.png" height="50" width="180" alt="Producer -> Queue -> Consuming: subscribe to a subset of the messages only." /></p>
     <ul>
-      <li><a href="./tutorials/tutorial-four-python.html">Python</a></li>
-      <li><a href="./tutorials/tutorial-four-java.html">Java</a></li>
-      <li><a href="./tutorials/tutorial-four-ruby.html">Ruby</a></li>
-      <li><a href="./tutorials/tutorial-four-php.html">PHP</a></li>
-      <li><a href="./tutorials/tutorial-four-dotnet.html">C#</a></li>
-      <li><a href="./tutorials/tutorial-four-javascript.html">JavaScript</a></li>
-      <li><a href="./tutorials/tutorial-four-go.html">Go</a></li>
-      <li><a href="./tutorials/tutorial-four-elixir.html">Elixir</a></li>
-      <li><a href="./tutorials/tutorial-four-objectivec.html">Objective-C</a></li>
-      <li><a href="./tutorials/tutorial-four-swift.html">Swift</a></li>
-      <li><a href="./tutorials/tutorial-four-spring-amqp.html">Spring AMQP</a></li>
+      <li><a href="./tutorials/tutorial-four-python">Python</a></li>
+      <li><a href="./tutorials/tutorial-four-java">Java</a></li>
+      <li><a href="./tutorials/tutorial-four-ruby">Ruby</a></li>
+      <li><a href="./tutorials/tutorial-four-php">PHP</a></li>
+      <li><a href="./tutorials/tutorial-four-dotnet">C#</a></li>
+      <li><a href="./tutorials/tutorial-four-javascript">JavaScript</a></li>
+      <li><a href="./tutorials/tutorial-four-go">Go</a></li>
+      <li><a href="./tutorials/tutorial-four-elixir">Elixir</a></li>
+      <li><a href="./tutorials/tutorial-four-objectivec">Objective-C</a></li>
+      <li><a href="./tutorials/tutorial-four-swift">Swift</a></li>
+      <li><a href="./tutorials/tutorial-four-spring-amqp">Spring AMQP</a></li>
     </ul>
   </td>
 
   <td id="tutorial-five">
-    <h2><span class="tute-num">5</span> <a href="./tutorials/tutorial-five-python.html">Topics</a></h2>
+    <h2><span class="tute-num">5</span> <a href="./tutorials/tutorial-five-python">Topics</a></h2>
     <p>
       Receiving messages based on a pattern (topics)
     </p>
     <p><img src="./img/tutorials/python-five.png" height="50" width="180" alt="Producer -> Queue -> Consuming: receiving messages based on a pattern (topics)."/></p>
     <ul>
-      <li><a href="./tutorials/tutorial-five-python.html">Python</a></li>
-      <li><a href="./tutorials/tutorial-five-java.html">Java</a></li>
-      <li><a href="./tutorials/tutorial-five-ruby.html">Ruby</a></li>
-      <li><a href="./tutorials/tutorial-five-php.html">PHP</a></li>
-      <li><a href="./tutorials/tutorial-five-dotnet.html">C#</a></li>
-      <li><a href="./tutorials/tutorial-five-javascript.html">JavaScript</a></li>
-      <li><a href="./tutorials/tutorial-five-go.html">Go</a></li>
-      <li><a href="./tutorials/tutorial-five-elixir.html">Elixir</a></li>
-      <li><a href="./tutorials/tutorial-five-objectivec.html">Objective-C</a></li>
-      <li><a href="./tutorials/tutorial-five-swift.html">Swift</a></li>
-      <li><a href="./tutorials/tutorial-five-spring-amqp.html">Spring AMQP</a></li>
+      <li><a href="./tutorials/tutorial-five-python">Python</a></li>
+      <li><a href="./tutorials/tutorial-five-java">Java</a></li>
+      <li><a href="./tutorials/tutorial-five-ruby">Ruby</a></li>
+      <li><a href="./tutorials/tutorial-five-php">PHP</a></li>
+      <li><a href="./tutorials/tutorial-five-dotnet">C#</a></li>
+      <li><a href="./tutorials/tutorial-five-javascript">JavaScript</a></li>
+      <li><a href="./tutorials/tutorial-five-go">Go</a></li>
+      <li><a href="./tutorials/tutorial-five-elixir">Elixir</a></li>
+      <li><a href="./tutorials/tutorial-five-objectivec">Objective-C</a></li>
+      <li><a href="./tutorials/tutorial-five-swift">Swift</a></li>
+      <li><a href="./tutorials/tutorial-five-spring-amqp">Spring AMQP</a></li>
     </ul>
   </td>
 
   <td id="tutorial-six">
-    <h2><span class="tute-num">6</span> <a href="./tutorials/tutorial-six-python.html">RPC</a></h2>
+    <h2><span class="tute-num">6</span> <a href="./tutorials/tutorial-six-python">RPC</a></h2>
     <p>
       <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/RequestReply.html">Request/reply pattern</a> example
     </p>
     <p><img src="./img/tutorials/python-six.png" height="50" width="180" alt="Producer -> Queue -> Consuming: RPC (Remote Procedure Call), the request/reply pattern."/></p>
     <ul>
-      <li><a href="./tutorials/tutorial-six-python.html">Python</a></li>
-      <li><a href="./tutorials/tutorial-six-java.html">Java</a></li>
-      <li><a href="./tutorials/tutorial-six-ruby.html">Ruby</a></li>
-      <li><a href="./tutorials/tutorial-six-php.html">PHP</a></li>
-      <li><a href="./tutorials/tutorial-six-dotnet.html">C#</a></li>
-      <li><a href="./tutorials/tutorial-six-javascript.html">JavaScript</a></li>
-      <li><a href="./tutorials/tutorial-six-go.html">Go</a></li>
-      <li><a href="./tutorials/tutorial-six-elixir.html">Elixir</a></li>
-      <li><a href="./tutorials/tutorial-six-spring-amqp.html">Spring AMQP</a></li>
+      <li><a href="./tutorials/tutorial-six-python">Python</a></li>
+      <li><a href="./tutorials/tutorial-six-java">Java</a></li>
+      <li><a href="./tutorials/tutorial-six-ruby">Ruby</a></li>
+      <li><a href="./tutorials/tutorial-six-php">PHP</a></li>
+      <li><a href="./tutorials/tutorial-six-dotnet">C#</a></li>
+      <li><a href="./tutorials/tutorial-six-javascript">JavaScript</a></li>
+      <li><a href="./tutorials/tutorial-six-go">Go</a></li>
+      <li><a href="./tutorials/tutorial-six-elixir">Elixir</a></li>
+      <li><a href="./tutorials/tutorial-six-spring-amqp">Spring AMQP</a></li>
     </ul>
   </td>
   </tr>
   <tr>
   <td id="tutorial-seven">
-    <h2><span class="tute-num">7</span> <a href="./tutorials/tutorial-seven-java.html">Publisher Confirms</a></h2>
+    <h2><span class="tute-num">7</span> <a href="./tutorials/tutorial-seven-java">Publisher Confirms</a></h2>
     <p>
       Reliable publishing with publisher confirms
     </p>
     <ul>
-      <li><a href="./tutorials/tutorial-seven-java.html">Java</a></li>
-      <li><a href="./tutorials/tutorial-seven-dotnet.html">C#</a></li>
-      <li><a href="./tutorials/tutorial-seven-php.html">PHP</a></li>
+      <li><a href="./tutorials/tutorial-seven-java">Java</a></li>
+      <li><a href="./tutorials/tutorial-seven-dotnet">C#</a></li>
+      <li><a href="./tutorials/tutorial-seven-php">PHP</a></li>
     </ul>
   </td>
   <td class="tutorial-empty"></td>
@@ -187,9 +187,9 @@ ask them on [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabb
 
 Once you have been through the tutorials (or if you want to
 skip ahead), you may wish to read an
-[Introduction to RabbitMQ Concepts](./tutorials/amqp-concepts.html)
+[Introduction to RabbitMQ Concepts](./tutorials/amqp-concepts)
 and browse our
-[AMQP 0-9-1 Quick Reference Guide](amqp-0-9-1-quickref.html).
+[AMQP 0-9-1 Quick Reference Guide](./amqp-0-9-1-quickref).
 
 
 ## Tutorials in Other Languages
@@ -205,7 +205,7 @@ many more languages and client libraries, for example:
  * [Haskell](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/haskell) (using [Network.AMQP](http://hackage.haskell.org/package/amqp))
  * [Perl](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/perl) (using [Net::RabbitFoot](https://github.com/cooldaemon/RabbitFoot))
  * [Perl](https://github.com/oylenshpeegul/RabbitMQ-Tutorial-Perl) (using [Net::AMQP::RabbitMQ](http://p3rl.org/Net::AMQP::RabbitMQ))
- * [Scala](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/scala) (using [RabbitMQ Java client](https://www.rabbitmq.com/api-guide.html))
+ * [Scala](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/scala) (using [RabbitMQ Java client](https://www.rabbitmq.com/./api-guide))
 
-We also maintain a list of community-developed [clients and developer tools](./devtools.html)
+We also maintain a list of community-developed [clients and developer tools](./devtools)
 for a range of platforms.

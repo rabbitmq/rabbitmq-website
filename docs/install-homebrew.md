@@ -23,7 +23,7 @@ limitations under the License.
 [RabbitMQ formula](https://github.com/Homebrew/homebrew-core/blob/master/Formula/r/rabbitmq.rb) is available from
 Homebrews core tap (out of the box).
 
-The formula will also install a recent [supported Erlang/OTP version](./which-erlang.html)
+The formula will also install a recent [supported Erlang/OTP version](./which-erlang)
 as a dependency.
 
 
@@ -41,11 +41,11 @@ Then, install RabbitMQ server with:
 brew install rabbitmq
 ```
 
-Installing the RabbitMQ formula will install key dependencies such as a [supported Erlang/OTP version](./which-erlang.html).
+Installing the RabbitMQ formula will install key dependencies such as a [supported Erlang/OTP version](./which-erlang).
 
 ## <a id="locations" class="anchor" href="#locations">Locations</a>
 
-The RabbitMQ server scripts and [CLI tools](./cli.html) are installed into the `sbin` directory under `/usr/local/Cellar/rabbitmq/{version}/` for Intel Macs
+The RabbitMQ server scripts and [CLI tools](./cli) are installed into the `sbin` directory under `/usr/local/Cellar/rabbitmq/{version}/` for Intel Macs
 or `/opt/homebrew/Cellar/rabbitmq/{version}/` for Apple Silicon Macs.
 
 They should be accessible from `/usr/local/opt/rabbitmq/sbin` for for Intel Macs or `/opt/homebrew/opt/rabbitmq/sbin` for Apple Silicon Macs.
@@ -62,8 +62,8 @@ With Homebrew, the node and CLI tools will use the logged in user account by def
 
 ## <a id="managing-node" class="anchor" href="#managing-node">Running and Managing the Node</a>
 
-Unlike some other installation methods, namely the [Debian](./install-debian.html) and [RPM packages](./install-rpm.html), RabbitMQ
-Homebrew formula uses [generic UNIX binary builds](./install-generic-unix.html) and does not require `sudo`.
+Unlike some other installation methods, namely the [Debian](./install-debian) and [RPM packages](./install-rpm), RabbitMQ
+Homebrew formula uses [generic UNIX binary builds](./install-generic-unix) and does not require `sudo`.
 
 #### Starting the Server
 
@@ -105,13 +105,13 @@ To find out locations for your installation, use:
 brew info rabbitmq
 ```
 
-On Apple Silicon Macs, [RabbitMQ configuration file](configure.html#configuration-files) located at `/opt/homebrew/etc/rabbitmq/rabbitmq.conf`.
+On Apple Silicon Macs, [RabbitMQ configuration file](./configure#configuration-files) located at `/opt/homebrew/etc/rabbitmq/rabbitmq.conf`.
 The file does not exist by default and can be created.
 
-It is possible to [use environment variables](configure.html#customise-general-unix-environment) to control certain settings.
+It is possible to [use environment variables](./configure#customise-general-unix-environment) to control certain settings.
 `rabbitmq-env.conf` is located at `/opt/homebrew/etc/rabbitmq/rabbitmq-env.conf`
 
-See RabbitMQ [configuration guide](configure.html) to learn more.
+See RabbitMQ [configuration guide](./configure) to learn more.
 
 ## <a id="cli" class="anchor" href="#cli"></a>
 

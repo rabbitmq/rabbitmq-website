@@ -19,17 +19,17 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-You can set a maximum length on a [queue](queues.html). The maximum length limit can be set to a number of
+You can set a maximum length on a [queue](./queues). The maximum length limit can be set to a number of
 messages, or set to a number of bytes (the total of all message body lengths, ignoring message properties and any overheads), or both.
 
 To set the maximum length (of either type), you can
-define it using a [policy](./parameters.html#policies) (this option is highly recommended)
-or by clients using the [queue's optional arguments](./queues.html#optional-arguments).
+define it using a [policy](./parameters#policies) (this option is highly recommended)
+or by clients using the [queue's optional arguments](./queues#optional-arguments).
 In a scenario where the maximum length is defined using both ways, that is, using a policy and using the arguments, then the minimum of the two values specified is used.
 
-Queue length settings configured using [operator policies](./parameters.html#operator-policies).
+Queue length settings configured using [operator policies](./parameters#operator-policies).
 
-In all cases, the number of messages in the **ready** state are used. [Messages unacknowledged by consumers](./confirms.html)
+In all cases, the number of messages in the **ready** state are used. [Messages unacknowledged by consumers](./confirms)
 do not count towards the limit.
 
 The number of **ready** messages and their footprint in bytes can be observed
@@ -41,7 +41,7 @@ using the `messages_ready` and `message_bytes_ready` from
 
 The default behaviour for RabbitMQ when a maximum queue length or
 size is set and the maximum is reached is to drop or
-[dead-letter](dlx.html) messages from the front
+[dead-letter](./dlx) messages from the front
 of the queue (i.e. the oldest messages in the queue). To modify
 this behaviour, use the `overflow` setting described below.
 
@@ -51,14 +51,14 @@ this behaviour, use the `overflow` setting described below.
 Use the `overflow` setting to configure queue overflow
 behaviour. If `overflow` is set to `reject-publish` or `reject-publish-dlx`,
 the most recently published messages will be discarded. In addition, if
-[publisher confirms](confirms.html#publisher-confirms)
+[publisher confirms](./confirms#publisher-confirms)
 are enabled, the publisher will be informed of the reject via a
 `basic.nack` message. If a message is routed to multiple
 queues and rejected by at least one of them, the channel will inform
 the publisher via `basic.nack`. The message will still be
 published to all other queues which can enqueue it.
 The difference between `reject-publish` and `reject-publish-dlx` is that
-`reject-publish-dlx` also [dead-letters](dlx.html) rejected messages.
+`reject-publish-dlx` also [dead-letters](./dlx) rejected messages.
 
 
 ## <a id="definition" class="anchor" href="#definition">Define Max Queue Length Using a Policy</a>
@@ -128,7 +128,7 @@ are sent `basic.nack` responses as long as the queue
 contains 2 messages and publisher confirms are enabled.
 
 Policies can also be defined using the management plugin, see
-the [policy documentation](parameters.html#policies) for more details.
+the [policy documentation](./parameters#policies) for more details.
 
 
 ## <a id="definition-using-x-args" class="anchor" href="#definition-using-x-args">Define Max Queue Length Using x-arguments During Declaration</a>
@@ -161,8 +161,8 @@ channel.queueDeclare("myqueue", false, false, false, args);
 
 ## <a id="inspecting" class="anchor" href="#inspecting">Inspecting Queue Length Limits</a>
 
-To inspect effective limits for a queue, inspect its [optional arguments](./queues.html#optional-arguments) and
-[effective policy](./parameters.html#policies).
+To inspect effective limits for a queue, inspect its [optional arguments](./queues#optional-arguments) and
+[effective policy](./parameters#policies).
 
 This can be done using CLI tools or the management UI.
 

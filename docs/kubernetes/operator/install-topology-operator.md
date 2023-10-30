@@ -206,8 +206,7 @@ The following table listes the Topology Operator environment variables that are 
     </td>
     <td>
       The default value is false because this variable should NOT be used in production. When it is set to true, it exposes a set of debug endpoints
-      on the Operator Pod's metrics port for CPU and <a href="debug-operator.html" target="_blank">memory profiling of
-      the Operator with pprof</a>.
+      on the Operator Pod's metrics port for CPU and [memory profiling of the Operator with pprof](./debug-operator).
     </td>
     <td>
       The pprof debug endpoint will not be exposed on the Operator Pod.

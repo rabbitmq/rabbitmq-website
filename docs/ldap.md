@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-RabbitMQ can use LDAP to perform [authentication and authorisation](access-control.html) by deferring to external LDAP
+RabbitMQ can use LDAP to perform [authentication and authorisation](./access-control) by deferring to external LDAP
 servers. This functionality is provided by a built-in plugin that [has to be enabled](#enabling-the-plugin).
 
 Authentication and authorisation operations are translated into [LDAP queries](#authorisation) using
@@ -46,7 +46,7 @@ for [troubleshooting](#troubleshooting) and [proxying](#proxies) of LDAP request
 ## <a id="prerequisites" class="anchor" href="#prerequisites">Prerequisites</a>
 
 RabbitMQ LDAP plugin depends on an LDAP client called `eldap`. The library
-ships with [Erlang/OTP](which-erlang.html). On some operating systems, Erlang
+ships with [Erlang/OTP](./which-erlang). On some operating systems, Erlang
 is provided as a group of packages instead of one monolithic package, so
 components such as `eldap` **must be installed separately** from the main runtime.
 
@@ -58,13 +58,13 @@ sudo apt-get install -y erlang-eldap
 
 LDAP support **cannot** be used on Erlang installations where the library is not available.
 
-Please see the [Erlang compatibility guide](which-erlang.html) to learn more.
+Please see the [Erlang compatibility guide](./which-erlang) to learn more.
 
 
 ## <a id="enabling-the-plugin" class="anchor" href="#enabling-the-plugin">Enabling the Plugin</a>
 
 The LDAP plugin ships with RabbitMQ. To enable it, use
-[rabbitmq-plugins](man/rabbitmq-plugins.8.html):
+[rabbitmq-plugins](./man/rabbitmq-plugins.8):
 ```bash
 rabbitmq-plugins enable rabbitmq_auth_backend_ldap
 ```
@@ -76,7 +76,7 @@ After enabling the plugin it is necessary to configure the node to use it.
 
 This involves
 
- * Listing LDAP as an [authentication (authN) and/or authorization (authZ) backend](./access-control.html)
+ * Listing LDAP as an [authentication (authN) and/or authorization (authZ) backend](./access-control)
  * Configuring [LDAP server endpoints](#connectivity)
  * Specifying what [LDAP queries](#query-types) will be used for various authZ permission checks
 
@@ -88,7 +88,7 @@ and ignore the internal database:
 auth_backends.1 = ldap
 ```
 
-In [`advanced.config` file](./configure.html#erlang-term-config-file), the same settings would look like this:
+In [`advanced.config` file](./configure#erlang-term-config-file), the same settings would look like this:
 
 ```erlang
 {rabbit, [
@@ -106,7 +106,7 @@ auth_backends.1 = ldap
 auth_backends.2 = internal
 ```
 
-Same example in the [`advanced.config` format](./configure.html#erlang-term-config-file):
+Same example in the [`advanced.config` format](./configure#erlang-term-config-file):
 
 ```erlang
 {rabbit,[
@@ -130,7 +130,7 @@ auth_backends.1.authz = internal
 auth_backends.2 = internal
 ```
 
-In the [advanced config format](./configure.html#erlang-term-config-file):
+In the [advanced config format](./configure#erlang-term-config-file):
 
 ```erlang
 {rabbit,[{auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
@@ -240,7 +240,7 @@ Note that those settings are mutually exclusive (cannot be combined).
 Both values default to `false`.
 
 Client side TLS settings are configured using `ssl_options`, which
-are very similar to [TLS settings elsewhere in RabbitMQ](./ssl.html).
+are very similar to [TLS settings elsewhere in RabbitMQ](./ssl).
 TLS settings for LDAP connections can only be configured via the advanced config file:
 
 ```ini
@@ -262,7 +262,7 @@ auth_ldap.use_ssl   = true
 ].
 ```
 
-An example that uses both of the above and uses the [advanced.config format](configure.html):
+An example that uses both of the above and uses the [advanced.config format](./configure):
 
 ```erlang
 [
@@ -280,7 +280,7 @@ An example that uses both of the above and uses the [advanced.config format](con
 ## <a id="query-caching" class="anchor" href="#query-caching">LDAP Query Caching for Efficiency and Reduced Load</a>
 
 A special [cache backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.9.x/deps/rabbitmq_auth_backend_cache)
-can be used in [combination](access-control.html#combined-backends) with other backends to significantly
+can be used in [combination](./access-control#combined-backends) with other backends to significantly
 reduce the load they generate on LDAP servers.
 
 It is recommended that production clusters that rely on LDAP for authentication and authorization
@@ -369,7 +369,7 @@ It should be possible to open a channel on it, for example. All further operatio
 performed on the connection will execute one of the authorisation queries. For example,
 declaring a queue will execute a resource access query (covered below). Publishing a
 message to a topic exchange will additionally execute a topic access query. Please refer
-to the [Access Control guide](./access-control.html) to learn more.
+to the [Access Control guide](./access-control) to learn more.
 
 ### <a id="usernames-and-dns" class="anchor" href="#usernames-and-dns">Usernames and Distinguished Names</a>
 
@@ -495,7 +495,7 @@ For authentication this plugin binds to the LDAP server as the
 user it is trying to authenticate. The `other_bind` setting controls how to
 bind for authorisation queries, and to retrieve the details of a
 user who is logging in without presenting a password (e.g. using the
-[EXTERNAL authentication mechanism](./authentication.html)).
+[EXTERNAL authentication mechanism](./authentication)).
 
 The accepted values are `as_user` (to bind as the authenticated
 user) or `anon` (to bind anonymously), or be presented by two
@@ -532,7 +532,7 @@ The `group_lookup_base` setting controls what base DN will be used to search for
 the `{in_group_nested, ...}` query only. For more info see the [section on queries](#query-reference).
 
 In the following example `ou=groups,dc=example,dc=com` is the directory that contains all groups.
-Note that it uses the [classic config format](configure.html):
+Note that it uses the [classic config format](./configure):
 
 ```erlang
 [
@@ -549,7 +549,7 @@ Default value is `'none'`.
 
 ### <a id="authorisation-overview" class="anchor" href="#authorisation-overview">How RabbitMQ Permission Model Maps to LDAP</a>
 
-RabbitMQ [permission model](./access-control.html)
+RabbitMQ [permission model](./access-control)
 is different from that of LDAP. In addition, the way LDAP
 schemas are used will vary from company to
 company. Therefore a mechanism that defines what LDAP
@@ -564,14 +564,14 @@ needed. Authorisation is controlled by four configurable queries:
 Each defines a query that will determine whether a user has
 access to a vhost, whether they have access to a resource
 (e.g. exchange, queue, binding) and
-which [tags](management.html#permissions) they
+which [tags](./management#permissions) they
 have.
 
 Note the longer `rabbitmq_auth_backend_ldap` prefix.
 Queries are expressed using a domain-specific language expressed in Erlang terms (data structures),
 so they can be defined only using the
-[classic config format](./configure.html#erlang-term-config-file). Starting with RabbitMQ 3.7
-query definitions are commonly placed into the [advanced.config file](./configure.html#advanced-config-file).
+[classic config format](./configure#erlang-term-config-file). Starting with RabbitMQ 3.7
+query definitions are commonly placed into the [advanced.config file](./configure#advanced-config-file).
 
 ### <a id="query-types" class="anchor" href="#query-types">Queries and Their Types</a>
 
@@ -665,8 +665,8 @@ two <i>additional</i> variables will be made available for each of the above que
 
 The terms configure, write and read for resource access have the
 same meanings that they do for the built-in RabbitMQ permissions
-system, see https://www.rabbitmq.com/access-control.html. See
-also [topic authorisation](./access-control.html#topic-authorisation)
+system, see https://www.rabbitmq.com/./access-control. See
+also [topic authorisation](./access-control#topic-authorisation)
 for `topic_access_query`.
 
 When first getting familiar with the query DSL, it can be
@@ -953,8 +953,8 @@ above for example.
 
 ## <a id="example" class="anchor" href="#example">Example Configuration</a>
 
-Bringing it all together, here's a sample configuration. It uses both the [standard config](./configure.html#config-file) and
-[advanced config](./configure.html#advanced-config-file) files together. This
+Bringing it all together, here's a sample configuration. It uses both the [standard config](./configure#config-file) and
+[advanced config](./configure#advanced-config-file) files together. This
 makes all users able to access the management plugin, but
 makes none of them administrators. Access to virtual hosts is
 controlled by membership of a group per virtual host. Only
@@ -964,7 +964,7 @@ exchanges and declare from queues. Publishing to topic-typed
 exchanges is restricted to messages with a routing key
 beginning with "a" and consuming from topics isn't restricted (topic authorisation).
 
-The [standard config](./configure.html#config-file)
+The [standard config](./configure#config-file)
 (rabbitmq.conf) is used to configure authentication backends and
 several LDAP plugin parameters:
 
@@ -978,7 +978,7 @@ auth_ldap.port       = 389
 auth_ldap.log        = false
 ```
 
-[Advanced config](./configure.html#advanced-config-file) is used to define LDAP queries:
+[Advanced config](./configure#advanced-config-file) is used to define LDAP queries:
 
 ```erlang
 [{rabbitmq_auth_backend_ldap,[
@@ -1004,7 +1004,7 @@ auth_ldap.log        = false
 ]}].
 ```
 
-Alternatively, you can use the [classic config format](./configure.html#erlang-term-config-file)
+Alternatively, you can use the [classic config format](./configure#erlang-term-config-file)
 to configure everything in a single file:
 
 ```erlang
@@ -1045,8 +1045,8 @@ to configure everything in a single file:
 
 Using LDAP for authentication and/or authorisation introduces another moving
 part into the system. Since LDAP servers are accessed over the network,
-some topics covered in the [Network Troubleshooting](./troubleshooting-networking.html)
-and [TLS Troubleshooting](./troubleshooting-ssl.html) guides apply to LDAP.
+some topics covered in the [Network Troubleshooting](./troubleshooting-networking)
+and [TLS Troubleshooting](./troubleshooting-ssl) guides apply to LDAP.
 
 In order to troubleshoot LDAP operations performed during the authentication and authorisation
 stages, [enabling LDAP traffic logging](#logging) is highly recommended.

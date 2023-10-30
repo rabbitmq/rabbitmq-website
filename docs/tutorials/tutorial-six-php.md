@@ -22,7 +22,7 @@ limitations under the License.
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 
-In the [second tutorial](tutorial-two-php.html) we learned how to
+In the [second tutorial](./tutorial-two-php) we learned how to
 use _Work Queues_ to distribute time-consuming tasks among multiple
 workers.
 
@@ -96,7 +96,7 @@ $channel->basic_publish($msg, '', 'rpc_queue');
 >
 > * `delivery_mode`: Marks a message as persistent (with a value of `2`)
 >    or transient (`1`). You may remember this property
->    from [the second tutorial](tutorial-two-php.html).
+>    from [the second tutorial](./tutorial-two-php).
 > * `content_type`: Used to describe the mime-type of the encoding.
 >    For example for the often used JSON encoding it is a good practice
 >    to set this property to: `application/json`.
@@ -411,5 +411,5 @@ complex (but important) problems, like:
    (eg checking bounds, type) before processing.
 
 >
->If you want to experiment, you may find the [management UI](../management.html) useful for viewing the queues.
+>If you want to experiment, you may find the [management UI](../management) useful for viewing the queues.
 >

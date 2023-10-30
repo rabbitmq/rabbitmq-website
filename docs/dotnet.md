@@ -98,7 +98,7 @@ targets what .NET standard (or .NET framework) version.
 ### <a id="licensing" class="anchor" href="#licensing">Licensing</a>
 
 The library is [open-source](https://github.com/rabbitmq/rabbitmq-dotnet-client),
-and is dual-licensed under the [the Apache License v2](https://www.apache.org/licenses/LICENSE-2.0) and [the Mozilla Public License v2.0](mpl.html).
+and is dual-licensed under the [the Apache License v2](https://www.apache.org/licenses/LICENSE-2.0) and [the Mozilla Public License v2.0](./mpl).
 
 This means that the user can consider the library to be licensed under any of the licenses from the list above.
 For example, the user may choose the Apache Public License 2.0 and include this client into
@@ -114,7 +114,7 @@ Release notes can be found [on GitHub](https://github.com/rabbitmq/rabbitmq-dotn
 
 ## <a id="documentation" class="anchor" href="#documentation">Documentation</a>
 
-Please refer to the [RabbitMQ tutorials](./getstarted.html) and [.NET client user guide](./dotnet-api-guide.html).
+Please refer to the [RabbitMQ tutorials](./getstarted) and [.NET client user guide](./dotnet-api-guide).
 
 There's also [an online API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/index.html).
 
@@ -157,7 +157,7 @@ Modern versions of this library (e.g. `6.x`) are distributed as a [NuGet package
 
 The .NET RabbitMQ client library is [hosted and developed on GitHub](https://github.com/rabbitmq/rabbitmq-dotnet-client).
 
-Please see the [.NET client build guide](./build-dotnet-client.html) for
+Please see the [.NET client build guide](./build-dotnet-client) for
 instructions on compiling from source.
 
 To clone the repo from GitHub:
@@ -167,7 +167,7 @@ git clone https://github.com/rabbitmq/rabbitmq-dotnet-client
 ```
 
 In order to compile or run the RabbitMQ .NET/C# client library,
-please follow the [build instructions](./build-dotnet-client.html).
+please follow the [build instructions](./build-dotnet-client).
 
 
 ## <a id="signing" class="anchor" href="#signing">Strong Naming</a>

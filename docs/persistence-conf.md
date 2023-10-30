@@ -28,20 +28,20 @@ before drawing any conclusions.
 
 Some related guides include:
 
- * [Main configuration guide](configure.html)
- * [File and Directory Locations](./relocate.html)
- * [Runtime Tuning](./runtime.html)
- * [Queues](./queues.html#runtime-characteristics) and their runtime characteristics
- * [Quorum Queues](./quorum-queues.html)
- * [Streams](./streams.html)
+ * [Main configuration guide](./configure)
+ * [File and Directory Locations](./relocate)
+ * [Runtime Tuning](./runtime)
+ * [Queues](./queues#runtime-characteristics) and their runtime characteristics
+ * [Quorum Queues](./quorum-queues)
+ * [Streams](./streams)
 
 
 ## <a id="overview" class="anchor" href="#overview">Overview of Peristence in RabbitMQ</a>
 
 Modern RabbitMQ versions provide several queue types plus streams:
 
- * [Quorum queues](./quorum-queues.html): replicated, durable, data-safety oriented
- * [Streams](./streams.html): a replicated, durable data structure that supports different operations (than a queue)
+ * [Quorum queues](./quorum-queues): replicated, durable, data-safety oriented
+ * [Streams](./streams): a replicated, durable data structure that supports different operations (than a queue)
  * Classic queues: the original queue type, oriented towards non-mirrored queue use cases (mirroring is deprecated)
 
 These queue types have different storage implementations and applicable configuration
@@ -51,7 +51,7 @@ settings that can be tuned are also different.
 
 Streams use a log-based storage mechanism and keep very little data in memory
 (primarily the operational data that has not yet been written to disk).
-Nonetheless they offer excellent throughput when clients use the [RabbitMQ Stream Protocol](./stream.html).
+Nonetheless they offer excellent throughput when clients use the [RabbitMQ Stream Protocol](./stream).
 
 Since streams are very disk I/O heavy, their throughput degrades with larger messages.
 They benefit greatly from modern SSD and NVMe storage.
@@ -107,7 +107,7 @@ under high memory pressure.
 In **RabbitMQ 3.10.0** version 1 remains the default. It is possible
 to switch back and forth between version 1 and version 2.
 
-The version can be changed using the `queue-version` [policy](./parameters.html#policies) key.
+The version can be changed using the `queue-version` [policy](./parameters#policies) key.
 When setting a new version via policy the queue will immediately
 convert its data on disk. It is possible to upgrade to version 2
 or downgrade to version 1. Note that for large queues the conversion
@@ -217,7 +217,7 @@ simultaneously.
 
 ### <a id="file-handles" class="anchor" href="#file-handles">Too Few File Handles</a>
 
-The RabbitMQ server is limited in the [number of file handles](./networking.html#open-file-handle-limit) it can open.
+The RabbitMQ server is limited in the [number of file handles](./networking#open-file-handle-limit) it can open.
 Every running network connection requires one file handle, and the rest are available
 for queues to use. If there are more disk-accessing queues than
 file handles after network connections have been taken into

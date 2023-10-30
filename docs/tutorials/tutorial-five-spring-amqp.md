@@ -22,7 +22,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-four-spring-amqp.html) we improved our
+In the [previous tutorial](./tutorial-four-spring-amqp) we improved our
 messaging flexibility. Instead of using a `fanout` exchange only capable of
 dummy broadcasting, we used a `direct` one, and gained a possibility
 of selectively receiving the message based on the routing key.
@@ -154,7 +154,7 @@ start off with a working assumption that the routing keys will take
 advantage of both wildcards and a hash tag.
 
 The code is almost the same as in the
-[previous tutorial](tutorial-four-spring-amqp.html).
+[previous tutorial](./tutorial-four-spring-amqp).
 
 First let's configure some profiles and beans in the `Tut5Config` class
 of the `tut5` package:
@@ -318,7 +318,7 @@ public class Tut5Sender {
 ```
 
 Compile and run the examples as described
-in [Tutorial 1](tutorial-one-spring-amqp.html). Or if you have been
+in [Tutorial 1](./tutorial-one-spring-amqp). Or if you have been
 following along through the tutorials you only need to do the
 following:
 
@@ -385,4 +385,4 @@ and [Tut5Sender.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob
 The configuration is in [Tut5Config.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut5/Tut5Config.java). )
 
 Next, find out how to do a round trip message as a remote procedure call
-in [tutorial 6](tutorial-six-spring-amqp.html)
+in [tutorial 6](./tutorial-six-spring-amqp)

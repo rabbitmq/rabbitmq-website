@@ -43,7 +43,7 @@ on behalf of the consumer.
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which
 > is an open, general-purpose protocol for messaging. There are a number
 > of clients for RabbitMQ in
-> [many different languages](http://rabbitmq.com/devtools.html).
+> [many different languages](http://rabbitmq.com/./devtools).
 
 We'll be using Spring Boot to bootstrap and configure our Spring AMQP
 project. We chose Maven to build the project, but we could have used
@@ -255,7 +255,7 @@ we defined and the message we just created.
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
-> href="https://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/./configure#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 ### Receiving
@@ -319,5 +319,5 @@ java -jar target/rabbitmq-tutorials.jar --spring.profiles.active=hello-world,sen
 > rabbitmqctl.bat list_queues
 > ```
 
-Time to move on to [part 2](tutorial-two-spring-amqp.html) and
+Time to move on to [part 2](./tutorial-two-spring-amqp) and
 build a simple _work queue_.

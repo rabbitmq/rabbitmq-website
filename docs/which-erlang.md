@@ -41,7 +41,7 @@ The table below provides an Erlang compatibility matrix of currently supported R
 For RabbitMQ releases that have reached end of life, see [Unsupported Series Compatibility Matrix](#eol-series).
 
 <table class="matrix">
-  <th><a href="./versions.html">RabbitMQ version</a></th>
+  <th><a href="./versions">RabbitMQ version</a></th>
   <th>Minimum required Erlang/OTP</th>
   <th>Maximum supported Erlang/OTP</th>
   <th>Notes</th>
@@ -353,8 +353,8 @@ are recommended.
 
 Most recent versions can be obtained from a number of sources:
 
- * Debian Erlang packages from Team RabbitMQ on [Cloudsmith and its mirror](install-debian.html#apt-cloudsmith) or [Launchpad](install-debian.html#apt-launchpad-erlang)
- * [Zero dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from Team RabbitMQ, also available [from a Cloudsmith mirror](install-rpm.html#cloudsmith)
+ * Debian Erlang packages from Team RabbitMQ on [Cloudsmith and its mirror](./install-debian#apt-cloudsmith) or [Launchpad](./install-debian#apt-launchpad-erlang)
+ * [Zero dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from Team RabbitMQ, also available [from a Cloudsmith mirror](./install-rpm#cloudsmith)
  * As part of [RabbitMQ Docker image](https://github.com/docker-library/rabbitmq/)
  * [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree.html) provides binary builds of patch releases for Windows
  * [Erlang Solutions](https://packages.erlang-solutions.com/erlang/) package repositories
@@ -365,7 +365,7 @@ Most recent versions can be obtained from a number of sources:
 Standard Debian and Ubuntu repositories provide Erlang/OTP but it is
 heavily sliced and diced into dozens of packages. In addition, unless the system
 has backport repositories enabled, the versions tend to be quite old.
-See [Debian and Ubuntu installation guide](./install-debian.html) for
+See [Debian and Ubuntu installation guide](./install-debian) for
 more information on the essential packages, dependencies, and alternative apt repositories.
 
 ## <a id="redhat" class="anchor" href="#redhat">Installing Erlang/OTP on RHEL, CentOS and Fedora</a>
@@ -374,13 +374,13 @@ There are multiple RPM packages available for Erlang/OTP. The recommended option
 the [zero-dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from the RabbitMQ team.
 It closely follows the latest Erlang/OTP patch release schedule.
 
-See [CentOS, RHEL and Fedora installation guide](./install-rpm.html) for more information on the available options.
+See [CentOS, RHEL and Fedora installation guide](./install-rpm) for more information on the available options.
 
 
 ## <a id="clusters" class="anchor" href="#clusters">Erlang Versions in Clusters</a>
 
 It is **highly recommended** that the same major version of
-Erlang is used across all [cluster nodes](upgrade.html#rolling-upgrades-version-limitations)
+Erlang is used across all [cluster nodes](./upgrade#rolling-upgrades-version-limitations)
 (e.g. `25.x`).
 
 RabbitMQ will check for internal protocol versions of
@@ -413,7 +413,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
 ### <a id="eol-series" class="anchor" href="#eol-series">Unsupported RabbitMQ Series</a>
 
 <table class="matrix">
-  <th><a href="./changelog.html">Unsupported RabbitMQ Series</a></th>
+  <th><a href="./changelog">Unsupported RabbitMQ Series</a></th>
   <th>Minimum required Erlang/OTP</th>
   <th>Maximum supported Erlang/OTP</th>
   <th>Notes</th>

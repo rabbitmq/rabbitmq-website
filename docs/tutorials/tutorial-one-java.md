@@ -43,7 +43,7 @@ on behalf of the consumer.
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
-> languages](https://rabbitmq.com/devtools.html). We'll
+> languages](https://rabbitmq.com/./devtools). We'll
 > use the Java client provided by RabbitMQ.
 >
 > Download the [client library](https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.16.0/amqp-client-5.16.0.jar)
@@ -138,7 +138,7 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/Send.java).
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
-> href="https://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/./configure#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 
@@ -255,7 +255,7 @@ the publisher from another terminal.
 > ```
 
 
-Time to move on to [part 2](tutorial-two-java.html) and build a simple _work queue_.
+Time to move on to [part 2](./tutorial-two-java) and build a simple _work queue_.
 
 > #### Hint
 > To save typing, you can set an environment variable for the classpath e.g.

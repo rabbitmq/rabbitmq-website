@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This [RabbitMQ authentication/authorisation backend](./access-control.html) plugin lets applications (clients) and users authenticate and authorize using JWT-encoded OAuth 2.0 access tokens.
+This [RabbitMQ authentication/authorisation backend](./access-control) plugin lets applications (clients) and users authenticate and authorize using JWT-encoded OAuth 2.0 access tokens.
 
 This guide covers
 
@@ -41,14 +41,14 @@ This guide covers
 
 ## <a id="how-it-works" class="anchor" href="#how-it-works">How it works</a>
 
-The OAuth 2 plugin must be enabled (or [pre-configured](./plugins.html#enabled-plugins-file)) before it can be used,
+The OAuth 2 plugin must be enabled (or [pre-configured](./plugins#enabled-plugins-file)) before it can be used,
 like all other plugins:
 
 ```bash
 rabbitmq-plugins enable rabbitmq_auth_backend_oauth2
 ```
 
-Then it must be specified as one of the [authN and authZ backends](./access-control.html#backends). It can be
+Then it must be specified as one of the [authN and authZ backends](./access-control#backends). It can be
 one of the backends or the only one backend, like in the example below:
 
 ```ini
@@ -69,7 +69,7 @@ The token can be any [JWT token](https://jwt.io/introduction/) which contains th
 
 To use this plugin, all RabbitMQ nodes must be
 
-1. [configured to use the rabbit_auth_backend_oauth2 backend](./access-control.html).
+1. [configured to use the rabbit_auth_backend_oauth2 backend](./access-control).
 2. configured with a resource service ID (`resource_server_id`) that matches the scope prefix (e.g. `rabbitmq` in `rabbitmq.read:*/*`).
 3. configured with a signing key used by RabbitMQ to validate the JWT token signatures.
 
@@ -120,7 +120,7 @@ VwIDAQAB
       HCkEBMPxKwXuEhdnK98EMAnxdalbuHgFTVX8X8v7hLxt0O8dNOT903CvkHGICcWr95YnLUouXcli4BkAL5JJ1oraUSvClS8qRI-Vino-ghfJ6t9LrZ9eRUINCZB6Ks8Igqqnnp_BiD7XiO1c
 ```
 
-it will translate into the following configuration (in the [advanced RabbitMQ config format](https://www.rabbitmq.com/configure.html)):
+it will translate into the following configuration (in the [advanced RabbitMQ config format](https://www.rabbitmq.com/./configure)):
 
 ```erlang
 [
@@ -191,9 +191,9 @@ NOTE: `jwks_url` takes precedence over `signing_keys` if both are provided.
 | `auth_oauth2.default_key`                | ID of the default signing key.
 | `auth_oauth2.signing_keys`               | Paths to signing key files.
 | `auth_oauth2.jwks_url`                   | The URL of key server. According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2) key server URL must be https.
-| `auth_oauth2.https.cacertfile`           | Path to a file containing PEM-encoded CA certificates. The CA certificates are used during key server [peer verification](https://rabbitmq.com/ssl.html#peer-verification).
-| `auth_oauth2.https.depth`                | The maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid [certification path](https://rabbitmq.com/ssl.html#peer-verification-depth). Default is 10.
-| `auth_oauth2.https.peer_verification`    | Should [peer verification](https://rabbitmq.com/ssl.html#peer-verification) be enabled. Available values: `verify_none`, `verify_peer`. Default is `verify_none`. It is recommended to configure `verify_peer`. Peer verification requires a certain amount of setup and is more secure.
+| `auth_oauth2.https.cacertfile`           | Path to a file containing PEM-encoded CA certificates. The CA certificates are used during key server [peer verification](https://rabbitmq.com/./ssl#peer-verification).
+| `auth_oauth2.https.depth`                | The maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid [certification path](https://rabbitmq.com/./ssl#peer-verification-depth). Default is 10.
+| `auth_oauth2.https.peer_verification`    | Should [peer verification](https://rabbitmq.com/./ssl#peer-verification) be enabled. Available values: `verify_none`, `verify_peer`. Default is `verify_none`. It is recommended to configure `verify_peer`. Peer verification requires a certain amount of setup and is more secure.
 | `auth_oauth2.https.fail_if_no_peer_cert` | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if client fails to provide a certificate. Default is `false`.
 | `auth_oauth2.https.hostname_verification`| Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. Default is `none`.
 | `auth_oauth2.algorithms`                 | Restrict [the usable algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support).
@@ -376,8 +376,8 @@ To learn more about OAuth 2.0 clients, see the [OAuth 2.0 client specification](
 
 ### <a id="scope-and-tags" class="anchor" href="#scope-and-tags">Scope and Tags</a>
 
-Users in RabbitMQ can have [tags associated with them](./access-control.html#user-tags).
-Tags are used to [control access to the management plugin](./management.html#permissions).
+Users in RabbitMQ can have [tags associated with them](./access-control#user-tags).
+Tags are used to [control access to the management plugin](./management#permissions).
 
 In the OAuth context, tags can be added as part of the scope, using a format like `&lt;resource_server_id>.tag:&lt;tag>`. For
 example, if `resource_server_id` is "my_rabbit", a scope to grant access to the management plugin with
@@ -403,7 +403,7 @@ In the example configuration, RabbitMQ searches for the `user_name` claim first 
 
 ### <a id="token-expiration" class="anchor" href="#token-expiration">Token Expiration and Refresh</a>
 
-On an existing connection the token can be refreshed by the [update-secret](https://rabbitmq.com/amqp-0-9-1-reference.html#connection.update-secret) AMQP 0.9.1 method. Please check your client whether it supports this method. (Eg. see documentation of the [Java client](https://rabbitmq.com/api-guide.html#oauth2-refreshing-token).) Otherwise the client has to disconnect and reconnect to use a new token.
+On an existing connection the token can be refreshed by the [update-secret](https://rabbitmq.com/amqp-0-9-1-reference.html#connection.update-secret) AMQP 0.9.1 method. Please check your client whether it supports this method. (Eg. see documentation of the [Java client](https://rabbitmq.com/./api-guide#oauth2-refreshing-token).) Otherwise the client has to disconnect and reconnect to use a new token.
 
 If the latest token expires on an existing connection, after a limited time the broker will refuse all operations (but it won't disconnect).
 
@@ -479,7 +479,7 @@ For more information about wildcard patterns, check the section [Scope-to-Permis
 
 The `actions` field can be either a string containing a single action or a Json array containing zero or many actions.
 
-The supported actions map to either [RabbitMQ permissions](./access-control.html#authorisation):
+The supported actions map to either [RabbitMQ permissions](./access-control#authorisation):
 
 - `configure`
 - `read`
@@ -544,7 +544,7 @@ if RabbitMQ node's `resource_server_id` is equal to `finance`, the plugin will c
 
 ## <a id="examples" class="anchor" href="#examples">Examples</a>
 
-The [RabbitMQ OAuth 2.0 Auth Backend Examples](oauth2-examples.html) contains many example configuration files which can be used to set up several OAuth 2.0 providers, including UAA, Auth0, and Azure, and issue tokens, which can be used to access RabbitMQ resources.
+The [RabbitMQ OAuth 2.0 Auth Backend Examples](./oauth2-examples) contains many example configuration files which can be used to set up several OAuth 2.0 providers, including UAA, Auth0, and Azure, and issue tokens, which can be used to access RabbitMQ resources.
 
 
 ## License and Copyright

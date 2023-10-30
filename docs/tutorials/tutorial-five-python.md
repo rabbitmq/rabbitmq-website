@@ -28,7 +28,7 @@ As with other Python tutorials, we will use the [Pika](https://pypi.python.org/p
 
 ### What This Tutorial Focuses On
 
-In the [previous tutorial](tutorial-four-python.html) we improved our
+In the [previous tutorial](./tutorial-four-python) we improved our
 logging system. Instead of using a `fanout` exchange only capable of
 dummy broadcasting, we used a `direct` one, and gained a possibility
 of selectively receiving the logs.
@@ -159,7 +159,7 @@ start off with a working assumption that the routing keys of logs will
 have two words: "`<facility>.<severity>`".
 
 The code is almost the same as in the
-[previous tutorial](tutorial-four-python.html).
+[previous tutorial](./tutorial-four-python).
 
 `emit_log_topic.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python/emit_log_topic.py))
 
@@ -254,4 +254,4 @@ Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
 
-Move on to [tutorial 6](tutorial-six-python.html) to learn about *RPC*.
+Move on to [tutorial 6](./tutorial-six-python) to learn about *RPC*.

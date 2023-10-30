@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-four-java.html) we improved our
+In the [previous tutorial](./tutorial-four-java) we improved our
 logging system. Instead of using a `fanout` exchange only capable of
 dummy broadcasting, we used a `direct` one, and gained a possibility
 of selectively receiving the logs.
@@ -152,7 +152,7 @@ start off with a working assumption that the routing keys of logs will
 have two words: "`<facility>.<severity>`".
 
 The code is almost the same as in the
-[previous tutorial](tutorial-four-java.html).
+[previous tutorial](./tutorial-four-java).
 
 The code for `EmitLogTopic.java`:
 
@@ -226,7 +226,7 @@ public class ReceiveLogsTopic {
 }
 ```
 
-Compile and run the examples, including the classpath as in [Tutorial 1](tutorial-one-java.html) -
+Compile and run the examples, including the classpath as in [Tutorial 1](./tutorial-one-java) -
 on Windows, use %CP%.
 
 To compile:
@@ -272,4 +272,4 @@ with more than two routing key parameters.
 (Full source code for [EmitLogTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/EmitLogTopic.java)
 and [ReceiveLogsTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/ReceiveLogsTopic.java))
 
-Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-java.html)
+Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](./tutorial-six-java)

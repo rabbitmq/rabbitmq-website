@@ -17,7 +17,7 @@ limitations under the License.
 
 # Modifying the RabbitMQ Cluster Operator Default Configuration
 
-This information describes how to modify the configuration of the [RabbitMQ Cluster Kubernetes Operator](./operator-overview.html) in a Kubernetes cluster.
+This information describes how to modify the configuration of the [RabbitMQ Cluster Kubernetes Operator](./operator-overview) in a Kubernetes cluster.
 You might want to do this to control how the Cluster Operator configures `RabbitmqClusters`. For example, it can be useful when you are configuring the
 operator to automatically use the RabbitMQ container images that are stored in a private registry.
 

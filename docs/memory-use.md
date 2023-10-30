@@ -21,15 +21,15 @@ limitations under the License.
 
 Operators need to be able to reason about node's memory use,
 both absolute and relative ("what uses most memory"). This is an
-important aspect of [system monitoring](./monitoring.html).
+important aspect of [system monitoring](./monitoring).
 
 RabbitMQ provides tools that report and help analyse node memory use:
 
- * [`rabbitmq-diagnostics memory_breakdown`](./cli.html)
- * [`rabbitmq-diagnostics status`](./cli.html) includes the above breakdown as a section
- * [Prometheus and Grafana](./prometheus.html)-based monitoring makes it possible to observe memory breakdown over time
- * [Management UI](./management.html) provides the same breakdown on the node page as `rabbitmq-diagnostics status`
- * [HTTP API](./management.html#http-api) provides the same information as the management UI, useful [for monitoring](./monitoring.html)
+ * [`rabbitmq-diagnostics memory_breakdown`](./cli)
+ * [`rabbitmq-diagnostics status`](./cli) includes the above breakdown as a section
+ * [Prometheus and Grafana](./prometheus)-based monitoring makes it possible to observe memory breakdown over time
+ * [Management UI](./management) provides the same breakdown on the node page as `rabbitmq-diagnostics status`
+ * [HTTP API](./management#http-api) provides the same information as the management UI, useful [for monitoring](./monitoring)
  * [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top) and `rabbitmq-diagnostics observer` provide a more fine-grained [top](https://en.wikipedia.org/wiki/Top_(software))-like per Erlang process view
 
 Obtaining a node memory breakdown should be the first step when reasoning about node memory use.
@@ -74,7 +74,7 @@ Similarly, for the `allocated` strategy, use:
 vm_memory_calculation_strategy = allocated
 ```
 
-To find out what strategy a node uses, see its [effective configuration](configure.html).
+To find out what strategy a node uses, see its [effective configuration](./configure).
 
 ## <a id="breakdown" class="anchor" href="#breakdown">Memory Use Breakdown</a>
 
@@ -92,7 +92,7 @@ and so on.
 Memory use breakdown reports allocated memory distribution on the target node, by category:
 
  * [Connections](#breakdown-connections) (further split into four categories: readers, writers, channels, other)
- * [Quorum queue](./quorum-queues.html) replicas
+ * [Quorum queue](./quorum-queues) replicas
  * Classic mirrored queue leader replicas
  * Classic mirrored queue mirror (follower) replicas
  * Message Store and Indices
@@ -156,7 +156,7 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>
       Processes responsible for connection parser and most of connection state. Most of their memory attributes
       to TCP buffers. The more client connections a node has, the more memory will be used by this category.
-      See <a href="./networking.html">Networking guide</a> for more information.
+      See <a href="./networking">Networking guide</a> for more information.
     </td>
   </tr>
 
@@ -166,7 +166,7 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>
       Processes responsible for serialisation of outgoing protocol frames and writing to client connection sockets.
       The more client connections a node has, the more memory will be used by this category.
-      See <a href="./networking.html">Networking guide</a> for more information.
+      See <a href="./networking">Networking guide</a> for more information.
     </td>
   </tr>
 
@@ -186,9 +186,9 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>quorum_queue_procs</td>
     <td>Queues</td>
     <td>
-      <a href=".//quorum-queues.html">Quorum queue</a> processes, both currently elected leaders and followers.
+      <a href=".//./quorum-queues">Quorum queue</a> processes, both currently elected leaders and followers.
       Memory footprint can be capped on a per-queue basis.
-      See the <a href="./quorum-queues.html">Quorum Queues</a> guide for more information.
+      See the <a href="./quorum-queues">Quorum Queues</a> guide for more information.
     </td>
   </tr>
 
@@ -199,7 +199,7 @@ reserved_unallocated: 0.0 gb (0.0%)
       Classic queue leaders, indices and messages kept in memory. The greater the number of messages enqueued,
       the more memory will generally be attributed to this section. However, this greatly depends on
       queue properties and whether messages were published as transient.
-      See <a href="./memory.html">Memory</a>, <a href="./queues.html">Queues</a>, and <a href="./lazy-queues.html">Lazy Queues</a> guides
+      See <a href="./memory">Memory</a>, <a href="./queues">Queues</a>, and <a href="./lazy-queues">Lazy Queues</a> guides
       for more information.
     </td>
   </tr>
@@ -212,17 +212,17 @@ reserved_unallocated: 0.0 gb (0.0%)
       inherently transient data can reduce the amount of RAM used by mirrors. The greater the number of messages enqueued,
       the more memory will generally be attributed to this section. However, this greatly depends on
       queue properties and whether messages were published as transient.
-      See <a href="./memory.html">Memory</a>, <a href="./queues.html">Queues</a>, <a href="./ha.html">Mirroring</a>, and <a href="./lazy-queues.html">Lazy Queues</a> guides
+      See <a href="./memory">Memory</a>, <a href="./queues">Queues</a>, <a href="./ha">Mirroring</a>, and <a href="./lazy-queues">Lazy Queues</a> guides
       for more information.
     </td>
   </tr>
 
   <tr>
     <td>metrics</td>
-    <td><a href="./management.html">Stats DB</a></td>
+    <td><a href="./management">Stats DB</a></td>
     <td>
       Node-local metrics. The more connections, channels, queues are node hosts, the more stats there are to collect and keep.
-      See <a href="./management.html">management plugin guide</a> for more information.
+      See <a href="./management">management plugin guide</a> for more information.
     </td>
   </tr>
 
@@ -231,7 +231,7 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>Stats DB</td>
     <td>
       Aggregated and pre-computed metrics, inter-node HTTP API request cache and everything else related to the stats DB.
-      See <a href="./management.html">management plugin guide</a> for more information.
+      See <a href="./management">management plugin guide</a> for more information.
     </td>
   </tr>
 
@@ -245,7 +245,7 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>plugins</td>
     <td>Plugins</td>
     <td>
-      Plugins such as <a href="./shovel.html">Shovel</a>, <a href="./federation.html">Federation</a>, or protocol implementations such as <a href="./stomp.html">STOMP</a>
+      Plugins such as <a href="./shovel">Shovel</a>, <a href="./federation">Federation</a>, or protocol implementations such as <a href="./stomp">STOMP</a>
       can accumulate messages in memory.
     </td>
   </tr>
@@ -322,7 +322,7 @@ things in the system (e.g. connections, queues):
 
 ## <a id="breakdown-http-api-curl" class="anchor" href="#breakdown-http-api-curl">Producing Memory Use Breakdown Using HTTP API and curl</a>
 
-It is possible to produce memory use breakdown over [HTTP API](./management.html)
+It is possible to produce memory use breakdown over [HTTP API](./management)
 by issuing a `GET` request to the `/api/nodes/{node}/memory` endpoint.
 
 ```json
@@ -392,11 +392,11 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/r
 
 ### <a id="breakdown-connections" class="anchor" href="#breakdown-connections">Connections</a>
 
-This includes memory used by client connections (including [Shovels](shovel.html) and [Federation links](federation.html))
+This includes memory used by client connections (including [Shovels](./shovel) and [Federation links](./federation))
 and channels, and outgoing ones (Shovels and Federation upstream links). Most of the memory
 is usually used by TCP buffers, which on Linux autotune to about 100 kB in size by default.
 TCP buffer size can be reduced at the cost of a proportional decrease in connection throughput.
-See the [Networking guide](networking.html) for details.
+See the [Networking guide](./networking) for details.
 
 Channels also consume RAM. By optimising how many channels applications use, that amount
 can be decreased. It is possible to cap the max number of channels on a connection using
@@ -414,9 +414,9 @@ a certain number of channels. Finding an optimal value is usually a matter of tr
 Memory used by queues, queue indices, queue state. Messages enqueued will
 in part contribute to this category.
 
-Queues will [swap their contents out to disc when under memory pressure](./memory.html).
-The exact behavior of this depends on [queue properties](queues.html),
-whether clients publish messages as persistent or transient, and [persistence configuration](./persistence-conf.html) of the node.
+Queues will [swap their contents out to disc when under memory pressure](./memory).
+The exact behavior of this depends on [queue properties](./queues),
+whether clients publish messages as persistent or transient, and [persistence configuration](./persistence-conf) of the node.
 
 Message bodies do not show up here but in Binaries.
 
@@ -506,7 +506,7 @@ The plugin ships with RabbitMQ. Enable it with
 [sudo] rabbitmq-plugins enable rabbitmq_top
 ```
 
-The plugin adds new administrative tabs to the [management UI](./management.html). One
+The plugin adds new administrative tabs to the [management UI](./management). One
 tab displays top processes by one of the metrics:
 
  * Memory used
@@ -556,7 +556,7 @@ Besides the memory allocated and used directly by a RabbitMQ node, files read by
 can be cached by the operating system. This cache improves I/O operation efficiency and is
 evicted (cleared) when the OS detects that a high percentage of available memory is in used.
 
-Workloads that use [RabbitMQ streams](./streams.html) often lead to large kernel page cache size,
+Workloads that use [RabbitMQ streams](./streams) often lead to large kernel page cache size,
 in particular when consumers access messages that span days or weeks.
 
 Some monitoring tools do not include the size of page cache into process monitoring metrics. Others
@@ -599,7 +599,7 @@ The two key metrics are named `rss` (for resident set size) and `cache` (for pag
 ## <a id="memory-breakdown-and-monitoring" class="anchor" href="#memory-breakdown-and-monitoring">Memory Use Monitoring</a>
 
 It is recommended that production systems monitor memory usage of all cluster nodes,
-ideally with a breakdown, together with [infrastructure-level metrics](./monitoring.html).
+ideally with a breakdown, together with [infrastructure-level metrics](./monitoring).
 By correlating breakdown categories with other metrics, e.g. the number of concurrent
 connections or enqueued messages, it becomes possible to detect problems that
 stem from an application-specific behavior (e.g. connection leaks or ever growing queues without consumers).

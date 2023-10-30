@@ -21,7 +21,7 @@ limitations under the License.
 
 Binary downloads of plugins, which are contributed by authors in the
 community are available. These plugins do not ship with the RabbitMQ
-server. Refer to [Installing Additional Plugins](installing-plugins.html) for information on how to install the plugins. Note, the latest
+server. Refer to [Installing Additional Plugins](./installing-plugins) for information on how to install the plugins. Note, the latest
 build of the plugin is compiled against the latest feature release of RabbitMQ. 
 
 There is no guarantee that these plugins work
@@ -35,7 +35,7 @@ When RabbitMQ is upgraded, all community plugins must be re-installed, which can
 Alternatively, they can be deactivated before or during the upgrade.
 
 If you are the author of a plugin and would like it listed
-here, [get in touch](contact.html)!
+here, [get in touch](./contact)!
 
 ## <a id="routing" class="anchor" href="#routing">Routing</a>
 

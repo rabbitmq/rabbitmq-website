@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-three-javascript.html) we built a
+In the [previous tutorial](./tutorial-three-javascript) we built a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
@@ -372,5 +372,5 @@ And, for example, to emit an `error` log message just type:
 (Full source code for [(emit_log_direct.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/emit_log_direct.js)
 and [(receive_logs_direct.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/receive_logs_direct.js))
 
-Move on to [tutorial 5](tutorial-five-javascript.html) to find out how to listen
+Move on to [tutorial 5](./tutorial-five-javascript) to find out how to listen
 for messages based on a pattern.

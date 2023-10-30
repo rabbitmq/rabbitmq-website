@@ -19,7 +19,7 @@ limitations under the License.
 
 Our goal is for RabbitMQ to run on as wide a range of platforms as
 possible. RabbitMQ can potentially run on any platform that provides
-[a supported Erlang version](./which-erlang.html), from multi-core nodes and cloud-based
+[a supported Erlang version](./which-erlang), from multi-core nodes and cloud-based
 deployments to embedded systems.
 
 The following platforms are supported by Erlang and could therefore
@@ -35,10 +35,10 @@ run RabbitMQ:
 The open source release of RabbitMQ is most commonly used and deployed on the
 following platforms:
 
- * [Ubuntu and Debian-based](./install-debian.html) Linux distributions
- * [Fedora, RHEL, CentOS and RPM-based](./install-rpm.html) Linux distributions
- * [Windows Server](./install-windows.html)
- * [macOS](./install-generic-unix.html)
+ * [Ubuntu and Debian-based](./install-debian) Linux distributions
+ * [Fedora, RHEL, CentOS and RPM-based](./install-rpm) Linux distributions
+ * [Windows Server](./install-windows)
+ * [macOS](./install-generic-unix)
  * openSUSE Leap
 
 
@@ -50,7 +50,7 @@ RabbitMQ is available in the [commercial RabbitMQ distribution documentation](ht
 
 ## <a id="windows" class="anchor" href="#windows">Windows</a>
 
-RabbitMQ will run on any Windows version that [supported Erlang/OTP releases](./which-erlang.html)
+RabbitMQ will run on any Windows version that [supported Erlang/OTP releases](./which-erlang)
 can run on, both desktop and server editions. This includes Windows 10, Server 2012 through 2022.
 
 
@@ -67,7 +67,7 @@ RabbitMQ can run on physical or virtual hardware, including many
 IaaS providers and containers. This also allows unsupported platforms that are
 able to emulate a supported platform to run RabbitMQ.
 
-A number of companies offer RabbitMQ-as-a-service in multiple clouds. Please see  [Installation Guide](./download.html)
+A number of companies offer RabbitMQ-as-a-service in multiple clouds. Please see  [Installation Guide](./download)
 to learn more.
 
 
@@ -79,4 +79,4 @@ Some platforms are not supported and probably never will be:
  * Very memory-constrained systems (&lt; 32 MB of RAM)
 
 If your platform is on this list or you need assistance then
-please [contact VMware](contact.html).
+please [contact VMware](./contact).

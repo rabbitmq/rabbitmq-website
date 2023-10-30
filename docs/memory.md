@@ -28,12 +28,12 @@ limitations under the License.
 This guide covers RabbitMQ memory threshold and paging settings, running nodes
 on 64-bit and 32-bit systems, and other related topics.
 
-A separate guide, [Reasoning About Memory Use](./memory-use.html), covers how to
+A separate guide, [Reasoning About Memory Use](./memory-use), covers how to
 determine what consumes memory on a running RabbitMQ node for the purpose of
-[monitoring](./monitoring.html) or troubleshooting.
+[monitoring](./monitoring) or troubleshooting.
 
 Portions of this guide related to queue content paging to disk **are obsolete**
-or not applicable for [quorum queues](./quorum-queues.html), [streams](./streams.html)
+or not applicable for [quorum queues](./quorum-queues), [streams](./streams)
 and classic queues storage version 2 (CQv2). All of them
 actively move data to disk and do not generally accumulate a significant
 backlog of messages in memory.
@@ -45,10 +45,10 @@ RAM installed in the computer on startup and when
 
 <code>rabbitmqctl set_vm_memory_high_watermark <em>fraction</em></code> is
 executed. By default, when the RabbitMQ server uses above 40%
-of the available RAM, it raises a memory [alarm](./alarms.html) and blocks all
+of the available RAM, it raises a memory [alarm](./alarms) and blocks all
 connections that are publishing messages. Once the memory alarm has cleared (e.g. due
 to the server paging messages to disk or delivering them to
-clients that consume and [acknowledge the deliveries](./confirms.html)) normal service resumes.
+clients that consume and [acknowledge the deliveries](./confirms)) normal service resumes.
 
 The default memory threshold is set to 40% of installed
 RAM. Note that this does not prevent the RabbitMQ server
@@ -70,7 +70,7 @@ only has a maximum address space of 2GB.
 
 The memory threshold at which the flow control is triggered
 can be adjusted by editing the [configuration
-file](configure.html#configuration-files).
+file](./configure#configuration-files).
 
 The example below sets the threshold to the default value of 0.4:
 ```ini
@@ -102,7 +102,7 @@ vm_memory_high_watermark.absolute = 1024MiB
 If the absolute limit is larger than the installed RAM or available virtual
 address space, the threshold is set to whichever limit is smaller.
 
-The memory limit is appended to the [log file](./logging.html) when the RabbitMQ node
+The memory limit is appended to the [log file](./logging) when the RabbitMQ node
 starts:
 
 ```ini
@@ -180,12 +180,12 @@ space, running over the limit will cause the VM to terminate or killed
 by an out-of-memory mechanism of the operating system.
 
 It is therefore strongly recommended to run RabbitMQ on a 64 bit
-OS and a 64-bit [Erlang runtime](./which-erlang.html).
+OS and a 64-bit [Erlang runtime](./which-erlang).
 
 
 ## <a id="paging" class="anchor" href="#paging">Configuring the Paging Threshold</a>
 
-This section **is obsolete** or not applicable for [quorum queues](./quorum-queues.html), [streams](./streams.html)
+This section **is obsolete** or not applicable for [quorum queues](./quorum-queues), [streams](./streams)
 and classic queues storage version 2 (CQv2). All of them
 actively move data to disk and do not generally accumulate a significant
 backlog of messages in memory.
@@ -217,7 +217,7 @@ blocks publishers at 40%.
 ## <a id="unrecognised-platforms" class="anchor" href="#unrecognised-platforms">Unrecognised Platforms</a>
 
 If the RabbitMQ server is unable to detect the operating system it is running on,
-it will append a warning to the [log file](./logging.html). It then assumes than
+it will append a warning to the [log file](./logging). It then assumes than
 1GB of RAM is installed:
 
 ```ini
@@ -236,4 +236,4 @@ want RabbitMQ to throttle producers when the server is using
 above 3GB, set `vm_memory_high_watermark` to 3.
 
 For guidelines on recommended RAM watermark settings,
-see [Production Checklist](./production-checklist.html#resource-limits-ram).
+see [Production Checklist](./production-checklist#resource-limits-ram).

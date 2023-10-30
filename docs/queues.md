@@ -23,20 +23,20 @@ A queue in RabbitMQ is an ordered collection of messages. Messages are enqueued 
 
 To define a [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) in generic terms, it is a sequential data structure with two primary operations: an item can be **enqueued** (added) at the tail and **dequeued** (consumed) from the head. 
 
-Queues play a major role in the messaging technology space. Many messaging protocols and tools assume that [publishers](./publishers.html) and [consumers](./consumers.html) communicate using a queue-like storage mechanism.
+Queues play a major role in the messaging technology space. Many messaging protocols and tools assume that [publishers](./publishers) and [consumers](./consumers) communicate using a queue-like storage mechanism.
 
-Many features in a messaging system are related to queues. Some RabbitMQ queue features such as priorities and [requeueing](./confirms.html) by consumers can affect the ordering as observed by consumers. 
+Many features in a messaging system are related to queues. Some RabbitMQ queue features such as priorities and [requeueing](./confirms) by consumers can affect the ordering as observed by consumers. 
 
 The information in this topic includes an overview of queues in RabbitMQ and also links out to other topics so you can learn more about using queues in RabbitMQ.
 
-This information primarily covers queues in the context of the [AMQP 0-9-1](tutorials/amqp-concepts.html) protocol, however, much of the content is applicable to other supported protocols.
+This information primarily covers queues in the context of the [AMQP 0-9-1](./tutorials/amqp-concepts) protocol, however, much of the content is applicable to other supported protocols.
 
 Some protocols (for example: STOMP and MQTT) are based around the idea of topics.
 For these protocols, queues act as a data accumulation buffer for consumers.
 However, it is still important to understand the role queues play
 because many features still operate at the queue level, even for those protocols.
 
-[Streams](./streams.html) is an alternative messaging data structure available in RabbitMQ. Streams provide different features from queues.
+[Streams](./streams) is an alternative messaging data structure available in RabbitMQ. Streams provide different features from queues.
 
 The information about RabbitMQ queues covered in this topic includes:
 
@@ -52,9 +52,9 @@ The information about RabbitMQ queues covered in this topic includes:
  * [TTL](#ttl-and-limits) and length limits
  * [Priority Queues](#priorities)
 
-For topics related to consumers, see the [Consumers guide](./consumers.html).
-[Classic queues](./classic-queues.html), [quorum queues](./quorum-queues.html)
-and [streams](./streams.html) also have dedicated guides.
+For topics related to consumers, see the [Consumers guide](./consumers).
+[Classic queues](./classic-queues), [quorum queues](./quorum-queues)
+and [streams](./streams) also have dedicated guides.
 
 ## <a id="names" class="anchor" href="#names">Queue Names</a>
 
@@ -65,7 +65,7 @@ for them. Queue names may be up to 255 bytes of UTF-8 characters.
 
 Queue names starting with "amq." are reserved for internal
 use by the broker. Attempts to declare a queue with a name that
-violates this rule will result in a [channel-level exception](./channels.html)
+violates this rule will result in a [channel-level exception](./channels)
 with reply code 403 (<code>ACCESS_REFUSED</code>).
 
 ### <a id="server-named-queues" class="anchor" href="#server-named-queues">Server-named Queues</a>
@@ -80,7 +80,7 @@ server-generated queue name.
 Server-named queues are meant to be used for state that is transient
 in nature and specific to a particular consumer (application instance).
 Applications can share such names in message metadata to let other applications respond
-to them (as demonstrated in [tutorial six](getstarted.html)).
+to them (as demonstrated in [tutorial six](./getstarted)).
 Otherwise, the names of server-named queues should be known and used only by the
 declaring application instance. The instance should also set up appropriate
 bindings (routing) for the queue, so that publishers can use well-known
@@ -127,22 +127,22 @@ pairs that can be provided by clients when a queue is declared.
 
 The map is used by various features and plugins such as
 
- * Queue type (e.g. [quorum](./quorum-queues.html) or [classic](./classic-queues.html))
- * [Message and queue TTL](./ttl.html)
- * [Queue length limit](./maxlength.html)
- * Max number of [priorities](./priority.html)
- * [Consumer priorities](./consumer-priority.html)
+ * Queue type (e.g. [quorum](./quorum-queues) or [classic](./classic-queues))
+ * [Message and queue TTL](./ttl)
+ * [Queue length limit](./maxlength)
+ * Max number of [priorities](./priority)
+ * [Consumer priorities](./consumer-priority)
 
 and so on.
 
 Most optional arguments can be dynamically changed after queue declaration but there are
-exceptions. For example, [queue type](./quorum-queues.html) (`x-queue-type`) and max number
-of [queue priorities](./priority.html) (`x-max-priority`) must be set at queue declaration time
+exceptions. For example, [queue type](./quorum-queues) (`x-queue-type`) and max number
+of [queue priorities](./priority) (`x-max-priority`) must be set at queue declaration time
 and cannot be changed after that.
 
 Optional queue arguments can be set in a couple of ways:
 
- * To groups of queues using [policies](./parameters.html#policies) (recommended)
+ * To groups of queues using [policies](./parameters#policies) (recommended)
  * On a per-queue basis when a queue is declared by a client
 
 The former option is more flexible, non-intrusive, does not require application
@@ -158,14 +158,14 @@ declares queues.
 
 ### <a id="optional-arguments-precedence" class="anchor" href="#optional-arguments-precedence">Optional Arguments and Policy-Defined Key Precedence</a>
 
-When the same key is provided by both client-provided `x-arguments` and by a [policy](./parameters.html#policies),
+When the same key is provided by both client-provided `x-arguments` and by a [policy](./parameters#policies),
 the former take precedence.
 
-However, if an [operator policy](./parameters.html#operator-policies) is also used, that will take precedence over the client-provided
+However, if an [operator policy](./parameters#operator-policies) is also used, that will take precedence over the client-provided
 arguments, too. Operator policies are a protection mechanism and override client-provided values
 and user policy values.
 
-For numerical values such as [maximum queue length](./maxlength.html) or [TTL](./ttl.html),
+For numerical values such as [maximum queue length](./maxlength) or [TTL](./ttl),
 the lower value of the two will be used. If an application needs or chooses to use a lower value,
 that will be allowed by an operator policy. A value higher than that defined in the operator policy,
 however, cannot be used.
@@ -179,12 +179,12 @@ to resource use (e.g. peak disk space usage).
 Queues in RabbitMQ are ordered collections of messages.
 Messages are enqueued and dequeued (delivered to consumers) in the [FIFO manner](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)).
 
-FIFO ordering is not guaranteed for [priority](./priority.html) and [sharded queues](https://github.com/rabbitmq/rabbitmq-sharding/).
+FIFO ordering is not guaranteed for [priority](./priority) and [sharded queues](https://github.com/rabbitmq/rabbitmq-sharding/).
 
-Ordering also can be affected by the presence of multiple competing [consumers](./consumers.html),
-[consumer priorities](./consumers.html#priority), message redeliveries.
+Ordering also can be affected by the presence of multiple competing [consumers](./consumers),
+[consumer priorities](./consumers#priority), message redeliveries.
 This applies to redeliveries of any kind: automatic after channel closure and
-[negative consumer acknowledgements](./confirms.html).
+[negative consumer acknowledgements](./confirms).
 
 Applications can assume messages published on a single channel will be enqueued
 in publishing order in all the queues they get routed to.
@@ -200,7 +200,7 @@ not guaranteed.
 In case of multiple consumers, messages will be dequeued for delivery in the FIFO order
 but actual delivery will happen to multiple consumers. If all of the consumers have
 equal priorities, they will be picked on a [round-robin basis](https://en.wikipedia.org/wiki/Round-robin_scheduling).
-Only consumers on channels that have not exceeded their [prefetch value](./consumers.html#prefetch)
+Only consumers on channels that have not exceeded their [prefetch value](./consumers#prefetch)
 (the number of outstanding unacknowledged deliveries) will be considered.
 
 
@@ -208,7 +208,7 @@ Only consumers on channels that have not exceeded their [prefetch value](./consu
 
 Queues can be durable or transient. Metadata of a durable queue is stored on disk,
 while metadata of a transient queue is stored in memory when possible.
-The same distinction is made for [messages at publishing time](./publishers.html#message-properties)
+The same distinction is made for [messages at publishing time](./publishers#message-properties)
 in some protocols, e.g. AMQP 0-9-1 and MQTT.
 
 In environments and use cases where durability is important, applications
@@ -237,7 +237,7 @@ temporary WebSocket connections in user interfaces, mobile applications and devi
 that are expected to go offline or use switch identities. Such clients usually have
 inherently transient state that should be replaced when the client reconnects.
 
-Some queue types do not support transient queues. [Quorum queues](./quorum-queues.html) must
+Some queue types do not support transient queues. [Quorum queues](./quorum-queues) must
 be durable due to the assumptions and requirements of the underlying replication protocol,
 for example.
 
@@ -283,23 +283,23 @@ the queue is connected to), regardless of the `queue_leader_locator` value.
 
 ## <a id="distributed" class="anchor" href="#distributed">Replicated and Distributed Queues</a>
 
-[Quorum queues](./quorum-queues.html) is replicated, data safety and consistency-oriented queue type.
+[Quorum queues](./quorum-queues) is replicated, data safety and consistency-oriented queue type.
 Classic queues historically supported replication but it is **deprecated** and should be avoided.
 
 
-Queues can also be [federated](./federated-queues.html)
+Queues can also be [federated](./federated-queues)
 across loosely coupled nodes or clusters.
 
 Note that intra-cluster replication and federation
 are orthogonal features and should not be considered direct alternatives.
 
-[Streams](./streams.html) is another replicated data structure supported by RabbitMQ, with a different
+[Streams](./streams) is another replicated data structure supported by RabbitMQ, with a different
 set of supported operations and features.
 
 ## <a id="ttl-and-limits" class="anchor" href="#ttl-and-limits">Time-to-Live and Length Limit</a>
 
-Queues can have their length [limited](./maxlength.html).
-Queues and messages can have a [TTL](./ttl.html).
+Queues can have their length [limited](./maxlength).
+Queues and messages can have a [TTL](./ttl).
 
 Both features can be used for data expiration and as a way of limiting
 how many resources (RAM, disk space) a queue can use at most, e.g.
@@ -314,23 +314,23 @@ via a message property (<code>delivery_mode</code> or, in some clients, <code>pe
 
 Publishing messages as transient suggests that RabbitMQ should keep as many messages
 as possible in RAM. Queues will, however, page even transient messages to disk when
-they find themselves under [memory pressure](./memory.html).
+they find themselves under [memory pressure](./memory).
 
 Persistent messages routed to durable queues are persisted in batches
 or when a certain amount of time passes (fraction of a second).
 
-[Lazy queues](./lazy-queues.html) page messages out to disk more aggressively
+[Lazy queues](./lazy-queues) page messages out to disk more aggressively
 regardless of their persistence property.
 
-See [Memory Usage](./memory-use.html), [Alarms](./alarms.html),
-[Memory Alarms](./memory.html), [Free Disk Space Alarms](./disk-alarms.html),
-[Production Checklist](./production-checklist.html), and [Message Store Configuration](./persistence-conf.html)
+See [Memory Usage](./memory-use), [Alarms](./alarms),
+[Memory Alarms](./memory), [Free Disk Space Alarms](./disk-alarms),
+[Production Checklist](./production-checklist), and [Message Store Configuration](./persistence-conf)
 guide for details.
 
 
 ## <a id="priorities" class="anchor" href="#priorities">Priorities</a>
 
-Queues can have 0 or more [priorities](./priority.html). This feature is opt-in:
+Queues can have 0 or more [priorities](./priority). This feature is opt-in:
 only queues that have maximum number of priorities configured via an optional argument
 (see above) will do prioritisation.
 
@@ -357,12 +357,12 @@ provides an opinionated way of doing so transparently to the clients.
 ## <a id="metrics" class="anchor" href="#metrics">Metrics and Monitoring</a>
 
 RabbitMQ collects multiple metrics about queues. Most of them are available
-via [RabbitMQ HTTP API and management UI](./management.html), which is designed for monitoring.
+via [RabbitMQ HTTP API and management UI](./management), which is designed for monitoring.
 This includes queue length, ingress and egress rates, number of consumers, number of
-messages in various states (e.g. ready for delivery or [unacknowledged](./confirms.html)),
+messages in various states (e.g. ready for delivery or [unacknowledged](./confirms)),
 number of messages in RAM vs. on disk, and so on.
 
-[rabbitmqctl](man/rabbitmqctl.8.html) can list queues and some basic metrics.
+[rabbitmqctl](./man/rabbitmqctl.8) can list queues and some basic metrics.
 
 Runtime metrics such as VM scheduler usage, queue (Erlang) process GC activity, amount of
 RAM used by the queue process, queue process mailbox length can be accessed
@@ -378,12 +378,12 @@ which means RabbitMQ will push messages to the client, or fetched
 individually for protocols that support this (e.g. the <code>basic.get</code> AMQP 0-9-1 method),
 similarly to HTTP GET.
 
-Delivered messages can be [acknowledged by consumer](./confirms.html) explicitly
+Delivered messages can be [acknowledged by consumer](./confirms) explicitly
 or automatically as soon as a delivery is written to connection socket.
 
 Automatic acknowledgement mode generally will provide higher throughput
 rate and uses less network bandwidth. However, it offers the least number
-of guarantees when it comes to [failures](./reliability.html). As a rule of
+of guarantees when it comes to [failures](./reliability). As a rule of
 thumb, consider using manual acknowledgement mode first.
 
 ### <a id="prefetch-consumer-overload" class="anchor" href="#prefetch-consumer-overload">Prefetch and Consumer Overload</a>
@@ -394,7 +394,7 @@ This can result in permanently growing memory usage and/or
 OS swapping for the consumer process.
 
 Manual acknowledgement mode provides a way to [set a limit on the number
-of outstanding (unconfirmed) deliveries](confirms.html): channel QoS (prefetch).
+of outstanding (unconfirmed) deliveries](./confirms): channel QoS (prefetch).
 
 Consumers using higher (several thousands or more) prefetch levels can experience
 the same overload problem as consumers using automatic acknowledgements.
@@ -408,7 +408,7 @@ the broker.
 Enqueued messages therefore can be in one of two states:
 
  * Ready for delivery
- * Delivered but not yet [acknowledged by consumer](./confirms.html)
+ * Delivered but not yet [acknowledged by consumer](./confirms)
 
 Message breakdown by state can be found in the management UI.
 
@@ -421,7 +421,7 @@ It is possible to determine queue length in a number of ways:
  * With AMQP 0-9-1, using a property on the <code>queue.declare</code> method response
    (<code>queue.declare-ok</code>). The field name is <code>message_count</code>. How it is accessed
    varies from client library to client library.
- * Using [RabbitMQ HTTP API](./management.html).
- * Using the [rabbitmqctl](man/rabbitmqctl.8.html) <code>list_queues</code> command.
+ * Using [RabbitMQ HTTP API](./management).
+ * Using the [rabbitmqctl](./man/rabbitmqctl.8) <code>list_queues</code> command.
 
 Queue length is defined as the number of messages ready for delivery.

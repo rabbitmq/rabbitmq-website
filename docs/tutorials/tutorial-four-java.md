@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-three-java.html) we built a
+In the [previous tutorial](./tutorial-three-java) we built a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
@@ -322,7 +322,7 @@ public class ReceiveLogsDirect {
 }
 ```
 
-Compile as usual (see [tutorial one](tutorial-one-java.html) for compilation and classpath advice).
+Compile as usual (see [tutorial one](./tutorial-one-java) for compilation and classpath advice).
 For convenience we'll use an environment variable $CP (that's %CP% on Windows) for the classpath when running examples.
 
 ```bash
@@ -354,5 +354,5 @@ java -cp $CP EmitLogDirect error "Run. Run. Or it will explode."
 (Full source code for [(EmitLogDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/EmitLogDirect.java)
 and [(ReceiveLogsDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/ReceiveLogsDirect.java))
 
-Move on to [tutorial 5](tutorial-five-java.html) to find out how to listen
+Move on to [tutorial 5](./tutorial-five-java) to find out how to listen
 for messages based on a pattern.

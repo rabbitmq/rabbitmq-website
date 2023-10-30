@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-three-ruby.html) we built a
+In the [previous tutorial](./tutorial-three-ruby) we built a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
@@ -336,5 +336,5 @@ ruby emit_log_direct.rb error "Run. Run. Or it will explode."
 (Full source code for [(emit_log_direct.rb source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/ruby/emit_log_direct.rb)
 and [(receive_logs_direct.rb source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/ruby/receive_logs_direct.rb))
 
-Move on to [tutorial 5](tutorial-five-ruby.html) to find out how to listen
+Move on to [tutorial 5](./tutorial-five-ruby) to find out how to listen
 for messages based on a pattern.

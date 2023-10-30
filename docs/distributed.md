@@ -34,36 +34,36 @@ clusters can be connected together with Federation or Shovel, or both.
 
 ## <a id="clustering" class="anchor" href="#clustering">Clustering</a>
 
-[Clustering](clustering.html) connects multiple
-machines together to [form a cluster](cluster-formation.html).
+[Clustering](./clustering) connects multiple
+machines together to [form a cluster](./cluster-formation).
 Inter-node communication is performed transparently to clients.
 The design of clustering assumes that network connections are reasonably reliable
 and provides a LAN-like latency.
 
-All nodes in the cluster must run compatible versions of RabbitMQ and [Erlang](./which-erlang.html).
+All nodes in the cluster must run compatible versions of RabbitMQ and [Erlang](./which-erlang).
 
-Nodes authenticate to each other using [a pre-shared secret](./clustering.html#erlang-cookie)
+Nodes authenticate to each other using [a pre-shared secret](./clustering#erlang-cookie)
 typically installed by deployment automation tools.
 
 Virtual hosts, exchanges, users, and permissions are
-[automatically replicated](clustering.html#cluster-membership) across all nodes in a cluster.
+[automatically replicated](./clustering#cluster-membership) across all nodes in a cluster.
 Queues may be located on a single node, or replicate their content for higher availability.
-[Quorum queues](quorum-queues.html) is a modern replicated queue type that focuses on data safety.
-[Streams](streams.html) is another replicated messaging data type that allows for repeatable
+[Quorum queues](./quorum-queues) is a modern replicated queue type that focuses on data safety.
+[Streams](./streams) is another replicated messaging data type that allows for repeatable
 consumption (reads).
 
 A client connecting to any node in a
-cluster can [use all non-exclusive queues in the cluster](clustering.html#clustering-and-clients), even if they are not
+cluster can [use all non-exclusive queues in the cluster](./clustering#clustering-and-clients), even if they are not
 located on that node.
 
 Clustering nodes can help improve availability, data safety of queue contents and sustain
-more concurrent client connections. The [Clustering](clustering.html), [Quorum Queues](quorum-queues.html) and [Streams](streams.html)
+more concurrent client connections. The [Clustering](./clustering), [Quorum Queues](./quorum-queues) and [Streams](./streams)
 guides provide more details on these topics.
 
 
 ## <a id="federation" class="anchor" href="#federation">Federation</a>
 
-[Federation](federation.html) allows an exchange or
+[Federation](./federation) allows an exchange or
 queue on one broker to receive messages published to an exchange
 or queue on another (the brokers may be individual machines, or
 clusters). Communication is via AMQP (with optional SSL), so for
@@ -88,7 +88,7 @@ internet for pub/sub messaging and work queueing.
 
 ## <a id="shovel" class="anchor" href="#shovel">Shovels</a>
 
-Connecting brokers with [the Shovel plugin](shovel.html) is conceptually similar to connecting them with
+Connecting brokers with [the Shovel plugin](./shovel) is conceptually similar to connecting them with
 Federation. However, the plugin works at a lower level.
 
 Whereas federation aims to provide opinionated distribution of
@@ -99,7 +99,7 @@ another.
 Typically you would use the shovel to link brokers across the
 internet when you need more control than federation provides.
 
-[Dynamic shovels](shovel-dynamic.html) can also be
+[Dynamic shovels](./shovel-dynamic) can also be
 useful for moving messages around in an ad-hoc manner on a
 single broker.
 
@@ -131,12 +131,12 @@ single broker.
     <td>
       Brokers can be connected via unreliable WAN
       links. Communication is via AMQP 0-9-1 (optionally secured by
-      <a href="./ssl.html">TLS</a>), requiring appropriate users and permissions to be set up.
+      <a href="./ssl">TLS</a>), requiring appropriate users and permissions to be set up.
     </td>
     <td>
       Brokers must be connected via reasonably reliable LAN
       links. Nodes will authenticate to each other using a shared secret
-      and optionally <a href="./clustering-ssl.html">use TLS-enabled links</a>.
+      and optionally <a href="./clustering-ssl">use TLS-enabled links</a>.
     </td>
   </tr>
   <tr>

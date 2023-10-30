@@ -23,8 +23,8 @@ This guide explains what release series of RabbitMQ are currently covered by
 community or extended commercial support policies, which release series is coming next, and
 what series are no longer supported.
 
-For guidance on upgrades, see the [Upgrade](./upgrade.html) and
-[Blue/Green Deployment Upgrade](./blue-green-upgrade.html) guides.
+For guidance on upgrades, see the [Upgrade](./upgrade) and
+[Blue/Green Deployment Upgrade](./blue-green-upgrade) guides.
 
 ## <a id="currently-supported" class="anchor" href="#currently-supported">Currently Supported &product-name; Release Series</a>
 
@@ -85,10 +85,10 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
 In January 2023, the term **general support** was replaced with **community support** to avoid confusion with
 VMware [terminology related to support lifecycle policy](https://tanzu.vmware.com/support/lifecycle_policy).
 
-<sup>1</sup> **Community Support** means patch releases are [produced regularly](./changelog.html) based on feedback from all users,
+<sup>1</sup> **Community Support** means patch releases are [produced regularly](./changelog) based on feedback from all users,
 both community and those with a commercial license.
 
-<sup>2</sup> **Extended Commercial Support** means patches are produced for security and high severity issues reported by users with a [commercial license](./contact.html#paid-support).
+<sup>2</sup> **Extended Commercial Support** means patches are produced for security and high severity issues reported by users with a [commercial license](./contact#paid-support).
 
 
 ## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>
@@ -187,7 +187,7 @@ RabbitMQ 3.13, the next release series, is expected to be released end of 2023.
   </tr>
 </table>
 
-To learn more about individual releases, please see the [change log](./changelog.html).
+To learn more about individual releases, please see the [change log](./changelog).
 
 
 ## <a id="prior-to-v3x" class="anchor" href="#prior-to-v3x">Versions prior to v3.x</a>

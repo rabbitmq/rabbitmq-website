@@ -23,8 +23,8 @@ This guide covers RabbitMQ installation on RPM-based Linux (Red Hat Enterprise L
 
 With the [exception of Fedora](https://packages.fedoraproject.org/pkgs/rabbitmq-server/rabbitmq-server/), the versions included
 into standard RPM-based distribution repositories can be
-many releases behind [latest RabbitMQ releases](changelog.html)
-and may provide RabbitMQ versions that are already [out of support](versions.html).
+many releases behind [latest RabbitMQ releases](./changelog)
+and may provide RabbitMQ versions that are already [out of support](./versions).
 
 Team RabbitMQ produces our own RPM packages and distributes them [using a Cloudsmith mirror](#apt-cloudsmith).
 
@@ -80,13 +80,13 @@ is done on a best effort basis.
 
 RabbitMQ RPM package will require `sudo` privileges to install and manage.
 In environments where `sudo` isn't available, consider using the
-[generic binary build](install-generic-unix.html).
+[generic binary build](./install-generic-unix).
 
 
 ## <a id="install-erlang" class="anchor" href="#install-erlang">Install Erlang</a>
 
-Before installing RabbitMQ, you must install a [supported version](which-erlang.html) of Erlang/OTP.
-Standard Red Hat, Fedora, CentOS repositories provide Erlang versions that are typically [out of date](which-erlang.html)
+Before installing RabbitMQ, you must install a [supported version](./which-erlang) of Erlang/OTP.
+Standard Red Hat, Fedora, CentOS repositories provide Erlang versions that are typically [out of date](./which-erlang)
 and cannot be used to run latest RabbitMQ releases.
 
 There are three alternative sources for modern Erlang on RPM-based distributions:
@@ -94,8 +94,8 @@ There are three alternative sources for modern Erlang on RPM-based distributions
  * Team RabbitMQ produces [a package](https://github.com/rabbitmq/erlang-rpm) stripped
    down to only provide those components needed to run
    RabbitMQ. This is the recommended option.
- * [openSUSE](https://www.opensuse.org/) produces [Erlang packages](https://software.opensuse.org/download.html?project=devel%3Alanguages%3Aerlang%3AFactory&package=erlang) for openSUSE Leap
- * [Erlang Solutions](https://www.erlang-solutions.com/resources/download.html) produces packages that are usually reasonably up to
+ * [openSUSE](https://www.opensuse.org/) produces [Erlang packages](https://software.opensuse.org/./download?project=devel%3Alanguages%3Aerlang%3AFactory&package=erlang) for openSUSE Leap
+ * [Erlang Solutions](https://www.erlang-solutions.com/resources/./download) produces packages that are usually reasonably up to
    date and involve installation of a potentially excessive list of dependencies
 
 ### <a id="install-zero-dependency-rpm" class="anchor" href="#install-zero-dependency-rpm">Zero-dependency Erlang from RabbitMQ</a>
@@ -138,7 +138,7 @@ as long as compatible versions are available. When that's not the case, dependen
 However, when installing a local RPM file via `yum` dependencies must be installed
 manually. The dependencies are:
 
- * `erlang`: a [supported version of Erlang](which-erlang.html) can be installed from a number of [repositories](#install-erlang)
+ * `erlang`: a [supported version of Erlang](./which-erlang) can be installed from a number of [repositories](#install-erlang)
  * `socat`
  * `logrotate`
 
@@ -427,7 +427,7 @@ type=rpm-md
 #### OpenSUSE
 
 The following example targets OpenSUSE and only installs the RabbitMQ package repository.
-Erlang is assumed to be provisioned from the [`devel:languages:erlang:Factory`](https://software.opensuse.org/download.html?project=devel%3Alanguages%3Aerlang%3AFactory&package=erlang) repository.
+Erlang is assumed to be provisioned from the [`devel:languages:erlang:Factory`](https://software.opensuse.org/./download?project=devel%3Alanguages%3Aerlang%3AFactory&package=erlang) repository.
 
 ```ini
 ##
@@ -524,7 +524,7 @@ zypper install --repo rabbitmq_server-noarch
 
 [yum version locking](https://access.redhat.com/solutions/98873) plugin can
 be used to prevent unexpected package upgrades. Using it carries the risk of leaving
-the system behind in terms of [updates](changelog.html), including important bug fixes
+the system behind in terms of [updates](./changelog), including important bug fixes
 and security patches.
 
 
@@ -544,7 +544,7 @@ dnf install socat logrotate -y
 dnf install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm
 ```
 
-[RabbitMQ public signing key](signatures.html) can also be [downloaded from rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
+[RabbitMQ public signing key](./signatures) can also be [downloaded from rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
 
 ```bash
 rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
@@ -623,12 +623,12 @@ systemctl stop rabbitmq-server
 ## <a id="configuration" class="anchor" href="#configuration">Configuring RabbitMQ</a>
 
 On most systems, a node should be able to start and run with all defaults.
-Please refer to the [Configuration guide](configure.html) to learn more
-and [Production Checklist](production-checklist.html) for guidelines beyond
+Please refer to the [Configuration guide](./configure) to learn more
+and [Production Checklist](./production-checklist) for guidelines beyond
 development environments.
 
 Note: the node is set up to run as system user `rabbitmq`.
-If [location of the node database or the logs](relocate.html) is changed,
+If [location of the node database or the logs](./relocate) is changed,
 the files and directories must be owned by this user.
 
 
@@ -637,7 +637,7 @@ the files and directories must be owned by this user.
 RabbitMQ nodes bind to ports (open server TCP sockets) in order to accept client
 and CLI tool connections. Other processes and tools such as SELinux may prevent
 RabbitMQ from binding to a port. When that happens, the node will fail to start.
-Refer to the [Networking Guide](networking.html#ports) for more details.
+Refer to the [Networking Guide](./networking#ports) for more details.
 
 ## <a id="default-user-access" class="anchor" href="#default-user-access">Default User Access</a>
 
@@ -648,7 +648,7 @@ used when connecting to the broker as localhost</strong> so you
 will need to take action before connecting from any other
 machine.
 
-See the documentation on [access control](./access-control.html) for information on how to create more users and delete
+See the documentation on [access control](./access-control) for information on how to create more users and delete
 the `guest` user.
 
 
@@ -703,7 +703,7 @@ The file has to be installed on Docker hosts at `/etc/docker/daemon.json`:
 
 The most straightforward way to adjust the per-user limit for
 RabbitMQ on distributions that do not use systemd is to edit the `/etc/default/rabbitmq-server`
-(provided by the RabbitMQ Debian package) or [rabbitmq-env.conf](https://www.rabbitmq.com/configure.html)
+(provided by the RabbitMQ Debian package) or [rabbitmq-env.conf](https://www.rabbitmq.com/./configure)
 to invoke `ulimit` before the service is started.
 
 ```bash
@@ -721,7 +721,7 @@ with `sysctl`, please refer to the excellent
 
 ### <a id="verifying-limits" class="anchor" href="#verifying-limits">Verifying the Limit</a>
 
-[RabbitMQ management UI](management.html) displays the number of file descriptors available
+[RabbitMQ management UI](./management) displays the number of file descriptors available
 for it to use on the Overview tab.
 
 ```bash
@@ -742,7 +742,7 @@ is the OS PID of the Erlang VM running RabbitMQ, as returned by `rabbitmq-diagno
 ### <a id="chef-puppet-bosh" class="anchor" href="#chef-puppet-bosh">Configuration Management Tools</a>
 
 Configuration management tools (e.g. Chef, Puppet, BOSH) provide assistance
-with system limit tuning. Our [developer tools](devtools.html#devops-tools) guide
+with system limit tuning. Our [developer tools](./devtools#devops-tools) guide
 lists relevant modules and projects.
 
 
@@ -798,7 +798,7 @@ Dec 26 10:21:32 localhost.localdomain rabbitmq-server[957]: completed with 6 plu
 ```
 
 `rabbitmqctl`, `rabbitmq-diagnostics`,
-and other [CLI tools](cli.html) will be available in `PATH` and can be invoked by a `sudo`-enabled user:
+and other [CLI tools](./cli) will be available in `PATH` and can be invoked by a `sudo`-enabled user:
 
 ```bash
 # checks if the local node is running and CLI tools can successfully authenticate with it
@@ -816,15 +816,15 @@ sudo rabbitmq-diagnostics environment
 ```
 
 All `rabbitmqctl` commands will report an error if no node is running.
-See the [CLI tools](cli.html) and [Monitoring](monitoring.html) guides to learn more.
+See the [CLI tools](./cli) and [Monitoring](./monitoring) guides to learn more.
 
 
 ## <a id="server-logs" class="anchor" href="#server-logs">Log Files and Management</a>
 
-[Server logs](logging.html) can be found under the [configurable](relocate.html) directory, which usually
+[Server logs](./logging) can be found under the [configurable](./relocate) directory, which usually
 defaults to `/var/log/rabbitmq` when RabbitMQ is installed via a Linux package manager.
 
-`RABBITMQ_LOG_BASE` can be used to override [log directory location](relocate.html).
+`RABBITMQ_LOG_BASE` can be used to override [log directory location](./relocate).
 
 Assuming a `systemd`-based distribution, system service logs can be
 inspected using
@@ -856,7 +856,7 @@ Dec 26 11:03:06 localhost rabbitmq-server[968]: completed with 6 plugins.
 
 ### Log Rotation
 
-The broker always appends to the [log files](logging.html), so a complete log history is retained.
+The broker always appends to the [log files](./logging), so a complete log history is retained.
 
 [logrotate](https://linux.die.net/man/8/logrotate) is the recommended way of log file rotation and compression.
 By default, the package will set up `logrotate` to run weekly on files located in default

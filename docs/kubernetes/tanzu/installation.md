@@ -161,15 +161,15 @@ ytt -f manifests/cluster-operator.yml -f manifests/messaging-topology-operator.y
 
 ## Observability
 
-Setting up observability for RabbitMQ clusters is [very important](../../monitoring.html#approaches-to-monitoring).
+Setting up observability for RabbitMQ clusters is [very important](../../monitoring#approaches-to-monitoring).
 To do so, follow the instructions [in the Cluster Operator repository](https://github.com/rabbitmq/cluster-operator/tree/v1.7.0/observability)
-or the [Operator monitoring guide](../operator/operator-monitoring.html).
+or the [Operator monitoring guide](../operator/operator-monitoring).
 
 ## Deploying your RabbitmqClusters and Topology Objects
 
 Once this installation is complete, the Carvel tooling can also be used to create RabbitMQ objects (virtual hosts, users, queues, exchanges, bindings:
-everything that can be managed via [definitions](../../definitions.html))
-using the [RabbitMQ Topology Operator](../operator/using-topology-operator.html).
+everything that can be managed via [definitions](../../definitions))
+using the [RabbitMQ Topology Operator](../operator/using-topology-operator).
 
 To do so, render `overlays/rabbitmqcluster.yml` with a manifest of the `RabbitmqCluster` object,
 the resultant cluster will use the bundled VMware RabbitMQ container image.

@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-four-php.html) we improved our
+In the [previous tutorial](./tutorial-four-php) we improved our
 logging system. Instead of using a `fanout` exchange only capable of
 dummy broadcasting, we used a `direct` one, and gained a possibility
 of selectively receiving the logs.
@@ -151,7 +151,7 @@ start off with a working assumption that the routing keys of logs will
 have two words: "`<facility>.<severity>`".
 
 The code is almost the same as in the
-[previous tutorial](tutorial-four-php.html).
+[previous tutorial](./tutorial-four-php).
 
 The code for `emit_log_topic.php`:
 
@@ -263,4 +263,4 @@ with more than two routing key parameters.
 (Full source code for [emit_log_topic.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/emit_log_topic.php)
 and [receive_logs_topic.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/receive_logs_topic.php))
 
-Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-php.html)
+Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](./tutorial-six-php)

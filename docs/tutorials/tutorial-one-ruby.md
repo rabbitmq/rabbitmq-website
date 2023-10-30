@@ -43,7 +43,7 @@ on behalf of the consumer.
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
-> languages](http://rabbitmq.com/devtools.html). We'll
+> languages](http://rabbitmq.com/./devtools). We'll
 > use the [Bunny](http://rubybunny.info), the most popular Ruby client, in this tutorial.
 >
 > First, install Bunny using [Rubygems](http://rubygems.org):
@@ -131,7 +131,7 @@ connection.close
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
-> href="https://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/./configure#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 
@@ -223,4 +223,4 @@ the producer from another terminal.
 > rabbitmqctl.bat list_queues
 > ```
 
-Time to move on to [part 2](tutorial-two-ruby.html) and build a simple _work queue_.
+Time to move on to [part 2](./tutorial-two-ruby) and build a simple _work queue_.

@@ -2,10 +2,10 @@
 
 ## <a id='overview' class='anchor' href='#overview'>How to use the RabbitMQ Cluster Kubernetes Operator</a>
 
-Use this information to learn how to deploy custom resource objects that are then managed by the [RabbitMQ Cluster Kubernetes Operator](./operator-overview.html).
+Use this information to learn how to deploy custom resource objects that are then managed by the [RabbitMQ Cluster Kubernetes Operator](./operator-overview).
 
 If the RabbitMQ Cluster Kubernetes Operator is not installed at this point,
-refer to [installing the RabbitMQ Cluster Operator in a Kubernetes Cluster](./install-operator.html) now. For instructions on getting started quickly, refer to the [quickstart](./quickstart-operator.html) information.
+refer to [installing the RabbitMQ Cluster Operator in a Kubernetes Cluster](./install-operator) now. For instructions on getting started quickly, refer to the [quickstart](./quickstart-operator) information.
 
 This following information is structured into these sections:
 
@@ -28,7 +28,7 @@ This following information is structured into these sections:
 * [Configure Log Level for the Operator](#operator-log)
 
 Additional information about using the RabbitMQ Cluster Kubernetes Operator on Openshift can be found at
-[Using the RabbitMQ Kubernetes Operators on Openshift](using-on-openshift.html).
+[Using the RabbitMQ Kubernetes Operators on Openshift](./using-on-openshift).
 
 ## <a id='service-availability' class='anchor' href='#service-availability'>Confirm Service Availability</a>
 
@@ -49,7 +49,7 @@ kubectl get customresourcedefinitions.apiextensions.k8s.io
 # rabbitmqclusters.rabbitmq.com   2019-10-23T10:11:06Z
 ```
 
-If it is not, install it by following the steps in the [installation guide](./install-operator.html).
+If it is not, install it by following the steps in the [installation guide](./install-operator).
 
 
 ## <a id='psp' class='anchor' href='#psp'>(Optional) Apply Pod Security Policies</a>
@@ -108,7 +108,7 @@ metadata:
 
 <p class="note">
 <strong>Note:</strong> when creating RabbitmqClusters on Openshift, there are extra parameters that must be added to
-all RabbitmqCluster manifests. See <a href="./using-on-openshift.html#arbitrary-user-ids">Support for Arbitrary User IDs</a> for details.
+all RabbitmqCluster manifests. See <a href="./using-on-openshift#arbitrary-user-ids">Support for Arbitrary User IDs</a> for details.
 </p>
 
 Next, apply the definition by running:
@@ -137,7 +137,7 @@ kubectl get all -l app.kubernetes.io/name=definition
 ```
 
 A RabbitMQ cluster is now ready to be used by applications. Continue for more advanced configuration options.
-For more information, see the [RabbitMQ documentation guides](../../documentation.html).
+For more information, see the [RabbitMQ documentation guides](../../documentation).
 
 ### <a id='internal-labels' class='anchor' href='#internal-labels'> Internal labels and annotations</a>
 
@@ -201,8 +201,8 @@ metadata:
 ### <a name='replicas' class='anchor' href='#replicas'>Number of Replicas</a>
 
 **Description:** Specify the number of replicas for the RabbitmqCluster. [An even number of replicas
-is highly discouraged](../../clustering.html#node-count). Odd numbers (1, 3, 5, 7, and so on)
-[must be used](../../clustering.html#node-count).
+is highly discouraged](../../clustering#node-count). Odd numbers (1, 3, 5, 7, and so on)
+[must be used](../../clustering#node-count).
 
 **Default Value:** 1
 
@@ -416,7 +416,7 @@ For more information about concepts mentioned above, see:
 	</tr>
 	<tr>
 		<td>High-water mark</td>
-		<td>The <a href="../../memory.html#threshold">RabbitMQ documentation</a></td>
+		<td>The <a href="../../memory#threshold">RabbitMQ documentation</a></td>
 	</tr>
 </table>
 
@@ -483,7 +483,7 @@ cluster_formation.randomized_startup_delay_range.max = 60
 ```
 
 All the values in additional config will be applied after this list. If any property is specified twice, the latest
-will take effect. To learn more about RabbitMQ configuration options and formart, check out the dedicated [Configuration Documentation](../../configure.html).
+will take effect. To learn more about RabbitMQ configuration options and formart, check out the dedicated [Configuration Documentation](../../configure).
 
 **Default Value:** N/A
 
@@ -575,10 +575,10 @@ If community plugins need to be provisioned, they should be included into a cust
 already exist in the same Namespace as the `RabbitmqCluster` object. It is expected that the Secret contains `tls.key`
 and `tls.crt` for the private key and public certificate respectively.
 
-By default, enabling [TLS for client connections](../../ssl.html) does not disable non-TLS listeners. Therefore, unencrypted connections will still be accepted.
+By default, enabling [TLS for client connections](../../ssl) does not disable non-TLS listeners. Therefore, unencrypted connections will still be accepted.
 To disable non-TLS listeners and only accept TLS connections, set `spec.tls.disableNonTLSListeners: true`.
 
-It is also possible to make RabbitMQ [verify peer certificates](../../ssl.html#peer-verification) against a provided CA certificate.
+It is also possible to make RabbitMQ [verify peer certificates](../../ssl#peer-verification) against a provided CA certificate.
 The same can be done by clients, so peer verification can be mutual ("mTLS").
 This certificate must be stored in a Secret of name `spec.tls.caSecretName`, in the same Namespace as the `RabbitmqCluster`
 object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` containing
@@ -620,7 +620,7 @@ spec:
 
 **Description:** If unset, or set to false, operator will run `rabbitmq-queues rebalance all` whenever the cluster is updated.
 When set to true, operator will skip running `rabbitmq-queues rebalance all`.
-For more information, see [rabbitmq-queues rebalance all](../../rabbitmq-queues.8.html#rebalance).
+For more information, see [rabbitmq-queues rebalance all](../../man/rabbitmq-queues.8#rebalance).
 
 **Default Value:** false
 
@@ -639,7 +639,7 @@ spec:
 
 **Description:** TerminationGracePeriodSeconds is the timeout that each rabbitmqcluster pod will have to run the container preStop lifecycle hook to ensure graceful termination.
 The lifecycle hook checks quorum status of existing quorum queues and synchronization of mirror queues, before safely terminates pods.
-See [rabbitmq-queues check_if_node_is_quorum_critical](../..//rabbitmq-queues.8.html#check_if_node_is_quorum_critical) and [rabbitmq-queues check_if_node_is_mirror_sync_critical](../../rabbitmq-queues.8.html#check_if_node_is_mirror_sync_critical) for more details.
+See [rabbitmq-queues check_if_node_is_quorum_critical](../../man/rabbitmq-queues.8#check_if_node_is_quorum_critical) and [rabbitmq-queues check_if_node_is_mirror_sync_critical](../../man/rabbitmq-queues.8#check_if_node_is_mirror_sync_critical) for more details.
 It defaults to 604800 seconds ( a week long) to ensure that the hook can finish running.
 If pods are terminated before the lifecycle hook finishes running, there could be potential data loss.
 
@@ -748,7 +748,7 @@ The configurations are listed in the table below.
       </td>
       <td>
       The number of replicas of RabbitMQ nodes. Even numbers are
-      <a href='../../clustering.html#node-count'>highly discouraged</a>
+      <a href='../../clustering#node-count'>highly discouraged</a>
       and it is strongly recommended to use odd numbers.
       </td>
     </tr>
@@ -967,16 +967,16 @@ For more information about concepts mentioned above, see:
 	</tr>
 	<tr>
 		<td>pause-minority mode</td>
-		<td>The <a href="../../partitions.html#automatic-handling">RabbitMQ documentation</a></td>
+		<td>The <a href="../../partitions#automatic-handling">RabbitMQ documentation</a></td>
 	</tr>
 </table>
 
 ## <a id='tls' class='anchor' href='#tls'>(Optional) Configure TLS</a>
 
-Transport Layer Security (TLS) is a protocol for encrypting network traffic. <a href="../../ssl.html">RabbitMQ supports TLS</a>, and the cluster operator simplifies the process of configuring a RabbitMQ cluster with [TLS](#one-way-tls) or
+Transport Layer Security (TLS) is a protocol for encrypting network traffic. <a href="../../ssl">RabbitMQ supports TLS</a>, and the cluster operator simplifies the process of configuring a RabbitMQ cluster with [TLS](#one-way-tls) or
 [mutual TLS (mTLS)](#mutual-tls) encrypted traffic between clients and the cluster, as well
 as supporting [encrypting RabbitMQ inter-node traffic with mTLS](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/mtls-inter-node).
-A [basic overview of TLS](../../ssl.html#certificates-and-keys) is helpful for understanding this guide.
+A [basic overview of TLS](../../ssl#certificates-and-keys) is helpful for understanding this guide.
 
 ### <a id='one-way-tls' class='anchor' href='#one-way-tls'>TLS encrypting traffic between clients and RabbitMQ</a>
 
@@ -1047,7 +1047,7 @@ spec:
     caSecretName: ca-secret
 ```
 
-In order to enforce client verification, RabbitMQ must be configured to reject clients that do not present certificates. This can be done by enabling [TLS peer verification](../../ssl.html#peer-verification) using
+In order to enforce client verification, RabbitMQ must be configured to reject clients that do not present certificates. This can be done by enabling [TLS peer verification](../../ssl#peer-verification) using
 the `ssl_options.fail_if_no_peer_cert` option in the additional config:
 
 ```yaml
@@ -1204,22 +1204,22 @@ kubectl delete pod perf-test
 ## <a id='use' class='anchor' href='#use'>Use the RabbitMQ Service in Your App</a>
 
 For information about how to start using your apps, see
-[RabbitMQ tutorials](../../getstarted.html)
-and guides on [Connections](../../consumers.html), [Publishers](../../publishers.html), and [Consumers](../../consumers.html).
+[RabbitMQ tutorials](../../getstarted)
+and guides on [Connections](../../consumers), [Publishers](../../publishers), and [Consumers](../../consumers).
 
 
 ## <a id='monitoring' class='anchor' href='#monitoring'>Monitor RabbitMQ Clusters</a>
 
-For production systems, it is critically important to enable RabbitMQ cluster [monitoring](../../monitoring.html).
+For production systems, it is critically important to enable RabbitMQ cluster [monitoring](../../monitoring).
 
-See [Monitoring RabbitMQ in Kubernetes](./operator-monitoring.html) to learn about
+See [Monitoring RabbitMQ in Kubernetes](./operator-monitoring) to learn about
 the recommended monitoring options for Kubernetes-deployed clusters.
 
 
 ## <a id='network-policies' class='anchor' href='#network-policies'>Restrict traffic using Network Policies</a>
 
 [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/), akin to firewalls, allow you to restrict traffic to/from Pods in your RabbitmqCluster at the IP address or port level.
-This may be worth doing on a production cluster, for example, to ensure only Pods in the RabbitmqCluster can access the [inter-node communication ports](../../clustering.html#ports) (epmd and clustering), or to restrict messaging traffic to only be permitted from known
+This may be worth doing on a production cluster, for example, to ensure only Pods in the RabbitmqCluster can access the [inter-node communication ports](../../clustering#ports) (epmd and clustering), or to restrict messaging traffic to only be permitted from known
 trusted client Pods.
 
 The cluster-operator repo has [a documented example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/network-policies) with several sample NetworkPolicies that you can use as guides for

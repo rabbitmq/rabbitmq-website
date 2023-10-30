@@ -168,7 +168,7 @@ But we don't want to lose any tasks. If a worker dies, we'd like the
 task to be delivered to another worker.
 
 In order to make sure a message is never lost, RabbitMQ supports
-[message _acknowledgments_](../confirms.html). An ack(nowledgement) is sent back by the
+[message _acknowledgments_](../confirms). An ack(nowledgement) is sent back by the
 consumer to tell RabbitMQ that a particular message has been received,
 processed and that RabbitMQ is free to delete it.
 
@@ -182,7 +182,7 @@ even if the workers occasionally die.
 A timeout (30 minutes by default) is enforced on consumer delivery acknowledgement.
 This helps detect buggy (stuck) consumers that never acknowledge deliveries.
 You can increase this timeout as described in
-[Delivery Acknowledgement Timeout](../consumers.html#acknowledgement-timeout).
+[Delivery Acknowledgement Timeout](../consumers#acknowledgement-timeout).
 
 Message acknowledgments are turned off by default in the client, but not in the
 AMQ protocol (the `RMQBasicConsumeOptions.noAck` option is automatically sent by
@@ -209,7 +209,7 @@ unacknowledged messages will be redelivered.
 
 Acknowledgement must be sent on the same channel that received the
 delivery. Attempts to acknowledge using a different channel will result
-in a channel-level protocol exception. See the [doc guide on confirmations](../confirms.html)
+in a channel-level protocol exception. See the [doc guide on confirmations](../confirms)
 to learn more.
 
 > #### Forgotten acknowledgment
@@ -282,7 +282,7 @@ ch.defaultExchange().publish(msgData, routingKey: q.name, persistent: true)
 > message -- it may be just saved to cache and not really written to the
 > disk. The persistence guarantees aren't strong, but it's more than enough
 > for our simple task queue. If you need a stronger guarantee then you can use
-> [publisher confirms](../confirms.html).
+> [publisher confirms](../confirms).
 
 
 Fair dispatch
@@ -387,9 +387,9 @@ Using message acknowledgments and prefetch you can set up a
 work queue. The durability options let the tasks survive even if
 RabbitMQ is restarted.
 
-Now we can move on to [tutorial 3](tutorial-three-swift.html) and learn how
+Now we can move on to [tutorial 3](./tutorial-three-swift) and learn how
 to deliver the same message to many consumers.
 
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
-[previous]:tutorial-one-swift.html
+[previous]:./tutorial-one-swift
 [previous-code]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/tutorial1/tutorial1/ViewController.swift

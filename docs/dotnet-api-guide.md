@@ -21,9 +21,9 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers [RabbitMQ .NET/C# client](./dotnet.html) and its public API.
+This guide covers [RabbitMQ .NET/C# client](./dotnet) and its public API.
 It assumes that the [most recent major version of the client](https://www.nuget.org/packages/RabbitMQ.Client) is used
-and the reader is familiar with [the basics](./getstarted.html).
+and the reader is familiar with [the basics](./getstarted).
 
 Key sections of the guide are:
 
@@ -46,8 +46,8 @@ An [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitM
 
 ## <a id="dotnet-versions" class="anchor" href="#dotnet-versions">.NET Version Requirements</a>
 
-6.x release series of this library [require .NET 4.6.1+ or a .NET Standard 2.0+ implementation](./dotnet.html#overview).
-For 5.x releases, the requirements are [.NET 4.5.1+ or a .NET Standard 1.5+ implementation](./dotnet.html#overview).
+6.x release series of this library [require .NET 4.6.1+ or a .NET Standard 2.0+ implementation](./dotnet#overview).
+For 5.x releases, the requirements are [.NET 4.5.1+ or a .NET Standard 1.5+ implementation](./dotnet#overview).
 
 
 ## <a id="license" class="anchor" href="#license">License</a>
@@ -77,7 +77,7 @@ explicit.
 
 ## <a id="major-api-elements" class="anchor" href="#major-api-elements">Major namespaces, interfaces and classes</a>
 
-The client API is closely modelled on the [AMQP 0-9-1 protocol model](./tutorials/amqp-concepts.html),
+The client API is closely modelled on the [AMQP 0-9-1 protocol model](./tutorials/amqp-concepts),
 with additional abstractions for ease of use.
 
 An [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/) is available separately.
@@ -121,24 +121,24 @@ This client does not support unsigned 64-bit integers, represented in
 type `ulong`. Attempting to encode `ulong` values will throw an exception.
 Note that signed 64-bit integers are supported.
 
-This is in part due to type marker [ambiguity in the AMQP 0-9-1 spec](https://www.rabbitmq.com/amqp-0-9-1-errata.html#section_3),
+This is in part due to type marker [ambiguity in the AMQP 0-9-1 spec](./amqp-0-9-1-errata#section_3),
 and in part due to [the list of types supported by other popular clients](https://github.com/rabbitmq/rabbitmq-dotnet-client/pull/1299#issuecomment-1433342924).
 
 
 ## <a id="connecting" class="anchor" href="#connecting">Connecting to RabbitMQ</a>
 
-Before an application can use RabbitMQ, it has to open a [connection](connections.html)
+Before an application can use RabbitMQ, it has to open a [connection](./connections)
 to a RabbitMQ node. The connection then will be used to perform all subsequent
 operations. Connections are **meant to be long-lived**. Opening a connection
 for every operation (e.g. publishing a message) would be very inefficient and is
 **highly discouraged**.
 
 To open a connection with the .NET client, first instantiate a `ConnectionFactory`
-and configure it to use desired hostname, virtual host, credentials, [TLS settings](./ssl.html),
+and configure it to use desired hostname, virtual host, credentials, [TLS settings](./ssl),
 and any other parameters as needed.
 
 Then call the `ConnectionFactory.CreateConnection()` method to open a connection.
-Successful and unsuccessful client connection events can be [observed in server logs](./networking.html#logging).
+Successful and unsuccessful client connection events can be [observed in server logs](./networking#logging).
 
 The following two code snippets connect to a RabbitMQ node using a hostname configured
 using the `hostName` property:
@@ -187,7 +187,7 @@ IConnection conn = factory.CreateConnection(endpoints);
 
 ### <a id="connecting-uri" class="anchor" href="#connecting-uri"></a>
 
-Since the .NET client uses a stricter interpretation of the [AMQP 0-9-1 URI spec](./uri-spec.html)
+Since the .NET client uses a stricter interpretation of the [AMQP 0-9-1 URI spec](./uri-spec)
 than the other clients, care must be taken when using URIs.
 In particular, the host part must not be omitted and virtual hosts with
 empty names are not addressable.
@@ -228,15 +228,15 @@ remains unassigned prior to creating a connection:
 
     <td>
       <code>5672</code> for regular ("plain TCP") connections,
-      <code>5671</code> for <a href="./ssl.html">connections with TLS enabled</a>
+      <code>5671</code> for <a href="./ssl">connections with TLS enabled</a>
     </td>
   </tr>
 </table>
 
-Note that [user guest can only connect from localhost](./access-control.html) by default.
+Note that [user guest can only connect from localhost](./access-control) by default.
 This is to limit well-known credential use in production systems.
 
-The `IConnection` interface can then be used to open a [channel](channels.html):
+The `IConnection` interface can then be used to open a [channel](./channels):
 
 ```csharp
 IModel channel = conn.CreateModel();
@@ -251,8 +251,8 @@ however, can have a shorter life span than connections. For example, certain
 protocol errors will automatically close channels. If applications can recover
 from them, they can open a new channel and retry the operation.
 
-This is covered in more detail in the [Channel guide](channels.html) as well as other
-guides such as [Consumer Acknowledgements](./confirms.html).
+This is covered in more detail in the [Channel guide](./channels) as well as other
+guides such as [Consumer Acknowledgements](./confirms).
 
 
 ## <a id="disconnecting" class="anchor" href="#disconnecting">Disconnecting from RabbitMQ</a>
@@ -270,7 +270,7 @@ with the API methods from the example above.
 Note that closing the channel may be considered good practice, but isn&#8217;t strictly necessary here - it will be done
 automatically anyway when the underlying connection is closed.
 
-Client disconnection events can be [observed in server node logs](./networking.html#logging).
+Client disconnection events can be [observed in server node logs](./networking#logging).
 
 
 ## <a id="connection-and-channel-lifespan" class="anchor" href="#connection-and-channel-lifespan">Connection and Channel Lifespan</a>
@@ -300,9 +300,9 @@ RabbitMQ nodes have a limited amount of information about their clients:
  * the credentials used
 
 This information alone can make identifying applications and instances problematic, in particular when credentials can be
-shared and clients connect over a load balancer but [Proxy protocol](./networking.html#proxy-protocol) cannot be enabled.
+shared and clients connect over a load balancer but [Proxy protocol](./networking#proxy-protocol) cannot be enabled.
 
-To make it easier to identify clients in [server logs](./logging.html) and [management UI](./management.html),
+To make it easier to identify clients in [server logs](./logging) and [management UI](./management),
 AMQP 0-9-1 client connections, including the RabbitMQ .NET client, can provide a custom identifier.
 If set, the identifier will be mentioned in log entries and management UI. The identifier is known as
 the **client-provided connection name**. The name can be used to identify an application or a specific component
@@ -334,8 +334,8 @@ IConnection conn = factory.CreateConnection();
 
 ## <a id="exchanges-and-queues" class="anchor" href="#exchanges-and-queues">Using Exchanges and Queues</a>
 
-Client applications work with exchanges and [queues](queues.html),
-the high-level [building blocks of the protocol](./tutorials/amqp-concepts.html).
+Client applications work with exchanges and [queues](./queues),
+the high-level [building blocks of the protocol](./tutorials/amqp-concepts).
 These must be "declared" before they can be
 used. Declaring either type of object simply ensures that one of that
 name exists, creating it if necessary.
@@ -371,7 +371,7 @@ This "short version, long version" pattern is used throughout the API.
 Queues and exchanges can be declared "passively". A passive declare simply checks that the entity
 with the provided name exists. If it does, the operation is a no-op. For queues successful
 passive declares will return the same information as non-passive ones, namely the number of
-consumers and messages in [ready state](./confirms.html) in the queue.
+consumers and messages in [ready state](./confirms) in the queue.
 
 If the entity does not exist, the operation fails with a channel level exception. The channel
 cannot be used after that. A new channel should be opened. It is common to use one-off (temporary)
@@ -403,7 +403,7 @@ channel.QueueDeclareNoWait(queueName, true, false, false, null);
 ```
 
 The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
-are more dependent on the [heartbeat mechanism](./heartbeats.html) for detection of failed operations.
+are more dependent on the [heartbeat mechanism](./heartbeats) for detection of failed operations.
 When in doubt, start with the standard version. The "no wait" versions are only needed in scenarios
 with high topology (queue, binding) churn.
 
@@ -536,7 +536,7 @@ channel.BasicCancel(consumerTag);
 
 When calling the API methods, you always refer to consumers by their
 consumer tags, which can be either client- or server-generated as
-explained in the [AMQP 0-9-1 specification](./specification.html) document.
+explained in the [AMQP 0-9-1 specification](./specification) document.
 
 
 ## <a id="consuming-memory-safety" class="anchor" href="#consuming-memory-safety">Consumer Memory Safety Requirements</a>
@@ -612,7 +612,7 @@ if (result == null) {
     ...
 ```
 
-The above example uses [manual acknowledgements](./confirms.html) (`autoAck = false`), so the application must also call
+The above example uses [manual acknowledgements](./confirms) (`autoAck = false`), so the application must also call
 `IModel.BasicAck` to acknowledge the delivery after processing:
 
 ```csharp
@@ -656,8 +656,8 @@ lock (ch) {
 Symptoms of incorrect serialisation of `IModel` operations
 include, but are not limited to,
 
- * [connection-level exceptions](./connections.html#error-handling) due to invalid frame
-   interleaving on the wire. RabbitMQ [server logs](./logging.html) will
+ * [connection-level exceptions](./connections#error-handling) due to invalid frame
+   interleaving on the wire. RabbitMQ [server logs](./logging) will
    contain unexpected frame errors in such scenario.
  * Pipelining and continuation exceptions thrown by the client
 
@@ -665,7 +665,7 @@ Consumption that involve sharing a channel between threads should be avoided
 when possible but can be done safely.
 
 Consumers that can be multi-threaded or use a thread pool internally, including TPL-based
-consumers, must use mutual exclusion of [acknowledgements](./confirms.html) operations
+consumers, must use mutual exclusion of [acknowledgements](./confirms) operations
 on a shared channel.
 
 
@@ -786,7 +786,7 @@ Automatic connection recovery, if enabled, will be triggered by the following ev
 
 * An I/O exception is thrown in connection's I/O loop
 * A socket read operation times out
-* Missed server [heartbeats](./heartbeats.html) are detected
+* Missed server [heartbeats](./heartbeats) are detected
 * Any other unexpected exception is thrown in connection's I/O loop
 
 whichever happens first.
@@ -820,7 +820,7 @@ non-existent queue).
 
 Messages that are published using <code>IModel.BasicPublish</code> when connection is down
 will be lost. The client does not enqueue them for delivery after connection has recovered.
-To ensure that published messages reach RabbitMQ applications need to use [Publisher Confirms](confirms.html)
+To ensure that published messages reach RabbitMQ applications need to use [Publisher Confirms](./confirms)
 and account for connection failures.
 
 
@@ -843,13 +843,13 @@ factory.TopologyRecoveryEnabled  = false;
 Automatic connection recovery has a number of limitations and intentional
 design decisions that applications developers need to be aware of.
 
-When a connection is down or lost, it [takes time to detect](./heartbeats.html).
+When a connection is down or lost, it [takes time to detect](./heartbeats).
 Therefore there is a window of time in which both the
 library and the application are unaware of effective
 connection failure.  Any messages published during this
 time frame are serialised and written to the TCP socket
 as usual. Their delivery to the broker can only be
-guaranteed via [publisher confirms](./confirms.html): publishing in AMQP 0-9-1 is entirely
+guaranteed via [publisher confirms](./confirms): publishing in AMQP 0-9-1 is entirely
 asynchronous by design.
 
 When a socket or I/O operation error is detected by a
@@ -867,7 +867,7 @@ with an exception. The client currently does not perform
 any internal buffering of such outgoing messages. It is
 an application developer's responsibility to keep track of such
 messages and republish them when recovery succeeds.
-[Publisher confirms](./confirms.html) is a protocol extension
+[Publisher confirms](./confirms) is a protocol extension
 that should be used by publishers that cannot afford message loss.
 
 Connection recovery will not kick in when a channel is closed due to a

@@ -28,7 +28,7 @@ As with other Python tutorials, we will use the [Pika](https://pypi.python.org/p
 
 ### What This Tutorial Focuses On
 
-In the [previous tutorial](tutorial-three-python.html) we built a
+In the [previous tutorial](./tutorial-three-python) we built a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
@@ -350,5 +350,5 @@ python emit_log_direct.py error "Run. Run. Or it will explode."
 # => [x] Sent 'error':'Run. Run. Or it will explode.'
 ```
 
-Move on to [tutorial 5](tutorial-five-python.html) to find out how to listen
+Move on to [tutorial 5](./tutorial-five-python) to find out how to listen
 for messages based on a pattern.

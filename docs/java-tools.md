@@ -32,7 +32,7 @@ PerfTest documentation is hosted on GitHub Pages:
 
 ## <a id="stream-load-testing" class="anchor" href="#stream-load-testing">PerfTest for Streams (RabbitMQ Stream Protocol)</a>
 
-There is a separate version of PerfTest for streams that uses [RabbitMQ Stream Protocol](./stream.html) internally.
+There is a separate version of PerfTest for streams that uses [RabbitMQ Stream Protocol](./stream) internally.
 
 Its documentation is hosted on GitHub Pages:
 
@@ -42,7 +42,7 @@ Its documentation is hosted on GitHub Pages:
 ## <a id="tracer" class="anchor" href="#tracer">Tracer</a>
 
 The tracer is a very basic, very simple AMQP 0-9-1 protocol analyzer, similar in
-purpose to [Wireshark](./amqp-wireshark.html).
+purpose to [Wireshark](./amqp-wireshark).
 Use it with the `runtracer` or `runtracer.bat` script:
 
 ```bash

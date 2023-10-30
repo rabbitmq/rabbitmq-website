@@ -56,7 +56,7 @@ To develop a RabbitMQ plugin, first make sure the following
 requirements are met:
 
  * Ensure that you have a working installation of [Git](http://git-scm.com/)
- * Ensure that the dependencies detailed in the [Server Build](build-server.html#prerequisites) guides are installed and functional
+ * Ensure that the dependencies detailed in the [Server Build](./build-server#prerequisites) guides are installed and functional
 
 [Erlang.mk](http://erlang.mk) is used to
 build RabbitMQ and its plugins. The easiest way to start on
@@ -196,7 +196,7 @@ The following table should explain the purpose of the various files in the repos
     <td><a href="https://github.com/rabbitmq/rabbitmq-metronome/blob/master/priv/schema/rabbitmq_metronome.schema"><code>rabbitmq_metronome.schema</code></a></td>
     <td>
       A <a href="https://github.com/Kyorai/cuttlefish">Cuttlefish</a> configuration schema.
-      Used to translate <a href="./configure.html#configuration-files">configuration file</a>
+      Used to translate <a href="./configure#configuration-files">configuration file</a>
       to the internal format used by RabbitMQ and its runtime.
 
       Metronome schema contains mappings for the <code>metronome.exchange</code> setting,

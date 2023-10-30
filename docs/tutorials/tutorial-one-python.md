@@ -49,7 +49,7 @@ messages from that queue.
 >
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients for RabbitMQ
-> in [many different languages](../devtools.html).  In this tutorial
+> in [many different languages](../devtools).  In this tutorial
 > series we're going to use [Pika 1.0.0](https://pika.readthedocs.org/en/stable/),
 > which is the Python client recommended
 > by the RabbitMQ team. To install it you can use the
@@ -117,7 +117,7 @@ _hello_ queue.
 In RabbitMQ a message can never be sent directly to the queue, it always
 needs to go through an _exchange_. But let's not get dragged down by the
 details &#8210; you can read more about _exchanges_ in [the third part of this
-tutorial](tutorial-three-python.html). All we need to know now is how to use a default exchange
+tutorial](./tutorial-three-python). All we need to know now is how to use a default exchange
 identified by an empty string. This exchange is special &#8210; it
 allows us to specify exactly to which queue the message should go.
 The queue name needs to be specified in the `routing_key` parameter:
@@ -144,9 +144,9 @@ connection.close()
 > be wrong. Maybe the broker was started without enough free disk space
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the <a
-> href="https://www.rabbitmq.com/logging.html#log-file-location">broker logfile
+> href="https://www.rabbitmq.com/./logging#log-file-location">broker logfile
 > </a> to confirm and reduce the limit if necessary. The <a
-> href="https://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/./configure#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 
@@ -234,7 +234,7 @@ For that command to succeed we must be sure that a queue which we want
 to subscribe to exists. Fortunately we're confident about that &#8210; we've
 created a queue above &#8210; using `queue_declare`.
 
-The `auto_ack` parameter will be described [later on](tutorial-two-python.html).
+The `auto_ack` parameter will be described [later on](./tutorial-two-python).
 
 And finally, we enter a never-ending loop that waits for data and runs callbacks
 whenever necessary, and catch `KeyboardInterrupt` during program shutdown.
@@ -335,5 +335,5 @@ receive further messages, and may be interrupted with Ctrl-C.
 Try to run `send.py` again in a new terminal.
 
 We've learned how to send and receive a message from a named
-queue. It's time to move on to [part 2](tutorial-two-python.html)
+queue. It's time to move on to [part 2](./tutorial-two-python)
 and build a simple _work queue_.

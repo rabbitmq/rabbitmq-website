@@ -421,5 +421,5 @@ may be used to provide additional information to the client.
 Query parameters may be more implementation-specific than other
 URI parts; as such this document will not attempt to prescribe
 how they should be used. However, we have documented how the
-<a href="./uri-query-parameters.html">officially supported clients read URI query parameters</a>.
+<a href="./uri-query-parameters">officially supported clients read URI query parameters</a>.
 

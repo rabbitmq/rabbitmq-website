@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 It is sometimes desirable for clients to receive a notification
-when their connection gets [blocked](./alarms.html)
+when their connection gets [blocked](./alarms)
 due to the broker running low on resources (memory or disk).
 
 We have introduced an AMQP 0-9-1 protocol extension in which the
@@ -31,7 +31,7 @@ To receive these notifications, the client must present a
 `capabilities` table in its `client-properties` in which there is a key
 `connection.blocked` and a boolean value `true`.
 
-See the [capabilities](./connections.html#capabilities) section for further
+See the [capabilities](./connections#capabilities) section for further
 details on this. Our supported clients indicate this capability
 by default and provide a way to register handlers for the
 `connection.blocked` and `connection.unblocked` methods.
@@ -55,7 +55,7 @@ unblocked.
 
 ## <a id="java" class="anchor" href="#java">Using Blocked Connection Notifications with Java Client</a>
 
-With the [official Java client](./api-guide.html), blocked connection
+With the [official Java client](./api-guide), blocked connection
 notifications are handled by `BlockedListener`
 interface implementations. They can be registered on a
 `Connection` using the
@@ -78,7 +78,7 @@ connection.addBlockedListener(new BlockedListener() {
 
 ## <a id="dotnet" class="anchor" href="#dotnet">Using Blocked Connection Notifications with .NET Client</a>
 
-With the [official .NET client](./dotnet-api-guide.html), blocked connection
+With the [official .NET client](./dotnet-api-guide), blocked connection
 notifications can be received by registering for the
 `ConnectionBlocked` and `ConnectionUnblocked` events in `IConnection`:
 

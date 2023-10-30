@@ -22,7 +22,7 @@ limitations under the License.
 A RabbitMQ classic queue (the original queue type) is a versatile queue type suitable for use cases where data safety is not a priority because the data stored in classic queues is not replicated. 
 Classic queues uses the **non-replicated** FIFO queue implementation. 
 
-If data safety is a priority, the recommendation is to use [quorum queues](./quorum-queues.html) and [streams](./streams.html) instead of classic queues. 
+If data safety is a priority, the recommendation is to use [quorum queues](./quorum-queues) and [streams](./streams) instead of classic queues. 
 
 Classic queues are the default queue type
 as long as the default queue type is not overriden for the virtual host.
@@ -34,21 +34,21 @@ available in both versions.
 
 ## <a id="features" class="anchor" href="#features">Classic Queue Features</a>
 
-Classic queues fully support [queue exclusivity](queues.html),
-[queue and message TTL (Time-To-Live)](./ttl.html),
-[queue length limits](./maxlength.html),
-[message priority](./priority.html),
-[consumer priority](./consumer-priority.html)
-and adhere to settings [controlled using policies](./parameters.html#policies).
+Classic queues fully support [queue exclusivity](./queues),
+[queue and message TTL (Time-To-Live)](./ttl),
+[queue length limits](./maxlength),
+[message priority](./priority),
+[consumer priority](./consumer-priority)
+and adhere to settings [controlled using policies](./parameters#policies).
 
-Classic queues support [dead letter exchanges](./dlx.html) with
-the exception of [at-least-once dead-lettering](./quorum-queues.html#dead-lettering).
+Classic queues support [dead letter exchanges](./dlx) with
+the exception of [at-least-once dead-lettering](./quorum-queues#dead-lettering).
 
 Classic queues do not support [poison message handling](https://en.wikipedia.org/wiki/Poison_message),
-unlike [quorum queues](./quorum-queues.html). Classic queues also do not
+unlike [quorum queues](./quorum-queues). Classic queues also do not
 support at-least-once dead-lettering, suported by quorum queues.
 
-[Per-consumer QoS prefetch](./consumer-prefetch.html) should be
+[Per-consumer QoS prefetch](./consumer-prefetch) should be
 preferred over global QoS prefetch, even though classic queues support
 both options. Global QoS prefetch is a deprecated feature that will be
 removed in **RabbitMQ 4.0**.
@@ -60,8 +60,8 @@ is deprecated and will be removed in **RabbitMQ 4.0**.
 
 Classic queues can be mirrored across multiple nodes in the
 cluster. This functionality is deprecated and will be removed
-in **RabbitMQ 4.0**. [Quorum queues](./quorum-queues.html)
-and [streams](./streams.html) provide a better alternative when high availability and
+in **RabbitMQ 4.0**. [Quorum queues](./quorum-queues)
+and [streams](./streams) provide a better alternative when high availability and
 data safety is required.
 
 Until **RabbitMQ 3.12**, classic queues could operate in **lazy mode**.
@@ -76,7 +76,7 @@ all other messages are written to disk directly.
 Classic queues use an on-disk index for storing message locations on disk
 as well as a message store for persisting messages.
 
-Both [persistent and transient messages](./publishers.html#message-properties)
+Both [persistent and transient messages](./publishers#message-properties)
 are always persisted to disk except when:
 
  * the queue is declared as transient or messages are transient
@@ -182,16 +182,16 @@ in addition to get the most out of your queues.
 
 Some related information includes:
 
- * [Main configuration guide](configure.html)
- * [File and Directory Locations](./relocate.html)
- * [Runtime Tuning](./runtime.html)
- * [Queues](./queues.html#runtime-characteristics) and their runtime characteristics
- * [Lazy Queues](./lazy-queues.html) for **RabbitMQ before 3.12**
+ * [Main configuration guide](./configure)
+ * [File and Directory Locations](./relocate)
+ * [Runtime Tuning](./runtime)
+ * [Queues](./queues#runtime-characteristics) and their runtime characteristics
+ * [Lazy Queues](./lazy-queues) for **RabbitMQ before 3.12**
 
 
 ### <a id="file-handles" class="anchor" href="#file-handles">File Handle Usage with Classic Queues</a>
 
-The RabbitMQ server is limited in the [number of file handles](./networking.html#open-file-handle-limit)
+The RabbitMQ server is limited in the [number of file handles](./networking#open-file-handle-limit)
 it can open. Every running network connection requires one file handle,
 and the rest are available for queues to use.
 
