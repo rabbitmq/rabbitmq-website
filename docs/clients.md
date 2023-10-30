@@ -15,13 +15,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import {
+  JavaClientDocURL,
+} from '@site/src/components/JavaClient';
+
+import {
+  DotNetClientDocURL,
+} from '@site/src/components/DotNetClient';
+
 # Client Documentation
 
 ## Java
 
  * [Downloads and Installation](./java-client)
  * [API Guide](./api-guide)
- * [API Reference](&dir-current-javadoc;)
+ * <a href={JavaClientDocURL()}>API Reference</a>
  * [JMS Guide](./jms-client)
  * [JMS Reference](https://github.com/rabbitmq/rabbitmq-jms-client/blob/main/jms-client-compliance.md)
  * [Command line tools](./java-tools)
@@ -31,7 +39,7 @@ limitations under the License.
 
  * [Downloads and Installation](./dotnet)
  * [API Guide](./dotnet-api-guide)
- * [API Reference](&url-dotnet-apidoc;/RabbitMQ.Client.html)
+ * <a href={DotNetClientDocURL() + '/RabbitMQ.Client.html'}>API Reference</a>
 
 ## Erlang
 

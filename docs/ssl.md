@@ -15,6 +15,10 @@ See the license for the specific language governing permissions and
 limitations under the license.
 -->
 
+import {
+  DotNetClientDocURL,
+} from '@site/src/components/DotNetClient';
+
 # TLS Support
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
@@ -901,7 +905,7 @@ TLS connection without performing peer verification, the .NET client by default 
 verification to succeed. To suppress verification, an application can set
 the `System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable`
 and `System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors`
-flags in [SslOption](&url-dotnet-apidoc;/RabbitMQ.Client.SslOption.html).
+flags in <a href={DotNetClientDocURL() + '/RabbitMQ.Client.SslOption.html'}>SslOption</a>.
 
 ### <a id="certmgr" class="anchor" href="#certmgr">Certificate Management with Certmgr</a>
 
