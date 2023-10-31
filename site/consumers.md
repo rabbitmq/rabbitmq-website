@@ -448,7 +448,7 @@ Whether the timeout should be enforced is evaluated periodically, at one minute 
 
 <pre class="lang-bash">
 # override consumer timeout for a group of queues using a policy
-rabbitmqctl set_policy queue_consumer_timeout "with_delivery_timeout\.*" '{"consumer_timeout":3600000}' --apply-to classic_queues
+rabbitmqctl set_policy queue_consumer_timeout "with_delivery_timeout\.*" '{"consumer-timeout":3600000}' --apply-to classic_queues
 </pre>
 
 #### Per-queue Delivery Timeouts Using an Optional Queue Argument
