@@ -605,7 +605,7 @@ some settings are quite obscure.
   </thead>
 
   <tr>
-    <td><code>listeners</code></td>
+    <td><code>listeners.tcp</code></td>
     <td>
       Ports or hostname/pair on which to listen for "plain" AMQP 0-9-1 and AMQP 1.0 connections
       (without <a href="./ssl.html">TLS</a>). See the <a href="./networking.html">Networking guide</a> for more
@@ -617,6 +617,27 @@ some settings are quite obscure.
 listeners.tcp.default = 5672
 </pre>
       </p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>listeners.ssl</code></td>
+    <td>
+      Ports or hostname/pair on which to listen for TLS-enabled AMQP 0-9-1 and AMQP 1.0 connections.
+      See the <a href="./ssl.html">TLS guide</a> for more
+      details and examples.
+      <p>Default: <code>none</code> (not set)</p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>ssl_options</code></td>
+    <td>
+      TLS configuration. See the <a href="ssl.html#enabling-ssl">TLS guide</a>.
+      <p>
+        Default:
+<pre class="lang-ini">
+ssl_options = none
+</pre>
+        </p>
     </td>
   </tr>
   <tr>
@@ -633,28 +654,6 @@ num_acceptors.tcp = 10
     </td>
   </tr>
   <tr>
-    <td><code>handshake_timeout</code></td>
-    <td>
-      Maximum time for AMQP 0-9-1 handshake (after socket connection and TLS handshake),
-      in milliseconds.
-      <p>
-        Default:
-<pre class="lang-ini">
-handshake_timeout = 10000
-</pre>
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td><code>listeners.ssl</code></td>
-    <td>
-      Ports or hostname/pair on which to listen for TLS-enabled AMQP 0-9-1 and AMQP 1.0 connections.
-      See the <a href="./ssl.html">TLS guide</a> for more
-      details and examples.
-      <p>Default: <code>none</code> (not set)</p>
-    </td>
-  </tr>
-  <tr>
     <td><code>num_acceptors.ssl</code></td>
     <td>
       Number of Erlang processes that will accept TLS connections from clients.
@@ -666,17 +665,56 @@ num_acceptors.ssl = 10
       </p>
     </td>
   </tr>
-
   <tr>
-    <td><code>ssl_options</code></td>
+    <td><code>distribution.listener.interface</code></td>
     <td>
-      TLS configuration. See the <a href="ssl.html#enabling-ssl">TLS guide</a>.
+      Controls what network interface will be used for communication
+      with other cluster members and CLI tools.
       <p>
         Default:
 <pre class="lang-ini">
-ssl_options = none
+distribution.listener.interface = 0.0.0.0
 </pre>
-        </p>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>distribution.listener.port_range.min</code></td>
+    <td>
+      Controls the lower bound of a server port range that will be used for communication
+      with other cluster members and CLI tools.
+      <p>
+        Default:
+<pre class="lang-ini">
+distribution.listener.port_range.min = 25672
+</pre>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>distribution.listener.port_range.max</code></td>
+    <td>
+      Controls the upper bound of a server port range that will be used for communication
+      with other cluster members and CLI tools.
+      <p>
+        Default:
+<pre class="lang-ini">
+distribution.listener.port_range.max = 25672
+</pre>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>handshake_timeout</code></td>
+    <td>
+      Maximum time for AMQP 0-9-1 handshake (after socket connection and TLS handshake),
+      in milliseconds.
+      <p>
+        Default:
+<pre class="lang-ini">
+handshake_timeout = 10000
+</pre>
+      </p>
     </td>
   </tr>
   <tr>
