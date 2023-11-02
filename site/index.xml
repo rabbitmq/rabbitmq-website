@@ -183,7 +183,7 @@ limitations under the License.
                 <h2>24/7 Expert Support</h2>
                 <p>
                   A license comes with phone and online global coverage support, gold star standards SLAs and extends the support lifecycle.
-                  <a href="https://tanzu.vmware.com/rabbitmq">Learn more</a>
+                  <a href="https://tanzu.vmware.com/rabbitmq/oss">Learn more</a>
                 </p>
               </div>
             </div>
@@ -233,7 +233,7 @@ limitations under the License.
               <img src="./img/commercial/support-and-hosting-phone.svg" height="94" width="109" />
               <h2>Support + Hosting</h2>
               <p>
-                VMware provides <a href="https://tanzu.vmware.com/rabbitmq#contact-form">support for open source RabbitMQ</a>,
+                VMware provides <a href="https://tanzu.vmware.com/rabbitmq/oss">support for open source RabbitMQ</a>,
                 available for a subscription fee. The following companies provide technical support and/or cloud hosting of open source RabbitMQ:
                 <a href="https://www.cloudamqp.com/">CloudAMQP</a>,
                 <a href="https://aws.amazon.com/amazon-mq/">Amazon MQ for RabbitMQ</a>,
