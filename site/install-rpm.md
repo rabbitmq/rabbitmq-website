@@ -86,7 +86,7 @@ In environments where `sudo` isn't available, consider using the
 ## <a id="install-erlang" class="anchor" href="#install-erlang">Install Erlang</a>
 
 Before installing RabbitMQ, you must install a [supported version](which-erlang.html) of Erlang/OTP.
-Standard Red Hat, Fedora, CentOS repositories provide Erlang versions that are typically [out of date](which-erlang.html)
+Standard Red Hat, CentOS Stream, and CentOS-derivative repositories provide Erlang versions that are typically [out of date](which-erlang.html)
 and cannot be used to run latest RabbitMQ releases.
 
 There are three alternative sources for modern Erlang on RPM-based distributions:
@@ -94,6 +94,7 @@ There are three alternative sources for modern Erlang on RPM-based distributions
  * Team RabbitMQ produces [a package](https://github.com/rabbitmq/erlang-rpm) stripped
    down to only provide those components needed to run
    RabbitMQ. This is the recommended option.
+ * Fedora provides [up-to-date Erlang packages](https://packages.fedoraproject.org/pkgs/erlang/erlang/)
  * [openSUSE](https://www.opensuse.org/) produces [Erlang packages](https://software.opensuse.org/download.html?project=devel%3Alanguages%3Aerlang%3AFactory&package=erlang) for openSUSE Leap
  * [Erlang Solutions](https://www.erlang-solutions.com/resources/download.html) produces packages that are usually reasonably up to
    date and involve installation of a potentially excessive list of dependencies
@@ -177,6 +178,8 @@ between distributions (e.g. CentOS Stream 9, CentOS Stream 8, or OpenSUSE).
 The following example sets up a repository that will install RabbitMQ and its Erlang dependency from
 a Cloudsmith mirror, and targets **CentOS Stream 8**. The same repository definition **can be used by recent Fedora releases**,
 and Amazon Linux 2023.
+
+These repository mirrors only provide 64-bit x86 (`amd64`) packages of Erlang.
 
 <pre class="lang-ini">
 # In /etc/yum.repos.d/rabbitmq.repo
@@ -303,6 +306,8 @@ type=rpm-md
 The following example sets up a repository that will install RabbitMQ and its Erlang dependency from
 a Cloudsmith mirror,
 and targets **CentOS Stream 9**, Amazon Linux 2023, and modern Fedora releases.
+
+These repository mirrors only provide 64-bit x86 (`amd64`) packages of Erlang.
 
 <pre class="lang-ini">
 # In /etc/yum.repos.d/rabbitmq.repo
