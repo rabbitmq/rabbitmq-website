@@ -33,8 +33,8 @@ The latter option is **highly recommended** as it provides access to all stream-
 
 Now, you might be asking the following questions:
 
-- Do streams replace queues then?
-- Should I move away from using queues?
+ * Do streams replace queues then?
+ * Should I move away from using queues?
 
 To answer these questions, streams were not introduced to replace queues but to complement them. Streams open up many opportunities for new RabbitMQ use cases which are described in [Use Cases for Using Streams](#use-cases).
 
