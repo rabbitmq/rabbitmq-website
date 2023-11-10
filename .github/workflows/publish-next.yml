@@ -8,7 +8,9 @@ on:
 
 jobs:
   build:
-    runs-on: pivotalrabbitmq/website-packaging:latest
+    runs-on: ubuntu-22.04
+    container:
+      image: pivotalrabbitmq/website-packaging:latest
 
     steps:
       - uses: actions/checkout@v4
