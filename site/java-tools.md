@@ -17,7 +17,7 @@ limitations under the License.
 
 # Java Tools
 
-This page documents some Java-based utility programs (PerfTest).
+This page documents some Java-based utility programs (PerfTest, Tracer).
 
 ## <a id="load-testing" class="anchor" href="#load-testing">PerfTest</a>
 
