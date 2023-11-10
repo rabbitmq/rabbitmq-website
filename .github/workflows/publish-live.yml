@@ -3,7 +3,7 @@ name: Publish Live Website
 on:
   push:
     branches:
-      - publish-from-gha
+      - live
   workflow_dispatch:
 
 jobs:
