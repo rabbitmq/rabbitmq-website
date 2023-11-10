@@ -1,0 +1,8 @@
+name = "live"
+main = "src/index.ts"
+compatibility_date = "2023-02-09"
+workers_dev = true
+routes = ["https://rabbitmq.com/*", "https://www.rabbitmq.com/*", "https://live.rabbitmq.com/*"]
+
+[site]
+bucket = "./public"
