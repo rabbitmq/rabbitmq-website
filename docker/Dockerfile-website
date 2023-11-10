@@ -14,7 +14,7 @@ ARG ubuntu_version="22.04"
 
 FROM ubuntu:$ubuntu_version as builder
 
-ARG hugo_version="0.119.0"
+ARG hugo_version="0.120.4"
 
 ENV LANG='C.UTF-8'
 
