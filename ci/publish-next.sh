@@ -2,13 +2,9 @@
 
 set -ex
 
-echo $PWD
-
-git config user.email "rabbitmq-ci"
-git config user.name "rabbitmq-ci@users.noreply.github.com"
-
-
-MESSAGE=$(git log -1 --pretty=%B)
+cd rabbitmq-website
+COMMIT_MESSAGE="$(git log -1 --pretty=%B)"
+echo $COMMIT_MESSAGE
 
 cd ../rabbitmq-website-next
 
@@ -19,16 +15,15 @@ rm -rf docs/*
 mv ./CNAME docs/CNAME
 touch docs/.nojekyll
 
-cp -r rabbitmq-website/generated/* docs/
+cp -r ../generated/* docs/
 
 if [ -z "$(git status --porcelain)" ];
 then
     echo "Nothing to commit"
 else
-    git config user.email "rabbitmq-ci"
-    git config user.name "rabbitmq-ci@users.noreply.github.com"
-
+    git config user.name "rabbitmq-ci"
+    git config user.email "rabbitmq-ci@users.noreply.github.com"
     git add docs
-    git commit -m "$MESSAGE"
+    git commit -m "$COMMIT_MESSAGE"
     git push origin
 fi
