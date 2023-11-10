@@ -2,6 +2,8 @@
 
 set -ex
 
+echo $PWD
+
 MESSAGE=$(git log -1 --pretty=%B)
 
 cd ../rabbitmq-website-next
@@ -19,8 +21,8 @@ if [ -z "$(git status --porcelain)" ];
 then
     echo "Nothing to commit"
 else
-    git config user.email "$RABBITMQ_CI_EMAIL"
-    git config user.name "$RABBITMQ_CI_USERNAME"
+    git config user.email "rabbitmq-ci"
+    git config user.name "rabbitmq-ci@users.noreply.github.com"
 
     git add docs
     git commit -m "$MESSAGE"
