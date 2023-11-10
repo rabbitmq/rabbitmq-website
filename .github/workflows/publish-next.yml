@@ -1,0 +1,29 @@
+name: Publish Next Website
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: pivotalrabbitmq/website-packaging
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout rabbitmq-website-next
+        uses: actions/checkout@v4
+        with:
+          repository: rabbitmq/rabbitmq-website-next
+          path: 'rabbitmq-website-next'
+      - name: Generate Next Website
+        run: |
+          mkdir generated
+          ./generate ./generated next
+          cp "conf/robots.txt-next" ./generated/robots.txt
+      - name: Publish Next Website
+        run: |
+          git config user.name "rabbitmq-ci"
+          git config user.email "rabbitmq-ci@users.noreply.github.com"
+          ci/publish-next.sh
