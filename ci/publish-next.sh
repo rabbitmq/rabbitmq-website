@@ -4,6 +4,10 @@ set -ex
 
 echo $PWD
 
+git config user.email "rabbitmq-ci"
+git config user.name "rabbitmq-ci@users.noreply.github.com"
+
+
 MESSAGE=$(git log -1 --pretty=%B)
 
 cd ../rabbitmq-website-next
