@@ -1,17 +1,16 @@
 {
-  "name": "rabbitmq-static-web-content",
+  "name": "worker",
   "version": "0.0.0",
-  "devDependencies": {
-    "@cloudflare/kv-asset-handler": "^0.3.0",
-    "@cloudflare/workers-types": "^4.20230115.0",
-    "typescript": "^4.9.5",
-    "vitest": "^0.28.4",
-    "wrangler": "2.9.1"
-  },
   "private": true,
   "scripts": {
-    "start": "wrangler dev",
-    "deploy": "wrangler publish",
-    "test": "vitest"
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev"
+  },
+  "devDependencies": {
+    "@cloudflare/kv-asset-handler": "^0.3.0",
+    "@cloudflare/workers-types": "^4.20230419.0",
+    "typescript": "^5.0.4",
+    "wrangler": "^3.0.0"
   }
 }
