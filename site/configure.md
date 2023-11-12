@@ -2300,7 +2300,7 @@ the supported limits and other directives.
 
 #### With Docker
 
-To configure kernel limits for Docker contains, use the `"default-ulimits"` key in
+To configure kernel limits for Docker containers, use the `"default-ulimits"` key in
 [Docker daemon configuration file](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file).
 The file has to be installed on Docker hosts at `/etc/docker/daemon.json`:
 
