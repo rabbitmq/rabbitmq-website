@@ -18,11 +18,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# VMware Provides Support
+# Support Available for Open Source RabbitMQ
 
+## VMware Provides Support
 VMware provides <a href="https://tanzu.vmware.com/rabbitmq/oss">support for open source RabbitMQ</a>, available for a subscription fee.
 
-# Other Technical Support and/or Cloud Hosting of Open Source RabbitMQ
+## Other Technical Support and/or Cloud Hosting of Open Source RabbitMQ
 
 The following companies provide technical support and/or cloud hosting of open source RabbitMQ: 
 
