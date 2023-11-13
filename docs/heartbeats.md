@@ -1,3 +1,6 @@
+---
+title: Detecting Dead TCP Connections with Heartbeats and TCP Keepalives
+---
 <!--
 Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 

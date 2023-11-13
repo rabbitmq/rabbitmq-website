@@ -1,3 +1,6 @@
+---
+title: Classic Queues Operating in "Lazy" Queue Mode (A Lazy Queue)
+---
 # Classic Queues Operating in "Lazy" Queue Mode (A Lazy Queue)
 
 ## What is a Lazy Queue

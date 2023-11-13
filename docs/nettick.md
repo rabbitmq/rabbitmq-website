@@ -1,3 +1,6 @@
+---
+title: Net Tick Time (Inter-node Communication Heartbeats)
+---
 <!--
 Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 

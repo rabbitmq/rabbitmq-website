@@ -1,3 +1,6 @@
+---
+title: AMQP 0-9-1 Complete Reference Guide
+---
 <div id="left-content">
     <h1>AMQP 0-9-1 Complete Reference Guide</h1>
     <div id="content-pane">

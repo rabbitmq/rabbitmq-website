@@ -1,3 +1,6 @@
+---
+title: Schema Definition Export and Import
+---
 <!--
 Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 

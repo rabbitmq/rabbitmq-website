@@ -1,3 +1,6 @@
+---
+title: Securing Cluster (Inter-node) and CLI Tool Communication with TLS
+---
 <!--
 Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 

@@ -1,3 +1,6 @@
+---
+title: Logging
+---
 # Logging
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>

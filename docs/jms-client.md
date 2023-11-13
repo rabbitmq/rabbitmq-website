@@ -1,3 +1,6 @@
+---
+title: RabbitMQ JMS Client
+---
 <!--
 Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
