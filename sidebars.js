@@ -60,12 +60,12 @@ const sidebars = {
           type: 'link',
           label: 'Deprecated and Removed Features and Functions',
           href: 'https://www.rabbitmq.com/documentation.html',
-        } 
+        },
         {
           type: 'link',
           label: 'Getting Started Tutorials',
           href: 'https://www.rabbitmq.com/documentation.html',
-        }   
+        }, 
         {
           type: 'link',
           label: 'How to Install RabbitMQ',
