@@ -44,8 +44,8 @@ const sidebars = {
         },
         {
           type: 'doc',
-          label: 'newin-3-13-0',
-          href: 'New in 3.13.0',
+          id: 'newin-3-13-0',
+          label: 'New in 3.13.0',
         },        
       ],
     },
