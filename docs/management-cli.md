@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Management Command Line Tool NOSYNTAX
+# Management Command Line Tool
 
 The [management plugin](./management) ships with a command line
 tool **rabbitmqadmin** which can perform some of the same actions as the

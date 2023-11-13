@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Stream Core vs Stream Plugin NOSYNTAX
+# Stream Core vs Stream Plugin
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 

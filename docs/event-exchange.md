@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Event Exchange Plugin NOSYNTAX
+# Event Exchange Plugin
 
 ## Overview
 
