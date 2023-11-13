@@ -37,7 +37,6 @@ const sidebars = {
       type: 'category',
       label: 'What is New in RabbitMQ Releases',
       items: [
-        'whats-new',
         {
           type: 'link',
           label: 'New in 4.0',
