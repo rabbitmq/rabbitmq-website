@@ -39,22 +39,16 @@ const sidebars = {
       items: [
         'whats-new',
         {
-          type: 'category',
-          label: 'What is New in RabbitMQ Releases',
-          items: [
-            'new_40',
-            {
-              type: 'doc',
-              id: 'new40',
-              label: 'New in 4.0',
-            },
-            'new_313',
-            {
-              type: 'doc',
-              id: 'new313',
-              label: 'New in 3.13',
-            },
-          ],
+          type: 'link',
+          label: 'New in 4.0',
+          href: 'https://www.rabbitmq.com/documentation.html',
+        },
+        {
+          type: 'link',
+          label: 'New in 3.13',
+          href: 'https://www.rabbitmq.com/documentation.html',
+        },        
+      ]
         },
         {
           type: 'link',
