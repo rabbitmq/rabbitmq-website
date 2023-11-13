@@ -20,6 +20,59 @@ const sidebars = {
   docsSidebar: [
     {
       type: 'category',
+      label: 'Welcome to Open Source RabbitMQ Documentation',
+      href: 'https://www.rabbitmq.com/documentation.html',
+    }
+    {
+      type: 'category',
+      label: 'How Can I Get RabbitMQ',
+      href: 'https://www.rabbitmq.com/documentation.html',
+    }
+    {
+      type: 'category',
+      label: 'Support Available for RabbitMQ',
+      href: 'https://www.rabbitmq.com/documentation.html',
+    }
+    {
+      type: 'category',
+      label: 'What is New in RabbitMQ Releases',
+      items: [
+        'whats-new',
+        {
+          type: 'doc',
+          label: 'What is New in RabbitMQ Releases',
+          items: [
+            'new_313',
+            {
+              type: 'doc',
+              id: 'new313',
+              label: 'New in 3.13',
+            },
+            'new_40',
+            {
+              type: 'doc',
+              id: 'new40',
+              label: 'New in 4.0',
+            },
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Deprecated and Removed Features and Functions',
+          href: 'https://www.rabbitmq.com/documentation.html',
+        } 
+        {
+          type: 'category',
+          label: 'Getting Started Tutorials',
+          href: 'https://www.rabbitmq.com/documentation.html',
+        }   
+        {
+          type: 'category',
+          label: 'How to Install RabbitMQ',
+          href: 'https://www.rabbitmq.com/documentation.html',
+        }  
+    {
+      type: 'category',
       label: 'Server Documentation',
       items: [
         'admin-guide',
