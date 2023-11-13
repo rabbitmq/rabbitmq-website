@@ -29,23 +29,23 @@ const sidebars = {
       href: 'https://www.rabbitmq.com/documentation.html',
     },
     {
-      type: 'link',
+      type: 'doc',
+      id: 'support-for-oss-rabbitmq',
       label: 'Support Available for RabbitMQ',
-      href: 'https://www.rabbitmq.com/documentation.html',
     },
     {
       type: 'category',
       label: 'What is New in RabbitMQ Releases',
       items: [
         {
-          type: 'link',
-          label: 'New in 4.0',
-          href: 'https://www.rabbitmq.com/documentation.html',
+          type: 'doc',
+          id: 'newin-4-0-0',
+          label: 'New in 4.0.0',
         },
         {
-          type: 'link',
-          label: 'New in 3.13',
-          href: 'https://www.rabbitmq.com/documentation.html',
+          type: 'doc',
+          label: 'newin-3-13-0',
+          href: 'New in 3.13.0',
         },        
       ],
     },
