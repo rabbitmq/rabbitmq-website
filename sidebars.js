@@ -64,7 +64,7 @@ const sidebars = {
           type: 'link',
           label: 'How to Install RabbitMQ',
           href: 'https://www.rabbitmq.com/documentation.html',
-        }  
+        },  
     {
       type: 'category',
       label: 'Server Documentation',
