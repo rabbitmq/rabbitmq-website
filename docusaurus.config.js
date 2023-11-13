@@ -150,7 +150,7 @@ const config = {
         appId: '8E582XRSTF',
 
         // Public API key: it is safe to commit it
-        apiKey: 'e27ddd37317d29aa4d5ed57070fce813',
+        apiKey: '4d18eb1048c0b8097b18934507a9e13f',
 
         indexName: 'rabbitmq-webpages',
 
