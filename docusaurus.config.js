@@ -145,6 +145,25 @@ const config = {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
+      algolia: {
+        // The application ID provided by Algolia
+        appId: '8E582XRSTF',
+
+        // Public API key: it is safe to commit it
+        apiKey: 'e27ddd37317d29aa4d5ed57070fce813',
+
+        indexName: 'rabbitmq-webpages',
+
+        // Optional: see doc section below
+        contextualSearch: true,
+
+        // Optional: Algolia search parameters
+        searchParameters: {},
+
+        // Optional: path for search page that enabled by default (`false` to
+        // disable it)
+        searchPagePath: 'search',
+      },
     }),
 
   headTags: [
