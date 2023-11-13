@@ -48,8 +48,8 @@ const sidebars = {
           label: 'New in 3.13',
           href: 'https://www.rabbitmq.com/documentation.html',
         },        
-      ]
-        },
+        ],
+    },
         {
           type: 'link',
           label: 'Deprecated and Removed Features and Functions',
