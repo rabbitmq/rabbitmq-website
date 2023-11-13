@@ -146,6 +146,16 @@ const config = {
         darkTheme: prismThemes.dracula,
       },
     }),
+
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Raleway:400,500,600,700',
+      },
+    },
+  ],
 };
 
 export default config;
