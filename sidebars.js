@@ -19,17 +19,17 @@ const sidebars = {
   // But you can create a sidebar manually
   docsSidebar: [
     {
-      type: 'category',
+      type: 'link',
       label: 'Welcome to Open Source RabbitMQ Documentation',
       href: 'https://www.rabbitmq.com/documentation.html',
     }
     {
-      type: 'category',
+      type: 'link',
       label: 'How Can I Get RabbitMQ',
       href: 'https://www.rabbitmq.com/documentation.html',
     }
     {
-      type: 'category',
+      type: 'link',
       label: 'Support Available for RabbitMQ',
       href: 'https://www.rabbitmq.com/documentation.html',
     }
@@ -39,35 +39,35 @@ const sidebars = {
       items: [
         'whats-new',
         {
-          type: 'doc',
+          type: 'category',
           label: 'What is New in RabbitMQ Releases',
           items: [
-            'new_313',
-            {
-              type: 'doc',
-              id: 'new313',
-              label: 'New in 3.13',
-            },
             'new_40',
             {
               type: 'doc',
               id: 'new40',
               label: 'New in 4.0',
             },
+            'new_313',
+            {
+              type: 'doc',
+              id: 'new313',
+              label: 'New in 3.13',
+            },
           ],
         },
         {
-          type: 'category',
+          type: 'link',
           label: 'Deprecated and Removed Features and Functions',
           href: 'https://www.rabbitmq.com/documentation.html',
         } 
         {
-          type: 'category',
+          type: 'link',
           label: 'Getting Started Tutorials',
           href: 'https://www.rabbitmq.com/documentation.html',
         }   
         {
-          type: 'category',
+          type: 'link',
           label: 'How to Install RabbitMQ',
           href: 'https://www.rabbitmq.com/documentation.html',
         }  
