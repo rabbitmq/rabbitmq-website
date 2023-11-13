@@ -22,17 +22,17 @@ const sidebars = {
       type: 'link',
       label: 'Welcome to Open Source RabbitMQ Documentation',
       href: 'https://www.rabbitmq.com/documentation.html',
-    }
+    },
     {
       type: 'link',
       label: 'How Can I Get RabbitMQ',
       href: 'https://www.rabbitmq.com/documentation.html',
-    }
+    },
     {
       type: 'link',
       label: 'Support Available for RabbitMQ',
       href: 'https://www.rabbitmq.com/documentation.html',
-    }
+    },
     {
       type: 'category',
       label: 'What is New in RabbitMQ Releases',
