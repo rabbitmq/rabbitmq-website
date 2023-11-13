@@ -19,9 +19,9 @@ const sidebars = {
   // But you can create a sidebar manually
   docsSidebar: [
     {
-      type: 'link',
+      type: 'doc',
+      id: 'documentation',
       label: 'Welcome to Open Source RabbitMQ Documentation',
-      href: 'https://www.rabbitmq.com/documentation.html',
     },
     {
       type: 'link',
