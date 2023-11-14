@@ -14,7 +14,7 @@ In our case, the incumbent model is that of AMQP 0-9-1, with some generalisation
 
 Well, the good news is, we've achieved that. In fact the plugin can be set up to replace Rabbit's usual network listener, and will happily talk to AMQP 0-8, 0-9-1, and 1.0 clients. We did have to do some invention along the way, and there are some parts of the specification that we are conspicuously not implementing. These will be detailed in the README soon.
 
-One large part of the invention is to fill in semantics where the specification is silent. Some of these are detailed in [this client-broker protocol](/assets/documents/2010/11/amqp-broker-prototype.pdf) work we did for the AMQP working group. We're hoping the prototyping will help fill this out some more.
+One large part of the invention is to fill in semantics where the specification is silent. Some of these are detailed in [this client-broker protocol](amqp-broker-prototype.pdf) work we did for the AMQP working group. We're hoping the prototyping will help fill this out some more.
 
 Next week I'll be taking our prototype to the [AMQP 1.0 "Connectathon"](http://www.amqp.org/confluence/display/AMQP/Connectathon+1+%28Dec+2010%29
 ), where it'll be tested against other implementations of the core protocol (not all of which are open source). Again, this will help to flush out barriers to interoperability in the specification.

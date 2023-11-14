@@ -4,7 +4,7 @@ tags: ["Streams", "Programming Languages", "New Features", ]
 authors: [acogoluegnes]
 ---
 
-[RabbitMQ Streams Overview](/posts/2021/07/rabbitmq-streams-overview) introduced streams, a new feature in RabbitMQ 3.9.
+[RabbitMQ Streams Overview](/blog/2021/07/13/rabbitmq-streams-overview) introduced streams, a new feature in RabbitMQ 3.9.
 This post continues by showing how to use streams with the Java client.
 We will write our first application that publishes messages to a stream, and then consumes them.
 

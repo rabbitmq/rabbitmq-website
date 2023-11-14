@@ -24,7 +24,7 @@ RabbitMQ tries to make things simple by allowing any client to connect to any no
 
 This flexibility and ease of use comes at a cost though. On a three node cluster, the worst case scenario is that the publisher connects to broker 1, its messages are routed to a classic unreplicated queue on broker 2 and the consumer of that queue is connected to broker 3. To process these messages, all three brokers have been roped into it which is of course less efficient.
 
-If that queue were replicated then the messages would have to be transmitted between the brokers one time for the proxying and then additionally for the replication. On top of that we covered how inefficient the [mirrored queue algorithm](/posts/2020/04/rabbitmq-gets-an-ha-upgrade/) is with multiple sends of each message.
+If that queue were replicated then the messages would have to be transmitted between the brokers one time for the proxying and then additionally for the replication. On top of that we covered how inefficient the [mirrored queue algorithm](/blog/2020/04/20/rabbitmq-gets-an-ha-upgrade) is with multiple sends of each message.
 
 ![Fig 1 shows the mirrored queue replication traffic in blue, with additional traffic for proxying publisher and consumer traffic.](mirrored-network-traffic.png)
 
@@ -283,8 +283,8 @@ The quorum queue handled the consumer 1 failure without any problems, while stil
 
 ## Final Thoughts
 
-Quorum queues have the same ordering guarantees as any queue but are also able to deliver messages from a local replica. How they achieve this is interesting but not relevant to developers or administrators. What IS useful is understanding that this is another reason to choose quorum queues over mirrored queues. We [previously described](/posts/2020/04/rabbitmq-gets-an-ha-upgrade/) the very network inefficient algorithm behind mirrored queues, and now you’ve seen that with quorum queues we have heavily optimised network utilisation.
+Quorum queues have the same ordering guarantees as any queue but are also able to deliver messages from a local replica. How they achieve this is interesting but not relevant to developers or administrators. What IS useful is understanding that this is another reason to choose quorum queues over mirrored queues. We [previously described](/blog/2020/04/20/rabbitmq-gets-an-ha-upgrade) the very network inefficient algorithm behind mirrored queues, and now you’ve seen that with quorum queues we have heavily optimised network utilisation.
 
-Consuming from a follower replica doesn’t just result in better network utilisation though, we also get better isolation between publisher and consumer load. Publishers can impact consumers and the other way around because they put contention on the same resource - a queue. By allowing consumers to consume from a different broker, we get better isolation. Just see the [recent sizing case study](/posts/2020/06/cluster-sizing-and-other-considerations/) that showed that quorum queues can sustain a high publish rate even in the face of huge queue backlogs and extra pressure from consumers. Mirrored queues were more susceptible.
+Consuming from a follower replica doesn’t just result in better network utilisation though, we also get better isolation between publisher and consumer load. Publishers can impact consumers and the other way around because they put contention on the same resource - a queue. By allowing consumers to consume from a different broker, we get better isolation. Just see the [recent sizing case study](/blog/2020/06/18/cluster-sizing-and-other-considerations) that showed that quorum queues can sustain a high publish rate even in the face of huge queue backlogs and extra pressure from consumers. Mirrored queues were more susceptible.
 
 So... consider quorum queues!

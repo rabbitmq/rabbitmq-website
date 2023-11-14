@@ -75,7 +75,7 @@ That's why some client-side filtering logic is necessary.
 
 This is something to be aware of, but that is a minor caveat compared to the benefits stream filtering brings.
 
-A [subsequent blog post](/posts/2023/10/stream-filtering-internals) covers the internals of stream filtering for those interested in technical details.
+A [subsequent blog post](/blog/2023/10/24/stream-filtering-internals) covers the internals of stream filtering for those interested in technical details.
 You can also have a look at the [stream Java client documentation on filtering](https://rabbitmq.github.io/rabbitmq-stream-java-client/stable/htmlsingle/#filtering) for more information.
 It covers among others that a message does not always have to be associated to a filter value and a consumer can choose to receive messages with given filter value(s) _and_ messages _without_ a filter value (with `filter().matchUnfiltered()`).
 
@@ -169,4 +169,4 @@ We had a quick overview of stream filtering in RabbitMQ 3.13.
 It allows to save bandwidth when messages are dispatched from the broker to consuming applications.
 Not all use cases can benefit from stream filtering, but the benefits in terms of bandwidth for those that can are quite compelling.
 
-Stay tuned for a [subsequent blog post](/posts/2023/10/stream-filtering-internals) that will cover the internal details of stream filtering to help you use it and configure it in the most optimal way.
+Stay tuned for a [subsequent blog post](/blog/2023/10/24/stream-filtering-internals) that will cover the internal details of stream filtering to help you use it and configure it in the most optimal way.

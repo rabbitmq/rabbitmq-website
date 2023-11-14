@@ -4,7 +4,7 @@ tags: ["New Features", ]
 authors: [botanicus]
 ---
 
-I'm happy to announce that the AMQP 0.7 is released, as I promised in the [previous blog post](/posts/2011/01/ruby-amqp-gem-intro). So what are the changes?
+I'm happy to announce that the AMQP 0.7 is released, as I promised in the [previous blog post](/blog/2011/01/12/ruby-amqp-gem-intro). So what are the changes?
 
 <!-- truncate -->
 

@@ -9,7 +9,7 @@ that were introduced in RabbitMQ version 3.8. And there are two
 complementary reasons why you would need to migrate. 
 
 First of all, Classic Mirrored Queues were deprecated in 3.9, with [a
-formal announcement posted on August 21, 2021](/posts/2021/08/4.0-deprecation-announcements/). They will be removed
+formal announcement posted on August 21, 2021](/blog/2021/08/21/4.0-deprecation-announcements). They will be removed
 entirely in 4.0
 
 But also they are more reliable and predictable, faster for most
@@ -28,7 +28,7 @@ The [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues documentatio
 ## Performance improvements
 
 In [RabbitMQ 3.10 Performance
-Improvements](/posts/2022/05/rabbitmq-3.10-performance-improvements/)
+Improvements](/blog/2022/05/16/rabbitmq-3.10-performance-improvements)
 blog post, performance benefits of Quorum Queues were already discussed in some detail.
 
 And on the following graph you can see what new levels of performance

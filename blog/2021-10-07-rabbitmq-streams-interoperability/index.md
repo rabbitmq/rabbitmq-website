@@ -13,7 +13,7 @@ This blog post covers the interoperability of streams in RabbitMQ and explores t
 
 ## Messages in RabbitMQ Streams
 
-We saw in the [RabbitMQ Streams First Application](/posts/2021/07/rabbitmq-streams-first-application) blog post that stream messages have a binary body, properties, with different types supported.
+We saw in the [RabbitMQ Streams First Application](/blog/2021/07/19/rabbitmq-streams-first-application) blog post that stream messages have a binary body, properties, with different types supported.
 For example:
 
 ```java

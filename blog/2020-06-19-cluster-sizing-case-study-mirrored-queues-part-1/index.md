@@ -1,10 +1,10 @@
 ---
 title: "Cluster Sizing Case Study - Mirrored Queues Part 1"
-tags: ["Performance", ]
+tags: ["Performance", "Capacity Planning", ]
 authors: [jvanlightly]
 ---
 
-In a [first post](/posts/2020/06/cluster-sizing-and-other-considerations) in this sizing series we covered the workload, cluster and storage volume configurations on AWS ec2. In this post we’ll run a sizing analysis with mirrored queues.
+In a [first post](/blog/2020/06/18/cluster-sizing-and-other-considerations) in this sizing series we covered the workload, cluster and storage volume configurations on AWS ec2. In this post we’ll run a sizing analysis with mirrored queues.
 
 The first phase of our sizing analysis will be assessing what intensities each of our clusters and storage volumes can handle easily and which are too much.
 
@@ -18,7 +18,7 @@ All tests use the following policy:
 
 ## Ideal Conditions - Growing Intensity Tests
 
-In a previous [post](/posts/2020/06/how-to-run-benchmarks) we discussed options for running benchmarks. You can run this workload, at these intensities with the following command:
+In a previous [post](/blog/2020/06/04/how-to-run-benchmarks) we discussed options for running benchmarks. You can run this workload, at these intensities with the following command:
 
 ```
 bin/runjava com.rabbitmq.perf.PerfTest \
@@ -285,4 +285,4 @@ Top 5 Configurations for cost per 1000 msg/s per month for the 30k msg/s through
 
 ## We've only tested under ideal conditions...
 
-We've gathered a lot of data from 21 different cluster configurations at 15 different workload intensities. We think that so far we should go with a medium to large cluster of small VMs on the inexpensive gp2 volumes. But this was testing the happy scenario where queues are empty or close to empty where RabbitMQ operates at its peak performance. Next we'll run more tests that ensure that despite brokers being lost and queue backlogs occurring that our chosen cluster size continues to deliver the performance that we need. [Next](/posts/2020/06/cluster-sizing-case-study-mirrored-queues-part-2) we test resiliency.
+We've gathered a lot of data from 21 different cluster configurations at 15 different workload intensities. We think that so far we should go with a medium to large cluster of small VMs on the inexpensive gp2 volumes. But this was testing the happy scenario where queues are empty or close to empty where RabbitMQ operates at its peak performance. Next we'll run more tests that ensure that despite brokers being lost and queue backlogs occurring that our chosen cluster size continues to deliver the performance that we need. [Next](/blog/2020/06/20/cluster-sizing-case-study-mirrored-queues-part-2) we test resiliency.

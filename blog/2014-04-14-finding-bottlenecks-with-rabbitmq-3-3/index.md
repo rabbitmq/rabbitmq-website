@@ -39,7 +39,7 @@ So hopefully you can now better understand the performance of the publishing sid
 
 That metric is *consumer utilisation*. The definition of **consumer utilisation is the proportion of time that a queue's consumers could take new messages**. It's thus a number from 0 to 1, or 0% to 100% (or N/A if the queue has no consumers). So if a queue has a consumer utilisation of 100% then it never needs to wait for its consumers; it's always able to push messages out to them as fast as it can.
 
-If its utilisation is less than 100% then this implies that its consumers are sometimes not able to take messages. Network congestion can limit the utilisation you can achieve, or low utilisation can be due to the use of too low a [prefetch limit](/posts/2014/04/an-end-to-synchrony-performance-improvements-in-3-3/), leading to the queue needing to wait while the consumer processes messages until it can send out more.
+If its utilisation is less than 100% then this implies that its consumers are sometimes not able to take messages. Network congestion can limit the utilisation you can achieve, or low utilisation can be due to the use of too low a [prefetch limit](/blog/2014/04/03/an-end-to-synchrony-performance-improvements-in-3-3), leading to the queue needing to wait while the consumer processes messages until it can send out more.
 
 The following table shows some approximate values for consumer utilisation I observed when consuming tiny messages over localhost with a single consumer:
 

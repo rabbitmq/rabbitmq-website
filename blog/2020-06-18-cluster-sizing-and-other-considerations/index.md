@@ -1,6 +1,6 @@
 ---
 title: "Cluster Sizing and Other Considerations"
-tags: ["Performance", ]
+tags: ["Performance", "Capacity Planning", ]
 authors: [jvanlightly]
 ---
 
@@ -199,10 +199,10 @@ We see that choosing gp2 is actually the cheapest option for us. Of course the s
 
 In the next posts we’ll perform this sizing analysis using both mirrored and quorum queues.
 
-* [Cluster Sizing Case Study - Mirrored Queues Part 1](/posts/2020/06/cluster-sizing-case-study-mirrored-queues-part-1/)
-* [Cluster Sizing Case Study - Mirrored Queues Part 2](/posts/2020/06/cluster-sizing-case-study-mirrored-queues-part-2/)
-* [Cluster Sizing Case Study - Quorum Queues Part 1](/posts/2020/06/cluster-sizing-case-study-quorum-queues-part-1/)
-* [Cluster Sizing Case Study - Quorum Queues Part 2](/posts/2020/06/cluster-sizing-case-study-quorum-queues-part-2/)
+* [Cluster Sizing Case Study - Mirrored Queues Part 1](/blog/2020/06/19/cluster-sizing-case-study-mirrored-queues-part-1)
+* [Cluster Sizing Case Study - Mirrored Queues Part 2](/blog/2020/06/20/cluster-sizing-case-study-mirrored-queues-part-2)
+* [Cluster Sizing Case Study - Quorum Queues Part 1](/blog/2020/06/21/cluster-sizing-case-study-quorum-queues-part-1)
+* [Cluster Sizing Case Study - Quorum Queues Part 2](/blog/2020/06/22/cluster-sizing-case-study-quorum-queues-part-2)
 
 ## Other tests that might apply to your workload
 
@@ -238,6 +238,6 @@ Of those things, broker loss is probably the least stressful for RabbitMQ. One o
 
 If you already have your production and QA environment deployments automated, then testing different VM sizes and counts should be simple enough to do. If you can run these sizing tests with your actual applications then that is likely to give you the most accurate results. If using your own applications to generate the load is too much, then look at designing a synthetic workload that matches the real-world as close as possible.
 
-The case studies include PerfTest commands and there is also [this post](/posts/2020/06/how-to-run-benchmarks/) that provides guidance and options for running performance tests.
+The case studies include PerfTest commands and there is also [this post](/blog/2020/06/04/how-to-run-benchmarks) that provides guidance and options for running performance tests.
 
 I hope this sizing guidance has been helpful and helps RabbitMQ be a rock solid piece of your architecture.

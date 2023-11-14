@@ -45,8 +45,8 @@ After this webinar, you'll understand:
  * April 9:  [Lessons for building a successful open source project](https://blogs.vmware.com/opensource/2020/04/09/open-source-contributions-rabbitmq/) from the RabbitMQ experience, by Dan Carwin
  * April 15:  [Using Celery with RabbitMQ's lazy classic queue mode](https://blog.whtsky.me/tech/2020/using-celery-with-rabbitmqs-lazy-queue/)
  * April 18: Via the blog, Programming with Wolfgang, Wolfgang Ofner finishes a three-part series on microservices with a how-to on [RabbitMQ in an ASP .Net Core 3.1 Microservice](https://www.programmingwithwolfgang.com/rabbitmq-in-an-asp-net-core-3-1-microservice/)
- * April 20:  Jack Vanlightly [introduces us to quorum queues](/posts/2020/04/rabbitmq-gets-an-ha-upgrade/), the latest type of replicated queue that provide data safety guarantees for your messages.
- * April 21:  Jack Vanlightly continues his [blog series on quorum queues](/posts/2020/04/quorum-queues-and-why-disks-matter/) with a closer look at their performance characteristics on different storage configurations.
+ * April 20:  Jack Vanlightly [introduces us to quorum queues](/blog/2020/04/20/rabbitmq-gets-an-ha-upgrade), the latest type of replicated queue that provide data safety guarantees for your messages.
+ * April 21:  Jack Vanlightly continues his [blog series on quorum queues](/blog/2020/04/21/quorum-queues-and-why-disks-matter) with a closer look at their performance characteristics on different storage configurations.
  * April 22:  Over at Dev, Enrico Bison (@enricobix) compares [RabbitMQ exchange types](https://dev.to/enbis/amqp-exchange-type-comparison-using-go-rabbitmq-client-39p7)
  * April 27: Danny Simantov talks about [building a web-scraper for hourly news headlines](https://medium.com/swlh/backend-web-scraping-with-kubernetes-puppeteer-node-js-efe7513d834c) with RabbitMQ
  * April 27:  Composing a [pub/sub scenario with MassTransit 6.2 + RabbitMQ +.NET Core 3.1](https://medium.com/@alikzlda/a-simple-pub-sub-scenario-with-masstransit-6-2-rabbitmq-net-core-3-1-elasticsearch-mssql-5a65c993b2fd) + Elasticsearch + MSSQL from Ali Kizildag (@alikzlda)

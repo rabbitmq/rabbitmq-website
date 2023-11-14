@@ -106,7 +106,7 @@ Consumer consumer = environment.consumerBuilder()
     .build();
 ```
 
-In case you want a reminder on the stream Java client API, you can read [RabbitMQ Streams First Application](/posts/2021/07/rabbitmq-streams-first-application).
+In case you want a reminder on the stream Java client API, you can read [RabbitMQ Streams First Application](/blog/2021/07/19/rabbitmq-streams-first-application).
 
 Here are the key points in this snippet:
 * the consumer **must** have a name to enable offset tracking.

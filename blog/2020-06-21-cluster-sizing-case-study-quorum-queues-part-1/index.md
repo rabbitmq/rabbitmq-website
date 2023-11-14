@@ -1,10 +1,10 @@
 ---
 title: "Cluster Sizing Case Study – Quorum Queues Part 1"
-tags: ["Performance", ]
+tags: ["Performance", "Capacity Planning", ]
 authors: [jvanlightly]
 ---
 
-In a [first post](/posts/2020/06/cluster-sizing-and-other-considerations) in this sizing series we covered the workload, the tests, and the cluster and storage volume configurations on AWS ec2. In this post we’ll run a sizing analysis with quorum queues. We also ran a [sizing analysis on mirrored queues](/posts/2020/06/cluster-sizing-case-study-mirrored-queues-part-1).
+In a [first post](/blog/2020/06/18/cluster-sizing-and-other-considerations) in this sizing series we covered the workload, the tests, and the cluster and storage volume configurations on AWS ec2. In this post we’ll run a sizing analysis with quorum queues. We also ran a [sizing analysis on mirrored queues](/blog/2020/06/19/cluster-sizing-case-study-mirrored-queues-part-1).
 
 In this post we'll run the increasing intensity tests that will measure our candidate cluster sizes at varying publish rates, under ideal conditions. In the next post we'll run resiliency tests that measure whether our clusters can handle our target peak load under adverse conditions.
 
@@ -19,7 +19,7 @@ The *x-max-in-memory-length* property forces the quorum queue to remove messag
 
 ## Ideal Conditions - Growing Intensity Tests
 
-In a previous [post ](/posts/2020/06/how-to-run-benchmarks)we discussed options for running benchmarks. You can run this workload, at these intensities with the following command:
+In a previous [post ](/blog/2020/06/04/how-to-run-benchmarks)we discussed options for running benchmarks. You can run this workload, at these intensities with the following command:
 
 ```
 bin/runjava com.rabbitmq.perf.PerfTest \
@@ -220,7 +220,7 @@ In a previous post we recommended the use of SSDs with quorum queues. We showed 
 
 ![Fig 19. Increasing intensity tests with quorum queues and the st1 HDD.](qq-st1-phase1.png)
 
-Quorum queues did fine on a HDD although the throughput was more choppy once a cluster had reached its throughput capacity. Throughput was also a little lower for all clusters except for the 7x16 cluster which reliably comes in at the top in these tests. We generally [recommend the usage of SSDs](/posts/2020/04/quorum-queues-and-why-disks-matter) because performance can suffer significantly with mixed classic/quorum queue workloads due to the random IO characteristics of classic queues. But this test shows that for a pure quorum queue workload, that HDD can perform well.
+Quorum queues did fine on a HDD although the throughput was more choppy once a cluster had reached its throughput capacity. Throughput was also a little lower for all clusters except for the 7x16 cluster which reliably comes in at the top in these tests. We generally [recommend the usage of SSDs](/blog/2020/04/21/quorum-queues-and-why-disks-matter) because performance can suffer significantly with mixed classic/quorum queue workloads due to the random IO characteristics of classic queues. But this test shows that for a pure quorum queue workload, that HDD can perform well.
 
 The 50th and 75th percentile latencies are higher than the SSDs though all sub-second except for the 5x8 cluster that saw message backlogs at the higher intensities.
 
@@ -330,4 +330,4 @@ Top 5 Configurations for cost per 1000 msg/s per month for the 30k msg/s through
 
 ## We've only tested under ideal conditions...
 
-We've gathered a lot of data from 21 different cluster configurations at 15 different workload intensities. We think that so far we should go with a medium to large cluster of small VMs on the inexpensive gp2 volumes. But this was testing the happy scenario where queues are empty or close to empty where RabbitMQ operates at its peak performance. Next we'll run more tests that ensure that despite brokers being lost and queue backlogs occurring that our chosen cluster size continues to deliver the performance that we need. [Next](/posts/2020/06/cluster-sizing-case-study-quorum-queues-part-2) we test resiliency.
+We've gathered a lot of data from 21 different cluster configurations at 15 different workload intensities. We think that so far we should go with a medium to large cluster of small VMs on the inexpensive gp2 volumes. But this was testing the happy scenario where queues are empty or close to empty where RabbitMQ operates at its peak performance. Next we'll run more tests that ensure that despite brokers being lost and queue backlogs occurring that our chosen cluster size continues to deliver the performance that we need. [Next](/blog/2020/06/22/cluster-sizing-case-study-quorum-queues-part-2) we test resiliency.

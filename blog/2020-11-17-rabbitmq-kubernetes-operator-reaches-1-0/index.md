@@ -44,7 +44,7 @@ The RabbitMQ Cluster Operator (aka the operator) is a bridge between K8s managed
 
  ## Provisioning of a new RabbitMQ cluster
 
-[Creating a new RabbitMQ cluster on K8s manually is a multi step process](/tags/diy/),
+[Creating a new RabbitMQ cluster on K8s manually is a multi step process](/blog/tags/diy),
 that the operator is automating:
 
  1. Creating the RabbitMQ configuration file as a ConfigMap, so that is can be mounted as a file by the RabbitMQ container

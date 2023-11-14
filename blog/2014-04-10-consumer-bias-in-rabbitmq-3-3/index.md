@@ -6,12 +6,12 @@ authors: [simon]
 
 I warn you before we start: this is another wordy blog post about performance-ish changes in RabbitMQ 3.3. Still with us? Good.
 
-So in the [previous post](/posts/2014/04/an-end-to-synchrony-performance-improvements-in-3-3/) I mentioned "a new feature which I'll talk about in a future blog post". That feature is consumer bias.
+So in the [previous post](/blog/2014/04/03/an-end-to-synchrony-performance-improvements-in-3-3) I mentioned "a new feature which I'll talk about in a future blog post". That feature is consumer bias.
 
 <!-- truncate -->
 Every queue in RabbitMQ is an Erlang process, and like all Erlang processes it responds to messages that are sent to it. These messages might represent AMQP messages being published to the queue, or basic.get requests coming in, or messages telling the queue that a consumer's network connection is now no longer busy so it can receive messages again, and so on. It's messages all the way down.
 
-When the queue is not busy, it just responds to messages as they come in. But as message rates go up, and the queue starts to work harder, we get to a state where the queue is using all the CPU cycles available to it. At this point, inbound messages start to queue up to be handled by the queue! [Flow control](/posts/2012/04/rabbitmq-performance-measurements-part-1/) prevents them from building up indefinitely - but the fact that they are building up at all can have some consequences for the queue.
+When the queue is not busy, it just responds to messages as they come in. But as message rates go up, and the queue starts to work harder, we get to a state where the queue is using all the CPU cycles available to it. At this point, inbound messages start to queue up to be handled by the queue! [Flow control](/blog/2012/04/16/rabbitmq-performance-measurements-part-1) prevents them from building up indefinitely - but the fact that they are building up at all can have some consequences for the queue.
 
 Some of the inbound messages help the queue shrink ("this consumer can take messages again", "I'd like to perform a basic.get") while some make the queue grow ("I'd like to publish a new message"). So when the queue is working flat-out, we'd like to give preferential treatment to the messages that help the queue shrink, in order that the queue has a tendency to stay empty rather than grow forever.
 

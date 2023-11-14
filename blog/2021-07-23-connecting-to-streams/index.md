@@ -5,7 +5,7 @@ authors: [acogoluegnes]
 ---
 
 <!-- diagrams: https://drive.google.com/drive/folders/1ZLgazMBjma_wal2bcKZvFl4q9zB-cuQG?usp=sharing -->
-[RabbitMQ Streams Overview](/posts/2021/07/rabbitmq-streams-overview) introduced streams, a new feature in RabbitMQ 3.9.
+[RabbitMQ Streams Overview](/blog/2021/07/13/rabbitmq-streams-overview) introduced streams, a new feature in RabbitMQ 3.9.
 This post covers how client applications should connect to RabbitMQ nodes to get the most benefit from streams when the [stream protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.9.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc) is in use.
 
 Streams are optimized for high throughput scenarios, that's why technical details like data locality are critical to get the best out of your RabbitMQ cluster.

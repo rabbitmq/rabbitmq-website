@@ -21,7 +21,7 @@ RabbitMQ, and several articles on RabbitMQ and ASP.NET Core.
  * 2 Aug: [A robust RabbitMQ client in Go](https://www.ribice.ba/golang-rabbitmq-client/), by Emir Ribic (@ribicemir)
  * 3 Aug: ["What is a message broker?"](https://medium.com/@ademcatamak/what-is-message-broker-4f6698c73089) Illustrated with RabbitMQ by @ademcatamak
  * 9 Aug: [Connection pools and RabbitMQ](https://hostiledeveloper.com/2020/08/09/connection-pools-and-rabbitmq.html): how to use ex_rabbit_pool to manage connections and channels by @_StevenNunez
- * 10 Aug: [Deploying RabbitMQ to Kubernetes: What’s Involved?](/posts/2020/08/deploying-rabbitmq-to-kubernetes-whats-involved/), by Michael Klishin (@michaelklishin)
+ * 10 Aug: [Deploying RabbitMQ to Kubernetes: What’s Involved?](/blog/2020/08/10/deploying-rabbitmq-to-kubernetes-whats-involved), by Michael Klishin (@michaelklishin)
  * 18 Aug: [RabbitMQ Thread Model](https://medium.com/swlh/rabbitmq-thread-model-62d5505d68ce), by Ryan Zheng
  * 19 Aug: [FAQ: How to Optimize the RabbitMQ Prefetch Count](https://www.cloudamqp.com/blog/2020-08-19-how-to-optimize-the-rabbitmq-prefetch-count.html)
  * 23 Aug: [RabbitMQ with ASP.NET Core – Microservice Communication with MassTransit](https://www.codewithmukesh.com/blog/rabbitmq-with-aspnet-core-microservice/) by Mukesh Murugan

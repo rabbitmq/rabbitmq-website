@@ -22,7 +22,7 @@ changes.
 <!-- truncate -->
 
 First, we
-[took some time to understand better how CPU use per message varies as queues get longer and go to disk](/posts/2011/09/sizing-your-rabbits),
+[took some time to understand better how CPU use per message varies as queues get longer and go to disk](/blog/2011/09/24/sizing-your-rabbits),
 and what the effect of that is. The conclusions are not necessarily
 obvious. Then we started thinking about the justifications behind some
 of the decisions queues take in the process of going from a

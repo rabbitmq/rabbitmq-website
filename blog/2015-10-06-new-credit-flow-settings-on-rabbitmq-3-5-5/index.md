@@ -242,7 +242,7 @@ credit flow is handled when sending message to disk. The
 `rabbitmq_msg_store` module implements a database that takes care of
 persisting messages to disk. Some details about the why's of this
 implementation can be found here:
-[RabbitMQ, backing stores, databases and disks](/posts/2011/01/rabbitmq-backing-stores-databases-and-disks).
+[RabbitMQ, backing stores, databases and disks](/blog/2011/01/20/rabbitmq-backing-stores-databases-and-disks).
 
 The message store has a credit system for each of the clients that
 send writes to it. Every RabbitMQ queue would be a read/write client

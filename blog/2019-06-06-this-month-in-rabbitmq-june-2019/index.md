@@ -24,7 +24,7 @@ As we march towards RabbitMQ 3.8 going GA, be sure to catch the replay of the we
 
 ## Community writings and resources
 
-May 1: Denis Orehovsky ([@apirobotme](https://twitter.com/apirobotme)) published about [Distributed systems with RabbitMQ.](https://apirobot.me/posts/distributed-systems-with-rabbitmq)
+May 1: Denis Orehovsky ([@apirobotme](https://twitter.com/apirobotme)) published about [Distributed systems with RabbitMQ.](https://apirobot.me/blog//posts/distributed-systems-with-rabbitmq)
 
 May 1: Sam Bently ([@sambentley00](https://twitter.com/sambentley00)) published about [Building An External Rabbitmq Service For VCloud Director](https://beardedsamwise.wordpress.com/2019/05/01/building-an-external-rabbitmq-service-for-vcloud-director/), with particular attention to SSL requirements.
 

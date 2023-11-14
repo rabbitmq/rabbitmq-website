@@ -4,7 +4,7 @@ tags: ["Updates", ]
 authors: [mklishin]
 ---
 
-This month, Jack Vanlightly continues his blog series on [Quorum Queues in RabbitMQ](/posts/2020/05/quorum-queues-and-flow-control-the-concepts/).
+This month, Jack Vanlightly continues his blog series on [Quorum Queues in RabbitMQ](/blog/2020/05/04/quorum-queues-and-flow-control-the-concepts).
 Also, be sure to watch the replay of his [related webinar](https://tanzu.vmware.com/content/rabbitmq/jun-11-ha-and-data-safety-in-messaging-quorum-queues-in-rabbitmq).
 
 Finally, Episode 5 of TGI RabbitMQ is out -- Gerhard Lazu walks us through [how to run RabbitMQ on Kubernetes](https://www.youtube.com/watch?v=-yU95ocpBYs).
@@ -27,8 +27,8 @@ This project is used by RabbitMQ, its client libraries, and other projects to ea
 * May 1: [Improvements in memory allocations in RabbitMQ .NET client](https://stebet.net/real-world-example-of-reducing-allocations-using-span-t-and-memory-t/) by Stefán Jökull Sigurðarson (@stebets)
 * May 1: [Connecting To RabbitMQ In Golang](https://dev.to/wagslane/connecting-to-rabbitmq-in-golang-en4) by Lane Wagner (@wagslane)
 * May 12: [RabbitMQ Use Cases](https://www.petermorlion.com/rabbitmq-use-cases/) by Peter Morlion (@petermorlion)
-* May 14: Jack Vanlightly on [flow control in RabbitMQ](/posts/2020/05/quorum-queues-and-flow-control-single-queue-benchmarks/), with benchmarks (@vanlightly)
-* May 15: [Flow control in RabbitMQ: stress tests](/posts/2020/05/quorum-queues-and-flow-control-stress-tests/) (@vanlightly)
+* May 14: Jack Vanlightly on [flow control in RabbitMQ](/blog/2020/05/14/quorum-queues-and-flow-control-single-queue-benchmarks), with benchmarks (@vanlightly)
+* May 15: [Flow control in RabbitMQ: stress tests](/blog/2020/05/15/quorum-queues-and-flow-control-stress-tests) (@vanlightly)
 * May 17: [Produce And Consume Messages To RabbitMQ Docker Container](https://www.c-sharpcorner.com/article/publisher-and-consumer-with-rabbitmq-docker-container/) Using .NET Client, by Nilanjan Dutta (@nilanjan_i_am)
 * May 25: [.NET Core and RabbitMQ, Part 1](http://codereform.com/blog/post/net-core-and-rabbitmq/), by George Dyrrachitis (@giorgosdyrra)
 * May 27: [.NET Core and RabbitMQ, Part 2](http://codereform.com/blog/post/net-core-and-rabbitmq-part-2-communication-via-amqp/), by George Dyrrachitis (@giorgosdyrra)

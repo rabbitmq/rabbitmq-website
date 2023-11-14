@@ -39,7 +39,7 @@ trigger the algorithm that makes the queue page messages to disk. Even
 tho in previous releases we have
 [improved the paging algorithm](https://github.com/rabbitmq/rabbitmq-server/issues/227),
 paging can still block the queue process, which could result in
-[credit flow](/posts/2015/10/new-credit-flow-settings-on-rabbitmq-3-5-5)
+[credit flow](/blog/2015/10/06/new-credit-flow-settings-on-rabbitmq-3-5-5)
 kicking in, which ends up blocking publishers.
 
 With lazy queues there's no paging, since as stated above, all

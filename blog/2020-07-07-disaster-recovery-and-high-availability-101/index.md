@@ -207,7 +207,7 @@ Using the *pause_minority* partition handling strategy makes mirrored queues fa
 
 Fail-overs are not as fast as quorum queues and there exist edge cases where the fail-over can take minutes or hours for extremely large queues.
 
-See our recent [post on quorum queues and mirrored queues](/posts/2020/04/rabbitmq-gets-an-ha-upgrade/) that explains this in more detail.
+See our recent [post on quorum queues and mirrored queues](/blog/2020/04/20/rabbitmq-gets-an-ha-upgrade) that explains this in more detail.
 
 #### Client Reconnections
 
@@ -219,7 +219,7 @@ While RabbitMQ does not currently have rack awareness, you can achieve the same 
 
 ### Capacity Planning
 
-Good capacity planning goes hand-in-hand with Business Continuity Planning as both are required to achieve reliability and resiliency. Check out our [RabbitMQ sizing guidance](/posts/2020/06/cluster-sizing-and-other-considerations/).
+Good capacity planning goes hand-in-hand with Business Continuity Planning as both are required to achieve reliability and resiliency. Check out our [RabbitMQ sizing guidance](/blog/2020/06/18/cluster-sizing-and-other-considerations).
 
 ### Disaster Recovery
 

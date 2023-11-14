@@ -94,7 +94,7 @@ by AWS.
 
 But enough theory, let's take a look at what it takes to configure a list of nodes
 for peer discovery using the new config format
-that was [introduced alongside peer discovery in 3.7](/posts/2018/02/whats-new-in-rabbitmq-3-7/):
+that was [introduced alongside peer discovery in 3.7](/blog/2018/02/05/whats-new-in-rabbitmq-3-7):
 
 First we have to tell RabbitMQ to use the classic config mechanism for peer discovery.
 This is done using the `cluster_formation.peer_discovery_backend` key.

@@ -40,7 +40,7 @@ Then these metrics can be inspected in [VisualVM](https://visualvm.github.io/dow
 
 ![Java Client Metrics on JMX](rabbitmq-java-client-metrics-jmx.png "Java Client Metrics on JMX")
 
-Nothing much new compared to what we had done with Dropwizard Metrics [in a previous post](/posts/2016/11/metrics-support-in-rabbitmq-java-client-4-0/).
+Nothing much new compared to what we had done with Dropwizard Metrics [in a previous post](/blog/2016/11/30/metrics-support-in-rabbitmq-java-client-4-0).
 
 But Micrometer can easily bring value with metrics related to the JVM process. We simply have to bind the appropriate `MeterBinder`s to the JMX meter registry:
 

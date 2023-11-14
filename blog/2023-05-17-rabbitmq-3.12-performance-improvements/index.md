@@ -45,7 +45,7 @@ It is possible to go back by setting the version back to 1. Every time the value
 For mostly empty queues, the process is instantaneous. For reasonable backlogs, it can take a few seconds.
 
 In many use cases, switching to CQv2 will result in a 20-40% throughput improvement
-and lower memory usage at the same time. Those who still use classic queue mirroring ([you shouldn't, it'll be removed soon!](/posts/2023/02/quorum-queues-migration/)),
+and lower memory usage at the same time. Those who still use classic queue mirroring ([you shouldn't, it'll be removed soon!](/blog/2023/03/02/quorum-queues-migration)),
 need to test your system more thoroughly as there are a few cases where version 1 works better with mirrored classic queues,
 but there are also many scenarios where version 2 is much better, despite not having any mirroring-specific code optimizations.
 
@@ -54,7 +54,7 @@ but there are also many scenarios where version 2 is much better, despite not ha
 The [MQTT plugin](https://www.rabbitmq.com/mqtt.html) has been completely reworked and provides much lower memory usage,
 lower latency and can handle many more connections than before.
 
-We've published [a separate blog post about the MQTT-related improvements](/posts/2023/03/native-mqtt/).
+We've published [a separate blog post about the MQTT-related improvements](/blog/2023/03/21/native-mqtt).
 
 ### Significant improvements to quorum queues
 
@@ -183,12 +183,12 @@ Version 2 will become the default version starting with RabbitMQ 3.13.
 ### Classic Mirrored Queues
 
 As mentioned above, classic queues version 1 contain a few optimizations specifically implemented to improve the behaviour when a queue is mirrored.
-As we prepare to [remove the mirroring feature](https://blog.rabbitmq.com/posts/2023/02/quorum-queues-migration/), version 2 no longer performs any special mirroring tricks.
+As we prepare to [remove the mirroring feature](https://blog.rabbitmq.com/blog/2023/03/21/quorum-queues-migration), version 2 no longer performs any special mirroring tricks.
 Therefore, the results are mixed, but version 2 is so efficient that even without special considerations, it can outperform version 1 in most scenarios, even with mirroring.
 
 ![Mirrored queues: 3.11 lazy and non-lazy vs 3.12 v2; 1kb messages](mirrored-3.11-vs-3.12.png)
 
-You can see whether version 2 works better for you but more importantly, please [start migrating to quorum queues](https://blog.rabbitmq.com/posts/2023/02/quorum-queues-migration/)
+You can see whether version 2 works better for you but more importantly, please [start migrating to quorum queues](https://blog.rabbitmq.com/blog/2023/03/21/quorum-queues-migration)
 and [streams](https://rabbitmq.com/streams.html) ASAP.
 
 ### Quorum Queues

@@ -4,7 +4,7 @@ tags: ["New Features", ]
 authors: [simon]
 ---
 
-So we've talked about how [RabbitMQ 3.0 can break things](/posts/2012/11/breaking-things-with-rabbitmq-3-0), but that's not very positive. Let's have a look at some of the new features! Just some of them - [quite a lot changed in 3.0](https://www.rabbitmq.com/release-notes/README-3.0.0.txt), and we don't have all day...
+So we've talked about how [RabbitMQ 3.0 can break things](/blog/2012/11/19/breaking-things-with-rabbitmq-3-0), but that's not very positive. Let's have a look at some of the new features! Just some of them - [quite a lot changed in 3.0](https://www.rabbitmq.com/release-notes/README-3.0.0.txt), and we don't have all day...
 <!-- truncate -->
 
 ## Policy-based mirroring
@@ -59,4 +59,4 @@ Just a small thing - but you can now have RabbitMQ perform reverse DNS lookups o
 
 ## Web-STOMP and MQTT
 
-We've added plugins to support [STOMP-over-websockets](/posts/2012/05/introducing-rabbitmq-web-stomp) (with SockJS support for non-websocket browsers) and [MQTT 3.1](https://www.ibm.com/developerworks/webservices/library/ws-mqtt/). We've also added support for [STOMP 1.2](http://stomp.github.com/stomp-specification-1.2.html).
+We've added plugins to support [STOMP-over-websockets](/blog/2012/05/14/introducing-rabbitmq-web-stomp) (with SockJS support for non-websocket browsers) and [MQTT 3.1](https://www.ibm.com/developerworks/webservices/library/ws-mqtt/). We've also added support for [STOMP 1.2](http://stomp.github.com/stomp-specification-1.2.html).

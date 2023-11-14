@@ -4,7 +4,7 @@ tags: ["Updates", ]
 authors: [mklishin]
 ---
 
-Last month was a big one for the RabbitMQ community because RabbitMQ Summit happened in London! If you missed the event, or if you were at the event, but missed a session in the other track, [all the recordings](https://www.youtube.com/watch?v=InqY3l69yCs&amp;list=PLDUzG2yLXrU7gQAzZwMEkjkfTy0L5FsJx) are now available. Also, be sure to check out our overview blog for an easy-to-digest [summary of what’s new in RabbitMQ 3.8](/posts/2019/11/rabbitmq-3-8-release-overview/).
+Last month was a big one for the RabbitMQ community because RabbitMQ Summit happened in London! If you missed the event, or if you were at the event, but missed a session in the other track, [all the recordings](https://www.youtube.com/watch?v=InqY3l69yCs&amp;list=PLDUzG2yLXrU7gQAzZwMEkjkfTy0L5FsJx) are now available. Also, be sure to check out our overview blog for an easy-to-digest [summary of what’s new in RabbitMQ 3.8](/blog/2019/11/11/rabbitmq-3-8-release-overview).
 
 More new 3.8 features and lessons learned will be covered in [an upcoming webinar](https://content.pivotal.io/webinars/dec-12-understand-rabbitmq-for-developers-and-operators-webinar?utm_campaign=rabbitmq-devops-erlang_q419&amp;utm_source=twitter&amp;utm_medium=social),
 by RabbitMQ core team member Gerhard Lazu. Tune in on December 12th!

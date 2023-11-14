@@ -4,7 +4,7 @@ tags: ["Performance", ]
 authors: [jvanlightly]
 ---
 
-In the [last post](/posts/2020/05/quorum-queues-and-flow-control-single-queue-benchmarks) we ran some simple benchmarks on a single queue to see what effect pipelining publisher confirms and consumer acknowledgements had on flow control. 
+In the [last post](/blog/2020/05/14/quorum-queues-and-flow-control-single-queue-benchmarks) we ran some simple benchmarks on a single queue to see what effect pipelining publisher confirms and consumer acknowledgements had on flow control. 
 
 Specifically we looked at:
 

@@ -4,7 +4,7 @@ tags: ["HowTo", "New Features", ]
 authors: [simon]
 ---
 
-What? Another ["breaking things"](/posts/2012/11/breaking-things-with-rabbitmq-3-0) post? Well, yes, but hopefully this should be less to deal with than the previous one. But there are enough *slightly* incompatible changes in RabbitMQ 3.3.0 that it's worth listing them here.
+What? Another ["breaking things"](/blog/2012/11/19/breaking-things-with-rabbitmq-3-0) post? Well, yes, but hopefully this should be less to deal with than the previous one. But there are enough *slightly* incompatible changes in RabbitMQ 3.3.0 that it's worth listing them here.
 
 <!-- truncate -->
 

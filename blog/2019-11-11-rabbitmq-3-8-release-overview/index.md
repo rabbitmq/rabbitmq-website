@@ -32,7 +32,7 @@ Read more about quorum queues [in documentation guides](https://rabbitmq.com/quo
 
 Prior to the new feature flag sub-system, upgrades to RabbitMQ required cluster-wide shutdown. Feature flags allow for rolling upgrades of a cluster enabling continued availability.
 
-As Jean-Sébastien Pédron described in  [this blog](/posts/2019/04/simplifying-rolling-upgrades-between-minor-versions-with-feature-flags):
+As Jean-Sébastien Pédron described in  [this blog](/blog/2019/04/23/simplifying-rolling-upgrades-between-minor-versions-with-feature-flags):
 
 > New in RabbitMQ 3.8.0 is the feature flags subsystem: when a single node in a 3.7.x cluster is upgraded to 3.8.0 and restarted, it will not immediately enable the new features or migrate its database schema because the feature flags subsystem told it not to. It could determine this because RabbitMQ 3.7.x supports no feature flags at all, therefore new features or behaviours in RabbitMQ 3.8.0 cannot be used before all nodes in the cluster are upgraded.
 

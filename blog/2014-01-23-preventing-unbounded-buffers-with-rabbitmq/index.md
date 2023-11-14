@@ -12,7 +12,7 @@ Different services in our architecture will require a certain amount of resource
 
 There are many reasons why our queues might be filling up with messages. Reason number one would be that our data producers are outpacing our consumers. Luckily the solution is easy: add more consumersâ„¢. 
 
-What happens if our application still can't handle the load? For example your consumers take too long to process each message, and you can't add more consumers since you ran out of servers. Then your queues will start filling up with messages. RabbitMQ has been optimized for fast message delivery with queues that have [as few messages as possible](/posts/2011/09/sizing-your-rabbits). While RabbitMQ comes with various **[flow control mechanisms](https://www.rabbitmq.com/memory.html)**, of course you probably want a way to prevent to get into a situation were flow-control gets activated. Let's see how RabbitMQ can help us there.
+What happens if our application still can't handle the load? For example your consumers take too long to process each message, and you can't add more consumers since you ran out of servers. Then your queues will start filling up with messages. RabbitMQ has been optimized for fast message delivery with queues that have [as few messages as possible](/blog/2011/09/24/sizing-your-rabbits). While RabbitMQ comes with various **[flow control mechanisms](https://www.rabbitmq.com/memory.html)**, of course you probably want a way to prevent to get into a situation were flow-control gets activated. Let's see how RabbitMQ can help us there.
 
 ## Per-Queue Message TTL
 

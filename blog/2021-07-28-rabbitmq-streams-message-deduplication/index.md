@@ -4,7 +4,7 @@ tags: ["Streams", "Programming Languages", "New Features", ]
 authors: [acogoluegnes]
 ---
 
-[RabbitMQ Streams Overview](/posts/2021/07/rabbitmq-streams-overview) introduced streams, a new feature in RabbitMQ 3.9 and [RabbitMQ Streams First Application](/posts/2021/07/rabbitmq-streams-first-application) provided an overview of the programming model with the stream Java client. This post covers how to deduplicate published messages in RabbitMQ Streams.
+[RabbitMQ Streams Overview](/blog/2021/07/13/rabbitmq-streams-overview) introduced streams, a new feature in RabbitMQ 3.9 and [RabbitMQ Streams First Application](/blog/2021/07/19/rabbitmq-streams-first-application) provided an overview of the programming model with the stream Java client. This post covers how to deduplicate published messages in RabbitMQ Streams.
 
 As deduplication is a critical and intricate concept, the post will walk you through this mechanism step by step, from a naive and somewhat broken publishing application to an optimized and reliable implementation.
 
@@ -36,7 +36,7 @@ records(0, messageCount).forEach(record -> {
 ```
 
 We suppose the application reads _all_ the records available, and that number is 10 for the first run.
-In case you want a reminder on the stream Java client API, you can read [RabbitMQ Streams First Application](/posts/2021/07/rabbitmq-streams-first-application). 
+In case you want a reminder on the stream Java client API, you can read [RabbitMQ Streams First Application](/blog/2021/07/19/rabbitmq-streams-first-application). 
 
 If you want to run the code as you are reading, you can move on to the next section.
 Note you can follow the remaining of the post without running anything, so you can skip the next section if you don't want to try out the code.

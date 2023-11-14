@@ -4,7 +4,7 @@ tags: ["Performance", "Announcements", ]
 authors: [kura]
 ---
 
-RabbitMQ 3.10 was released on the 3rd of May 2022, with [many new features and improvements](/posts/2022/05/rabbitmq-3.10-release-overview).
+RabbitMQ 3.10 was released on the 3rd of May 2022, with [many new features and improvements](/blog/2022/05/05/rabbitmq-3.10-release-overview).
 This blog post gives an overview of the performance improvements
 in that release. Long story short, you can expect higher throughput, lower latency and faster node startups,
 especially with large definitions files imported on startup.
@@ -13,7 +13,7 @@ especially with large definitions files imported on startup.
 
 ## Overview
 
-First, have a look at [3.10 release overview blog post](/posts/2022/05/rabbitmq-3.10-release-overview) for a high-level overview of what's new in that release.
+First, have a look at [3.10 release overview blog post](/blog/2022/05/05/rabbitmq-3.10-release-overview) for a high-level overview of what's new in that release.
 Here, we'll only focus on the performance improvements and features that have performance implications.
 Some of the improvements covered here have been backported to 3.9.x,
 so to demonstrate the difference, we will use 3.9.0 as a point of reference.

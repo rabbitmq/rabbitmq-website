@@ -13,10 +13,10 @@ Mirrored queues, also known as HA queues have been the de facto option for years
 In this blog series we’re going to cover the following:
 
 * Part 1 - Understand the need for a new replicated queue type and how it works (this post)
-* [Part 2 - Why your choice of storage drive matters with quorum queues](/posts/2020/04/quorum-queues-and-why-disks-matter)
-* [Part 3 - Quorum queues and flow control. Concepts.](/posts/2020/05/quorum-queues-and-flow-control-the-concepts)
-* [Part 4 - Quorum queues and flow control. Single Queue Benchmarks.](/posts/2020/05/quorum-queues-and-flow-control-single-queue-benchmarks)
-* [Part 5 - Quorum queues and flow control. Stress Tests.](/posts/2020/05/quorum-queues-and-flow-control-stress-tests)
+* [Part 2 - Why your choice of storage drive matters with quorum queues](/blog/2020/04/21/quorum-queues-and-why-disks-matter)
+* [Part 3 - Quorum queues and flow control. Concepts.](/blog/2020/05/04/quorum-queues-and-flow-control-the-concepts)
+* [Part 4 - Quorum queues and flow control. Single Queue Benchmarks.](/blog/2020/05/14/quorum-queues-and-flow-control-single-queue-benchmarks)
+* [Part 5 - Quorum queues and flow control. Stress Tests.](/blog/2020/05/15/quorum-queues-and-flow-control-stress-tests)
 * Part 6 - Quorum queues and cluster/VM Sizing (coming soon)
 * Part 7 - When and how to migrate from mirrored to quorum queues (coming soon)
 * Part 8 - Best practices and gotchas (coming soon)
@@ -113,4 +113,4 @@ The new poison message feature is only available for quorum queues and is set us
 
 Quorum queues offer bullet proof safety guarantees and less headaches when it comes to restarting servers. They also place different stresses on your hardware than mirrored queues so before you make the jump, check out our next posts which contain guidance about migrations and required hardware.
 
-In the [next post](/posts/2020/04/quorum-queues-and-why-disks-matter) we’ll cover why we recommend SSDs over HDDs and the different performance characteristics we get with each storage drive type.
+In the [next post](/blog/2020/04/21/quorum-queues-and-why-disks-matter) we’ll cover why we recommend SSDs over HDDs and the different performance characteristics we get with each storage drive type.

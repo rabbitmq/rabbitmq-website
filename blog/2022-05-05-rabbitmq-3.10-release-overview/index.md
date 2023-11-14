@@ -18,12 +18,12 @@ Let's have a tour!
 ## Quorum Queues
 
 Quorum queues now support dead lettering with at-least-one guarantees and a long awaited feature: message TTL.
-A [separate blog post](/posts/2022/03/at-least-once-dead-lettering/) covers these 2 aspects.
+A [separate blog post](/blog/2022/03/29/at-least-once-dead-lettering) covers these 2 aspects.
 
 Quorum queues now move messages to disk as quickly as possible.
 This significantly reduces their memory footprint for some workloads, as well as provides more predictable throughput and latency.
 
-We published a [detailed blog post on performance improvements in RabbitMQ 3.10](/posts/2022/05/rabbitmq-3.10-performance-improvements/), but we can't help sharing a small glimpse here.
+We published a [detailed blog post on performance improvements in RabbitMQ 3.10](/blog/2022/05/16/rabbitmq-3.10-performance-improvements), but we can't help sharing a small glimpse here.
 The following graph shows that quorum queues in RabbitMQ 3.10 provide significantly higher throughput and lower publish confirm latency than in 3.9:
 
 ![Quorum queues in RabbitMQ 3.10 provide higher throughput and lower publish confirm latency than in RabbitMQ 3.9](qq-3-9-vs-3-10.png)
@@ -102,8 +102,8 @@ We would like to thank all contributors to this release.
 A couple of last recommendations before you [install](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0)
 or [upgrade](https://www.rabbitmq.com/upgrade.html) to RabbitMQ 3.10:
 
-* Use Erlang 24 or more for [the best performance](/posts/2021/03/erlang-24-support-roadmap/)
-* Be aware of the [removal of some deprecated capabilities](/posts/2021/08/4.0-deprecation-announcements/) in RabbitMQ 4.0
+* Use Erlang 24 or more for [the best performance](/blog/2021/03/23/erlang-24-support-roadmap)
+* Be aware of the [removal of some deprecated capabilities](/blog/2021/08/21/4.0-deprecation-announcements) in RabbitMQ 4.0
 
 We value our feedback: you can [discuss](https://github.com/rabbitmq/rabbitmq-server/discussions) on GitHub, ask questions
 on the [mailing list](https://groups.google.com/g/rabbitmq-users) or [RabbitMQ Community Slack](https://rabbitmq-slack.herokuapp.com),

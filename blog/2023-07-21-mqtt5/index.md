@@ -4,7 +4,7 @@ tags: ["New Features", "Technical Deep Dive", "MQTT", ]
 authors: [dansari]
 ---
 
-[Native MQTT](/posts/2023/03/native-mqtt/) released in RabbitMQ 3.12 has delivered substantial scalability and performance improvements for IoT use cases.
+[Native MQTT](/blog/2023/03/21/native-mqtt) released in RabbitMQ 3.12 has delivered substantial scalability and performance improvements for IoT use cases.
 
 RabbitMQ 3.13 will support [MQTT 5.0](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html) and will therefore be the next big step in our journey to make RabbitMQ one of the leading MQTT brokers.
 
@@ -852,7 +852,7 @@ To sum up, RabbitMQ
 * is the leading AMQP 0.9.1 broker
 * is a [streaming](//www.rabbitmq.com/streams.html) broker
 * excels in cross-protocol interoperability
-* is becoming one of the leading MQTT brokers thanks to support for MQTT 5.0 released in 3.13 and [Native MQTT](/posts/2023/03/native-mqtt/) released in 3.12
+* is becoming one of the leading MQTT brokers thanks to support for MQTT 5.0 released in 3.13 and [Native MQTT](/blog/2023/03/21/native-mqtt) released in 3.12
 
 Our journey to turn RabbitMQ into a full-fledged IoT broker is not yet finished and more development efforts are planned to be done in the upcoming months and years.
 Stay tuned!

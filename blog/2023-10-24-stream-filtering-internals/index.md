@@ -6,7 +6,7 @@ authors: [acogoluegnes]
 
 <!-- diagrams: https://drive.google.com/drive/folders/1ViVE309sdIcZyd23qMfF_m5hq2TQfum-?usp=drive_link -->
 
-A [previous post](/posts/2023/10/stream-filtering) gave an introduction to stream filtering, a new and exciting feature in RabbitMQ 3.13.
+A [previous post](/blog/2023/10/16/stream-filtering) gave an introduction to stream filtering, a new and exciting feature in RabbitMQ 3.13.
 In this post we cover the internals of stream filtering.
 Knowing the design and implementation will help you to configure and use stream filtering in the most optimal way for your use cases.
 
@@ -134,7 +134,7 @@ Let's see now how to configure stream filtering in the most appropriate way for 
 
 ## Stream Filtering Configuration
 
-The [first post on stream filtering](/posts/2023/10/stream-filtering#trying-it-out) provided some numbers (about 80% bandwidth savings with filtering compared to no filtering).
+The [first post on stream filtering](/blog/2023/10/16/stream-filtering#trying-it-out) provided some numbers (about 80% bandwidth savings with filtering compared to no filtering).
 Benefits of stream filtering depend heavily on the use case: ingress rate, cardinality and distribution of filter values, but also _filter size_.
 The larger the filter, the better (error rate gets smaller).
 It is possible to set a value between 16 and 255 bytes for the size of the filter used in chunks, the default being 16 bytes.
@@ -166,7 +166,7 @@ This is fine if chunks contain many large messages, as the filter size is neglig
 But with a degenerated case like a single-message chunk with a 10-byte message and a 10-byte filter value, you end up with a filter larger than the actual data.
 
 You'll have to experiment with your own use cases to estimate the impact of the filter size on your stream size.
-The [first post on stream filtering](/posts/2023/10/stream-filtering#trying-it-out) provides a trick to estimate the size of a stream with Stream PerfTest (read the whole stream without filtering and consult the `rabbitmq_stream_read_bytes_total` metric).
+The [first post on stream filtering](/blog/2023/10/16/stream-filtering#trying-it-out) provides a trick to estimate the size of a stream with Stream PerfTest (read the whole stream without filtering and consult the `rabbitmq_stream_read_bytes_total` metric).
 
 ## Bonus: Stream Filtering On AMQP
 
@@ -180,7 +180,7 @@ Stream filtering is also supported with any AMQP client library:
 ## Wrapping Up
 
 This blog post provided an in-depth description of stream filtering in RabbitMQ 3.13.
-It complements a [first post](/posts/2023/10/stream-filtering) that gives an introduction on the usage and a demonstration of stream filtering.
+It complements a [first post](/blog/2023/10/16/stream-filtering) that gives an introduction on the usage and a demonstration of stream filtering.
 
 Stream filtering is easy to use and to benefit from, but some knowledge on the internals can be useful to optimize its usage, especially for tricky use cases.
 Remember that client-side filtering is necessary and must be consistent with the configured filter value(s).

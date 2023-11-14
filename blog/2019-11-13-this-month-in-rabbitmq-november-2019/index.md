@@ -6,7 +6,7 @@ authors: [mklishin]
 
 This Month (and the month before) in RabbitMQ — October and September recap!
 
-We’re a little behind this month! At the beginning of October, we [shipped RabbitMQ 3.8](/posts/2019/11/rabbitmq-3-8-release-overview/). That’s right, folks, [RabbitMQ 3.8 is finally out](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0)!
+We’re a little behind this month! At the beginning of October, we [shipped RabbitMQ 3.8](/blog/2019/11/11/rabbitmq-3-8-release-overview). That’s right, folks, [RabbitMQ 3.8 is finally out](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0)!
 
 Headline features include:
 

@@ -51,10 +51,10 @@ help, especially with a community as experienced and battle-hardened as ours.
 
 ## Intent to remove capabilities in RabbitMQ 4.0
 
-We are intending to remove some aged and suboptimal capabilities of RabbitMQ (see [blog post here](/posts/2021/08/4.0-deprecation-announcements/)).
+We are intending to remove some aged and suboptimal capabilities of RabbitMQ (see [blog post here](/blog/2021/08/21/4.0-deprecation-announcements)).
 
 RabbitMQ 3.10 works towards this removal by improving feature parity between Classic Mirrored Queues and Quorum Queues.
 
 We have not yet set a release date for 4.0.
 
-If you have further comments, please complete the survey linked in the [blog post](/posts/2021/08/4.0-deprecation-announcements/).
+If you have further comments, please complete the survey linked in the [blog post](/blog/2021/08/21/4.0-deprecation-announcements).

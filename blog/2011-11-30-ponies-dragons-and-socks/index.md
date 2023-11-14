@@ -6,7 +6,7 @@ authors: [marek]
 
 We were wondering how to present SockJS and its possibilities to a
 wider audience. Having a working demo is worth much more than
-explaining [dry theory](/posts/2011/09/sockjs-websocket-emulation),
+explaining [dry theory](/blog/2011/09/13/sockjs-websocket-emulation),
 but what can you present if you are just a boring technologist, with
 no design skills whatsoever?
 

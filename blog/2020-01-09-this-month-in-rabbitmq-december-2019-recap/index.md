@@ -14,7 +14,7 @@ Those are useful if you didn’t make it to the event and want to know what’s 
 
 Take a look at [Observe and Understand RabbitMQ](https://www.cloudamqp.com/blog/2019-12-10-observe-and-understand-rabbitmq.html), for example.
 
-We also published a [new case study about LAIKA](/posts/2019/12/laika-gets-creative-with-rabbitmq-as-the-animation-companys-it-nervous-system/), the animation company that brought you Coraline, The BoxTrolls, and Missing Link.
+We also published a [new case study about LAIKA](/blog/2019/12/16/laika-gets-creative-with-rabbitmq-as-the-animation-companys-it-nervous-system), the animation company that brought you Coraline, The BoxTrolls, and Missing Link.
 If you are interested in having your use case for RabbitMQ profiled on rabbitmq.com, drop a note in the mailing list or email info@rabbitmq.com.
 
 <!-- truncate -->
@@ -60,7 +60,7 @@ If you are interested in having your use case for RabbitMQ profiled on rabbitmq.
 * 15 Dec: Joor Loohuis (@joorloohuis) wrote about the [prefetch count setting in RabbitMQ](https://medium.com/@joor.loohuis/about-the-prefetch-count-in-rabbitmq-5f2f5611063b)
 * 16 Dec: Matthew Viegas (@mateuscviegas) wrote [an introduction to RabbitMQ for .NET Core](https://dev.to/mviegas/pt-br-introducao-ao-rabbitmq-com-net-core-15oc) (in Portugese)
 * 16 Dec: Diogo Bemfica (@diobemfica) wrote about [topic exchanges in RabbitMQ](https://diogobemfica.com.br/exchanges-tipo-topic-no-rabbitmq) (in Portuguese)
-* 16 Dec: Dormain Drewitz (@DormainDrewitz) published a [case study on how the animation company, LAIKA, uses RabbitMQ](/posts/2019/12/laika-gets-creative-with-rabbitmq-as-the-animation-companys-it-nervous-system/)
+* 16 Dec: Dormain Drewitz (@DormainDrewitz) published a [case study on how the animation company, LAIKA, uses RabbitMQ](/blog/2019/12/16/laika-gets-creative-with-rabbitmq-as-the-animation-companys-it-nervous-system)
 * 19 Dec: InfoQ published a [talk on RabbitMQ and Kafka](https://www.infoq.com/presentations/rabbitmq-kafka/) by Zoe Vance and Madhav Sathe (@madhav_sathe)
 * 19 Dec: James Ellis wrote about [how to use Celery and RabbitMQ with Django](https://morioh.com/p/b9f71324b5b1)
 * 19 Dec: Jared Ruckle (@jaredruckle) wrote about how [RabbitMQ for Pivotal Platform now runs RabbitMQ 3.8](https://content.pivotal.io/blog/any-company-can-become-a-software-driven-organization-the-new-release-of-pivotal-platform-gives-you-the-blueprint#The%20new%20RabbitMQ%20open%20source%20release%20comes%20to%20Pivotal%20Platform)

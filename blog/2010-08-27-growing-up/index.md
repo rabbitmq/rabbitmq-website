@@ -16,9 +16,9 @@ Before introducing RabbitMQ 2.0, let me reiterate that as Rabbit evolves you can
 
 So what can you expect? In short, a more capable bunny.  In particular:
 1. RabbitMQ 2.0 has an all new Scalable Storage Engine.  There is also a persistence API.
-2. [Native support for multi-protocol messaging](/posts/2010/08/rabbitmq-and-amqp-0-9-1) delivering better interoperability and more choice
+2. [Native support for multi-protocol messaging](/blog/2010/08/04/rabbitmq-and-amqp-0-9-1) delivering better interoperability and more choice
 3. The release coincides with first class [Spring integration](http://www.springsource.org/spring-amqp) for both Java and .NET from SpringSource - with more to come e.g. a [Grails plugin](http://blog.springsource.com/2010/08/23/rabbitmq-plugin-for-grails-early-access/)
-4. Foundations for future additional [management and monitoring features](/posts/2010/08/management-monitoring-and-statistics) as part of rabbit-management and other tools
+4. Foundations for future additional [management and monitoring features](/blog/2010/08/06/management-monitoring-and-statistics) as part of rabbit-management and other tools
 5. Plugins are now distributed as drop-in binary packages, making them much easier to use.
 
 As always, read the [full release notes](http://lists.rabbitmq.com/pipermail/rabbitmq-announce/attachments/20100825/2c672695/attachment.txt) before upgrading.
@@ -76,7 +76,7 @@ Rock solid management, across 'any' use case, is the heart of what makes messagi
 
 Rabbit has [always provided](https://www.rabbitmq.com/admin-guide.html) some [tools for management](https://www.rabbitmq.com/man/rabbitmqctl.1.man.html) and the [community](https://www.rabbitmq.com/how.html) has done an [outstanding job](http://blog.scoutapp.com/articles/2010/03/08/rabbitmq-monitoring-plugins) in [extending them](http://alicetheapp.com/) and [making them more useful](http://blog.dossot.net/2010/01/monitoring-rabbitmq-with-zabbix.html) and [relevant](http://github.com/b/cookbooks/tree/master/rabbitmq). But we want more features, and this means making changes to the broker, and especially at the API level.  These APIs are critical for showing end users what we think is important about messaging, and what is not. How people interact with a tool, and how they use it, defines their relationship with that tool. 
 
-In 2.0 you will find support for instrumentation for gathering metrics and statistics about the health of your Rabbit, without significantly impacting performance. Typically people expect to see: current message rates, emerging bottlenecks, support for remedial action such as telling specific clients to throttle back when the broker is busy. [Features like these will become visible](/posts/2010/08/management-monitoring-and-statistics) as part of [the rabbit-management plugin](http://hg.rabbitmq.com/rabbitmq-management/) and other tools.  The foundations are now in place for their addition incrementally. 
+In 2.0 you will find support for instrumentation for gathering metrics and statistics about the health of your Rabbit, without significantly impacting performance. Typically people expect to see: current message rates, emerging bottlenecks, support for remedial action such as telling specific clients to throttle back when the broker is busy. [Features like these will become visible](/blog/2010/08/06/management-monitoring-and-statistics) as part of [the rabbit-management plugin](http://hg.rabbitmq.com/rabbitmq-management/) and other tools.  The foundations are now in place for their addition incrementally. 
 
 **Tell us what else you want from management**
 

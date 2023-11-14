@@ -4,7 +4,7 @@ tags: []
 authors: [vlad]
 ---
 
-In our [previous blog post](/posts/2010/09/very-fast-and-scalable-topic-routing-part-1) we talked about a few approaches to topic routing optimization and described the two more important of these in brief. In this post, we will talk about a few things we tried when implementing the DFA, as well as some performance benchmarking we have done on the trie and the DFA.
+In our [previous blog post](/blog/2010/09/14/very-fast-and-scalable-topic-routing-part-1) we talked about a few approaches to topic routing optimization and described the two more important of these in brief. In this post, we will talk about a few things we tried when implementing the DFA, as well as some performance benchmarking we have done on the trie and the DFA.
 
 <!-- truncate -->
 

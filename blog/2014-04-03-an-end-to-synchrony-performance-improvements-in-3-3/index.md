@@ -4,7 +4,7 @@ tags: ["Performance", "New Features", ]
 authors: [simon]
 ---
 
-Well, we got the [bad news](/posts/2014/04/breaking-things-with-rabbitmq-3-3) out of the way yesterday, so today let's talk about (some of) the good news: some types of publishing and consuming are now a great deal faster, especially in clusters.
+Well, we got the [bad news](/blog/2014/04/02/breaking-things-with-rabbitmq-3-3) out of the way yesterday, so today let's talk about (some of) the good news: some types of publishing and consuming are now a great deal faster, especially in clusters.
 
 <!-- truncate -->
 The various internal parts of RabbitMQ communicate by passing messages among themselves (both within nodes and across clusters); this is how Erlang applications work. It's always been a design goal of RabbitMQ that operations which were asynchronous in AMQP (i.e. sending and receiving messages and acknowledgements) should be asynchronous inside the server. There's a good reason for that: whenever you perform a synchronous operation you are limited by latency while you wait for the reply, so asynchrony is a route to much faster messaging.

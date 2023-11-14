@@ -98,7 +98,7 @@ the case with many commonly used formats.
 
 Single value keys are trivial to configure in this format. But what about
 collections? For example, it's possible to configure more than
-one TCP listener. It is also possible to [list cluster nodes](/posts/2018/02/peer-discovery-subsystem-in-rabbitmq-3-7/) for
+one TCP listener. It is also possible to [list cluster nodes](/blog/2018/02/18/peer-discovery-subsystem-in-rabbitmq-3-7) for
 peer discovery purposes. How does this format account for that?
 
 The new format supports collections that are maps (dictionaries). For values

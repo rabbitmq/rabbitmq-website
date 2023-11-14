@@ -27,11 +27,11 @@ please refer to the [Release Series](https://www.rabbitmq.com/versions.html)
 page.
 
 RabbitMQ 3.11.0 introduces some highly requested functionality:
-* [Single Active Consumer for Streams](https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams/)
-* [Super Streams](https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-preview-super-streams/)
-* [Management UI OAuth2 and OIDC support](https://blog.rabbitmq.com/posts/2022/07/oidc-integration/)
+* [Single Active Consumer for Streams](https://blog.rabbitmq.com/blog/2022/07/05/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams)
+* [Super Streams](https://blog.rabbitmq.com/blog/2022/07/13/rabbitmq-3-11-feature-preview-super-streams)
+* [Management UI OAuth2 and OIDC support](https://blog.rabbitmq.com/blog/2022/07/22/oidc-integration)
 
-Additionally, RabbitMQ 3.11.0 will make [all feature flags introduced during the life of RabbitMQ 3.8.x required](https://blog.rabbitmq.com/posts/2022/07/mandatory-feature-flags-in-rabbitmq-3.11). Please ensure all feature flags are enabled before atttempting to upgrade to 3.11.0.
+Additionally, RabbitMQ 3.11.0 will make [all feature flags introduced during the life of RabbitMQ 3.8.x required](https://blog.rabbitmq.com/blog/2022/07/22/mandatory-feature-flags-in-rabbitmq-3.11). Please ensure all feature flags are enabled before atttempting to upgrade to 3.11.0.
 
 This release calendar is meant to communicate what to expect, and when.
 Based on your feedback during the pre-release timeline, we may add additional
@@ -48,8 +48,8 @@ help, especially with a community as experienced and battle-hardened as ours.
 
 ## Intent to remove capabilities in RabbitMQ 4.0
 
-We are intending to remove some aged and suboptimal capabilities of RabbitMQ (see [blog post here](/posts/2021/08/4.0-deprecation-announcements/)).
+We are intending to remove some aged and suboptimal capabilities of RabbitMQ (see [blog post here](/blog/2021/08/21/4.0-deprecation-announcements)).
 
 We have not yet set a release date for 4.0.
 
-If you have further comments, please complete the survey linked in the [blog post](/posts/2021/08/4.0-deprecation-announcements/).
+If you have further comments, please complete the survey linked in the [blog post](/blog/2021/08/21/4.0-deprecation-announcements).

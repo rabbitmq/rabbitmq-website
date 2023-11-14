@@ -124,7 +124,7 @@ Enable large fan-outs sending a message from the "cloud" (MQTT broker) to all de
 
 For classic queues and quorum queues, each queue client (i.e. the channel process or MQTT connection process) keeps state for all destination queues for the purpose of flow control.
 For example, the channel process holds the number of credits from each destination queue in its [process dictionary](https://www.erlang.org/doc/reference_manual/processes.html#process-dictionary).
-(Read [our blog post about credit-based flow control](//blog.rabbitmq.com/posts/2020/05/quorum-queues-and-flow-control-the-concepts#credit-based-flow-control) to learn more.)
+(Read [our blog post about credit-based flow control](//blog.rabbitmq.com/blog/2020/05/04/quorum-queues-and-flow-control-the-concepts#credit-based-flow-control) to learn more.)
 
 * If there is 1 channel process that sends to 3 million MQTT devices, 3 million entries (hundreds of MBs of memory) are kept in the channel process dictionary.
 * If there are 100 channel processes each sending to 3 million devices, there are in total 300 million entries in the process dictionaries (better not try this).
@@ -433,7 +433,7 @@ One solution is to bind a few quorum queues to the topic exchange where each quo
 Each quorum queue is replicated across 3 or 5 RabbitMQ nodes providing high data safety by using the Raft consensus algorithm underneath.
 The messages within each quorum queue can be processed by different microservices using more specialised messaging protocols than MQTT, such as AMQP 0.9.1 or AMQP 1.0.
 
-Alternatively, the MQTT plugin could forward the MQTT payment messages to a [super stream](//blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-preview-super-streams/) that is replicated across multiple RabbitMQ nodes.
+Alternatively, the MQTT plugin could forward the MQTT payment messages to a [super stream](//blog.rabbitmq.com/blog/2022/07/13/rabbitmq-3-11-feature-preview-super-streams) that is replicated across multiple RabbitMQ nodes.
 Other clients can then do different forms of data analytics by consuming the same messages from the streams multiple times using the [RabbitMQ Streams protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.0-beta.2/deps/rabbitmq_stream/docs/PROTOCOL.adoc).
 
 The flexibility that RabbitMQ offers is almost endless, and there is no other message broker on the market that provides such a wide range of protocol interoperability, data safety, fault tolerance, scalability, and performance.

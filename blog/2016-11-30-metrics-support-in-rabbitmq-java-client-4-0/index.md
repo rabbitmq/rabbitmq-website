@@ -4,7 +4,7 @@ tags: ["Performance", "Programming Languages", "New Features", ]
 authors: [acogoluegnes]
 ---
 
-[Version 4.0 of the RabbitMQ Java Client](/posts/2016/11/rabbitmq-java-client-4-0-is-released/) brings support for runtime metrics. This can be especially useful to know how a client application is behaving. Let's see how to enable metrics collection and how to monitor those metrics on JMX or even inside a Spring Boot application.
+[Version 4.0 of the RabbitMQ Java Client](/blog/2016/11/24/rabbitmq-java-client-4-0-is-released) brings support for runtime metrics. This can be especially useful to know how a client application is behaving. Let's see how to enable metrics collection and how to monitor those metrics on JMX or even inside a Spring Boot application.
 
 <!-- truncate -->
 

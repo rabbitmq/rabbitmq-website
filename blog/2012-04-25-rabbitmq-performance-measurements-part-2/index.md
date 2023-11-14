@@ -4,7 +4,7 @@ tags: ["Performance", ]
 authors: [simon]
 ---
 
-Welcome back! [Last time](/posts/2012/04/rabbitmq-performance-measurements-part-1) we talked about flow control and
+Welcome back! [Last time](/blog/2012/04/16/rabbitmq-performance-measurements-part-1) we talked about flow control and
 latency; today let's talk about how different features affect
 the performance we see. Here are some simple scenarios. As
 before, they're all variations on the theme of one publisher and
@@ -196,7 +196,7 @@ lower rate when pulling the messages from disc.
 
 Performance of disc-bound queues is a complex topic -
 see [Matthew's
-blog post on the subject](/posts/2011/10/performance-of-queues-when-less-is-more) for some more talk on the subject.
+blog post on the subject](/blog/2011/10/27/performance-of-queues-when-less-is-more) for some more talk on the subject.
 
 ## Learn More
 

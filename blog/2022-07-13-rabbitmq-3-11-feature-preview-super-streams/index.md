@@ -6,7 +6,7 @@ authors: [acogoluegnes]
 
 RabbitMQ 3.11 will bring a feature with one of the coolest names in its history: super streams.
 Super streams are a way to scale out by partitioning a large stream into smaller streams.
-They integrate with [single active consumer](/posts/2022/07/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams) to preserve message order within a partition. 
+They integrate with [single active consumer](/blog/2022/07/05/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams) to preserve message order within a partition. 
 
 This blog post gives an overview of super streams and the use cases they unlock.
 Read on to learn more, we value [your feedback](https://rabbitmq.com/#community) to make this feature the best it can be.
@@ -15,7 +15,7 @@ Read on to learn more, we value [your feedback](https://rabbitmq.com/#community)
 
 ## Overview
 
-A super stream is a logical stream made of individual, regular [streams](/posts/2021/07/rabbitmq-streams-overview/#what-are-rabbitmq-streams).
+A super stream is a logical stream made of individual, regular [streams](/blog/2021/07/13/rabbitmq-streams-overview#what-are-rabbitmq-streams).
 It is a way to _scale out publishing and consuming_ with RabbitMQ Streams: a large logical stream is divided into partition streams, splitting up the storage and the traffic on several cluster nodes.
 
 A super stream remains a logical entity: applications see it as one "big" stream, thanks to the smartness of client libraries.
@@ -34,7 +34,7 @@ We can compare a super stream to a Kafka topic and a stream to a partition of a 
 A RabbitMQ stream is a first-class, individually-named object though, whereas a Kafka partition is a subordinate of a Kafka topic.
 This explanation leaves _a lot_ of details out, there is no real 1-to-1 mapping, but it is accurate enough for our point in this post. 
 
-Super streams also leverage [single active consumer](/posts/2022/07/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams) to preserve the order of messages within a partition during the consumer processing.
+Super streams also leverage [single active consumer](/blog/2022/07/05/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams) to preserve the order of messages within a partition during the consumer processing.
 More on this below.
 
 Don't get us wrong, super streams do not deprecate individual streams or make them useless.
@@ -61,7 +61,7 @@ Producer producer = environment.producerBuilder()
 producer.send(...);
 ```
 
-Publishing remains the same as with a [regular stream](/posts/2021/07/rabbitmq-streams-first-application/#publishing-to-a-stream), the producer configuration is just a bit different.
+Publishing remains the same as with a [regular stream](/blog/2021/07/19/rabbitmq-streams-first-application#publishing-to-a-stream), the producer configuration is just a bit different.
 Publishing to a stream or a super stream does not impact the code of the application much.
 
 Where does the message go? In this case, the library chooses the stream partition by hashing the routing key using [MurmurHash3](https://en.wikipedia.org/wiki/MurmurHash).
@@ -83,7 +83,7 @@ A client library can implement a [well-known design pattern](https://en.wikipedi
 ![A client library provides a composite consumer that consumes from all partitions at the same time. Applications then see the super stream as an individual stream. This is not enough though.](super-streams-composite-consumer.png)
 
 The composite consumer implemented this way has limitations: if you spin up several instances of the same application for redundancy and scalability, they will consume the same messages, duplicating the processing.
-All this needs coordination and luckily we can apply the semantics of [single active consumer](/posts/2022/07/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams) to our super stream composite consumers.
+All this needs coordination and luckily we can apply the semantics of [single active consumer](/blog/2022/07/05/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams) to our super stream composite consumers.
 
 Now with single active consumer enabled, the instances of our composite consumers coordinate with the broker to make sure there is only one consumer on a given partition at a time.
 
@@ -105,13 +105,13 @@ Consumer consumer = environment.consumerBuilder()
     .build();
 ```
 
-This stays similar to a [consumer of a regular stream](/posts/2021/07/rabbitmq-streams-first-application/#consuming-the-messages), only the configuration changes, and more importantly the message handling code remains the same.
+This stays similar to a [consumer of a regular stream](/blog/2021/07/19/rabbitmq-streams-first-application#consuming-the-messages), only the configuration changes, and more importantly the message handling code remains the same.
 
 ## Wrapping Up
 
 We covered _super streams_ in this blog post, a new feature in the upcoming RabbitMQ 3.11 release.
 Super streams are partitioned streams, they bring scalability to RabbitMQ Stream.
-Together with [single active consumer](/posts/2022/07/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams), they offer the guarantee of processing messages in their publishing order within a partition.
+Together with [single active consumer](/blog/2022/07/05/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams), they offer the guarantee of processing messages in their publishing order within a partition.
 
 This blog post has a [companion sample project](https://github.com/acogoluegnes/rabbitmq-stream-single-active-consumer#super-streams), that provides a step-by-step demonstration to illustrate the features covered.
 Do not hesitate to have a look at it!

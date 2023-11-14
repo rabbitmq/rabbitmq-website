@@ -1,10 +1,10 @@
 ---
 title: "Cluster Sizing Case Study – Mirrored Queues Part 2"
-tags: ["Performance", ]
+tags: ["Performance", "Capacity Planning", ]
 authors: [jvanlightly]
 ---
 
-In the [last post](/posts/2020/06/cluster-sizing-case-study-mirrored-queues-part-1) we started a sizing analysis of our [workload](/posts/2020/06/cluster-sizing-and-other-considerations) using mirrored queues. We focused on the happy scenario that consumers are keeping up meaning that there are no queue backlogs and all brokers in the cluster are operating normally. By running a series of benchmarks modelling our workload at different intensities we identified the top 5 cluster size and storage volume combinations in terms of cost per 1000 msg/s per month.
+In the [last post](/blog/2020/06/19/cluster-sizing-case-study-mirrored-queues-part-1) we started a sizing analysis of our [workload](/blog/2020/06/18/cluster-sizing-and-other-considerations) using mirrored queues. We focused on the happy scenario that consumers are keeping up meaning that there are no queue backlogs and all brokers in the cluster are operating normally. By running a series of benchmarks modelling our workload at different intensities we identified the top 5 cluster size and storage volume combinations in terms of cost per 1000 msg/s per month.
 
 1. Cluster: 5 nodes, 8 vCPUs, gp2 SDD. Cost: $58
 1. Cluster: 7 nodes, 8 vCPUs, gp2 SDD. Cost: $81
@@ -205,4 +205,4 @@ Beware of only testing simple scenarios like our first happy scenario test where
 
 The bottom line is that RabbitMQ can handle broker loss pretty well, what it struggles with more are queue backlogs. Our top clusters, the 7x16 and 9x8 configurations hit 65-70k msg/s in ideal conditions but only 20k msg/s in the most adverse conditions we threw at it. I say only 20k msg/s, but that is 1.7 billion daily messages which is higher than most use cases for RabbitMQ.
 
-Finally...this was a specific workload, check out the other recommendations in the [first post](/posts/2020/06/cluster-sizing-and-other-considerations) that can apply to other workloads and scenarios.
+Finally...this was a specific workload, check out the other recommendations in the [first post](/blog/2020/06/18/cluster-sizing-and-other-considerations) that can apply to other workloads and scenarios.

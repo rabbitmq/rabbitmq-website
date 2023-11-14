@@ -1,6 +1,6 @@
 ---
 title: "Deploying RabbitMQ to Kubernetes: What's Involved?"
-tags: ["Introductory", "Kubernetes", "Cloud", ]
+tags: ["Introductory", "Kubernetes", "Cloud", "DIY", ]
 authors: [mklishin]
 ---
 
@@ -42,7 +42,7 @@ production system operator will have to worry about sooner rather than later:
 This post by no means covers every aspect that may be relevant when deploying
 RabbitMQ to Kubernetes; our goal is to highlight the most important parts.
 Deployment- and workload-specific decisions such as what [resource limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) to apply
-to RabbitMQ node pod (containers), [what kind of durable storage](/posts/2020/06/cluster-sizing-case-study-quorum-queues-part-1/) to use,
+to RabbitMQ node pod (containers), [what kind of durable storage](/blog/2020/06/21/cluster-sizing-case-study-quorum-queues-part-1) to use,
 how to approach TLS certificate/key pair rotation, log aggregation, and upgrades are great topics
 for separate blog posts. Let us know what you'd like to see in a follow-up!
 
@@ -484,7 +484,7 @@ kubectl get svc
 ## Resource Usage and Limits
 
 [Container resource management](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) is a topic that deserves
-its own post. [Capacity planning](/tags/capacity-planning/) recommendations are entirely workload-,
+its own post. [Capacity planning](/blog/tags/capacity-planning) recommendations are entirely workload-,
 environment- and system-specific. Optimal values are usually found via extensive [monitoring](https://www.rabbitmq.com/monitoring.html) of the system, trial, and error.
 However, when picking the limits and resource allocation settings, consider a few RabbitMQ-specific things.
 
