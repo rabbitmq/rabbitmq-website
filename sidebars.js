@@ -39,9 +39,9 @@ const sidebars = {
       label: 'What is New in RabbitMQ Releases',
     },
     {
-      type: 'link',
-      label: 'Deprecated and Removed Features and Functions',
-      href: 'https://www.rabbitmq.com/documentation.html',
+      type: 'doc',
+      id: 'deprecated-removed',
+      label: 'Deprecated and Removed Features',
     },
     {
       type: 'link',

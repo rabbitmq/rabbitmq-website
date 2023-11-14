@@ -19,7 +19,7 @@ limitations under the License.
 
 The RabbitMQ documentation website contains documentation for the current version (X.X) of RabbitMQ including updates to cover the latest patch release (X.X.X) associated with the current version of RabbitMQ. It also contains documentation for previous versions of RabbitMQ.
 
-A list of RabbitMQ releases are available [here](./versions). If you want to find out more about what is included in any RabbitMQ release, go to the [What is New in RabbitMQ Releases](./whats-new) page. You can also find out what is deprecated or removed in a specific RabbitMQ release in the "Deprecated and Removed Features and Functions" page.
+A list of RabbitMQ releases is [here](./versions). If you want to find out more about what is included in a RabbitMQ release, go to the [What is New in RabbitMQ Releases](./whats-new) page. You can also find out what is deprecated or removed in a specific RabbitMQ release in the [Deprecated and Removed Features](./deprecated-removed.md) page.
 
 MORE UPDATES REQUIRED FOR THIS PAGE BELOW
 
