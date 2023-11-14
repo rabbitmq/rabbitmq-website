@@ -21,7 +21,7 @@ const sidebars = {
     {
       type: 'doc',
       id: 'documentation',
-      label: 'Welcome to Open Source RabbitMQ Documentation',
+      label: 'Welcome to RabbitMQ Documentation',
     },
     {
       type: 'link',
@@ -34,36 +34,25 @@ const sidebars = {
       label: 'Support Available for RabbitMQ',
     },
     {
-      type: 'category',
+      type: 'doc',
+      id: 'whats-new',
       label: 'What is New in RabbitMQ Releases',
-      items: [
-        {
-          type: 'doc',
-          id: 'newin-4-0-0',
-          label: 'In 4.0.0',
-        },
-        {
-          type: 'doc',
-          id: 'newin-3-13-0',
-          label: 'In 3.13.0',
-        },        
-      ],
     },
-        {
-          type: 'link',
-          label: 'Deprecated and Removed Features and Functions',
-          href: 'https://www.rabbitmq.com/documentation.html',
-        },
-        {
-          type: 'link',
-          label: 'Getting Started Tutorials',
-          href: 'https://www.rabbitmq.com/documentation.html',
-        }, 
-        {
-          type: 'link',
-          label: 'How to Install RabbitMQ',
-          href: 'https://www.rabbitmq.com/documentation.html',
-        },  
+    {
+      type: 'link',
+      label: 'Deprecated and Removed Features and Functions',
+      href: 'https://www.rabbitmq.com/documentation.html',
+    },
+    {
+      type: 'link',
+      label: 'Getting Started Tutorials',
+      href: 'https://www.rabbitmq.com/documentation.html',
+    }, 
+    {
+      type: 'link',
+      label: 'How to Install RabbitMQ',
+      href: 'https://www.rabbitmq.com/documentation.html',
+    },  
     {
       type: 'category',
       label: 'Server Documentation',

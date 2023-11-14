@@ -15,11 +15,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Open Source RabbitMQ Documentation Versions
+# RabbitMQ Documentation Versions
 
 The RabbitMQ documentation website contains documentation for the current version (X.X) of RabbitMQ including updates to cover the latest patch release (X.X.x) associated with the current version of RabbitMQ. It also contains documentation for previous versions of RabbitMQ.
 
-A list of open source RabbitMQ releases are available [here](https://www.rabbitmq.com/versions.html). If you want to find out more about what is included in any RabbitMQ release, down to the patch release level, go to the "In ...." topics under "What is New in RabbitMQ Releases" in the table of contents. You can also see what is deprecated or removed in a specific RabbitMQ release in the "Deprecated and Removed Features and Functions" topic in the table of contents.
+A list of RabbitMQ releases are available [here](https://www.rabbitmq.com/versions.html). If you want to find out more about what is included in any RabbitMQ release, go to the [What is New in RabbitMQ Releases](./whats-new) page. You can also find out what is deprecated or removed in a specific RabbitMQ release in the "Deprecated and Removed Features and Functions" page.
 
 MORE UPDATES REQUIRED FOR THIS PAGE BELOW
 
