@@ -45,7 +45,7 @@ The management API has been serving two functions: control plane and metrics del
 
 #### What alternatives exist?
 
-The Prometheus plugin, available since 3.8 was released in October 2019, provides metrics even under load. It also has the added benefit of offering a wider array of metrics than those available from management API. The documentation on the Prometheus and Grafana dashboards is [here](https://www.rabbitmq.com/prometheus.html).
+The Prometheus plugin, available since 3.8 was released in October 2019, provides metrics even under load. It also has the added benefit of offering a wider array of metrics than those available from management API. The documentation on the Prometheus and Grafana dashboards is [here](/docs/prometheus).
 
  
 

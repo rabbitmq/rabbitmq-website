@@ -12,7 +12,7 @@ In this post we will cover **[feature flags](https://next.rabbitmq.com/feature-f
 
 It you had to upgrade a cluster from RabbitMQ 3.6.x to 3.7.x, you probably had to use one of the following solutions:
 
-* Deploy a new cluster alongside the existing one (this strategy is known as the [blue-green deployment](http://www.rabbitmq.com/blue-green-upgrade.html)), then migrate data & clients to the new cluster
+* Deploy a new cluster alongside the existing one (this strategy is known as the [blue-green deployment](http:/docs/blue-green-upgrade)), then migrate data & clients to the new cluster
 * Stop all nodes in the existing cluster, upgrade the last node that was stopped first, then continue upgrading all other nodes, one-by-one
 
 Blue-green deployment strategy is low risk but also fairly complex to automate. On the other hand, a cluster-wide shutdown affects availability. Feature flags are meant to provide a 3rd option by making rolling cluster upgrades possible and reasonably easy to automate.
@@ -27,7 +27,7 @@ Without the feature flags subsystem, it would be impossible to have a RabbitMQ 3
 
 New in RabbitMQ 3.8.0 is the feature flags subsystem: when a single node in a 3.7.x cluster is upgraded to 3.8.0 and restarted, it will not immediately enable the new features or migrate its database schema because the feature flags subsystem told it not to. It could determine this because RabbitMQ 3.7.x supports no feature flags at all, therefore new features or behaviours in RabbitMQ 3.8.0 cannot be used before all nodes in the cluster are upgraded.
 
-After a partial upgrade of a cluster to RabbitMQ 3.8.0, all nodes are acting as 3.7.x nodes with regards to incompatible features, even the 3.8.0 one. In this situation, quorum queues are unavailable. Operator must finish the upgrade by upgrading all nodes. When that is done, the operator can decide to enable the new feature flags provided by RabbitMQ 3.8.0: one of them enables quorum queues. This is done using RabbitMQ CLI tools or [management UI](https://www.rabbitmq.com/management.html) and supposed to be performed by deployment automation tools. The idea is that the operator needs to confirm that her cluster doesn't have any remaining RabbitMQ 3.7.x nodes that might rejoin the cluster at a later point.
+After a partial upgrade of a cluster to RabbitMQ 3.8.0, all nodes are acting as 3.7.x nodes with regards to incompatible features, even the 3.8.0 one. In this situation, quorum queues are unavailable. Operator must finish the upgrade by upgrading all nodes. When that is done, the operator can decide to enable the new feature flags provided by RabbitMQ 3.8.0: one of them enables quorum queues. This is done using RabbitMQ CLI tools or [management UI](/docs/management) and supposed to be performed by deployment automation tools. The idea is that the operator needs to confirm that her cluster doesn't have any remaining RabbitMQ 3.7.x nodes that might rejoin the cluster at a later point.
 
 Once a new feature flag is enabled, it is impossible to add a node that runs an older version to that cluster.
 

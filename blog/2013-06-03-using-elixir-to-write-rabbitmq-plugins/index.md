@@ -4,7 +4,7 @@ tags: ["Programming Languages", "HowTo", ]
 authors: [alvaro]
 ---
 
-RabbitMQ is a very extensible message broker, allowing users to extend the server's functionality by writing plugins. Many of the broker features are even shipped as plugins that come by default with the broker installation: the [Management Plugin](https://www.rabbitmq.com/management.html), or [STOMP](https://www.rabbitmq.com/stomp.html) support, to name just a couple. While that's pretty cool, the fact that plugins must be written in Erlang is sometimes a challenge. I decided to see if it was possible to write plugins in another language that targeted the Erlang Virtual Machine (EVM), and in this post I'll share my progress.
+RabbitMQ is a very extensible message broker, allowing users to extend the server's functionality by writing plugins. Many of the broker features are even shipped as plugins that come by default with the broker installation: the [Management Plugin](/docs/management), or [STOMP](/docs/stomp) support, to name just a couple. While that's pretty cool, the fact that plugins must be written in Erlang is sometimes a challenge. I decided to see if it was possible to write plugins in another language that targeted the Erlang Virtual Machine (EVM), and in this post I'll share my progress.
 
 <!-- truncate -->
 
@@ -42,11 +42,11 @@ Considering that people might prefer to write RabbitMQ plugins with Elixir, let'
 
 ## Writing RabbitMQ Plugins
 
-To write plugins for RabbitMQ you will need to setup your development environment to use the tools, Makefiles and libraries provided by the *rabbitmq public umbrella*. You can follow the setup instructions from [here](https://www.rabbitmq.com/plugin-development.html). Once you have cloned the `http://hg.rabbitmq.com/rabbitmq-public-umbrella` project and have all the dependencies installed, we can start writing our own plugin. To do it with Elixir, you first need to install the language on your machine, so you can use the Elixir compiler (`mix`) and the language libraries.
+To write plugins for RabbitMQ you will need to setup your development environment to use the tools, Makefiles and libraries provided by the *rabbitmq public umbrella*. You can follow the setup instructions from [here](/docs/plugin-development). Once you have cloned the `http://hg.rabbitmq.com/rabbitmq-public-umbrella` project and have all the dependencies installed, we can start writing our own plugin. To do it with Elixir, you first need to install the language on your machine, so you can use the Elixir compiler (`mix`) and the language libraries.
 
 When you write RabbitMQ plugins you may want to use some Erlang libraries with your plugin, to do that you need to *wrap them* as a plugin as well, so they can be picked up by the build environment when you declare a library as a dependency of your project. In this case our new plugins will depend on Elixir, so we need to wrap the language libraries as a plugin. I've done that already and you can just clone the [elixir_wrapper](https://github.com/videlalvaro/elixir_wrapper) from Github and follow the instructions on its README to get it installed.
 
-Now is time to create our own plugin. As an example I've ported a plugin called *recent-history-exchange* to Elixir. As the name implies, it adds a new exchange type to RabbitMQ. Exchanges are routing algorithms that RabbitMQ uses to decide where your messages are going to end up. If you want to read more about exchanges go [here](https://www.rabbitmq.com/tutorials/amqp-concepts.html).
+Now is time to create our own plugin. As an example I've ported a plugin called *recent-history-exchange* to Elixir. As the name implies, it adds a new exchange type to RabbitMQ. Exchanges are routing algorithms that RabbitMQ uses to decide where your messages are going to end up. If you want to read more about exchanges go [here](/docs/tutorials/amqp-concepts).
 
 The code for the new exchange can be found on Github: [RabbitMQ Recent History Exchange](https://github.com/videlalvaro/rabbitmq-recent-history-exchange-elixir).
 

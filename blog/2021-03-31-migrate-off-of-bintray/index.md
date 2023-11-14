@@ -51,20 +51,20 @@ In addition, our team produces and distributes packages of modern Erlang version
 If this is via the [Docker community image](https://github.com/docker-library/rabbitmq),
 then **nothing changes** for you as the image does not depend on Bintray and is not distributed via Bintray.
 
-This is equally true for the [RabbitMQ Kubernetes Operator](https://www.rabbitmq.com/kubernetes/operator/operator-overview.html) users.
+This is equally true for the [RabbitMQ Kubernetes Operator](/docs/kubernetes/operator/operator-overview) users.
 
 ### Binary Builds
 
-[RabbitMQ binary builds](https://www.rabbitmq.com/install-generic-unix.html) (a.k.a. generic UNIX builds) are best consumed from [GitHub releases](https://github.com/rabbitmq/rabbitmq-server/releases).
+[RabbitMQ binary builds](/docs/install-generic-unix) (a.k.a. generic UNIX builds) are best consumed from [GitHub releases](https://github.com/rabbitmq/rabbitmq-server/releases).
 
 If you currently consume these packages from Bintray, updating the download location to use
 GitHub releases is all there is to do.
 
 ### Windows Packages
 
-Windows users who use [Chocolatey](https://www.rabbitmq.com/install-windows.html#chocolatey) are not affected by this transition.
+Windows users who use [Chocolatey](/docs/install-windows#chocolatey) are not affected by this transition.
 
-[RabbitMQ installer](https://www.rabbitmq.com/install-windows.html#installer) and [Windows binary build](https://www.rabbitmq.com/install-windows-manual.html) users
+[RabbitMQ installer](/docs/install-windows#installer) and [Windows binary build](/docs/install-windows-manual) users
 should now consume from [GitHub releases](https://github.com/rabbitmq/rabbitmq-server/releases).
 
 ### Debian Packages of Modern Erlang
@@ -72,15 +72,15 @@ should now consume from [GitHub releases](https://github.com/rabbitmq/rabbitmq-s
 Team RabbitMQ's [Debian packages of modern Erlang](https://github.com/rabbitmq/erlang-debian-package) has found
 a new home in a [Launchpad PPA](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang).
 
-While Launchpad is an Ubuntu-oriented service, it can also be [used as a regular apt repository](https://www.rabbitmq.com/install-debian.html#apt-launchpad-erlang)
+While Launchpad is an Ubuntu-oriented service, it can also be [used as a regular apt repository](/docs/install-debian#apt-launchpad-erlang)
 by Debian users.
 
-These packages are also [available from Cloudsmith.io](https://www.rabbitmq.com/install-debian.html#apt-cloudsmith-erlang).
+These packages are also [available from Cloudsmith.io](/docs/install-debian#apt-cloudsmith-erlang).
 
 In order to migrate, remove the existing `.list` file under `/etc/apt/sources.list.d` and install a new one
-as explained in the [Debian installation doc guide](https://www.rabbitmq.com/install-debian.html).
+as explained in the [Debian installation doc guide](/docs/install-debian).
 
-Next, import the [signing key](https://www.rabbitmq.com/install-debian.html#erlang-apt-repo-signing-key) used by
+Next, import the [signing key](/docs/install-debian#erlang-apt-repo-signing-key) used by
 the Launchpad repository.
 
 Finally, run
@@ -95,15 +95,15 @@ and re-install the packages.
 
 The options available for RabbitMQ Debian packages are as follows:
 
- * Using an [apt repository on PackageCloud](https://www.rabbitmq.com/install-debian.html#apt-packagecloud), including a [quick start example](https://www.rabbitmq.com/install-debian.html#apt-quick-start)
- * Using a [direct download](https://www.rabbitmq.com/install-debian.html#manual-installation) from GitHub and installing its [dependencies](https://www.rabbitmq.com/install-debian.html#manual-installation) the local package using `dpkg`
+ * Using an [apt repository on PackageCloud](/docs/install-debian#apt-packagecloud), including a [quick start example](/docs/install-debian#apt-quick-start)
+ * Using a [direct download](/docs/install-debian#manual-installation) from GitHub and installing its [dependencies](/docs/install-debian#manual-installation) the local package using `dpkg`
 
 Our team plans to also distribute this package via [Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/) in the near future.
 
 In order to migrate, remove the existing `.list` file under `/etc/apt/sources.list.d` and install a new one
-as explained in the [Debian installation doc guide](https://www.rabbitmq.com/install-debian.html).
+as explained in the [Debian installation doc guide](/docs/install-debian).
 
-Next, import the [signing key](https://www.rabbitmq.com/install-debian.html#erlang-apt-repo-signing-key) used by
+Next, import the [signing key](/docs/install-debian#erlang-apt-repo-signing-key) used by
 the PackageCloud repository.
 
 Finally, run
@@ -124,7 +124,7 @@ Team RabbitMQ's own [zero dependency Erlang RPM](https://github.com/rabbitmq/erl
 Our team plans to also distribute this package via [Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/) in the near future.
 
 In order to migrate, remove the existing `.repo` file under `/etc/yum.repos.d/` and install a new one
-as explained in the [RPM installation doc guide](https://www.rabbitmq.com/install-rpm.html).
+as explained in the [RPM installation doc guide](/docs/install-rpm).
 
 Then run
 
@@ -139,13 +139,13 @@ and re-install the packages.
 
 The options for RabbitMQ RPM packages match to those listed above for our zero-dependency Erlang RPM:
 
- * Using a [Yum repository on PackageCloud](https://www.rabbitmq.com/install-rpm.html#package-cloud). This would cover RHEL, CentOS, modern Fedora and openSUSE
- * Using a [direct download](https://www.rabbitmq.com/install-rpm.html#downloads) from GitHub and installing its [dependencies](https://www.rabbitmq.com/install-rpm.html#package-dependencies) the local package using `rpm install`
+ * Using a [Yum repository on PackageCloud](/docs/install-rpm#package-cloud). This would cover RHEL, CentOS, modern Fedora and openSUSE
+ * Using a [direct download](/docs/install-rpm#downloads) from GitHub and installing its [dependencies](/docs/install-rpm#package-dependencies) the local package using `rpm install`
 
 Our team plans to also distribute this package via [Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/) in the near future.
 
 In order to migrate, remove the existing `.repo` file under `/etc/yum.repos.d/` and install a new one
-as explained in the [RPM installation doc guide](https://www.rabbitmq.com/install-rpm.html).
+as explained in the [RPM installation doc guide](/docs/install-rpm).
 
 Then run
 

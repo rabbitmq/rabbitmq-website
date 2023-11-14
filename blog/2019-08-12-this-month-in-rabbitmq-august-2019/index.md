@@ -26,7 +26,7 @@ WeWork, Softonic, the Erlang Solutions and CloudAMQP teams, as well as the core 
 * [JMS client 1.12.0](https://groups.google.com/d/msg/rabbitmq-users/TYd0c9ioJCs/WcLmsvLSBQAJ) is released with a bug fix and dependency upgrades
 * [Hop 3.3.0](https://groups.google.com/d/msg/rabbitmq-users/61mZ_wbyctE/AUa5zaQ5BgAJ) is released with new features, bug fixes and dependency upgrades.
 * [Erlang 20.3 support retirement schedule](https://groups.google.com/forum/#!searchin/rabbitmq-users/ANN|sort:date/rabbitmq-users/9tc_OE1eMPk/ly1NEISwBwAJ) is announced.
-Please upgrade to [Erlang 22 or at least 21.3.x](https://www.rabbitmq.com/which-erlang.html) soon!
+Please upgrade to [Erlang 22 or at least 21.3.x](/docs/which-erlang) soon!
 
 ## Community writings and resources
 

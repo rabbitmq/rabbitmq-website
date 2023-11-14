@@ -16,7 +16,7 @@ So dive in, the water’s fine! And please stay safe, everyone.
 ## Project updates
 
 * The 3.7.x series are now covered under the extended support policy (security patches and high severity bug fixes only).
-3.7.x users are recommended to [upgrade](https://www.rabbitmq.com/upgrade.html) to 3.8.x releases. [RabbitMQ 3.7.25 has shipped](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.25) to wrap up 3.7.x’s general support timeline.
+3.7.x users are recommended to [upgrade](/docs/upgrade) to 3.8.x releases. [RabbitMQ 3.7.25 has shipped](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.25) to wrap up 3.7.x’s general support timeline.
 * RabbitMQ .NET client version 5.2.0 and version 6.0.0 are [almost ready for release](https://groups.google.com/d/topic/rabbitmq-users/RA3EkGHJkuA/discussion).
 Please test the latest release candidates, there are substantial efficiently improvements in the 6.0 release thanks to our awesome contributors.
 * Erlang/OTP 22.3 has shipped. Debian and RPM packages produced by the RabbitMQ team are available from [PackageCloud](https://packagecloud.io/rabbitmq/erlang) and [Bintray](https://bintray.com/rabbitmq-erlang)

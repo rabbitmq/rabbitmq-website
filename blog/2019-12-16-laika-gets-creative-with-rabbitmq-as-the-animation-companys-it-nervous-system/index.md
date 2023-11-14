@@ -24,7 +24,7 @@ Finally, there's an ever-present need to troubleshoot. Between network events, d
 
 Faced with a dynamic user population, the IT team developed  a toolset to provision accounts across discrete systems. They adopted RabbitMQ, the most popular open source message broker to integrate between systems. For example, a new user needs a phone extension provisioned, but the standard LDAP identity doesn't have direct access to the phone system. Using RabbitMQ, a new user account creation event lands in a queue. The phone system listens to that queue and provisions an extension.  
 
-"Our desktop support admins can create a new user account and we have some consistency and reliability in knowing that account is now pushed out to all the places it needs to be," explained Smith. The team is starting to use the [web socket layer for RabbitMQ](https://www.rabbitmq.com/web-stomp.html) to send live updates to a browser. This empowers the desktop support team to see what's going on in real-time to troubleshoot user issues.
+"Our desktop support admins can create a new user account and we have some consistency and reliability in knowing that account is now pushed out to all the places it needs to be," explained Smith. The team is starting to use the [web socket layer for RabbitMQ](/docs/web-stomp) to send live updates to a browser. This empowers the desktop support team to see what's going on in real-time to troubleshoot user issues.
 
 As LAIKA adds new software and systems, that event-driven approach to adding new users simplifies tedious processes. "Over time, we've added more and more listeners to the new user event that do additional tasks and additional things. It makes that more resilient," says Fife. 
 
@@ -32,7 +32,7 @@ RabbitMQ's ability to set policies stood out against other messaging tools like 
 
 RabbitMQ has become something of an IT Swiss Army knife for LAIKA. "We control most of our VMs on the network over AMQP," explains Fife. "This includes starting them, shutting them down, destroying them, creating them, creating storage for them." If a VM doesn't reboot in an expected amount of time, an app reading the RabbitMQ queue notifies the owner by chat.
 
-While LAIKA does around 90% of it's internal coding in Ruby, the IT team appreciates that RabbitMQ itself is language agnostic. "The [STOMP layer that RabbitMQ provides](https://www.rabbitmq.com/stomp.html) makes it so you can trivially participate in network events with just a raw socket," says Smith.
+While LAIKA does around 90% of it's internal coding in Ruby, the IT team appreciates that RabbitMQ itself is language agnostic. "The [STOMP layer that RabbitMQ provides](/docs/stomp) makes it so you can trivially participate in network events with just a raw socket," says Smith.
 
 Because it's easy to extend and integrate with, RabbitMQ has become the go-to integration tool. "If we require any sort of communication between systems, that’s what we’re going to use," says Smith. "It’s the nervous system of our information technology environment."
 

@@ -4,7 +4,7 @@ tags: ["New Features", ]
 authors: [simon]
 ---
 
-The [previously mentioned](/blog/2010/08/06/management-monitoring-and-statistics) management plugin is now in a state where it's worth looking at and testing. In order to make this easy, I've made a special once-only binary release just for the management plugin (in future we'll make binary releases of it just like the other plugins). Download all the .ez files from [here](https://www.rabbitmq.com/releases/plugins/v2.0.0-management-preview/) and install them as described [here](https://www.rabbitmq.com/plugins.html), then let us know what you think. (Update 2010-09-22: Note that the plugins referenced in this blog post are for version 2.0.0 of RabbitMQ. We've now released 2.1.0 - for this and subsequent versions you can get the management plugin from [here](https://www.rabbitmq.com/plugins.html)).
+The [previously mentioned](/blog/2010/08/06/management-monitoring-and-statistics) management plugin is now in a state where it's worth looking at and testing. In order to make this easy, I've made a special once-only binary release just for the management plugin (in future we'll make binary releases of it just like the other plugins). Download all the .ez files from [here](https://www.rabbitmq.com/releases/plugins/v2.0.0-management-preview/) and install them as described [here](/docs/plugins), then let us know what you think. (Update 2010-09-22: Note that the plugins referenced in this blog post are for version 2.0.0 of RabbitMQ. We've now released 2.1.0 - for this and subsequent versions you can get the management plugin from [here](/docs/plugins)).
 
 <!-- truncate -->
 

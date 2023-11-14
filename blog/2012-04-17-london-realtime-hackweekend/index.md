@@ -8,7 +8,7 @@ Over the weekend, RabbitMQ co-sponsored [London Realtime](http://londonrealtime.
 
 ![](sockjs-rabbit-cf.png)
 
-As a co-sponsor we had one of the iPad prizes to award. We decided to allow hacks that used one or more of [RabbitMQ](https://www.rabbitmq.com), [SockJS](http://www.sockjs.org/), or [Cloud Foundry](http://www.cloudfoundry.com). This meant that about half of the twenty-seven hacks were eligible when it came to judging, making the choice rather difficult.
+As a co-sponsor we had one of the iPad prizes to award. We decided to allow hacks that used one or more of [RabbitMQ](/), [SockJS](http://www.sockjs.org/), or [Cloud Foundry](http://www.cloudfoundry.com). This meant that about half of the twenty-seven hacks were eligible when it came to judging, making the choice rather difficult.
 
 <!-- truncate -->
 

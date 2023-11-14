@@ -20,12 +20,12 @@ and great insights shared across the community. Read on!
 * Reactor RabbitMQ 1.0.0 GA [has been released](https://groups.google.com/forum/#!msg/rabbitmq-users/FJ4UgMrr3-Q/xQDEGxlrCAAJ). [Reactor RabbitMQ](https://github.com/reactor/reactor-rabbitmq) is a reactive API for RabbitMQ based on [Reactor](http://projectreactor.io) and RabbitMQ Java client. Reactor RabbitMQ goal is to enable messages to be published to and consumed from RabbitMQ using functional APIs with non-blocking back-pressure and very low overhead.
 * [Java client 5.5.2](https://groups.google.com/d/msg/rabbitmq-users/Wk1T3iZBJR4/Y4lLTGXVDgAJ) (for Java 8+) and [4.9.2](https://groups.google.com/d/msg/rabbitmq-users/8Gef5g-KNRU/o8mQEl7VDgAJ) (for Java 6 &amp; 7) have been released.
 * PerfTest 2.5.0 [has been released](https://groups.google.com/d/msg/rabbitmq-users/9AycV2eEC0s/UvE2StsrDwAJ) with lot of goodies: new publisher confirm latency metrics, dependency upgrades, new Linux native executable created with [GraalVM](https://www.graalvm.org/), and new Docker image.
-* New [doc guide on connections](https://www.rabbitmq.com/connections.html)
+* New [doc guide on connections](/docs/connections)
 
 ## Community Writings and Resources
 
 * All the [videos from the RabbitMQ Summit](https://www.youtube.com/channel/UCp20sSF_JZv5aqpxICo-ZpQ/videos) are posted!
-* New [Best Practices page](https://www.rabbitmq.com/best-practices.html) on rabbitmq.com
+* New [Best Practices page](/docs/best-practices) on rabbitmq.com
 * [Lovisa Johansson](https://twitter.com/lillajja) published an [Introduction to Message Queuing and RabbitMQ on Manifold](https://blog.manifold.co/introduction-to-message-queuing-and-rabbitmq-6cb8e6e9b2)
 * Adrian Huna of Showmax published [Building a scalable, highly reliable, asynchronous user service](https://tech.showmax.com/2018/12/building-scalable-highly-reliable-asynchronous-user-service/), explaining how they leverage RabbitMQ to orchestrate the delivery of the GDPR data access report and data erasure in a microservices architecture.
 * [Lovisa Johansson](https://twitter.com/lillajja) shared some data about how [43% of all clusters at CloudAMQP are now running RabbitMQ 3.7](https://www.cloudamqp.com/blog/2018-12-03-rabbitmq-version-distribution-on-cloudamqp.html)

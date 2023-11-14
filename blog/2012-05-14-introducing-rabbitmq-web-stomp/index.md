@@ -79,8 +79,8 @@ We use this code in the examples:
 [Rabbitmq-Web-Stomp](https://github.com/rabbitmq/rabbitmq-web-stomp) is an experimental plugin.
 It's not distributed with vanilla RabbitMQ releases; you need to install it manually.
 
-1. You need at least Erlang R14 ([more info](https://www.rabbitmq.com/which-erlang.html)).
-2. You need [Rabbitmq-server 2.8.2](https://www.rabbitmq.com/download.html) installed
+1. You need at least Erlang R14 ([more info](/docs/which-erlang)).
+2. You need [Rabbitmq-server 2.8.2](/docs/download) installed
 3. Grab the needed erlang plugin .ez files:
 
 ```shell
@@ -91,13 +91,13 @@ wget \
   https://www.rabbitmq.com/releases/plugins/v2.8.2-web-stomp-preview/rabbitmq_web_stomp_examples-2.8.2.ez
 ```
 
-4. Next, copy them to the [plugins directory](https://www.rabbitmq.com/plugins.html#installing-plugins). For example, on my Ubuntu box this will be:
+4. Next, copy them to the [plugins directory](/docs/plugins#installing-plugins). For example, on my Ubuntu box this will be:
 
 ```shell
 sudo cp *.ez /usr/lib/rabbitmq/lib/rabbitmq_server-2.8.2/plugins
 ```
 
-5. Now, you're ready to enable them using [rabbitmq-plugins](https://www.rabbitmq.com/plugins.html):
+5. Now, you're ready to enable them using [rabbitmq-plugins](/docs/plugins):
 
 ```shell
 sudo rabbitmq-plugins enable rabbitmq_web_stomp
@@ -119,7 +119,7 @@ plugin. It exposes SockJS endpoint on port 55674, like: [http://127.0.0.1:55674/
 only hosts a few javascript and html files with examples. This is accessible under:
 [http://127.0.0.1:55670/](http://127.0.0.1:55670/).
 
-Keep in mind, that RabbitMQ-web-stomp depends on [RabbitMQ-STOMP](https://www.rabbitmq.com/stomp.html) which by default will bind to port 61613.
+Keep in mind, that RabbitMQ-web-stomp depends on [RabbitMQ-STOMP](/docs/stomp) which by default will bind to port 61613.
 
 ## The usage
 

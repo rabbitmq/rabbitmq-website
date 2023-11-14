@@ -10,15 +10,15 @@ We’re a little behind this month! At the beginning of October, we [shipped Rab
 
 Headline features include:
 
-* [Quorum Queues](https://www.rabbitmq.com/quorum-queues.html): a new replicated queue type with many improvements over classic mirrored queues
-* [Feature flags](https://www.rabbitmq.com/feature-flags.html) allow for mixed-version clusters and simplified upgrades
-* Built-in [Prometheus and Grafana-based monitoring](https://www.rabbitmq.com/prometheus.html)
+* [Quorum Queues](/docs/quorum-queues): a new replicated queue type with many improvements over classic mirrored queues
+* [Feature flags](/docs/feature-flags) allow for mixed-version clusters and simplified upgrades
+* Built-in [Prometheus and Grafana-based monitoring](/docs/prometheus)
 * [OAuth 2 (JWT token) support](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2) for authentication and authorization
 * and more
 
 You’ll find some early reviews from folks in the community who have been kicking the tires in the community updates section below.
-Make sure you are all over the [upgrades best practices](https://www.rabbitmq.com/upgrade.html)
-to avoid potential hazards of [upgrading](https://www.rabbitmq.com/upgrade.html) to RabbitMQ 3.8.
+Make sure you are all over the [upgrades best practices](/docs/upgrade)
+to avoid potential hazards of [upgrading](/docs/upgrade) to RabbitMQ 3.8.
 
 <!-- truncate -->
 

@@ -11,7 +11,7 @@ we have a webinar to announce! Jack Vanlightly, a RabbitMQ core team member,
 will present on [High Availability and Data Safety in Messaging](https://www.brighttalk.com/webcast/14891/412069)
 on June 11th, 2020.
 
-In this webinar, Jack Vanlightly will explain [quorum queues](https://www.rabbitmq.com/quorum-queues.html),
+In this webinar, Jack Vanlightly will explain [quorum queues](/docs/quorum-queues),
 a new replicated queue type in RabbitMQ. Quorum queues were introduced in RabbitMQ 3.8 with a focus on data safety
 and efficient, predictable recovery from node failures.
 Jack will cover and contrast the design of quorum and classic mirrored queues.
@@ -31,7 +31,7 @@ After this webinar, you'll understand:
  * TGIR episode 5 is out and it covers [running RabbitMQ on Kubernetes](https://www.youtube.com/watch?v=-yU95ocpBYs)
  * [RabbitMQ 3.8.4](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.4) is released with support for Erlang 23
  * [Erlang 23](http://blog.erlang.org/OTP-23-Highlights/) includes an important improvement for container
-    users: the runtime now takes CPU quotas into account when computing how many [runtime schedulers](https://www.rabbitmq.com/runtime.html) to start
+    users: the runtime now takes CPU quotas into account when computing how many [runtime schedulers](/docs/runtime) to start
  * Docker community's RabbitMQ image is [updated](https://github.com/docker-library/rabbitmq/issues/409) to RabbitMQ 3.8.4 and Erlang 23
  * Version 2.2.0 of [Go client for RabbitMQ HTTP API](https://github.com/michaelklishin/rabbit-hole/blob/master/ChangeLog.md) was released. We'd like to thank [Raymond Fallon](https://github.com/niclic) for major contributions to this release.
 

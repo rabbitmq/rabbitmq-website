@@ -95,7 +95,7 @@ the consumer was started in ack-mode and that it will never ack the message rece
 
 ## Prioritising Access to the Semaphore
 
-Is it possible to prioritise access to the semaphore? Yes, since version 3.2.0 RabbitMQ supports [Consumer Priorities](https://www.rabbitmq.com/consumer-priority.html). By using consumer
+Is it possible to prioritise access to the semaphore? Yes, since version 3.2.0 RabbitMQ supports [Consumer Priorities](/docs/consumer-priority). By using consumer
 priorities we can tell RabbitMQ which processes to favor when passing around the token message from the semaphore.
 
 ## Binary vs Counting Semaphores
@@ -109,7 +109,7 @@ instead of publishing one message, we can publishing as many messages as process
 
 Note that the process that sets up the semaphore queue can add extra messages over time to increase processing capacity. If we wanted to decrease the number of processes that can
 simultaneously access a resource, then we would have to stop the running ones and purge the queue. Another way would be to start an extra consumer with very
-[high priority](https://www.rabbitmq.com/consumer-priority.html) so it would take as many messages as are needed from the semaphore queue and acknowledge them so they get removed from the system.
+[high priority](/docs/consumer-priority) so it would take as many messages as are needed from the semaphore queue and acknowledge them so they get removed from the system.
 
 ## Some reading
 
@@ -121,7 +121,7 @@ definitions: [Semaphore](https://en.wikipedia.org/wiki/Semaphore_(programming)).
 
 ###  EDIT: 20.02.2014 
 
-As discussed [here](https://twitter.com/aphyr/status/436610754083815425) and elsewhere with my colleagues as well, this setup is not resilient of [network partitions](https://www.rabbitmq.com/partitions.html), so handle it with care. Thanks to [@aphyr](https://twitter.com/aphyr) and others for providing me feedback on the blog post. At the RabbitMQ team we always like to stay honest and tell our users what the server can, and can't do.
+As discussed [here](https://twitter.com/aphyr/status/436610754083815425) and elsewhere with my colleagues as well, this setup is not resilient of [network partitions](/docs/partitions), so handle it with care. Thanks to [@aphyr](https://twitter.com/aphyr) and others for providing me feedback on the blog post. At the RabbitMQ team we always like to stay honest and tell our users what the server can, and can't do.
 
 ###  EDIT: 10.03.2014 
 

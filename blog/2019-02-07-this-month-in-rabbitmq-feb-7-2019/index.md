@@ -10,7 +10,7 @@ Welcome back for another issue of This Month in RabbitMQ. Hopefully you are find
 
 ## Project Updates
 
-* [RabbitMQ 3.7.11](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.11) is available. It focuses on bug fixes and minor usability improvements. In particular, this release adds several new [rabbitmq-diagnostics](http://www.rabbitmq.com/rabbitmq-diagnostics.8.html) commands useful for diagnostics and health checks. This is also the first release to require Erlang/OTP 20.3.
+* [RabbitMQ 3.7.11](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.11) is available. It focuses on bug fixes and minor usability improvements. In particular, this release adds several new [rabbitmq-diagnostics](http:/docs/rabbitmq-diagnostics.8) commands useful for diagnostics and health checks. This is also the first release to require Erlang/OTP 20.3.
 * [Second beta](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-beta.2) of RabbitMQ 3.8.0 is also out. [Quorum queues](https://next.rabbitmq.com/quorum-queues.html) are now more stable, polished, and support more features. Give them a try!
 * [RabbitMQ Docker image](https://hub.docker.com/_/rabbitmq) now provides the latest RabbitMQ and Erlang. The image is also [automatically updated](https://github.com/docker-library/rabbitmq/pull/305) when new RabbitMQ and Erlang releases come out.
 * The Docker image now can be used to easily [test RabbitMQ 3.8.0 beta releases](https://github.com/docker-library/rabbitmq/pull/302).
@@ -18,7 +18,7 @@ Welcome back for another issue of This Month in RabbitMQ. Hopefully you are find
 * [Java client 5.6.0](https://groups.google.com/d/msg/rabbitmq-users/y20hnH1ZnMA/fpchrvR1FgAJ) for (Java 8+) and [4.10.0](https://groups.google.com/d/msg/rabbitmq-users/Fl8MdG2ZfeU/wJoSROd1FgAJ) for (Java 6 &amp; 7) have been released with bug fixes and new features.
 * Hop 3.1.0 GA has been released with a new feature and dependency upgrade. [Hop](https://github.com/rabbitmq/hop) is a RabbitMQ HTTP API client for Java, Groovy, and other JVM languages.
 * [JMS client 1.10.2](https://groups.google.com/d/msg/rabbitmq-users/AvTbZgiQFa8/jIADaoNoFwAJ) has been released with a bug fix.
-* [Monitoring doc guide](https://www.rabbitmq.com/monitoring.html) has been expanded with a new section on health checks
+* [Monitoring doc guide](/docs/monitoring) has been expanded with a new section on health checks
 * CLI tools now provide a [range of progressive health checks](https://github.com/rabbitmq/rabbitmq-cli/issues/292) that operators can use individually or in combination
 * [OpenSUSE repositories were updated](https://groups.google.com/forum/#!msg/rabbitmq-users/4azFra05kFI/Ha8jN1tEGAAJ) to provide most recent RabbitMQ and Erlang versions
 

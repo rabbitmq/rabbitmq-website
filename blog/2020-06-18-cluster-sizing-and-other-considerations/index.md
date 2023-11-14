@@ -212,7 +212,7 @@ There are some more tests that you may wish to run depending on your workload. F
 * You might periodically get very large messages from a batch job that you want to test. *By the way, we recommend using an object store like s3 for large messages (passing its URI as the message).*
 * You might want to test recovery time with a backlog by doing a full stop and start of your cluster. 
 * You may have a variable number of clients connect to your cluster. Test your candidate cluster sizes with normal to worst case number of connected clients.
-* [Connection churn](https://www.rabbitmq.com/connections.html#high-connection-churn) (the opening and closing of connections) can also stress a cluster. If you have a variable amount of connection churn then test with normal and worst case. Also see [https://www.rabbitmq.com/networking.html#tuning-for-large-number-of-connections-tcp-buffer-size](https://www.rabbitmq.com/networking.html#tuning-for-large-number-of-connections-tcp-buffer-size).
+* [Connection churn](/docs/connections#high-connection-churn) (the opening and closing of connections) can also stress a cluster. If you have a variable amount of connection churn then test with normal and worst case. Also see [/docs/networking.html#tuning-for-large-number-of-connections-tcp-buffer-size](/docs/networking#tuning-for-large-number-of-connections-tcp-buffer-size).
 * You may have a variable number of queues. Test your candidate cluster sizes with normal to worst case number of queues.
 
 ## Final Thoughts

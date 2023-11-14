@@ -31,7 +31,7 @@ Taking the system as a whole (broker and clients) we have four flow control mech
 
 ## Credit Based Flow Control
 
-[Credit based flow contro](https://www.rabbitmq.com/flow-control.html)l is a method of rate limiting message ingress. It allows various actors within the system to protect themselves and apply back pressure when they cannot process messages fast enough. It is targeted at only those connections, channels and queues that are having issues, leaving other parts of the system unaffected.
+[Credit based flow contro](/docs/flow-control)l is a method of rate limiting message ingress. It allows various actors within the system to protect themselves and apply back pressure when they cannot process messages fast enough. It is targeted at only those connections, channels and queues that are having issues, leaving other parts of the system unaffected.
 
 The way it works is that each actor in the system that handles messages uses “credit” as a way of applying back pressure up the chain. If a channel wants to send a message to a queue, it needs credit. The queue grants the channel some initial credit, and then after that, each message that the channel sends to the queue requires a credit. The queue will periodically grant the channel more credit, when it in turn has been able to pass messages onto the persistence layer. If the channel doesn’t have credit, it is blocked from sending messages to the queue until the queue grants it more. This way a channel cannot run roughshod over a queue.
 
@@ -53,7 +53,7 @@ But it doesn’t necessarily stop the broker from running out of memory. Incomin
 
 If the credit based flow control was unable to put the brakes on enough, or memory usage has grown to critical levels for another reason, memory alarms kick in as a last resort to protect the broker from crashing (or being killed by the OS) due to running out of memory.
 
-When [memory alarms](https://www.rabbitmq.com/memory.html) kick in, all publishers are blocked. It’s like you turn off the tap on incoming messages across the cluster. Not the targeted rate limiting of credit based flow control, but a sledgehammer. 
+When [memory alarms](/docs/memory) kick in, all publishers are blocked. It’s like you turn off the tap on incoming messages across the cluster. Not the targeted rate limiting of credit based flow control, but a sledgehammer. 
 
 Consumers can continue to consume though, and the hope at this point is that draining the queues somewhat will start bringing down the memory footprint.
 
@@ -61,7 +61,7 @@ In the management UI you will see connections as blocked or blocking when memory
 
 ## Publisher Confirms
 
-The primary job of [publisher confirms](https://www.rabbitmq.com/confirms.html) is data safety but they also play an important role in flow control. 
+The primary job of [publisher confirms](/docs/confirms) is data safety but they also play an important role in flow control. 
 
 There are three ways of employing publisher confirms:
 

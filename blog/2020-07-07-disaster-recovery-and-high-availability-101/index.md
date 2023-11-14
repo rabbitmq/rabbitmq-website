@@ -181,7 +181,7 @@ We’ll next see how these features can be used for high availability and disast
 
 ### High Availability
 
-For high availability we recommend [*clustering*](https://www.rabbitmq.com/clustering.html) multiple RabbitMQ brokers within a single data center or cloud region and the use of **replicated queues**. Clustering requires highly reliable, low latency links between brokers. Clustering over a WAN is highly discouraged.
+For high availability we recommend [*clustering*](/docs/clustering) multiple RabbitMQ brokers within a single data center or cloud region and the use of **replicated queues**. Clustering requires highly reliable, low latency links between brokers. Clustering over a WAN is highly discouraged.
 
 #### Clustering and Availability Zones
 
@@ -197,11 +197,11 @@ We highly discourage clustering across a WAN due to the effect of network partit
 
 #### Quorum Queues
 
-[Quorum queues](https://www.rabbitmq.com/quorum-queues.html) are CP and tolerate the loss of brokers as long as a quorum (majority) remains functioning. Likewise, in the event of a network partition, as long as the queue has a majority that can still communicate, the queue continues to function. Quorum queues do not use RabbitMQ's traditional [partition handling strategies](https://www.rabbitmq.com/partitions.html#automatic-handling) but use their own failure detector that is both faster to detect partitions and failures but also less prone to false positives, this allows them to deliver the fastest fail-over of the replicated queue types.
+[Quorum queues](/docs/quorum-queues) are CP and tolerate the loss of brokers as long as a quorum (majority) remains functioning. Likewise, in the event of a network partition, as long as the queue has a majority that can still communicate, the queue continues to function. Quorum queues do not use RabbitMQ's traditional [partition handling strategies](/docs/partitions#automatic-handling) but use their own failure detector that is both faster to detect partitions and failures but also less prone to false positives, this allows them to deliver the fastest fail-over of the replicated queue types.
 
 #### Classic Mirrored Queues
 
-Classic queues can be [mirrored](https://www.rabbitmq.com/ha.html) and configured for either availability (AP) or consistency (CP). Using the *auto-heal* or *ignore *partition handling strategies will allow all brokers in a cluster to continue serving publishers and consumers even if one or more brokers get cut off by a network partition. However, on recovering from the partition, data may be lost.
+Classic queues can be [mirrored](/docs/ha) and configured for either availability (AP) or consistency (CP). Using the *auto-heal* or *ignore *partition handling strategies will allow all brokers in a cluster to continue serving publishers and consumers even if one or more brokers get cut off by a network partition. However, on recovering from the partition, data may be lost.
 
 Using the *pause_minority* partition handling strategy makes mirrored queues favour consistency. In the event of a network partition, any brokers on the minority side will pause themselves, closing all network connections. No confirmed writes will be lost, but any brokers on the minority side lose availability and if there are multiple partitions where no majority exists then the entire cluster becomes unavailable. Likewise, if a majority of nodes are down, the remaining brokers will pause themselves. 
 
@@ -215,7 +215,7 @@ In order to achieve high availability, clients also need to be able to reconnect
 
 #### Rack Awareness
 
-While RabbitMQ does not currently have rack awareness, you can achieve the same results via manually specifying the nodes that a replicated queue should be spread across. With mirrored queues you can specify the [list of nodes](https://www.rabbitmq.com/ha.html#mirroring-arguments) it should be spread across. With quorum queues you must currently create the queue with an initial group size of 1 and then [add members](https://www.rabbitmq.com/rabbitmq-queues.8.html#Replication) on the nodes to achieve the desired spread.
+While RabbitMQ does not currently have rack awareness, you can achieve the same results via manually specifying the nodes that a replicated queue should be spread across. With mirrored queues you can specify the [list of nodes](/docs/ha#mirroring-arguments) it should be spread across. With quorum queues you must currently create the queue with an initial group size of 1 and then [add members](/docs/rabbitmq-queues.8#Replication) on the nodes to achieve the desired spread.
 
 ### Capacity Planning
 
@@ -231,13 +231,13 @@ RabbitMQ does have support for replication of schema (the exchanges, queues, bin
 
 RabbitMQ has two features for schema replication.
 
-[Definitions export/import](https://www.rabbitmq.com/definitions.html) is a feature of the management plugin that allows the export and import of the schema via JSON files.
+[Definitions export/import](/docs/definitions) is a feature of the management plugin that allows the export and import of the schema via JSON files.
 
 [Tanzu RabbitMQ](https://tanzu.vmware.com/rabbitmq) offers the Schema Sync Plugin which actively replicates schema changes to a secondary cluster.
 
 #### Data
 
-RabbitMQ does not yet have an asynchronous data replication feature that is suitable for all multi-DC scenarios. However, you can leverage [exchange federation](https://www.rabbitmq.com/federated-exchanges.html) or [shovels](https://www.rabbitmq.com/shovel.html) which are an asynchronous message routing feature that work across clusters. These features were not built for an active-passive architecture and therefore do have some drawbacks. They were built for moving messages between clusters to be actively processed, not to mirror a cluster’s data for redundancy.
+RabbitMQ does not yet have an asynchronous data replication feature that is suitable for all multi-DC scenarios. However, you can leverage [exchange federation](/docs/federated-exchanges) or [shovels](/docs/shovel) which are an asynchronous message routing feature that work across clusters. These features were not built for an active-passive architecture and therefore do have some drawbacks. They were built for moving messages between clusters to be actively processed, not to mirror a cluster’s data for redundancy.
 
 The difference between replication and cross-cluster message routing is that replication involves replicating both enqueue and acknowledgement operations, whereas message routing is only about replicating the messages. The fact that a message was consumed and removed from the queue is not included in federation or shovels (because that is not the purpose of those features).
 
@@ -251,13 +251,13 @@ But now a consumer consumes and acknowledges messages m1 and m2 on DC1, and new 
 
 This means that you will need to tolerate duplicates in the event of a fail-over from one RabbitMQ cluster to another. Also, queues will continue to grow as messages accumulate. 
 
-In order to mitigate the problems of duplication, you can apply either [message TTL policies](https://www.rabbitmq.com/ttl.html#per-queue-message-ttl) on the passive cluster that remove messages after a time period or [queue length limits](https://www.rabbitmq.com/maxlength.html) that remove messages when the queue length reaches the limit. These are admittedly, imperfect solutions given that they could actually cause message loss. Given a 24 hour TTL, a message might have been sitting in a queue in DC1 for 25 hours unconsumed when DC1 went down, and that same message will have been discarded from the same queue in DC2 an hour before.
+In order to mitigate the problems of duplication, you can apply either [message TTL policies](/docs/ttl#per-queue-message-ttl) on the passive cluster that remove messages after a time period or [queue length limits](/docs/maxlength) that remove messages when the queue length reaches the limit. These are admittedly, imperfect solutions given that they could actually cause message loss. Given a 24 hour TTL, a message might have been sitting in a queue in DC1 for 25 hours unconsumed when DC1 went down, and that same message will have been discarded from the same queue in DC2 an hour before.
 
 In order to cope with duplication, your systems either need to tolerate duplication (by being idempotent) or have a deduplication solution in place (like message ids being stored in Redis). Any at-least-once message queue/bus will cause duplicates from time to time, so this may already be something that is taken care of.
 
 ### A Note on Back-ups
 
-RabbitMQ does support [back-ups](https://www.rabbitmq.com/backup.html) but the support is limited and therefore not commonly used. The limitation is that a cluster must be shut down entirely in order to make a back-up of its data directory. This makes back-ups an infeasible disaster recovery strategy for most enterprises.
+RabbitMQ does support [back-ups](/docs/backup) but the support is limited and therefore not commonly used. The limitation is that a cluster must be shut down entirely in order to make a back-up of its data directory. This makes back-ups an infeasible disaster recovery strategy for most enterprises.
 
 ## Summary
 

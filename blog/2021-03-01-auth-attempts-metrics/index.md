@@ -18,7 +18,7 @@ The default behaviour is to return the total, failed and successful auth attempt
 
 RabbitMQ always tracks the total number of authentication attempts on each cluster node, aggregating them per protocol.
 
-Auth attempts per individual address/user/protocol combination can be added via [advanced config](https://www.rabbitmq.com/configure.html#advanced-config-file):
+Auth attempts per individual address/user/protocol combination can be added via [advanced config](/docs/configure#advanced-config-file):
 
 ```erlang
 [
@@ -47,7 +47,7 @@ We would like to point out the `reset_node_auth_attempt_metrics` command. This i
 
 ## HTTP API
 
-There are two HTTP API endpoints on the [management plugin](https://www.rabbitmq.com/management.html#http-api) to query the authentication attempts.
+There are two HTTP API endpoints on the [management plugin](/docs/management#http-api) to query the authentication attempts.
 
 The first one is always enabled and returns the total number of authentication attempts per protocol:
 
@@ -108,7 +108,7 @@ Auth attempt metrics can be reset using the A `DELETE` HTTP request, e.g. `DELET
 
 ## Prometheus HTTP
 
-The [Prometheus HTTP endpoint](https://www.rabbitmq.com/prometheus.html), by default [http://localhost:15692/metrics](http://localhost:15692/metrics), captures the same authentication metrics:
+The [Prometheus HTTP endpoint](/docs/prometheus), by default [http://localhost:15692/metrics](http://localhost:15692/metrics), captures the same authentication metrics:
 
 ```plaintext
 # TYPE rabbitmq_auth_attempts_total counter
@@ -122,7 +122,7 @@ rabbitmq_auth_attempts_succeeded_total{protocol="amqp091"} 0
 rabbitmq_auth_attempts_failed_total{protocol="amqp091"} 2
 ```
 
-To obtain the source details, **rabbitmq_prometheus** plugin must also be configured to return [per-object metrics](https://www.rabbitmq.com/prometheus.html#metric-aggregation):
+To obtain the source details, **rabbitmq_prometheus** plugin must also be configured to return [per-object metrics](/docs/prometheus#metric-aggregation):
 
 ```plaintext
 # TYPE rabbitmq_auth_attempts_total counter

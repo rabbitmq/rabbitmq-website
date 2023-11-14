@@ -34,7 +34,7 @@ MQTT subscription wildcards are limited in that they may only appear as a suffix
 
 The MQTT specification does not mention SSL or any interaction between SSL and authentication. The MQTT adapter includes SSL capability now, with the possibility of integrating certificates with authentication on the future.
 
-The MQTT concept of "bridging" can be realised with RabbitMQ's [federation](https://www.rabbitmq.com/federation.html) by federating the exchanges that the MQTT adapter publishes to.
+The MQTT concept of "bridging" can be realised with RabbitMQ's [federation](/docs/federation) by federating the exchanges that the MQTT adapter publishes to.
 
 ## Future features
 
@@ -59,7 +59,7 @@ The MQTT adapter uses one configurable exchange for publishing, and subscription
 
 ## Installation
 
-First make sure you have [rabbitmq-server 2.8.6](https://www.rabbitmq.com/download.html) installed. (The plugin should also be compatible with other v2.8.x releases.)
+First make sure you have [rabbitmq-server 2.8.6](/docs/download) installed. (The plugin should also be compatible with other v2.8.x releases.)
 
 The MQTT adapter is currently available as a preview release. You must download and install the plugin manually until it is included as a regular plugin in a future release. The plugin can be downloaded from the [preview release downloads](https://www.rabbitmq.com/releases/plugins/v2.8.6-mqtt-preview/rabbitmq_mqtt-2.8.6.ez), e.g.
 
@@ -67,13 +67,13 @@ The MQTT adapter is currently available as a preview release. You must download 
 wget https://www.rabbitmq.com/releases/plugins/v2.8.6-mqtt-preview/rabbitmq_mqtt-2.8.6.ez
 ```
 
-The *.ez file must be copied to the [plugins directory](https://www.rabbitmq.com/plugins.html#installing-plugins). On my Debian-based workstation this is in ` /usr/lib/rabbitmq/lib/rabbitmq_server-2.8.6/plugins`:
+The *.ez file must be copied to the [plugins directory](/docs/plugins#installing-plugins). On my Debian-based workstation this is in ` /usr/lib/rabbitmq/lib/rabbitmq_server-2.8.6/plugins`:
 
 ```shell
 sudo cp rabbitmq_mqtt-2.8.6.ez /usr/lib/rabbitmq/lib/rabbitmq_server-2.8.6/plugins
 ```
 
-Enable the plugin using [rabbitmq-plugins](https://www.rabbitmq.com/plugins.html):
+Enable the plugin using [rabbitmq-plugins](/docs/plugins):
 
 ```shell
 sudo rabbitmq-plugins enable rabbitmq_mqtt
@@ -92,8 +92,8 @@ The broker logfile should now include a new line indicating that it is ready to 
   started MQTT TCP Listener on [::]:1883
 ```
 
-The default configuration options should work fine in most cases. A description of all configuration options is included in the [readme](http://hg.rabbitmq.com/rabbitmq-mqtt/file/default/README.md). You will need to provide further configuration if you wish to set up SSL, or define a different exchange in order to facilitate [federation](https://www.rabbitmq.com/federation.html).
+The default configuration options should work fine in most cases. A description of all configuration options is included in the [readme](http://hg.rabbitmq.com/rabbitmq-mqtt/file/default/README.md). You will need to provide further configuration if you wish to set up SSL, or define a different exchange in order to facilitate [federation](/docs/federation).
 
 You can now try to execute the [included tests](http://hg.rabbitmq.com/rabbitmq-mqtt/file/default/test/src/com/rabbitmq/mqtt/test/MqttTest.java) (based on the Java Paho client library), or your own MQTT application.
 
-See the [contact](https://www.rabbitmq.com/contact.html) page for details on how to provide feedback.
+See the [contact](/docs/contact) page for details on how to provide feedback.

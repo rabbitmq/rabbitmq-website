@@ -27,7 +27,7 @@ Dead lettered messages may arrive at the target queues.
 They may also get lost for a variety of reasons:
 
 * The target queue is unavailable. For example, a classic queue's host node is down or being upgraded or a quorum queue loses a majority of its nodes temporarily.
-* The target queue's [length limit](//www.rabbitmq.com/maxlength.html) is reached while its [overflow behaviour](//www.rabbitmq.com/maxlength.html#overflow-behaviour)
+* The target queue's [length limit](/docs/maxlength) is reached while its [overflow behaviour](/docs/maxlength#overflow-behaviour)
 is set to `reject-publish` rejecting any incoming messages.
 * A network partition prevents communication between source queue and target queue.
 * The dead letter routing topology is not configured correctly. For example, the configured `dead-letter-exchange` does not exist or no target queue is bound
@@ -49,7 +49,7 @@ To enable `at-least-once` dead-lettering for a source quorum queue, we need to a
 * `overflow` is set to `reject-publish`. The default is `drop-head`.
 * `dead-letter-exchange` is configured.
 
-Furthermore, the [feature flag](//www.rabbitmq.com/feature-flags.html) `stream_queue` must be enabled. By default that feature flag is enabled for RabbitMQ clusters created since 3.9.
+Furthermore, the [feature flag](/docs/feature-flags) `stream_queue` must be enabled. By default that feature flag is enabled for RabbitMQ clusters created since 3.9.
 Even though streams are not used in at-least-once dead lettering (unless a target queue happens to be a stream) the `stream_queue` feature flag is required because
 at-least-once dead lettering relies on some implementation details that come with that feature flag.
 
@@ -120,7 +120,7 @@ Let us publish our first message `msg1`:
     payload=msg1 properties='{"expiration" : "1000", "delivery_mode" : 2}'
 ```
 
-This command demonstrates another new feature of RabbitMQ 3.10: [Message TTL](//www.rabbitmq.com/ttl.html) is supported for quorum queues.
+This command demonstrates another new feature of RabbitMQ 3.10: [Message TTL](/docs/ttl) is supported for quorum queues.
 The following figure illustrates how the message flows:
 
 1. We publish one message to the default exchange.
@@ -423,7 +423,7 @@ At-least-once dead lettering does a great job ensuring messages are not lost whe
 However, if the dead letter consumer process does not obtain publisher confirmations from **all** target queues for a long time while more and more messages keep getting dead lettered
 in the source queue, it can cause excessive message buildup in the source queue.
 In the worst case, the source quorum queue will contain only of dead lettered messages.
-To prevent excessive message buildup, set a [queue length limit](//www.rabbitmq.com/maxlength.html) for the source queue (`max-length` or `max-length-bytes`).
+To prevent excessive message buildup, set a [queue length limit](/docs/maxlength) for the source queue (`max-length` or `max-length-bytes`).
 
 ### Caveat 2 - Dead letter throughput
 

@@ -20,7 +20,7 @@ strongly prefer to move to Erlang 24 given the benefits (see below) instead
 of sticking to Erlang 22 for longer.
 
 As such, Erlang 22 support will be dropped about three months earlier than our
-standard [Erlang release support policy](https://www.rabbitmq.com/which-erlang.html) outlines: **on May 3rd 2021**.
+standard [Erlang release support policy](/docs/which-erlang) outlines: **on May 3rd 2021**.
 A GA release of Erlang 24 is expected to come out in early to mid-May.
 
 ## What You Should Do Today
@@ -70,7 +70,7 @@ This switch won't affect most users but two things change:
 
 The former can affect systems that attempt to parse RabbitMQ logs. The latter will require those who depend on those advanced
 Lager sink configuration settings to build a small plugin that provides an equivalent.
-If you only use the [standard logging settings](https://www.rabbitmq.com/logging.html) or Syslog,
+If you only use the [standard logging settings](/docs/logging) or Syslog,
 you won't lose anything.
 
 
@@ -84,7 +84,7 @@ Note that we expect at least one more Erlang 22-compatible patch release to come
 
 If you rely on RabbitMQ log parsing, the changes in timestamp formatting will be mentioned in 3.9 release notes when it comes out.
 
-If you rely on [Lager-specific advanced configuration settings](https://www.rabbitmq.com/logging.html#advanced-configuration),
+If you rely on [Lager-specific advanced configuration settings](/docs/logging#advanced-configuration),
 you should be able to build a small plugin that e.g. implements a custom backend or adjusts the formatting using
 the standard library logger API which provides most if not all features that Lager has.
 
@@ -92,7 +92,7 @@ the standard library logger API which provides most if not all features that Lag
 ## Community Docker Image and Kubernetes Operator for RabbitMQ
 
 If you use the [Docker community RabbitMQ image](https://github.com/docker-library/rabbitmq) and have updated it recently, you already run on a very recent
-release of Erlang 23. So do most [RabbitMQ Kubernetes Operator](https://www.rabbitmq.com/kubernetes/operator/operator-overview.html) users.
+release of Erlang 23. So do most [RabbitMQ Kubernetes Operator](/docs/kubernetes/operator/operator-overview) users.
 The image will be upgraded to Erlang 24 likely a few weeks after it comes out,
 unless any serious enough Erlang 24-specific issues are discovered.
 

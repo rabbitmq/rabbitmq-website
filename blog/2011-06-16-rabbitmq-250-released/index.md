@@ -17,7 +17,7 @@ This release fixes a number of bugs. In particular:
 
 New features include:
 
-* tracing facility for debugging incoming and outgoing messages, (see [firehose](https://www.rabbitmq.com/firehose.html))
+* tracing facility for debugging incoming and outgoing messages, (see [firehose](/docs/firehose))
 * improved inbound network performance
 * improved routing performance
 * new rabbitmqctl commands ('report', 'environment', and 'cluster_status')

@@ -14,14 +14,14 @@ Without further ado, let's take a look at a roundup of what happened in RabbitMQ
 
 ## Project Updates
 
-* RabbitMQ 3.7.9 [has been released](https://groups.google.com/forum/#!topic/rabbitmq-users/87A0wqH-z5s) ([release artifacts](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.9), [change log](http://www.rabbitmq.com/changelog.html))
-* As of 3.7.9, [cipher suites](http://www.rabbitmq.com/ssl.html#cipher-suites) now can be configured via [new style configuration format](/blog/2018/02/22/new-configuration-format-in-rabbitmq-3-7).
+* RabbitMQ 3.7.9 [has been released](https://groups.google.com/forum/#!topic/rabbitmq-users/87A0wqH-z5s) ([release artifacts](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.9), [change log](http:/docs/changelog))
+* As of 3.7.9, [cipher suites](http:/docs/ssl#cipher-suites) now can be configured via [new style configuration format](/blog/2018/02/22/new-configuration-format-in-rabbitmq-3-7).
 * Marcial Rosales produced a set of guidelines that demonstrate [how to develop applications more resilient to failures](https://github.com/rabbitmq/workloads/tree/master/resiliency) common in messaging-based systems, whether they use RabbitMQ Java client directly or Spring AMQP
 * RabbitMQ repositories on PackageCloud have [switched to a new GPG key](https://groups.google.com/d/msg/rabbitmq-users/8Kyp265m4pE/BBM0bixZBgAJ)
 * Karl Nilsson delivered a talk on our [implementation of Raft](https://www.youtube.com/watch?v=7NNjjTrBZtw). Our team is [adopting Raft](https://www.youtube.com/watch?v=w-_1Wwymk58) in a new replicated queue implementation and more.
-* New doc guide that [covers multiple topics related to consumers](http://www.rabbitmq.com/consumers.html) in RabbitMQ
-* New doc [guide on monitoring](http://www.rabbitmq.com/monitoring.html)
-* Expanded [cluster formation guide](http://www.rabbitmq.com/cluster-formation.html)
+* New doc guide that [covers multiple topics related to consumers](http:/docs/consumers) in RabbitMQ
+* New doc [guide on monitoring](http:/docs/monitoring)
+* Expanded [cluster formation guide](http:/docs/cluster-formation)
 
 ## Community Writings and Resources
 

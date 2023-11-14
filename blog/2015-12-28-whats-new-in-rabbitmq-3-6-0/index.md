@@ -8,7 +8,7 @@ We are pleased to announce the immediate availability of RabbitMQ
 3.6.0, a new version of the broker that comes packed with lot of
 [new features](https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_0). Before
 we go on, you can obtain it here:
-[https://www.rabbitmq.com/download.html](https://www.rabbitmq.com/download.html).
+[/docs/download](/docs/download).
 
 This release brings many improvements in broker features, development
 environment for our contributors, and security. Let's take a look at
@@ -51,12 +51,12 @@ Another advantage of lazy queues is the reduced RAM usage due to the
 elimination of the message cache mentioned above.
 
 Finally, lazy queues can be enabled and disabled at runtime. You can
-use [policies](https://www.rabbitmq.com/parameters.html#policies) to
+use [policies](/docs/parameters#policies) to
 convert queues from default ones to lazy queues, and even back to the
 default mode if you feel the need for it.
 
 To learn more about lazy queues please refer to their
-[documentation](https://www.rabbitmq.com/lazy-queues.html).
+[documentation](/docs/lazy-queues).
 
 ### Faster Mirror Queue Synchronization
 
@@ -72,7 +72,7 @@ full sync, while the new algorithm takes around 10 seconds for the
 same amount of messages.
 
 Read more about mirror queue synchronization
-[here](https://www.rabbitmq.com/ha.html#sync-since-3-6-0).
+[here](/docs/ha#sync-since-3-6-0).
 
 ## Moving to Git
 
@@ -93,7 +93,7 @@ Moving to Github also means that now we have a public bug
 tracker. Feel free to submit issues here:
 [https://github.com/rabbitmq/rabbitmq-server/issues](https://github.com/rabbitmq/rabbitmq-server/issues).
 Here's our guide on how we use
-[Git and Github](https://www.rabbitmq.com/github.html).
+[Git and Github](/docs/github).
 
 ## Move to Erlang.mk
 
@@ -120,7 +120,7 @@ even reduced build times!
 Changing things on our build system, means introducing breaking
 changes on how we build RabbitMQ Plugins. If you are a plugin author,
 you might want to read our new
-[plugin development guide](https://www.rabbitmq.com/plugin-development.html).
+[plugin development guide](/docs/plugin-development).
 
 ## Security
 

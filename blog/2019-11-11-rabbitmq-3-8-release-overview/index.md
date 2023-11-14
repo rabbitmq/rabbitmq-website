@@ -6,7 +6,7 @@ authors: [jvanlightly]
 
 RabbitMQ 3.8 has just been released and has some major new features which focus on reliability, operations, and observability.
 
-You can find the new 3.8 release on the [GitHub releases page](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0) which includes information about what is included in the release as well as various installation assets. See our [upgrade guide](https://www.rabbitmq.com/upgrade.html) for more information about upgrading to 3.8.0.
+You can find the new 3.8 release on the [GitHub releases page](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0) which includes information about what is included in the release as well as various installation assets. See our [upgrade guide](/docs/upgrade) for more information about upgrading to 3.8.0.
 
 Our team dedicates this release to [Joe Armstrong](https://en.wikipedia.org/wiki/Joe_Armstrong_(programmer)), the creator of Erlang. Joe’s work in the fields of concurrent and distributed systems benefits RabbitMQ to this day. Equally importantly, Joe was a rare example of a brilliant engineer who was also very humble and kind.
 
@@ -38,7 +38,7 @@ As Jean-Sébastien Pédron described in  [this blog](/blog/2019/04/23/simplifyi
 
 ![Multi-step process of upgrading and enabling feature flags](FeatureFlags.png)
 
-Read more about feature flags [in documentation guides](https://www.rabbitmq.com/feature-flags.html).
+Read more about feature flags [in documentation guides](/docs/feature-flags).
 
 ## Prometheus and Grafana Monitoring Support
 
@@ -48,7 +48,7 @@ RabbitMQ 3.8 comes with new support for exposing its metrics via a Prometheus en
 
 ![The RabitMQ overview Grafana dashboard](rabbitmq-overview-dashboard.png)
 
-Prometheus and Grafana support has a dedicated [documentation guide](https://www.rabbitmq.com/prometheus.html).
+Prometheus and Grafana support has a dedicated [documentation guide](/docs/prometheus).
 
 ## OAuth 2.0 Support
 
@@ -58,13 +58,13 @@ Read more about OAuth2.0 support [in the docs](https://github.com/rabbitmq/rabbi
 
 ## Additional CLI Tools
 
-You can perform various levels of [health checks](https://www.rabbitmq.com/monitoring.html#health-checks) with the rabbitmq-diagostics CLI tool. The checks range from basic pings to checking queues and vhosts are running to in-depth runtime information.
+You can perform various levels of [health checks](/docs/monitoring#health-checks) with the rabbitmq-diagostics CLI tool. The checks range from basic pings to checking queues and vhosts are running to in-depth runtime information.
 
 We have a new CLI tool, **rabbitmq-queues**, which gives us the ability to modify quorum queue memberships but also gives us new master/leader rebalancing functionality for both quorum and mirrored queues.
 
 One of the pain points of performing a rolling upgrade to the servers of a RabbitMQ cluster was that queue masters would end up concentrated on one or two servers. The new **rebalance** command will automatically rebalance masters across the cluster. 
 
-`rabbitmq-queues` has a [man page](https://www.rabbitmq.com/rabbitmq-queues.8.html).
+`rabbitmq-queues` has a [man page](/docs/rabbitmq-queues.8).
 
 ## Single Active Consumer (SAC)
 
@@ -74,7 +74,7 @@ SAC improves on this by making exclusivity a feature of the queue itself and mak
 
 ![Shows two consumers on a queue where only one is active](SAC.png)
 
-Read more about Single Active Consumer [in the Consumers guide](https://www.rabbitmq.com/consumers.html#single-active-consumer).
+Read more about Single Active Consumer [in the Consumers guide](/docs/consumers#single-active-consumer).
 
 ## And...
 

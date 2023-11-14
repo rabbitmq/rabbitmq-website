@@ -6,8 +6,8 @@ authors: [alvaro]
 
 For a while people have looked for ways of implementing delayed
 messaging with RabbitMQ. So far the accepted solution was to use a mix
-of [message TTL](https://www.rabbitmq.com/ttl.html#per-message-ttl) and
-[Dead Letter Exchanges](https://www.rabbitmq.com/dlx.html) as proposed
+of [message TTL](/docs/ttl#per-message-ttl) and
+[Dead Letter Exchanges](/docs/dlx) as proposed
 by James Carr
 [here](http://blog.james-carr.org/2012/03/30/rabbitmq-sending-a-message-to-be-consumed-later/). Since
 a while we have thought to offer an out-of-the-box solution for this,
@@ -23,7 +23,7 @@ users choses to do so. Let's see how it works.
 ## Installing the Plugin
 
 To install the plugin go to our
-[Community Plugins page](https://www.rabbitmq.com/community-plugins.html)
+[Community Plugins page](/docs/community-plugins)
 and download the corresponding .ez files for your RabbitMQ
 installation. Copy the plugin into RabbitMQ's plugin folder and then
 enable it by running the following command:
@@ -110,5 +110,5 @@ or on our
 ## Learn More
 
 * Webinar: [What's new in RabbitMQ 3.8?](https://content.pivotal.io/webinars/may-23-what-s-new-in-rabbitmq-3-8-webinar?utm_campaign=rabbitmq-blog-3.8-webinar-q319&utm_source=rabbitmq&utm_medium=website)
-* Webpage: [RabbitMQ Best Practices](https://www.rabbitmq.com/best-practices.html)
+* Webpage: [RabbitMQ Best Practices](/docs/best-practices)
 * Webinar: [10 Things Every Developer Using RabbitMQ Should Know](https://content.pivotal.io/webinars/dec-12-10-things-every-developer-using-rabbitmq-should-know-webinar?utm_campaign=rabbitmq-blog-10-things-q319&utm_source=rabbitmq&utm_medium=website)

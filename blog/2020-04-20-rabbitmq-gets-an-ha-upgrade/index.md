@@ -58,7 +58,7 @@ We needed a better replication algorithm and that is how quorum queues were born
 
 ## Quorum Queues
 
-[Quorum queues](https://www.rabbitmq.com/quorum-queues.html) do not use chained replication but are based on the well established and mathematically proven **Raft** protocol. Raft is a consensus algorithm for replicating a log of operations across a cluster of nodes. It requires a quorum (a majority) of participating nodes to be available and to agree on each new operation appended to the distributed log. This is where quorum queues get their name. 
+[Quorum queues](/docs/quorum-queues) do not use chained replication but are based on the well established and mathematically proven **Raft** protocol. Raft is a consensus algorithm for replicating a log of operations across a cluster of nodes. It requires a quorum (a majority) of participating nodes to be available and to agree on each new operation appended to the distributed log. This is where quorum queues get their name. 
 
 What operations does a queue have? We have *enqueue* operations and *consumer acknowledgemen*t operations. Just like with mirrored queues, all clients interact with a leader, whose job it is to then replicate the enqueues and acks to its followers.
 

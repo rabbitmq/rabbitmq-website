@@ -10,7 +10,7 @@ This month in RabbitMQ features the release of the RabbitMQ Cluster Kubernetes O
 
 ## Project Updates
 
- * The [RabbitMQ Cluster Kubernetes Operator](https://www.rabbitmq.com/kubernetes/operator/operator-overview.html) has been released in beta!
+ * The [RabbitMQ Cluster Kubernetes Operator](/docs/kubernetes/operator/operator-overview) has been released in beta!
     The Operators strives to offer best-in-class automation of RabbitMQ clusters running on Kubernetes, from initial deployments to Day 2 operations. Please try it and give us feedback via Github!
  * RabbitMQ will be [migrating to the Mozilla Public License 2.0](https://github.com/rabbitmq/rabbitmq-server/issues/2372) starting with the 3.8.6 release
  * [RabbitMQ 3.8.6-rc.1](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.6-rc.1) is released is

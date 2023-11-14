@@ -14,7 +14,7 @@ What? Another ["breaking things"](/blog/2012/11/19/breaking-things-with-rabbitmq
 
 **Why did it change?** A default user with well known credentials that is network accessible is not the absolute safest thing in the world.
 
-**What should I do?** Create distinct users for your applications, rather than using "guest". If you can't easily do that, [see here](https://www.rabbitmq.com/access-control.html) for how to re-enable "guest" access over the network.
+**What should I do?** Create distinct users for your applications, rather than using "guest". If you can't easily do that, [see here](/docs/access-control) for how to re-enable "guest" access over the network.
 
 ## basic.qos semantics have changed
 
@@ -22,7 +22,7 @@ What? Another ["breaking things"](/blog/2012/11/19/breaking-things-with-rabbitmq
 
 **Why did it change?** It makes it practical for prefetch limiting to be implemented in a much more efficient way. Prefetch limiting used to have a noticable performance cost on a single node, and a quite nasty one consuming across a cluster. Now it's essentially free in both cases.
 
-**What should I do?** Probably you don't care. Most consuming applications will only have one consumer per channel, so this will make no difference. Those that have more than one consumer per channel will probably be using prefetch limiting in a fairly approximate way (i.e. "just don't swamp me"). Those which require exact, shared prefetch limiting can turn on the `basic.qos` `global` flag to get the old behaviour, [see here](https://www.rabbitmq.com/consumer-prefetch.html) for details.
+**What should I do?** Probably you don't care. Most consuming applications will only have one consumer per channel, so this will make no difference. Those that have more than one consumer per channel will probably be using prefetch limiting in a fairly approximate way (i.e. "just don't swamp me"). Those which require exact, shared prefetch limiting can turn on the `basic.qos` `global` flag to get the old behaviour, [see here](/docs/consumer-prefetch) for details.
 
 ## AMQP object names must be UTF-8
 
@@ -34,7 +34,7 @@ What? Another ["breaking things"](/blog/2012/11/19/breaking-things-with-rabbitmq
 
 ## Impersonator tag removed
 
-~~**What changed?** RabbitMQ 3.0.0 introduced an "impersonator" tag which allowed you to give users the ability to forge the [validated user-id](https://www.rabbitmq.com/validated-user-id.html) field.~~
+~~**What changed?** RabbitMQ 3.0.0 introduced an "impersonator" tag which allowed you to give users the ability to forge the [validated user-id](/docs/validated-user-id) field.~~
 
 ~~**Why did it change?** This was really an internal implementation detail of the federation plugin that escaped into the wild, so now that the federation plugin does not need it, it's going.~~
 
@@ -48,7 +48,7 @@ What? Another ["breaking things"](/blog/2012/11/19/breaking-things-with-rabbitmq
 
 **Why did it change?** The plugin hadn't been maintained for a long time. Its architecture isn't great.
 
-**What should I do?** If you still need the plugin it can be built from mercurial, for the time being. <del>In the future we hope to offer an easier installation experience for non-core plugins.</del> **Update: see the [community plugins](https://www.rabbitmq.com/community-plugins.html) page to download the JSON-RPC plugin.**
+**What should I do?** If you still need the plugin it can be built from mercurial, for the time being. <del>In the future we hope to offer an easier installation experience for non-core plugins.</del> **Update: see the [community plugins](/docs/community-plugins) page to download the JSON-RPC plugin.**
 
 ## Client-sent channel.flow support removed
 

@@ -13,10 +13,10 @@ We are also starting to look forward to the next [RabbitMQ Summit,](https://rabb
 ## Project updates
 
 * [RabbitMQ 3.7.14](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14) is out.
-* Erlang packages produced by Team RabbitMQ now use a [separate Bintray org](https://bintray.com/rabbitmq-erlang/). The packages will [removed from the main Bintray org](https://groups.google.com/forum/#!msg/rabbitmq-users/Gu55prdJ7uM/tftnTT_ZAwAJ) on April 29th, 2019. See [Debian](https://www.rabbitmq.com/install-debian.html#apt-bintray-erlang) and [RPM](https://github.com/rabbitmq/erlang-rpm) installation instructions to learn how to set up the new repositories.
+* Erlang packages produced by Team RabbitMQ now use a [separate Bintray org](https://bintray.com/rabbitmq-erlang/). The packages will [removed from the main Bintray org](https://groups.google.com/forum/#!msg/rabbitmq-users/Gu55prdJ7uM/tftnTT_ZAwAJ) on April 29th, 2019. See [Debian](/docs/install-debian#apt-bintray-erlang) and [RPM](https://github.com/rabbitmq/erlang-rpm) installation instructions to learn how to set up the new repositories.
 * Pika, the most popular Python client for RabbitMQ, [shipped version 1.0](https://groups.google.com/d/msg/rabbitmq-users/1wuoQYNg9QY/5uH33h15AQAJ)
 * [php-amqplib 2.9.1](https://groups.google.com/d/topic/rabbitmq-users/ks4kk-raJAw/discussion) is now available
-* New [documentation guide on Runtime Tuning](https://www.rabbitmq.com/runtime.html) is live.
+* New [documentation guide on Runtime Tuning](/docs/runtime) is live.
 * [Hop 3.2.0](https://github.com/rabbitmq/hop) has been released with usability changes and dependency upgrades.
 * [PerfTest 2.7.0](https://groups.google.com/d/msg/rabbitmq-users/v2V0YI_tifg/fuEbtY6hBQAJ) has been released, with dependency upgrades.
 

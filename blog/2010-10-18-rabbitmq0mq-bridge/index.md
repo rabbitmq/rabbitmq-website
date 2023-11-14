@@ -39,7 +39,7 @@ RabbitMQ broker can serve as such a device. First of all, it has been deployed w
 
 Persistence means that the messages passing through the broker are saved on the disk. When you shut down the broker, if the box crashes because of power outage or a different technical problem, the messages are still available on the disk. When the broker is restarted they will be sent further as if the crash hasn't happened. It is similar to how email works.
 
-Monitoring is asked for maybe even more often than persistence. Once you have a non-trivial system you want to know what each node is doing: How many messages there are stored for a particular feed What's the current throughput? And so on. RabbitMQ can tell you these things through its [command-line tools](https://www.rabbitmq.com/man/rabbitmqctl.1.man.html) or through the [management plugin](https://www.rabbitmq.com/management.html).
+Monitoring is asked for maybe even more often than persistence. Once you have a non-trivial system you want to know what each node is doing: How many messages there are stored for a particular feed What's the current throughput? And so on. RabbitMQ can tell you these things through its [command-line tools](/docs/man/rabbitmqctl.1.man) or through the [management plugin](/docs/management).
 
 As a conclusion I would like to stress that bridging 0MQ and RabbitMQ is not just that dumb kind of bridge you get when you bridge two incompatible but more or less equivalent products. RabbitMQ and 0MQ are focusing on different aspects of messaging. 0MQ puts much more focus on how the messages are transferred over the wire. RabbitMQ, on the other hand, focuses on how messages are stored, filtered and monitored. By combining the two technologies you can get the best from both worlds.
 

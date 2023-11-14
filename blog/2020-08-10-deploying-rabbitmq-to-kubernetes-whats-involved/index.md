@@ -19,14 +19,14 @@ There are multiple pieces involved:
 
  * A [Kubernetes namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
  * A [stateful set](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) for RabbitMQ cluter nodes
- * Ensuring durable storage is used by [node data directories](https://www.rabbitmq.com/relocate.html)
- * A Kubernetes Secret for [initial RabbitMQ user credentials](https://www.rabbitmq.com/access-control.html#default-state)
- * A Kubernetes Secret for [inter-node and CLI tool authentication](https://www.rabbitmq.com/clustering.html#erlang-cookie)
+ * Ensuring durable storage is used by [node data directories](/docs/relocate)
+ * A Kubernetes Secret for [initial RabbitMQ user credentials](/docs/access-control#default-state)
+ * A Kubernetes Secret for [inter-node and CLI tool authentication](/docs/clustering#erlang-cookie)
  * A [headless service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services) for inter-node communication
  * Permissions for RabbitMQ node data directory and configuration file(s)
- * Node [configuration files](https://www.rabbitmq.com/configure.html#configuration-files)
- * [Pre-enabled plugin file](https://www.rabbitmq.com/plugins.html#enabled-plugins-file)
- * [Peer discovery](https://www.rabbitmq.com/cluster-formation.html) settings
+ * Node [configuration files](/docs/configure#configuration-files)
+ * [Pre-enabled plugin file](/docs/plugins#enabled-plugins-file)
+ * [Peer discovery](/docs/cluster-formation) settings
  * Kubernetes [access control (RBAC)](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) rules
  * [Liveness and readiness](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) probes
  * A [load balancer service](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer) for external client connections
@@ -122,7 +122,7 @@ demonstrated below.
 
 RabbitMQ **requires** using a [Stateful Set](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) to deploy a RabbitMQ cluster to Kubernetes.
 The Stateful Set ensures that the RabbitMQ nodes are deployed in order, one at a time. This avoids running
-into a potential [peer discovery race condition](https://www.rabbitmq.com/cluster-formation.html#initial-formation-race-condition) when deploying a multi-node RabbitMQ cluster.
+into a potential [peer discovery race condition](/docs/cluster-formation#initial-formation-race-condition) when deploying a multi-node RabbitMQ cluster.
 
 There are other, equally important reasons for using a Stateful Set instead of a Deployment:
 sticky identity, simple network identifiers, stable persistent storage and the ability to perform
@@ -168,18 +168,18 @@ A [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-vol
 
 If a transient volume is used to back a RabbitMQ node, the node will lose its identity and all of its
 local data in case of a restart.
-This includes both [schema](https://www.rabbitmq.com/clustering.html#cluster-membership) and [durable queue data](https://www.rabbitmq.com/queues.html#durability).
+This includes both [schema](/docs/clustering#cluster-membership) and [durable queue data](/docs/queues#durability).
 Syncing all of this data on every node restart would be highly inefficient. In case
-of a loss of [quorum](https://www.rabbitmq.com/quorum-queues.html#what-is-quorum) during
+of a loss of [quorum](/docs/quorum-queues#what-is-quorum) during
 a rolling restart, this will also lead to data loss.
 
 In our [statefulset.yaml example](https://github.com/rabbitmq/diy-kubernetes-examples/tree/master/gke/statefulset.yaml#L12-L22),
 we create a Persistent Volume Claim to provision a Persistent Volume.
 
-The Persistent Volume is mounted at `/var/lib/rabbitmq/mnesia`. This path is used for a [`RABBITMQ_MNESIA_BASE` location](https://www.rabbitmq.com/relocate.html): the base directory
+The Persistent Volume is mounted at `/var/lib/rabbitmq/mnesia`. This path is used for a [`RABBITMQ_MNESIA_BASE` location](/docs/relocate): the base directory
 for all persistent data of a node.
 
-A description of [default file paths for RabbitMQ](https://www.rabbitmq.com/relocate.html) can be found in the RabbitMQ documentation.
+A description of [default file paths for RabbitMQ](/docs/relocate) can be found in the RabbitMQ documentation.
 
 Node's data directory base can be changed using the `RABBITMQ_MNESIA_BASE` variable if needed. Make sure
 to mount a Persistent Volume at the updated path.
@@ -187,7 +187,7 @@ to mount a Persistent Volume at the updated path.
 
 ## Node Authentication Secret: the Erlang Cookie
 
-RabbitMQ nodes and CLI tools use a shared secret known as [the Erlang Cookie](https://www.rabbitmq.com/clustering.html#erlang-cookie), to authenticate to each other.
+RabbitMQ nodes and CLI tools use a shared secret known as [the Erlang Cookie](/docs/clustering#erlang-cookie), to authenticate to each other.
 The cookie value is a string of alphanumeric characters up to 255 characters in size. The value must be generated before creating
 a RabbitMQ cluster since it is needed by the nodes to [form a cluster](https://github.com/rabbitmq/diy-kubernetes-examples/blob/gke-examples/examples/gke/statefulset.yaml#L72-L75).
 
@@ -215,17 +215,17 @@ and the file contents as its value.
 
 ## Administrator Credentials
 
-RabbitMQ will seed a [default user](https://www.rabbitmq.com/access-control.html#default-state) with well-known credentials on first boot.
+RabbitMQ will seed a [default user](/docs/access-control#default-state) with well-known credentials on first boot.
 The username and password of this user are both `guest`.
 
-This default user can [only connect from localhost](https://www.rabbitmq.com/access-control.html#loopback-users) by default.
+This default user can [only connect from localhost](/docs/access-control#loopback-users) by default.
 It is possible to lift this restriction by opting in. This may be useful for testing but **very insecure**.
 Instead, an administrative user must be created using generated credentials.
 
 The administrative user credentials should be stored in a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/),
 and mounting them onto the RabbitMQ Pods.
 The `RABBITMQ_DEFAULT_USER` and `RABBITMQ_DEFAULT_PASS` environment variables then can be set to the Secret values.
-The community Docker image will use them to [override default user credentials](https://www.rabbitmq.com/access-control.html#seeding).
+The community Docker image will use them to [override default user credentials](/docs/access-control#seeding).
 
 [Example for reference](https://github.com/rabbitmq/diy-kubernetes-examples/tree/master/gke/statefulset.yaml#L91-L100).
 
@@ -250,11 +250,11 @@ This will create a Secret with two keys, `user` and `pass`, taken from the file 
 and file contents as their respective values.
 
 Users can be create explicitly using CLI tools as well.
-See [RabbitMQ doc section on user management](https://www.rabbitmq.com/access-control.html#seeding) to learn more.
+See [RabbitMQ doc section on user management](/docs/access-control#seeding) to learn more.
 
 ## Node Configuration
 
-There are [several ways](https://www.rabbitmq.com/configure.html) to configure a RabbitMQ node. The recommended way is to use configuration files.
+There are [several ways](/docs/configure) to configure a RabbitMQ node. The recommended way is to use configuration files.
 
 Configuration files can be expressed as [Config Maps](https://kubernetes.io/docs/concepts/configuration/configmap/),
 and mounted as a Volume onto the RabbitMQ pods.
@@ -303,8 +303,8 @@ in the Stateful Set definition file.
 
 ### Importing Definitions
 
-RabbitMQ nodes can [importi definitions](https://www.rabbitmq.com/definitions.html) exported from another RabbitMQ cluster.
-This may also be done at [node boot time](https://www.rabbitmq.com/definitions.html#import-on-boot).
+RabbitMQ nodes can [importi definitions](/docs/definitions) exported from another RabbitMQ cluster.
+This may also be done at [node boot time](/docs/definitions#import-on-boot).
 
 Following from the RabbitMQ documentation, this can be done using the following steps:
 
@@ -317,7 +317,7 @@ Following from the RabbitMQ documentation, this can be done using the following 
 ## Readiness Probe
 
 Kubernetes uses a check known as the [readiness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) to determine if a pod is ready to serve client traffic.
-This is effectively a specialized [health check](https://www.rabbitmq.com/monitoring.html#health-checks) defined
+This is effectively a specialized [health check](/docs/monitoring#health-checks) defined
 by the system operator.
 
 When an [ordered pod deployment policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#pod-management-policies) is used — and this is the commended option for RabbitMQ clusters —
@@ -325,7 +325,7 @@ the probe controls when the Kubernetes controller will consider the currently de
 and proceed to deploy the next one. This check, if not chosen appropriately, can deadlock a rolling
 cluster node restart.
 
-RabbitMQ nodes that belong to a clsuter will [attempt to sync schema from their peers on startup](https://www.rabbitmq.com/clustering.html#restarting-schema-sync). If no peer comes online within a configurable time window (five minutes by default),
+RabbitMQ nodes that belong to a clsuter will [attempt to sync schema from their peers on startup](/docs/clustering#restarting-schema-sync). If no peer comes online within a configurable time window (five minutes by default),
 the node will give up and voluntarily stop. Before the sync is complete, the node won't mark itself as fully booted.
 
 Therefore, if a readiness probe assumes that a node is fully booted and running,
@@ -342,7 +342,7 @@ rabbitmq-diagnostics ping
 While this check is not thorough, it allows all pods to be started and re-join the cluster within a certain time period,
 even when pods are restarted one by one, in order.
 
-This is covered in a dedicated section of the RabbitMQ clustering guide: [Restarts and Health Checks (Readiness Probes)](https://www.rabbitmq.com/clustering.html#restarting-readiness-probes).
+This is covered in a dedicated section of the RabbitMQ clustering guide: [Restarts and Health Checks (Readiness Probes)](/docs/clustering#restarting-readiness-probes).
 
 The [readiness probe section](https://github.com/rabbitmq/diy-kubernetes-examples/blob/master/examples/gke/statefulset.yaml#L132-L143)
 in the Stateful Set definition file demonstrates how to configure a readiness probe.
@@ -354,17 +354,17 @@ Similarly to the readiness probe described above, Kubernetes allows for pod heal
 called the [liveness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 The check determines if a pod must be restarted.
 
-As with all [health checks](https://www.rabbitmq.com/monitoring.html#health-checks), there is no single solution that can be
+As with all [health checks](/docs/monitoring#health-checks), there is no single solution that can be
 recommended for all deployments. Health checks can produce false positives, which means reasonably healthy, operational nodes
 will be restarted or even destroyed and re-created for no reason, reducing system availability.
 
 Moreover, a RabbitMQ node restart won't necessarily address the issue. For example, restarting a node
-that is in an [alarmed state](https://www.rabbitmq.com/alarms.html) because it is low on available disk space won't help.
+that is in an [alarmed state](/docs/alarms) because it is low on available disk space won't help.
 
 All this is to say that **liveness probes must be chosen wisely** and with false positives and "recoverability by a restart"
-taken into account. Liveness probes also must [use node-local health checks instead of cluster-wide ones](https://www.rabbitmq.com/monitoring.html#health-checks).
+taken into account. Liveness probes also must [use node-local health checks instead of cluster-wide ones](/docs/monitoring#health-checks).
 
-RabbitMQ CLI tools provide a number of [pre-defined health checks](https://www.rabbitmq.com/monitoring.html#health-checks) that
+RabbitMQ CLI tools provide a number of [pre-defined health checks](/docs/monitoring#health-checks) that
 vary in how thorough they are, how intrusive they are and how likely they are to produce false positives in different
 scenarios, e.g. when the system is under load. The checks are composable and can be combined.
 The right liveness probe choice is a system-specific decision. When in doubt, start with a simpler, less intrusive
@@ -384,7 +384,7 @@ rabbitmq-diagnostics -q check_port_connectivity
 rabbitmq-diagnostics -q check_local_alarms
 ```
 
-Note, however, that they will fail for the nodes [paused by the "pause minority" partition handliner strategy](https://www.rabbitmq.com/partitions.html).
+Note, however, that they will fail for the nodes [paused by the "pause minority" partition handliner strategy](/docs/partitions).
 
 The [liveness probe section](https://github.com/rabbitmq/diy-kubernetes-examples/blob/master/examples/gke/statefulset.yaml#L119-L131)
 in the Stateful Set definition file demonstrates how to configure a liveness probe.
@@ -392,15 +392,15 @@ in the Stateful Set definition file demonstrates how to configure a liveness pro
 
 ## Plugins
 
-RabbitMQ [supports plugins](https://www.rabbitmq.com/plugins.html). Some plugins are essential when running RabbitMQ on Kubernetes,
+RabbitMQ [supports plugins](/docs/plugins). Some plugins are essential when running RabbitMQ on Kubernetes,
 e.g. the Kubernetes-specific peer discovery implementation.
 
 The [`rabbitmq_peer_discovery_k8s` plugin](https://github.com/rabbitmq/diy-kubernetes-examples) is required
 to deploy RabbitMQ on Kubernetes.
-It is quite common to also enable [`rabbitmq_management` plugin](https://www.rabbitmq.com/management.html) in order to get a browser-based management UI
-and an HTTP API, and [`rabbitmq_prometheus`](https://www.rabbitmq.com/prometheus.html) for monitoring.
+It is quite common to also enable [`rabbitmq_management` plugin](/docs/management) in order to get a browser-based management UI
+and an HTTP API, and [`rabbitmq_prometheus`](/docs/prometheus) for monitoring.
 
-Plugins can be enabled in [different ways](https://www.rabbitmq.com/plugins.html#ways-to-enable-plugins).
+Plugins can be enabled in [different ways](/docs/plugins#ways-to-enable-plugins).
 We recommend mounting the plugins file, `enabled_plugins`, to the node configuration directory, `/etc/rabbitmq`.
 A Config Map can be used to express the value of the `enabled_plugins` file. It can then be mounted
 as a Volume onto each RabbitMQ container in the Stateful Set definition.
@@ -412,7 +412,7 @@ we demonstrate how to popular the the `enabled_plugins` file and mount it under 
 ## Ports
 
 The final consideration for the Stateful Set is the ports to open on the RabbitMQ Pods.
-Protocols supported by RabbitMQ are all TCP-based and require the [protocol ports](https://www.rabbitmq.com/networking.html#ports) to be opened on the RabbitMQ nodes.
+Protocols supported by RabbitMQ are all TCP-based and require the [protocol ports](/docs/networking#ports) to be opened on the RabbitMQ nodes.
 Depending on the plugins that are enabled on a node, the list of required ports can vary.
 
 The example `enabled_plugins` file mentioned above enables a few plugins: `rabbitmq_peer_discovery_k8s` (mandatory), `rabbitmq_management`
@@ -450,9 +450,9 @@ watch kubectl get all
 ## Create a Service for Client Connections
 
 If all the steps above succeeded, you should have functioning RabbitMQ cluster deployed on Kubernetes! ?
-However, having a RabbitMQ cluster on Kubernetes is only useful clients can [connect](https://www.rabbitmq.com/connections.html) to it.
+However, having a RabbitMQ cluster on Kubernetes is only useful clients can [connect](/docs/connections) to it.
 
-Time to create a Service to make the cluster accessible to [client connections](https://www.rabbitmq.com/connections.html).
+Time to create a Service to make the cluster accessible to [client connections](/docs/connections).
 
 The type of the Service depends on your use case. The [Kubernetes API reference](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#servicespec-v1-core)
 gives a good overview of the types of Services available.
@@ -463,7 +463,7 @@ This gives us an external IP that can be used to access the RabbitMQ cluter.
 
 For example, this should make it possible to visit the RabbitMQ management UI by visiting `{external-ip}:15672`, and signing in.
 Client applications can connect to endpoints such as `{external-ip}:5672` (AMQP 0-9-1, AMQP 1.0) or `{external-ip}:1883` (MQTT).
-Please refer to the [get started guide](https://www.rabbitmq.com/getstarted.html) to learn how to use RabbitMQ.
+Please refer to the [get started guide](/docs/getstarted) to learn how to use RabbitMQ.
 
 If following from the example, run
 
@@ -485,7 +485,7 @@ kubectl get svc
 
 [Container resource management](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) is a topic that deserves
 its own post. [Capacity planning](/blog/tags/capacity-planning) recommendations are entirely workload-,
-environment- and system-specific. Optimal values are usually found via extensive [monitoring](https://www.rabbitmq.com/monitoring.html) of the system, trial, and error.
+environment- and system-specific. Optimal values are usually found via extensive [monitoring](/docs/monitoring) of the system, trial, and error.
 However, when picking the limits and resource allocation settings, consider a few RabbitMQ-specific things.
 
 ### Use the Latest Major Erlang Release
@@ -494,7 +494,7 @@ RabbitMQ runs on the Erlang runtime. Recent Erlang/OTP releases have introduced 
 the users who run RabbitMQ on Kubernetes:
 
  * In Erlang 22, inter-node communication [latency and head-of-line blocking(http://blog.erlang.org/OTP-22-Highlights/) have been
-   significantly reduced. In earlier versions, link congestion was known to make [cluster node heartbeat](https://www.rabbitmq.com/nettick.html) false
+   significantly reduced. In earlier versions, link congestion was known to make [cluster node heartbeat](/docs/nettick) false
    positives likely.
  * In Erlang 23, the runtime will [respect the container CPU quotas](http://blog.erlang.org/OTP-23-Highlights/) when computing the default number of schedulers to start. This means that nodes will respect the Kubernetes-managed CPU resource limits.
 
@@ -503,19 +503,19 @@ to provision Erlang 23 as well.
 
 ### CPU Resource Usage
 
-RabbitMQ was designed for workloads that involve [multiple queues](https://www.rabbitmq.com/queues.html#runtime-characteristics) and where
-a node serves multiple clients at the same time. Nodes will generally use all the [CPU cores allowed](https://www.rabbitmq.com/runtime.html)
-without any explicit configuration. As the number of cores grows, some tuning may be necessary to reduce [CPU context switching](https://www.rabbitmq.com/runtime.html#scheduling).
+RabbitMQ was designed for workloads that involve [multiple queues](/docs/queues#runtime-characteristics) and where
+a node serves multiple clients at the same time. Nodes will generally use all the [CPU cores allowed](/docs/runtime)
+without any explicit configuration. As the number of cores grows, some tuning may be necessary to reduce [CPU context switching](/docs/runtime#scheduling).
 
-How CPU time is spent can be monitored via the [runtime thread activity metrics](https://www.rabbitmq.com/runtime.html#thread-stats) which
-are also exposed via the [RabbitMQ Prometheus plugin](https://www.rabbitmq.com/prometheus.html).
+How CPU time is spent can be monitored via the [runtime thread activity metrics](/docs/runtime#thread-stats) which
+are also exposed via the [RabbitMQ Prometheus plugin](/docs/prometheus).
 
 If RabbitMQ pods hover around their CPU resource allowance and experience throttling in environments with a large number of
-relatively idle clients, the load likely can be [reduced with a modest amount of configuration](https://www.rabbitmq.com/runtime.html#cpu-reduce-idle-usage).
+relatively idle clients, the load likely can be [reduced with a modest amount of configuration](/docs/runtime#cpu-reduce-idle-usage).
 
 ### Memory Limits
 
-RabbitMQ uses the concept of a [runtime memory high watermark](https://www.rabbitmq.com/memory.html). By default a node will use 40% of detected
+RabbitMQ uses the concept of a [runtime memory high watermark](/docs/memory). By default a node will use 40% of detected
 (available) memory as the watermark. When the watermark is crossed, publishers across the entire cluster will be blocked
 and more aggressive paging out to disk initiated. The watermark value may seem like a memory quota on Kubernetes at first
 but there is an important difference: RabbitMQ resource alarms assume a node can typically recover from this state. For example,
@@ -523,13 +523,13 @@ a large backlog of messages will eventually be consumed.
 
 Kubernetes memory limits are [enforced by the OOM killer](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits):
 no recovery is expected. This means that a RabbitMQ node's high memory watermark **must be lower** than the memory limit
-imposed on the node container. Kubernetes deployments should use the relative watermark values in the [recommended range](https://www.rabbitmq.com/production-checklist.html#resource-limits-ram).
+imposed on the node container. Kubernetes deployments should use the relative watermark values in the [recommended range](/docs/production-checklist#resource-limits-ram).
 
-[Memory usage breakdown data](https://www.rabbitmq.com/memory-use.html) should be used to determine what consumes most memory on the node.
+[Memory usage breakdown data](/docs/memory-use) should be used to determine what consumes most memory on the node.
 
 ### Disk Usage
 
-We highly recommend overprovisioning the [disk space available to RabbitMQ containers](https://www.rabbitmq.com/production-checklist.html#resource-limits-disk-space).
+We highly recommend overprovisioning the [disk space available to RabbitMQ containers](/docs/production-checklist#resource-limits-disk-space).
 A node that has run out of disk space won't always be able to recover from such an event. Such nodes must be
 decomissioned and replaced.
 
@@ -554,7 +554,7 @@ of 20K messages a second can consume up to
 
 of bandwidth.
 
-Team RabbitMQ maintains a [Grafana dashboard](https://www.rabbitmq.com/prometheus.html#other-dashboards) for inter-node communication
+Team RabbitMQ maintains a [Grafana dashboard](/docs/prometheus#other-dashboards) for inter-node communication
 link metrics.
 
 
@@ -597,14 +597,14 @@ kubectl delete pod perf-test
 
 ## Monitoring the Cluster
 
-[Monitoring](https://www.rabbitmq.com/monitoring.html) is a critically important part of any production deployment.
+[Monitoring](/docs/monitoring) is a critically important part of any production deployment.
 
-RabbitMQ comes with [in-built support for Prometheus](https://www.rabbitmq.com/prometheus.html). To enable it, enable the `rabbitmq_prometheus` plugin.
+RabbitMQ comes with [in-built support for Prometheus](/docs/prometheus). To enable it, enable the `rabbitmq_prometheus` plugin.
 This in turn can be done by adding `rabbitmq_promethus` to the `enabled_plugins` Config Map as explained above.
 
 The Prometheus scraping port, 15972, must be open on both the Pod and the client Service.
 
-Node and cluster metrics can be [visualised with Grafana](https://www.rabbitmq.com/prometheus.html).
+Node and cluster metrics can be [visualised with Grafana](/docs/prometheus).
 
 
 ## Alternative Option: the Kubernetes Cluster Operator for RabbitMQ
@@ -618,7 +618,7 @@ implementation for RabbitMQ. As of August 2020, this is a young project under ac
 While it currently has limitations, it is our recommended option over the manual DIY setup
 demonstrated in this post.
 
-See [RabbitMQ Cluster Operator for Kubernetes ](https://www.rabbitmq.com/kubernetes/operator/operator-overview.html) to learn more.
+See [RabbitMQ Cluster Operator for Kubernetes ](/docs/kubernetes/operator/operator-overview) to learn more.
 The project is developed in the open at [rabbitmq/cluster-operator on GitHub](https://github.com/rabbitmq/cluster-operator). Give it a try and let us know how it goes.
 Besides GitHub, two great venues for providing feedback to the team behind the Operator are the [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users)
 and the [`#kubernetes channel in RabbitMQ community Slack`](https://rabbitmq-slack.herokuapp.com/).

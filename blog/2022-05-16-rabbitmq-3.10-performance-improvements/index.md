@@ -34,7 +34,7 @@ and [stream-perf-test](https://github.com/rabbitmq/rabbitmq-stream-java-client).
 These tests were executed using:
 
 * A GKE cluster with e2-standard-16 nodes
-* RabbitMQ clusters deployed using [our Kubernetes Operator](https://www.rabbitmq.com/kubernetes/operator/operator-overview.html) with the following resources and configuration
+* RabbitMQ clusters deployed using [our Kubernetes Operator](/docs/kubernetes/operator/operator-overview) with the following resources and configuration
 
 ```yaml
 apiVersion: rabbitmq.com/v1beta1
@@ -220,7 +220,7 @@ Here's a direct comparison between the two nodes that did most of the work (host
 
 ## Faster Import and Declarations
 
-For those who [import definitions on startup](https://www.rabbitmq.com/definitions.html), nodes should take less time to start after upgrading to 3.10.
+For those who [import definitions on startup](/docs/definitions), nodes should take less time to start after upgrading to 3.10.
 There are multiple changes and features that lead to that and the expected behaviour depends on your definitions, and which features you use and will use/configure. Here's a summary:
 
 1. If you use `load_definitions` configuration option, and have many definitions in the JSON file, nodes should be able to start faster without you doing anything.
@@ -228,7 +228,7 @@ This can save minutes on every node start for users with many thousands of queue
 be much quicker. Nodes in the cluster usually share the same configuration file, so each would attempt the same import but all but the first node would effectively re-import
 existing entities. On node restarts, assuming you do not delete those entities, all nodes can boot faster.
 
-2. If you [set a new property, `definitions.skip_if_unchanged = true`](https://www.rabbitmq.com/definitions.html#import-on-boot-skip-if-unchanged),
+2. If you [set a new property, `definitions.skip_if_unchanged = true`](/docs/definitions#import-on-boot-skip-if-unchanged),
 RabbitMQ will skip the import altogether if the checksum of the definitions file is the same as it was when previously imported. This can save minutes
 per node for clusters with large definition files. This is similar to the previous point, except you need to opt-in (set the property) and the
 speed-up is even higher because not attempting the import is obviously even faster than checking if the entities already exist.

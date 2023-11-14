@@ -10,11 +10,11 @@ RabbitMQ includes a bunch of cool new features. But in order to implement some o
 
 ## Mirror queue policies
 
-**What changed?** In RabbitMQ 3.0, queue mirroring is no longer controlled by the `x-ha-policy` argument when declaring a queue. Your applications can continue to declare this argument, but it won't cause queues to be mirrored. Instead you can declare one or more [policies](https://www.rabbitmq.com/parameters.html) which control which queues are mirrored, and how.
+**What changed?** In RabbitMQ 3.0, queue mirroring is no longer controlled by the `x-ha-policy` argument when declaring a queue. Your applications can continue to declare this argument, but it won't cause queues to be mirrored. Instead you can declare one or more [policies](/docs/parameters) which control which queues are mirrored, and how.
 
 **Why did it change?** As anyone who's used mirrored queues will tell you, requiring applications to know which queues are mirrored is a pain. The new approach puts configuration in the broker, where it belongs, and also supports changing mirroring policy at any time.
 
-**What should I do?** You need to make sure your queues are still mirrored. For the full documentation [see here](https://www.rabbitmq.com/ha.html), but if you just want to make sure that all queues (except those with auto-generated names) are mirrored across all nodes, run:
+**What should I do?** You need to make sure your queues are still mirrored. For the full documentation [see here](/docs/ha), but if you just want to make sure that all queues (except those with auto-generated names) are mirrored across all nodes, run:
 
 ```shell
 rabbitmqctl set_policy HA '^(?!amq\\.).*' '{"ha-mode": "all"}'
@@ -26,7 +26,7 @@ rabbitmqctl set_policy HA '^(?!amq\\.).*' '{"ha-mode": "all"}'
 
 **Why did it change?** Again, your applications should not need to know about federation. Federation configuration in `rabbitmq.config` was complicated and confused many people. And needing to restart the broker to add a new upstream was not fun.
 
-**But I have a working federation setup! You broke it.** Migrating to the [new way of doing federation](https://www.rabbitmq.com/federation.html) will take a bit of work. In the mean time you can use the `rabbitmq_old_federation` plugin. This is a backport of the 2.8.7 federation plugin for RabbitMQ 3.0. To use it:
+**But I have a working federation setup! You broke it.** Migrating to the [new way of doing federation](/docs/federation) will take a bit of work. In the mean time you can use the `rabbitmq_old_federation` plugin. This is a backport of the 2.8.7 federation plugin for RabbitMQ 3.0. To use it:
 
 ```shell
 rabbitmq-plugins disable rabbitmq_federation
@@ -48,7 +48,7 @@ and then edit your `rabbitmq.config` file so that the `rabbitmq_federation` sect
 * You don't need to list all the nodes on the command line; if you give more than one node then they will be taken as a list of nodes to try to cluster with
 * Whether the new node is a disc or RAM node is determined by the --disc and --ram flags. The default is to be a disc node.
 
-For more details, see [the documentation](https://www.rabbitmq.com/man/rabbitmqctl.1.man.html#join_cluster).
+For more details, see [the documentation](/docs/man/rabbitmqctl.1.man#join_cluster).
 
 ## Removal of "immediate" flag
 
@@ -57,9 +57,9 @@ For more details, see [the documentation](https://www.rabbitmq.com/man/rabbitmqc
 **Why on earth did you do that?** Support for "immediate" made many parts of the codebase more complex, particularly around mirrored queues. It also stood in the way of our being able to deliver substantial performance improvements in mirrored queues.
 
 **What do I need to do?** 
-If you just want to be able to publish messages that will be dropped if they are not consumed immediately, you can publish to a queue [with a TTL of 0](https://www.rabbitmq.com/ttl.html).
+If you just want to be able to publish messages that will be dropped if they are not consumed immediately, you can publish to a queue [with a TTL of 0](/docs/ttl).
 
-If you also need your publisher to be able to determine that this has happened, you can also use the [DLX](https://www.rabbitmq.com/dlx.html) feature to route such messages to another queue, from which the publisher can consume them.
+If you also need your publisher to be able to determine that this has happened, you can also use the [DLX](/docs/dlx) feature to route such messages to another queue, from which the publisher can consume them.
 
 ## frame_max
 
@@ -67,7 +67,7 @@ If you also need your publisher to be able to determine that this has happened, 
 
 **Why did it change?** Malicious (or badly written) clients could send arbitrarily large frames and cause the server to run out of memory.
 
-**Why do I care?** Unfortunately some clients don't implement AMQP framing correctly. RabbitMQ 3.0 will allow clients to exceed `frame_max` by a fudge factor of a few bytes (to allow for off by one errors and incorrectly excluding the frame header) but if your client has broken framing you will be disconnected after trying to send a message larger than `frame_max` (which by default comes out to 128kb; see the [documentation](https://www.rabbitmq.com/configure.html#config-items) on how to raise this).
+**Why do I care?** Unfortunately some clients don't implement AMQP framing correctly. RabbitMQ 3.0 will allow clients to exceed `frame_max` by a fudge factor of a few bytes (to allow for off by one errors and incorrectly excluding the frame header) but if your client has broken framing you will be disconnected after trying to send a message larger than `frame_max` (which by default comes out to 128kb; see the [documentation](/docs/configure#config-items) on how to raise this).
 
 ## Management and JSON-RPC channel port changes
 
@@ -87,6 +87,6 @@ Also note that the STOMP plugin still listens on port 61313. Although this is in
 
 **What changed?** We now expect the expiration field in message properties to be parseable as an integer if it's set at all.
 
-**Why did it change?** In order to support [per-message TTL](https://www.rabbitmq.com/ttl.html#per-message-ttl) we need a place to get the TTL of the message from, and this is the obvious place. Unfortunately the AMQP standard defines it as a string, so we try to parse it as an integer and will throw a channel exception if it is not.
+**Why did it change?** In order to support [per-message TTL](/docs/ttl#per-message-ttl) we need a place to get the TTL of the message from, and this is the obvious place. Unfortunately the AMQP standard defines it as a string, so we try to parse it as an integer and will throw a channel exception if it is not.
 
 **What do I have to do?** Make sure that if you're using that property then you're using it because you expect RabbitMQ to expire the message, and make sure it's set to a string which can be parsed as an integer.

@@ -12,7 +12,7 @@ Different services in our architecture will require a certain amount of resource
 
 There are many reasons why our queues might be filling up with messages. Reason number one would be that our data producers are outpacing our consumers. Luckily the solution is easy: add more consumersâ„¢. 
 
-What happens if our application still can't handle the load? For example your consumers take too long to process each message, and you can't add more consumers since you ran out of servers. Then your queues will start filling up with messages. RabbitMQ has been optimized for fast message delivery with queues that have [as few messages as possible](/blog/2011/09/24/sizing-your-rabbits). While RabbitMQ comes with various **[flow control mechanisms](https://www.rabbitmq.com/memory.html)**, of course you probably want a way to prevent to get into a situation were flow-control gets activated. Let's see how RabbitMQ can help us there.
+What happens if our application still can't handle the load? For example your consumers take too long to process each message, and you can't add more consumers since you ran out of servers. Then your queues will start filling up with messages. RabbitMQ has been optimized for fast message delivery with queues that have [as few messages as possible](/blog/2011/09/24/sizing-your-rabbits). While RabbitMQ comes with various **[flow control mechanisms](/docs/memory)**, of course you probably want a way to prevent to get into a situation were flow-control gets activated. Let's see how RabbitMQ can help us there.
 
 ## Per-Queue Message TTL
 
@@ -36,7 +36,7 @@ The same could be set up by adding a policy to our queue:
 rabbitmqctl set_policy TTL ".*" '{"message-ttl":60000}' --apply-to queues
 ```
 
-This policy will match all the queues in the the default virtual host, and will make the messages expire after 60 seconds. Note that the Windows command is a bit [different](https://www.rabbitmq.com/ttl.html). Of course you can make that policy match only one queue. More details about it here: [Parameters and Policies](https://www.rabbitmq.com/parameters.html).
+This policy will match all the queues in the the default virtual host, and will make the messages expire after 60 seconds. Note that the Windows command is a bit [different](/docs/ttl). Of course you can make that policy match only one queue. More details about it here: [Parameters and Policies](/docs/parameters).
 
 What if we want more fine grained control over which messages are getting expired?
 
@@ -112,7 +112,7 @@ The trick consists on setting a `per-queue-TTL` of `0` (zero). If messages can't
 
 ## Dead Lettering
 
-We've been mentioning [dead-lettering](https://www.rabbitmq.com/dlx.html) a couple of times already. What this feature does is that you could set up a *dead letter exchange (DLX)* for one of your queues, and then when a message on that queue expires, or the queue limit has been exceeded, the message will be published to the DLX. It's up to you to bind a separate queue to that exchange and then later process the messages sent there.
+We've been mentioning [dead-lettering](/docs/dlx) a couple of times already. What this feature does is that you could set up a *dead letter exchange (DLX)* for one of your queues, and then when a message on that queue expires, or the queue limit has been exceeded, the message will be published to the DLX. It's up to you to bind a separate queue to that exchange and then later process the messages sent there.
 
 Here's a `queue.declare` example for setting a DLX:
 
@@ -124,7 +124,7 @@ args.put("x-dead-letter-exchange", "some.exchange.name");
 channel.queueDeclare("myqueue", false, false, false, args);
 ```
 
-Dead-lettering messages will keep your queues with the right sizes and expected amount of messages, but this won't prevent you from filling up the node with messages. If these messages are being queued in a different queue on the same node, then at some point this new dead-letter queue could present a problem. What you could do in this case is to use [exchange federation](https://www.rabbitmq.com/federation.html) to send those messages to a separate node, and process them separately from the main flow of your application.
+Dead-lettering messages will keep your queues with the right sizes and expected amount of messages, but this won't prevent you from filling up the node with messages. If these messages are being queued in a different queue on the same node, then at some point this new dead-letter queue could present a problem. What you could do in this case is to use [exchange federation](/docs/federation) to send those messages to a separate node, and process them separately from the main flow of your application.
 
 ## Conclusion
 

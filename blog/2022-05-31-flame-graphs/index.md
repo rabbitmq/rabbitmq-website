@@ -73,10 +73,10 @@ git -C $(pwd)/deps/seshat checkout 68f2b9d4ae7ea730cef613fd5dc4456e462da492
 ```
 
 4. Since we are going to stress test RabbitMQ and we do not want RabbitMQ to artificially slow down our performance tests
-by protecting itself against overload, we increase the memory threshold to not hit [memory alarms](https://www.rabbitmq.com/memory.html),
-and increase credit [flow control](https://www.rabbitmq.com/flow-control.html) settings by a factor of 4 compared to their default settings.
+by protecting itself against overload, we increase the memory threshold to not hit [memory alarms](/docs/memory),
+and increase credit [flow control](/docs/flow-control) settings by a factor of 4 compared to their default settings.
 You can also try out setting `credit_flow_default_credit` to `{0, 0}` which disables credit based flow control altogether.
-Create the following [advanced.config](https://www.rabbitmq.com/configure.html#advanced-config-file) file:
+Create the following [advanced.config](/docs/configure#advanced-config-file) file:
 ```
 [
  {rabbit,[

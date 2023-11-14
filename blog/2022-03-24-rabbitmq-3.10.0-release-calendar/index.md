@@ -27,12 +27,12 @@ you:
 | 3.10.0 announced      | 9 May 2022       | Final release is announced & made public                                      |
 
 The above release calendar is a point-in-time snapshot. For latest updates
-please refer to the [Release Series](https://www.rabbitmq.com/versions.html)
+please refer to the [Release Series](/docs/versions)
 page.
 
 RabbitMQ 3.10.0 introduces some highly requested functionality for quorum queues:
 * [Quorum Queue Message TTL](https://rabbitmq.com/quorum-queues.html#feature-matrix)
-* [Quorum Queue At-Least-Once Dead Lettering](https://www.rabbitmq.com/quorum-queues.html#dead-lettering)
+* [Quorum Queue At-Least-Once Dead Lettering](/docs/quorum-queues#dead-lettering)
 
 Additionally, there are performance improvements to both classic queues and quorum queues.
 

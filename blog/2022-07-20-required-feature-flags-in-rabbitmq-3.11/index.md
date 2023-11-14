@@ -5,7 +5,7 @@ authors: [jpedron]
 ---
 
 RabbitMQ 3.11.0 will make all [feature
-flags](https://www.rabbitmq.com/feature-flags.html) introduced during the life
+flags](/docs/feature-flags) introduced during the life
 of RabbitMQ 3.8.x required.
 
 People who initially created clusters using RabbitMQ 3.8.9 or older should
@@ -36,7 +36,7 @@ RabbitMQ 3.11.0 will therefore be the first release where we mark some feature
 flags as required and remove their corresponding compatibility and migration
 code. The affected feature flags are:
 * `quorum_queue` (support for [quorum
-  queues](https://www.rabbitmq.com/quorum-queues.html))
+  queues](/docs/quorum-queues))
 * `implicit_default_bindings` (default bindings now implicit, instead of being
   stored in the database, to speed up creation of queues and exchanges)
 * `virtual_host_metadata` (ability to add metadata to virtual host metadata;

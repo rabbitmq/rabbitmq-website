@@ -5,10 +5,10 @@ authors: [matthew]
 ---
 
 In
-[RabbitMQ 2.6.0](http://www.rabbitmq.com/news.html#2011-08-31T16:15:42+0100)
+[RabbitMQ 2.6.0](http:/docs/news#2011-08-31T16:15:42+0100)
 we introduced [Highly Available](http://rabbitmq.com/ha.html)
 queues. These necessitated a
-[new extension](http://www.rabbitmq.com/extensions.html#consumer-cancel-notify)
+[new extension](http:/docs/extensions#consumer-cancel-notify)
 to AMQP, and a fair amount of
 [documentation](http://rabbitmq.com/ha.html), but to date, little has
 been written on how they work.

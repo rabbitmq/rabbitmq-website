@@ -11,7 +11,7 @@ series of tutorial videos. Tune in at the end of each month for the latest relea
 Gerhard covered [upgrading from 3.7 to 3.8](https://youtu.be/DynCqFtnSoY).
 Star and watch the [repository](https://youtu.be/DynCqFtnSoY) for future episode updates.
 
-Also, be sure to check out the [dashboards we’ve published to Grafana](https://grafana.com/orgs/rabbitmq). These are a great way to get started with the new [Prometheus and Grafana support in 3.8](https://www.rabbitmq.com/prometheus.html).
+Also, be sure to check out the [dashboards we’ve published to Grafana](https://grafana.com/orgs/rabbitmq). These are a great way to get started with the new [Prometheus and Grafana support in 3.8](/docs/prometheus).
 
 <!-- truncate -->
 

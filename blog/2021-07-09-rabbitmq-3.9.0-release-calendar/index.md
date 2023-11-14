@@ -24,11 +24,11 @@ you:
 | 3.9.0 announced      | 26 July 2021     | Final release is announced & made public                                      |
 
 The above release calendar is a point-in-time snapshot. For latest updates
-please refer to the [Release Series](https://www.rabbitmq.com/versions.html)
+please refer to the [Release Series](/docs/versions)
 page.
 
 We are trying something new for RabbitMQ 3.9.0 release, which introduces a
-highly-anticipated feature: [Streams](https://www.rabbitmq.com/streams.html).
+highly-anticipated feature: [Streams](/docs/streams).
 This new release calendar is meant to communicate what to expect, and when.
 Based on your feedback during the pre-release timeline, we may add additional
 release candidates, and extend the release timeline.

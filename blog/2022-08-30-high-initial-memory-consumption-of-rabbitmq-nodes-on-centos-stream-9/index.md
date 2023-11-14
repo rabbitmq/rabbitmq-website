@@ -20,7 +20,7 @@ This leads to surprisingly high footprint of newly started RabbitMQ nodes withou
 [There are two ways to mitigate](https://github.com/docker-library/rabbitmq/issues/545#issuecomment-1224977154) this problem:
 
  * Lower the file handle limit for user that runs the node (usually named `rabbitmq`)
- * [Set the `ERL_MAX_PORTS` environment variable](https://www.rabbitmq.com/configure.html#customise-environment) to a lower value
+ * [Set the `ERL_MAX_PORTS` environment variable](/docs/configure#customise-environment) to a lower value
 
 What value would be more appropriate for your given environment depends on the workload. Default values in the 50,000 to 100,000 range
 should support plenty of concurrent client connections, queues and streams for many cases without causing

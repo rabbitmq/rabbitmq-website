@@ -4,7 +4,7 @@ tags: ["New Features", ]
 authors: [simon]
 ---
 
-While the [firehose](https://www.rabbitmq.com/firehose.html) is quite a cool feature, I always thought that it was a shame we didn't have a simple GUI to go on top and make it accessible to system administrators. So I wrote one. You can download it [here](https://www.rabbitmq.com/releases/plugins/v2.6.1-tracing-preview/rabbitmq_tracing-2.6.1.ez).
+While the [firehose](/docs/firehose) is quite a cool feature, I always thought that it was a shame we didn't have a simple GUI to go on top and make it accessible to system administrators. So I wrote one. You can download it [here](https://www.rabbitmq.com/releases/plugins/v2.6.1-tracing-preview/rabbitmq_tracing-2.6.1.ez).
 
 <!-- truncate -->
 

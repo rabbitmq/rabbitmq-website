@@ -9,7 +9,7 @@ which focus on optimizations, performance, and stability.
 
 [Release notes page](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0)
 includes information about the specific changes in this version as well as various installation assets.
-See our [upgrade guide](https://www.rabbitmq.com/upgrade.html) for more information about upgrading to 3.10.0.
+See our [upgrade guide](/docs/upgrade) for more information about upgrading to 3.10.0.
 
 Let's have a tour!
 
@@ -100,7 +100,7 @@ It is also the first release to introduce support for Erlang 25 (at RC stage at 
 We would like to thank all contributors to this release.
 
 A couple of last recommendations before you [install](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0)
-or [upgrade](https://www.rabbitmq.com/upgrade.html) to RabbitMQ 3.10:
+or [upgrade](/docs/upgrade) to RabbitMQ 3.10:
 
 * Use Erlang 24 or more for [the best performance](/blog/2021/03/23/erlang-24-support-roadmap)
 * Be aware of the [removal of some deprecated capabilities](/blog/2021/08/21/4.0-deprecation-announcements) in RabbitMQ 4.0

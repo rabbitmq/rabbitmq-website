@@ -4,7 +4,7 @@ tags: ["New Features", "HowTo", ]
 authors: [alvaro]
 ---
 
-With RabbitMQ 3.2.0 we introduced [Consumer Priorities](https://www.rabbitmq.com/consumer-priority.html) which not surprisingly allows us to set priorities for our consumers. This provides us with a bit of control over how RabbitMQ will deliver messages to consumers in order to obtain a different kind of scheduling that might be beneficial for our application.
+With RabbitMQ 3.2.0 we introduced [Consumer Priorities](/docs/consumer-priority) which not surprisingly allows us to set priorities for our consumers. This provides us with a bit of control over how RabbitMQ will deliver messages to consumers in order to obtain a different kind of scheduling that might be beneficial for our application.
 
 When would you want to use Consumer Priorities in your code?
 
@@ -16,11 +16,11 @@ Let's say our cluster of workers doesn't run in exactly the same hardware. Some 
 
 ## Data Locality
 
-Another use for consumer priorities is to benefit from data locality. In RabbitMQ queue contents live in the node where the queue was originally declared, and in case of [mirrored queues](https://www.rabbitmq.com/ha.html) there will be a master node that will coordinate the queue, so while consumers can connect to various nodes in the cluster, and get messages from the mirror, at the end of the day the information about who consumed what messages will travel back to the master. In this case we can use a consumer priority to tell RabbitMQ to first deliver messages to consumers connected to the master node. To do that the consumer that connects to the master node, will set a higher priority for itself when issuing a `basic.consume` command (provided it has a way of knowing it is connected to the master node).
+Another use for consumer priorities is to benefit from data locality. In RabbitMQ queue contents live in the node where the queue was originally declared, and in case of [mirrored queues](/docs/ha) there will be a master node that will coordinate the queue, so while consumers can connect to various nodes in the cluster, and get messages from the mirror, at the end of the day the information about who consumed what messages will travel back to the master. In this case we can use a consumer priority to tell RabbitMQ to first deliver messages to consumers connected to the master node. To do that the consumer that connects to the master node, will set a higher priority for itself when issuing a `basic.consume` command (provided it has a way of knowing it is connected to the master node).
 
 ## Declaring consumer priorities
 
-Below you can find sample code that shows how to declare consumer priorities using the [RabbitMQ Java Client](https://www.rabbitmq.com/java-client.html):
+Below you can find sample code that shows how to declare consumer priorities using the [RabbitMQ Java Client](/docs/java-client):
 
 ```java {linenos=inline,hl_lines=["25-27"],linenostart=1}
 import java.util.*;
@@ -61,4 +61,4 @@ public class Consumer {
 }
 ```
 
-This code implements a very simple consumer based on the example from [tutorial 1](https://www.rabbitmq.com/tutorials/tutorial-one-java.html). The interesting parts are from lines 25 to 27 where first we create a `HashMap` to hold our arguments to `basicConsume`. We create an argument named `x-priority` with value `10` (the higher the value, the higher the priority). When we call `basicConsume` we pass those arguments to RabbitMQ, and that's it! A very powerful feature that is rather simple to use. As usual, it's wise to run performance tests to decide what's the best priority strategy for our consumers.
+This code implements a very simple consumer based on the example from [tutorial 1](/docs/tutorials/tutorial-one-java). The interesting parts are from lines 25 to 27 where first we create a `HashMap` to hold our arguments to `basicConsume`. We create an argument named `x-priority` with value `10` (the higher the value, the higher the priority). When we call `basicConsume` we pass those arguments to RabbitMQ, and that's it! A very powerful feature that is rather simple to use. As usual, it's wise to run performance tests to decide what's the best priority strategy for our consumers.

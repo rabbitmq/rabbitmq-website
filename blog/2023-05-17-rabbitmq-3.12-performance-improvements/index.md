@@ -51,7 +51,7 @@ but there are also many scenarios where version 2 is much better, despite not ha
 
 ### New MQTT implementation: Significant Memory Savings Per Connection, Supports Millions of Connections per Node
 
-The [MQTT plugin](https://www.rabbitmq.com/mqtt.html) has been completely reworked and provides much lower memory usage,
+The [MQTT plugin](/docs/mqtt) has been completely reworked and provides much lower memory usage,
 lower latency and can handle many more connections than before.
 
 We've published [a separate blog post about the MQTT-related improvements](/blog/2023/03/21/native-mqtt).
@@ -102,7 +102,7 @@ The last few tests are less interesting. They were introduced to look for issues
 These tests were conducted using the following environment:
 
 * A GKE cluster with e2-standard-16 nodes
-* RabbitMQ clusters deployed using [our Kubernetes Operator](https://www.rabbitmq.com/kubernetes/operator/operator-overview.html) with the following resources and configuration
+* RabbitMQ clusters deployed using [our Kubernetes Operator](/docs/kubernetes/operator/operator-overview) with the following resources and configuration
 
 ```yaml
 apiVersion: rabbitmq.com/v1beta1
@@ -145,7 +145,7 @@ Some notes on the environment:
 
 Initial version of RabbitMQ was released in 2007. Back then, disk access was very slow compared to any other operation.
 However, as the storage technology evolved over the years, there was less and less need to avoid writing data to disk. In version 3.6.0, back in 2015,
-[lazy queues](https://www.rabbitmq.com/lazy-queues.html) were added as an option. Lazy queues store all messages on disk to save memory, which is particularly important for queues that can become long.
+[lazy queues](/docs/lazy-queues) were added as an option. Lazy queues store all messages on disk to save memory, which is particularly important for queues that can become long.
 These days, writing messages to disk is a pretty cheap operation (unless you perform `fsync` to guarantee high data safety, as quorum queues do).
 By storing messages on disk, we can use much less memory. That means lower costs, fewer memory alarms and fewer headaches caused by sudden memory spikes in your cluster.
 We've therefore made this the only option for classic queues going forward.
@@ -193,7 +193,7 @@ and [streams](https://rabbitmq.com/streams.html) ASAP.
 
 ### Quorum Queues
 
-[Quorum queues](https://www.rabbitmq.com/quorum-queues.html) have offered much better performance and data safety than queue mirroring for several years now,
+[Quorum queues](/docs/quorum-queues) have offered much better performance and data safety than queue mirroring for several years now,
 and they only get better.
 
 The biggest improvement in 3.12 is in how quorum queues handle long backlogs.

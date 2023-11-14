@@ -25,7 +25,7 @@ You have routed X number of messages per second through your RabbitMQ cluster an
 
 *You have to be able to see more than just a throughput number.* 
 
-Since 3.8.0, we have made the rabbitmq_prometheus plugin available. [See how](https://www.rabbitmq.com/prometheus.html) to get Grafana, Prometheus and RabbitMQ to work together and get amazing insight into your RabbitMQ instances.
+Since 3.8.0, we have made the rabbitmq_prometheus plugin available. [See how](/docs/prometheus) to get Grafana, Prometheus and RabbitMQ to work together and get amazing insight into your RabbitMQ instances.
 
 See our [published Grafana dashboards](https://grafana.com/orgs/rabbitmq) for insight into not only the queue counts, connection counts, message rates etc, but also insight into what is going on under the hood from the Erlang perspective. There are also countless system metrics dashboards and agents you can install to see the system metrics such as CPU, RAM, network and disk IO. For example, check out the [node_exporter](https://github.com/prometheus/node_exporter) which gives insights into hardware and OS behaviour.
 
@@ -57,7 +57,7 @@ Below are some things you can expect as you vary different aspects of a benchmar
 
 * One queue has a throughput limit, so creating a few queues can increase total throughput. But creating hundreds of queues will then reduce total throughput. One or two queues per CPU thread tends to give highest throughput. More than that and the context switching will reduce efficiency.
 * Using publisher confirms and consumer acknowledgements has lower throughput than not using them. But when using hundreds of publishers and queues, publisher confirms can actually improve performance as they act as an effective back-pressure mechanism on publishers - avoiding large swings in throughput (learn more about [flow control](/blog/2020/05/04/quorum-queues-and-flow-control-the-concepts)).
-* Sending one message, waiting for the publisher confirm, then sending the next and so on, is very very slow. Using a batch or a pipelining strategy with publisher confirms increases throughput significantly ([https://www.rabbitmq.com/tutorials/tutorial-seven-java.html](https://www.rabbitmq.com/tutorials/tutorial-seven-java.html) or [https://www.rabbitmq.com/tutorials/tutorial-seven-dotnet.html](https://www.rabbitmq.com/tutorials/tutorial-seven-dotnet.html))
+* Sending one message, waiting for the publisher confirm, then sending the next and so on, is very very slow. Using a batch or a pipelining strategy with publisher confirms increases throughput significantly ([/docs/tutorials/tutorial-seven-java.html](/docs/tutorials/tutorial-seven-java) or [/docs/tutorials/tutorial-seven-dotnet.html](/docs/tutorials/tutorial-seven-dotnet))
 * Using no consumer prefetch will increase throughput (but it is not recommended as it can overwhelm a consumer - prefetch is how we exert back pressure on RabbitMQ). A prefetch of 1 will lower throughput significantly. Experiment with prefetch to find the right value for your workload.
 * Sending small messages will increase throughput (though MB/s will be low) and sending large messages will decrease throughput (but MB/s will be high).
 * Having a handful of publishers and consumers will result in the highest throughput. Creating thousands will result in lower total throughput.

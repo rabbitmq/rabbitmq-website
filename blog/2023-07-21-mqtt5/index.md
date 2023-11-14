@@ -50,7 +50,7 @@ At the time of writing the latest version is `3.13.0-beta.2`:
 docker run -it --rm --name rabbitmq -p 1883:1883 -p 15672:15672 -p 15692:15692 rabbitmq:3.13.0-beta.2-management
 ```
 
-In another terminal window, enable the [MQTT plugin](//www.rabbitmq.com/mqtt.html):
+In another terminal window, enable the [MQTT plugin](/docs/mqtt):
 ```bash
 docker exec rabbitmq rabbitmq-plugins enable rabbitmq_mqtt
 ```
@@ -68,7 +68,7 @@ docker exec rabbitmq rabbitmqctl list_feature_flags --formatter=pretty_table
 Below examples use [MQTTX CLI](https://mqttx.app/cli) version 1.9.4.
 We use a CLI rather than a graphical UI so that you can easily run the examples by copy pasting the commands.
 
-All new features also apply to the [RabbitMQ Web MQTT Plugin](//www.rabbitmq.com/web-mqtt.html).
+All new features also apply to the [RabbitMQ Web MQTT Plugin](/docs/web-mqtt).
 
 Here is the list of MQTT 5.0 features covered in this blog post:
 * [Feature 1: Message Expiry](#feature-1-message-expiryhttpsdocsoasis-openorgmqttmqttv50osmqtt-v50-oshtml_toc3901112)
@@ -318,7 +318,7 @@ Packets CONNACK, PUBACK, SUBACK, UNSUBACK, and DISCONNECT contain a reason code.
 
 #### Implementation
 One implementation example is that RabbitMQ will reply with a reason code `No matching subscribers` in the PUBACK packet if the message is not routed to any queues.
-MQTT 5.0 reason code `No matching subscribers` corresponds conceptually to the [mandatory](//www.rabbitmq.com/publishers.html#unroutable) message property and `BasicReturn` handler in AMQP 0.9.1.
+MQTT 5.0 reason code `No matching subscribers` corresponds conceptually to the [mandatory](/docs/publishers#unroutable) message property and `BasicReturn` handler in AMQP 0.9.1.
 
 ### Feature 5: User properties
 
@@ -404,7 +404,7 @@ The requester includes the response topic and some correlation data into the req
 
 Another MQTT client (the responder) receives the request message, takes some action, and publishes a response message with the same correlation data to the response topic.
 
-The MQTT 5.0 Request / Response feature corresponds to [Remote Procedure Calls in AMQP 0.9.1](//www.rabbitmq.com/tutorials/tutorial-six-go.html).
+The MQTT 5.0 Request / Response feature corresponds to [Remote Procedure Calls in AMQP 0.9.1](/docs/tutorials/tutorial-six-go).
 However, in AMQP 0.9.1 the requester will include the name of a callback queue in the AMQP 0.9.1 message property `reply_to`.
 The MQTT protocol does not define the concept of queues. Therefore, in MQTT the "address" being replied to is a topic name.
 
@@ -554,7 +554,7 @@ mqtt.prefetch = 10
 The default value of `mqtt.prefetch` is 10.
 
 The `mqtt.prefetch` value has already existed before RabbitMQ 3.13 for MQTT 3.1 and 3.1.1.
-It maps to [consumer prefetch](//www.rabbitmq.com/consumer-prefetch.html) in RabbitMQ.
+It maps to [consumer prefetch](/docs/consumer-prefetch) in RabbitMQ.
 In other words, it defines how many in-flight messages the queue sends to its MQTT connection process.
 
 ### Feature 11: Maximum Packet Size
@@ -568,7 +568,7 @@ Client and server can independently specify the maximum packet size they support
 This example demonstrates how to limit the maximum MQTT packet size sent from a client to RabbitMQ.
 
 Let's assume that after successful authentication a RabbitMQ operator does not want RabbitMQ to accept any MQTT packets larger than 1 KiB.
-Write the following configuration to [rabbitmq.conf](//www.rabbitmq.com/configure.html#config-file) (in your current working directory):
+Write the following configuration to [rabbitmq.conf](/docs/configure#config-file) (in your current working directory):
 ```ini
 mqtt.max_packet_size_authenticated = 1024
 ```
@@ -624,7 +624,7 @@ Prior to terminating the connection, RabbitMQ will send a DISCONNECT packet to t
 | DISCONNECT Reason Code Name | Situation |
 | --- | --- |
 | Session taken over | Another client connected with the same client ID. |
-| Server shutting down | RabbitMQ enters [maintenance mode](//www.rabbitmq.com/upgrade.html#maintenance-mode). |
+| Server shutting down | RabbitMQ enters [maintenance mode](/docs/upgrade#maintenance-mode). |
 | Keep Alive timeout | The Client fails to communicate within the [Keep Alive](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901045) time. |
 | Packet too large | RabbitMQ receives a packet whose size exceeds `mqtt.max_packet_size_authenticated` |
 
@@ -646,7 +646,7 @@ Client and server keep session state for as long as the session lasts.
 Session state in the server includes messages that have been sent to the client but not yet acknowledged, messages that are pending to be sent to the client, and a client's subscriptions.
 RabbitMQ models this MQTT session state in the form of queues and bindings.
 
-Therefore, Session Expiry Interval maps to [queue TTL](//www.rabbitmq.com/ttl.html#queue-ttl) in RabbitMQ.
+Therefore, Session Expiry Interval maps to [queue TTL](/docs/ttl#queue-ttl) in RabbitMQ.
 When an MQTT session expires, the queue and therefore its messages and bindings will be deleted.
 
 #### Example
@@ -733,12 +733,12 @@ Although the will message payload is usually small, the MQTT specification allow
 
 To avoid storing large binary data in [Khepri](//rabbitmq.github.io/khepri/) (RabbitMQ's future meta data store), RabbitMQ creates a classic queue containing this single will message.
 We call this queue the Will queue.
-This message has a [per-message TTL](//www.rabbitmq.com/ttl.html#per-message-ttl-in-publishers) set which is defined in milliseconds and corresponds to the Will Delay Interval in seconds.
-Additionally, the Will queue has a [queue TTL](//www.rabbitmq.com/ttl.html#queue-ttl) set which is defined in milliseconds and corresponds to the Session Expiry Interval in seconds.
+This message has a [per-message TTL](/docs/ttl#per-message-ttl-in-publishers) set which is defined in milliseconds and corresponds to the Will Delay Interval in seconds.
+Additionally, the Will queue has a [queue TTL](/docs/ttl#queue-ttl) set which is defined in milliseconds and corresponds to the Session Expiry Interval in seconds.
 The effective per-message TTL is at least a few milliseconds lower than the queue TTL such that the message will be published shortly before the queue (session) expires.
 
-The Will queue also defines `amq.topic` (the default topic exchange used by the MQTT plugin) to be the [dead letter exchange](//www.rabbitmq.com/dlx.html) and the [will topic](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901069)
-to be the [dead letter routing key](https://www.rabbitmq.com/dlx.html#routing).
+The Will queue also defines `amq.topic` (the default topic exchange used by the MQTT plugin) to be the [dead letter exchange](/docs/dlx) and the [will topic](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901069)
+to be the [dead letter routing key](/docs/dlx#routing).
 
 If the MQTT client does not reconnect within its Will Delay Interval, the message in the Will queue will be dead lettered to the topic exchange.
 
@@ -833,7 +833,7 @@ This limitation can be resolved in the future with a new store for retained mess
 For completeness, this section lists limitations that have existed before supporting MQTT 5.0 in RabbitMQ 3.13 and before Native MQTT shipped in RabbitMQ 3.12.
 
 #### Retained messages
-The feature of retained messages is [limited](//www.rabbitmq.com/mqtt.html#retained) in RabbitMQ.
+The feature of retained messages is [limited](/docs/mqtt#retained) in RabbitMQ.
 
 Retained messages are stored and queried only node local.
 
@@ -850,7 +850,7 @@ A future RabbitMQ release will replicate retained messages in the cluster and al
 
 To sum up, RabbitMQ
 * is the leading AMQP 0.9.1 broker
-* is a [streaming](//www.rabbitmq.com/streams.html) broker
+* is a [streaming](/docs/streams) broker
 * excels in cross-protocol interoperability
 * is becoming one of the leading MQTT brokers thanks to support for MQTT 5.0 released in 3.13 and [Native MQTT](/blog/2023/03/21/native-mqtt) released in 3.12
 
