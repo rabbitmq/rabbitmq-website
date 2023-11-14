@@ -95,7 +95,7 @@ The basic rules are as follows:
 
 ![](pubacks.svg)
 
-Note that for a persistent message to be confirmed, it must be written to disk or ack'd **on all the queues** it was delivered to.  With regard to confirms, persistent messages delivered to non-durable queues behave like transient messages.  Queue deletion, queue purge and [basic.reject](/posts/2010/08/well-ill-let-you-go-basicreject-in-rabbitmq){requeue=false} simulate a consumer acknowledgement.  With respect to [per-queue ttl](https://www.rabbitmq.com/extensions.html#queue-ttl), message expiry simulates a consumer acknowledgement.
+Note that for a persistent message to be confirmed, it must be written to disk or ack'd **on all the queues** it was delivered to.  With regard to confirms, persistent messages delivered to non-durable queues behave like transient messages.  Queue deletion, queue purge and [basic.reject](/posts/2010/08/well-ill-let-you-go-basicreject-in-rabbitmq)&lcub;requeue=false} simulate a consumer acknowledgement.  With respect to [per-queue ttl](https://www.rabbitmq.com/extensions.html#queue-ttl), message expiry simulates a consumer acknowledgement.
 
 If more than one of these conditions are met, only the first causes a confirm to be sent.  Every published message will be confirmed sooner or later and no message will be confirmed more than once.   Since the *basic.return* is sent before the *basic.ack*, once a publisher receives a *basic.ack*, it knows that it will never hear of that message again.
 

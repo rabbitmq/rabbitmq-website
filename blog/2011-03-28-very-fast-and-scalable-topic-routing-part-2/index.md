@@ -56,7 +56,7 @@ Here is a graph of the tests, when varying the number of messages (2000 patterns
 
 That was quite unexpected. We should have seen the DFA grow in a logarithmic manner at some point. What's wrong? Maybe we need a faster graph. It is known that the dict implementation in Erlang is not very quick. Our graph implementation was based on Erlang's dict. We needed a way to optimize that.
 
-We came up with the idea of generating source code for the dictionaries, on the fly. For example, if you have a dictionary with the entries [{k1, v1}, {k2, v2}, {k3, v3}] we would generate a function
+We came up with the idea of generating source code for the dictionaries, on the fly. For example, if you have a dictionary with the entries `[{k1, v1}, {k2, v2}, {k3, v3}]` we would generate a function
 
 ```
 mydict(k1) -> {ok, v1};
