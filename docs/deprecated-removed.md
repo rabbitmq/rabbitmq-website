@@ -57,6 +57,7 @@ Quorum Queues provide greater data safety compared to classic mirrored queues, w
 ### Actions to Take
 
 1. ....
+2. ....
 
 
 
