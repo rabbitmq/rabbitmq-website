@@ -46,7 +46,13 @@ Layout: Option 2:
 
 ## <a id="deprecate-classiqueuemirror" class="anchor" href="#deprecate-deprecated-classiqueuemirror">Classic Queue Mirroring</a>
 
-Quorum Queues provide greater data safety compared to classic mirrored queues, which is why mirroring (queue contents replication) of classic queues is deprecated in the 3.12 release. It's removal is planned for the major 4.0 release.
+### Description
+
+Quorum Queues provide greater data safety compared to classic mirrored queues, which is why mirroring (queue contents replication) of classic queues is deprecated.
+
+### What Release is it Deprecated 
+
+3.12
 
 ### Actions to Take
 
