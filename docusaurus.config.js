@@ -74,6 +74,7 @@ const config = {
           src: 'img/logo-rabbitmq.svg',
         },
         items: [
+          {to: '/docs/download', label: 'Download', position: 'left'},
           {
             type: 'docSidebar',
             sidebarId: 'docsSidebar',
@@ -81,6 +82,7 @@ const config = {
             label: 'Docs',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
+          {to: 'https://tanzu.vmware.com/rabbitmq', label: 'Commercial Support', position: 'left'},
           /* TODO: Configure Algolia once documentation and blog are
            * configured.
           {
