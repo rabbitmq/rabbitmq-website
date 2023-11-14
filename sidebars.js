@@ -21,7 +21,7 @@ const sidebars = {
     {
       type: 'doc',
       id: 'documentation',
-      label: 'Welcome to RabbitMQ Documentation',
+      label: 'Documentation',
     },
     {
       type: 'link',
@@ -45,12 +45,12 @@ const sidebars = {
     },
     {
       type: 'link',
-      label: 'Getting Started Tutorials',
+      label: 'Getting Started',
       href: 'https://www.rabbitmq.com/documentation.html',
     }, 
     {
       type: 'link',
-      label: 'How to Install RabbitMQ',
+      label: 'Installing',
       href: 'https://www.rabbitmq.com/documentation.html',
     },  
     {

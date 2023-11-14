@@ -18,11 +18,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Deprecated and Removed Feature   
+# Deprecated Features
 
-## <a id="deprecated-fewversions" class="anchor" href="#deprecated-fewversions">Deprecated Features</a>
+If a feature is deprecated, it means its capability will be removed in a future RabbitMQ release. It is recommended to discontinue using this feature, you should take actions now to use an alternative instead. 
 
-If a feature is listed as deprecated, it means its capability will be removed in a future RabbitMQ release. It is recommended to discontinue using this feature, you should take actions now to use an alternative instead. 
+Layout: Option 1: 
+
+## <a id="deprecate-classiqueuemirror" class="anchor" href="#deprecate-deprecated-classiqueuemirror">Classic Queue Mirroring</a>
 
 <table class="Deprecated Features ">
   <tr>
@@ -39,6 +41,18 @@ If a feature is listed as deprecated, it means its capability will be removed in
     <td>Quorum queues and/or streams should be used instead of mirrored classic queues.</td>
   </tr>
 </table>
+
+Layout: Option 2:
+
+## <a id="deprecate-classiqueuemirror" class="anchor" href="#deprecate-deprecated-classiqueuemirror">Classic Queue Mirroring</a>
+
+Quorum Queues provide greater data safety compared to classic mirrored queues, which is why mirroring (queue contents replication) of classic queues is deprecated in the 3.12 release. It's removal is planned for the major 4.0 release.
+
+### Actions to Take
+
+1. ....
+
+
 
 ## <a id="removed-fewversions" class="anchor" href="#removed-fewversuibs">Removed Features</a>
 
