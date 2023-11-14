@@ -80,8 +80,7 @@ const config = {
             position: 'left',
             label: 'Docs',
           },
-          /* TODO: Add blog.
-          {to: '/blog', label: 'Blog', position: 'left'}, */
+          {to: '/blog', label: 'Blog', position: 'left'},
           /* TODO: Configure Algolia once documentation and blog are
            * configured.
           {

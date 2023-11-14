@@ -1,17 +1,32 @@
-endi:
-  name: Endilie Yacop Sucipto
-  title: Maintainer of Docusaurus
-  url: https://github.com/endiliey
-  image_url: https://github.com/endiliey.png
-
-yangshun:
-  name: Yangshun Tay
-  title: Front End Engineer @ Facebook
-  url: https://github.com/yangshun
-  image_url: https://github.com/yangshun.png
-
-slorber:
-  name: Sébastien Lorber
-  title: Docusaurus maintainer
-  url: https://sebastienlorber.com
-  image_url: https://github.com/slorber.png
+acogoluegnes : { "name": "Arnaud Cogoluègnes" }
+admin: { "name": "Admin Admin" }
+alebedeff: { "name": "Alexey Lebedeff" }
+alexandru: { "name": "Alexandru Scvortov" }
+alexis: { "name": "Alexis Richardson" }
+alvaro: { "name": "Alvaro Videla" }
+botanicus: { "name": "Jakub Stastny" }
+dansari: { "name": "David Ansari" }
+david: { "name": "David Wragg" }
+dcorbacho: { "name": "Diana Parra Corbacho" }
+ddrewitz: { "name": "Dormain Drewitz" }
+dfedotov: { "name": "Daniil Fedotov" }
+ebyford: { "name": "Ed Byford" }
+emile: { "name": "Emile Joubert" }
+glazu: { "name": "Gerhard Lazu" }
+jdetreville: { "name": "John DeTreville" }
+jerry: { "name": "Jerry Kuch" }
+jpedron: { "name": "Jean-Sébastien Pédron" }
+jvanlightly: { "name": "Jack Vanlightly" }
+kura: { "name": "Michał Kuratczyk" }
+marek: { "name": "Marek Majkowski" }
+matthew: { "name": "Matthew Sackman" }
+mgary: { "name": "Mirah Gary" }
+mikeb: { "name": "Michael Bridgen" }
+mklishin: { "name": "Michael Klishin" }
+mrosales: { "name": "Marcial Rosales" }
+nkarl: { "name": "Karl Nilsson" }
+simon: { "name": "Simon MacMullen" }
+sustrik: { "name": "Martin Sustrik" }
+vlad: { "name": "Vlad Alexandru Ionescu" }
+yparasol: { "name": "Yaron Parasol" }
+Zteve: { "name": "Steve Powell" }
