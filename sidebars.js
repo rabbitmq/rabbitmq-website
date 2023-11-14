@@ -40,12 +40,12 @@ const sidebars = {
         {
           type: 'doc',
           id: 'newin-4-0-0',
-          label: 'New in 4.0.0',
+          label: 'In 4.0.0',
         },
         {
           type: 'doc',
           id: 'newin-3-13-0',
-          label: 'New in 3.13.0',
+          label: 'In 3.13.0',
         },        
       ],
     },
