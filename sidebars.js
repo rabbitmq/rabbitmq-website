@@ -24,6 +24,32 @@ const sidebars = {
       label: 'Introduction',
     },
     {
+      type: 'doc',
+      id: 'release-info',
+      label: 'Release Information',
+    },
+    {
+      type: 'doc',
+      label: 'How Can I Get RabbitMQ',
+      id: 'download',
+    },
+
+    {
+      type: 'doc',
+      id: 'deprecated-removed',
+      label: 'Deprecated and Removed Features',
+    },
+    {
+      type: 'doc',
+      label: 'Getting Started',
+      id: 'tutorials/tutorial-1',
+    },
+    {
+      type: 'doc',
+      label: 'Installing',
+      id: 'install-generic-unix',
+    },
+    {
       type: 'category',
       label: 'Server Documentation',
       items: [
