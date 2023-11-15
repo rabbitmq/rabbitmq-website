@@ -52,14 +52,14 @@ Quorum Queues provide greater data safety compared to classic mirrored queues, w
 
 <table class="Dates and Releases for Deprecation/Expected Removal ">
   <tr>
-    <th>Can be Used by Default</th>
-    <th>Cannot be Used by Default</th>
-    <th>Removed</th>
+    <th>Can Use it by Default Until</th>
+    <th>Cannot Use it by Default In</th>
+    <th>Removed In</th>
   </tr>
 
   <tr>
-    <td>2024-01-01</td>
-    <td>3.12.x</td>
+    <td>2023-12-31, Releases 3.11.15 -> 3.12.8</td>
+    <td>2024-01-14, Releases 3.13 onwards</td>
     <td>Q1 2024</td>
   </tr>
 </table>
