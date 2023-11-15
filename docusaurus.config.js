@@ -34,6 +34,13 @@ const config = {
     locales: ['en'],
   },
 
+  customFields: {
+    versionPerBranch: {
+      'Next': '3.13.0-rc.2',
+      //'3.13.x': '3.13.0-rc.2'
+    },
+  },
+
   presets: [
     [
       'classic',

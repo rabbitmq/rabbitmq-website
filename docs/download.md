@@ -1,3 +1,6 @@
+---
+title: Downloading and Installing RabbitMQ
+---
 <!--
 Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
@@ -15,9 +18,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import {
+  RabbitMQServerVersion,
+  RabbitMQServerPackageURL,
+} from '@site/src/components/RabbitMQServer';
+
 # Downloading and Installing RabbitMQ
 
-The latest [release](https://github.com/rabbitmq/rabbitmq-server/releases) of RabbitMQ is **&version-server;**. See [change log](./changelog) for release notes.
+The latest [release](https://github.com/rabbitmq/rabbitmq-server/releases) of RabbitMQ is <strong><RabbitMQServerVersion/></strong>. See [change log](./changelog) for release notes.
 See [RabbitMQ support timeline](./versions) to find out what release series are supported.
 
 Experimenting with RabbitMQ on your workstation? Try the [community Docker image](https://registry.hub.docker.com/_/rabbitmq/):
@@ -87,13 +95,11 @@ Other guides related to Kubernetes:
 
 ## Downloads [on GitHub](https://github.com/rabbitmq/rabbitmq-server/releases)
 
- * [Windows installer](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;.exe)
- * [Debian, Ubuntu](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server_&version-server;-1_all.deb)
- * [RHEL, CentOS Stream 9.x, CentOS 8.x](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;-1.el8.noarch.rpm) |
-    [OpenSUSE](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;-1.suse.noarch.rpm) |
-    zero dependency [Erlang RPM](https://github.com/rabbitmq/erlang-rpm)
- * [Generic UNIX binary](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.xz)
- * [Windows binary](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-windows-&version-server;.zip)
+ * <a href={RabbitMQServerPackageURL({packageType: 'windows-installer'})}>Windows Installer</a>
+ * <a href={RabbitMQServerPackageURL({packageType: 'debian'})}>Debian, Ubuntu</a>
+ * <a href={RabbitMQServerPackageURL({packageType: 'rpm-el8'})}>RHEL, CentOS Stream 9.x, CentOS 8.x</a> | <a href={RabbitMQServerPackageURL({packageType: 'rpm-suse'})}>OpenSUSE</a> | zero dependency [Erlang RPM](https://github.com/rabbitmq/erlang-rpm)
+ * <a href={RabbitMQServerPackageURL({packageType: 'generic-unix'})}>Generic UNIX binary</a>
+ * <a href={RabbitMQServerPackageURL({packageType: 'windows-zip'})}>Windows binary</a>
 
 
 ## Debian (Apt) and RPM (Yum) Repositories

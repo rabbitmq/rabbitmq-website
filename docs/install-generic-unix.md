@@ -1,3 +1,6 @@
+---
+title: Generic Binary Build
+---
 <!--
 Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
@@ -15,9 +18,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import {
+  RabbitMQServerPackageURL,
+  RabbitMQServerPackageFilename,
+  RabbitMQServerPackageGenUnixDir,
+} from '@site/src/components/RabbitMQServer';
+
 # Generic Binary Build ("Generic UNIX Build")
 
-## <a id="overview" class="anchor" href="#overview">Overview</a>
+## Overview {#overview}
 
 RabbitMQ releases include a binary package for Linux, MacOS, and *BSD systems.
 It is minimalistic and not opinionated in how it is installed, configured and managed.
@@ -32,7 +41,7 @@ Unlike with the cases of [Debian](./install-debian), [RPM](./install-rpm) and [W
 [node management](#managing-node) with this package type is performed solely using
 [RabbitMQ CLI tools](./cli) or by the operator setting up e.g. a `systemd` service manually.
 
-## <a id="downloads" class="anchor" href="#downloads">Downloads</a>
+## Downloads {#downloads}
 
 <table>
   <thead>
@@ -46,35 +55,35 @@ Unlike with the cases of [Debian](./install-debian), [RPM](./install-rpm) and [W
       Generic UNIX binary build (tar.xz, from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>, recommended)
     </td>
     <td>
-      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-generic-unix-&version-server;.tar.xz">rabbitmq-server-generic-unix-&version-server;.tar.xz</a>
+      <a href={RabbitMQServerPackageURL({packageType: 'generic-unix'})}>{RabbitMQServerPackageFilename({packageType: 'generic-unix', asCode: false})}</a>
     </td>
     <td>
-      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-generic-unix-&version-server;.tar.xz.asc">Signature</a>
+      <a href={RabbitMQServerPackageURL({packageType: 'generic-unix'}) + '.asc'}>Signature</a>
     </td>
   </tr>
 </table>
 
 
-## <a id="installation" class="anchor" href="#installation">Installation</a>
+## Installation {#installation}
 
-### <a id="install-erlang" class="anchor" href="#install-erlang">Make Sure Erlang/OTP is Installed</a>
+### Make Sure Erlang/OTP is Installed {#install-erlang}
 
 This package requires a [supported version of Erlang](./which-erlang) to be installed
 in order to run.
 
-### <a id="install" class="anchor" href="#install">Install the Server</a>
+### Install the Server {#install}
 
-[Download](#downloads) a `rabbitmq-server-generic-unix-&version-server;.tar.xz` archive and extract it.
+[Download](#downloads) a <code><RabbitMQServerPackageFilename packageType='generic-unix'/></code> archive and extract it.
 
-Contained in the tarball is a directory named `rabbitmq_server-&version-server;`. This directory is the node base directory. It should be
+Contained in the tarball is a directory named <code><RabbitMQServerPackageGenUnixDir/></code>. This directory is the node base directory. It should be
 moved to a suitable application directory on the system, such as `/usr/local`.
 The `sbin` directory in that directory contains server and [CLI tool](./cli) scripts.
 It is a good candidate for including into `PATH`.
 
 
-## <a id="operations" class="anchor" href="#operations">Operations</a>
+## Operations {#operations}
 
-### <a id="managing-node" class="anchor" href="#managing-node">Running and Managing the Node</a>
+### Running and Managing the Node {#managing-node}
 
 Unlike some other installation methods, namely the [Debian](./install-debian) and [RPM packages](./install-rpm), RabbitMQ
 generic UNIX binary build does not require `sudo`. It can be uncompressed
@@ -110,11 +119,11 @@ Neither of these files exist after installation, so they must be created first.
 
 See RabbitMQ [configuration guide](./configure) to learn more.
 
-### <a id="file-locations" class="anchor" href="#file-locations">File Locations</a>
+### File Locations {#file-locations}
 
 The generic binary build is designed to run without granted
 permissions to directories outside of its base one. The [directories and files](./relocate) used by default are
-all held under the installation directory `rabbitmq_server-&version-server;`
+all held under the installation directory <code><RabbitMQServerPackageGenUnixDir/></code>
 which is in the <span class="envvar">$RABBITMQ_HOME</span>
 variable in the scripts.
 
@@ -148,14 +157,14 @@ to be writable by [rabbitmq-plugins](./cli).
 The configuration files will be looked for in `/etc/rabbitmq/`.
 
 
-## <a id="ports" class="anchor" href="#ports">Port Access</a>
+## Port Access {#ports}
 
 RabbitMQ nodes bind to ports (open server TCP sockets) in order to accept client
 and CLI tool connections. Other processes and tools such as SELinux may prevent
 RabbitMQ from binding to a port. When that happens, the node will fail to start.
 Refer to the [Networking Guide](./networking#ports) for more details.
 
-## <a id="default-user-access" class="anchor" href="#default-user-access">Default User Access</a>
+## Default User Access {#default-user-access}
 
 The broker creates a user `guest` with password
 `guest`. Unconfigured clients will in general use these
@@ -166,7 +175,7 @@ will need to take action before connecting from any other machine.
 See the documentation on [access control](./access-control) for information on how to create more users and delete
 the `guest` user.
 
-## <a id="managing" class="anchor" href="#managing">Managing the Node</a>
+## Managing the Node {#managing}
 
 To stop the server or check its status, etc., you can invoke
 `sbin/rabbitmqctl` (as the user running
@@ -179,7 +188,7 @@ commands will report the node absence if no broker is running.
 See [CLI tools guide](./cli) to learn more.
 
 
-## <a id="kernel-resource-limits" class="anchor" href="#kernel-resource-limits">Controlling System Limits on Linux</a>
+## Controlling System Limits on Linux {#kernel-resource-limits}
 
 RabbitMQ installations running production workloads may need system
 limits and kernel parameters tuning in order to handle a decent number of
@@ -197,7 +206,7 @@ The former must be higher than the latter.
 For more information about controlling the system-wide limit,
 please refer to the excellent [Riak guide on open file limit tuning](https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/performance/open-files-limit.md).
 
-### <a id="verifying-limits" class="anchor" href="#verifying-limits">Verifying the Limit</a>
+### Verifying the Limit {#verifying-limits}
 
 [RabbitMQ management UI](./management) displays the number of file descriptors available for it to use on the Overview tab.
 
@@ -214,7 +223,7 @@ ulimit -a
 can be used to display effective limits for the current user. There may be more convenient
 OS-specific ways of doing that for a running process, such as the `/proc` filesystem on Linux.
 
-### <a id="chef-puppet-bosh" class="anchor" href="#chef-puppet-bosh">Configuration Management Tools</a>
+### Configuration Management Tools {#chef-puppet-bosh}
 
 Configuration management tools (e.g. Chef, Puppet, BOSH) provide assistance
 with system limit tuning. Our [developer tools](./devtools#devops-tools) guide
