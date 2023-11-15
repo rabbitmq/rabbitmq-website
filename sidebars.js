@@ -24,20 +24,16 @@ const sidebars = {
       label: 'Documentation',
     },
     {
+      type: 'doc',
+      id: 'release-info',
+      label: 'Release Information',
+    },
+    {
       type: 'link',
       label: 'How Can I Get RabbitMQ',
       href: 'https://www.rabbitmq.com/documentation.html',
     },
-    {
-      type: 'doc',
-      id: 'support-for-oss-rabbitmq',
-      label: 'Support Available for RabbitMQ',
-    },
-    {
-      type: 'doc',
-      id: 'whats-new',
-      label: 'What is New in RabbitMQ Releases',
-    },
+    
     {
       type: 'doc',
       id: 'deprecated-removed',
