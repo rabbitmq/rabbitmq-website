@@ -124,7 +124,7 @@ const config = {
             items: [
               {
                 label: 'Discord',
-                href: 'https://rabbitmq.com/discord/',
+                href: 'https://www.rabbitmq.com/discord/',
               },
               {
                 label: 'Twitter',
