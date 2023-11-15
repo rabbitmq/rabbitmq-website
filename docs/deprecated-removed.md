@@ -20,7 +20,7 @@ limitations under the License.
 
 # Deprecated and Removed Features
 
-If a feature is deprecated, it means its capability will be removed in a future RabbitMQ release. It is recommended to discontinue using this feature, you should complete the next steps now to use a replacement if one exists. 
+If a feature is deprecated, it means its capability will be removed in a future RabbitMQ release. It is recommended to discontinue using this feature. Review the following list of deprecated features, check which ones you are using,for those features you are using, complete the required next steps to use a replacement if one exists or other required actions. 
 
 A removed feature is one that was previously available but is now removed.
 
