@@ -50,9 +50,19 @@ Layout: Option 2:
 
 Quorum Queues provide greater data safety compared to classic mirrored queues, which is why mirroring (queue contents replication) of classic queues is deprecated.
 
-### What Release is it Deprecated 
+<table class="Dates and Releases for Deprecation/Expected Removal ">
+  <tr>
+    <th>Can be Used by Default</th>
+    <th>Cannot be Used by Default</th>
+    <th>Removed</th>
+  </tr>
 
-3.12
+  <tr>
+    <td>2024-01-01</td>
+    <td>3.12.x</td>
+    <td>Q1 2024</td>
+  </tr>
+</table>
 
 ### Actions to Take
 
