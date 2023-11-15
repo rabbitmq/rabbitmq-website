@@ -29,9 +29,9 @@ const sidebars = {
       label: 'Release Information',
     },
     {
-      type: 'link',
+      type: 'doc',
       label: 'How Can I Get RabbitMQ',
-      href: 'https://www.rabbitmq.com/documentation.html',
+      id: 'download',
     },
     
     {
@@ -45,9 +45,9 @@ const sidebars = {
       id: 'tutorials/tutorial-1',
     }, 
     {
-      type: 'link',
+      type: 'doc',
       label: 'Installing',
-      href: 'https://www.rabbitmq.com/documentation.html',
+      id: 'install-generic-unix',
     },  
     {
       type: 'category',
