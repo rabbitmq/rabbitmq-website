@@ -28,9 +28,9 @@ A removed feature is one that was previously available but is now removed.
 
 ### Description
 
-Quorum Queues provide greater data safety compared to classic mirrored queues, which is why mirroring (queue contents replication) of classic queues is deprecated and will be removed in a future release. Refer to table below for dates and 
+Quorum Queues provide greater data safety compared to classic mirrored queues, which is why mirroring (queue contents replication) of classic queues is deprecated and will be removed in a future release. 
 
-<table class="Dates and Releases for Deprecation/Expected Removal ">
+<table class="deprecated-removed" title="Classic Queue Mirroring Deprecation and Removal Dates and Releases">
   <tr>
     <th>Can Use it by Default Until</th>
     <th>Cannot Use it by Default In</th>
