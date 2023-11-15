@@ -20,7 +20,7 @@ limitations under the License.
 
 # Release History
 
-RabbitMQ maintains release branches for the most recent three minor releases.........
+RabbitMQ maintains release branches for the three most recent minor releases.........
 
 Versioning works like this: a.b.c where a is the major version, b is the minor version, and c is the patch version.
 
