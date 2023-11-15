@@ -36,8 +36,8 @@ const config = {
 
   customFields: {
     versionPerBranch: {
-      'Next': '3.13.0-rc.2',
-      //'3.13.x': '3.13.0-rc.2'
+      'Next': '4.0.0-alpha.1',
+      '3.13': '3.13.0-rc.2'
     },
   },
 
@@ -90,14 +90,15 @@ const config = {
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {to: 'https://tanzu.vmware.com/rabbitmq', label: 'Commercial Support', position: 'left'},
-          /* TODO: Configure Algolia once documentation and blog are
-           * configured.
           {
             type: 'docsVersionDropdown',
             position: 'right',
-            dropdownItemsAfter: [{to: '/versions', label: 'All versions'}],
-            dropdownActiveClassDisabled: true,
-          },*/
+            dropdownItemsAfter: [
+              {to: 'https://www.rabbitmq.com', label: '3.12 (archived)'},
+              //{to: '/versions', label: 'All versions'},
+            ],
+            dropdownActiveClassDisabled: false,
+          },
           {
             href: 'https://github.com/rabbitmq/rabbitmq-website',
             label: 'GitHub',
