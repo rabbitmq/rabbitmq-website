@@ -48,6 +48,9 @@ Quorum Queues provide greater data safety compared to classic mirrored queues, w
 
 ### Next Steps
 
-1. ....
+1. Check if you are using classic queue mirroring, by completing the following steps:
+ * ...
+ *
+ 
 2. ....
 
