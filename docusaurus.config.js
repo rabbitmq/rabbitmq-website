@@ -89,7 +89,7 @@ const config = {
             label: 'Docs',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
-          {to: 'https://tanzu.vmware.com/rabbitmq', label: 'Commercial Support', position: 'left'},
+          {to: '/commercial-support', label: 'Commercial Support', position: 'left'},
           {
             type: 'docsVersionDropdown',
             position: 'right',
