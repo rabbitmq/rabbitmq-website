@@ -58,8 +58,8 @@ Quorum Queues provide greater data safety compared to classic mirrored queues, w
   </tr>
 
   <tr>
-    <td>2023-12-31, Releases 3.11.15 -> 3.12.8</td>
-    <td>2024-01-14, Releases 3.13 onwards</td>
+    <td>2023-12-31 in Releases 3.11.15 -> 3.12.8</td>
+    <td>2024-01-14 in Releases 3.13 onwards</td>
     <td>Q1 2024</td>
   </tr>
 </table>
