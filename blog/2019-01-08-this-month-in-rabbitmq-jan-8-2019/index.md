@@ -25,7 +25,6 @@ and great insights shared across the community. Read on!
 ## Community Writings and Resources
 
 * All the [videos from the RabbitMQ Summit](https://www.youtube.com/channel/UCp20sSF_JZv5aqpxICo-ZpQ/videos) are posted!
-* New [Best Practices page](/docs/best-practices) on rabbitmq.com
 * [Lovisa Johansson](https://twitter.com/lillajja) published an [Introduction to Message Queuing and RabbitMQ on Manifold](https://blog.manifold.co/introduction-to-message-queuing-and-rabbitmq-6cb8e6e9b2)
 * Adrian Huna of Showmax published [Building a scalable, highly reliable, asynchronous user service](https://tech.showmax.com/2018/12/building-scalable-highly-reliable-asynchronous-user-service/), explaining how they leverage RabbitMQ to orchestrate the delivery of the GDPR data access report and data erasure in a microservices architecture.
 * [Lovisa Johansson](https://twitter.com/lillajja) shared some data about how [43% of all clusters at CloudAMQP are now running RabbitMQ 3.7](https://www.cloudamqp.com/blog/2018-12-03-rabbitmq-version-distribution-on-cloudamqp.html)

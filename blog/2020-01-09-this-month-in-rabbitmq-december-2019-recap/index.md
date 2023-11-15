@@ -21,8 +21,8 @@ If you are interested in having your use case for RabbitMQ profiled on rabbitmq.
 
 ## Project updates
 
-* [RabbitMQ 3.8.2](/docs/news#2019-12-02T12:00:00+00:00) has been released
-* and so has [3.7.23](/docs/news#2019-12-05T12:00:00+00:00)
+* RabbitMQ 3.8.2 has been released
+* and so has 3.7.23
 * There is a [new support policy for RabbitMQ Java libraries](https://groups.google.com/d/msg/rabbitmq-users/F9f0ymQLSYE/59nBVlWPBQAJ). Please read it if you use them!
 * [Reactor RabbitMQ 1.4.1](https://groups.google.com/d/msg/rabbitmq-users/W4OqI-cTP8Y/fiIQJ7FgBAAJ) is released with a new feature.
 * [PerfTest 2.10.0](https://groups.google.com/d/msg/rabbitmq-users/jHaEvZr_Oxg/YXasq2dWBQAJ) is released with usability improvements and dependency upgrades.

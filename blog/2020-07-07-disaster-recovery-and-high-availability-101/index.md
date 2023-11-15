@@ -215,7 +215,7 @@ In order to achieve high availability, clients also need to be able to reconnect
 
 #### Rack Awareness
 
-While RabbitMQ does not currently have rack awareness, you can achieve the same results via manually specifying the nodes that a replicated queue should be spread across. With mirrored queues you can specify the [list of nodes](/docs/ha#mirroring-arguments) it should be spread across. With quorum queues you must currently create the queue with an initial group size of 1 and then [add members](/docs/rabbitmq-queues.8#Replication) on the nodes to achieve the desired spread.
+While RabbitMQ does not currently have rack awareness, you can achieve the same results via manually specifying the nodes that a replicated queue should be spread across. With mirrored queues you can specify the [list of nodes](/docs/ha#mirroring-arguments) it should be spread across. With quorum queues you must currently create the queue with an initial group size of 1 and then [add members](/docs/man/rabbitmq-queues.8#Replication) on the nodes to achieve the desired spread.
 
 ### Capacity Planning
 

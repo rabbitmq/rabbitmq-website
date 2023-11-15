@@ -48,7 +48,7 @@ and then edit your `rabbitmq.config` file so that the `rabbitmq_federation` sect
 * You don't need to list all the nodes on the command line; if you give more than one node then they will be taken as a list of nodes to try to cluster with
 * Whether the new node is a disc or RAM node is determined by the --disc and --ram flags. The default is to be a disc node.
 
-For more details, see [the documentation](/docs/man/rabbitmqctl.1.man#join_cluster).
+For more details, see [the documentation](/docs/man/rabbitmqctl.8#join_cluster).
 
 ## Removal of "immediate" flag
 

@@ -22,7 +22,7 @@ A brief explanation of the messaging patterns:
 
 Having duly dispensed with ado, here is **[rabbit.js](http://github.com/squaremo/rabbit.js)**.
 
-All it needs is a bare-bones [RabbitMQ](/docs/install) and node.js installed; and, the node-amqp and Socket.IO libraries.  Instructions and the locations of these things are in the [README](http://github.com/squaremo/rabbit.js/blob/master/README.md). (Do note that you need [my fork of node-amqp](http://github.com/squaremo/node-amqp).)
+All it needs is a bare-bones [RabbitMQ](/docs/install-generic-unix) and node.js installed; and, the node-amqp and Socket.IO libraries.  Instructions and the locations of these things are in the [README](http://github.com/squaremo/rabbit.js/blob/master/README.md). (Do note that you need [my fork of node-amqp](http://github.com/squaremo/node-amqp).)
 
 It also includes a tiny message socket server; that is, a node.js server that accepts socket connections and speaks in length-prefixed messages. Since it's all going through RabbitMQ, you can talk to the browsers hooked up with Socket.IO via a socket.  You can also use the in-process pipe server from code running in node.js itself.
 

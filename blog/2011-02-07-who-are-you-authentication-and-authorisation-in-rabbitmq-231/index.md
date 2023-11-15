@@ -20,7 +20,7 @@ The SASL EXTERNAL mechanism basically says "somehow determine the user's identit
 
 But does that username exist? And what permissions are recorded against it? This is where we face up to questions number 2 (aka authentication) and 3 (aka authorisation).
 
-Again, since the beginning, RabbitMQ has contained an internal database of users and permissions, managed though [rabbitmqctl](/docs/man/rabbitmqctl.1.man), and more recently the [management plugin](/docs/management). And again, RabbitMQ 2.3.1 adds a plugin system that allows you to augment or replace this database.
+Again, since the beginning, RabbitMQ has contained an internal database of users and permissions, managed though [rabbitmqctl](/docs/man/rabbitmqctl.8), and more recently the [management plugin](/docs/management). And again, RabbitMQ 2.3.1 adds a plugin system that allows you to augment or replace this database.
 
 And again, we've written a plugin to do something interesting. [rabbitmq-auth-backend-ldap](/docs/plugins#rabbitmq-auth-backend-ldap) lets you authenticate your users and check authorisation against an [LDAP](http://en.wikipedia.org/wiki/LDAP) database. This can entirely replace the built in database, or just augment it. [Configuring this plugin for authentication](http://hg.rabbitmq.com/rabbitmq-auth-backend-ldap/file/default/README) is (relatively) easy once you have an LDAP server up and running; you provide a template Distinguished Name for all your users (so that for example a user logging in as "guest" might have the DN "cn=guest,ou=People,dc=example,dc=com", and the plugin will attempt to bind to the LDAP server to check if they can log in. Easy!
 

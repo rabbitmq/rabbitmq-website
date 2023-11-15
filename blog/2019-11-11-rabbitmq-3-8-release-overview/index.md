@@ -64,7 +64,7 @@ We have a new CLI tool, **rabbitmq-queues**, which gives us the ability to modif
 
 One of the pain points of performing a rolling upgrade to the servers of a RabbitMQ cluster was that queue masters would end up concentrated on one or two servers. The new **rebalance** command will automatically rebalance masters across the cluster. 
 
-`rabbitmq-queues` has a [man page](/docs/rabbitmq-queues.8).
+`rabbitmq-queues` has a [man page](/docs/man/rabbitmq-queues.8).
 
 ## Single Active Consumer (SAC)
 
