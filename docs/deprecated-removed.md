@@ -20,8 +20,9 @@ limitations under the License.
 
 # Deprecated and Removed Features
 
-If a feature is deprecated, it means its capability will be removed in a future RabbitMQ release. It is recommended to discontinue using this feature, you should take actions now to use an alternative instead. 
+If a feature is deprecated, it means its capability will be removed in a future RabbitMQ release. It is recommended to discontinue using this feature, you should complete the next steps now to use a replacement if one exists. 
 
+A removed feature is one that was previously available but is now removed.
 
 ## <a id="deprecate-classiqueuemirror" class="anchor" href="#deprecate-deprecated-classiqueuemirror">Classic Queue Mirroring</a>
 
