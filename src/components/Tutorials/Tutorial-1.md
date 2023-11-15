@@ -1,7 +1,3 @@
----
-title: 'Tutorial 1: Hello World!'
----
-
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 

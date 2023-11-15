@@ -40,9 +40,9 @@ const sidebars = {
       label: 'Deprecated and Removed Features',
     },
     {
-      type: 'link',
+      type: 'doc',
       label: 'Getting Started',
-      href: 'https://www.rabbitmq.com/documentation.html',
+      id: 'tutorials/tutorial-1',
     }, 
     {
       type: 'link',

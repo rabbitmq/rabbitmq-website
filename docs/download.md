@@ -1,5 +1,6 @@
 ---
 title: Downloading and Installing RabbitMQ
+displayed_sidebar: docsSidebar
 ---
 <!--
 Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
