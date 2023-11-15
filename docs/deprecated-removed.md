@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Deprecated Features
+# Deprecated and Removed Features
 
 If a feature is deprecated, it means its capability will be removed in a future RabbitMQ release. It is recommended to discontinue using this feature, you should take actions now to use an alternative instead. 
 
@@ -27,47 +27,26 @@ If a feature is deprecated, it means its capability will be removed in a future 
 
 ### Description
 
-Quorum Queues provide greater data safety compared to classic mirrored queues, which is why mirroring (queue contents replication) of classic queues is deprecated.
+Quorum Queues provide greater data safety compared to classic mirrored queues, which is why mirroring (queue contents replication) of classic queues is deprecated and will be removed in a future release. Refer to table below for dates and 
 
 <table class="Dates and Releases for Deprecation/Expected Removal ">
   <tr>
     <th>Can Use it by Default Until</th>
     <th>Cannot Use it by Default In</th>
+    <th>Replacement</th>
     <th>Removed In</th>
   </tr>
 
   <tr>
     <td>2023-12-31 in Releases 3.11.15 -> 3.12.8</td>
     <td>2024-01-14 in Releases 3.13 onwards</td>
+    <td>Quorum Queues, go to Next Steps</td>
     <td>Q1 2024</td>
   </tr>
 </table>
 
-### Actions to Take
+### Next Steps
 
 1. ....
 2. ....
-
-
-
-## <a id="removed-fewversions" class="anchor" href="#removed-fewversuibs">Removed Features</a>
-
-The following features that were available in previous releases are now removed from RabbitMQ.
-
-<table class="Removed Features ">
-  <tr>
-    <th>Removed Feature</th>
-    <th>Removed in Release</th>
-    <th>Description</th>
-    <th>Action to Take</th>
-  </tr>
-
-  <tr>
-    <td>Classic Queue Mirroring</td>
-    <td>4.0</td>
-    <td>Quorum Queues provide greater data safety compared to classic mirrored queues, which is why mirroring (queue contents replication) of classic queues is being removed in RabbitMQ release 4.0</td>
-    <td>Quorum queues and/or streams should be used instead of mirrored classic queues.</td>
-  </tr>
-</table>
-
 
