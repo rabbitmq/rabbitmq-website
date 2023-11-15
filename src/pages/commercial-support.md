@@ -20,7 +20,7 @@ limitations under the License.
 
 # VMware Provides Commercial Support for RabbitMQ
 
-VMware provides <a href="https://tanzu.vmware.com/rabbitmq/oss">support for open source RabbitMQ</a>, available for a subscription fee.
+VMware provides <a href="https://tanzu.vmware.com/rabbitmq/oss">support for RabbitMQ</a> for a subscription fee.
 
 ## Other Technical Support and/or Cloud Hosting of Open Source RabbitMQ
 
