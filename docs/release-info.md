@@ -22,7 +22,7 @@ limitations under the License.
 
 RabbitMQ maintains release branches for the three most recent minor releases.........
 
-Versioning works like this: a.b.c where a is the major version, b is the minor version, and c is the patch version.
+RabbitMQ release versions are in the "x.y.z" format, where "x" is the major release, "y" is the minor release, and "z" is the patch release. Documentation versioning follows the same sequence. 
 
 .......
 

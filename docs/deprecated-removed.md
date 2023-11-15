@@ -22,27 +22,6 @@ limitations under the License.
 
 If a feature is deprecated, it means its capability will be removed in a future RabbitMQ release. It is recommended to discontinue using this feature, you should take actions now to use an alternative instead. 
 
-Layout: Option 1: 
-
-## <a id="deprecate-classiqueuemirror" class="anchor" href="#deprecate-deprecated-classiqueuemirror">Classic Queue Mirroring</a>
-
-<table class="Deprecated Features ">
-  <tr>
-    <th>Deprecated Feature</th>
-    <th>Deprecated in Release</th>
-    <th>Description</th>
-    <th>Action to Take</th>
-  </tr>
-
-  <tr>
-    <td>Classic Queue Mirroring</td>
-    <td>3.12</td>
-    <td>Quorum Queues provide greater data safety compared to classic mirrored queues, which is why mirroring (queue contents replication) of classic queues is being deprecated in RabbitMQ release X.X.</td>
-    <td>Quorum queues and/or streams should be used instead of mirrored classic queues.</td>
-  </tr>
-</table>
-
-Layout: Option 2:
 
 ## <a id="deprecate-classiqueuemirror" class="anchor" href="#deprecate-deprecated-classiqueuemirror">Classic Queue Mirroring</a>
 
