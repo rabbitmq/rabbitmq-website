@@ -15,9 +15,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Documentation: Table of Contents
+# RabbitMQ Documentation Versions
 
-This page summarises the available RabbitMQ documentation for the [latest patch release](./versions).
+RabbitMQ release versions are in the "x.y.z" format, where "x" is the major release, "y" is the minor release, and "z" is the patch release. Documentation versioning follows the same sequence. 
+
+This documentation website contains documentation for the current minor release (x.y) of RabbitMQ including updates to cover the latest patch release (x.y.z) associated with the current release. It also contains documentation for three previous RabbitMQ releases.
+
+A list of RabbitMQ releases is [here](./versions). If you want to find out more about what is included in a RabbitMQ release, go to the [What is New in RabbitMQ Releases](./whats-new) page. You can also find out what is deprecated or removed in a specific RabbitMQ release in the [Deprecated and Removed Features](./deprecated-removed.md) page.
+
+MORE UPDATES REQUIRED FOR THIS PAGE BELOW
 
 ## Installation
 

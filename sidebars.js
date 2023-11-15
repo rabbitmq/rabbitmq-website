@@ -19,6 +19,37 @@ const sidebars = {
   // But you can create a sidebar manually
   docsSidebar: [
     {
+      type: 'doc',
+      id: 'documentation',
+      label: 'Documentation',
+    },
+    {
+      type: 'doc',
+      id: 'release-info',
+      label: 'Release Information',
+    },
+    {
+      type: 'link',
+      label: 'How Can I Get RabbitMQ',
+      href: 'https://www.rabbitmq.com/documentation.html',
+    },
+    
+    {
+      type: 'doc',
+      id: 'deprecated-removed',
+      label: 'Deprecated and Removed Features',
+    },
+    {
+      type: 'link',
+      label: 'Getting Started',
+      href: 'https://www.rabbitmq.com/documentation.html',
+    }, 
+    {
+      type: 'link',
+      label: 'Installing',
+      href: 'https://www.rabbitmq.com/documentation.html',
+    },  
+    {
       type: 'category',
       label: 'Server Documentation',
       items: [
