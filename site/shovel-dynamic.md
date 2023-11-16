@@ -63,7 +63,7 @@ name and a definition body which is a JSON document:
 <pre class="lang-bash">
 # my-shovel here is the name of the shovel
 rabbitmqctl set_parameter shovel my-shovel \
-  '{"src-protocol": "amqp091", "src-uri": "amqp://", "src-queue": "source-queue", "dest-protocol": "amqp091", "dest-uri": "amqp://remote-server", "dest-queue": "target-queue"}'
+  '{"src-protocol": "amqp091", "src-uri": "amqp://", "src-queue": "source-queue", "dest-protocol": "amqp091", "dest-uri": "amqp://remote-server", "dest-queue": "target-queue", "dest-queue-args": {"x-queue-type": "quorum"}}'
 </pre>
 
 On Windows `rabbitmqctl` is named `rabbitmqctl.bat` and command line value escaping will be
@@ -73,7 +73,7 @@ different:
 rabbitmqctl.bat set_parameter shovel my-shovel ^
   "{""src-protocol"": ""amqp091"", ""src-uri"":""amqp://localhost"", ""src-queue"": ""source-queue"", ^
    ""dest-protocol"": ""amqp091"", ""dest-uri"": ""amqp://remote.rabbitmq.local"", ^
-   ""dest-queue"": ""target-queue""}"
+   ""dest-queue"": ""target-queue"", ""dest-queue-args"": {""x-queue-type"": ""quorum""}}"
 </pre>
 
 The body in this example includes a few keys:
@@ -125,8 +125,16 @@ The body in this example includes a few keys:
           or <code>src-exchange</code> (but not both) must be set.
         </p>
         <p>
-          If the source queue does not exist on the target virtual host,
-          it will be declared as a classic durable queue with no optional arguments.
+          If the source queue does not exist on the target virtual host, and <code>src-queue-args</code>
+          parameter was not provided, shovel will declare a classic durable queue with no optional arguments.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>src-queue-args</td>
+      <td>
+        <p>
+            Optional arguments for <code>src-queue</code> declaraion, eg. the queue type.
         </p>
       </td>
     </tr>
@@ -155,9 +163,18 @@ The body in this example includes a few keys:
             exchange and routing key.
           </p>
           <p>
-            If the destination queue does not exist in the destination virtual host, it
-            it will be declared as a classic durable queue with no optional arguments.
+            If the destination queue does not exist in the destination virtual host,
+            and <code>dest-queue-args</code> parameter was not provided,
+            shovel will declare a classic durable queue with no optional arguments.
           </p>
+      </td>
+    </tr>
+    <tr>
+      <td>dest-queue-args</td>
+      <td>
+        <p>
+            Optional arguments for <code>dest-queue</code> declaraion, eg. the queue type.
+        </p>
       </td>
     </tr>
   </tbody>
