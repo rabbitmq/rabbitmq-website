@@ -93,7 +93,7 @@ RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an
 open, general-purpose protocol for messaging. There are a number of clients for
 RabbitMQ in [many different languages](/docs/devtools).
 
-<Tabs groupId="programming-language">
+<Tabs groupId="programming-language" queryString="lang">
 <TabItem value="java" label="Java">
 Download the [client library](https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.16.0/amqp-client-5.16.0.jar)
 and its dependencies ([SLF4J API](https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar) and
@@ -132,7 +132,7 @@ flowchart LR
 Our first program will send a single message to the queue. The first thing we
 need to do is to establish a connection with RabbitMQ server.
 
-<Tabs groupId="programming-language">
+<Tabs groupId="programming-language" queryString="lang">
 <TabItem value="java" label="Java">
 In [`Send.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/Send.java),
 we need some classes imported:
@@ -185,7 +185,7 @@ Next, before sending we need to make sure the recipient queue exists. If we
 send a message to non-existing location, RabbitMQ will just drop the message.
 Let's create a `hello` queue to which the message will be delivered:
 
-<Tabs groupId="programming-language">
+<Tabs groupId="programming-language" queryString="lang">
 <TabItem value="java" label="Java">
 ```java
 channel.queueDeclare(QUEUE_NAME, false, false, false, null);
@@ -209,7 +209,7 @@ default exchange identified by an empty string. This exchange is special — it
 allows us to specify exactly to which queue the message should go. The queue
 name needs to be specified in the `routing_key` parameter:
 
-<Tabs groupId="programming-language">
+<Tabs groupId="programming-language" queryString="lang">
 <TabItem value="java" label="Java">
 ```java
 String message = "Hello World!";
@@ -231,7 +231,7 @@ Before exiting the program we need to make sure the network buffers were
 flushed and our message was actually delivered to RabbitMQ. We can do it by
 gently closing the connection.
 
-<Tabs groupId="programming-language">
+<Tabs groupId="programming-language" queryString="lang">
 <TabItem value="java" label="Java">
 Note we can use a try-with-resources statement because both `Connection` and
 `Channel` implement `java.lang.AutoCloseable`. This way we don't need to close
