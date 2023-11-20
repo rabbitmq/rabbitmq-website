@@ -102,9 +102,9 @@ _hello_ queue.
 
 In RabbitMQ a message can never be sent directly to the queue, it always
 needs to go through an _exchange_. But let's not get dragged down by the
-details &#8210; you can read more about _exchanges_ in [the third part of this
+details - you can read more about _exchanges_ in [the third part of this
 tutorial](./tutorial-three-python). All we need to know now is how to use a default exchange
-identified by an empty string. This exchange is special &#8210; it
+identified by an empty string. This exchange is special - it
 allows us to specify exactly to which queue the message should go.
 The queue name needs to be specified in the `routing_key` parameter:
 
@@ -147,7 +147,7 @@ Again, first we need to connect to RabbitMQ server. The code
 responsible for connecting to Rabbit is the same as previously.
 
 The next step, just like before, is to make sure that the queue
-exists. Creating a queue using `queue_declare` is idempotent &#8210; we
+exists. Creating a queue using `queue_declare` is idempotent - we
 can run the command as many times as we like, and only one will be
 created.
 
@@ -155,7 +155,7 @@ created.
 channel.queue_declare(queue='hello')
 ```
 
-You may ask why we declare the queue again &#8210; we have already declared it
+You may ask why we declare the queue again - we have already declared it
 in our previous code. We could avoid that if we were sure
 that the queue already exists. For example if `send.py` program was
 run before. But we're not yet sure which
@@ -197,8 +197,8 @@ channel.basic_consume(queue='hello',
 ```
 
 For that command to succeed we must be sure that a queue which we want
-to subscribe to exists. Fortunately we're confident about that &#8210; we've
-created a queue above &#8210; using `queue_declare`.
+to subscribe to exists. Fortunately we're confident about that - we've
+created a queue above - using `queue_declare`.
 
 The `auto_ack` parameter will be described [later on](./tutorial-two-python).
 
