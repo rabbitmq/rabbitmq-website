@@ -226,8 +226,8 @@ limitations under the License.
               <p>
                 VMware offers a <a href="https://tanzu.vmware.com/rabbitmq">range of commercial offerings for RabbitMQ</a>.
                 This includes a distribution called <a href="https://network.pivotal.io/products/p-rabbitmq-for-kubernetes/info">VMware RabbitMQ</a> that deploys on Kubernetes or
-                your container Runtime, as well as a version that deploys in
-                <a href="https://tanzu.vmware.com/tanzu">VMware Tanzu Application Service</a>.
+                your container Runtime, a version that deploys in
+                <a href="https://tanzu.vmware.com/tanzu">VMware Tanzu Application Service</a> as well as OVA and OCI versions.
                 These distributions include all of the features of the open source version, with some additional management and business continuity features. Support agreements are part of the commercial licensing.
               </p>
               <img src="./img/commercial/support-and-hosting-phone.svg" height="94" width="109" />
