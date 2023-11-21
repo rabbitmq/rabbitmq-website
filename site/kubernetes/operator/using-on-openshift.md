@@ -7,8 +7,6 @@ For the most part, the user experience is the same when
 using these operators on Openshift; the following guide details the additional work required to leverage Openshift's
 security practices, as well as detail on how the operators work on Openshift.
 
-This documentation details the Openshift-specific considerations when deploying the RabbitMQ Kubernetes Operators, which are the [Cluster operator](using-operator.html) and the [Messaging Topology Operator](using-topology-operator.html). It is important to note that these considerations are also applicable to the commercial [VMware RabbitMQ Standby Replication Operator](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html#requirements-for-warm-standby-replication)(note, this operator is exclusive to the VMware RabbitMQ for Kubernetes commercial offering only.).
-
 ## <a id='rbac-install-operators' class='anchor' href='#rbac-install-operators'>RBAC permissions for installing the Operators</a>
 
 In order to install the operators, you will need to be authenticated with the Openshift cluster as a user with CRUD permissions on
