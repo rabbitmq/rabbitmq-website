@@ -43,6 +43,58 @@ released separately.
   <!-- releases -->
 
   <tr>
+    <td class="centre">3.12.10</td>
+    <td class="centre">November 21 2023</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.10">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.11.26</td>
+    <td class="centre">November 20 2023</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.26">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.12.9</td>
+    <td class="centre">November 17 2023</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.9">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.11.25</td>
+    <td class="centre">November 1 2023</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.25">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.12.8</td>
     <td class="centre">November 1 2023</td>
     <td>
