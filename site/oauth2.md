@@ -543,10 +543,3 @@ if RabbitMQ node's `resource_server_id` is equal to `finance`, the plugin will c
 ## <a id="examples" class="anchor" href="#examples">Examples</a>
 
 The [RabbitMQ OAuth 2.0 Auth Backend Examples](oauth2-examples.html) contains many example configuration files which can be used to set up several OAuth 2.0 providers, including UAA, Auth0, and Azure, and issue tokens, which can be used to access RabbitMQ resources.
-
-
-## License and Copyright
-
-(c) 2016-2022 VMware, Inc. or its affiliates.
-
-Released under the Mozilla Public License 2.0, same as RabbitMQ.
