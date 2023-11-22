@@ -1,0 +1,28 @@
+name: Publish Live Website
+
+on:
+  push:
+    branches:
+      - live
+  workflow_dispatch:
+
+jobs:
+  website:
+    runs-on: ubuntu-22.04
+    container:
+      image: pivotalrabbitmq/website-packaging
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate next website
+        id: generate
+        run: |
+          mkdir generated
+          ./generate ./generated www
+          cp "conf/robots.txt-next" ./generated/robots.txt
+          mkdir -p ci/worker/public
+          cp -r ./generated/* ci/worker/public/
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: ci/worker
