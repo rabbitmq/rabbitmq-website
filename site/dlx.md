@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">What is a Dead Letter Exchange</a>
 
-Messages from a queue can be "dead-lettered", which means these messages are republished to an exchange when any of the following events occur. 
+Messages from a queue can be "dead-lettered", which means these messages are republished to an exchange when any of the following events occur.
 
  * The message is [negatively acknowledged](./confirms.html) by a consumer using `basic.reject` or `basic.nack` with `requeue` parameter set to `false`.
  * The message expires due to [per-message TTL](./ttl.html), or
@@ -118,7 +118,7 @@ exchange either:
  * with the same routing keys they were originally
    published with
 
-For example, if you publish a message to an exchange with a `foo` 
+For example, if you publish a message to an exchange with a `foo`
 routing key, and that message is
 dead-lettered, it is published to its dead letter
 exchange with the `foo` routing key. If the queue
@@ -164,7 +164,7 @@ Dead-lettering a message modifies its headers:
 
 The dead-lettering process adds an array to the header of
 each dead-lettered message named `x-death`.
-This array contains an entry for each dead lettering event, which is 
+This array contains an entry for each dead lettering event, which is
 identified by a pair of `{queue, reason}`.
 Each such entry is a table that consists
 of several fields:
@@ -180,7 +180,7 @@ of several fields:
 
 New entries are prepended to the beginning of the `x-death`
 array. In the case where `x-death` already contains an entry with
-the same queue and dead lettering reason, it's count field is 
+the same queue and dead lettering reason, it's count field is
 incremented and it is moved to the beginning of the array.
 
 The `reason` is a name describing why the

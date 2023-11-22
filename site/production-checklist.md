@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -95,7 +95,7 @@ Avoid using distributed filesystems for node data directories:
    and other key operations. Distributed filesystems often [deviate from these standard guarantees](https://docs.ceph.com/en/latest/cephfs/posix/)
  * Distributed filesystems are usually designed for shared access to a subset of directories.
    Sharing a data directory between RabbitMQ nodes is **an absolute no-no** and
-   is guaranteed to result in data corruption since nodes will not coordinate their writes 
+   is guaranteed to result in data corruption since nodes will not coordinate their writes
 
 
 ## <a id="users-and-permissions" class="anchor" href="#users-and-permissions">Virtual Hosts, Users, Permissions</a>
