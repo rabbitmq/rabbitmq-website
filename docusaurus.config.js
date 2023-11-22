@@ -228,6 +228,11 @@ const config = {
           'python',
           'shell-session',
           'yaml',
+          'dart',
+          'haskell',
+          'julia',
+          'perl',
+          'ruby',
         ],
       },
       algolia: {
@@ -263,6 +268,74 @@ const config = {
 
   markdown: {
     mermaid: true,
+    preprocessor: ({filePath, fileContent}) => {
+
+      const fs = require('fs');
+
+      if (!fs.existsSync("../rabbitmq-tutorials")) {
+        console.log("../rabbitmq-tutorials doesn't exist. Please clone github.com/rabbitmq/rabbitmq-tutorials");
+        process.exit(1);
+      }
+      let languageExtensions = new Map([
+        ['Python', {folder: 'python', extension: '.py'}],
+        ['Java', {folder: 'java', extension: '.java'}],
+        // ['C#', {folder: 'dotnet', extension: '.cs'}],
+        ['Go', {folder: 'go', extension: '.go'}],
+        ['Elixir', {folder: 'elixir', extension: '.exs'}],
+        ['C++', {folder: 'cpp', extension: '.cpp'}],
+        ['PHP', {folder: 'php', extension: '.php'}],
+        ['Ruby', {folder: 'ruby', extension: '.rb'}],
+        ['Erlang', {folder: 'erlang', extension: '.erl'}],
+
+        // ['Scala', '.scala'],
+        // ['Haskell', '.hs'],
+        // ['Clojure', '.clj'],
+        // ['CommonLisp', '.lisp'],
+        // ['Julia', '.jl'],
+        // ['Kotlin', '.kt'],
+        // ['Dart', '.dart'],
+
+        // Add more mappings as needed
+      ]);
+
+      const readfilecontentsync = (filepath) => {
+        try {
+          return fs.readFileSync(filepath, 'utf-8');
+        } catch (error) {
+          console.error(`error reading file at '${filepath}':`, error.message);
+          throw error; // you might want to handle or log the error appropriately
+        }
+      };
+
+      function includeFile(file) {
+        const header = `<Tabs groupid="programming-language" queryString="lang">\n`;
+        const other = `
+<TabItem value="other" label="More...">
+:::info
+See the [rabbitmq-tutorials](https://github.com/rabbitmq/rabbitmq-tutorials/) for more languages, including C#, Scala, Kotlin, Haskell and more.
+:::
+</TabItem>`;
+        const footer = `</Tabs>`;
+
+        let items = "";
+        languageExtensions.forEach((lang, langName) => {
+          const path = `../rabbitmq-tutorials/${lang.folder}/${file}${lang.extension}`;
+          const contents = readfilecontentsync(path);
+          const s = `<TabItem value="${lang.folder}" label="${langName}">\n` + "```" + `${lang.folder}\n`;
+          const m = contents;
+          items += s + m + "\n```\n" + `</TabItem>` + "\n";
+        } );
+        let result = header + items + other + footer;
+
+        return result;
+
+      }
+
+      const regex = /@RMQincludeFile\((.*?)\)/g;
+      return fileContent.replaceAll(regex, function(match) {
+        let file = match.substring(17, match.length - 2);
+        return includeFile(file)});
+    },
   },
   themes: ['@docusaurus/theme-mermaid'],
 };

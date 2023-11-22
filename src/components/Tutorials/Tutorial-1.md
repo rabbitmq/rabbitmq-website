@@ -1,24 +1,36 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Tutorial 1: Hello World!
+# Simple publisher and consumer
+
+:::info
+#### Protocols and Libraries
+
+[RabbitMQ speaks multiple protocols](/docs/protocols). This tutorial uses AMQP 0-9-1, which is an
+open, general-purpose protocol for messaging. You may be interested in using
+other supported protocols, such as AMQP 1.0, [MQTT](/docs/mqtt), [STOMP](/docs/stomp)
+or [RabbitMQ Streams](/docs/streams) (a high performance protocol specifically designed for
+RabbitMQ Streams).
+
+See [developer tools](/docs/devtools) for more information.
+:::
 
 ## Introduction
 
-RabbitMQ is a message broker: it accepts and forwards messages. You can think
-about it as a post office: when you put the mail that you want posting in a
-post box, you can be sure that the letter carrier will eventually deliver the
-mail to your recipient. In this analogy, RabbitMQ is a post box, a post office,
-and a letter carrier.
+RabbitMQ is a message broker - it accepts and forwards messages. You can think
+about it as a postal service: when you want a message to be delivered, you hand
+it over to the postal service and you trust it will get to the receipient.
 
-The major difference between RabbitMQ and the post office is that it doesn't
-deal with paper, instead it accepts, stores, and forwards binary blobs of data
-‒ messages.
+Of course RabbitMQ doesn't deal with paper, but rather it accepts, stores, and forwards
+binary blobs of data ‒ messages. Moreover, you don't necessarily specify the exact
+receipient of the message - you can just describe what the message is about
+(topic, header) and the message will be delivered to those interested. Importantly,
+there can be multiple interested parties and they may all get a copy of the message,
+even though you only sent one.
 
 RabbitMQ, and messaging in general, uses some jargon.
 
-* *Producing* means nothing more than sending. A program that sends messages is
-  a *producer*:
+* A **producer** is a program that sends (publishes, produces) messages
 
     ```mermaid
     flowchart LR
@@ -26,21 +38,7 @@ RabbitMQ, and messaging in general, uses some jargon.
         class P mermaid-producer
     ```
 
-* A *queue* is the name for the post box in RabbitMQ. Although messages flow
-  through RabbitMQ and your applications, they can only be stored inside a
-  queue. A queue is only bound by the host's memory & disk limits, it's
-  essentially a large message buffer. Many producers can send messages that go
-  to one queue, and many consumers can try to receive data from one queue. This
-  is how we represent a queue: 
-
-    ```mermaid
-    flowchart LR
-        Q[[queue_name]]
-        class Q mermaid-queue
-    ```
-
-* *Consuming* has a similar meaning to receiving. A *consumer* is a program
-  that mostly waits to receive messages:
+* A **consumer** is a program that receives messages
 
     ```mermaid
     flowchart LR
@@ -48,211 +46,292 @@ RabbitMQ, and messaging in general, uses some jargon.
         class C mermaid-consumer
     ```
 
-:::note
-This tutorial assumes RabbitMQ is [installed](/docs/download) and running on
-`localhost` on the [standard port](/docs/networking#ports) (5672). In case you
-use a different host, port or credentials, connections settings would require
-adjusting.
+* A **queue** is like a post office - messages from the publishers
+  are delivered to queues and then from queues to consumers. If consumers are not
+  ready to receive messages (eg. they are not present/running), messages wait in the queue.
 
-If you're having trouble going through this tutorial you can contact us through
-the [mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users) or
-[RabbitMQ community Slack](https://www.rabbitmq.com/slack/).
-:::
+  Many producers can send messages that go into one single queue, and many consumers
+  can receive messages from one queue. This is how we represent a queue: 
+
+    ```mermaid
+    flowchart LR
+        Q[[queue_name]]
+        class Q mermaid-queue
+    ```
+
+* An **exchange** is like a sorting office - messages from the publishers are not
+  delivered directly to a queue, but rather they are addressed to an exchange
+  which decides which queue(s) should receive the message. If an exchange decides
+  the message should be delivered to multiple queues, each queue receives
+  a copy of the message.
+
+The simplest flow of messages, with a single publisher, exchange, queue and consumer
+can be represented like this:
+
+```mermaid
+flowchart LR
+    P((P)) --> E((E))
+    E((E)) --> Q[[hello]]
+    Q --> C((C))
+
+    class P mermaid-producer
+    class E mermaid-exchange
+    class Q mermaid-queue
+    class C mermaid-consumer
+```
 
 ## Hello World!
 
-In this part of the tutorial we'll write two small programs:
+In this part of the tutorial we'll implement a message flow as pictured above.
+To do that, we will write two small programs:
 * a producer (sender) that sends a single message, and
 * a consumer (receiver) that receives messages and prints them out.
 
 It's a "Hello World" of messaging.
 
-In the diagram below, *P* is our producer and *C* is our consumer. The box in
-the middle is a queue — a message buffer that RabbitMQ keeps on behalf of the
-consumer.
+:::note
+This tutorial assumes RabbitMQ is [installed](/docs/download) and running on
+`localhost` on the [standard port](/docs/networking#ports) (5672). If you
+use a different host, port or credentials, connection settings need to be adjusted.
 
-Our overall design will look like:
-
-```mermaid
-flowchart LR
-    P((P)) --> Q[[hello]]
-    Q --> C((C))
-
-    class P mermaid-producer
-    class Q mermaid-queue
-    class C mermaid-consumer
-```
-
-Producer sends messages to the "hello" queue. The consumer receives messages
-from that queue.
-
-:::info
-#### RabbitMQ libraries
-
-RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an
-open, general-purpose protocol for messaging. There are a number of clients for
-RabbitMQ in [many different languages](/docs/devtools).
-
-<Tabs groupId="programming-language" queryString="lang">
-<TabItem value="java" label="Java">
-Download the [client library](https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.16.0/amqp-client-5.16.0.jar)
-and its dependencies ([SLF4J API](https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar) and
-[SLF4J Simple](https://repo1.maven.org/maven2/org/slf4j/slf4j-simple/1.7.36/slf4j-simple-1.7.36.jar)).
-Copy those files in your working directory, along the tutorials Java files.
-
-Please note SLF4J Simple is enough for tutorials but you should use a full-blown
-logging library like [Logback](https://logback.qos.ch/) in production.
-
-(The RabbitMQ Java client is also in the central Maven repository,
-with the groupId `com.rabbitmq` and the artifactId `amqp-client`.)
-</TabItem>
-<TabItem value="python" label="Python">
-In this tutorial series we're going to use [Pika
-1.0.0](https://pika.readthedocs.org/en/stable/), which is the Python client
-recommended by the RabbitMQ team. To install it you can use the
-[`pip`](https://pip.pypa.io/en/stable/quickstart/) package management tool:
-
-```bash
-python -m pip install pika --upgrade
-```
-</TabItem>
-</Tabs>
+If you're having trouble going through this tutorial you can ask a question
+on one of the [community forums](/community).
 :::
 
 ### Sending
 
+Our first program will send a single message to the queue.
+
 ```mermaid
 flowchart LR
-    P((P)) --> Q[[hello]]
+    P((P)) --> E((E))
+    E((E)) --> Q[[hello]]
 
     class P mermaid-producer
+    class E mermaid-exchange
     class Q mermaid-queue
 ```
 
-Our first program will send a single message to the queue. The first thing we
-need to do is to establish a connection with RabbitMQ server.
+Below you can see a complete sender implementation in many programming languagess.
+Regardless of the language, the key steps are the following:
 
-<Tabs groupId="programming-language" queryString="lang">
-<TabItem value="java" label="Java">
-In [`Send.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/Send.java),
-we need some classes imported:
+1. Connect to the server. By default RabbitMQ listens on port 5672 and has
+a `guest` user with `guest` password. Client libraries generally use the same
+defaults, so these details can usually be omitted when working locally.
 
-```java title="Send.java"
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.Channel;
+2. Once we have a connection, we open a channel. A channel is an AMQP 0.9.1
+protocol concept and is where most of the API resides.
+
+3. Declare a queue. RabbitMQ supports multiple queue types and additional queue arguments/features.
+For now we'll keep it simple and only provide the name of the queue, which is `hello`.
+
+4. Publish a message. Messages can never be sent directly to a queue, they always need
+to go through an **exchange**. We'll learn more about exchanges in [the third part of this
+tutorial](/docs/tutorials/tutorial-3). For now we'll use the
+default exchange, identified by an empty string. This exchange is special — it
+allows us to specify exactly which queue the message should be sent to.
+Therefore, the `routing_key` is set to the queue name.
+
+5. Close the channel and connection.
+
+@RMQincludeFile("send")
+
+### Receiving
+
+Our second program will receive messages from the queue and print
+them on the screen.
+
+```mermaid
+flowchart LR
+    Q[[hello]] --> C((C))
+
+    class Q mermaid-queue
+    class C mermaid-consumer
 ```
 
-Set up the class and name the queue:
 
-```java
-public class Send {
-  private final static String QUEUE_NAME = "hello";
-  public static void main(String[] argv) throws Exception {
-      ...
-  }
-}
-```
+The first steps are the same - we need to connect to the RabbitMQ server,
+create a channel and declare the queue.
 
-then we can create a connection to the server:
+You may ask why we declare the queue again, given the publisher already does that.
+The reason to do that is that in many cases, the order in which applications start
+is not predictable. Therefore, it's better to declare the queues in all
+applications that expect the queues to exists.
 
-```java
-ConnectionFactory factory = new ConnectionFactory();
-factory.setHost("localhost");
-try (Connection connection = factory.newConnection();
-     Channel channel = connection.createChannel()) {
+Once we have the basics, we need to:
 
-}
-```
-</TabItem>
-<TabItem value="python" label="Python">
-In a file called `send.py`:
-```python title="send.py"
-#!/usr/bin/env python
-import pika
+1. Subscribe to a queue. By subscribing, our application tells RabbitMQ it wants
+to receive messages from that queue. If multiple consumers consume from a single
+queue, they will **NOT** receive the same messages - each message will be
+delivered to only one consumer. Each consumer should receive a roughly equal
+amount of messages. We'll learn more about this in [the third part of this
+tutorial](/docs/tutorials/tutorial-3).
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
-channel = connection.channel()
-```
-</TabItem>
-</Tabs>
+2. Based on the language and library, we may need to register a callback to handle
+a message that gets delivered from RabbitMQ to our consumer.
 
-We're connected now, to a broker on the local machine - hence the `localhost`.
-If we wanted to connect to a broker on a different machine we'd simply specify
-its name or IP address here.
+@RMQincludeFile("receive")
 
-Next, before sending we need to make sure the recipient queue exists. If we
-send a message to non-existing location, RabbitMQ will just drop the message.
-Let's create a `hello` queue to which the message will be delivered:
+Let's take a closer look at the Python code - it is pretty representative for
+what happens in other languages as well. We define the **callback** function
+(in this case, it also called `callback`) which the `pika` library will call
+whenever a message is delivered to our consumer. Our callback implementation 
+simply prints the message:
 
-<Tabs groupId="programming-language" queryString="lang">
-<TabItem value="java" label="Java">
-```java
-channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-```
-</TabItem>
-<TabItem value="python" label="Python">
 ```python
-channel.queue_declare(queue='hello')
+def callback(ch, method, properties, body):
+    print(f" [x] Received {body.decode()}")
+
 ```
-</TabItem>
-</Tabs>
 
-At this point we're ready to send a message. Our first message will just
-contain a string *Hello World!* and we want to send it to our `hello` queue.
+Next, we to tell RabbitMQ that we want to receive messages from the `hello` queue
+and we tell the `pika` library, that this particular callback function should
+be called when messages from this queue are received:
 
-In RabbitMQ a message can never be sent directly to the queue, it always needs
-to go through an *exchange*. But let's not get dragged down by the details —
-you can read more about exchanges in [the third part of this
-tutorial](/docs/tutorials/tutorial-three-python). All we need to know now is how to use a
-default exchange identified by an empty string. This exchange is special — it
-allows us to specify exactly to which queue the message should go. The queue
-name needs to be specified in the `routing_key` parameter:
-
-<Tabs groupId="programming-language" queryString="lang">
-<TabItem value="java" label="Java">
-```java
-String message = "Hello World!";
-channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
-System.out.println(" [x] Sent '" + message + "'");
-```
-</TabItem>
-<TabItem value="python" label="Python">
 ```python
-channel.basic_publish(exchange='',
-                      routing_key='hello',
-                      body='Hello World!')
-print(" [x] Sent 'Hello World!'")
+channel.basic_consume(queue='hello',
+                      auto_ack=True,
+                      on_message_callback=callback)
 ```
-</TabItem>
-</Tabs>
 
-Before exiting the program we need to make sure the network buffers were
-flushed and our message was actually delivered to RabbitMQ. We can do it by
-gently closing the connection.
+For that command to succeed we must be sure that a queue which we want
+to subscribe to exists. Fortunately we're confident about that - we've
+created a queue above - using `queue_declare`.
 
-<Tabs groupId="programming-language" queryString="lang">
-<TabItem value="java" label="Java">
-Note we can use a try-with-resources statement because both `Connection` and
-`Channel` implement `java.lang.AutoCloseable`. This way we don't need to close
-them explicitly in our code.
-</TabItem>
-<TabItem value="python" label="Python">
+The `auto_ack` parameter will be described [later on](/docs/tutorials/tutorial-2).
+
+And finally, we enter a never-ending loop that waits for data and runs callbacks
+whenever necessary (well, we handle `KeyboardInterrupt` to allow terminating
+the program with `CTRL+C`).
+
 ```python
-connection.close()
+print(' [*] Waiting for messages. To exit press CTRL+C')
+channel.start_consuming()
+```
+
+### Putting it all together
+
+Now we can try out our programs in a terminal. First, let's start
+a consumer, which will run continuously waiting for deliveries:
+
+<Tabs groupid="programming-language" queryString="lang">
+<TabItem value="python" label="Python">
+```bash
+python receive.py
+# => [*] Waiting for messages. To exit press CTRL+C
+```
+</TabItem>
+<TabItem value="java" label="Java">
+```bash
+javac -cp amqp-client-5.16.0.jar Send.java Recv.java
+java -cp .:amqp-client-5.16.0.jar:slf4j-api-1.7.36.jar:slf4j-simple-1.7.36.jar Recv
+```
+</TabItem>
+
+<TabItem value="go" label="Go">
+```bash
+go run send.go
+```
+</TabItem>
+<TabItem value="elixir" label="Elixir">
+```bash
+mix run receive.exs
+```
+</TabItem>
+<TabItem value="php" label="PHP">
+```bash
+php receive.php
+```
+</TabItem>
+
+<TabItem value="ruby" label="Ruby">
+```bash
+ruby receive.rb
 ```
 </TabItem>
 </Tabs>
 
-:::tip
-> Sending doesn't work!
 
-If this is your first time using RabbitMQ and you don't see the "Sent" message
-then you may be left scratching your head wondering what could be wrong. Maybe
-the broker was started without enough free disk space (by default it needs at
-least 200 MB free) and is therefore refusing to accept messages. Check the
-[broker logfile](/docs/logging#log-file-location) to confirm and reduce the
-limit if necessary. The [configuration file
-documentation](/docs/configure#config-items) will show you how to set
-`disk_free_limit`.
+Now start the producer in a new terminal. The producer program will stop after every run:
+
+<Tabs groupid="programming-language" queryString="lang">
+<TabItem value="python" label="Python">
+```bash
+python send.py
+# => [x] Sent 'Hello World!'
+```
+</TabItem>
+<TabItem value="java" label="Java">
+```bash
+java -cp .:amqp-client-5.16.0.jar:slf4j-api-1.7.36.jar:slf4j-simple-1.7.36.jar Send
+```
+</TabItem>
+<TabItem value="go" label="Go">
+```bash
+go run receive.go
+```
+</TabItem>
+
+<TabItem value="elixir" label="Elixir">
+```bash
+mix run send.exs
+```
+</TabItem>
+
+<TabItem value="cpp" label="C++">
+```bash
+```
+</TabItem>
+
+<TabItem value="php" label="PHP">
+```bash
+php send.php
+```
+</TabItem>
+
+<TabItem value="ruby" label="Ruby">
+```bash
+ruby send.rb
+```
+</TabItem>
+</Tabs>
+
+The consumer should print the message:
+
+```bash
+# => [x] Received 'Hello World!'
+```
+
+Hurray! We were able to send our first message through RabbitMQ. As you might
+have noticed, the consumer program doesn't exit. It will stay ready to
+receive further messages, and may be interrupted with Ctrl-C.
+
+Run the publisher a few times to see the messages are still delivered
+to the consumer.
+
+### Summary
+
+We've learned how to send and receive a message from a named
+queue. It's time to move on to [part 2](./tutorial-two-python)
+and build a simple _work queue_.
+
+:::info
+If you want to see the queues that currently exist and how many messages
+they contain, you can do that with the
+[Management UI](http://localhost:15672/) or the `rabbitmqctl` CLI:
+
+<Tabs groupId="operating-system">
+<TabItem value="unix" label="Linux/macOS">
+```bash
+rabbitmqctl list_queues
+```
+If this doesn't work, try `sudo rabbitmqctl` instead.
+</TabItem>
+<TabItem value="windows" label="Windows">
+```powershell
+rabbitmqctl.bat list_queues
+```
+</TabItem>
+</Tabs>
 :::
+
