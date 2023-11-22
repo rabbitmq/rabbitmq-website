@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -39,14 +39,14 @@ Client libraries for the stream protocol are available on several platforms.
 *Note:* items with a check mark (&#x2713;) are officially supported by the RabbitMQ Team at VMware.
 
 
-* [&#x2713; RabbitMQ Java Stream Client](https://github.com/rabbitmq/rabbitmq-stream-java-client) 
+* [&#x2713; RabbitMQ Java Stream Client](https://github.com/rabbitmq/rabbitmq-stream-java-client)
 * [&#x2713; RabbitMQ Golang Stream Client](https://github.com/rabbitmq/rabbitmq-stream-go-client)
 * [&#x2713; RabbitMQ .NET Stream Client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client)
 * [&#x2713; RabbitMQ Rust Stream Client](https://github.com/rabbitmq/rabbitmq-stream-rust-client)
 * [&#x2713; RabbitMQ Python Stream Client (rstream)](https://pypi.org/project/rstream/)
 * [RabbitMQ Python Stream Client (rbfly)](https://gitlab.com/wrobell/rbfly)
 * [RabbitMQ NodeJS Stream Client](https://github.com/coders51/rabbitmq-stream-js-client)
-* [RabbitMQ Erlang Stream Client (lake)](https://gitlab.com/evnu/lake) 
+* [RabbitMQ Erlang Stream Client (lake)](https://gitlab.com/evnu/lake)
 * [RabbitMQ Elixir Stream Client ](https://github.com/VictorGaiva/rabbitmq-stream)
 * [RabbitMQ C Stream Client ](https://github.com/GianfrancoGGL/rabbitmq-stream-c-client)
 

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="interstitial" class="anchor" href="#interstitial">Wait, There's a Better Way: Next Generation Highly Available Queues and Streams</a>
 
 This guide covers a [**deprecated and scheduled for removal feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/): mirroring (queue contents replication) of classic queues.
-[Quorum queues](quorum-queues.html) and/or [streams](streams.html) should be used instead of mirrored classic queues. 
+[Quorum queues](quorum-queues.html) and/or [streams](streams.html) should be used instead of mirrored classic queues.
 
 Quorum queues are a more advanced queue type, which offers high availability using  replication and focuses on data safety. From RabbitMQ 3.10, quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues. You can [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq.html) now.
 
@@ -41,7 +41,7 @@ using policies before changing the default version in the configuration.
 
 Topics covered in this guide include
 
- * [Next generation replicated queue type](#interstitial) and why it should be preferred over classic queue mirroring. 
+ * [Next generation replicated queue type](#interstitial) and why it should be preferred over classic queue mirroring.
  * What is [classic queue mirroring](#what-is-mirroring) and how it works
  * How to [enable it](#ways-to-configure)
  * What [mirroring settings are available](#mirroring-arguments)
@@ -851,9 +851,9 @@ network takes longer than [net_ticktime](nettick.html)
 to send one batch of messages, then nodes in the cluster could
 think they are in the presence of a network partition.
 
-The amount of data sent over the network can also be controlled by setting 
-the parameter `mirroring_sync_max_throughput`. The parameter specifies the 
-number of bytes per second that is being transferred. The default is `0`, which disables 
+The amount of data sent over the network can also be controlled by setting
+the parameter `mirroring_sync_max_throughput`. The parameter specifies the
+number of bytes per second that is being transferred. The default is `0`, which disables
 this feature.
 
 ### <a id="configuring-synchronisation" class="anchor" href="#configuring-synchronisation">Configuring Synchronisation</a>

@@ -11,8 +11,9 @@
       basic.cancel to the client, and
      the un-deprecation of exchange.declare{auto-delete} and exchange.declare{internal}
 
-     Modifications are (c) 2010-2013 VMware, Inc. and may be distributed
-     under the same BSD license as below.
+     Modifications are (c) 2007-210 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
+     The modifications may be distributed under
+     the same BSD license as the stripped spec.
 -->
 
 <!--

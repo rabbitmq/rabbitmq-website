@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -15,11 +15,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Time-To-Live and Expiration 
+# Time-To-Live and Expiration
 
 ## <a id="overview" class="anchor" href="#overview">Time-To-Live Feature</a>
 
-With RabbitMQ, you can set a TTL (time-to-live) argument or policy for messages and queues. As the name suggests, TTL specifies the time period that the messages and queues "live for". 
+With RabbitMQ, you can set a TTL (time-to-live) argument or policy for messages and queues. As the name suggests, TTL specifies the time period that the messages and queues "live for".
 
 Message TTL determines how long messages can be retained in a queue. If the retention period of a message in a queue exceeds the message TTL of the queue, the message expires and is discarded.
 
@@ -35,7 +35,7 @@ TTL behavior is controlled by [optional queue arguments](queues.html) and the be
 
 TTL settings also can be enforced by [operator policies](./parameters.html#operator-policies).
 
-The follow on information in this topic describes how to define message TTL for queues, per-message TTL in publishers, the caveats, and how to define queue TTL. 
+The follow on information in this topic describes how to define message TTL for queues, per-message TTL in publishers, the caveats, and how to define queue TTL.
 
 ## <a id="per-queue-message-ttl" class="anchor" href="#per-queue-message-ttl">Per-Queue Message TTL in Queues</a>
 

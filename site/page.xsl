@@ -14,7 +14,7 @@
                 version="1.0">
 
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -211,7 +211,7 @@ limitations under the License.
           </xsl:if>
         </ul>
         <p id="copyright">
-          Copyright &#169; 2007-2023 <a href="https://tanzu.vmware.com/">VMware</a>, Inc. or its affiliates. All rights reserved.
+          Copyright &#169; 2007-2023 <a href="https://tanzu.vmware.com/">Broadcom</a>. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
           <a href="https://www.vmware.com/help/legal.html">Terms of Use</a> &#8226;
           <a href="https://www.vmware.com/help/privacy.html">Privacy</a> &#8226;
           <a href="/trademark-guidelines.html">Trademark Guidelines</a> &#8226;
