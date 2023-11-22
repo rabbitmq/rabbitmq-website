@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -19,10 +19,10 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">What is a Classic Queue</a>
 
-A RabbitMQ classic queue (the original queue type) is a versatile queue type suitable for use cases where data safety is not a priority because the data stored in classic queues is not replicated. 
-Classic queues uses the **non-replicated** FIFO queue implementation. 
+A RabbitMQ classic queue (the original queue type) is a versatile queue type suitable for use cases where data safety is not a priority because the data stored in classic queues is not replicated.
+Classic queues uses the **non-replicated** FIFO queue implementation.
 
-If data safety is a priority, the recommendation is to use [quorum queues](./quorum-queues.html) and [streams](./streams.html) instead of classic queues. 
+If data safety is a priority, the recommendation is to use [quorum queues](./quorum-queues.html) and [streams](./streams.html) instead of classic queues.
 
 Classic queues are the default queue type
 as long as the default queue type is not overriden for the virtual host.

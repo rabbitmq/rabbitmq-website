@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -419,13 +419,12 @@ actual table encoding is in a binary format and would not be human-friendly):
 <pre class="lang-haskell">
 { "product"      = (longstr) "RabbitMQ",
   "platform"     = (longstr) "Erlang/OTP",
-  "information"  = (longstr) "Licensed under the MPL.  See https://www.rabbitmq.com/",
-  "copyright"    = (longstr) "Copyright (c) 2007-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.",
+  "information"  = (longstr) "Licensed under the MPL 2.0. Website: https://rabbitmq.com",
   "capabilities" = (table)   { "exchange_exchange_bindings" = (bool) true,
                                "consumer_cancel_notify"     = (bool) true,
                                "basic.nack"                 = (bool) true,
                                "publisher_confirms"         = (bool) true },
-  "version"      = (longstr) "3.8.9" }
+  "version"      = (longstr) "3.12.10" }
 </pre>
 
 The capabilities table for clients is optional: failure to present
