@@ -577,8 +577,8 @@ If community plugins need to be provisioned, they should be included into a cust
 
 ### <a name='erlang-inet' class='anchor' href='#erlang-inet'>Erlang INET configuration</a>
 
-**Description:** Erlang configuration related INET module i.e. networking in Erlang VM. All possible configurations are documented
-in [Erlang INET module docs](https://www.erlang.org/doc/apps/erts/inet_cfg). This can be useful to configure Erlang to use IPv6.
+**Description:** [runtime](/runtime.html) configuration related to networking. All supported settings are documented
+in [this Erlang documentation guide](https://www.erlang.org/doc/apps/erts/inet_cfg). This can be useful to configure nodes to use IPv6.
 
 The contents of this field are copied into a `ConfigMap` and mounted in the RabbitMQ container in the path `/etc/rabbitmq/erl_inetrc`.
 
