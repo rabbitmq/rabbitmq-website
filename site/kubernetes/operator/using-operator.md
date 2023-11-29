@@ -478,14 +478,14 @@ spec:
 generates a configuration file `/etc/rabbitmq/conf.d/10-operatorDefaults.conf` with the following properties:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend             = rabbit_peer_discovery_k8s
-cluster_formation.k8s.host                           = kubernetes.default
-cluster_formation.k8s.address_type                   = hostname
-cluster_partition_handling                           = pause_minority
-queue_leader_locator                                 = balanced
-disk_free_limit.absolute                             = 2GB
-cluster_formation.randomized_startup_delay_range.min = 0
-cluster_formation.randomized_startup_delay_range.max = 60
+queue_master_locator = min-masters
+disk_free_limit.absolute = 2GB
+cluster_partition_handling = pause_minority
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.k8s.host = kubernetes.default
+cluster_formation.k8s.address_type = hostname
+cluster_formation.target_cluster_size_hint = ${number-of-replicas}
+cluster_name = ${instance-name}
 </pre>
 
 All the values in additional config will be applied after this list. If any property is specified twice, the latest
@@ -574,6 +574,33 @@ spec:
 
 If community plugins need to be provisioned, they should be included into a custom image or [downloaded on node startup](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/community-plugins). The latter option is generally
 **not recommended** as it goes against the philosophy of immutable images and repeatable builds.
+
+### <a name='erlang-inet' class='anchor' href='#erlang-inet'>Erlang INET configuration</a>
+
+**Description:** Erlang configuration related INET module i.e. networking in Erlang VM. All possible configurations are documented
+in [Erlang INET module docs](https://www.erlang.org/doc/apps/erts/inet_cfg). This can be useful to configure Erlang to use IPv6.
+
+The contents of this field are copied into a `ConfigMap` and mounted in the RabbitMQ container in the path `/etc/rabbitmq/erl_inetrc`.
+
+This field was introduced in Cluster Operator 2.6.0.
+
+**Default Value:** N/A
+
+**Example:**
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmqcluster-sample
+spec:
+  rabbitmq:
+    erlangInetConfig: |
+      {inet6, true}.
+    envConfig: |
+        SERVER_ADDITIONAL_ERL_ARGS="-kernel inetrc '/etc/rabbitmq/erl_inetrc'  -proto_dist inet6_tcp"
+        RABBITMQ_CTL_ERL_ARGS="-proto_dist inet6_tcp"
+</pre>
 
 ### <a name='tls-conf' class='anchor' href='#tls-conf'>TLS Configuration</a>
 
