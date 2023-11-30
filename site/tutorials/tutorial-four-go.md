@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -487,7 +487,7 @@ If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
 <pre class="lang-bash">
-go run receive_logs_direct.go warning error 2> logs_from_rabbit.log
+go run receive_logs_direct.go warning error &amp;> logs_from_rabbit.log
 </pre>
 
 If you'd like to see all the log messages on your screen, open a new

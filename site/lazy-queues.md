@@ -1,12 +1,29 @@
+<!--
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
 # Classic Queues Operating in "Lazy" Queue Mode (A Lazy Queue)
 
 ## What is a Lazy Queue
 
-A "lazy queue" is a classic queue which is running in `lazy` mode. When the "lazy" queue mode is set, 
-messages in classic queues are moved to disk as early as practically possible. 
+A "lazy queue" is a classic queue which is running in `lazy` mode. When the "lazy" queue mode is set,
+messages in classic queues are moved to disk as early as practically possible.
 These messages are loaded into RAM only when they are requested by consumers.
 
-The other queue mode is the `default` mode. 
+The other queue mode is the `default` mode.
 If no mode is specified during declaration, then the `default` mode is used.
 
 It is important to read [There is a Better Way: The Next Generation of Classic Queue Storage is to use Quorum Queues](#interstitial) next.
@@ -16,11 +33,11 @@ It is important to read [There is a Better Way: The Next Generation of Classic Q
 **Before going into further detail about lazy queues, review the following information and recommendation and take appropriate next steps based on it.**
 
  - Classic queues operated in `lazy` mode until **RabbitMQ 3.12**. It is important to know that from **RabbitMQ 3.12** and onwards, this `lazy` queue mode is ignored. By default, in **RabbitMQ 3.12**, classic queues
-work in a similar manner to how classic queues worked with `lazy` mode running on them. Classic queues in **RabbitMQ 3.12** may however 
-keep a small number of messages in memory (up to 2048 at the time of writing) based on the consumption rate. 
+work in a similar manner to how classic queues worked with `lazy` mode running on them. Classic queues in **RabbitMQ 3.12** may however
+keep a small number of messages in memory (up to 2048 at the time of writing) based on the consumption rate.
 
  - **Quorum queues should be your default choice for a replicated queue type.**
-Classic queue mirroring will be removed in a future version of RabbitMQ. 
+Classic queue mirroring will be removed in a future version of RabbitMQ.
 Classic queues will remain a supported non-replicated queue type.
 
  - **The recommendation is:** If you are using **RabbitMQ 3.11** and earlier versions, either
@@ -33,7 +50,7 @@ From RabbitMQ 3.10 onwwards, quorum queues [support message TTL](https://blog.ra
 provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues.
 
 [Streams](streams.html) are another messaging data structure available as of [RabbitMQ 3.9](changelog.html),
-and is also replicated. 
+and is also replicated.
 
 ## <a id="overview" class="anchor" href="#overview">A Deeper Dive into Lazy Queues</a>
 

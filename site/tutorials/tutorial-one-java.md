@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -54,7 +54,7 @@ on behalf of the consumer.
 > Please note SLF4J Simple is enough for tutorials but you should use a full-blown
 > logging library like [Logback](https://logback.qos.ch/) in production.
 >
-> (The RabbitMQ Java client is also in the central Maven repository,
+> (The RabbitMQ Java client is also [in the central Maven repository](https://mvnrepository.com/artifact/com.rabbitmq/amqp-client),
 > with the groupId `com.rabbitmq` and the artifactId `amqp-client`.)
 
 Now we have the Java client and its dependencies, we can write some

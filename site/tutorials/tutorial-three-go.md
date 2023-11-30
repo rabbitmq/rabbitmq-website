@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -471,7 +471,7 @@ func main() {
 If you want to save logs to a file, just open a console and type:
 
 <pre class="lang-bash">
-go run receive_logs.go > logs_from_rabbit.log
+go run receive_logs.go &amp;> logs_from_rabbit.log
 </pre>
 
 If you wish to see the logs on your screen, spawn a new terminal and run:

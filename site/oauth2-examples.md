@@ -1,3 +1,20 @@
+<!--
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
 # RabbitMQ OAuth 2.0 Auth Backend Examples
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
@@ -22,10 +39,10 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
 
 * [Prerequisites to follow this guide](#prerequisites)
 * [Getting started with UAA and RabbitMQ](#getting-started-with-uaa-and-rabbitmq)
-* [Access Management UI using OAuth 2.0 tokens](#access-management-ui)  
+* [Access Management UI using OAuth 2.0 tokens](#access-management-ui)
     - [Service-Provider initiated logon](#service-provider-initiated-logon)
     - [Identity-Provider initiated logon](#identity-provider-initiated-logon)
-* [Access other protocols using OAuth 2.0 tokens](#access-other-protocols)    
+* [Access other protocols using OAuth 2.0 tokens](#access-other-protocols)
   - [Management REST api](#monitoring-agent-accessing-management-rest-api)
 	- [AMQP protocol](#amqp-protocol)
 	- [JMS protocol](#jms-protocol)
@@ -39,7 +56,7 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
 * Use different OAuth 2.0 servers
 	- [KeyCloak](oauth2-examples-keycloak.html)
 	- [https://auth0.com/](oauth2-examples-oauth0.html)
-	- [Azure Active Directory](oauth2-examples-azure.html)  
+	- [Azure Active Directory](oauth2-examples-azure.html)
     - [OAuth2 Proxy](./oauth2-examples-proxy.html)
 * [Understanding the environment](#understand-the-environment)
 	- [RabbitMQ server](#rabbitmq-server)
@@ -145,7 +162,7 @@ in `advanced.config`:
  {rabbitmq_management, [
     {oauth_enabled, true},
     {oauth_client_id, "rabbit_client_code"},
-    {oauth_provider_url, "http://localhost:8080"},      
+    {oauth_provider_url, "http://localhost:8080"},
     ...
   ]},
 </pre>
@@ -156,7 +173,7 @@ Like Service-Provider initiated logon, with Idp-initiated logon users get to the
 The following scenarios are examples of Idp-initiated logon:
 
 * RabbitMQ is behind a web portal which conveniently allow users to navigate directly to RabbitMQ fully authenticated.
-* There is an OAuth2 proxy in between users and RabbitMQ which intercepts their requests and forwards them to RabbitMQ inserting the token into the HTTP `Authorization` header.  
+* There is an OAuth2 proxy in between users and RabbitMQ which intercepts their requests and forwards them to RabbitMQ inserting the token into the HTTP `Authorization` header.
 
 The latter scenario is demonstrated [here](./oauth2-examples-proxy.html). The former scenario is covered in the following section.
 
@@ -167,10 +184,10 @@ by submitting a form with their OAuth token in the `access_token` form field as 
 
 
 <pre class="lang-plain">
-    [ Idp | WebPortal ] ----&gt; 2. /login [access_token: TOKEN]----   [ RabbitMQ Cluster ]            
+    [ Idp | WebPortal ] ----&gt; 2. /login [access_token: TOKEN]----   [ RabbitMQ Cluster ]
               /|\                                                        |       /|\
                |                                                         +--------+
-      1. rabbit_admin from a browser                                   3. validate token        
+      1. rabbit_admin from a browser                                   3. validate token
 </pre>
 
 If the access token is valid, RabbitMQ redirects the user to the **Overview** page.
@@ -182,7 +199,7 @@ add one entry to `advanced.config`. For example:
  ...
  {rabbitmq_management, [
     {oauth_enabled, true},
-    {oauth_provider_url, "http://localhost:8080"},      
+    {oauth_provider_url, "http://localhost:8080"},
     {oauth_initiated_logon_type, idp_initiated},
     ...
   ]},
@@ -235,7 +252,7 @@ Instead you are launching the application with a token that you have previously 
 
 First of all, an application which wants to connect to RabbitMQ using Oauth 2.0 must present a
 valid JWT token. To obtain the token, the application must first authenticate (`1.`) with UAA. In case of a successful
-authentication, it gets back a JWT token (`2.`) which uses it to connect (`3.`) to RabbitMQ.  
+authentication, it gets back a JWT token (`2.`) which uses it to connect (`3.`) to RabbitMQ.
 
 
 <pre class="lang-plain">
@@ -686,7 +703,7 @@ RabbitMQ supports JWT tokens compliant with the extension. Below is a sample exa
 <pre class="lang-javascript">
 {
   "authorization_details": [
-    { "type" : "rabbitmq",  
+    { "type" : "rabbitmq",
       "locations": ["cluster:finance/vhost:primary-*"],
       "actions": [ "read", "write", "configure"  ]
     },
@@ -840,7 +857,7 @@ The Make target `make setup-users-and-clients` accomplishes a few things:
 ### About Users and Clients
 
 First of all, you need to clarify the distinction between *users* and *clients*.
-- A *user* is often represented as a live person. This is typically the user who wants to access the RabbitMQ Management UI/API.  
+- A *user* is often represented as a live person. This is typically the user who wants to access the RabbitMQ Management UI/API.
 - A *client* (a.k.a. *service account*) is an application that acts on behalf of a user or act on its own. This is typically an AMQP application.
 
 ### About Permissions
@@ -1032,7 +1049,7 @@ Let's examine the following token which corresponds to end-user `rabbit_admin`.
 </pre>
 
 These are the fields relevant for RabbitMQ:
-- `sub` ([Subject](https://tools.ietf.org/html/rfc7519#page-9)) this is the identify of the subject of the token. **RabbitMQ uses this field to identify the user**. This token corresponds to the `rabbit_admin` end user. If you logged into the Management UI, you would see it in the top-right corner. If this were an AMPQ user, you would see it on each connection listed in the connections tab.  
+- `sub` ([Subject](https://tools.ietf.org/html/rfc7519#page-9)) this is the identify of the subject of the token. **RabbitMQ uses this field to identify the user**. This token corresponds to the `rabbit_admin` end user. If you logged into the Management UI, you would see it in the top-right corner. If this were an AMPQ user, you would see it on each connection listed in the connections tab.
   UAA would add 2 more fields relative to the *subject*: a `user_id` with the same value as the `sub` field, and `user_name` with user's name. In UAA, the `sub`/`user_id` fields contains the user identifier, which is a GUID.
 
 - `client_id` (not part of the RFC-7662) identifies the OAuth client that obtained the JWT. You used `rabbit_client` client to obtain the JWT for `rabbit_admin` user. **RabbitMQ also [uses](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2/blob/master/src/rabbit_auth_backend_oauth2.erl#L169) this field to identify the user**.

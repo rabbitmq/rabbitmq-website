@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -51,7 +51,7 @@ A RabbitMQ node can be configured using a number of mechanisms responsible
 for different areas:
 
 <table>
-  <caption>Ways of configuration RabbitMQ</caption>
+  <caption>Ways of configuring RabbitMQ</caption>
   <thead>
     <td><strong>Mechanism</strong></td>
     <td><strong>Description</strong></td>
@@ -62,17 +62,9 @@ for different areas:
       <a href="#configuration-files">Configuration File(s)</a>
     </td>
     <td>
-      contains server and plugin settings for
-
-      <ul>
-        <li><a href="./networking.html">TCP listeners and other networking-related settings</a></li>
-        <li><a href="./ssl.html">TLS</a></li>
-        <li><a href="./alarms.html">resource constraints (alarms)</a></li>
-        <li><a href="./access-control.html">authentication and authorisation backends</a></li>
-        <li><a href="./persistence-conf.html">message store settings</a></li>
-      </ul>
-
-      and so on.
+      Contains server and plugin settings for TCP listeners and other <a href="./networking.html">networking-related settings</a>,
+      <a href="./ssl.html">TLS</a>, <a href="./alarms.html">resource constraints (alarms)</a>, <a href="./access-control.html">authentication and authorisation backends</a>,
+      <a href="./persistence-conf.html">message store settings</a>, and more.
     </td>
   </tr>
   <tr>
@@ -80,7 +72,7 @@ for different areas:
       <a href="#customise-environment">Environment Variables</a>
     </td>
     <td>
-      define <a href="./cli.html#node-names">node name</a>, file and directory locations, runtime flags taken from the shell, or set in
+      Used to define <a href="./cli.html#node-names">node name</a>, file and directory locations, runtime flags taken from the shell, or set in
       the environment configuration file, <code>rabbitmq-env.conf</code> (Linux, MacOS, BSD)
       and <code>rabbitmq-env-conf.bat</code> (Windows)
     </td>
@@ -348,7 +340,7 @@ The same example in the <a href="#config-file-formats">classic config format</a>
 This example will alter the [port RabbitMQ listens on](./networking.html#ports) for
 AMQP 0-9-1 and AMQP 1.0 client connections from 5672 to 5673.
 
-The RabbitMQ server source repository contains [an example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbit/docs/rabbitmq.conf.example)
+The RabbitMQ server source repository contains [an example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbit/docs/rabbitmq.conf.example)
 named `rabbitmq.conf.example`. It contains examples of
 most of the configuration items you might want to set (with some very obscure ones omitted), along with
 documentation for those settings.
@@ -613,7 +605,7 @@ some settings are quite obscure.
   </thead>
 
   <tr>
-    <td><code>listeners</code></td>
+    <td><code>listeners.tcp</code></td>
     <td>
       Ports or hostname/pair on which to listen for "plain" AMQP 0-9-1 and AMQP 1.0 connections
       (without <a href="./ssl.html">TLS</a>). See the <a href="./networking.html">Networking guide</a> for more
@@ -625,6 +617,27 @@ some settings are quite obscure.
 listeners.tcp.default = 5672
 </pre>
       </p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>listeners.ssl</code></td>
+    <td>
+      Ports or hostname/pair on which to listen for TLS-enabled AMQP 0-9-1 and AMQP 1.0 connections.
+      See the <a href="./ssl.html">TLS guide</a> for more
+      details and examples.
+      <p>Default: <code>none</code> (not set)</p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>ssl_options</code></td>
+    <td>
+      TLS configuration. See the <a href="ssl.html#enabling-ssl">TLS guide</a>.
+      <p>
+        Default:
+<pre class="lang-ini">
+ssl_options = none
+</pre>
+        </p>
     </td>
   </tr>
   <tr>
@@ -641,28 +654,6 @@ num_acceptors.tcp = 10
     </td>
   </tr>
   <tr>
-    <td><code>handshake_timeout</code></td>
-    <td>
-      Maximum time for AMQP 0-9-1 handshake (after socket connection and TLS handshake),
-      in milliseconds.
-      <p>
-        Default:
-<pre class="lang-ini">
-handshake_timeout = 10000
-</pre>
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td><code>listeners.ssl</code></td>
-    <td>
-      Ports or hostname/pair on which to listen for TLS-enabled AMQP 0-9-1 and AMQP 1.0 connections.
-      See the <a href="./ssl.html">TLS guide</a> for more
-      details and examples.
-      <p>Default: <code>none</code> (not set)</p>
-    </td>
-  </tr>
-  <tr>
     <td><code>num_acceptors.ssl</code></td>
     <td>
       Number of Erlang processes that will accept TLS connections from clients.
@@ -674,17 +665,56 @@ num_acceptors.ssl = 10
       </p>
     </td>
   </tr>
-
   <tr>
-    <td><code>ssl_options</code></td>
+    <td><code>distribution.listener.interface</code></td>
     <td>
-      TLS configuration. See the <a href="ssl.html#enabling-ssl">TLS guide</a>.
+      Controls what network interface will be used for communication
+      with other cluster members and CLI tools.
       <p>
         Default:
 <pre class="lang-ini">
-ssl_options = none
+distribution.listener.interface = 0.0.0.0
 </pre>
-        </p>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>distribution.listener.port_range.min</code></td>
+    <td>
+      Controls the lower bound of a server port range that will be used for communication
+      with other cluster members and CLI tools.
+      <p>
+        Default:
+<pre class="lang-ini">
+distribution.listener.port_range.min = 25672
+</pre>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>distribution.listener.port_range.max</code></td>
+    <td>
+      Controls the upper bound of a server port range that will be used for communication
+      with other cluster members and CLI tools.
+      <p>
+        Default:
+<pre class="lang-ini">
+distribution.listener.port_range.max = 25672
+</pre>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>handshake_timeout</code></td>
+    <td>
+      Maximum time for AMQP 0-9-1 handshake (after socket connection and TLS handshake),
+      in milliseconds.
+      <p>
+        Default:
+<pre class="lang-ini">
+handshake_timeout = 10000
+</pre>
+      </p>
     </td>
   </tr>
   <tr>
@@ -2270,7 +2300,7 @@ the supported limits and other directives.
 
 #### With Docker
 
-To configure kernel limits for Docker contains, use the `"default-ulimits"` key in
+To configure kernel limits for Docker containers, use the `"default-ulimits"` key in
 [Docker daemon configuration file](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file).
 The file has to be installed on Docker hosts at `/etc/docker/daemon.json`:
 

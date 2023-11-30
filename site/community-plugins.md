@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -22,7 +22,7 @@ limitations under the License.
 Binary downloads of plugins, which are contributed by authors in the
 community are available. These plugins do not ship with the RabbitMQ
 server. Refer to [Installing Additional Plugins](installing-plugins.html) for information on how to install the plugins. Note, the latest
-build of the plugin is compiled against the latest feature release of RabbitMQ. 
+build of the plugin is compiled against the latest feature release of RabbitMQ.
 
 There is no guarantee that these plugins work
 against a given release of RabbitMQ. They are built at

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -31,7 +31,12 @@ Data in a stream can be used via a RabbitMQ client library or through a
 [dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc) plugin and associated client(s).
 The latter option is **highly recommended** as it provides access to all stream-specific features and offers best possible throughput (performance).
 
-You might ask the following questions now? Do streams replace queues then? Should I move away from using queues? To answer these questions, streams were not introduced to replace queues but to complement them. Streams open up many opportunities for new RabbitMQ use cases which are described in [Use Cases for Using Streams](#use-cases).
+Now, you might be asking the following questions:
+
+ * Do streams replace queues then?
+ * Should I move away from using queues?
+
+To answer these questions, streams were not introduced to replace queues but to complement them. Streams open up many opportunities for new RabbitMQ use cases which are described in [Use Cases for Using Streams](#use-cases).
 
 The following information details streams usage, and the administration and maintenance operations for streams.
 

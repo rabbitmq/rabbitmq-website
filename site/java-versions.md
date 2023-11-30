@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -79,7 +79,7 @@ maintained by the RabbitMQ team.
   </tr>
 
   <tr>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-stream-perf-test" target="_blank" rel="noopener noreferrer">Stream PerfTest</a> 0.x</td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-stream-perf-test" target="_blank" rel="noopener noreferrer">Stream PerfTest</a> 1.x</td>
     <td>Currently supported</td>
     <td></td>
     <td>11, 17, 21</td>

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -132,10 +132,11 @@ to [use IPv6 for inter-node communication and CLI tool connections](#distributio
 
 ### <a id="single-stack-ipv4" class="anchor" href="#single-stack-ipv4">Listening on IPv4 Interfaces Only</a>
 
-In this example RabbitMQ will listen on an IPv4 interface only:
+In this example RabbitMQ will listen on an IPv4 interface with specified IP address only:
 
 <pre class="lang-ini">
-listeners.tcp.1 = 192.168.1.99:5672
+listeners.tcp.1 = 192.168.1.99:5672 # Plain AMQP
+listeners.ssl.1 = 192.168.1.99:5671 # TLS (AMQPS)
 </pre>
 
 It is possible to deactivate non-TLS connections by deactivating all regular TCP listeners.

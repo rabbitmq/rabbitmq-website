@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -817,7 +817,7 @@ This section aims to cover a couple of tunable parameters that may increase thro
 Use the values and recommendations here as a **starting point** and conduct your own benchmark (for example,
 [using PerfTest](https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/)) to conclude what combination of values works best for a particular workloads.
 
-### <a id="wal-segment-entry-count" class="anchor" href="#wal-segment-entry-count">Tuning: WAL Segment File Entry Count</a>
+### <a id="segment-entry-count" class="anchor" href="#segment-entry-count">Tuning: Raft Segment File Entry Count</a>
 
 Workloads with small messages and higher message rates can benefit from the following
 configuration change that increases the number of Raft log entries (such as enqueued messages)

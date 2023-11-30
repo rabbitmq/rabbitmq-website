@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -923,7 +923,7 @@ ICredentialsProvider credentialProvider = new OAuth2ClientCredentialsProvider("p
 
 var connectionFactory = new ConnectionFactory {
         CredentialsProvider = credentialsProvider
-};            
+};
 var connection = connectionFactory.CreateConnection();
 </pre>
 
@@ -943,7 +943,7 @@ ICredentialsProvider credentialsProvider = new OAuth2ClientCredentialsProvider("
 
 var connectionFactory = new ConnectionFactory {
         CredentialsProvider = credentialsProvider
-};            
+};
 var connection = connectionFactory.CreateConnection();
 </pre>
 
@@ -974,7 +974,7 @@ ICredentialsRefresher credentialsRefresher = new TimerBasedCredentialRefresher()
 var connectionFactory = new ConnectionFactory {
         CredentialsProvider = credentialsProvider,
         CredentialsRefresher = credentialsRefresher
-};            
+};
 var connection = connectionFactory.CreateConnection();
 </pre>
 

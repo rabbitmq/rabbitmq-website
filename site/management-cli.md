@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -35,7 +35,7 @@ HTTP API intentionally doesn't expose certain operations.
 the management plugin enabled. Navigate to `http://{hostname}:15672/cli/rabbitmqadmin` to download it.
 The tool requires a supported version of Python to be installed.
 
-Alternatively, `rabbitmqadmin` can be downloaded [from GitHub](https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/v3.11.x/deps/rabbitmq_management/bin/rabbitmqadmin).
+Alternatively, `rabbitmqadmin` can be downloaded [from GitHub](https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/v3.12.x/deps/rabbitmq_management/bin/rabbitmqadmin).
 
 
 ## Getting Started

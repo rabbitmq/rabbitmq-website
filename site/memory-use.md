@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -564,7 +564,10 @@ add it to the residential set size (RSS)
 footprint of the process. This can lead to confusion: the **page cache is not maintained or controlled
 by RabbitMQ nodes. It is maintained, controlled and evicted (cleared) by the operating system kernel**.
 
-This is particularly [common in Kubernetes-based deployments](https://github.com/kubernetes/kubernetes/issues/43916).
+This is particularly [common in Kubernetes-based](https://github.com/kubernetes/kubernetes/issues/43916) deployments
+[that do not use cgroup v2](https://kubernetes.io/blog/2022/08/31/cgroupv2-ga-1-25/))
+(this is usually the case with Kubernetes older than 1.25.0).
+
 
 ### What Does a Large Page Cache Size Tell Us About a Workload?
 

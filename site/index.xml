@@ -5,7 +5,7 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -26,17 +26,7 @@ limitations under the License.
   </head>
   <body suppress-rhs="true">
     <x:modal mode="www">
-      <div id="hero" class='center'>
-        <div class='container'>
-          <div id='hero-summit'>
-            <div class='container'>
-              <h1>RabbitMQ Summit 2023<br/>Oct 20 | Berlin, Germany</h1>
-              <h2><a href="https://rabbitmqsummit.com/?utm_source=rabbitmq-website&amp;utm_medium=homepage-banner&amp;utm_campaign=rabbitmq-summit-2023" target="_blank" onclick="_gaq.push(['_trackEvent', 'RabbitMQ Summit Link', 'Click', 'Homepage Banner']);">Tickets on Sale</a></h2>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- <div id="hero">
+      <div id="hero">
         <div class='container'>
           <div id='hero-pipeline-webinar'>
             <div class='container'>
@@ -48,7 +38,7 @@ limitations under the License.
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
       <div id='intro'>
         <div class='container'>
           <div class='column twothirds'>
@@ -193,7 +183,7 @@ limitations under the License.
                 <h2>24/7 Expert Support</h2>
                 <p>
                   A license comes with phone and online global coverage support, gold star standards SLAs and extends the support lifecycle.
-                  <a href="https://tanzu.vmware.com/rabbitmq">Learn more</a>
+                  <a href="https://tanzu.vmware.com/rabbitmq/oss">Learn more</a>
                 </p>
               </div>
             </div>
@@ -236,14 +226,14 @@ limitations under the License.
               <p>
                 VMware offers a <a href="https://tanzu.vmware.com/rabbitmq">range of commercial offerings for RabbitMQ</a>.
                 This includes a distribution called <a href="https://network.pivotal.io/products/p-rabbitmq-for-kubernetes/info">VMware RabbitMQ</a> that deploys on Kubernetes or
-                your container Runtime, as well as a version that deploys in
-                <a href="https://tanzu.vmware.com/tanzu">VMware Tanzu Application Service</a>.
+                your container Runtime, a version that deploys in
+                <a href="https://tanzu.vmware.com/tanzu">VMware Tanzu Application Service</a> as well as OVA and OCI versions.
                 These distributions include all of the features of the open source version, with some additional management and business continuity features. Support agreements are part of the commercial licensing.
               </p>
               <img src="./img/commercial/support-and-hosting-phone.svg" height="94" width="109" />
               <h2>Support + Hosting</h2>
               <p>
-                VMware provides <a href="https://tanzu.vmware.com/rabbitmq#contact-form">support for open source RabbitMQ</a>,
+                VMware provides <a href="https://tanzu.vmware.com/rabbitmq/oss">support for open source RabbitMQ</a>,
                 available for a subscription fee. The following companies provide technical support and/or cloud hosting of open source RabbitMQ:
                 <a href="https://www.cloudamqp.com/">CloudAMQP</a>,
                 <a href="https://aws.amazon.com/amazon-mq/">Amazon MQ for RabbitMQ</a>,

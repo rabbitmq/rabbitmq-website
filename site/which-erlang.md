@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -49,6 +49,9 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.12.10</li>
+        <li>3.12.9</li>
+        <li>3.12.8</li>
         <li>3.12.7</li>
         <li>3.12.6</li>
         <li>3.12.5</li>
@@ -115,6 +118,8 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.11.26</li>
+        <li>3.11.25</li>
         <li>3.11.24</li>
         <li>3.11.23</li>
         <li>3.11.22</li>

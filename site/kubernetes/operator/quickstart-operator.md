@@ -166,7 +166,7 @@ kubectl logs hello-world-server-0
 
   ##  ##      RabbitMQ 3.12.1
   ##  ##
-  ##########  Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+  ##########  Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
   ######  ##
   ##########  Licensed under the MPL 2.0. Website: https://rabbitmq.com
 
