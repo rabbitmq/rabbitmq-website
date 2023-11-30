@@ -564,7 +564,7 @@ add it to the residential set size (RSS)
 footprint of the process. This can lead to confusion: the **page cache is not maintained or controlled
 by RabbitMQ nodes. It is maintained, controlled and evicted (cleared) by the operating system kernel**.
 
-This is particularly [common in Kubernetes-based deployments](https://github.com/kubernetes/kubernetes/issues/43916).
+This is particularly [common in Kubernetes-based deployments](https://github.com/kubernetes/kubernetes/issues/43916) (deployed to [kubernetes versions below v1.25 without cgroup v2](https://kubernetes.io/blog/2022/08/31/cgroupv2-ga-1-25/#:~:text=cgroup%20v2%20provides%20a%20unified,has%20graduated%20to%20general%20availability)).
 
 ### What Does a Large Page Cache Size Tell Us About a Workload?
 
