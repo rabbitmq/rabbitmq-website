@@ -86,7 +86,7 @@ args.put("x-dead-letter-exchange", "some.exchange.name");
 channel.queueDeclare("myqueue", false, false, false, args);
 </pre>
 
-The previoud code declares a new exchange called
+The previous code declares a new exchange called
 `some.exchange.name` and sets this new exchange
 as the dead letter exchange for a newly created queue.
 Note, the exchange does not have to be declared when
