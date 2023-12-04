@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# RabbitMQ Documentation Versions
+# Welcome to RabbitMQ Documentation 
 
 RabbitMQ release versions are in the "x.y.z" format, where "x" is the major release, "y" is the minor release, and "z" is the patch release. Documentation versioning follows the same sequence. 
 
