@@ -319,7 +319,7 @@ See the [rabbitmq-tutorials](https://github.com/rabbitmq/rabbitmq-tutorials/) fo
 
         let items = "";
         languageExtensions.forEach((lang, langName) => {
-          const path = `../rabbitmq-tutorials/${lang.folder}/${file}${lang.extension}`;
+          const path = `./rabbitmq-tutorials/${lang.folder}/${file}${lang.extension}`;
           const contents = readfilecontentsync(path);
           const s = `<TabItem value="${lang.folder}" label="${langName}">\n` + "```" + `${lang.folder}\n`;
           const m = contents;
