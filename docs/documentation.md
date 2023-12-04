@@ -20,7 +20,9 @@ limitations under the License.
 
 # Welcome to RabbitMQ Documentation 
 
-RabbitMQ release versions are in the "x.y.z" format, where "x" is the major release, "y" is the minor release, and "z" is the patch release. Documentation versioning follows the same sequence. 
+Welcome to the RabbitMQ documentation. This is intended as a resource for people who....
+
+Before you start using this documentation, lets explain RabbitMQ release versioning so you understand how this documentation is versioned. RabbitMQ release versions are in the "x.y.z" format, where "x" is the major release, "y" is the minor release, and "z" is the patch release. Documentation versioning follows the same sequence. 
 
 This documentation website contains documentation for the current minor release (x.y) of RabbitMQ including updates to cover the latest patch release (x.y.z) associated with the current release. It also contains documentation for three previous RabbitMQ releases.
 
