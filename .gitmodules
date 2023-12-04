@@ -1,0 +1,3 @@
+[submodule "rabbitmq-tutorials"]
+	path = rabbitmq-tutorials
+	url = https://github.com/rabbitmq/rabbitmq-tutorials.git

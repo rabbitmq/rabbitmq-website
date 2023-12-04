@@ -272,8 +272,8 @@ const config = {
 
       const fs = require('fs');
 
-      if (!fs.existsSync("../rabbitmq-tutorials")) {
-        console.log("../rabbitmq-tutorials doesn't exist. Please clone github.com/rabbitmq/rabbitmq-tutorials");
+      if (!fs.existsSync("./rabbitmq-tutorials")) {
+        console.log("./rabbitmq-tutorials doesn't exist. Please fetch the submodule.");
         process.exit(1);
       }
       let languageExtensions = new Map([
