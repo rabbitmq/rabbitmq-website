@@ -27,7 +27,8 @@ const config = {
   organizationName: 'rabbitmq', // Usually your GitHub org/user name.
   projectName: 'rabbitmq-website', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  // TODO set to `throw` when the website is ready for production
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
