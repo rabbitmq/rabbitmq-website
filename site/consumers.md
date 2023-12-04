@@ -454,7 +454,7 @@ rabbitmqctl set_policy queue_consumer_timeout "with_delivery_timeout\.*" '{"cons
 #### Per-queue Delivery Timeouts Using an Optional Queue Argument
 
 Set the `x-consumer-timeout` [optional queue argument](#optional-arguments) on a queue when the queue is declared.
-The timeout is specifiedin milliseconds.
+The timeout is specified in milliseconds.
 Whether the timeout should be enforced is evaluated periodically, at one minute intervals.
 
 
