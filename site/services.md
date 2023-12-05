@@ -26,18 +26,20 @@ VMware offers [**a range of commercial support and services** for RabbitMQ](http
 
 ### Commercial Releases of RabbitMQ
 
-Commercial RabbitMQ edition includes all of the features of the open source version under a commercial license.
+The commercial edition of RabbitMQ includes all the features of the open source version plus additional key features such as Warm Standby Replication and Intra-cluster Compression under a commercial license.
 Pricing is available [here](https://www.vmware.com/products/pivotal-rabbitmq.html).
 
-### RabbitMQ for VMware Tanzu
+The commercial releases include the following:
+
+### VMware RabbitMQ® for Tanzu Application Service
 
 [VMware RabbitMQ® for Tanzu Application Service (formerly known as VMware Tanzu™ RabbitMQ® for VMs)](https://tanzu.vmware.com/services-marketplace/messaging-and-integration/rabbitmq)
 gives developers self-service access to on-demand RabbitMQ clusters
 running on [VMware Tanzu™ Application Service](https://tanzu.vmware.com/application-service) (formerly known as Pivotal Cloud Foundry).
 
-### RabbitMQ for Kubernetes
+### VMware RabbitMQ for Kubernetes
 
-[Tanzu™ RabbitMQ® for Kubernetes](https://tanzu.vmware.com/content/blog/introducing-rabbitmq-for-kubernetes)
+[VMware RabbitMQ® for Kubernetes](https://tanzu.vmware.com/content/blog/introducing-rabbitmq-for-kubernetes)
 simplifies the operational experience to make RabbitMQ available on a Kubernetes-based platform,
 based on the [RabbitMQ Operators for Kubernetes](https://www.rabbitmq.com/kubernetes/operator/operator-overview.html).
 
