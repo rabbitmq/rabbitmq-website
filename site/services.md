@@ -37,7 +37,7 @@ The commercial releases include the following:
 gives developers self-service access to on-demand RabbitMQ clusters
 running on [VMware Tanzu™ Application Service](https://tanzu.vmware.com/application-service) (formerly known as Pivotal Cloud Foundry).
 
-### VMware RabbitMQ for Kubernetes
+### VMware RabbitMQ®  for Kubernetes
 
 [VMware RabbitMQ® for Kubernetes](https://tanzu.vmware.com/content/blog/introducing-rabbitmq-for-kubernetes)
 simplifies the operational experience to make RabbitMQ available on a Kubernetes-based platform,
