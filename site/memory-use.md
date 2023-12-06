@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -565,8 +565,16 @@ footprint of the process. This can lead to confusion: the **page cache is not ma
 by RabbitMQ nodes. It is maintained, controlled and evicted (cleared) by the operating system kernel**.
 
 This is particularly [common in Kubernetes-based](https://github.com/kubernetes/kubernetes/issues/43916) deployments
-[that do not use cgroup v2](https://kubernetes.io/blog/2022/08/31/cgroupv2-ga-1-25/))
-(this is usually the case with Kubernetes older than 1.25.0).
+[that do not use cgroup v2](https://kubernetes.io/blog/2022/08/31/cgroupv2-ga-1-25/)) and run RabbitMQ
+using container images based on [older distributions](https://kubernetes.io/blog/2022/08/31/cgroupv2-ga-1-25/#how-do-you-use-cgroup-v2) that use cgroups v1.
+
+Kubernetes 1.25.0 and the following distributions are highly recommended as they
+use a more reasonable approach to kernel page cache memory accounting:
+
+ * CentOS Stream 9 or later
+ * Fedora 31 or later
+ * Ubuntu 21.10 or later
+ * Debian 11 Bullseye or later
 
 
 ### What Does a Large Page Cache Size Tell Us About a Workload?

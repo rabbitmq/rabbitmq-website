@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -142,7 +142,7 @@ for the original RabbitMQ protocol.
 
  * [Clustering](clustering.html)
  * [Cluster Formation and Peer Discovery](cluster-formation.html)
- * [Intra-cluster Compression](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html)
+ * [Intra-cluster Compression](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/clustering-compression-rabbitmq.html)
 
 ### Replicated Queue Types, Streams, High Availability
 

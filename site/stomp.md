@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -480,7 +480,7 @@ queue and message TTL, queue limits, etc:
  * `x-stream-max-segment-size-bytes` (available only for [streams](./streams.html))
  * `x-overflow`
  * `x-max-priority`
- * `x-queue-type` (to be able to [declare](./quorum-queues.html#declaring) [quorum queues](./quorum-queues.html))
+ * `x-queue-type` (to be able to [declare](./quorum-queues.html#declaring) [quorum queues](./quorum-queues.html) and [streams](./streams.html))
 
 The meaning of every header is the same as when a queue is declared over AMQP 0-9-1.
 Please consult the rest of the documentation for details.

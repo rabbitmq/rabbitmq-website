@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -93,6 +93,7 @@ Miscellaneous projects:
  * [aioamqp](https://pypi.org/project/aioamqp/), a pure-Python AMQP 0-9-1 library using asyncio ([source code](https://github.com/Polyconseil/aioamqp),
    [docs](https://aioamqp.readthedocs.io/en/latest/))
  * [FastStream](https://pypi.org/project/faststream/), a powerful and easy-to-use Python library for building asynchronous services that interact with event streams. ([source code](https://github.com/airtai/faststream), [docs](https://faststream.airt.ai))
+ * [amqp-client-python](https://pypi.org/project/amqp-client-python/), Client with high level of abstraction for manipulation of messages in the event bus RabbitMQ. ([source code](https://github.com/nutes-uepb/amqp-client-python), [docs](https://nutes-uepb.github.io/amqp-client-python/))
 
 Miscellaneous projects:
 

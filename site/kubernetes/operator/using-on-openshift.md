@@ -1,11 +1,7 @@
 # Using the RabbitMQ Kubernetes Operators on Openshift
 
 ## <a id='overview' class='anchor' href='#overview'>Overview</a>
-This documentation details the Openshift-specific considerations when deploying the RabbitMQ Kubernetes Operators, which are the [Cluster operator](using-operator.html) and the [Messaging Topology Operator](using-topology-operator.html). It is important to note that these considerations are also applicable to the commercial [VMware RabbitMQ Standby Replication Operator](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html#requirements-for-warm-standby-replication)(note, this operator is exclusive to the VMware RabbitMQ for Kubernetes commercial offering only).
-
-This documentation details the Openshift-specific considerations when deploying the RabbitMQ Kubernetes Operators, which are the [Cluster operator](using-operator.html) and the [Messaging Topology Operator](using-topology-operator.html).
-It is important to note that these considerations are also applicable to the commercial [VMware RabbitMQ Standby Replication Operator](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html#requirements-for-warm-standby-replication)
-(note, this operator is exclusive to the VMware RabbitMQ for Kubernetes commercial offering only).
+This documentation details the Openshift-specific considerations when deploying the RabbitMQ Kubernetes Operators, which are the [Cluster operator](using-operator.html) and the [Messaging Topology Operator](using-topology-operator.html). It is important to note that these considerations are also applicable to the commercial [VMware RabbitMQ Standby Replication Operator](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html#requirements-for-warm-standby-replication) (note, this operator is exclusive to the VMware RabbitMQ for Kubernetes commercial offering only).
 
 For the most part, the user experience is the same when
 using these operators on Openshift; the following guide details the additional work required to leverage Openshift's

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -25,8 +25,8 @@ This guide covers the installation of the [RabbitMQ Cluster Kubernetes Operator]
 
 The Operator requires
 
-* Kubernetes 1.19 or above
-* [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.9+
+* Kubernetes 1.19 or later (1.25 or later versions are [recommended](/memory-use.html#page-cache), in particular for environments that use [RabbitMQ Streams](/streams.html))
+* [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) that provides a [supported release series of RabbitMQ](/versions.html)
 
 -----
 

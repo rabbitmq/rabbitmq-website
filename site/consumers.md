@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -454,7 +454,7 @@ rabbitmqctl set_policy queue_consumer_timeout "with_delivery_timeout\.*" '{"cons
 #### Per-queue Delivery Timeouts Using an Optional Queue Argument
 
 Set the `x-consumer-timeout` [optional queue argument](#optional-arguments) on a queue when the queue is declared.
-The timeout is specifiedin milliseconds.
+The timeout is specified in milliseconds.
 Whether the timeout should be enforced is evaluated periodically, at one minute intervals.
 
 
