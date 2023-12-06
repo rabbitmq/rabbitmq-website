@@ -1173,6 +1173,10 @@ TLS version by default, as demonstrated in the below table.
 
   <tbody>
     <tr>
+      <td>26.x</td>
+      <td>TLSv1.3 (has a <a href="#tls1.3">dedicated section</a>) and TLSv1.2</td>
+    </tr>
+    <tr>
       <td>25.x</td>
       <td>TLSv1.3 (has a <a href="#tls1.3">dedicated section</a>) and TLSv1.2</td>
     </tr>
