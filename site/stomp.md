@@ -603,6 +603,17 @@ The default value is `next`.
 When delivering messages from a stream, the message offset (that is the position of the
 message in the stream) is included in the `x-stream-offset` header of the `MESSAGE` frame.
 
+[Stream filtering](https://blog.rabbitmq.com/posts/2023/10/stream-filtering/) is also supported.
+The [stream protocol](./stream.html) is the preferred way to interact with streams, but most features are also available with other protocols.
+Stream filtering is no exception, it works the same way with STOMP as with [AMQP](https://blog.rabbitmq.com/posts/2023/10/stream-filtering-internals/#bonus-stream-filtering-on-amqp):
+
+* Declaration: a stream can be created on subscription.
+Set the `x-queue-type` header to `stream` and use the `x-stream-filter-size-bytes` header to set the filter size (optional).
+* Publishing: use the `x-stream-filter-value` header to set the filter value for outbound messages.
+* Consuming: use the `x-stream-filter` header to set the expected filter value(s) (use a comma to separate values) and optionally the `x-stream-match-unfiltered` header (`true` or `false`) to receive messages without any filter value as well (default is `false`).
+Applications must also implement client-side filtering, as it is still possible to receive messages that do not meet the filter value(s) criteria.
+
+
 ### <a id="pear.hpos" class="anchor" href="#pear.hpos">Header prohibited on `SEND`</a>
 
 It is not permitted to set a `message-id` header on a `SEND` frame.
