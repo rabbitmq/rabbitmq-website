@@ -128,11 +128,12 @@ Modern releases support definition import directly in the core,
 without the need to [preconfigure](plugins.html#enabled-plugins-file) the [management plugin](management.html).
 
 To import definitions from a local file on node boot,
-set the `load_definitions` config key to a path of a previously exported JSON file with definitions:
+point the `definitions.local.path` config key to a path of a previously exported JSON file with definitions:
 
 <pre class="lang-ini">
 # Does not require management plugin to be enabled.
-load_definitions = /path/to/definitions/file.json
+definitions.import_backend = local_filesystem
+definitions.local.path = /path/to/definitions/defs.json
 </pre>
 
 Definitions can be imported from a URL accessible over HTTPS on node boot.
