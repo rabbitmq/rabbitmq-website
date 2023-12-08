@@ -250,6 +250,18 @@ auth_ldap.servers.2 = 192.168.0.100
 auth_ldap.use_ssl   = true
 </pre>
 
+The plugin can also connect using [StartTLS](https://fy.blackhats.net.au/blog/2021-08-12-starttls-in-ldap/).
+This less older and secure option is **not recommended** but may be necessary with older LDAP servers:
+
+<pre class="lang-ini">
+auth_ldap.servers.1 = ldap.eng.megacorp.local
+auth_ldap.servers.2 = 192.168.0.100
+
+# Enables StartTLS for connections to the LDAP server.
+# Prefer auth_ldap.use_ssl with reasonably modern LDAP servers!
+auth_ldap.use_starttls   = true
+</pre>
+
 ### Client TLS Options Available for LDAP
 
 There are multiple [TLS](/ssl.html) client options available:
