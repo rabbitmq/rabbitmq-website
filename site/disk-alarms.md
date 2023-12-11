@@ -94,24 +94,23 @@ This configuration file sets the disk free space limit to 1GB:
 disk_free_limit.absolute = 1000000000
 </pre>
 
-Or you can use memory units (KB, MB GB etc.) like this:
+The value can also be set using memory units (KB, MB GB etc.) like this:
 
 <pre class="lang-ini">
 disk_free_limit.absolute = 1GB
 </pre>
 
-It is also possible to set a free space limit relative to the RAM in the machine.
-This configuration file sets the disk free space limit to the same
-as the amount of RAM on the machine:
-
-<pre class="lang-ini">
-disk_free_limit.relative = 1.0
-</pre>
-
 The limit can be changed while the broker is running
-using the `rabbitmqctl set_disk_free_limit` command
-or `rabbitmqctl set_disk_free_limit mem_relative` command.
-This command will take effect until next node restart.
+using the `rabbitmqctl set_disk_free_limit` command.
+This command will have its effect until the next node restart.
 
 The corresponding configuration setting should also be changed
 when the effects should survive a node restart.
+
+### Absolute and Relative Free Disk Space Low Watermark
+
+When both `disk_free_limit.absolute` and `disk_free_limit.relative` values are set
+by accident, in all [supported RabbitMQ versions](/versions.html), the former will take precedence.
+
+`disk_free_limit.absolute` is the recommended of the two options because it is easier
+to reason about.

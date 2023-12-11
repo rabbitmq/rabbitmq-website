@@ -817,11 +817,9 @@ vm_memory_high_watermark_paging_ratio = 0.5
       information units (e.g `50MB` or `5GB`):
 
 <pre class="lang-ini">
-disk_free_limit.relative = 3.0</pre>
-<pre class="lang-ini">
 disk_free_limit.absolute = 2GB</pre>
 
-      By default free disk space must exceed 50MB. See the <a
+      By default free disk space must exceed 50MB. This must be revisited for <a href="/production-checklist.html">production environments</a>. See the <a
       href="disk-alarms.html">Disk Alarms</a> documentation.
       <p>
         Default:
