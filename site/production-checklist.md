@@ -204,30 +204,44 @@ following:
 
 <ul class="plain">
   <li>
-    <code>disk_free_limit.relative = 1.0</code> is the
-    minimum recommended value and it translates to the total amount of
-    memory available. For example, on a host dedicated to
-    RabbitMQ with 4GB of system memory, if available disk space drops
-    below 4GB, all publishers will be blocked and no new messages
-    will be accepted. Queues will need to be drained, normally by
-    consumers, before publishing will be allowed to resume.
+    <p>
+      The minimum recommended free disk space low watermark value is about the same
+      as the high memory watermark. For example, on a node configured to have its memory watermark of 4GB,
+      <code>disk_free_limit.absolute = 4G</code> would be a recommended minimum.
+    </p>
+
+    <p>
+      In the example above, if available disk space drops
+      below 4GB, all publishers will be blocked and no new messages
+      will be accepted. Queues will need to be drained by
+      consumers before publishing will be allowed to resume.
+    </p>
   </li>
   <li>
-    <code>disk_free_limit.relative = 1.5</code> is a
-    safer production value. On a RabbitMQ node with 4GB of
-    memory, if available disk space drops below 6GB, all new messages
-    will be blocked until the disk alarm clears. If RabbitMQ needs to
-    flush to disk 4GB worth of data, as can sometimes be the case during
-    shutdown, there will be sufficient disk space available for RabbitMQ
-    to start again. In this specific example, RabbitMQ will start and
-    immediately block all publishers since 2GB is well under the required
-    6GB.
+    <p>
+      Continuing with the example above, <code>disk_free_limit.absolute = 6G</code>
+      is a safer value.
+    </p>
+
+    <p>
+      If RabbitMQ needs to
+      flush to disk up to its high memory watermark worth of data, as can sometimes be the case during
+      shutdown, there will be sufficient disk space available for RabbitMQ
+      to start again in all but the most pessimistic scenarios.
+      6GB
+    </p>
   </li>
   <li>
-    <code>disk_free_limit.relative = 2.0</code> is the
-    most conservative production value, we cannot think of any reason to use
-    anything higher. If you want full confidence in RabbitMQ having
-    all the disk space that it needs, at all times, this is the value to use.
+    <p>
+      Continuing with the example above, <code>disk_free_limit.absolute = 8G</code>
+      is the safest value to use.
+    </p>
+
+    <p>
+      It should be enough disk space for the most pessimistic scenario where a node first has to move
+      up its high memory watermark worth of data (so, about 4 GiB) to disk, and then perform an on disk
+      data operation that could temporarily nearly double the amount of disk space used.
+    </p>
   </li>
 </ul>
 

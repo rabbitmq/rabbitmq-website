@@ -40,8 +40,8 @@ LDAP primers are available elsewhere on the Web, for example, [one](https://www.
 [two](https://www.ldap.com/basic-ldap-concepts), and the [LDAP glossary](https://www.ldap.com/glossary-of-ldap-terms).
 
 This guide covers the [LDAP operation flow](#ldap-operation-flow) used by RabbitMQ, how the LDAP model
-[maps to the RabbitMQ permission model](#authorisation) and what tools are available
-for [troubleshooting](#troubleshooting) and [proxying](#proxies) of LDAP requests.
+[maps to the RabbitMQ permission model](#authorisation), how to [use TLS to connect to LDAP servers](#tls),
+and what tools are available for [troubleshooting](#troubleshooting) and [proxying](#proxies) of LDAP requests.
 
 ## <a id="prerequisites" class="anchor" href="#prerequisites">Prerequisites</a>
 
@@ -229,7 +229,8 @@ auth_ldap.idle_timeout = 300000
 
 Values between 120 and 300 seconds are recommended.
 
-### <a id="ldap-tls" class="anchor" href="#ldap-tls">Using TLS for LDAP Connections</a>
+
+## <a id="tls" class="anchor" href="#tls">Using TLS for LDAP Connections</a>
 
 It is possible to connect to LDAP servers using TLS. To instruct the
 plugin to do so, set the `auth_ldap.use_ssl` setting to `true`.
@@ -245,35 +246,124 @@ TLS settings for LDAP connections can only be configured via the advanced config
 auth_ldap.servers.1 = ldap.eng.megacorp.local
 auth_ldap.servers.2 = 192.168.0.100
 
+# enables TLS for connections to the LDAP server
 auth_ldap.use_ssl   = true
 </pre>
 
-<pre class="lang-erlang">
-[
-  {rabbitmq_auth_backend_ldap, [
-     {ssl_options, [{cacertfile,"/path/to/ca_certificate.pem"},
-                    {certfile,"/path/to/server_certificate.pem"},
-                    {keyfile,"/path/to/server_key.pem"},
-                    {verify, verify_peer},
-                    {fail_if_no_peer_cert, true}]}
-   ]}
-].
+The plugin can also connect using [StartTLS](https://fy.blackhats.net.au/blog/2021-08-12-starttls-in-ldap/).
+This less older and secure option is **not recommended** but may be necessary with older LDAP servers:
+
+<pre class="lang-ini">
+auth_ldap.servers.1 = ldap.eng.megacorp.local
+auth_ldap.servers.2 = 192.168.0.100
+
+# Enables StartTLS for connections to the LDAP server.
+# Prefer auth_ldap.use_ssl with reasonably modern LDAP servers!
+auth_ldap.use_starttls   = true
 </pre>
 
-An example that uses both of the above and uses the [advanced.config format](configure.html):
+### Client TLS Options Available for LDAP
+
+There are multiple [TLS](/ssl.html) client options available:
+
+#### CA Certificate(s), Clint Certificate and Private Key
+
+<pre class="lang-ini">
+# local filesystem path to a CA certificate bundle file
+auth_ldap.ssl_options.cacertfile = /path/to/ca_certificate.pem
+
+# local filesystem path to a client certificate file
+auth_ldap.ssl_options.certfile = /path/to/client_certfile.pem
+
+# local filesystem path to a client private key file
+auth_ldap.ssl_options.keyfile = /path/to/client_key.pem
+</pre>
+
+#### SNI (Server Name Indication)
+
+[Server Name Indication](https://www.cloudflare.com/en-gb/learning/ssl/what-is-sni/) (SNI) can be configured
+for outgoing TLS connections to LDAP servers. When not set, the default will be the hostname used
+for connection (see `auth_ldap.servers.*` above).
+
+<pre class="lang-ini">
+# Sets Server Name Indication for LDAP connections.
+# If an LDAP server host is availble via multiple domain names, set this value
+# to the preferred domain name target LDAP server
+auth_ldap.ssl_options.sni = ldap.identity.eng.megacorp.local
+</pre>
+
+#### Hostname Verification
+
+Hostname verification should not be confused with [peer certificate chain verification](/ssl.html#peer-verification).
+These settings are orthogonal and can be combined.
+
+<pre class="lang-ini">
+# take wildcards into account when performing hostname verification
+auth_ldap.ssl_options.hostname_verification = wildcard
+</pre>
+
+<pre class="lang-ini">
+# disables hostname verification
+auth_ldap.ssl_options.hostname_verification = none
+</pre>
+
+#### Peer Verification
+
+[Peer certificate chain verification](/ssl.html#peer-verification) should not be confused with hostname match verification.
+These settings are orthogonal and can be combined.
+
+<pre class="lang-ini">
+# enables peer certificate chain verification
+auth_ldap.ssl_options.verify = verify_peer
+</pre>
+
+<pre class="lang-ini">
+# disables peer certificate chain verification
+auth_ldap.ssl_options.verify = verify_none
+</pre>
+
+<pre class="lang-ini">
+# if target LDAP server does not present a certificate, should the connection be aborted?
+auth_ldap.ssl_options.fail_if_no_peer_cert = true
+</pre>
+
+#### Peer Chain Verification Depth
+
+[Certificate chain verification depth](/ssl.html#peer-verification-depth) can be increased
+for servers that use multiple intermediary certificates:
+
+<pre class="lang-ini">
+auth_ldap.ssl_options.depth = 5
+</pre>
+
+#### TLS Versions Enabled
+
+<pre class="lang-ini">
+# use TLSv1.2 only
+ssl_options.versions.1 = tlsv1.2
+</pre>
+
+### TLS Options in `advanced.config`
+
+The below example uses an [`advanced.config` format](configure.html#advanced-config-file):
 
 <pre class="lang-erlang">
 [
   {rabbitmq_auth_backend_ldap, [
+     {servers, ["ldap1.eng.megacorp.local", "ldap2.eng.megacorp.local"]},
+
      {use_ssl,     true},
      {ssl_options, [{cacertfile, "/path/to/ca_certificate.pem"},
                     {certfile,   "/path/to/server_certificate.pem"},
                     {keyfile,    "/path/to/server_key.pem"},
                     {verify,               verify_peer},
-                    {fail_if_no_peer_cert, true}]}
+                    {fail_if_no_peer_cert, true}]},
+                    {server_name_indication, "ldap.identity.eng.megacorp.local"},
+                    {ssl_hostname_verification, wildcard}
    ]}
 ].
 </pre>
+
 
 ## <a id="query-caching" class="anchor" href="#query-caching">LDAP Query Caching for Efficiency and Reduced Load</a>
 
