@@ -15,21 +15,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Commercial Services
+# Commercial Offerings
 
-## <a id="overview" class="anchor" href="#overview">Commercial Licensing and Support</a>
+## <a id="overview" class="anchor" href="#overview">Commercial Support and Licensing </a>
 
-VMware offers [**a range of commercial support and services** for RabbitMQ](https://tanzu.vmware.com/rabbitmq/oss):
+VMware offers **a range of commercial support, consulting services and Enterprise releases** for RabbitMQ:
 
- * **Commercial support** for the most recent open source release of RabbitMQ, available for a subscription fee.
- * **Commercial releases** of RabbitMQ, available for a subscription fee.
+ * [**Commercial support**](https://tanzu.vmware.com/rabbitmq/oss) for the most recent open source release of RabbitMQ, available for a subscription fee.
+ * [**Enterprise releases**](https://tanzu.vmware.com/rabbitmq/) of RabbitMQ, available for a subscription fee.
 
-### Commercial Releases of RabbitMQ
+### Enterprise Releases of RabbitMQ
 
-The commercial edition of RabbitMQ includes all the features of the open source version plus additional key features such as Warm Standby Replication and Intra-cluster Compression under a commercial license.
-Pricing is available [here](https://www.vmware.com/products/pivotal-rabbitmq.html).
+The Enterprise edition of RabbitMQ includes all the features of the open source version plus additional key features such as Warm Standby Replication and Intra-cluster Compression under a commercial license.
+Contact VMware to get a quote [here](https://tanzu.vmware.com/rabbitmq).
 
-The commercial releases include the following:
+The Enterprise releases include the following:
 
 ### VMware RabbitMQ® for Tanzu Application Service
 
