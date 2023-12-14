@@ -291,6 +291,9 @@ A [blog post](https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-prev
 RabbitMQ Stream provides a server-side filtering feature that avoids reading all the messages of a stream and filtering only on the client side.
 This helps to save network bandwidth when a consuming application needs only a subset of messages, e.g. the messages from a given geographical region.
 
+Stream filtering is supported with the [stream protocol](stream.html), AMQP 0.9.1, and [STOMP](stomp.html#stream-support).
+Examples will be using AMQP 0.9.1.
+
 A message must be published with an associated filter value for the filtering feature to work.
 This value is specified with the `x-stream-filter-value` header:
 
@@ -337,6 +340,8 @@ Additional notes on filtering:
 * Messages without a filter value are not sent when a filter is set by a consumer.
 Set the `x-stream-match-unfiltered` argument to `true` to change this behavior and receive _unfiltered_ messages as well.
 * The `x-stream-filter` consumer argument accepts a string but also an array of strings to receive messages for different filter values.
+
+A [first blog post](https://blog.rabbitmq.com/posts/2023/10/stream-filtering/) provides an overview of stream filtering and a [second blog post](https://blog.rabbitmq.com/posts/2023/10/stream-filtering-internals/) covers internals.
 
 ## <a id="feature-comparison" class="anchor" href="#feature-comparison">Feature Comparison: Regular Queues versus Streams</a>
 
