@@ -330,8 +330,8 @@ Self-signed certificates can be appropriate in production environments when
 RabbitMQ and all applications run on a trusted network or isolated using technologies
 such as VMware NSX.
 
-While RabbitMQ tries to offer a secure TLS configuration by
-default (for example, SSLv3 is deactivated), we recommend evaluating
+While RabbitMQ tries to offer a reasonably secure TLS configuration by
+default, it is highly recommended evaluating
 TLS configuration (versions cipher suites and so on) using tools such as [testssl.sh](https://testssl.sh/).
 Please refer to the [TLS guide](ssl.html) to learn more.
 
