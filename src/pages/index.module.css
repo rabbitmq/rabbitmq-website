@@ -3,21 +3,415 @@
  * and scoped locally.
  */
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+.container {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 1180px;
+  clear: both;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
+.center {
+  text-align: center;
+}
+
+h1,
+h2 {
+  line-height: 1.2em;
+  margin: 20px 0 0.5em 0;
+  padding: 0;
+}
+
+hr {
+  border-top: 2px solid #ededed;
+}
+
+.fifty {
+  max-width: 49%;
+  width: 100%;
+}
+
+.onethird {
+  max-width: 33%;
+  width: 100%;
+}
+
+.twothirds {
+  max-width: 66%;
+  width: 100%;
+}
+
+.onequarter {
+  max-width: 25%;
+  width: 100%;
+}
+
+.threequarters {
+  max-width: 74%;
+  width: 100%;
+}
+
+.column {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.btn {
+  border-radius: 3px;
+  background: #866e8b;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 13px 15px;
+}
+
+.orangebtn {
+  background: #FF6600;
+}
+
+.intro {
+  padding: 80px 0 30px;
+}
+
+.featuresSection {
+  margin: 80px 0 0;
+}
+
+.featuresSection .features {
+  margin: 60px 0 0;
+}
+
+.featuresSection .feature {
+  margin: 0 0 60px;
+}
+
+.featuresSection .feature .inner {
+  max-width: 290px;
+  padding-right: 40px;
+}
+
+.getstarted {
+  padding: 60px 0 30px;
+}
+
+.getstarted .fifty .inner {
+  padding: 50px 0;
+}
+
+.getstarted p {
+  margin-top: 35px;
+}
+
+.support, .community {
+  padding: 60px 0 70px;
+}
+
+.support .columns {
+  margin-top: 40px;
+}
+
+.support .commercialservicesillustration {
+  background: url(/img/commercial/services.svg) no-repeat center center;
+  height: 430px;
+  width: 217px;
+  margin: 24px 0 0;
+}
+
+.support .threequarters img {
+  display: none;
+}
+
+.getstarted .fifty .container {
+  max-width: 320px;
+}
+
+.community .btn {
+  margin-right: 4px;
+}
+
+/* -------------------------------------------------------------------
+ * Hero banner
+ * ------------------------------------------------------------------- */
+
+.heroBanner, .getstarted, .community {
+  background-color: var(--ifm-color-primary-contrast-background);
+}
+
+.heroBanner container {
+  padding: 0;
+}
+
+.hero_text {
+  max-width: 400px;
+}
+
+.hero_text h1 {
+  font-size: 38px;
+}
+
+.hero_text p {
+  font-size: 31px;
+  max-width: 300px;
+}
+
+.hero_pipeline_webinar {
+  padding: 83px 0 55px;
+  background-image: url(/img/home/banner/webinar/RabbitMQ-Hero-queues-desktop.svg);
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: cover;
+}
+
+.hero_pipeline_webinar .container {
+  padding: 0 20px;
 }
 
 .buttons {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media(max-width: 909px) {
+  .hero_pipeline_webinar .container {
+    overflow: hidden;
+  }
+  .hero_pipeline_webinar {
+    padding: 70px 0;
+  }
+}
+
+@media(max-width: 660px) {
+  .hero_pipeline_webinar {
+    padding: 60px 0 150px;
+    background-size: 100%;
+  }
+  .hero_pipeline_webinar .hero_text {
+    max-width: 260px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .hero_pipeline_webinar {
+    background-image: url(/img/home/banner/webinar/RabbitMQ-Hero-queues-phone.svg);
+    background-size: 100%;
+    padding-bottom: 300px;
+  }
+}
+
+@media(max-width: 500px) {
+  .hero_pipeline_webinar {
+    padding-bottom: 220px;
+  }
+}
+
+@media(max-width: 390px) {
+  .hero_pipeline_webinar {
+    padding-bottom: 170px;
+  }
+}
+
+/* -------------------------------------------------------------------
+ * Uberflip embed styles
+ * ------------------------------------------------------------------- */
+
+.hubs-embedded {
+  overflow: inherit !important;
+  font-family: 'Raleway', sans-serif !important;
+  margin-bottom: 0 !important;
+}
+.hubs-embedded a {
+  color: #FF6600 !important;
+  text-decoration: underline !important;
+}
+.hubs-embedded .tile {
+  width: 201px !important;
+}
+.hubs-embedded  .share-single,
+.hubs-embedded  #collection-items .tile.single .img,
+.hubs-embedded .friendly-timestamp .timeago,
+.hubs-embedded  .tile.single .icon {
+  display: none !important;
+}
+.hubs-embedded .tile.single .description h3.h3like {
+  font-weight: 400 !important;
+}
+.hubs-embedded  div.tile.single>a.view,
+.hubs-embedded li.tile.single>a.view {
+  padding-left: 20px !important;
+  background-image: none !important;
+}
+.hubs-embedded #collection-items .tile.single .description .friendly-timestamp {
+  margin: 20px 0 0 20px !important;
+}
+/*.hubs-embedded #collection-items .tile {
+  margin: 0 20px 20px 0 !important;
+}*/
+.hubs-embedded #collection-items .tile:first-child {
+  margin-left: 0 !important;
+}
+.hubs-embedded #collection-items .tile:nth-child(3) {
+  margin-right: 0 !important;
+}
+.hubs-embedded  #collection-items {
+  width: 99.8% !important;
+}
+.hubs-embedded  .tile.single>a.view {
+  background-color: white;
+  color: #00b5a3;
+  font-weight: 400;
+  z-index: 0;
+}
+.hubs-embedded  .tile.single>a.view:after {
+  background: transparent url(/img/icon-arrow-orange.svg) left top no-repeat !important;
+  top: 15px !important;
+  width: 20px;
+  height: 10px;
+}
+.hubs-embedded  .tile.single {
+  height: 200px !important;
+}
+.hubs-embedded  .tile.single  .description {
+  top: 0;
+}
+.hubs-embedded  .tile.single  .description  h4.avatar {
+  height: 100px !important;
+  overflow: hidden;
+}
+
+/* -------------------------------------------------------------------
+ * Responsive.
+ * ------------------------------------------------------------------- */
+
+@media(max-width: 1031px) {
+  .hubs-embedded #collection-items .tile:first-child,
+  .hubs-embedded #collection-items .tile:nth-child(2),
+  .hubs-embedded #collection-items .tile:nth-child(3) {
+    margin-left: 0 !important;
+    margin-right: 10px !important;
+  }
+}
+
+@media(max-width: 982px) {
+  .featuresSection .feature {
+    max-width: 49%;
+  }
+  .featuresSection .feature .inner {
+    max-width: 100%;
+  }
+  .featuresSection .feature:nth-child(odd) .inner {
+    padding-right: 25px;
+  }
+  .featuresSection .feature:nth-child(even) .inner {
+    padding-left: 25px;
+  }
+  .onequarter {
+    max-width: 33%;
+  }
+  .threequarters {
+    max-width: 66%;
+  }
+  .intro {
+    padding: 50px 0;
+  }
+  .getstarted,
+  .support,
+  .community {
+    padding: 30px 0 40px;
+  }
+  .getstarted .fifty .inner {
+    padding: 30px 0 15px;
+  }
+  .featuresSection {
+    margin: 40px 0 0;
+  }
+  .support .commercialservicesillustration {
+    background: url(/img/commercial/services-tablet.svg) no-repeat center center;
+    height: 560px;
+    width: 179px;
+  }
+}
+
+@media(max-width: 800px) {
+  .twothirds {
+    max-width: 56%;
+  }
+  .onethird {
+    max-width: 43%;
+  }
+  .btn {
+    font-size: 16px;
+  }
+  .intro .twothirds,
+  .intro .onethird,
+  .intro .onethird .container {
+    max-width: 100%;
+  }
+  .intro .twothirds .inner {
+    padding-right: 0;
+  }
+  .intro {
+    padding: 30px 0;
+  }
+  .intro .onethird {
+    border-left: none;
+    border-top: 2px solid #ededed;
+    padding-top: 30px;
+    margin-top: 20px;
+  }
+  .intro .onethird .container {
+    float: none;
+    padding: 0;
+  }
+}
+
+@media(max-width: 660px) {
+  .fifty,
+  .featuresSection .feature,
+  .twothirds,
+  .onethird,
+  .community .onethird .container {
+    max-width: 100%;
+  }
+  .community .onethird .container {
+    float: none;
+    padding: 0;
+  }
+  .community .twothirds {
+    border-right: none;
+  }
+  .featuresSection .features {
+    margin: 20px 0;
+  }
+  .featuresSection .feature {
+    margin: 0 0 10px;
+  }
+  .featuresSection .feature .inner {
+    padding: 0 !important;
+  }
+  .getstarted,
+  .support,
+  .community {
+    padding: 10px 0 20px;
+  }
+  .getstarted .fifty .inner {
+    padding: 20px 0 0;
+  }
+  .featuresSection,
+  .support .columns {
+    margin: 20px 0 0;
+  }
+  .support .onequarter {
+    display: none;
+  }
+  .support .threequarters {
+    max-width: 100%;
+  }
+  .support .threequarters img {
+    display: block;
+  }
+  .community .btn {
+    display: inline-block;
+  }
+  .community .orangebtn {
+    margin-bottom: 10px;
+  }
 }
