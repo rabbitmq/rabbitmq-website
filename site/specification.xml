@@ -1068,7 +1068,7 @@ limitations under the License.
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="doesn't"/>
             <type>MUST</type>
             <xref>queue / bind / exchange / default-exchange</xref>
             <type/>
@@ -1146,7 +1146,7 @@ limitations under the License.
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="doesn't"/>
             <type>MUST</type>
             <xref>queue / unbind / exchange / default-exchange</xref>
             <type/>
