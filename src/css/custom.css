@@ -6,25 +6,106 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #ff6600;
+  --ifm-color-primary-dark: #e65c00;
+  --ifm-color-primary-darker: #d95700;
+  --ifm-color-primary-darkest: #b34700;
+  --ifm-color-primary-light: #ff751a;
+  --ifm-color-primary-lighter: #ff7d26;
+  --ifm-color-primary-lightest: #ff944d;
+
+  --ifm-color-primary-contrast-background: #fff7f2;
+
+  --ifm-font-family-base: 'Raleway';
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+html[data-theme='dark'] {
+  --ifm-color-primary: #ff6600;
+  --ifm-color-primary-dark: #e65c00;
+  --ifm-color-primary-darker: #d95700;
+  --ifm-color-primary-darkest: #b34700;
+  --ifm-color-primary-light: #ff751a;
+  --ifm-color-primary-lighter: #ff7d26;
+  --ifm-color-primary-lightest: #ff944d;
+
+  --ifm-color-primary-contrast-background: #444b58;
+
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* Images/figures and captions. */
+figure img {
+  border: 1px solid var(--ifm-toc-border-color);
+}
+
+figure figcaption {
+  font-style: italic;
+}
+
+[data-theme='light'] img[src$='#gh-dark-mode-only'],
+[data-theme='dark'] img[src$='#gh-light-mode-only'] {
+  display: none;
+}
+
+/* Search field in the top menu. */
+.DocSearch-Button-Placeholder {
+  font-family: var(--ifm-font-family-base);
+}
+
+/* Mermaid diagrams styling. */
+.mermaid-producer > circle {
+  fill: #a9def9 !important;
+  stroke: var(--ifm-color-gray-800) !important;
+}
+
+html[data-theme='dark'] .mermaid-producer > circle {
+  fill: #003d5b !important;
+  stroke: var(--ifm-color-gray-200) !important;
+}
+
+.mermaid-exchange > polygon {
+  fill: #fae0e4 !important;
+  stroke: var(--ifm-color-gray-800) !important;
+}
+
+html[data-theme='dark'] .mermaid-exchange > polygon {
+  fill: #a4133c !important;
+  stroke: var(--ifm-color-gray-200) !important;
+}
+
+.mermaid-queue > polygon {
+  fill: #ede7b1 !important;
+  stroke: var(--ifm-color-gray-800) !important;
+}
+
+html[data-theme='dark'] .mermaid-queue > polygon {
+  fill: #926c15 !important;
+  stroke: var(--ifm-color-gray-200) !important;
+}
+
+.mermaid-consumer > circle {
+  fill: #d3f8e2 !important;
+  stroke: var(--ifm-color-gray-800) !important;
+}
+
+html[data-theme='dark'] .mermaid-consumer > circle {
+  fill: #606c38 !important;
+  stroke: var(--ifm-color-gray-200) !important;
+}
+
+.mermaid-msg > rect {
+  fill: #ced4da !important;
+  stroke: var(--ifm-color-gray-800) !important;
+}
+
+html[data-theme='dark'] .mermaid-msg > rect {
+  fill: #495057 !important;
+  stroke: var(--ifm-color-gray-200) !important;
+}
+
+.mermaid-msg {
+  font-size: smaller !important;
+};

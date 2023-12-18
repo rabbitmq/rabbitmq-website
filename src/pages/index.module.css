@@ -3,17 +3,166 @@
  * and scoped locally.
  */
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+.container {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 1180px;
+  clear: both;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
+.center {
+  text-align: center;
+}
+
+h1,
+h2 {
+  line-height: 1.2em;
+  margin: 20px 0 0.5em 0;
+  padding: 0;
+}
+
+hr {
+  border-top: 2px solid #ededed;
+}
+
+.fifty {
+  max-width: 49%;
+  width: 100%;
+}
+
+.onethird {
+  max-width: 33%;
+  width: 100%;
+}
+
+.twothirds {
+  max-width: 66%;
+  width: 100%;
+}
+
+.onequarter {
+  max-width: 25%;
+  width: 100%;
+}
+
+.threequarters {
+  max-width: 74%;
+  width: 100%;
+}
+
+.column {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.btn {
+  border-radius: 3px;
+  background: #866e8b;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 13px 15px;
+}
+
+.orangebtn {
+  background: #FF6600;
+}
+
+.intro {
+  padding: 80px 0 30px;
+}
+
+.featuresSection {
+  margin: 80px 0 0;
+}
+
+.featuresSection .features {
+  margin: 60px 0 0;
+}
+
+.featuresSection .feature {
+  margin: 0 0 60px;
+}
+
+.featuresSection .feature .inner {
+  max-width: 290px;
+  padding-right: 40px;
+}
+
+.getstarted {
+  padding: 60px 0 30px;
+}
+
+.getstarted .fifty .inner {
+  padding: 50px 0;
+}
+
+.getstarted p {
+  margin-top: 35px;
+}
+
+.support, .community {
+  padding: 60px 0 70px;
+}
+
+.support .columns {
+  margin-top: 40px;
+}
+
+.support .commercialservicesillustration {
+  background: url(/img/commercial/services.svg) no-repeat center center;
+  height: 430px;
+  width: 217px;
+  margin: 24px 0 0;
+}
+
+.support .threequarters img {
+  display: none;
+}
+
+.getstarted .fifty .container {
+  max-width: 320px;
+}
+
+.community .btn {
+  margin-right: 4px;
+}
+
+/* -------------------------------------------------------------------
+ * Hero banner
+ * ------------------------------------------------------------------- */
+
+.heroBanner, .getstarted, .community {
+  background-color: var(--ifm-color-primary-contrast-background);
+}
+
+.heroBanner container {
+  padding: 0;
+}
+
+.hero_text {
+  max-width: 400px;
+}
+
+.hero_text h1 {
+  font-size: 38px;
+}
+
+.hero_text p {
+  font-size: 31px;
+  max-width: 300px;
+}
+
+.hero_pipeline_webinar {
+  padding: 83px 0 55px;
+  background-image: url(/img/home/banner/webinar/RabbitMQ-Hero-queues-desktop.svg);
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: cover;
+}
+
+.hero_pipeline_webinar .container {
+  padding: 0 20px;
 }
 
 .buttons {
