@@ -345,7 +345,7 @@ Production environments may require network configuration
 tuning, for example, to sustain a high number of concurrent clients.
 Please refer to the [Networking Guide](networking.html) for details.
 
-### <a id="networking-throughput" class="anchor" href="#networking-throughput">Minimum Available Network Throughput</a>
+### <a id="networking-throughput" class="anchor" href="#networking-throughput">Minimum Available Network Throughput Estimate</a>
 
 With higher message rates and large message payloads, traffic bandwidth available to cluster nodes becomes an important
 factor.
@@ -370,7 +370,9 @@ For example, with a message rate (`MR`) of 20K per second and 6 kiB message payl
 20K * 6 kiB * 110% * 8 = 20000 * 6000 * 1.1 * 8 = 1.056 (gigabit/second)
 </pre>
 
-With the above inputs, cluster nodes must have network links with throughput of 1.056 gigabit per second.
+With the above inputs, cluster nodes must have network links with throughput of at least 1.056 gigabit per second.
+
+This formula **is a rule of thumb** and does not consider protocol- or workload-specific nuances.
 
 
 ## <a id="clustering" class="anchor" href="#clustering">Clustering Considerations</a>
