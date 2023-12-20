@@ -23,7 +23,7 @@ This document describes [authentication](#authentication) and [authorisation](#a
 in RabbitMQ. Together they allow the operator to control access to the system.
 
 Different users can be granted access only to specific [virtual hosts](./vhosts.html). Their
-permissions in each virtual hosts also can be limited.
+permissions in each virtual host also can be limited.
 
 RabbitMQ supports two major [authentication mechanisms](#mechanisms)
 as well as several [authentication and authorisation backends](#backends).
