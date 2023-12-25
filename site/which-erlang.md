@@ -431,11 +431,6 @@ Outside of a reasonably long upgrade time window, it is
 recommended that all nodes use exactly the same version of Erlang.
 
 
-## <a id="hipe" class="anchor" href="#hipe">HiPE (JIT Compilation)</a>
-
-HiPE support has been dropped in Erlang 22. RabbitMQ no longer supports HiPE precompilation.
-
-
 ## <a id="building-from-source" class="anchor" href="#building-from-source">Building Erlang from Source</a>
 
 If a sufficiently recent Erlang package is not available for a given operating system,
