@@ -184,10 +184,15 @@ brew uninstall rabbitmq
 rm -rf /opt/homebrew/etc/rabbitmq/
 rm -rf /opt/homebrew/opt/rabbitmq/
 rm -rf /opt/homebrew/var/lib/rabbitmq/
+# the launch agent file
+rm -f $HOME/Library/LaunchAgents/homebrew.mxcl.rabbitmq.plist
 
 # re-install
 brew install rabbitmq
 
 ## start the service if necessary
 # brew services start rabbitmq
+
+## after starting the service, enable all feature flags
+# /opt/homebrew/sbin/rabbitmqctl enable_feature_flag all
 </pre>
