@@ -635,7 +635,7 @@ There is a number of concurrency-related topics for a library user to consider.
 one thread simultaneously should be avoided. Application code
 should maintain a clear notion of thread ownership for `IModel` instances.
 
-This is a hard requirement for publishers: sharing a channel (an `IModel` instance)
+This is a **hard requirement for publishers**: sharing a channel (an `IModel` instance)
 for concurrent publishing will lead to incorrect frame interleaving at the protocol level.
 Channel instances **must not be shared** by threads that publish on them.
 
@@ -700,14 +700,41 @@ library. Such callbacks include:
 * any of the various shutdown events on `IConnection`, `IModel` etc.
 
 
-### <a id="consumer-callbacks-and-ordering" class="anchor" href="#consumer-callbacks-and-ordering">Consumer Callbacks and Ordering</a>
+### <a id="consumer-callbacks-and-ordering" class="anchor" href="#consumer-callbacks-and-ordering">Consumer Callbacks, Concurrency and Operation Ordering</a>
 
-As of version `3.5.0` application callback handlers <strong>can</strong> invoke blocking
-operations (such as `IModel.QueueDeclare` or `IModel.BasicCancel`). `IBasicConsumer` callbacks are invoked concurrently.
-However, per-channel operation order is preserved. In other words, if messages A and B were delivered
-in this order on the same channel, they will be processed in this order. If messages A and B
-were delivered on different channels, they can be processed in any order (or in parallel).
-Consumer callbacks are invoked in tasks dispatched a [TaskScheduler](https://msdn.microsoft.com/en-us/library/dd997402%28v=vs.110%29.aspx).
+#### Is Consumer Operation Dispatch Concurrent?
+
+`IBasicConsumer` callbacks are invoked sequantially (with a concurrency degree of one) by default.
+
+For concurrent dispatch of inbound consumer deliveries, set [`ConnectionFactory.ConsumerDispatchConcurrency`](https://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitMQ.Client.ConnectionFactory.html#RabbitMQ_Client_ConnectionFactory_ConsumerDispatchConcurrency) to a value
+greater than one.
+
+#### Message Ordering Guarantee
+
+Consumer events on the same channel are guaranteed to be dispatched in the same order they were received in.
+
+For example, if messages A and B were delivered in this order on the same channel, they will be dispatched to
+a consumer (a specific `IBasicConsumer` instance) in this order.
+
+If messages A and B were delivered on different channels, they can be dispatched to consumers in any order (or in parallel).
+
+With the concurrency degree of one, deliveries on the same channel will be handled sequentially. With a higher
+concurrency degree, their dispatch will happen in the same order but actual processing can happen in parallel (depending
+on the number of available cores and application runtime), which can result in concurrency hazards.
+
+#### Acknowledgement of Multiple Deliveries at Once
+
+Consumers can [acknowledge](/confirms.html) multiple deliveries at a time. When consumer dispatch concurrency degree is higher than one,
+this can result in a [double acknowledgement](/confirms.html#consumer-acks-double-acking), which is considered to be [an error in the protocol](/channels.html#error-handling).
+
+Therefore, with concurrent consumer dispatch, consumers should acknowledge only one delivery at a time.
+
+
+#### Consumers and Blocking Operations on the Same Channel
+
+Consumer event handlers can invoke blocking
+operations on the same channel (such as `IModel.QueueDeclare` or `IModel.BasicCancel`)
+without deadlocking.
 
 
 ## <a id="basic-return" class="anchor" href="#basic-return">Handling Unroutable Messages</a>
