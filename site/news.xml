@@ -36,6 +36,63 @@ limitations under the License.
     -->
 
     <doc:item>
+      <doc:date iso="2023-12-22T19:00:00-05:00">22 December 2023</doc:date>
+      <doc:title>RabbitMQ 3.12.11 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.11</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.12.11,
+          a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.12.x/">RabbitMQ 3.12.x</a> series.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 25.x</a>
+          and supports Erlang versions through <a href="https://www.erlang.org/blog/otp-26-highlights/">the latest Erlang 26</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="/install-debian.html">Debian</a> and <a href="/install-rpm.html">dnf (yum) repositories</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a>
+          and the <a href="https://rabbitmq.com/discord/">RabbitMQ Discord server</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2023-12-22T19:00:00-05:00">22 December 2023</doc:date>
+      <doc:title>RabbitMQ 3.11.28 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.28</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.11.28,
+          a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.11.x/">RabbitMQ 3.11.x</a> series.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 25.x</a>
+          and supports Erlang versions through <a href="https://www.erlang.org/blog/my-otp-25-highlights/">the latest Erlang 25.3</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="/install-debian.html">Debian</a> and <a href="/install-rpm.html">dnf (yum) repositories</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a>
+          and the <a href="https://rabbitmq.com/discord/">RabbitMQ Discord server</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2023-12-15T19:00:00-05:00">15 December 2023</doc:date>
       <doc:title>RabbitMQ 3.11.27 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.27</doc:link>
