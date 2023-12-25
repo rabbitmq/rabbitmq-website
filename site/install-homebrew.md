@@ -19,9 +19,9 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-[Homebrew](https://brew.sh/) is a popular package manager for macOS.
+[Homebrew](https://brew.sh/) is a popular package manager for macOS and Linux.
 [RabbitMQ formula](https://github.com/Homebrew/homebrew-core/blob/master/Formula/r/rabbitmq.rb) is available from
-Homebrews core tap (out of the box).
+Homebrews core tap (out of the box). The formula maintained by Homebrew community and not Team RabbitMQ.
 
 The formula will also install a recent [supported Erlang/OTP version](./which-erlang.html)
 as a dependency.
