@@ -26,6 +26,10 @@ Homebrews core tap (out of the box).
 The formula will also install a recent [supported Erlang/OTP version](./which-erlang.html)
 as a dependency.
 
+Please **read this short guide** from start to finish. The Homebrew formula is has its caveats,
+some of which may render a node unupgradable to [RabbitMQ 3.12 and later versions](/upgrade.html)
+beacuse of disabled stable [feature flags](/feature-flags.html).
+
 
 ## <a id="installation" class="anchor" href="#installation">Installation</a>
 
