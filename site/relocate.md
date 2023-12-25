@@ -54,7 +54,7 @@ make sure that they have sufficient permissions for RabbitMQ
 node OS process to read and write from. It's best to assume
 that most directories and files used by RabbitMQ require read,
 write, and file creation permissions. [Debian](./install-debian.html),
-[RPM](./install-rpm.html) and [Windows installer](./install-windows.html) scripts
+[RPM](./install-rpm.html), [Homebrew](./install-homebrew.html) and [Windows installer](./install-windows.html) packages
 will set up file system permissions suitable for most
 environments, however, when strict default permissions are
 used system-wide, it may be necessary to run additional
@@ -187,12 +187,12 @@ file and directories have sufficient permissions
 ## <a id="unix" class="anchor" href="#unix">Default Locations on Linux, macOS, BSD</a>
 
 In the following table the `${install_prefix}` to
-some paths is indicated. Homebrew installations use the
-<i>installation-prefix</i> (Homebrew Cellar) when installed. By
-default this is `/usr/local`.
-
-Debian and RPM package installations use an empty
+some paths is indicated. Debian and RPM package installations use an empty
 `${install_prefix}`.
+
+[Homebrew installations](/install-homebrew.html) use the
+**installation-prefix** (Homebrew Cellar) when installed. By
+default this is `/opt/homebrew` on Apple Silicon-based Macs.
 
 <table>
   <th>Name</th><th>Location</th>
@@ -346,10 +346,13 @@ Debian and RPM package installations use an empty
 
 ## <a id="binary-build" class="anchor" href="#binary-build">Generic Binary Build Defaults</a>
 
-These are the defaults obtained when unpacking the Generic
-Unix tar-file and running the server without modification. In
+These are the defaults obtained when a generic binary build
+archive is unpacked without any modification. In
 this table <span class="envvar">$RABBITMQ_HOME</span> refers
 to the directory produced when extracting the archive.
+
+These paths are not relevant for installation options that use the same package type but heavily
+customize it, such as the [Homebrew formula](/install-homebrew.html).
 
 <table>
   <th>Name</th><th>Location</th>

@@ -28,7 +28,7 @@ as a dependency.
 
 Please **read this short guide** from start to finish. The Homebrew formula is has its caveats,
 some of which may render a node unupgradable to [RabbitMQ 3.12 and later versions](/upgrade.html)
-beacuse of disabled stable [feature flags](/feature-flags.html).
+because of disabled stable [feature flags](/feature-flags.html).
 
 
 ## <a id="installation" class="anchor" href="#installation">Installation</a>
