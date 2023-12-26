@@ -20,13 +20,12 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 [Homebrew](https://brew.sh/) is a popular package manager for macOS and Linux.
-[RabbitMQ formula](https://github.com/Homebrew/homebrew-core/blob/master/Formula/r/rabbitmq.rb) is available from
+A [RabbitMQ formula](https://github.com/Homebrew/homebrew-core/blob/master/Formula/r/rabbitmq.rb) is available from
 Homebrews core tap (out of the box). The formula maintained by Homebrew community and not Team RabbitMQ.
 
-The formula will also install a recent [supported Erlang/OTP version](./which-erlang.html)
-as a dependency.
+A recent [supported Erlang/OTP version](./which-erlang.html) will be installed as a dependency.
 
-Please **read this short guide** from start to finish. The Homebrew formula is has its caveats,
+Please **read this short guide** from start to finish. The formula is has its caveats,
 some of which may render a node unupgradable to [RabbitMQ 3.12 and later versions](/upgrade.html)
 because of disabled stable [feature flags](/feature-flags.html).
 
@@ -53,8 +52,8 @@ below.
 
 ## <a id="locations" class="anchor" href="#locations">Locations</a>
 
-The RabbitMQ server scripts and [CLI tools](./cli.html) are installed into the `sbin` directory under `/usr/local/Cellar/rabbitmq/{version}/` for Intel Macs
-or `/opt/homebrew/Cellar/rabbitmq/{version}/` for Apple Silicon Macs.
+Both RabbitMQ server scripts and [CLI tools](./cli.html) are installed into the `sbin` directory under `/usr/local/Cellar/rabbitmq/{version}/`
+for Intel Macs or `/opt/homebrew/Cellar/rabbitmq/{version}/` for Apple Silicon Macs.
 
 They should be accessible from `/usr/local/opt/rabbitmq/sbin` for for Intel Macs or `/opt/homebrew/opt/rabbitmq/sbin` for Apple Silicon Macs.
 Links to binaries have been created under `/usr/local/sbin` for Intel Macs or `/opt/homebrew/sbin` for Apple Silicon ones.
@@ -65,7 +64,12 @@ To find out locations for your installation, use:
 brew info rabbitmq
 </pre>
 
-With Homebrew, the node and CLI tools will use the logged in user account by default.
+
+## <a id="user" class="anchor" href="#user">Effective OS User</a>
+
+With Homebrew, the node and CLI tools will use the logged in user OS account by default. This is optimal
+for development environments and means that the same [shared secret file](/cli.html#authentication) is used by
+both RabbitMQ nodes and CLI tools.
 
 
 ## <a id="managing-node" class="anchor" href="#managing-node">Running and Managing the Node</a>
