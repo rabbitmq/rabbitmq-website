@@ -117,6 +117,7 @@ for the original RabbitMQ protocol.
 
  * [Client Connections](connections.html)
  * [Networking](networking.html)
+ * [Inter-protocol Conversions](conversions.html)
  * [Troubleshooting Network Connectivity](troubleshooting-networking.html)
  * [Using TLS for Client Connections](ssl.html)
  * [Using TLS for Inter-node Traffic](./clustering-ssl.html)
@@ -131,6 +132,7 @@ for the original RabbitMQ protocol.
  * [rabbitmqadmin](management-cli.html), an HTTP API command line tool
  * [Client Connections](connections.html)
  * [AMQP 0-9-1 Channels](channels.html)
+ * [Inter-protocol Conversions](conversions.html)
  * [Internal Event Exchange](event-exchange.html)
  * [Per Virtual Host Limits](vhosts.html#limits)
  * [Per User Limits](user-limits.html)
@@ -208,6 +210,7 @@ for the original RabbitMQ protocol.
 ### STOMP, MQTT, WebSockets
 
  * [Client Connections](connections.html)
+ * [Inter-protocol Conversions](conversions.html)
  * [STOMP](./stomp.html)
  * [MQTT](./mqtt.html)
  * [STOMP over WebSockets](web-stomp.html)
