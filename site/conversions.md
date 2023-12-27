@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -15,7 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Conversions (RabbitMQ 3.13+)
+# Inter-Protocol Property Conversions
+
+This guide covers RabbitMQ 3.13 and later versions.
 
 
 ## <a id="toc" class="anchor" href="#toc">Table of contents</a>
