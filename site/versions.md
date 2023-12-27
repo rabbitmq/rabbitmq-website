@@ -49,7 +49,7 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
 
   <tr>
     <td>3.11</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.26" target="_blank" rel="noopener noreferrer">3.11.26</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.28" target="_blank" rel="noopener noreferrer">3.11.28</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.0" target="_blank" rel="noopener noreferrer">28 September 2022</a></td>
     <td>31 December, 2023</td>
     <td>31 July, 2024</td>
@@ -93,7 +93,7 @@ both community and those with a commercial license.
 
 ## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>
 
-RabbitMQ 3.13, the next release series, is expected to be released end of 2023.
+[RabbitMQ 3.13](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.0-rc.3), the next release series, is expected to be released in early 2024.
 
 ## <a id="out-of-support" class="anchor" href="#out-of-support">Release Series That are Out of Support</a>
 

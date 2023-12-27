@@ -90,7 +90,7 @@ Use [Python virtual environment](https://docs.python.org/3/library/venv.html) to
 python3 -m venv .venv
 source .venv/bin/activate
 pip install lxml markdown
-/driver.py [www|next|previous]
+./driver.py [www|next|previous]
 ```
 
 

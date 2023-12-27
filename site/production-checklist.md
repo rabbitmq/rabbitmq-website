@@ -39,6 +39,7 @@ to size and configure both RabbitMQ nodes and applications.
 This guide provides recommendations in a few areas:
 
  * [Storage](#storage) considerations for node data directories
+ * [Networking](#networking)-related recommendations
  * Recommendations related to [virtual hosts, users and permissions](#users-and-permissions)
  * [Monitoring and resource usage](#monitoring-and-resource-usage)
  * [Per-virtual host and per-user limits](#limits)
@@ -122,8 +123,6 @@ For production environments, delete the default user (`guest`).
 Default user only can connect from localhost by default, because it has well-known
 credentials. Instead of enabling remote connections, consider creating a separate user
 with administrative permissions and a generated password.
-
-
 
 It is recommended to use a separate user per application. For example, if you
 have a mobile app, a Web app, and a data aggregation system, you'd have 3
@@ -345,6 +344,35 @@ including CPU usage of both RabbitMQ and applications that use it.
 Production environments may require network configuration
 tuning, for example, to sustain a high number of concurrent clients.
 Please refer to the [Networking Guide](networking.html) for details.
+
+### <a id="networking-throughput" class="anchor" href="#networking-throughput">Minimum Available Network Throughput Estimate</a>
+
+With higher message rates and large message payloads, traffic bandwidth available to cluster nodes becomes an important
+factor.
+
+The following (intentionally oversimplified) formula can be used to compute the **minimum amount of bandwidth**
+that must be available to cluster nodes, in bytes per second:
+
+<pre class="lang-ini">
+MR * MS * 110% * 8
+</pre>
+
+where
+
+ * `MR`: 95th percentile message rate per second
+ * `MS`: 95th percentile message size, in bytes
+ * 110%: accounts for message properties, protocol metadata, and other data transferred
+ * 8: bits per byte
+
+For example, with a message rate (`MR`) of 20K per second and 6 kiB message payloads (`MS`):
+
+<pre class="lang-ini">
+20K * 6 kiB * 110% * 8 = 20000 * 6000 * 1.1 * 8 = 1.056 (gigabit/second)
+</pre>
+
+With the above inputs, cluster nodes must have network links with throughput of at least 1.056 gigabit per second.
+
+This formula **is a rule of thumb** and does not consider protocol- or workload-specific nuances.
 
 
 ## <a id="clustering" class="anchor" href="#clustering">Clustering Considerations</a>

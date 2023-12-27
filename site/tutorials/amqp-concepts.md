@@ -160,6 +160,9 @@ other words, the default exchange makes it seem like it
 is possible to deliver messages directly to queues, even
 though that is not technically what is happening.
 
+The default exchange, in RabbitMQ, does not allow bind/unbind operations.
+Binding operations to the default exchange will result in an error.
+
 ### <a id="exchange-direct" class="anchor" href="#exchange-direct">Direct Exchange</a>
 
 A direct exchange delivers messages to queues based on the
