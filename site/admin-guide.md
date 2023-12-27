@@ -103,6 +103,7 @@ see <a href="./documentation.html">All Documentation Guides</a>.
 
  * [Client Connections](connections.html)
  * [Networking](networking.html)
+ * [Inter-protocol Conversions](conversions.html)
  * [Troubleshooting Network Connectivity](troubleshooting-networking.html)
  * [Using TLS for Client Connections](ssl.html)
  * [Using TLS for Inter-node Traffic](clustering-ssl.html)
@@ -117,6 +118,7 @@ see <a href="./documentation.html">All Documentation Guides</a>.
  * [rabbitmqadmin](management-cli.html), an HTTP API command line tool
  * [Client Connections](connections.html)
  * [AMQP 0-9-1 Channels](channels.html)
+ * [Inter-protocol Conversions](conversions.html)
  * [Internal Event Exchange](event-exchange.html)
  * [Per Virtual Host Limits](vhosts.html#limits)
  * [Per User Limits](user-limits.html)
