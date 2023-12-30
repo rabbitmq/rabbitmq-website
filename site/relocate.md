@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 Every RabbitMQ node uses a number of files and directories
-to load configuration; store data, metadata, log files, and so on.
+to load configuration: store data, metadata, log files, and so on.
 Their location can be changed.
 
 This guide covers:
