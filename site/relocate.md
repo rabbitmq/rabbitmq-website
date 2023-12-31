@@ -26,7 +26,7 @@ Their location can be changed.
 This guide covers:
 
   * How to customise location of various directories and files used RabbitMQ nodes
-  * Default locations for various operating systems
+  * Default locations of key files and directories on various operating systems
   * Other topics related to file and directory locations
 
 This guide accompanies the main [Configuration guide](configure.html).
