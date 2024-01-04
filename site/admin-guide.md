@@ -92,8 +92,8 @@ see <a href="./documentation.html">All Documentation Guides</a>.
  * [Virtual Hosts](vhosts.html)
  * [Credentials and Passwords](passwords.html)
  * x509 (TLS) [Certificate-based client authentication](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_mechanism_ssl)
- * [OAuth 2 Support](https://rabbitmq.com/oauth2.html)
- * [OAuth 2 Examples](https://rabbitmq.com/oauth2-examples.html) for common identity providers
+ * [OAuth 2 Support](oauth2.html)
+ * [OAuth 2 Examples](oauth2-examples.html) for common identity providers
  * [LDAP](ldap.html)
  * [Validated User ID](validated-user-id.html)
  * [Authentication Failure Notifications](auth-notification.html)
