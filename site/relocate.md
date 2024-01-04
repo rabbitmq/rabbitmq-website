@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -20,13 +20,13 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 Every RabbitMQ node uses a number of files and directories
-to load configuration; store data, metadata, log files, and so on.
+to load configuration: store data, metadata, log files, and so on.
 Their location can be changed.
 
 This guide covers:
 
   * How to customise location of various directories and files used RabbitMQ nodes
-  * Default locations for various operating systems
+  * Default locations of key files and directories on various operating systems
   * Other topics related to file and directory locations
 
 This guide accompanies the main [Configuration guide](configure.html).
@@ -47,13 +47,17 @@ and so on). Those paths have must exclude a number of characters:
  * `[` and `]`
  * `{}` and `}`
 
-The above characters will render the node unable to start or function as expected (e.g. expand plugins and load their metadata).
+The above characters will render the node unable to start or function as expected (e.g. load plugin code modules and other files).
+
+### <a id="file-permissions" class="anchor" href="#file-permissions">Required File and Directory Permissions</a>
 
 When changing file or directory locations, it is important to
 make sure that they have sufficient permissions for RabbitMQ
 node OS process to read and write from. It's best to assume
 that most directories and files used by RabbitMQ require read,
-write, and file creation permissions. [Debian](./install-debian.html),
+write, and file creation permissions.
+
+[Debian](./install-debian.html),
 [RPM](./install-rpm.html), [Homebrew](./install-homebrew.html) and [Windows installer](./install-windows.html) packages
 will set up file system permissions suitable for most
 environments, however, when strict default permissions are
@@ -61,7 +65,8 @@ used system-wide, it may be necessary to run additional
 configuration steps after installation to make sure RabbitMQ node
 file and directories have sufficient permissions
 
-### <a id="environment-variables" class="anchor" href="#environment-variables">Environment Variables</a>
+
+## <a id="environment-variables" class="anchor" href="#environment-variables">Environment Variables</a>
 
 <table>
   <th>Name</th><th>Description</th>

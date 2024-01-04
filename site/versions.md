@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -46,15 +46,6 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
     <td>31 December 2024</td>
     <td>18 months</td>
   </tr>
-
-  <tr>
-    <td>3.11</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.28" target="_blank" rel="noopener noreferrer">3.11.28</a></td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.0" target="_blank" rel="noopener noreferrer">28 September 2022</a></td>
-    <td>31 December, 2023</td>
-    <td>31 July, 2024</td>
-    <td>22 months</td>
-  </tr>
 </table>
 
 ## <a id="extended-support" class="anchor" href="#extended-support">&product-name; Release Series That are Only Covered by Extended Support</a>
@@ -70,12 +61,12 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
   </tr>
 
   <tr>
-    <td>3.10</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.25" target="_blank" rel="noopener noreferrer">3.10.25</a></td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0" target="_blank" rel="noopener noreferrer">3 May 2022</a></td>
-    <td>31 July, 2023</td>
+    <td>3.11</td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.28" target="_blank" rel="noopener noreferrer">3.11.28</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.0" target="_blank" rel="noopener noreferrer">28 September 2022</a></td>
     <td>31 December, 2023</td>
-    <td>19 months</td>
+    <td>31 July, 2024</td>
+    <td>22 months</td>
   </tr>
 </table>
 
@@ -104,6 +95,14 @@ both community and those with a commercial license.
     <th>First Release</th>
     <th>End of Life</th>
     <th>In service for</th>
+  </tr>
+
+  <tr>
+    <td>3.10</td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.25" target="_blank" rel="noopener noreferrer">3.10.25</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0" target="_blank" rel="noopener noreferrer">3 May 2022</a></td>
+    <td>31 December, 2023</td>
+    <td>19 months</td>
   </tr>
 
   <tr>

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2005-2023 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -39,7 +39,7 @@ This guide covers a variety of authentication, authorisation and user management
  * How to [authenticate clients using their TLS certificate information](#certificate-authentication)
  * How to limit [access to topics on a topic exchange](#topic-authorisation)
  * [User tags](#user-tags) and how they are used
- * How to [revoke access](#revoke) for a user
+ * How to rotate credentials and [revoke access](#revoke) for a user
  * [Shell escaping](#passwords-and-shell-escaping) of characters in generated passwords
  * How to [pre-create users](#seeding) and their permissions
  * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz))
@@ -522,7 +522,9 @@ authorisation is enforced by implementing the
 <code>rabbit_authz_backend</code> behavior.
 
 
-## <a id="revoke" class="anchor" href="#revoke">Revoking User Access</a>
+## <a id="revoke" class="anchor" href="#revoke">Revoking User Access and Credential Rotation</a>
+
+### Revoking User Access
 
 To revoke user access, the recommended procedure is [deleting the user](#user-management).
 All open connections that belong to a deleted user will be closed.
@@ -532,6 +534,26 @@ any currently open connections. Connections
 use an authorization operation cache, so client operations
 will be refused eventually. The period of time depends on the
 [authorization backend](#backends) used.
+
+### Credential Rotation
+
+A credential rotation for credentials of users stored in the internal data store usually involves the following steps:
+
+ * [changing user password](rabbitmqctl.8.html#change_password) using CLI tools
+    or update it using the `PUT /api/users/{user}` [HTTP API](/management.html) endpoint
+ * Using `rabbitmqctl close_all_user_connections` or `rabbitmqctl close_all_connections` to close all existing connections
+ * Making sure that applications can discover the new credentials and reconnect, for example, by restarting them
+
+In case of a suspected credential leak, a more thorough credential rotation procedure can be employed:
+
+ * Assessing the permissions of the user and [obtaining a complete cluster definitions file](/definitions.html)
+ * [Delete the user](#user-management), thus revoking its access and closing all existing connections that used those credentials
+ * Re-adding the user with a new generated password
+ * Re-granting the user access to all the virtual hosts it had access to earlier
+ * Making sure that applications can discover the new credentials and reconnect, for example, by restarting them
+
+With external [authN backends](#backends) such as [LDAP](/ldap.html), user accounts are managed externally to RabbitMQ,
+therefore the credential rotation routine will also be external to RabbitMQ.
 
 
 ## <a id="backends" class="anchor" href="#backends">Authentication and Authorisation Backends</a>
