@@ -20,10 +20,10 @@ limitations under the License.
 
 <!ENTITY version-java-client "5.20.0">
 <!ENTITY version-dotnet-client "6.6.0">
-<!ENTITY version-server "3.12.11">
+<!ENTITY version-server "3.12.12">
 <!ENTITY version-server-series "v3.12.x">
-<!ENTITY version-erlang-client "3.12.11">
-<!ENTITY version-server-tag "v3.12.11">
+<!ENTITY version-erlang-client "3.12.12">
+<!ENTITY version-server-tag "v3.12.12">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">
