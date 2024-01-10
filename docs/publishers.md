@@ -112,7 +112,7 @@ The exchange uses a routing topology set up by defining bindings between
 one or more queues and the exchange, or [source exchange and destination exchange](./e2e).
 Successfully routed messages are stored in [queues](./queues).
 
-The role of each entity is covered in the [AMQP 0-9-1 concepts guide](./tutorials/amqp-concepts).
+The role of each entity is covered in the [AMQP 0-9-1 concepts guide](/tutorials/amqp-concepts).
 
 [Publisher confirms](./confirms) is the publisher acknowledgement mechanism.
 
@@ -134,7 +134,7 @@ In AMQP 1.0 publishing happens within a context of a link.
 ### MQTT
 
 In MQTT, messages are published on a connection to a topic.
-The server side MQTT connection process routes messages via the [topic exchange](./tutorials/amqp-concepts#exchange-topic) to [queues](./queues).
+The server side MQTT connection process routes messages via the [topic exchange](/tutorials/amqp-concepts#exchange-topic) to [queues](./queues).
 
 When publisher chooses to use QoS 1, published messages are acknowledged by RabbitMQ
 using a [PUBACK packet](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901121).
@@ -170,7 +170,7 @@ See the [STOMP guide](./stomp), [STOMP-over-WebSockets](./web-stomp) and the [ST
 ### AMQP 0-9-1
 
 Routing in AMQP 0-9-1 is performed by exchanges. Exchanges are named routing tables. Table entries
-are called bindings. This is covered in more detail in the [AMQP 0-9-1 concepts guide](./tutorials/amqp-concepts).
+are called bindings. This is covered in more detail in the [AMQP 0-9-1 concepts guide](/tutorials/amqp-concepts).
 
 There are several built-in exchange types:
 
@@ -179,7 +179,7 @@ There are several built-in exchange types:
  * Direct (including the default exchange)
  * Headers
 
-The first three types are covered with examples in the [tutorials](./tutorials).
+The first three types are covered with examples in the [tutorials](/tutorials).
 
 More exchange types can be provided by [plugins](./plugins).
 [Consistent hashing exchange](https://github.com/rabbitmq/rabbitmq-consistent-hash-exchange/), [random routing exchange](https://github.com/rabbitmq/rabbitmq-random-exchange/),
@@ -343,13 +343,13 @@ at the time of publishing:
     <tr>
       <td>Correlation ID</td>
       <td>String</td>
-      <td>Helps correlate requests with responses, see <a href="./tutorials">tutorial 6</a></td>
+      <td>Helps correlate requests with responses, see <a href="/tutorials">tutorial 6</a></td>
       <td>No</td>
     </tr>
     <tr>
       <td>Reply To</td>
       <td>String</td>
-      <td>Carries response queue name, see <a href="./tutorials">tutorial 6</a></td>
+      <td>Carries response queue name, see <a href="/tutorials">tutorial 6</a></td>
       <td>No</td>
     </tr>
     <tr>
@@ -625,7 +625,7 @@ are not guaranteed to reach the target node. It is therefore **critically import
 that need reliable publishing and data safety to [use Publisher Confirms](./confirms) to keep track of what
 publishes were confirmed by RabbitMQ. Messages that were not confirmed should be considered undelivered
 after a period of time. Those messages can be republished if it's safe to do so for the application.
-This is covered in [tutorial 7](./tutorials) and the [Data Safety](#data-safety) section
+This is covered in [tutorial 7](/tutorials) and the [Data Safety](#data-safety) section
 in this guide.
 
 See [Recovery from Network Connection Failures](./connections#automatic-recovery) for details.
@@ -638,7 +638,7 @@ routed to any queues or consumers. This can be due to
 
  * A configuration mismatch between applications, e.g. topics used by the publishers and consumers do not match
  * Publisher misconfiguration (exchange, topic, routing key are not what they should be)
- * For AMQP 0-9-1, missing [bindings](./tutorials/amqp-concepts) on the target exchange
+ * For AMQP 0-9-1, missing [bindings](/tutorials/amqp-concepts) on the target exchange
  * A resource alarm is in effect: see the section below
  * Network connection has failed and the client did not recover: see the section above
 

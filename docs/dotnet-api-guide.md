@@ -26,7 +26,7 @@ limitations under the License.
 
 This guide covers [RabbitMQ .NET/C# client](./dotnet) and its public API.
 It assumes that the [most recent major version of the client](https://www.nuget.org/packages/RabbitMQ.Client) is used
-and the reader is familiar with [the basics](./tutorials).
+and the reader is familiar with [the basics](/tutorials).
 
 Key sections of the guide are:
 
@@ -80,7 +80,7 @@ explicit.
 
 ## Major namespaces, interfaces and classes {#major-api-elements}
 
-The client API is closely modelled on the [AMQP 0-9-1 protocol model](./tutorials/amqp-concepts),
+The client API is closely modelled on the [AMQP 0-9-1 protocol model](/tutorials/amqp-concepts),
 with additional abstractions for ease of use.
 
 An [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/) is available separately.
@@ -338,7 +338,7 @@ IConnection conn = factory.CreateConnection();
 ## Using Exchanges and Queues {#exchanges-and-queues}
 
 Client applications work with exchanges and [queues](./queues),
-the high-level [building blocks of the protocol](./tutorials/amqp-concepts).
+the high-level [building blocks of the protocol](/tutorials/amqp-concepts).
 These must be "declared" before they can be
 used. Declaring either type of object simply ensures that one of that
 name exists, creating it if necessary.

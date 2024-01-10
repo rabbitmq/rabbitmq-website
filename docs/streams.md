@@ -272,7 +272,7 @@ A super stream is a logical stream made of individual, regular streams.
 It is a way to scale out publishing and consuming with RabbitMQ Streams: a large logical stream is divided into partition streams, splitting up the storage and the traffic on several cluster nodes.
 
 A super stream remains a logical entity: applications see it as one “large” stream, thanks to the smartness of client libraries.
-The topology of a super stream is based on the [AMQP 0.9.1 model](./tutorials/amqp-concepts), that is exchange, queues, and bindings between them.
+The topology of a super stream is based on the [AMQP 0.9.1 model](/tutorials/amqp-concepts), that is exchange, queues, and bindings between them.
 
 It is possible to create the topology of a super stream with any AMQP 0.9.1 library or with the [management plugin](./management), it requires to create a direct exchange, the "partition" streams, and bind them together.
 It may be easier to use the `rabbitmq-streams add_super_stream` command though.

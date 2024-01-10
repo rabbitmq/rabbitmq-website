@@ -463,7 +463,7 @@ This gives us an external IP that can be used to access the RabbitMQ cluter.
 
 For example, this should make it possible to visit the RabbitMQ management UI by visiting `{external-ip}:15672`, and signing in.
 Client applications can connect to endpoints such as `{external-ip}:5672` (AMQP 0-9-1, AMQP 1.0) or `{external-ip}:1883` (MQTT).
-Please refer to the [get started guide](/docs/tutorials) to learn how to use RabbitMQ.
+Please refer to the [get started guide](/tutorials) to learn how to use RabbitMQ.
 
 If following from the example, run
 

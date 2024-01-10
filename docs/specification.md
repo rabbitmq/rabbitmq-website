@@ -11,7 +11,7 @@ title: Compatibility and Conformance
         </p>
         <p>
             The 0-9-1 (with and without extensions) specifications are linked to below for your convenience. We recommend reading them if you want to learn more about AMQP 0-9-1. Please see our
-            <a href="./tutorials/amqp-concepts">AMQP 0-9-1 Overview guide</a>, <a href="./amqp-0-9-1-reference">AMQP 0-9-1 Reference guide</a>, and the rest of <a href="./documentation">documentation</a> for more information.
+            <a href="/tutorials/amqp-concepts">AMQP 0-9-1 Overview guide</a>, <a href="./amqp-0-9-1-reference">AMQP 0-9-1 Reference guide</a>, and the rest of <a href="./documentation">documentation</a> for more information.
         </p>
     </div>
 

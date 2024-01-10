@@ -59,7 +59,7 @@ node linking to a single downstream exchange (the federated exchange) in another
 When exchange federation is used, usually only a subset of exchanges in a cluster is federated.
 Some exchanges can be inherently local to the "site" (cluster) and its uses.
 
-Exchange federation will propagate [bindings](./tutorials/amqp-concepts)
+Exchange federation will propagate [bindings](/tutorials/amqp-concepts)
 from the downstream to the upstreams when possible. It will also apply optimizations and propagate messages selectively if needed.
 This is covered in [future sections](#details).
 

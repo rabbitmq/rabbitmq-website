@@ -1,8 +1,8 @@
 :::info
 ### Prerequisites
 
-This tutorial assumes RabbitMQ is [installed](../download) and running on
-`localhost` on the [standard port](../networking#ports) (5672). In case you
+This tutorial assumes RabbitMQ is [installed](/docs/download) and running on
+`localhost` on the [standard port](/docs/networking#ports) (5672). In case you
 use a different host, port or credentials, connections settings would require
 adjusting.
 

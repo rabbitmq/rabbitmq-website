@@ -24,7 +24,7 @@ limitations under the License.
 
 This guide covers [RabbitMQ Java client](./java-client) and its public API.
 It assumes that the [most recent major version of the client](https://central.sonatype.com/artifact/com.rabbitmq/amqp-client) is used
-and the reader is familiar with [the basics](./tutorials).
+and the reader is familiar with [the basics](/tutorials).
 
 Key sections of the guide are:
 
@@ -76,7 +76,7 @@ a commercial product. Codebases that are licensed under the GPLv2 may choose GPL
 
 ## Overview {#overview}
 
-The client API exposes key entities in the [AMQP 0-9-1 protocol model](./tutorials/amqp-concepts),
+The client API exposes key entities in the [AMQP 0-9-1 protocol model](/tutorials/amqp-concepts),
 with additional abstractions for ease of use.
 
 RabbitMQ Java client uses `com.rabbitmq.client` as its top-level package.
@@ -292,7 +292,7 @@ Connection conn = factory.newConnection("app:audit component:event-consumer");
 ## Using Exchanges and Queues {#exchanges-and-queues}
 
 Client applications work with [exchanges] and [queues](./queues),
-the high-level [building blocks of the protocol](./tutorials/amqp-concepts).
+the high-level [building blocks of the protocol](/tutorials/amqp-concepts).
 These must be declared before they can be used. Declaring either type of object
 simply ensures that one of that name exists, creating it if necessary.
 
@@ -1406,7 +1406,7 @@ being idempotent in RabbitMQ 3.3.x (deleting what's not there does not result in
 
 As a programming convenience, the Java client API offers a
 class `RpcClient` which uses a temporary reply
-queue to provide simple [RPC-style communication](./tutorials/tutorial-six-java) facilities via AMQP 0-9-1.
+queue to provide simple [RPC-style communication](/tutorials/tutorial-six-java) facilities via AMQP 0-9-1.
 
 The class doesn't impose any particular format on the RPC arguments and return values.
 It simply provides a mechanism for sending a message to a given exchange with a particular

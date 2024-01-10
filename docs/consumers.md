@@ -243,13 +243,13 @@ at the time of publishing:
     <tr>
       <td>Correlation ID</td>
       <td>String</td>
-      <td>Helps correlate requests with responses, see <a href="./tutorials">tutorial 6</a></td>
+      <td>Helps correlate requests with responses, see <a href="/tutorials">tutorial 6</a></td>
       <td>No</td>
     </tr>
     <tr>
       <td>Reply To</td>
       <td>String</td>
-      <td>Carries response queue name, see <a href="./tutorials">tutorial 6</a></td>
+      <td>Carries response queue name, see <a href="/tutorials">tutorial 6</a></td>
       <td>No</td>
     </tr>
     <tr>

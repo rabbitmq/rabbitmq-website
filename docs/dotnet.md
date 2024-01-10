@@ -118,7 +118,7 @@ Release notes can be found [on GitHub](https://github.com/rabbitmq/rabbitmq-dotn
 
 ## Documentation {#documentation}
 
-Please refer to the [RabbitMQ tutorials](./tutorials) and [.NET client user guide](./dotnet-api-guide).
+Please refer to the [RabbitMQ tutorials](/tutorials) and [.NET client user guide](./dotnet-api-guide).
 
 There's also [an online API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/index.html).
 

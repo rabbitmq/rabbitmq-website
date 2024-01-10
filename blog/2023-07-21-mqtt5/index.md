@@ -404,7 +404,7 @@ The requester includes the response topic and some correlation data into the req
 
 Another MQTT client (the responder) receives the request message, takes some action, and publishes a response message with the same correlation data to the response topic.
 
-The MQTT 5.0 Request / Response feature corresponds to [Remote Procedure Calls in AMQP 0.9.1](/docs/tutorials/tutorial-six-go).
+The MQTT 5.0 Request / Response feature corresponds to [Remote Procedure Calls in AMQP 0.9.1](/tutorials/tutorial-six-go).
 However, in AMQP 0.9.1 the requester will include the name of a callback queue in the AMQP 0.9.1 message property `reply_to`.
 The MQTT protocol does not define the concept of queues. Therefore, in MQTT the "address" being replied to is a topic name.
 

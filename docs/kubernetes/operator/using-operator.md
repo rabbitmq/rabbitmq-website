@@ -1235,7 +1235,7 @@ kubectl delete pod perf-test
 ## Use the RabbitMQ Service in Your App {#use}
 
 For information about how to start using your apps, see
-[RabbitMQ tutorials](../../tutorials)
+[RabbitMQ tutorials](/tutorials)
 and guides on [Connections](../../consumers), [Publishers](../../publishers), and [Consumers](../../consumers).
 
 

@@ -30,13 +30,13 @@ for information on the most recent release and how to install it.
 
 ## Tutorials
 
-See the [Get Started](./tutorials) page
+See the [Get Started](/tutorials) page
 for our tutorials for various programming languages.
 
 The tutorials offer a gentle introduction to messaging, one of the protocols RabbitMQ supports,
 key messaging features, and some common usage scenarios.
 
-[AMQP 0-9-1 Overview](./tutorials/amqp-concepts) provides a brief overview
+[AMQP 0-9-1 Overview](/tutorials/amqp-concepts) provides a brief overview
 for the original RabbitMQ protocol.
 
 
@@ -228,8 +228,8 @@ for the original RabbitMQ protocol.
 ## Client Libraries and Features
 
 [RabbitMQ clients documentation](./clients) is organised in a number
-of guides and API references. A separate set of [tutorials](./tutorials) for
-many popular programming languages are also available, as is an [AMQP 0-9-1 Overview](./tutorials/amqp-concepts).
+of guides and API references. A separate set of [tutorials](/tutorials) for
+many popular programming languages are also available, as is an [AMQP 0-9-1 Overview](/tutorials/amqp-concepts).
 
 ### Client Documentation Guides
 

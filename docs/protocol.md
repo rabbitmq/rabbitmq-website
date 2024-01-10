@@ -3,7 +3,7 @@ title: AMQP 0-9-1 Protocol Specification
 ---
 <div id="left-content">
     <p>
-        AMQP 0-9-1 is a binary messaging protocol and [semantic framework](./tutorials/amqp-concepts)
+        AMQP 0-9-1 is a binary messaging protocol and [semantic framework](/tutorials/amqp-concepts)
         for microservices and enterprise messaging.
     </p>
 

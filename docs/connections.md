@@ -129,7 +129,7 @@ This flow doesn't change significantly from protocol to protocol but there are m
 
 #### AMQP 0-9-1
 
-AMQP 0-9-1 has a [model](./tutorials/amqp-concepts) that includes connections and channels. Channels allow for
+AMQP 0-9-1 has a [model](/tutorials/amqp-concepts) that includes connections and channels. Channels allow for
 connection multiplexing (having multiple logical connections on a "physical" or TCP one).
 
 The maximum number of [channels](./channels) that can be open on a connection simultaneously

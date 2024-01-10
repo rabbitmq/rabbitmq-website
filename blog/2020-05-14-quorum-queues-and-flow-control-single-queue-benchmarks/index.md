@@ -18,7 +18,7 @@ Publishers can rate limit themselves based on the number of unconfirmed messages
 
 Confirms can be batched together via the use of the *multiple* flag. This allows the broker to confirm multiple messages at a time. If 100 messages are pending confirmation, with sequence numbers 1-100, the broker can send a single confirm with the multiple flag set and the sequence number of 100. This allows for less communications between publisher and broker, which is more efficient.
 
-This pipelining method will produce the highest and most stable throughput. You can find code samples for how to do this in tutorial 7, strategy #3. There is a [Java](/docs/tutorials/tutorial-seven-java) version and a [C#](/docs/tutorials/tutorial-seven-dotnet) version. The same approach can be applied to other languages.
+This pipelining method will produce the highest and most stable throughput. You can find code samples for how to do this in tutorial 7, strategy #3. There is a [Java](/tutorials/tutorial-seven-java) version and a [C#](/tutorials/tutorial-seven-dotnet) version. The same approach can be applied to other languages.
 
 ## Pipelining and Consumer Acks
 

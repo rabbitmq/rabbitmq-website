@@ -64,7 +64,7 @@ can involve vhosts in different clusters or the same cluster (or a single node).
 
 A virtual host can be created using CLI tools or an [HTTP API](./management) endpoint.
 
-A newly created vhost will have a default set of [exchanges](./tutorials/amqp-concepts)
+A newly created vhost will have a default set of [exchanges](/tutorials/amqp-concepts)
 but no other entities and no [user permissions](./access-control). For a user to be able to connect
 and use the virtual host, permissions to it must be [granted](./access-control) to every user that will use the vhost,
 e.g. using [rabbitmqctl set_permissions](./man/rabbitmqctl.8#set_permissions).

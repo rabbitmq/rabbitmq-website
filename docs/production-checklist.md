@@ -191,7 +191,7 @@ Learn more about [RabbitMQ and system memory](./memory) in a separate guide.
 ### Disk Space {#resource-limits-disk-space}
 
 The current 50MB `disk_free_limit` default works very well for
-development and [tutorials](./tutorials).
+development and [tutorials](/tutorials).
 Production deployments require a much greater safety margin.
 Insufficient disk space will lead to node failures and may result in data loss
 as all disk writes will fail.

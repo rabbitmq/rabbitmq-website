@@ -72,7 +72,7 @@ export default function Home() {
                   <img src="./img/messaging.svg" height="62" width="71" alt="Asynchronous Messaging" title="Asynchronous Messaging"/>
                   <h2>Asynchronous Messaging</h2>
                   <p>
-                    Supports <a href="/docs/protocols">multiple messaging protocols</a>, <a href="/docs/tutorials/tutorial-two-python">message queuing</a>, <a href="/docs/reliability">delivery acknowledgement</a>, <a href="/docs/tutorials/tutorial-four-python">flexible routing to queues</a>, <a href="/docs/tutorials/amqp-concepts">multiple exchange type</a>.
+                    Supports <a href="/docs/protocols">multiple messaging protocols</a>, <a href="/tutorials/tutorial-two-python">message queuing</a>, <a href="/docs/reliability">delivery acknowledgement</a>, <a href="/tutorials/tutorial-four-python">flexible routing to queues</a>, <a href="/tutorials/amqp-concepts">multiple exchange type</a>.
                   </p>
                 </div>
               </div>
@@ -173,7 +173,7 @@ export default function Home() {
               <div className={[styles.column, styles.fifty].join(' ')}>
                 <div className={styles.inner}>
                   <div className={styles.container}>
-                    <a className={[styles.btn, styles.orangebtn].join(' ')} href="/docs/tutorials">RabbitMQ Tutorials</a>
+                    <a className={[styles.btn, styles.orangebtn].join(' ')} href="/tutorials">RabbitMQ Tutorials</a>
                     <p>Hands-on examples to get you started with RabbitMQ</p>
                   </div>
                 </div>

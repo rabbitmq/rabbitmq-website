@@ -22,9 +22,9 @@ limitations under the License.
 
 ## Overview {#overview}
 
-This guide covers an Erlang client for RabbitMQ (<a href="./tutorials/amqp-concepts">AMQP 0-9-1</a>).
+This guide covers an Erlang client for RabbitMQ (<a href="/tutorials/amqp-concepts">AMQP 0-9-1</a>).
 
-This user guide assumes that the reader is familiar with <a href="./tutorials/amqp-concepts">basic concepts of AMQP 0-9-1</a>.
+This user guide assumes that the reader is familiar with <a href="/tutorials/amqp-concepts">basic concepts of AMQP 0-9-1</a>.
 
 Refer to guides on [connections](./connections), [channels](./channels), [queues](./queues),
 [publishers](./publishers), and [consumers](./consumers) to learn about those

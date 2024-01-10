@@ -23,7 +23,7 @@ limitations under the License.
 
 ## Overview {#overview}
 
-This guide covers various topics related to channels, an [AMQP 0-9-1](./tutorials/amqp-concepts)-specific abstraction.
+This guide covers various topics related to channels, an [AMQP 0-9-1](/tutorials/amqp-concepts)-specific abstraction.
 Channels cannot exist without a connection, so getting familiar with the [Connections guide](./connections) first
 is highly recommended.
 

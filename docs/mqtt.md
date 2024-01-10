@@ -72,7 +72,7 @@ The [MQTT 5.0 blog post](https://blog.rabbitmq.com/posts/2023/07/mqtt5) provides
 
 MQTT clients can interoperate with other protocols.
 For example, MQTT publishers can send messages to AMQP 0.9.1 or AMQP 1.0 consumers if these consumers consume from a queue
-that is bound to the MQTT [topic exchange](./tutorials/amqp-concepts#exchange-topic) (configured via `mqtt.exchange` and defaulting to `amq.topic`).
+that is bound to the MQTT [topic exchange](/tutorials/amqp-concepts#exchange-topic) (configured via `mqtt.exchange` and defaulting to `amq.topic`).
 Likewise an AMQP 0.9.1, AMQP 1.0, or STOMP publisher can send messages to an MQTT subscriber if the publisher publishes to the MQTT topic exchange.
 
 ## Limitations {#limitations}
@@ -101,7 +101,7 @@ There is also support for multi-tenancy.
 ### Mapping MQTT to the AMQP 0.9.1 model
 
 RabbitMQ core implements the AMQP 0.9.1 protocol.
-The plugin builds on top of the AMQP 0.9.1 entities: [exchanges](./tutorials/amqp-concepts#exchanges), [queues](./queues), and bindings.
+The plugin builds on top of the AMQP 0.9.1 entities: [exchanges](/tutorials/amqp-concepts#exchanges), [queues](./queues), and bindings.
 Messages published to MQTT topics are routed by an AMQP 0.9.1 topic exchange.
 MQTT subscribers consume from queues bound to the topic exchange.
 
@@ -592,7 +592,7 @@ An MQTT 5.0 client can define a lower number by setting [Receive Maximum](https:
 ### Custom Exchanges {#custom-exchanges}
 
 The `exchange` option determines which exchange messages from MQTT clients are published to.
-The exchange must be created before clients publish any messages. The exchange is expected to be a [topic exchange](./tutorials/amqp-concepts#exchange-topic).
+The exchange must be created before clients publish any messages. The exchange is expected to be a [topic exchange](/tutorials/amqp-concepts#exchange-topic).
 
 The default topic exchange `amq.topic` is pre-declared: It therefore exists when RabbitMQ is started.
 

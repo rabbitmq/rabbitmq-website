@@ -320,7 +320,7 @@ Perhaps the most common destination type used by STOMP clients is `/topic/<name>
 They perform topic matching on publishing messages against subscriber patterns
 and can route a message to multiple subscribers (each gets its own copy).
 Topic destinations support all the routing patterns of [AMQP 0-9-1
-topic exchanges](./tutorials/amqp-concepts).
+topic exchanges](/tutorials/amqp-concepts).
 
 Messages sent to a topic destination that has no active subscribers
 are simply discarded.

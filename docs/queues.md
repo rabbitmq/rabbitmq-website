@@ -33,7 +33,7 @@ Many features in a messaging system are related to queues. Some RabbitMQ queue f
 
 The information in this topic includes an overview of queues in RabbitMQ and also links out to other topics so you can learn more about using queues in RabbitMQ.
 
-This information primarily covers queues in the context of the [AMQP 0-9-1](./tutorials/amqp-concepts) protocol, however, much of the content is applicable to other supported protocols.
+This information primarily covers queues in the context of the [AMQP 0-9-1](/tutorials/amqp-concepts) protocol, however, much of the content is applicable to other supported protocols.
 
 Some protocols (for example: STOMP and MQTT) are based around the idea of topics.
 For these protocols, queues act as a data accumulation buffer for consumers.
@@ -84,7 +84,7 @@ server-generated queue name.
 Server-named queues are meant to be used for state that is transient
 in nature and specific to a particular consumer (application instance).
 Applications can share such names in message metadata to let other applications respond
-to them (as demonstrated in [tutorial six](./tutorials)).
+to them (as demonstrated in [tutorial six](/tutorials)).
 Otherwise, the names of server-named queues should be known and used only by the
 declaring application instance. The instance should also set up appropriate
 bindings (routing) for the queue, so that publishers can use well-known

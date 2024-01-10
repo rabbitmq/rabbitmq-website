@@ -85,7 +85,7 @@ Brokers running different versions of RabbitMQ can be connected using federation
 Federated queues include a number of limitations or differences compared to their non-federated peers
 as well as federated exchanges.
 
-Queue federation will not propagate [bindings](./tutorials/amqp-concepts) from the downstream to the upstreams.
+Queue federation will not propagate [bindings](/tutorials/amqp-concepts) from the downstream to the upstreams.
 
 Applications that use <code>basic.get</code> (consume via polling, a highly discouraged practice)
 cannot retrieve messages over federation if there aren't any in a local queue (on the node the client is connected to).

@@ -72,7 +72,7 @@ the `basic.consume` method or a message is fetched on demand
 with the `basic.get` method.
 
 If you prefer a more example-oriented and step-by-step material, consumer acknowledgements are
-also covered in [RabbitMQ tutorial #2](./tutorials).
+also covered in [RabbitMQ tutorial #2](/tutorials).
 
 ### Delivery Identifiers: Delivery Tags {#consumer-acks-delivery-tags}
 
