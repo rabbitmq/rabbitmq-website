@@ -730,7 +730,7 @@ The following `advanced.config` example modifies all values listed above:
  %% five replicas by default, only makes sense for nine node clusters
  {rabbit, [{quorum_cluster_size, 5},
            {quorum_commands_soft_limit, 512}]}
-]
+].
 </pre>
 
 
