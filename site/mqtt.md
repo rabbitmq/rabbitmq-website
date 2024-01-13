@@ -604,6 +604,10 @@ When the Sparkplug support is enabled, the MQTT plugin will not translate the
 
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
+### QoS 2 is Not Supported
+
+QoS 2 subscriptions will be treated as if they were QoS 1 subscriptions.
+
 ### Presence of a Quorum of Nodes
 
 See [Consensus Features](#consensus).
