@@ -1363,14 +1363,14 @@ under the `rabbit` section.
     <td><code>msg_store_file_size_limit</code></td>
     <td>
       Message store segment file size. Changing this for a node
-      with an existing (initialised) database is dangerous can
+      with an existing (initialised) database is dangerous and can
       lead to data loss!
       <p>
         Default: <code>16777216</code>
 <pre class="lang-erlang">
 {rabbit, [
 %% Changing this for a node
-%% with an existing (initialised) database is dangerous can
+%% with an existing (initialised) database is dangerous and can
 %% lead to data loss!
 {msg_store_file_size_limit, 16777216}
 ]}
