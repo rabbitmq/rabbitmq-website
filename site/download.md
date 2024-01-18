@@ -73,7 +73,7 @@ Other guides related to Kubernetes:
 
 ## Docker
 
- * Docker community-maintained [RabbitMQ Docker image](https://registry.hub.docker.com/_/rabbitmq/) ([on GitHub](https://github.com/docker-library/rabbitmq/))
+ * Docker community-maintained [RabbitMQ Docker image](https://hub.docker.com/_/rabbitmq/) ([on GitHub](https://github.com/docker-library/rabbitmq/))
 
 
 ## Cloud
