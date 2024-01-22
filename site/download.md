@@ -20,7 +20,7 @@ limitations under the License.
 The latest [release](https://github.com/rabbitmq/rabbitmq-server/releases) of RabbitMQ is **&version-server;**. See [change log](changelog.html) for release notes.
 See [RabbitMQ support timeline](./versions.html) to find out what release series are supported.
 
-Experimenting with RabbitMQ on your workstation? Try the [community Docker image](https://registry.hub.docker.com/_/rabbitmq/):
+Experimenting with RabbitMQ on your workstation? Try the [community Docker image](https://hub.docker.com/_/rabbitmq/):
 
 <pre class="lang-bash">
 # latest RabbitMQ 3.12
