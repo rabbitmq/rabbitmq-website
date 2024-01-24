@@ -1,4 +1,4 @@
-# &product-name; Kubernetes Operators: Cluster Operator and Message Topology Operator
+# &product-name; Kubernetes Operators: Cluster Operator and Messaging Topology Operator
 
 The RabbitMQ team develop and maintain two [kubernetes operators](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/): the RabbitMQ Cluster Kubernetes Operator and the RabbitMQ Messaging Topology Operator.
 
