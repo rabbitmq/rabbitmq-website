@@ -46,7 +46,7 @@ limitations under the License.
               <h1>RabbitMQ is the most widely deployed open source message broker.</h1>
               <p>
                 With tens of thousands of users, RabbitMQ is one of the most popular open source message brokers. From <a href="https://www.youtube.com/watch?v=1qcTu2QUtrU">T-Mobile</a>
-                to <a href="https://medium.com/@runtastic/messagebus-handling-dead-letters-in-rabbitmq-using-a-dead-letter-exchange-f070699b952b">Runtastic</a>, RabbitMQ is used worldwide at small startups and large enterprises.
+                to <a href="https://www.runtastic.com/">Runtastic</a>, RabbitMQ is used worldwide at small startups and large enterprises.
               </p>
               <p>
                 RabbitMQ is lightweight and easy to deploy on premises
