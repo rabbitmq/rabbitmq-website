@@ -21,22 +21,22 @@ This page documents some Java-based utility programs (PerfTest, Tracer).
 
 ## <a id="load-testing" class="anchor" href="#load-testing">PerfTest</a>
 
-RabbitMQ has a throughput testing tool, PerfTest, that is based on the Java client and can be
+RabbitMQ has a throughput testing tool, [PerfTest](https://github.com/rabbitmq/rabbitmq-perf-test/), that is based on the Java client and can be
 configured to simulate basic and advanced workloads as well.
 
-PerfTest documentation is hosted on GitHub Pages:
+PerfTest Documentation:
 
  * For [the latest stable release](https://perftest.rabbitmq.com/)
- * For [the latest milestone release](https://rabbitmq.github.io/rabbitmq-perf-test/milestone/htmlsingle/)
  * For [the latest development build](https://perftest-dev.rabbitmq.com/)
 
 ## <a id="stream-load-testing" class="anchor" href="#stream-load-testing">PerfTest for Streams (RabbitMQ Stream Protocol)</a>
 
-There is a separate version of PerfTest for streams that uses [RabbitMQ Stream Protocol](./stream.html) internally.
+There is a separate version of [PerfTest for streams](https://github.com/rabbitmq/rabbitmq-stream-perf-test/) that uses [RabbitMQ Stream Protocol](./stream.html) internally.
 
-Its documentation is hosted on GitHub Pages:
+Stream PerfTest Documentation:
 
- * For [the latest stable release](https://rabbitmq.github.io/rabbitmq-stream-java-client/stable/htmlsingle/#the-performance-tool)
+ * For [the latest stable release](https://rabbitmq.github.io/rabbitmq-stream-perf-test/stable/htmlsingle/)
+ * For [the latest development build](https://rabbitmq.github.io/rabbitmq-stream-perf-test/snapshot/htmlsingle/)
 
 
 ## <a id="tracer" class="anchor" href="#tracer">Tracer</a>
