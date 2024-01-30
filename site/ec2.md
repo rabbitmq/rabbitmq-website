@@ -71,7 +71,7 @@ Please consult the installation guides for
 A wide variety of deployment tools can be used to automate
 RabbitMQ deployment.
 
-  * [Community Docker image](https://registry.hub.docker.com/_/rabbitmq/) ([on GitHub](https://github.com/docker-library/rabbitmq))
+  * [Community Docker image](https://hub.docker.com/_/rabbitmq/) ([on GitHub](https://github.com/docker-library/rabbitmq))
   * [Chef cookbook](https://github.com/rabbitmq/chef-cookbook)
   * [Puppet module](https://github.com/puppetlabs/puppetlabs-rabbitmq)
 

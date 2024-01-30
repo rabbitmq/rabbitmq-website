@@ -127,6 +127,16 @@ closed.
 
 When a channel's connection is closed, so is the channel.
 
+If a channel is closed immediately after a consumer [acknowledged a number of deliveries](/confirms.html) on it,
+the acknowledgements may or may not reach their target queue before the channel is terminated.
+In this case the messages with a pending acknowledgement on the channel will be automatically requeued
+following the channel closure.
+
+This scenario usually applies to workloads with short lived channels. Using long lived channels and
+designing consumers in a way that they can handle redeliveries potential surprises may be
+associated with this edge case behavior. Note that redelivered messages will be [explicitly marked as such](/consumers.html#message-properties).
+
+
 ### <a id="error-handling" class="anchor" href="#error-handling">Channels and Error Handling</a>
 
 In the section above channels were closed by applications. There is another way a channel can

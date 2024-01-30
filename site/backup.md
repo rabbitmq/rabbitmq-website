@@ -113,18 +113,8 @@ copy the messages, skip copying the [message directories](#manual-messages-backu
 
 ### <a id="manual-definitions-restore" class="anchor" href="#manual-definitions-restore">Restoring from a Manual Definitions Backup</a>
 
-Internal node database stores node's name in certain records. Should node name change, the database must first
-be updated to reflect the change using the following [rabbitmqctl](./cli.html) command:
-
-<pre class="lang-sh">
-rabbitmqctl rename_cluster_node &lt;oldnode&gt; &lt;newnode&gt;
-</pre>
-
-The command can take multiple old name/new name pairs if multiple nodes in a cluster are being renamed
-at the same time.
-
-When a new node starts with a backed up directory and a matching node name, it should perform
-the upgrade steps as needed and proceed booting.
+To perform a restore, a new node starts with a backed up directory and the original node name.
+The node then should perform the upgrade steps as needed and proceed booting.
 
 
 ## <a id="messages-backup" class="anchor" href="#messages-backup">Backing Up Messages</a>
