@@ -151,11 +151,7 @@ no sense in their context. Therefore quorum queues cannot be exclusive.
 
 Quorum queues are not meant to be used as [temporary queues](./queues.html#temporary-queues).
 
-#### TTL (before RabbitMQ 3.10)
-
-Before RabbitMQ 3.10, quorum queues supported [Queue TTL](./ttl.html#queue-ttl), but do not message TTL.
-
-#### TTL (since RabbitMQ 3.10)
+#### Queue and Per-Message TTL (since RabbitMQ 3.10)
 
 Quorum queues support both [Queue TTL](./ttl.html#queue-ttl) and message TTL
 (including [Per-Queue Message TTL in Queues](./ttl.html#per-queue-message-ttl) and
@@ -730,7 +726,7 @@ The following `advanced.config` example modifies all values listed above:
  %% five replicas by default, only makes sense for nine node clusters
  {rabbit, [{quorum_cluster_size, 5},
            {quorum_commands_soft_limit, 512}]}
-]
+].
 </pre>
 
 

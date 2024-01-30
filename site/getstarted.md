@@ -22,7 +22,7 @@ applications using RabbitMQ.
 
 You need to have the RabbitMQ server installed to go through
 the tutorials, please see the [installation guide](download.html) or
-use the [Docker image](https://registry.hub.docker.com/_/rabbitmq/).
+use the [Docker image](https://hub.docker.com/_/rabbitmq/).
 
 Executable versions of these tutorials [are open source](https://github.com/rabbitmq/rabbitmq-tutorials),
 as is [this website](https://github.com/rabbitmq/rabbitmq-website).

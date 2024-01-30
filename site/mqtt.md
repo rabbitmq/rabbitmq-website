@@ -710,3 +710,82 @@ mqtt.sparkplug = true
 
 When the Sparkplug support is enabled, the MQTT plugin will not translate the
 `spAvM.N`/`spBvM.N` part of the names of topics.
+
+
+## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
+
+### QoS 2 is Not Supported
+
+QoS 2 subscriptions will be treated as if they were QoS 1 subscriptions.
+
+### Presence of a Quorum of Nodes
+
+See [Consensus Features](#consensus).
+
+### Overlapping Subscriptions
+
+Overlapping subscriptions from the same client
+(e.g. `/sports/football/epl/#` and `/sports/football/#`) can result in
+duplicate messages being delivered. Applications
+need to account for this.
+
+### Retained Message Stores
+
+See Retained Messages above. Different retained message stores have
+different benefits, trade-offs, and limitations.
+
+
+## <a id="disabling-plugin" class="anchor" href="#disabling-plugin">Disabling the Plugin</a>
+
+Before the plugin is disabled on a node, or a node removed from the cluster, it must be decommissioned using [`rabbitmqctl`](./cli.html):
+
+<pre class="lang-bash">
+rabbitmqctl decommission_mqtt_node &lt;node&gt;
+</pre>
+
+## <a id="retained" class="anchor" href="#retained">Retained Messages and Stores</a>
+
+The plugin supports retained messages. Message store implementation is pluggable
+and the plugin ships with two implementation out of the box:
+
+ * ETS-based (in memory), implemented in the <code>rabbit_mqtt_retained_msg_store_ets</code> module
+ * DETS-based (on disk), implemented in the <code>rabbit_mqtt_retained_msg_store_dets</code>
+
+Both implementations have limitations and trade-offs.
+With the first one, maximum number of messages that can be retained is limited by RAM.
+With the second one, there is a limit of 2 GB per vhost. Both are node-local
+(messages retained on one broker node are not replicated to other nodes in the cluster).
+
+To configure the store, use <code>rabbitmq_mqtt.retained_message_store</code> configuration key:
+
+<pre class="lang-ini">
+mqtt.default_user     = guest
+mqtt.default_pass     = guest
+mqtt.allow_anonymous  = true
+mqtt.vhost            = /
+mqtt.exchange         = amq.topic
+mqtt.subscription_ttl = 1800000
+mqtt.prefetch         = 10
+
+## use DETS (disk-based) store for retained messages
+mqtt.retained_message_store = rabbit_mqtt_retained_msg_store_dets
+## only used by DETS store
+mqtt.retained_message_store_dets_sync_interval = 2000
+
+mqtt.listeners.ssl = none
+mqtt.listeners.tcp.default = 1883
+</pre>
+
+The value must be a module that implements the store:
+
+ * <code>rabbit_mqtt_retained_msg_store_ets</code> for RAM-based
+ * <code>rabbit_mqtt_retained_msg_store_dets</code> for disk-based
+
+These implementations are suitable for development but sometimes won't be for production needs.
+MQTT 3.1 specification does not define consistency or replication requirements for retained
+message stores, therefore RabbitMQ allows for custom ones to meet the consistency and
+availability needs of a particular environment. For example, stores based on [Riak](http://basho.com/riak/)
+and [Cassandra](http://cassandra.apache.org/) would be suitable for most production environments as
+those data stores provide [tunable consistency](https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/reference/strong-consistency.md).
+
+Message stores must implement the <code>rabbit_mqtt_retained_msg_store</code> behaviour.
