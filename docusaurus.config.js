@@ -255,6 +255,32 @@ const config = {
         // disable it)
         searchPagePath: 'search',
       },
+
+      // User tracking: OneTrust Cookie Consent popup.
+      metadata: [
+        {
+          name: 'onetrust-data-domain',
+          content: '73d8ba46-8c12-43f6-8c22-24aa21b8d93d',
+        },
+        {
+          name: 'microsites-utag',
+          content: 'https://tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.js',
+        },
+      ],
+      headTags: [
+        {
+          tagName: 'script',
+          attributes: { src: '//www.vmware.com/files/templates/inc/utag_data.js' },
+        },
+        {
+          tagName: 'script',
+          attributes: { src: '//tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.sync.js' },
+        },
+        {
+          tagName: 'script',
+          innerHTML: "function OptanonWrapper() { { window.dataLayer.push({ event: 'OneTrustGroupsUpdated' }); } }",
+        },
+      ],
     }),
 
   headTags: [
