@@ -86,6 +86,12 @@ const config = {
         theme: {
           customCss: './src/css/custom.css',
         },
+
+        // User tracking: Google tag for Google Analytics.
+        gtag: {
+          trackingID: 'G-9SLB9X7PHR',
+          anonymizeIP: true,
+        },
       }),
     ],
   ],
