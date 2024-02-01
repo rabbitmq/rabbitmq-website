@@ -1,0 +1,114 @@
+acogoluegnes:
+  name: "Arnaud Cogoluègnes"
+  url: https://github.com/acogoluegnes
+  image_url: https://github.com/acogoluegnes.png
+
+alebedeff:
+  name: "Alexey Lebedeff"
+  url: https://github.com/binarin
+  image_url: https://github.com/binarin.png
+
+alexandru:
+  name: "Alexandru Scvortov"
+
+alexis:
+  name: "Alexis Richardson"
+
+alvaro:
+  name: "Alvaro Videla"
+
+botanicus:
+  name: "Jakub Stastny"
+
+dansari:
+  name: "David Ansari"
+  url: https://github.com/ansd
+  image_url: https://github.com/ansd.png
+
+david:
+  name: "David Wragg"
+
+dcorbacho:
+  name: "Diana Parra Corbacho"
+  url: https://github.com/dcorbacho
+  image_url: https://github.com/dcorbacho.png
+
+ddrewitz:
+  name: "Dormain Drewitz"
+
+dfedotov:
+  name: "Daniil Fedotov"
+
+ebyford:
+  name: "Ed Byford"
+  url: https://github.com/edbyford
+  image_url: https://github.com/edbyford.png
+
+emile:
+  name: "Emile Joubert"
+
+glazu:
+  name: "Gerhard Lazu"
+
+jdetreville:
+  name: "John DeTreville"
+
+jerry:
+  name: "Jerry Kuch"
+
+jpedron:
+  name: "Jean-Sébastien Pédron"
+  url: https://github.com/dumbbell
+  image_url: https://github.com/dumbbell.png
+
+jvanlightly:
+  name: "Jack Vanlightly"
+
+kura:
+  name: "Michał Kuratczyk"
+  url: https://github.com/mkuratczyk
+  image_url: https://github.com/mkuratczyk.png
+
+marek:
+  name: "Marek Majkowski"
+
+matthew:
+  name: "Matthew Sackman"
+
+mgary:
+  name: "Mirah Gary"
+  url: https://github.com/MirahImage
+  image_url: https://github.com/MirahImage.png
+
+mikeb:
+  name: "Michael Bridgen"
+
+mklishin:
+  name: "Michael Klishin"
+  url: https://github.com/michaelklishin
+  image_url: https://github.com/michaelklishin.png
+
+mrosales:
+  name: "Marcial Rosales"
+  url: https://github.com/MarcialRosales
+  image_url: https://github.com/MarcialRosales.png
+
+nkarl:
+  name: "Karl Nilsson"
+  url: https://github.com/kjnilsson
+  image_url: https://github.com/kjnilsson.png
+
+simon:
+  name: "Simon MacMullen"
+
+sustrik:
+  name: "Martin Sustrik"
+
+vlad:
+  name: "Vlad Alexandru Ionescu"
+
+yparasol:
+  name: "Yaron Parasol"
+
+Zteve:
+  name: "Steve Powell"

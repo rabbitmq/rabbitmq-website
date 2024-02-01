@@ -1,0 +1,38 @@
+---
+title: "Chapter 1: Introduction to Distributed Systems"
+tags: ["Introductory", ]
+authors: [jdetreville]
+---
+
+RabbitMQ needs more and better documentation. (And who doesn't?) In particular, we need more and better introductory material that introduces the reader to various basic concepts, explains why they're important, and motivates him or her to keep reading and learn more about RabbitMQ. Here's a cut at Chapter 1 of that introduction. Your comments are welcome, and Chapters 2 and 3 will follow soon.
+(You probably already know all of this, but a surprising number of people don't. This introduction is for them.)
+
+<!-- truncate -->
+
+## The Old Future
+
+Long, long ago, the American science-fiction writer Isaac Asimov imagined a future world in which one single giant computer, Multivac, would control all of mankind's affairs. Information would flow in from people and businesses and governments across the globe, and Multivac would store it and process it, and send exactly the right important new information right back out. All sorts of futuristic questions would pour in from our future selves, and the right futuristic answers would just pour back out. This future was a great place!
+
+And our present-day world isn't all that different from Asimov's future, just without all that shininess. We've got the Internet, and it connects people and businesses and governments all over the globe, and information flows in, and information flows out, and questions pour in, and answers pour out. We've got our Googles and our Amazons and our eBays and our Facebooks, and our lives keep getting better every day. More and better information; more and better storage and processing; more and better answers.
+
+But Asimov was only a lowly Ph.D. chemist turned science-fiction writer, not any sort of real Computer Scientist like we have now, and he never worked out all (or, really, *any!*) of the technical details of *exactly* how you'd build that one giant, all-knowing, all-powerful Multivac at the North Pole, and *exactly* who'd pay for it, and *exactly* what uses they'd allow, and *so* on. He left that part for future generations to figure out, if in fact they could. And as time has gone by, it's also turned out that any one single computer that anyone can buy at the computer shop down the street is still several orders of magnitude too small and too weak to control all of mankind's affairs. That's the bad news.
+
+## The New Future
+
+The good news, which Asimov didn't anticipate (ha!), is that computers here in the future are *cheap*, almost dirt cheap, being made largely of silicon, which is after all just processed dirt. So if any one computer you can buy at the shop (or rent on the cloud from Amazon, or whatever) has a million times too little storage or processing power for what you want to do to or for mankind, just get a million of them and plug them together! (Some assembly required.) Google is close to doing just that, just as soon as it completes its takeover of the North Pole, and everyone else is trying to follow close behind. Google's got its own computers to execute its plans for the world, and Facebook's got its own computers and its own plans too, and the CIA too, and your company or organization too, and everyone cooperates and competes in controlling all of mankind's affairs. Our old *centralized* computer systems couldn't possibly grow big enough, so we're replacing them with shiny new *distributed* systems that could presumably grow bigger forever. And our lives keep getting better every day.
+
+But getting your million computers (or even just a thousand, or even fewer!) to work together on their assigned tasks isn't as easy as it might sound to your upper management. One given server computer might crash once a year due to bad hardware or bad software or bad power or bad whatever, and that's usually being pretty optimistic. If you have only a thousand server computers, one will crash on the average every 9 hours; if you had a million, one would crash about every 30 seconds; if you had a billion, which not even Google has *yet*, about 30 would crash every second, and good luck getting the remainder not to crash or otherwise go bonkers too! One *centralized* computer can be either *up* or *down*, and that's it, but a *distributed* computer system is more likely to be 99% up and 1% down at any moment, and the 1% that's down keeps shifting around and further confusing the other 99%. Problems in distributed systems are unavoidable, and they can multiply without bound. Welcome to the future!
+
+You may have just a thousand computers so far, or maybe just a hundred, or maybe even just ten or so, but you're still going to have problems and bad things are still going to happen. Crashes are one obvious cause, but lost messages or misconfigured systems or subtle race conditions all add to the error rate too. If you can't think of half a dozen more potential problems with large distributed systems, you've probably never built or operated one. It would be impossibly hard to build that one giant Multivac at the North Pole, but it might be even harder to figure out exactly how those zillion smaller computers that you buy instead will ever work together. What to do?
+
+## Perfect Reliability (Not really)
+
+There's a great saying: If you ever see a computer system described as _reliable_, look for the asterisk and the footnote that says _Not really_. Perfect reliability is impossible to achieve. Put your computers in an expensive data center in California, and one sufficiently large earthquake can knock them all out. Spread them out across a bunch of expensive data centers on different continental plates, and you just need a few more earthquakes (or tsunamis, or whatever) to knock enough of your computers (or network links, or whatever) to render the others useless. Enough natural or man-made catastrophes can ruin anything, and they can happen a lot more often than you might think, especially the man-made ones! That's the bad news.
+
+The good news is, while you can't build perfectly reliable systems, you can build systems that are reliable *enough,* whatever that happens to be. That is, you can build computer systems that are arbitrarily reliable. You can ensure that if *enough* of your computers are up and connected and working correctly, then the system as a whole will continue to do the right things, and that even if more fail, then the system as a whole still won't do anything wrong. (It might not do anything at all, but that's life.) If you want more reliability, you can buy more computers (maybe a lot more) and connect them properly. If you know how.
+
+## Cargo Cults and Banks
+
+Unfortunately, much of the time, it seems that our distributed-system needs are growing faster than our expertise. Distributed systems are hard to build and they may never become all that easy. Right now, it's often all we can do adopt *best practices*, to look at distributed systems that got it right, and try to figure out why they succeeded, and to try to duplicate their success. It's a little like running your own cargo cult, but without all the coconuts.
+
+*Banks* are in many ways an excellent industry to study and perhaps to imitate. Banks (and other financial institutions) can clearly care *very* much about reliability, and banks have been building pretty large, pretty reliable distributed systems for some while now. Banks today tend to build their reliable distributed systems atop reliable *message-queuing systems,* and they've even developed an open standard for such message-queuing systems, and that's worked out pretty well for them, and that's what we'll look at next.
