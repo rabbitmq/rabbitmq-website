@@ -103,7 +103,7 @@ Client can lose their connection to RabbitMQ. When connection loss is [detected]
 message delivery stops.
 
 Some client libraries offer automatic connection recovery features that involves consumer recovery.
-[Java](./api-guide#recovery), [.NET](./dotnet-api-guide#recovery) and [Bunny](http://rubybunny.info/articles/error_handling.html)
+[Java](/client-libraries/java-api-guide#recovery), [.NET](/client-libraries/dotnet-api-guide#recovery) and [Bunny](http://rubybunny.info/articles/error_handling.html)
 are examples of such libraries.
 While connection recovery cannot cover 100% of scenarios and workloads, it generally works very well for consuming
 applications and is recommended.
@@ -134,11 +134,11 @@ It can later be used to cancel the consumer.
 
 ### Java Client
 
-See [Java client guide](./api-guide#consuming) for examples.
+See [Java client guide](/client-libraries/java-api-guide#consuming) for examples.
 
 ### .NET Client
 
-See [.NET client guide](./dotnet-api-guide#consuming) for examples.
+See [.NET client guide](/client-libraries/dotnet-api-guide#consuming) for examples.
 
 ### Message Properties and Delivery Metadata {#message-properties}
 
@@ -364,11 +364,11 @@ application must close the channel.
 
 ### Java Client
 
-See [Java client guide](./api-guide#consuming) for examples.
+See [Java client guide](/client-libraries/java-api-guide#consuming) for examples.
 
 ### .NET Client
 
-See [.NET client guide](./dotnet-api-guide#consuming) for examples.
+See [.NET client guide](/client-libraries/dotnet-api-guide#consuming) for examples.
 
 ## Fetching Individual Messages ("Pull API") {#fetching}
 
@@ -385,11 +385,11 @@ When in doubt, prefer using a regular long-lived consumer.
 
 ### Java Client
 
-See [Java client guide](./api-guide#getting) for examples.
+See [Java client guide](/client-libraries/java-api-guide#getting) for examples.
 
 ### .NET Client
 
-See [.NET client guide](./dotnet-api-guide#basic-get) for examples.
+See [.NET client guide](/client-libraries/dotnet-api-guide#basic-get) for examples.
 
 
 ## Delivery Acknowledgement Timeout {#acknowledgement-timeout}

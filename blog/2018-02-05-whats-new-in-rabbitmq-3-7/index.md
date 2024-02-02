@@ -213,5 +213,5 @@ Java client releases are now distributed exclusively via Maven repositories
 We encourage all users to [upgrade to 3.7.x](/docs/download) and let us know how it goes
 on the [mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users). To simplify the transition, there is a new [documentation
 guide on upgrades](/docs/upgrade). And, of course,
-please consult the [full change log](/docs/changelog)
+please consult the [full change log](/release-information/changelog)
 first!

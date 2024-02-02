@@ -53,7 +53,7 @@ In addition, our team produces and distributes packages of modern Erlang version
 If this is via the [Docker community image](https://github.com/docker-library/rabbitmq),
 then **nothing changes** for you as the image does not depend on Bintray and is not distributed via Bintray.
 
-This is equally true for the [RabbitMQ Kubernetes Operator](/docs/kubernetes/operator/operator-overview) users.
+This is equally true for the [RabbitMQ Kubernetes Operator](/kubernetes/operator/operator-overview) users.
 
 ### Binary Builds
 

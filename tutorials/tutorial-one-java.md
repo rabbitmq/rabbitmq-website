@@ -51,7 +51,7 @@ on behalf of the consumer.
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
-> languages](/docs/devtools). We'll
+> languages](/client-libraries/devtools). We'll
 > use the Java client provided by RabbitMQ.
 >
 > Download the [client library](https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.16.0/amqp-client-5.16.0.jar)

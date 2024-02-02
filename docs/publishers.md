@@ -1,6 +1,5 @@
 ---
 title: Publishers
-displayed_sidebar: docsSidebar
 ---
 <!--
 Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
@@ -555,7 +554,7 @@ offer sub-optimal publishing rates and waste resources.
 Unroutable message rates can help detect applications that publish messages that cannot be
 routed to any queue. For example, this may suggest a misconfiguration.
 
-Client libraries may also collect metrics. [RabbitMQ Java client](./api-guide#metrics) is one
+Client libraries may also collect metrics. [RabbitMQ Java client](/client-libraries/java-api-guide#metrics) is one
 example. These metrics can provide insight into application-specific architecture (e.g. what publishing
 component publishes unroutable messages) that RabbitMQ nodes cannot infer.
 

@@ -1,6 +1,5 @@
 ---
 title: Command Line Tools
-displayed_sidebar: docsSidebar
 ---
 <!--
 Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
@@ -341,7 +340,7 @@ For instance, this can be seen in the [RabbitMQ on Kubernetes examples repositor
 On Windows, the cookie location depends on a few factors:
 
  * Whether the `HOMEDRIVE` and `HOMEPATH` environment variables are both set
- * Erlang version: prior to 20.2 (these are no longer supported by any [maintained release series of RabbitMQ](./versions)) or 20.2 and later
+ * Erlang version: prior to 20.2 (these are no longer supported by any [maintained release series of RabbitMQ](/release-information/versions)) or 20.2 and later
 
 ##### Erlang 20.2 or later
 
@@ -377,7 +376,7 @@ Both are **the least secure options** and generally **not recommended**.
 
 #### CLI Tools
 
-Starting with [version `3.8.6`](./changelog), `rabbitmq-diagnostics` includes a command
+Starting with [version `3.8.6`](/release-information/changelog), `rabbitmq-diagnostics` includes a command
 that provides relevant information on the Erlang cookie file used by CLI tools:
 
 ```bash
@@ -425,7 +424,7 @@ In the example above, the cookie file location will be `/var/lib/rabbitmq/.erlan
 
 #### Hostname Resolution
 
-Starting with [RabbitMQ `3.8.6`](./changelog), CLI tools provide two commands that help verify
+Starting with [RabbitMQ `3.8.6`](/release-information/changelog), CLI tools provide two commands that help verify
 that hostname resolution on a node works as expected. The commands are not meant to replace
 [`dig`](https://en.wikipedia.org/wiki/Dig_(command)) and other specialised DNS tools but rather
 provide a way to perform most basic checks while taking [Erlang runtime hostname resolver features](https://erlang.org/doc/apps/erts/inet_cfg.html)

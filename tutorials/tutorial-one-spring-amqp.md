@@ -51,7 +51,7 @@ on behalf of the consumer.
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which
 > is an open, general-purpose protocol for messaging. There are a number
 > of clients for RabbitMQ in
-> [many different languages](/docs/devtools).
+> [many different languages](/client-libraries/devtools).
 
 We'll be using Spring Boot to bootstrap and configure our Spring AMQP
 project. We chose Maven to build the project, but we could have used

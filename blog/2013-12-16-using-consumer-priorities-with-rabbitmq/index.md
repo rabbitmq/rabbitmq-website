@@ -20,7 +20,7 @@ Another use for consumer priorities is to benefit from data locality. In RabbitM
 
 ## Declaring consumer priorities
 
-Below you can find sample code that shows how to declare consumer priorities using the [RabbitMQ Java Client](/docs/java-client):
+Below you can find sample code that shows how to declare consumer priorities using the [RabbitMQ Java Client](/client-libraries/java-client):
 
 ```java {linenos=inline,hl_lines=["25-27"],linenostart=1}
 import java.util.*;

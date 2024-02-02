@@ -205,4 +205,4 @@ Time to move on to [part 2](./tutorial-two-swift) and build a simple _work queue
 
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
 [controller]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/tutorial1/tutorial1/ViewController.swift
-[devtools]:/docs/devtools
+[devtools]:/client-libraries/devtools

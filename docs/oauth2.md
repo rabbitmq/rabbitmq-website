@@ -406,7 +406,7 @@ In the example configuration, RabbitMQ searches for the `user_name` claim first 
 
 ### Token Expiration and Refresh {#token-expiration}
 
-On an existing connection the token can be refreshed by the [update-secret](/amqp-0-9-1-reference#connection.update-secret) AMQP 0.9.1 method. Please check your client whether it supports this method. (Eg. see documentation of the [Java client](./api-guide#oauth2-refreshing-token).) Otherwise the client has to disconnect and reconnect to use a new token.
+On an existing connection the token can be refreshed by the [update-secret](/amqp-0-9-1-reference#connection.update-secret) AMQP 0.9.1 method. Please check your client whether it supports this method. (Eg. see documentation of the [Java client](/client-libraries/java-api-guide#oauth2-refreshing-token).) Otherwise the client has to disconnect and reconnect to use a new token.
 
 If the latest token expires on an existing connection, after a limited time the broker will refuse all operations (but it won't disconnect).
 

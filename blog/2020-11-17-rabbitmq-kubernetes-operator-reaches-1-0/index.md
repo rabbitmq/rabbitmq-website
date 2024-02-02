@@ -21,7 +21,7 @@ to see how easy it is to deploy and monitor a RabbitMQ cluster with the operator
 of operator created rabbitMQ cluster.
 
 Want to go further? Look at the [operator yaml examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples) for
-quick deployment of advanced clusters. For the entire set of supported features, [look at the documentation](/docs/kubernetes/operator/operator-overview).
+quick deployment of advanced clusters. For the entire set of supported features, [look at the documentation](/kubernetes/operator/operator-overview).
 
 ## The Rabbit K8s Operator
 
@@ -113,7 +113,7 @@ Now watch as Gerhard covers more advanced topics in running [RabbitMQ reliably o
 ## But wait - there’s more
 
 The operator comes with a kubectl plugin that provides many commands to make your life easier. As described
-[here](/docs/kubernetes/operator/install-operator#kubectl-plugin), you can install the kubectl
+[here](/kubernetes/operator/install-operator#kubectl-plugin), you can install the kubectl
 plugin using [krew](https://github.com/kubernetes-sigs/krew). Some handy commands are installing the cluster operator as well
 as creating, listing and deleting RabbitMQ clusters. Other commands targeting a specific RabbitMQ cluster include printing
 the default user secret, opening the RabbitMQ management UI, enabling debug

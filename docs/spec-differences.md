@@ -1,5 +1,6 @@
 ---
 title: Spec Differences
+displayed_sidebar: docsSidebar
 ---
 <div id="left-content">
     <h2>Undeprecated Features</h2>

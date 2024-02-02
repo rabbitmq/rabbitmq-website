@@ -42,7 +42,7 @@ Erlang will appear in the Start Menu,
 and `\erl{version}\bin\erl.exe` will be in `C:\Program Files` for 64-bit Erlang installations
 
 **Important:** your system should only have one version of Erlang installed.
-Please consult the [Windows-specific Issues](./windows-quirks) page.
+Please consult the [Windows Configuration](./windows-configuration) page.
 
 ### Make Sure ERLANG_HOME is Set {#set-erlang-home-variable}
 
@@ -351,7 +351,7 @@ It is possible to [configure RabbitMQ](./configure)
 to use [different ports and specific network interfaces](./networking).
 
 
-## Windows-specific Issues {#windows-quirks}
+## Windows Configuration {#windows-configuration}
 
 We aim to make RabbitMQ a first-class citizen on Windows. However, sometimes there are circumstances beyond our
-control. Please consult the [Windows-specific Issues](./windows-quirks) page.
+control. Please consult the [Windows Configuration](./windows-configuration) page.

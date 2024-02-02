@@ -448,7 +448,7 @@ that interacts with the HTTP API. It can be downloaded from any RabbitMQ node th
 has the management plugin enabled at `http://<i>{node-hostname}</i>:15672/cli/`.
 
 For HTTP API clients in several languages,
-see [Developer Tools](./devtools).
+see [Developer Tools](/client-libraries/devtools).
 
 Some API endpoints return a lot of information. The volume can be reduced
 by filtering what columns are returned by `HTTP GET` requests. See

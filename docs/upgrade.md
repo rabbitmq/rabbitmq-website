@@ -38,7 +38,7 @@ It is important to consider a number of things before upgrading RabbitMQ.
 1. [Caveats](#caveats)
 1. [Handling node restarts](#rabbitmq-restart-handling) in applications
 
-Changes between RabbitMQ versions are documented in the [change log](./changelog).
+Changes between RabbitMQ versions are documented in the [change log](/release-information/changelog).
 
 ## Important Note on Upgrading to 3.12 and 3.13
 
@@ -566,8 +566,8 @@ and consumers) should be able to cope with a server-initiated connection
 close. Some client libraries offer automatic connection recovery
 to help with this:
 
-* [Java client](./api-guide#recovery)
-* [.NET client](./dotnet-api-guide#connection-recovery)
+* [Java client](/client-libraries/java-api-guide#recovery)
+* [.NET client](/client-libraries/dotnet-api-guide#connection-recovery)
 * [Bunny](http://rubybunny.info/articles/error_handling.html#network_connection_failures) (Ruby)
 
 In most client libraries there is a way to react to a connection closure, for example:
@@ -607,7 +607,7 @@ Many client libraries libraries support host lists, for example:
 ## Windows {#windows-upgrade-caveats}
 
 If the value of the environment variable `COMPUTERNAME` does not equal
-`HOSTNAME` (upper vs lower case, or other differences) please see the [Windows Quirks guide](./windows-quirks#computername-vs-hostname)
+`HOSTNAME` (upper vs lower case, or other differences) please see the [Windows Configuration guide](./windows-configuration#computername-vs-hostname)
 for instructions on how to upgrade RabbitMQ.
 
 ## Recommended Upgrade Steps {#recommended-upgrade-steps}
@@ -625,7 +625,7 @@ which do not fit a patch release.
 As soon as a new minor version is released (e.g. 3.7.0), previous version series (3.6)
 will have patch releases for critical bug fixes only.
 
-There will be no new patch releases for [versions after EOL](./versions).
+There will be no new patch releases for [versions after EOL](/release-information/versions).
 
 Version 3.5.x reached its end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
 It's recommended to always upgrade at least to the latest patch release in a series.

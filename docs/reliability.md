@@ -76,8 +76,8 @@ connection throwing an exception (or similar language construct).
 Most client libraries provide a feature that automatically recovers from connection
 failures. For cases where this opinionated recovery is not suitable, application
 developers can implement their own recovery by defining connection failure
-event handlers. See client documentation, such as the [Java](./api-guide)
-and [.NET client guides](./dotnet-api-guide), to learn more.
+event handlers. See client documentation, such as the [Java](/client-libraries/java-api-guide)
+and [.NET client guides](/client-libraries/dotnet-api-guide), to learn more.
 
 ### Acknowledgements and Confirms {#confirms}
 

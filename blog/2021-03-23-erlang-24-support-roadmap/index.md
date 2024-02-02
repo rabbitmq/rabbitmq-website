@@ -92,7 +92,7 @@ the standard library logger API which provides most if not all features that Lag
 ## Community Docker Image and Kubernetes Operator for RabbitMQ
 
 If you use the [Docker community RabbitMQ image](https://github.com/docker-library/rabbitmq) and have updated it recently, you already run on a very recent
-release of Erlang 23. So do most [RabbitMQ Kubernetes Operator](/docs/kubernetes/operator/operator-overview) users.
+release of Erlang 23. So do most [RabbitMQ Kubernetes Operator](/kubernetes/operator/operator-overview) users.
 The image will be upgraded to Erlang 24 likely a few weeks after it comes out,
 unless any serious enough Erlang 24-specific issues are discovered.
 

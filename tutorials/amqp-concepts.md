@@ -593,7 +593,7 @@ specify what vhosts they want to use during connection negotiation.
 
 AMQP 0-9-1 has several extension points:
 
- * [Custom exchange types](/docs/devtools#miscellaneous) let developers
+ * [Custom exchange types](/client-libraries/devtools#miscellaneous) let developers
    implement routing schemes that exchange types provided out-of-the-box do
    not cover well, for example, geodata-based routing.
  * Declaration of exchanges and queues can include additional attributes that the broker
@@ -611,7 +611,7 @@ and applicable to a very broad range of problems.
 
 ## AMQP 0-9-1 Clients Ecosystem {#amqp-clients}
 
-There are [many AMQP 0-9-1 clients](/docs/devtools) for many
+There are [many AMQP 0-9-1 clients](/client-libraries/devtools) for many
 popular programming languages and platforms. Some of them follow AMQP terminology
 closely and only provide implementation of AMQP methods. Some
 others have additional features, convenience methods

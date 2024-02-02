@@ -95,7 +95,7 @@ at declaration time; it cannot be set or changed using a [policy](./parameters#p
 This is because policy definition or applicable policy can be changed dynamically but
 queue type cannot. It must be specified at the time of declaration.
 
-The following snippet shows how to create a stream with the [AMQP 0.9.1 Java client](./api-guide):
+The following snippet shows how to create a stream with the [AMQP 0.9.1 Java client](/client-libraries/java-api-guide):
 
 ```java
 ConnectionFactory factory = new ConnectionFactory();

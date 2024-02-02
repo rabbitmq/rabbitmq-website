@@ -115,6 +115,33 @@ const config = {
         sidebarPath: './sidebarsTutorials.js',
       },
     ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'release-information',
+        path: 'release-information',
+        routeBasePath: 'release-information',
+        sidebarPath: './sidebarsReleaseInfo.js',
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'kubernetes',
+        path: 'kubernetes',
+        routeBasePath: 'kubernetes',
+        sidebarPath: './sidebarsKubernetes.js',
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'client-libraries',
+        path: 'client-libraries',
+        routeBasePath: 'client-libraries',
+        sidebarPath: './sidebarsClientLibs.js',
+      },
+    ],
   ],
 
   themeConfig:
@@ -150,13 +177,13 @@ const config = {
             ],
             dropdownItemsAfter: [
               {href: 'https://v3-12.rabbitmq.com/documentation.html', label: '3.12'},
-              {to: '/docs/versions', label: 'Release Information'},
+              {to: '/release-information/versions', label: 'Release Information'},
               //{type: 'html', value: '<strong>Unsupported</strong>'},
             ],
           },
           {
             label: 'Support',
-            href: 'https://tanzu.vmware.com/rabbitmq/oss',
+            to: '/contact',
           },
           {
             label: 'GitHub',

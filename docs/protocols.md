@@ -37,7 +37,7 @@ in various ways.
 AMQP 0-9-1 is a binary protocol, and defines quite strong
 messaging semantics. For clients it's a reasonably easy
 protocol to implement, and as such there
-are [a large number of client libraries](./devtools) available for
+are [a large number of client libraries](/client-libraries/devtools) available for
 many different programming languages and environments.
 
 AMQP 0-9-1 is the protocol used by [RabbitMQ tutorials](/tutorials).

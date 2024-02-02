@@ -4,7 +4,7 @@ tags: ["Programming Languages", "New Features", ]
 authors: [acogoluegnes]
 ---
 
-The RabbitMQ team is happy to announce the release of version 5.0 of the [RabbitMQ Java Client](/docs/api-guide). This new release is now based on Java 8 and comes with a bunch of interesting new features.
+The RabbitMQ team is happy to announce the release of version 5.0 of the [RabbitMQ Java Client](/client-libraries/java-api-guide). This new release is now based on Java 8 and comes with a bunch of interesting new features.
 
 <!-- truncate -->
 

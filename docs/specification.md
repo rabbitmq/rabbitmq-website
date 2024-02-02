@@ -1,5 +1,6 @@
 ---
 title: Compatibility and Conformance
+displayed_sidebar: docsSidebar
 ---
 <div id="left-content">
     <div class="docSection">

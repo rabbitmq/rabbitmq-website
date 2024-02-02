@@ -46,7 +46,7 @@ A shovel behaves like a well-written client application, which
 connects to its source and destination, consumes and republishes messages,
 and uses [acknowledgements](./confirms) on both ends to cope with failures.
 
-A Shovel uses [Erlang AMQP 0-9-1](./erlang-client-user-guide)
+A Shovel uses [Erlang AMQP 0-9-1](/client-libraries/erlang-client-user-guide)
 and [Erlang AMQP 1.0](https://github.com/rabbitmq/rabbitmq-amqp1.0-client) clients under the hood.
 
 ## Why Use Shovel {#benefits}
@@ -191,7 +191,7 @@ creation.
 
 ## Authentication and authorisation for Shovels {#authn-authz-for-shovels}
 
-The plugin uses [Erlang AMQP 0-9-1](./erlang-client-user-guide) and [Erlang AMQP 1.0](https://github.com/rabbitmq/rabbitmq-amqp1.0-client)
+The plugin uses [Erlang AMQP 0-9-1](/client-libraries/erlang-client-user-guide) and [Erlang AMQP 1.0](https://github.com/rabbitmq/rabbitmq-amqp1.0-client)
 clients under the hood to open connections to its source and/or destination. Just like any other
 [client library connection](./connections), a Shovel connection must [successfully authenticate](./access-control)
 and be [authorized to access](./access-control) the virtual host and resources it is trying to use.

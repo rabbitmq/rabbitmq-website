@@ -25,7 +25,7 @@ limitations under the License.
 Streams are a persistent and replicated data structure which models
 an append-only log with non-destructive consumer semantics.
 
-This feature is available in all [currently maintained release series](./versions).
+This feature is available in all [currently maintained release series](/release-information/versions).
 
 Streams can be used as a regular AMQP 0.9.1 queue or through a
 [dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)

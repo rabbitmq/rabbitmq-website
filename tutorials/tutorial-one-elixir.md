@@ -35,7 +35,7 @@ Our overall design will look like:
 >
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open, general-purpose
 > protocol for messaging. There are a number of clients for RabbitMQ
-> in [many different languages](/docs/devtools).  In this tutorial
+> in [many different languages](/client-libraries/devtools).  In this tutorial
 > series we're going to use [amqp](http://github.com/pma/amqp).
 >
 > To install it you can use the [`hex`](http://hex.pm/) package

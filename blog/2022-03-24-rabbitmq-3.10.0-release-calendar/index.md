@@ -27,7 +27,7 @@ you:
 | 3.10.0 announced      | 9 May 2022       | Final release is announced & made public                                      |
 
 The above release calendar is a point-in-time snapshot. For latest updates
-please refer to the [Release Series](/docs/versions)
+please refer to the [Release Series](/release-information/versions)
 page.
 
 RabbitMQ 3.10.0 introduces some highly requested functionality for quorum queues:

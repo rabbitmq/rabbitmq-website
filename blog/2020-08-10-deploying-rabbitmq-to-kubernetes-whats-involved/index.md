@@ -618,7 +618,7 @@ implementation for RabbitMQ. As of August 2020, this is a young project under ac
 While it currently has limitations, it is our recommended option over the manual DIY setup
 demonstrated in this post.
 
-See [RabbitMQ Cluster Operator for Kubernetes ](/docs/kubernetes/operator/operator-overview) to learn more.
+See [RabbitMQ Cluster Operator for Kubernetes ](/kubernetes/operator/operator-overview) to learn more.
 The project is developed in the open at [rabbitmq/cluster-operator on GitHub](https://github.com/rabbitmq/cluster-operator). Give it a try and let us know how it goes.
 Besides GitHub, two great venues for providing feedback to the team behind the Operator are the [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users)
 and the [`#kubernetes channel in RabbitMQ community Slack`](https://rabbitmq-slack.herokuapp.com/).

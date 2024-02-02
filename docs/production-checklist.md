@@ -1,5 +1,5 @@
 ---
-title: Production Checklist
+title: Deployment Guidelines
 ---
 <!--
 Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Production Checklist
+# Deployment Guidelines
 
 ## Overview {#overview}
 
@@ -33,7 +33,7 @@ activities such as [upgrades](./upgrade) before going into production.
 ## Overview {#toc}
 
 Production systems have concerns that go beyond configuration: system observability,
-security, application development practices, resource usage, [release support timeline](./versions), and more.
+security, application development practices, resource usage, [release support timeline](/release-information/versions), and more.
 
 [Monitoring](./monitoring) and metrics are the foundation of a production-grade system.
 Besides helping detect issues, it provides the operator data that can be used
@@ -499,8 +499,8 @@ reduce peak resource usage.
 
 ### Recovery from Connection Failures {#apps-automatic-recovery}
 
-Some client libraries, for example, [Java](./api-guide),
-[.NET](./dotnet-api-guide) and
+Some client libraries, for example, [Java](/client-libraries/java-api-guide),
+[.NET](/client-libraries/dotnet-api-guide) and
 [Ruby](http://rubybunny.info), support
 automatic connection recovery after network failures. If the
 client used provides this feature, it is recommended to use

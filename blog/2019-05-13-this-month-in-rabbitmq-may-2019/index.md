@@ -6,7 +6,7 @@ authors: [mklishin]
 
 Couple of key public service announcements this month. First, the deadline for [submitting a talk for RabbitMQ Summit 2019](https://rabbitmqsummit.com/) (5 November in London UK) was May 10. We had a great line-up last year at the inaugural event and we’re looking forward to an even better event this fall.
 
-Then, on May 23, we’ll be doing an overview of [what’s new in RabbitMQ 3.8](https://content.pivotal.io/webinars/may-23-what-s-new-in-rabbitmq-3-8-webinar?utm_source=blog&amp;utm_medium=email-link&amp;utm_campaign=rabbitmq-3.8-what's-new&amp;utm_term=q219) (beta 4 of which [has dropped recently](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-beta.4)). Whether you’re a couple versions behind, or on [the latest](/docs/changelog) 3.7.14 release, you’re going to want to learn about the latest features and changes.
+Then, on May 23, we’ll be doing an overview of [what’s new in RabbitMQ 3.8](https://content.pivotal.io/webinars/may-23-what-s-new-in-rabbitmq-3-8-webinar?utm_source=blog&amp;utm_medium=email-link&amp;utm_campaign=rabbitmq-3.8-what's-new&amp;utm_term=q219) (beta 4 of which [has dropped recently](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-beta.4)). Whether you’re a couple versions behind, or on [the latest](/release-information/changelog) 3.7.14 release, you’re going to want to learn about the latest features and changes.
 
 <!-- truncate -->
 

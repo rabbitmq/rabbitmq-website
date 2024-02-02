@@ -153,7 +153,7 @@ will (only) accept the string representation of the number.
 When both a per-queue and a per-message TTL are specified, the
 lower value between the two will be chosen.
 
-This example uses [RabbitMQ Java client](./api-guide)
+This example uses [RabbitMQ Java client](/client-libraries/java-api-guide)
 to publish a message which can reside in the queue for at most 60 seconds:
 
 ```java

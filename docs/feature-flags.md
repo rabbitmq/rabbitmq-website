@@ -70,7 +70,7 @@ compatible with older release series. Therefore, <strong>a future
 version of RabbitMQ might still require a cluster-wide shutdown for
 upgrading</strong>.
 
-Please always read <a href="./changelog">release notes</a> to see if a
+Please always read <a href="/release-information/changelog">release notes</a> to see if a
 rolling upgrade to the next minor or major RabbitMQ version is possible.
 </p>
 
