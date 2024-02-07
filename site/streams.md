@@ -113,11 +113,11 @@ so uneven cluster sizes is strongly recommended.
 A stream remains an AMQP 0.9.1 queue, so it can be bound to any exchange after its creation,
 just as any other RabbitMQ queue.
 
-If declaring using [management UI](./management.html), the `stream` type must be specified using
+If declaring using [management UI](./management), the `stream` type must be specified using
 the queue type drop down menu.
 
-Streams support 3 additional [queue arguments](./queues.html#optional-arguments)
-that are best configured using a [policy](./parameters.html#policies)
+Streams support additional [queue arguments](./queues#optional-arguments)
+that also can be configured using a [policy](./parameters#policies)
 
 * `x-max-length-bytes`
 
@@ -129,12 +129,26 @@ Sets the maximum age of the stream. See [retention](#retention). Default: not se
 
 * `x-stream-max-segment-size-bytes`
 
-Unit: bytes. A stream is divided up into fixed size segment files on disk.
+Unit: bytes.
+
+A stream is divided up into fixed size segment files on disk.
 This setting controls the size of these.
 Default: (500000000 bytes).
 
-The following snippet shows how to set the maximum size of a stream to 20 GB, with
-segment files of 100 MB:
+While this argument can be configured via a policy, it will _only_ be applied
+to the stream if the policy is set at stream declaration time. If this argument
+is changed for a matching but pre-existing stream it **will not be changed** even
+if the effective policy of the queue record may indicate it is.
+
+Hence it is best to only configure this via an option queue argument:
+
+* `x-stream-filter-size-bytes`
+
+The value is set in bytes.
+
+The size of the Bloom filter used for [filtering](#filtering).
+The value must be between 16 and 255.
+Default: 16.
 
 <pre class="lang-java">
 Map&lt;String, Object&gt; arguments = new HashMap&lt;&gt;();
