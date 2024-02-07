@@ -138,15 +138,16 @@ A stream is divided up into fixed size segment files on disk.
 This setting controls the size of these.
 Default: (500000000 bytes). 
 
-NB: This argument can be configured via a policy but it will _only_ be applied
+While this argument can be configured via a policy, it will _only_ be applied
 to the stream if the policy is set at stream declaration time. If this argument
-is changed for a matching but pre-existing stream it will not be changed even
+is changed for a matching but pre-existing stream it **will not be changed** even
 if the effective policy of the queue record may indicate it is.
-Hence it is best to only configure this via a queue argument.
+
+Hence it is best to only configure this via an option queue argument:
 
 * `x-stream-filter-size-bytes`
 
-Unit: bytes.
+The value is set in bytes.
 
 The size of the Bloom filter used for [filtering](#filtering).
 The value must be between 16 and 255.
