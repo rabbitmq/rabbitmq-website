@@ -31,7 +31,7 @@ Streams are always persistent and replicated. A more technical description of th
 To read messages from a stream in RabbitMQ, one or more consumers subscribe to it and read the same messages as many times as they want.
 
 Data in a stream can be used via a RabbitMQ client library or through a
-[dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc) plugin and associated client(s).
+[dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_stream/docs/PROTOCOL.adoc) plugin and associated client(s).
 The latter option is **highly recommended** as it provides access to all stream-specific features and offers best possible throughput (performance).
 
 Now, you might be asking the following questions:
