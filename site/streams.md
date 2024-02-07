@@ -131,7 +131,7 @@ Sets the maximum age of the stream. See [retention](#retention). Default: not se
 
 Unit: bytes. A stream is divided up into fixed size segment files on disk.
 This setting controls the size of these.
-Default: (500000000 bytes).
+Default: 500000000 bytes (500 MB).
 
 The following snippet shows how to set the maximum size of a stream to 20 GB, with
 segment files of 100 MB:
