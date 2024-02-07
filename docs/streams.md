@@ -120,7 +120,7 @@ If declaring using [management UI](./management), the `stream` type must be spec
 the queue type drop down menu.
 
 Streams support additional [queue arguments](./queues#optional-arguments)
-that are best configured using a [policy](./parameters#policies)
+that also can be configured using a [policy](./parameters#policies)
 
 * `x-max-length-bytes`
 
@@ -132,16 +132,29 @@ Sets the maximum age of the stream. See [retention](#retention). Default: not se
 
 * `x-stream-max-segment-size-bytes`
 
-Unit: bytes. A stream is divided up into fixed size segment files on disk.
+Unit: bytes.
+
+A stream is divided up into fixed size segment files on disk.
 This setting controls the size of these.
-Default: (500000000 bytes).
+Default: (500000000 bytes). 
+
+NB: This argument can be configured via a policy but it will _only_ be applied
+to the stream if the policy is set at stream declaration time. If this argument
+is changed for a matching but pre-existing stream it will not be changed even
+if the effective policy of the queue record may indicate it is.
+Hence it is best to only configure this via a queue argument.
 
 * `x-stream-filter-size-bytes`
 
 Unit: bytes.
+
 The size of the Bloom filter used for [filtering](#filtering).
 The value must be between 16 and 255.
 Default: 16.
+
+This argument can be changed via a policy but it will not be actually picked up
+by the stream until the next time the stream is restarted. Either by a leader
+election or if explicitly restarted via `rabbitmq-streams restart_stream`.
 
 The following snippet shows how to set the maximum size of a stream to 20 GB, with
 segment files of 100 MB:
@@ -481,13 +494,20 @@ cannot be made entirely safe at the current time. Hence if there at any time is 
 out of sync replica another replica cannot be added and an error will be returned.
 
 When replacing a cluster node, it is safer to first add a new node, wait for it
-to become in-sync and then de-comission the node it replaces.
+to become in-sync and then de-commission the node it replaces.
 
 The replication status of a stream can be queried using the following command:
 
 ```bash
 rabbitmq-streams stream_status [-p &lt;vhost&gt;] &lt;stream-name&gt;
 ```
+
+In addition streams can be restarted using:
+
+```bash
+rabbitmq-streams restart_stream [-p &lt;vhost&gt;] &lt;stream-name&gt;
+```
+
 
 ## Stream Behaviour {#behaviour}
 
