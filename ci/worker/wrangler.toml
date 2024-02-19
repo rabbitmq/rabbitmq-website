@@ -1,8 +1,8 @@
-name = "live"
+name = "rabbitmq-website-v3-12"
 main = "src/index.ts"
 compatibility_date = "2023-10-30"
 workers_dev = true
-routes = ["https://rabbitmq.com/*", "https://www.rabbitmq.com/*", "https://live.rabbitmq.com/*"]
+routes = ["https://v3-12.rabbitmq.com/*"]
 
 [site]
 bucket = "./public"

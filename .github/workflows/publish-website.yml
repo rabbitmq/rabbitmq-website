@@ -1,9 +1,9 @@
-name: Publish Live Website
+name: Publish website - 3.12
 
 on:
   push:
     branches:
-      - live
+      - v3.12.x
   workflow_dispatch:
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
       image: pivotalrabbitmq/website-packaging
     steps:
       - uses: actions/checkout@v4
-      - name: Generate next website
+      - name: Generate website
         id: generate
         run: |
           mkdir generated
