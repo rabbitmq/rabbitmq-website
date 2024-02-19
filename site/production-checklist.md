@@ -351,7 +351,7 @@ With higher message rates and large message payloads, traffic bandwidth availabl
 factor.
 
 The following (intentionally oversimplified) formula can be used to compute the **minimum amount of bandwidth**
-that must be available to cluster nodes, in bytes per second:
+that must be available to cluster nodes, in bits per second:
 
 <pre class="lang-ini">
 MR * MS * 110% * 8
@@ -364,10 +364,10 @@ where
  * 110%: accounts for message properties, protocol metadata, and other data transferred
  * 8: bits per byte
 
-For example, with a message rate (`MR`) of 20K per second and 6 kiB message payloads (`MS`):
+For example, with a message rate (`MR`) of 20K per second and 6 KB message payloads (`MS`):
 
 <pre class="lang-ini">
-20K * 6 kiB * 110% * 8 = 20000 * 6000 * 1.1 * 8 = 1.056 (gigabit/second)
+20K * 6 KB * 110% * 8 bit/B = 20000 * 6000 * 1.1 * 8 = 1.056 (gigabit/second)
 </pre>
 
 With the above inputs, cluster nodes must have network links with throughput of at least 1.056 gigabit per second.
