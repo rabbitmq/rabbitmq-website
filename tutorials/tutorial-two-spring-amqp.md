@@ -355,7 +355,7 @@ set to 1 the behavior would be the round robin delivery as described above.
 >
 > In most of the cases `prefetchCount` equal to 1 would be too conservative and severely
 > limit consumer throughput.
-> A couple of cases where this configuration is applicable can be found in [Spring AMQP Consumer Documentation](https://docs.spring.io/spring-amqp/reference/#async-consumer)
+> A couple of cases where this configuration is applicable can be found in [Spring AMQP Consumer Documentation](https://docs.spring.io/spring-amqp/reference/amqp/containerAttributes.html#prefetchCount)
 >
 > For more details on prefetch, please refer to the [Consumer Acknowledgements guide](/docs/confirms#channel-qos-prefetch).
 
