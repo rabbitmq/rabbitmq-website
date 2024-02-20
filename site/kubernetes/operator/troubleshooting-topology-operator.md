@@ -48,3 +48,49 @@ status:
     Reason: "SuccessfulCreateOrUpdate" # status false result in reason FailedCreateOrUpdate
     Message: "" # set with error message when status is false
 </pre>
+
+### kubectl apply succeeds, but no object is created inside RabbitMQ
+
+The Topology Operator relies of the default user `Secret` created by the Cluster Operator. If default user `Secret` does not
+have working credentials, the Topology Operator will fail to communicate with RabbitMQ HTTP API. This can happen if `RabbitmqCluster`
+object defines a default user and password, for example:
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: custom-configuration
+spec:
+  replicas: 1
+  rabbitmq:
+    additionalConfig: |
+      default_user = some-user
+      default_pass = some-pass
+</pre>
+
+The above will result in incorrect credentials generated in the default user `Secret`. Attempting to target a `RabbitmqCluster` with a Topology
+object will result in an error. For example, the following manifest:
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: my-queue
+spec:
+  name: qq # name of the queue
+  type: quorum
+  durable: true
+  rabbitmqClusterReference:
+    name: custom-configuration
+</pre>
+
+The error observed in Topology Operator logs will have the message:
+
+<pre>
+Error: API responded with a 401 Unauthorized
+</pre>
+
+#### Workaround
+
+Update the default credentials `Secret` with the username and password used in `default_user` and `default_pass`.
+

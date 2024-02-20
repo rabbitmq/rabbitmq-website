@@ -18,6 +18,7 @@ used by applications running on Kubernetes or outside of Kubernetes.
 
 Documentation of Cluster Operator spans several guides:
 
+ * [Limitations](#limitations)
  * [Quickstart guide](quickstart-operator.html) for RabbitMQ Cluster Kubernetes Operator
  * [Installing](install-operator.html) RabbitMQ Cluster Kubernetes Operator
  * [Configuring Defaults](configure-operator-defaults.html) for RabbitMQ Cluster Operator
@@ -79,10 +80,26 @@ The RabbitMQ Messaging Topology Operator supports managing RabbitMQ messaging to
 
 Documentation for the Messaging Topology Operator is structured as follows:
 
+ * [Limitations](#top-op-limitations)
  * [Installing RabbitMQ Messaging Topology Operator](./install-topology-operator.html)
  * [Using RabbitMQ Messaging Topology Operator](./using-topology-operator.html)
  * [TLS for Messaging Topology Operator](./tls-topology-operator.html)
  * [Troubleshooting Messaging Topology Operator](./troubleshooting-topology-operator.html)
+
+### <a id='top-op-limitations' class='anchor' href='#top-op-limitations'>Limitations</a>
+
+#### Custom default credentials result in 401 unauthorised
+
+The Topology Operator relies on the default credentials `Secret` created by the Cluster Operator. If the `RabbitmqCluster`
+`spec` defines the default user in `additionalConfig` using the keys `default_user` and `default_pass`, it will
+result in incorrect credentials generated for the default credentials `Secret`. Due to the incorrect credentials, all
+operations from the Topology Operator will error and print the following message in the log:
+
+<pre>
+Error: API responded with a 401 Unauthorized
+</pre>
+
+See the [troubleshooting Messaging Topology Operator](./troubleshooting-topology-operator.html) section for more details and a workaround.
 
 ## <a id='source' class='anchor' href='#source'>The Source Code for these Kubernetes Operators</a>
 
