@@ -79,11 +79,6 @@ limitations under the License.
                 <doc:homefeed src="news.atom" type="ournews" limit="3" />
                 <p><a href='/news.html'>More updates<span class='arrow'></span></a></p>
               </div>
-              <div id='twitterfeed'>
-                <h2>Tweets</h2>
-                <a class="twitter-timeline" href="https://twitter.com/RabbitMQ" data-chrome="noheader nofooter noborders transparent noscrollbar" data-tweet-limit='2'></a> <script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-                <p><a href='https://twitter.com/RabbitMQ'>More tweets<span class='arrow'></span></a></p>
-              </div>
             </div>
           </div>
         </div>
