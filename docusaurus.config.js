@@ -140,7 +140,7 @@ const config = {
               {type: 'html', value: '<strong>Supported</strong>'},
             ],
             dropdownItemsAfter: [
-              {href: 'https://www.rabbitmq.com/documentation.html', label: '3.12'},
+              {href: 'https://v3-12.rabbitmq.com/documentation.html', label: '3.12'},
               {to: '/docs/versions', label: 'Release information'},
               //{type: 'html', value: '<strong>Unsupported</strong>'},
             ],
