@@ -90,7 +90,7 @@ Please note that this is **not a support channel**.
 The list **must only** be used for things that need to be discussed in private.
 
 If you want to ask a question about how to use RabbitMQ please use
-[community resources](#community) or open a [paid support](#paid-support) ticket instead.
+[community resources](#community-resources) or open a [paid support](#paid-support) ticket instead.
 
 
 ## Paid Commercial Support Enquiries {#paid-support}

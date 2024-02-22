@@ -377,7 +377,7 @@ method. Messages are fetched in the FIFO order. It is possible to use automatic 
 just like with consumers (subscriptions).
 
 Fetching messages one by one is **highly discouraged** as it is **very inefficient**
-compared to [regular long-lived consumers](#consuming). As with any polling-based algorithm,
+compared to [regular long-lived consumers](#subscribing). As with any polling-based algorithm,
 it will be **extremely wasteful** in systems where message publishing is sporadic and queues
 can stay empty for prolonged periods of time.
 
@@ -457,7 +457,7 @@ rabbitmqctl set_policy queue_consumer_timeout "with_delivery_timeout\.*" '{"cons
 
 #### Per-queue Delivery Timeouts Using an Optional Queue Argument
 
-Set the `x-consumer-timeout` [optional queue argument](#optional-arguments) on a queue when the queue is declared.
+Set the `x-consumer-timeout` [optional queue argument](./queues#optional-arguments) on a queue when the queue is declared.
 The timeout is specified in milliseconds.
 Whether the timeout should be enforced is evaluated periodically, at one minute intervals.
 

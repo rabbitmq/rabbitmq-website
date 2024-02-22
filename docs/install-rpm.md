@@ -36,7 +36,7 @@ into standard RPM-based distribution repositories can be
 many releases behind [latest RabbitMQ releases](./changelog)
 and may provide RabbitMQ versions that are already [out of support](./versions).
 
-Team RabbitMQ produces our own RPM packages and distributes them [using a Cloudsmith mirror](#apt-cloudsmith).
+Team RabbitMQ produces our own RPM packages and distributes them [using a Cloudsmith mirror](#cloudsmith).
 
 There are two ways of installing these RPMs:
 

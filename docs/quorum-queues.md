@@ -287,18 +287,18 @@ prior versions of quorum queues where there was an option to keep the message bo
 in memory as well. This never proved to be beneficial especially when the queue length
 was large.
 
-The [memory limit](#memory-limit) configuration is still permitted but has no
+The memory limit configuration is still permitted but has no
 effect. The only option now is effectively the same as configuring: `x-max-in-memory-length=0`
 
 The [`lazy` mode configuration](./lazy-queues#configuration) does not apply.
 
 #### Lazy Mode (before RabbitMQ 3.10)
 
-Quorum queues store their content on disk (per Raft requirements) as well as in memory (up to the [in memory limit configured](#memory-limit)).
+Quorum queues store their content on disk (per Raft requirements) as well as in memory (up to the in memory limit configured).
 
 The [`lazy` mode configuration](./lazy-queues#configuration) does not apply.
 
-It is possible to [limit how many messages a quorum queue keeps in memory](#memory-limit) using a policy which
+It is possible to [limit how many messages a quorum queue keeps in memory](#policy-support) using a policy which
 can achieve a behaviour similar to lazy queues.
 
 #### Global QoS {#global-qos}

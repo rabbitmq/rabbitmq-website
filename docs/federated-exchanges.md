@@ -173,7 +173,7 @@ to be upstream from it. More complex multiply-connected arrangements are allowed
 Such complex topologies will be increasingly difficult to reason about and troubleshoot, however.
 
 To prevent messages being continually copied and re-routed (in a never-ending cycle) there is a limit placed
-on the number of times a message can be copied over a link ([`max-hops`](#upstream-sets) below).
+on the number of times a message can be copied over a link ([`max-hops`](./federation-reference#upstream-sets) below).
 
 It is recommended that all the exchanges linked by federation are of the
 same type. Mixing types can and likely will lead to confusing routing behaviours.

@@ -121,7 +121,7 @@ model.QueueDeclare("myqueue", false, false, false, args);
 ```
 
 It is possible to apply a message TTL policy to a queue which already
-has messages in it but this involves [some caveats](#per-message-ttl-applied-retroactively).
+has messages in it but this involves [some caveats](#message-ttl-applied-retroactively).
 
 The original expiry time of a message is preserved if it
 is requeued (for example due to the use of an AMQP method

@@ -26,7 +26,7 @@ limitations under the License.
 This guide covers various topics related to publishers:
 
  * [The basics](#basics)
- * [Publisher lifecycle](#publisher-lifecycle)
+ * [Publisher lifecycle](#lifecycle)
  * [Protocol Differences](#protocols)
  * [Message properties](#message-properties) and delivery metadata
  * [Publisher-side data safety](#data-safety) topics (connection recovery, publisher confirms)
@@ -530,7 +530,7 @@ that attempt to publish a message will be blocked until all alarms across the cl
 When a connection is blocked, no more data sent by this connection will be read, parsed or processed on
 the connection. When a connection is unblocked, all client traffic processing resumes.
 
-Compatible AMQP 0-9-1 clients will be [notified](#client-notifications)
+Compatible AMQP 0-9-1 clients will be [notified](./alarms#client-notifications)
 when they are blocked and unblocked.
 
 Writes on a blocked connection will time out or fail with an I/O write exception.
