@@ -29,10 +29,10 @@ export default function Home() {
             <div className={styles.hero_pipeline_webinar}>
               <div className={styles.container}>
                 <div className={styles.hero_text}>
-                  <h1>Quorum queues</h1>
-                  <p>A webinar on high availability and data safety in messaging</p>
+                  <h1>RabbitMQ 3.13</h1>
+                  <p>MQTTv5, Khepri, Stream filtering and more!</p>
                   <p>
-                    <a href="https://tanzu.vmware.com/content/webinars/jun-11-ha-and-data-safety-in-messaging-quorum-queues-in-rabbitmq?utm_campaign=Global_BT_Q221_RabbitMQ-Data-Safety-in-Messaging&amp;utm_source=rabbitmq&amp;utm_medium=website" target="_blank" rel="noopener noreferrer">Learn more</a>
+                    <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.0">Learn more</a>
                   </p>
                 </div>
               </div>
