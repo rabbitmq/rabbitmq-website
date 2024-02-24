@@ -223,7 +223,6 @@ www.rabbitmq.com/install-generic-unix.html,https://www.rabbitmq.com/docs/install
 www.rabbitmq.com/install-homebrew.html,https://www.rabbitmq.com/docs/install-homebrew,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/install-rpm.html,https://www.rabbitmq.com/docs/install-rpm,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/install-solaris.html,https://www.rabbitmq.com/docs/install-solaris,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/install-standalone-mac.html,https://www.rabbitmq.com/docs/install-standalone-mac,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/install-windows-manual.html,https://www.rabbitmq.com/docs/install-windows-manual,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/install-windows.html,https://www.rabbitmq.com/docs/install-windows,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/installing-plugins.html,https://www.rabbitmq.com/docs/installing-plugins,,TRUE,FALSE,FALSE,FALSE

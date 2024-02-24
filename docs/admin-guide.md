@@ -43,7 +43,6 @@ see <a href="./documentation">All Documentation Guides</a>.
  * [Red Hat Enterprise Linux, CentOS, Fedora](./install-rpm)
  * [Windows Installer](./install-windows), [Windows-specific Issues](./windows-quirks)
  * [Generic UNIX Binary Build](./install-generic-unix)
- * [MacOS via Standalone Binary Build](./install-standalone-mac)
  * [MacOS via Homebrew](./install-homebrew)
  * [Amazon EC2](./ec2)
  * [Solaris](./install-solaris)
