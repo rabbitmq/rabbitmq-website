@@ -121,7 +121,7 @@ apt repositories:
        </ul>
      </td>
      <td>
-       <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0">starting with 3.12.0</a></strong>, will be required starting with <code>3.13.0</code>.
+       <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0">starting with 3.12.0</a></strong>, and is required starting with <code>3.13.0</code>.
        See <a href="./which-erlang">Erlang compatibility guide</a>.
      </td>
   </tr>
