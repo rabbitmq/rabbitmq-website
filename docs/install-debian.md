@@ -178,7 +178,7 @@ All steps covered below are **mandatory** unless otherwise specified.
 
 ### Cloudsmith Quick Start Script {#apt-quick-start-cloudsmith}
 
-Below is shell snippet that performs those steps and assumes that Ubuntu 22.04 is used.
+Below is a shell snippet that performs those steps and assumes that Ubuntu 22.04 is used.
 They are documented in more detail below.
 
 ```bash
