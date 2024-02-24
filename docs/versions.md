@@ -49,6 +49,15 @@ For guidance on upgrades, see the [Upgrade](./upgrade) and
   </tr>
 
   <tr>
+    <td>3.13</td>
+    <td><a href={`https://github.com/rabbitmq/rabbitmq-server/releases/tag/${RabbitMQServerGitTag({branch: '3.13'})}`} target="_blank" rel="noopener noreferrer">{RabbitMQServerVersion({branch: '3.13'})}</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.0" target="_blank" rel="noopener noreferrer">22 February 2024</a></td>
+    <td>1 March 2025</td>
+    <td>1 September 2025</td>
+    <td>18 months</td>
+  </tr>
+
+  <tr>
     <td>3.12</td>
     <td><a href={`https://github.com/rabbitmq/rabbitmq-server/releases/tag/${RabbitMQServerGitTag({branch: '3.12'})}`} target="_blank" rel="noopener noreferrer">{RabbitMQServerVersion({branch: '3.12'})}</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0" target="_blank" rel="noopener noreferrer">02 June 2023</a></td>
@@ -94,7 +103,8 @@ both community and those with a commercial license.
 
 ## Next Release Series {#}
 
-[RabbitMQ 3.13](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.0-rc.3), the next release series, is expected to be released in early 2024.
+The next release series will be RabbitMQ 4.0. Its estimated availability date will be announced later.
+
 
 ## Release Series That are Out of Support {#out-of-support}
 
