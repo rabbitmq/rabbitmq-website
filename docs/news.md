@@ -8,6 +8,34 @@ displayed_sidebar: docsSidebar
     </p>
     <p>Also keep an eye on the <a href="./changelog">change log</a> and <a href="https://www.rabbitmq.com/discord">RabbitMQ community Discord server</a>.</p>
     <ul class="feed">
+
+        <li>
+            <a id="2024-02-22T12:00:00+00:00" class="feed-item-title" href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.0">RabbitMQ 3.13.0 release</a><span class="feed-item-date">2 June 2023</span>
+            <hr />
+            <p xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc">
+                The RabbitMQ team is pleased to announce the release of RabbitMQ 3.13.0.
+            </p>
+            <p xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc">
+                This release includes a <a href="https://www.rabbitmq.com/blog/2023/07/21/mqtt5">support for MQTTv5</a>,
+                <a href="https://github.com/rabbitmq/rabbitmq-server/pull/7206">a new generation schema data store</a> (behind a feature flag, for now),
+                support for <a href="https://github.com/rabbitmq/rabbitmq-server/pull/8207">server-side stream filtering</a>,
+                another round of efficiency <a href="https://www.rabbitmq.com/blog/2024/01/11/3.13-release">improvements for non-mirrored classic queues (CQv2)</a>,
+                and plenty of other improvements. Release notes can be found in the
+                <a href="changelog.html">change log</a>.
+            </p>
+            <p xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc">
+                Binary and source distributions of the new release can be found in the
+                <a href="https://rabbitmq.com/download.html">installation guides</a>.
+            </p>
+            <p xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc">
+                We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+            </p>
+            <p xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc">
+                As always, we welcome any questions, bug reports, and other feedback on this release, as well as general suggestions for features and enhancements in future releases. Contact us via our
+                <a href="https://rabbitmq.com/discord/">community Discord server</a> or <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a>.
+            </p>
+        </li>
+
         <li>
             <a id="2024-02-16T19:00:00-05:00" class="feed-item-title" href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.13">RabbitMQ 3.12.13 release</a><span class="feed-item-date">16 February 2024</span>
             <hr />

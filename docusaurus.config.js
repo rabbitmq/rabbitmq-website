@@ -44,13 +44,14 @@ const config = {
         // RabbitMQ releases per version declared in Docusaurus ('Next' for the
         // future docs).
         'Next': {
-          version: '3.13.0-rc.5',
+          version: '3.13.0',
           // package_revs: {
           //   'debian': '1',
           //   'rpm-el8': '1',
           //   'rpm-suse': '1',
           // }
         },
+        '3.13': { version: '3.13.0' },
         '3.12': { version: '3.12.13' },
         '3.11': { version: '3.11.28' },
         '3.10': { version: '3.10.25' },
