@@ -208,7 +208,7 @@ however, there are [ports available](https://github.com/rabbitmq/rabbitmq-tutori
 many more languages and client libraries, for example:
 
  * Rust using [amqprs](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/rust-amqprs)
- * Rust using [Lapin](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/rust-lapin))
+ * Rust using [Lapin](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/rust-lapin)
  * [Clojure](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/clojure) (using [Langohr](http://clojurerabbitmq.info))
  * [Erlang](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/erlang) (using [RabbitMQ Erlang client](https://github.com/rabbitmq/rabbitmq-erlang-client))
  * [Haskell](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/haskell) (using [Network.AMQP](http://hackage.haskell.org/package/amqp))
