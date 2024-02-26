@@ -18,7 +18,7 @@ Be sure to register and snag a spot in one of the training add-on courses.
 ## Project updates
 
 * [First release candidate for RabbitMQ 3.8](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-rc.1) is available for community testing
-* [Next generation Prometheus support](http://next.rabbitmq.com/prometheus.html) has been thoroughly reviewed with the help of [Brian Brazil](https://github.com/brian-brazil)
+* [Next generation Prometheus support](/docs/prometheus) has been thoroughly reviewed with the help of [Brian Brazil](https://github.com/brian-brazil)
 * Erlang 20.3 support is [being discontinued](https://groups.google.com/forum/#!searchin/rabbitmq-users/ANN|sort:date/rabbitmq-users/9tc_OE1eMPk/ly1NEISwBwAJ) soon. Please [upgrade to a supported version](/docs/which-erlang)
 * New Spring Integration and Spring AMQP [releases are available](https://spring.io/blog/2019/08/08/new-spring-integration-amqp-kafka-maintenance-and-milestone-releases)
 * [php-amqplib 2.10.0](https://github.com/php-amqplib/php-amqplib/releases/tag/v2.10.0) is released

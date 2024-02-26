@@ -100,7 +100,7 @@ Observations:
 * quorum queues throughput is several times higher than that of classic mirrored queues (CMQs)
 * quorum queues in 3.10 can achieve even 50% higher throughput in some scenarios
 * classic queues v2 are already a bit better than v1 in some scenarios
-* CMQs do not get any new improvements and will be removed in RabbitMQ 4.0; please migrate to quorum queues, [streams](https://rabbitmq.com/stream.html)
+* CMQs do not get any new improvements and will be removed in RabbitMQ 4.0; please migrate to quorum queues, [streams](/docs/stream)
   or non-mirrored classic queues where appropriate
 
 ### Scenario 2: One Queue, 10000 msg/s
@@ -242,7 +242,7 @@ improvements. This would be most visible on 64-bit ARM CPUs because the JIT in E
 
 ### Definition Import on Boot
 
-In clusters where nodes [import definitions on boot](https://rabbitmq.com/definitions.html#import-on-boot),
+In clusters where nodes [import definitions on boot](/docs/definitions#import-on-boot),
 every node in a cluster will import the same definitions in practice because all nodes use identical or almost identical configuration files.
 
 This usually leads to one of two problems, based on the exact timing of events:

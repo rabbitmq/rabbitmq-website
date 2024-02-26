@@ -5,12 +5,12 @@ authors: [matthew]
 ---
 
 In
-[RabbitMQ 2.6.0](http:/docs/news#2011-08-31T16:15:42+0100)
-we introduced [Highly Available](http://rabbitmq.com/ha.html)
+RabbitMQ 2.6.0
+we introduced [Highly Available](/docs/ha)
 queues. These necessitated a
-[new extension](http:/docs/extensions#consumer-cancel-notify)
+[new extension](/docs/consumer-cancel)
 to AMQP, and a fair amount of
-[documentation](http://rabbitmq.com/ha.html), but to date, little has
+[documentation](/docs/ha), but to date, little has
 been written on how they work.
 
 <!-- truncate -->

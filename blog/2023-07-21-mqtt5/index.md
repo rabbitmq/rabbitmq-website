@@ -54,7 +54,7 @@ In another terminal window, enable the [MQTT plugin](/docs/mqtt):
 docker exec rabbitmq rabbitmq-plugins enable rabbitmq_mqtt
 ```
 
-Since the MQTT plugin got enabled dynamically, [feature flags defined by the MQTT plugin](//next.rabbitmq.com/feature-flags.html#rabbitmq_mqtt-feature-flags) are disabled.
+Since the MQTT plugin got enabled dynamically, [feature flags defined by the MQTT plugin](/docs/feature-flags#rabbitmq_mqtt-feature-flags) are disabled.
 Enable all feature flags including feature flag `mqtt_v5`:
 ```bash
 docker exec rabbitmq rabbitmqctl enable_feature_flag all
@@ -135,7 +135,7 @@ docker exec rabbitmq rabbitmqctl --quiet --formatter=pretty_table list_queues
 ```
 
 The message expired since client `sub-1` has not connected to the broker to consume the message.
-If a [dead lettering](//rabbitmq.com/dlx.html) policy is set up, the message will be dead lettered to an exchange.
+If a [dead lettering](/docs/dlx) policy is set up, the message will be dead lettered to an exchange.
 In our case, dead lettering is disabled.
 Querying the Prometheus endpoint proves that 1 message expired from a classic queue.
 ```bash
@@ -175,7 +175,7 @@ As mandated by the MQTT 5.0 protocol specification, the client receives the seco
 60 seconds as received by the broker minus the 20 seconds the message has been waiting in the broker.
 
 #### Implementation
-MQTT 5.0 Message Expiry is implemented in RabbitMQ using [per-message TTL](//rabbitmq.com/ttl.html#per-message-ttl-in-publishers) similar to the `expiration` field in AMQP 0.9.1 publishers.
+MQTT 5.0 Message Expiry is implemented in RabbitMQ using [per-message TTL](/docs/ttl#per-message-ttl-in-publishers) similar to the `expiration` field in AMQP 0.9.1 publishers.
 
 ### Feature 2: [Subscription Identifier](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901166)
 

@@ -104,7 +104,7 @@ Fortunately, it is possible to configure what a node returns when it is asked it
 
 ## Advertised Host and Port
 
-The [`advertised_host` and `advertised_port` configuration entries](https://rabbitmq.com/stream.html#advertised-host-port) of the stream plugin can be set to tell a node what to return when asked how to be contacted.
+The [`advertised_host` and `advertised_port` configuration entries](/docs/stream#advertised-host-port) of the stream plugin can be set to tell a node what to return when asked how to be contacted.
 There is no trick here: the plugin will just trust the operator that did the configuration and will blindly return these values.
 This means a client application must be able to connect to the node using this information.
 
@@ -208,7 +208,7 @@ Here is the gist:
 * client applications must use the [`metadata` stream protocol command](https://github.com/rabbitmq/rabbitmq-server/blob/v3.9.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc#metadata) to learn about the topology of the streams they want to interact with
 * the stream [Java](https://github.com/rabbitmq/rabbitmq-stream-java-client) and [Go](https://github.com/rabbitmq/rabbitmq-stream-go-client) clients enforce these best practices
 * the `metadata` command returns by default the nodes hostname and listener port, which can be problematic e.g. when containers are in use
-* the [`advertised_host` and `advertised_port` configuration entries](https://rabbitmq.com/stream.html#advertised-host-port) allow to specify what values a node should return for the `metadata` command
+* the [`advertised_host` and `advertised_port` configuration entries](/docs/stream#advertised-host-port) allow to specify what values a node should return for the `metadata` command
 * a load balancer can confuse a client library that will try to bypass it to connect directly to the nodes
 * client libraries can provide a workaround to work properly with a load balancer
 * the stream [Java](https://github.com/rabbitmq/rabbitmq-stream-java-client) and [Go](https://github.com/rabbitmq/rabbitmq-stream-go-client) clients implement such a workaround

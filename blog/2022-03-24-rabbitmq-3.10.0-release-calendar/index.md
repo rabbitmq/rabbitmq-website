@@ -31,7 +31,7 @@ please refer to the [Release Series](/docs/versions)
 page.
 
 RabbitMQ 3.10.0 introduces some highly requested functionality for quorum queues:
-* [Quorum Queue Message TTL](https://rabbitmq.com/quorum-queues.html#feature-matrix)
+* [Quorum Queue Message TTL](/docs/quorum-queues#feature-matrix)
 * [Quorum Queue At-Least-Once Dead Lettering](/docs/quorum-queues#dead-lettering)
 
 Additionally, there are performance improvements to both classic queues and quorum queues.
