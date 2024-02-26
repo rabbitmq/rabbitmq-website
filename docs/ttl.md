@@ -180,28 +180,13 @@ model.BasicPublish(exchangeName,
 
 ## Per-Message TTL and Dead Lettering {#message-ttl-dead-lettering}
 
-For queues that have [dead-lettering configured](./dlx), it is important to understand
-when message expiration and dead lettering kick in for every queue type. Since
-queue types have different design goals and implementations, they drop
-expired messages (or dead letter them) under different conditions.
-
-### Quorum Queues
-
-[Quorum queues](./quorum-queues) dead letter expired messages shortly after message expiration.
-"Shortly after" here means that the process of dead-lettering, that is,
-republishing to the configured [DLX](./dlx), happens concurrently with
-other queue activity and does not await the moment when the expired
-message reaches the head of the queue.
-
-Note that **overall system load** and the **volume of expired messages**
-can affect how long it might take for deadl lettering prcedure to start
-and to to complete.
+Quorum queues dead letter expired messages when they reach the head of the queue.
 
 ### Classic Queues
 
 Classic queues dead letter expired messages in a few cases:
 
- * When message reaches queue head
+ * When the message reaches the head of the queue
  * When the queue is notified of a policy change that affects it
 
 
