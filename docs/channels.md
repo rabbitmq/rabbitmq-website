@@ -215,7 +215,7 @@ Should the configured limit be exceeded, the connection will be closed with a fa
 error:
 
 ```ini
-2019-02-11 16:04:06.296 [error] &lt;0.887.0&gt; Error on AMQP connection &lt;0.887.0&gt; (127.0.0.1:49956 -&gt; 127.0.0.1:5672, vhost: '/', user: 'guest', state: running), channel 23:
+2019-02-11 16:04:06.296 [error] <0.887.0> Error on AMQP connection <0.887.0> (127.0.0.1:49956 -> 127.0.0.1:5672, vhost: '/', user: 'guest', state: running), channel 23:
  operation none caused a connection exception not_allowed: "number of channels opened (22) has reached the negotiated channel_max (22)"
 ```
 

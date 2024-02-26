@@ -650,7 +650,7 @@ For example (in Java):
 ```java
 Channel channel = ...;
 Consumer consumer = ...;
-Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+Map<String, Object> args = new HashMap<String, Object>();
 args.put("x-cancel-on-ha-failover", true);
 channel.basicConsume("my-queue", false, args, consumer);
 ```

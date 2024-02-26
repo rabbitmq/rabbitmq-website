@@ -277,7 +277,7 @@ public class RpcClient : IDisposable
     private readonly IConnection connection;
     private readonly IModel channel;
     private readonly string replyQueueName;
-    private readonly ConcurrentDictionary&lt;string, TaskCompletionSource&lt;string&gt;&gt; callbackMapper = new();
+    private readonly ConcurrentDictionary&lt;string, TaskCompletionSource&lt;string>> callbackMapper = new();
 
     public RpcClient()
     {

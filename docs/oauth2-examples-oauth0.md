@@ -104,9 +104,9 @@ Auth0 and also the public key we extracted from `/tmp/public.pem`.
 
 ```erlang
 {key_config, [
-	{default_key, &lt;&lt;"LQPlyC9P_gOhzMLx7r2Qm"&gt;&gt;},
+	{default_key, <<"LQPlyC9P_gOhzMLx7r2Qm">>},
 	{signing_keys,
-		#{&lt;&lt;"LQPlyC9P_gOhzMLx7r2Qm">> => {pem, &lt;&lt;"-----BEGIN PUBLIC KEY-----
+		#{<<"LQPlyC9P_gOhzMLx7r2Qm">> => {pem, <<"-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuELzgXF5ZiEMkA0EnRii
 Nf1pck5SkzK4HN6y+Zvy9F2e2soJ/i7acaVX0z5O1Fj2ez0UIe1cwJxurTdlFHQD
 MAHD6Mhr5vhY+UEACk9QXp5jbRQwApzEnmDoEuKKVFmTK9Jvm+339kRWz6vv/CqB
@@ -114,7 +114,7 @@ cMWSVjp+bnd+XosA8SwKSboQ9Vs4LdJi0fqIOyu2o+FRkf6p5qPMYLndJAKZfwSg
 aeCgC2hpBiylBsYBdHQEmawgcUjW+CKAOaMEix/799jRjpXkmUFxZ+H/wbLnu880
 /bqJidYlvoJt88skYlzqmAxf/BWhaudVkiqtFNZcr2kwsZk/O+7GNFk4N0/UdE4Y
 CwIDAQAB
------END PUBLIC KEY-----"&gt;&gt;}
+-----END PUBLIC KEY-----">>}
 		 }
 	}]
 }

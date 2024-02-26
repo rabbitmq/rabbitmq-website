@@ -410,7 +410,7 @@ It is possible to configure RabbitMQ with a different field to look for scopes a
 [
   {rabbitmq_auth_backend_oauth2, [
     ...
-    {extra_scopes_source, &lt;&lt;"extra_scope"&gt;&gt;},
+    {extra_scopes_source, <<"extra_scope">>},
     ...
     ]}
   ]},
@@ -489,7 +489,7 @@ custom scope to `rabbitmq.read:*/*` RabbitMQ scope.
 {rabbitmq_auth_backend_oauth2, [
  ...,
 	{scope_aliases, #{
-		&lt;&lt;"api://rabbitmq:Read.All"&gt;&gt;      => [&lt;&lt;"rabbitmq.read:*/*"&gt;&gt;],
+		<<"api://rabbitmq:Read.All">>      => [<<"rabbitmq.read:*/*">>],
 	  ...
 	},
 	...
@@ -505,10 +505,10 @@ are mapping the role `api://rabbitmq:producer` to 3 RabbitMQ scopes which grants
  ...,
 
 	{scope_aliases, #{
-		&lt;&lt;"api://rabbitmq:producer"&gt;&gt; => [
-			&lt;&lt;"rabbitmq.read:*/*"&gt;&gt;,
-			&lt;&lt;"rabbitmq.write:*/*"&gt;&gt;,
-			&lt;&lt;"rabbitmq.configure:*/*"&gt;&gt;
+		<<"api://rabbitmq:producer">> => [
+			<<"rabbitmq.read:*/*">>,
+			<<"rabbitmq.write:*/*">>,
+			<<"rabbitmq.configure:*/*">>
 		]
 	}},
 	...
@@ -538,8 +538,8 @@ Now, let's say you do configure RabbitMQ OAuth 2.0 plugin with `extra_scopes_sou
 
 ```erlang
   {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, &lt;&lt;"rabbitmq"&gt;&gt;},
-    {extra_scopes_source, &lt;&lt;"roles"&gt;&gt;},
+    {resource_server_id, <<"rabbitmq">>},
+    {extra_scopes_source, <<"roles">>},
     ...
 ```
 
@@ -687,8 +687,8 @@ Given this configuration:
 ```erlang
   ...
   {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, &lt;&lt;"rabbitmq"&gt;&gt;},
-    {preferred_username_claims, [&lt;&lt;"user_name"&gt;&gt; ,&lt;&lt;"email"&gt;&gt;]},
+    {resource_server_id, <<"rabbitmq">>},
+    {preferred_username_claims, [<<"user_name">> ,<<"email">>]},
   ...
 ```
 
@@ -774,14 +774,14 @@ The following configuration snippets demonstrate these steps:
 
 ```erlang
   {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, &lt;&lt;"rabbitmq"&gt;&gt;}
+    {resource_server_id, <<"rabbitmq">>}
     {key_config, [
-      {default_key, &lt;&lt;"legacy-token-key"&gt;&gt;},
+      {default_key, <<"legacy-token-key">>},
       {signing_keys, #{
-        &lt;&lt;"legacy-token-key"&gt;&gt; => {map, #{&lt;&lt;"kty"&gt;&gt; => &lt;&lt;"MAC"&gt;&gt;,
-                                  &lt;&lt;"alg"&gt;&gt; => &lt;&lt;"HS256"&gt;&gt;,
-                                  &lt;&lt;"use"&gt;&gt; => &lt;&lt;"sig"&gt;&gt;,
-                                  &lt;&lt;"value"&gt;&gt; => &lt;&lt;"tokenKey"&gt;&gt;}}
+        <<"legacy-token-key">> => {map, #{<<"kty">> => <<"MAC">>,
+                                  <<"alg">> => <<"HS256">>,
+                                  <<"use">> => <<"sig">>,
+                                  <<"value">> => <<"tokenKey">>}}
       }}
     ]}
   ]},

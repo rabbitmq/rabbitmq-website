@@ -296,7 +296,7 @@ such as "Connection attempt from disallowed node", "", "Could not auto-cluster".
 For example, when a CLI tool connects and tries to authenticate using a mismatching secret value:
 
 ```
-2020-06-15 13:03:33 [error] &lt;0.1187.0&gt; ** Connection attempt from node 'rabbitmqcli-99391-rabbit@warp10' rejected. Invalid challenge reply. **
+2020-06-15 13:03:33 [error] <0.1187.0> ** Connection attempt from node 'rabbitmqcli-99391-rabbit@warp10' rejected. Invalid challenge reply. **
 ```
 
 When a CLI tool such as `rabbitmqctl` fails to authenticate with RabbitMQ,
@@ -699,23 +699,23 @@ identified by the timeout (`timeout_waiting_for_tables`) warning messages in the
 that eventually lead to node startup failure:
 
 ```
-2020-07-27 21:10:51.361 [warning] &lt;0.269.0&gt; Error while waiting for Mnesia tables: {timeout_waiting_for_tables,[rabbit@node2,rabbit@node1],[rabbit_durable_queue]}
-2020-07-27 21:10:51.361 [info] &lt;0.269.0&gt; Waiting for Mnesia tables for 30000 ms, 1 retries left
-2020-07-27 21:11:21.362 [warning] &lt;0.269.0&gt; Error while waiting for Mnesia tables: {timeout_waiting_for_tables,[rabbit@node2,rabbit@node1],[rabbit_durable_queue]}
-2020-07-27 21:11:21.362 [info] &lt;0.269.0&gt; Waiting for Mnesia tables for 30000 ms, 0 retries left
+2020-07-27 21:10:51.361 [warning] <0.269.0> Error while waiting for Mnesia tables: {timeout_waiting_for_tables,[rabbit@node2,rabbit@node1],[rabbit_durable_queue]}
+2020-07-27 21:10:51.361 [info] <0.269.0> Waiting for Mnesia tables for 30000 ms, 1 retries left
+2020-07-27 21:11:21.362 [warning] <0.269.0> Error while waiting for Mnesia tables: {timeout_waiting_for_tables,[rabbit@node2,rabbit@node1],[rabbit_durable_queue]}
+2020-07-27 21:11:21.362 [info] <0.269.0> Waiting for Mnesia tables for 30000 ms, 0 retries left
 ```
 
 ```
-2020-07-27 21:15:51.380 [info] &lt;0.269.0&gt; Waiting for Mnesia tables for 30000 ms, 1 retries left
-2020-07-27 21:16:21.381 [warning] &lt;0.269.0&gt; Error while waiting for Mnesia tables: {timeout_waiting_for_tables,[rabbit@node2,rabbit@node1],[rabbit_user,rabbit_user_permission, …]}
-2020-07-27 21:16:21.381 [info] &lt;0.269.0&gt; Waiting for Mnesia tables for 30000 ms, 0 retries left
-2020-07-27 21:16:51.393 [info] &lt;0.44.0&gt; Application mnesia exited with reason: stopped
+2020-07-27 21:15:51.380 [info] <0.269.0> Waiting for Mnesia tables for 30000 ms, 1 retries left
+2020-07-27 21:16:21.381 [warning] <0.269.0> Error while waiting for Mnesia tables: {timeout_waiting_for_tables,[rabbit@node2,rabbit@node1],[rabbit_user,rabbit_user_permission, …]}
+2020-07-27 21:16:21.381 [info] <0.269.0> Waiting for Mnesia tables for 30000 ms, 0 retries left
+2020-07-27 21:16:51.393 [info] <0.44.0> Application mnesia exited with reason: stopped
 ```
 
 ```
-2020-07-27 21:16:51.397 [error] &lt;0.269.0&gt; BOOT FAILED
-2020-07-27 21:16:51.397 [error] &lt;0.269.0&gt; ===========
-2020-07-27 21:16:51.397 [error] &lt;0.269.0&gt; Timeout contacting cluster nodes: [rabbit@node1].
+2020-07-27 21:16:51.397 [error] <0.269.0> BOOT FAILED
+2020-07-27 21:16:51.397 [error] <0.269.0> ===========
+2020-07-27 21:16:51.397 [error] <0.269.0> Timeout contacting cluster nodes: [rabbit@node1].
 ```
 
 When a node has no online peers during shutdown, it will start without

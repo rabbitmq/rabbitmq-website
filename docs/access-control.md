@@ -818,10 +818,10 @@ preference order for network connections.
 attempts:
 
 ```ini
-2019-03-25 12:28:19.047 [info] &lt;0.1613.0&gt; accepting AMQP connection &lt;0.1613.0&gt; (127.0.0.1:63839 -&gt; 127.0.0.1:5672)
-2019-03-25 12:28:19.056 [error] &lt;0.1613.0&gt; Error on AMQP connection &lt;0.1613.0&gt; (127.0.0.1:63839 -&gt; 127.0.0.1:5672, state: starting):
+2019-03-25 12:28:19.047 [info] <0.1613.0> accepting AMQP connection <0.1613.0> (127.0.0.1:63839 -> 127.0.0.1:5672)
+2019-03-25 12:28:19.056 [error] <0.1613.0> Error on AMQP connection <0.1613.0> (127.0.0.1:63839 -> 127.0.0.1:5672, state: starting):
 PLAIN login refused: user 'user2' - invalid credentials
-2019-03-25 12:28:22.057 [info] &lt;0.1613.0&gt; closing AMQP connection &lt;0.1613.0&gt; (127.0.0.1:63839 -&gt; 127.0.0.1:5672)
+2019-03-25 12:28:22.057 [info] <0.1613.0> closing AMQP connection <0.1613.0> (127.0.0.1:63839 -> 127.0.0.1:5672)
 ```
 
 Authentication failures on connections that [authenticate using X.509 certificates](#authentication)
@@ -858,32 +858,32 @@ permission in a given virtual host:
 
 ```bash
 rabbitmqctl list_permissions --vhost /
-# =&gt; Listing permissions for vhost "/" ...
-# =&gt; user	configure	write	read
-# =&gt; user2	.*	.*	.*
-# =&gt; guest	.*	.*	.*
-# =&gt; temp-user	.*	.*	.*
+# => Listing permissions for vhost "/" ...
+# => user	configure	write	read
+# => user2	.*	.*	.*
+# => guest	.*	.*	.*
+# => temp-user	.*	.*	.*
 
 rabbitmqctl list_permissions --vhost gw1
-# =&gt; Listing permissions for vhost "gw1" ...
-# =&gt; user	configure	write	read
-# =&gt; guest	.*	.*	.*
-# =&gt; user2	^user2	^user2	^user2
+# => Listing permissions for vhost "gw1" ...
+# => user	configure	write	read
+# => guest	.*	.*	.*
+# => user2	^user2	^user2	^user2
 ```
 
 [Server logs](./logging) will contain entries about operation authorisation
 failures. For example, if a user does not have any permissions configured for a virtual host:
 
 ```ini
-2019-03-25 12:26:16.301 [info] &lt;0.1594.0&gt; accepting AMQP connection &lt;0.1594.0&gt; (127.0.0.1:63793 -&gt; 127.0.0.1:5672)
-2019-03-25 12:26:16.309 [error] &lt;0.1594.0&gt; Error on AMQP connection &lt;0.1594.0&gt; (127.0.0.1:63793 -&gt; 127.0.0.1:5672, user: 'user2', state: opening):
+2019-03-25 12:26:16.301 [info] <0.1594.0> accepting AMQP connection <0.1594.0> (127.0.0.1:63793 -> 127.0.0.1:5672)
+2019-03-25 12:26:16.309 [error] <0.1594.0> Error on AMQP connection <0.1594.0> (127.0.0.1:63793 -> 127.0.0.1:5672, user: 'user2', state: opening):
 access to vhost '/' refused for user 'user2'
-2019-03-25 12:26:16.310 [info] &lt;0.1594.0&gt; closing AMQP connection &lt;0.1594.0&gt; (127.0.0.1:63793 -&gt; 127.0.0.1:5672, vhost: 'none', user: 'user2')
+2019-03-25 12:26:16.310 [info] <0.1594.0> closing AMQP connection <0.1594.0> (127.0.0.1:63793 -> 127.0.0.1:5672, vhost: 'none', user: 'user2')
 ```
 
 authorisation failures (permission violations) are also logged:
 
 ```ini
-2019-03-25 12:30:05.209 [error] &lt;0.1627.0&gt; Channel error on connection &lt;0.1618.0&gt; (127.0.0.1:63881 -&gt; 127.0.0.1:5672, vhost: 'gw1', user: 'user2'), channel 1:
+2019-03-25 12:30:05.209 [error] <0.1627.0> Channel error on connection <0.1618.0> (127.0.0.1:63881 -> 127.0.0.1:5672, vhost: 'gw1', user: 'user2'), channel 1:
 operation queue.declare caused a channel exception access_refused: access to queue 'user3.q1' in vhost 'gw1' refused for user 'user2'
 ```

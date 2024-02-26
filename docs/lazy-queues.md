@@ -167,7 +167,7 @@ so there are no breaking changes in this regard.
 This example in Java declares a queue with the queue mode set to `"lazy"`:
 
 ```java
-  Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+  Map<String, Object> args = new HashMap<String, Object>();
   args.put("x-queue-mode", "lazy");
   channel.queueDeclare("myqueue", false, false, false, args);
 ```

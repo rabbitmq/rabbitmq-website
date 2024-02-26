@@ -136,7 +136,7 @@ Unit: bytes.
 
 A stream is divided up into fixed size segment files on disk.
 This setting controls the size of these.
-Default: (500000000 bytes). 
+Default: (500000000 bytes).
 
 While this argument can be configured via a policy, it will _only_ be applied
 to the stream if the policy is set at stream declaration time. If this argument
@@ -173,7 +173,7 @@ The value must be between 16 and 255.
 Default: 16.
 
 ```java
-Map&lt;String, Object&gt; arguments = new HashMap&lt;&gt;();
+Map<String, Object> arguments = new HashMap<&gt;();
 arguments.put("x-queue-type", "stream");
 arguments.put("x-max-length-bytes", 20_000_000_000); // maximum stream size: 20 GB
 arguments.put("x-stream-max-segment-size-bytes", 100_000_000); // size of segment files: 100 MB
@@ -348,7 +348,7 @@ channel.basicConsume(
   false,
   Collections.singletonMap("x-stream-filter", "california"), // set filter
   (consumerTag, message) -> {
-    Map&lt;String, Object&gt; headers = message.getProperties().getHeaders();
+    Map<String, Object> headers = message.getProperties().getHeaders();
     // there must be some client-side filter logic
     if ("california".equals(headers.get("x-stream-filter-value"))) {
       // message processing
@@ -359,7 +359,7 @@ channel.basicConsume(
   consumerTag -> { });
 ```
 
-As shown in the snippet above, there must be some client-side filtering logic as well because server-side filtering is _probabilistic_: messages that do not match the filter value can still be sent to the consumer. 
+As shown in the snippet above, there must be some client-side filtering logic as well because server-side filtering is _probabilistic_: messages that do not match the filter value can still be sent to the consumer.
 The server uses a [Bloom filter](https://en.wikipedia.org/wiki/Bloom_filter), a space-efficient probabilistic data structure, where false positives are possible.
 Despite this, the filtering saves some bandwidth, which is its primary goal.
 

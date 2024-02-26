@@ -170,7 +170,7 @@ an array of bytes for publishing. Here is a code sample that uses a map to
 correlate the publishing sequence number with the string body of the message:
 
 ```java
-ConcurrentNavigableMap&lt;Long, String> outstandingConfirms = new ConcurrentSkipListMap&lt;>();
+ConcurrentNavigableMap<Long, String> outstandingConfirms = new ConcurrentSkipListMap<>();
 // ... code for confirm callbacks will come later
 String body = "...";
 outstandingConfirms.put(channel.getNextPublishSeqNo(), body);
@@ -182,10 +182,10 @@ to clean this map when confirms arrive and do something like logging a warning
 when messages are nack-ed:
 
 ```java
-ConcurrentNavigableMap&lt;Long, String&gt; outstandingConfirms = new ConcurrentSkipListMap&lt;&gt;();
+ConcurrentNavigableMap<Long, String&gt; outstandingConfirms = new ConcurrentSkipListMap<&gt;();
 ConfirmCallback cleanOutstandingConfirms = (sequenceNumber, multiple) -> {
     if (multiple) {
-        ConcurrentNavigableMap&lt;Long, String&gt; confirmed = outstandingConfirms.headMap(
+        ConcurrentNavigableMap<Long, String&gt; confirmed = outstandingConfirms.headMap(
           sequenceNumber, true
         );
         confirmed.clear();

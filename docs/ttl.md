@@ -107,7 +107,7 @@ This example in Java creates a queue in which messages may
 reside for at most 60 seconds:
 
 ```java
-Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+Map<String, Object> args = new HashMap<String, Object>();
 args.put("x-message-ttl", 60000);
 channel.queueDeclare("myqueue", false, false, false, args);
 ```
@@ -299,7 +299,7 @@ This example in Java creates a queue which expires after
 it has been unused for 30 minutes.
 
 ```java
-Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+Map<String, Object> args = new HashMap<String, Object>();
 args.put("x-expires", 1800000);
 channel.queueDeclare("myqueue", false, false, false, args);
 ```

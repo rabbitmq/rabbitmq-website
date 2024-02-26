@@ -300,7 +300,7 @@ but this is not just down to the naturalness of the mapping between
               &lt;&lt;<span class="variable-name">F0</span>:16/unsigned,
                 <span class="variable-name">F1Len</span>:8/unsigned, <span class="variable-name">F1</span>:<span class="variable-name">F1Len</span>/binary,
                 <span class="variable-name">F2Len</span>:8/unsigned, <span class="variable-name">F2</span>:<span class="variable-name">F2Len</span>/binary,
-                <span class="variable-name">F3Bits</span>:8&gt;&gt;) <span class="function-name">-&gt;</span>
+                <span class="variable-name">F3Bits</span>:8>>) <span class="function-name">-&gt;</span>
     <span class="variable-name">F3</span> = (<span class="variable-name">F3Bits</span> band 1) /= 0,
     <span class="variable-name">F4</span> = (<span class="variable-name">F3Bits</span> band 2) /= 0,
     #'<span class="string">basic.publish</span>'{ticket      = <span class="variable-name">F0</span>,
@@ -426,7 +426,7 @@ logical view remains unchanged, but under the covers
        [gen_server,&lt;0.138.0&gt;,&lt;0.138.0&gt;,
         rabbit_amqqueue_process,
         {amqqueue,
-         {resource,&lt;&lt;"/"&gt;&gt;,queue,&lt;&lt;"test queue"&gt;&gt;},
+         {resource,&lt;&lt;"/">>,queue,&lt;&lt;"test queue">>},
          false,false,[],[],none},
         []]}}]}</span>
 </pre>

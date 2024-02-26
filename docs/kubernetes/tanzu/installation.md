@@ -181,7 +181,7 @@ the resultant cluster will use the bundled VMware RabbitMQ container image.
 This example creates a very minimalistic RabbitmqCluster:
 
 ```bash
-cat &lt;&lt;EOF &gt; rabbitmq.yaml
+cat <<EOF &gt; rabbitmq.yaml
 apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:

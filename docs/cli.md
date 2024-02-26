@@ -255,7 +255,7 @@ Different commands take different arguments. Some are named options such as `--n
 others are positional arguments, such as the username and password arguments in
 
 ```bash
-rabbitmqctl add_user &lt;username&gt; &lt;password&gt;
+rabbitmqctl add_user <username> <password>
 ```
 
 A specific example:
@@ -441,7 +441,7 @@ such as "Connection attempt from disallowed node", "", "Could not auto-cluster".
 For example, when a CLI tool connects and tries to authenticate using a mismatching secret value:
 
 ```
-2020-06-15 13:03:33 [error] &lt;0.1187.0&gt; ** Connection attempt from node 'rabbitmqcli-99391-rabbit@warp10' rejected. Invalid challenge reply. **
+2020-06-15 13:03:33 [error] <0.1187.0> ** Connection attempt from node 'rabbitmqcli-99391-rabbit@warp10' rejected. Invalid challenge reply. **
 ```
 
 When a CLI tool such as `rabbitmqctl` fails to authenticate with RabbitMQ,

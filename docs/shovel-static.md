@@ -205,15 +205,15 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
   {declarations, [
                    'queue.declare',
                    {'queue.bind', [
-                                    {exchange, &lt;&lt;"my_exchange"&gt;&gt;},
-                                    {queue,    &lt;&lt;&gt;&gt;}
+                                    {exchange, <<"my_exchange">>},
+                                    {queue,    <<>>}
                                   ]}
                  ]}
 ```
         <p>
           will first declare an anonymous queue, and then bind it
           to the exchange called <code>"my_exchange"</code>. The
-          queue name of <code>&lt;&lt;&gt;&gt;</code> on method <code>queue.bind</code>
+          queue name of <code>&lt;&lt;>></code> on method <code>queue.bind</code>
           means "use the queue last declared on this channel".
         </p>
         <p>
@@ -237,8 +237,8 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
         </p>
 ```erlang
 {'exchange.declare', [
-                      {exchange, &lt;&lt;"my_exchange"&gt;&gt;},
-                      {type, &lt;&lt;"direct"&gt;&gt;},
+                      {exchange, <<"my_exchange">>},
+                      {type, <<"direct">>},
                       durable
                      ]}
 ```
@@ -256,7 +256,7 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
             The name of the source queue as an Erlang binary value. This property is mandatory:
 
 ```erlang
-{queue, &lt;&lt;"queue.1"&gt;&gt;}
+{queue, <<"queue.1">>}
 ```
           </p>
           <p>
@@ -266,7 +266,7 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
           <p>
             This queue must exist. Use the resource <code>declarations</code>
             covered above to declare the queue or ensure it exists. If
-            the value is <code>&lt;&lt;&gt;&gt;</code> (the empty binary string) then the
+            the value is <code>&lt;&lt;>></code> (the empty binary string) then the
             <em>most recently declared queue</em> in <code>declarations</code> is used.
             This allows anonymous queues to be declared and used.
           </p>
@@ -309,7 +309,7 @@ AMQP 1.0 source settings are different from those of AMQP 0-9-1 sources.
         This key is mandatory:
 
 ```erlang
-{source_address, &lt;&lt;"my-address"&gt;&gt;}
+{source_address, <<"my-address">>}
 ```
       </td>
     </tr>
@@ -457,8 +457,8 @@ are available to static shovels, such as TLS certificate and private key.
           </p>
 ```erlang
 {publish_fields, [
-                    {exchange, &lt;&lt;"my_exchange"&gt;&gt;},
-                    {routing_key, &lt;&lt;"from_shovel"&gt;&gt;}
+                    {exchange, <<"my_exchange">>},
+                    {routing_key, <<"from_shovel">>}
                   ]}
 ```
           <p>
@@ -472,8 +472,8 @@ are available to static shovels, such as TLS certificate and private key.
          </p>
 ```erlang
 {publish_fields, [
-                    {exchange, &lt;&lt;"my_exchange"&gt;&gt;},
-                    {routing_key, &lt;&lt;"from_shovel"&gt;&gt;}
+                    {exchange, <<"my_exchange">>},
+                    {routing_key, <<"from_shovel">>}
                   ]}
 ```
           <p>
@@ -532,7 +532,7 @@ are available to static shovels, such as TLS certificate and private key.
           This represents the target address of the sending AMQP 1.0 link:
 
 ```erlang
-{target_address, &lt;&lt;"some-address"&gt;&gt;}
+{target_address, <<"some-address">>}
 ```
         </p>
       </td>
@@ -546,7 +546,7 @@ are available to static shovels, such as TLS certificate and private key.
 
 ```erlang
 {properties, [
-  {content_typle, &lt;&lt;"application/json"&gt;&gt;}
+  {content_typle, <<"application/json">>}
 ]}
 ```
         <p>
@@ -566,8 +566,8 @@ are available to static shovels, such as TLS certificate and private key.
             </p>
 ```erlang
 {application_properties, [
-  {&lt;&lt;"application-key-1"&gt;&gt;, &lt;&lt;"value-1"&gt;&gt;},
-  {&lt;&lt;"application-key-2"&gt;&gt;, &lt;&lt;"value-2"&gt;&gt;}
+  {<<"application-key-1">>, <<"value-1">>},
+  {<<"application-key-2">>, <<"value-2">>}
 ]}
 ```
         <p>
@@ -620,34 +620,34 @@ might look like this:
                         {uris, [ "amqp://fred:secret@host1.domain/my_vhost",
                                   "amqp://john:secret@host2.domain/my_vhost" ]},
                         {declarations, [ {'exchange.declare',
-                                            [ {exchange, &lt;&lt;"my_fanout"&gt;&gt;},
-                                              {type, &lt;&lt;"fanout"&gt;&gt;},
+                                            [ {exchange, <<"my_fanout">>},
+                                              {type, <<"fanout">>},
                                               durable
                                             ]},
                                           {'queue.declare',
                                             [{arguments,
-                                                [{&lt;&lt;"x-message-ttl"&gt;&gt;, long, 60000}]}]},
+                                                [{<<"x-message-ttl">>, long, 60000}]}]},
                                           {'queue.bind',
-                                            [ {exchange, &lt;&lt;"my_fanout"&gt;&gt;},
-                                              {queue,    &lt;&lt;&gt;&gt;}
+                                            [ {exchange, <<"my_fanout">>},
+                                              {queue,    <<>>}
                                             ]}
                                           ]},
-                        {queue, &lt;&lt;&gt;&gt;},
+                        {queue, <<>>},
                         {prefetch_count, 10}
                       ]},
                     {destination,
                       [ {protocol, amqp091},
                         {uris, ["amqp://"]},
                         {declarations, [ {'exchange.declare',
-                                            [ {exchange, &lt;&lt;"my_direct"&gt;&gt;},
-                                              {type, &lt;&lt;"direct"&gt;&gt;},
+                                            [ {exchange, <<"my_direct">>},
+                                              {type, <<"direct">>},
                                               durable
                                             ]}
                                         ]},
                         {publish_properties, [ {delivery_mode, 2} ]},
                         {add_forward_headers, true},
-                        {publish_fields, [ {exchange, &lt;&lt;"my_direct"&gt;&gt;},
-                                          {routing_key, &lt;&lt;"from_shovel"&gt;&gt;}
+                        {publish_fields, [ {exchange, <<"my_direct">>},
+                                          {routing_key, <<"from_shovel">>}
                                           ]}
                           ]},
                     {ack_mode, on_confirm},
@@ -694,22 +694,22 @@ AMQP 0.9.1 destination might look like this:
                    [ {protocol, amqp10},
                      {uris, [ "amqp://fred:secret@host1.domain/my_vhost",
                             ]},
-                     {source_address, &lt;&lt;"my-source"&gt;&gt;},
+                     {source_address, <<"my-source">>},
                      {prefetch_count, 10}
                    ]},
                   {destination,
                      [ {protocol, amqp091},
                        {uris, ["amqp://"]},
                        {declarations, [ {'exchange.declare',
-                                         [ {exchange, &lt;&lt;"my_direct"&gt;&gt;},
-                                           {type, &lt;&lt;"direct"&gt;&gt;},
+                                         [ {exchange, <<"my_direct">>},
+                                           {type, <<"direct">>},
                                            durable
                                          ]}
                                       ]},
                        {publish_properties, [ {delivery_mode, 2} ]},
                        {add_forward_headers, true},
-                       {publish_fields, [ {exchange, &lt;&lt;"my_direct"&gt;&gt;},
-                                          {routing_key, &lt;&lt;"from_shovel"&gt;&gt;}
+                       {publish_fields, [ {exchange, <<"my_direct">>},
+                                          {routing_key, <<"from_shovel">>}
                                         ]}
                      ]},
                   {ack_mode, on_confirm},
@@ -733,18 +733,18 @@ AMQP 1.0 destination might look like this:
                 {uris, ["amqp://fred:secret@host1.domain/my_vhost",
                         "amqp://john:secret@host2.domain/my_vhost"]},
                 {declarations, [{'exchange.declare',
-                                   [{exchange, &lt;&lt;"my_fanout"&gt;&gt;},
-                                    {type, &lt;&lt;"fanout"&gt;&gt;},
+                                   [{exchange, <<"my_fanout">>},
+                                    {type, <<"fanout">>},
                                     durable]},
                                 {'queue.declare',
                                    [{arguments,
-                                      [{&lt;&lt;"x-message-ttl"&gt;&gt;, long, 60000}]}]},
+                                      [{<<"x-message-ttl">>, long, 60000}]}]},
                                 {'queue.bind',
-                                   [{exchange, &lt;&lt;"my_fanout"&gt;&gt;},
-                                    {queue,    &lt;&lt;&gt;&gt;}
+                                   [{exchange, <<"my_fanout">>},
+                                    {queue,    <<>>}
                                     ]}
                                ]},
-                {queue, &lt;&lt;&gt;&gt;},
+                {queue, <<>>},
                 {prefetch_count, 10}
                ]},
               {destination,
@@ -755,10 +755,10 @@ AMQP 1.0 destination might look like this:
                 %%       which has remote access restrictions, see
                 %%       ./access-control to learn more
                 {uris, ["amqp://host:5672"]},
-                {properties, [{user_id, &lt;&lt;"my-user"&gt;&gt;}]},
-                {application_properties, [{&lt;&lt;"my-prop"&gt;&gt;, &lt;&lt;"my-prop-value"&gt;&gt;}]},
+                {properties, [{user_id, <<"my-user">>}]},
+                {application_properties, [{<<"my-prop">>, <<"my-prop-value">>}]},
                 {add_forward_headers, true},
-                {target_address, &lt;&lt;"destination-queue"&gt;&gt;}
+                {target_address, <<"destination-queue">>}
                ]},
               {ack_mode, on_confirm},
               {reconnect_delay, 5}

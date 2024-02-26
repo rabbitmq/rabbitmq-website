@@ -227,11 +227,11 @@ returns a non-zero exit code if the RabbitMQ node is not running
           <ul class="Bl-bullet Bl-compact">
             <li id="disc">
 #### <code class="Cm">disc</code> {#change_cluster_node_type}
-            
+
 </li>
             <li id="ram">
 #### <code class="Cm">ram</code> {#change_cluster_node_type}
-            
+
 </li>
           </ul>
 
@@ -345,7 +345,7 @@ Stop the node:
                 <code class="Li">rabbitmqctl stop rabbit@misshelpful</code>
               </div>
               <p class="Pp"></p>
-            
+
 </li>
             <li>
 Rename the node in the local database:
@@ -354,7 +354,7 @@ Rename the node in the local database:
                 <code class="Li">rabbitmqctl rename_cluster_node rabbit@misshelpful rabbit@cordelia</code>
               </div>
               <p class="Pp"></p>
-            
+
 </li>
             <li>
 Rename the local database directories (note, you do not need to do this if you have set the RABBITMQ_MNESIA_DIR environment variable):
@@ -371,12 +371,12 @@ mv \
   /var/lib/rabbitmq/mnesia/rabbit\@cordelia-plugins-expand</pre>
               </div>
               <p class="Pp"></p>
-            
+
 </li>
             <li>
 If node name is configured e.g. using <var class="Ar">/etc/rabbitmq/rabbitmq-env.conf</var> , it also needs to be updated there.
               <p class="Pp"></p>
-            
+
 </li>
             <li>
 Start the node when ready

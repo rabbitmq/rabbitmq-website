@@ -130,11 +130,11 @@ it will translate into the following configuration (in the [advanced RabbitMQ co
   %% ...
   %% backend configuration
   {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, &lt;&lt;"my_rabbit_server">>},
+    {resource_server_id, <<"my_rabbit_server">>},
     %% UAA signing key configuration
     {key_config, [
       {signing_keys, #{
-        &lt;&lt;"a-key-ID">> => {pem, &lt;&lt;"-----BEGIN PUBLIC KEY-----
+        <<"a-key-ID">> => {pem, <<"-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2dP+vRn+Kj+S/oGd49kq
 6+CKNAduCC1raLfTH7B3qjmZYm45yDl+XmgK9CNmHXkho9qvmhdksdzDVsdeDlhK
 IdcIWadhqDzdtn1hj/22iUwrhH0bd475hlKcsiZ+oy/sdgGgAzvmmTQmdMqEXqV2
@@ -154,12 +154,12 @@ If a symmetric key is used, the configuration will look like this:
 ```erlang
 [
   {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, &lt;&lt;"my_rabbit_server">>},
+    {resource_server_id, <<"my_rabbit_server">>},
     {key_config, [
       {signing_keys, #{
-        &lt;&lt;"a-key-ID">> => {map, #{&lt;&lt;"kty">> => &lt;&lt;"MAC">>,
-                                  &lt;&lt;"alg">> => &lt;&lt;"HS256">>,
-                                  &lt;&lt;"value">> => &lt;&lt;"my_signing_key">>}}
+        <<"a-key-ID">> => {map, #{<<"kty">> => <<"MAC">>,
+                                  <<"alg">> => <<"HS256">>,
+                                  <<"value">> => <<"my_signing_key">>}}
       }}
     ]}
   ]},
@@ -172,9 +172,9 @@ In that case, the configuration will look like this:
 ```erlang
 [
   {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, &lt;&lt;"my_rabbit_server">>},
+    {resource_server_id, <<"my_rabbit_server">>},
     {key_config, [
-      {jwks_url, &lt;&lt;"https://my-jwt-issuer/jwks.json">>}
+      {jwks_url, <<"https://my-jwt-issuer/jwks.json">>}
     ]}
   ]},
 ].
@@ -350,8 +350,8 @@ By default the plugin will look for the `scope` key in the token, you can config
 ```erlang
 [
   {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, &lt;&lt;"my_rabbit_server">>},
-    {extra_scopes_source, &lt;&lt;"my_custom_scope_key">>},
+    {resource_server_id, <<"my_rabbit_server">>},
+    {extra_scopes_source, <<"my_custom_scope_key">>},
     ...
     ]}
   ]},
@@ -398,8 +398,8 @@ Example `advanced.config` configuration:
 ```erlang
   ...
   {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, &lt;&lt;"rabbitmq"&gt;&gt;},
-    {preferred_username_claims, [&lt;&lt;"user_name"&gt;&gt;,&lt;&lt;"email"&gt;&gt;]},
+    {resource_server_id, <<"rabbitmq">>},
+    {preferred_username_claims, [<<"user_name">>,<<"email">>]},
   ...
 ```
 In the example configuration, RabbitMQ searches for the `user_name` claim first and if it is not found, RabbitMQ searches for the `email`. If these are not found, RabbitMQ uses its default lookup mechanism which first looks for `sub` and then `client_id`.

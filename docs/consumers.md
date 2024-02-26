@@ -512,7 +512,7 @@ Single active consumer can be enabled when declaring a queue, with the
 
 ```java
 Channel ch = ...;
-Map&lt;String, Object&gt; arguments = new HashMap&lt;String, Object&gt;();
+Map<String, Object> arguments = new HashMap<String, Object>();
 arguments.put("x-single-active-consumer", true);
 ch.queueDeclare("my-queue", false, false, false, arguments);
 ```

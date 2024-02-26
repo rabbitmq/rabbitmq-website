@@ -405,12 +405,12 @@ Here's an example:
 ```bash
 # This command will be available only if federation plugin is enabled
 rabbitmqctl federation_status
-# => [[{type,&lt;&lt;"exchange">>},
-# =>   {name,&lt;&lt;"my-exchange">>},
-# =>   {vhost,&lt;&lt;"/">>},
-# =>   {connection,&lt;&lt;"upstream-server">>},
-# =>   {upstream_name,&lt;&lt;"my-upstream-x">>},
-# =>   {status,{running,&lt;&lt;"&lt;rabbit@my-server.1.281.0>">>}},
+# => [[{type,<<"exchange">>},
+# =>   {name,<<"my-exchange">>},
+# =>   {vhost,<<"/">>},
+# =>   {connection,<<"upstream-server">>},
+# =>   {upstream_name,<<"my-upstream-x">>},
+# =>   {status,{running,<<"&lt;rabbit@my-server.1.281.0>">>}},
 # =>   {timestamp,{{2020,3,1},{12,3,28}}}]]
 # => ...done.
 ```

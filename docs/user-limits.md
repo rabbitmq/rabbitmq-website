@@ -59,7 +59,7 @@ Here is an example that uses `curl`:
 # using the HTTP API
 curl -v -u guest:guest -X PUT http://localhost:15672/api/user-limits/user1/max-connections \
                        -H "content-type: application/json" \
-                       -d @- &lt;&lt;EOF
+                       -d @- <<EOF
 {
   "value": 20
 }
@@ -94,7 +94,7 @@ Here is an example that uses `curl` to set a limit for user `user1`:
 # using the HTTP API
 curl -v -u guest:guest -X PUT http://localhost:15672/api/user-limits/user1/max-channels \
                        -H "content-type: application/json" \
-                       -d @- &lt;&lt;EOF
+                       -d @- <<EOF
 {
   "value": 20
 }

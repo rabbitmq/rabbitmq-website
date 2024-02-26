@@ -90,7 +90,7 @@ exchange and <em>write</em> permissions on the AE.
 For example:
 
 ```java
-Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+Map<String, Object> args = new HashMap<String, Object>();
 args.put("alternate-exchange", "my-ae");
 channel.exchangeDeclare("my-direct", "direct", false, false, args);
 channel.exchangeDeclare("my-ae", "fanout");
