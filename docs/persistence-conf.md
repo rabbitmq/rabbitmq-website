@@ -39,7 +39,7 @@ Some related guides include:
  * [Streams](./streams)
 
 
-## Overview of Peristence in RabbitMQ {#overview}
+## Overview of Persistence in RabbitMQ {#overview}
 
 Modern RabbitMQ versions provide several queue types plus streams:
 
