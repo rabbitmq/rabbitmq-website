@@ -24,7 +24,7 @@ static website generator.
 
 You need to install JS components used by Docusaurus first:
 
-```
+``` shell
 npm install
 ```
 
@@ -32,11 +32,18 @@ You need to de this once only.
 
 ### Local Development
 
-The following command starts a local development server and opens up a browser
+The following command starts a local development server and opens up a default browser
 window. Most changes are reflected live without having to restart the server.
 
-```
+``` shell
 npm start
+```
+
+To use a different browser, for example, Brave Beta, set the `BROWSER` env variable
+when running `npm start`:
+
+``` shell
+BROWSER="Brave Beta" npm start
 ```
 
 ### Build
@@ -44,7 +51,7 @@ npm start
 The following command generates static content into the `build` directory and
 can be served using any static contents hosting service.
 
-```
+``` shell
 npm run build
 ```
 
