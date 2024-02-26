@@ -67,7 +67,7 @@ Now we have amqp installed, we can write some code.
 
 <T1DiagramSending/>
 
-We'll call our message publisher (sender) `send.go` and our message consumer (receiver)
+We'll call our message publisher (sender) `send.go` and our message consumer
 `receive.go`.  The publisher will connect to RabbitMQ, send a single message,
 then exit.
 
@@ -194,7 +194,8 @@ func failOnError(err error, msg string) {
 }
 ```
 
-Create a new directory for the receiver, like `receiver/receive.go, to avoid [DuplicateDecl](https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#DuplicateDecl) error.
+Create a new directory for the consumer app, like `receiver/receive.go,
+to avoid a [duplicate declaration](https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#DuplicateDecl).
 
 Setting up is the same as the publisher; we open a connection and a
 channel, and declare the queue from which we're going to consume.
