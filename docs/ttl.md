@@ -180,6 +180,8 @@ model.BasicPublish(exchangeName,
 
 ## Per-Message TTL and Dead Lettering {#message-ttl-dead-lettering}
 
+### Quorum Queues
+
 Quorum queues dead letter expired messages when they reach the head of the queue.
 
 ### Classic Queues
