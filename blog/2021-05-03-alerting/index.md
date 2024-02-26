@@ -154,7 +154,7 @@ In the example above, we have triggered multiple alerts across multiple RabbitMQ
 
 We have shared the simplest and most useful alerts that we could think of.
 Some of you already asked us about missing alerts such as memory threshold, Erlang processes & atoms, message redeliveries etc.
-[Commercial customers](//rabbitmq.com/tanzu) asked us for runbooks and automated alert resolution.
+[Commercial customers](https://tanzu.vmware.com/rabbitmq) asked us for runbooks and automated alert resolution.
 
 What are your thoughts on the current alerting rules? What alerts are you missing?
 [Let us know via a GitHub discussion.](https://github.com/rabbitmq/cluster-operator/discussions)

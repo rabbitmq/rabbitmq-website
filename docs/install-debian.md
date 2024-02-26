@@ -519,10 +519,10 @@ sudo dpkg -i ${RabbitMQServerPackageFilename({packageType: 'debian'})}
 rm ${RabbitMQServerPackageFilename({packageType: 'debian'})}`}
 </CodeBlock>
 
-Installation via [apt repositories](#apt) is recommended
+Installation via [apt repositories](#apt-cloudsmith) is recommended
 over downloading the package directly and installing via `dpkg -i`. When the RabbitMQ
 package is installed manually with `dpkg -i` the operator is responsible for making sure
-that all [package dependencies](#package-dependencies) are met.
+that all package dependencies are met.
 
 
 ## User Privilege Requirements {#sudo-requirements}

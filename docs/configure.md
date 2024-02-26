@@ -357,7 +357,7 @@ Documentation guides such as [Networking](./networking), [TLS](./ssl), or
 
 Note that this configuration file is not to be confused with the environment variable
 configuration files, [rabbitmq-env.conf](#environment-env-file-unix)
-and [rabbitmq-env-conf.bat](#environment-env-file-windows).
+and [rabbitmq-env-conf.bat](#rabbitmq-env-file-windows).
 
 To override the main RabbitMQ config file location, use the `RABBITMQ_CONFIG_FILE`
 (or `RABBITMQ_CONFIG_FILES` to use a `conf.d`-style directory of sorted files) [environment variables](#customise-environment).
@@ -1736,12 +1736,12 @@ This will restart the node in a way that makes the environment variable and
 
 All environment variables used by RabbitMQ use the
 prefix `RABBITMQ_` (except when defined in [rabbitmq-env.conf](#environment-env-file-unix) or
-[rabbitmq-env-conf.bat](#environment-env-file-windows)).
+[rabbitmq-env-conf.bat](#rabbitmq-env-file-windows)).
 
 Environment variables set in the shell environment take
 priority over those set
 in [rabbitmq-env.conf](#environment-env-file-unix) or
-[rabbitmq-env-conf.bat](#environment-env-file-windows), which in turn override
+[rabbitmq-env-conf.bat](#rabbitmq-env-file-windows), which in turn override
 RabbitMQ built-in defaults.
 
 The table below describes key environment variables that can be used to configure RabbitMQ.

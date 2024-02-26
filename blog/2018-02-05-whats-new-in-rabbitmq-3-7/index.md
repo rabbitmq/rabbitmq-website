@@ -26,7 +26,7 @@ The new format is heavily inspired by sysctl and ini files. It is
 easier to read for humans and much easier to generate for provisioning
 tools.
 
-Compare the following examples from [our TLS guide](https://rabbitmq.com/ssl.html).
+Compare the following examples from [our TLS guide](/docs/ssl).
 
 Classic (Erlang terms) format:
 
@@ -88,7 +88,7 @@ main ideas into the core with some modifications inspired by our
 experience with production RabbitMQ installations and community
 feedback.
 
-The result is a new [peer discovery subsystem](http:/docs/cluster-formation) which will be covered
+The result is a new [peer discovery subsystem](/docs/cluster-formation) which will be covered
 in a separate blog post. It supports a number of mechanisms and platforms:
 
  * AWS (EC2 instance tags or autoscaling groups)
@@ -152,15 +152,15 @@ direct client connections are no longer supported.
 
 ## Cross-protocol Shovel
 
-The [Shovel plugin](http:/docs/shovel) now supports AMQP 1.0 endpoints in both directions (as a source
+The [Shovel plugin](/docs/shovel) now supports AMQP 1.0 endpoints in both directions (as a source
 and destinations). This means that Shovel now can move messages from an AMQP 1.0 only broker to RabbitMQ or vice versa.
 
 
 ## Operator Policies
 
-[Operator policies](http:/docs/parameters#operator-policies) work much like [regular policies](http:/docs/parameters) but
+[Operator policies](/docs/parameters#operator-policies) work much like [regular policies](/docs/parameters) but
 can only be managed by administrators and will override user-defined policies. Operators that
-offer RabbitMQ as a service can use them to cap e.g. [max queue length](http:/docs/maxlength) on specific plans.
+offer RabbitMQ as a service can use them to cap e.g. [max queue length](/docs/maxlength) on specific plans.
 
 
 ## Per-vhost Message Stores
@@ -210,8 +210,8 @@ Java client releases are now distributed exclusively via Maven repositories
 
 ## Upgrading to 3.7.x
 
-We encourage all users to [upgrade to 3.7.x](http:/docs/download) and let us know how it goes
+We encourage all users to [upgrade to 3.7.x](/docs/download) and let us know how it goes
 on the [mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users). To simplify the transition, there is a new [documentation
-guide on upgrades](https://rabbitmq.com/upgrade.html). And, of course,
-please consult the [full change log](https://rabbitmq.com/changelog.html)
+guide on upgrades](/docs/upgrade). And, of course,
+please consult the [full change log](/docs/changelog)
 first!

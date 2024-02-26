@@ -26,7 +26,7 @@ RabbitMQ Streams shine for the following use cases:
 * **replay & time-traveling**: consumers can attach anywhere in a stream, using an absolute offset or a timestamp, and they can read and re-read the same data
 * **high throughput**: streams are super fast compared to traditional queues, several orders of magnitude faster
 
-And as streams ship as a [core plugin](https://rabbitmq.com/stream.html) in RabbitMQ 3.9, you can use them along all the already existing RabbitMQ features.
+And as streams ship as a [core plugin](/docs/stream) in RabbitMQ 3.9, you can use them along all the already existing RabbitMQ features.
 
 ## RabbitMQ Streams in a nutshell
 
@@ -37,7 +37,7 @@ Let's get more specific about streams:
 * as streams have non-destructive semantics, they can grow a lot. RabbitMQ Streams can truncate streams automatically according to 
 retention policies, based on size or age.
 * streams are accessible through a dedicated, blazing fast [binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.9.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc) and through AMQP 0.9.1 & 1.0 (less fast).
-* the stream protocol is accessible thanks to the [stream plugin](https://rabbitmq.com/stream.html), which ships in the core distribution of RabbitMQ 3.9.
+* the stream protocol is accessible thanks to the [stream plugin](/docs/stream), which ships in the core distribution of RabbitMQ 3.9.
 * RabbitMQ Streams support client-server TLS.
 * a modern, highly-optimized [Java client](https://github.com/rabbitmq/rabbitmq-stream-java-client) is available. It uses the stream protocol for better performance. It is fully [documented](https://rabbitmq.github.io/rabbitmq-stream-java-client/stable/htmlsingle/).
 * a [Go client](https://github.com/rabbitmq/rabbitmq-stream-go-client) is available as well.

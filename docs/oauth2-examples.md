@@ -35,7 +35,7 @@ accompanied by [a public GitHub repository](https://github.com/rabbitmq/rabbitmq
 The GitHub repository includes RabbitMQ and UAA configuration files, as well as Make targets
 that make it easier to
 
-To understand the details of how to configure RabbitMQ with Oauth2, go to the [Understand the environment](#understand-the-environment) section.
+To understand the details of how to configure RabbitMQ with Oauth2, go to the [Understand the environment](#understanding-environment) section.
 
 ## Table of Content {#toc}
 
@@ -62,11 +62,11 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
 	- [https://auth0.com/](./oauth2-examples-oauth0)
 	- [Azure Active Directory](./oauth2-examples-azure)
     - [OAuth2 Proxy](./oauth2-examples-proxy)
-* [Understanding the environment](#understand-the-environment)
+* [Understanding the environment](#understanding-environment)
 	- [RabbitMQ server](#rabbitmq-server)
 	- [UAA server](#uaa-server)
 	- [UAA client](#uaa-client)
-	- [Clients, Users & Permissions in UAA](#clients-users-permissions-in-uaa)
+	- [Clients, Users & Permissions in UAA](#clients-users-and-permissions-in-uaa)
 * [Deeper Dive](#deeper-dive)
 	- About Users and Clients
 	- About Permissions
@@ -249,7 +249,7 @@ make curl-uaa url=http://localhost:15672/api/overview client_id=mgt_api_client s
 
 An application connects to RabbitMQ using AMQP protocol and presents a JWT Token as a credential.
 The application you are going to use is [PerfTest](https://github.com/rabbitmq/rabbitmq-perf-test) which is not an OAuth 2.0 aware application.
-OAuth 2.0-aware application is covered in [scenario four](#scenario-4).
+OAuth 2.0-aware application is covered in scenario four.
 
 Instead you are launching the application with a token that you have previously obtained from UAA. This is just to probe AMQP access with a JWT Token. Needless to say that the application should instead obtain the JWT Token prior to connecting to RabbitMQ and it should also be able to refresh it before reconnecting. RabbitMQ validates the token before accepting it. If the token has expired, RabbitMQ will reject the connection.
 

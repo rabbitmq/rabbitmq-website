@@ -31,13 +31,13 @@ which in turn means that it is error-prone.
 
 ## The New Format
 
-After evaluating all the usual suspects, we settled on an <code>ini</code>-like format used by <code>sysctl</code> and Riak. It [uses a different config extension](http:/docs/configure#config-file-formats), `.conf`, and looks like this:
+After evaluating all the usual suspects, we settled on an <code>ini</code>-like format used by <code>sysctl</code> and Riak. It [uses a different config extension](/docs/configure#config-file-formats), `.conf`, and looks like this:
 
 ```ini
 heartbeat = 30
 ```
 
-This overrides default [heartbeat](http:/docs/heartbeats) value
+This overrides default [heartbeat](/docs/heartbeats) value
 offered by the server to 30 seconds.
 
 Most settings use a single line, with configuration key and value separated by an
@@ -146,7 +146,7 @@ auth_backends.1   = rabbit_auth_backend_internal
 ## Advanced Configuration
 
 As nice as this format is, there are certain limitations to it. Consider the following
-config file that demonstrates a number of features in the [LDAP plugin](http:/docs/ldap):
+config file that demonstrates a number of features in the [LDAP plugin](/docs/ldap):
 
 ```erlang
 [
@@ -185,7 +185,7 @@ This example uses deeply nested data structures to express LDAP queries. Such sc
 fit the new format very well but they have to be supported.
 
 To account for this, it is now possible to specify another config file, `advanced.config`, in the
-[classic (Erlang terms) config format](http:/docs/configure#config-file-formats).
+[classic (Erlang terms) config format](/docs/configure#config-file-formats).
 
 The two config formats are then merged. How is this possible? The trick is in translating
 the new format to the old one, which we will cover next.
@@ -239,5 +239,5 @@ Plugins can ship their own config schema files and benefit from the new format.
 It still possible to use the previous format or combine the two. We believe that
 the new format can cover the proverbial 80% of use cases, though.
 
-Take a look at the updated [configuration guide](http:/docs/configure),
+Take a look at the updated [configuration guide](/docs/configure),
 give this feature a try and let us know what you think on the [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users)!

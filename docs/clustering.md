@@ -468,7 +468,7 @@ as long as they can contact a cluster member node
 known at the time of shutdown.
 
 [Quorum queue](./quorum-queues) allows queue contents to be replicated
-across multiple cluster nodes with parallel replication and a predictable [leader election](#./quorum-queues#leader-election)
+across multiple cluster nodes with parallel replication and a predictable [leader election](./quorum-queues#leader-election)
 and [data safety](./quorum-queues#data-safety) behavior as long as a majority of replicas are online.
 
 Non-replicated classic queues can also be used in clusters. Non-mirrored queue [behaviour in case of node failure](./ha#non-mirrored-queue-behavior-on-node-failure)

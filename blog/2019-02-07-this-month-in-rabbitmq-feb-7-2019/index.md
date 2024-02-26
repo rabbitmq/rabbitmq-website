@@ -10,8 +10,8 @@ Welcome back for another issue of This Month in RabbitMQ. Hopefully you are find
 
 ## Project Updates
 
-* [RabbitMQ 3.7.11](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.11) is available. It focuses on bug fixes and minor usability improvements. In particular, this release adds several new [rabbitmq-diagnostics](http:/docs/rabbitmq-diagnostics.8) commands useful for diagnostics and health checks. This is also the first release to require Erlang/OTP 20.3.
-* [Second beta](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-beta.2) of RabbitMQ 3.8.0 is also out. [Quorum queues](https://next.rabbitmq.com/quorum-queues.html) are now more stable, polished, and support more features. Give them a try!
+* [RabbitMQ 3.7.11](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.11) is available. It focuses on bug fixes and minor usability improvements. In particular, this release adds several new [rabbitmq-diagnostics](/docs/man/rabbitmq-diagnostics.8) commands useful for diagnostics and health checks. This is also the first release to require Erlang/OTP 20.3.
+* [Second beta](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-beta.2) of RabbitMQ 3.8.0 is also out. [Quorum queues](/docs/quorum-queues) are now more stable, polished, and support more features. Give them a try!
 * [RabbitMQ Docker image](https://hub.docker.com/_/rabbitmq) now provides the latest RabbitMQ and Erlang. The image is also [automatically updated](https://github.com/docker-library/rabbitmq/pull/305) when new RabbitMQ and Erlang releases come out.
 * The Docker image now can be used to easily [test RabbitMQ 3.8.0 beta releases](https://github.com/docker-library/rabbitmq/pull/302).
 * [Reactor RabbitMQ 1.1.0](https://groups.google.com/d/msg/rabbitmq-users/x3L2HPWuP1Y/5OH2iZmyFwAJ) GA has been released, with bug fixes, dependency upgrades, and new features.

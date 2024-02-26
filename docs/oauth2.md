@@ -186,7 +186,7 @@ NOTE: `jwks_url` takes precedence over `signing_keys` if both are provided.
 
 | Key                                      | Documentation
 |------------------------------------------|-----------
-| `auth_oauth2.resource_server_id`         | [The Resource Server ID](#resource-server-id-and-scope-prefixes)
+| `auth_oauth2.resource_server_id`         | [The Resource Server ID](#resource-server-id)
 | `auth_oauth2.resource_server_type`       | [The Resource Server Type](#rich-authorization-request)
 | `auth_oauth2.additional_scopes_key`      | Configure the plugin to also look in other fields (maps to `additional_rabbitmq_scopes` in the old format). |
 | `auth_oauth2.scope_prefix`               | Configure prefix for all scopes. Default value is  `auth_oauth2.resource_server_id` followed by the dot `.` character. |
@@ -476,7 +476,7 @@ The supported location's attributed are:
 - `queue`|`exchange`: queue or exchange name pattern. The location grants the permission to a set of queues (or exchanges) that match it. One location can only specify either `queue` or `exchange` but not both. If not specified, `*` will be used
 - `routing-key`: this is the routing key pattern the location grants the permission to. If not specified, `*` will be used
 
-For more information about wildcard patterns, check the section [Scope-to-Permission Translation](#scope-to-permission-translation).
+For more information about wildcard patterns, check the section [Scope-to-Permission Translation](#scope-translation).
 
 #### Actions field
 

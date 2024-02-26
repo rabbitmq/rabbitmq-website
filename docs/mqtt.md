@@ -715,15 +715,11 @@ When the Sparkplug support is enabled, the MQTT plugin will not translate the
 `spAvM.N`/`spBvM.N` part of the names of topics.
 
 
-## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
+## Limitations {#limitations}
 
 ### QoS 2 is Not Supported
 
 QoS 2 subscriptions will be treated as if they were QoS 1 subscriptions.
-
-### Presence of a Quorum of Nodes
-
-See [Consensus Features](#consensus).
 
 ### Overlapping Subscriptions
 
@@ -738,15 +734,15 @@ See Retained Messages above. Different retained message stores have
 different benefits, trade-offs, and limitations.
 
 
-## <a id="disabling-plugin" class="anchor" href="#disabling-plugin">Disabling the Plugin</a>
+## Disabling the Plugin {#disabling-plugin}
 
 Before the plugin is disabled on a node, or a node removed from the cluster, it must be decommissioned using [`rabbitmqctl`](./cli):
 
-<pre class="lang-bash">
-rabbitmqctl decommission_mqtt_node &lt;node&gt;
-</pre>
+```bash
+rabbitmqctl decommission_mqtt_node <node>;
+```
 
-## <a id="retained" class="anchor" href="#retained">Retained Messages and Stores</a>
+## Retained Messages and Stores {#retained}
 
 The plugin supports retained messages. Message store implementation is pluggable
 and the plugin ships with two implementation out of the box:
@@ -761,7 +757,7 @@ With the second one, there is a limit of 2 GB per vhost. Both are node-local
 
 To configure the store, use <code>rabbitmq_mqtt.retained_message_store</code> configuration key:
 
-<pre class="lang-ini">
+```ini
 mqtt.default_user                        = guest
 mqtt.default_pass                        = guest
 mqtt.allow_anonymous                     = true
@@ -777,7 +773,7 @@ mqtt.retained_message_store_dets_sync_interval = 2000
 
 mqtt.listeners.ssl = none
 mqtt.listeners.tcp.default = 1883
-</pre>
+```
 
 The value must be a module that implements the store:
 

@@ -10,7 +10,7 @@ Welcome back for another issue of This Month in RabbitMQ. Did you know that [Rab
 
 ## Project updates
 
-* The [third beta of RabbitMQ 3.8](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-beta.3) is available now, featuring more work on Raft-based [Quorum Queues](http://next.rabbitmq.com/quorum-queues.html) and [Feature Flags](http://next.rabbitmq.com/feature-flags.html) for mixed version clusters. Give it a try and  share feedback on the mailing list.
+* The [third beta of RabbitMQ 3.8](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-beta.3) is available now, featuring more work on Raft-based [Quorum Queues](/docs/quorum-queues) and [Feature Flags](/docs/feature-flags) for mixed version clusters. Give it a try and  share feedback on the mailing list.
 * [RabbitMQ 3.7.13](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.13) is here, with bug fixes and minor usability improvements.
 * Pika had two new releases: [1.0.0-beta.2](https://github.com/pika/pika/releases/tag/1.0.0b2) and [0.13.1](https://github.com/pika/pika/releases/tag/0.13.1)
 * php-amqplib [2.9.0-beta.1 is out](https://github.com/php-amqplib/php-amqplib/releases/tag/v2.9.0-beta.1)

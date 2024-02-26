@@ -132,7 +132,7 @@ log.file.level = info
 log.file.formatter.time_format = epoch_usecs
 ```
 
-The rest of this guide describes more options, including [more advanced ones](#advanced-configuration).
+The rest of this guide describes more options, including more advanced ones.
 
 ### Log Rotation {#log-rotation}
 
@@ -330,7 +330,7 @@ log.syslog.formatter = json
 ```
 
 Less commonly used [Syslog client](https://github.com/schlagert/syslog) options can
-be configured using the <a href="./configure#configuration-files">advanced config file</a>.
+be configured using the [advanced config file](./configure#configuration-files).
 
 
 ## JSON Logging {#json}

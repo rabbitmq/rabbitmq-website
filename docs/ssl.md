@@ -425,7 +425,7 @@ as _mutual TLS authentication_ or _mTLS_.
 Enabling mutual peer verification involves two things:
 
  * [Enabling peer verification for client connections](#peer-verification-configuration) on the RabbitMQ side
- * [Enabling peer verification of the server](#peer-verification-clients) in application code
+ * [Enabling peer verification of the server](#peer-verification) in application code
 
 In other words, mutual peer verification ("mTLS") is a joint responsibility of RabbitMQ nodes
 and client connections. Enabling peer verification on just one end is not enough.
@@ -569,7 +569,7 @@ Because of this it is important to know what SAN (Subject Alternative Name) or C
 were used when generating the certificate. If a certificate is generated on one host and used
 on a different host then the `$(hostname)` value should be replaced with the correct hostname of the target server.
 
-[tls-gen](#automatic-certificate-generation) will use local machine's hostname for both values.
+[tls-gen](#automated-certificate-generation) will use local machine's hostname for both values.
 Likewise, in the [manual certificate/key pair generation section](#manual-certificate-generation) local machine's hostname is specified as
 `...-subj /CN=$(hostname)/...` to some OpenSSL CLI tool commands.
 

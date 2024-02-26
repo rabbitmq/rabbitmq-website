@@ -38,7 +38,7 @@ Potential solution to resolve this issue:
    [Update a RabbitMQ Instance](./using-operator#update).
  * If the issue persists after updating the above configurations, view the status
    of your RabbitMQ cluster resources by following in the procedure in
-   [Check the Status of an Instance](#check-instance-status)
+   [Check the Status of an Instance](#pods-stuck-in-terminating-state)
 
 If deploying to a resource-constrained cluster (eg. local environments like `kind` or `minikube`), you may need to adjust CPU and/or memory limits of the cluster.
 Check the [resource-limits example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/resource-limits) to see how to do this.
@@ -126,8 +126,6 @@ kubectl delete pod --force rabbit-rollout-restart-server-1
 # warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
 # pod 'rabbit-rollout-restart-server-1' force deleted
 ```
-
-<a id="check-instance-status"></a>
 
 To view the status of an instance by running, use
 
