@@ -251,12 +251,12 @@ const config = {
       },
       algolia: {
         // The application ID provided by Algolia
-        appId: '8E582XRSTF',
+        appId: 'H10VQIW16Y',
 
         // Public API key: it is safe to commit it
-        apiKey: '4d18eb1048c0b8097b18934507a9e13f',
+        apiKey: 'f23e8af89d899070974a643428531141',
 
-        indexName: 'rabbitmq-webpages',
+        indexName: 'rabbitmq.com',
 
         // Optional: see doc section below
         contextualSearch: true,
