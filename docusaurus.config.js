@@ -69,6 +69,14 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          // Pretend that the current/latest is 3.13.x. This should be
+          // commentted out as soon as we want to publish docs for the next
+          // branch (and 3.13.x docs should be branched).
+          versions: {
+            current: {
+              label: '3.13', // "Next" by default.
+            },
+          },
           sidebarPath: './sidebarsDocs.js',
 
           // Please change this to your repo.
