@@ -762,13 +762,13 @@ With the second one, there is a limit of 2 GB per vhost. Both are node-local
 To configure the store, use <code>rabbitmq_mqtt.retained_message_store</code> configuration key:
 
 <pre class="lang-ini">
-mqtt.default_user     = guest
-mqtt.default_pass     = guest
-mqtt.allow_anonymous  = true
-mqtt.vhost            = /
-mqtt.exchange         = amq.topic
-mqtt.subscription_ttl = 1800000
-mqtt.prefetch         = 10
+mqtt.default_user                        = guest
+mqtt.default_pass                        = guest
+mqtt.allow_anonymous                     = true
+mqtt.vhost                               = /
+mqtt.exchange                            = amq.topic
+mqtt.max_session_expiry_interval_seconds = 1800
+mqtt.prefetch                            = 10
 
 ## use DETS (disk-based) store for retained messages
 mqtt.retained_message_store = rabbit_mqtt_retained_msg_store_dets
