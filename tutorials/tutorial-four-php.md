@@ -157,7 +157,7 @@ Putting it all together
 The code for `emit_log_direct.php` class:
 
 ```php
-&lt;?php
+<?php
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
@@ -189,7 +189,7 @@ $connection->close();
 The code for `receive_logs_direct.php`:
 
 ```php
-&lt;?php
+<?php
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
