@@ -41,15 +41,21 @@ export default function Home() {
         </div>
         <div className={styles.intro}>
           <div className={styles.container}>
-            <h1>RabbitMQ is the most widely deployed open source message broker.</h1>
+            <h1>RabbitMQ is the most popular open source messaging and streaming broker used by millions worldwide.</h1>
             <p>
-              With tens of thousands of users, RabbitMQ is one of the most popular open source message brokers. From <a href="https://www.youtube.com/watch?v=1qcTu2QUtrU">T-Mobile</a> to <a href="https://medium.com/@runtastic/messagebus-handling-dead-letters-in-rabbitmq-using-a-dead-letter-exchange-f070699b952b">Runtastic</a>, RabbitMQ is used worldwide at small startups and large enterprises.
+            RabbitMQ is a reliable, stable, and mature messaging and streaming broker, which is easy to deploy on cloud environments, on-premises, and on your local machine.
             </p>
             <p>
-              RabbitMQ is lightweight and easy to deploy on premises and in the cloud. It supports multiple messaging protocols and <a href="/docs/streams">streaming</a>. RabbitMQ can be deployed in distributed and federated configurations to meet high-scale, high-availability requirements.
+            With support for many different messaging protocols, it can scale from providing point-to-point messaging all the way up to globally distributed highly-available event streaming with rock-solid reliability.
             </p>
+            <h2>Why Choose RabbitMQ?</h2>
             <p>
-              RabbitMQ runs on many operating systems and cloud environments, and provides a <a href="/docs/devtools">wide range of developer tools for most popular languages</a>.
+            <ol>
+                <li>Tried and tested:</li>
+                <li>Interoperable and flexible:</li>
+                <li>Free and Open Source Software:</li>
+                <li>Enterprise-grade offering:</li>
+            </ol>  
             </p>
             <p>
               See how other people are using RabbitMQ:
