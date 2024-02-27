@@ -26,7 +26,7 @@ One of the main pain points around mirrored queues was blocking synchronization 
 
 From now on we will be referring to classic and quorum queues.
 
-Read more about quorum queues [in documentation guides](https://rabbitmq.com/quorum-queues.html).
+Read more about quorum queues [in documentation guides](/docs/quorum-queues).
 
 ## Feature Flags
 

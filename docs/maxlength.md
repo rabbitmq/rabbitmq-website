@@ -156,7 +156,7 @@ This example in Java declares a queue with a maximum length
 of 10 messages:
 
 ```java
-Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+Map<String, Object> args = new HashMap<String, Object>();
 args.put("x-max-length", 10);
 channel.queueDeclare("myqueue", false, false, false, args);
 ```
@@ -178,13 +178,13 @@ rabbitmqctl list_queues name durable arguments policy --formatter=pretty_table -
 # => ┌──────────────┬─────────┬──────────────────────────────────────────────────────────────────────┬─────────┐
 # => │ name         │ durable │ arguments                                                            │ policy  │
 # => ├──────────────┼─────────┼──────────────────────────────────────────────────────────────────────┼─────────┤
-# => │ qq.1         │ true    │ {&lt;&lt;"x-queue-type"&gt;&gt;,longstr,&lt;&lt;"quorum"&gt;&gt;}{&lt;&lt;"x-max-length"&gt;&gt;,long,7} │         │
+# => │ qq.1         │ true    │ {<<"x-queue-type">>,longstr,<<"quorum">>}{<<"x-max-length">>,long,7} │         │
 # => ├──────────────┼─────────┼──────────────────────────────────────────────────────────────────────┼─────────┤
-# => │ limited.qq.3 │ true    │ {&lt;&lt;"x-queue-type"&gt;&gt;,longstr,&lt;&lt;"quorum"&gt;&gt;}                            │ limited │
+# => │ limited.qq.3 │ true    │ {<<"x-queue-type">>,longstr,<<"quorum">>}                            │ limited │
 # => ├──────────────┼─────────┼──────────────────────────────────────────────────────────────────────┼─────────┤
-# => │ limited.cq.1 │ true    │ {&lt;&lt;"x-queue-type"&gt;&gt;,longstr,&lt;&lt;"classic"&gt;&gt;}                           │ limited │
+# => │ limited.cq.1 │ true    │ {<<"x-queue-type">>,longstr,<<"classic">>}                           │ limited │
 # => ├──────────────┼─────────┼──────────────────────────────────────────────────────────────────────┼─────────┤
-# => │ qq.2         │ true    │ {&lt;&lt;"x-queue-type"&gt;&gt;,longstr,&lt;&lt;"quorum"&gt;&gt;}                            │         │
+# => │ qq.2         │ true    │ {<<"x-queue-type">>,longstr,<<"quorum">>}                            │         │
 # => └──────────────┴─────────┴──────────────────────────────────────────────────────────────────────┴─────────┘
 ```
 

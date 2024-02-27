@@ -263,7 +263,8 @@ class FibonacciRpcClient(object):
                 correlation_id=self.corr_id,
             ),
             body=str(n))
-        self.connection.process_data_events(time_limit=None)
+        while self.response is None:
+            self.connection.process_data_events(time_limit=None)
         return int(self.response)
 
 

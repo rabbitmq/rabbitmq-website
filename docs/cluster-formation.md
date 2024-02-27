@@ -71,7 +71,7 @@ For peer discovery plugins, which must be available on node boot, this means the
 The example below uses [rabbitmq-plugins](./cli)' `--offline` mode:
 
 ```bash
-rabbitmq-plugins --offline enable &lt;plugin name&gt;
+rabbitmq-plugins --offline enable <plugin name>
 ```
 
 A more specific example:
@@ -1031,14 +1031,14 @@ listed in the config. In this case all plugin settings must be moved to the adva
                 {cluster_name,  "default"},
 
                 {etcd_username, "etcd user"},
-                {etcd_password, {encrypted, &lt;&lt;"cPAymwqmMnbPXXRVqVzpxJdrS8mHEKuo2V+3vt1u/fymexD9oztQ2G/oJ4PAaSb2c5N/hRJ2aqP/X0VAfx8xOQ=="&gt;&gt;}
+                {etcd_password, {encrypted, <<"cPAymwqmMnbPXXRVqVzpxJdrS8mHEKuo2V+3vt1u/fymexD9oztQ2G/oJ4PAaSb2c5N/hRJ2aqP/X0VAfx8xOQ==">>}
                 }]
            }]
       }]
  },
 
   {config_entry_decoder, [
-             {passphrase, &lt;&lt;"decryption key passphrase"&gt;&gt;}
+             {passphrase, <<"decryption key passphrase">>}
          ]}
 ].
 ```
@@ -1359,12 +1359,12 @@ will simply merely the inevitable failure of cluster formation.
 Nodes that fail to perform peer discovery will [log](./logging) their remaining recovery attempts:
 
 ```
-2020-06-27 06:35:36.426 [error] &lt;0.277.0&gt; Trying to join discovered peers failed. Will retry after a delay of 500 ms, 4 retries left...
-2020-06-27 06:35:36.928 [warning] &lt;0.277.0&gt; Could not auto-cluster with node rabbit@hostname2: {badrpc,nodedown}
-2020-06-27 06:35:36.930 [warning] &lt;0.277.0&gt; Could not auto-cluster with node rabbit@hostname3: {badrpc,nodedown}
-2020-06-27 06:35:36.930 [error] &lt;0.277.0&gt; Trying to join discovered peers failed. Will retry after a delay of 500 ms, 3 retries left...
-2020-06-27 06:35:37.432 [warning] &lt;0.277.0&gt; Could not auto-cluster with node rabbit@hostname2: {badrpc,nodedown}
-2020-06-27 06:35:37.434 [warning] &lt;0.277.0&gt; Could not auto-cluster with node rabbit@hostname3: {badrpc,nodedown}
+2020-06-27 06:35:36.426 [error] <0.277.0> Trying to join discovered peers failed. Will retry after a delay of 500 ms, 4 retries left...
+2020-06-27 06:35:36.928 [warning] <0.277.0> Could not auto-cluster with node rabbit@hostname2: {badrpc,nodedown}
+2020-06-27 06:35:36.930 [warning] <0.277.0> Could not auto-cluster with node rabbit@hostname3: {badrpc,nodedown}
+2020-06-27 06:35:36.930 [error] <0.277.0> Trying to join discovered peers failed. Will retry after a delay of 500 ms, 3 retries left...
+2020-06-27 06:35:37.432 [warning] <0.277.0> Could not auto-cluster with node rabbit@hostname2: {badrpc,nodedown}
+2020-06-27 06:35:37.434 [warning] <0.277.0> Could not auto-cluster with node rabbit@hostname3: {badrpc,nodedown}
 ```
 
 If a node fails to perform peer discovery and exhausts all retries, [enable debug logging](./logging#debug-logging) is highly recommended for [troubleshooting](#troubleshooting).

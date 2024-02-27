@@ -121,7 +121,7 @@ apt repositories:
        </ul>
      </td>
      <td>
-       <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0">starting with 3.12.0</a></strong>, will be required starting with <code>3.13.0</code>.
+       <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0">starting with 3.12.0</a></strong>, and is required starting with <code>3.13.0</code>.
        See <a href="./which-erlang">Erlang compatibility guide</a>.
      </td>
   </tr>
@@ -178,7 +178,7 @@ All steps covered below are **mandatory** unless otherwise specified.
 
 ### Cloudsmith Quick Start Script {#apt-quick-start-cloudsmith}
 
-Below is shell snippet that performs those steps and assumes that Ubuntu 22.04 is used.
+Below is a shell snippet that performs those steps and assumes that Ubuntu 22.04 is used.
 They are documented in more detail below.
 
 ```bash
@@ -194,7 +194,7 @@ curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/3.0/clouds
 curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key | sudo gpg --dearmor | sudo tee /usr/share/keyrings/rabbitmq.9F4587F226208342.gpg > /dev/null
 
 ## Add apt repositories maintained by Team RabbitMQ
-sudo tee /etc/apt/sources.list.d/rabbitmq.list &lt;&lt;EOF
+sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
 ## Provides modern Erlang/OTP releases
 ##
 deb [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.novemberain.com/rabbitmq/rabbitmq-erlang/deb/ubuntu jammy main
@@ -333,7 +333,7 @@ with the RabbitMQ apt repositories.
 To add the apt repository to the source list directory (under `/etc/apt/sources.list.d`), use:
 
 ```bash
-sudo tee /etc/apt/sources.list.d/rabbitmq.list &lt;&lt;EOF
+sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
 ## Provides modern Erlang/OTP releases from a Cloudsmith mirror
 ##
 deb [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.novemberain.com/rabbitmq/rabbitmq-erlang/deb/ubuntu $distribution main
@@ -359,7 +359,7 @@ where `$distribution` is the name of the Debian or Ubuntu distribution used (see
 For example, on Debian Bullseye and Bookworm it would be
 
 ```bash
-sudo tee /etc/apt/sources.list.d/rabbitmq.list &lt;&lt;EOF
+sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
 ## Provides modern Erlang/OTP releases from a Cloudsmith mirror
 ##
 deb [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.novemberain.com/rabbitmq/rabbitmq-erlang/deb/debian bullseye main
@@ -519,10 +519,10 @@ sudo dpkg -i ${RabbitMQServerPackageFilename({packageType: 'debian'})}
 rm ${RabbitMQServerPackageFilename({packageType: 'debian'})}`}
 </CodeBlock>
 
-Installation via [apt repositories](#apt) is recommended
+Installation via [apt repositories](#apt-cloudsmith) is recommended
 over downloading the package directly and installing via `dpkg -i`. When the RabbitMQ
 package is installed manually with `dpkg -i` the operator is responsible for making sure
-that all [package dependencies](#package-dependencies) are met.
+that all package dependencies are met.
 
 
 ## User Privilege Requirements {#sudo-requirements}

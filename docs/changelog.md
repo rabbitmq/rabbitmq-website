@@ -47,6 +47,37 @@ released separately.
   <!-- releases -->
 
   <tr>
+    <td class="centre">3.13.0</td>
+    <td class="centre">22 February 2024</td>
+    <td>
+      <ul>
+        <li>New schema data store, <a href="https://www.youtube.com/watch?v=huT-zmXvfuM">Khepri</a>, behind a feature flag</li>
+        <li><a href="https://www.rabbitmq.com/blog/2023/07/21/mqtt5">MQTTv5 support</a></li>
+        <li><a href="https://www.rabbitmq.com/blog/2023/10/16/stream-filtering">Server-side stream filtering</a> for streams</li>
+        <li>More non-mirrored <a href="https://www.rabbitmq.com/blog/2024/01/11/3.13-release">classic queues efficiency improvements</a> (CQv2)</li>
+        <li>Support for multiple OAuth 2, OIDC, IDP identity providers at the same time</li>
+        <li>New AMQP 1.0-based <a href="https://github.com/rabbitmq/rabbitmq-server/pull/5077">message container format</a> used internally</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.0">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.12.13</td>
+    <td class="centre">February 16 2024</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.13">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.12.12</td>
     <td class="centre">January 9 2024</td>
     <td>

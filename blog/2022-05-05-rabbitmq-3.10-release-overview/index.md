@@ -53,7 +53,7 @@ CQv2 provides a lower publish confirm latency for the first phase than CQv1, and
 ## Streams
 
 Streams benefit from bug fixes and optimizations.
-They now also support replication over TLS based on the [inter-node TLS configuration](https://rabbitmq.com/clustering-ssl.html).
+They now also support replication over TLS based on the [inter-node TLS configuration](/docs/clustering-ssl).
 
 ## Scope Aliases in OAuth 2
 

@@ -349,14 +349,14 @@ For example, when using the `#'exchange.declare'{}` method to declare a transien
 it is sufficient to only specify a name:
 
 ```erlang
-#'exchange.declare'{exchange = &lt;&lt;"my_exchange"&gt;&gt;}
+#'exchange.declare'{exchange = <<"my_exchange">>}
 ```
 
 The above example is equivalent to this:
 
 ```erlang
-#'exchange.declare'{exchange    = &lt;&lt;"my_exchange"&gt;&gt;,
-                    type        = &lt;&lt;"direct"&gt;&gt;,
+#'exchange.declare'{exchange    = <<"my_exchange">>,
+                    type        = <<"direct">>,
                     passive     = false,
                     durable     = false,
                     auto_delete = false,
@@ -374,14 +374,14 @@ exchanges and queues. The following function creates an exchange
 called my_exchange, which by default, is the direct exchange:
 
 ```erlang
-Declare = #'exchange.declare'{exchange = &lt;&lt;"my_exchange"&gt;&gt;},
+Declare = #'exchange.declare'{exchange = <<"my_exchange">>},
 #'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare)
 ```
 
 Similarly, a [transient](./queues#durability) queue called `my_queue` is created by this code:
 
 ```erlang
-Declare = #'queue.declare'{queue = &lt;&lt;"my_queue"&gt;&gt;},
+Declare = #'queue.declare'{queue = <<"my_queue">>},
 #'queue.declare_ok'{} = amqp_channel:call(Channel, Declare)
 ```
 
@@ -389,7 +389,7 @@ To declare a durable queue:
 
 ```erlang
 Declare = #'queue.declare'{
-  queue = &lt;&lt;"my_queue"&gt;&gt;,
+  queue = <<"my_queue">>,
   durable = true
 },
 #'queue.declare_ok'{} = amqp_channel:call(Channel, Declare)
@@ -435,14 +435,14 @@ Binding = #'queue.unbind'{queue       = Queue,
 An exchange can be deleted by the `#'exchange.delete'{}` command:
 
 ```erlang
-Delete = #'exchange.delete'{exchange = &lt;&lt;"my_exchange"&gt;&gt;},
+Delete = #'exchange.delete'{exchange = <<"my_exchange">>},
 #'exchange.delete_ok'{} = amqp_channel:call(Channel, Delete)
 ```
 
 Similarly, a queue is deleted using the `#'queue.delete'{}` command:
 
 ```erlang
-Delete = #'queue.delete'{queue = &lt;&lt;"my_queue"&gt;&gt;},
+Delete = #'queue.delete'{queue = <<"my_queue">>},
 #'queue.delete_ok'{} = amqp_channel:call(Channel, Delete)
 ```
 
@@ -473,7 +473,7 @@ the `#'basic.publish'{}` method.
 Messages are represented using the `#amqp_msg{}` record:
 
 ```erlang
-Payload = &lt;&lt;"foobar"&gt;&gt;,
+Payload = <<"foobar">>,
 Publish = #'basic.publish'{exchange = X, routing_key = Key},
 amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload})
 ```
@@ -486,7 +486,7 @@ to send persistent messages, the `#amqp_msg{}` needs to
 be constructed accordingly:
 
 ```erlang
-Payload = &lt;&lt;"foobar"&gt;&gt;,
+Payload = <<"foobar">>,
 Publish = #'basic.publish'{exchange = X, routing_key = Key},
 Props = #'P_basic'{delivery_mode = 2}, %% persistent message
 Msg = #amqp_msg{props = Props, payload = Payload},
@@ -704,7 +704,7 @@ Publish = #'basic.publish'{exchange = X, routing_key = SomeKey,
 amqp_channel:call(Channel, Publish, #amqp_msg{payload = Payload}),
 receive
     {BasicReturn, Content} ->
-        #'basic.return'{reply_text = &lt;&lt;"unroutable"&gt;&gt;, exchange = X} = BasicReturn
+        #'basic.return'{reply_text = <<"unroutable">>, exchange = X} = BasicReturn
         %% Do something with the returned message
 end
 ```
@@ -786,8 +786,8 @@ test() ->
         = amqp_channel:call(Channel, #'queue.declare'{}),
 
     %% Publish a message
-    Payload = &lt;&lt;"foobar"&gt;&gt;,
-    Publish = #'basic.publish'{exchange = &lt;&lt;&gt;&gt;, routing_key = Q},
+    Payload = <<"foobar">>,
+    Publish = #'basic.publish'{exchange = <<>>, routing_key = Q},
     amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload}),
 
     %% Poll for a message

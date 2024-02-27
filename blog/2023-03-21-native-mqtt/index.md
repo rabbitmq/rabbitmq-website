@@ -9,7 +9,7 @@ To support MQTT, STOMP, and AMQP 1.0, the broker transparently proxies via its c
 While this is a simple way to extend RabbitMQ with support for more messaging protocols,
 it degrades scalability and performance.
 
-In the last 9 months, we re-wrote the [MQTT plugin](//rabbitmq.com/mqtt.html) to not proxy via AMQP 0.9.1 anymore.
+In the last 9 months, we re-wrote the [MQTT plugin](/docs/mqtt) to not proxy via AMQP 0.9.1 anymore.
 Instead, the MQTT plugin parses MQTT messages and sends them directly to queues.
 This is what we call **Native MQTT**.
 
@@ -27,7 +27,7 @@ Native MQTT ships in RabbitMQ 3.12.
 
 ## Overview
 
-As depicted in Figure 1, up to RabbitMQ 3.11 the MQTT plugin worked by parsing MQTT messages and forwarding them via the AMQP 0.9.1 protocol to the [channel](//rabbitmq.com/channels.html) which in turn routes messages to [queues](//rabbitmq.com/queues.html).
+As depicted in Figure 1, up to RabbitMQ 3.11 the MQTT plugin worked by parsing MQTT messages and forwarding them via the AMQP 0.9.1 protocol to the [channel](/docs/channels) which in turn routes messages to [queues](/docs/queues).
 Each blue dot in Figure 1 represents an [Erlang process](https://www.erlang.org/doc/reference_manual/processes.html#processes).
 A total of 22 Erlang processes are created for each incoming MQTT connection.
 
@@ -42,7 +42,7 @@ Figure 2 shows that Native MQTT requires a single Erlang process per incoming MQ
 
 ![Figure 2: RabbitMQ 3.12 - Native MQTT - 1 Erlang process per MQTT connection](native-mqtt.svg)
 
-That single Erlang process is responsible for parsing MQTT messages, respecting MQTT Keep Alive, performing [authentication and authorization](//rabbitmq.com/access-control.html), and routing messages to queues.
+That single Erlang process is responsible for parsing MQTT messages, respecting MQTT Keep Alive, performing [authentication and authorization](/docs/access-control), and routing messages to queues.
 
 A usual MQTT workload consists of many Internet of Things (IoT) devices sending data periodically to an MQTT broker.
 For example, there could be hundreds of thousands or even millions of devices that each send a status update every few seconds or minutes.
@@ -52,7 +52,7 @@ We learnt in last year's RabbitMQ Summit talk [RabbitMQ Performance Improvements
 However, for 1 million incoming MQTT client connections, it makes a big scalability difference whether RabbitMQ creates 22 million Erlang processes (up to RabbitMQ 3.11) or just 1 million Erlang processes (RabbitMQ 3.12).
 This difference is analysed in sections [Memory Usage](#memory-usage) and [Latency and Throughput](#latency-and-throughput).
 
-Not only was the `rabbitmq_mqtt` plugin re-written, but also the [rabbitmq_web_mqtt](//rabbitmq.com/web-mqtt.html) plugin.
+Not only was the `rabbitmq_mqtt` plugin re-written, but also the [rabbitmq_web_mqtt](/docs/web-mqtt) plugin.
 This means, starting in 3.12, there will also be a single Erlang process per incoming [MQTT over WebSocket](https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718127) connection.
 Therefore, all performance improvements outlined in this blog post also apply to MQTT over WebSockets.
 
@@ -62,7 +62,7 @@ The term "Native MQTT" is not an official term of the MQTT specification.
 ## New MQTT QoS 0 Queue Type
 
 Native MQTT ships with a new RabbitMQ queue type called `rabbit_mqtt_qos0_queue`.
-To have the MQTT plugin create queues of that new queue type, the 3.12 [feature flag](//rabbitmq.com/feature-flags.html) with the same name `rabbit_mqtt_qos0_queue` must be enabled.
+To have the MQTT plugin create queues of that new queue type, the 3.12 [feature flag](/docs/feature-flags) with the same name `rabbit_mqtt_qos0_queue` must be enabled.
 (Remember that feature flags are not meant to be used as a form of cluster configuration.
 After a successful rolling upgrade, you should enable all feature flags.
 Each feature flag will become mandatory in a future RabbitMQ version.)
@@ -101,7 +101,7 @@ The new queue type optimisation works as follows: If
 then, the MQTT plugin will create a queue of type `rabbit_mqtt_qos0_queue` instead of a classic queue.
 
 Figure 4 shows that the new queue type is a "pseudo" queue or "virtual" queue:
-It is very different from the queue types you know (classic queues, [quorum queues](//rabbitmq.com/quorum-queues.html), and [streams](//rabbitmq.com/streams.html)) in the sense that this new queue type is neither a separate Erlang process nor does it store messages on disk.
+It is very different from the queue types you know (classic queues, [quorum queues](/docs/quorum-queues), and [streams](/docs/streams)) in the sense that this new queue type is neither a separate Erlang process nor does it store messages on disk.
 Instead, this queue type is a subset of the Erlang process mailbox.
 MQTT messages are directly sent to the MQTT connection process of the subscribing client.
 In other words, MQTT messages are sent to any "online" MQTT subscribers.
@@ -173,9 +173,9 @@ Note that there can be other messages in the process mailbox (e.g. applications 
 However, these other messages also contribute to the `mqtt.mailbox_soft_limit`.
 
 Setting `mqtt.mailbox_soft_limit` to 0 disables the overload protection mechanism meaning QoS 0 messages are never dropped intentionally by RabbitMQ.
-Setting `mqtt.mailbox_soft_limit` to a very high value decreases the likelihood of intentionally dropping QoS 0 messages while increasing the risk of causing a cluster wide [memory alarm](//rabbitmq.com/memory.html) (especially if the message payloads are large or if there are many overloaded queues of type `rabbit_mqtt_qos0_queue`).
+Setting `mqtt.mailbox_soft_limit` to a very high value decreases the likelihood of intentionally dropping QoS 0 messages while increasing the risk of causing a cluster wide [memory alarm](/docs/memory) (especially if the message payloads are large or if there are many overloaded queues of type `rabbit_mqtt_qos0_queue`).
 
-The `mqtt.mailbox_soft_limit` can be thought of a [queue length limit](//rabbitmq.com/maxlength.html) although not precisely because, as mentioned previously, the Erlang process mailbox can contain other messages than MQTT application messages.
+The `mqtt.mailbox_soft_limit` can be thought of a [queue length limit](/docs/maxlength) although not precisely because, as mentioned previously, the Erlang process mailbox can contain other messages than MQTT application messages.
 This is why the configuration key `mqtt.mailbox_soft_limit` contains the word `soft`.
 The described overload protection mechanism corresponds roughly to overflow behaviour `drop-head` that you already know from classic queues and quorum queues.
 
@@ -183,7 +183,7 @@ The described overload protection mechanism corresponds roughly to overflow beha
 
 Do not rely on the name of this new queue type.
 The name of the feature flag `rabbit_mqtt_qos0_queue` will not change.
-However, we might change the name of queue type `rabbit_mqtt_qos0_queue` in the future in case we decide to reuse part of its design in other RabbitMQ use cases (such as [Direct Reply-to](//rabbitmq.com/direct-reply-to.html)).
+However, we might change the name of queue type `rabbit_mqtt_qos0_queue` in the future in case we decide to reuse part of its design in other RabbitMQ use cases (such as [Direct Reply-to](/docs/direct-reply-to)).
 
 In fact, neither MQTT client applications nor RabbitMQ core (the Erlang application `rabbit`) are aware of the new queue type.
 End users will not be aware of the new queue type either except when listing queues in the Management UI or via `rabbitmqctl`.
@@ -242,7 +242,7 @@ Further tests on development environments show that Native MQTT requires around 
 * 3 million MQTT connections in total
 * 1:1 topology
 * 1.5 million publishers sending QoS 1 messages with 64 bytes of payload every 3 minutes
-* 1.5 million QoS 1 subscribers (i.e. 1.5 million classic queues [version 2](//rabbitmq.com/persistence-conf.html#queue-version))
+* 1.5 million QoS 1 subscribers (i.e. 1.5 million classic queues [version 2](/docs/persistence-conf#queue-version))
 
 PR [#6684](https://github.com/rabbitmq/rabbitmq-server/pull/6684) that shipped in RabbitMQ 3.11.6 substantially reduces memory usage of many classic queues benefitting the use case
 of many MQTT QoS 1 or `CleanSession=0` subscribers.
@@ -404,11 +404,11 @@ The following list contains miscellaneous items that change with Native MQTT in 
 * The MQTT 3.1.1 feature of allowing the [SUBACK](https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718068) packet to include a failure return code (0x80) is implemented.
 * The AMQP 0.9.1 header `x-mqtt-dup` is removed because its usage within the MQTT plugin was wrong up to 3.11. This is a breaking change if your AMQP 0.9.1 clients depend on this header.
 * All queues created by the MQTT plugin are durable. This is done to ease the transition to [Khepri](https://github.com/rabbitmq/khepri) in a future RabbitMQ version.
-* The MQTT plugin creates [exclusive](//rabbitmq.com/queues.html#exclusive-queues) (instead of [auto-delete](/docs/queues#temporary-queues)) queues for clean sessions.
+* The MQTT plugin creates [exclusive](/docs/queues#exclusive-queues) (instead of [auto-delete](/docs/queues#temporary-queues)) queues for clean sessions.
 * MQTT client ID tracking (to terminate an existing MQTT connection if a new client connects with the same client ID) is implemented in [pg](https://www.erlang.org/doc/man/pg.html). The previous [Ra](https://github.com/rabbitmq/ra) cluster that used to track MQTT client IDs is deleted when feature flag `delete_ra_cluster_mqtt_node` gets enabled. The old Ra cluster required a lot of memory and became a bottleneck when disconnecting too many clients at once.
 * Prometheus metrics are implemented using [global counters](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_prometheus/metrics.md#global-counters). The protocol label has the value `mqtt310` or `mqtt311`. An example of such a metric is: `rabbitmq_global_messages_routed_total{protocol="mqtt311"} 10`.
 * The MQTT parser got optimised.
-* MQTT clients that have never published application messages are not blocked during [memory and disk alarms](//rabbitmq.com/alarms.html) such that subscribers can continue emptying queues.
+* MQTT clients that have never published application messages are not blocked during [memory and disk alarms](/docs/alarms) such that subscribers can continue emptying queues.
 
 ## Should I use RabbitMQ as an MQTT broker?
 

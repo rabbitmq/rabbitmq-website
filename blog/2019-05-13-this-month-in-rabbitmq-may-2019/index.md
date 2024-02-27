@@ -13,7 +13,7 @@ Then, on May 23, we’ll be doing an overview of [what’s new in RabbitMQ 3.8](
 ## Project updates
 
 * [RabbitMQ 3.7.15-beta.1](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.15-beta.1) is available for community testing
-* And so is [3.8.0-beta.4](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-beta.4). See [next.rabbitmq.com](http://next.rabbitmq.com/documentation.html) for documentation of 3.8-specific features.
+* And so is [3.8.0-beta.4](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-beta.4).
 * Team RabbitMQ has published an overview of a new [feature flag subsystem](/blog/2019/04/23/simplifying-rolling-upgrades-between-minor-versions-with-feature-flags) shipping in RabbitMQ 3.8. The purpose of this subsystem is to simplify rolling upgrades between releases that have incompatible or potentially incompatible changes.
 * [RabbitMQ Docker image](https://github.com/docker-library/rabbitmq) now ships RabbitMQ 3.7.14 and 3.7.15-beta.1 on latest Erlang and OpenSSL 1.1.1b
 * [Java client 5.7.0](https://groups.google.com/d/msg/rabbitmq-users/-BhkggixlsU/w5P3_geiBAAJ) (for Java 8+) and [4.11.0](https://groups.google.com/d/msg/rabbitmq-users/du44LNT4zRU/OWlPdgCiBAAJ) (for Java 6 &amp; 7) have been released with usability improvements and dependency upgrades.

@@ -1,41 +1,60 @@
 # Website
 
-This website is built using [Docusaurus 3](https://docusaurus.io/), a modern static website generator.
+## Workflow
 
-### Installation
+### Branches
 
+The `main` branch is the production branch. Commits to it are deployed
+automatically to www.rabbitmq.com by a Cloulflare worker.
+
+Older versions of the docs that we don’t want to host in Docusaurus to limit
+the number of versions are put in branches of the form `v3.13.x`, `v4.0.x`,
+etc. These branches are deployed automatically too and they use domain names of
+the form `v3-13.rabbitmq.com`, `v4-0.rabbitmq.com`, etc. respectively.
+
+`v3.12.x` is a bit special in the sense that it is using the old static website
+generator. This one is deployed by GitHub Actions to a Cloudflare worker.
+
+### How to build
+
+This website is built using [Docusaurus 3](https://docusaurus.io/), a modern
+static website generator.
+
+#### Installation
+
+You need to install JS components used by Docusaurus first:
+
+``` shell
+npm install
 ```
-$ yarn
-```
+
+You need to de this once only.
 
 ### Local Development
 
-```
-$ yarn start
+The following command starts a local development server and opens up a default browser
+window. Most changes are reflected live without having to restart the server.
+
+``` shell
+npm start
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+To use a different browser, for example, Brave Beta, set the `BROWSER` env variable
+when running `npm start`:
+
+``` shell
+BROWSER="Brave Beta" npm start
+```
 
 ### Build
 
-```
-$ yarn build
-```
+The following command generates static content into the `build` directory and
+can be served using any static contents hosting service.
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-### Deployment
-
-Using SSH:
-
-```
-$ USE_SSH=true yarn deploy
+``` shell
+npm run build
 ```
 
-Not using SSH:
-
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+This is important to run this command before pushing changes to GitHub to make
+sure the build is successful. This is the command that will be used to deploy
+the website in production.

@@ -357,7 +357,7 @@ Documentation guides such as [Networking](./networking), [TLS](./ssl), or
 
 Note that this configuration file is not to be confused with the environment variable
 configuration files, [rabbitmq-env.conf](#environment-env-file-unix)
-and [rabbitmq-env-conf.bat](#environment-env-file-windows).
+and [rabbitmq-env-conf.bat](#rabbitmq-env-file-windows).
 
 To override the main RabbitMQ config file location, use the `RABBITMQ_CONFIG_FILE`
 (or `RABBITMQ_CONFIG_FILES` to use a `conf.d`-style directory of sorted files) [environment variables](#customise-environment).
@@ -1541,14 +1541,14 @@ for the default user:
 ```erlang
 [
   {rabbit, [
-      {default_user, &lt;&lt;"guest"&gt;&gt;},
+      {default_user, <<"guest">>},
       {default_pass,
         {encrypted,
-         &lt;&lt;"cPAymwqmMnbPXXRVqVzpxJdrS8mHEKuo2V+3vt1u/fymexD9oztQ2G/oJ4PAaSb2c5N/hRJ2aqP/X0VAfx8xOQ=="&gt;&gt;
+         <<"cPAymwqmMnbPXXRVqVzpxJdrS8mHEKuo2V+3vt1u/fymexD9oztQ2G/oJ4PAaSb2c5N/hRJ2aqP/X0VAfx8xOQ==">>
         }
       },
       {config_entry_decoder, [
-             {passphrase, &lt;&lt;"mypassphrase"&gt;&gt;}
+             {passphrase, <<"mypassphrase">>}
          ]}
     ]}
 ].
@@ -1578,41 +1578,41 @@ Use [rabbitmqctl](./cli) and the `encode`
 command to encrypt values:
 
 ```bash
-rabbitmqctl encode '&lt;&lt;"guest"&gt;&gt;' mypassphrase
-{encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
+rabbitmqctl encode '<<"guest">>' mypassphrase
+{encrypted,<<"... long encrypted value...">>}
 rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
-{encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
+{encrypted,<<"... long encrypted value...">>}
 ```
 
 Or, on Windows:
 
 ```powershell
-rabbitmqctl encode "&lt;&lt;""guest""&gt;&gt;" mypassphrase
-{encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
+rabbitmqctl encode "<<""guest"">>" mypassphrase
+{encrypted,<<"... long encrypted value...">>}
 rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
-{encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
+{encrypted,<<"... long encrypted value...">>}
 ```
 
 Add the `decode` command if you want to decrypt values:
 
 ```bash
-rabbitmqctl decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
-&lt;&lt;"guest"&gt;&gt;
-rabbitmqctl decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
+rabbitmqctl decode '{encrypted, <<"...">>}' mypassphrase
+<<"guest">>
+rabbitmqctl decode '{encrypted, <<"...">>}' mypassphrase
 "amqp://fred:secret@host1.domain/my_vhost"
 ```
 
 Or, on Windows:
 
 ```powershell
-rabbitmqctl decode "{encrypted, &lt;&lt;""...""&gt;&gt;}" mypassphrase
-&lt;&lt;"guest"&gt;&gt;
-rabbitmqctl decode "{encrypted, &lt;&lt;""...""&gt;&gt;}" mypassphrase
+rabbitmqctl decode "{encrypted, <<""..."">>}" mypassphrase
+<<"guest">>
+rabbitmqctl decode "{encrypted, <<""..."">>}" mypassphrase
 "amqp://fred:secret@host1.domain/my_vhost"
 ```
 
 Values of different types can be encoded. The example above encodes
-both binaries (`&lt;&lt;"guest"&gt;&gt;`) and strings
+both binaries (`<<"guest">>`) and strings
 (`"amqp://fred:secret@host1.domain/my_vhost"`).
 
 The encryption mechanism uses PBKDF2 to produce a derived key
@@ -1640,14 +1640,14 @@ Or using [CLI tools](./cli):
 
 ```bash
 rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
-                     '&lt;&lt;"guest"&gt;&gt;' mypassphrase
+                     '<<"guest">>' mypassphrase
 ```
 
 Or, on Windows:
 
 ```powershell
 rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
-                     "&lt;&lt;""guest""&gt;&gt;" mypassphrase
+                     "<<""guest"">>" mypassphrase
 ```
 
 
@@ -1736,12 +1736,12 @@ This will restart the node in a way that makes the environment variable and
 
 All environment variables used by RabbitMQ use the
 prefix `RABBITMQ_` (except when defined in [rabbitmq-env.conf](#environment-env-file-unix) or
-[rabbitmq-env-conf.bat](#environment-env-file-windows)).
+[rabbitmq-env-conf.bat](#rabbitmq-env-file-windows)).
 
 Environment variables set in the shell environment take
 priority over those set
 in [rabbitmq-env.conf](#environment-env-file-unix) or
-[rabbitmq-env-conf.bat](#environment-env-file-windows), which in turn override
+[rabbitmq-env-conf.bat](#rabbitmq-env-file-windows), which in turn override
 RabbitMQ built-in defaults.
 
 The table below describes key environment variables that can be used to configure RabbitMQ.

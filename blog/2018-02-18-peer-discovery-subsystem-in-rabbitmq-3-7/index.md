@@ -5,7 +5,7 @@ authors: [mklishin]
 ---
 
 In this blog post we're going to take a closer look at a new
-subsystem introduced in [RabbitMQ 3.7.0](http:/docs/changelog).
+subsystem introduced in [RabbitMQ 3.7.0](/docs/changelog).
 
 <!-- truncate -->
 
@@ -49,7 +49,7 @@ main ideas into the core with some modifications influenced by our
 experience supporting production RabbitMQ installations and community
 feedback.
 
-The result is a new [peer discovery subsystem](http:/docs/cluster-formation).
+The result is a new [peer discovery subsystem](/docs/cluster-formation).
 
 ## How Does it Work?
 
@@ -81,12 +81,12 @@ let's focus on the new features.
 
 Some mechanisms use a data store to keep track of node list.
 Newly joined cluster members update the data store to indicate their presence.
-[etcd](http:/docs/cluster-formation#peer-discovery-etcd)
-and [Consul](http:/docs/cluster-formation#peer-discovery-consul) are two options supported via
+[etcd](/docs/cluster-formation#peer-discovery-etcd)
+and [Consul](/docs/cluster-formation#peer-discovery-consul) are two options supported via
 plugins that ship with RabbitMQ.
 
 With other mechanisms cluster membership is managed out-of-band (by a mechanism that
-RabbitMQ nodes cannot control). For example, the [AWS mechanism](http:/docs/cluster-formation#peer-discovery-aws) uses EC2 instance
+RabbitMQ nodes cannot control). For example, the [AWS mechanism](/docs/cluster-formation#peer-discovery-aws) uses EC2 instance
 filtering or autoscaling group membership, both of which are managed and updated
 by AWS.
 
@@ -129,7 +129,7 @@ the same for both.
 
 To use instance filtering, the plugin requires an AWS region to be configured
 as well as a pair of credentials. Sensitive configuration file values
-[can be encrypted](http:/docs/configure#configuration-encryption).
+[can be encrypted](/docs/configure#configuration-encryption).
 
 Here's a config file example that does both:
 
@@ -231,8 +231,8 @@ its peer, it will continue retrying for a period of time.
 
 Peer discovery was introduced to solve a narrow set of problems. It does not
 change how RabbitMQ clusters operate once formed. Even though some mechanisms
-introduce [additional features](http:/docs/cluster-formation#node-health-checks-and-cleanup),
-some problems ([shared secret distribution](http:/docs/clustering#erlang-cookie) and [monitoring](http:/docs/monitoring), for example)
+introduce [additional features](/docs/cluster-formation#node-health-checks-and-cleanup),
+some problems ([shared secret distribution](/docs/clustering#erlang-cookie) and [monitoring](/docs/monitoring), for example)
 should be solved by different tools.
 
 Peer discovery is also performed by blank (uninitialised) nodes. If a
@@ -247,7 +247,7 @@ Reasoning about an automated cluster formation system that also
 uses a peer discovery mechanism that has external dependencies
 (e.g. AWS APIs or etcd) can be tricky. For this reason all peer
 discovery implementations log key decisions and most log all external
-requests at `debug` log level. When in doubt, [enable debug logging](http:/docs/logging)
+requests at `debug` log level. When in doubt, [enable debug logging](/docs/logging)
 and take a look at node logs!
 
 And keep in mind what's covered in the above section on when
@@ -269,7 +269,7 @@ config file. While this feature was retained to simplify migration,
 it should be considered deprecated by the peer discovery subsystem
 in 3.7.0.
 
-Peer discovery in the core uses the [new configuration file format](http:/docs/configure)
+Peer discovery in the core uses the [new configuration file format](/docs/configure)
 heavily. `rabbitmq-autocluster` does not support that format since it
 now is effectively a 3.6.x-only plugin.
 

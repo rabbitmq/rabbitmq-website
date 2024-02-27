@@ -255,7 +255,7 @@ Different commands take different arguments. Some are named options such as `--n
 others are positional arguments, such as the username and password arguments in
 
 ```bash
-rabbitmqctl add_user &lt;username&gt; &lt;password&gt;
+rabbitmqctl add_user <username> <password>
 ```
 
 A specific example:
@@ -441,7 +441,7 @@ such as "Connection attempt from disallowed node", "", "Could not auto-cluster".
 For example, when a CLI tool connects and tries to authenticate using a mismatching secret value:
 
 ```
-2020-06-15 13:03:33 [error] &lt;0.1187.0&gt; ** Connection attempt from node 'rabbitmqcli-99391-rabbit@warp10' rejected. Invalid challenge reply. **
+2020-06-15 13:03:33 [error] <0.1187.0> ** Connection attempt from node 'rabbitmqcli-99391-rabbit@warp10' rejected. Invalid challenge reply. **
 ```
 
 When a CLI tool such as `rabbitmqctl` fails to authenticate with RabbitMQ,
@@ -649,7 +649,7 @@ A RabbitMQ plugin can provide CLI commands that will be discovered by tools such
 `rabbitmq-queues`, `rabbitmqctl`, and others. For plugin commands to be discoverable, the plugin
 **must be explicitly enabled**.
 
-When performing command discovery, CLI tools will consult the [Enabled Plugins File](#enabled-plugins-file) to determine
+When performing command discovery, CLI tools will consult the [Enabled Plugins File](./plugins#enabled-plugins-file) to determine
 what plugins to scan for commands. If a plugin is not included into that file, e.g. because it was enabled implicitly as
 a dependency, it won't be listed in the enabled plugins file and thus its CLI commands **will not be discovered**
 and will not be available.

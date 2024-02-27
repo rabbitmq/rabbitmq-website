@@ -170,10 +170,10 @@ $ vi rabbitmq.config
      {oauth_provider_url, "https://login.microsoftonline.com/AZURE_AD_TENANT_ID"}
  ]},
  {rabbitmq_auth_backend_oauth2, [
-   {resource_server_id, &lt;&lt;"PUT YOUR AZURE AD APPLICATION ID"&gt;&gt;},
-   {extra_scopes_source, &lt;&lt;"roles"&gt;&gt;},
+   {resource_server_id, <<"PUT YOUR AZURE AD APPLICATION ID">>},
+   {extra_scopes_source, <<"roles">>},
    {key_config, [
-     {jwks_url, &lt;&lt;"PUT YOUR AZURE AD JWKS URI VALUE"&gt;&gt;}
+     {jwks_url, <<"PUT YOUR AZURE AD JWKS URI VALUE">>}
    ]}
  ]}
 ].

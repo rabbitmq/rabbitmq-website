@@ -915,7 +915,7 @@ Note that the values are of different Erlang types;
 values (e.g. `resource` could be
 `exchange`) while the other keys have binary
 values (e.g. `name` might be
-`&lt;&lt;"amq.fanout"&gt;&gt;`).
+`<<"amq.fanout">>`).
 
 Example:
 

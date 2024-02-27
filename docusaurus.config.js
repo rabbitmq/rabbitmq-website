@@ -44,14 +44,15 @@ const config = {
         // RabbitMQ releases per version declared in Docusaurus ('Next' for the
         // future docs).
         'Next': {
-          version: '3.13.0-rc.3',
+          version: '3.13.0',
           // package_revs: {
           //   'debian': '1',
           //   'rpm-el8': '1',
           //   'rpm-suse': '1',
           // }
         },
-        '3.12': { version: '3.12.12' },
+        '3.13': { version: '3.13.0' },
+        '3.12': { version: '3.12.13' },
         '3.11': { version: '3.11.28' },
         '3.10': { version: '3.10.25' },
       },
@@ -68,6 +69,14 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          // Pretend that the current/latest is 3.13.x. This should be
+          // commentted out as soon as we want to publish docs for the next
+          // branch (and 3.13.x docs should be branched).
+          versions: {
+            current: {
+              label: '3.13', // "Next" by default.
+            },
+          },
           sidebarPath: './sidebarsDocs.js',
 
           // Please change this to your repo.
@@ -140,7 +149,7 @@ const config = {
               {type: 'html', value: '<strong>Supported</strong>'},
             ],
             dropdownItemsAfter: [
-              {href: 'https://www.rabbitmq.com/documentation.html', label: '3.12'},
+              {href: 'https://v3-12.rabbitmq.com/documentation.html', label: '3.12'},
               {to: '/docs/versions', label: 'Release information'},
               //{type: 'html', value: '<strong>Unsupported</strong>'},
             ],
@@ -250,12 +259,12 @@ const config = {
       },
       algolia: {
         // The application ID provided by Algolia
-        appId: '8E582XRSTF',
+        appId: 'H10VQIW16Y',
 
         // Public API key: it is safe to commit it
-        apiKey: '4d18eb1048c0b8097b18934507a9e13f',
+        apiKey: 'f23e8af89d899070974a643428531141',
 
-        indexName: 'rabbitmq-webpages',
+        indexName: 'rabbitmq.com',
 
         // Optional: see doc section below
         contextualSearch: true,

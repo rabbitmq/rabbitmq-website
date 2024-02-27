@@ -67,9 +67,9 @@ messages).
 
 ## Compatibility considerations
 
-The RabbitMQ documentation has a dedicated page on [Quorum Queues](https://rabbitmq.com/quorum-queues.html).
+The RabbitMQ documentation has a dedicated page on [Quorum Queues](/docs/quorum-queues).
 Specifically in this document there is a
-[feature matrix](https://rabbitmq.com/quorum-queues.html#feature-matrix) which provides a
+[feature matrix](/docs/quorum-queues#feature-matrix) which provides a
 list with all differences between Mirrored Classic Queues and Mirrored
 Queues. These differences can require a different amount of work for a
 successful migration. Some of [them](#trivial-changes) can be trivial
@@ -161,7 +161,7 @@ policy, so no policy changes are involved.
 ### Overflow dead lettering
 
 Overflow mode
-[`reject-publish-dlx`](https://rabbitmq.com/maxlength.html#overflow-behaviour) is not
+[`reject-publish-dlx`](/docs/maxlength#overflow-behaviour) is not
 supported by quorum queues. The code needs to be updated to use
 publisher confirms and to do dead lettering by itself.
 
@@ -172,7 +172,7 @@ searched for in the source code.
 ### Global QoS for consumers
 
 [Global QoS for
-consumers](https://rabbitmq.com/quorum-queues.html#global-qos) is not
+consumers](/docs/quorum-queues#global-qos) is not
 supported for quorum queues. A decision needs to be made about how
 necessary results can be achieved using alternative means, e.g. by
 using a lower per-consumer QoS that can give approximately the same
@@ -219,7 +219,7 @@ code completely, or move them to a policy instead.
 ### Lazy queues
 
 Classic queue can optionally operate in [lazy
-mode](https://rabbitmq.com/lazy-queues.html#overview), but for quorum
+mode](/docs/lazy-queues#overview), but for quorum
 queues this is the only way of operation. The best way to handle this
 for migration is to move `x-queue-mode` from source code to a policy.
 
@@ -250,9 +250,9 @@ an explicit `x-queue-type: quorum` argument.
 ## Migrate the Queues by Virtual Host {#new-vhost-migration}
 
 The procedure to migrate from classic mirrored queues to quorum queues
-is similar to a [blue-green cluster upgrade](https://rabbitmq.com/blue-green-upgrade.html),
+is similar to a [blue-green cluster upgrade](/docs/blue-green-upgrade),
 except that migration can happen to a new virtual host on the same
-RabbitMQ cluster. [Federation Plugin](https://rabbitmq.com/federation.html) is then being
+RabbitMQ cluster. [Federation Plugin](/docs/federation) is then being
 used to seamlessly migrate from the old to the new one.
 
 One important aspect of this migration path is that it's possible to

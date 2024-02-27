@@ -89,7 +89,7 @@ Start a RabbitMQ 3.13 (in development at the time of writing) node:
 ```shell
 docker run -it --rm --name rabbitmq -p 5552:5552 \
     -e RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS='-rabbitmq_stream advertised_host localhost' \
-    rabbitmq:3.13.0-rc.2-management
+    rabbitmq:3.13
 ```
 
 Enable the stream plugin:

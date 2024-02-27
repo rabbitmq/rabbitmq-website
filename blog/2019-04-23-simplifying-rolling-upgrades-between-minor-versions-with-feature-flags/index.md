@@ -4,7 +4,7 @@ tags: ["New Features", ]
 authors: [jpedron]
 ---
 
-In this post we will cover **[feature flags](https://next.rabbitmq.com/feature-flags.html)**, a new subsystem in RabbitMQ 3.8. Feature flags will allow a rolling cluster upgrade to the next minor version, without requiring all nodes to be stopped before upgrading.
+In this post we will cover **[feature flags](/docs/feature-flags)**, a new subsystem in RabbitMQ 3.8. Feature flags will allow a rolling cluster upgrade to the next minor version, without requiring all nodes to be stopped before upgrading.
 
 <!-- truncate -->
 
@@ -12,7 +12,7 @@ In this post we will cover **[feature flags](https://next.rabbitmq.com/feature-f
 
 It you had to upgrade a cluster from RabbitMQ 3.6.x to 3.7.x, you probably had to use one of the following solutions:
 
-* Deploy a new cluster alongside the existing one (this strategy is known as the [blue-green deployment](http:/docs/blue-green-upgrade)), then migrate data & clients to the new cluster
+* Deploy a new cluster alongside the existing one (this strategy is known as the [blue-green deployment](/docs/blue-green-upgrade)), then migrate data & clients to the new cluster
 * Stop all nodes in the existing cluster, upgrade the last node that was stopped first, then continue upgrading all other nodes, one-by-one
 
 Blue-green deployment strategy is low risk but also fairly complex to automate. On the other hand, a cluster-wide shutdown affects availability. Feature flags are meant to provide a 3rd option by making rolling cluster upgrades possible and reasonably easy to automate.
@@ -21,7 +21,7 @@ Blue-green deployment strategy is low risk but also fairly complex to automate. 
 
 Feature flags indicate a RabbitMQ node's capabilities to its cluster peers. Previously nodes used versions to assess compatibility with cluster versions. There are many ways in which nodes in a distributed system can become incompatible, including Erlang and dependency versions. Many of those aspects are not reflected in a set of version numbers. Feature flags is a better approach as it can reflect more capabilities of a node, whether it is a particular feature or internal communication protocol revision. In fact, with some message protocols RabbitMQ supports clients have a mechanism for clients to indicate their capabilities. This allows client libraries to evolve and be upgraded independently of RabbitMQ nodes.
 
-For example, RabbitMQ 3.8.0 introduces a new queue type, [quorum queues](https://next.rabbitmq.com/quorum-queues.html). To implement them, an internal data structure and a database schema were modified. This impacts the communication with other nodes because the data structure is exchanged between nodes, and internal data store schema is replicated to all nodes.
+For example, RabbitMQ 3.8.0 introduces a new queue type, [quorum queues](/docs/quorum-queues). To implement them, an internal data structure and a database schema were modified. This impacts the communication with other nodes because the data structure is exchanged between nodes, and internal data store schema is replicated to all nodes.
 
 Without the feature flags subsystem, it would be impossible to have a RabbitMQ 3.8.0 node inside a cluster where other nodes are running RabbitMQ 3.7.x. Indeed, the 3.7.x nodes would be unable to understand the data structure or the database schema from 3.8.0 node. The opposite is also true. That's why RabbitMQ today prevents this from happening by comparing versions and by denying clustering when versions are considered incompatible (the policy considers different minor/major versions to be incompatible).
 
@@ -67,7 +67,7 @@ Now, we can declare a quorum queue:
 
 ## To Learn More
 
-The [Feature Flags subsystem documentation](https://next.rabbitmq.com/feature-flags.html) describes in greater details how it works and what operators and plugin developers should pay attention to.
+The [Feature Flags subsystem documentation](/docs/feature-flags) describes in greater details how it works and what operators and plugin developers should pay attention to.
 
 Note that feature flags are not a guarantee that a cluster shutdown will never be required for upgrades in the future: the ability to implement a change using a feature flag depends on the nature of the change, and is decided on a case-by-case basis. Correct behaviour of a distributed system may require that all of its components behave in a certain way, and sometimes that means that they have to be upgraded in lockstep.
 

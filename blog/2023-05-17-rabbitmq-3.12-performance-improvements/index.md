@@ -28,7 +28,7 @@ but also make sure to test your system [using PerfTest](https://rabbitmq.github.
 
 ### Classic Queues: Massively Improved Classic Queues v2 (CQv2)
 
-Since RabbitMQ 3.10, we have had [two implementation of classic queues](https://rabbitmq.com/persistence-conf.html#queue-version): the original
+Since RabbitMQ 3.10, we have had [two implementation of classic queues](/docs/persistence-conf#queue-version): the original
 one (CQv1) and a new one (CQv2). The difference between them is mostly around on-disk storage.
 
 Most users still use CQv1, but starting with 3.12 we highly recommend switching to,
@@ -189,7 +189,7 @@ Therefore, the results are mixed, but version 2 is so efficient that even withou
 ![Mirrored queues: 3.11 lazy and non-lazy vs 3.12 v2; 1kb messages](mirrored-3.11-vs-3.12.png)
 
 You can see whether version 2 works better for you but more importantly, please [start migrating to quorum queues](https://blog.rabbitmq.com/blog/2023/03/21/quorum-queues-migration)
-and [streams](https://rabbitmq.com/streams.html) ASAP.
+and [streams](/docs/streams) ASAP.
 
 ### Quorum Queues
 
@@ -216,7 +216,7 @@ roll-over) will be observable as a latency spike.
 #### Consumption Throughput
 
 Consuming messages from quorum queues is also much faster than it used to be. In particular, consuming messages from a very long queue can up to 10 times faster in our tests.
-Queues are still meant to be kept relatively short (you can use [streams](https://rabbitmq.com/streams.html) if you need to store a lot of messages),
+Queues are still meant to be kept relatively short (you can use [streams](/docs/streams) if you need to store a lot of messages),
 but with these improvements, quorum queues should cope well with all kinds of message backlogs.
 
 Take a look at the third test on the last panel (Messages consumed / s). 3.12 starts at over 15k messages/s and gets even faster as the queue
@@ -229,7 +229,7 @@ A more likely scenario is a situation where the consumers were unavailable for s
 ![Quorum queues: 3.11 vs 3.12)](qq-3.11-vs-3.12-consumption.png)
 
 In the first phase of each test, consumers are off and a backlog of messages is created. Then the consumers start. In the first test 10 of them,
-in the second test 50, but only one is active (as a [Single Active Consumer](https://rabbitmq.com/consumers.html#single-active-consumer)).
+in the second test 50, but only one is active (as a [Single Active Consumer](/docs/consumers#single-active-consumer)).
 In both cases, 3.12 offers a significantly higher consumption
 rate and the queue is drained much more quickly. In the case of 3.11, we can see that it gets progressively faster as the queue backlog gets shorter.
 
@@ -255,7 +255,7 @@ even on nodes with many queues.
 
 RabbitMQ 3.12 should improve the performance for virtually all users, often significantly. As always, we wholeheartedly recommend
 testing release candidates and new versions before you upgrade. We are also always interested in learning how people use RabbitMQ
-in [GitHub Discussions](https://github.com/rabbitmq/rabbitmq-server/discussions) and our [community Discord server](https://rabbitmq.com/discord/).
+in [GitHub Discussions](https://github.com/rabbitmq/rabbitmq-server/discussions) and our [community Discord server](https://www.rabbitmq.com/discord/).
 
 If you can share information about your workload, [ideally as a perf-test command](https://perftest.rabbitmq.com/), it will help
 us make RabbitMQ better for you.

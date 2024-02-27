@@ -41,7 +41,7 @@ using the Java client:
 
 ```java
 Channel ch = ...;
-Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+Map<String, Object> args = new HashMap<String, Object>();
 args.put("x-max-priority", 10);
 ch.queueDeclare("my-priority-queue", true, false, false, args);
 ```

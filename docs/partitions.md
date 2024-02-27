@@ -47,7 +47,7 @@ determine that a partition has occurred. This will be written to
 the RabbitMQ log in a form like:
 
 ```
-2020-05-18 06:55:37.324 [error] &lt;0.341.0&gt; Mnesia(rabbit@warp10): ** ERROR ** mnesia_event got {inconsistent_database, running_partitioned_network, rabbit@hostname2}
+2020-05-18 06:55:37.324 [error] <0.341.0> Mnesia(rabbit@warp10): ** ERROR ** mnesia_event got {inconsistent_database, running_partitioned_network, rabbit@hostname2}
 ```
 
 Partition presence can be identified via server [logs](./logging),

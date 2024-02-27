@@ -84,7 +84,7 @@ the same virtual host:
 ```java
 channel.exchangeDeclare("some.exchange.name", "direct");
 
-Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+Map<String, Object> args = new HashMap<String, Object>();
 args.put("x-dead-letter-exchange", "some.exchange.name");
 channel.queueDeclare("myqueue", false, false, false, args);
 ```

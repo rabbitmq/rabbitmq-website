@@ -442,7 +442,7 @@ channel.basicPublish(exchangeName, routingKey,
 This example publishes a message with custom headers:
 
 ```java
-Map&lt;String, Object&gt; headers = new HashMap&lt;String, Object&gt;();
+Map<String, Object> headers = new HashMap<String, Object>();
 headers.put("latitude",  51.5252949);
 headers.put("longitude", -0.0905493);
 

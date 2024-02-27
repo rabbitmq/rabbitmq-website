@@ -14,10 +14,10 @@ This post also introduces two other [RabbitMQ 3.10](https://github.com/rabbitmq/
 ## Overview
 
 Some messages stored in RabbitMQ queues will expire or be negatively acknowledged by consumers.
-Instead of silently dropping them, RabbitMQ can be configured to ["dead letter"](//rabbitmq.com/dlx.html#overview) them instead,
+Instead of silently dropping them, RabbitMQ can be configured to ["dead letter"](/docs/dlx#overview) them instead,
 that is to republish those messages to a special-purpose exchange.
 
-Prior to RabbitMQ 3.10 dead lettering has not been [safe](//rabbitmq.com/dlx.html#safety).
+Prior to RabbitMQ 3.10 dead lettering has not been [safe](/docs/dlx#safety).
 Messages that get dead lettered from a queue (the "source queue") are not guaranteed to be delivered to the queues routed to by the
 exchange configured in the `dead-letter-exchange` policy (henceforth the "target queues").
 
@@ -33,7 +33,7 @@ is set to `reject-publish` rejecting any incoming messages.
 * The dead letter routing topology is not configured correctly. For example, the configured `dead-letter-exchange` does not exist or no target queue is bound
 to the `dead-letter-exchange`.
 
-RabbitMQ 3.10 introduces a new feature called ["at-least-once" dead lettering](//rabbitmq.com/quorum-queues.html#dead-lettering).
+RabbitMQ 3.10 introduces a new feature called ["at-least-once" dead lettering](/docs/quorum-queues#dead-lettering).
 It is an opt-in feature available for source queues being quorum queues.
 This new feature ensures that all messages dead lettered in the source quorum queue will arrive at the target queues (classic queue, quorum queue, or stream) eventually
 even in the scenarios described above where messages would have been lost with the "at-most-once" strategy.

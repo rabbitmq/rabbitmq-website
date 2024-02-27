@@ -57,17 +57,17 @@ on behalf of the consumer.
 > First, install amqp using `go get`:
 >
 > ```go
+> go mod init <your-module-name>
 > go get github.com/rabbitmq/amqp091-go
 > ```
 
-Now we have amqp installed, we can write some
-code.
+Now we have amqp installed, we can write some code.
 
 ### Sending
 
 <T1DiagramSending/>
 
-We'll call our message publisher (sender) `send.go` and our message consumer (receiver)
+We'll call our message publisher (sender) `send.go` and our message consumer
 `receive.go`.  The publisher will connect to RabbitMQ, send a single message,
 then exit.
 
@@ -98,12 +98,14 @@ func failOnError(err error, msg string) {
 }
 ```
 
-then connect to RabbitMQ server
+then create the main function and connect to RabbitMQ server
 
 ```go
-conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
-failOnError(err, "Failed to connect to RabbitMQ")
-defer conn.Close()
+func main() {
+  conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+  failOnError(err, "Failed to connect to RabbitMQ")
+  defer conn.Close()
+}
 ```
 
 The connection abstracts the socket connection, and takes care of
@@ -191,6 +193,9 @@ func failOnError(err error, msg string) {
   }
 }
 ```
+
+Create a new directory for the consumer app, like `receiver/receive.go,
+to avoid a [duplicate declaration](https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#DuplicateDecl).
 
 Setting up is the same as the publisher; we open a connection and a
 channel, and declare the queue from which we're going to consume.

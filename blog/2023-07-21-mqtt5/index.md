@@ -28,7 +28,7 @@ As shown in the following table, the latest MQTT protocol version is 5.0.
 | --- | --- | --- | --- |
 | [3.1](https://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) | 3 | 2010 | 2012 (3.0) |
 | [3.1.1](https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html) | 4 | 2014 | 2014 (3.3) |
-| [5.0](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html) | [5](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901037) | 2019 | 2023 (3.13) |
+| [5.0](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html) | [5](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901037) | 2019 | 2024 (3.13) |
 
 It is worth mentioning that there is a difference between the user facing protocol version and the "internal" protocol version (also known as the protocol level).
 The latter is sent from client to server in the [CONNECT](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901033) packet.
@@ -42,12 +42,11 @@ Since you find great MQTT 5.0 resources including illustrative diagrams and usag
 This section explains the most significant features implemented in PR [#7263](https://github.com/rabbitmq/rabbitmq-server/pull/7263).
 For each feature, we provide an example how it is used with RabbitMQ or outline a high level description of how it is implemented in RabbitMQ.
 
-To run the examples by yourself, start RabbitMQ server 3.13.
-RabbitMQ 3.13.0 is planned to be released by the end of 2023.
-3.13 beta versions are already available today, for example via docker image [rabbitmq:3.13-rc](https://hub.docker.com/layers/library/rabbitmq/3.13-rc/images/sha256-c2832869fa26b49d36c5f6c6e2ddf7c6fb85d90d61168cadd4f32a84f846fa9d?context=explore).
-At the time of writing the latest version is `3.13.0-beta.2`:
+To run the examples by yourself, start RabbitMQ server 3.13,
+for example, using [this Docker image tag](https://hub.docker.com/layers/library/rabbitmq/3.13.0-management/images/sha256-ba26f50715029bb709cbe8831cfd07a5473da00557a0720269fa69c1fb66c6d6?context=explore):
+
 ```bash
-docker run -it --rm --name rabbitmq -p 1883:1883 -p 15672:15672 -p 15692:15692 rabbitmq:3.13.0-beta.2-management
+docker run -it --rm --name rabbitmq -p 1883:1883 -p 15672:15672 -p 15692:15692 rabbitmq:3.13.0-management
 ```
 
 In another terminal window, enable the [MQTT plugin](/docs/mqtt):
@@ -55,7 +54,7 @@ In another terminal window, enable the [MQTT plugin](/docs/mqtt):
 docker exec rabbitmq rabbitmq-plugins enable rabbitmq_mqtt
 ```
 
-Since the MQTT plugin got enabled dynamically, [feature flags defined by the MQTT plugin](//next.rabbitmq.com/feature-flags.html#rabbitmq_mqtt-feature-flags) are disabled.
+Since the MQTT plugin got enabled dynamically, [feature flags defined by the MQTT plugin](/docs/feature-flags#rabbitmq_mqtt-feature-flags) are disabled.
 Enable all feature flags including feature flag `mqtt_v5`:
 ```bash
 docker exec rabbitmq rabbitmqctl enable_feature_flag all
@@ -71,20 +70,20 @@ We use a CLI rather than a graphical UI so that you can easily run the examples 
 All new features also apply to the [RabbitMQ Web MQTT Plugin](/docs/web-mqtt).
 
 Here is the list of MQTT 5.0 features covered in this blog post:
-* [Feature 1: Message Expiry](#feature-1-message-expiryhttpsdocsoasis-openorgmqttmqttv50osmqtt-v50-oshtml_toc3901112)
-* [Feature 2: Subscription Identifier](#feature-2-subscription-identifierhttpsdocsoasis-openorgmqttmqttv50osmqtt-v50-oshtml_toc3901166)
-* [Feature 3: Subscription Options](#feature-3-subscription-optionshttpsdocsoasis-openorgmqttmqttv50osmqtt-v50-oshtml_toc3901169)
+* [Feature 1: Message Expiry](#feature-1-message-expiry)
+* [Feature 2: Subscription Identifier](#feature-2-subscription-identifier)
+* [Feature 3: Subscription Options](#feature-3-subscription-options)
 * [Feature 4: Reason code on all ACKs](#feature-4-reason-code-on-all-acks)
 * [Feature 5: User properties](#feature-5-user-properties)
-* [Feature 6: Payload Format and Content Type](#feature-6-payload-formathttpsdocsoasis-openorgmqttmqttv50osmqtt-v50-oshtml_toc3901111-and-content-typehttpsdocsoasis-openorgmqttmqttv50osmqtt-v50-oshtml_toc3901118)
-* [Feature 7: Request / Response](#feature-7-request--responsehttpsdocsoasis-openorgmqttmqttv50osmqtt-v50-oshtml_toc3901253)
-* [Feature 8: Assigned Client Identifier](#feature-8-assigned-client-identifierhttpsdocsoasis-openorgmqttmqttv50osmqtt-v50-oshtml_toc3901087)
-* [Feature 9: Topic Alias](#feature-9-topic-aliashttpsdocsoasis-openorgmqttmqttv50osmqtt-v50-oshtml_toc3901113)
-* [Feature 10: Flow control](#feature-10-flow-controlhttpsdocsoasis-openorgmqttmqttv50osmqtt-v50-oshtml_toc3901251)
+* [Feature 6: Payload Format and Content Type](#feature-6-payload-format-and-content-type)
+* [Feature 7: Request / Response](#feature-7-request--response)
+* [Feature 8: Assigned Client Identifier](#feature-8-assigned-client-identifier)
+* [Feature 9: Topic Alias](#feature-9-topic-alias)
+* [Feature 10: Flow control](#feature-10-flow-control)
 * [Feature 11: Maximum Packet Size](#feature-11-maximum-packet-size)
-* [Feature 12: Server initiated DISCONNECT](#feature-12-server-initiated-disconnecthttpsdocsoasis-openorgmqttmqttv50osmqtt-v50-oshtml_toc3901205)
-* [Feature 13: Session Expiry](#feature-13-session-expiryhttpsdocsoasis-openorgmqttmqttv50osmqtt-v50-oshtml_toc3901048)
-* [Feature 14: Will delay](#feature-14-will-delayhttpsdocsoasis-openorgmqttmqttv50osmqtt-v50-oshtml_toc3901062)
+* [Feature 12: Server initiated DISCONNECT](#feature-12-server-initiated-disconnect)
+* [Feature 13: Session Expiry](#feature-13-session-expiry)
+* [Feature 14: Will delay](#feature-14-will-delay)
 * [Feature 15: Optional Server feature availability](#feature-15-optional-server-feature-availability)
 
 ### Feature 1: [Message Expiry](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901112)
@@ -136,7 +135,7 @@ docker exec rabbitmq rabbitmqctl --quiet --formatter=pretty_table list_queues
 ```
 
 The message expired since client `sub-1` has not connected to the broker to consume the message.
-If a [dead lettering](//rabbitmq.com/dlx.html) policy is set up, the message will be dead lettered to an exchange.
+If a [dead lettering](/docs/dlx) policy is set up, the message will be dead lettered to an exchange.
 In our case, dead lettering is disabled.
 Querying the Prometheus endpoint proves that 1 message expired from a classic queue.
 ```bash
@@ -176,7 +175,7 @@ As mandated by the MQTT 5.0 protocol specification, the client receives the seco
 60 seconds as received by the broker minus the 20 seconds the message has been waiting in the broker.
 
 #### Implementation
-MQTT 5.0 Message Expiry is implemented in RabbitMQ using [per-message TTL](//rabbitmq.com/ttl.html#per-message-ttl-in-publishers) similar to the `expiration` field in AMQP 0.9.1 publishers.
+MQTT 5.0 Message Expiry is implemented in RabbitMQ using [per-message TTL](/docs/ttl#per-message-ttl-in-publishers) similar to the `expiration` field in AMQP 0.9.1 publishers.
 
 ### Feature 2: [Subscription Identifier](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901166)
 

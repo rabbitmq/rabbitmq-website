@@ -53,6 +53,39 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.13.0</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>26.0</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>26.2.x</li>
+      </ul>
+    </td>
+        <td>
+      <ul class="notes">
+        <li>
+          The 3.13 release series is compatible wtih Erlang 26.
+        </li>
+        <li>
+          OpenSSL 3 support in Erlang is considered to
+          be mature and ready for production use.
+        </li>
+        <li>
+          Erlang 26.1 and later versions <a href="https://github.com/erlang/otp/pull/7392">supports FIPS mode on OpenSSL 3</a>
+        </li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <ul>
+        <li>3.12.13</li>
         <li>3.12.12</li>
         <li>3.12.11</li>
         <li>3.12.10</li>

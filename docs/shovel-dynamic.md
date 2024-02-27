@@ -225,7 +225,7 @@ for your own experiments.
 # Note: this user's access is limited to localhost!
 curl -v -u guest:guest -X PUT http://localhost:15672/api/parameters/shovel/%2f/my-shovel \
                        -H "content-type: application/json" \
-                       -d @- &lt;&lt;EOF
+                       -d @- <<EOF
 {
   "value": {
     "src-protocol": "amqp091",

@@ -93,7 +93,7 @@
     <h4>LShift Ltd.</h4>
     <br/>
     <h4><i>{matthias,tonyg}@lshift.net</i></h4>
-    
+
     <div class="handout">
       <ul>
             <li>Welcome</li>
@@ -270,7 +270,7 @@ introducing two more concepts: connections and channels
 <li>channels are boundary between model and protocol</li>
 <li>soup of exchanges, queues and bindings - i.e. the routing set up,
               <em>management of which is part of protocol - unlike
-              email</em></li> 
+              email</em></li>
 </ul>
 </div>
 </div>
@@ -280,7 +280,7 @@ introducing two more concepts: connections and channels
 
     <div class="center">
     <h2>An Open-Source Implementation of AMQP in Erlang/OTP</h2>
-    
+
 
 
     <img class="margin-50" src="RabbitMQLogoLarge.png">
@@ -568,7 +568,7 @@ but this is not just down to the naturalness of the mapping between
               &lt;&lt;<span class="variable-name">F0</span>:16/unsigned,
                 <span class="variable-name">F1Len</span>:8/unsigned, <span class="variable-name">F1</span>:<span class="variable-name">F1Len</span>/binary,
                 <span class="variable-name">F2Len</span>:8/unsigned, <span class="variable-name">F2</span>:<span class="variable-name">F2Len</span>/binary,
-                <span class="variable-name">F3Bits</span>:8&gt;&gt;) <span class="function-name">-&gt;</span>
+                <span class="variable-name">F3Bits</span>:8>>) <span class="function-name">-&gt;</span>
     <span class="variable-name">F3</span> = (<span class="variable-name">F3Bits</span> band 1) /= 0,
     <span class="variable-name">F4</span> = (<span class="variable-name">F3Bits</span> band 2) /= 0,
     #'<span class="string">basic.publish</span>'{ticket      = <span class="variable-name">F0</span>,
@@ -616,7 +616,7 @@ AMQP has 87 methods - yet the auto-generated codec - for both decoding
       <span class="variable-name">F1</span>:64/unsigned,
       <span class="variable-name">F2Bits</span>:8,
       <span class="variable-name">F3Len</span>:8/unsigned, <span class="variable-name">F3</span>:<span class="variable-name">F3Len</span>/binary,
-      <span class="variable-name">F4Len</span>:8/unsigned, <span class="variable-name">F4</span>:<span class="variable-name">F4Len</span>/binary&gt;&gt;;
+      <span class="variable-name">F4Len</span>:8/unsigned, <span class="variable-name">F4</span>:<span class="variable-name">F4Len</span>/binary>>;
 </pre>
 <p class="center">even shorter in R12</p>
 <div class="handout">
@@ -712,12 +712,12 @@ the other half - encoding an Erlang data structure as an AMQP method
         {error, unroutable}    <span class="function-name">-&gt;</span>
             ok = basic_return(<span class="variable-name">Message</span>, <span class="variable-name">WriterPid</span>,
                               ?<span class="reference">NO_ROUTE</span>,
-                              &lt;&lt;"<span class="string">unroutable</span>"&gt;&gt;),
+                              &lt;&lt;"<span class="string">unroutable</span>">>),
             [];
         {error, not_delivered} <span class="function-name">-&gt;</span>
             ok = basic_return(<span class="variable-name">Message</span>, <span class="variable-name">WriterPid</span>,
                               ?<span class="reference">NO_CONSUMERS</span>,
-                              &lt;&lt;"<span class="string">not_delivered</span>"&gt;&gt;),
+                              &lt;&lt;"<span class="string">not_delivered</span>">>),
             []
     <span class="keyword">end</span>.
 </pre>
@@ -1005,7 +1005,7 @@ three different areas of parallelism that arise naturually from AMQP
        [gen_server,&lt;0.138.0&gt;,&lt;0.138.0&gt;,
         rabbit_amqqueue_process,
         {amqqueue,
-         {resource,&lt;&lt;"/"&gt;&gt;,queue,&lt;&lt;"test queue"&gt;&gt;},
+         {resource,&lt;&lt;"/">>,queue,&lt;&lt;"test queue">>},
          false,false,[],[],none},
         []]}}]}</span>
 </pre>
@@ -1039,7 +1039,7 @@ don't talk through it
 </div>
 </div>
 
-<!-- 
+<!--
 
 <div class="slide">
 <h1>Interlude - Some Challenges</h1>
@@ -1110,7 +1110,7 @@ don't talk through it
         <span class="keyword">receive</span>
             <span class="variable-name">Messages</span> <span class="function-name">-&gt;</span>
                 lists:foldl(
-                  <span class="keyword">fun</span> (<span class="variable-name">Msg</span>, <span class="variable-name">S</span>) <span class="function-name">-&gt;</span> 
+                  <span class="keyword">fun</span> (<span class="variable-name">Msg</span>, <span class="variable-name">S</span>) <span class="function-name">-&gt;</span>
                           <span class="variable-name">M</span>:handle_message(<span class="variable-name">Msg</span>, <span class="variable-name">S</span>)
                   <span class="keyword">end</span>, <span class="variable-name">State</span>, lists:reverse(<span class="variable-name">Messages</span>))
         <span class="keyword">end</span>,
