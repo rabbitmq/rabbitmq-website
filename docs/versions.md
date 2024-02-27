@@ -101,7 +101,7 @@ both community and those with a commercial license.
 <sup>2</sup> **Extended Commercial Support** means patches are produced for security and high severity issues reported by users with a [commercial license](./contact#paid-support).
 
 
-## Next Release Series {#}
+## Next Release Series {#next-release}
 
 The next release series will be RabbitMQ 4.0. Its estimated availability date will be announced later.
 
