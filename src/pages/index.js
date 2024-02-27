@@ -1,246 +1,353 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import useBrokenLinks from '@docusaurus/useBrokenLinks';
 import Layout from '@theme/Layout';
-import Head from '@docusaurus/Head';
+import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Mermaid from '@theme/Mermaid';
 
 import styles from './index.module.css';
 
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
 
-  const ufEmbeddedHub = `
-<div id="UfEmbeddedHub1501190831892" class="hubs-embedded small-tiles" data-tile-count="3"></div>
-<script>window._ufHubConfig = window._ufHubConfig || [];window._ufHubConfig.push({'containers':{'app':'#UfEmbeddedHub1501190831892'},'collection':'453624','openLink':function(url){window.open(url);},'lazyloader':{'itemDisplayLimit':3,'maxTilesPerRow':3,'maxItemsTotal':3},'tileSize':'small','enablePageTracking':false,'baseUrl':'https://content.pivotal.io/','filesUrl':'https://content.cdntwrk.com/','generatedAtUTC':'2017-07-27 21:26:47'});</script>
-<script>(function(d,t,u){function load(){var s=d.createElement(t);s.src=u;d.body.appendChild(s);}if(window.addEventListener){window.addEventListener('load',load,false);}else if(window.attachEvent){window.attachEvent('onload',load);}else{window.onload=load;}}(document,'script','https://content.pivotal.io/hubsFront/embed_collection'));</script>
-`;
-
-  const brokenLinks = useBrokenLinks();
-  brokenLinks.collectAnchor('features');
-  brokenLinks.collectAnchor('getstarted');
-  brokenLinks.collectAnchor('support');
-  brokenLinks.collectAnchor('community');
-
   return (
-    <Layout title={`${siteConfig.tagline}`}>
+    <Layout title={`RabbitMQ: ${siteConfig.tagline}`}>
       <main>
-        <div className={styles.heroBanner}>
-          <div className={styles.container}>
-            <div className={styles.hero_pipeline_webinar}>
-              <div className={styles.container}>
-                <div className={styles.hero_text}>
-                  <h1>RabbitMQ 3.13</h1>
-                  <p>MQTTv5, Khepri, Stream filtering and more!</p>
-                  <p>
-                    <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.0">Learn more</a>
-                  </p>
-                </div>
-              </div>
+        <div className={styles.hero}>
+          <div className={[styles.container, styles.heroInner].join(' ')}>
+            <div>
+              <Heading as="h1">RabbitMQ</Heading>
+              <p className={styles.tagline}>{siteConfig.tagline}</p>
             </div>
-          </div>
-        </div>
-        <div className={styles.intro}>
-          <div className={styles.container}>
-            <h1>RabbitMQ is the most widely deployed open source message broker.</h1>
-            <p>
-              With tens of thousands of users, RabbitMQ is one of the most popular open source message brokers. From <a href="https://www.youtube.com/watch?v=1qcTu2QUtrU">T-Mobile</a> to <a href="https://medium.com/@runtastic/messagebus-handling-dead-letters-in-rabbitmq-using-a-dead-letter-exchange-f070699b952b">Runtastic</a>, RabbitMQ is used worldwide at small startups and large enterprises.
-            </p>
-            <p>
-              RabbitMQ is lightweight and easy to deploy on premises and in the cloud. It supports multiple messaging protocols and <a href="/docs/streams">streaming</a>. RabbitMQ can be deployed in distributed and federated configurations to meet high-scale, high-availability requirements.
-            </p>
-            <p>
-              RabbitMQ runs on many operating systems and cloud environments, and provides a <a href="/docs/devtools">wide range of developer tools for most popular languages</a>.
-            </p>
-            <p>
-              See how other people are using RabbitMQ:
-            </p>
-            <div dangerouslySetInnerHTML={{__html: ufEmbeddedHub}} />
-            <p id='morelinkafterufembed'><a href='https://content.pivotal.io/rabbitmq'>More <span className={'arrow'}></span></a></p>
-          </div>
-        </div>
-
-        <div className={styles.container}>
-          <hr/>
-        </div>
-
-        <div id='features' className={styles.featuresSection}>
-          <div className={styles.container}>
-            <h1 className={styles.center}>OSS RabbitMQ Features</h1>
-            <div className={styles.features}>
-              <div className={[styles.feature, styles.column, styles.onethird].join(' ')}>
-                <div className={styles.inner}>
-                  <img src="./img/messaging.svg" height="62" width="71" alt="Asynchronous Messaging" title="Asynchronous Messaging"/>
-                  <h2>Asynchronous Messaging</h2>
-                  <p>
-                    Supports <a href="/docs/protocols">multiple messaging protocols</a>, <a href="/tutorials/tutorial-two-python">message queuing</a>, <a href="/docs/reliability">delivery acknowledgement</a>, <a href="/tutorials/tutorial-four-python">flexible routing to queues</a>, <a href="/tutorials/amqp-concepts">multiple exchange type</a>.
-                  </p>
-                </div>
-              </div>
-              <div className={[styles.feature, styles.column, styles.onethird].join(' ')}>
-                <div className={styles.inner}>
-                  <img src="./img/monitor.svg" height="62" width="71" alt="Developer Experience" title="Developer Experience"/>
-                  <h2>Developer Experience</h2>
-                  <p>
-                    Deploy with <a href="/docs/download">Kubernetes, BOSH, Chef, Docker and Puppet</a>. Develop cross-language messaging with favorite programming languages such as: Java, .NET, PHP, Python, JavaScript, Ruby, Go, <a href="/docs/devtools">and many others</a>.
-                  </p>
-                </div>
-              </div>
-              <div className={[styles.feature, styles.column, styles.onethird].join(' ')}>
-                <div className={styles.inner}>
-                  <img src="./img/network.svg" height="62" width="71" alt="Distributed Deployment" title="Distributed Deployment"/>
-                  <h2>Distributed Deployment</h2>
-                  <p>
-                    Deploy as <a href="/docs/clustering">clusters</a> for high availability and throughput; <a href="/docs/federation">federate</a> across multiple availability zones and regions.
-                  </p>
-                </div>
-              </div>
-              <div className={[styles.feature, styles.column, styles.onethird].join(' ')}>
-                <div className={styles.inner}>
-                  <img src="./img/clouds.svg" height="62" width="71" alt="Enterprise &amp; Cloud Ready" title="Enterprise &amp; Cloud Ready"/>
-                  <h2>Enterprise &amp; Cloud Ready</h2>
-                  <p>
-                    Pluggable <a href="/docs/authentication">authentication</a>, <a href="/docs/access-control">authorisation</a>, supports <a href="/docs/ssl">TLS</a> and <a href="/docs/ldap">LDAP</a>. Lightweight and easy to deploy in public and private clouds.
-                  </p>
-                </div>
-              </div>
-              <div className={[styles.feature, styles.column, styles.onethird].join(' ')}>
-                <div className={styles.inner}>
-                  <img src="./img/tools.svg" height="62" width="71" alt="Tools &amp; Plugins" title="Tools &amp; Plugins"/>
-                  <h2>Tools &amp; Plugins</h2>
-                  <p>
-                    Diverse array of <a href="/docs/devtools">tools and plugins</a> supporting continuous integration, operational metrics, and integration to other enterprise systems. Flexible <a href="/docs/plugins">plug-in approach</a> for extending RabbitMQ functionality.
-                  </p>
-                </div>
-              </div>
-              <div className={[styles.feature, styles.column, styles.onethird].join(' ')}>
-                <div className={styles.inner}>
-                  <img src="./img/gauge.svg" height="62" width="71" alt="Management &amp; Monitoring" title="Management &amp; Monitoring"/>
-                  <h2>Management &amp; Monitoring</h2>
-                  <p>
-                    HTTP-API, command line tool, and UI for <a href="/docs/management">managing and monitoring</a> RabbitMQ.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.container}>
-            <h1 className={styles.center}>Commercial RabbitMQ Features</h1>
-            <div className={styles.features}>
-              <div className={[styles.feature, styles.column, styles.onethird].join(' ')}>
-                <div className={styles.inner}>
-                  <img src="./img/commercial/traffic-compression.svg" height="71" width="71" alt="Inter-node Traffic Compression" title="Inter-node Traffic Compression"/>
-                  <h2>Intra-cluster Compression</h2>
-                  <p>
-                    All network traffic exchanged by nodes in a deployment is compressed by default. For JSON message payloads, bandwidth usage is reduced by 16x. <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/clustering-compression-rabbitmq.html">Learn more</a>
-                  </p>
-                </div>
-              </div>
-              <div className={[styles.feature, styles.column, styles.onethird].join(' ')}>
-                <div className={styles.inner}>
-                  <img src="./img/commercial/warm-standby.svg" height="71" width="71" alt="Warm Standby" title="Warm Standby"/>
-                  <h2>Warm Standby Replication</h2>
-                  <p>
-                    VMware RabbitMQ supports continuous schema definition and message replication to a remote cluster, which makes it easy to run a standby cluster for disaster recovery. <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html">Learn more</a>
-                  </p>
-                </div>
-              </div>
-              <div className={[styles.feature, styles.column, styles.onethird].join(' ')}>
-                <div className={styles.inner}>
-                  <img src="./img/commercial/support.svg" height="71" width="71" alt="24/7 Expert Support" title="24/7 Expert Support"/>
-                  <h2>24/7 Expert Support</h2>
-                  <p>
-                    A license comes with phone and online global coverage support, gold star standards SLAs and extends the support lifecycle. <a href="https://tanzu.vmware.com/rabbitmq/oss">Learn more</a>
-                  </p>
-                </div>
-              </div>
+            <div class={styles.heroCta}>
+              <Link className="button button--primary" to="/tutorials">Getting Started</Link>
+              <Link className={styles.release_notes_link} to="https://github.com/rabbitmq/rabbitmq-server/releases/v3.13.0/">RabbitMQ 3.13.0</Link>
             </div>
           </div>
         </div>
 
-        <div id='getstarted' className={[styles.getstarted, styles.center].join(' ')}>
+        <div className={styles.why}>
           <div className={styles.container}>
-            <h1>Get Started</h1>
-            <div className={styles.columns}>
-              <div className={[styles.column, styles.fifty].join(' ')}>
-                <div className={styles.inner}>
-                  <div className={styles.container}>
-                    <a className={styles.btn} href="/docs/download">Download + Installation</a>
-                    <p>Servers and clients for popular operating systems and languages</p>
-                  </div>
-                </div>
-              </div>
-              <div className={[styles.column, styles.fifty].join(' ')}>
-                <div className={styles.inner}>
-                  <div className={styles.container}>
-                    <a className={[styles.btn, styles.orangebtn].join(' ')} href="/tutorials">RabbitMQ Tutorials</a>
-                    <p>Hands-on examples to get you started with RabbitMQ</p>
-                  </div>
-                </div>
-              </div>
+            <Heading as="h1">Why RabbitMQ?</Heading>
+            <p>RabbitMQ is a reliable and mature messaging and streaming
+              broker, which is easy to deploy on cloud environments,
+              on-premises, and on your local machine. It is currently used by
+              millions worldwide.</p>
+            <div className={styles.flex_columns}>
+              <section>
+                <Heading as="h2">Interoperable</Heading>
+                <p>RabbitMQ <Link to="/docs/protocols">supports several open
+                  standard protocols</Link>, including AMQP 1.0 and MQTT 5.
+                  There are multiple client libraries available, which can be
+                  used with your programming language of choice, just pick one.
+                  No vendor lock-in!</p>
+              </section>
+              <section>
+                <Heading as="h2">Flexible</Heading>
+                <p>RabbitMQ provides many options you can combine to define how
+                  your messages go from the publisher to one or many consumers. <Link to="/tutorials/tutorial-four-python">Routing</Link>, <Link to="/tutorials/amqp-concepts#exchange-topic">filtering</Link>, <Link to="/docs/streams">streaming</Link>, <Link to="/docs/federation">federation</Link>, and so on, you name it.</p>
+              </section>
+              <section>
+                <Heading as="h2">Reliable</Heading>
+                <p>With the ability to <Link to="/docs/reliability">acknowledge
+                  message delivery</Link> and to <Link to="/docs/quorum-queues">
+                  replicate messages across a cluster</Link>, you can ensure
+                  your messages are safe with RabbitMQ.</p>
+              </section>
             </div>
           </div>
         </div>
 
-        <div id='support' className={styles.support}>
+        <div className={styles.usecases_heading}>
           <div className={styles.container}>
-            <h1 className={styles.center}>RabbitMQ Commercial Services</h1>
-            <div className={styles.columns}>
-              <div className={[styles.column, styles.onequarter].join(' ')}>
-                <div className={styles.commercialservicesillustration}></div>
-              </div>
-              <div className={[styles.column, styles.threequarters].join(' ')}>
-                <img src="./img/commercial/distribution-phone.svg" height="111" width="88"/>
-                <h2>Commercial Distribution</h2>
-                <p>
-                  VMware offers a <a href="https://tanzu.vmware.com/rabbitmq">range of commercial offerings for RabbitMQ</a>. This includes a distribution called <a href="https://network.pivotal.io/products/p-rabbitmq-for-kubernetes/info">VMware RabbitMQ</a> that deploys on Kubernetes or your container Runtime, as well as a version that deploys in <a href="https://tanzu.vmware.com/tanzu">VMware Tanzu Application Service</a>. These distributions include all of the features of the open source version, with some additional management and business continuity features. Support agreements are part of the commercial licensing.
-                </p>
-                <img src="./img/commercial/support-and-hosting-phone.svg" height="94" width="109"/>
-                <h2>Support + Hosting</h2>
-                <p>
-                  VMware provides <a href="https://tanzu.vmware.com/rabbitmq/oss">support for open source RabbitMQ</a>, available for a subscription fee. The following companies provide technical support and/or cloud hosting of open source RabbitMQ: <a href="https://www.cloudamqp.com/">CloudAMQP</a>, <a href="https://aws.amazon.com/amazon-mq/">Amazon MQ for RabbitMQ</a>, <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>, <a href="https://acemq.com/rabbitmq/">AceMQ</a>, <a href="http://www.visualintegrator.com/rmq/">Visual Integrator, Inc</a>, <a href="https://console.cloud.google.com/launcher/details/click-to-deploy-images/rabbitmq">Google Cloud Platform</a> and <a href="https://northflank.com/changelog/introducing-managed-rabbit-mq-build-and-scale-with-queues-and-message-brokers">Northflank</a>. RabbitMQ can also be deployed in AWS and Microsoft Azure.
-                </p>
-                <img src="./img/commercial/testing-phone.svg" height="109" width="94"/>
-                <h2>Training</h2>
-                <p>
-                  The following companies provide free, virtual, or instructor-led courses for RabbitMQ: <a href="https://mylearn.vmware.com/mgrReg/courses.cfm?ui=www_edu&amp;a=one&amp;id_subject=94112" target="_blank" rel="noopener noreferrer">VMware</a>, <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>, <a href="http://www.visualintegrator.com/rmq/" target="_blank" rel="noopener noreferrer">Visual Integrator, Inc</a> and <a href="https://www.learnquest.com/course-detail-v3.aspx?cnum=rabbitmq-e1xc" target="_blank" rel="noopener noreferrer">LearnQuest</a>.
-                </p>
-              </div>
+            <Heading as="h1">Examples of common use cases</Heading>
+            <p>Here are a few common use cases we hear about from the community
+              or our customers. This should help you better understand what
+              RabbitMQ is and how it can help.</p>
+           </div>
+        </div>
+        <div className={styles.usecases}>
+          <div className={styles.container}>
+            <Tabs>
+              <TabItem value="usecase-1" label="Decoupling services" default>
+                <div className={styles.flex_columns}>
+                  <section>
+                    <Heading as="h2">Decoupling interconnected services</Heading>
+                    <p>You have a backend service that needs to send
+                      notifications to end users. There are two notification
+                      channels: emails and push notifications for the mobile
+                      application.</p>
+                    <p>The backend publishes the notification to two queues,
+                      one for each channel. Programs that manage emails and
+                      push notification subscribe to the queue they are
+                      interested in and handle notifications as soon as they
+                      arrive.</p>
+                    <p><strong>➡ Benefits</strong></p>
+                    <ul>
+                      <li>RabbitMQ absorbs the load spike.</li>
+                      <li>You can do some maintenance on the notification
+                        managers without interrupting the whole service.</li>
+                    </ul>
+                  </section>
+                  <section>
+                    <Mermaid
+                      value={`
+flowchart TD
+    B([Backend])
+    Q1[[Email]]
+    Q2[[Push]]
+    E([Email sender])
+    P([Push notification sender])
+
+    B --> Q1 --> E
+    B --> Q2 --> P
+
+    class B mermaid-producer
+    class Q1 mermaid-queue
+    class Q2 mermaid-queue
+    class E mermaid-consumer
+    class P mermaid-consumer
+`}
+                      />
+                  </section>
+                </div>
+              </TabItem>
+              <TabItem value="usecase-2" label="RPC">
+                <div className={styles.flex_columns}>
+                  <section>
+                    <Heading as="h2">Remote Procedure Call</Heading>
+                    <p>You own a concert hall. Tickets for the shows are sold
+                      on multiple websites and physical kiosks. Orders from all
+                      channels must go through a complex process to determine
+                      if a customer effectively get their tickets, depending on
+                      availability. The website or kiosk expect to get an
+                      answer for the order in minimal time.</p>
+                    <p>Orders are published to a queue in RabbitMQ with a
+                      correlation ID. The caller that pushed the order then
+                      subscribes to another queue and waits for an answer with
+                      that same correlation ID.</p>
+                    <p>To achieve low latency, a <Link to="/docs/classic-queues">classic queue</Link> is
+                      a good fit here but it is at the expense of less safety —
+                      the caller can still retry. If the order cannot be lost,
+                      you might prefer to use a combination of <Link
+                      to="/docs/confirms">acknowledgments</Link> and <Link
+                      to="/docs/quorum-queues">quorum queues</Link> to ensure
+                      a message is safe once confirmed.</p>
+                    <p>This topology allows the processing of orders to be
+                      serialized to serve them in a first come first served
+                      order. This avoids the need for transactions.</p>
+                    <p><strong>➡ Benefits</strong></p>
+                    <ul>
+                      <li>A RabbitMQ client can be a publisher and a consumer
+                        at the same time.</li>
+                      <li>RabbitMQ can be used to <Link
+                        to="/tutorials/tutorial-six-python">dispatch RPC
+                        calls</Link>.</li>
+                    </ul>
+                  </section>
+                  <section>
+                    <Mermaid
+                      value={`
+flowchart TD
+    W([Website])
+    K([Kiosk])
+    O[[Orders]]
+    C[[Confirmations]]
+    B[[Ticket management]]
+
+    W --> O
+    K --> O
+    O --> B
+    C --- B
+    W --- C
+    K --- C
+
+    class W mermaid-producer
+    class K mermaid-producer
+    class O mermaid-queue
+    class C mermaid-queue
+    class B mermaid-consumer
+`}
+                    />
+                  </section>
+                </div>
+              </TabItem>
+              <TabItem value="usecase-3" label="Streaming">
+                <div className={styles.flex_columns}>
+                  <section>
+                    <Heading as="h2">Streaming</Heading>
+                    <p>You run a video platform. When a user uploads a new
+                      video, you have multiple tasks to complete when the video
+                      is safely stored: run some post-upload analysis,
+                      transcode lower quality copies of the video, notify other
+                      users subscribed to the author's creations, and so
+                      on.</p>
+                    <p>The upload service appends “New video” events to a
+                      RabbitMQ stream. Multiple backend applications can
+                      subscribe to that stream and read new events
+                      independently of each other. Users must be notified right
+                      away, but the post-upload analysis can wait and run once
+                      a day.</p>
+                    <p><strong>➡ Benefits</strong></p>
+                    <ul>
+                      <li><Link to="/docs/streams">Streams</Link> are very
+                        efficient and avoids the need to duplicate
+                        messages.</li>
+                      <li>A consumers can go back and forth in the stream even
+                        if there are concurrent consumers.</li>
+                    </ul>
+                  </section>
+                  <section>
+                    <Mermaid
+                      value={`
+flowchart TD
+    U([Upload])
+    S[[New video]]
+    A([Analysis])
+    N([Notifications])
+    T([Transcoder])
+
+    U --> S
+    S --> A
+    S --> N
+    S --> T
+
+    class U mermaid-producer
+    class S mermaid-queue
+    class A mermaid-consumer
+    class N mermaid-consumer
+    class T mermaid-consumer
+`}
+                    />
+                  </section>
+                </div>
+              </TabItem>
+              <TabItem value="usecase-4" label="IoT">
+                <div className={styles.flex_columns}>
+                  <section>
+                    <Heading as="h2">IoT</Heading>
+                    <p>You provide package delivery services across the entire
+                      galaxy. You have a swarm of space drones that need to
+                      report their status on a regular basis to a server hosted
+                      on exoplanet <em>Kepler-438 b</em>. Unfortunately, the
+                      network connectivity is not great…</p>
+                    <p>Each space drone runs a local RabbitMQ standalone node
+                      that buffers their report until a connection is possible
+                      with the upstream RabbitMQ.</p>
+                    <p>When planets are aligned, the drone's RabbitMQ shovels
+                      all reports to the upstream RabbitMQ.</p>
+                    <p><strong>➡ Benefits</strong></p>
+                    <ul>
+                      <li>RabbitMQ deployments can be chained to cater for
+                        different needs in your service, using features such
+                        as <Link to="/docs/shovel">shovels</Link> and <Link
+                        to="/docs/federation">federation</Link>.</li>
+                      <li><Link to="/docs/mqtt">MQTT</Link> is well suited for
+                        millions of concurrent connections.</li>
+                    </ul>
+                  </section>
+                  <section>
+                    <Mermaid
+                      value={`
+flowchart TD
+    D1([Drone 1])
+    D2([Drone 2])
+    D3([Drone 39234])
+    LR1[[Local RabbitMQ]]
+    LR2[[Local RabbitMQ]]
+    LR3[[Local RabbitMQ]]
+    UR[[Upstream RabbitMQ]]
+    RH([Report handler])
+
+    D1 --> LR1
+    D2 --> LR2
+    D3 --> LR3
+    LR1 -.-> UR
+    LR2 -.-> UR
+    LR3 -.-> UR
+    UR --> RH
+
+    class D1 mermaid-producer
+    class D2 mermaid-producer
+    class D3 mermaid-producer
+    class LR1 mermaid-queue
+    class LR2 mermaid-queue
+    class LR3 mermaid-queue
+    class UR mermaid-queue
+    class RH mermaid-consumer
+`}
+                    />
+                  </section>
+                </div>
+              </TabItem>
+            </Tabs>
+          </div>
+        </div>
+
+        <div className={styles.license}>
+          <div className={styles.container}>
+            <Heading as="h1">What about the license?</Heading>
+            <p>Since its original release in 2007, RabbitMQ is Free and Open
+              Source Software. In addition, Broadcom offer a range of
+              commercial offerings.</p>
+            <div className={styles.flex_columns}>
+              <section>
+                <img src="./img/OSI_Keyhole.svg" height="70" alt="" title="open source initiative®"/>
+                <Heading as="h2">Free and Open Source</Heading>
+                <p>RabbitMQ is dual-licensed under the Apache License 2.0 and
+                  the Mozilla Public License 2. You have the freedom to use and
+                  modify RabbitMQ however you want.</p>
+                <p>Of course, contributions are more than welcome! Whether it
+                  is through bug reports, patches, helping someone,
+                  documentation or any form of advocacy. In fact contributing
+                  is the best way to support the project!
+                  Take a look at our <Link
+                  to="/docs/github">Contributors page</Link>.</p>
+              </section>
+              <section>
+                <img src="/img/commercial-support-icon.svg" height="70" alt="" title="Commercial offerings"/>
+                <Heading as="h2">Commercial offerings</Heading>
+                <p>Broadcom offers <Link
+                  to="https://tanzu.vmware.com/rabbitmq/oss">enterprise-grade
+                  24/7 support</Link> where you have access to the engineers
+                  making the product.</p>
+                <p>In addition, a range of commercial offerings for RabbitMQ
+                  are available. These commercial offerings include all of the
+                  features of RabbitMQ, with some additional management and
+                  advanced features like <Link
+                  to="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html">warm
+                  standby replication</Link> and <Link
+                  to="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/clustering-compression-rabbitmq.html">intra-cluster
+                  data compression</Link>. These features are a must for
+                  heavy workloads.</p>
+                <p>For a list of the commercial offerings, take a look at the
+                  the <Link to="https://tanzu.vmware.com/rabbitmq">Ways to run
+                  Tanzu RabbitMQ and Free and Open Source RabbitMQ
+                  distributions table</Link>.</p>
+              </section>
             </div>
           </div>
         </div>
 
-        <div id='community' className={styles.community}>
+        <div className={styles.testimonies}>
           <div className={styles.container}>
-            <div className={[styles.column, styles.twothirds].join(' ')}>
-              <div className={styles.inner}>
-                <h1>Community</h1>
-                <br/>
-                <a className={[styles.btn, styles.orangebtn].join(' ')} href="https://groups.google.com/forum/#!forum/rabbitmq-users" target="_blank" rel="noopener noreferrer">Mailing List</a>
-                <a className={styles.btn} href="https://www.rabbitmq.com/discord/" target="_blank" rel="noopener noreferrer">Discord Server</a>
-                <a className={styles.btn} href="https://www.rabbitmq.com/slack/" target="_blank" rel="noopener noreferrer">Slack Channel</a>
-                <br/><br/>
-                <p>Meet your fellow Rabbits to share stories, advice, and get help.</p>
-                <h2>Issues &amp; Bug Reports</h2>
-                <p>Start by searching the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users" target="_blank" rel="noopener noreferrer">Mailing List</a> archive and known issues on <a href="https://github.com/rabbitmq?q=rabbitmq" target="_blank" rel="noopener noreferrer">GitHub</a>. It’s very likely fellow users have raised the same issue. </p>
-                <h2>Contributions</h2>
-                <p>RabbitMQ welcomes contributions from the community. Please see our <a href="/docs/github">Contributors Page</a> to learn more.</p>
-              </div>
-            </div>
-            <div className={[styles.column, styles.onethird].join(' ')}>
-              <div className={styles.inner}>
-                <div className={styles.container}>
-                  <h1>Contact Us</h1>
-                  <h2>Commercial inquiries</h2>
-                  <p><a href="mailto:rabbitmq-sales@pivotal.io">VMware Sales</a> | <a href="https://tanzu.vmware.com/rabbitmq" target="_blank" rel="noopener noreferrer">VMware Support</a></p>
-                  <h2>Other inquiries</h2>
-                  <p><a href="/docs/contact">Contact us</a></p>
-                  <h2>Report a security vulnerability</h2>
-                  <p><a href="mailto:rabbitmq-core@groups.vmware.com">rabbitmq-core@groups.vmware.com</a></p>
-                  <h2>Social media</h2>
-                  <p><a href="https://twitter.com/RabbitMQ" target="_blank" rel="noopener noreferrer">Twitter</a></p>
-                </div>
-              </div>
+            <Heading as="h1">What are users saying?</Heading>
+            <p>RabbitMQ is used by millions around the world. Here is what
+              some of our users are saying about it!</p>
+            <div className={styles.flex_columns}>
+              <section className={styles.blockquote}>
+                <blockquote>RabbitMQ is the one message broker that HASN'T given
+                  me grief in my career.</blockquote>
+                <p className={styles.attribution}>&mdash;&nbsp;<Link to="https://news.ycombinator.com/item?id=23269692"><em>codeduck</em> on Hacker News</Link></p>
+              </section>
+              <section className={styles.blockquote}>
+                <blockquote>I've been running RabbitMQ for &gt;8 years in
+                production, once even in a fleet of 180 buses where every bus
+                had an instance of rabbitmq running locally. Never had a single
+                issue in all those years.</blockquote>
+                <p className={styles.attribution}>&mdash;&nbsp;<Link to="https://news.ycombinator.com/item?id=23261707"><em>gog</em> on Hacker News</Link></p>
+              </section>
             </div>
           </div>
         </div>

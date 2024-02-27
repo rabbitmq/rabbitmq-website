@@ -9,7 +9,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'RabbitMQ',
-  tagline: 'RabbitMQ: easy to use, flexible messaging and streaming',
+  tagline: 'One broker to queue them all',
   favicon: 'img/rabbitmq-logo.svg',
 
   // We need to force the trailing slash behavior to make it work with
@@ -131,10 +131,7 @@ const config = {
           src: 'img/rabbitmq-logo-with-name.svg',
         },
         items: [
-          {to: '/#features', label: 'Features', position: 'left'},
-          {to: '/#getstarted', label: 'Get Started', position: 'left'},
-          {to: '/#support', label: 'Support', position: 'left'},
-          {to: '/#community', label: 'Community', position: 'left'},
+          {to: '/tutorials', label: 'Getting Started', position: 'left'},
           {
             type: 'docSidebar',
             label: 'Docs',
@@ -155,6 +152,10 @@ const config = {
             ],
           },
           {
+            label: 'Support',
+            href: 'https://tanzu.vmware.com/rabbitmq/oss',
+          },
+          {
             label: 'GitHub',
             href: 'https://github.com/rabbitmq/rabbitmq-website',
             position: 'right',
@@ -165,21 +166,29 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Learn about RabbitMQ',
             items: [
               {
-                label: 'Tutorials',
+                label: 'Getting Started',
                 to: '/tutorials',
               },
               {
-                label: 'Install',
-                to: '/docs/download',
+                label: 'Documentation',
+                to: '/docs/documentation',
+              },
+              {
+                label: 'Blog',
+                to: '/blog',
               },
             ],
           },
           {
-            title: 'Community',
+            title: 'Reach out to the RabbitMQ team',
             items: [
+              {
+                label: 'GitHub',
+                href: 'https://github.com/rabbitmq',
+              },
               {
                 label: 'Mailing list',
                 href: 'https://groups.google.com/forum/#!forum/rabbitmq-users',
@@ -196,18 +205,9 @@ const config = {
                 label: 'Twitter',
                 href: 'https://twitter.com/RabbitMQ',
               },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
               {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/rabbitmq/rabbitmq-website',
+                label: 'Contact us',
+                to: '/docs/contact',
               },
             ],
           },
