@@ -121,7 +121,7 @@ apt repositories:
        </ul>
      </td>
      <td>
-       <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0">starting with 3.12.0</a></strong>, and is required starting with <code>3.13.0</code>.
+       <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0">starting with 3.12.0</a></strong>, and is required starting with <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.0">3.13.0</a>.
        See <a href="./which-erlang">Erlang compatibility guide</a>.
      </td>
   </tr>
@@ -140,21 +140,6 @@ apt repositories:
        See <a href="./which-erlang">Erlang compatibility guide</a>.
      </td>
   </tr>
-
-  <tr>
-     <td>24.x</td>
-     <td>
-       <ul>
-        <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a></li>
-        <li><a href="#apt-cloudsmith">Debian packages of Erlang</a> from Team RabbitMQ on Cloudsmith.io</li>
-       </ul>
-     </td>
-     <td>
-       <strong>Supported <a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">starting with 3.8.16</a></strong>.
-       See <a href="./which-erlang">Erlang compatibility guide</a>.
-     </td>
-   </tr>
-
  </tbody>
 </table>
 
