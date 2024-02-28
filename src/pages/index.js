@@ -30,7 +30,7 @@ export default function Home() {
               <div className={styles.container}>
                 <div className={styles.hero_text}>
                   <h1>RabbitMQ 3.13</h1>
-                  <p>MQTTv5, Khepri, Stream filtering, Quorum Queues, and more!</p>
+                  <p>MQTTv5, Khepri, Stream filtering and more!</p>
                   <p>
                     <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.0">Learn more</a>
                   </p>
@@ -41,34 +41,18 @@ export default function Home() {
         </div>
         <div className={styles.intro}>
           <div className={styles.container}>
-            <h1>RabbitMQ is a widely deployed open source messaging and streaming broker</h1>
+            <h1>RabbitMQ is the most widely deployed open source message broker.</h1>
             <p>
-            RabbitMQ is a reliable, stable, and mature messaging and streaming broker, which is easy to deploy on cloud environments, on-premises, and on your local machine. With support for many different messaging protocols, it can scale from providing point-to-point messaging all the way up to globally distributed highly-available event streaming with rock-solid reliability.            
-            </p>
-            <h2>Why Choose RabbitMQ?</h2>
-            <p>
-            <ol>
-                <li><b>Tried and tested: </b>With support for several standard and open protocols, RabbitMQ powers mission critical event-driven architectures. It covers use cases ranging from financial services to IoT scaling to millions of connections. RabbitMQ is trusted by companies from the Fortune 500 and loved by developers worldwide.
-</li>
-                <li><b>Interoperable and flexible: </b>As a message broker, RabbitMQ is interoperable and works across many operating systems, cloud environments, and on premises. Thanks to the use of standard and open protocols, RabbitMQ can interact with client libraries for 70+ programming languages including Java, .NET, PHP, Python, Javascript, Ruby, and Go.
-</li>
-                <li><b>Free and Open Source Software: </b>You are free to use and integrate RabbitMQ, read and modify the source code, and contribute to the project.
-</li>
-                <li><b>Enterprise-grade offering: </b>For those who want to use RabbitMQ for enterprise production deployments, commercial distributions with exclusive features such as disaster recovery (<a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html">Warm Standby Replication</a>) and 24/7 professional support are also available.
-</li>
-            </ol>  
+              With tens of thousands of users, RabbitMQ is one of the most popular open source message brokers. From <a href="https://www.youtube.com/watch?v=1qcTu2QUtrU">T-Mobile</a> to <a href="https://medium.com/@runtastic/messagebus-handling-dead-letters-in-rabbitmq-using-a-dead-letter-exchange-f070699b952b">Runtastic</a>, RabbitMQ is used worldwide at small startups and large enterprises.
             </p>
             <p>
-            <h2>What our users are saying…</h2>
-            <ul>
-                <li>“RabbitMQ is the one message broker that HASN'T given me grief in my career.” (<a href="https://news.ycombinator.com/item?id=23269692">Hacker News</a>) </li>
-                <li>“I've been running RabbitMQ for >8 years in production, once even in a fleet of 180 buses where every bus had an instance of rabbitmq running locally.
-Never had a single issue in all those years.” (<a href="https://news.ycombinator.com/item?id=23269692">Hacker News</a>)
-</li>
-            </ul>  
+              RabbitMQ is lightweight and easy to deploy on premises and in the cloud. It supports multiple messaging protocols and <a href="/docs/streams">streaming</a>. RabbitMQ can be deployed in distributed and federated configurations to meet high-scale, high-availability requirements.
             </p>
             <p>
-            <h3>See how other people are using RabbitMQ:</h3>
+              RabbitMQ runs on many operating systems and cloud environments, and provides a <a href="/docs/devtools">wide range of developer tools for most popular languages</a>.
+            </p>
+            <p>
+              See how other people are using RabbitMQ:
             </p>
             <div dangerouslySetInnerHTML={{__html: ufEmbeddedHub}} />
             <p id='morelinkafterufembed'><a href='https://content.pivotal.io/rabbitmq'>More <span className={'arrow'}></span></a></p>
