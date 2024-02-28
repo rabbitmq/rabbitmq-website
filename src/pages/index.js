@@ -41,7 +41,7 @@ export default function Home() {
         </div>
         <div className={styles.intro}>
           <div className={styles.container}>
-            <h1>RabbitMQ is widely deployed open source messaging and streaming broker</h1>
+            <h1>RabbitMQ is a widely deployed open source messaging and streaming broker</h1>
             <p>
             RabbitMQ is a reliable, stable, and mature messaging and streaming broker, which is easy to deploy on cloud environments, on-premises, and on your local machine. With support for many different messaging protocols, it can scale from providing point-to-point messaging all the way up to globally distributed highly-available event streaming with rock-solid reliability.            
             </p>
