@@ -52,7 +52,7 @@ is used. For a plugin to be activated at boot, it must be enabled. To enable a p
 the [rabbitmq-plugins](./cli):
 
 ```bash
-rabbitmq-plugins enable &lt;plugin-name&gt;
+rabbitmq-plugins enable <plugin-name>;
 ```
 
 For example, to enable the Kubernetes [peer discovery](./cluster-formation) plugin:
@@ -64,7 +64,7 @@ rabbitmq-plugins enable rabbitmq_peer_discovery_k8s
 And to disable a plugin, use:
 
 ```bash
-rabbitmq-plugins disable &lt;plugin-name&gt;
+rabbitmq-plugins disable <plugin-name>;
 ```
 
 For example, to disable the [`rabbitmq-top`](./memory-use#breakdown-top) plugin:
