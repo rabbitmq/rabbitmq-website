@@ -180,7 +180,7 @@ ConnectionFactory factory = new ConnectionFactory();
 factory.UserName = "username";
 factory.Password = "s3Kre7";
 
-var endpoints = new System.Collections.Generic.List&lt;AmqpTcpEndpoint&gt; {
+var endpoints = new System.Collections.Generic.List<AmqpTcpEndpoint> {
   new AmqpTcpEndpoint("hostname"),
   new AmqpTcpEndpoint("localhost")
 };
@@ -471,7 +471,7 @@ byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
 IBasicProperties props = channel.CreateBasicProperties();
 props.ContentType = "text/plain";
 props.DeliveryMode = 2;
-props.Headers = new Dictionary&lt;string, object&gt;();
+props.Headers = new Dictionary<string, object>();
 props.Headers.Add("latitude",  51.5252949);
 props.Headers.Add("longitude", -0.0905493);
 
@@ -545,7 +545,7 @@ explained in the [AMQP 0-9-1 specification](./specification) document.
 ## Consumer Memory Safety Requirements {#consuming-memory-safety}
 
 As of [version 6.0](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/main/CHANGELOG.md) of
-the .NET client, message payloads are represented using the [`System.ReadOnlyMemory&lt;byte&gt;`](https://docs.microsoft.com/en-us/dotnet/api/system.readonlymemory-1?view=netcore-3.1)
+the .NET client, message payloads are represented using the [`System.ReadOnlyMemory<byte>`](https://docs.microsoft.com/en-us/dotnet/api/system.readonlymemory-1?view=netcore-3.1)
 type from the [`System.Memory` library](https://www.nuget.org/packages/System.Memory/).
 
 This library places certain restrictions on when a read only memory span can be
@@ -611,7 +611,7 @@ if (result == null) {
     // No message available at this time.
 } else {
     IBasicProperties props = result.BasicProperties;
-    ReadOnlyMemory&lt;byte&gt; body = result.Body;
+    ReadOnlyMemory<byte> body = result.Body;
     ...
 ```
 
