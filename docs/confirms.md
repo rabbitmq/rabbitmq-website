@@ -61,6 +61,31 @@ to RabbitMQ nodes and from RabbitMQ nodes to consumers. In other words,
 they are <strong>essential for data safety</strong>, for which applications are
 responsible as much as RabbitMQ nodes are.
 
+### Are Publisher Confirms Related to Consumer Delivery Acknowledgements? {#relation}
+
+[Publisher confirms](#publisher-confirms) and [consumer delivery acknowledgements](#consumer-acknowledgements)
+are very similar features that solve similar problems in different context:
+
+1. Consumer acknolwedgements, as the name suggests, cover RabbitMQ communication with consumers
+2. Publisher confirms cover publisher communication with RabbitMQ
+
+The two features, however, are entirely orthogonal and unaware of each other.
+
+**Publisher confirms are not aware of consumers**: they only cover publisher's interactions
+with node it is connected to, and the queue (or [stream](/streams)) leader replica.
+
+**Consumer acknowledgements are not aware of publishers**: their goal is to confirm
+to a RabbitMQ node that a given delivery was successfully received and processed successfully,
+so the delivered message can be marked for future deletion.
+
+Sometimes publishing and consuming applications need to communicate via requests and responses
+that need an explicit acknowledgement from the peer. [RabbitMQ tutorial #6](/tutorials)
+demonstrates the basics of how that's done, and [Direct Reply-to](/direct-reply-to) provides
+a way to do it without declaring a lot of short-lived temporary response queues.
+
+This type of communication, however, is not covered in this guide, and is mentioned only to
+contrast it with the much more focussed messaging protocol features described in this guide.
+
 
 ## (Consumer) Delivery Acknowledgements {#consumer-acknowledgements}
 
