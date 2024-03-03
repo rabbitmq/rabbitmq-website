@@ -125,7 +125,7 @@ The node then should perform the upgrade steps as needed and proceed booting.
 To back up messages on a node it **must be first stopped**.
 
 In the case of a cluster with [replicated queues](./quorum-queues), it is highly recommended
-to stop the entire cluster over a period of time to take a backup. If instead one node is topped at a
+to stop the entire cluster over a period of time to take a backup. If instead one node is stopped at a
 time, queues may accumulate duplicates, exactly like when you
 back up a single running node.
 
