@@ -72,7 +72,7 @@ are very similar features that solve similar problems in different contexts:
 The two features, however, are entirely orthogonal and unaware of each other.
 
 **Publisher confirms are not aware of consumers**: they only cover publisher's interactions
-with node it is connected to, and the queue (or [stream](/streams)) leader replica.
+with node it is connected to, and the queue (or [stream](./streams)) leader replica.
 
 **Consumer acknowledgements are not aware of publishers**: their goal is to confirm
 to a RabbitMQ node that a given delivery was successfully received and processed successfully,
@@ -80,7 +80,7 @@ so the delivered message can be marked for future deletion.
 
 Sometimes publishing and consuming applications need to communicate via requests and responses
 that need an explicit acknowledgement from the peer. [RabbitMQ tutorial #6](/tutorials)
-demonstrates the basics of how that's done, and [Direct Reply-to](/direct-reply-to) provides
+demonstrates the basics of how that's done, and [Direct Reply-to](./direct-reply-to) provides
 a way to do it without declaring a lot of short-lived temporary response queues.
 
 This type of communication, however, is not covered in this guide, and is mentioned only to
