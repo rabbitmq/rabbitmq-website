@@ -64,7 +64,7 @@ responsible as much as RabbitMQ nodes are.
 ### Are Publisher Confirms Related to Consumer Delivery Acknowledgements? {#relation}
 
 [Publisher confirms](#publisher-confirms) and [consumer delivery acknowledgements](#consumer-acknowledgements)
-are very similar features that solve similar problems in different context:
+are very similar features that solve similar problems in different contexts:
 
 1. Consumer acknolwedgements, as the name suggests, cover RabbitMQ communication with consumers
 2. Publisher confirms cover publisher communication with RabbitMQ
