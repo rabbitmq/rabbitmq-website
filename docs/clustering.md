@@ -31,6 +31,7 @@ This guide covers fundamental topics related to RabbitMQ clustering:
  * [How clusters are formed](#cluster-formation)
  * How nodes [authenticate to each other](#erlang-cookie) (and with CLI tools)
  * Why it's important to [use an odd number of nodes](#node-count) and **two-cluster nodes are strongly discouraged**
+ * [Queue and stream leader replica placement](#replica-placement) strategies
  * [Node restarts](#restarting) and how nodes rejoin their cluster
  * [Node readiness probes](#restarting-readiness-probes) and how they can affect rolling cluster restarts
  * How to [remove a cluster node](#removing-nodes)
@@ -426,6 +427,42 @@ however.
 
 See [Connecting to Streams](https://blog.rabbitmq.com/posts/2021/07/connecting-to-streams/#well-behaved-clients)
 to learn more.
+
+### Queue and Stream Leader Replica Placement {#replica-placement}
+
+Every queue and srream in RabbitMQ has a primary replica. That replica is called
+_the leader_. All publishing operations on queues and streams go through the leader
+replica first and then are replicated to followers (secondary replicas). This is necessary to
+guarantee FIFO ordering of messages.
+
+To avoid some nodes in a cluster hosting a significant majority of queue leader
+replicas and thus handling most of the load, queue leaders should
+be reasonably evenly distributed across cluster nodes.
+
+Queue leaders can be distributed between nodes using several
+strategies. Which strategy is used is controlled in three ways,
+namely, using the `x-queue-master-locator` [optional queue argument](./queues#optional-arguments), setting the `queue-master-locator`
+policy key or by defining the `queue_master_locator`
+key in [`the configuration file`](./configure#configuration-files).
+
+There are two options available:
+
+ * `balanced`, the default strategy, uses the data on how many replicas peer nodes host,
+   when there are relatively few (say, no more than 1000) queues in the cluster; it falls back
+   to a more efficient strategy of picking a random node when there are many queues
+ * `client-local` will always pick the node the client is connected to
+
+The following example sets the `queue_leader_locator` setting in `rabbitmq.conf` to its default value:
+
+``` ini
+queue_leader_locator = balanced
+```
+
+The client-provided queue argument takes presedence when both are used.
+
+Note that all Raft-based features, namely quorum queues and streams, use this value as a suggestion.
+Raft leader election algorithm involves a degree of randomness, therefore the selected recommended
+node will have a replica placed on it but it will not always be the leader replica.
 
 
 ## Clustering and Observability {#clustering-and-observability}
@@ -1158,9 +1195,9 @@ Learn more in the [section on ports](#ports) above and dedicated [RabbitMQ Netwo
 
 ## Erlang Versions Across the Cluster {#erlang}
 
-All nodes in a cluster are *highly recommended* to run the same major [version of Erlang](./which-erlang): `22.2.0`
-and `22.2.8` can be mixed but `21.3.6` and `22.2.6` can potentially introduce breaking changes in
-inter-node communication protocols. While such breaking changes are relatively rare, they are possible.
+All nodes in a cluster are *highly recommended* to run the same major [version of Erlang](./which-erlang): `26.2.0`
+and `26.1.2` can be mixed but `25.3.2.8` and `26.2.0` can potentially introduce breaking changes in
+inter-node communication protocols. While such breaking changes are rare, they are possible.
 
 Incompatibilities between patch releases of Erlang/OTP versions
 are very rare.
@@ -1191,120 +1228,3 @@ In general, this aspect of managing the
 connection to nodes within a cluster is beyond the scope of
 this guide, and we recommend the use of other
 technologies designed specifically to address these problems.
-
-
-## Disk and RAM Nodes {#cluster-node-types}
-
-A node can be a <em>disk node</em> or a <em>RAM node</em>.
-(<b>Note:</b> <i>disk</i> and <i>disc</i> are used
-interchangeably). RAM nodes store internal database tables
-in RAM only. This does not include messages, message store
-indices, queue indices and other node state.
-
-In the vast majority of cases you want all your nodes to be
-disk nodes; RAM nodes are a special case that can be used
-to improve the performance clusters with high queue,
-exchange, or binding churn. RAM nodes do not provide
-higher message rates. When in doubt, use
-disk nodes only.
-
-Since RAM nodes store internal database tables in RAM only, they must sync
-them from a peer node on startup. This means that a cluster must contain
-at least one disk node. It is therefore not possible to manually remove
-the last remaining disk node in a cluster.
-
-
-## Clusters with RAM nodes {#ram-nodes}
-
-RAM nodes keep their metadata only in memory. As RAM nodes
-don't have to write to disc as much as disc nodes, they can
-perform better. However, note that since persistent queue
-data is always stored on disc, the performance improvements
-will affect only resource management (e.g. adding/removing
-queues, exchanges, or vhosts), but not publishing or
-consuming speed.
-
-RAM nodes are an advanced use case; when setting up your
-first cluster you should simply not use them. You should
-have enough disc nodes to handle your redundancy
-requirements, then if necessary add additional RAM nodes for
-scale.
-
-A cluster containing only RAM nodes would be too volatile; if the
-cluster stops you will not be able to start it again and
-**will lose all data**. RabbitMQ will prevent the creation of a
-RAM-node-only cluster in many situations, but it can't
-absolutely prevent it.
-
-The examples here show a cluster with one disc and one RAM
-node for simplicity only; such a cluster is a poor design
-choice.
-
-### Creating RAM nodes {#creating-ram}
-
-We can declare a node as a RAM node when it first joins
-the cluster. We do this with
-`rabbitmqctl join_cluster` as before, but passing the
-`--ram` flag:
-
-```bash
-# on rabbit2
-rabbitmqctl stop_app
-# => Stopping node rabbit@rabbit2 ...done.
-
-rabbitmqctl join_cluster --ram rabbit@rabbit1
-# => Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
-
-rabbitmqctl start_app
-# => Starting node rabbit@rabbit2 ...done.
-```
-
-RAM nodes are shown as such in the cluster status:
-
-```bash
-# on rabbit1
-rabbitmqctl cluster_status
-# => Cluster status of node rabbit@rabbit1 ...
-# => [{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
-# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
-# => ...done.
-
-# on rabbit2
-rabbitmqctl cluster_status
-# => Cluster status of node rabbit@rabbit2 ...
-# => [{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
-# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
-# => ...done.
-```
-
-### Changing node types {#change-type}
-
-We can change the type of a node from ram to disc and vice
-versa. Say we wanted to reverse the types of
-`rabbit@rabbit2` and `rabbit@rabbit1`, turning
-the former from a ram node into a disc node and the latter from a
-disc node into a ram node. To do that we can use the
-`change_cluster_node_type` command. The node must be
-stopped first.
-
-```bash
-# on rabbit2
-rabbitmqctl stop_app
-# => Stopping node rabbit@rabbit2 ...done.
-
-rabbitmqctl change_cluster_node_type disc
-# => Turning rabbit@rabbit2 into a disc node ...done.
-
-rabbitmqctl start_app
-# => Starting node rabbit@rabbit2 ...done.
-
-# on rabbit1
-rabbitmqctl stop_app
-# => Stopping node rabbit@rabbit1 ...done.
-
-rabbitmqctl change_cluster_node_type ram
-# => Turning rabbit@rabbit1 into a ram node ...done.
-
-rabbitmqctl start_app
-# => Starting node rabbit@rabbit1 ...done.
-```

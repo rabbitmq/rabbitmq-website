@@ -844,6 +844,15 @@ disk_free_limit.absolute = 50MB
       </p>
     </td>
   </tr>
+
+  <tr>
+    <td>`queue_leader_locator`</td>
+    <td>
+      Controls the [strategy used when selecting a node](./clustering#replica-placement) to host the leader replica of a newly declared
+      queue or stream.
+    </td>
+  </tr>
+
   <tr>
     <td>`log.file.level`</td>
     <td>
