@@ -31,6 +31,7 @@ This guide covers fundamental topics related to RabbitMQ clustering:
  * [How clusters are formed](#cluster-formation)
  * How nodes [authenticate to each other](#erlang-cookie) (and with CLI tools)
  * Why it's important to [use an odd number of nodes](#node-count) and **two-cluster nodes are strongly discouraged**
+ * [Queue and stream leader replica placement](#replica-placement) strategies
  * [Node restarts](#restarting) and how nodes rejoin their cluster
  * [Node readiness probes](#restarting-readiness-probes) and how they can affect rolling cluster restarts
  * How to [remove a cluster node](#removing-nodes)
@@ -426,6 +427,42 @@ however.
 
 See [Connecting to Streams](https://blog.rabbitmq.com/posts/2021/07/connecting-to-streams/#well-behaved-clients)
 to learn more.
+
+### Queue and Stream Leader Replica Placement {#replica-placement}
+
+Every queue and srream in RabbitMQ has a primary replica. That replica is called
+_the leader_. All publishing operations on queues and streams go through the leader
+replica first and then are replicated to followers (secondary replicas). This is necessary to
+guarantee FIFO ordering of messages.
+
+To avoid some nodes in a cluster hosting a significant majority of queue leader
+replicas and thus handling most of the load, queue leaders should
+be reasonably evenly distributed across cluster nodes.
+
+Queue leaders can be distributed between nodes using several
+strategies. Which strategy is used is controlled in three ways,
+namely, using the `x-queue-master-locator` [optional queue argument](./queues#optional-arguments), setting the `queue-master-locator`
+policy key or by defining the `queue_master_locator`
+key in [`the configuration file`](./configure#configuration-files).
+
+There are two options available:
+
+ * `balanced`, the default strategy, uses the data on how many replicas peer nodes host,
+   when there are relatively few (say, no more than 1000) queues in the cluster; it falls back
+   to a more efficient strategy of picking a random node when there are many queues
+ * `client-local` will always pick the node the client is connected to
+
+The following example sets the `queue_leader_locator` setting in `rabbitmq.conf` to its default value:
+
+``` ini
+queue_leader_locator = balanced
+```
+
+The client-provided queue argument takes presedence when both are used.
+
+Note that all Raft-based features, namely quorum queues and streams, use this value as a suggestion.
+Raft leader election algorithm involves a degree of randomness, therefore the selected recommended
+node will have a replica placed on it but it will not always be the leader replica.
 
 
 ## Clustering and Observability {#clustering-and-observability}
@@ -1158,9 +1195,9 @@ Learn more in the [section on ports](#ports) above and dedicated [RabbitMQ Netwo
 
 ## Erlang Versions Across the Cluster {#erlang}
 
-All nodes in a cluster are *highly recommended* to run the same major [version of Erlang](./which-erlang): `22.2.0`
-and `22.2.8` can be mixed but `21.3.6` and `22.2.6` can potentially introduce breaking changes in
-inter-node communication protocols. While such breaking changes are relatively rare, they are possible.
+All nodes in a cluster are *highly recommended* to run the same major [version of Erlang](./which-erlang): `26.2.0`
+and `26.1.2` can be mixed but `25.3.2.8` and `26.2.0` can potentially introduce breaking changes in
+inter-node communication protocols. While such breaking changes are rare, they are possible.
 
 Incompatibilities between patch releases of Erlang/OTP versions
 are very rare.
@@ -1191,4 +1228,3 @@ In general, this aspect of managing the
 connection to nodes within a cluster is beyond the scope of
 this guide, and we recommend the use of other
 technologies designed specifically to address these problems.
-

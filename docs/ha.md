@@ -18,17 +18,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Classic Queue Mirroring
+# Classic Queue Mirroring (Deprecated)
 
-## Wait, There's a Better Way: Next Generation Highly Available Queues and Streams {#interstitial}
+## Wait, There's a Better Way: Next Replicated Queues and Streams {#interstitial}
 
 This guide covers a [**deprecated and scheduled for removal feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/): mirroring (queue contents replication) of classic queues.
 [Quorum queues](./quorum-queues) and/or [streams](./streams) should be used instead of mirrored classic queues.
 
-Quorum queues are a more advanced queue type, which offers high availability using  replication and focuses on data safety. From RabbitMQ 3.10, quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues. You can [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq) now.
+Quorum queues are a more advanced queue type, which offers high availability using  replication and focuses on data safety. Quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues. Please [migrate from Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq) now.
 
-[Streams](./streams) is a messaging data structure available as of [RabbitMQ 3.9](./changelog),
-and is also replicated.
+[Streams](./streams) is an [alternative messaging data structure](./blog/2021/07/13/rabbitmq-streams-overview) supported by RabbitMQ.
+Just like quorum queues, streams are replicated.
 
 Quorum queues should be the **default choice** for a replicated queue type.
 Classic queue mirroring will be **removed in a future version** of RabbitMQ:
@@ -44,7 +44,7 @@ using policies before changing the default version in the configuration.
 
 Topics covered in this guide include
 
- * [Next generation replicated queue type](#interstitial) and why it should be preferred over classic queue mirroring.
+ * [Next generation replicated queues and streams](#interstitial), and why they should be preferred over classic queue mirroring
  * What is [classic queue mirroring](#what-is-mirroring) and how it works
  * How to [enable it](#ways-to-configure)
  * What [mirroring settings are available](#mirroring-arguments)
@@ -62,7 +62,8 @@ This guide assumes general familiarity with [RabbitMQ clustering](./clustering).
 ## What is Queue Mirroring {#what-is-mirroring}
 
 **Important**: mirroring of classic queues will be **removed in a future version** of RabbitMQ.
-Consider using [quorum queues](./quorum-queues) or a non-replicated classic queue instead.
+Consider using [quorum queues](./quorum-queues), [streams](./streams), or a non-replicated classic queue
+v2 instead.
 
 By default, contents of a queue within a RabbitMQ cluster are located on
 a single node (the node on which the queue was
@@ -263,27 +264,10 @@ See [Runtime Parameters and Policies](./parameters#policies) to learn more.
 
 
 ## Queue Leader Replicas, Leader Migration, Data Locality {#leader-migration-data-locality}
+
 ### Queue Leader Location {#queue-leader-location}
 
-Every queue in RabbitMQ has a primary replica. That replica is called
-_queue leader_ (originally "queue master"). All queue operations go through the leader
-replica first and then are replicated to followers (mirrors). This is necessary to
-guarantee FIFO ordering of messages.
-
-To avoid some nodes in a cluster hosting the majority of queue leader
-replicas and thus handling most of the load, queue leaders should
-be reasonably evenly distributed across cluster nodes.
-
-Queue leaders can be distributed between nodes using several
-strategies. Which strategy is used is controlled in three ways,
-namely, using the `x-queue-master-locator` [optional queue argument](./queues#optional-arguments), setting the `queue-master-locator`
-policy key or by defining the `queue_master_locator`
-key in [`the configuration file`](./configure#configuration-files). Here are the possible strategies and how to set them:
-
- * Pick the node hosting the minimum number of leaders of the same queue type:
- `balanced`
- * Pick the node the client that declares the queue is
- connected to: `client-local`
+This section has been moved to the [Clustering guide](./clustering#replica-placement).
 
 ### "nodes" Policy and Migrating Leaders {#fixed-leader-promotion}
 
