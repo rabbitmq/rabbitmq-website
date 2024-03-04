@@ -10,14 +10,14 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 We have been working for several weeks on a new website for RabbitMQ. We plan
 to release this significant upgrade shortly after RabbitMQ 3.13.0 is released!
 At this point, we would love **you to [visit the new
-website](https://rabbitmq-website.pages.dev/)** and tell us what you think :-)
+website](/)** and tell us what you think :-)
 
 In this blog post, I will go over the reasons we are doing this and what
 improvements it will bring to you.
 
 <figure>
-[![Screenshot of the new homepage](homepage-light.png#gh-light-mode-only)](https://rabbitmq-website.pages.dev/)
-[![Screenshot of the new homepage](homepage-dark.png#gh-dark-mode-only)](https://rabbitmq-website.pages.dev/)
+[![Screenshot of the new homepage](homepage-light.png#gh-light-mode-only)](/)
+[![Screenshot of the new homepage](homepage-dark.png#gh-dark-mode-only)](/?docusaurus-theme=dark)
 <figcaption>Screenshot of the new homepage</figcaption>
 </figure>
 
@@ -157,7 +157,7 @@ alternatives. So, do you find the new website comfortable? Anything you lose
 that you love on the old one?
 
 Here are a couple links to help you with this:
-* [The new website (on a temporary domain name)](https://rabbitmq-website.pages.dev/)
+* [The new website](/)
 * [The pull request to share comments and feedback](https://github.com/rabbitmq/rabbitmq-website/pull/1783)
 
 Thank you so much for any constructive positive or negative comments you might
