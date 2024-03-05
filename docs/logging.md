@@ -637,30 +637,6 @@ and don't have a chance to close its connection. They can also hint at a genuine
 a failed application process or a proxy that closes TCP connections it considers to be idle.
 
 
-## Upgrading From pre-3.7 Versions {#upgrading}
-
-RabbitMQ versions prior to 3.7.0 had a different logging subsystem.
-
-Older installations use two log files:
-`<nodename>.log` and `<nodename>_sasl.log` (`<nodename>` is `rabbit@{hostname}` by default).
-
-Where `<nodename>.log` contains RabbitMQ logs, while `<nodename>_sasl.log` contains
-runtime logs, mostly unhandled exceptions.
-
-Starting with 3.7.0 these two files were merged and all errors now can be found in
-the `<nodename>.log` file. So `RABBITMQ_SASL_LOGS` environment variable is not used
-anymore.
-
-Log levels in versions before `3.7.0` were configured using the `log_levels` configuration key.
-Starting with `3.7.0` it's been replaced with [categories](#log-message-categories),
-which are more descriptive and powerful.
-
-If the `log_levels` key is present in `rabbitmq.config` file, it should be updated to
-[use categories](#log-message-categories).
-
-`rabbit.log_levels` will work in 3.7.0 **only** if no `categories` are defined.
-
-
 ## Watching Internal Events {#internal-events}
 
 RabbitMQ nodes have an internal mechanism. Some of its events can be of interest for monitoring,
