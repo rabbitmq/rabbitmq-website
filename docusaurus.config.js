@@ -202,10 +202,6 @@ const config = {
                 href: 'https://www.rabbitmq.com/slack/',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/RabbitMQ',
-              },
-              {
                 label: 'Contact us',
                 to: '/docs/contact',
               },
