@@ -410,9 +410,8 @@ if necessary when upgrading between major or minor versions.
 In a cluster, this task is performed by the first disc node to be started
 (the "upgrader" node).
 
-Therefore when upgrading a RabbitMQ cluster using the "full stop" method,
-a disc node must start first. Starting a RAM node first is not going to work:
-the node will log an error and stop.
+When upgrading a RabbitMQ cluster using the "full stop" method,
+a node with stable durable storage must start first.
 
 During an upgrade, the last disc node to go down must be the first node to
 be brought online. Otherwise the started node will emit an error message and
