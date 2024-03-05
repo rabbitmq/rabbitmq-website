@@ -43,7 +43,7 @@ when they are.
 Example (non-encrypted):
 
 ```ini
-amqp://myhost?heartbeat=5&amp;connection_timeout=10000
+amqp://myhost?heartbeat=5&connection_timeout=10000
 ```
 
 This specifies a (non-encrypted) network connection to the host
@@ -55,10 +55,10 @@ Example (encrypted):
 
 ```ini
 amqps://myhost?cacertfile=/path/to/ca_certificate.pem
-  &amp;certfile=/path/to/client_certificate.pem
-  &amp;keyfile=/path/to/client_key.pem
-  &amp;verify=verify_peer
-  &amp;server_name_indication=myhost
+  &certfile=/path/to/client_certificate.pem
+  &keyfile=/path/to/client_key.pem
+  &verify=verify_peer
+  &server_name_indication=myhost
 ```
 
 ## TLS Parameters {#tls}
@@ -108,7 +108,7 @@ against the hostname `myhost`.
       SASL authentication mechanisms to consider when negotiating
       a mechanism with the server. This parameter can be specified
       multiple times,
-      e.g. <code>?auth_mechanism=plain&amp;auth_mechanism=amqplain</code>,
+      e.g. <code>?auth_mechanism=plain&auth_mechanism=amqplain</code>,
       to specify multiple mechanisms.
     </td>
   </tr>

@@ -662,10 +662,10 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/queues/%2f/queue-name |
  * `message_bytes_ram`: memory used by the message payloads, regardless of the size
 
 If messages are small, message metadata can use more memory than the message payload.
-10,000 messages with 1 byte of payload will use 10KB of `message_bytes_ram` (payload) &amp; 7MB of `memory` (metadata).
+10,000 messages with 1 byte of payload will use 10KB of `message_bytes_ram` (payload) and 7MB of `memory` (metadata).
 
 If message payloads are large, they will not be reflected in the queue process memory.
-10,000 messages with 100 KB of payload will use 976MB of `message_bytes_ram` (payload) &amp; 7MB of `memory` (metadata).
+10,000 messages with 100 KB of payload will use 976MB of `message_bytes_ram` (payload) and 7MB of `memory` (metadata).
 
 ### Why does the queue memory grow and shrink when publishing/consuming? {#queue-memory-usage-dynamics}
 

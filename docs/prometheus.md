@@ -1,8 +1,8 @@
 ---
-title: Monitoring with Prometheus &amp; Grafana
+title: Monitoring with Prometheus and Grafana
 displayed_sidebar: docsSidebar
 ---
-# Monitoring with Prometheus &amp; Grafana
+# Monitoring with Prometheus amd Grafana
 
 ## Overview {#overview}
 
@@ -109,7 +109,7 @@ git version
 ```
 
 ```bash
-docker info &amp;&amp; docker-compose version
+docker info && docker-compose version
 ```
 
 on the command line to verify that the necessary tools are available.
@@ -530,7 +530,7 @@ By default it does not return any metrics. All required metric groups and virtua
 parameters. For example,
 
 ```
-GET /metrics/detailed?vhost=vhost-1&amp;vhost=vhost-2&amp;family=queue_coarse_metrics&amp;family=queue_consumer_count
+GET /metrics/detailed?vhost=vhost-1&vhost=vhost-2&family=queue_coarse_metrics&family=queue_consumer_count
 ```
 
 will only return requested metrics and leave out, for example, all channel metrics that this client is not
@@ -548,7 +548,7 @@ Since it queries and serves less data in almost all cases, this endpoint puts le
 For example,
 
 ```
-GET /metrics/detailed?family=queue_coarse_metrics&amp;family=queue_consumer_count
+GET /metrics/detailed?family=queue_coarse_metrics&family=queue_consumer_count
 ```
 
 provides just enough metrics to determine how many messages are enqueued and how many consumers those queues have.

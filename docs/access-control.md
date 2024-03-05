@@ -187,14 +187,14 @@ rabbitmqctl add_user "username"
 
 ```bash
 # Password is provided via standard input.
-# Note that certain characters such as &#36;, &amp;, &#38;, &#35;, and so on must be escaped to avoid
+# Note that certain characters such as !, &, $, #, and so on must be escaped to avoid
 # special interpretation by the shell.
 echo '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b' | rabbitmqctl add_user 'username'
 ```
 
 ```bash
 # Password is provided as a command line argument.
-# Note that certain characters such as &#36;, &amp;, &#38;, &#35;, and so on must be escaped to avoid
+# Note that certain characters such as !, &, $, #, and so on must be escaped to avoid
 # special interpretation by the shell.
 rabbitmqctl add_user 'username' '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b'
 ```

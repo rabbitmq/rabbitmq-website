@@ -28,7 +28,7 @@ This guide covers topics related to RabbitMQ installation upgrades.
 It is important to consider a number of things before upgrading RabbitMQ.
 
 1. [An overview](#basics) of how RabbitMQ can be upgraded
-1. [RabbitMQ version upgradability](#rabbitmq-version-upgradability), version upgrading from &amp; version upgrading to
+1. [RabbitMQ version upgradability](#rabbitmq-version-upgradability), version upgrading from and version upgrading to
 1. [Erlang version requirement](#rabbitmq-erlang-version-requirement)
 1. [Plugin compatibility between versions](#rabbitmq-plugins-compatibility)
 1. Features [that do not support in-place upgrade](#unsupported-inplace-upgrade)

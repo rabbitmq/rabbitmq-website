@@ -120,10 +120,10 @@ First step towards a useful monitoring system starts with infrastructure and
 kernel metrics. There are quite a few of them but some are more important than others.
 Collect the following metrics on all hosts that run RabbitMQ nodes or applications:
 
- * CPU stats (user, system, iowait &amp; idle percentages)
- * Memory usage (used, buffered, cached &amp; free percentages)
+ * CPU stats (user, system, iowait & idle percentages)
+ * Memory usage (used, buffered, cached & free percentages)
  * [Virtual Memory](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) statistics (dirty page flushes, writeback volume)
- * Disk I/O (operations &amp; amount of data transferred per unit time, time to service operations)
+ * Disk I/O (operations & amount of data transferred per unit time, time to service operations)
  * Free disk space on the mount used for the [node data directory](./relocate)
  * File descriptors used by `beam.smp` vs. [max system limit](./networking#open-file-handle-limit)
  * TCP connections by state (`ESTABLISHED`, `CLOSE_WAIT`, `TIME_WAIT`)
@@ -642,7 +642,7 @@ on the node. If there are any, it will exit with a non-zero status.
 The two commands in combination deliver the stage 3 check:
 
 ```bash
-rabbitmq-diagnostics -q check_running &amp;&amp; rabbitmq-diagnostics -q check_local_alarms
+rabbitmq-diagnostics -q check_running && rabbitmq-diagnostics -q check_local_alarms
 # if both checks succeed, the exit code will be 0
 ```
 

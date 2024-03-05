@@ -187,13 +187,13 @@ since more data will need to be written to disk at once.
 
 While it's impossible to provide accurate numbers every use
 case, this is a simplistic test that showcases the difference in RAM
-utilization between a regular &amp; a lazy queue:
+utilization between a regular and a lazy queue:
 
 | Number of messages | Message body size | Message type | Producers | Consumers |
 | -                  | -                 | -            | -         | -         |
 | 1,000,000          | 1,000 bytes       | persistent   | 1         | 0         |
 
-The RAM utilization for default &amp; lazy queues **after** ingesting the above messages:
+The RAM utilization for default and lazy queues **after** ingesting the above messages:
 
 | Queue mode | Queue process memory | Messages in memory | Memory used by messages | Node memory |
 | -          | -                    | -                  | -                       | -           |
@@ -212,7 +212,7 @@ Below is a transcript of the test performed with a queue in the regular (default
 #       export RABBITMQ_NODENAME=default-queue-test
 #       export RABBITMQ_MNESIA_BASE=/tmp
 #       export RABBITMQ_LOG_BASE=/tmp
-#       rabbitmq-server &amp;
+#       rabbitmq-server &
 #
 # (the last command will fail if there is another RabbitMQ node already running)
 
@@ -230,7 +230,7 @@ default	[]	417421592	386307	386307000	1000000	1000000000
 rabbitmq-diagnostics status | grep rss,
       {total,[{erlang,1043205272},{rss,770306048},{allocated,1103822848}]}]},
 
-# Stop our temporary RabbitMQ node &amp; clean all persistent files
+# Stop our temporary RabbitMQ node, clean all persistent files
 #
 #       rabbitmqctl shutdown
 #       rm -fr /tmp/{log,$RABBITMQ_NODENAME*}
