@@ -319,7 +319,7 @@ To prioritize messages with Quorum Queues, use multiple queues; one for each pri
 
 #### Poison Message Handling
 
-Quorum queues [support poison message handling](#poison-message-handling) via a redelivery limit.
+Quorum queues [support poison message handling](#poison-message-handling-for-quorum-queues) via a redelivery limit.
 This feature is currently unique to quorum queues.
 
 #### Policy Support {#policy-support}
@@ -734,7 +734,7 @@ The following `advanced.config` example modifies all values listed above:
 ```
 
 
-## Poison Message Handling for Quorum Queues {#poison-message-handling}
+## Poison Message Handling for Quorum Queues {#poison-message-handling-for-quorum-queues}
 
 Quorum queue support handling of [poison messages](https://en.wikipedia.org/wiki/Poison_message),
 that is, messages that cause a consumer to repeatedly requeue a delivery (possibly due to a consumer failure)
@@ -794,7 +794,7 @@ could cause the log to grow in an unbounded fashion and eventually fill
 up the disks.
 
 Messages that are rejected or nacked back to a quorum queue will be
-returned to the _back_ of the queue _if_ no [delivery-limit](#poison-message-handling) is set. This avoids
+returned to the _back_ of the queue _if_ no [delivery-limit](#poison-message-handling-for-quorum-queues) is set. This avoids
 the above scenario where repeated re-queues causes the Raft log to grow in an
 unbounded manner. If a `delivery-limit` is set it will use the original behaviour
 of returning the message near the head of the queue.
