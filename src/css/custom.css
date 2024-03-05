@@ -116,7 +116,63 @@ html[data-theme='dark'] .mermaid-msg > rect {
   font-size: smaller !important;
 }
 
-/* Release Information table. */
+/* -------------------------------------------------------------------
+/* Docs introductino page.
+ * ------------------------------------------------------------------- */
+
+/*
+ * The arrow icons were created by krystonschwarze and licensed under the CC-BY
+ * terms. The files were downloaded from svgrepo.com:
+ * - https://www.svgrepo.com/svg/510811/arrow-left-sm
+ * - https://www.svgrepo.com/svg/510834/arrow-up-right-sm
+ *
+ * The files were modified to crop the margins around the arrows.
+ */
+
+.docs-tips-large-screen {
+  display: none;
+}
+
+.docs-tips-small-screen {
+  display: unset;
+}
+
+@media (min-width: 997px) {
+  .docs-tips {
+    margin-top: calc(var(--ifm-h2-vertical-rhythm-top) * var(--ifm-leading));
+
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 1em;
+  }
+
+  .docs-tips div {
+    background-repeat: no-repeat;
+    background-position: top 3px left;
+    background-size: var(--ifm-h2-font-size);
+    padding-left: calc(var(--ifm-h2-font-size) + 20px);
+  }
+
+  .docs-tip-version-menu {
+    background-image: url("/img/arrow-up-right.svg");
+  }
+
+  .docs-tip-toc-menu {
+    background-image: url("/img/arrow-left.svg");
+  }
+
+  .docs-tips-large-screen {
+    display: unset;
+  }
+
+  .docs-tips-small-screen {
+    display: none;
+  }
+}
+
+/* -------------------------------------------------------------------
+/* Release Information table.
+ * ------------------------------------------------------------------- */
 
 .release-information {
   --ri-color-latest: #d4f4b4;

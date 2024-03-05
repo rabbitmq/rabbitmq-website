@@ -36,6 +36,11 @@ export function RabbitMQServerProductName() {
   return 'RabbitMQ';
 }
 
+export function RabbitMQServerReleaseBranch(props = {}) {
+  const branch = getBranchOrDefault(props);
+  return branch;
+}
+
 export function RabbitMQServerVersion(props = {}) {
   const version = getLatestVersionForCurrentBranch(props);
   return version;
