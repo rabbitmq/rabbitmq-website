@@ -463,7 +463,7 @@ There are two ways of changing effective log levels:
 
  * Via [configuration file(s)](./configure): this is more flexible but requires
    a node restart between changes
- * Using [CLI tools](./cli), `rabbitmqctl set_log_level &lt;level&gt;`: the changes are transient (will not survive node restart) but can be used to
+ * Using [CLI tools](./cli), `rabbitmqctl set_log_level <level>`: the changes are transient (will not survive node restart) but can be used to
    activate and deactivate, for example, [debug logging](#debug-logging) at runtime for a period of time.
 
 To set log level to `debug` on a running node:
@@ -595,7 +595,7 @@ not be logged.
 Here's an example:
 
 ```
-2018-11-22 10:44:33.654 [info] &lt;0.620.0&gt; accepting AMQP connection &lt;0.620.0&gt; (127.0.0.1:52771 -> 127.0.0.1:5672)
+2018-11-22 10:44:33.654 [info] <0.620.0> accepting AMQP connection <0.620.0> (127.0.0.1:52771 -> 127.0.0.1:5672)
 ```
 
 The entry includes client IP address and port (<code>127.0.0.1:52771</code>) as well as the target
@@ -606,11 +606,11 @@ Once a connection successfully authenticates and is granted access to a [virtual
 that is also logged:
 
 ```
-2018-11-22 10:44:33.663 [info] &lt;0.620.0&gt; connection &lt;0.620.0&gt; (127.0.0.1:52771 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
+2018-11-22 10:44:33.663 [info] <0.620.0> connection <0.620.0> (127.0.0.1:52771 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
 ```
 
 The examples above include two values that can be used as connection identifiers
-in various scenarios: connection name (`127.0.0.1:57919 -> 127.0.0.1:5672`) and an Erlang process ID of the connection (`&lt;0.620.0&gt;`).
+in various scenarios: connection name (`127.0.0.1:57919 -> 127.0.0.1:5672`) and an Erlang process ID of the connection (`<0.620.0>`).
 The latter is used by [rabbitmqctl](./cli) and the former is used by the [HTTP API](./management).
 
 A [client connection](./connections) can be closed cleanly or abnormally. In the
@@ -622,13 +622,13 @@ or TCP connection fails. RabbitMQ will log both cases.
 Below is an example entry for a successfully closed connection:
 
 ```
-2018-06-17 06:23:29.855 [info] &lt;0.634.0&gt; closing AMQP connection &lt;0.634.0&gt; (127.0.0.1:58588 -&gt; 127.0.0.1:5672, vhost: '/', user: 'guest')
+2018-06-17 06:23:29.855 [info] <0.634.0> closing AMQP connection <0.634.0> (127.0.0.1:58588 -> 127.0.0.1:5672, vhost: '/', user: 'guest')
 ```
 
 Abruptly closed connections will be logged as warnings:
 
 ```
-2018-06-17 06:28:40.868 [warning] &lt;0.646.0&gt; closing AMQP connection &lt;0.646.0&gt; (127.0.0.1:58667 -&gt; 127.0.0.1:5672, vhost: '/', user: 'guest'):
+2018-06-17 06:28:40.868 [warning] <0.646.0> closing AMQP connection <0.646.0> (127.0.0.1:58667 -> 127.0.0.1:5672, vhost: '/', user: 'guest'):
 client unexpectedly closed TCP connection
 ```
 
