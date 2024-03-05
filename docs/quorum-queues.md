@@ -317,7 +317,7 @@ Quorum queues support [consumer priorities](./consumer-priority), but not [messa
 To prioritize messages with Quorum Queues, use multiple queues; one for each priority.
 
 
-#### Poison Message Handling
+#### Poison Message Handling {#poison-message-handling}
 
 Quorum queues [support poison message handling](#poison-message-handling) via a redelivery limit.
 This feature is currently unique to quorum queues.
