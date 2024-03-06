@@ -34,7 +34,7 @@ This guide covers
 
 and more.
 
-[Plugin development](./plugin-development) is covered in a separate guide.
+[Plugin development](/plugin-development) is covered in a separate guide.
 
 
 ## The Basics {#basics}

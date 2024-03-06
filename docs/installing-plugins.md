@@ -101,7 +101,7 @@ particular version of the plugins is distributed in the same
 archive as the broker with that version.  The source code
 repositories can all be found on [GitHub](https://github.com/rabbitmq).
 
-See the [plugin development](./plugin-development) guide for more information on building plugins from source.
+See the [plugin development](/plugin-development) guide for more information on building plugins from source.
 
 Note that plugin releases might have dependencies to a particular
 version of RabbitMQ server, or at least the tip of a specific branch.

@@ -287,7 +287,7 @@ www.rabbitmq.com/partitions.html,https://www.rabbitmq.com/docs/partitions,,TRUE,
 www.rabbitmq.com/passwords.html,https://www.rabbitmq.com/docs/passwords,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/persistence-conf.html,https://www.rabbitmq.com/docs/persistence-conf,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/platforms.html,https://www.rabbitmq.com/docs/platforms,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/plugin-development.html,https://www.rabbitmq.com/docs/plugin-development,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/plugin-development.html,https://www.rabbitmq.com/plugin-development,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/plugins.html,https://www.rabbitmq.com/docs/plugins,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/previous.html,https://www.rabbitmq.com/docs/previous,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/priority.html,https://www.rabbitmq.com/docs/priority,,TRUE,FALSE,FALSE,FALSE

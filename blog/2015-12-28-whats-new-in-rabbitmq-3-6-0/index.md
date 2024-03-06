@@ -120,7 +120,7 @@ even reduced build times!
 Changing things on our build system, means introducing breaking
 changes on how we build RabbitMQ Plugins. If you are a plugin author,
 you might want to read our new
-[plugin development guide](/docs/plugin-development).
+[plugin development guide](/plugin-development).
 
 ## Security
 

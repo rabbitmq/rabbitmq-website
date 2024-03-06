@@ -398,11 +398,6 @@ const sidebars = {
           id: 'installing-plugins',
           label: 'Installing Plugins',
         },
-        {
-          type: 'doc',
-          id: 'plugin-development',
-          label: 'Plugin Development',
-        },
       ]
     },
     {

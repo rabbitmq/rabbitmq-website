@@ -2,7 +2,7 @@
 title: Plugin Development Basics
 ---
 <!--
-Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2007-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -59,7 +59,7 @@ To develop a RabbitMQ plugin, first make sure the following
 requirements are met:
 
  * Ensure that you have a working installation of [Git](http://git-scm.com/)
- * Ensure that the dependencies detailed in the [Server Build](./build-server#prerequisites) guides are installed and functional
+ * Ensure that the dependencies detailed in the [Server Build](/docs/build-server#prerequisites) guides are installed and functional
 
 [Erlang.mk](http://erlang.mk) is used to
 build RabbitMQ and its plugins. The easiest way to start on
