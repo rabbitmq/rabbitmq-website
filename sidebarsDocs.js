@@ -532,11 +532,6 @@ const sidebars = {
           id: 'build-erlang-client',
           label: 'Build the Erlang Client',
         },
-        {
-          type: 'doc',
-          id: 'github',
-          label: 'Our use of Git and GitHub',
-        },
       ]
     },
     'previous',

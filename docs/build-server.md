@@ -29,7 +29,7 @@ server from source.
 
 ## Build from Git {#git}
 
-First, get the source code from [our GitHub repositories](./github):
+First, get the source code from [our GitHub repositories](/github):
 
 ```bash
 git clone https://github.com/rabbitmq/rabbitmq-server.git rabbitmq

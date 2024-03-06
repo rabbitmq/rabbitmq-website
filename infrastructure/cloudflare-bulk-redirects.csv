@@ -215,7 +215,7 @@ www.rabbitmq.com/federation.html,https://www.rabbitmq.com/docs/federation,,TRUE,
 www.rabbitmq.com/firehose.html,https://www.rabbitmq.com/docs/firehose,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/flow-control.html,https://www.rabbitmq.com/docs/flow-control,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/getstarted.html,https://www.rabbitmq.com/tutorials,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/github.html,https://www.rabbitmq.com/docs/github,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/github.html,https://www.rabbitmq.com/github,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/ha.html,https://www.rabbitmq.com/docs/ha,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/heartbeats.html,https://www.rabbitmq.com/docs/heartbeats,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/index.html,https://www.rabbitmq.com/docs/index,,TRUE,FALSE,FALSE,FALSE

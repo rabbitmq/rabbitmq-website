@@ -303,7 +303,7 @@ flowchart TD
                   documentation or any form of advocacy. In fact contributing
                   is the best way to support the project!
                   Take a look at our <Link
-                  to="/docs/github">Contributors page</Link>.</p>
+                  to="/github">Contributors page</Link>.</p>
               </section>
               <section>
                 <img src="/img/commercial-support-icon.svg" height="70" alt="" title="Commercial offerings"/>

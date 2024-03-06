@@ -141,4 +141,4 @@ In addition, we plan to add another operator that will wrap some of RabbitMQ's A
  You can also subscribe to the community [mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users)
  and the RabbitMQ [Slack channel](https://rabbitmq-slack.herokuapp.com/)
  * Read the RabbitMQ [community blog](https://blog.rabbitmq.com)
- * We’re always looking for [new contributors](/docs/github) to the RabbitMQ project!
+ * We’re always looking for [new contributors](/github) to the RabbitMQ project!
