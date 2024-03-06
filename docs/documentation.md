@@ -139,7 +139,7 @@ for the original RabbitMQ protocol.
  * [Per Virtual Host Limits](./vhosts#limits)
  * [Per User Limits](./user-limits)
  * [Message Tracing](./firehose)
- * [Capturing Traffic with Wireshark](./amqp-wireshark)
+ * [Capturing Traffic with Wireshark](/amqp-wireshark)
 
 
 ### Clustering
@@ -258,7 +258,7 @@ many popular programming languages are also available, as is an [AMQP 0-9-1 Over
  * [Dead Lettering](./dlx)
  * [Alternate Exchanges](./ae)
  * [Message Tracing](./firehose)
- * [Capturing Traffic with Wireshark](./amqp-wireshark)
+ * [Capturing Traffic with Wireshark](/amqp-wireshark)
 
 
 ## References
@@ -300,10 +300,10 @@ and the [Plugins Guide](./plugins) for more information about plugins.
 
 ## Protocols
 
- * AMQP 0-9-1: [Extensions](./extensions) | [Quick Reference](./amqp-0-9-1-quickref)
+ * AMQP 0-9-1: [Extensions](./extensions) | [Quick Reference](/amqp-0-9-1-quickref)
  * [STOMP](./stomp)
  * [MQTT](./mqtt)
  * [STOMP over WebSockets](./web-stomp)
  * [MQTT over WebSockets](./web-mqtt)
- * [AMQP 0-9-1 implementation details](./protocol).
- * [AMQP 0-9-1 Errata document](./amqp-0-9-1-errata).
+ * [AMQP 0-9-1 implementation details](/amqp-0-9-1-protocol).
+ * [AMQP 0-9-1 Errata document](/amqp-0-9-1-errata).

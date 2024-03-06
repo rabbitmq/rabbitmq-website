@@ -155,11 +155,11 @@ www.rabbitmq.com/access-control.html,https://www.rabbitmq.com/docs/access-contro
 www.rabbitmq.com/admin-guide.html,https://www.rabbitmq.com/docs/admin-guide,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/ae.html,https://www.rabbitmq.com/docs/ae,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/alarms.html,https://www.rabbitmq.com/docs/alarms,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/amqp-0-8-to-0-9-1.html,https://www.rabbitmq.com/docs/amqp-0-8-to-0-9-1,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/amqp-0-9-1-errata.html,https://www.rabbitmq.com/docs/amqp-0-9-1-errata,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/amqp-0-9-1-quickref.html,https://www.rabbitmq.com/docs/amqp-0-9-1-quickref,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/amqp-0-9-1-reference.html,https://www.rabbitmq.com/docs/amqp-0-9-1-reference,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/amqp-wireshark.html,https://www.rabbitmq.com/docs/amqp-wireshark,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/amqp-0-8-to-0-9-1.html,https://www.rabbitmq.com/amqp-0-8-to-0-9-1,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/amqp-0-9-1-errata.html,https://www.rabbitmq.com/amqp-0-9-1-errata,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/amqp-0-9-1-quickref.html,https://www.rabbitmq.com/amqp-0-9-1-quickref,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/amqp-0-9-1-reference.html,https://www.rabbitmq.com/amqp-0-9-1-reference,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/amqp-wireshark.html,https://www.rabbitmq.com/amqp-wireshark,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/api-guide.html,https://www.rabbitmq.com/docs/api-guide,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/auth-notification.html,https://www.rabbitmq.com/docs/auth-notification,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/authentication.html,https://www.rabbitmq.com/docs/authentication,,TRUE,FALSE,FALSE,FALSE
@@ -293,7 +293,7 @@ www.rabbitmq.com/previous.html,https://www.rabbitmq.com/docs/previous,,TRUE,FALS
 www.rabbitmq.com/priority.html,https://www.rabbitmq.com/docs/priority,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/production-checklist.html,https://www.rabbitmq.com/docs/production-checklist,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/prometheus.html,https://www.rabbitmq.com/docs/prometheus,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/protocol.html,https://www.rabbitmq.com/docs/protocol,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/protocol.html,https://www.rabbitmq.com/amqp-0-9-1-protocol,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/protocols.html,https://www.rabbitmq.com/docs/protocols,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/publishers.html,https://www.rabbitmq.com/docs/publishers,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/queues.html,https://www.rabbitmq.com/docs/queues,,TRUE,FALSE,FALSE,FALSE

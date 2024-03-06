@@ -124,7 +124,7 @@ This client does not support unsigned 64-bit integers, represented in
 type `ulong`. Attempting to encode `ulong` values will throw an exception.
 Note that signed 64-bit integers are supported.
 
-This is in part due to type marker [ambiguity in the AMQP 0-9-1 spec](./amqp-0-9-1-errata#section_3),
+This is in part due to type marker [ambiguity in the AMQP 0-9-1 spec](/amqp-0-9-1-errata#section_3),
 and in part due to [the list of types supported by other popular clients](https://github.com/rabbitmq/rabbitmq-dotnet-client/pull/1299#issuecomment-1433342924).
 
 

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2007-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -19,18 +19,18 @@ limitations under the License.
 
 ## Overview {#overview}
 
-<a href="https://www.wireshark.org/#download">Wireshark 2.0</a>
+[Wireshark](https://www.wireshark.org/)
 contains enhanced support for AMQP traffic inspection and
 analysis. It can dissect (parse, visualise, filter) AMQP 0-9-1 and AMQP 1.0 traffic,
-including AMQP 0-9-1 <a href="amqp-0-9-1-errata.html#section_3">Errata</a>
-and RabbitMQ <a href="./extensions">Extensions</a>.
+including AMQP 0-9-1 [Errata](amqp-0-9-1-errata#section_3)
+and RabbitMQ [Extensions](/docs/extensions).
 
 Wireshark is based on the same foundation as [tcpdump](https://www.tcpdump.org/), `libpcap`, and can be used to inspect
 `pcap` traffic capture files taken in a server environment.
 
 Together, tcpdump and Wireshark provide a lot of information explaining what clients (applications) and RabbitMQ nodes
 do. This information can and should be used to derive insights into system behavior that is difficult
-to observe otherwise. These tools complement [monitoring systems](./monitoring) and allow operators and developers
+to observe otherwise. These tools complement [monitoring systems](/docs/monitoring) and allow operators and developers
 troubleshoot a distributed system more efficiently.
 
 
@@ -55,7 +55,7 @@ Packet Details then indicate all arguments of the frame. It
 also includes dynamically calculated values enclosed in square
 brackets. This is explained in next section.
 
-<img src="/img/wireshark-main-window.png" alt="Main window" title="Main window" />
+<img src="wireshark-main-window.png" alt="Main window" title="Main window" />
 
 
 ## Links Between Related Frames {#linking}
@@ -64,7 +64,7 @@ Wireshark analyzes the AMQP 0-9-1 packet flow and displays
 additional information enclosed in square brackets:
 
  * Arguments of basic.publish include a publish sequence number, which is the sequence number used by
-   <a href="./confirms">Publisher Confirms</a>
+   [Publisher Confirms](/docs/confirms)
  * Each acknowledged basic.publish or `basic.deliver` includes a reference to the frame that contains the
    corresponding `basic.ack` or `basic.nack` frame that acknowledged it (if any).
  * Similarly, each basic.ack contains a reference (possibly multiple) to frame(s) that is being confirmed by this Ack
@@ -74,15 +74,15 @@ additional information enclosed in square brackets:
 
 Wireshark automatically highlights AMQP 0-9-1 packets with:
 
- * [Connection errors](./connections) (server-sent `connection.close` frames) and [channel errors](./channels)
+ * [Connection errors](/docs/connections) (server-sent `connection.close` frames) and [channel errors](/docs/channels)
    (server-sent `channel.close` frames)
- * [Returned unroutable](./publishers) messages (`basic.return` frames)
+ * [Returned unroutable](/docs/publishers) messages (`basic.return` frames)
 
 You may display summary of significant frames in a dedicated
 dialog. Go to Analyze > Expert Information and possibly apply
 the display filter:
 
-<img src="/img/wireshark-expert-info.png" alt="More Metrics" title="Metrics" />
+<img src="wireshark-expert-info.png" alt="More Metrics" title="Metrics" />
 
 ## Inspecting Traffic on TLS-enabled Connections {#inspecting-tls-connections}
 
@@ -90,7 +90,7 @@ Wireshark enables you to inspect the AMQPS traffic, however you
 can decrypt only the traffic that have been encrypted using the
 RSA keys, excluding the RSA ephemeral and Diffie-Hellman
 Ephemeral (DHE/EDH) cipher suites. You should
-<a href="./ssl#cipher-suites">set cipher suites</a> used
+[set cipher suites](/docs/ssl#cipher-suites) used
 by RabbitMQ and restrict the list to RSA only.
 
 In classic configuration format this would look something like this:

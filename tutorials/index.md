@@ -198,7 +198,7 @@ Once you have been through the tutorials (or if you want to
 skip ahead), you may wish to read an
 [Introduction to RabbitMQ Concepts](/tutorials/amqp-concepts)
 and browse our
-[AMQP 0-9-1 Quick Reference Guide](/docs/amqp-0-9-1-quickref).
+[AMQP 0-9-1 Quick Reference Guide](/amqp-0-9-1-quickref).
 
 
 ## Tutorials in Other Languages

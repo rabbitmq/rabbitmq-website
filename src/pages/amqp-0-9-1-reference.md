@@ -277,14 +277,14 @@ contribute
     <div id="content-pane">
         <p>
             This page contains a complete reference to RabbitMQ's implementaton of version 0-9-1 of the AMQP specification. The
-            <a href="resources/specs/amqp0-9-1.xml">original specification</a> was published by the <a href="http://www.amqp.org">AMQP WG</a> in 2008 and is made available under the
-            <a href="http://www.amqp.org/legal/amqp-license">AMQP license</a>.
+            [original specification](/resources/specs/amqp0-9-1.xml) was published by the [AMQP WG](http://www.amqp.org) in 2008 and is made available under the
+            [AMQP license](http://www.amqp.org/legal/amqp-license).
         </p>
         <p>
-            Elsewhere on this site you can read details of <a href="./specification">RabbitMQ's conformance to the specification</a>. RabbitMQ implements <a href="./extensions">several extensions</a> to the core specification that are
-            documented in this guide. The original and extended specification downloads can be found on the <a href="./protocol">protocol page</a>.
+            Elsewhere on this site you can read details of [RabbitMQ's conformance to the specification](/docs/specification). RabbitMQ implements [several extensions](/docs/extensions) to the core specification that are
+            documented in this guide. The original and extended specification downloads can be found on the [protocol page](/amqp-0-9-1-protocol).
         </p>
-        <p>You may also be interested in our <a href="./amqp-0-9-1-quickref">Protocol and API Quick Reference</a>.</p>
+        <p>You may also be interested in our [Protocol and API Quick Reference](./amqp-0-9-1-quickref).</p>
         <div>
 
 ### Protocol Information {#protocol-info}

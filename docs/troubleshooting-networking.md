@@ -258,7 +258,7 @@ All network activity can be inspected, filtered and analyzed using a traffic cap
 
 [tcpdump](https://en.wikipedia.org/wiki/Tcpdump) and its GUI sibling [Wireshark](https://www.wireshark.org)
 are the industry standards for capturing traffic, filtering and analysis. Both support all protocols supported by RabbitMQ.
-See the [Using Wireshark with RabbitMQ](./amqp-wireshark) guide for an overview.
+See the [Using Wireshark with RabbitMQ](/amqp-wireshark) guide for an overview.
 
 ## TLS Connections {#tls}
 

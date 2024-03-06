@@ -4,14 +4,14 @@ title: Compatibility and Conformance
 <div id="left-content">
     <div class="docSection">
         <a name="spec" class="anchor" id="spec"></a>
-        <p>RabbitMQ implements version 0-9-1 of the AMQP specification in the core, with a number of <a href="./extensions">extensions</a> to the specification.</p>
+        <p>RabbitMQ implements version 0-9-1 of the AMQP specification in the core, with a number of [extensions](./extensions) to the specification.</p>
         <p>
-            RabbitMQ implements AMQP 1.0 via a <a href="./plugins">plugin</a>. However, AMQP 1.0 is a completely different protocol than AMQP 0-9-1 and hence not a suitable replacement for the latter. RabbitMQ will therefore continue to
+            RabbitMQ implements AMQP 1.0 via a [plugin](./plugins). However, AMQP 1.0 is a completely different protocol than AMQP 0-9-1 and hence not a suitable replacement for the latter. RabbitMQ will therefore continue to
             support AMQP 0-9-1 indefinitely.
         </p>
         <p>
             The 0-9-1 (with and without extensions) specifications are linked to below for your convenience. We recommend reading them if you want to learn more about AMQP 0-9-1. Please see our
-            <a href="/tutorials/amqp-concepts">AMQP 0-9-1 Overview guide</a>, <a href="./amqp-0-9-1-reference">AMQP 0-9-1 Reference guide</a>, and the rest of <a href="./documentation">documentation</a> for more information.
+            [AMQP 0-9-1 Overview guide](/tutorials/amqp-concepts), [AMQP 0-9-1 Reference guide](/amqp-0-9-1-reference), and the rest of [documentation](./documentation) for more information.
         </p>
     </div>
 

@@ -60,7 +60,7 @@ title: AMQP 0-8 to 0-9-1
             The extensibility of the exchange-type mechanism is now explicitly documented.
         </li>
         <li>
-            The rules for equivalence of exchange instances in <a href="amqp-0-9-1-reference.html#exchange.declare">Exchange.Declare</a>
+            The rules for equivalence of exchange instances in <a href="amqp-0-9-1-reference#exchange.declare">Exchange.Declare</a>
             have been more clearly specified, including a specification of how the "arguments" tables are to be compared.
         </li>
         <li>
@@ -69,12 +69,12 @@ title: AMQP 0-8 to 0-9-1
         <li>
             The AMQP 0-8 notion of "content classes" has been removed.
         </li>
-        <li>The rules for equivalence of queues in <a href="amqp-0-9-1-reference.html#queue.declare">Queue.Declare</a> have been more clearly specified.</li>
+        <li>The rules for equivalence of queues in <a href="amqp-0-9-1-reference#queue.declare">Queue.Declare</a> have been more clearly specified.</li>
         <li>
             The rules regarding deletion of "exclusive" queues have been more tightly specified.
         </li>
         <li>
-            A single <a href="amqp-0-9-1-reference.html#basic.publish">Basic.Publish</a> is now defined to never result in multiple copies of a message on any particular queue, even in the presence of multiple independent bindings to the
+            A single <a href="amqp-0-9-1-reference#basic.publish">Basic.Publish</a> is now defined to never result in multiple copies of a message on any particular queue, even in the presence of multiple independent bindings to the
             same queue that match the published message.
         </li>
         <li>
@@ -83,37 +83,37 @@ title: AMQP 0-8 to 0-9-1
         <li>
             If two or more different bindings to a single queue apply to a given publication, only one copy of the published message is placed on the queue. This was intended, but not specified, in 0-8.
         </li>
-        <li>The error code for use of an empty queue name in <a href="amqp-0-9-1-reference.html#queue.bind">Queue.Bind</a> (and other methods that use the most-recently-declared-queue mechanism) has been changed.</li>
-        <li>The empty string may now be specified in <a href="amqp-0-9-1-reference.html#queue.bind">Queue.Bind</a>'s "exchange" field; it signifies the default exchange (!).</li>
+        <li>The error code for use of an empty queue name in <a href="amqp-0-9-1-reference#queue.bind">Queue.Bind</a> (and other methods that use the most-recently-declared-queue mechanism) has been changed.</li>
+        <li>The empty string may now be specified in <a href="amqp-0-9-1-reference#queue.bind">Queue.Bind</a>'s "exchange" field; it signifies the default exchange (!).</li>
         <li>
-            <a href="amqp-0-9-1-reference.html#basic.recover">Basic.Recover</a> has changed: the old behaviour is available via a (deprecated) method <a href="amqp-0-9-1-reference.html#basic.recover-async">Basic.RecoverAsync</a>, which has
-            method ID 100 (which in 0-8 was the ID for Basic.Recover). In 0-9-1, Basic.Recover has ID 110, and now has a required response, <a href="amqp-0-9-1-reference.html#basic.recover-ok">Basic.RecoverOk</a> (ID 111). Also, both
+            <a href="amqp-0-9-1-reference#basic.recover">Basic.Recover</a> has changed: the old behaviour is available via a (deprecated) method <a href="amqp-0-9-1-reference#basic.recover-async">Basic.RecoverAsync</a>, which has
+            method ID 100 (which in 0-8 was the ID for Basic.Recover). In 0-9-1, Basic.Recover has ID 110, and now has a required response, <a href="amqp-0-9-1-reference#basic.recover-ok">Basic.RecoverOk</a> (ID 111). Also, both
             Basic.Recover and Basic.RecoverAsync are permitted on (Tx-)transacted channels in 0-9-1, which was forbidden in 0-8.
         </li>
         <li>
-            <a href="amqp-0-9-1-reference.html#basic.ack">Basic.Ack</a> is now required to signal a channel error immediately upon detecting an invalid deliveryTag, even if the channel is (Tx-)transacted. Also, it is now explicitly
+            <a href="amqp-0-9-1-reference#basic.ack">Basic.Ack</a> is now required to signal a channel error immediately upon detecting an invalid deliveryTag, even if the channel is (Tx-)transacted. Also, it is now explicitly
             forbidden to acknowledge a particular deliveryTag more than once.
         </li>
-        <li>Consumer tags (in <a href="amqp-0-9-1-reference.html#basic.consume">Basic.Consume</a> etc) are defined as local to a channel now, not local to a connection.</li>
+        <li>Consumer tags (in <a href="amqp-0-9-1-reference#basic.consume">Basic.Consume</a> etc) are defined as local to a channel now, not local to a connection.</li>
         <li>
             Message priorities have been clarified: priority 9 is the highest priority level (meaning that messages with priority 9 will be delivered ahead of any lower-priority messages), and priority 0 is the lowest priority level.
         </li>
         <li>
-            If a <a href="amqp-0-9-1-reference.html#channel.close">Channel.Close</a> is received while a peer is waiting for a <a href="amqp-0-9-1-reference.html#channel.close-ok">Channel.CloseOk</a>, a Channel.CloseOk must be sent in
+            If a <a href="amqp-0-9-1-reference#channel.close">Channel.Close</a> is received while a peer is waiting for a <a href="amqp-0-9-1-reference#channel.close-ok">Channel.CloseOk</a>, a Channel.CloseOk must be sent in
             response as usual. Previously, in 0-8, such a Channel.Close was required to be ignored.
         </li>
         <li>
-            If a <a href="amqp-0-9-1-reference.html#connection.close">Connection.Close</a> is received while a peer is waiting for a <a href="amqp-0-9-1-reference.html#channel.close-ok">Connection.CloseOk</a>, a Connection.CloseOk must be
+            If a <a href="amqp-0-9-1-reference#connection.close">Connection.Close</a> is received while a peer is waiting for a <a href="amqp-0-9-1-reference#channel.close-ok">Connection.CloseOk</a>, a Connection.CloseOk must be
             sent in response as usual. Previously, in 0-8, such a Connection.Close was required to be ignored.
         </li>
-        <li><a href="amqp-0-9-1-reference.html#connection.close">Channel.Flow</a> is specified to not apply to content carried by <a href="amqp-0-9-1-reference.html#basic.get-ok">Basic.GetOk</a> methods.</li>
-        <li><a href="amqp-0-9-1-reference.html#exchange.declare">Exchange.Declare</a>'s Durable field is no longer ignored in cases when the named exchange already exists at the time of the declaration.</li>
-        <li>The server now MUST NOT delete an exchange that has bindings on it if the IfUnused field is true during an <a href="amqp-0-9-1-reference.html#exchange.delete">Exchange.Delete</a>.</li>
+        <li><a href="amqp-0-9-1-reference#connection.close">Channel.Flow</a> is specified to not apply to content carried by <a href="amqp-0-9-1-reference#basic.get-ok">Basic.GetOk</a> methods.</li>
+        <li><a href="amqp-0-9-1-reference#exchange.declare">Exchange.Declare</a>'s Durable field is no longer ignored in cases when the named exchange already exists at the time of the declaration.</li>
+        <li>The server now MUST NOT delete an exchange that has bindings on it if the IfUnused field is true during an <a href="amqp-0-9-1-reference#exchange.delete">Exchange.Delete</a>.</li>
         <li>
             The XML requires an "amq.headers" exchange if the "headers" exchange type is implemented; the PDF requires an "amq.match" exchange if the "headers" exchange type is implemented. This is an error and will be resolved in a future
             release of the 0-9 series of specifications; the intention is for "amq.headers" to be required. "amq.match" is a legacy name and is now deprecated.
         </li>
-        <li>It is now explicitly specified that <a href="amqp-0-9-1-reference.html#queue.delete">Queue.Delete</a> on an AutoDelete queue is permitted and meaningful.</li>
+        <li>It is now explicitly specified that <a href="amqp-0-9-1-reference#queue.delete">Queue.Delete</a> on an AutoDelete queue is permitted and meaningful.</li>
         <li>
             The rules on exclusive queues have changed: exclusivity now applies to all queue operations, not just consuming from the queue. Furthermore, passive declarations of an exclusively-held queue on other connections are now
             disallowed.
@@ -121,14 +121,14 @@ title: AMQP 0-8 to 0-9-1
         <li>
             Generally, passive declarations are now specified to ignore most of the parameters given to the declaration other than the name of the declared entity. This was not specified in 0-8.
         </li>
-        <li>The server now MUST NOT delete a queue that has messages in it if the IfEmpty field is true during a <a href="amqp-0-9-1-reference.html#queue.delete">Queue.Delete</a>.</li>
-        <li>When <a href="amqp-0-9-1-reference.html#queue.purge">Queue.Purge</a> is called, sent-but-unacknowledged messages are no longer purged, even if the channel they were sent down is not (Tx-)transacted.</li>
-        <li>Class <a href="amqp-0-9-1-reference.html#class.tx">Tx</a> has new language around atomicity and multiple-queue-transactions.</li>
+        <li>The server now MUST NOT delete a queue that has messages in it if the IfEmpty field is true during a <a href="amqp-0-9-1-reference#queue.delete">Queue.Delete</a>.</li>
+        <li>When <a href="amqp-0-9-1-reference#queue.purge">Queue.Purge</a> is called, sent-but-unacknowledged messages are no longer purged, even if the channel they were sent down is not (Tx-)transacted.</li>
+        <li>Class <a href="amqp-0-9-1-reference#class.tx">Tx</a> has new language around atomicity and multiple-queue-transactions.</li>
         <li>
             The effects of the "immediate" and "mandatory" flags on
-            <a href="amqp-0-9-1-reference.html#basic.publish">Basic.Publish</a> are explicitly declared to be undefined when used within a Tx transaction in 0-9-1.
+            <a href="amqp-0-9-1-reference#basic.publish">Basic.Publish</a> are explicitly declared to be undefined when used within a Tx transaction in 0-9-1.
         </li>
-        <li><a href="amqp-0-9-1-reference.html#tx.rollback">Tx.Rollback</a> has been clarified: unacked messages will NOT be redelivered in 0-9-1 upon rollback.</li>
+        <li><a href="amqp-0-9-1-reference#tx.rollback">Tx.Rollback</a> has been clarified: unacked messages will NOT be redelivered in 0-9-1 upon rollback.</li>
         <li>
             The "no-local" field is specified to prohibit delivery to the connection that published a message in 0-9-1. In 0-8, it was not specified whether the scope of prohibition was the channel or the connection.
         </li>
@@ -143,7 +143,7 @@ title: AMQP 0-8 to 0-9-1
         </li>
         <li>
             Section 2.2.9 reiterates the lack of requeuing and redelivering on
-            <a href="amqp-0-9-1-reference.html#tx.rollback">Tx.Rollback</a>.
+            <a href="amqp-0-9-1-reference#tx.rollback">Tx.Rollback</a>.
         </li>
         <li>
             Section 2.3.7 explains the changes made to the connection and channel close protocols.
@@ -173,16 +173,16 @@ title: AMQP 0-8 to 0-9-1
         <li>
             Some methods have been renumbered:
             <ul class="plain">
-                <li><a href="amqp-0-9-1-reference.html#connection.close">Connection.Close</a> 60 -&gt; 50</li>
-                <li><a href="amqp-0-9-1-reference.html#connection.close-ok">Connection.CloseOk</a> 61 -&gt; 51</li>
-                <li><a href="amqp-0-9-1-reference.html#basic.recover">Basic.Recover</a> (see explanation above)</li>
+                <li><a href="amqp-0-9-1-reference#connection.close">Connection.Close</a> 60 -&gt; 50</li>
+                <li><a href="amqp-0-9-1-reference#connection.close-ok">Connection.CloseOk</a> 61 -&gt; 51</li>
+                <li><a href="amqp-0-9-1-reference#basic.recover">Basic.Recover</a> (see explanation above)</li>
             </ul>
         </li>
         <li>
             Some methods have been added:
             <ul class="plain">
-                <li><a href="amqp-0-9-1-reference.html#queue.unbind">Queue.Unbind</a>, methodId 50</li>
-                <li><a href="amqp-0-9-1-reference.html#queue.unbind-ok">Queue.UnbindOk</a>, methodId 51</li>
+                <li><a href="amqp-0-9-1-reference#queue.unbind">Queue.Unbind</a>, methodId 50</li>
+                <li><a href="amqp-0-9-1-reference#queue.unbind-ok">Queue.UnbindOk</a>, methodId 51</li>
             </ul>
         </li>
         <li>
@@ -200,47 +200,47 @@ title: AMQP 0-8 to 0-9-1
                         <td>deprecated</td>
                     </tr>
                     <tr>
-                        <td><a href="amqp-0-9-1-reference.html#connection.open">Connection.Open</a></td>
+                        <td><a href="amqp-0-9-1-reference#connection.open">Connection.Open</a></td>
                         <td>shortstr Capabilities</td>
                         <td>deprecated</td>
                     </tr>
                     <tr>
-                        <td><a href="amqp-0-9-1-reference.html#connection.open">Connection.Open</a></td>
+                        <td><a href="amqp-0-9-1-reference#connection.open">Connection.Open</a></td>
                         <td>bit Insist</td>
                         <td>deprecated</td>
                     </tr>
                     <tr>
-                        <td><a href="amqp-0-9-1-reference.html#connection.open-ok">Connection.OpenOk</a></td>
+                        <td><a href="amqp-0-9-1-reference#connection.open-ok">Connection.OpenOk</a></td>
                         <td>shortstr KnownHosts</td>
                         <td>deprecated</td>
                     </tr>
                     <tr>
-                        <td><a href="amqp-0-9-1-reference.html#channel.open">Channel.Open</a></td>
+                        <td><a href="amqp-0-9-1-reference#channel.open">Channel.Open</a></td>
                         <td>shortstr OutOfBand</td>
                         <td>deprecated</td>
                     </tr>
                     <tr>
-                        <td><a href="amqp-0-9-1-reference.html#channel.open-ok">Channel.OpenOk</a></td>
+                        <td><a href="amqp-0-9-1-reference#channel.open-ok">Channel.OpenOk</a></td>
                         <td>longstr -</td>
                         <td>added, then deprecated</td>
                     </tr>
                     <tr>
-                        <td><a href="amqp-0-9-1-reference.html#exchange.declare">Exchange.Declare</a></td>
+                        <td><a href="amqp-0-9-1-reference#exchange.declare">Exchange.Declare</a></td>
                         <td>bit AutoDelete</td>
                         <td>deprecated</td>
                     </tr>
                     <tr>
-                        <td><a href="amqp-0-9-1-reference.html#exchange.declare">Exchange.Declare</a></td>
+                        <td><a href="amqp-0-9-1-reference#exchange.declare">Exchange.Declare</a></td>
                         <td>bit Internal</td>
                         <td>deprecated</td>
                     </tr>
                     <tr>
-                        <td><a href="amqp-0-9-1-reference.html#basic.get-empty">Basic.GetEmpty</a></td>
+                        <td><a href="amqp-0-9-1-reference#basic.get-empty">Basic.GetEmpty</a></td>
                         <td>shortstr ClusterId</td>
                         <td>deprecated</td>
                     </tr>
                     <tr>
-                        <td><a href="amqp-0-9-1-reference.html#basic.consume">Basic.Consume</a></td>
+                        <td><a href="amqp-0-9-1-reference#basic.consume">Basic.Consume</a></td>
                         <td>table Filter</td>
                         <td>added</td>
                     </tr>
@@ -269,7 +269,7 @@ title: AMQP 0-8 to 0-9-1
             </ul>
         </li>
         <li>
-            The <a href="amqp-0-9-1-reference.html#class.basic">Basic</a> class's content properties have been changed:
+            The <a href="amqp-0-9-1-reference#class.basic">Basic</a> class's content properties have been changed:
             <ul class="plain">
                 <li>
                     AppId - shortstr - deprecated

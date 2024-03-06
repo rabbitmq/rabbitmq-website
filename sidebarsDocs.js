@@ -311,11 +311,6 @@ const sidebars = {
         },
         {
           type: 'doc',
-          id: 'amqp-0-9-1-reference',
-          label: 'AMQP 0-9-1 Reference',
-        },
-        {
-          type: 'doc',
           id: 'uri-spec',
           label: 'AMQP 0-9-1 URI Spec',
         },
@@ -403,7 +398,6 @@ const sidebars = {
     {
       type: 'category',
       label: 'Protocol',
-      link: {type: 'doc', id: 'protocol'},
       items: [
         {
           type: 'doc',
@@ -412,26 +406,6 @@ const sidebars = {
         },
         'interoperability',
         'semantics',
-        {
-          type: 'doc',
-          id: 'amqp-0-9-1-quickref',
-          label: 'Quick Reference',
-        },
-        {
-          type: 'doc',
-          id: 'amqp-0-9-1-reference',
-          label: 'Full Reference',
-        },
-        {
-          type: 'doc',
-          id: 'amqp-0-8-to-0-9-1',
-          label: 'Differences from AMQP 0-8 to 0-9-1',
-        },
-        {
-          type: 'doc',
-          id: 'amqp-wireshark',
-          label: 'Traffic Analyzer',
-        },
       ]
     },
     {

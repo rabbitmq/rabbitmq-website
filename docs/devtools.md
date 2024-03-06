@@ -288,7 +288,7 @@ Miscellaneous projects:
 
 ## Traffic Capture and Protocol Analysis {#protocol-analysis}
 
- * [Wireshark](./amqp-wireshark) is the world's foremost
+ * [Wireshark](/amqp-wireshark) is the world's foremost
    network protocol analyzer
 
 

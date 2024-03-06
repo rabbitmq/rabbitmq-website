@@ -10,12 +10,12 @@ title: AMQP 0-9-1 Protocol Specification
     <h2 id="amqp1.0">AMQP 0-9-1 and AMQP 1.0</h2>
     <p>
         Despite similar names and, to some extent, a common lineage, AMQP 0-9-1 and AMQP 1.0 are completely different messaging protocols and not a revision of the same idea. AMQP 1.0 has a different scope and topology model. RabbitMQ
-        supports AMQP 0-9-1, AMQP 1.0, MQTT and STOMP. See [documentation ToC](./documentation) for details.
+        supports AMQP 0-9-1, AMQP 1.0, MQTT and STOMP. See [documentation ToC](/docs/documentation) for details.
     </p>
 
     <h2 id="downloads">Downloads</h2>
     <p>
-        All AMQP 0-9-1 specifications and protocol definitions are published under the <a href="http://www.amqp.org/legal/amqp-license">AMQP license</a>
+        All AMQP 0-9-1 specifications and protocol definitions are published under the [AMQP license](http://www.amqp.org/legal/amqp-license)
         unless stated otherwise.
     </p>
     <table class="styled-table">
@@ -29,41 +29,41 @@ title: AMQP 0-9-1 Protocol Specification
                 <td>AMQP 0-9-1 (incl. extensions)</td>
                 <td></td>
                 <td>
-                    <a href="resources/specs/amqp0-9-1.extended.xml">Full</a> |
-                    <a href="resources/specs/amqp0-9-1.stripped.extended.xml">BSD-licensed</a>
+                    <a href="/resources/specs/amqp0-9-1.extended.xml">Full</a> |
+                    <a href="/resources/specs/amqp0-9-1.stripped.extended.xml">BSD-licensed</a>
                 </td>
             </tr>
             <tr>
                 <td>AMQP 0-9-1</td>
                 <td>
-                    <a href="resources/specs/amqp0-9-1.pdf">Specification</a> |
-                    <a href="resources/specs/amqp-xml-doc0-9-1.pdf">Generated Doc</a>
+                    <a href="/resources/specs/amqp0-9-1.pdf">Specification</a> |
+                    <a href="/resources/specs/amqp-xml-doc0-9-1.pdf">Generated Doc</a>
                 </td>
                 <td>
-                    <a href="resources/specs/amqp0-9-1.xml">Full</a> |
-                    <a href="resources/specs/amqp0-9-1.stripped.xml">BSD-licensed</a>
+                    <a href="/resources/specs/amqp0-9-1.xml">Full</a> |
+                    <a href="/resources/specs/amqp0-9-1.stripped.xml">BSD-licensed</a>
                 </td>
             </tr>
             <tr>
                 <td>AMQP 0-9</td>
                 <td>
-                    <a href="resources/specs/amqp0-9.pdf">Specification</a> |
-                    <a href="resources/specs/amqp-xml-doc0-9.pdf">Generated Doc</a>
+                    <a href="/resources/specs/amqp0-9.pdf">Specification</a> |
+                    <a href="/resources/specs/amqp-xml-doc0-9.pdf">Generated Doc</a>
                 </td>
                 <td>
-                    <a href="resources/specs/amqp0-9.xml">Full</a> |
-                    <a href="resources/specs/amqp0-9.stripped.xml">BSD-licensed</a>
+                    <a href="/resources/specs/amqp0-9.xml">Full</a> |
+                    <a href="/resources/specs/amqp0-9.stripped.xml">BSD-licensed</a>
                 </td>
             </tr>
             <tr>
                 <td>AMQP 0-8</td>
                 <td>
-                    <a href="resources/specs/amqp0-8.pdf">Specification</a> |
-                    <a href="resources/specs/amqp-xml-doc0-8.pdf">Generated Doc</a>
+                    <a href="/resources/specs/amqp0-8.pdf">Specification</a> |
+                    <a href="/resources/specs/amqp-xml-doc0-8.pdf">Generated Doc</a>
                 </td>
                 <td>
-                    <a href="resources/specs/amqp0-8.xml">Full</a> |
-                    <a href="resources/specs/amqp0-8.stripped.xml">BSD-licensed</a>
+                    <a href="/resources/specs/amqp0-8.xml">Full</a> |
+                    <a href="/resources/specs/amqp0-8.stripped.xml">BSD-licensed</a>
                 </td>
             </tr>
         </tbody>

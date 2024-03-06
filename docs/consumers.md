@@ -464,7 +464,7 @@ Whether the timeout should be enforced is evaluated periodically, at one minute 
 
 ## Exclusivity {#exclusivity}
 
-When registering a consumer with an AMQP 0-9-1 client, [the `exclusive` flag](./amqp-0-9-1-reference#basic.consume)
+When registering a consumer with an AMQP 0-9-1 client, [the `exclusive` flag](/amqp-0-9-1-reference#basic.consume)
 can be set to true to request the consumer to be the only one
 on the target queue. The call succeeds only if there's no consumer
 already registered to the queue at that time. This allows to make sure

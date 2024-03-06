@@ -45,7 +45,7 @@ Stream PerfTest Documentation:
 ## Tracer {#tracer}
 
 The tracer is a very basic, very simple AMQP 0-9-1 protocol analyzer, similar in
-purpose to [Wireshark](./amqp-wireshark).
+purpose to [Wireshark](/amqp-wireshark).
 Use it with the `runtracer` or `runtracer.bat` script:
 
 ```bash

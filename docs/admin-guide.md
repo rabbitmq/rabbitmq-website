@@ -125,7 +125,7 @@ see <a href="./documentation">All Documentation Guides</a>.
  * [Per Virtual Host Limits](./vhosts#limits)
  * [Per User Limits](./user-limits)
  * [Message Tracing](./firehose)
- * [Capturing Traffic with Wireshark](./amqp-wireshark)
+ * [Capturing Traffic with Wireshark](/amqp-wireshark)
 
 
 ### Clustering

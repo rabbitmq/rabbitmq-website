@@ -152,6 +152,6 @@ how to identify application channel leaks and other relevant topics.
 
 ## Capturing Traffic {#capturing-traffic}
 
-A [traffic capture](./amqp-wireshark) can provide a lot of information useful when troubleshooting network connectivity, application behaviour,
+A [traffic capture](/amqp-wireshark) can provide a lot of information useful when troubleshooting network connectivity, application behaviour,
 connection leaks, channel leaks and more. tcpdump and Wireshark and industry standard open source tools
 for capturing and analyzing network traffic.

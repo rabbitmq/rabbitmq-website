@@ -27,7 +27,7 @@ helps differentiate between them.
 
 ## AMQP 0-9-1 and extensions {#amqp-091}
 
-RabbitMQ was originally developed to [support AMQP 0-9-1](./protocol).
+RabbitMQ was originally developed to [support AMQP 0-9-1](/amqp-0-9-1-protocol).
 As such this protocol is the "core" protocol supported by
 the broker. All of these variants are fairly similar to each other,
 with later versions tidying up unclear or unhelpful parts of earlier

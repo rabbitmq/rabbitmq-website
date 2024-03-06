@@ -69,7 +69,7 @@ extension points such as [optional queue arguments](./queues#optional-arguments)
  * The [User-ID](./validated-user-id) message property is validated by the server.
  * Clients that advertise the appropriate capability may receive
    explicit [authentication failure notifications](./auth-notification) from the broker.
- * [`update-secret`](./amqp-0-9-1-reference#connection.update-secret)
+ * [`update-secret`](/amqp-0-9-1-reference#connection.update-secret)
    to be able to renew credentials for an active connection, when those credentials can expire.
 
 
@@ -80,4 +80,4 @@ Some features that were in AMQP 0-8 were deprecated in AMQP
 couple of tiny behaviour changes that improve usability of
 the product. Please refer to the [spec differences](./spec-differences) page.
 
-There's also an [AMQP 0-9-1 Errata page](./amqp-0-9-1-errata) which explains how various
+There's also an [AMQP 0-9-1 Errata page](/amqp-0-9-1-errata) which explains how various
