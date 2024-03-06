@@ -9,7 +9,7 @@ Super streams are a way to scale out by partitioning a large stream into smaller
 They integrate with [single active consumer](/blog/2022/07/05/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams) to preserve message order within a partition. 
 
 This blog post gives an overview of super streams and the use cases they unlock.
-Read on to learn more, we value [your feedback](/docs/contact) to make this feature the best it can be.
+Read on to learn more, we value [your feedback](/contact) to make this feature the best it can be.
 
 <!-- truncate -->
 
@@ -117,6 +117,6 @@ This blog post has a [companion sample project](https://github.com/acogoluegnes/
 Do not hesitate to have a look at it!
 
 
-We are excited to share this new feature with the RabbitMQ community and we can't wait to hear [some feedback](/docs/contact) before RabbitMQ 3.11 goes GA later this year.
+We are excited to share this new feature with the RabbitMQ community and we can't wait to hear [some feedback](/contact) before RabbitMQ 3.11 goes GA later this year.
 
 

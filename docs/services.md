@@ -73,4 +73,4 @@ tailored to suit your needs.
 ## Contacts for Commercial Support or Services
 
 For any questions about the commercial licensing, support, consulting training services listed in this guide,
-please reach out to the vendors or see the [contact us page](./contact#paid-support).
+please reach out to the vendors or see the [contact us page](/contact#paid-support).

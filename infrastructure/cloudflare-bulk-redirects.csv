@@ -188,7 +188,7 @@ www.rabbitmq.com/consumer-cancel.html,https://www.rabbitmq.com/docs/consumer-can
 www.rabbitmq.com/consumer-prefetch.html,https://www.rabbitmq.com/docs/consumer-prefetch,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/consumer-priority.html,https://www.rabbitmq.com/docs/consumer-priority,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/consumers.html,https://www.rabbitmq.com/docs/consumers,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/contact.html,https://www.rabbitmq.com/docs/contact,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/contact.html,https://www.rabbitmq.com/contact,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/conversions.html,https://www.rabbitmq.com/docs/conversions,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/definitions.html,https://www.rabbitmq.com/docs/definitions,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/devtools.html,https://www.rabbitmq.com/docs/devtools,,TRUE,FALSE,FALSE,FALSE

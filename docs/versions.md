@@ -98,7 +98,7 @@ VMware [terminology related to support lifecycle policy](https://tanzu.vmware.co
 <sup>1</sup> **Community Support** means patch releases are [produced regularly](./changelog) based on feedback from all users,
 both community and those with a commercial license.
 
-<sup>2</sup> **Extended Commercial Support** means patches are produced for security and high severity issues reported by users with a [commercial license](./contact#paid-support).
+<sup>2</sup> **Extended Commercial Support** means patches are produced for security and high severity issues reported by users with a [commercial license](/contact#paid-support).
 
 
 ## Next Release Series {#next-release}

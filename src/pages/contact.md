@@ -1,9 +1,8 @@
 ---
 title: Getting Help and Support
-displayed_sidebar: docsSidebar
 ---
 <!--
-Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2007-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -53,7 +52,7 @@ There is no guarantee of response or specific turnaround time.
 ### GitHub
 
 Most of RabbitMQ development happens in the open under the [rabbitmq GitHub organization](https://github.com/rabbitmq).
-See [our GitHub guide](./github) for an overview of our development process
+See [our GitHub guide](/docs/github) for an overview of our development process
 and our [Contributor repository](https://github.com/rabbitmq/contribute/) for practical guides,
 for instance, on how to use Bazel for RabbitMQ development.
 

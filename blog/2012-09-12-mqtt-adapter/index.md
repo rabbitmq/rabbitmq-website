@@ -96,4 +96,4 @@ The default configuration options should work fine in most cases. A description 
 
 You can now try to execute the [included tests](http://hg.rabbitmq.com/rabbitmq-mqtt/file/default/test/src/com/rabbitmq/mqtt/test/MqttTest.java) (based on the Java Paho client library), or your own MQTT application.
 
-See the [contact](/docs/contact) page for details on how to provide feedback.
+See the [contact](/contact) page for details on how to provide feedback.

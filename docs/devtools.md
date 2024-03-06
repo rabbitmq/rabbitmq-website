@@ -28,7 +28,7 @@ operating systems and has several official client libraries. In addition, the Ra
 has created numerous clients, adaptors and tools that we list here for
 your convenience.
 
-Please [contact us](./contact) with suggestions for things you
+Please [contact us](/contact) with suggestions for things you
 would like to see added to this list.
 
 *Note:* items with a check mark (&#x2713;) are officially supported by Team RabbitMQ and VMware.

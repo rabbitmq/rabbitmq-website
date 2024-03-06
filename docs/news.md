@@ -5476,7 +5476,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
             <p xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc">
                 RabbitMQ will continue to be available under the open source
                 <a href="https://www.rabbitmq.com/mpl.html">Mozilla Public License</a>
-                or commercial terms. Commercial support, consulting and both self-paced and instructor-led training courses are still available worldwide. The <a href="https://www.rabbitmq.com/contact.html">rabbitmq-discuss mailing list</a>
+                or commercial terms. Commercial support, consulting and both self-paced and instructor-led training courses are still available worldwide. The <a href="/contact">rabbitmq-discuss mailing list</a>
                 will continue to be the primary channel of communication about open-source RabbitMQ. The release cycle is not expected to change as a result of the change of ownership.
             </p>
             <p xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc">
