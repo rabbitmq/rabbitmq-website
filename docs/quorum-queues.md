@@ -279,7 +279,7 @@ However, messages that are dead lettered by the source quorum queue will keep th
 This means if dead lettered messages in the target queue should survive a broker restart, the target queue must be durable and
 the message delivery mode must be set to persistent when publishing messages to the source quorum queue.
 
-#### Lazy Mode (since RabbitMQ 3.10)
+#### Lazy Mode
 
 Quorum queues store their message content on disk (per Raft requirements) and
 only keep a small metadata record of each message in memory. This is a change from
@@ -291,15 +291,6 @@ The memory limit configuration is still permitted but has no
 effect. The only option now is effectively the same as configuring: `x-max-in-memory-length=0`
 
 The [`lazy` mode configuration](./lazy-queues#configuration) does not apply.
-
-#### Lazy Mode (before RabbitMQ 3.10)
-
-Quorum queues store their content on disk (per Raft requirements) as well as in memory (up to the in memory limit configured).
-
-The [`lazy` mode configuration](./lazy-queues#configuration) does not apply.
-
-It is possible to [limit how many messages a quorum queue keeps in memory](#policy-support) using a policy which
-can achieve a behaviour similar to lazy queues.
 
 #### Global QoS {#global-qos}
 
@@ -316,11 +307,9 @@ Quorum queues support [consumer priorities](./consumer-priority), but not [messa
 
 To prioritize messages with Quorum Queues, use multiple queues; one for each priority.
 
+#### Poison Message Handling (Handling of Repeated Redeliveries)
 
-#### Poison Message Handling {#poison-message-handling}
-
-Quorum queues [support poison message handling](#poison-message-handling) via a redelivery limit.
-This feature is currently unique to quorum queues.
+Unlike classic queues, quorum queues [support poison message handling](#poison-message-handling).
 
 #### Policy Support {#policy-support}
 
@@ -734,7 +723,7 @@ The following `advanced.config` example modifies all values listed above:
 ```
 
 
-## Poison Message Handling for Quorum Queues {#poison-message-handling}
+## Poison Message Handling {#poison-message-handling}
 
 Quorum queue support handling of [poison messages](https://en.wikipedia.org/wiki/Poison_message),
 that is, messages that cause a consumer to repeatedly requeue a delivery (possibly due to a consumer failure)
