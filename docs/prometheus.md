@@ -2,7 +2,8 @@
 title: Monitoring with Prometheus and Grafana
 displayed_sidebar: docsSidebar
 ---
-# Monitoring with Prometheus amd Grafana
+
+# Monitoring with Prometheus and Grafana
 
 ## Overview {#overview}
 
@@ -19,23 +20,23 @@ available metrics are mostly relevant when Prometheus and Grafana are used.
 
 Some key topics covered by this guide are
 
- * [Prometheus support basics](#overview-prometheus)
- * [Grafana support basics](#overview-grafana)
- * [Quick Start](#quick-start) for local experimentation
- * [Installation steps](#installation) for production systems
- * Two types of scraping endpoint responses: [Aggregated vs. Individual Entity Metrics](#metric-aggregation)
+- [Prometheus support basics](#overview-prometheus)
+- [Grafana support basics](#overview-grafana)
+- [Quick Start](#quick-start) for local experimentation
+- [Installation steps](#installation) for production systems
+- Two types of scraping endpoint responses: [Aggregated vs. Individual Entity Metrics](#metric-aggregation)
 
 Grafana dashboards follow a number of conventions to make the system more observable
 and anti-patterns easier to spot. Its design decisions are explained in a number of sections:
 
- * [RabbitMQ Overview Dashboard](#rabbitmq-overview-dashboard)
- * [Health indicators](#health-indicators) on the Overview dashboard
- * [Graph colour labelling](#graph-colour-labelling) conventions
- * [Graph thresholds](#graph-thresholds)
- * [Relevant documentation](#graph-documentation) for each graph (metric)
- * [Spotting Anti-patterns](#spot-anti-patterns)
- * [Other available dashboards](#other-dashboards)
- * [TLS support](#tls) for Prometheus scraping endpoint
+- [RabbitMQ Overview Dashboard](#rabbitmq-overview-dashboard)
+- [Health indicators](#health-indicators) on the Overview dashboard
+- [Graph colour labelling](#graph-colour-labelling) conventions
+- [Graph thresholds](#graph-thresholds)
+- [Relevant documentation](#graph-documentation) for each graph (metric)
+- [Spotting Anti-patterns](#spot-anti-patterns)
+- [Other available dashboards](#other-dashboards)
+- [TLS support](#tls) for Prometheus scraping endpoint
 
 ### Built-in Prometheus Support {#overview-prometheus}
 
@@ -55,11 +56,11 @@ that visualise a large number of available RabbitMQ and [runtime](./runtime) met
 
 There is a number of dashboards available:
 
- * an overview dashboard
- * runtime [memory allocators](./runtime#allocators) dashboard
- * an [inter-node communication](./clustering#cluster-membership)
-(Erlang distribution) dashboard
- * a Raft metric dashboard
+- an overview dashboard
+- runtime [memory allocators](./runtime#allocators) dashboard
+- an [inter-node communication](./clustering#cluster-membership)
+  (Erlang distribution) dashboard
+- a Raft metric dashboard
 
 and others. Each is meant to provide an insight into a specific
 part of the system. When used together, they are able to explain RabbitMQ and application behaviour in detail.
@@ -75,7 +76,6 @@ When RabbitMQ is integrated with Prometheus and Grafana, this is what the
 RabbitMQ Overview dashboard looks like:
 
 ![RabbitMQ Overview Dashboard](/img/rabbitmq-overview-dashboard.png)
-
 
 ## Quick Start {#quick-start}
 
@@ -97,10 +97,10 @@ the use of Docker Compose demonstrated below.
 The instructions below assume a host machine that has a certain set of tools
 installed:
 
- * A terminal to run the commands
- * <a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer">Git</a> to clone the repository
- * <a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener noreferrer">Docker Desktop</a> to use Docker Compose locally
- * A Web browser to browse the dashboards
+- A terminal to run the commands
+- <a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer">Git</a> to clone the repository
+- <a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener noreferrer">Docker Desktop</a> to use Docker Compose locally
+- A Web browser to browse the dashboards
 
 Their installation is out of scope of this guide. Use
 
@@ -158,7 +158,6 @@ Congratulations! You now have a 3-nodes RabbitMQ cluster integrated with
 Prometheus & Grafana running locally. This is a perfect time to learn more
 about the available dashboards.
 
-
 ## RabbitMQ Overview Dashboard {#rabbitmq-overview-dashboard}
 
 All metrics available in the [management UI](./management) Overview
@@ -175,9 +174,9 @@ dashboard title.
 The panels on all RabbitMQ Grafana dashboards use different colours to capture the following
 metric states:
 
-* **Green** means the value of the metric is within a healthy range
-* **Blue** means under-utilisation or some form of degradation
-* **Red** means the value of the metric is below or above the range that is considered healthy
+- **Green** means the value of the metric is within a healthy range
+- **Blue** means under-utilisation or some form of degradation
+- **Red** means the value of the metric is below or above the range that is considered healthy
 
 ![RabbitMQ Overview Dashboard Single-stat](/img/rabbitmq-overview-dashboard-single-stat.png)
 
@@ -303,7 +302,6 @@ To delete all workload containers, run `docker-compose -f docker-compose-overvie
 gmake down
 ```
 
-
 ## More Dashboards: Raft and Erlang Runtime {#other-dashboards}
 
 There are two more Grafana dashboards available: **RabbitMQ-Raft** and **Erlang-Distribution**. They collect and
@@ -324,16 +322,15 @@ To stop and delete all containers used by the workloads, run `docker-compose -f 
 make down
 ```
 
-
 ## Installation {#installation}
 
 Unlike the [Quick Start](#quick-start) above, this section covers monitoring setup geared towards production usage.
 
 We will assume that the following tools are provisioned and running:
 
- * A [3-node RabbitMQ 3.11 cluster](./cluster-formation)
- * Prometheus, including network connectivity with all RabbitMQ cluster nodes
- * Grafana, including configuration that lists the above Prometheus instance as one of the data sources
+- A [3-node RabbitMQ 3.11 cluster](./cluster-formation)
+- Prometheus, including network connectivity with all RabbitMQ cluster nodes
+- Grafana, including configuration that lists the above Prometheus instance as one of the data sources
 
 ### RabbitMQ Configuration {#rabbitmq-configuration}
 
@@ -397,7 +394,6 @@ erlang_mnesia_held_locks{node="rabbit@65f1a10aaffa",cluster="rabbit@65f1a10aaffa
 Notice that RabbitMQ exposes the metrics on a dedicated TCP port, `15692` by
 default.
 
-
 ### Prometheus Configuration {#prometheus-configuration}
 
 Once RabbitMQ is configured to expose metrics to Prometheus, Prometheus should be made
@@ -424,7 +420,7 @@ The returned value will be **in milliseconds**.
 
 For production systems, we recommend a minimum value of `15s` for Prometheus
 scrape interval and a `10000` (10s) value for RabbitMQ's
-`collect_statistics_interval`.  With these values, Prometheus doesn't scrape
+`collect_statistics_interval`. With these values, Prometheus doesn't scrape
 RabbitMQ too frequently, and RabbitMQ doesn't update metrics unnecessarily. If
 you configure a different value for Prometheus scrape interval, remember to set an
 appropriate interval when visualising metrics in Grafana with `rate()` - <a
@@ -472,10 +468,10 @@ or [tools such as `lsof`, `ss` or `netstat`](./troubleshooting-networking#ports)
 RabbitMQ can return Prometheus metrics in two modes:
 
 1. Aggregated: metrics are aggregated by name. This mode has lower performance overhead with the output size
-constant, even as the number of objects (e.g. connections and queues) grows.
+   constant, even as the number of objects (e.g. connections and queues) grows.
 2. Per-object: individual metric for **each object-metric pair**. With a large number of stats-emitting entities,
-e.g. a lot of connections and queues, this can result in very large payloads and a lot of CPU resources spent serialising
-data to output.
+   e.g. a lot of connections and queues, this can result in very large payloads and a lot of CPU resources spent serialising
+   data to output.
 
 Metric aggregation is a more predictable and practical option for larger deployments.
 It scales very well with respect to the number of metric-emitting objects in the system
@@ -538,10 +534,10 @@ interested in.
 
 This endpoint supports the following parameters:
 
-* Zero or more `family` values. Only the requested metric families will be returned. The full list is documented below;
-* Zero or more `vhost`s: if provided, queue related metrics (`queue_coarse_metrics`, `queue_consumer_count` and `queue_metrics`) will be returned only for the queues in the provided virtual hosts
+- Zero or more `family` values. Only the requested metric families will be returned. The full list is documented below;
+- Zero or more `vhost`s: if provided, queue related metrics (`queue_coarse_metrics`, `queue_consumer_count` and `queue_metrics`) will be returned only for the queues in the provided virtual hosts
 
-The returned metrics use a different prefix: `rabbitmq_detailed_` (instead of `rabbitmq_` used by other  endpoints).
+The returned metrics use a different prefix: `rabbitmq_detailed_` (instead of `rabbitmq_` used by other endpoints).
 This means the endpoint can be used together with `GET /metrics` and tools that rely on other endpoints won't be affected.
 
 Since it queries and serves less data in almost all cases, this endpoint puts less load on the system.
@@ -565,7 +561,7 @@ queue/connection/etc.
 Grouped under `connection_churn_metrics`:
 
 | Metric                                     | Description                                      |
-|--------------------------------------------|--------------------------------------------------|
+| ------------------------------------------ | ------------------------------------------------ |
 | rabbitmq_detailed_connections_opened_total | Total number of connections opened               |
 | rabbitmq_detailed_connections_closed_total | Total number of connections closed or terminated |
 | rabbitmq_detailed_channels_opened_total    | Total number of channels opened                  |
@@ -574,13 +570,12 @@ Grouped under `connection_churn_metrics`:
 | rabbitmq_detailed_queues_created_total     | Total number of queues created                   |
 | rabbitmq_detailed_queues_deleted_total     | Total number of queues deleted                   |
 
-
 ##### Erlang VM/Disk IO via RabbitMQ
 
 Grouped under `node_coarse_metrics`:
 
 | Metric                                                    | Description                                                           |
-|-----------------------------------------------------------|-----------------------------------------------------------------------|
+| --------------------------------------------------------- | --------------------------------------------------------------------- |
 | rabbitmq_detailed_process_open_fds                        | Open file descriptors                                                 |
 | rabbitmq_detailed_process_open_tcp_sockets                | Open TCP sockets                                                      |
 | rabbitmq_detailed_process_resident_memory_bytes           | Memory used in bytes                                                  |
@@ -593,7 +588,7 @@ Grouped under `node_coarse_metrics`:
 Grouped under `node_metrics`:
 
 | Metric                                             | Description                            |
-|----------------------------------------------------|----------------------------------------|
+| -------------------------------------------------- | -------------------------------------- |
 | rabbitmq_detailed_process_max_fds                  | Open file descriptors limit            |
 | rabbitmq_detailed_process_max_tcp_sockets          | Open TCP sockets limit                 |
 | rabbitmq_detailed_resident_memory_limit_bytes      | Memory high watermark in bytes         |
@@ -603,36 +598,34 @@ Grouped under `node_metrics`:
 | rabbitmq_detailed_erlang_net_ticktime_seconds      | Inter-node heartbeat interval          |
 | rabbitmq_detailed_erlang_uptime_seconds            | Node uptime                            |
 
-
 Grouped under `node_persister_metrics`:
 
-| Metric                                                | Description                                          |
-|-------------------------------------------------------|------------------------------------------------------|
-| rabbitmq_detailed_io_read_ops_total                   | Total number of I/O read operations                  |
-| rabbitmq_detailed_io_read_bytes_total                 | Total number of I/O bytes read                       |
-| rabbitmq_detailed_io_write_ops_total                  | Total number of I/O write operations                 |
-| rabbitmq_detailed_io_write_bytes_total                | Total number of I/O bytes written                    |
-| rabbitmq_detailed_io_sync_ops_total                   | Total number of I/O sync operations                  |
-| rabbitmq_detailed_io_seek_ops_total                   | Total number of I/O seek operations                  |
-| rabbitmq_detailed_io_reopen_ops_total                 | Total number of times files have been reopened       |
-| rabbitmq_detailed_schema_db_ram_tx_total              | Total number of Schema DB memory transactions        |
-| rabbitmq_detailed_schema_db_disk_tx_total             | Total number of Schema DB disk transactions          |
-| rabbitmq_detailed_msg_store_read_total                | Total number of Message Store read operations        |
-| rabbitmq_detailed_msg_store_write_total               | Total number of Message Store write operations       |
-| rabbitmq_detailed_queue_index_read_ops_total          | Total number of Queue Index read operations          |
-| rabbitmq_detailed_queue_index_write_ops_total         | Total number of Queue Index write operations         |
-| rabbitmq_detailed_io_read_time_seconds_total          | Total I/O read time                                  |
-| rabbitmq_detailed_io_write_time_seconds_total         | Total I/O write time                                 |
-| rabbitmq_detailed_io_sync_time_seconds_total          | Total I/O sync time                                  |
-| rabbitmq_detailed_io_seek_time_seconds_total          | Total I/O seek time                                  |
-
+| Metric                                        | Description                                    |
+| --------------------------------------------- | ---------------------------------------------- |
+| rabbitmq_detailed_io_read_ops_total           | Total number of I/O read operations            |
+| rabbitmq_detailed_io_read_bytes_total         | Total number of I/O bytes read                 |
+| rabbitmq_detailed_io_write_ops_total          | Total number of I/O write operations           |
+| rabbitmq_detailed_io_write_bytes_total        | Total number of I/O bytes written              |
+| rabbitmq_detailed_io_sync_ops_total           | Total number of I/O sync operations            |
+| rabbitmq_detailed_io_seek_ops_total           | Total number of I/O seek operations            |
+| rabbitmq_detailed_io_reopen_ops_total         | Total number of times files have been reopened |
+| rabbitmq_detailed_schema_db_ram_tx_total      | Total number of Schema DB memory transactions  |
+| rabbitmq_detailed_schema_db_disk_tx_total     | Total number of Schema DB disk transactions    |
+| rabbitmq_detailed_msg_store_read_total        | Total number of Message Store read operations  |
+| rabbitmq_detailed_msg_store_write_total       | Total number of Message Store write operations |
+| rabbitmq_detailed_queue_index_read_ops_total  | Total number of Queue Index read operations    |
+| rabbitmq_detailed_queue_index_write_ops_total | Total number of Queue Index write operations   |
+| rabbitmq_detailed_io_read_time_seconds_total  | Total I/O read time                            |
+| rabbitmq_detailed_io_write_time_seconds_total | Total I/O write time                           |
+| rabbitmq_detailed_io_sync_time_seconds_total  | Total I/O sync time                            |
+| rabbitmq_detailed_io_seek_time_seconds_total  | Total I/O seek time                            |
 
 ##### Raft-related (Quorum queues, streams) metrics
 
 Grouped under `ra_metrics`:
 
 | Metric                                              | Description                                |
-|-----------------------------------------------------|--------------------------------------------|
+| --------------------------------------------------- | ------------------------------------------ |
 | rabbitmq_detailed_raft_term_total                   | Current Raft term number                   |
 | rabbitmq_detailed_raft_log_snapshot_index           | Raft log snapshot index                    |
 | rabbitmq_detailed_raft_log_last_applied_index       | Raft log last applied index                |
@@ -645,20 +638,18 @@ Grouped under `ra_metrics`:
 Grouped under `auth_attempt_metrics`:
 
 | Metric                                          | Description                                        |
-|-------------------------------------------------|----------------------------------------------------|
+| ----------------------------------------------- | -------------------------------------------------- |
 | rabbitmq_detailed_auth_attempts_total           | Total number of authorization attempts             |
 | rabbitmq_detailed_auth_attempts_succeeded_total | Total number of successful authentication attempts |
 | rabbitmq_detailed_auth_attempts_failed_total    | Total number of failed authentication attempts     |
 
-
 Grouped under `auth_attempt_detailed_metrics`. When aggregated, these add up to the same numbers as `auth_attempt_metrics`.
 
 | Metric                                                   | Description                                                        |
-|----------------------------------------------------------|--------------------------------------------------------------------|
+| -------------------------------------------------------- | ------------------------------------------------------------------ |
 | rabbitmq_detailed_auth_attempts_detailed_total           | Total number of authorization attempts with source info            |
 | rabbitmq_detailed_auth_attempts_detailed_succeeded_total | Total number of successful authorization attempts with source info |
 | rabbitmq_detailed_auth_attempts_detailed_failed_total    | Total number of failed authorization attempts with source info     |
-
 
 #### Queue metrics
 
@@ -673,7 +664,7 @@ The metrics below are listed from the least expensive to collect to the most exp
 Grouped under `queue_coarse_metrics`:
 
 | Metric                                           | Description                                                  |
-|--------------------------------------------------|--------------------------------------------------------------|
+| ------------------------------------------------ | ------------------------------------------------------------ |
 | rabbitmq_detailed_queue_messages_ready           | Messages ready to be delivered to consumers                  |
 | rabbitmq_detailed_queue_messages_unacked         | Messages delivered to consumers but not yet acknowledged     |
 | rabbitmq_detailed_queue_messages                 | Sum of ready and unacknowledged messages - total queue depth |
@@ -684,7 +675,7 @@ Grouped under `queue_coarse_metrics`:
 Grouped under `queue_consumer_count`. This is a subset of `queue_metrics` which is skipped if `queue_metrics` are requested:
 
 | Metric                            | Description          |
-|-----------------------------------|----------------------|
+| --------------------------------- | -------------------- |
 | rabbitmq_detailed_queue_consumers | Consumers on a queue |
 
 This metric is useful for quickly detecting issues with consumers (e.g. when there are no consumers online).
@@ -695,7 +686,7 @@ This is why it is exposed separately.
 Grouped under `queue_metrics`. This group contains all the metrics for every queue, and can be relatively expensive to produce:
 
 | Metric                                            | Description                                                |
-|---------------------------------------------------|------------------------------------------------------------|
+| ------------------------------------------------- | ---------------------------------------------------------- |
 | rabbitmq_detailed_queue_consumers                 | Consumers on a queue                                       |
 | rabbitmq_detailed_queue_consumer_capacity         | Consumer capacity                                          |
 | rabbitmq_detailed_queue_consumer_utilisation      | Same as consumer capacity                                  |
@@ -711,7 +702,7 @@ Grouped under `queue_metrics`. This group contains all the metrics for every que
 | rabbitmq_detailed_queue_messages_unacked_bytes    | Size in bytes of all unacknowledged messages               |
 | rabbitmq_detailed_queue_messages_paged_out        | Messages paged out to disk                                 |
 | rabbitmq_detailed_queue_messages_paged_out_bytes  | Size in bytes of messages paged out to disk                |
-| rabbitmq_detailed_queue_head_message_timestamp    | Timestamp of the first message in the queue, if any  |
+| rabbitmq_detailed_queue_head_message_timestamp    | Timestamp of the first message in the queue, if any        |
 | rabbitmq_detailed_queue_disk_reads_total          | Total number of times queue read messages from disk        |
 | rabbitmq_detailed_queue_disk_writes_total         | Total number of times queue wrote messages to disk         |
 
@@ -727,7 +718,7 @@ These metrics are the most expensive to produce.
 Grouped under `connection_coarse_metrics`:
 
 | Metric                                                | Description                                    |
-|-------------------------------------------------------|------------------------------------------------|
+| ----------------------------------------------------- | ---------------------------------------------- |
 | rabbitmq_detailed_connection_incoming_bytes_total     | Total number of bytes received on a connection |
 | rabbitmq_detailed_connection_outgoing_bytes_total     | Total number of bytes sent on a connection     |
 | rabbitmq_detailed_connection_process_reductions_total | Total number of connection process reductions  |
@@ -735,7 +726,7 @@ Grouped under `connection_coarse_metrics`:
 Grouped under `connection_metrics`:
 
 | Metric                                              | Description                                          |
-|-----------------------------------------------------|------------------------------------------------------|
+| --------------------------------------------------- | ---------------------------------------------------- |
 | rabbitmq_detailed_connection_incoming_packets_total | Total number of packets received on a connection     |
 | rabbitmq_detailed_connection_outgoing_packets_total | Total number of packets sent on a connection         |
 | rabbitmq_detailed_connection_pending_packets        | Number of packets waiting to be sent on a connection |
@@ -746,7 +737,7 @@ Grouped under `connection_metrics`:
 Grouped under `channel_metrics`:
 
 | Metric                                         | Description                                                           |
-|------------------------------------------------|-----------------------------------------------------------------------|
+| ---------------------------------------------- | --------------------------------------------------------------------- |
 | rabbitmq_detailed_channel_consumers            | Consumers on a channel                                                |
 | rabbitmq_detailed_channel_messages_unacked     | Delivered but not yet acknowledged messages                           |
 | rabbitmq_detailed_channel_messages_unconfirmed | Published but not yet confirmed messages                              |
@@ -755,20 +746,18 @@ Grouped under `channel_metrics`:
 | rabbitmq_detailed_consumer_prefetch            | Limit of unacknowledged messages for each consumer                    |
 | rabbitmq_detailed_channel_prefetch             | Total limit of unacknowledged messages for all consumers on a channel |
 
-
 Grouped under `channel_process_metrics`:
 
 | Metric                                             | Description                                |
-|----------------------------------------------------|--------------------------------------------|
+| -------------------------------------------------- | ------------------------------------------ |
 | rabbitmq_detailed_channel_process_reductions_total | Total number of channel process reductions |
-
 
 ##### Channel metrics with queue/exchange breakdowns
 
 Grouped under `channel_exchange_metrics`:
 
 | Metric                                                       | Description                                                                                                  |
-|--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
 | rabbitmq_detailed_channel_messages_published_total           | Total number of messages published into an exchange on a channel                                             |
 | rabbitmq_detailed_channel_messages_confirmed_total           | Total number of messages published into an exchange and confirmed on the channel                             |
 | rabbitmq_detailed_channel_messages_unroutable_returned_total | Total number of messages published as mandatory into an exchange and returned to the publisher as unroutable |
@@ -777,7 +766,7 @@ Grouped under `channel_exchange_metrics`:
 Grouped under `channel_queue_metrics`:
 
 | Metric                                                 | Description                                                                       |
-|--------------------------------------------------------|-----------------------------------------------------------------------------------|
+| ------------------------------------------------------ | --------------------------------------------------------------------------------- |
 | rabbitmq_detailed_channel_get_ack_total                | Total number of messages fetched with basic.get in manual acknowledgement mode    |
 | rabbitmq_detailed_channel_get_total                    | Total number of messages fetched with basic.get in automatic acknowledgement mode |
 | rabbitmq_detailed_channel_messages_delivered_ack_total | Total number of messages delivered to consumers in manual acknowledgement mode    |
@@ -789,7 +778,7 @@ Grouped under `channel_queue_metrics`:
 Grouped under `channel_queue_exchange_metrics`:
 
 | Metric                                           | Description                                  |
-|--------------------------------------------------|----------------------------------------------|
+| ------------------------------------------------ | -------------------------------------------- |
 | rabbitmq_detailed_queue_messages_published_total | Total number of messages published to queues |
 
 #### Virtual hosts and exchange metrics
@@ -801,21 +790,20 @@ Therefore these metrics **must not be aggregated** across cluster nodes.
 Grouped under `vhost_status`:
 
 | Metric                        | Description                      |
-|-------------------------------|----------------------------------|
+| ----------------------------- | -------------------------------- |
 | rabbitmq_cluster_vhost_status | Whether a given vhost is running |
 
 Grouped under `exchange_names`:
 
 | Metric                         | Description                                                                                                                |
-|--------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
 | rabbitmq_cluster_exchange_name | Enumerates exchanges without any additional info. This value is cluster-wide. A cheaper alternative to `exchange_bindings` |
 
 Grouped under `exchange_bindings`:
 
 | Metric                             | Description                                                     |
-|------------------------------------|-----------------------------------------------------------------|
+| ---------------------------------- | --------------------------------------------------------------- |
 | rabbitmq_cluster_exchange_bindings | Number of bindings for an exchange. This value is cluster-wide. |
-
 
 ### Scraping Endpoint Timeouts {#timeout-configuration}
 
@@ -827,12 +815,12 @@ timeouts in the embedded HTTP server and the HTTP client used by Prometheus.
 It is possible to bump plugin side HTTP request timeouts using the `prometheus.tcp.idle_timeout`,
 `prometheus.tcp.inactivity_timeout`, `prometheus.tcp.request_timeout` settings.
 
- * `prometheus.tcp.inactivity_timeout` controls HTTP(S) client's TCP connection inactivity timeout.
-   When it is reached, the connection will be closed by the HTTP server.
- * `prometheus.tcp.request_timeout` controls the window of time in which the client has to send an HTTP
-    request.
- * `prometheus.tcp.idle_timeout` controls the window of time in which the client has to send more data (if any)
-   within the context of an HTTP request.
+- `prometheus.tcp.inactivity_timeout` controls HTTP(S) client's TCP connection inactivity timeout.
+  When it is reached, the connection will be closed by the HTTP server.
+- `prometheus.tcp.request_timeout` controls the window of time in which the client has to send an HTTP
+  request.
+- `prometheus.tcp.idle_timeout` controls the window of time in which the client has to send more data (if any)
+  within the context of an HTTP request.
 
 If a load balancer or proxy is used between the Prometheus node and the RabbitMQ nodes it scrapes,
 the `inactivity_timeout` and `idle_timeout` values should be at least as large, and often greater than,
@@ -845,7 +833,6 @@ prometheus.tcp.idle_timeout = 120000
 prometheus.tcp.inactivity_timeout = 120000
 prometheus.tcp.request_timeout = 120000
 ```
-
 
 ### Grafana Configuration {#grafana-configuration}
 
@@ -864,11 +851,11 @@ target="_blank" rel="noopener noreferrer">rabbitmq-server</a> GitHub repository.
 To import **RabbitMQ-Overview** dashboard to Grafana:
 
 1. Go to the [Grafana website](https://grafana.com/orgs/rabbitmq) to view the list of official RabbitMQ Grafana
-dashboards.
+   dashboards.
 1. Select **RabbitMQ-Overview** [dashboard](https://grafana.com/grafana/dashboards/10991).
 1. Click the **Download JSON** link or copy the dashboard ID.
 1. Copy paste the file contents in Grafana, then click **Load**, as seen below:
-    - Alternatively, paste the dashboard ID in the field **Grafana.com Dashboard**.
+   - Alternatively, paste the dashboard ID in the field **Grafana.com Dashboard**.
 
 ![Grafana Import Dashboard](/img/grafana-import-dashboard.png)
 
@@ -878,7 +865,6 @@ this RabbitMQ deployment.
 Finally, switch the default data source used by Grafana to `prometheus`.
 
 Congratulations! Your RabbitMQ is now monitored with Prometheus & Grafana!
-
 
 ## Securing Prometheus Scraping Endpoint with TLS {#tls}
 
@@ -895,7 +881,6 @@ prometheus.ssl.password   = password-if-keyfile-is-encrypted
 # prometheus.tcp.listener = none
 ```
 
-
 To enable TLS with [peer verification](./ssl#peer-verification), use a config similar to
 
 ```ini
@@ -910,7 +895,6 @@ prometheus.ssl.fail_if_no_peer_cert = true
 ## To enforce TLS (disable the non-TLS port):
 # prometheus.tcp.listener = none
 ```
-
 
 ## Using Prometheus with RabbitMQ 3.7 {#3rd-party-plugin}
 
