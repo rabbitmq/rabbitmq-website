@@ -314,7 +314,7 @@ www.rabbitmq.com/runtime.html,https://www.rabbitmq.com/docs/runtime,,TRUE,FALSE,
 www.rabbitmq.com/search.html,https://www.rabbitmq.com/search,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/semantics.html,https://www.rabbitmq.com/docs/semantics,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/sender-selected.html,https://www.rabbitmq.com/docs/sender-selected,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/services.html,https://www.rabbitmq.com/docs/services,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/services.html,https://www.rabbitmq.com/commercial-offerrings,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/shovel-dynamic.html,https://www.rabbitmq.com/docs/shovel-dynamic,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/shovel-static.html,https://www.rabbitmq.com/docs/shovel-static,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/shovel.html,https://www.rabbitmq.com/docs/shovel,,TRUE,FALSE,FALSE,FALSE

@@ -99,7 +99,7 @@ there is information about offerings, subscription fees, and a contact form [on 
 Alternatively, if you already have a support contract established with VMware,
 please see the [VMware support page](https://tanzu.vmware.com/support).
 For questions about booking training or consulting,
-please contact the [appropriate vendor](./services).
+please contact the [appropriate vendor](/commercial-offerrings).
 
 If you have questions about how to use RabbitMQ and do not want to
 purchase a support contract or learn about commercial offerings, please use the
