@@ -70,7 +70,7 @@ The Chocolatey RabbitMQ package is open source and can be [found on GitHub](http
 
 ## Using the Installer {#installer}
 
-The official RabbitMQ installer is produced for [every RabbitMQ release](/release-information/changelog).
+The official RabbitMQ installer is produced for [every RabbitMQ release](/release-information).
 
 Compared to [installation via Chocolatey](#chocolatey), this option gives Windows users
 the most flexibility but also requires them to be

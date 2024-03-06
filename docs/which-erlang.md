@@ -45,7 +45,7 @@ The table below provides an Erlang compatibility matrix of currently supported R
 For RabbitMQ releases that have reached end of life, see [Unsupported Series Compatibility Matrix](#eol-series).
 
 <table class="matrix">
-  <th><a href="/release-information/versions">RabbitMQ version</a></th>
+  <th><a href="/release-information">RabbitMQ version</a></th>
   <th>Minimum required Erlang/OTP</th>
   <th>Maximum supported Erlang/OTP</th>
   <th>Notes</th>
@@ -309,7 +309,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
 ### Unsupported RabbitMQ Series {#eol-series}
 
 <table class="matrix">
-  <th><a href="/release-information/changelog">Unsupported RabbitMQ Series</a></th>
+  <th><a href="/release-information">Unsupported RabbitMQ Series</a></th>
   <th>Minimum required Erlang/OTP</th>
   <th>Maximum supported Erlang/OTP</th>
   <th>Notes</th>

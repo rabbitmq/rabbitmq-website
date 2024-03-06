@@ -29,8 +29,8 @@ import {
 
 # Installing RabbitMQ
 
-The latest [release](https://github.com/rabbitmq/rabbitmq-server/releases) of RabbitMQ is <strong><RabbitMQServerVersion/></strong>. See [change log](/release-information/changelog) for release notes.
-See [RabbitMQ support timeline](/release-information/versions) to find out what release series are supported.
+The latest [release](https://github.com/rabbitmq/rabbitmq-server/releases) of RabbitMQ is <strong><RabbitMQServerVersion/></strong>. See [change log](/release-information) for release notes.
+See [RabbitMQ support timeline](/release-information) to find out what release series are supported.
 
 Experimenting with RabbitMQ on your workstation? Try the [community Docker image](https://hub.docker.com/_/rabbitmq/):
 

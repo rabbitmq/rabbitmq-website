@@ -44,17 +44,43 @@ const config = {
         // RabbitMQ releases per version declared in Docusaurus ('Next' for the
         // future docs).
         'Next': {
-          version: '3.13.0',
+          //version: '3.13.0',
           // package_revs: {
           //   'debian': '1',
           //   'rpm-el8': '1',
           //   'rpm-suse': '1',
           // }
         },
-        '3.13': { version: '3.13.0' },
-        '3.12': { version: '3.12.13' },
-        '3.11': { version: '3.11.28' },
-        '3.10': { version: '3.10.25' },
+        '3.13': {
+          version: '3.13.0',
+          links: [
+            {
+              label: "Annoucement",
+              url: "/blog/2024/03/11/rabbitmq-3.13.0-announcement"
+            },
+          ],
+          first_release: "2024-02-22",
+          end_of_community_support: "2025-03-01",
+          end_of_commercial_support: "2025-09-01",
+        },
+        '3.12': {
+          version: '3.12.13',
+          first_release: "2023-06-02",
+          end_of_community_support: "2024-06-30",
+          end_of_commercial_support: "2024-12-31",
+        },
+        '3.11': {
+          version: '3.11.28',
+          first_release: "2022-09-28",
+          end_of_community_support: "2023-12-31",
+          end_of_commercial_support: "2024-07-31",
+        },
+        '3.10': {
+          version: '3.10.25',
+          first_release: "2022-05-03",
+          end_of_community_support: "2022-05-03",
+          end_of_commercial_support: "2023-12-31",
+        },
       },
 
       // Client releases.
@@ -177,7 +203,7 @@ const config = {
             ],
             dropdownItemsAfter: [
               {href: 'https://v3-12.rabbitmq.com/documentation.html', label: '3.12'},
-              {to: '/release-information/versions', label: 'Release Information'},
+              {to: '/release-information', label: 'Release Information'},
               //{type: 'html', value: '<strong>Unsupported</strong>'},
             ],
           },

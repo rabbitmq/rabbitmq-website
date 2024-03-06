@@ -171,7 +171,7 @@ www.rabbitmq.com/build-erlang-client.html,https://www.rabbitmq.com/client-librar
 www.rabbitmq.com/build-java-client.html,https://www.rabbitmq.com/client-libraries/build-java-client,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/build-server.html,https://www.rabbitmq.com/docs/build-server,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/build.html,https://www.rabbitmq.com/docs/build-server,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/changelog.html,https://www.rabbitmq.com/release-information/changelog,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/changelog.html,https://www.rabbitmq.com/release-information,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/channels.html,https://www.rabbitmq.com/docs/channels,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/classic-queues.html,https://www.rabbitmq.com/docs/classic-queues,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/cli.html,https://www.rabbitmq.com/docs/cli,,TRUE,FALSE,FALSE,FALSE
@@ -274,7 +274,7 @@ www.rabbitmq.com/mqtt.html,https://www.rabbitmq.com/docs/mqtt,,TRUE,FALSE,FALSE,
 www.rabbitmq.com/nack.html,https://www.rabbitmq.com/docs/nack,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/nettick.html,https://www.rabbitmq.com/docs/nettick,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/networking.html,https://www.rabbitmq.com/docs/networking,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/news.html,https://www.rabbitmq.com/release-information/news,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/news.html,https://www.rabbitmq.com/release-information,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/oauth2-examples-azure.html,https://www.rabbitmq.com/docs/oauth2-examples-azure,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/oauth2-examples-keycloak.html,https://www.rabbitmq.com/docs/oauth2-examples-keycloak,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/oauth2-examples-oauth0.html,https://www.rabbitmq.com/docs/oauth2-examples-oauth0,,TRUE,FALSE,FALSE,FALSE
@@ -288,7 +288,7 @@ www.rabbitmq.com/persistence-conf.html,https://www.rabbitmq.com/docs/persistence
 www.rabbitmq.com/platforms.html,https://www.rabbitmq.com/docs/platforms,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/plugin-development.html,https://www.rabbitmq.com/plugin-development,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/plugins.html,https://www.rabbitmq.com/docs/plugins,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/previous.html,https://www.rabbitmq.com/release-information/versions,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/previous.html,https://www.rabbitmq.com/release-information,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/priority.html,https://www.rabbitmq.com/docs/priority,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/production-checklist.html,https://www.rabbitmq.com/docs/production-checklist,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/prometheus.html,https://www.rabbitmq.com/docs/prometheus,,TRUE,FALSE,FALSE,FALSE
@@ -405,9 +405,11 @@ www.rabbitmq.com/uri-query-parameters.html,https://www.rabbitmq.com/docs/uri-que
 www.rabbitmq.com/uri-spec.html,https://www.rabbitmq.com/docs/uri-spec,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/user-limits.html,https://www.rabbitmq.com/docs/user-limits,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/validated-user-id.html,https://www.rabbitmq.com/docs/validated-user-id,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/versions.html,https://www.rabbitmq.com/release-information/versions,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/versions.html,https://www.rabbitmq.com/release-information,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/vhosts.html,https://www.rabbitmq.com/docs/vhosts,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/web-mqtt.html,https://www.rabbitmq.com/docs/web-mqtt,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/web-stomp.html,https://www.rabbitmq.com/docs/web-stomp,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/which-erlang.html,https://www.rabbitmq.com/docs/which-erlang,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/windows-quirks.html,https://www.rabbitmq.com/docs/windows-configuration,,TRUE,FALSE,FALSE,FALSE
+
+www.rabbitmq.com/docs/versions,https://www.rabbitmq.com/release-information,,TRUE,FALSE,FALSE,FALSE

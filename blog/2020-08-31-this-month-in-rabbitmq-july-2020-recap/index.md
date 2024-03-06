@@ -24,7 +24,7 @@ Finally, a [webinar on RabbitMQ consumers](https://www2.erlang-solutions.com/web
 ## Project updates
 
  * [Kubernetes Cluster Operator](/kubernetes/operator/operator-overview) development is [picking up the pace](https://github.com/rabbitmq/cluster-operator/pulls?q=is%3Apr+is%3Aclosed)
- * RabbitMQ 3.7 goes out of extended support [in a few weeks](/release-information/versions) on September 30th, 2020
+ * RabbitMQ 3.7 goes out of extended support [in a few weeks](/release-information) on September 30th, 2020
  * RabbitMQ .NET client community continues with [project simplification and efficiency gains](https://github.com/rabbitmq/rabbitmq-dotnet-client/pulls?q=is%3Apr+is%3Aclosed) for the next major version
 
 ## Community Writings and Resources

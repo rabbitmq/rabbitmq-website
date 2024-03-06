@@ -309,7 +309,7 @@ to the Connections tab and enable the relevant columns if they are not displayed
 
 <img class="screenshot" src="/img/monitoring/channels/mgmt-ui-per-connection-channel-max-and-count.png" alt="Per connection channel count in management UI" title="Per connection channel count in management UI" />
 
-Overview and individual node pages provide a chart of channel churn rate as of [RabbitMQ 3.7.9](/release-information/changelog).
+Overview and individual node pages provide a chart of channel churn rate as of [RabbitMQ 3.7.9](/release-information).
 If the rate of channel open operations is consistently higher than that of channel close operations,
 this is evidence of a channel leak in one of the applications:
 

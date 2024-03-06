@@ -33,8 +33,8 @@ This guide covers RabbitMQ installation on RPM-based Linux (Red Hat Enterprise L
 
 With the [exception of Fedora](https://packages.fedoraproject.org/pkgs/rabbitmq-server/rabbitmq-server/), the versions included
 into standard RPM-based distribution repositories can be
-many releases behind [latest RabbitMQ releases](/release-information/changelog)
-and may provide RabbitMQ versions that are already [out of support](/release-information/versions).
+many releases behind [latest RabbitMQ releases](/release-information)
+and may provide RabbitMQ versions that are already [out of support](/release-information).
 
 Team RabbitMQ produces our own RPM packages and distributes them [using a Cloudsmith mirror](#cloudsmith).
 
@@ -539,7 +539,7 @@ zypper install --repo rabbitmq_server-noarch
 
 [yum version locking](https://access.redhat.com/solutions/98873) plugin can
 be used to prevent unexpected package upgrades. Using it carries the risk of leaving
-the system behind in terms of [updates](/release-information/changelog), including important bug fixes
+the system behind in terms of [updates](/release-information), including important bug fixes
 and security patches.
 
 
