@@ -322,7 +322,7 @@ enabled before they can be used.
 
 In addition to the plugins bundled with the server, team RabbitMQ
 offers binary downloads of curated plugins which have been
-contributed by authors in the community. See the [community plugins page](./community-plugins) for
+contributed by authors in the community. See the [community plugins page](/community-plugins) for
 more details.
 
 Even more plugins can be found on GitHub, GitLab, Bitbucket and similar

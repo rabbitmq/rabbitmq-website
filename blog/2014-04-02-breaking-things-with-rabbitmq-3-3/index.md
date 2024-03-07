@@ -48,7 +48,7 @@ What? Another ["breaking things"](/blog/2012/11/19/breaking-things-with-rabbitmq
 
 **Why did it change?** The plugin hadn't been maintained for a long time. Its architecture isn't great.
 
-**What should I do?** If you still need the plugin it can be built from mercurial, for the time being. <del>In the future we hope to offer an easier installation experience for non-core plugins.</del> **Update: see the [community plugins](/docs/community-plugins) page to download the JSON-RPC plugin.**
+**What should I do?** If you still need the plugin it can be built from mercurial, for the time being. <del>In the future we hope to offer an easier installation experience for non-core plugins.</del> **Update: see the [community plugins](/community-plugins) page to download the JSON-RPC plugin.**
 
 ## Client-sent channel.flow support removed
 

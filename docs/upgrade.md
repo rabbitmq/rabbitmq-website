@@ -145,7 +145,7 @@ the new RabbitMQ version series.
 In rare cases patch versions of RabbitMQ can break some plugin APIs.
 Such cases will be documented in the breaking changes section of the release notes document.
 
-[Community plugins page](./community-plugins) contains information on RabbitMQ
+[Community plugins page](/community-plugins) contains information on RabbitMQ
 version support for plugins not included into the RabbitMQ distribution.
 
 ### Management Plugin Upgrades

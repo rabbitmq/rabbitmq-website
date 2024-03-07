@@ -285,7 +285,7 @@ Popular tier 1 (built-in) plugins:
  * [Shovel](./shovel)
  * [Internal Event Exchange](./event-exchange)
 
-See [Community Plugins](./community-plugins),
+See [Community Plugins](/community-plugins),
 [RabbitMQ GitHub repositories](https://github.com/rabbitmq/)
 and the [Plugins Guide](./plugins) for more information about plugins.
 

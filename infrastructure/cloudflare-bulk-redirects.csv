@@ -179,7 +179,7 @@ www.rabbitmq.com/clients.html,https://www.rabbitmq.com/docs/clients,,TRUE,FALSE,
 www.rabbitmq.com/cluster-formation.html,https://www.rabbitmq.com/docs/cluster-formation,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/clustering-ssl.html,https://www.rabbitmq.com/docs/clustering-ssl,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/clustering.html,https://www.rabbitmq.com/docs/clustering,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/community-plugins.html,https://www.rabbitmq.com/docs/community-plugins,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/community-plugins.html,https://www.rabbitmq.com/community-plugins,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/configure.html,https://www.rabbitmq.com/docs/configure,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/confirms.html,https://www.rabbitmq.com/docs/confirms,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/connection-blocked.html,https://www.rabbitmq.com/docs/connection-blocked,,TRUE,FALSE,FALSE,FALSE

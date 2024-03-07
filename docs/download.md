@@ -171,7 +171,7 @@ covering a variety of platforms and languages.
 For your convenience, we offer binary downloads of various
 plugins developed by the community.
 
- * [Description of available plugins](./community-plugins)
+ * [Description of available plugins](/community-plugins)
 
 ## Snapshot (Alpha) Builds
 

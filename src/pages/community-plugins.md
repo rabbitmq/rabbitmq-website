@@ -3,7 +3,7 @@ title: Community Plugins
 displayed_sidebar: docsSidebar
 ---
 <!--
-Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2007-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -25,7 +25,7 @@ limitations under the License.
 
 Binary downloads of plugins, which are contributed by authors in the
 community are available. These plugins do not ship with the RabbitMQ
-server. Refer to [Installing Additional Plugins](./installing-plugins) for information on how to install the plugins. Note, the latest
+server. Refer to [Installing Additional Plugins](/docs/installing-plugins) for information on how to install the plugins. Note, the latest
 build of the plugin is compiled against the latest feature release of RabbitMQ.
 
 There is no guarantee that these plugins work
