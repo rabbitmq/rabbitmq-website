@@ -5,7 +5,7 @@
 ### Branches
 
 The `main` branch is the production branch. Commits to it are deployed
-automatically to www.rabbitmq.com by a Cloulflare worker.
+automatically to www.rabbitmq.com by a Cloudflare worker.
 
 Older versions of the docs that we don’t want to host in Docusaurus to limit
 the number of versions are put in branches of the form `v3.13.x`, `v4.0.x`,
