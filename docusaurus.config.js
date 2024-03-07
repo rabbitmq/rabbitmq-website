@@ -227,7 +227,7 @@ const config = {
               },
               {
                 label: 'Trademark Guidelines',
-                to: '/docs/trademark-guidelines',
+                to: '/trademark-guidelines',
               },
               {
                 label: 'Your California Privacy Rights',
