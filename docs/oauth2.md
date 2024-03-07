@@ -268,12 +268,12 @@ The `aud` ([Audience](https://tools.ietf.org/html/rfc7519#page-9)) identifies th
 
 Scopes are translated into permission grants to RabbitMQ resources for the provided token.
 
-The current scope format is `&lt;permission>:&lt;vhost_pattern>/&lt;name_pattern>[/&lt;routing_key_pattern>]` where
+The current scope format is `<permission>:<vhost_pattern>/<name_pattern>[/<routing_key_pattern>]` where
 
  * `<permission>` is an access permission (`configure`, `read`, or `write`)
  * `<vhost_pattern>` is a wildcard pattern for vhosts token has access to.
  * `<name_pattern>` is a wildcard pattern for resource name
- * `&lt;routing_key_pattern>` is a wildcard pattern for routing key in topic authorization
+ * `<routing_key_pattern>` is a wildcard pattern for routing key in topic authorization
 
 Wildcard patterns are strings with optional wildcard symbols `*` that match
 any sequence of characters.
@@ -382,7 +382,7 @@ To learn more about OAuth 2.0 clients, see the [OAuth 2.0 client specification](
 Users in RabbitMQ can have [tags associated with them](./access-control#user-tags).
 Tags are used to [control access to the management plugin](./management#permissions).
 
-In the OAuth context, tags can be added as part of the scope, using a format like `&lt;resource_server_id>.tag:&lt;tag>`. For
+In the OAuth context, tags can be added as part of the scope, using a format like `<resource_server_id>.tag:<tag>`. For
 example, if `resource_server_id` is "my_rabbit", a scope to grant access to the management plugin with
 the `monitoring` tag will be `my_rabbit.tag:monitoring`.
 
@@ -464,10 +464,10 @@ zero or many locations.
 
 A location consists of a list of key-value pairs separated by forward slash `/` character. Here is the format:
 ```bash
-cluster:&lt;resource_server_id_pattern>[/vhost:&lt;vhost_pattern>][/queue:&lt;queue_name_pattern>|/exchange:&lt;exchange_name_pattern][/routing-key:&lt;routing_key_pattern>]
+cluster:<resource_server_id_pattern>[/vhost:<vhost_pattern>][/queue:<queue_name_pattern>|/exchange:<exchange_name_pattern][/routing-key:<routing_key_pattern>]
 ```
 
-Any string separated by `/` which does not conform to `&lt;key>:&lt;value>` is ignored. For instance, if your locations start with a prefix, e.g. `vrn/cluster:rabbitmq`, the `vrn` pattern part is ignored.
+Any string separated by `/` which does not conform to `<key>:<value>` is ignored. For instance, if your locations start with a prefix, e.g. `vrn/cluster:rabbitmq`, the `vrn` pattern part is ignored.
 
 The supported location's attributed are:
 
@@ -504,19 +504,19 @@ For each location found in the `locations` where the `cluster` attribute matches
 
   - For each location found in the `locations` field where the `cluster` attribute matches the current RabbitMQ node's `resource_server_id`, the plugin extracts the `vhost`, `queue` or `exchange` and `routing_key` attributes from the location. If the location does not  have any of those attributes, the default value of `*` is assumed. Out of those values, the following scope suffix will be produced:
     ```ini
-    scope_suffix = &lt;vhost>/&lt;queue>|&lt;exchange>/&lt;routing-key>
+    scope_suffix = <vhost>/<queue>|<exchange>/<routing-key>
     ```
 
   - For each action found in the `actions` field:
 
     if the action is not a known user tag, the following scope is produced out of it:
     ```ini
-      scope = &lt;resource_server_id>.&lt;action>:&lt;scope_suffix>
+      scope = <resource_server_id>.<action>:<scope_suffix>
     ```
 
     For known user tag actions, the following scope is produced:
     ```ini
-      scope = &lt;resource_server_id>.&lt;action>
+      scope = <resource_server_id>.<action>
     ```
 
 
