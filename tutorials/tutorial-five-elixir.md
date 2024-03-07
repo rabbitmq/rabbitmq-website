@@ -172,7 +172,7 @@ if length(System.argv) == 0 do
   IO.puts "Usage: mix run receive_logs_topic.exs [binding_key]..."
   System.halt(1)
 end
-for binding_key &lt;- System.argv do
+for binding_key <- System.argv do
   AMQP.Queue.bind(channel, queue_name, "topic_logs", routing_key: binding_key)
 end
 

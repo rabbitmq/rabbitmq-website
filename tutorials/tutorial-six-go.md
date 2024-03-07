@@ -273,7 +273,7 @@ func main() {
         }()
 
         log.Printf(" [*] Awaiting RPC requests")
-        &lt;-forever
+        <-forever
 }
 ```
 
@@ -313,7 +313,7 @@ func failOnError(err error, msg string) {
 
 func randomString(l int) string {
         bytes := make([]byte, l)
-        for i := 0; i &lt; l; i++ {
+        for i := 0; i < l; i++ {
                 bytes[i] = byte(randInt(65, 90))
         }
         return string(bytes)
@@ -396,7 +396,7 @@ func main() {
 
 func bodyFrom(args []string) int {
         var s string
-        if (len(args) &lt; 2) || os.Args[1] == "" {
+        if (len(args) < 2) || os.Args[1] == "" {
                 s = "30"
         } else {
                 s = strings.Join(args[1:], " ")

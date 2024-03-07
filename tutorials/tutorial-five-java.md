@@ -176,7 +176,7 @@ public class ReceiveLogsTopic {
     channel.exchangeDeclare(EXCHANGE_NAME, "topic");
     String queueName = channel.queueDeclare().getQueue();
 
-    if (argv.length &lt; 1) {
+    if (argv.length < 1) {
         System.err.println("Usage: ReceiveLogsTopic [binding_key]...");
         System.exit(1);
     }

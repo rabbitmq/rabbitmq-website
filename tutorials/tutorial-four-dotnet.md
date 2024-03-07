@@ -212,7 +212,7 @@ channel.ExchangeDeclare(exchange: "direct_logs", type: ExchangeType.Direct);
 // declare a server-named queue
 var queueName = channel.QueueDeclare().QueueName;
 
-if (args.Length &lt; 1)
+if (args.Length < 1)
 {
     Console.Error.WriteLine("Usage: {0} [info] [warning] [error]",
                             Environment.GetCommandLineArgs()[0]);

@@ -193,7 +193,7 @@ q, err := ch.QueueDeclare(
 )
 failOnError(err, "Failed to declare a queue")
 
-if len(os.Args) &lt; 2 {
+if len(os.Args) < 2 {
   log.Printf("Usage: %s [info] [warning] [error]", os.Args[0])
   os.Exit(0)
 }
@@ -277,7 +277,7 @@ func main() {
 
 func bodyFrom(args []string) string {
         var s string
-        if (len(args) &lt; 3) || os.Args[2] == "" {
+        if (len(args) < 3) || os.Args[2] == "" {
                 s = "hello"
         } else {
                 s = strings.Join(args[2:], " ")
@@ -287,7 +287,7 @@ func bodyFrom(args []string) string {
 
 func severityFrom(args []string) string {
         var s string
-        if (len(args) &lt; 2) || os.Args[1] == "" {
+        if (len(args) < 2) || os.Args[1] == "" {
                 s = "info"
         } else {
                 s = os.Args[1]
@@ -344,7 +344,7 @@ func main() {
         )
         failOnError(err, "Failed to declare a queue")
 
-        if len(os.Args) &lt; 2 {
+        if len(os.Args) < 2 {
                 log.Printf("Usage: %s [info] [warning] [error]", os.Args[0])
                 os.Exit(0)
         }
@@ -380,7 +380,7 @@ func main() {
         }()
 
         log.Printf(" [*] Waiting for logs. To exit press CTRL+C")
-        &lt;-forever
+        <-forever
 }
 ```
 

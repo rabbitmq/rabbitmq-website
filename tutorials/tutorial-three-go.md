@@ -307,7 +307,7 @@ func main() {
 
 func bodyFrom(args []string) string {
         var s string
-        if (len(args) &lt; 2) || os.Args[1] == "" {
+        if (len(args) < 2) || os.Args[1] == "" {
                 s = "hello"
         } else {
                 s = strings.Join(args[1:], " ")
@@ -401,7 +401,7 @@ func main() {
         }()
 
         log.Printf(" [*] Waiting for logs. To exit press CTRL+C")
-        &lt;-forever
+        <-forever
 }
 ```
 

@@ -294,7 +294,7 @@ public class Tut3Sender {
 		if (dots.getAndIncrement() == 3) {
 			dots.set(1);
 		}
-		for (int i = 0; i &lt; dots.get(); i++) {
+		for (int i = 0; i < dots.get(); i++) {
 			builder.append('.');
 		}
 		builder.append(count.incrementAndGet());

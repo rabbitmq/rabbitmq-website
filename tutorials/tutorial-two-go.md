@@ -89,7 +89,7 @@ Here is the `bodyFrom` function:
 ```go
 func bodyFrom(args []string) string {
 	var s string
-	if (len(args) &lt; 2) || os.Args[1] == "" {
+	if (len(args) < 2) || os.Args[1] == "" {
 		s = "hello"
 	} else {
 		s = strings.Join(args[1:], " ")
@@ -127,7 +127,7 @@ go func() {
 }()
 
 log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
-&lt;-forever
+<-forever
 ```
 
 Note that our fake task simulates execution time.
@@ -266,7 +266,7 @@ go func() {
 }()
 
 log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
-&lt;-forever
+<-forever
 ```
 
 Using this code, you can ensure that even if you terminate a worker using
@@ -476,7 +476,7 @@ func main() {
 
 func bodyFrom(args []string) string {
         var s string
-        if (len(args) &lt; 2) || os.Args[1] == "" {
+        if (len(args) < 2) || os.Args[1] == "" {
                 s = "hello"
         } else {
                 s = strings.Join(args[1:], " ")
@@ -557,7 +557,7 @@ func main() {
         }()
 
         log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
-        &lt;-forever
+        <-forever
 }
 ```
 

@@ -250,7 +250,7 @@ go func() {
 }()
 
 log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
-&lt;-forever
+<-forever
 ```
 
 [Here's the whole receive.go script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/receive.go).

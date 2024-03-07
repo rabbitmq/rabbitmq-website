@@ -144,7 +144,7 @@ we're interested in.
 ```elixir
 {:ok, %{queue: queue_name}} = AMQP.Queue.declare(channel, "", exclusive: true)
 
-for {severity, true} &lt;- severities do
+for {severity, true} <- severities do
   binding_key = severity |> to_string
   AMQP.Queue.bind(channel, queue_name, "direct_logs", routing_key: binding_key)
 end
@@ -180,7 +180,7 @@ message =
 
 AMQP.Exchange.declare(channel, "direct_logs", :direct)
 
-for {severity, true} &lt;- severities do
+for {severity, true} <- severities do
   severity = severity |> to_string
   AMQP.Basic.publish(channel, "direct_logs", severity, message)
   IO.puts " [x] Sent '[#{severity}] #{message}'"
@@ -217,7 +217,7 @@ AMQP.Exchange.declare(channel, "direct_logs", :direct)
 
 {:ok, %{queue: queue_name}} = AMQP.Queue.declare(channel, "", exclusive: true)
 
-for {severity, true} &lt;- severities do
+for {severity, true} <- severities do
   binding_key = severity |> to_string
   AMQP.Queue.bind(channel, queue_name, "direct_logs", routing_key: binding_key)
 end
