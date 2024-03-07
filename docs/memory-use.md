@@ -307,20 +307,20 @@ reserved_unallocated: 0.0 gb (0.0%)
 Management UI can be used to produce a memory breakdown chart. This information is available on the
 node metrics page that can be accessed from Overview:
 
-<img class="screenshot" src="img/memory/mgmt-ui-node-list.png" alt="Cluster node list in management UI" title="Cluster node list in management UI" />
+<img class="screenshot" src="/img/memory/mgmt-ui-node-list.png" alt="Cluster node list in management UI" title="Cluster node list in management UI" />
 
 On the node metrics page, scroll down to the memory breakdown buttons:
 
-<img class="screenshot" src="img/memory/mgmt-ui-memory-use-breakdown-buttons.png" alt="Node memory use breakdown buttons" title="Node memory use breakdown buttons" />
+<img class="screenshot" src="/img/memory/mgmt-ui-memory-use-breakdown-buttons.png" alt="Node memory use breakdown buttons" title="Node memory use breakdown buttons" />
 
 Memory and binary heap breakdowns can be expensive to calculate and are produced on demand when the <code>Update</code> button is pressed:
 
-<img class="screenshot" src="img/memory/mgmt-ui-memory-use-breakdown.png" alt="Node memory use breakdown chart" title="Node memory use breakdown chart" />
+<img class="screenshot" src="/img/memory/mgmt-ui-memory-use-breakdown.png" alt="Node memory use breakdown chart" title="Node memory use breakdown chart" />
 
 It is also possible to display a breakdown of binary heap use by various
 things in the system (e.g. connections, queues):
 
-<img class="screenshot" src="img/memory/mgmt-ui-binaries-breakdown.png" alt="Binary heap use breakdown chart" title="Binary heap use breakdown chart" />
+<img class="screenshot" src="/img/memory/mgmt-ui-binaries-breakdown.png" alt="Binary heap use breakdown chart" title="Binary heap use breakdown chart" />
 
 
 ## Producing Memory Use Breakdown Using HTTP API and curl {#breakdown-http-api-curl}
@@ -517,12 +517,12 @@ tab displays top processes by one of the metrics:
  * Erlang mailbox length
  * For `gen_server2` processes, internal operation buffer length
 
-<img class="screenshot" src="img/memory/rabbitmq-top-processes.png" alt="Top processes in rabbitmq-top" title="Top processes in rabbitmq-top" />
+<img class="screenshot" src="/img/memory/rabbitmq-top-processes.png" alt="Top processes in rabbitmq-top" title="Top processes in rabbitmq-top" />
 
 Second tab displays ETS (internal key/value store) tables. The tables can be sorted by
 the amount of memory used or number of rows:
 
-<img class="screenshot" src="img/memory/rabbitmq-top-ets-tables.jpg" alt="Top ETS tables in rabbitmq-top" title="Top ETS tables in rabbitmq-top" />
+<img class="screenshot" src="/img/memory/rabbitmq-top-ets-tables.jpg" alt="Top ETS tables in rabbitmq-top" title="Top ETS tables in rabbitmq-top" />
 
 
 ## Preallocated Memory {#preallocated-memory}
@@ -675,7 +675,7 @@ Garbage collection is done per queue, independently of all other Erlang processe
 When garbage collection runs, it will copy used process memory before deallocating unused memory.
 This can lead to the queue process using up to twice as much memory during garbage collection, as shown here (queue contains a lot of messages):
 
-<img class="screenshot" src="img/memory/queue-memory-usage-spikes.png" alt="Queue under load memory usage" title="Queue under load memory usage" />
+<img class="screenshot" src="/img/memory/queue-memory-usage-spikes.png" alt="Queue under load memory usage" title="Queue under load memory usage" />
 
 ### Is queue memory growth during garbage collection a concern? {#queue-memory-usage-gc}
 

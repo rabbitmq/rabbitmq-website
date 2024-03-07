@@ -233,16 +233,16 @@ next to it on the queue page in the [management UI](./management).
 Below is an example of a queue named `two.replicas` which has a leader
 and a mirror:
 
-<img class="screenshot" src="img/mirroring/queue_mirroring_indicators_management_ui_row_only.png" alt="Mirrored queue indicators in management UI" title="Mirrored queue indicators in management UI" />
+<img class="screenshot" src="/img/mirroring/queue_mirroring_indicators_management_ui_row_only.png" alt="Mirrored queue indicators in management UI" title="Mirrored queue indicators in management UI" />
 
 leader node for the queue and its online mirror(s), if any, will be listed on the queue page:
 
-<img class="screenshot" src="img/mirroring/queue_mirroring_one_mirror_present.png" alt="Mirrored queue details on individual queue page" title="Mirrored queue details on individual queue page" />
+<img class="screenshot" src="/img/mirroring/queue_mirroring_one_mirror_present.png" alt="Mirrored queue details on individual queue page" title="Mirrored queue details on individual queue page" />
 
 If the queue page does not list any mirrors, the queue is not mirrored (or has only one mirror which
 is not online):
 
-<img class="screenshot" src="img/mirroring/queue_mirroring_no_mirrors.png" alt="Non-mirrored queue details on individual queue page" title="Non-mirrored queue details on individual queue page" />
+<img class="screenshot" src="/img/mirroring/queue_mirroring_no_mirrors.png" alt="Non-mirrored queue details on individual queue page" title="Non-mirrored queue details on individual queue page" />
 
 When a new queue mirror is added, the event is logged:
 

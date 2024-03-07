@@ -766,7 +766,7 @@ raft.wal_max_size_bytes = 64000000
 
 The value defaults to 512 MiB. This means that during steady load, the WAL table memory
 footprint can reach 512 MiB. You can expect your memory usage to look like this:
-<img class="screenshot" src="img/memory/quorum-queue-memory-usage-pattern.png" alt="Quorum Queues WAL memory usage pattern" title="Quorum Queues WAL memory usage pattern" />
+<img class="screenshot" src="/img/memory/quorum-queue-memory-usage-pattern.png" alt="Quorum Queues WAL memory usage pattern" title="Quorum Queues WAL memory usage pattern" />
 
 Because memory deallocation may take some time,
 we recommend that the RabbitMQ node is allocated at least 3 times the memory of the default WAL file size limit.

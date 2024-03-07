@@ -302,18 +302,18 @@ Channel leaks eventually exhaust the node (or multiple target nodes) of RAM and 
 Management UI's Overview tab lists a total number of channels in all virtual hosts the current
 user has access to:
 
-<img class="screenshot" src="img/monitoring/channels/mgmt-ui-global-channel-count.png" alt="Global channel count in management UI" title="Global channel count in management UI" />
+<img class="screenshot" src="/img/monitoring/channels/mgmt-ui-global-channel-count.png" alt="Global channel count in management UI" title="Global channel count in management UI" />
 
 To inspect the current number of channels on a connection as well as the per-connection channel limit, navigate
 to the Connections tab and enable the relevant columns if they are not displayed:
 
-<img class="screenshot" src="img/monitoring/channels/mgmt-ui-per-connection-channel-max-and-count.png" alt="Per connection channel count in management UI" title="Per connection channel count in management UI" />
+<img class="screenshot" src="/img/monitoring/channels/mgmt-ui-per-connection-channel-max-and-count.png" alt="Per connection channel count in management UI" title="Per connection channel count in management UI" />
 
 Overview and individual node pages provide a chart of channel churn rate as of [RabbitMQ 3.7.9](./changelog).
 If the rate of channel open operations is consistently higher than that of channel close operations,
 this is evidence of a channel leak in one of the applications:
 
-<img class="screenshot" src="img/monitoring/channels/mgmt-ui-channel-count-growth.png" alt="Channel count growth in management UI" title="Channel count growth in management UI" />
+<img class="screenshot" src="/img/monitoring/channels/mgmt-ui-channel-count-growth.png" alt="Channel count growth in management UI" title="Channel count growth in management UI" />
 
 To find out what connection leaks channels, inspect per-connection channel count as demonstrated in this guide.
 
@@ -331,12 +331,12 @@ long lived channels should be used instead when possible.
 Below is a chart that demonstrates a fairly low channel churn with a virtually identical number of channel open and closed
 in the given period of time:
 
-<img class="screenshot" src="img/monitoring/channels/mgmt-ui-node-channel-churn.png" alt="Node channel churn in management UI" title="Node channel churn in management UI" />
+<img class="screenshot" src="/img/monitoring/channels/mgmt-ui-node-channel-churn.png" alt="Node channel churn in management UI" title="Node channel churn in management UI" />
 
 While connection and disconnection rates are system-specific, rates consistently above 100/second likely indicate a suboptimal
 connection management by one or more applications and usually are worth investigating.
 
-<img class="screenshot" src="img/monitoring/channels/mgmt-ui-high-channel-churn.png" alt="High channel churn in management UI" title="High channel churn in management UI" />
+<img class="screenshot" src="/img/monitoring/channels/mgmt-ui-high-channel-churn.png" alt="High channel churn in management UI" title="High channel churn in management UI" />
 
 Note that some clients and runtimes (notably PHP) do not use long-lived connections and high connection
 churn rates are expected from them unless a [specialized proxy is used](https://github.com/cloudamqp/amqproxy).
@@ -346,7 +346,7 @@ churn rates are expected from them unless a [specialized proxy is used](https://
 To inspect channels in the management UI, navigate to the Channels tab and add or remove columns
 as needed:
 
-<img class="screenshot" src="img/monitoring/channels/mgmt-ui-channel-list.png" alt="High channel churn in management UI" title="High channel churn in management UI" />
+<img class="screenshot" src="/img/monitoring/channels/mgmt-ui-channel-list.png" alt="High channel churn in management UI" title="High channel churn in management UI" />
 
 ### Inspecting Channels and Their State Using CLI Tools {#inspect-using-cli-tools}
 

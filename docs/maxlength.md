@@ -203,9 +203,9 @@ rabbitmqctl list_policies --formatter=pretty_table --silent
 
 Both optional queue arguments and effective policy for a queue can be seen on the Queues tab or individual queue page:
 
-<img class="screenshot" src="img/limits/max_length_queues_page.png" alt="Effective queue policy and optional arguments in management UI" title="Effective queue policy and optional arguments in management UI" />
+<img class="screenshot" src="/img/limits/max_length_queues_page.png" alt="Effective queue policy and optional arguments in management UI" title="Effective queue policy and optional arguments in management UI" />
 
 The policy name is a clickable link that leads to the policy definition page where you
 can see the limits:
 
-<img class="screenshot" src="img/limits/max_length_policy_definition.png" alt="Effective queue policy and optional arguments in management UI" title="Effective queue policy and optional arguments in management UI" />
+<img class="screenshot" src="/img/limits/max_length_policy_definition.png" alt="Effective queue policy and optional arguments in management UI" title="Effective queue policy and optional arguments in management UI" />

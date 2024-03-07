@@ -209,7 +209,7 @@ connections also increases node's memory consumption.
 
 [Management UI](./management) provides a chart of the total number of connections opened cluster-wide:
 
-<img class="screenshot" src="img/monitoring/connections/mgmt-ui-global-connection-count.png" alt="Global connection count in management UI" title="Global connection count in management UI" />
+<img class="screenshot" src="/img/monitoring/connections/mgmt-ui-global-connection-count.png" alt="Global connection count in management UI" title="Global connection count in management UI" />
 
 A connection leak on monitoring charts can be identified as a monotonically growing number of client connections.
 
@@ -217,11 +217,11 @@ It is also possible to see how many file handles and sockets does a specific nod
 in determining connection leaks as well. The following chart demonstrates a very stable number of sockets
 open on a node:
 
-<img class="screenshot" src="img/monitoring/connections/mgmt-ui-node-socket-count.png" alt="Node file handle and socket count in management UI" title="Node file handle and socket count in management UI" />
+<img class="screenshot" src="/img/monitoring/connections/mgmt-ui-node-socket-count.png" alt="Node file handle and socket count in management UI" title="Node file handle and socket count in management UI" />
 
 This chart demonstrates a monotonically growing number of connections after a drop:
 
-<img class="screenshot" src="img/monitoring/connections/mgmt-ui-node-socket-count-growth.png" alt="Node file handle and socket count growth in management UI" title="Node file handle and socket count growth in management UI" />
+<img class="screenshot" src="/img/monitoring/connections/mgmt-ui-node-socket-count-growth.png" alt="Node file handle and socket count growth in management UI" title="Node file handle and socket count growth in management UI" />
 
 If the number of sockets used by a node keeps growing and growing, it is likely an indication
 of a connection leak in one of the applications.
@@ -236,7 +236,7 @@ grows on application start and then moderates (stays mostly stable with little f
 [Management UI](./management) provides a chart on the rate of newly opened connections as of [RabbitMQ 3.7.9](./changelog).
 Below is a chart that demonstrates a fairly low new connection rate:
 
-<img class="screenshot" src="img/monitoring/connections/mgmt-ui-node-connection-churn.png" alt="Node connection churn in management UI" title="Node connection churn in management UI" />
+<img class="screenshot" src="/img/monitoring/connections/mgmt-ui-node-connection-churn.png" alt="Node connection churn in management UI" title="Node connection churn in management UI" />
 
 
 ### High Connection Churn {#high-connection-churn}
@@ -250,12 +250,12 @@ RabbitMQ collects metrics on connection churn and exposes them via [Prometheus a
 Below is a chart that demonstrates a fairly low connection churn with a comparable number of connections open and closed
 in the given period of time:
 
-<img class="screenshot" src="img/monitoring/connections/mgmt-ui-node-connection-churn.png" alt="Node connection churn in management UI" title="Node connection churn in management UI" />
+<img class="screenshot" src="/img/monitoring/connections/mgmt-ui-node-connection-churn.png" alt="Node connection churn in management UI" title="Node connection churn in management UI" />
 
 While connection and disconnection rates are system-specific, rates consistently above 100/second likely indicate a suboptimal
 connection management approach by one or more applications and usually are worth investigating.
 
-<img class="screenshot" src="img/monitoring/connections/mgmt-ui-high-connection-churn.png" alt="High connection churn in management UI" title="High connection churn in management UI" />
+<img class="screenshot" src="/img/monitoring/connections/mgmt-ui-high-connection-churn.png" alt="High connection churn in management UI" title="High connection churn in management UI" />
 
 Some clients and runtimes (notably PHP) do not use long-lived connections and high connection
 churn rates are expected from them. A [specialized proxy](https://github.com/cloudamqp/amqproxy) should be

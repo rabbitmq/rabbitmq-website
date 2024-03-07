@@ -233,7 +233,7 @@ STOMP supports multiple different destinations, including those that assume pre-
 
 There's a metric for unroutable dropped messages:
 
-<img class="screenshot" src="img/monitoring/publishers/mgmt-ui-unroutable-message-metrics.png" alt="Unroutable message metrics" title="Unroutable message metrics" />
+<img class="screenshot" src="/img/monitoring/publishers/mgmt-ui-unroutable-message-metrics.png" alt="Unroutable message metrics" title="Unroutable message metrics" />
 
 In the example above, all published messages are dropped as unroutable (and non-mandatory).
 
@@ -648,7 +648,7 @@ that there is inbound message activity (ingress rate above zero) and what the bi
 
 In the following example the exchange has no bindings, so no messages will be routed anywhere:
 
-<img class="screenshot" src="img/monitoring/publishers/mgmt-ui-exchange-without-bindings.png" alt="An exchange without bindings" title="An exchange without bindings" />
+<img class="screenshot" src="/img/monitoring/publishers/mgmt-ui-exchange-without-bindings.png" alt="An exchange without bindings" title="An exchange without bindings" />
 
 Bindings can also be listed using [rabbitmq-diagnostics](./cli):
 
@@ -663,7 +663,7 @@ In the example above the command yields no results.
 
 Starting with RabbitMQ 3.8, there's a new metric for unroutable dropped messages:
 
-<img class="screenshot" src="img/monitoring/publishers/mgmt-ui-unroutable-message-metrics.png" alt="Unroutable message metrics" title="Unroutable message metrics" />
+<img class="screenshot" src="/img/monitoring/publishers/mgmt-ui-unroutable-message-metrics.png" alt="Unroutable message metrics" title="Unroutable message metrics" />
 
 In the example above, all published messages are dropped as unroutable (and non-mandatory).
 See the [Unroutable Message Handling](#unroutable) section in this guide.
