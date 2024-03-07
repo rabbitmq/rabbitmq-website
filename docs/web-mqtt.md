@@ -64,25 +64,24 @@ In order to establish connection from the browser using WebSocket
 you may use code like:
 
 ```html
-&lt;!-- include the client library --&gt;
-&lt;script src="mqttws31.js"&gt;&lt;/script&gt;
+<!-- include the client library -->
+<script src="mqttws31.js"></script>
 ```
 
 ```javascript
-&lt;script&gt;
-
-    var wsbroker = location.hostname;  // mqtt websocket enabled broker
-    var wsport = 15675; // port for above
-    var client = new Paho.MQTT.Client(wsbroker, wsport, "/ws",
-        "myclientid_" + parseInt(Math.random() * 100, 10));
-    client.onConnectionLost = function (responseObject) {
-        debug("CONNECTION LOST - " + responseObject.errorMessage);
-    };
-    client.onMessageArrived = function (message) {
-        debug("RECEIVE ON " + message.destinationName + " PAYLOAD " + message.payloadString);
-        print_first(message.payloadString);
-    };
-...
+<script>
+var wsbroker = location.hostname;  // mqtt websocket enabled broker
+var wsport = 15675; // port for above
+var client = new Paho.MQTT.Client(wsbroker, wsport, "/ws",
+    "myclientid_" + parseInt(Math.random() * 100, 10));
+client.onConnectionLost = function (responseObject) {
+    debug("CONNECTION LOST - " + responseObject.errorMessage);
+};
+client.onMessageArrived = function (message) {
+    debug("RECEIVE ON " + message.destinationName + " PAYLOAD " + message.payloadString);
+    print_first(message.payloadString);
+};
+// omitted for brevity
 ```
 
 Once you have the `client` object you can follow API's exposed by
@@ -90,7 +89,7 @@ Once you have the `client` object you can follow API's exposed by
 connection with the broker:
 
 ```javascript
-[...]
+// omitted for brevity
 
 var options = {
     timeout: 3,
@@ -108,7 +107,7 @@ if (location.protocol == "https:") {
 }
 debug("CONNECT TO " + wsbroker + ":" + wsport);
 client.connect(options);
-[...]
+// omitted for brevity
 ```
 
 ## Web MQTT Examples {#examples}

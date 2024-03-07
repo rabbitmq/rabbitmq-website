@@ -75,8 +75,8 @@ Vhost-scoped parameters can be set, cleared and listed:
   <tr>
     <th>rabbitmqctl</th>
     <td>
-      `rabbitmqctl set_parameter [-p vhost] &lt;component_name> &lt;name&gt; &lt;value&gt;`<br/>
-      `rabbitmqctl clear_parameter [-p vhost] &lt;component_name&gt; &lt;name&gt;`<br/>
+      `rabbitmqctl set_parameter [-p vhost] <component_name> <name> <value>`<br/>
+      `rabbitmqctl clear_parameter [-p vhost] <component_name> <name>`<br/>
       `rabbitmqctl list_parameters [-p vhost]`
     </td>
   </tr>
@@ -98,8 +98,8 @@ Global parameters can be set, cleared and listed:
   <tr>
     <th>rabbitmqctl</th>
     <td>
-      `rabbitmqctl set_global_parameter &lt;name&gt; &lt;value&gt;`<br/>
-      `rabbitmqctl clear_global_parameter &lt;name&gt;`<br/>
+      `rabbitmqctl set_global_parameter <name> <value>`<br/>
+      `rabbitmqctl clear_global_parameter <name>`<br/>
       `rabbitmqctl list_global_parameters`
     </td>
   </tr>

@@ -410,7 +410,7 @@ rabbitmqctl federation_status
 # =>   {vhost,<<"/">>},
 # =>   {connection,<<"upstream-server">>},
 # =>   {upstream_name,<<"my-upstream-x">>},
-# =>   {status,{running,<<"&lt;rabbit@my-server.1.281.0>">>}},
+# =>   {status,{running,<<"<rabbit@my-server.1.281.0>">>}},
 # =>   {timestamp,{{2020,3,1},{12,3,28}}}]]
 # => ...done.
 ```

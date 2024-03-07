@@ -246,7 +246,7 @@ is enabled.
 
 Then
 
- * Navigate to `Admin` &gt; `Shovel Management` &gt; `Add a new shovel`
+ * Navigate to `Admin` > `Shovel Management` > `Add a new shovel`
  * Fill out the form with shovel parameters covered earlier in this guide
  * Click Add shovel
 
@@ -298,7 +298,7 @@ is the name of the shovel.  Both values must be percent-encoded.
 
 ### Using Management UI
 
- * Navigate to `Admin` &gt; `Shovel Status`
+ * Navigate to `Admin` > `Shovel Status`
  * Locate the shovel of interest in the table
 
 
@@ -334,7 +334,7 @@ is the name of the shovel to be restarted.  Both values must be percent-encoded.
 
 ### Using Management UI
 
- * Navigate to `Admin` &gt; `Shovel Status`
+ * Navigate to `Admin` > `Shovel Status`
  * Locate the shovel of interest in the table
  * Click Restart and wait for the next UI refresh
 

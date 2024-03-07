@@ -335,14 +335,14 @@ with [HTTP basic authentication](https://en.wikipedia.org/wiki/Basic_access_auth
 against the HTTP API. This means both of the following examples will work:
 
 ```bash
-# swap &lt;token&gt; for an actual token
-curl -i -u ignored:&lt;token&gt; http://localhost:15672/api/vhosts
+# swap <token> for an actual token
+curl -i -u ignored:<token> http://localhost:15672/api/vhosts
 ```
 
 as well as
 
 ```bash
-curl -i --header "authorization: Basic &lt;encoded credentials&gt;" http://localhost:15672/api/vhosts
+curl -i --header "authorization: Basic <encoded credentials>" http://localhost:15672/api/vhosts
 ```
 
 To switch to authenticate using OAuth 2 exclusively for management UI access, set the
@@ -360,8 +360,8 @@ When setting `management.disable_basic_auth` to `true`, only the `Bearer` (token
 work, for example:
 
 ```bash
-# swap &lt;token&gt; for an actual token
-curl -i --header "authorization: Bearer &lt;token&gt;" http://localhost:15672/api/vhosts
+# swap <token> for an actual token
+curl -i --header "authorization: Bearer <token>" http://localhost:15672/api/vhosts
 ```
 
 This is true for all endpoints except `GET /definitions` and `POST /definitions`. Those

@@ -40,13 +40,13 @@ It is important to consider a number of things before upgrading RabbitMQ.
 
 Changes between RabbitMQ versions are documented in the [change log](./changelog).
 
-## Important Note on Upgrading to 3.12
+## Important Note on Upgrading to 3.12 and 3.13
 
-<p class="box-warning">
+:::warning
 RabbitMQ 3.12 requires all previously existing feature flags to be enabled before the upgrade.
 
 The upgrade will fail if you miss this step.
-</p>
+:::
 
 ## Basics {#basics}
 
@@ -84,9 +84,13 @@ The rest of the guide covers each upgrade step in more details.
 
 ## RabbitMQ Version Upgradability {#rabbitmq-version-upgradability}
 
-When an upgrade jumps multiple release series (e.g. goes from `3.4.x` to `3.6.x`), it may be necessary to perform
-an intermediate upgrade first. For example, when upgrading from `3.2.x` to `3.7.x`, it would be necessary to
-first upgrade to 3.6.x and then upgrade to 3.7.0.
+When an upgrade jumps multiple release series (e.g. goes from `3.9.x` to `3.13.x`), it may be necessary to perform
+one or more intermediate upgrades first. For example, when upgrading from `3.9.x` to `3.13.x`, it would be necessary to
+first upgrade to 3.10.x, then to 3.11.x, then to 3.12.x, and finally upgrade to 3.13.0,
+or consider a [The Blue/Green deployment](./blue-green-upgrade) upgrade.
+
+All versions starting with `3.7.27` support [rolling upgrades](#rolling-upgrades) to compatible
+later versions using [feature flags](./feature-flags).
 
 A [full cluster stop](#full-stop-upgrades) may be required for feature version upgrades.
 
@@ -113,8 +117,6 @@ Current release series upgrade compatibility with **full stop** upgrade:
 | 3.6.x    | 3.7.x  |                                                              |
 | 3.5.x    | 3.7.x  |                                                              |
 | =< 3.4.x | 3.6.16 |                                                              |
-
-`3.7.18` and later `3.7.x` versions support [rolling upgrades](#rolling-upgrades) to `3.8.x` using [feature flags](./feature-flags).
 
 
 ## Erlang Version Requirements {#rabbitmq-erlang-version-requirement}
@@ -261,7 +263,7 @@ It is important to let the node being upgraded to fully start and sync
 all data from its peers before proceeding to upgrade the next one. You
 can check for that via the management UI. Confirm that:
 
-* the `rabbitmqctl await_startup` (or `rabbitmqctl wait &lt;pidfile&gt;`) command returns
+* the `rabbitmqctl await_startup` (or `rabbitmqctl wait <pidfile>`) command returns
 * the node starts and rejoins its cluster according to the management overview page or `rabbitmq-diagnostics cluster_status`
 * the node is not quorum-critical for any [quorum queues](#quorum-queues) and streams it hosts
 * all classic mirrored queues have [synchronised mirrors](#mirrored-queues-synchronisation)
@@ -482,7 +484,7 @@ the quorum queues with leader on node A would have a quorum of replicas online.
 Quorum queue quorum state can be verified by listing queues in the management UI or using `rabbitmq-queues`:
 
 ```bash
-rabbitmq-queues -n rabbit@to-be-stopped quorum_status &lt;queue name&gt;
+rabbitmq-queues -n rabbit@to-be-stopped quorum_status <queue name>
 ```
 
 ### Mirrored Queues Replica Synchronisation {#mirrored-queues-synchronisation}
@@ -535,11 +537,11 @@ the one stopped last and started first.
 A rolling upgrade of three nodes with two mirrors will also cause all queue leaders to be on the same node.
 
 You can move a queue leader for a queue using a temporary [policy](./parameters) with
-`ha-mode: nodes` and `ha-params: [&lt;node&gt;]`
+`ha-mode: nodes` and `ha-params: [<node>]`
 The policy can be created via management UI or rabbitmqctl command:
 
 ```bash
-rabbitmqctl set_policy --apply-to queues --priority 100 move-my-queue '^&lt;queue&gt;$;' '{"ha-mode":"nodes", "ha-params":["&lt;new-master-node&gt;"]}'
+rabbitmqctl set_policy --apply-to queues --priority 100 move-my-queue '^<queue>$;' '{"ha-mode":"nodes", "ha-params":["<new-master-node>"]}'
 rabbitmqctl clear_policy move-my-queue
 ```
 

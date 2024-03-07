@@ -77,7 +77,7 @@ file](./configure#configuration-files).
 
 The example below sets the threshold to the default value of 0.4:
 ```ini
-\# new style config format, recommended
+# new style config format, recommended
 vm_memory_high_watermark.relative = 0.4
 ```
 
@@ -109,7 +109,7 @@ The memory limit is appended to the [log file](./logging) when the RabbitMQ node
 starts:
 
 ```ini
-2019-06-10 23:17:05.976 [info] &lt;0.308.0&gt; Memory high watermark set to 1024 MiB (1073741824 bytes) of 8192 MiB (8589934592 bytes) total
+2019-06-10 23:17:05.976 [info] <0.308.0> Memory high watermark set to 1024 MiB (1073741824 bytes) of 8192 MiB (8589934592 bytes) total
 ```
 
 The memory limit may also be queried using the
@@ -119,13 +119,13 @@ The threshold can be changed while the broker is running
 using the
 
 ```bash
-rabbitmqctl set_vm_memory_high_watermark <em>&lt;fraction&gt;</em>
+rabbitmqctl set_vm_memory_high_watermark <fraction>
 ```
 
 command or
 
 ```bash
-rabbitmqctl set_vm_memory_high_watermark absolute <em>&lt;memory_limit&gt;</em>
+rabbitmqctl set_vm_memory_high_watermark absolute <em><memory_limit></em>
 ```
 
 For example:

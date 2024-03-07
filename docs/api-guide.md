@@ -878,7 +878,7 @@ are in the `java.util.concurrent` package.
 When the connection is closed a default `ExecutorService`
 will be `shutdown()`, but a user-supplied
 `ExecutorService` (like `es` above) will
-<i>not</i> be `shutdown()`.
+**not** be `shutdown()`.
 Clients that supply a custom `ExecutorService` must ensure
 it is shutdown eventually (by calling its `shutdown()`
 method), or else the pool's threads may prevent JVM termination.
@@ -911,7 +911,7 @@ The `AddressResolver` interface is like the following:
 ```java
 public interface AddressResolver {
 
-  List&lt;Address&gt; getAddresses() throws IOException;
+  List<Address> getAddresses() throws IOException;
 
 }
 ```

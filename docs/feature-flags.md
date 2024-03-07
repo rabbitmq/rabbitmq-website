@@ -45,7 +45,7 @@ down the entire cluster**.
 Feature flags are not meant to be used as a form of cluster configuration.
 After a successful rolling upgrade, users should enable all feature flags.
 
-Each feature flag will become mandatory (graduate) at some point. For example,
+All feature flags become mandatory (graduate) at some point. For example,
 [RabbitMQ 3.11 requires feature flags introduced in 3.8 to be enabled prior to the upgrade](https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/3.11.0.md#compatibility-notes).
 :::
 
@@ -60,8 +60,8 @@ Each feature flag will become mandatory (graduate) at some point. For example,
        that node
  * Once enabled, a feature flag cannot be disabled
 
-For example, RabbitMQ 3.12.x and 3.11.x nodes are compatible as long as no
-3.12.x-specific feature flags are enabled.
+For example, RabbitMQ 3.13.x and 3.12.x nodes are compatible as long as no
+3.13.x-specific feature flags are enabled.
 
 <p class="box-warning">
 This subsystem does not guarantee that all future changes in
@@ -82,7 +82,7 @@ rolling upgrade to the next minor or major RabbitMQ version is possible.
     ```
  *  To enable a feature flag (or all currently disabled flags):
     ```bash
-    rabbitmqctl enable_feature_flag &lt;all | name&gt;
+    rabbitmqctl enable_feature_flag <all | name>
     ```
 
 It is also possible to list and enable feature flags from the
@@ -218,7 +218,7 @@ feature flags are enabled.
 **To enable a feature flag**, use `rabbitmqctl enable_feature_flag`:
 
 ```bash
-rabbitmqctl enable_feature_flag &lt;name&gt;
+rabbitmqctl enable_feature_flag <name>
 ```
 
 **To enable all feature flags**, use `rabbitmqctl enable_feature_flag all`:

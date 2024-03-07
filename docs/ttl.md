@@ -66,9 +66,11 @@ using `basic.deliver` (to a consumer) or sent in response to a polling consumer
 Further, the server will try to remove messages at or
 shortly after their TTL-based expiry.
 
-The value of the TTL argument or policy must be a
-non-negative integer (0 &lt;= n),
-describing the TTL period in milliseconds. Thus a value of
+The value of the TTL argument or policy must be **a
+non-negative integer** (equal to or greater than zero),
+describing the TTL period in milliseconds.
+
+Thus a value of
 1000 means that a message added to the queue will live in the
 queue for 1 second or until it is delivered to a consumer. The
 argument can be of AMQP 0-9-1 type `short-short-int`, `short-int`,
@@ -115,7 +117,7 @@ channel.queueDeclare("myqueue", false, false, false, args);
 The same example in C#:
 
 ```csharp
-var args = new Dictionary&lt;string, object&gt;();
+var args = new Dictionary<string, object>();
 args.Add("x-message-ttl", 60000);
 model.QueueDeclare("myqueue", false, false, false, args);
 ```

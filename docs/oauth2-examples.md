@@ -134,7 +134,7 @@ Once they successfully authenticate, the user is redirected back to RabbitMQ
 with a valid access token. RabbitMQ validates it and identify the user and its permissions from the token.
 
 ```plain
-    [ UAA ] &lt;----2. auth----    [ RabbitMQ ]
+    [ UAA ] <----2. auth----    [ RabbitMQ ]
             ----3. redirect-->  [  http    ]
                                   /|\
                                    |
@@ -188,7 +188,7 @@ by submitting a form with their OAuth token in the `access_token` form field as 
 
 
 ```plain
-    [ Idp | WebPortal ] ----&gt; 2. /login [access_token: TOKEN]----   [ RabbitMQ Cluster ]
+    [ Idp | WebPortal ] ----> 2. /login [access_token: TOKEN]----   [ RabbitMQ Cluster ]
               /|\                                                        |       /|\
                |                                                         +--------+
       1. rabbit_admin from a browser                                   3. validate token
@@ -235,7 +235,7 @@ to the RabbitMQ management endpoint passing the JWT token within the `Authorizat
     |                       3.http://broker:15672/api/overview passing JWT token
     |                           |
     +-----1.auth---------  monitoring agent
-    --------2.JWT--------&gt;
+    --------2.JWT-------->
 ```
 
 The following command launches the browser with `mgt_api_client` client with a JWT token previously obtained from UAA:
@@ -266,7 +266,7 @@ authentication, it gets back a JWT token (`2.`) which uses it to connect (`3.`) 
     |                       3.connect passing JWT
     |                           |
     +-----1.auth---------  amqp application
-    --------2.JWT--------&gt;
+    --------2.JWT-------->
 ```
 
 You have previously configured UAA with these 2 OAuth 2.0 clients:

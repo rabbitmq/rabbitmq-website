@@ -173,7 +173,7 @@ The value must be between 16 and 255.
 Default: 16.
 
 ```java
-Map<String, Object> arguments = new HashMap<&gt;();
+Map<String, Object> arguments = new HashMap<>();
 arguments.put("x-queue-type", "stream");
 arguments.put("x-max-length-bytes", 20_000_000_000); // maximum stream size: 20 GB
 arguments.put("x-stream-max-segment-size-bytes", 100_000_000); // size of segment files: 100 MB
@@ -489,11 +489,11 @@ Two [CLI commands](./cli) are provided to perform the above operations,
 `rabbitmq-streams add_replica` and `rabbitmq-streams delete_replica`:
 
 ```bash
-rabbitmq-streams add_replica [-p &lt;vhost&gt;] &lt;stream-name&gt; &lt;node&gt;
+rabbitmq-streams add_replica [-p <vhost>] <stream-name> <node>
 ```
 
 ```bash
-rabbitmq-streams delete_replica [-p &lt;vhost&gt;] &lt;stream-name&gt; &lt;node&gt;
+rabbitmq-streams delete_replica [-p <vhost>] <stream-name> <node>
 ```
 
 To successfully add and remove replicas the stream coordinator must be
@@ -512,13 +512,13 @@ to become in-sync and then de-commission the node it replaces.
 The replication status of a stream can be queried using the following command:
 
 ```bash
-rabbitmq-streams stream_status [-p &lt;vhost&gt;] &lt;stream-name&gt;
+rabbitmq-streams stream_status [-p <vhost>] <stream-name>
 ```
 
 In addition streams can be restarted using:
 
 ```bash
-rabbitmq-streams restart_stream [-p &lt;vhost&gt;] &lt;stream-name&gt;
+rabbitmq-streams restart_stream [-p <vhost>] <stream-name>
 ```
 
 

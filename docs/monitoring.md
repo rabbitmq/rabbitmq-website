@@ -601,7 +601,7 @@ except for upgrades and maintenance windows.
 
 ```bash
 rabbitmq-diagnostics -q ping
-# =&gt; Ping succeeded if exit code is 0
+# => Ping succeeded if exit code is 0
 ```
 
 #### Stage 2
@@ -614,7 +614,7 @@ available if RabbitMQ is running on the node (see below).
 
 ```bash
 rabbitmq-diagnostics -q status
-# =&gt; [output elided for brevity]
+# => [output elided for brevity]
 ```
 
 This is a common way of confidence checking a node.
@@ -655,35 +655,35 @@ In the following example its output is piped to [jq](https://stedolan.github.io/
 
 ```bash
 curl --silent -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@hostname/memory | jq
-# =&gt; {
-# =&gt;     "memory": {
-# =&gt;         "connection_readers": 24100480,
-# =&gt;         "connection_writers": 1452000,
-# =&gt;         "connection_channels": 3924000,
-# =&gt;         "connection_other": 79830276,
-# =&gt;         "queue_procs": 17642024,
-# =&gt;         "queue_slave_procs": 0,
-# =&gt;         "plugins": 63119396,
-# =&gt;         "other_proc": 18043684,
-# =&gt;         "metrics": 7272108,
-# =&gt;         "mgmt_db": 21422904,
-# =&gt;         "mnesia": 1650072,
-# =&gt;         "other_ets": 5368160,
-# =&gt;         "binary": 4933624,
-# =&gt;         "msg_index": 31632,
-# =&gt;         "code": 24006696,
-# =&gt;         "atom": 1172689,
-# =&gt;         "other_system": 26788975,
-# =&gt;         "allocated_unused": 82315584,
-# =&gt;         "reserved_unallocated": 0,
-# =&gt;         "strategy": "rss",
-# =&gt;         "total": {
-# =&gt;             "erlang": 300758720,
-# =&gt;             "rss": 342409216,
-# =&gt;             "allocated": 383074304
-# =&gt;         }
-# =&gt;     }
-# =&gt; }
+# => {
+# =>     "memory": {
+# =>         "connection_readers": 24100480,
+# =>         "connection_writers": 1452000,
+# =>         "connection_channels": 3924000,
+# =>         "connection_other": 79830276,
+# =>         "queue_procs": 17642024,
+# =>         "queue_slave_procs": 0,
+# =>         "plugins": 63119396,
+# =>         "other_proc": 18043684,
+# =>         "metrics": 7272108,
+# =>         "mgmt_db": 21422904,
+# =>         "mnesia": 1650072,
+# =>         "other_ets": 5368160,
+# =>         "binary": 4933624,
+# =>         "msg_index": 31632,
+# =>         "code": 24006696,
+# =>         "atom": 1172689,
+# =>         "other_system": 26788975,
+# =>         "allocated_unused": 82315584,
+# =>         "reserved_unallocated": 0,
+# =>         "strategy": "rss",
+# =>         "total": {
+# =>             "erlang": 300758720,
+# =>             "rss": 342409216,
+# =>             "allocated": 383074304
+# =>         }
+# =>     }
+# => }
 ```
 
 The [breakdown information](./memory-use) it produces can be reduced down to a single value using [jq](https://stedolan.github.io/jq/manual/)
@@ -691,7 +691,7 @@ or similar tools:
 
 ```bash
 curl --silent -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@hostname/memory | jq ".memory.total.allocated"
-# =&gt; 397365248
+# => 397365248
 ```
 
 [`rabbitmq-diagnostics -q memory_breakdown`](./man/rabbitmq-diagnostics.8) provides access to the same per category data
@@ -699,25 +699,25 @@ and supports various units:
 
 ```bash
 rabbitmq-diagnostics -q memory_breakdown --unit "MB"
-# =&gt; connection_other: 50.18 mb (22.1%)
-# =&gt; allocated_unused: 43.7058 mb (19.25%)
-# =&gt; other_proc: 26.1082 mb (11.5%)
-# =&gt; other_system: 26.0714 mb (11.48%)
-# =&gt; connection_readers: 22.34 mb (9.84%)
-# =&gt; code: 20.4311 mb (9.0%)
-# =&gt; queue_procs: 17.687 mb (7.79%)
-# =&gt; other_ets: 4.3429 mb (1.91%)
-# =&gt; connection_writers: 4.068 mb (1.79%)
-# =&gt; connection_channels: 4.012 mb (1.77%)
-# =&gt; metrics: 3.3802 mb (1.49%)
-# =&gt; binary: 1.992 mb (0.88%)
-# =&gt; mnesia: 1.6292 mb (0.72%)
-# =&gt; atom: 1.0826 mb (0.48%)
-# =&gt; msg_index: 0.0317 mb (0.01%)
-# =&gt; plugins: 0.0119 mb (0.01%)
-# =&gt; queue_slave_procs: 0.0 mb (0.0%)
-# =&gt; mgmt_db: 0.0 mb (0.0%)
-# =&gt; reserved_unallocated: 0.0 mb (0.0%)
+# => connection_other: 50.18 mb (22.1%)
+# => allocated_unused: 43.7058 mb (19.25%)
+# => other_proc: 26.1082 mb (11.5%)
+# => other_system: 26.0714 mb (11.48%)
+# => connection_readers: 22.34 mb (9.84%)
+# => code: 20.4311 mb (9.0%)
+# => queue_procs: 17.687 mb (7.79%)
+# => other_ets: 4.3429 mb (1.91%)
+# => connection_writers: 4.068 mb (1.79%)
+# => connection_channels: 4.012 mb (1.77%)
+# => metrics: 3.3802 mb (1.49%)
+# => binary: 1.992 mb (0.88%)
+# => mnesia: 1.6292 mb (0.72%)
+# => atom: 1.0826 mb (0.48%)
+# => msg_index: 0.0317 mb (0.01%)
+# => plugins: 0.0119 mb (0.01%)
+# => queue_slave_procs: 0.0 mb (0.0%)
+# => mgmt_db: 0.0 mb (0.0%)
+# => reserved_unallocated: 0.0 mb (0.0%)
 ```
 
 #### Stage 4
@@ -729,21 +729,21 @@ To inspect all listeners enabled on a node, use [`rabbitmq-diagnostics listeners
 
 ```bash
 rabbitmq-diagnostics -q listeners --node rabbit@target-hostname
-# =&gt; Interface: [::], port: 25672, protocol: clustering, purpose: inter-node and CLI tool communication
-# =&gt; Interface: [::], port: 5672, protocol: amqp, purpose: AMQP 0-9-1 and AMQP 1.0
-# =&gt; Interface: [::], port: 5671, protocol: amqp/ssl, purpose: AMQP 0-9-1 and AMQP 1.0 over TLS
-# =&gt; Interface: [::], port: 15672, protocol: http, purpose: HTTP API
-# =&gt; Interface: [::], port: 15671, protocol: https, purpose: HTTP API over TLS (HTTPS)
+# => Interface: [::], port: 25672, protocol: clustering, purpose: inter-node and CLI tool communication
+# => Interface: [::], port: 5672, protocol: amqp, purpose: AMQP 0-9-1 and AMQP 1.0
+# => Interface: [::], port: 5671, protocol: amqp/ssl, purpose: AMQP 0-9-1 and AMQP 1.0 over TLS
+# => Interface: [::], port: 15672, protocol: http, purpose: HTTP API
+# => Interface: [::], port: 15671, protocol: https, purpose: HTTP API over TLS (HTTPS)
 ```
 
-[`rabbitmq-diagnostics check_port_connectivity [--address &lt;address&gt;]`](./man/rabbitmq-diagnostics.8) is a command that
+[`rabbitmq-diagnostics check_port_connectivity [--address <address>]`](./man/rabbitmq-diagnostics.8) is a command that
 performs the basic TCP connectivity check mentioned above:
 
 ```bash
 # This check will try to open a TCP connection to the discovered listener ports.
 # Since nodes can be configured to listen to specific interfaces, an --address should
 # be provided, or CLI tools will have to rely on the configured hostname resolver to know where to connect.
-rabbitmq-diagnostics -q check_port_connectivity --node rabbit@target-hostname --address &lt;ip-address-to-connect-to&gt;
+rabbitmq-diagnostics -q check_port_connectivity --node rabbit@target-hostname --address <ip-address-to-connect-to>
 # If the check succeeds, the exit code will be 0
 ```
 

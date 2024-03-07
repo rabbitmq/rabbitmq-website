@@ -316,10 +316,10 @@ RabbitMQ must be able to read its configured CA certificate bundle, server certi
 must exist and have the appropriate permissions. When that's not the case the node will fail to start or fail to
 accept TLS-enabled connections.
 
-<b>Note to Windows users:</b> backslashes ("\") in the
-configuration file are interpreted as escape sequences -
-so for example to specify the
-path `c:\ca_certificate.pem` for the CA certificate you
+**Note for Windows users**: on Windows, backslashes ("\") in the
+configuration file are interpreted as escape sequences.
+For example, to specify the
+path `c:\ca_certificate.pem` for the CA certificate on Windows,
 would need to use `"c:\\ca_certificate.pem"` or `"c:/ca_certificate.pem"`.
 
 ### How to Verify that TLS is Enabled {#enabling-tls-verify-configuration}
@@ -328,8 +328,8 @@ To verify that TLS has been enabled on the node, restart it and inspect its [log
 It should contain an entry about a TLS listener being enabled, looking like this:
 
 ```
-2020-07-13 21:13:01.015 [info] &lt;0.573.0&gt; started TCP listener on [::]:5672
-2020-07-13 21:13:01.055 [info] &lt;0.589.0&gt; started TLS (SSL) listener on [::]:5671
+2020-07-13 21:13:01.015 [info] <0.573.0> started TCP listener on [::]:5672
+2020-07-13 21:13:01.055 [info] <0.589.0> started TLS (SSL) listener on [::]:5671
 ```
 
 Another way is by using `rabbitmq-diagnostics listeners` which should contain
@@ -437,7 +437,7 @@ closed with a fatal error ("alert" in OpenSSL parlance) that says "Unknown CA" o
 will be logged by the server with a message similar to this:
 
 ```ini
-2018-09-10 18:10:46.502 [info] &lt;0.902.0&gt; TLS server generated SERVER ALERT: Fatal - Unknown CA
+2018-09-10 18:10:46.502 [info] <0.902.0< TLS server generated SERVER ALERT: Fatal - Unknown CA
 ```
 
 Certificate validity is also checked at every step. Certificates that are expired
@@ -445,7 +445,7 @@ or aren't yet valid will be rejected. The TLS alert in that case will look somet
 like this:
 
 ```ini
-2018-09-10 18:11:05.168 [info] &lt;0.923.0&gt; TLS server generated SERVER ALERT: Fatal - Certificate Expired
+2018-09-10 18:11:05.168 [info] <0.923.0< TLS server generated SERVER ALERT: Fatal - Certificate Expired
 ```
 
 The examples above demonstrate TLS alert messages logged by a RabbitMQ node.
@@ -499,7 +499,7 @@ another and use in a single Certificate Authority bundle file
 is to simply concatenate them:
 
 ```bash
-cat rootca/ca_certificate.pem otherca/ca_certificate.pem &gt; all_cacerts.pem
+cat rootca/ca_certificate.pem otherca/ca_certificate.pem < all_cacerts.pem
 ```
 
 ### Enabling Peer Verification {#peer-verification-configuration}
@@ -835,28 +835,6 @@ that the server certificate has been issued for the hostname the
 client is connecting to. Unlike certificate chain verification, this feature
 is client-specific (not usually performed by the server).
 
-With JDK 6, it is necessary to add a dependency on
-[Apache Commons HttpClient](https://hc.apache.org/) for hostname verification to work, e.g. with Maven:
-
-```xml
-&lt;!-- Maven dependency to add for hostname verification on JDK 6 --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
-    &lt;artifactId&gt;httpclient&lt;/artifactId&gt;
-    &lt;version&gt;4.5.6&lt;/version&gt;
-&lt;/dependency&gt;
-```
-
-With Gradle:
-
-```groovy
-// Gradle dependency to add for hostname verification on JDK 6
-compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
-```
-
-Alternatively with JDK 6
-`ConnectionFactory#enableHostnameVerification(HostnameVerifier)`
-can be provided a `HostnameVerifier` instance of choice.
 
 ### Configuring TLS Version in Java Client {#tls-versions-java-client}
 
@@ -1768,7 +1746,7 @@ TLSv1.3 (server order)
  Certificate Transparency     N/A
  Certificates provided        2
  Issuer                       TLSGenSelfSignedtRootCA
- Intermediate cert validity   #1: ok &gt; 40 days (2031-01-04 17:43).
+ Intermediate cert validity   #1: ok > 40 days (2031-01-04 17:43).
  Intermediate Bad OCSP (exp.) Ok
 
 
@@ -1788,7 +1766,7 @@ TLSv1.3 (server order)
  DROWN (CVE-2016-0800, CVE-2016-0703)      not vulnerable on this host and port (OK)
                                            make sure you don't use this certificate elsewhere with SSLv2 enabled services
                                            https://censys.io/ipv4?q=96338084641B5B29FF4E60C570AF5081175D9BDD89EB28FFA3CECE96A995CC8E could help you to find out
- LOGJAM (CVE-2015-4000), experimental      not vulnerable (OK): no DH EXPORT ciphers, no DH key detected with &lt;= TLS 1.2
+ LOGJAM (CVE-2015-4000), experimental      not vulnerable (OK): no DH EXPORT ciphers, no DH key detected with <= TLS 1.2
  BEAST (CVE-2011-3389)                     not vulnerable (OK), no SSL3 or TLS1
  LUCKY13 (CVE-2013-0169), experimental     not vulnerable (OK)
  Winshock (CVE-2014-6321), experimental    not vulnerable (OK)
@@ -1969,7 +1947,7 @@ mkdir testca
 cd testca
 mkdir certs private
 chmod 700 private
-echo 01 &gt; serial
+echo 01 > serial
 touch index.txt
 ```
 

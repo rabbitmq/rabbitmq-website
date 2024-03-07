@@ -479,7 +479,7 @@ With RabbitMQ versions that do not provide `rabbitmqctl force_gc`, use
 ```bash
 rabbitmqctl eval 'recon:bin_leak(10).'
 
-rabbitmqctl eval '[garbage_collect(P) || P &lt;- processes()].'
+rabbitmqctl eval '[garbage_collect(P) || P <- processes()].'
 ```
 
 ### Other ETS tables {#breakdown-ets-tables}

@@ -94,7 +94,7 @@ Main RabbitMQ signing key is distributed via [GitHub](https://github.com/rabbitm
 [rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
 
 ```bash
-curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc | sudo gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
+curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc | sudo gpg --dearmor > /usr/share/keyrings/com.rabbitmq.team.gpg
 ```
 
 #### Using a Key Server
@@ -102,7 +102,7 @@ curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbit
 The same main RabbitMQ signing key can be imported from [keys.openpgp.org](https://keys.openpgp.org/):
 
 ```bash
-curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
+curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor > /usr/share/keyrings/com.rabbitmq.team.gpg
 ```
 
 When using the [Team RabbitMQ modern Erlang PPA](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang)
@@ -111,11 +111,11 @@ to be added:
 
 ```bash
 ## Team RabbitMQ's main signing key
-curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
+curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor > /usr/share/keyrings/com.rabbitmq.team.gpg
 ## Launchpad PPA that provides modern Erlang releases
-curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf77f1eda57ebb1cc" | sudo gpg --dearmor &gt; /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg
+curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf77f1eda57ebb1cc" | sudo gpg --dearmor > /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg
 ## PackageCloud RabbitMQ repository
-curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | sudo gpg --dearmor &gt; /usr/share/keyrings/io.packagecloud.rabbitmq.gpg
+curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | sudo gpg --dearmor > /usr/share/keyrings/io.packagecloud.rabbitmq.gpg
 ```
 
 ### With RPM {#importing-rpm}
@@ -154,7 +154,7 @@ gpg: Signature made Wed Aug 11 16:20:14 2021 MSK
 gpg:                using RSA key 0A9AF2115F4687BD29803A206B73A36E6026DFCA
 gpg: using subkey 0xEDF4AE3B59B046FA instead of primary key 0x6B73A36E6026DFCA
 gpg: using PGP trust model
-gpg: Good signature from "RabbitMQ Signing Key &lt;info@rabbitmq.com&gt;" [full]
+gpg: Good signature from "RabbitMQ Signing Key <info@rabbitmq.com>" [full]
 Primary key fingerprint: 4E30 C634 2FB4 AF5C 6334  2330 79A1 D640 D80A 61F0
      Subkey fingerprint: 5EC4 26E8 A6F3 523D D924  8FC8 EDF4 AE3B 59B0 46FA
 gpg: binary signature, digest algorithm SHA512

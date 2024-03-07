@@ -128,7 +128,7 @@ In case the output from `rabbitmqctl` and other CLI tools looks like this:
 ```
 ←[1mUsage←[0m
 
-rabbitmqctl [--node &lt;node&gt;] [--timeout &lt;timeout&gt;] [--longnames] [--quiet] &lt;command&gt; [&lt;command options&gt;]
+rabbitmqctl [--node <node>] [--timeout <timeout>] [--longnames] [--quiet] <command> [<command options>]
 
 Available commands:
 

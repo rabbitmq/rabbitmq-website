@@ -314,7 +314,7 @@ When the buffer is hovering around full capacity, nodes will [log](./logging) a 
 mentioning a busy distribution port (`busy_dist_port`):
 
 ```ini
-2019-04-06 22:48:19.031 [warning] &lt;0.242.0&gt; rabbit_sysmon_handler busy_dist_port &lt;0.1401.0&gt;
+2019-04-06 22:48:19.031 [warning] <0.242.0> rabbit_sysmon_handler busy_dist_port <0.1401.0>
 ```
 
 Increasing buffer size may help increase throughput and/or reduce latency.

@@ -656,7 +656,7 @@ Bindings can also be listed using [rabbitmq-diagnostics](./cli):
 # note that the implicit default exchange bindings won't
 # be listed as of RabbitMQ 3.8
 rabbitmq-diagnostics list_bindings --vhost "/"
-=&gt; Listing bindings for vhost /...
+=> Listing bindings for vhost /...
 ```
 
 In the example above the command yields no results.

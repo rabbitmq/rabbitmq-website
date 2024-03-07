@@ -101,9 +101,9 @@ reason will be available within the first few lines, starting with `Slogan`, e.g
 
 ```bash
 head -n 3 ./erl_crash.dump
-# =&gt; =erl_crash_dump:0.5
-# =&gt; Sun Aug 25 00:57:34 2019
-# =&gt; Slogan: Kernel pid terminated (application_controller) ({application_start_failure,rabbit,{{timeout_waiting_for_tables,[rabbit_user,rabbit_user_permission,rabbit_topic_permission,rabbit_vhost,rabbit_durable_r
+# => =erl_crash_dump:0.5
+# => Sun Aug 25 00:57:34 2019
+# => Slogan: Kernel pid terminated (application_controller) ({application_start_failure,rabbit,{{timeout_waiting_for_tables,[rabbit_user,rabbit_user_permission,rabbit_topic_permission,rabbit_vhost,rabbit_durable_r
 ```
 
 In this specific example, the slogan (uncaught exception message) says that a started node

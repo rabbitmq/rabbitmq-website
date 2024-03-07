@@ -114,7 +114,7 @@ Let's call it a combined keys file. To combined them, simply concatenate the pri
 starting with a new line:
 
 ```bash
-cat server_certificate.pem server_key.pem &gt; combined_keys.pem
+cat server_certificate.pem server_key.pem > combined_keys.pem
 ```
 
 This can be done using a text editor and not just command line tools such as `cat`.
@@ -130,8 +130,8 @@ to point at it:
 # /etc/rabbitmq/rabbitmq-env.conf and will preserve the existing
 # contents of that file if it already exists
 
-erl -noinput -eval 'io:format("ERL_SSL_PATH=~s~n", [filename:dirname(code:which(inet_tls_dist))])' -s init stop &gt; /tmp/ssl-path.txt
-cat /tmp/ssl-path.txt /etc/rabbitmq/rabbitmq-env.conf &gt; /tmp/new-rabbitmq-env.conf
+erl -noinput -eval 'io:format("ERL_SSL_PATH=~s~n", [filename:dirname(code:which(inet_tls_dist))])' -s init stop > /tmp/ssl-path.txt
+cat /tmp/ssl-path.txt /etc/rabbitmq/rabbitmq-env.conf > /tmp/new-rabbitmq-env.conf
 mv -f /tmp/new-rabbitmq-env.conf /etc/rabbitmq/rabbitmq-env.conf
 ```
 

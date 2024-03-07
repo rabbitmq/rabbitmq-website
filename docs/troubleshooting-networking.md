@@ -326,9 +326,9 @@ Evidence of short lived connections can be found in RabbitMQ log files. E.g. her
 of such connection that lasted only a few milliseconds:
 
 ```ini
-2018-06-17 16:23:29.851 [info] &lt;0.634.0&gt; accepting AMQP connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672)
-2018-06-17 16:23:29.853 [info] &lt;0.634.0&gt; connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
-2018-06-17 16:23:29.855 [info] &lt;0.634.0&gt; closing AMQP connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672, vhost: '/', user: 'guest')
+2018-06-17 16:23:29.851 [info] <0.634.0> accepting AMQP connection <0.634.0> (127.0.0.1:58588 -> 127.0.0.1:5672)
+2018-06-17 16:23:29.853 [info] <0.634.0> connection <0.634.0> (127.0.0.1:58588 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
+2018-06-17 16:23:29.855 [info] <0.634.0> closing AMQP connection <0.634.0> (127.0.0.1:58588 -> 127.0.0.1:5672, vhost: '/', user: 'guest')
 ```
 
 [1]: ./man/rabbitmqctl.8

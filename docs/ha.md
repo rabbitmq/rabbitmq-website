@@ -20,6 +20,11 @@ limitations under the License.
 
 # Classic Queue Mirroring (Deprecated)
 
+:::danger
+This guide covers a [**deprecated feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/) scheduled
+for removal in the next release, RabbitMQ 4.0
+:::
+
 ## Wait, There's a Better Way: Next Replicated Queues and Streams {#interstitial}
 
 This guide covers a [**deprecated and scheduled for removal feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/): mirroring (queue contents replication) of classic queues.
@@ -242,7 +247,7 @@ is not online):
 When a new queue mirror is added, the event is logged:
 
 ```
-2018-03-01 07:26:33.121 [info] &lt;0.1360.0&gt; Mirrored queue 'two.replicas' in vhost '/': Adding mirror on node hare@warp10: &lt;37324.1148.0&gt;
+2018-03-01 07:26:33.121 [info] <0.1360.0> Mirrored queue 'two.replicas' in vhost '/': Adding mirror on node hare@warp10: <37324.1148.0>
 ```
 
 It is possible to list queue leader and mirrors using `rabbitmqctl list_queues`. In this
@@ -252,9 +257,9 @@ example we also display queue policy since it's highly relevant:
 # mirror_pids is a new field alias introduced in RabbitMQ 3.11.4
 rabbitmqctl list_queues name policy pid mirror_pids
 
-# =&gt; Timeout: 60.0 seconds ...
-# =&gt; Listing queues for vhost / ...
-# =&gt; two.replicas ha-two &lt;hare@warp10.1.2223.0&gt; [&lt;rabbit@warp10.3.1360.0&gt;]
+# => Timeout: 60.0 seconds ...
+# => Listing queues for vhost / ...
+# => two.replicas ha-two <hare@warp10.1.2223.0> [<rabbit@warp10.3.1360.0>]
 ```
 
 If a queue that's expected to be mirroring is not, this usually means that its name

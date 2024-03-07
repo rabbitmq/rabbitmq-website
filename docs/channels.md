@@ -244,7 +244,7 @@ be configured to allow for more channels than the server configured maximum.
 Clients that attempt that will run into an error that looks like this in the logs:
 
 ```ini
-2019-02-11 16:03:16.543 [error] &lt;0.882.0&gt; closing AMQP connection &lt;0.882.0&gt; (127.0.0.1:49911 -&gt; 127.0.0.1:5672):
+2019-02-11 16:03:16.543 [error] <0.882.0> closing AMQP connection <0.882.0> (127.0.0.1:49911 -> 127.0.0.1:5672):
 failed to negotiate connection parameters: negotiated channel_max = 2047 is higher than the maximum allowed value (32)
 ```
 
@@ -356,9 +356,9 @@ consumers, [unacknowledged messages](./confirms#acknowledgement-modes), [prefetc
 
 ```bash
 rabbitmqctl list_connections name channels -q
-# =&gt; name	channels
-# =&gt; 127.0.0.1:52956 -&gt; 127.0.0.1:5672	10
-# =&gt; 127.0.0.1:52964 -&gt; 127.0.0.1:5672	33
+# => name	channels
+# => 127.0.0.1:52956 -> 127.0.0.1:5672	10
+# => 127.0.0.1:52964 -> 127.0.0.1:5672	33
 ```
 
 The rightmost column contains channel count on the connection.
@@ -367,64 +367,64 @@ Table headers can be suppressed:
 
 ```bash
 rabbitmqctl list_connections name channels -q --no-table-headers
-# =&gt; 127.0.0.1:52956 -&gt; 127.0.0.1:5672	10
-# =&gt; 127.0.0.1:52964 -&gt; 127.0.0.1:5672	33
+# => 127.0.0.1:52956 -> 127.0.0.1:5672	10
+# => 127.0.0.1:52964 -> 127.0.0.1:5672	33
 ```
 
 To inspect individual channels, use [`rabbitmqctl list_channels`](./man/rabbitmqctl.8):
 
 ```bash
 rabbitmqctl list_channels -q
-# =&gt; pid	user	consumer_count	messages_unacknowledged
-# =&gt; &lt;rabbit@mercurio.3.815.0&gt;	guest	0	0
-# =&gt; &lt;rabbit@mercurio.3.820.0&gt;	guest	0	0
-# =&gt; &lt;rabbit@mercurio.3.824.0&gt;	guest	0	0
-# =&gt; &lt;rabbit@mercurio.3.828.0&gt;	guest	0	0
-# =&gt; &lt;rabbit@mercurio.3.832.0&gt;	guest	0	0
-# =&gt; &lt;rabbit@mercurio.3.839.0&gt;	guest	0	0
-# =&gt; &lt;rabbit@mercurio.3.840.0&gt;	guest	0	0
+# => pid	user	consumer_count	messages_unacknowledged
+# => <rabbit@mercurio.3.815.0>	guest	0	0
+# => <rabbit@mercurio.3.820.0>	guest	0	0
+# => <rabbit@mercurio.3.824.0>	guest	0	0
+# => <rabbit@mercurio.3.828.0>	guest	0	0
+# => <rabbit@mercurio.3.832.0>	guest	0	0
+# => <rabbit@mercurio.3.839.0>	guest	0	0
+# => <rabbit@mercurio.3.840.0>	guest	0	0
 ```
 
 Table headers can be suppressed:
 
 ```bash
 rabbitmqctl list_channels -q --no-table-headers
-# =&gt; &lt;rabbit@mercurio.3.815.0&gt;	guest	0	0
-# =&gt; &lt;rabbit@mercurio.3.820.0&gt;	guest	0	0
-# =&gt; &lt;rabbit@mercurio.3.824.0&gt;	guest	0	0
-# =&gt; &lt;rabbit@mercurio.3.828.0&gt;	guest	0	0
-# =&gt; &lt;rabbit@mercurio.3.832.0&gt;	guest	0	0
-# =&gt; &lt;rabbit@mercurio.3.839.0&gt;	guest	0	0
-# =&gt; &lt;rabbit@mercurio.3.840.0&gt;	guest	0	0
+# => <rabbit@mercurio.3.815.0>	guest	0	0
+# => <rabbit@mercurio.3.820.0>	guest	0	0
+# => <rabbit@mercurio.3.824.0>	guest	0	0
+# => <rabbit@mercurio.3.828.0>	guest	0	0
+# => <rabbit@mercurio.3.832.0>	guest	0	0
+# => <rabbit@mercurio.3.839.0>	guest	0	0
+# => <rabbit@mercurio.3.840.0>	guest	0	0
 ```
 
 It is possible to display a different set of columns:
 
 ```bash
 rabbitmqctl list_channels -q --no-table-headers vhost connection number  prefetch_count messages_unconfirmed
-# =&gt; /	&lt;rabbit@mercurio.3.799.0&gt;	1	0	0
-# =&gt; /	&lt;rabbit@mercurio.3.802.0&gt;	1	0	0
-# =&gt; /	&lt;rabbit@mercurio.3.799.0&gt;	2	0	0
-# =&gt; /	&lt;rabbit@mercurio.3.799.0&gt;	3	0	0
-# =&gt; /	&lt;rabbit@mercurio.3.802.0&gt;	2	0	0
-# =&gt; /	&lt;rabbit@mercurio.3.802.0&gt;	3	0	0
-# =&gt; /	&lt;rabbit@mercurio.3.799.0&gt;	4	0	0
-# =&gt; /	&lt;rabbit@mercurio.3.802.0&gt;	4	0	0
-# =&gt; /	&lt;rabbit@mercurio.3.799.0&gt;	5	0	0
-# =&gt; /	&lt;rabbit@mercurio.3.799.0&gt;	6	0	0
+# => /	<rabbit@mercurio.3.799.0>	1	0	0
+# => /	<rabbit@mercurio.3.802.0>	1	0	0
+# => /	<rabbit@mercurio.3.799.0>	2	0	0
+# => /	<rabbit@mercurio.3.799.0>	3	0	0
+# => /	<rabbit@mercurio.3.802.0>	2	0	0
+# => /	<rabbit@mercurio.3.802.0>	3	0	0
+# => /	<rabbit@mercurio.3.799.0>	4	0	0
+# => /	<rabbit@mercurio.3.802.0>	4	0	0
+# => /	<rabbit@mercurio.3.799.0>	5	0	0
+# => /	<rabbit@mercurio.3.799.0>	6	0	0
 ```
 
 ```bash
 rabbitmqctl list_channels -s vhost connection number confirm
-# =&gt; /	&lt;rabbit@mercurio.3.799.0&gt;	1	false
-# =&gt; /	&lt;rabbit@mercurio.3.802.0&gt;	1	false
-# =&gt; /	&lt;rabbit@mercurio.3.799.0&gt;	2	false
-# =&gt; /	&lt;rabbit@mercurio.3.799.0&gt;	3	false
-# =&gt; /	&lt;rabbit@mercurio.3.802.0&gt;	2	false
-# =&gt; /	&lt;rabbit@mercurio.3.802.0&gt;	3	false
-# =&gt; /	&lt;rabbit@mercurio.3.799.0&gt;	4	false
-# =&gt; /	&lt;rabbit@mercurio.3.802.0&gt;	4	false
-# =&gt; /	&lt;rabbit@mercurio.3.799.0&gt;	5	false
+# => /	<rabbit@mercurio.3.799.0>	1	false
+# => /	<rabbit@mercurio.3.802.0>	1	false
+# => /	<rabbit@mercurio.3.799.0>	2	false
+# => /	<rabbit@mercurio.3.799.0>	3	false
+# => /	<rabbit@mercurio.3.802.0>	2	false
+# => /	<rabbit@mercurio.3.802.0>	3	false
+# => /	<rabbit@mercurio.3.799.0>	4	false
+# => /	<rabbit@mercurio.3.802.0>	4	false
+# => /	<rabbit@mercurio.3.799.0>	5	false
 ```
 
 

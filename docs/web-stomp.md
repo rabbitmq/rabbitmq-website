@@ -69,15 +69,15 @@ In order to establish connection from the browser using WebSocket
 you may use code like:
 
 ```html
-&lt;!-- include the client library --&gt;
-&lt;script src="stomp.js"&gt;&lt;/script&gt;
+<!-- include the client library -->
+<script src="stomp.js"></script>
 ```
 
 ```javascript
-&lt;script&gt;
+<script>
 var ws = new WebSocket('ws://127.0.0.1:15674/ws');
 var client = Stomp.over(ws);
-[...]
+// omitted for brevity
 ```
 
 Once you have the `client` object you can follow API's exposed by
@@ -85,7 +85,7 @@ stomp.js library. The next step is usually to establish a STOMP
 connection with the broker:
 
 ```javascript
-[...]
+// omitted for brevity
 var on_connect = function() {
     console.log('connected');
 };
@@ -93,7 +93,7 @@ var on_error =  function() {
     console.log('error');
 };
 client.connect('guest', 'guest', on_connect, on_error, '/');
-[...]
+// omitted for brevity
 ```
 
 

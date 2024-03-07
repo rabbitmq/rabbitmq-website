@@ -51,15 +51,15 @@ alarm should be raised or cleared.
 Monitoring will begin on node start. It will leave a [log entry](./logging) like this:
 
 ```ini
-2019-04-01 12:02:11.564 [info] &lt;0.329.0&gt; Enabling free disk space monitoring
-2019-04-01 12:02:11.564 [info] &lt;0.329.0&gt; Disk free limit set to 950MB
+2019-04-01 12:02:11.564 [info] <0.329.0> Enabling free disk space monitoring
+2019-04-01 12:02:11.564 [info] <0.329.0> Disk free limit set to 950MB
 ```
 
 Free disk space monitoring will be deactivated on unrecognised platforms, causing an
 entry such as the one below:
 
 ```ini
-2019-04-01 11:04:54.002 [info] &lt;0.329.0&gt; Disabling disk free space monitoring
+2019-04-01 11:04:54.002 [info] <0.329.0> Disabling disk free space monitoring
 ```
 
 When running RabbitMQ in a cluster, the disk alarm is cluster-wide; if

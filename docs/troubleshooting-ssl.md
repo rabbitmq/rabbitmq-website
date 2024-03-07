@@ -85,8 +85,8 @@ If the above steps are not an option, inspecting node's [log file](./logging) ca
 It should contain an entry about a TLS listener being enabled, looking like this:
 
 ```
-2018-09-02 14:24:58.611 [info] &lt;0.664.0&gt; started TCP listener on [::]:5672
-2018-09-02 14:24:58.614 [info] &lt;0.680.0&gt; started SSL listener on [::]:5671
+2018-09-02 14:24:58.611 [info] <0.664.0> started TCP listener on [::]:5672
+2018-09-02 14:24:58.614 [info] <0.680.0> started SSL listener on [::]:5671
 ```
 
 If the node is configured to use TLS but a message similar to the above is not logged,
@@ -321,8 +321,8 @@ The output should appear similar to the case where port 8443 was used. The node 
 should [contain a new entry when the connection is established](./logging#logged-events):
 
 ```ini
-2018-09-27 15:46:20 [info] &lt;0.1082.0&gt; accepting AMQP connection &lt;0.1082.0&gt; (127.0.0.1:50915 -> 127.0.0.1:5671)
-2018-09-27 15:46:20 [info] &lt;0.1082.0&gt; connection &lt;0.1082.0&gt; (127.0.0.1:50915 -> 127.0.0.1:5671): user 'user' authenticated and granted access to vhost 'virtual_host'
+2018-09-27 15:46:20 [info] <0.1082.0> accepting AMQP connection <0.1082.0> (127.0.0.1:50915 -> 127.0.0.1:5671)
+2018-09-27 15:46:20 [info] <0.1082.0> connection <0.1082.0> (127.0.0.1:50915 -> 127.0.0.1:5671): user 'user' authenticated and granted access to vhost 'virtual_host'
 ```
 
 The node will expect clients to perform protocol handshake (AMQP 0-9-1, AMQP 1.0 and so on). If that doesn't

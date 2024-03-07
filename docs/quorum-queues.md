@@ -486,19 +486,19 @@ removed from the member list of all quorum queues it currently hosts replicas fo
 Several [CLI commands](./cli) are provided to perform the above operations:
 
 ```bash
-rabbitmq-queues add_member [-p &lt;vhost&gt;] &lt;queue-name&gt; &lt;node&gt;
+rabbitmq-queues add_member [-p <vhost>] <queue-name> <node>
 ```
 
 ```bash
-rabbitmq-queues delete_member [-p &lt;vhost&gt;] &lt;queue-name&gt; &lt;node&gt;
+rabbitmq-queues delete_member [-p <vhost>] <queue-name> <node>
 ```
 
 ```bash
-rabbitmq-queues grow &lt;node&gt; &lt;all | even&gt; [--vhost-pattern &lt;pattern&gt;] [--queue-pattern &lt;pattern&gt;]
+rabbitmq-queues grow <node> <all | even> [--vhost-pattern <pattern>] [--queue-pattern <pattern>]
 ```
 
 ```bash
-rabbitmq-queues shrink &lt;node&gt; [--errors-only]
+rabbitmq-queues shrink <node> [--errors-only]
 ```
 
 To successfully add and remove members a quorum of replicas in the cluster must be available

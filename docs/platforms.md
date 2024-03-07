@@ -77,10 +77,7 @@ to learn more.
 
 ## Unsupported Platforms {#unsupport}
 
-Some platforms are not supported and probably never will be:
+Some platforms are not supported:
 
  * z/OS and most mainframes
- * Very memory-constrained systems (&lt; 32 MB of RAM)
-
-If your platform is on this list or you need assistance then
-please [contact VMware](./contact).
+ * Very memory-constrained systems (with less than 100 MB of RAM)
