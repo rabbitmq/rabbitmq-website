@@ -25,7 +25,7 @@ This guide covers a [**deprecated feature**](https://blog.rabbitmq.com/posts/202
 for removal in the next release, RabbitMQ 4.0
 :::
 
-## Wait, There's a Better Way: Next Replicated Queues and Streams {#interstitial}
+## Wait, There's a Better Way: Modern Replicated Queue Type and Streams {#interstitial}
 
 This guide covers a [**deprecated and scheduled for removal feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/): mirroring (queue contents replication) of classic queues.
 [Quorum queues](./quorum-queues) and/or [streams](./streams) should be used instead of mirrored classic queues.
