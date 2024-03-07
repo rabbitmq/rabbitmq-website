@@ -84,7 +84,7 @@ to download a version of the RabbitMQ Erlang Client library other than the above
 
 The RabbitMQ Erlang client depends on the RabbitMQ server repository,
 a shared library and a code generation library. They all reside in the
-[RabbitMQ server repository](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x) under `deps`.
+[RabbitMQ server repository](https://github.com/rabbitmq/rabbitmq-server/tree/v3.13.x) under `deps`.
 
 Please see the <a href="./build-erlang-client">Erlang client build guide</a> for instructions on
 compiling from source code.

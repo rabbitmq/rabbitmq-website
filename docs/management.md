@@ -601,10 +601,15 @@ management.ssl.ciphers.9 = DHE-RSA-AES256-GCM-SHA384
 ```
 
 Below is the same example in the [classic config format](./configure#erlang-term-config-file).
-This example is provided primarily for completeness sake,
-using the modern `rabbitmq.conf` format for this plugin is **highly recommended**.
+
+:::warning
+The classic config format example is provided primarily for completeness sake,
+using the modern `rabbitmq.conf` format for configuring this plugin is **highly recommended**.
+:::
 
 ```erlang
+%% The classic config format example is provided primarily for completeness sake,
+%% using the modern `rabbitmq.conf` format for configuring this plugin is highly recommended.
 [
   {rabbitmq_management,
    [

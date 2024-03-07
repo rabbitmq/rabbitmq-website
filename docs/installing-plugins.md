@@ -106,4 +106,4 @@ See the [plugin development](./plugin-development) guide for more information on
 Note that plugin releases might have dependencies to a particular
 version of RabbitMQ server, or at least the tip of a specific branch.
 
-For example, if RabbitMQ version is `3.8.1` check out all plugins with the Git tag `v3.8.1` or the `v3.8.x` branch.
+For example, if RabbitMQ version is `3.12.13` check out all plugins with the Git tag `v3.12.13` or the `v3.12.x` branch.

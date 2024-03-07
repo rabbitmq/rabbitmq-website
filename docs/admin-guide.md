@@ -93,7 +93,7 @@ see <a href="./documentation">All Documentation Guides</a>.
  * [AMQP 0-9-1 Authentication Mechanisms](./authentication)
  * [Virtual Hosts](./vhosts)
  * [Credentials and Passwords](./passwords)
- * x509 (TLS) [Certificate-based client authentication](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_mechanism_ssl)
+ * x509 (TLS) [Certificate-based client authentication](https://github.com/rabbitmq/rabbitmq-server/tree/v3.13.x/deps/rabbitmq_auth_mechanism_ssl)
  * [OAuth 2 Support](./oauth2)
  * [OAuth 2 Examples](./oauth2-examples) for common identity providers
  * [LDAP](./ldap)

@@ -234,7 +234,7 @@ When troubleshooting configuration settings, it is very useful to verify that th
 path is correct, exists and can be loaded (e.g. the file is readable) before [verifying effective node configuration](#verify-configuration-effective-configuration).
 Together, these steps help quickly narrow down most common misconfiguration problems.
 
-### The New and Old Config File Formats {#config-file-formats}
+### The Modern and Old Config File Formats {#config-file-formats}
 
 All [supported RabbitMQ versions](./versions) use an [ini-like, sysctl configuration file format](#config-file)
 for the main configuration file. The file is typically named `rabbitmq.conf`.
@@ -416,13 +416,19 @@ the configuration file is loaded.
 
 ### The advanced.config File {#advanced-config-file}
 
+:::warning
+This section describes the original configuration format that has been superseded by
+a [modern alternative](#config-file). A very limited number of features requires the use
+of this format. When in doubt, use `rabbitmq.conf`.
+:::
+
 Some configuration settings are not possible or are difficult to configure
 using the sysctl format. As such, it is possible to use an additional
 config file in the Erlang term format (same as `rabbitmq.config`).
 That file is commonly named `advanced.config`. It will be merged
 with the configuration provided in `rabbitmq.conf`.
 
-The RabbitMQ server source repository contains [an example advanced.config file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.8.x/deps/rabbit/docs/advanced.config.example)
+The RabbitMQ server source repository contains [an example advanced.config file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.13.x/deps/rabbit/docs/advanced.config.example)
 named `advanced.config.example`. It focuses on the options that are typically set using the advanced config.
 
 To override the advanced config file location, use the `RABBITMQ_ADVANCED_CONFIG_FILE`

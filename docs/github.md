@@ -90,7 +90,7 @@ branches.
 ## Release series branches {#release-branches}
 
 There is also a separate branch for every release series that is currently
-maintained. These branches are named after the series: <code>v3.12.x</code>, <code>v3.11.x</code>,
+maintained. These branches are named after the series: <code>v3.13.x</code>, <code>v3.12.x</code>,
 and so on.
 
 It plays the same role as the <code>main</code> branch except that it carries merged,
@@ -99,7 +99,7 @@ the next general release.
 
 Pull requests that are meant to ship in currently maintained release series are backported
 to these branches after being merged into the `main` branch. In the process they are
-labelled with `backport-v3.12.x`, `backport-v3.11.x`, and similar labels
+labelled with `backport-v3.13.x`, `backport-v3.12.x`, and similar labels
 on GitHub.
 
 For example, if a pull request is labelled with `backport-v3.12.x`, it means that it was
@@ -119,13 +119,13 @@ then examining the output of <code>git tag</code> yields:
 ```bash
 git tag
 # omitted for brevity
-# => v3.11.3
-# => v3.11.4
-# => v3.11.5
+# => v3.13.0
+# => v3.12.13
+# => v3.12.12
 ```
 
 ```bash
-git checkout v3.11.5
+git checkout v3.13.0
 ```
 
 At this point, you could proceed with compiling the plugin

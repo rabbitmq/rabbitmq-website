@@ -372,7 +372,7 @@ The below example uses an [`advanced.config` format](./configure#advanced-config
 
 ## LDAP Query Caching for Efficiency and Reduced Load {#query-caching}
 
-A special [cache backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.9.x/deps/rabbitmq_auth_backend_cache)
+A special [cache backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.13.x/deps/rabbitmq_auth_backend_cache)
 can be used in [combination](./access-control#combined-backends) with other backends to significantly
 reduce the load they generate on LDAP servers.
 

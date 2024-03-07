@@ -513,10 +513,9 @@ applies to MQTT. For example, if `tonyg` is the
 connected user, the permission `^{username}-.*` is expanded to
 `^tonyg-.*`
 
-f a different authorisation backend (e.g. [LDAP](./ldap),
-[HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_backend_http),
-[AMQP](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq-auth-backend-amqp),
-[OAuth2](./oauth2)) is used, please refer
+If a different authorisation backend (e.g. [LDAP](./ldap),
+[HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/v3.13.x/deps/rabbitmq_auth_backend_http),
+[OAuth 2](./oauth2)) is used, please refer
 to the documentation of those backends.
 
 If a custom authorisation backend is used, topic
@@ -571,19 +570,19 @@ It is possible and common for a plugin to provide both backends. RabbitMQ ships 
 the following [built-in plugins](./plugins) which provide both authentication and authorisation backends:
 
 * [LDAP](./ldap)
-* [HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_backend_http)
+* [HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/v3.13.x/deps/rabbitmq_auth_backend_http)
 
 The following built-in plugins provide authorisation backend implementations:
 
 * [OAuth2](./oauth2)
-* [AMQP 0.9.1](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq-auth-backend-amqp)
+* [AMQP 0.9.1](https://github.com/rabbitmq/rabbitmq-server/tree/v3.13.x/deps/rabbitmq-auth-backend-amqp)
 
 Some plugins such as [Source IP range one](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range)
 also only provide an authorisation backend.
 
 Authentication is supposed to be handled by the internal database, LDAP, etc.
 
-A special [cache backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_backend_cache)
+A special [cache backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.13.x/deps/rabbitmq_auth_backend_cache)
 can be used in [combination](#combined-backends) with other backends to significantly
 reduce the load they generate on external services, such as LDAP or HTTP servers.
 
@@ -647,7 +646,7 @@ auth_backends.1 = ldap
 auth_backends.2 = internal
 ```
 
-Same as above but will fall back to the [HTTP backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.12.x/deps/rabbitmq_auth_backend_http)
+Same as above but will fall back to the [HTTP backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.13.x/deps/rabbitmq_auth_backend_http)
 instead:
 
 ```ini

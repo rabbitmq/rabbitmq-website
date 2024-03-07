@@ -94,5 +94,5 @@ RabbitMQ can transmit messages over HTTP in three ways:
 
 ## RabbitMQ Streams {#rabbitmq-streams}
 
-The [RabbitMQ Streams protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.10.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc) allows communicating with [streams](./streams).
+The [RabbitMQ Streams protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.13.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc) allows communicating with [streams](./streams).
 RabbitMQ supports the streams protocol via a [plugin](./stream).
