@@ -44,7 +44,7 @@ The guide also covers a few post-installation topics in the context of Windows:
  * [Log file location](#server-logs)
  * [Default user limitations](#default-user-access)
 
- and more. These topics are covered in more details in the [rest of documentation guides](./documentation).
+ and more. These topics are covered in more details in the [rest of documentation guides](./index.md).
 
 A separate companion guide covers known [Windows Configuration](./windows-configuration)
 and ways to mitigate them.

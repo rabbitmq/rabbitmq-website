@@ -10,7 +10,7 @@ title: AMQP 0-9-1 Protocol Specification
     <h2 id="amqp1.0">AMQP 0-9-1 and AMQP 1.0</h2>
     <p>
         Despite similar names and, to some extent, a common lineage, AMQP 0-9-1 and AMQP 1.0 are completely different messaging protocols and not a revision of the same idea. AMQP 1.0 has a different scope and topology model. RabbitMQ
-        supports AMQP 0-9-1, AMQP 1.0, MQTT and STOMP. See [documentation ToC](/docs/documentation) for details.
+        supports AMQP 0-9-1, AMQP 1.0, MQTT and STOMP. See [documentation ToC](/docs) for details.
     </p>
 
     <h2 id="downloads">Downloads</h2>

@@ -195,7 +195,7 @@ www.rabbitmq.com/direct-reply-to.html,https://www.rabbitmq.com/docs/direct-reply
 www.rabbitmq.com/disk-alarms.html,https://www.rabbitmq.com/docs/disk-alarms,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/distributed.html,https://www.rabbitmq.com/docs/distributed,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/dlx.html,https://www.rabbitmq.com/docs/dlx,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/documentation.html,https://www.rabbitmq.com/docs/documentation,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/documentation.html,https://www.rabbitmq.com/docs,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/dotnet-api-guide.html,https://www.rabbitmq.com/client-libraries/dotnet-api-guide,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/dotnet.html,https://www.rabbitmq.com/client-libraries/dotnet,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/download.html,https://www.rabbitmq.com/docs/download,,TRUE,FALSE,FALSE,FALSE

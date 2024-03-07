@@ -46,7 +46,7 @@ This guide covers a number of topics related to configuration:
 
 and more.
 
-Since configuration affects many areas of the system, including plugins, individual [documentation guides](./documentation)
+Since configuration affects many areas of the system, including plugins, individual [documentation guides](./index.md)
 dive deeper into what can be configured. [Runtime Tuning](./runtime) is a companion to this guide that focuses
 on the configurable parameters in the runtime. [Production Checklist](./production-checklist) is a related guide
 that outlines what settings will likely need tuning in most production environments.

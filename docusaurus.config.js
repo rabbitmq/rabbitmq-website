@@ -204,7 +204,7 @@ const config = {
               },
               {
                 label: 'Documentation',
-                to: '/docs/documentation',
+                to: '/docs',
               },
               {
                 label: 'Blog',

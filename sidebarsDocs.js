@@ -20,7 +20,7 @@ const sidebars = {
   docsSidebar: [
     {
       type: 'doc',
-      id: 'documentation',
+      id: 'index',
       label: 'Introduction',
     },
     {

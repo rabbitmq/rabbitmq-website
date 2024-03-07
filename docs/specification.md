@@ -12,7 +12,7 @@ displayed_sidebar: docsSidebar
         </p>
         <p>
             The 0-9-1 (with and without extensions) specifications are linked to below for your convenience. We recommend reading them if you want to learn more about AMQP 0-9-1. Please see our
-            [AMQP 0-9-1 Overview guide](/tutorials/amqp-concepts), [AMQP 0-9-1 Reference guide](/amqp-0-9-1-reference), and the rest of [documentation](./documentation) for more information.
+            [AMQP 0-9-1 Overview guide](/tutorials/amqp-concepts), [AMQP 0-9-1 Reference guide](/amqp-0-9-1-reference), and the rest of [documentation](./index.md) for more information.
         </p>
     </div>
 

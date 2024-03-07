@@ -140,7 +140,7 @@ kubectl get all -l app.kubernetes.io/name=definition
 ```
 
 A RabbitMQ cluster is now ready to be used by applications. Continue for more advanced configuration options.
-For more information, see the [RabbitMQ documentation guides](/docs/documentation).
+For more information, see the [RabbitMQ documentation guides](/docs).
 
 ### Internal labels and annotations {#internal-labels}
 
