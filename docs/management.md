@@ -573,7 +573,6 @@ management.ssl.keyfile    = /path/to/server_key.pem
 ## This key must only be used if private key is password protected
 # management.ssl.password   = bunnies
 
-# For RabbitMQ 3.7.10 and later versions
 management.ssl.honor_cipher_order   = true
 management.ssl.honor_ecc_order      = true
 management.ssl.client_renegotiation = false
@@ -601,42 +600,43 @@ management.ssl.ciphers.9 = DHE-RSA-AES256-GCM-SHA384
 # management.ssl.fail_if_no_peer_cert = true
 ```
 
-The above example in the [classic config format](./configure#erlang-term-config-file):
+Below is the same example in the [classic config format](./configure#erlang-term-config-file).
+This example is provided primarily for completeness sake,
+using the modern `rabbitmq.conf` format for this plugin is **highly recommended**.
 
 ```erlang
 [
- {rabbitmq_management,
-  [
-   {listener, [{port,     15671},
-               {ssl,      true},
-               {ssl_opts, [{cacertfile, "/path/to/ca_certificate.pem"},
-                           {certfile,   "/path/to/server_certificate.pem"},
-                           {keyfile,    "/path/to/server_key.pem"},
+  {rabbitmq_management,
+   [
+    {ssl_config, [{port,     15671},
+                  {ssl,      true},
+                  {cacertfile, "/path/to/ca_certificate.pem"},
+                  {certfile,   "/path/to/server_certificate.pem"},
+                  {keyfile,    "/path/to/server_key.pem"},
 
-                           %% don't do peer verification to HTTPS clients
-                           {verify,               verify_none},
-                           {fail_if_no_peer_cert, false},
+                  %% don't do peer verification to HTTPS clients
+                  {verify,               verify_none},
+                  {fail_if_no_peer_cert, false},
 
-                           {client_renegotiation, false},
-                           {secure_renegotiate,   true},
-                           {honor_ecc_order,      true},
-                           {honor_cipher_order,   true},
+                  {client_renegotiation, false},
+                  {secure_renegotiate,   true},
+                  {honor_ecc_order,      true},
+                  {honor_cipher_order,   true},
 
-                           {versions,['tlsv1.1', 'tlsv1.2']},
-                           {ciphers, ["ECDHE-ECDSA-AES256-GCM-SHA384",
-                                      "ECDHE-RSA-AES256-GCM-SHA384",
-                                      "ECDHE-ECDSA-AES256-SHA384",
-                                      "ECDHE-RSA-AES256-SHA384",
-                                      "ECDH-ECDSA-AES256-GCM-SHA384",
-                                      "ECDH-RSA-AES256-GCM-SHA384",
-                                      "ECDH-ECDSA-AES256-SHA384",
-                                      "ECDH-RSA-AES256-SHA384",
-                                      "DHE-RSA-AES256-GCM-SHA384"
-                                      ]}
-                           ]}
-              ]}
-  ]}
-].
+                  {versions,['tlsv1.2']},
+                  {ciphers, ["ECDHE-ECDSA-AES256-GCM-SHA384",
+                             "ECDHE-RSA-AES256-GCM-SHA384",
+                             "ECDHE-ECDSA-AES256-SHA384",
+                             "ECDHE-RSA-AES256-SHA384",
+                             "ECDH-ECDSA-AES256-GCM-SHA384",
+                             "ECDH-RSA-AES256-GCM-SHA384",
+                             "ECDH-ECDSA-AES256-SHA384",
+                             "ECDH-RSA-AES256-SHA384",
+                             "DHE-RSA-AES256-GCM-SHA384"
+                            ]}
+                ]}
+   ]}
+ ].
 ```
 
 ### Using HTTP and HTTPS Together {#multiple-listeners}
@@ -666,7 +666,6 @@ Most of the options were introduced in RabbitMQ 3.7.9.
 Response compression is enabled by default. To enable it explicitly, use `management.tcp.compress`:
 
 ```ini
-# For RabbitMQ 3.7.9 and later versions
 management.tcp.compress = true
 ```
 
@@ -695,8 +694,6 @@ the timeout and inactivity values used by the load balancer.
 Here are some example configuration snippets that modify the timeouts:
 
 ```ini
-# For RabbitMQ 3.7.9 and later versions.
-#
 # Configures HTTP (non-encrypted) listener timeouts
 management.tcp.idle_timeout       = 120000
 management.tcp.inactivity_timeout = 120000
@@ -704,8 +701,6 @@ management.tcp.request_timeout    = 10000
 ```
 
 ```ini
-# For RabbitMQ 3.7.9 and later versions.
-#
 # Configures HTTPS (TLS-enabled) listener timeouts
 management.ssl.idle_timeout       = 120000
 management.ssl.inactivity_timeout = 120000
