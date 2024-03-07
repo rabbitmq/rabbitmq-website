@@ -203,7 +203,7 @@ public class ReceiveLogsDirect {
     channel.exchangeDeclare(EXCHANGE_NAME, "direct");
     String queueName = channel.queueDeclare().getQueue();
 
-    if (argv.length &lt; 1) {
+    if (argv.length < 1) {
         System.err.println("Usage: ReceiveLogsDirect [info] [warning] [error]");
         System.exit(1);
     }

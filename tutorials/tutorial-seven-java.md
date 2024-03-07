@@ -182,10 +182,10 @@ to clean this map when confirms arrive and do something like logging a warning
 when messages are nack-ed:
 
 ```java
-ConcurrentNavigableMap<Long, String&gt; outstandingConfirms = new ConcurrentSkipListMap<&gt;();
+ConcurrentNavigableMap<Long, String> outstandingConfirms = new ConcurrentSkipListMap<>();
 ConfirmCallback cleanOutstandingConfirms = (sequenceNumber, multiple) -> {
     if (multiple) {
-        ConcurrentNavigableMap<Long, String&gt; confirmed = outstandingConfirms.headMap(
+        ConcurrentNavigableMap<Long, String> confirmed = outstandingConfirms.headMap(
           sequenceNumber, true
         );
         confirmed.clear();

@@ -166,7 +166,7 @@ channel.ExchangeDeclare(exchange: "topic_logs", type: ExchangeType.Topic);
 // declare a server-named queue
 var queueName = channel.QueueDeclare().QueueName;
 
-if (args.Length &lt; 1)
+if (args.Length < 1)
 {
     Console.Error.WriteLine("Usage: {0} [binding_key...]",
                             Environment.GetCommandLineArgs()[0]);

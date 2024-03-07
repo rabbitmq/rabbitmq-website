@@ -277,7 +277,7 @@ public class RpcClient : IDisposable
     private readonly IConnection connection;
     private readonly IModel channel;
     private readonly string replyQueueName;
-    private readonly ConcurrentDictionary&lt;string, TaskCompletionSource&lt;string>> callbackMapper = new();
+    private readonly ConcurrentDictionary<string, TaskCompletionSource<string>> callbackMapper = new();
 
     public RpcClient()
     {
@@ -302,14 +302,14 @@ public class RpcClient : IDisposable
                              autoAck: true);
     }
 
-    public Task&lt;string&gt; CallAsync(string message, CancellationToken cancellationToken = default)
+    public Task<string>; CallAsync(string message, CancellationToken cancellationToken = default)
     {
         IBasicProperties props = channel.CreateBasicProperties();
         var correlationId = Guid.NewGuid().ToString();
         props.CorrelationId = correlationId;
         props.ReplyTo = replyQueueName;
         var messageBytes = Encoding.UTF8.GetBytes(message);
-        var tcs = new TaskCompletionSource&lt;string&gt;();
+        var tcs = new TaskCompletionSource<string>();
         callbackMapper.TryAdd(correlationId, tcs);
 
         channel.BasicPublish(exchange: string.Empty,
@@ -332,7 +332,7 @@ public class Rpc
     public static async Task Main(string[] args)
     {
         Console.WriteLine("RPC Client");
-        string n = args.Length &gt; 0 ? args[0] : "30";
+        string n = args.Length > 0 ? args[0] : "30";
         await InvokeAsync(n);
 
         Console.WriteLine(" Press [enter] to exit.");

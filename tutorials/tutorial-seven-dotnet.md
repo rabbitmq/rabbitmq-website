@@ -177,7 +177,7 @@ sample that uses a dictionary to correlate the publishing sequence number
 with the string body of the message:
 
 ```csharp
-var outstandingConfirms = new ConcurrentDictionary&lt;ulong, string&gt;();
+var outstandingConfirms = new ConcurrentDictionary<ulong, string>();
 // ... code for confirm callbacks will come later
 var body = "...";
 outstandingConfirms.TryAdd(channel.NextPublishSeqNo, body);
@@ -189,13 +189,13 @@ to clean this dictionary when confirms arrive and do something like logging a wa
 when messages are nack-ed:
 
 ```csharp
-var outstandingConfirms = new ConcurrentDictionary&lt;ulong, string&gt;();
+var outstandingConfirms = new ConcurrentDictionary<ulong, string>();
 
 void CleanOutstandingConfirms(ulong sequenceNumber, bool multiple)
 {
     if (multiple)
     {
-        var confirmed = outstandingConfirms.Where(k =&gt; k.Key &lt;= sequenceNumber);
+        var confirmed = outstandingConfirms.Where(k => k.Key <= sequenceNumber);
         foreach (var entry in confirmed)
         {
             outstandingConfirms.TryRemove(entry.Key, out _);
