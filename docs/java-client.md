@@ -64,11 +64,11 @@ in your project is with a dependency management system.
 If you're using Maven, add this dependency to the POM file of your project:
 
 ```xml
-&lt;dependency&gt;
-  &lt;groupId&gt;com.rabbitmq&lt;/groupId&gt;
-  &lt;artifactId&gt;amqp-client&lt;/artifactId&gt;
-  &lt;version&gt;5.20.0&lt;/version&gt;
-&lt;/dependency&gt;
+<dependency>
+  <groupId>com.rabbitmq</groupId>
+  <artifactId>amqp-client</artifactId>
+  <version>5.20.0</version>
+</dependency>
 ```
 
 If using Gradle:
