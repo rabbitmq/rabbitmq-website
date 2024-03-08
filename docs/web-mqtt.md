@@ -81,7 +81,7 @@ client.onMessageArrived = function (message) {
     debug("RECEIVE ON " + message.destinationName + " PAYLOAD " + message.payloadString);
     print_first(message.payloadString);
 };
-// omitted for brevity
+// ...
 ```
 
 Once you have the `client` object you can follow API's exposed by
@@ -89,7 +89,7 @@ Once you have the `client` object you can follow API's exposed by
 connection with the broker:
 
 ```javascript
-// omitted for brevity
+// ...
 
 var options = {
     timeout: 3,
@@ -107,7 +107,7 @@ if (location.protocol == "https:") {
 }
 debug("CONNECT TO " + wsbroker + ":" + wsport);
 client.connect(options);
-// omitted for brevity
+// ...
 ```
 
 ## Web MQTT Examples {#examples}
