@@ -52,6 +52,12 @@ its configurable value and the client will reconcile it with its configured valu
 and send the result value back. The value is **in seconds**,
 and default value suggested by RabbitMQ is `60`.
 
+:::warning
+Setting the heartbeat timeout to a really low value can lead to false
+positives: connection peer being considered unavailable while it is not
+really the case
+:::
+
 Java, .NET and Erlang clients maintained by the RabbitMQ core team use the following negotiation
 algorithm:
 
@@ -64,6 +70,28 @@ This is **highly recommended against** unless the environment is known to use
 [TCP keepalives](#tcp-keepalives) on every host.
 
 [Very low values](#false-positives) are also highly recommended against.
+
+
+## Low Timeout Values and False Positives {#false-positives}
+
+:::info
+Values within the 5
+to 20 seconds range are optimal for most environments
+:::
+
+Setting heartbeat timeout value too low can lead to false
+positives (peer being considered unavailable while it is not
+really the case) due to transient network congestion,
+short-lived server flow control, and so on.
+
+This should be taken into consideration when picking a timeout
+value.
+
+Several years worth of feedback from the users and client
+library maintainers suggest that values lower than 5 seconds
+are fairly likely to cause false positives, and values of 1
+second or lower are very likely to do so. Values within the 5
+to 20 seconds range are optimal for most environments.
 
 
 ## Heartbeat Frames {#heartbeats-interval}
@@ -92,8 +120,10 @@ connection but some only do it when necessary.
 Heartbeats can be deactivated by setting the timeout interval to `0` on the client side at connection time,
 providing the server heartbeat has also been set to zero.
 
+:::warning
 Deactivating heartbeats is **not recommended**
-unless the environment is known to use [TCP keepalives](#tcp-keepalives) on every host (both RabbitMQ nodes and applications).
+unless the environment is known to use [TCP keepalives](#tcp-keepalives) on every host (both RabbitMQ nodes and applications)
+:::
 
 Alternatively a very high (say, 1800 seconds) value can be used on both ends to effectively deactivate heartbeats
 as frame delivery will be too infrequent to make a practical difference.
@@ -132,23 +162,6 @@ var cf = new ConnectionFactory();
 // set the heartbeat timeout to 60 seconds
 cf.RequestedHeartbeat = TimeSpan.FromSeconds(60);
 ```
-
-
-## Low Timeout Values and False Positives {#false-positives}
-
-Setting heartbeat timeout value too low can lead to false
-positives (peer being considered unavailable while it is not
-really the case) due to transient network congestion,
-short-lived server flow control, and so on.
-
-This should be taken into consideration when picking a timeout
-value.
-
-Several years worth of feedback from the users and client
-library maintainers suggest that values lower than 5 seconds
-are fairly likely to cause false positives, and values of 1
-second or lower are very likely to do so. Values within the 5
-to 20 seconds range are optimal for most environments.
 
 
 ## Heartbeats in STOMP {#stomp}

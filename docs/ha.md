@@ -66,9 +66,13 @@ This guide assumes general familiarity with [RabbitMQ clustering](./clustering).
 
 ## What is Queue Mirroring {#what-is-mirroring}
 
-**Important**: mirroring of classic queues will be **removed in a future version** of RabbitMQ.
+:::danger[Important]
+Classic queue mirroring is a [**deprecated feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/) scheduled
+for removal in the next release, RabbitMQ 4.0.
+
 Consider using [quorum queues](./quorum-queues), [streams](./streams), or a non-replicated classic queue
 v2 instead.
+:::
 
 By default, contents of a queue within a RabbitMQ cluster are located on
 a single node (the node on which the queue was
@@ -123,6 +127,14 @@ Please see [Runtime Parameters and Policies](./parameters#policies) for more inf
 
 
 ## Queue Arguments that Control Mirroring {#mirroring-arguments}
+
+:::danger[Important]
+Classic queue mirroring is a [**deprecated feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/) scheduled
+for removal in the next release, RabbitMQ 4.0.
+
+Consider using [quorum queues](./quorum-queues), [streams](./streams), or a non-replicated classic queue
+v2 instead.
+:::
 
 As we've covered above, queues have mirroring enabled
 via [policy](./parameters#policies). Policies
@@ -399,22 +411,19 @@ PUT /api/policies/%2f/ha-two
   </tr>
 </table>
 
-The following example declares a policy which matches
-the queues whose names begin with "`ha.`" and configures
-mirroring to all nodes in the cluster.
-
-Note that **mirroring to all nodes is rarely necessary** and will result
-in unnecessary resource waste.
-
-See [To How Many Nodes to Mirror?](#replication-factor) above:
-
 <table>
   <tr>
     <th>rabbitmqctl</th>
     <td>
+:::warning
+Mirroring to all nodes is unnecessary and will result
+in unnecessary resource waste.
+
+Consider mirroring to the majority (N/2+1) nodes with "ha-mode":"exactly" instead.
+See [Replication Factor](#replication-factor) above.
+:::
+
 ```bash
-# Note that mirroring to all nodes is rarely necessary.
-# Consider mirroring to the majority (N/2+1) nodes with "ha-mode":"exactly" instead.
 rabbitmqctl set_policy ha-all "^ha\." '{"ha-mode":"all"}'
 ```
     </td>
@@ -422,9 +431,15 @@ rabbitmqctl set_policy ha-all "^ha\." '{"ha-mode":"all"}'
   <tr>
     <th>rabbitmqctl (Windows)</th>
     <td>
+:::warning
+Mirroring to all nodes is unnecessary and will result
+in unnecessary resource waste.
+
+Consider mirroring to the majority (N/2+1) nodes with "ha-mode":"exactly" instead.
+See [Replication Factor](#replication-factor) above.
+:::
+
 ```powershell
-# Note that mirroring to all nodes is rarely necessary.
-# Consider mirroring to the majority (N/2+1) nodes with "ha-mode":"exactly" instead.
 rabbitmqctl.bat set_policy ha-all "^ha\." "{""ha-mode"":""all""}"
 ```
     </td>
@@ -432,6 +447,14 @@ rabbitmqctl.bat set_policy ha-all "^ha\." "{""ha-mode"":""all""}"
   <tr>
     <th>HTTP API</th>
     <td>
+:::warning
+Mirroring to all nodes is unnecessary and will result
+in unnecessary resource waste.
+
+Consider mirroring to the majority (N/2+1) nodes with "ha-mode":"exactly" instead.
+See [Replication Factor](#replication-factor) above.
+:::
+
       ```ini
       PUT /api/policies/%2f/ha-all {"pattern":"^ha\.", "definition":{"ha-mode":"all"}}
       ```
@@ -440,6 +463,14 @@ rabbitmqctl.bat set_policy ha-all "^ha\." "{""ha-mode"":""all""}"
   <tr>
     <th>Web UI</th>
     <td>
+:::warning
+Mirroring to all nodes is unnecessary and will result
+in unnecessary resource waste.
+
+Consider mirroring to the majority (N/2+1) nodes with "ha-mode":"exactly" instead.
+See [Replication Factor](#replication-factor) above.
+:::
+
       <ul>
         <li>
           Navigate to <code>Admin</code> > <code>Policies</code> > <code>Add / update a policy</code>.
