@@ -2,7 +2,7 @@
 title: Monitoring with Prometheus and Grafana
 displayed_sidebar: docsSidebar
 ---
-# Monitoring with Prometheus amd Grafana
+# Monitoring with Prometheus and Grafana
 
 ## Overview {#overview}
 
