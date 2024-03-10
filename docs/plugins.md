@@ -637,6 +637,7 @@ The table below lists of plugins only available in [VMware RabbitMQ®](https://t
 ## Discontinued {#discontinued}
 
 All plugins below have been <em>discontinued</em>. They don't (or won't) ship
-with the RabbitMQ distribution and are no longer maintained.
+with the RabbitMQ distribution and are no longer actively maintained by the RabbitMQ core team.
 
+ * `rabbitmq_auth_backend_amqp`
  * `rabbitmq_management_visualiser`

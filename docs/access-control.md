@@ -364,7 +364,7 @@ from a resource.
 In order to perform an operation on a resource the user must
 have been granted the appropriate permissions for it. The
 following table shows what permissions on what type of
-resource are required for all the AMQP commands which
+resource are required for all the AMQP 0-9-1 commands which
 perform permission checks.
 
 <table>
@@ -575,7 +575,6 @@ the following [built-in plugins](./plugins) which provide both authentication an
 The following built-in plugins provide authorisation backend implementations:
 
 * [OAuth2](./oauth2)
-* [AMQP 0.9.1](https://github.com/rabbitmq/rabbitmq-server/tree/v3.13.x/deps/rabbitmq-auth-backend-amqp)
 
 Some plugins such as [Source IP range one](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range)
 also only provide an authorisation backend.
@@ -617,7 +616,6 @@ The following aliases are available:
  * <code>internal</code> for <code>rabbit_auth_backend_internal</code>
  * <code>ldap</code> for <code>rabbit_auth_backend_ldap</code> (from the [LDAP plugin](./ldap))
  * <code>http</code> for <code>rabbit_auth_backend_http</code> (from the [HTTP auth backend plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_http))
- * <code>amqp</code> for <code>rabbit_auth_backend_amqp</code> (from the [AMQP 0-9-1 auth backend plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-amqp))
  * <code>dummy</code> for <code>rabbit_auth_backend_dummy</code>
 
 Some plugins do not currently have a shortcut. In this case, a full module (not the name of the plugin!) must
