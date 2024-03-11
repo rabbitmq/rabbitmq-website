@@ -195,6 +195,35 @@ The following upstream parameters are only applicable to <a href="./federated-ex
     </tr>
 
     <tr>
+      <td><code>queue-type</code></td>
+      <td>
+        The queue type of the <a href="./federated-exchanges#implementation">upstream queue</a>. 
+
+        Defaults to `classic`. Set to `quorum` for high availability.
+
+        Changing the queue type will delete and recreate the upstream queue by default.
+        This may lead to messages getting lost (if they were in the upstream queue)
+        or missed (when they are published while there's no upstream queue to collect them).
+        You can set <code>resource-cleanup-mode</code> to <code>never</code> to avoid that.
+        This requires manually deleting the old upstream queue so that it can be recreated with
+        the new type.
+
+        Available since: 3.13.1
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>resource-cleanup-mode</code></td>
+      <td>
+        Whether to delete the <a href="./federated-exchanges#implementation">upstream queue</a> when federation stops.
+
+        By default, the upstream queue is deleted immediately when federation link stops.
+        Set to `never` to keep the upstream queue around and collect messages even when
+        changing federation configuration.
+      </td>
+    </tr>
+
+    <tr>
       <td><code>expires</code></td>
       <td>
         The expiry time (in milliseconds) after which
