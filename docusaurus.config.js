@@ -192,6 +192,13 @@ const config = {
           },
         ],
       },
+      announcementBar: {
+        id: 'new-release',
+        content: '<strong style="font-size: var(--ifm-h4-font-size);"><a href="/blog/2024/03/11/rabbitmq-3.13.0-announcement">RabbitMQ 3.13.0 is released!</a></strong>',
+        backgroundColor: 'var(--ifm-color-primary-contrast-background)',
+        textColor: 'var(--ifm-font-color-base)',
+        isCloseable: true,
+      },
       footer: {
         style: 'dark',
         links: [
