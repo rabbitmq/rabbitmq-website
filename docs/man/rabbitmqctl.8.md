@@ -2151,9 +2151,9 @@ doc_url
             <dt><var class="Ar">queue_name</var></dt>
             <dd>The name of the queue to delete.</dd>
             <dt><var class="Ar">--if-empty</var></dt>
-            <dd>Delete the queue if it is empty (has no messages ready for delivery)</dd>
+            <dd>Delete the queue if it is empty (has no messages ready for delivery). Ignored for Streams</dd>
             <dt><var class="Ar">--if-unused</var></dt>
-            <dd>Delete the queue only if it has no consumers</dd>
+            <dd>Delete the queue only if it has no consumers. Ignored for Streams</dd>
           </dl>
           <p class="Pp">Deletes a queue.</p>
         </dd>
