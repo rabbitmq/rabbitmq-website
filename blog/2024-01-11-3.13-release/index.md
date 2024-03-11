@@ -1,6 +1,6 @@
 ---
 title: "RabbitMQ 3.13: Classic Queues Changes"
-categories: ["Announcements", "Performance", "RabbitMQ 3.13.x"]
+tags: ["Performance", "RabbitMQ 3.13.x"]
 authors: [kura]
 ---
 

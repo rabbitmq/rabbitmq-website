@@ -1,6 +1,6 @@
 ---
 title: RabbitMQ 3.11.0 release calendar
-tags: ["Announcements", ]
+tags: []
 authors: [mgary]
 ---
 
