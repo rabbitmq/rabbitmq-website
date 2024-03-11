@@ -58,7 +58,7 @@ TLS can be enabled for all protocols supported by RabbitMQ, not just AMQP 0-9-1,
 which this guide focuses on. [HTTP API](./management), [inter-node and CLI tool traffic](./clustering-ssl) can be configured
 to use TLS (HTTPS) as well.
 
-To configure TLS on Kubernetes using the RabbitMQ Cluster Operator, see the guide for [Configuring TLS](./kubernetes/operator/using-operator#tls).
+To configure TLS on Kubernetes using the RabbitMQ Cluster Operator, see the guide for [Configuring TLS](/kubernetes/operator/using-operator#tls).
 
 For an overview of common TLS troubleshooting techniques, see [Troubleshooting TLS-related issues](./troubleshooting-ssl)
 and [Troubleshooting Networking](./troubleshooting-networking).
@@ -1270,7 +1270,7 @@ SSL-Session:
 ### TLSv1.3 {#tls1.3}
 
 [TLSv1.3](https://wiki.openssl.org/index.php/TLS1.3) is a major revision to the TLS protocol. It is the most recent
-and secure option. Prior to [RabbitMQ `3.8.11`](./changelog), TLSv1.3 support was considered
+and secure option. Prior to [RabbitMQ `3.8.11`](/release-information/changelog), TLSv1.3 support was considered
 experimental and was disabled.
 
 TLSv1.3 support requires the node to be [running on Erlang 23](./which-erlang) compiled against a very recent OpenSSL.

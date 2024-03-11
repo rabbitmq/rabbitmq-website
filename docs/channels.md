@@ -161,7 +161,7 @@ times. Most common examples are:
    fail with a `405 RESOURCE_LOCKED`
 
 Client libraries provide a way to observe and react to channel exceptions. For example, in the Java
-client there is [a way to register an error handler](./api-guide#shutdown) and access a channel
+client there is [a way to register an error handler](/client-libraries/java-api-guide#shutdown) and access a channel
 shutdown (closure) reason.
 
 Any attempted operation on a closed channel will fail with an exception. Note that when RabbitMQ
@@ -173,7 +173,7 @@ Some client libraries may use blocking operations that wait for
 a response. In this case they may communicate channel exceptions differently, e.g. using
 runtime exceptions, an error type, or other means appropriate for the language.
 
-See the [AMQP 0-9-1 Reference](./amqp-0-9-1-reference) for a more complete list of
+See the [AMQP 0-9-1 Reference](/amqp-0-9-1-reference) for a more complete list of
 error codes.
 
 
@@ -219,7 +219,7 @@ error:
  operation none caused a connection exception not_allowed: "number of channels opened (22) has reached the negotiated channel_max (22)"
 ```
 
-Clients can be configured to allow fewer channels per connection. With [RabbitMQ Java client](./api-guide),
+Clients can be configured to allow fewer channels per connection. With [RabbitMQ Java client](/client-libraries/java-api-guide),
 `ConnectionFactory#setRequestedChannelMax` is the method that controls the limit:
 
 ```java
@@ -229,7 +229,7 @@ ConnectionFactory cf = new ConnectionFactory();
 cf.setRequestedChannelMax(32);
 ```
 
-With [RabbitMQ .NET client](./dotnet-api-guide), use the `ConnectionFactory#RequestedChannelMax`
+With [RabbitMQ .NET client](/client-libraries/dotnet-api-guide), use the `ConnectionFactory#RequestedChannelMax`
 property:
 
 ```csharp
@@ -309,7 +309,7 @@ to the Connections tab and enable the relevant columns if they are not displayed
 
 <img class="screenshot" src="/img/monitoring/channels/mgmt-ui-per-connection-channel-max-and-count.png" alt="Per connection channel count in management UI" title="Per connection channel count in management UI" />
 
-Overview and individual node pages provide a chart of channel churn rate as of [RabbitMQ 3.7.9](./changelog).
+Overview and individual node pages provide a chart of channel churn rate as of [RabbitMQ 3.7.9](/release-information/changelog).
 If the rate of channel open operations is consistently higher than that of channel close operations,
 this is evidence of a channel leak in one of the applications:
 

@@ -54,7 +54,7 @@ on behalf of the consumer.
 > RabbitMQ speaks multiple protocols. This tutorial covers AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
-> languages](/docs/devtools). We'll
+> languages](/client-libraries/devtools). We'll
 > use the php-amqplib in this tutorial, and [Composer](https://getcomposer.org/doc/00-intro.md)
 > for dependency management.
 >

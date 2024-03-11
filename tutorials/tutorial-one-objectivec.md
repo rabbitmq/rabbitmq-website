@@ -201,5 +201,5 @@ Time to move on to [part 2](./tutorial-two-objectivec) and build a simple _work 
 
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
 [controller]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/objective-c/tutorial1/tutorial1/ViewController.m
-[devtools]:/docs/devtools
+[devtools]:/client-libraries/devtools
 [nslog]:https://developer.apple.com/library/ios/technotes/tn2347/_index.html

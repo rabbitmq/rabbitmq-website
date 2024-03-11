@@ -14,7 +14,7 @@ Without further ado, let's take a look at a roundup of what happened in RabbitMQ
 
 ## Project Updates
 
-* RabbitMQ 3.7.9 [has been released](https://groups.google.com/forum/#!topic/rabbitmq-users/87A0wqH-z5s) ([release artifacts](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.9), [change log](/docs/changelog))
+* RabbitMQ 3.7.9 [has been released](https://groups.google.com/forum/#!topic/rabbitmq-users/87A0wqH-z5s) ([release artifacts](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.9), [change log](/release-information/changelog))
 * As of 3.7.9, [cipher suites](/docs/ssl#cipher-suites) now can be configured via [new style configuration format](/blog/2018/02/22/new-configuration-format-in-rabbitmq-3-7).
 * Marcial Rosales produced a set of guidelines that demonstrate [how to develop applications more resilient to failures](https://github.com/rabbitmq/workloads/tree/master/resiliency) common in messaging-based systems, whether they use RabbitMQ Java client directly or Spring AMQP
 * RabbitMQ repositories on PackageCloud have [switched to a new GPG key](https://groups.google.com/d/msg/rabbitmq-users/8Kyp265m4pE/BBM0bixZBgAJ)

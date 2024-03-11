@@ -42,7 +42,7 @@ Considering that people might prefer to write RabbitMQ plugins with Elixir, let'
 
 ## Writing RabbitMQ Plugins
 
-To write plugins for RabbitMQ you will need to setup your development environment to use the tools, Makefiles and libraries provided by the *rabbitmq public umbrella*. You can follow the setup instructions from [here](/docs/plugin-development). Once you have cloned the `http://hg.rabbitmq.com/rabbitmq-public-umbrella` project and have all the dependencies installed, we can start writing our own plugin. To do it with Elixir, you first need to install the language on your machine, so you can use the Elixir compiler (`mix`) and the language libraries.
+To write plugins for RabbitMQ you will need to setup your development environment to use the tools, Makefiles and libraries provided by the *rabbitmq public umbrella*. You can follow the setup instructions from [here](/plugin-development). Once you have cloned the `http://hg.rabbitmq.com/rabbitmq-public-umbrella` project and have all the dependencies installed, we can start writing our own plugin. To do it with Elixir, you first need to install the language on your machine, so you can use the Elixir compiler (`mix`) and the language libraries.
 
 When you write RabbitMQ plugins you may want to use some Erlang libraries with your plugin, to do that you need to *wrap them* as a plugin as well, so they can be picked up by the build environment when you declare a library as a dependency of your project. In this case our new plugins will depend on Elixir, so we need to wrap the language libraries as a plugin. I've done that already and you can just clone the [elixir_wrapper](https://github.com/videlalvaro/elixir_wrapper) from Github and follow the instructions on its README to get it installed.
 

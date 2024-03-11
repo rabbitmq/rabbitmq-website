@@ -34,7 +34,7 @@ and [stream-perf-test](https://github.com/rabbitmq/rabbitmq-stream-java-client).
 These tests were executed using:
 
 * A GKE cluster with e2-standard-16 nodes
-* RabbitMQ clusters deployed using [our Kubernetes Operator](/docs/kubernetes/operator/operator-overview) with the following resources and configuration
+* RabbitMQ clusters deployed using [our Kubernetes Operator](/kubernetes/operator/operator-overview) with the following resources and configuration
 
 ```yaml
 apiVersion: rabbitmq.com/v1beta1

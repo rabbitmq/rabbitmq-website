@@ -227,5 +227,5 @@ OS-specific ways of doing that for a running process, such as the `/proc` filesy
 ### Configuration Management Tools {#chef-puppet-bosh}
 
 Configuration management tools (e.g. Chef, Puppet, BOSH) provide assistance
-with system limit tuning. Our [developer tools](./devtools) guide
+with system limit tuning. Our [developer tools](/client-libraries/devtools) guide
 lists relevant modules and projects.

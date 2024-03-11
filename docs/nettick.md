@@ -93,8 +93,8 @@ can help to improve the responsiveness during such events but any
 decision to change `net_ticktime` should be done carefully
 as emphasised above.
 
-## Windows Quirks {#windows-quirks}
+## Windows Configuration {#windows-configuration}
 
 Due to how RabbitMQ starts as a Windows service, you can't use a configuration
-file to set `net_ticktime`. Please see [this section](./windows-quirks#net-ticktime) in the [Windows Quirks](./windows-quirks)
+file to set `net_ticktime`. Please see [this section](./windows-configuration#net-ticktime) in the [Windows Configuration](./windows-configuration)
 document to set `net_ticktime` when running RabbitMQ as a Windows service.

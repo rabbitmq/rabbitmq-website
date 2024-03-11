@@ -1,6 +1,5 @@
 ---
 title: Snapshots Releases
-displayed_sidebar: docsSidebar
 ---
 <!--
 Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
@@ -57,7 +56,7 @@ environments but not intended to be used in production.
 ## Documentation of the 'main' branch {#documentation}
 
 Documentation for default branch of the RabbitMQ distribution is continuously published to
-[the "Next" version](/docs/documentation).
+[the "Next" version](./index.md).
 Note that cutting edge branch documentation can lag behind code changes, sometimes
 intentionally so.
 

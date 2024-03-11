@@ -24,7 +24,7 @@ you:
 | 3.9.0 announced      | 26 July 2021     | Final release is announced & made public                                      |
 
 The above release calendar is a point-in-time snapshot. For latest updates
-please refer to the [Release Series](/docs/versions)
+please refer to the [Release Series](/release-information/versions)
 page.
 
 We are trying something new for RabbitMQ 3.9.0 release, which introduces a

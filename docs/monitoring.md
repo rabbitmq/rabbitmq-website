@@ -55,7 +55,7 @@ Monitoring is a broad topic. This guide covers several :
 
 A number of [popular tools](#monitoring-tools), both open source and commercial,
 can be used to monitor RabbitMQ. As mentioned above, the combination of [Prometheus and Grafana](./prometheus)
-is what team RabbitMQ would recommend to most users. [On Kubernetes](./kubernetes/operator/operator-monitoring),
+is what team RabbitMQ would recommend to most users. [On Kubernetes](/kubernetes/operator/operator-monitoring),
 the Prometheus plugin is automatically enabled by the Kubernetes RabbitMQ Operator.
 
 
@@ -210,10 +210,10 @@ Please consult the [Management plugin guide](./management) to learn more.
 
 ## Monitoring of Kubernetes Operator-deployed Clusters {#on-kubernetes}
 
-RabbitMQ clusters deployed to Kubernetes using the [RabbitMQ Kubernetes Operator](./kubernetes/operator/operator-overview)
+RabbitMQ clusters deployed to Kubernetes using the [RabbitMQ Kubernetes Operator](/kubernetes/operator/operator-overview)
 can be monitored with Prometheus or compatible tools.
 
-This is covered in a dedicated guide on [Monitoring RabbitMQ in Kubernetes](./kubernetes/operator/operator-monitoring).
+This is covered in a dedicated guide on [Monitoring RabbitMQ in Kubernetes](/kubernetes/operator/operator-monitoring).
 
 
 ## Interactive Command Line-Based Observer Tool {#with-cli-observer}
@@ -539,7 +539,7 @@ keep up with the rate, or even a downstream service that's experiencing a slowdo
 
 Some client libraries and frameworks
 provide means of registering metrics collectors or collect metrics out of the box.
-[RabbitMQ Java client](./api-guide), [Spring AMQP](http://spring.io/projects/spring-amqp), and [NServiceBus](https://docs.particular.net/transports/rabbitmq/) are some examples.
+[RabbitMQ Java client](/client-libraries/java-api-guide), [Spring AMQP](http://spring.io/projects/spring-amqp), and [NServiceBus](https://docs.particular.net/transports/rabbitmq/) are some examples.
 With others developers have to track metrics in their application code.
 
 What metrics applications track can be system-specific but some are relevant
@@ -785,7 +785,7 @@ Moreover, most CLI commands (such as `rabbitmq-diagnistics`) has a performance i
 distribution](https://www.erlang.org/doc/reference_manual/./distributed) (the same mechanism used for clustering RabbitMQ nodes).
 Joining and leaving this cluster on every probe execution has unnecessary overhead.
 
-[RabbitMQ Kubernetes Operator](./kubernetes/operator/operator-overview) configures a TCP port check on the AMQP port
+[RabbitMQ Kubernetes Operator](/kubernetes/operator/operator-overview) configures a TCP port check on the AMQP port
 as the `readinessProbe` and defines no `livenessProbe` at all. This should be considered the best practice.
 
 ## Monitoring of Clusters {#clusters}

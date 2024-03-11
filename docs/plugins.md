@@ -34,7 +34,7 @@ This guide covers
 
 and more.
 
-[Plugin development](./plugin-development) is covered in a separate guide.
+[Plugin development](/plugin-development) is covered in a separate guide.
 
 
 ## The Basics {#basics}
@@ -44,7 +44,7 @@ for more protocols, system state [monitoring](./monitoring), additional AMQP 0-9
 node [federation](./federation), and more. A number of features are implemented as plugins
 that ship in the core distribution.
 
-This guide covers the plugin mechanism and plugins that ship in the [latest release](./changelog) of the RabbitMQ distribution.
+This guide covers the plugin mechanism and plugins that ship in the [latest release](/release-information/changelog) of the RabbitMQ distribution.
 3rd party plugins can be installed separately. A set of [curated plugins](#plugin-tiers) is also available.
 
 Plugins are activated when a node is started or at runtime when a [CLI tool](./cli)
@@ -322,7 +322,7 @@ enabled before they can be used.
 
 In addition to the plugins bundled with the server, team RabbitMQ
 offers binary downloads of curated plugins which have been
-contributed by authors in the community. See the [community plugins page](./community-plugins) for
+contributed by authors in the community. See the [community plugins page](/community-plugins) for
 more details.
 
 Even more plugins can be found on GitHub, GitLab, Bitbucket and similar

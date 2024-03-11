@@ -4,7 +4,7 @@ tags: ["Programming Languages", "New Features", ]
 authors: [acogoluegnes]
 ---
 
-The RabbitMQ team is happy to announce the release of version 4.0 of the [RabbitMQ Java Client](/docs/api-guide). This new release does not introduce any breaking changes and comes with a bunch of interesting new features.
+The RabbitMQ team is happy to announce the release of version 4.0 of the [RabbitMQ Java Client](/client-libraries/java-api-guide). This new release does not introduce any breaking changes and comes with a bunch of interesting new features.
 
 <!-- truncate -->
 
@@ -32,7 +32,7 @@ Note blocking IO is still the default in the Java Client, you need to explicitly
 
 ## Automatic recovery enabled by default
 
-[Automatic recovery](/docs/api-guide#recovery) has been there for a few years now, and we know that many users always enable it, so we've decided to enable it by default. You can still choose not to use it, but you'll need to disable it explicitly.
+[Automatic recovery](/client-libraries/java-api-guide#recovery) has been there for a few years now, and we know that many users always enable it, so we've decided to enable it by default. You can still choose not to use it, but you'll need to disable it explicitly.
 
 ## Miscellaneous goodies and fixes
 

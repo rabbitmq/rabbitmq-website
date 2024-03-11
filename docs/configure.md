@@ -46,7 +46,7 @@ This guide covers a number of topics related to configuration:
 
 and more.
 
-Since configuration affects many areas of the system, including plugins, individual [documentation guides](./documentation)
+Since configuration affects many areas of the system, including plugins, individual [documentation guides](./index.md)
 dive deeper into what can be configured. [Runtime Tuning](./runtime) is a companion to this guide that focuses
 on the configurable parameters in the runtime. [Production Checklist](./production-checklist) is a related guide
 that outlines what settings will likely need tuning in most production environments.
@@ -236,7 +236,7 @@ Together, these steps help quickly narrow down most common misconfiguration prob
 
 ### The Modern and Old Config File Formats {#config-file-formats}
 
-All [supported RabbitMQ versions](./versions) use an [ini-like, sysctl configuration file format](#config-file)
+All [supported RabbitMQ versions](/release-information/versions) use an [ini-like, sysctl configuration file format](#config-file)
 for the main configuration file. The file is typically named `rabbitmq.conf`.
 
 The new config format is much simpler, easier for humans to read
@@ -390,7 +390,7 @@ ls -lh /path/to/a/custom/location/rabbitmq/conf.d
 
 ### Environment Variable Interpolation in `rabbitmq.conf` {#env-variable-interpolation}
 
-[Modern RabbitMQ versions](./versions) support environment variable interpolation in `rabbitmq.conf`. For example,
+[Modern RabbitMQ versions](/release-information/versions) support environment variable interpolation in `rabbitmq.conf`. For example,
 to override default user credentials, one can use [import a definition file](./definitions)
 or the following config file in combination with two environment variables:
 
@@ -1799,7 +1799,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       file sets `kernel.inet_dist_listen_min` or
       `kernel.inet_dist_listen_max` keys.
       See <a href="./networking">Networking</a> for details, and
-      <a href="./windows-quirks">Windows Quirks</a> for Windows-specific details.
+      <a href="./windows-configuration">Windows Configuration</a> for Windows-specific details.
 
       <p>
         <strong>Default</strong>: `RABBITMQ_NODE_PORT + 20000`

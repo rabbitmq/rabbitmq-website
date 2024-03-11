@@ -113,7 +113,7 @@ when the effects should survive a node restart.
 ### Absolute and Relative Free Disk Space Low Watermark
 
 When both `disk_free_limit.absolute` and `disk_free_limit.relative` values are set
-by accident, in all [supported RabbitMQ versions](./versions), the former will take precedence.
+by accident, in all [supported RabbitMQ versions](/release-information/versions), the former will take precedence.
 
 `disk_free_limit.absolute` is the recommended of the two options because it is easier
 to reason about.

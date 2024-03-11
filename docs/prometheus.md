@@ -269,7 +269,7 @@ Most metrics have a help icon in the top-left corner of the panel.
 
 ![RabbitMQ Overview Dashboard Single-stat](/img/rabbitmq-overview-dashboard-disk-documentation.png)
 
-Some, like the available disk space metric, link to dedicated pages in [RabbitMQ documentation](./documentation).
+Some, like the available disk space metric, link to dedicated pages in [RabbitMQ documentation](./index.md).
 These pages contain information relevant to the metric. Getting familiar with the linked guides
 is highly recommended and will help the operator understand what the metric means better.
 

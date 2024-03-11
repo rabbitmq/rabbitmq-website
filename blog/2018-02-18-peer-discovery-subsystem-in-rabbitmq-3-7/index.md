@@ -5,7 +5,7 @@ authors: [mklishin]
 ---
 
 In this blog post we're going to take a closer look at a new
-subsystem introduced in [RabbitMQ 3.7.0](/docs/changelog).
+subsystem introduced in [RabbitMQ 3.7.0](/release-information/changelog).
 
 <!-- truncate -->
 

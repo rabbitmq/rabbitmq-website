@@ -1,5 +1,5 @@
 ---
-title: Signatures
+title: Package Signatures
 displayed_sidebar: docsSidebar
 ---
 <!--
@@ -19,7 +19,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Signatures
+# Package Signatures
 
 ## Overview {#overview}
 

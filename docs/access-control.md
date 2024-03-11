@@ -710,7 +710,7 @@ and <code>RABBIT-CR-DEMO</code>, and one — <code>EXTERNAL</code> —
 available as a [plugin](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl).
 
 More authentication mechanisms can be provided by plugins. See
-the [plugin development guide](./plugin-development) for more information on general plugin
+the [plugin development guide](/plugin-development) for more information on general plugin
 development.
 
 ### Built-in Authentication Mechanisms {#available-mechanisms}

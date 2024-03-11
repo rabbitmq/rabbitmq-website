@@ -93,7 +93,7 @@ Moving to Github also means that now we have a public bug
 tracker. Feel free to submit issues here:
 [https://github.com/rabbitmq/rabbitmq-server/issues](https://github.com/rabbitmq/rabbitmq-server/issues).
 Here's our guide on how we use
-[Git and Github](/docs/github).
+[Git and Github](/github).
 
 ## Move to Erlang.mk
 
@@ -120,7 +120,7 @@ even reduced build times!
 Changing things on our build system, means introducing breaking
 changes on how we build RabbitMQ Plugins. If you are a plugin author,
 you might want to read our new
-[plugin development guide](/docs/plugin-development).
+[plugin development guide](/plugin-development).
 
 ## Security
 

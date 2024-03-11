@@ -1,5 +1,5 @@
 ---
-title: Downloading and Installing RabbitMQ
+title: Installing RabbitMQ
 displayed_sidebar: docsSidebar
 ---
 <!--
@@ -27,10 +27,10 @@ import {
   JavaClientVersion
 } from '@site/src/components/JavaClient';
 
-# Downloading and Installing RabbitMQ
+# Installing RabbitMQ
 
-The latest [release](https://github.com/rabbitmq/rabbitmq-server/releases) of RabbitMQ is <strong><RabbitMQServerVersion/></strong>. See [change log](./changelog) for release notes.
-See [RabbitMQ support timeline](./versions) to find out what release series are supported.
+The latest [release](https://github.com/rabbitmq/rabbitmq-server/releases) of RabbitMQ is <strong><RabbitMQServerVersion/></strong>. See [change log](/release-information/changelog) for release notes.
+See [RabbitMQ support timeline](/release-information/versions) to find out what release series are supported.
 
 Experimenting with RabbitMQ on your workstation? Try the [community Docker image](https://hub.docker.com/_/rabbitmq/):
 
@@ -57,25 +57,25 @@ They are marked as pre-releases on GitHub.
 ## VMware RabbitMQ® (Commercial Edition)
 
  * [VMware RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
- * [VMware RabbitMQ® on Kubernetes](./kubernetes/tanzu/installation)
+ * [VMware RabbitMQ® on Kubernetes](/kubernetes/tanzu/installation)
 
 ## Kubernetes
 
 ### RabbitMQ Cluster Kubernetes Operator
 
-Open source [RabbitMQ Cluster Kubernetes Operator](./kubernetes/operator/operator-overview) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator)):
+Open source [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator)):
 
- * [quickstart guide](./kubernetes/operator/quickstart-operator)
- * [usage guide](./kubernetes/operator/using-operator)
- * [OpenShift-specific topics](./kubernetes/operator/using-on-openshift)
+ * [quickstart guide](/kubernetes/operator/quickstart-operator)
+ * [usage guide](/kubernetes/operator/using-operator)
+ * [OpenShift-specific topics](/kubernetes/operator/using-on-openshift)
  * [examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples)
 
 ### RabbitMQ Topology Kubernetes Operator
 
-Open source [RabbitMQ Topology Kubernetes Operator](./kubernetes/operator/using-topology-operator) by VMware (developed [on GitHub](https://github.com/rabbitmq/messaging-topology-operator)):
+Open source [RabbitMQ Topology Kubernetes Operator](/kubernetes/operator/using-topology-operator) by VMware (developed [on GitHub](https://github.com/rabbitmq/messaging-topology-operator)):
 
- * [installation guide](./kubernetes/operator/install-topology-operator)
- * [usage guide](./kubernetes/operator/using-topology-operator)
+ * [installation guide](/kubernetes/operator/install-topology-operator)
+ * [usage guide](/kubernetes/operator/using-topology-operator)
 
 
 Other guides related to Kubernetes:
@@ -91,8 +91,8 @@ Other guides related to Kubernetes:
 ## Cloud
 
  * [VMware RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
- * [RabbitMQ Cluster Kubernetes Operator](./kubernetes/operator/install-operator) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
- * [VMware RabbitMQ® on Kubernetes](./kubernetes/tanzu/installation)
+ * [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/install-operator) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
+ * [VMware RabbitMQ® on Kubernetes](/kubernetes/tanzu/installation)
  * [CloudAMQP](https://www.cloudamqp.com): RabbitMQ-as-a-Service available in multiple clouds
  * [Amazon MQ for RabbitMQ](https://aws.amazon.com/amazon-mq/)
  * [Amazon EC2](./ec2)
@@ -131,9 +131,9 @@ Other guides related to Kubernetes:
 
  * On Maven Central: [RabbitMQ Java client](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.rabbitmq%22%20AND%20a%3A%22amqp-client%22)
  * Quick download: <a href={`https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/${JavaClientVersion()}/amqp-client-${JavaClientVersion()}.jar`}>Maven.org</a>
- * [API guide](./api-guide)
+ * [API guide](/client-libraries/java-api-guide)
  * [API reference](https://rabbitmq.github.io/rabbitmq-java-client/api/current/) (JavaDoc)
- * [License and other information](./java-client)
+ * [License and other information](/client-libraries/java-client)
  * [Older versions](https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/)
 
 ### Java [Stream Protocol](./streams) Client
@@ -147,9 +147,9 @@ Other guides related to Kubernetes:
 ### .NET/C# Client
 
  * On NuGet: [RabbitMQ .NET Client](https://www.nuget.org/packages/RabbitMQ.Client)
- * [API guide](./dotnet-api-guide)
+ * [API guide](/client-libraries/dotnet-api-guide)
  * [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/)
- * [License and other information](./dotnet)
+ * [License and other information](/client-libraries/dotnet)
  * [Older versions](https://github.com/rabbitmq/rabbitmq-dotnet-client/releases)
 
 ### .NET/C# [Stream Protocol](./streams) Client
@@ -162,7 +162,7 @@ Other guides related to Kubernetes:
 
 ### Clients for Other Languages
 
-The RabbitMQ community has created a large number of [clients and developer tools](./devtools)
+The RabbitMQ community has created a large number of [clients and developer tools](/client-libraries/devtools)
 covering a variety of platforms and languages.
 
 
@@ -171,7 +171,7 @@ covering a variety of platforms and languages.
 For your convenience, we offer binary downloads of various
 plugins developed by the community.
 
- * [Description of available plugins](./community-plugins)
+ * [Description of available plugins](/community-plugins)
 
 ## Snapshot (Alpha) Builds
 

@@ -57,7 +57,7 @@ The following mechanisms are built into the core and always available:
  * [Pre-configured DNS A/AAAA records](#peer-discovery-dns)
 
 Additional peer discovery mechanisms are available via plugins. The following
-peer discovery plugins ship with [supported RabbitMQ versions](./versions):
+peer discovery plugins ship with [supported RabbitMQ versions](/release-information/versions):
 
  * [AWS (EC2)](#peer-discovery-aws)
  * [Kubernetes](#peer-discovery-k8s)

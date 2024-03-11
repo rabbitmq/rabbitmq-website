@@ -1,5 +1,6 @@
 ---
 title: Broker Semantics
+displayed_sidebar: docsSidebar
 ---
 <div id="left-content">
     <p class="intro">

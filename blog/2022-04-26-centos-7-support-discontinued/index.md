@@ -34,7 +34,7 @@ and [Centos Stream 9](https://centos.org/stream9/) (when it goes GA).
 
  * The upcoming [RabbitMQ 3.10](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0-rc.4) release will not include packages for CentOS 7.
  * Any new patch releases of RabbitMQ 3.9 starting with 3.9.17 and of RabbitMQ 3.8 starting with 3.8.31 will not include packages for CentOS 7.
-   Learn more about [RabbitMQ release series](/docs/versions) in RabbitMQ documentation.
+   Learn more about [RabbitMQ release series](/release-information/versions) in RabbitMQ documentation.
  * [Erlang RPM packages](https://github.com/rabbitmq/erlang-rpm) of Erlang 24.3 produced by our team
     now provide packages compatible with [Fedora](https://getfedora.org/), [Rocky Linux](https://rockylinux.org/), [CentOS Stream 8](https://www.centos.org/centos-stream/),
     and [Centos Stream 9](https://centos.org/stream9/).

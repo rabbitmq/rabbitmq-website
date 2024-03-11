@@ -8,7 +8,7 @@ RabbitMQ 3.11 will bring a noteworthy feature to streams: single active consumer
 Single active consumer provides _exclusive consumption_ and _consumption continuity_ on a stream.
 It is also critical to get the most out of [super streams](/blog/2022/07/13/rabbitmq-3-11-feature-preview-super-streams), our solution for partitioning, that provide scalability for streams.
 
-Read on to find out more about single active consumer for streams and don't hesitate to experiment with what is already available: [try it](/blog/2022/07/05/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams#setting-up-the-sample-project), break it, [tell us](/docs/contact) what you like and don't like, what's missing.
+Read on to find out more about single active consumer for streams and don't hesitate to experiment with what is already available: [try it](/blog/2022/07/05/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams#setting-up-the-sample-project), break it, [tell us](/contact) what you like and don't like, what's missing.
 Your feedback is essential to make this feature the best it can be.
 
 <!-- truncate -->
@@ -297,7 +297,7 @@ If the active consumer instance goes down, the next instance will automatically 
 
 Don't hesitate to [run the demonstration](#setting-up-the-sample-project), the [source code is available](https://github.com/acogoluegnes/rabbitmq-stream-single-active-consumer).
 You can also experiment on your own, the support for single active consumer in the stream Java client is [documented](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#single-active-consumer) and the continuously-built [Docker image is available](#setting-up-the-sample-project).
-We are excited to share this new feature with the RabbitMQ community and we can't wait to hear [some feedback](/docs/contact) before RabbitMQ 3.11 goes GA later this year.
+We are excited to share this new feature with the RabbitMQ community and we can't wait to hear [some feedback](/contact) before RabbitMQ 3.11 goes GA later this year.
 
 We will follow up shortly with a blog post on another RabbitMQ 3.11 feature: [super streams](/blog/2022/07/13/rabbitmq-3-11-feature-preview-super-streams), our solution to scale out streams.
 Stay tuned!

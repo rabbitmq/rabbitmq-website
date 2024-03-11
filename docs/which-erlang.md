@@ -1,5 +1,5 @@
 ---
-title: RabbitMQ Erlang Version Requirements
+title: Erlang Version Requirements
 displayed_sidebar: docsSidebar
 ---
 <!--
@@ -19,7 +19,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# RabbitMQ Erlang Version Requirements
+# Erlang Version Requirements
 
 ## Introduction {#intro}
 
@@ -45,7 +45,7 @@ The table below provides an Erlang compatibility matrix of currently supported R
 For RabbitMQ releases that have reached end of life, see [Unsupported Series Compatibility Matrix](#eol-series).
 
 <table class="matrix">
-  <th><a href="./versions">RabbitMQ version</a></th>
+  <th><a href="/release-information/versions">RabbitMQ version</a></th>
   <th>Minimum required Erlang/OTP</th>
   <th>Maximum supported Erlang/OTP</th>
   <th>Notes</th>
@@ -309,7 +309,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
 ### Unsupported RabbitMQ Series {#eol-series}
 
 <table class="matrix">
-  <th><a href="./changelog">Unsupported RabbitMQ Series</a></th>
+  <th><a href="/release-information/changelog">Unsupported RabbitMQ Series</a></th>
   <th>Minimum required Erlang/OTP</th>
   <th>Maximum supported Erlang/OTP</th>
   <th>Notes</th>

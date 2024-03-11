@@ -102,7 +102,7 @@ The last few tests are less interesting. They were introduced to look for issues
 These tests were conducted using the following environment:
 
 * A GKE cluster with e2-standard-16 nodes
-* RabbitMQ clusters deployed using [our Kubernetes Operator](/docs/kubernetes/operator/operator-overview) with the following resources and configuration
+* RabbitMQ clusters deployed using [our Kubernetes Operator](/kubernetes/operator/operator-overview) with the following resources and configuration
 
 ```yaml
 apiVersion: rabbitmq.com/v1beta1

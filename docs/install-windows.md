@@ -44,9 +44,9 @@ The guide also covers a few post-installation topics in the context of Windows:
  * [Log file location](#server-logs)
  * [Default user limitations](#default-user-access)
 
- and more. These topics are covered in more details in the [rest of documentation guides](./documentation).
+ and more. These topics are covered in more details in the [rest of documentation guides](./index.md).
 
-A separate companion guide covers known [Windows-specific issues](./windows-quirks)
+A separate companion guide covers known [Windows Configuration](./windows-configuration)
 and ways to mitigate them.
 
 
@@ -70,7 +70,7 @@ The Chocolatey RabbitMQ package is open source and can be [found on GitHub](http
 
 ## Using the Installer {#installer}
 
-The official RabbitMQ installer is produced for [every RabbitMQ release](./changelog).
+The official RabbitMQ installer is produced for [every RabbitMQ release](/release-information/changelog).
 
 Compared to [installation via Chocolatey](#chocolatey), this option gives Windows users
 the most flexibility but also requires them to be
@@ -86,7 +86,7 @@ aware of certain assumptions and requirements in the installer:
 When these conditions are not met, Windows service and CLI tools may require
 reinstallation or other manual steps to get them to function as expected.
 
-This is covered in more detail in the [Windows-specific Issues](./windows-quirks) guide.
+This is covered in more detail in the [Windows Configuration](./windows-configuration) guide.
 
 ### Dependencies
 

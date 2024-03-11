@@ -52,7 +52,7 @@ that offers high availability via replication and focuses on data safety.
 From RabbitMQ 3.10 onwwards, quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and
 provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues.
 
-[Streams](./streams) are another messaging data structure available as of [RabbitMQ 3.9](./changelog),
+[Streams](./streams) are another messaging data structure available as of [RabbitMQ 3.9](/release-information/changelog),
 and is also replicated.
 
 ## A Deeper Dive into Lazy Queues {#overview}

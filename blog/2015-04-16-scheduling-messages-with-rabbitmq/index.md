@@ -23,7 +23,7 @@ users choses to do so. Let's see how it works.
 ## Installing the Plugin
 
 To install the plugin go to our
-[Community Plugins page](/docs/community-plugins)
+[Community Plugins page](/community-plugins)
 and download the corresponding .ez files for your RabbitMQ
 installation. Copy the plugin into RabbitMQ's plugin folder and then
 enable it by running the following command:

@@ -46,7 +46,7 @@ worth bearing in mind:
  * Use 64-bit instances.
  * Depending on the workload and settings, RabbitMQ can require substantial amounts of memory.
 	 Make sure that your host does have an [appropriate amount of RAM](./memory) and always have
-	 at least a few gigabytes of swap space enabled. Workloads can be simulated using [PerfTest](./java-tools).
+	 at least a few gigabytes of swap space enabled. Workloads can be simulated using [PerfTest](/client-libraries/java-tools).
    A separate guide on [reasoning about node memory usage](./memory-use) is available.
  * RabbitMQ generally will take advantage of all the CPU cores
 	in the system provided the workload uses [multiple queues](./queues).
