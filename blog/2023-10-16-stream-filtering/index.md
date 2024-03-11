@@ -1,6 +1,6 @@
 ---
 title: "Stream Filtering"
-tags: ["Streams", "Programming Languages", "New Features", ]
+tags: ["Streams", "Programming Languages", "New Features", "RabbitMQ 3.13.x"]
 authors: [acogoluegnes]
 ---
 

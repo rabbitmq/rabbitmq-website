@@ -1,6 +1,6 @@
 ---
 title: "MQTT 5.0 support is coming in RabbitMQ 3.13"
-tags: ["New Features", "Technical Deep Dive", "MQTT", ]
+tags: ["New Features", "Technical Deep Dive", "MQTT", "RabbitMQ 3.13.x"]
 authors: [dansari]
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: RabbitMQ 3.9.0 release calendar
-tags: ["Announcements", ]
+tags: []
 authors: [jpedron, glazu]
 ---
 

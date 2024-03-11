@@ -1,6 +1,6 @@
 ---
 title: RabbitMQ 3.10 Performance Improvements
-tags: ["Performance", "Announcements", ]
+tags: ["Performance"]
 authors: [kura]
 ---
 
