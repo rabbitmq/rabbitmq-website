@@ -321,7 +321,7 @@ flowchart TD
                   to="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/clustering-compression-rabbitmq.html">intra-cluster
                   data compression</Link>. These features are a must for
                   heavy workloads.</p>
-                <p>For a list of the commercial offerings, take a look at the
+                <p>For a list of the commercial offerings, take a look at
                   the <Link to="https://tanzu.vmware.com/rabbitmq">Ways to run
                   Tanzu RabbitMQ and Free and Open Source RabbitMQ
                   distributions table</Link>.</p>
