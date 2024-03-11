@@ -34,9 +34,9 @@ to Khepri, there will be no partition handling strategy configuration
 just like quorum queues and therefore the semantics of what to do when a
 partition occurs are well defined and not configurable.
 
-:::tip
-The command below enables an experimental feature that cannot be disabled. Do
-not use in production!
+:::warning
+The command below enables an experimental feature that cannot be disabled.
+Do not use it in production unless you have tested it thoroughly!
 
 To enable Khepri (**experimental in 3.13 and non-reversible!**) run:
 ```
