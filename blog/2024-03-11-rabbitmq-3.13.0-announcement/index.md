@@ -22,7 +22,7 @@ will be 4.0!
 ## Experimental Support For Khepri (Mnesia Replacement)
 
 Apart from the new features mentioned in the first paragraph, RabbitMQ 3.13
-includes experimental support for Khepri. Khepri is a new storage backend for
+includes experimental support for [Khepri](https://www.youtube.com/watch?v=whVqpgvep90). Khepri is a new storage backend for
 RabbitMQ metadata that is designed to replace Mnesia. It is not yet ready for
 production use but we encourage users to try it out in test environments and
 provide feedback.
@@ -30,11 +30,11 @@ provide feedback.
 Our plan is to completely remove Mnesia in the future. This should
 significantly improve RabbitMQ tolerance to network partitions. Once we switch
 to Khepri, there will be no partition handling strategy configuration
-(`pause_minority`, `autoheal`, etc) — Khepri is based on the RAFT protocol,
+(`pause_minority`, `autoheal`, etc) — Khepri is based on the Raft protocol,
 just like quorum queues and therefore the semantics of what to do when a
 partition occurs are well defined and not configurable.
 
-:::warning
+:::tip
 The command below enables an experimental feature that cannot be disabled. Do
 not use in production!
 
@@ -54,7 +54,7 @@ issues you run into.
 
 ## Feature Flags
 
-RabbitMQ 3.13.0 includes a few new feature flags. It doesn't however, set any
+RabbitMQ 3.13.0 includes a few new [feature flags](/docs/feature-flags/). It doesn't however, set any
 older flags as required (apart from those that were already required in 3.12 of
 course). Therefore, if you have some feature flags disabled, upgrading from
 3.12 to 3.13 will still work. In the 3.11 -> 3.12 upgrade, some users ran into
@@ -73,7 +73,12 @@ but ultimately decided against it. Therefore, v1 is still the default and v2
 remains an opt-in feature. However, **classic queues v2 are highly
 recommended**! You can upgrade your queues by setting `x-queue-version=2` in a
 policy. To make sure new queues are created as v2 by default, you can set
-`classic_queue.default_version = 2` in the configuration file.
+
+``` ini
+classic_queue.default_version = 2
+```
+
+in [`rabbitmq.conf`](/docs/configure/).
 
 The reason v1 remains the default has nothing to do with any v2 shortcomings
 but rather with the fact that changing the node default led to some back and
@@ -93,7 +98,9 @@ a mostly invisible change in how messages are handled internally. RabbitMQ was
 originally built as an AMQP 0-9-1 broker. However, over the years, support for
 AMQP 1.0, MQTT, STOMP and Streams was added. This led to some internal message
 format conversions since different protocols have mostly similar concepts, but
-differ in the details such as available data types. Message containers
+differ in the details such as available data types.
+
+Message containers are based on a message format from AMQP 1.0 and
 modernize internal message representation with today's multi-protocol
 assumptions and makes all the conversions between protocols explicit.
 
