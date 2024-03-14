@@ -109,7 +109,7 @@ Next we create a channel, which is where most of the API for getting
 things done resides:
 
 ```objectivec
-id&lt;RMQChannel&gt; ch = [conn createChannel];
+id<RMQChannel> ch = [conn createChannel];
 ```
 
 To send, we must declare a queue for us to send to; then we can publish a message
@@ -161,7 +161,7 @@ Note this matches up with the queue that `send` publishes to.
     RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
     [conn start];
 
-    id&lt;RMQChannel&gt; ch = [conn createChannel];
+    id<RMQChannel> ch = [conn createChannel];
 
     RMQQueue *q = [ch queue:@"hello"];
 ```

@@ -181,7 +181,7 @@ nameless one. Here goes the code for
 RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
 [conn start];
 
-id&lt;RMQChannel&gt; ch = [conn createChannel];
+id<RMQChannel> ch = [conn createChannel];
 RMQExchange *x = [ch fanout:@"logs"];
 
 NSString *msg = @"Hello World!";
@@ -205,7 +205,7 @@ The code for `receiveLogs`:
 RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
 [conn start];
 
-id&lt;RMQChannel&gt; ch = [conn createChannel];
+id<RMQChannel> ch = [conn createChannel];
 RMQExchange *x = [ch fanout:@"logs"];
 RMQQueue *q = [ch queue:@"" options:RMQQueueDeclareExclusive];
 

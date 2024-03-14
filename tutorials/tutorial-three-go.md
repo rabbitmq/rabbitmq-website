@@ -411,7 +411,7 @@ func main() {
 If you want to save logs to a file, just open a console and type:
 
 ```bash
-go run receive_logs.go &amp;> logs_from_rabbit.log
+go run receive_logs.go &> logs_from_rabbit.log
 ```
 
 If you wish to see the logs on your screen, spawn a new terminal and run:

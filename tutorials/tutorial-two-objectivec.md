@@ -70,7 +70,7 @@ The implementation remains the same apart from the new parameter:
     RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
     [conn start];
 
-    id&lt;RMQChannel&gt; ch = [conn createChannel];
+    id<RMQChannel> ch = [conn createChannel];
 
     RMQQueue *q = [ch queue:@"hello"];
 
@@ -338,7 +338,7 @@ Final code of our `newTask:` method:
     RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
     [conn start];
 
-    id&lt;RMQChannel&gt; ch = [conn createChannel];
+    id<RMQChannel> ch = [conn createChannel];
 
     RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable];
 
@@ -357,7 +357,7 @@ And our `workerNamed:`:
     RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
     [conn start];
 
-    id&lt;RMQChannel&gt; ch = [conn createChannel];
+    id<RMQChannel> ch = [conn createChannel];
 
     RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable];
 

@@ -116,7 +116,7 @@ The code for `emitLogTopic`:
     RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
     [conn start];
 
-    id&lt;RMQChannel&gt; ch = [conn createChannel];
+    id<RMQChannel> ch = [conn createChannel];
     RMQExchange *x    = [ch topic:@"topic_logs"];
 
     [x publish:[msg dataUsingEncoding:NSUTF8StringEncoding] routingKey:routingKey];
@@ -133,7 +133,7 @@ The code for `receiveLogsTopic`:
     RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
     [conn start];
 
-    id&lt;RMQChannel&gt; ch = [conn createChannel];
+    id<RMQChannel> ch = [conn createChannel];
     RMQExchange *x    = [ch topic:@"topic_logs"];
     RMQQueue *q       = [ch queue:@"" options:RMQQueueDeclareExclusive];
 

@@ -337,7 +337,7 @@ Putting it all together
 Final code of our `new_task.php` file:
 
 ```php
-&lt;?php
+<?php
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
@@ -371,7 +371,7 @@ $connection->close();
 And our `worker.php`:
 
 ```php
-&lt;?php
+<?php
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
