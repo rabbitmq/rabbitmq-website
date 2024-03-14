@@ -217,9 +217,10 @@ feature flags are enabled.
 rabbitmqctl enable_feature_flag &lt;name&gt;
 </pre>
 
-**To enable all feature flags**, use `rabbitmqctl enable_feature_flag all`:
+**To enable all stable feature flags**, use `rabbitmqctl enable_feature_flag all`:
 
 <pre class="lang-bash">
+# will enable all stable feature flags
 rabbitmqctl enable_feature_flag all
 </pre>
 
