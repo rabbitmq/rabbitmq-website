@@ -179,7 +179,7 @@ and it's probably the slowest recursive implementation possible).
 The code for our RPC server [rpc_server.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/rpc_server.php) looks like this:
 
 ```php
-&lt;?php
+<?php
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
@@ -247,7 +247,7 @@ The server code is rather straightforward:
 The code for our RPC client [rpc_client.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/rpc_client.php):
 
 ```php
-&lt;?php
+<?php
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;

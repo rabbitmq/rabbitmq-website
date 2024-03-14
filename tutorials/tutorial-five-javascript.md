@@ -169,7 +169,7 @@ var amqp = require('amqplib/callback_api');
 var args = process.argv.slice(2);
 
 if (args.length == 0) {
-  console.log("Usage: receive_logs_topic.js &lt;facility&gt;.&lt;severity&gt;");
+  console.log("Usage: receive_logs_topic.js <facility>.&lt;severity&gt;");
   process.exit(1);
 }
 

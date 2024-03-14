@@ -195,7 +195,7 @@ nameless one. Here goes the code for
 `emit_log.php` script:
 
 ```php
-&lt;?php
+<?php
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
@@ -232,7 +232,7 @@ but that's okay for us; if no consumer is listening yet we can safely discard th
 The code for `receive_logs.php`:
 
 ```php
-&lt;?php
+<?php
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;

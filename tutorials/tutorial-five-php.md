@@ -127,7 +127,7 @@ The code is almost the same as in the
 The code for `emit_log_topic.php`:
 
 ```php
-&lt;?php
+<?php
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
@@ -157,7 +157,7 @@ $connection->close();
 The code for `receive_logs_topic.php`:
 
 ```php
-&lt;?php
+<?php
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
