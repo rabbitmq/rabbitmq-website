@@ -227,8 +227,9 @@ rabbitmqctl enable_feature_flag <name>
 rabbitmqctl enable_feature_flag all
 ```
 
-:::tip
-Enabling all feature flags only enables stable feature flags and not experimental ones
+:::info
+The `rabbitmqctl enable_feature_flag all` command enables stable feature flags
+only and not experimental ones.
 :::
 
 The `list_feature_flags` command can be used again to verify the feature
