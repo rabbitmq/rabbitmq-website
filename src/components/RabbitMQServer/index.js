@@ -1,21 +1,7 @@
 import React from 'react';
 
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { getReleaseInfo } from '@site/src/components/RabbitMQServerReleaseInfo';
 import { useActiveVersion } from '@docusaurus/plugin-content-docs/client';
-
-function getReleasesInfo() {
-  const {
-    siteConfig: {
-      customFields: {
-        releases: {
-          rabbitmq: releases
-        },
-      },
-    },
-  } = useDocusaurusContext();
-
-  return releases;
-}
 
 function getBranchOrDefault({ branch } = { branch: undefined }) {
   if (branch === undefined) {
@@ -26,7 +12,7 @@ function getBranchOrDefault({ branch } = { branch: undefined }) {
 }
 
 function getActualVersion(props) {
-  const releases = getReleasesInfo();
+  const releases = getReleaseInfo();
   const branch = getBranchOrDefault(props);
 
   const version = releases[branch].version;
@@ -34,7 +20,7 @@ function getActualVersion(props) {
 }
 
 function getPackageRevision(props) {
-  const releases = getReleasesInfo();
+  const releases = getReleaseInfo();
   const branch = getBranchOrDefault(props);
 
   var package_rev;

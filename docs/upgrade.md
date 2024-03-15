@@ -38,7 +38,7 @@ It is important to consider a number of things before upgrading RabbitMQ.
 1. [Caveats](#caveats)
 1. [Handling node restarts](#rabbitmq-restart-handling) in applications
 
-Changes between RabbitMQ versions are documented in the [change log](/release-information/changelog).
+Changes between RabbitMQ versions are documented in the [change log](/release-information).
 
 ## Important Note on Upgrading to 3.12 and 3.13
 
@@ -625,7 +625,7 @@ which do not fit a patch release.
 As soon as a new minor version is released (e.g. 3.7.0), previous version series (3.6)
 will have patch releases for critical bug fixes only.
 
-There will be no new patch releases for [versions after EOL](/release-information/versions).
+There will be no new patch releases for [versions after EOL](/release-information).
 
 Version 3.5.x reached its end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
 It's recommended to always upgrade at least to the latest patch release in a series.

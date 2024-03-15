@@ -26,7 +26,7 @@ const sidebars = {
     {
       type: 'link',
       label: 'Release Information',
-      href: '/release-information/news'
+      href: '/release-information'
     },
     {
       type: 'link',

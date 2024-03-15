@@ -20,7 +20,7 @@ limitations under the License.
 
 # Documentation: Table of Contents
 
-This page summarises the available RabbitMQ documentation for the [latest patch release](/release-information/versions).
+This page summarises the available RabbitMQ documentation for the [latest patch release](/release-information).
 
 ## Installation
 
@@ -51,8 +51,8 @@ RabbitMQ server documentation is organised in a number of guides:
  * [Provisioning Tools](./download.md) (Docker image, Chef cookbook, Puppet module, etc)
  * [Package Signatures](./signatures.md)
  * [Supported Erlang/OTP Versions](./which-erlang.md)
- * [Supported RabbitMQ Versions](/release-information/versions)
- * [Changelog](/release-information/changelog)
+ * [Supported RabbitMQ Versions](/release-information)
+ * [Changelog](/release-information)
  * [Snapshot (Nightly) Builds](./snapshots.md)
 
 #### Operating Systems and Platforms

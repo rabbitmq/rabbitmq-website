@@ -33,7 +33,7 @@ activities such as [upgrades](./upgrade) before going into production.
 ## Overview {#toc}
 
 Production systems have concerns that go beyond configuration: system observability,
-security, application development practices, resource usage, [release support timeline](/release-information/versions), and more.
+security, application development practices, resource usage, [release support timeline](/release-information), and more.
 
 [Monitoring](./monitoring) and metrics are the foundation of a production-grade system.
 Besides helping detect issues, it provides the operator data that can be used

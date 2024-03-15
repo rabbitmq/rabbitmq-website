@@ -1245,7 +1245,7 @@ reverse_dns_lookups = false
 ### Verify Hostname Resolution {#dns-verify-resolution}
 
 Since hostname resolution is a [prerequisite for successful inter-node communication](./clustering#hostname-resolution-requirement),
-starting with [RabbitMQ `3.8.6`](/release-information/changelog), CLI tools provide two commands that help verify
+starting with [RabbitMQ `3.8.6`](/release-information), CLI tools provide two commands that help verify
 that hostname resolution on a node works as expected. The commands are not meant to replace
 [`dig`](https://en.wikipedia.org/wiki/Dig_(command)) and other specialised DNS tools but rather
 provide a way to perform most basic checks while taking [Erlang runtime hostname resolver features](https://erlang.org/doc/apps/erts/inet_cfg.html)

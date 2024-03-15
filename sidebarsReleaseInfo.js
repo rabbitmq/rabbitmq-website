@@ -16,18 +16,8 @@ const sidebars = {
   releaseInfoSidebar: [
     {
       type: 'doc',
-      id: 'news',
-      label: 'Project Announcements',
-    },
-    {
-      type: 'doc',
-      id: 'changelog',
-      label: 'Changelog',
-    },
-    {
-      type: 'doc',
-      id: 'versions',
-      label: 'Support Calendar',
+      id: 'index',
+      label: 'Release Information',
     },
   ],
 };

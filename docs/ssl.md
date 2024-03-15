@@ -1270,7 +1270,7 @@ SSL-Session:
 ### TLSv1.3 {#tls1.3}
 
 [TLSv1.3](https://wiki.openssl.org/index.php/TLS1.3) is a major revision to the TLS protocol. It is the most recent
-and secure option. Prior to [RabbitMQ `3.8.11`](/release-information/changelog), TLSv1.3 support was considered
+and secure option. Prior to [RabbitMQ `3.8.11`](/release-information), TLSv1.3 support was considered
 experimental and was disabled.
 
 TLSv1.3 support requires the node to be [running on Erlang 23](./which-erlang) compiled against a very recent OpenSSL.

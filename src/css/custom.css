@@ -114,4 +114,89 @@ html[data-theme='dark'] .mermaid-msg > rect {
 
 .mermaid-msg {
   font-size: smaller !important;
-};
+}
+
+/* Release Information table. */
+
+.release-information {
+  --ri-color-latest: #d4f4b4;
+  --ri-color-supported: #fef8c6;
+  --ri-color-unsupported: #fdb3ab;
+  --ri-color-future: #c1e6f5;
+}
+
+html[data-theme='dark'] .release-information {
+  --ri-color-latest: #3c7700;
+  --ri-color-supported: #b09e00;
+  --ri-color-unsupported: #880d00;
+  --ri-color-future: #005c82;
+}
+
+.release-links {
+  margin: 0;
+  padding-left: 0;
+}
+
+.release-links > li {
+  float: left;
+  list-style-type: none;
+  margin-left: var(--ifm-table-cell-padding);
+}
+
+.release-links > li + li {
+  margin-top: 0;
+  margin-left: 0.5em;
+  padding-left: 0.5em;
+  border-left: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
+}
+
+.release-date, .release-eos {
+  width: 15%;
+}
+
+.release-information table .supported-release {
+  background-color: var(--ri-color-supported);
+}
+
+.release-information table .latest-release .supported-release {
+  background-color: var(--ri-color-latest);
+}
+
+.release-information table .unsupported-release {
+  background-color: var(--ri-color-unsupported);
+}
+
+.release-information table .future-release .unsupported-release {
+  background-color: var(--ri-color-future);
+}
+
+.release-legend li {
+  list-style-type: none;
+}
+
+.release-legend li:before {
+  content: "";
+  display: inline-block;
+  position: relative;
+  width: 1em;
+  height: 1em;
+  left: -15px;
+  border: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
+  vertical-align: sub;
+}
+
+.release-legend .supported-release:before {
+  background-color: var(--ri-color-supported);
+}
+
+.release-legend .latest-release:before {
+  background-color: var(--ri-color-latest);
+}
+
+.release-legend .unsupported-release:before {
+  background-color: var(--ri-color-unsupported);
+}
+
+.release-legend .future-release:before {
+  background-color: var(--ri-color-future);
+}

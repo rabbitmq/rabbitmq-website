@@ -29,7 +29,7 @@ This guide covers the installation of the [RabbitMQ Cluster Kubernetes Operator]
 The Operator requires
 
 * Kubernetes 1.19 or later (1.25 or later versions are [recommended](/docs/memory-use#page-cache), in particular for environments that use [RabbitMQ Streams](/docs/streams))
-* [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) that provides a [supported release series of RabbitMQ](/release-information/versions)
+* [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) that provides a [supported release series of RabbitMQ](/release-information)
 
 -----
 

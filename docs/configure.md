@@ -236,7 +236,7 @@ Together, these steps help quickly narrow down most common misconfiguration prob
 
 ### The Modern and Old Config File Formats {#config-file-formats}
 
-All [supported RabbitMQ versions](/release-information/versions) use an [ini-like, sysctl configuration file format](#config-file)
+All [supported RabbitMQ versions](/release-information) use an [ini-like, sysctl configuration file format](#config-file)
 for the main configuration file. The file is typically named `rabbitmq.conf`.
 
 The new config format is much simpler, easier for humans to read
@@ -390,7 +390,7 @@ ls -lh /path/to/a/custom/location/rabbitmq/conf.d
 
 ### Environment Variable Interpolation in `rabbitmq.conf` {#env-variable-interpolation}
 
-[Modern RabbitMQ versions](/release-information/versions) support environment variable interpolation in `rabbitmq.conf`. For example,
+[Modern RabbitMQ versions](/release-information) support environment variable interpolation in `rabbitmq.conf`. For example,
 to override default user credentials, one can use [import a definition file](./definitions)
 or the following config file in combination with two environment variables:
 
