@@ -215,13 +215,13 @@ to enable new feature flags. Note that it will be impossible to roll
 back the version or add a cluster member using the old version once new
 feature flags are enabled.
 
-**To enable a feature flag**, use `rabbitmqctl enable_feature_flag`:
+**To enable a feature flag**, use:
 
 ```bash
 rabbitmqctl enable_feature_flag <name>
 ```
 
-**To enable all feature flags**, use `rabbitmqctl enable_feature_flag all`.
+**To enable all stable feature flags**, use:
 
 ```bash
 rabbitmqctl enable_feature_flag all
