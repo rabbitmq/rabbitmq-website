@@ -227,7 +227,7 @@ const sidebars = {
             {
               type: 'doc',
               id: 'lazy-queues',
-              label: 'Lazey Queues',
+              label: 'Lazy Queues',
             },
             {
               type: 'doc',
