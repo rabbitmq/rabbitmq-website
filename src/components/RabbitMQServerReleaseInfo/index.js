@@ -123,12 +123,13 @@ export function RabbitMQServerReleaseInfoTable() {
         {rows}
 
       </table>
-      <p><strong>Legend:</strong></p>
-      <ul className="release-legend">
-        <li className="supported-releaase latest-release">Latest release, fully supported</li>
-        <li className="supported-release">Older release, still supported but upgrade is recommended</li>
-        <li className="unsupported-release">Old release, unsupported</li>
-        {/*<li className="unsupported-release future-release">Future version, unsupported</li>*/}
-      </ul>
+
+      <strong>Legend:</strong>
+      <dl className="release-legend">
+        <dt className="supported-releaase latest-release"></dt><dd>Latest release, fully supported</dd>
+        <dt className="supported-release"></dt><dd>Older release, still supported but upgrade is recommended</dd>
+        <dt className="unsupported-release"></dt><dd>Old release, unsupported</dd>
+        {/*<dt className="unsupported-release future-release"></dt><dd>Future version, unsupported</dd>*/}
+      </dl>
     </div>);
 }

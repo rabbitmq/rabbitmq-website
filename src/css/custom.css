@@ -125,11 +125,19 @@ html[data-theme='dark'] .mermaid-msg > rect {
   --ri-color-future: #c1e6f5;
 }
 
+.release-information td {
+  white-space: nowrap;
+}
+
 html[data-theme='dark'] .release-information {
   --ri-color-latest: #3c7700;
   --ri-color-supported: #b09e00;
   --ri-color-unsupported: #880d00;
   --ri-color-future: #005c82;
+}
+
+.release-eos-subcols th {
+  font-size: smaller;
 }
 
 .release-links {
@@ -138,7 +146,7 @@ html[data-theme='dark'] .release-information {
 }
 
 .release-links > li {
-  float: left;
+  display: inline-block;
   list-style-type: none;
   margin-left: var(--ifm-table-cell-padding);
 }
@@ -170,33 +178,38 @@ html[data-theme='dark'] .release-information {
   background-color: var(--ri-color-future);
 }
 
-.release-legend li {
-  list-style-type: none;
+.release-legend {
+  display: grid;
+  grid-template-columns: max-content auto;
+  margin-top: 0;
+  margin-left: 1em;
 }
 
-.release-legend li:before {
-  content: "";
-  display: inline-block;
-  position: relative;
+.release-legend dt {
+  grid-column-start: 1;
   width: 1em;
   height: 1em;
-  left: -15px;
   border: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
-  vertical-align: sub;
+  margin-top: 0.4em;
 }
 
-.release-legend .supported-release:before {
+.release-legend dt.supported-release {
   background-color: var(--ri-color-supported);
 }
 
-.release-legend .latest-release:before {
+.release-legend dt.latest-release {
   background-color: var(--ri-color-latest);
 }
 
-.release-legend .unsupported-release:before {
+.release-legend dt.unsupported-release {
   background-color: var(--ri-color-unsupported);
 }
 
-.release-legend .future-release:before {
+.release-legend dt.future-release {
   background-color: var(--ri-color-future);
+}
+
+.release-legend dd {
+  grid-column-start: 2;
+  margin-left: 0.5em;
 }
