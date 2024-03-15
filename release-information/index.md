@@ -34,7 +34,9 @@ the release notes of the target release.
 
 <RabbitMQServerReleaseInfoTable/>
 
+:::note
 Older releases that are not in this table are unsupported.
+:::
 
 ## Support Policy {#support-policy}
 
