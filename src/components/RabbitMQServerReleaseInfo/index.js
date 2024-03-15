@@ -113,17 +113,12 @@ export function RabbitMQServerReleaseInfoTable() {
     <div className="release-information">
       <table>
         <tr>
-          <th rowspan="2">Ver.</th>
-          <th rowspan="2">Latest Rel.</th>
-          <th rowspan="2">Links</th>
-          <th rowspan="2">Initial Release</th>
-          <th colspan="2">End of Support</th>
+          <th>Release</th>
+          <th colspan="2">Latest Patch</th>
+          <th>Date of First Release</th>
+          <th>End of Community Support</th>
+          <th>End of Extended Commercial Support</th>
         </tr>
-        <tr>
-          <th>Community</th>
-          <th>Ext. Commercial</th>
-        </tr>
-        <tr></tr>
 
         {rows}
 
