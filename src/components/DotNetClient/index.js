@@ -5,11 +5,11 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 function getActualVersion() {
   const {
     siteConfig: {
-      customFields: {releases},
+      customFields: {releaseBranches},
     },
   } = useDocusaurusContext();
 
-  const version = releases['dotnet'];
+  const version = releaseBranches['dotnet'];
   return version;
 }
 

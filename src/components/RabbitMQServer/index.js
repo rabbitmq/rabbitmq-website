@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getReleaseInfo } from '@site/src/components/RabbitMQServerReleaseInfo';
+import { getLatestRelease, getLatestVersion } from '@site/src/components/RabbitMQServerReleaseInfo';
 import { useActiveVersion } from '@docusaurus/plugin-content-docs/client';
 
 function getBranchOrDefault({ branch } = { branch: undefined }) {
@@ -11,23 +11,20 @@ function getBranchOrDefault({ branch } = { branch: undefined }) {
   return branch;
 }
 
-function getActualVersion(props) {
-  const releases = getReleaseInfo();
+function getLatestVersionForCurrentBranch(props) {
   const branch = getBranchOrDefault(props);
-
-  const version = releases[branch].version;
+  const version = getLatestVersion(branch);
   return version;
 }
 
 function getPackageRevision(props) {
-  const releases = getReleaseInfo();
   const branch = getBranchOrDefault(props);
+  const release = getLatestRelease(branch);
+  const { packageType } = props;
 
   var package_rev;
-  if ('package_revs' in releases[branch] &&
-    packageType in releases[branch]['package_revs']) {
-    const { packageType } = props;
-    package_rev = releases[branch]['package_revs'][packageType];
+  if ('package_revs' in release && packageType in release['package_revs']) {
+    package_rev = release['package_revs'][packageType];
   } else {
     package_rev = '1';
   }
@@ -40,19 +37,19 @@ export function RabbitMQServerProductName() {
 }
 
 export function RabbitMQServerVersion(props = {}) {
-  const version = getActualVersion(props);
+  const version = getLatestVersionForCurrentBranch(props);
   return version;
 }
 
 export function RabbitMQServerGitTag(props = {}) {
-  const version = getActualVersion(props);
+  const version = getLatestVersionForCurrentBranch(props);
   const tag = `v${version}`;
   return tag;
 }
 
 export function RabbitMQServerPackageURL(props) {
   const { packageType } = props;
-  const version = getActualVersion(props);
+  const version = getLatestVersionForCurrentBranch(props);
   const tag = RabbitMQServerGitTag();
   const baseUrl = `https://github.com/rabbitmq/rabbitmq-server/releases/download/${tag}`;
   switch (packageType) {
@@ -100,7 +97,7 @@ export function RabbitMQServerPackageFilename(props) {
 }
 
 export function RabbitMQServerPackageGenUnixDir(props = {}) {
-  const version = getActualVersion(props);
+  const version = getLatestVersionForCurrentBranch(props);
   const dir = `rabbitmq_${version}`;
   return dir;
 }

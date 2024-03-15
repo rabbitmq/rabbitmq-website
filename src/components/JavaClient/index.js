@@ -5,11 +5,11 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 function getActualVersion() {
   const {
     siteConfig: {
-      customFields: {releases},
+      customFields: {releaseBranches},
     },
   } = useDocusaurusContext();
 
-  const version = releases['java'];
+  const version = releaseBranches['java'];
   return version;
 }
 
