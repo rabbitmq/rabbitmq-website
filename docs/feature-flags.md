@@ -334,6 +334,52 @@ The following feature flags are provided by RabbitMQ core.
 
   <tr>
     <td></td>
+    <td></td>
+    <td>khepri_db</td>
+    <td>
+      <p>
+      Enables <a href="https://www.youtube.com/watch?v=whVqpgvep90">Khepri</a>, a currently experimental schema data store
+      with vastly superior peer failure and network split handling characteristics
+      compared to Mnesia.
+      </p>
+
+      <p>
+      Make sure to test Khepri extensively with appropriate workloads before using it in production.
+      </p>
+    </td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td>3.13.0</td>
+    <td>message_containers</td>
+    <td>
+      Enables a new AMQP 1.0-based message format used internally.
+    </td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td>3.13.0</td>
+    <td>detailed_queues_endpoint</td>
+    <td>
+      Introduces the `GET /api/queues/detailed` HTTP API endpoint,
+      reduces the number of metrics served by `GET /api/queues/`
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>3.13.0</td>
+    <td>stream_update_config_command</td>
+    <td>
+      Removes `max_segment_size_bytes` from the list of policy keys that
+      can be dynamically updated for streams. Changing `max_segment_size_bytes` for an existing
+      cluster is not safe, so it is not a good fit for dynamic policy-based updates.
+    </td>
+  </tr>
+
+  <tr>
+    <td></td>
     <td>3.12.0</td>
     <td>restart_streams</td>
     <td>
