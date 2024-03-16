@@ -46,7 +46,9 @@ Feature flags are not meant to be used as a form of cluster configuration.
 After a successful rolling upgrade, users should enable all feature flags.
 
 All feature flags become mandatory (graduate) at some point. For example,
-[RabbitMQ 3.11 requires feature flags introduced in 3.8 to be enabled prior to the upgrade](https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/3.11.0.md#compatibility-notes).
+[RabbitMQ 3.12 requires](https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/3.12.0.md#compatibility-notes) feature flags introduced in the 3.11 series to be enabled prior to the upgrade,
+[RabbitMQ 3.11 graduates](https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/3.11.0.md#compatibility-notes) all 3.8 flags,
+and so on.
 :::
 
 ## Quick summary (TL;DR) {#tldr}
