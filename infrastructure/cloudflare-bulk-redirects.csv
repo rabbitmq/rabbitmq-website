@@ -412,4 +412,5 @@ www.rabbitmq.com/web-stomp.html,https://www.rabbitmq.com/docs/web-stomp,,TRUE,FA
 www.rabbitmq.com/which-erlang.html,https://www.rabbitmq.com/docs/which-erlang,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/windows-quirks.html,https://www.rabbitmq.com/docs/windows-configuration,,TRUE,FALSE,FALSE,FALSE
 
+www.rabbitmq.com/docs/contact,https://www.rabbitmq.com/contact,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/docs/versions,https://www.rabbitmq.com/release-information,,TRUE,FALSE,FALSE,FALSE
