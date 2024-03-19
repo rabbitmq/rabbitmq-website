@@ -57,7 +57,7 @@ const config = {
               release_date: "2024-02-22",
               links: [
                 {
-                  label: "Annoucement",
+                  label: "Announcement",
                   url: "/blog/2024/03/11/rabbitmq-3.13.0-announcement"
                 },
               ],
