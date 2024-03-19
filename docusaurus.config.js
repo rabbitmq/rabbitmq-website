@@ -39,12 +39,11 @@ const config = {
   },
 
   customFields: {
-    releases: {
+    releaseBranches: {
       rabbitmq: {
         // RabbitMQ releases per version declared in Docusaurus ('Next' for the
         // future docs).
         'Next': {
-          //version: '3.13.0',
           // package_revs: {
           //   'debian': '1',
           //   'rpm-el8': '1',
@@ -52,32 +51,42 @@ const config = {
           // }
         },
         '3.13': {
-          version: '3.13.0',
-          links: [
+          releases: [
             {
-              label: "Annoucement",
-              url: "/blog/2024/03/11/rabbitmq-3.13.0-announcement"
+              version: '3.13.0',
+              release_date: "2024-02-22",
+              links: [
+                {
+                  label: "Announcement",
+                  url: "/blog/2024/03/11/rabbitmq-3.13.0-announcement"
+                },
+              ],
             },
           ],
-          first_release: "2024-02-22",
           end_of_community_support: "2025-03-01",
           end_of_commercial_support: "2025-09-01",
         },
         '3.12': {
-          version: '3.12.13',
-          first_release: "2023-06-02",
+          releases: [
+            {version: '3.12.13', release_date: "2024-02-16", },
+            {version: '3.12.0', release_date: "2023-06-02", },
+          ],
           end_of_community_support: "2024-06-30",
           end_of_commercial_support: "2024-12-31",
         },
         '3.11': {
-          version: '3.11.28',
-          first_release: "2022-09-28",
+          releases: [
+            {version: '3.11.28', release_date: "2023-12-22", },
+            {version: '3.11.0', release_date: "2022-09-28", },
+          ],
           end_of_community_support: "2023-12-31",
           end_of_commercial_support: "2024-07-31",
         },
         '3.10': {
-          version: '3.10.25',
-          first_release: "2022-05-03",
+          releases: [
+            {version: '3.10.25', release_date: "2023-07-18", },
+            {version: '3.10.0', release_date: "2022-05-03", },
+          ],
           end_of_community_support: "2022-05-03",
           end_of_commercial_support: "2023-12-31",
         },
@@ -85,7 +94,7 @@ const config = {
 
       // Client releases.
       java: '5.20.0',
-      dotnot: '6.6.0',
+      dotnet: '6.6.0',
     },
   },
 

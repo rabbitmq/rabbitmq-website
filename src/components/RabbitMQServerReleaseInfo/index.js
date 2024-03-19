@@ -2,22 +2,39 @@ import React from 'react';
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
-export function getReleaseInfo() {
+export function getReleaseBranches() {
   const {
     siteConfig: {
       customFields: {
-        releases: {
-          rabbitmq: releases
+        releaseBranches: {
+          rabbitmq: releaseBranches
         },
       },
     },
   } = useDocusaurusContext();
 
-  return releases;
+  return releaseBranches;
+}
+
+export function getReleaseBranch(branch) {
+  const releaseBranches = getReleaseBranches();
+  const releaseBranch = releaseBranches[branch];
+  return releaseBranch;
+}
+
+export function getLatestRelease(branch) {
+  const releaseBranch = getReleaseBranch(branch);
+  const release = releaseBranch.releases[0];
+  return release;
+}
+
+export function getLatestVersion(branch) {
+  const release = getLatestRelease(branch);
+  return release.version;
 }
 
 export function RabbitMQServerReleaseInfoTable() {
-  const releases = getReleaseInfo();
+  const releaseBranches = getReleaseBranches();
 
   const now = Date.now();
   const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -25,23 +42,25 @@ export function RabbitMQServerReleaseInfoTable() {
   var sawLatestRelease = false;
 
   var rows = [];
-  for (const series in releases) {
-    if (series == 'Next') {
+  for (const branch in releaseBranches) {
+    if (branch == 'Next') {
       continue;
     }
 
-    const release = releases[series];
+    const releaseBranch = releaseBranches[branch];
+    const releases = releaseBranch.releases;
+    const lastRelease = releases[0];
 
-    const isReleased = typeof release.first_release !== 'undefined';
+    const isReleased = typeof lastRelease.release_date !== 'undefined';
 
     var links;
     if (isReleased) {
       links = [{
         label: "Release Notes",
-        url: `https://github.com/rabbitmq/rabbitmq-server/releases/tag/v${release.version}`
+        url: `https://github.com/rabbitmq/rabbitmq-server/releases/tag/v${lastRelease.version}`
       }];
-      if (release.links) {
-        links = links.concat(release.links);
+      if (lastRelease.links) {
+        links = links.concat(lastRelease.links);
       }
 
       links = (
@@ -56,20 +75,21 @@ export function RabbitMQServerReleaseInfoTable() {
       links = <></>
     }
 
+    const initialRelease = releases[releases.length - 1];
     var initialReleaseDate;
-    if (release.first_release) {
-      const date = new Date(release.first_release);
+    if (initialRelease.release_date) {
+      const date = new Date(initialRelease.release_date);
       initialReleaseDate = date.toLocaleDateString("en-GB", dateOptions);
     } else {
       initialReleaseDate = <></>;
     }
 
     var endOfSupportDates = [];
-    if (release.end_of_community_support) {
-      endOfSupportDates.push(release.end_of_community_support);
+    if (releaseBranch.end_of_community_support) {
+      endOfSupportDates.push(releaseBranch.end_of_community_support);
     }
-    if (release.end_of_commercial_support) {
-      endOfSupportDates.push(release.end_of_commercial_support);
+    if (releaseBranch.end_of_commercial_support) {
+      endOfSupportDates.push(releaseBranch.end_of_commercial_support);
     }
 
     endOfSupportDates = endOfSupportDates.map(function(rawDate) {
@@ -100,8 +120,8 @@ export function RabbitMQServerReleaseInfoTable() {
 
     rows.push(
       <tr className={latestReleaseClass}>
-        <td class="release-series">{series}</td>
-        <td class="release-patch">{release.version || "-"}</td>
+        <td class="release-branch">{branch}</td>
+        <td class="release-version">{lastRelease.version || "-"}</td>
         <td class="release-links">{links}</td>
         <td class="release-date">{initialReleaseDate}</td>
         {endOfSupportDates}
@@ -113,27 +133,23 @@ export function RabbitMQServerReleaseInfoTable() {
     <div className="release-information">
       <table>
         <tr>
-          <th rowspan="2">Ver.</th>
-          <th rowspan="2">Latest Rel.</th>
-          <th rowspan="2">Links</th>
-          <th rowspan="2">Initial Release</th>
-          <th colspan="2">End of Support</th>
+          <th>Release</th>
+          <th colspan="2">Latest Patch</th>
+          <th>Date of First Release</th>
+          <th>End of Community Support</th>
+          <th>End of Extended Commercial Support</th>
         </tr>
-        <tr>
-          <th>Community</th>
-          <th>Ext. Commercial</th>
-        </tr>
-        <tr></tr>
 
         {rows}
 
       </table>
-      <p><strong>Legend:</strong></p>
-      <ul className="release-legend">
-        <li className="supported-releaase latest-release">Latest release, fully supported</li>
-        <li className="supported-release">Older release, still supported but upgrade is recommended</li>
-        <li className="unsupported-release">Old release, unsupported</li>
-        {/*<li className="unsupported-release future-release">Future version, unsupported</li>*/}
-      </ul>
+
+      <strong>Legend:</strong>
+      <dl className="release-legend">
+        <dt className="supported-releaase latest-release"></dt><dd>Latest release, fully supported</dd>
+        <dt className="supported-release"></dt><dd>Older release, still supported but upgrade is recommended</dd>
+        <dt className="unsupported-release"></dt><dd>Old release, unsupported</dd>
+        {/*<dt className="unsupported-release future-release"></dt><dd>Future version, unsupported</dd>*/}
+      </dl>
     </div>);
 }
