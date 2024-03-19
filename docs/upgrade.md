@@ -98,6 +98,7 @@ Current release series upgrade compatibility with **rolling** upgrade:
 
 | From     | To     | Notes                                                         |
 |----------|--------|---------------------------------------------------------------|
+| 3.12.x   | 3.13.x |                                                               |
 | 3.11.18  | 3.12.x | All feature flags **must** be enabled **before** the upgrade  |
 | 3.10.x   | 3.11.x | Some feature flags **must** be enabled **before** the upgrade |
 | 3.9.x    | 3.10.x |                                                               |
@@ -108,6 +109,7 @@ Current release series upgrade compatibility with **full stop** upgrade:
 
 | From     | To     | Notes                                                        |
 |----------|--------|--------------------------------------------------------------|
+| 3.12.x   | 3.13.x |                                                               |
 | 3.11.18  | 3.12.x | All feature flags should be enabled **before** this upgrade  |
 | 3.10.x   | 3.11.x | Some feature flags should be enabled **before** this upgrade |
 | 3.9.x    | 3.10.x |                                                              |
