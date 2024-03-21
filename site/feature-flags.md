@@ -224,6 +224,8 @@ rabbitmqctl enable_feature_flag &lt;name&gt;
 rabbitmqctl enable_feature_flag all
 </pre>
 
+Note, the `rabbitmqctl enable_feature_flag all` command enables stable feature flags only and not experimental ones.
+
 The `list_feature_flags` command can be used again to verify the feature
 flags' states. Assuming all feature flags were disabled initially, here
 is the state after enabling the `quorum_queue` feature flag:
