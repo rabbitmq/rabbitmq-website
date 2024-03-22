@@ -320,9 +320,8 @@ all cluster nodes.
 ## Grow-then-Shrink Upgrades {#grow-then-shrink}
 
 :::note
-This strategy has comparable safety characteristics as the in-place upgrade one but
-is can be difficult to reason about and automate. When in doubt, prefer in-place
-upgrades or Blue/Green deployment upgrades
+This strategy has comparable safety characteristics as the in-place upgrade one but can be harder to reason about and automate. 
+When in doubt, prefer in-place upgrades or Blue/Green deployment upgrades
 :::
 
 A Grow-then-Shrink upgrade usually involves the following steps. Consider a three node cluster with nodes
@@ -358,8 +357,8 @@ In order to safely perform a grow-then-shrink upgrade, a few precautions must be
 
 In order to safely perform a grow-then-shrink upgrade, a few precautions must be taken:
 
- * After a new node was added and a replica extension process is initiated, the process must
-   be given enough to complete
+ * After a new node is added and a replica extension process is initiated, the process must
+   be given enough time to complete
  * Before a node is removed, a health check must be run to ensure that it is not quorum critical for any queues (or streams):
    that is, that the removal of the node will not leave any quorum queues or streams without an online majority
  * Nodes must be removed from the cluster explicitly using `rabbitmqctl forget_cluster_node`
@@ -440,7 +439,7 @@ This feature is expected to evolve based on the feedback from RabbitMQ operators
 and RabbitMQ core team's own experience with it.
 
 A node in maintenance mode is expected to be shut down, upgraded or reconfigured, and restarted in a short
-period of time (say, 5-30 minutes). Nodes are not expected to be running in this mode for long periods of time.
+period (say, 5-30 minutes). Nodes are not expected to run in this mode for long periods.
 
 ### Revive a Node from Maintenance Mode
 
@@ -470,7 +469,7 @@ to clients, but clients will be able to reconnect to it.
 If the maintenance mode status feature flag is enabled, node maintenance status will be reported
 in `rabbitmq-diagnostics status` and `rabbitmq-diagnostics cluster_status`.
 
-If the feature flag is not enabled, the status will be reported as unknown.
+The status will be reported as unknown if the feature flag is not enabled.
 
 Here's an example `rabbitmq-diagnostics status` output of a node under maintenance:
 
@@ -543,11 +542,11 @@ A node that suffered from the above bugs will fail to shut down and stop respond
 connections, including those of CLI tools. Such node's OS process has to be terminated
 (e.g. using `kill -9` on UNIX systems).
 
-Please note that in the presence of many messages it can take a node several minutes to shut down
+Please note that in the presence of many messages, it can take a node several minutes to shut down
 cleanly, so if a node responds to CLI tool commands it could be performing various shutdown activities
 such as moving enqueued messages to disk.
 
-The following commands can be used to verify whether a node is experience the above bugs.
+The following commands can be used to verify whether a node is experiencing the above bugs.
 An affected node will not respond to CLI connections in a reasonable amount of time
 when performing the following basic commands:
 
@@ -562,7 +561,7 @@ rabbitmq-diagnostics status
 be online for any queue operations to succeed. This includes successful new leader election should
 a cluster node that hosts some leaders shut down.
 
-In the context of rolling upgrades this means that a quorum of nodes must be present at all times
+In the context of rolling upgrades, this means that a quorum of nodes must be present at all times
 during an upgrade. If this is not the case, quorum queues will become unavailable and will be not
 able to satisfy their data safety guarantees.
 
@@ -578,7 +577,7 @@ rabbitmq-diagnostics check_if_node_is_quorum_critical
 For example, consider a three node cluster with nodes A, B, and C. If node B is currently down
 and there are quorum queues with leader replica on node A, this check will fail if executed
 against node A. When node B comes back online, the same check would succeed because
-the quorum queues with leader on node A would have a quorum of replicas online.
+the quorum queues with the leader on node A would have a quorum of replicas online.
 
 Quorum queue quorum state can be verified by listing queues in the management UI or using `rabbitmq-queues`:
 
