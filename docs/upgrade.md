@@ -51,10 +51,13 @@ The upgrade will fail if you miss this step.
 ## Basics {#basics}
 
 There are two major upgrade scenarios that are covered in this guide: a [single node](#single-node-upgrade) and a [cluster](#multiple-nodes-upgrade),
-and two most commonly used strategies:
+as well as several most commonly used strategies:
 
  * In-place upgrade where each node is upgraded with its existing on disk data
  * [Blue-green deployment](./blue-green-upgrade) where a new cluster is created and existing data is migrated to it
+ * A grow-then-shrink approache where one or more new nodes are added to the cluster, then the old nodes are removed from it
+
+Below is a brief overview of the common strategies. The rest of the guide covers each strategy in more detail.
 
 ### In-place Upgrades
 
@@ -63,15 +66,15 @@ by an operator. Each step is covered in more detail later in this guide. An inte
 list of steps would include:
 
  * Investigate if the current and target versions have an in-place upgrade path: check [version upgradability](#rabbitmq-version-upgradability), [Erlang version requirements](#rabbitmq-erlang-version-requirement), release notes, [features that do not support in-place upgrades](#unsupported-inplace-upgrade), and [known caveats](#caveats)
- * Check that the node or cluster is in a good state in order to be upgraded: no [alarms](./alarms) are in effect, no ongoing queue synchronisation operations
+ * Check that the node or cluster is in a good state in order to be upgraded: no [alarms](./alarms) are in effect, no ongoing queue or stream replica sync operations
    and the system is otherwise under a reasonable load
  * Stop the node
  * Upgrade RabbitMQ and, if applicable, Erlang
  * Start the node
  * Watch [monitoring and health check](./monitoring) data to assess the health and recovery of the upgraded node or cluster
 
-[Rolling upgrades](#rolling-upgrades) between certain versions are not supported. [Full Stop Upgrades](#full-stop-upgrades) covers
-the process for those cases.
+[Rolling upgrades](#rolling-upgrades) between certain versions are not supported. [Full Stop Upgrades](#full-stop-upgrades)
+and the [Blue/Green deployment](./blue-green-upgrade) upgrade strategy cover the two options available for those cases.
 
 ### Blue-Green Deployment Upgrades
 
@@ -79,7 +82,26 @@ the process for those cases.
 temporary increasing infrastructure footprint. The safety aspect comes from the fact that the operator
 can abort an upgrade by switching applications back to the existing cluster.
 
-The rest of the guide covers each upgrade step in more details.
+### Grow-then-Shrink Upgrades
+
+A [grow-and-shrink upgrade](#grow-then-shrink) usually involves the following steps. Consider a there node cluster with nodes
+A, B, and C:
+
+ * Add a new node, node D, to the cluster
+ * Place a new replica of every quorum queue and every stream to the new node using commands such as `rabbitmq-queues grow`
+ * Check that the cluster is in a good state: no [alarms](./alarms) are in effect, no ongoing queue or stream replica sync operations
+   and the system is otherwise under a reasonable load
+ * Remove node A from the cluster using `rabbitmqctl forget_cluster_node`
+ * Add a new node, node E, to the cluster
+ * Place a new replica of every quorum queue and every stream to the new node using commands such as `rabbitmq-queues grow`
+ * Check that the cluster is in a good state
+ * Remove node B from the cluster using `rabbitmqctl forget_cluster_node`
+ * and so on
+
+Multiple nodes can be added and removed at a time.
+
+Similarly to [rolling upgrades](#rolling-upgrades), grow-and-shrink upgrades between certain versions are not supported.
+[Full Stop Upgrades](#full-stop-upgrades) and the [Blue/Green deployment](./blue-green-upgrade) upgrade strategy cover the two options available for those cases.
 
 
 ## RabbitMQ Version Upgradability {#rabbitmq-version-upgradability}
@@ -171,6 +193,7 @@ capacity to run the workload with the new version. Always consult with
 the release notes of all versions between the one currently deployed and the
 target one in order to find out about changes which could impact
 your workload and resource usage.
+
 
 ## Single Node and Cluster Upgrades {#clusters}
 
@@ -279,7 +302,7 @@ It's not recommended to perform rolling upgrades under high load.
 Nodes can be put into maintenance mode to prepare them for
 shutdown during rolling upgrades. This is covered below.
 
-### After Restarting All Nodes {#}
+### After Restarting All Nodes {#after-restarting}
 
 After performing a rolling upgrade and putting the last node out of [maintenence mode](#maintenance-mode),
 perform the following steps:
@@ -292,6 +315,80 @@ feature flags from certain earlier versions to be enabled.
 
 Rebalancing of queue and stream leader replicas helps spread the load across
 all cluster nodes.
+
+
+## Grow-then-Shrink Upgrades {#grow-then-shrink}
+
+:::note
+This strategy has comparable safety characteristics as the in-place upgrade one but
+is can be difficult to reason about and automate. When in doubt, prefer in-place
+upgrades or Blue/Green deployment upgrades
+:::
+
+A Grow-then-Shrink upgrade usually involves the following steps. Consider a there node cluster with nodes
+A, B, and C:
+
+ * Add a new node, node D, to the cluster
+ * Place a new replica of every quorum queue and every stream to the new node using commands such as `rabbitmq-queues grow`
+ * Check that the cluster is in a good state: no [alarms](./alarms) are in effect, no ongoing queue or stream replica sync operations
+   and the system is otherwise under a reasonable load
+ * Remove node A from the cluster using `rabbitmqctl forget_cluster_node`
+ * Add a new node, node E, to the cluster
+ * Place a new replica of every quorum queue and every stream to the new node using commands such as `rabbitmq-queues grow`
+ * Check that the cluster is in a good state
+ * Remove node B from the cluster using `rabbitmqctl forget_cluster_node`
+ * and so on
+
+This approach may seem like one that strikes a good balance between the relative simplicity of
+in-place upgrades and the safety of Blue-Green deployment upgrades. However, in practice this
+strategy has the same safety characteristics as the in-place upgrade one:
+
+ * Newly added nodes may affect the existing cluster state
+ * Replicas will migrate between nodes during the upgrade process
+
+In addition, this approach has its own unique potential risks:
+
+ * Node identities change during the upgrade process, which can affect [historical monitoring data](./monitoring/)
+ * Nodes must transfer their data sets to the newly added members, which can result in a very substantial increase
+   in network traffic
+
+:::warning
+In order to safely perform a grow-then-shrink upgrade, a few precautions must be taken
+:::
+
+In order to safely perform a grow-then-shrink upgrade, a few precautions must be taken:
+
+ * After a new node was added and a replica extension process is initiated, the process must
+   be given enough to complete
+ * Before a node is removed, a health check must be run to ensure that it is not quorum critical for any queues (or streams):
+   that is, that the removal of the node will not leave any quorum queues or streams without an online majority
+ * Nodes must be removed from the cluster explicitly using `rabbitmqctl forget_cluster_node`
+
+To determine if a node is quorum critical, use the following [health check](./monitoring#health-checks):
+
+```bash
+# exits with a non-zero status if shutting down target node would leave some quorum queues
+# or streams without an online majority
+rabbitmq-diagnostics check_if_node_is_quorum_critical
+```
+
+The following [health check](./monitoring#health-checks) must be used to determine if there may be
+any remaining initial quorum queue replica log transfers:
+
+```bash
+# exits with a non-zero status if there are any ongoing initial quorum queue
+# replica sync operations
+rabbitmq-diagnostics check_if_new_quorum_queue_replicas_have_finished_initial_sync
+```
+
+:::tip
+Consider adding and removing a single node at a time
+:::
+
+If multiple nodes are added and removed at a time, the health checks must be performed on all of them.
+Removing multiple nodes at a time is more likely to leave certain quorum queues or streams without
+an online majority, therefore it is highly recommended to add and remove a single node at a time.
+
 
 
 ## Maintenance Mode {#maintenance-mode}
