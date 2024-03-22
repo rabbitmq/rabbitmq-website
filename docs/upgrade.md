@@ -55,11 +55,11 @@ as well as several most commonly used strategies:
 
  * In-place upgrade where each node is upgraded with its existing on disk data
  * [Blue-green deployment](./blue-green-upgrade) where a new cluster is created and existing data is migrated to it
- * A grow-then-shrink approache where one or more new nodes are added to the cluster, then the old nodes are removed from it
+ * A grow-then-shrink approach where one or more new nodes are added to the cluster, then the old nodes are eventually removed
 
 Below is a brief overview of the common strategies. The rest of the guide covers each strategy in more detail.
 
-### In-place Upgrades
+### In-place Upgrades {#in-place}
 
 An in-place upgrade usually involves the following steps performed by a deployment tool or manually
 by an operator. Each step is covered in more detail later in this guide. An intentionally oversimplified
@@ -320,9 +320,12 @@ all cluster nodes.
 ## Grow-then-Shrink Upgrades {#grow-then-shrink}
 
 :::note
-This strategy has comparable safety characteristics as the in-place upgrade one but
-is can be difficult to reason about and automate. When in doubt, prefer in-place
-upgrades or Blue/Green deployment upgrades
+This strategy involves node identity changes and replica transfers to the newly added nodes.
+
+With quorum queues and streams that have large data sets, this means that the cluster will
+experience substantial network traffic volume and disk I/O spikes that a rolling in-place upgrade would not.
+
+Consider using [in-place upgrades]](#in-place) or [Blue/Green deployment upgrades](./blue-green-upgrade) instead.
 :::
 
 A Grow-then-Shrink upgrade usually involves the following steps. Consider a three node cluster with nodes
@@ -341,7 +344,7 @@ A, B, and C:
 
 This approach may seem like one that strikes a good balance between the relative simplicity of
 in-place upgrades and the safety of Blue-Green deployment upgrades. However, in practice this
-strategy has the same safety characteristics as the in-place upgrade one:
+strategy has comparable characteristics to the in-place upgrade option:
 
  * Newly added nodes may affect the existing cluster state
  * Replicas will migrate between nodes during the upgrade process
@@ -349,20 +352,26 @@ strategy has the same safety characteristics as the in-place upgrade one:
 In addition, this approach has its own unique potential risks:
 
  * Node identities change during the upgrade process, which can affect [historical monitoring data](./monitoring/)
- * Nodes must transfer their data sets to the newly added members, which can result in a very substantial increase
-   in network traffic
+ * Nodes must transfer their data sets to the newly added members, which can result in a **very substantial increase
+   in network traffic and disk I/O**
+ * Premature removal of nodes (see below) can lead to a quorum loss for a subset of quorum queues and streams
 
-:::warning
-In order to safely perform a grow-then-shrink upgrade, a few precautions must be taken
+:::danger
+In order to safely perform a grow-then-shrink upgrade, several precautions must be taken
 :::
 
-In order to safely perform a grow-then-shrink upgrade, a few precautions must be taken:
+In order to safely perform a grow-then-shrink upgrade, several precautions must be taken:
 
- * After a new node was added and a replica extension process is initiated, the process must
-   be given enough to complete
+ * After a new node is added and a replica extension process is initiated, the process must
+   be given enough time to complete
  * Before a node is removed, a health check must be run to ensure that it is not quorum critical for any queues (or streams):
    that is, that the removal of the node will not leave any quorum queues or streams without an online majority
  * Nodes must be removed from the cluster explicitly using `rabbitmqctl forget_cluster_node`
+
+[Streams](./streams/) specifically were not designed for environments where replica (node) identity change is frequent,
+and all replicas can be transferred away and replaced over duration of a single cluster upgrade.
+
+### Key Precautions
 
 To determine if a node is quorum critical, use the following [health check](./monitoring#health-checks):
 
@@ -440,7 +449,8 @@ This feature is expected to evolve based on the feedback from RabbitMQ operators
 and RabbitMQ core team's own experience with it.
 
 A node in maintenance mode is expected to be shut down, upgraded or reconfigured, and restarted in a short
-period of time (say, 5-30 minutes). Nodes are not expected to be running in this mode for long periods of time.
+time window (say, 5-30 minutes). Nodes are not expected to be running in this mode permanently or
+for long periods of time.
 
 ### Revive a Node from Maintenance Mode
 
@@ -469,8 +479,6 @@ to clients, but clients will be able to reconnect to it.
 
 If the maintenance mode status feature flag is enabled, node maintenance status will be reported
 in `rabbitmq-diagnostics status` and `rabbitmq-diagnostics cluster_status`.
-
-If the feature flag is not enabled, the status will be reported as unknown.
 
 Here's an example `rabbitmq-diagnostics status` output of a node under maintenance:
 
@@ -543,11 +551,11 @@ A node that suffered from the above bugs will fail to shut down and stop respond
 connections, including those of CLI tools. Such node's OS process has to be terminated
 (e.g. using `kill -9` on UNIX systems).
 
-Please note that in the presence of many messages it can take a node several minutes to shut down
+In the presence of many messages it can take a node several minutes to shut down
 cleanly, so if a node responds to CLI tool commands it could be performing various shutdown activities
 such as moving enqueued messages to disk.
 
-The following commands can be used to verify whether a node is experience the above bugs.
+The following commands can be used to verify whether a node is affected by the above bugs.
 An affected node will not respond to CLI connections in a reasonable amount of time
 when performing the following basic commands:
 
@@ -562,7 +570,7 @@ rabbitmq-diagnostics status
 be online for any queue operations to succeed. This includes successful new leader election should
 a cluster node that hosts some leaders shut down.
 
-In the context of rolling upgrades this means that a quorum of nodes must be present at all times
+In the context of rolling upgrades, this means that a quorum of nodes must be present at all times
 during an upgrade. If this is not the case, quorum queues will become unavailable and will be not
 able to satisfy their data safety guarantees.
 
@@ -576,7 +584,7 @@ rabbitmq-diagnostics check_if_node_is_quorum_critical
 ```
 
 For example, consider a three node cluster with nodes A, B, and C. If node B is currently down
-and there are quorum queues with leader replica on node A, this check will fail if executed
+and there are quorum queues having their leader replica on node A, this check will fail if executed
 against node A. When node B comes back online, the same check would succeed because
 the quorum queues with leader on node A would have a quorum of replicas online.
 
