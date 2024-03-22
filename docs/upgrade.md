@@ -84,7 +84,7 @@ can abort an upgrade by switching applications back to the existing cluster.
 
 ### Grow-then-Shrink Upgrades
 
-A [grow-and-shrink upgrade](#grow-then-shrink) usually involves the following steps. Consider a there node cluster with nodes
+A [grow-and-shrink upgrade](#grow-then-shrink) usually involves the following steps. Consider a three node cluster with nodes
 A, B, and C:
 
  * Add a new node, node D, to the cluster
@@ -325,7 +325,7 @@ is can be difficult to reason about and automate. When in doubt, prefer in-place
 upgrades or Blue/Green deployment upgrades
 :::
 
-A Grow-then-Shrink upgrade usually involves the following steps. Consider a there node cluster with nodes
+A Grow-then-Shrink upgrade usually involves the following steps. Consider a three node cluster with nodes
 A, B, and C:
 
  * Add a new node, node D, to the cluster
