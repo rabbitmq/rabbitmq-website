@@ -403,7 +403,7 @@ const sidebars = {
         {
           type: 'doc',
           id: 'relocate',
-          label: 'File Directory and Locations',
+          label: 'File and Directory Locations',
         },
         {
           type: 'doc',
