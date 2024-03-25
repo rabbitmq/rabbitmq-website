@@ -22,14 +22,16 @@ limitations under the License.
 
 In some scenarios it is useful for consumers to be able
 to know the identity of the user who published a
-message. We have therefore made sure that
-the <code>user-id</code> message property is validated. If
-this property is set by a publisher, its value must be equal
-to the name of the user used to open the connection. If
-the <code>user-id</code> property is not set, the
-publisher's identity remains private.
+message.
 
-For example (in Java):
+To make this possible, RabbitMQ will validate the <code>user-id</code> message property if it is set.
+In other words, if this property is set by a publisher, its value must be equal
+to the name of the connection's user.
+
+If the <code>user-id</code> property is not set, the
+publisher's identity remains private and no validation will be performed.
+
+## Example (in Java)
 
 ```java
 AMQP.BasicProperties properties = new AMQP.BasicProperties();
@@ -40,15 +42,22 @@ channel.basicPublish("amq.fanout", "", properties, "test".getBytes());
 This message will only be published successfully if the user
 is "guest".
 
+## Additional Layer of Authentication
+
 If security is a serious concern, you should probably
 combine the use of this feature
-with [TLS-enabled](./ssl) connections.
+with [TLS-enabled](./ssl) connections, possibly with peer certificate chain verification
+of clients performed by the server.
+
+## Special Cases: the Impersonator Tag
 
 Occasionally it may be useful to allow an application to forge a
-user-id. In order to permit this, the publishing user can have
+`user-id`. In order to permit this, the publishing user can have
 its <code>impersonator</code> tag set. By default, no users have
 this tag set. In particular, the <code>administrator</code> tag
 does not allow this.
+
+## Federation Interations
 
 The [federation plugin](./federation) can deliver
 messages from an upstream on which the <code>user-id</code>
