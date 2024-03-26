@@ -77,6 +77,8 @@ if the environment variable is set, the configuration key `log.file` will not ha
 RabbitMQ starts logging early on node start. See the [Configuration guide](./configure)
 for a general overview of how to configure RabbitMQ.
 
+The full list of available configuration options can be found in the [example rabbitmq.conf -file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.13.x/deps/rabbit/docs/rabbitmq.conf.example).
+
 ### Logging to a File {#logging-to-a-file}
 
 Logging to a file is one of the most common options for RabbitMQ installations. In modern releases,
