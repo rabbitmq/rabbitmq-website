@@ -124,6 +124,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'How to Use RabbitMQ',
+      link: {type: 'doc', id: 'use-rabbitmq'},
       items: [
         {
           type: 'category',
@@ -389,6 +390,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'How to Manage RabbitMQ',
+      link: {type: 'doc', id: 'manage-rabbitmq'},
       items: [
         {
           type: 'doc',
