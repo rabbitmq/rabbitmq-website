@@ -107,7 +107,7 @@ The following example instructs RabbitMQ to log to a file at the `debug` level:
 log.file.level = debug
 ```
 
-Supported log levels ca be found in the [example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.13.x/deps/rabbit/docs/rabbitmq.conf.example).
+> Supported log levels are discussed in the [Log Levels -section](#log-levels) found below.
 
 Logging to a file can be deactivated with
 
@@ -217,7 +217,7 @@ The following example instructs RabbitMQ to use the `debug` logging level when l
 log.console.level = debug
 ```
 
-Supported log levels ca be found in the [example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.13.x/deps/rabbit/docs/rabbitmq.conf.example).
+> Supported log levels are discussed in the [Log Levels -section](#log-levels) found below.
 
 Logging to console in JSON format:
 
