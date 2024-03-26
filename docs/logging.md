@@ -107,7 +107,7 @@ The following example instructs RabbitMQ to log to a file at the `debug` level:
 log.file.level = debug
 ```
 
-Supported log levels ca be found in the [example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.13.x/deps/rabbit/docs/rabbitmq.conf.example).
+For a list of supported log levels, see [Log Levels](#log-levels).
 
 Logging to a file can be deactivated with
 
@@ -217,7 +217,7 @@ The following example instructs RabbitMQ to use the `debug` logging level when l
 log.console.level = debug
 ```
 
-Supported log levels ca be found in the [example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.13.x/deps/rabbit/docs/rabbitmq.conf.example).
+For a list of supported log levels, see [Log Levels](#log-levels).
 
 Logging to console in JSON format:
 
@@ -430,7 +430,7 @@ The following log levels are used by RabbitMQ:
 | `critical` |               | highest severity |
 | `none`     | least verbose | not applicable   |
 
-Default log level is `info`.
+The default log level is `info`.
 
 If a log message has lower severity than the category level,
 the message will be dropped and not sent to any output.
@@ -515,7 +515,9 @@ was stopped using `rabbitmqctl stop_app`.
 
 ## Activating Debug Logging {#debug-logging}
 
-To activate debug messages, you should have a debug output.
+When debug logging is enabled, the node will log **a lot** of information
+that can be useful for troubleshooting. This log severity is meant to be
+used when troubleshooting, say, the [peer discovery activity](./cluster-formation/).
 
 For example to log debug messages to a file:
 
