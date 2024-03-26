@@ -117,7 +117,7 @@ html[data-theme='dark'] .mermaid-msg > rect {
 }
 
 /* -------------------------------------------------------------------
-/* Docs introductino page.
+ * Docs introductino page.
  * ------------------------------------------------------------------- */
 
 /*
@@ -171,7 +171,7 @@ html[data-theme='dark'] .mermaid-msg > rect {
 }
 
 /* -------------------------------------------------------------------
-/* Release Information table.
+ * Release Information table.
  * ------------------------------------------------------------------- */
 
 .release-information {
@@ -268,4 +268,43 @@ html[data-theme='dark'] .release-information {
 .release-legend dd {
   grid-column-start: 2;
   margin-left: 0.5em;
+}
+
+/* -------------------------------------------------------------------
+ * Trademark guildelines page.
+ * ------------------------------------------------------------------- */
+
+.logos-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logos-gallery img {
+  display: block;
+  height: 35px;
+  border: none;
+  margin: 0px auto;
+}
+
+.logos-gallery figcaption {
+  text-align: center;
+}
+
+.logos-gallery p {
+  margin: 0.5em 0px;
+}
+
+.logos-gallery a {
+  font-style: normal;
+}
+
+@media (min-width: 997px) {
+  .logos-gallery {
+    flex-direction: row;
+  }
+
+  .logos-gallery img {
+    height: 50px;
+  }
 }

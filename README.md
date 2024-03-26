@@ -58,3 +58,18 @@ npm run build
 This is important to run this command before pushing changes to GitHub to make
 sure the build is successful. This is the command that will be used to deploy
 the website in production.
+
+## Copyright and License
+
+© 2007-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to
+Broadcom Inc. and/or its subsidiaries.
+
+<img align="right" width="180" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-nc-nd.eu.svg">
+
+The RabbitMQ documentation is dual-licensed under the Apache License 2.0 and
+the Mozilla Public License 2.0. Users can choose any of these licenses
+according to their needs. However, **the blog is excluded from this license and
+remains the intellectual property of Broadcom Inc.** Blog posts may not be
+restributed.
+
+SPDX-License-Identifier: Apache-2.0 OR MPL-2.0
