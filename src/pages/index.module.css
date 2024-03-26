@@ -138,7 +138,7 @@ html[data-theme='dark'] .heroCta .release_notes_link {
   display: block;
 }
 
-.license section img {
+.license section svg {
   display: block;
   margin-top: var(--ifm-heading-margin-top);
   margin-bottom: var(--ifm-heading-margin-bottom);

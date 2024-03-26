@@ -7,6 +7,8 @@ import TabItem from '@theme/TabItem';
 import Mermaid from '@theme/Mermaid';
 
 import styles from './index.module.css';
+import OSIKeyholeIcon from './assets/OSI_Keyhole.min.svg';
+import CommercialSupportIcon from './assets/commercial-support-icon.svg';
 
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
@@ -293,7 +295,7 @@ flowchart TD
               commercial offerings.</p>
             <div className={styles.flex_columns}>
               <section>
-                <img src="./img/OSI_Keyhole.svg" height="70" alt="" title="open source initiative®"/>
+                <OSIKeyholeIcon/>
                 <Heading as="h2">Free and Open Source</Heading>
                 <p>RabbitMQ is dual-licensed under the Apache License 2.0 and
                   the Mozilla Public License 2. You have the freedom to use and
@@ -306,7 +308,7 @@ flowchart TD
                   to="/github">Contributors page</Link>.</p>
               </section>
               <section>
-                <img src="/img/commercial-support-icon.svg" height="70" alt="" title="Commercial offerings"/>
+                <CommercialSupportIcon/>
                 <Heading as="h2">Commercial offerings</Heading>
                 <p>Broadcom offers <Link
                   to="https://tanzu.vmware.com/rabbitmq/oss">enterprise-grade

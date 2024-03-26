@@ -104,7 +104,7 @@ const sidebars = {
           items: [
             {
               type: 'doc',
-              id: 'feature-flags',
+              id: 'feature-flags/index',
               label: 'Feature Flags',
             },
             {
@@ -129,7 +129,7 @@ const sidebars = {
         {
           type: 'category',
           label: 'Publishing Messages',
-          link: {type: 'doc', id: 'publishers'},
+          link: {type: 'doc', id: 'publishers/index'},
           items: [
             {
               type: 'doc',
@@ -197,7 +197,7 @@ const sidebars = {
           items: [
             {
               type: 'doc',
-              id: 'quorum-queues',
+              id: 'quorum-queues/index',
               label: 'Quorum Queues',
             },
             {
@@ -207,7 +207,7 @@ const sidebars = {
             },
             {
               type: 'doc',
-              id: 'ha',
+              id: 'ha/index',
               label: 'Mirrored Classic Queues',
             },
             {
@@ -222,7 +222,7 @@ const sidebars = {
             },
             {
               type: 'doc',
-              id: 'maxlength',
+              id: 'maxlength/index',
               label: 'Queue Length',
             },
             {
@@ -249,7 +249,7 @@ const sidebars = {
         },
         {
           type: 'doc',
-          id: 'channels',
+          id: 'channels/index',
           label: 'Channels',
         },
         {
@@ -284,12 +284,12 @@ const sidebars = {
               items: [
                 {
                   type: 'doc',
-                  id: 'federated-exchanges',
+                  id: 'federated-exchanges/index',
                   label: 'Federated Exchanges',
                 },
                 {
                   type: 'doc',
-                  id: 'federated-queues',
+                  id: 'federated-queues/index',
                   label: 'Federated Queues',
                 },
                 {
@@ -360,7 +360,7 @@ const sidebars = {
           items: [
             {
               type: 'doc',
-              id: 'connections',
+              id: 'connections/index',
               label: 'Connections',
             },
             {
@@ -481,7 +481,7 @@ const sidebars = {
             },
             {
               type: 'doc',
-              id: 'ssl',
+              id: 'ssl/index',
               label: 'TLS Support',
             },
             {
@@ -529,7 +529,7 @@ const sidebars = {
           items: [
             {
               type: 'doc',
-              id: 'memory-use',
+              id: 'memory-use/index',
               label: 'Analyzing how Memory is Used',
             },
             {
@@ -584,7 +584,7 @@ const sidebars = {
         },
         {
           type: 'doc',
-          id: 'troubleshooting',
+          id: 'troubleshooting/index',
           label: 'Troubleshooting RabbitMQ'
         },
       ],
@@ -592,11 +592,11 @@ const sidebars = {
     {
       type: 'category',
       label: 'How to Monitor RabbitMQ',
-      link: {type: 'doc', id: 'monitoring'},
+      link: {type: 'doc', id: 'monitoring/index'},
       items: [
         {
           type: 'doc',
-          id: 'prometheus',
+          id: 'prometheus/index',
           label: 'Prometheus and Grafana',
         },
         {
