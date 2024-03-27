@@ -1,5 +1,6 @@
 ---
 title: Installing VMware RabbitMQ for Kubernetes
+displayed_sidebar: kubernetesSidebar
 ---
 <!--
 Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
