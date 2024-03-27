@@ -12,6 +12,7 @@ new Crawler({
   startUrls: ["https://www.rabbitmq.com"],
   sitemaps: ["https://www.rabbitmq.com/sitemap.xml"],
   discoveryPatterns: ["https://www.rabbitmq.com/**"],
+  schedule: "at 08:52 on Friday",
   saveBackup: true,
   ignoreCanonicalTo: true,
   ignoreQueryParams: ["source", "utm_*"],
