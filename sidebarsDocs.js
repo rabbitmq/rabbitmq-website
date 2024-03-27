@@ -517,6 +517,11 @@ const sidebars = {
               label: 'Using TLS for Inter-node Traffic',
             },
             {
+              type: 'link',
+              label: 'RabbitMQ on Kubernetes',
+              href: '/kubernetes/operator/operator-overview',
+            },
+            {
               type: 'doc',
               id: 'ec2',
               label: 'RabbitMQ on Amazon EC2',
