@@ -43,6 +43,10 @@ figure img {
   border: 1px solid var(--ifm-toc-border-color);
 }
 
+figure.without-borders img {
+  border: none;
+}
+
 figure figcaption {
   font-style: italic;
 }

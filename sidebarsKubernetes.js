@@ -34,7 +34,7 @@ const sidebars = {
         },
         {
           type: 'doc',
-          id: 'operator/using-operator',
+          id: 'operator/using-operator/index',
           label: 'Using Operator',
         },
         {
