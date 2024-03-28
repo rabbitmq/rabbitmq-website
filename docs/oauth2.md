@@ -2,7 +2,7 @@
 title: OAuth 2.0 Authentication Backend
 ---
 <!--
-Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2007-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -27,32 +27,40 @@ This [RabbitMQ authentication/authorisation backend](./access-control) plugin le
 This guide covers
 
  * [How it works](#how-it-works)
- * [Usage](#usage)
+    * [Prerequisites](#prerequisites)
+    * [Authorization Flow](#authorization-flow)
     * [Variables Configurable in rabbitmq.conf](#variables-configurable)
-    * [Resource Server ID and Scope Prefixes](#resource-server-id)
-    * [Token validation](#token-validation)
+    * [Token Validation](#token-validation)
+    * [Token Expiration and Refresh](#token-expiration)
     * [Scope-to-Permission Translation](#scope-translation)
     * [Topic Exchange scopes](#topic-exchange-scopes)
-    * [Using a different token field for the Scope](#use-different-token-field)
-    * [Using Tokens with Clients](#use-tokens-with-clients)
     * [Scope and Tags](#scope-and-tags)
-    * [Token Expiration and Refresh](#token-expiration)
-    * [Preferred username claims](#preferred-username-claims)
+
+ * [Basic usage](#basic-usage)
+    * [Configure OAuth 2.0 Provider's Issuer](#configure-issuer)
+    * [Configure Signing Keys](#configure-signing-keys)
+    * [Use a Different Token Field for the Scope](#use-different-token-field)
+    * [Preferred Username Claims](#preferred-username-claims)
     * [Rich Authorization Request](#rich-authorization-request)
+
+ * [Advanced usage](#advanced-usage)    
+    * [Use Default OAuth 2.0 Provider](#use-oauth-provider)
+    * [Multiple Resource Servers](#multiple-resource-servers)
+    * [Multiple OAuth Providers](#multiple-oauth-providers)
+
  * [Examples](#examples)
 
 
 ## How it works {#how-it-works}
 
-The OAuth 2 plugin must be enabled (or [pre-configured](./plugins#enabled-plugins-file)) before it can be used,
+The OAuth 2 plugin must be activated (or [pre-configured](./plugins#enabled-plugins-file)) before it can be used,
 like all other plugins:
 
 ```bash
 rabbitmq-plugins enable rabbitmq_auth_backend_oauth2
 ```
 
-Then it must be specified as one of the [authN and authZ backends](./access-control#backends). It can be
-one of the backends or the only one backend, like in the example below:
+Then it must be specified as one of the [authN and/or authZ backends](./access-control#backends). The following example enables OAuth 2.0 authentication and authorization backends:
 
 ```ini
 # note that the module name begins with a "rabbit_", not "rabbitmq_", like in the name
@@ -62,149 +70,87 @@ auth_backends.1 = rabbit_auth_backend_oauth2
 
 Next, let's take a look at the workflows the OAuth 2 plugin supports.
 
-### Authorization Workflow {#authorization-workflow}
-
-This plugin does not communicate with any OAuth 2.0 provider. It decodes an access token provided by the client and authorises a user based on the data stored in the token.
-
-The token can be any [JWT token](https://jwt.io/introduction/) which contains the `scope` and `aud` fields. The way the token was issued (such as what grant type was used) is outside of the scope of this plugin.
-
 ### Prerequisites {#prerequisites}
 
-To use this plugin, all RabbitMQ nodes must be
+To use the OAuth 2 plugin, all RabbitMQ nodes must be
 
-1. [configured to use the rabbit_auth_backend_oauth2 backend](./access-control).
-2. configured with a resource service ID (`resource_server_id`) that matches the scope prefix (e.g. `rabbitmq` in `rabbitmq.read:*/*`).
-3. configured with a signing key used by RabbitMQ to validate the JWT token signatures.
+1. [Configured to use the rabbit_auth_backend_oauth2 backend](./access-control).
+2. Configured with the resource service ID (`resource_server_id`). The RabbitMQ cluster becomes an OAuth 2.0 resource and this is its identifier.
+3. Configured with issuer URL of the OAuth 2.0 provider, or the JWKS URL, or directly with the signing keys that the OAuth 2.0 provider uses to sign tokens
 
-JWT Tokens presented to RabbitMQ for authentication must
+Here is the minimal configuration to support OAuth 2.0 authentication :
+:::info
+To activate it in the Management plugin you need [additional configuration](./management#minimum-configuration).
+:::
 
-1. be digitally signed with either a symmetric or asymmetric key.
-2. have a value in the `aud` field that matches `resource_server_id` value.
-
-
-### Authorization Flow {#authorization-flow-with-scopes}
-
-1. Client requests an `access_token` from the OAuth 2.0 provider,
-2. Token **scope** returned by OAuth 2.0 provider must include RabbitMQ resource scopes that follow a convention used by this plugin: `configure:%2F/foo` means "configure permissions for 'foo' in vhost '/'") (`scope` field can be changed using `extra_scopes_source` in **advanced.config** file.
-3. Client passes the token as password when connecting to a RabbitMQ node. **The username field is ignored**.
-4. The translated permissions are stored as part of the authenticated connection state and used the same way permissions from RabbitMQ's internal database would be used.
-
-## Usage {#usage}
-
-The plugin needs a signing key to be configured in order to verify the token's signature. This is the signing key used by the OAuth 2.0 provider to sign the tokens. RabbitMQ supports two types of signing keys: symmetric and asymmetric.
-
-The examples given below uses [Cloud Foundry UAA](https://github.com/cloudfoundry/uaa) as OAuth 2.0 provider.
-
-To get the signing key from the [OAuth 2.0 provider UAA](https://github.com/cloudfoundry/uaa), use the
-[token_key endpoint](https://docs.cloudfoundry.org/api/uaa/version/4.6.0/index.html#token-key-s)
-or [uaac](https://github.com/cloudfoundry/cf-uaac) (the `uaac signing key` command).
-
-The following fields are required: `kty`, `value`, `alg`, and `kid`.
-
-Assuming UAA reports the following signing key information:
-
-```erlang
-uaac signing key
-  kty: RSA
-  e: AQAB
-  use: sig
-  kid: a-key-ID
-  alg: RS256
-  value: -----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2dP+vRn+Kj+S/oGd49kq
-6+CKNAduCC1raLfTH7B3qjmZYm45yDl+XmgK9CNmHXkho9qvmhdksdzDVsdeDlhK
-IdcIWadhqDzdtn1hj/22iUwrhH0bd475hlKcsiZ+oy/sdgGgAzvmmTQmdMqEXqV2
-B9q9KFBmo4Ahh/6+d4wM1rH9kxl0RvMAKLe+daoIHIjok8hCO4cKQQEw/ErBe4SF
-2cr3wQwCfF1qVu4eAVNVfxfy/uEvG3Q7x005P3TcK+QcYgJxav3lictSi5dyWLgG
-QAvkknWitpRK8KVLypEj5WKej6CF8nq30utn15FQg0JkHoqzwiCqqeen8GIPteI7
-VwIDAQAB
------END PUBLIC KEY-----
-  n: ANnT_r0Z_io_kv6BnePZKuvgijQHbggta2i30x-wd6o5mWJuOcg5fl5oCvQjZh15IaPar5oXZLHcw1bHXg5YSiHXCFmnYag83bZ9YY_9tolMK4R9G3eO-YZSnLImfqMv7HYBoAM75pk0JnTKhF6ldgfavShQZqOAIYf-vneMDNax_ZMZdEbzACi3vnWqCByI6JPIQju
-      HCkEBMPxKwXuEhdnK98EMAnxdalbuHgFTVX8X8v7hLxt0O8dNOT903CvkHGICcWr95YnLUouXcli4BkAL5JJ1oraUSvClS8qRI-Vino-ghfJ6t9LrZ9eRUINCZB6Ks8Igqqnnp_BiD7XiO1c
+```ini
+auth_oauth2.resource_server_id = new_resource_server_id
+auth_oauth2.issuer = https://my-oauth2-provider.com/realm/rabbitmq
 ```
 
-it will translate into the following configuration (in the [advanced RabbitMQ config format](./configure)):
+Based on the previous configuration, JWT Tokens presented to RabbitMQ for authentication must:
 
-```erlang
-[
-  %% ...
-  %% backend configuration
-  {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, <<"my_rabbit_server">>},
-    %% UAA signing key configuration
-    {key_config, [
-      {signing_keys, #{
-        <<"a-key-ID">> => {pem, <<"-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2dP+vRn+Kj+S/oGd49kq
-6+CKNAduCC1raLfTH7B3qjmZYm45yDl+XmgK9CNmHXkho9qvmhdksdzDVsdeDlhK
-IdcIWadhqDzdtn1hj/22iUwrhH0bd475hlKcsiZ+oy/sdgGgAzvmmTQmdMqEXqV2
-B9q9KFBmo4Ahh/6+d4wM1rH9kxl0RvMAKLe+daoIHIjok8hCO4cKQQEw/ErBe4SF
-2cr3wQwCfF1qVu4eAVNVfxfy/uEvG3Q7x005P3TcK+QcYgJxav3lictSi5dyWLgG
-QAvkknWitpRK8KVLypEj5WKej6CF8nq30utn15FQg0JkHoqzwiCqqeen8GIPteI7
-VwIDAQAB
------END PUBLIC KEY-----">>}
-          }}
-      ]}
-    ]}
-].
-```
+1. be digitally signed
+2. have a value in the `aud` field that matches `resource_server_id` value
+3. have scopes that must match the `resource_server_id` value, for example `new_resource_server_id.read:*/*`
 
-If a symmetric key is used, the configuration will look like this:
+Also, the `https://my-oauth2-provider.com/realm/rabbitmq/*.well-known/openid-configuration` endpoint must return the OpenID Provider Configuration which includes the JKWS url to download the signing keys.
+:::info
+*.well-known/openid-configuration* is the OpenID standard path for the OpenID Provider Configuration endpoint
+:::
 
-```erlang
-[
-  {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, <<"my_rabbit_server">>},
-    {key_config, [
-      {signing_keys, #{
-        <<"a-key-ID">> => {map, #{<<"kty">> => <<"MAC">>,
-                                  <<"alg">> => <<"HS256">>,
-                                  <<"value">> => <<"my_signing_key">>}}
-      }}
-    ]}
-  ]},
-].
-```
+More detail is included in the next section about what happens during the authentication and how to configure OAuth 2.0 beyond the basic configuration shown previously.
 
-The key set can also be retrieved dynamically from a URL serving a [JWK Set](https://tools.ietf.org/html/rfc7517#section-5).
-In that case, the configuration will look like this:
+### Authorization Flow {#authorization-flow}
 
-```erlang
-[
-  {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, <<"my_rabbit_server">>},
-    {key_config, [
-      {jwks_url, <<"https://my-jwt-issuer/jwks.json">>}
-    ]}
-  ]},
-].
-```
+This plugin does not communicate with any OAuth 2.0 provider in order to authenticate user and grants access. Instead, it decodes an access token provided by the client and authorises a user based on the scopes found in the token.
 
-NOTE: `jwks_url` takes precedence over `signing_keys` if both are provided.
+To be accepted, tokens must be digitally signed. RabbitMQ must have the signing key to validate the signature. You can either configure the signing keys the OAuth 2.0 provider will use, or configure RabbitMQ with one of the following two endpoints:
+
+  - **JWKS endpoint** - this is the HTTP endpoint that returns the signing keys used to digitally sign the tokens.
+  - **OpenID Provider Configuration endpoint** - this is the endpoint that returns the provider's configuration including all its endpoints, such as the **JWKS endpoint**.
+
+When you configure RabbitMQ with one of two previous endpoints, RabbitMQ must make a HTTP request (or two, if we specify the latter endpoint) to download the signing keys. This is an operation that occurs once for any signing key not downloaded yet. When the OAuth 2.0 provider rotates the signing keys, newer tokens refer to a new signing key which RabbitMQ does not have yet which triggers another download of the newer signing keys.
+
+The token can be any [JWT token](https://jwt.io/introduction/) which contains the `scope` and `aud` fields.
+
+In chronological order, here is the sequence of events that occur when a client application wants to connect to one of the RabbitMQ's messaging protocols, such as AMQP:
+
+1. The Client application requests an **access_token** from the OAuth 2.0 provider.
+2. The **access token** must include **scopes** supported by RabbitMQ in the `scope` field (it is possible to use a different field for the **scopes** by setting the name of the new field in `auth_oauth2.additional_scopes_key`).
+3. The Client application passes the token as password when connecting to RabbitMQ's messaging protocol. **The username field is ignored**.
+4. RabbitMQ validates the token's signature. To validate it, RabbitMQ must have the signing keys or download them from the JWKS endpoint as explained in earlier sections.
+5. RabbitMQ validates that the token has the **audience** claim and whose value matches the `resource_server_id` (this operation can be deactivated by setting `auth_oauth2.verify_aud` to `false`).
+6. RabbitMQ translates the **scopes** found in the token into RabbitMQ **permissions** (the same permissions used in the RabbitMQ's internal database).
 
 ### Variables Configurable in rabbitmq.conf {#variables-configurable}
 
-| Key                                      | Documentation
-|------------------------------------------|-----------
-| `auth_oauth2.resource_server_id`         | [The Resource Server ID](#resource-server-id)
-| `auth_oauth2.resource_server_type`       | [The Resource Server Type](#rich-authorization-request)
-| `auth_oauth2.additional_scopes_key`      | Configure the plugin to also look in other fields (maps to `additional_rabbitmq_scopes` in the old format). |
-| `auth_oauth2.scope_prefix`               | Configure prefix for all scopes. Default value is  `auth_oauth2.resource_server_id` followed by the dot `.` character. |
-| `auth_oauth2.preferred_username_claims`  | List of JWT claims to look for username associated to the token separated by commas.
-| `auth_oauth2.default_key`                | ID of the default signing key.
-| `auth_oauth2.signing_keys`               | Paths to signing key files.
-| `auth_oauth2.jwks_url`                   | The URL of key server. According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2) key server URL must be https.
-| `auth_oauth2.https.cacertfile`           | Path to a file containing PEM-encoded CA certificates. The CA certificates are used during key server [peer verification](./ssl#peer-verification).
-| `auth_oauth2.https.depth`                | The maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid [certification path](./ssl#peer-verification-depth). Default is 10.
-| `auth_oauth2.https.peer_verification`    | Should [peer verification](./ssl#peer-verification) be enabled. Available values: `verify_none`, `verify_peer`. Default is `verify_none`. It is recommended to configure `verify_peer`. Peer verification requires a certain amount of setup and is more secure.
-| `auth_oauth2.https.fail_if_no_peer_cert` | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if client fails to provide a certificate. Default is `false`.
-| `auth_oauth2.https.hostname_verification`| Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. Default is `none`.
-| `auth_oauth2.algorithms`                 | Restrict [the usable algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support).
-| `auth_oauth2.verify_aud`                 | [Verify token's `aud`](#token-validation).
+| Key                                        | Documentation
+|--------------------------------------------|-----------
+| `auth_oauth2.resource_server_id`           | [The Resource Server ID](#resource-server-id)
+| `auth_oauth2.resource_server_type`         | [The Resource Server Type](#rich-authorization-request)
+| `auth_oauth2.additional_scopes_key`        | Configure the plugin to look in other fields also (maps to `additional_rabbitmq_scopes` in the old format). |
+| `auth_oauth2.scope_prefix`                 | Configure the prefix for all scopes. The default value is `auth_oauth2.resource_server_id` followed by the dot `.` character. |
+| `auth_oauth2.preferred_username_claims`    | List of the JWT claims to look for the username associated with the token separated by commas.
+| `auth_oauth2.default_key`                  | ID of the default signing key.
+| `auth_oauth2.signing_keys`                 | Paths to the signing key files.
+| `auth_oauth2.issuer`                       | The issuer URL of the authorization server that is used to discover endpoints such as `jwk_uri` and others (https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+| `auth_oauth2.jwks_url`                     | The URL of the key server. According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2), the key server URL must be https.
+| `auth_oauth2.token_endpoint`               | The URL of the OAuth 2.0 Token Endpoint.
+| `auth_oauth2.https.cacertfile`             | Path to a file containing PEM-encoded CA certificates. The CA certificates are used during key server [peer verification](ssl#peer-verification).
+| `auth_oauth2.https.depth`                  | The maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid [certification path](ssl#peer-verification-depth). The default value is 10.
+| `auth_oauth2.https.peer_verification`      | Should [peer verification](ssl#peer-verification) be activated. Available values: `verify_none`, `verify_peer`. The default value is `verify_peer` if there are trusted CA installed in the OS or `auth_oauth2.https.cacertfile` is set
+| `auth_oauth2.https.fail_if_no_peer_cert`   | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`.
+| `auth_oauth2.https.hostname_verification`  | Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`.
+| `auth_oauth2.algorithms`                   | Restrict [the usable algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support).
+| `auth_oauth2.verify_aud`                   | Whether to verify the [token's `aud`](#token-validation) field or not. The default value is `true`.
+| `auth_oauth2.resource_servers`             | Configure multiple OAuth 2.0 resources.
+| `auth_oauth2.oauth_providers`              | Configure multiple OAuth 2.0 providers.
+| `auth_oauth2.default_oauth_provider`       | ID of the OAuth 2.0 provider used for the `auth_oauth2.resource_servers`, that did not specify any (via the setting `oauth_provider_id`) or when `auth_oauth2.jwks_url` and `auth_oauth2.issuer` are both missing.
 
-For example:
 
-Configure with key files
+Here are two sample configurations. The first one configures two signing key files:
+
 ```ini
 auth_oauth2.resource_server_id = new_resource_server_id
 auth_oauth2.additional_scopes_key = my_custom_scope_key
@@ -216,7 +162,8 @@ auth_oauth2.signing_keys.id2 = test/config_schema_SUITE_data/certs/cert.pem
 auth_oauth2.algorithms.1 = HS256
 auth_oauth2.algorithms.2 = RS256
 ```
-Configure with key server
+
+The second one which configures a signing key server:
 ```ini
 auth_oauth2.resource_server_id = new_resource_server_id
 auth_oauth2.jwks_url = https://my-jwt-issuer/jwks.json
@@ -229,15 +176,58 @@ auth_oauth2.algorithms.1 = HS256
 auth_oauth2.algorithms.2 = RS256
 ```
 
+Each `auth_oauth2.resource_servers.<id/index>.` entry has the following settings:
+
+* `id`
+* `resource_server_type`
+* `additional_scopes_key`  
+* `scope_prefix`  
+* `preferred_username_claims`
+* `oauth_provider_id`
+
+Usually, a numeric value is used as `index`, for example `auth_oauth2.resource_servers.1.id = rabbit_prod`. However, it can be any string, for example `auth_oauth2.resource_servers.rabbit_prod.jwks_url = http://some_url`. By default, the `index` is the resource server's id. However, you can override it via the `id` attribute like in `auth_oauth2.resource_servers.1.id = rabbit_prod`.
+
+Here is an example which configures two resources (`prod` and `dev`) which are used by the users and clients managed by
+the same identity provider whose issuer url is `https://my-idp.com/`:
+
+```ini
+auth_oauth2.issuer = https://my-idp.com/
+auth_oauth2.resource_servers.1.id = prod
+auth_oauth2.resource_servers.2.id = dev
+```
+
+Each `auth_oauth2.oauth_providers.<id/index>.` entry has the following settings:
+
+* `issuer`
+* `token_endpoint`
+* `jwks_uri`
+* `https.cacertfile`
+* `https.depth`
+* `https.verify`
+* `https.fail_if_no_peer_cert`
+* `https.hostname_verification`
+
+
+Here is an example which configures two resources (`prod` and `dev`) where each resource is managed by two distinct Identity Providers:
+
+```ini
+auth_oauth2.scope_prefix = rabbitmq.
+auth_oauth2.resource_servers.1.id = prod
+auth_oauth2.resource_servers.1.oauth_provider_id = idp_prod
+auth_oauth2.resource_servers.2.id = dev
+auth_oauth2.resource_servers.2.oauth_provider_id = idp_dev
+auth_oauth2.oauth_providers.idp_prod.issuer = https://idp_prod.com
+auth_oauth2.oauth_providers.idp_dev.issuer = https://idp_dev.com
+```
+
 ### Resource Server ID and scope prefix {#resource-server-id}
 
-OAuth 2.0 tokens use scopes to communicate what set of permissions particular
-client has been granted. The scopes are free form strings.
+OAuth 2.0 tokens use scopes to communicate what set of permissions particular client are granted. The scopes are free form strings.
 
 By default, `resource_server_id` followed by the dot (`.`) character is the prefix used for scopes to avoid scope collisions (or unintended overlap).
 However, in some environments, it is not possible to use `resource_server_id` as the prefix for all scopes. For these environments, there is a new setting called `scope_prefix` which overrides the default scope prefix. Empty strings are allowed.
 
-Given the below configuration, the scope associated to the permission `read:*/*` is `api://read:*/*`.
+Given the below configuration, the scope associated with the permission `read:*/*` is `api://read:*/*`.
 ```ini
 ...
 auth_oauth2.scope_prefix = api://
@@ -263,6 +253,13 @@ It contains the expiration time after which the JWT MUST NOT be accepted for pro
 
 The `aud` ([Audience](https://tools.ietf.org/html/rfc7519#page-9)) identifies the recipients and/or resource_server of the JWT. By default, **RabbitMQ uses this field to validate the token** although you can deactivate it by setting `verify_aud` to `false`.  When it set to `true`, this attribute must either match the `resource_server_id` setting or in case of a list, it must contain the `resource_server_id`.
 
+### Token Expiration and Refresh {#token-expiration}
+
+On an existing connection, the token can be refreshed by the [update-secret](/amqp-0-9-1-reference#connection.update-secret) AMQP 0.9.1 method.
+Please check your client whether it supports this method (for example documentation for the [Java client](/client-libraries/java-api-guide#oauth2-refreshing-token)).
+Otherwise the client has to disconnect and reconnect to use a new token.
+
+If the latest token expires on an existing connection, after a limited time the broker will refuse all operations (but it won't disconnect).
 
 ### Scope-to-Permission Translation {#scope-translation}
 
@@ -293,7 +290,7 @@ There can be multiple wildcards in a pattern:
 **To use special characters like `*`, `%`, or `/` in a wildcard pattern,
 the pattern must be [URL-encoded](https://en.wikipedia.org/wiki/Percent-encoding).**
 
-These are the typical permissions examples:
+These are the usually permissions examples:
 
 - `read:*/*`(`read:*/*/*`) - read permissions to any resource on any vhost
 - `write:*/*`(`write:*/*/*`) - write permissions to any resource on any vhost
@@ -318,15 +315,15 @@ The [previous](#scope-translation) section explained, in detail, how permissions
 To bind and/or unbind a queue to/from a **Topic Exchange**, you need to have the following scopes:
 
 - **write** permission on the queue and routing key -> `rabbitmq.write:<vhost>/<queue>/<routingkey>`
-> e.g. `rabbitmq.write:*/*/*`
+> for example `rabbitmq.write:*/*/*`
 
 - **read** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
-> e.g. `rabbitmq.read:*/*/*`
+> for example `rabbitmq.read:*/*/*`
 
 To publish to a **Topic Exchange**, you need to have the following scope:
 
 - **write** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
-> e.g. `rabbitmq.write:*/*/*`
+> for example `rabbitmq.write:*/*/*`
 
 OAuth 2.0 authorisation backend supports variable expansion when checking permission on topics.
 It supports JWT claims whose value is a plain string, plus the `vhost` variable.
@@ -342,10 +339,167 @@ a write permission on all exchanges starting with `x-prod-`, and any routing key
 ```
 
 
-### Using a different token field for the Scope {#use-different-token-field}
+### Scope and Tags {#scope-and-tags}
 
-By default the plugin will look for the `scope` key in the token, you can configure the plugin to also look in other fields using the `extra_scopes_source` setting. Values format accepted are scope as **string** or **list**
+Users in RabbitMQ can have [tags associated with them](./access-control#user-tags).
+Tags are used to [control access to the management plugin](./management#permissions).
 
+In the OAuth context, tags can be added as part of the scope, using a format like `<resource_server_id>.tag:<tag>`. For example, if the `resource_server_id` is "my_rabbit", a scope to grant access to the management plugin with
+the `monitoring` tag will be `my_rabbit.tag:monitoring`.
+
+## Basic usage {#basic-usage}
+
+### Configure OAuth 2.0 provider's issuer {#configure-issuer}
+
+Before RabbitMQ 3.13, users had to either configure the JWKS endpoint (that is `auth_oauth2.jwks_url` setting) or statically [configure the signing keys](#configure-signing-keys). Now, users only need to configure the OpenID Provider's **issuer** URL and from this URL RabbitMQ downloads the OpenID Provider configuration which includes the JWKS endpoint in addition to other endpoints which will be useful in other contexts.
+
+Usually, this **issuer** URL is the same URL configured in the management plugin (`management.oauth_provider_url`). From now on, you only need to configure a single URL, specified by the `auth_oauth2.issuer` setting. Except in edge cases where the **issuer** URL does not host the login page. In that cases, the user configures the login page in the `management.oauth_provider_url` setting. 
+
+Sample configuration using issuer:
+```ini
+auth_oauth2.resource_server_id = my_rabbit_server
+auth_oauth2.issuer = https://my-idp-provider/somerealm
+```
+
+or
+
+```erlang
+[
+  {rabbitmq_auth_backend_oauth2, [
+    {resource_server_id, <<"my_rabbit_server">>},
+    {issuer, <<"https://my-idp-provider/somerealm">>}    
+  ]},
+].
+```
+
+Sample configuration using jwks_url:
+```ini
+auth_oauth2.resource_server_id = my_rabbit_server
+auth_oauth2.jwks_url = "https://my-jwt-issuer/jwks.json
+```
+
+or
+
+```erlang
+[
+  {rabbitmq_auth_backend_oauth2, [
+    {resource_server_id, <<"my_rabbit_server">>},
+    {key_config, [
+      {jwks_url, <<"https://my-jwt-issuer/jwks.json">>}
+    ]}
+  ]},
+].
+```
+
+:::info
+If you have both endpoints configured, RabbitMQ uses `jwks_url` because it does not need to discover it via the `issuer` url.
+:::
+
+:::info
+**Note about TLS settings for the `jwks_url` or the `issuer` url**: TLS setting such as the `cacertfile` are configured as follows regardless which url we are using:
+:::
+
+```ini
+...
+auth_oauth2.https.cacertfile = /opts/certs/cacert.pem
+...
+```
+
+or
+
+```erlang
+[
+  {rabbitmq_auth_backend_oauth2, [
+    ...
+    {key_config, [
+      {cacertfile, <<"/opts/certs/cacert.pem">>}
+    ]}
+  ]},
+].
+```
+
+**VERY IMPORTANT**: Since RabbitMQ 3.13, if `auth_oauth2.https.peer_verification` setting is not set, RabbitMQ sets it to `verify_peer` as long as there are trusted certificates installed in the OS or the user configured `auth_oauth2.https.cacertfile`. 
+
+### Configure Signing Keys {#configure-signing-keys}
+
+Currently, it is very rare you configure RabbitMQ with signing keys, when RabbitMQ can automatically download them as explained in the previous section. However, RabbitMQ supports those edge cases where you need to statically configure the signing keys, or when you need to support symmetric signing keys as opposed to the most widely used asymmetric keys.
+
+The following example uses [Cloud Foundry UAA](https://github.com/cloudfoundry/uaa) as the OAuth 2.0 provider.
+
+To get the signing key from the [OAuth 2.0 provider UAA](https://github.com/cloudfoundry/uaa), use the
+[token_key endpoint](https://docs.cloudfoundry.org/api/uaa/version/4.6.0/index.html#token-key-s)
+or [uaac](https://github.com/cloudfoundry/cf-uaac) (the `uaac signing key` command).
+
+The following fields are required: `kty`, `value`, `alg`, and `kid`.
+
+Assuming UAA reports the following signing key information:
+
+```erlang
+uaac signing key
+  kty: RSA
+  e: AQAB
+  use: sig
+  kid: a-key-ID
+  alg: RS256
+  value: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2dP+vRn+Kj+S/oGd49kq
+6+CKNAduCC1raLfTH7B3qjmZYm45yDl+XmgK9CNmHXkho9qvmhdksdzDVsdeDlhK
+IdcIWadhqDzdtn1hj/22iUwrhH0bd475hlKcsiZ+oy/sdgGgAzvmmTQmdMqEXqV2
+B9q9KFBmo4Ahh/6+d4wM1rH9kxl0RvMAKLe+daoIHIjok8hCO4cKQQEw/ErBe4SF
+2cr3wQwCfF1qVu4eAVNVfxfy/uEvG3Q7x005P3TcK+QcYgJxav3lictSi5dyWLgG
+QAvkknWitpRK8KVLypEj5WKej6CF8nq30utn15FQg0JkHoqzwiCqqeen8GIPteI7
+VwIDAQAB
+-----END PUBLIC KEY-----
+  n: ANnT_r0Z_io_kv6BnePZKuvgijQHbggta2i30x-wd6o5mWJuOcg5fl5oCvQjZh15IaPar5oXZLHcw1bHXg5YSiHXCFmnYag83bZ9YY_9tolMK4R9G3eO-YZSnLImfqMv7HYBoAM75pk0JnTKhF6ldgfavShQZqOAIYf-vneMDNax_ZMZdEbzACi3vnWqCByI6JPIQju
+      HCkEBMPxKwXuEhdnK98EMAnxdalbuHgFTVX8X8v7hLxt0O8dNOT903CvkHGICcWr95YnLUouXcli4BkAL5JJ1oraUSvClS8qRI-Vino-ghfJ6t9LrZ9eRUINCZB6Ks8Igqqnnp_BiD7XiO1c
+```
+
+it translates into the following configuration (in the [advanced RabbitMQ config format](./configure)):
+
+```erlang
+[
+  %% ...
+  %% backend configuration
+  {rabbitmq_auth_backend_oauth2, [
+    {resource_server_id, <<"my_rabbit_server">>},
+    %% UAA signing key configuration
+    {key_config, [
+      {signing_keys, #{
+        <<"a-key-ID">> => {pem, <<"-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2dP+vRn+Kj+S/oGd49kq
+6+CKNAduCC1raLfTH7B3qjmZYm45yDl+XmgK9CNmHXkho9qvmhdksdzDVsdeDlhK
+IdcIWadhqDzdtn1hj/22iUwrhH0bd475hlKcsiZ+oy/sdgGgAzvmmTQmdMqEXqV2
+B9q9KFBmo4Ahh/6+d4wM1rH9kxl0RvMAKLe+daoIHIjok8hCO4cKQQEw/ErBe4SF
+2cr3wQwCfF1qVu4eAVNVfxfy/uEvG3Q7x005P3TcK+QcYgJxav3lictSi5dyWLgG
+QAvkknWitpRK8KVLypEj5WKej6CF8nq30utn15FQg0JkHoqzwiCqqeen8GIPteI7
+VwIDAQAB
+-----END PUBLIC KEY-----">>}
+          }}
+      ]}
+    ]}
+].
+```
+
+If a symmetric key is used, the configuration looks like this:
+
+```erlang
+[
+  {rabbitmq_auth_backend_oauth2, [
+    {resource_server_id, <<"my_rabbit_server">>},
+    {key_config, [
+      {signing_keys, #{
+        <<"a-key-ID">> => {map, #{<<"kty">> => <<"MAC">>,
+                                  <<"alg">> => <<"HS256">>,
+                                  <<"value">> => <<"my_signing_key">>}}
+      }}
+    ]}
+  ]},
+].
+```
+
+### Use a different token field for the Scope {#use-different-token-field}
+
+By default the plugin looks for the `scope` key in the token, you can configure the plugin to also look in other fields using the `extra_scopes_source` setting. Values format accepted are scope as **string** or **list**
 
 ```erlang
 [
@@ -353,10 +507,10 @@ By default the plugin will look for the `scope` key in the token, you can config
     {resource_server_id, <<"my_rabbit_server">>},
     {extra_scopes_source, <<"my_custom_scope_key">>},
     ...
-    ]}
-  ]},
+    ]}  
 ].
 ```
+
 Token sample:
 ```ini
 {
@@ -365,26 +519,10 @@ Token sample:
  "aud" : ["my_id"],
  ...
  "scope_as_string": "my_id.configure:*/* my_id.read:*/* my_id.write:*/*",
- "scope_as_list": ["my_id.configure:*/*", "my_id.read:*/*", my_id.write:*/*"],
+ "scope_as_list": ["my_id.configure:*/*", "my_id.read:*/*", "my_id.write:*/*"],
  ...
  }
 ```
-
-### Using Tokens with Clients {#use-tokens-with-clients}
-
-A client must present a valid `access_token` acquired from an OAuth 2.0 provider (such as UAA) as the **password**
-in order to authenticate with RabbitMQ.
-
-To learn more about OAuth 2.0 clients, see the [OAuth 2.0 client specification](https://www.rfc-editor.org/rfc/rfc6749#section-4.4).
-
-### Scope and Tags {#scope-and-tags}
-
-Users in RabbitMQ can have [tags associated with them](./access-control#user-tags).
-Tags are used to [control access to the management plugin](./management#permissions).
-
-In the OAuth context, tags can be added as part of the scope, using a format like `<resource_server_id>.tag:<tag>`. For
-example, if `resource_server_id` is "my_rabbit", a scope to grant access to the management plugin with
-the `monitoring` tag will be `my_rabbit.tag:monitoring`.
 
 ### Preferred username claims {#preferred-username-claims}
 
@@ -395,21 +533,15 @@ Most authorization servers return the user's GUID in the `sub` claim instead of 
 
 Example `advanced.config` configuration:
 
-```erlang
+```
   ...
   {rabbitmq_auth_backend_oauth2, [
     {resource_server_id, <<"rabbitmq">>},
     {preferred_username_claims, [<<"user_name">>,<<"email">>]},
   ...
 ```
+
 In the example configuration, RabbitMQ searches for the `user_name` claim first and if it is not found, RabbitMQ searches for the `email`. If these are not found, RabbitMQ uses its default lookup mechanism which first looks for `sub` and then `client_id`.
-
-### Token Expiration and Refresh {#token-expiration}
-
-On an existing connection the token can be refreshed by the [update-secret](/amqp-0-9-1-reference#connection.update-secret) AMQP 0.9.1 method. Please check your client whether it supports this method. (Eg. see documentation of the [Java client](/client-libraries/java-api-guide#oauth2-refreshing-token).) Otherwise the client has to disconnect and reconnect to use a new token.
-
-If the latest token expires on an existing connection, after a limited time the broker will refuse all operations (but it won't disconnect).
-
 
 ### Rich Authorization Request {#rich-authorization-request}
 
@@ -464,10 +596,10 @@ zero or many locations.
 
 A location consists of a list of key-value pairs separated by forward slash `/` character. Here is the format:
 ```bash
-cluster:<resource_server_id_pattern>[/vhost:<vhost_pattern>][/queue:<queue_name_pattern>|/exchange:<exchange_name_pattern][/routing-key:<routing_key_pattern>]
+cluster:<resource_server_id_pattern>[/vhost:<vhost_pattern>][/queue:<queue_name_pattern>|/exchange:<exchange_name_pattern>][/routing-key:<routing_key_pattern>]
 ```
 
-Any string separated by `/` which does not conform to `<key>:<value>` is ignored. For instance, if your locations start with a prefix, e.g. `vrn/cluster:rabbitmq`, the `vrn` pattern part is ignored.
+Any string separated by `/` which does not conform to `<key>:<value>` is ignored. For instance, if your locations start with a prefix, for example `vrn/cluster:rabbitmq`, the `vrn` pattern part is ignored.
 
 The supported location's attributed are:
 
@@ -538,13 +670,96 @@ In the following RAR example
 }
 ```
 
-if RabbitMQ node's `resource_server_id` is equal to `finance`, the plugin will compute the following sets of scopes:
+if RabbitMQ nodes `resource_server_id` is equal to `finance`, the plugin computes the following sets of scopes:
 
 - `finance.read:primary-*/*/*`
 - `finance.write:primary-*/*/*`
 - `finance.configure:primary-*/*/*`
 - `finance.tag:administrator`
 
+
+
+## Advanced usage {#advanced-usage}
+
+### Use default OAuth 2.0 provider {#use-oauth-provider}
+
+As long as you have only one OAuth 2.0 provider, you can skip this advanced usage although you can use it.
+
+Under the [basic usage](#configure-issuer) section, you configured the `issuer` url or maybe the `jwks_url` along with the TLS settings if needed. This advanced usage configures everything relative to the OAuth provider into a dedicated configuration.
+
+Here is an example configuration that uses `issuer` to configure the identity provider's URL:
+
+```ini
+auth_oauth2.resource_server_id = rabbitmq-prod
+auth_oauth2.scope_prefix = rabbitmq.
+auth_oauth2.issuer = https://prodkeycloak:8080/realm/prod
+auth_oauth2.https.cacertfile = /opts/certs/prodcacert.pem
+```
+
+The equivalent configuration where the identity provider is configured under `auth_oauth2.oauth_providers` setting is:
+
+```ini
+auth_oauth2.resource_server_id = rabbitmq-prod
+auth_oauth2.scope_prefix = rabbitmq.
+auth_oauth2.default_oauth_provider = prodkeycloak
+
+auth_oauth2.oauth_providers.prodkeycloak.issuer = https://prodkeycloak:8080/realm/prod
+auth_oauth2.oauth_providers.prodkeycloak.https.cacertfile = /opts/certs/prodcacert.pem
+```
+
+This latter configuration is more relevant when users present tokens which are issued or signed by different OAuth 2.0 providers. However, one can still use it provided `auth_oauth2.default_oauth_provider` is set.
+
+### Multiple Resource Servers {#multiple-resource-servers}
+
+Usually, all users that access a RabbitMQ cluster are registered within the same identity provider. Likewise, all tokens targeting the same RabbitMQ cluster also carry the same *audience*. In other words, all users reference a RabbitMQ cluster with the same resource name which must match the value of the `auth_oauth2.resource_server_id` setting.
+
+However, there are some use-cases where RabbitMQ is accessed by users registered in different identity providers or tokens are issued for the same RabbitMQ installation but with different *Audience*(s). For these use-cases, RabbitMQ OAuth 2.0 plugin and the Management plugin can be configured with multiple OAuth 2.0 resources.
+
+The following is the OAuth 2.0 plugin configuration for two resources with the ids: `rabbit_prod` and `rabbit_dev`. Both resources (also known as *audience*) are managed by the same Identity Provider whose issuer is `http//some_idp_url`.
+
+```ini
+auth_oauth2.issuer = http//some_idp_url
+auth_oauth2.scope_prefix = rabbitmq.
+
+auth_oauth2.resource_servers.1.id = rabbit_prod
+auth_oauth2.resource_servers.2.id = rabbit_dev
+auth_oauth2.resource_servers.2.scope_prefix = dev-rabbitmq.
+```
+
+All resource servers share the settings you set so far under `auth_oauth2.` such as `scope_prefix`. However, they can override them. Here are the list of settings a resource server can override:
+- `id` - This is the actual resource identifier carried in the `audience` field of a token. If omitted, the value is the index, for example, given `auth_oauth2.resource_servers.prod.scope_prefix` setting, the `id` would be `prod`.
+- `scope_prefix`
+- `additional_scopes_key`
+- `resource_server_type`
+- `oauth_provider_id` - This is the identifier of the OAuth provider. It is configured in RabbitMQ. It provides all the settings to contact the authorization server and discover all its endpoints, such as the `jwks_uri` to download the signing keys to validate the token. If this setting is omitted, RabbitMQ looks up the default Authorization Provider's id in the setting `auth_oauth2.default_oauth_provider`, and if it is also omitted, RabbitMQ uses `auth_oauth2.issuer` or `auth_oauth2.jwks_url` to download the signings keys to validate the token.
+
+The list of supported resource servers is the combination of `auth_oauth2.resource_servers` and `auth_oauth2.resource_server_id`. You can use both or only one of them.
+
+:::info
+There is an [example](./oauth2-examples-multiresource) that demonstrate multiple OAuth 2 resources.
+:::
+
+### Multiple OAuth Providers {#multiple-oauth-providers}
+
+It only makes sense to set multiple OAuth Providers if there are [multiple resources configured](#multiple-resource-servers).
+
+This is the configuration used in the previous section but modified to use multiple OAuth providers:
+
+```ini
+auth_oauth2.scope_prefix = rabbitmq.
+
+auth_oauth2.resource_servers.1.id = rabbit_prod
+auth_oauth2.resource_servers.1.oauth_provider_id = prod
+auth_oauth2.resource_servers.2.id = rabbit_dev
+auth_oauth2.resource_servers.2.oauth_provider_id = dev
+auth_oauth2.resource_servers.2.scope_prefix = dev-rabbitmq.
+
+auth_oauth2.oauth_providers.prod.issuer = https://rabbit_prod:8080
+auth_oauth2.oauth_providers.prod.https.cacertfile = /opts/certs/prod.pem
+auth_oauth2.oauth_providers.dev.issuer = https://rabbit_dev:8080
+auth_oauth2.oauth_providers.dev.https.cacertfile = /opts/certs/dev.pem
+```
+
 ## Examples {#examples}
 
-The [RabbitMQ OAuth 2.0 Auth Backend Examples](./oauth2-examples) contains many example configuration files which can be used to set up several OAuth 2.0 providers, including UAA, Auth0, and Azure, and issue tokens, which can be used to access RabbitMQ resources.
+The [RabbitMQ OAuth 2.0 Auth backend examples](./oauth2-examples) contain many example configuration files, that can be used to set up several OAuth 2.0 providers, including UAA, Auth0, and Azure, and issue tokens, which can be used to access RabbitMQ resources.
