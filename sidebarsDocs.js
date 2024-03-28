@@ -98,6 +98,11 @@ const sidebars = {
           ],
         },
         {
+          type: 'link',
+          label: 'Kubernetes Operator',
+          href: '/kubernetes/operator/install-operator',
+        },
+        {
           type: 'category',
           label: 'Upgrade',
           link: {type: 'doc', id: 'upgrade'},
@@ -517,11 +522,6 @@ const sidebars = {
               label: 'Using TLS for Inter-node Traffic',
             },
             {
-              type: 'link',
-              label: 'RabbitMQ on Kubernetes',
-              href: '/kubernetes/operator/operator-overview',
-            },
-            {
               type: 'doc',
               id: 'ec2',
               label: 'RabbitMQ on Amazon EC2',
@@ -586,6 +586,11 @@ const sidebars = {
           type: 'doc',
           id: 'production-checklist',
           label: 'Deployment Guidelines'
+        },
+        {
+          type: 'link',
+          label: 'RabbitMQ on Kubernetes',
+          href: '/kubernetes/operator/operator-overview',
         },
         {
           type: 'doc',
