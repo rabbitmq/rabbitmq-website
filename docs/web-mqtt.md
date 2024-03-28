@@ -51,7 +51,7 @@ rabbitmq-plugins enable rabbitmq_web_mqtt
 In order to use MQTT in a Web browser context, a JavaScript MQTT
 library is required. We've tested it against
 [Paho JavaScript client](https://eclipse.org/paho/clients/js/).
-It is included as part of [RabbitMQ Web MQTT example plugin](https://github.com/rabbitmq/rabbitmq-web-mqtt-examples).
+It is included as part of [RabbitMQ Web MQTT example plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_web_mqtt_examples).
 
 By default the Web MQTT plugin exposes a WebSocket endpoint on port
 15675. The WebSocket endpoint is available on the `/ws` path:
