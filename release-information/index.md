@@ -55,11 +55,7 @@ previous table for end dates for this support.
 
 ### Extended Commercial Support
 
-RabbitMQ patches are produced for security and high severity issues that are
-reported by users with a commercial license. For extended support for users
-with a commercial license, go to [paid commercial support
-enquiries](https://www.rabbitmq.com/contact#paid-support). Refer to the
-previous table for end dates for this support.
+Extended Commercial Support is included in [VMware’s Commercial Open Source RabbitMQ Support](https://tanzu.vmware.com/rabbitmq/oss). RabbitMQ patches are produced for security and high severity issues that are reported by users with a commercial license. If you already have a license, go to [paid commercial support enquiries](https://www.rabbitmq.com/contact#paid-support). Refer to the previous table for end dates for this support.
 
 ## The Next Release
 

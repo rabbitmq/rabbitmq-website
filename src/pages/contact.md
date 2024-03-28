@@ -94,12 +94,7 @@ If you want to ask a question about how to use RabbitMQ please use
 
 ## Paid Commercial Support Enquiries {#paid-support}
 
-For enquiries about VMware’s commercial licensing and support,
-there is information about offerings, subscription fees, and a contact form [on this page](https://tanzu.vmware.com/rabbitmq).
-Alternatively, if you already have a support contract established with VMware,
-please see the [VMware support page](https://tanzu.vmware.com/support).
-For questions about booking training or consulting,
-please contact the [appropriate vendor](/commercial-offerings).
+For enquiries about VMware’s Commercial Open Source RabbitMQ support, go to [this page](https://tanzu.vmware.com/rabbitmq/oss) for more information and a contact form. For information about VMware Tanzu RabbitMQ, the Enterprise version of RabbitMQ, go to the [VMware Tanzu RabbitMQ product page](https://tanzu.vmware.com/rabbitmq). If you already have a license with VMware for one or the other (that is Open Source RabbitMQ or an Enterprise version of RabbitMQ) and you need to file a support ticket, you can do it using the [Customer Portal for VMware products](https://customerconnect.vmware.com/home). Refer to the [VMware support page](https://tanzu.vmware.com/support) for other support information. For questions about booking training or consulting, please contact the [appropriate vendor](https://www.rabbitmq.com/commercial-offerings).
 
 If you have questions about how to use RabbitMQ and do not want to
 purchase a support contract or learn about commercial offerings, please use the
