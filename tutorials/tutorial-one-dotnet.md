@@ -93,7 +93,7 @@ Then we add the client dependency.
 ```powershell
 cd Send
 dotnet add package RabbitMQ.Client
-cd /docs/Receive
+cd /../Receive
 dotnet add package RabbitMQ.Client
 ```
 
