@@ -46,20 +46,20 @@ support lifecycle policy](https://tanzu.vmware.com/support/lifecycle_policy).
 
 ### Community Support
 
-As a result of feedback from the
-[community](https://www.rabbitmq.com/contact#community-resources) and those
-with a commercial license, RabbitMQ patch releases are produced regularly.
-Community support is provided by [community
-resources](https://www.rabbitmq.com/contact#community-resources). Refer to the
-previous table for end dates for this support. 
+As a result of feedback from the [community](/contact#community-resources) and
+those with a commercial license, RabbitMQ patch releases are produced
+regularly. Community support is provided by [community
+resources](/contact#community-resources). Refer to the previous table for end
+dates for this support.
 
 ### Extended Commercial Support
 
-RabbitMQ patches are produced for security and high severity issues that are
-reported by users with a commercial license. For extended support for users
-with a commercial license, go to [paid commercial support
-enquiries](https://www.rabbitmq.com/contact#paid-support). Refer to the
-previous table for end dates for this support.
+Extended Commercial Support is included in [VMware’s Commercial Open Source
+RabbitMQ Support](https://tanzu.vmware.com/rabbitmq/oss). RabbitMQ patches are
+produced for security and high severity issues that are reported by users with
+a commercial license. If you already have a license, go to [paid commercial
+support enquiries](/contact#paid-support). Refer to the previous table for end
+dates for this support.
 
 ## The Next Release
 
