@@ -323,11 +323,6 @@ const sidebars = {
             },
             {
               type: 'doc',
-              id: 'stream',
-              label: 'Stream Plugin',
-            },
-            {
-              type: 'doc',
               id: 'stomp',
               label: 'STOMP Plugin',
             },
