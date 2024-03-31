@@ -245,7 +245,8 @@ Both values default to `false`.
 
 Client side TLS settings are configured using `ssl_options`, which
 are very similar to [TLS settings elsewhere in RabbitMQ](./ssl).
-TLS settings for LDAP connections can only be configured via the advanced config file:
+
+Here is a minimalistic example:
 
 ```ini
 auth_ldap.servers.1 = ldap.eng.megacorp.local
@@ -253,6 +254,13 @@ auth_ldap.servers.2 = 192.168.0.100
 
 # enables TLS for connections to the LDAP server
 auth_ldap.use_ssl   = true
+
+# Disables peer certificate chain verification. See the section on Peer Verification
+# below.
+#
+# Doing so loses one of the key benefits of TLS and make the setup less secure
+# but also simplifies node configuration.
+auth_ldap.ssl_options.verify = verify_none
 ```
 
 The plugin can also connect using [StartTLS](https://fy.blackhats.net.au/blog/2021-08-12-starttls-in-ldap/).
@@ -265,6 +273,13 @@ auth_ldap.servers.2 = 192.168.0.100
 # Enables StartTLS for connections to the LDAP server.
 # Prefer auth_ldap.use_ssl with reasonably modern LDAP servers!
 auth_ldap.use_starttls   = true
+
+# Disables peer certificate chain verification. See the section on Peer Verification
+# below.
+#
+# Doing so loses one of the key benefits of TLS and make the setup less secure
+# but also simplifies node configuration.
+auth_ldap.ssl_options.verify = verify_none
 ```
 
 ### Client TLS Options Available for LDAP
@@ -314,16 +329,23 @@ auth_ldap.ssl_options.hostname_verification = none
 
 #### Peer Verification
 
+Starting with Erlang 26, LDAP TLS clients will perform [peer certificate chain verification](./ssl#peer-verification)
+by default.
+
 [Peer certificate chain verification](./ssl#peer-verification) should not be confused with hostname match verification.
 These settings are orthogonal and can be combined.
 
 ```ini
-# enables peer certificate chain verification
+# Enables peer certificate chain verification.
+# This behavior is the default starting with Erlang 26 (and thus RabbitMQ 3.13+)/
 auth_ldap.ssl_options.verify = verify_peer
 ```
 
 ```ini
-# disables peer certificate chain verification
+# Disables peer certificate chain verification.
+#
+# Doing so loses one of the key benefits of TLS and make the setup less secure
+# but also simplifies node configuration.
 auth_ldap.ssl_options.verify = verify_none
 ```
 
