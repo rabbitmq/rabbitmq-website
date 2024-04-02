@@ -197,27 +197,26 @@ The following upstream parameters are only applicable to <a href="./federated-ex
     <tr>
       <td>`queue-type`</td>
       <td>
-        The queue type of the [upstream queue](./federated-exchanges#implementation).
+        The queue type of the [internal upstream queue](./federated-exchanges#implementation) used by exchange federation.
 
-        Defaults to `classic`. Set to `quorum` for high availability.
+        Defaults to `classic` (a single replica queue type). Set to `quorum` to use a [replicated queue type](./quorum-queues/).
 
         Changing the queue type will delete and recreate the upstream queue by default.
-        This may lead to messages getting lost (if they were in the upstream queue)
-        or missed (when they are published while there's no upstream queue to collect them).
-        You can set `resource-cleanup-mode` key to `never` to avoid that.
+        This may lead to messages getting lost or not routed anywhere during the re-declaration.
+        To avoid that, set `resource-cleanup-mode` key to `never`.
         This requires manually deleting the old upstream queue so that it can be recreated with
         the new type.
 
-        Available since: 3.13.1
+        Available since: `3.13.1`
       </td>
     </tr>
 
     <tr>
       <td>`resource-cleanup-mode`</td>
       <td>
-        Whether to delete the [upstream queue](./federated-exchanges#implementation) when federation stops.
+        Whether to delete the [internal upstream queue](./federated-exchanges#implementation) when federation links stop.
 
-        By default, the upstream queue is deleted immediately when federation link stops.
+        By default, the internal upstream queue is deleted immediately when a federation link stops.
         Set to `never` to keep the upstream queue around and collect messages even when
         changing federation configuration.
       </td>
