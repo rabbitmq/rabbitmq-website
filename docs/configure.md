@@ -1482,45 +1482,6 @@ under the `rabbit` section.
       </p>
     </td>
   </tr>
-
-  <tr>
-    <td>
-      `lazy_queue_explicit_gc_run_operation_threshold`
-    </td>
-    <td>
-     Tunable value only for lazy queues when under memory pressure.
-     This is the threshold at which the garbage collector and other memory reduction activities are triggered.
-     A low value could reduce performance, and a high one can improve performance, but cause higher memory consumption.
-     You almost certainly should not change this.
-    <p>
-      Default:
-```ini
-{rabbit, [
-{lazy_queue_explicit_gc_run_operation_threshold, 1000}
-]}
-```
-    </p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      `queue_explicit_gc_run_operation_threshold`
-    </td>
-    <td>
-     Tunable value only for normal queues when under memory pressure.
-     This is the threshold at which the garbage collector and other memory reduction activities are triggered.
-     A low value could reduce performance, and a high one can improve performance, but cause higher memory consumption.
-     You almost certainly should not change this.
-    <p>
-      Default:
-```ini
-{rabbit, [
-{queue_explicit_gc_run_operation_threshold, 1000}
-]}
-```
-    </p>
-    </td>
-  </tr>
 </table>
 
 Several [plugins](./plugins) that ship with RabbitMQ have
