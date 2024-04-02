@@ -49,10 +49,10 @@ connections:
 and more. It tries to [explain the basics of TLS](#certificates-and-keys) but not, however, a primer on TLS, encryption, [public Key Infrastructure](https://en.wikipedia.org/wiki/public_key_infrastructure) and related topics, so the concepts are covered very briefly.
 
 A number of beginner-oriented primers are available elsewhere on the Web:
-[one](https://hpbn.co/transport-layer-security-tls/)
-[two](https://medium.com/talpor/ssl-tls-authentication-explained-86f00064280),
-[three](https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-1---data-encryption.html),
-[four](https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-2---public-key-certificates.html).
+[one](https://medium.com/zkpass/a-primer-on-transport-layer-security-tls-a7495eeff004),
+[two](https://www.cloudflare.com/en-ca/learning/ssl/why-use-tls-1.3/),
+[three](https://hpbn.co/transport-layer-security-tls/)
+[four](https://medium.com/talpor/ssl-tls-authentication-explained-86f00064280).
 
 TLS can be enabled for all protocols supported by RabbitMQ, not just AMQP 0-9-1,
 which this guide focuses on. [HTTP API](./management), [inter-node and CLI tool traffic](./clustering-ssl) can be configured
