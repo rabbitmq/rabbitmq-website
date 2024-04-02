@@ -197,7 +197,7 @@ The following upstream parameters are only applicable to <a href="./federated-ex
     <tr>
       <td>`queue-type`</td>
       <td>
-        The queue type of the [internal upstream queue](./federated-exchanges#implementation) used by exchange federation.
+        The queue type of the [internal upstream queue](./federated-exchanges#details) used by exchange federation.
 
         Defaults to `classic` (a single replica queue type). Set to `quorum` to use a [replicated queue type](./quorum-queues/).
 
@@ -214,7 +214,7 @@ The following upstream parameters are only applicable to <a href="./federated-ex
     <tr>
       <td>`resource-cleanup-mode`</td>
       <td>
-        Whether to delete the [internal upstream queue](./federated-exchanges#implementation) when federation links stop.
+        Whether to delete the [internal upstream queue](./federated-exchanges#details) when federation links stop.
 
         By default, the internal upstream queue is deleted immediately when a federation link stops.
         Set to `never` to keep the upstream queue around and collect messages even when
@@ -226,7 +226,7 @@ The following upstream parameters are only applicable to <a href="./federated-ex
       <td><code>expires</code></td>
       <td>
         The expiry time (in milliseconds) after which
-        an <a href="./federated-exchanges#implementation">upstream queue</a> for
+        an <a href="./federated-exchanges#details">upstream queue</a> for
         a federated exchange may be deleted if a connection to the upstream is lost.
         The default is <code>'none'</code>, meaning no expiration will be applied to the queue.
 
@@ -240,7 +240,7 @@ The following upstream parameters are only applicable to <a href="./federated-ex
     <tr>
       <td><code>message-ttl</code></td>
       <td>
-        The expiry time for messages in the <a href="./federated-exchanges#implementation">upstream queue</a>
+        The expiry time for messages in the <a href="./federated-exchanges#details">upstream queue</a>
         for a federated exchange (see <code>expires</code>), in milliseconds.
         Default is <code>'none'</code>, meaning messages should never expire.
         This does not apply to federated queues.
