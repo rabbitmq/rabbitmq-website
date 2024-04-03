@@ -545,20 +545,23 @@ cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount
 
 It must point to a local file that exists and is readable by RabbitMQ.
 
-Certificate and namespace paths use `cluster_formation.k8s.cert_path`
+Kubernetes API [CA certificate bundle](./ssl#certificates-and-keys) file path and namespace paths use `cluster_formation.k8s.cert_path`
 and `cluster_formation.k8s.namespace_path`, respectively:
 
 ```ini
 cluster_formation.peer_discovery_backend = k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
-# default value is /var/run/secrets/kubernetes.io/serviceaccount/token
+
+# Where to load the K8S API access token from.
+# Default value: /var/run/secrets/kubernetes.io/serviceaccount/token
 cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount/token
 
-# default value is /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+# Where to load K8S API CA bundle file from.
+# Default value: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 cluster_formation.k8s.cert_path = /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 
-# default value is /var/run/secrets/kubernetes.io/serviceaccount/namespace
+# Default value: /var/run/secrets/kubernetes.io/serviceaccount/namespace
 cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceaccount/namespace
 ```
 
