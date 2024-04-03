@@ -521,6 +521,8 @@ cluster_formation.peer_discovery_backend = k8s
 cluster_formation.k8s.host = kubernetes.default.example.local
 ```
 
+#### Kubernetes API Endpoint
+
 It is possible to configure Kubernetes API port and URI scheme:
 
 ```ini
@@ -532,6 +534,8 @@ cluster_formation.k8s.port = 443
 # https is used by default
 cluster_formation.k8s.scheme = https
 ```
+
+#### Kubernetes API Access Token
 
 Kubernetes token file path is configurable via `cluster_formation.k8s.token_path`:
 
@@ -545,8 +549,28 @@ cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount
 
 It must point to a local file that exists and is readable by RabbitMQ.
 
-Kubernetes API [CA certificate bundle](./ssl#certificates-and-keys) file path and namespace paths use `cluster_formation.k8s.cert_path`
-and `cluster_formation.k8s.namespace_path`, respectively:
+#### Kubernetes Namespace
+
+`cluster_formation.k8s.namespace_path` controls when the K8S namespace is loaded from:
+
+```ini
+cluster_formation.peer_discovery_backend = k8s
+
+cluster_formation.k8s.host = kubernetes.default.example.local
+
+# ...
+
+# Default value: /var/run/secrets/kubernetes.io/serviceaccount/namespace
+cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceaccount/namespace
+```
+
+Just like with the token path key, `cluster_formation.k8s.namespace_path` must point to a local
+file that exists and is readable by RabbitMQ.
+
+#### Kubernetes API CA Certificate Bundle
+
+Kubernetes API [CA certificate bundle](./ssl#certificates-and-keys) file path is
+configured using `cluster_formation.k8s.cert_path`:
 
 ```ini
 cluster_formation.peer_discovery_backend = k8s
@@ -557,16 +581,17 @@ cluster_formation.k8s.host = kubernetes.default.example.local
 # Default value: /var/run/secrets/kubernetes.io/serviceaccount/token
 cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount/token
 
-# Where to load K8S API CA bundle file from.
+# Where to load K8S API CA bundle file from. It will be used when issuing requests
+# to the K8S API using HTTPS.
+#
 # Default value: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 cluster_formation.k8s.cert_path = /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-
-# Default value: /var/run/secrets/kubernetes.io/serviceaccount/namespace
-cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceaccount/namespace
 ```
 
-Just like with the token path key both must point to a local
+Just like with the token path key, `cluster_formation.k8s.cert_path` must point to a local
 file that exists and is readable by RabbitMQ.
+
+#### Peer Node Pods Can Use Hostnames or IP Addresses
 
 When a list of peer nodes is computed from a list of pod containers returned by Kubernetes,
 either hostnames or IP addresses can be used. This is configurable using the
@@ -591,6 +616,8 @@ Supported values are `ip` or `hostname`. `hostname` is
 the recommended option but has limitations: it can only be used with [stateful sets](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#statefulset) (also highly recommended)
 and [headless services](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services).
 `ip` is used by default for better compatibility.
+
+##### Peer Node Pod Name Suffix
 
 It is possible to append a suffix to peer hostnames returned by Kubernetes using
 `cluster_formation.k8s.hostname_suffix`:
