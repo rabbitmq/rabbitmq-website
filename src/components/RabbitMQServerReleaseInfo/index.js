@@ -33,6 +33,11 @@ export function getLatestVersion(branch) {
   return release.version;
 }
 
+export function getReleaseNotesURL(release) {
+  const url = `https://github.com/rabbitmq/rabbitmq-server/releases/tag/v${release.version}`;
+  return url;
+}
+
 export function RabbitMQServerReleaseInfoTable() {
   const releaseBranches = getReleaseBranches();
 
@@ -57,7 +62,7 @@ export function RabbitMQServerReleaseInfoTable() {
     if (isReleased) {
       links = [{
         label: "Release Notes",
-        url: `https://github.com/rabbitmq/rabbitmq-server/releases/tag/v${lastRelease.version}`
+        url: getReleaseNotesURL(lastRelease),
       }];
       if (lastRelease.links) {
         links = links.concat(lastRelease.links);
@@ -79,7 +84,7 @@ export function RabbitMQServerReleaseInfoTable() {
     var initialReleaseDate;
     if (initialRelease.release_date) {
       const date = new Date(initialRelease.release_date);
-      initialReleaseDate = date.toLocaleDateString("en-GB", dateOptions);
+      initialReleaseDate = <a href={getReleaseNotesURL(initialRelease)}>{initialRelease.version} – {date.toLocaleDateString("en-GB", dateOptions)}</a>;
     } else {
       initialReleaseDate = <></>;
     }
@@ -135,7 +140,7 @@ export function RabbitMQServerReleaseInfoTable() {
         <tr>
           <th>Release</th>
           <th colspan="2">Latest Patch</th>
-          <th>Date of First Release</th>
+          <th>First Patch and Date of Release</th>
           <th>End of Community Support</th>
           <th>End of Extended Commercial Support</th>
         </tr>
