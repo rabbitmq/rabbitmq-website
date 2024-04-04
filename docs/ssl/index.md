@@ -24,7 +24,7 @@ import {
 
 # TLS Support
 
-## Overview {#overview}
+## Table of Contents {#overview}
 
 RabbitMQ has inbuilt support for TLS. This includes client connections and popular plugins, where applicable,
 such as [Federation links](./federation). It is also possible to use TLS
@@ -46,16 +46,28 @@ connections:
  * Known [attacks on TLS](#major-vulnerabilities) and their mitigation
  * How to use [private key passwords](#private-key-passwords)
 
-and more. It tries to [explain the basics of TLS](#certificates-and-keys) but not, however, a primer on TLS, encryption, [public Key Infrastructure](https://en.wikipedia.org/wiki/public_key_infrastructure) and related topics, so the concepts are covered very briefly.
+and more.
 
-A number of beginner-oriented primers are available elsewhere on the Web:
-[one](https://hpbn.co/transport-layer-security-tls/)
-[two](https://medium.com/talpor/ssl-tls-authentication-explained-86f00064280),
-[three](https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-1---data-encryption.html),
-[four](https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-2---public-key-certificates.html).
+## Where to Learn the Basics of TLS {#basics}
 
-TLS can be enabled for all protocols supported by RabbitMQ, not just AMQP 0-9-1,
-which this guide focuses on. [HTTP API](./management), [inter-node and CLI tool traffic](./clustering-ssl) can be configured
+This guide tries to [explain the basics of TLS](#certificates-and-keys) but it is not, however, a primer on TLS, encryption, [public Key Infrastructure](https://en.wikipedia.org/wiki/public_key_infrastructure) and related topics, so the concepts are covered very briefly.
+
+A number of beginner-oriented primers on TLS are available elsewhere on the Web:
+
+ * [one](https://medium.com/zkpass/a-primer-on-transport-layer-security-tls-a7495eeff004)
+ * [two](https://www.cloudflare.com/en-ca/learning/ssl/why-use-tls-1.3/)
+ * [three](https://hpbn.co/transport-layer-security-tls/)
+ * [four](https://medium.com/talpor/ssl-tls-authentication-explained-86f00064280)
+
+
+## TLS and Messaging Protocols {#protocols}
+
+TLS can be enabled for all protocols supported by RabbitMQ.
+However, this guide primarily focuses on AMQP 1.0 and AMQP 0-9-1 listeners.
+See [MQTT](./mqtt), [STOMP](./stomp), and their [respective WebSocket transport](./web-mqtt) guides
+for TLS configuration examples for those protocols.
+
+[HTTP API](./management), [inter-node and CLI tool traffic](./clustering-ssl) can be configured
 to use TLS (HTTPS) as well.
 
 To configure TLS on Kubernetes using the RabbitMQ Cluster Operator, see the guide for [Configuring TLS](/kubernetes/operator/using-operator#tls).
@@ -63,7 +75,7 @@ To configure TLS on Kubernetes using the RabbitMQ Cluster Operator, see the guid
 For an overview of common TLS troubleshooting techniques, see [Troubleshooting TLS-related issues](./troubleshooting-ssl)
 and [Troubleshooting Networking](./troubleshooting-networking).
 
-### Common Approaches to TLS for client Connections with RabbitMQ {#tls-connectivity-options}
+## Common Approaches to TLS for client Connections with RabbitMQ {#tls-connectivity-options}
 
 For client connections, there are two common approaches:
 
@@ -75,7 +87,7 @@ Both approaches are valid and have pros and cons. This guide will focus on the
 first option. Certain parts of this guide would still be relevant for environments
 that choose the second option.
 
-### Erlang/OTP Requirements for TLS Support {#erlang-otp-requirements}
+## Erlang/OTP Requirements for TLS Support {#erlang-otp-requirements}
 
 In order to support TLS connections, RabbitMQ needs TLS and
 crypto-related modules to be available in the Erlang/OTP
@@ -101,7 +113,7 @@ and do not indicate a bug or limitation in Erlang/OTP's TLS implementation. Plea
 in the [Troubleshooting TLS guide](./troubleshooting-ssl) to gather
 more information first.
 
-### Known Incompatibilities and Limitations {#known-compatibility-issues}
+## Known Incompatibilities and Limitations {#known-compatibility-issues}
 
 If Elliptic curve cryptography (ECC) cipher suites is
 expected to be used, a recent [supported Erlang release](./which-erlang)
@@ -116,16 +128,20 @@ use the TLS termination option (see above).
 TLS is a large and fairly complex topic. Before explaining [how to enable TLS in RabbitMQ](#enabling-tls)
 it's worth briefly cover some of the concepts used in this guide. This section is intentionally brief and oversimplifies
 some things. Its goal is to get the reader started with enabling TLS for RabbitMQ and applications.
+
 A number of beginner-oriented primers on TLS are available elsewhere on the Web:
-[one](https://hpbn.co/transport-layer-security-tls/)
-[two](https://blog.talpor.com/2015/07/ssltls-certificates-beginners-tutorial/),
-[three](https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-1---data-encryption.html),
-[four](https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-2---public-key-certificates.html).
+
+ * [one](https://medium.com/zkpass/a-primer-on-transport-layer-security-tls-a7495eeff004)
+ * [two](https://www.cloudflare.com/en-ca/learning/ssl/why-use-tls-1.3/)
+ * [three](https://hpbn.co/transport-layer-security-tls/)
+ * [four](https://medium.com/talpor/ssl-tls-authentication-explained-86f00064280)
 
 For a thorough understanding of
 TLS and how to get the most out of it, we would recommend the use
 of other resources, for example <a class="extlink" href="http://oreilly.com/catalog/9780596002701/">Network Security with
 OpenSSL</a>.
+
+### Two Primary Objectives of TLS
 
 TLS has two primary purposes: encrypting connection traffic and providing a way to authenticate ([verify](#peer-verification))
 the peer to mitigate against [Man-in-the-Middle attacks](https://en.wikipedia.org/wiki/Man-in-the-middle_attack).
@@ -133,9 +149,13 @@ Both are accomplished using a set of roles, policies and procedures known as [Pu
 
 A PKI is based on the concept of digital identities that can be cryptographically (mathematically) verified. Those identities are called
 <em>certificates</em> or more precisely, <em>certificate/key pairs</em>. Every TLS-enabled server usually has its own certificate/key
-pair that it uses to compute a connection-specific key that will be used to encrypt traffic sent on the connection. Also, if asked, it can present its certificate
-(public key) to the connection peer. Clients may or may not have their own certificates. In the context of messaging and tools such as RabbitMQ it is quite common for
+pair that it uses to compute a connection-specific key that will be used to encrypt traffic sent on the connection.
+
+Also, if asked, it can present its certificate (public key) to the connection peer. Clients may or may not have their own certificates.
+In the context of messaging and tools such as RabbitMQ it is quite common for
 clients to also use certificate/key pairs so that servers can validate their identity.
+
+### Certificates, Private Keys, and Certificate Authorities
 
 Certificate/key pairs are generated by tools such as OpenSSL and signed by entities called <em>[Certificate Authorities](https://en.wikipedia.org/wiki/Certificate_authority)</em> (CA).
 CAs issue certificates that users (applications or other CAs) use. When a certificate is signed by a CA, they form a <em>chain of trust</em>. Such chains can include
@@ -1026,6 +1046,9 @@ for all the other fields that we need to set. The fields are:
 
 ### TLS Versions {#dotnet-tls-versions-dotnet-client}
 
+TLS has been around since the mid-90s, and there are multiple TLS versions available,
+although older versions are retired by the industry [as newer and more secure ones are developed](https://www.cloudflare.com/en-ca/learning/ssl/why-use-tls-1.3/).
+
 Just like RabbitMQ server can be [configured to support only specific TLS versions](#tls-versions),
 it may be necessary to configure preferred TLS version in the .NET client. This is done using
 the TLS options accessible via `ConnectionFactory#Ssl`.
@@ -1172,23 +1195,11 @@ TLS version by default, as demonstrated in the below table.
   <tbody>
     <tr>
       <td>26.x</td>
-      <td>TLSv1.3 (has a <a href="#tls1.3">dedicated section</a>) and TLSv1.2</td>
+      <td>[TLSv1.3](#tls1.3) and TLSv1.2</td>
     </tr>
     <tr>
       <td>25.x</td>
-      <td>TLSv1.3 (has a <a href="#tls1.3">dedicated section</a>) and TLSv1.2</td>
-    </tr>
-    <tr>
-      <td>24.x</td>
-      <td>TLSv1.3 (has a <a href="#tls1.3">dedicated section</a>) and TLSv1.2</td>
-    </tr>
-    <tr>
-      <td>23.x</td>
-      <td>TLSv1.3 (has a <a href="#tls1.3">dedicated section</a>) and TLSv1.2</td>
-    </tr>
-    <tr>
-      <td>22.x</td>
-      <td>TLSv1.2</td>
+      <td>[TLSv1.3](#tls1.3) and TLSv1.2</td>
     </tr>
   </tbody>
 </table>

@@ -316,6 +316,15 @@ components, as described in section 3.
     </tr>
 
     <tr>
+        <td>amqp://user:passw%23rd@host:10000/vhost</td>
+        <td>"user"</td>
+        <td>"passw#rd"</td>
+        <td>"host"</td>
+        <td>10000</td>
+        <td>"vhost"</td>
+    </tr>
+
+    <tr>
         <td>amqp://user%61:%61pass@ho%61st:10000/v%2fhost</td>
         <td>"usera"</td>
         <td>"apass"</td>

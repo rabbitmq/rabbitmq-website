@@ -53,6 +53,10 @@ const config = {
         '3.13': {
           releases: [
             {
+              version: '3.13.1',
+              release_date: "2024-03-29",
+            },
+            {
               version: '3.13.0',
               release_date: "2024-02-22",
               links: [
@@ -63,8 +67,8 @@ const config = {
               ],
             },
           ],
-          end_of_community_support: "2025-03-01",
-          end_of_commercial_support: "2025-09-01",
+          end_of_community_support: "2025-02-28",
+          end_of_commercial_support: "2025-08-31",
         },
         '3.12': {
           releases: [
