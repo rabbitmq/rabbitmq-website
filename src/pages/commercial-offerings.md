@@ -32,20 +32,21 @@ VMware offers **a range of commercial support, enterprise releases, training, an
 The enterprise edition of RabbitMQ includes all the features of the open source version plus additional key features such as Warm Standby Replication and Intra-cluster Compression under a commercial license.
 Contact VMware to get a quote [here](https://tanzu.vmware.com/rabbitmq).
 
-The enterprise releases include the following:
+The enterprise releases are listed below. For more information about them, go to the **Ways to run Tanzu RabbitMQ and open source RabbitMQ distributions** table on the [VMware Tanzu RabbitMQ product page](https://tanzu.vmware.com/rabbitmq). 
 
-### VMware RabbitMQ® for Tanzu Application Service
+### VMware Tanzu RabbitMQ® for Tanzu Application Service
 
-[VMware RabbitMQ® for Tanzu Application Service (formerly known as VMware Tanzu™ RabbitMQ® for VMs)](https://tanzu.vmware.com/services-marketplace/messaging-and-integration/rabbitmq)
-gives developers self-service access to on-demand RabbitMQ clusters
+Tanzu RabbitMQ® for Tanzu Application Service gives developers self-service access to on-demand RabbitMQ clusters
 running on [VMware Tanzu™ Application Service](https://tanzu.vmware.com/application-service) (formerly known as Pivotal Cloud Foundry).
 
-### VMware RabbitMQ®  for Kubernetes
+### VMware Tanzu RabbitMQ® for Kubernetes
 
-[VMware RabbitMQ® for Kubernetes](https://tanzu.vmware.com/content/blog/introducing-rabbitmq-for-kubernetes)
-simplifies the operational experience to make RabbitMQ available on a Kubernetes-based platform,
+Tanzu RabbitMQ® for Kubernetes simplifies the operational experience to make RabbitMQ available on a Kubernetes-based platform,
 based on the [RabbitMQ Operators for Kubernetes](https://www.rabbitmq.com/kubernetes/operator/operator-overview.html).
 
+### VMware Tanzu RabbitMQ® 
+
+Tanzu RabbitMQ is available in many packages including OVA and OCI.
 
 ## Training {#training}
 

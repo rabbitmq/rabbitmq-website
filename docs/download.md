@@ -54,10 +54,12 @@ You can contribute to open source RabbitMQ by helping the community test [previe
 They are marked as pre-releases on GitHub.
 
 
-## VMware RabbitMQ® (Commercial Edition)
+## VMware Tanzu RabbitMQ® (Commercial Editions)
 
- * [VMware RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
- * [VMware RabbitMQ® on Kubernetes](/kubernetes/tanzu/installation)
+ * [VMware Tanzu RabbitMQ®](https://docs.vmware.com/en/VMware-RabbitMQ/index.html). Tanzu RabbitMQ is available in many packages including OVA and OCI.
+ * [VMware Tanzu RabbitMQ® on Kubernetes](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/index.html)
+ * [VMware Tanzu RabbitMQ® for Tanzu Application Services](https://docs.vmware.com/en/VMware-RabbitMQ-for-Tanzu-Application-Service/index.html)
+
 
 ## Kubernetes
 
@@ -90,9 +92,9 @@ Other guides related to Kubernetes:
 
 ## Cloud
 
- * [VMware RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
+ * [VMware Tanzu RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
  * [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/install-operator) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
- * [VMware RabbitMQ® on Kubernetes](/kubernetes/tanzu/installation)
+ * [VMware Tanzu RabbitMQ® on Kubernetes](/kubernetes/tanzu/installation)
  * [Amazon MQ for RabbitMQ](https://aws.amazon.com/amazon-mq/)
  * [Amazon EC2](./ec2)
 
