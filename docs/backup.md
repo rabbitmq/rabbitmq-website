@@ -29,7 +29,7 @@ queues or streams are used.
 
 It is better to rely on other disaster recovery solutions,
 or use a separate standby cluster for disaster recovery.
-[VMware RabbitMQ](https://www.vmware.com/products/rabbitmq.html) offers a number of extensions for
+[VMware Tanzu RabbitMQ](https://www.vmware.com/products/rabbitmq.html) offers a number of extensions for
 warm standby replication to a dedicated disaster
 recovery cluster.
 

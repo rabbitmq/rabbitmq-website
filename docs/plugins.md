@@ -605,9 +605,9 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
   </tbody>
 </table>
 
-## Additional Plugins in VMware RabbitMQ® {#commercial-plugins}
+## Additional Plugins in VMware Tanzu RabbitMQ® {#commercial-plugins}
 
-The table below lists of plugins only available in [VMware RabbitMQ®](https://tanzu.vmware.com/rabbitmq).
+The table below lists of plugins only available in [Tanuz RabbitMQ®](https://tanzu.vmware.com/rabbitmq).
 
 <table class="plugins">
   <thead>

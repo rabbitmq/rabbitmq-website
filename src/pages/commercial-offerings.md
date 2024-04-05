@@ -34,17 +34,20 @@ Contact VMware to get a quote [here](https://tanzu.vmware.com/rabbitmq).
 
 The enterprise releases include the following:
 
-### VMware RabbitMQ® for Tanzu Application Service
+### VMware Tanzu RabbitMQ® for Tanzu Application Service
 
-[VMware RabbitMQ® for Tanzu Application Service (formerly known as VMware Tanzu™ RabbitMQ® for VMs)](https://tanzu.vmware.com/services-marketplace/messaging-and-integration/rabbitmq)
-gives developers self-service access to on-demand RabbitMQ clusters
+[VMware Tanzu RabbitMQ® for Tanzu Application Service (formerly known as VMware Tanzu™ RabbitMQ® for VMs)](https://tanzu.vmware.com/rabbitmq), go to the **Ways to run Tanzu RabbitMQ and open source RabbitMQ distributions** table on this page for more information. Tanzu RabbitMQ for Tanzu Application Service gives developers self-service access to on-demand RabbitMQ clusters
 running on [VMware Tanzu™ Application Service](https://tanzu.vmware.com/application-service) (formerly known as Pivotal Cloud Foundry).
 
-### VMware RabbitMQ®  for Kubernetes
+### VMware Tanzu RabbitMQ® for Kubernetes
 
-[VMware RabbitMQ® for Kubernetes](https://tanzu.vmware.com/content/blog/introducing-rabbitmq-for-kubernetes)
-simplifies the operational experience to make RabbitMQ available on a Kubernetes-based platform,
+[VMware Tanzu RabbitMQ® for Kubernetes](https://tanzu.vmware.com/rabbitmq), again go to the **Ways to run Tanzu RabbitMQ and open source RabbitMQ distributions** table on this page for more information. Tanzu RabbitMQ® for Kubernetes simplifies the operational experience to make RabbitMQ available on a Kubernetes-based platform,
 based on the [RabbitMQ Operators for Kubernetes](https://www.rabbitmq.com/kubernetes/operator/operator-overview.html).
+
+### VMware Tanzu RabbitMQ® 
+
+[VMware Tanzu RabbitMQ®](https://tanzu.vmware.com/rabbitmq), again go to the **Ways to run Tanzu RabbitMQ and open source RabbitMQ distributions** table on this page for more information. Tanzu RabbitMQ includes both Tanzu RabbitMQ OVA and Tanzu RabbitMQ OCI.
+
 
 
 ## Training {#training}
