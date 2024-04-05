@@ -56,7 +56,7 @@ They are marked as pre-releases on GitHub.
 
 ## VMware Tanzu RabbitMQ® (Commercial Editions)
 
- * [VMware Tanzu RabbitMQ®](https://docs.vmware.com/en/VMware-RabbitMQ/index.html). This edition includes Tanzu RabbitMQ OVA and Tanzu RabbitMQ OCI.
+ * [VMware Tanzu RabbitMQ®](https://docs.vmware.com/en/VMware-RabbitMQ/index.html). Tanzu RabbitMQ is available in many packages including OVA and OCI.
  * [VMware Tanzu RabbitMQ® on Kubernetes](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/index.html)
  * [VMware Tanzu RabbitMQ® for Tanzu Application Services](https://docs.vmware.com/en/VMware-RabbitMQ-for-Tanzu-Application-Service/index.html)
 

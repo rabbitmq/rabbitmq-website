@@ -46,7 +46,7 @@ based on the [RabbitMQ Operators for Kubernetes](https://www.rabbitmq.com/kubern
 
 ### VMware Tanzu RabbitMQ® 
 
-[VMware Tanzu RabbitMQ®](https://tanzu.vmware.com/rabbitmq), again go to the **Ways to run Tanzu RabbitMQ and open source RabbitMQ distributions** table on this page for more information. Tanzu RabbitMQ includes both Tanzu RabbitMQ OVA and Tanzu RabbitMQ OCI.
+[VMware Tanzu RabbitMQ®](https://tanzu.vmware.com/rabbitmq), again go to the **Ways to run Tanzu RabbitMQ and open source RabbitMQ distributions** table on this page for more information. Tanzu RabbitMQ is available in many packages including OVA and OCI.
 
 
 
