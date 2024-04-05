@@ -787,7 +787,7 @@ Given the [peer syncing behavior during node restarts](./clustering#restarting-s
 from completing in time. Checks that explicitly or implicitly assume a fully booted node that's rejoined
 its cluster peers will fail and block further node deployments.
 
-Moreover, most CLI commands (such as `rabbitmq-diagnistics`) has a performance impact because the CLI joins the [Erlang
+Moreover, most CLI commands (such as `rabbitmq-diagnostics`) has a performance impact because the CLI joins the [Erlang
 distribution](https://www.erlang.org/doc/reference_manual/./distributed) (the same mechanism used for clustering RabbitMQ nodes).
 Joining and leaving this cluster on every probe execution has unnecessary overhead.
 
