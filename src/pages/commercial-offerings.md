@@ -32,7 +32,7 @@ VMware offers **a range of commercial support, enterprise releases, training, an
 The enterprise edition of RabbitMQ includes all the features of the open source version plus additional key features such as Warm Standby Replication and Intra-cluster Compression under a commercial license.
 Contact VMware to get a quote [here](https://tanzu.vmware.com/rabbitmq).
 
-The enterprise releases are listed below. For more information about them, go to the **Ways to run Tanzu RabbitMQ and open source RabbitMQ distributions** table on the [VMware Tanzu RabbitMQ product page](https://tanzu.vmware.com/rabbitmq)]. 
+The enterprise releases are listed below. For more information about them, go to the **Ways to run Tanzu RabbitMQ and open source RabbitMQ distributions** table on the [VMware Tanzu RabbitMQ product page](https://tanzu.vmware.com/rabbitmq). 
 
 ### VMware Tanzu RabbitMQ® for Tanzu Application Service
 
