@@ -360,20 +360,6 @@ const config = {
           content: 'https://tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.js',
         },
       ],
-      headTags: [
-        {
-          tagName: 'script',
-          attributes: { src: '//www.vmware.com/files/templates/inc/utag_data.js' },
-        },
-        {
-          tagName: 'script',
-          attributes: { src: '//tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.sync.js' },
-        },
-        {
-          tagName: 'script',
-          innerHTML: "function OptanonWrapper() { { window.dataLayer.push({ event: 'OneTrustGroupsUpdated' }); } }",
-        },
-      ],
     }),
 
   headTags: [
@@ -383,6 +369,23 @@ const config = {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css?family=Raleway:400,700',
       },
+    },
+    {
+      tagName: 'script',
+      attributes: {
+        href: '//www.vmware.com/files/templates/inc/utag_data.js',
+      },
+    },
+    {
+      tagName: 'script',
+      attributes: {
+        href: '//tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.sync.js',
+      },
+    },
+    {
+      tagName: 'script',
+      attributes: {},
+      innerHTML: "function OptanonWrapper() { { window.dataLayer.push({ event: 'OneTrustGroupsUpdated' }); } }",
     },
   ],
 
