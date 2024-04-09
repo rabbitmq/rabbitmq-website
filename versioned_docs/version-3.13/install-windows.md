@@ -102,26 +102,9 @@ and run it. It installs RabbitMQ as a Windows service and starts it using the de
 
 ### Direct Downloads {#downloads}
 
-<table>
-  <thead>
-    <th>Description</th>
-    <th>Download</th>
-    <th>Signature</th>
-  </thead>
-
-  <tr>
-    <td>
-      Installer for Windows systems (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
-    </td>
-    <td>
-      <a href={RabbitMQServerPackageURL({packageType: 'windows-installer'})}>{RabbitMQServerPackageFilename({packageType: 'windows-installer'})}</a>
-    </td>
-    <td>
-      <a href={RabbitMQServerPackageSigURL({packageType: 'windows-installer'})}>Signature</a>
-    </td>
-  </tr>
-</table>
-
+| Description | Download | Signature |
+|-------------|----------|-----------|
+| Installer for Windows systems (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>) | <a href={RabbitMQServerPackageURL({packageType: 'windows-installer'})}>{RabbitMQServerPackageFilename({packageType: 'windows-installer'})}</a> | <a href={RabbitMQServerPackageSigURL({packageType: 'windows-installer'})}>Signature</a> |
 
 ## Run RabbitMQ Windows Service {#service}
 

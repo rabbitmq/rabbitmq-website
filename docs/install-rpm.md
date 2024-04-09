@@ -579,38 +579,10 @@ dnf install ${RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}`}
 In some cases it may be easier to download the package and install it manually. The package can be downloaded
 from [GitHub](https://github.com/rabbitmq/rabbitmq-server/releases).
 
-<table>
-  <thead>
-    <th>Description</th>
-    <th>Download</th>
-    <th>Signature</th>
-  </thead>
-
-  <tr>
-    <td>
-      RPM for RHEL Linux 8.x and 9.x, CentOS Stream 8 and 9, Fedora 35+, Amazon Linux 2023, Rocky Linux, Alma Linux
-    </td>
-    <td>
-      <a href={RabbitMQServerPackageURL({packageType: 'rpm-el8'})}>{RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}</a>
-    </td>
-    <td>
-      <a href={RabbitMQServerPackageSigURL({packageType: 'rpm-el8'})}>Signature</a>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      RPM for openSUSE Linux
-    </td>
-    <td>
-      <a href={RabbitMQServerPackageURL({packageType: 'rpm-suse'})}>{RabbitMQServerPackageFilename({packageType: 'rpm-suse'})}</a>
-    </td>
-    <td>
-      <a href={RabbitMQServerPackageSigURL({packageType: 'rpm-suse'})}>Signature</a>
-    </td>
-  </tr>
-</table>
-
+| Description | Download | Signature |
+|-------------|----------|-----------|
+| RPM for RHEL Linux 8.x and 9.x, CentOS Stream 8 and 9, Fedora 35+, Amazon Linux 2023, Rocky Linux, Alma Linux | <a href={RabbitMQServerPackageURL({packageType: 'rpm-el8'})}>{RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}</a> | <a href={RabbitMQServerPackageSigURL({packageType: 'rpm-el8'})}>Signature</a> |
+| RPM for openSUSE Linux | <a href={RabbitMQServerPackageURL({packageType: 'rpm-suse'})}>{RabbitMQServerPackageFilename({packageType: 'rpm-suse'})}</a> | <a href={RabbitMQServerPackageSigURL({packageType: 'rpm-suse'})}>Signature</a> |
 
 ## Run RabbitMQ Server {#running-rpm}
 

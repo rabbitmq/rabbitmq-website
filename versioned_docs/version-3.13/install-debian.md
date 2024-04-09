@@ -464,25 +464,9 @@ Pin-Priority: 1001`}
 In some cases it may be easier to download the package directly from GitHub and install it manually using `sudo dpkg -i`.
 Below is a download link.
 
-<table>
-  <thead>
-    <th>Description</th>
-    <th>Download</th>
-    <th>Signature</th>
-  </thead>
-
-  <tr>
-    <td>
-      .deb for Debian-based Linux (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
-    </td>
-    <td>
-      <a href={RabbitMQServerPackageURL({packageType: 'debian'})}>{RabbitMQServerPackageFilename({packageType: 'debian'})}</a>
-    </td>
-    <td>
-      <a href={RabbitMQServerPackageSigURL({packageType: 'debian'})}>Signature</a>
-    </td>
-  </tr>
-</table>
+| Description | Download | Signature |
+|-------------|----------|-----------|
+| .deb for Debian-based Linux (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>) | <a href={RabbitMQServerPackageURL({packageType: 'debian'})}>{RabbitMQServerPackageFilename({packageType: 'debian'})}</a> | <a href={RabbitMQServerPackageSigURL({packageType: 'debian'})}>Signature</a> |
 
 When installing manually with `dpkg`, it is necessary to install package dependencies first.
 `dpkg`, unlike `apt`, does not resolve or manage dependencies.

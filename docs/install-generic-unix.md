@@ -45,26 +45,9 @@ Unlike with the cases of [Debian](./install-debian), [RPM](./install-rpm) and [W
 
 ## Downloads {#downloads}
 
-<table>
-  <thead>
-    <th>Description</th>
-    <th>Download</th>
-    <th>Signature</th>
-  </thead>
-
-  <tr>
-    <td>
-      Generic UNIX binary build (tar.xz, from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>, recommended)
-    </td>
-    <td>
-      <a href={RabbitMQServerPackageURL({packageType: 'generic-unix'})}>{RabbitMQServerPackageFilename({packageType: 'generic-unix'})}</a>
-    </td>
-    <td>
-      <a href={RabbitMQServerPackageSigURL({packageType: 'generic-unix'})}>Signature</a>
-    </td>
-  </tr>
-</table>
-
+| Description | Download | Signature |
+|-------------|----------|-----------|
+| Generic UNIX binary build (tar.xz, from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>, recommended) | <a href={RabbitMQServerPackageURL({packageType: 'generic-unix'})}>{RabbitMQServerPackageFilename({packageType: 'generic-unix'})}</a> | <a href={RabbitMQServerPackageSigURL({packageType: 'generic-unix'})}>Signature</a> |
 
 ## Installation {#installation}
 

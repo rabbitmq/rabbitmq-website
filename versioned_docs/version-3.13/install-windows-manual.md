@@ -66,29 +66,11 @@ After making sure a supported Erlang version is installed, download <code><Rabbi
 
 ### Direct Downloads {#downloads}
 
-<table>
-  <thead>
-    <th>Description</th>
-    <th>Download</th>
-    <th>Signature</th>
-  </thead>
+| Description | Download | Signature |
+|-------------|----------|-----------|
+| Installer for Windows systems (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>) | <a href={RabbitMQServerPackageURL({packageType: 'windows-zip'})}>{RabbitMQServerPackageFilename({packageType: 'windows-zip'})}</a> | <a href={RabbitMQServerPackageSigURL({packageType: 'windows-zip'})}>Signature</a> |
 
-  <tr>
-    <td>
-      Installer for Windows systems (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
-    </td>
-    <td>
-      <a href={RabbitMQServerPackageURL({packageType: 'windows-zip'})}>{RabbitMQServerPackageFilename({packageType: 'windows-zip'})}</a>
-    </td>
-    <td>
-      <a href={RabbitMQServerPackageSigURL({packageType: 'windows-zip'})}>Signature</a>
-    </td>
-  </tr>
-</table>
-
-From the zip file, extract the folder named
-<code><RabbitMQServerPackageWinZipDir/></code>
-into `C:\Program Files`
+From the zip file, extract the folder named <code><RabbitMQServerPackageWinZipDir/></code> into `C:\Program Files`
 (or somewhere suitable for application files).
 
 
