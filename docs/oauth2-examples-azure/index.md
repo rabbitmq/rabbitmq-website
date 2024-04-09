@@ -3,7 +3,7 @@ title: Use Azure Active Directory (Azure AD) as OAuth 2.0 server
 displayed_sidebar: docsSidebar
 ---
 <!--
-Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2007-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -21,11 +21,10 @@ limitations under the License.
 
 # Use Azure Active Directory (Azure AD) as OAuth 2.0 server
 
-Let's test the following 3 OAuth flows:
+Demonstrate how to authenticate using the OAuth 2.0 protocol
+and Azure Active Directory as Authorization Server using the following flows:
 
-* Access management UI via a browser :ballot_box_with_check:
-* Access management rest api :construction:
-* Access AMQP protocol :construction:
+* Access the management UI via a browser
 
 ## Prerequisites to follow this guide
 
@@ -56,7 +55,7 @@ When using **Azure AD as OAuth 2.0 server**, your client app (in our case Rabbit
 
 5. Click on **Register**.
 
-    ![Azure AD OAuth 2.0 App](/img/oauth2/azure-ad-oauth-registered-app.png)
+    ![Azure AD OAuth 2.0 App](./azure-ad-oauth-registered-app.png)
 
     Note the following values, as you will need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side:
 
@@ -68,7 +67,7 @@ When using **Azure AD as OAuth 2.0 server**, your client app (in our case Rabbit
 
     Note the value of the `jwks_uri` key (ex: `https://login.microsoftonline.com/{TENANT_ID}/discovery/v2.0/keys`), as you will also need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side.
 
-    ![Azure AD JWKS URI](/img/oauth2/azure-ad-jwks-uri.png)
+    ![Azure AD JWKS URI](./azure-ad-jwks-uri.png)
 
 
 ## Create OAuth 2.0 roles for your app
@@ -121,7 +120,7 @@ Now that some roles have been created for your application, you still need to as
 
 2. In the new left-hand menu, select **Manage -> All applications**. Use the **Search Bar** and/or the available filters to find your application.
 
-    ![Azure AD Enterprise Applications](/img/oauth2/azure-ad-enterprise-application.png)
+    ![Azure AD Enterprise Applications](./azure-ad-enterprise-application.png)
 
 3. Click on the application you just created, for which you want to assign roles to users/groups, then, in the left-hand navigation menu, Select **Manage -> Users and groups**.
 

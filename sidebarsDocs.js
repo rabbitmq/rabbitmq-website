@@ -279,7 +279,7 @@ const sidebars = {
           items: [
             {
               type: 'doc',
-              id: 'management',
+              id: 'management/index',
               label: 'Management Plugin',
             },
             {
@@ -435,13 +435,8 @@ const sidebars = {
             {
               type: 'doc',
               id: 'oauth2',
-              label: 'OAuth 2 Support',
-            },
-            {
-              type: 'doc',
-              id: 'oauth2-examples',
-              label: 'OAuth 2 Examples',
-            },
+              label: 'OAuth 2',
+            },            
             {
               type: 'doc',
               id: 'ldap',
