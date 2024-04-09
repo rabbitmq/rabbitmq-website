@@ -143,17 +143,16 @@ are used for important data, and messages are [published as persistent by publis
 In a RabbitMQ cluster, all definitions (of exchanges, bindings, users, etc) are replicated across the entire
 cluster.
 
-[Quorum queues](./quorum-queues) and [streams](./streams) are replicated to multiple
-cluster nodes. One of the nodes hosts a leader replica, others host followers. In case of leader failure
-one of the followers is elected to be a new leader. Queue state changes (enqueueing, keeping track
+[Quorum queues](./quorum-queues), [streams](./streams) and superstreams (partitioned streams) are
+replicated data structures. One of the nodes hosts a leader replica, others replicas are followers.
+In case of leader failure one of the followers is elected to be a new leader. Queue state changes (enqueueing, keeping track
 of deliveries and acknowledgements) happen on the leader replica, although some operations can be
 performed on followers, too.
 
 Queues and streams remain visible and reachable from all nodes regardless
-of what node their leader replica is located.
-
-Historically [classic queue mirroring](./ha) was the only queue replication option.
-It is now [**deprecated** in favor of quorum queues](./ha#interstitial) and [streams](./streams).
+of what node their leader replica is located. During a leader re-election, in flight
+message delivery will be paused for quorum queues until a new leader is elected.
+In the case of a successful leader election, this happens transparently to clients.
 
 [Exclusive queues](./queues#exclusive-queues) are tied to the lifecycle of their connection and thus are never
 replicated and by definition will not survive a node restart.
