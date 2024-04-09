@@ -247,7 +247,7 @@ www.rabbitmq.com/kubernetes/operator/using-on-openshift.html,https://www.rabbitm
 www.rabbitmq.com/kubernetes/operator/using-operator.html,https://www.rabbitmq.com/kubernetes/operator/using-operator,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/kubernetes/operator/using-topology-operator.html,https://www.rabbitmq.com/kubernetes/operator/using-topology-operator,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/kubernetes/operator/vault-topology-operator.html,https://www.rabbitmq.com/kubernetes/operator/vault-topology-operator,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/kubernetes/tanzu/installation.html,https://www.rabbitmq.com/kubernetes/tanzu/installation,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/kubernetes/tanzu/installation.html,https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/installation.html,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/lazy-queues.html,https://www.rabbitmq.com/docs/lazy-queues,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/ldap.html,https://www.rabbitmq.com/docs/ldap,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/logging.html,https://www.rabbitmq.com/docs/logging,,TRUE,FALSE,FALSE,FALSE
@@ -414,3 +414,4 @@ www.rabbitmq.com/windows-quirks.html,https://www.rabbitmq.com/docs/windows-confi
 
 www.rabbitmq.com/docs/contact,https://www.rabbitmq.com/contact,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/docs/versions,https://www.rabbitmq.com/release-information,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/kubernetes/tanzu/installation,https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/installation.html,,TRUE,FALSE,FALSE,FALSE
