@@ -22,6 +22,7 @@ limitations under the License.
 import CodeBlock from '@theme/CodeBlock';
 import {
   RabbitMQServerPackageURL,
+  RabbitMQServerPackageSigURL,
   RabbitMQServerPackageFilename,
 } from '@site/src/components/RabbitMQServer';
 
@@ -593,7 +594,7 @@ from [GitHub](https://github.com/rabbitmq/rabbitmq-server/releases).
       <a href={RabbitMQServerPackageURL({packageType: 'rpm-el8'})}>{RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}</a>
     </td>
     <td>
-      <a href={RabbitMQServerPackageURL({packageType: 'rpm-el8'}) + '.asc'}>Signature</a>
+      <a href={RabbitMQServerPackageSigURL({packageType: 'rpm-el8'})}>Signature</a>
     </td>
   </tr>
 
@@ -605,7 +606,7 @@ from [GitHub](https://github.com/rabbitmq/rabbitmq-server/releases).
       <a href={RabbitMQServerPackageURL({packageType: 'rpm-suse'})}>{RabbitMQServerPackageFilename({packageType: 'rpm-suse'})}</a>
     </td>
     <td>
-      <a href={RabbitMQServerPackageURL({packageType: 'rpm-suse'}) + '.asc'}>Signature</a>
+      <a href={RabbitMQServerPackageSigURL({packageType: 'rpm-suse'})}>Signature</a>
     </td>
   </tr>
 </table>

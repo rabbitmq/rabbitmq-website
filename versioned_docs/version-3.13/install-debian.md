@@ -23,6 +23,7 @@ import CodeBlock from '@theme/CodeBlock';
 import {
   RabbitMQServerVersion,
   RabbitMQServerPackageURL,
+  RabbitMQServerPackageSigURL,
   RabbitMQServerPackageFilename,
   RabbitMQServerPackageRevision,
 } from '@site/src/components/RabbitMQServer';
@@ -478,7 +479,7 @@ Below is a download link.
       <a href={RabbitMQServerPackageURL({packageType: 'debian'})}>{RabbitMQServerPackageFilename({packageType: 'debian'})}</a>
     </td>
     <td>
-      <a href={RabbitMQServerPackageURL({packageType: 'debian'}) + '.asc'}>Signature</a>
+      <a href={RabbitMQServerPackageSigURL({packageType: 'debian'})}>Signature</a>
     </td>
   </tr>
 </table>

@@ -21,6 +21,7 @@ limitations under the License.
 
 import {
   RabbitMQServerPackageURL,
+  RabbitMQServerPackageSigURL,
   RabbitMQServerPackageFilename,
 } from '@site/src/components/RabbitMQServer';
 
@@ -113,10 +114,10 @@ and run it. It installs RabbitMQ as a Windows service and starts it using the de
       Installer for Windows systems (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
     </td>
     <td>
-      <a href={RabbitMQServerPackageURL({packageType: 'windows-installer'})}>{RabbitMQServerPackageFilename({packageType: 'windows-installer'}) + '.asc'}</a>
+      <a href={RabbitMQServerPackageURL({packageType: 'windows-installer'})}>{RabbitMQServerPackageFilename({packageType: 'windows-installer'})}</a>
     </td>
     <td>
-      <a href={RabbitMQServerPackageURL({packageType: 'windows-installer'})}>Signature</a>
+      <a href={RabbitMQServerPackageSigURL({packageType: 'windows-installer'})}>Signature</a>
     </td>
   </tr>
 </table>

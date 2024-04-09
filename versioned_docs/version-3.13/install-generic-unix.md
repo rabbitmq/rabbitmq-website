@@ -21,6 +21,7 @@ limitations under the License.
 
 import {
   RabbitMQServerPackageURL,
+  RabbitMQServerPackageSigURL,
   RabbitMQServerPackageFilename,
   RabbitMQServerPackageGenUnixDir,
 } from '@site/src/components/RabbitMQServer';
@@ -59,7 +60,7 @@ Unlike with the cases of [Debian](./install-debian), [RPM](./install-rpm) and [W
       <a href={RabbitMQServerPackageURL({packageType: 'generic-unix'})}>{RabbitMQServerPackageFilename({packageType: 'generic-unix'})}</a>
     </td>
     <td>
-      <a href={RabbitMQServerPackageURL({packageType: 'generic-unix'}) + '.asc'}>Signature</a>
+      <a href={RabbitMQServerPackageSigURL({packageType: 'generic-unix'})}>Signature</a>
     </td>
   </tr>
 </table>

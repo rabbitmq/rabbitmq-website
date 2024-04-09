@@ -21,6 +21,7 @@ limitations under the License.
 
 import {
   RabbitMQServerPackageURL,
+  RabbitMQServerPackageSigURL,
   RabbitMQServerPackageFilename,
   RabbitMQServerPackageWinZipDir,
 } from '@site/src/components/RabbitMQServer';
@@ -80,7 +81,7 @@ After making sure a supported Erlang version is installed, download <code><Rabbi
       <a href={RabbitMQServerPackageURL({packageType: 'windows-zip'})}>{RabbitMQServerPackageFilename({packageType: 'windows-zip'})}</a>
     </td>
     <td>
-      <a href={RabbitMQServerPackageURL({packageType: 'windows-zip'}) + '.asc'}>Signature</a>
+      <a href={RabbitMQServerPackageSigURL({packageType: 'windows-zip'})}>Signature</a>
     </td>
   </tr>
 </table>

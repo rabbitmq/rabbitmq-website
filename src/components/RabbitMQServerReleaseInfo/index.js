@@ -24,12 +24,15 @@ export function getReleaseBranch(branch) {
 
 export function getLatestRelease(branch) {
   const releaseBranch = getReleaseBranch(branch);
-  const release = releaseBranch.releases[0];
+  const release = releaseBranch.releases[0] || undefined;
   return release;
 }
 
 export function getLatestVersion(branch) {
   const release = getLatestRelease(branch);
+  if (release === undefined) {
+    return undefined;
+  }
   return release.version;
 }
 
@@ -48,7 +51,7 @@ export function RabbitMQServerReleaseInfoTable() {
 
   var rows = [];
   for (const branch in releaseBranches) {
-    if (branch == 'Next') {
+    if (branch === 'Next') {
       continue;
     }
 

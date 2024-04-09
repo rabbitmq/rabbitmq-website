@@ -41,14 +41,10 @@ const config = {
   customFields: {
     releaseBranches: {
       rabbitmq: {
-        // RabbitMQ releases per version declared in Docusaurus ('Next' for the
-        // future docs).
+        // RabbitMQ releases per version declared in Docusaurus ('Next' for
+        // the future docs).
         'Next': {
-          // package_revs: {
-          //   'debian': '1',
-          //   'rpm-el8': '1',
-          //   'rpm-suse': '1',
-          // }
+          releases: [],
         },
         '3.13': {
           releases: [
