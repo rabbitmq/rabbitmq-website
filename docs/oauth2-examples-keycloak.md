@@ -3,7 +3,7 @@ title: Use KeyCloak as OAuth 2.0 server
 displayed_sidebar: docsSidebar
 ---
 <!--
-Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2007-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -21,7 +21,8 @@ limitations under the License.
 
 # Use KeyCloak as OAuth 2.0 server
 
-Let's test the following 3 OAuth flows:
+Demonstrate how to authenticate using the OAuth 2.0 protocol
+and Keycloak as Authorization Server using the following flows:
 
 * Access management UI via a browser
 * Access management rest api
