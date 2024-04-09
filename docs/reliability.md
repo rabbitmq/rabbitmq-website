@@ -23,7 +23,9 @@ limitations under the License.
 ## Overview {#overview}
 
 This guides provides an overview features of
-RabbitMQ, AMQP 0-9-1 and other supported protocols related to data safety.
+RabbitMQ and (some) of its supported protocols related to data safety
+and failure handling.
+
 They help application developers and operators achieve __reliable delivery__,
 that is, to ensure that messages are always delivered, even encountering failures
 of various kinds.
@@ -31,6 +33,9 @@ of various kinds.
 Data safety is a joint responsibility of RabbitMQ nodes, [publishers](./publishers)
 and [consumers](./consumers). Therefore, this guide provides an overview of
 topics imported to each part of a messaging-based system.
+
+This guide is primarily an overview. Each topic is discussed in more details
+in its own dedicated guide.
 
 The following guides discuss data safety and resilience topics in more detail:
 
