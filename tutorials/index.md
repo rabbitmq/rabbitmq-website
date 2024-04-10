@@ -30,9 +30,14 @@ import T6DiagramToC from '@site/src/components/Tutorials/T6DiagramToC.md';
 These tutorials cover the basics of creating messaging
 applications using RabbitMQ.
 
-You need to have the RabbitMQ server installed to go through
-the tutorials, please see the [installation guide](/docs/download) or
-use the [Docker image](https://hub.docker.com/_/rabbitmq/).
+You need to have the RabbitMQ server installed to go through the tutorials,
+please see the [installation guide](/docs/download) or use the [Docker
+image](https://hub.docker.com/_/rabbitmq/).
+
+:::note
+You can use these tutorials with any versions of RabbitMQ. That said, we
+recommend to familiarize yourself with the latest version!
+:::
 
 Executable versions of these tutorials [are open source](https://github.com/rabbitmq/rabbitmq-tutorials),
 as is [this website](https://github.com/rabbitmq/rabbitmq-website).
