@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="740"
+   height="740"
+   viewBox="0 0 22.2 22.2"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="release-notes.svg"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.36404401"
+     inkscape:cx="-509.55377"
+     inkscape:cy="564.49219"
+     inkscape:window-width="1916"
+     inkscape:window-height="1029"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1" />
+  <path
+     d="m 11.1,3.9157895 v 1.580518 H 2.7331443 V 20.019638 l 14.5231687,-1.6e-5 v -8.367004 l 1.580528,1.4e-5 v 8.36699 c 0,0.944268 -0.6712,1.580378 -1.580528,1.580378 H 2.7331443 C 1.8914216,21.6 1.1526319,20.879784 1.1526319,20.019622 V 5.4963075 c 0,-0.7831956 0.7534712,-1.580518 1.5805124,-1.580518 z m 0,11.7426205 v 1.520537 H 5.5736844 V 15.65841 Z m 3.315789,-3.31578 v 1.520528 H 5.5736844 V 12.34263 Z m 0,-3.31578 v 1.520518 H 5.5736844 V 9.02685 Z M 17.731578,2.8105264 18.767762,5.0901316 21.047368,6.1263158 18.767762,7.1625 17.731578,9.4421053 16.695394,7.1625 14.415789,6.1263158 16.695394,5.0901316 Z M 14.41579,0.6 15.10658,2.1197369 16.626316,2.8105264 15.10658,3.5013158 14.41579,5.0210527 13.725,3.5013158 12.205263,2.8105264 13.725,2.1197369 Z"
+     id="path1"
+     style="stroke-width:0.75;stroke-dasharray:none;fill-opacity:1"
+     sodipodi:nodetypes="cccccccsssssscccccccccccccccccccccccccccccccccc" />
+</svg>
