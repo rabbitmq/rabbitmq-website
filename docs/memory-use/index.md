@@ -26,6 +26,12 @@ Operators need to be able to reason about node's memory use,
 both absolute and relative ("what uses most memory"). This is an
 important aspect of [system monitoring](./monitoring).
 
+This guide focusses on reasoning about node's reported (monitored) memory footprint.
+It is accompanied by a few closely related guides:
+
+ * [Memory Threshold and Limit](./memory)
+ * [Resource Alarms](./alarms)
+
 RabbitMQ provides tools that report and help analyse node memory use:
 
  * [`rabbitmq-diagnostics memory_breakdown`](./cli)
@@ -41,43 +47,14 @@ Note that all measurements are somewhat approximate, based on values
 returned by the underlying runtime or the kernel at a specific point in
 time, usually within a 5 seconds time window.
 
-## Total Memory Use Calculation Strategies {#strategies}
 
-RabbitMQ can use different strategies to compute how much memory a node uses.
-Historically, nodes obtained this information from the runtime, reporting how much
-memory is used (not just allocated). This strategy, known as `legacy` (alias for `erlang`) tends to
-underreport and is not recommended.
+## Running RabbitMQ in Containers and on Kubernetes {#containers}
 
-Effective strategy is configured using the `vm_memory_calculation_strategy` key.
-There are two primary options:
+When a RabbitMQ runs in an environment where cgroups are used, namely in various
+containerized environments and on Kubernetes, certain aspects related to [memory limits](./memory#absolute-limit)
+and [kernel page cache](#page-cache) must be taken into account,
+in particular in clusters where streams and super streams are used.
 
- * `rss` uses OS-specific means of querying the kernel to find
-   RSS (Resident Set Size) value of the node OS process. This strategy is most precise
-   and used by default on Linux, MacOS, BSD and Solaris systems. When
-  this strategy is used, RabbitMQ runs short lived subprocesses once a second.
-
- * `allocated` is a strategy that queries runtime memory allocator
-   information. It is usually quite close to the values reported by the `rss`
-  strategy. This strategy is used by default on Windows.
-
-The `vm_memory_calculation_strategy` setting also impacts
-memory breakdown reporting. If set to `legacy` (`erlang`) or `allocated`,
-some memory breakdown fields will not be reported. This is covered in more detail
-further in this guide.
-
-The following configuration example uses the `rss` strategy:
-
-```ini
-vm_memory_calculation_strategy = rss
-```
-
-Similarly, for the `allocated` strategy, use:
-
-```ini
-vm_memory_calculation_strategy = allocated
-```
-
-To find out what strategy a node uses, see its [effective configuration](./configure).
 
 ## Memory Use Breakdown {#breakdown}
 
@@ -96,8 +73,7 @@ Memory use breakdown reports allocated memory distribution on the target node, b
 
  * [Connections](#breakdown-connections) (further split into four categories: readers, writers, channels, other)
  * [Quorum queue](./quorum-queues) replicas
- * Classic mirrored queue leader replicas
- * Classic mirrored queue mirror (follower) replicas
+ * [Stream](./streams) replicas
  * Message Store and Indices
  * [Binary heap references](#breakdown-binaries)
  * Node-local metrics (stats database)
@@ -107,6 +83,7 @@ Memory use breakdown reports allocated memory distribution on the target node, b
  * Code (bytecode, module metadata)
  * ETS (in memory key/value store) tables
  * Atom tables
+ * (Deprecated, scheduled for removal) Classic mirrored queue replicas
  * Other
 
 Generally there is no overlap between the categories (no double accounting for the same memory).
@@ -704,3 +681,42 @@ We recommend many queues so that memory allocation / garbage collection is sprea
 
 If the messages in a queue take up a lot of memory, we recommend lazy queues so that they are stored on disk
 as soon as possible and not kept in memory longer than is necessary.
+
+
+## Total Memory Use Calculation Strategies {#strategies}
+
+RabbitMQ can use different strategies to compute how much memory a node uses.
+Historically, nodes obtained this information from the runtime, reporting how much
+memory is used (not just allocated). This strategy, known as `legacy` (alias for `erlang`) tends to
+underreport and is not recommended.
+
+Effective strategy is configured using the `vm_memory_calculation_strategy` key.
+There are two primary options:
+
+ * `rss` uses OS-specific means of querying the kernel to find
+   RSS (Resident Set Size) value of the node OS process. This strategy is most precise
+   and used by default on Linux, MacOS, BSD and Solaris systems. When
+  this strategy is used, RabbitMQ runs short lived subprocesses once a second.
+
+ * `allocated` is a strategy that queries runtime memory allocator
+   information. It is usually quite close to the values reported by the `rss`
+  strategy. This strategy is used by default on Windows.
+
+The `vm_memory_calculation_strategy` setting also impacts
+memory breakdown reporting. If set to `legacy` (`erlang`) or `allocated`,
+some memory breakdown fields will not be reported. This is covered in more detail
+further in this guide.
+
+The following configuration example uses the `rss` strategy:
+
+```ini
+vm_memory_calculation_strategy = rss
+```
+
+Similarly, for the `allocated` strategy, use:
+
+```ini
+vm_memory_calculation_strategy = allocated
+```
+
+To find out what strategy a node uses, see its [effective configuration](./configure).
