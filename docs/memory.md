@@ -77,8 +77,7 @@ swap or page files are enabled.
 
 :::tip
 Using an absolute memory threshold is highly recommended in containerized environments
-such as Kubernetes. RabbitMQ nodes won't be able to detect the cgroups-capped limit
-in every environments
+such as Kubernetes. RabbitMQ nodes won't always be able to detect the effective cgroups limit
 :::
 
 The memory threshold can be adjusted by setting
