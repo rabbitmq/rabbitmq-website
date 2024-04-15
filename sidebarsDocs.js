@@ -360,6 +360,11 @@ const sidebars = {
           items: [
             {
               type: 'doc',
+              id: 'amqp',
+              label: 'AMQP 1.0',
+            },
+            {
+              type: 'doc',
               id: 'connections/index',
               label: 'Connections',
             },
