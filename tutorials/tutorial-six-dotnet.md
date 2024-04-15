@@ -302,7 +302,7 @@ public class RpcClient : IDisposable
                              autoAck: true);
     }
 
-    public Task<string>; CallAsync(string message, CancellationToken cancellationToken = default)
+    public Task<string> CallAsync(string message, CancellationToken cancellationToken = default)
     {
         IBasicProperties props = channel.CreateBasicProperties();
         var correlationId = Guid.NewGuid().ToString();
@@ -323,6 +323,7 @@ public class RpcClient : IDisposable
 
     public void Dispose()
     {
+        channel.Close();
         connection.Close();
     }
 }
