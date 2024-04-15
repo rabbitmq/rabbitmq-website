@@ -171,10 +171,12 @@ Such cases will be documented in the breaking changes section of the release not
 [Community plugins page](/community-plugins) contains information on RabbitMQ
 version support for plugins not included into the RabbitMQ distribution.
 
-### Management Plugin Upgrades
+### Management Plugin Upgrades {#management-ui}
 
-RabbitMQ management plugin comes with a Web application that runs in the browser. Clear browser cache,
-local storage, session storage and cookies after upgrade is recommended.
+RabbitMQ management plugin comes with a Web application that runs in the browser.
+
+After upgrading a cluster, it is highly recommended to clear browser cache,
+local storage, session storage and cookies for the domain(s) used to access the management UI.
 
 ### Discontinued Plugins
 
