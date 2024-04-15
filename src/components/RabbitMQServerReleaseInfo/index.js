@@ -1,6 +1,22 @@
 import React from 'react';
+import { useState } from 'react';
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import UnfoldIcon from './unfold-toggle.svg';
+
+/*
+ * The "Release Notes" icon comes from the Google Cloud Solutions Icons
+ * collection and is published under the MIT license.
+ * https://www.svgrepo.com/svg/375489/release-notes
+ */
+import RelnotesIcon from './release-notes.svg';
+
+/*
+ * The "Announcement" icon comes from the Office Business Bold Line Icons
+ * collection by wirastudio and is published under a CC-BY license.
+ * https://www.svgrepo.com/svg/341502/office-megaphone-speaker-loudspeaker-announce
+ */
+import AnnouncementIcon from './announcement.svg';
 
 export function getReleaseBranches() {
   const {
@@ -47,117 +63,231 @@ export function RabbitMQServerReleaseInfoTable() {
   const now = Date.now();
   const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 
-  var sawLatestRelease = false;
+  var isLatestReleaseBranch = false;
+  var previousReleaseBranch;
+
+  const [whichShown, setWhichShown] = useState(undefined);
 
   var rows = [];
   for (const branch in releaseBranches) {
-    if (branch === 'Next') {
-      continue;
-    }
-
     const releaseBranch = releaseBranches[branch];
-    const releases = releaseBranch.releases;
-    const lastRelease = releases[0];
+    const releases = releaseBranch.releases || [];
+    const isReleased = typeof releaseBranch.end_of_support !== 'undefined';
+    var isLatestReleaseForBranch = true;
+    if (isReleased && typeof previousReleaseBranch === 'undefined') {
+      isLatestReleaseBranch = true;
+    } else {
+      isLatestReleaseBranch = false;
+    }
 
-    const isReleased = typeof lastRelease.release_date !== 'undefined';
+    for (const releaseIndex in releases) {
+      const release = releases[releaseIndex];
+      const showClassName = (whichShown == branch) ?
+        "show-release" : "hide-release";
 
-    var links;
-    if (isReleased) {
-      links = [{
-        label: "Release Notes",
-        url: getReleaseNotesURL(lastRelease),
-      }];
-      if (lastRelease.links) {
-        links = links.concat(lastRelease.links);
+      var latestReleaseBranchClassName = "";
+      if (isLatestReleaseBranch) {
+        latestReleaseBranchClassName = "latest-release";
+      } else if (!isReleased) {
+        latestReleaseBranchClassName = "future-release";
       }
 
-      links = (
-        <ul className="release-links">
-          {
-            links.map(function(link) {
-              return (<li><a href={link.url}>{link.label}</a></li>)
-            })
-          }
-        </ul>);
-    } else {
-      links = <></>
-    }
+      var links;
+      if (isReleased) {
+        links = [{
+          type: "relnotes",
+          url: getReleaseNotesURL(release),
+        }];
+        if (release.links) {
+          links = links.concat(release.links);
+        }
 
-    const initialRelease = releases[releases.length - 1];
-    var initialReleaseDate;
-    if (initialRelease.release_date) {
-      const date = new Date(initialRelease.release_date);
-      initialReleaseDate = <a href={getReleaseNotesURL(initialRelease)}>{initialRelease.version} – {date.toLocaleDateString("en-GB", dateOptions)}</a>;
-    } else {
-      initialReleaseDate = <></>;
-    }
-
-    var endOfSupportDates = [];
-    if (releaseBranch.end_of_community_support) {
-      endOfSupportDates.push(releaseBranch.end_of_community_support);
-    }
-    if (releaseBranch.end_of_commercial_support) {
-      endOfSupportDates.push(releaseBranch.end_of_commercial_support);
-    }
-
-    endOfSupportDates = endOfSupportDates.map(function(rawDate) {
-      const date = new Date(rawDate);
-      const supported = date > now;
-      var className;
-      if (supported) {
-        className = "supported-release";
+        links = (
+          <ul>
+            {
+              links.map(function(link) {
+                switch (link.type) {
+                  case 'relnotes':
+                    return (
+                      <li>
+                        <a href={link.url} className={[
+                          "release-link",
+                          `release-link-${link.type}`
+                        ].join(' ')} >
+                          <RelnotesIcon title="Release Notes"/>
+                          <span>Release Notes</span>
+                        </a>
+                      </li>);
+                  case 'announcement':
+                    return (
+                      <li>
+                        <a href={link.url} className={[
+                          "release-link",
+                          `release-link-${link.type}`
+                        ].join(' ')} >
+                          <AnnouncementIcon title="Announcement"/>
+                          <span>Announcement</span>
+                        </a>
+                      </li>);
+                }
+              })
+            }
+          </ul>);
       } else {
-        className = "unsupported-release";
+        links = <></>
       }
-      return (
-        <td className={`release-eos ${className}`}>{date.toLocaleDateString("en-GB", dateOptions)}</td>
+
+      var releaseDate;
+      if (isReleased) {
+        releaseDate = new Date(release.release_date);
+        releaseDate = releaseDate.toLocaleDateString("en-GB", dateOptions);
+      } else {
+        releaseDate = "-";
+      }
+
+      var endOfSupportDates = ["-", "-"];
+      var hasOSSSupport = false;
+      if (releaseBranch.end_of_support) {
+        /* Release branch is supported. */
+        if (previousReleaseBranch) {
+          const prevReleases = previousReleaseBranch.releases;
+          const initialPrevRelease = prevReleases[prevReleases.length - 1];
+          endOfSupportDates[0] = new Date(initialPrevRelease.release_date);
+        } else {
+          hasOSSSupport = true;
+          endOfSupportDates[0] = <abbr title="Supported until the next major or minor release branch is published.">Next release</abbr>;
+        }
+        endOfSupportDates[1] = new Date(releaseBranch.end_of_support);
+      }
+
+      for (const i in endOfSupportDates) {
+        const date = endOfSupportDates[i];
+
+        var className;
+        var content;
+        if (date instanceof Date) {
+          const supported = date > now;
+          className = supported ? "supported-release" : "unsupported-release";
+          content = date.toLocaleDateString("en-GB", dateOptions);
+        } else {
+          className = hasOSSSupport ?
+            "supported-release" : "unsupported-release";
+          content = date;
+        }
+        endOfSupportDates[i] = <div className={[
+          "release-eos",
+          i == 0 ? "release-eos-community" : "release-eos-commercial",
+          className,
+          latestReleaseBranchClassName,
+          isLatestReleaseForBranch ? "" : showClassName
+        ].join(' ')}>{content}</div>;
+      }
+
+      if (isLatestReleaseForBranch) {
+        rows.push(
+          <>
+            <div className={[
+              "release-toggle",
+              latestReleaseBranchClassName,
+              showClassName
+            ].join(' ')}
+              onClick={(e) => {
+                setWhichShown(whichShown == branch ? undefined : branch);
+              }}>
+              <UnfoldIcon/>
+            </div>
+            <div className={[
+              "release-branch",
+              latestReleaseBranchClassName,
+              isLatestReleaseForBranch ? "" : showClassName
+            ].join(' ')}>{branch}</div>
+          </>
+        );
+      }
+
+      rows.push(
+        <>
+          <div className={[
+            "release-version",
+            latestReleaseBranchClassName,
+            isLatestReleaseForBranch ? "" : showClassName
+          ].join(' ')}>{release.version || "-"}</div>
+
+          <div className={[
+            "release-links",
+            latestReleaseBranchClassName,
+            isLatestReleaseForBranch ? "" : showClassName
+          ].join(' ')}>{links}</div>
+
+          <div className={[
+            "release-reldate",
+            latestReleaseBranchClassName,
+            isLatestReleaseForBranch ? "" : showClassName
+          ].join(' ')}>{releaseDate}</div>
+
+          {endOfSupportDates}
+        </>
       );
-    });
 
-    for (var i = endOfSupportDates.length; i < 2; ++i) {
-      endOfSupportDates.push(<td className="release-eos unsupported-release">-</td>);
+      isLatestReleaseForBranch = false;
     }
 
-    var latestReleaseClass = "";
-    if (isReleased && !sawLatestRelease) {
-      latestReleaseClass = "latest-release";
-      sawLatestRelease = true;
-    } else if (!isReleased) {
-      latestReleaseClass = "future-release";
+    if (isReleased) {
+      previousReleaseBranch = releaseBranch;
     }
-
-    rows.push(
-      <tr className={latestReleaseClass}>
-        <td class="release-branch">{branch}</td>
-        <td class="release-version">{lastRelease.version || "-"}</td>
-        <td class="release-links">{links}</td>
-        <td class="release-date">{initialReleaseDate}</td>
-        {endOfSupportDates}
-      </tr>
-    );
   }
 
   return (
     <div className="release-information">
-      <table>
-        <tr>
-          <th>Release</th>
-          <th colspan="2">Latest Patch</th>
-          <th>First Patch and Date of Release</th>
-          <th>End of Community Support</th>
-          <th>End of Extended Commercial Support</th>
-        </tr>
+      <div className="release-info-overflow">
+        <div className="release-info-grid">
+          <div className={[
+            "release-info-header",
+            "release-branch"
+          ].join(' ')}>Release</div>
 
-        {rows}
+          <div className={[
+            "release-info-header",
+            "release-version"
+          ].join(' ')}>Patch</div>
 
-      </table>
+          <div className={[
+            "release-info-header",
+            "release-reldate"
+          ].join(' ')}>Date of Release</div>
+
+          <div className={[
+            "release-info-header",
+            "release-eos",
+            "release-eos-community"
+          ].join(' ')}>End of Community Support</div>
+
+          <div className={[
+            "release-info-header",
+            "release-eos",
+            "release-eos-commercial"
+          ].join(' ')}>End of Extended Commercial Support</div>
+
+          {rows}
+        </div>
+      </div>
 
       <strong>Legend:</strong>
       <dl className="release-legend">
-        <dt className="supported-releaase latest-release"></dt><dd>Latest release, fully supported</dd>
-        <dt className="supported-release"></dt><dd>Older release, still supported but upgrade is recommended</dd>
-        <dt className="unsupported-release"></dt><dd>Old release, unsupported</dd>
-        {/*<dt className="unsupported-release future-release"></dt><dd>Future version, unsupported</dd>*/}
+        <dt className="supported-releaase latest-release"></dt>
+        <dd>Latest release, fully supported</dd>
+        <dt className="supported-release"></dt>
+        <dd>Old release, still supported but upgrade is recommended</dd>
+        <dt className="unsupported-release"></dt>
+        <dd>Old release, unsupported</dd>
+        {(typeof releaseBranches['Next'].releases !== 'undefined' &&
+          releaseBranches['Next'].releases.length > 0) ?
+          <>
+            <dt className="unsupported-release future-release"></dt>
+            <dd>Future version, unsupported</dd>
+          </> :
+          <></>
+        }
       </dl>
     </div>);
 }
