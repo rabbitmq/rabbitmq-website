@@ -2,18 +2,67 @@
 
 ## Workflow
 
-### Branches
+### TL;DR
+
+Here is a summary of which version of the documentation corresponds to which
+branch and directory:
+
+| Version of RabbitMQ | Branch | Sub-directory | Served at |
+|---------------------|--------|---------------|-----------|
+| Development version | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `docs` | [`www.rabbitmq.com/docs/next`](https://www.rabbitmq.com/docs/next) |
+| 3.13 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-3.13` | [`www.rabbitmq.com/docs`](https://www.rabbitmq.com/docs) |
+| 3.12 | [`v3.12.x`](https://github.com/rabbitmq/rabbitmq-website/tree/v3.12.x) | root | [`v3-12.rabbitmq.com`](https://v3-12.rabbitmq.com/documentation.html) |
+
+### Branches and versioning
 
 The `main` branch is the production branch. Commits to it are deployed
 automatically to www.rabbitmq.com by a Cloudflare worker.
 
+We keep several versions of the docs in the `main` branch. Docusaurus uses the
+following directories:
+
+* `docs` contains the docs of the future version of RabbitMQ, thus it is the
+  work in progress. It is served at https://www.rabbitmq.com/docs/next.
+* `versioned_docs` contains one directory per version; for example,
+  `versioned_docs/version-3.13`. The latest version is served at
+  https://www.rabbitmq.com/docs. Older versions are served at
+  `…/docs/$version`.
+
+Changes should be made to `docs` and to any version they apply. Here is an
+example:
+
+```
+# Make changes to the future version’s docs.
+$EDITOR docs/configure.md
+
+# Test the change in a browser.
+npm start
+
+# Once happy, apply to any version you see fit.
+cd versioned_docs/version-3.13
+git diff ../../docs | patch -p2
+
+# Test again in a browser.
+npm start
+
+# Commit everything.
+git add docs versioned_docs
+git commit
+```
+
+Please read the [documentation of Versioning in
+Docusaurus](https://docusaurus.io/docs/versioning) to learn more.
+
 Older versions of the docs that we don’t want to host in Docusaurus to limit
 the number of versions are put in branches of the form `v3.13.x`, `v4.0.x`,
 etc. These branches are deployed automatically too and they use domain names of
-the form `v3-13.rabbitmq.com`, `v4-0.rabbitmq.com`, etc. respectively.
+the form `v3-13.rabbitmq.com`, `v4-0.rabbitmq.com`, etc. respectively. Note
+that these branches used as examples may not exist yet if the corresponding
+docs are still maintained in the `main` branch.
 
 `v3.12.x` is a bit special in the sense that it is using the old static website
-generator. This one is deployed by GitHub Actions to a Cloudflare worker.
+generator. This one is deployed by GitHub Actions to a Cloudflare worker. It is
+available at https://v3-12.rabbitmq.com.
 
 ### How to build
 

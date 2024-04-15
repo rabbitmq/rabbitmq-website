@@ -20,6 +20,9 @@ function getLatestVersionForCurrentBranch(props) {
 function getPackageRevision(props) {
   const branch = getBranchOrDefault(props);
   const release = getLatestRelease(branch);
+  if (release === undefined) {
+    return undefined;
+  }
   const { packageType } = props;
 
   var package_rev;
@@ -43,11 +46,14 @@ export function RabbitMQServerReleaseBranch(props = {}) {
 
 export function RabbitMQServerVersion(props = {}) {
   const version = getLatestVersionForCurrentBranch(props);
-  return version;
+  return version || '<unreleased>';
 }
 
 export function RabbitMQServerGitTag(props = {}) {
   const version = getLatestVersionForCurrentBranch(props);
+  if (version === undefined) {
+    return '<unreleased>';
+  }
   const tag = `v${version}`;
   return tag;
 }
@@ -55,6 +61,9 @@ export function RabbitMQServerGitTag(props = {}) {
 export function RabbitMQServerPackageURL(props) {
   const { packageType } = props;
   const version = getLatestVersionForCurrentBranch(props);
+  if (version === undefined) {
+    return '#';
+  }
   const tag = RabbitMQServerGitTag();
   const baseUrl = `https://github.com/rabbitmq/rabbitmq-server/releases/download/${tag}`;
   switch (packageType) {
@@ -78,6 +87,15 @@ export function RabbitMQServerPackageURL(props) {
   }
 }
 
+export function RabbitMQServerPackageSigURL(props) {
+  const url = RabbitMQServerPackageURL(props);
+  if (url != '#') {
+    return `${url}.asc`;
+  } else {
+    return url;
+  }
+}
+
 export function RabbitMQServerPackageRevision(props) {
   const { packageType } = props;
   switch (packageType) {
@@ -97,12 +115,19 @@ export function RabbitMQServerPackageRevision(props) {
 
 export function RabbitMQServerPackageFilename(props) {
   const url = RabbitMQServerPackageURL(props);
-  const basename = url.split('/').reverse()[0];
-  return basename;
+  if (url != '#') {
+    const basename = url.split('/').reverse()[0];
+    return basename;
+  } else {
+    return '<unreleased>';
+  }
 }
 
 export function RabbitMQServerPackageGenUnixDir(props = {}) {
   const version = getLatestVersionForCurrentBranch(props);
+  if (version === undefined) {
+    return '<unreleased>';
+  }
   const dir = `rabbitmq_${version}`;
   return dir;
 }
