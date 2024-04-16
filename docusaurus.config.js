@@ -41,9 +41,9 @@ const config = {
   customFields: {
     releaseBranches: {
       rabbitmq: {
-        // RabbitMQ releases per version declared in Docusaurus ('Next' for
+        // RabbitMQ releases per version declared in Docusaurus ('current' for
         // the future docs).
-        'Next': {
+        'current': {
           releases: [
           ],
         },

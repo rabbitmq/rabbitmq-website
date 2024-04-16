@@ -2,6 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { useVersions } from '@docusaurus/plugin-content-docs/client';
+
 import UnfoldIcon from './unfold-toggle.svg';
 
 /*
@@ -63,6 +65,7 @@ export function getReleaseNotesURL(release) {
 
 export function RabbitMQServerReleaseInfoTable() {
   const releaseBranches = getReleaseBranches();
+  const docusaurusVersions = useVersions();
 
   const now = Date.now();
   const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -74,6 +77,8 @@ export function RabbitMQServerReleaseInfoTable() {
 
   var rows = [];
   for (const branch in releaseBranches) {
+    const docusaurusVersion = docusaurusVersions.find((v) => v.name == branch);
+
     const releaseBranch = releaseBranches[branch];
     const releases = releaseBranch.releases || [];
     const isReleased = typeof releaseBranch.end_of_support !== 'undefined';
@@ -188,6 +193,16 @@ export function RabbitMQServerReleaseInfoTable() {
       }
 
       if (isLatestReleaseForBranch) {
+        var releaseBranchLink;
+        if (docusaurusVersion && isReleased) {
+          const url = `${docusaurusVersion.path}/whats-new`;
+          releaseBranchLink = <a href={url}>{docusaurusVersion.label}</a>;
+        } else if (docusaurusVersion) {
+          releaseBranchLink = docusaurusVersion.label;
+        } else {
+          releaseBranchLink = branch;
+        }
+
         rows.push(
           <>
             <div className={[
@@ -204,7 +219,7 @@ export function RabbitMQServerReleaseInfoTable() {
               "release-branch",
               latestReleaseBranchClassName,
               isLatestReleaseForBranch ? "" : showClassName
-            ].join(' ')}>{branch}</div>
+            ].join(' ')}>{releaseBranchLink}</div>
           </>
         );
       }
@@ -284,8 +299,8 @@ export function RabbitMQServerReleaseInfoTable() {
         <dd>Old release, still supported but upgrade is recommended</dd>
         <dt className="unsupported-release"></dt>
         <dd>Old release, unsupported</dd>
-        {(typeof releaseBranches['Next'].releases !== 'undefined' &&
-          releaseBranches['Next'].releases.length > 0) ?
+        {(typeof releaseBranches['current'].releases !== 'undefined' &&
+          releaseBranches['current'].releases.length > 0) ?
           <>
             <dt className="unsupported-release future-release"></dt>
             <dd>Future version, unsupported</dd>
