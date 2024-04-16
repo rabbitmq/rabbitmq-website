@@ -6,9 +6,9 @@
       "label": "Introduction"
     },
     {
-      "type": "link",
-      "label": "Release Information",
-      "href": "/release-information"
+      "type": "doc",
+      "id": "whats-new",
+      "label": "What's New"
     },
     {
       "type": "link",
