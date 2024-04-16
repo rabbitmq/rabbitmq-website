@@ -34,12 +34,16 @@ export function getReleaseBranches() {
 
 export function getReleaseBranch(branch) {
   const releaseBranches = getReleaseBranches();
-  const releaseBranch = releaseBranches[branch];
+  const releaseBranch = releaseBranches[branch] || {};
   return releaseBranch;
 }
 
 export function getLatestRelease(branch) {
   const releaseBranch = getReleaseBranch(branch);
+  if (typeof releaseBranch.releases === 'undefined') {
+    return undefined;
+  }
+
   const release = releaseBranch.releases[0] || undefined;
   return release;
 }
