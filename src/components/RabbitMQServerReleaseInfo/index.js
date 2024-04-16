@@ -268,7 +268,7 @@ export function RabbitMQServerReleaseInfoTable() {
           <div className={[
             "release-info-header",
             "release-version"
-          ].join(' ')}>Patch</div>
+          ].join(' ')}>Patch and associated docs</div>
 
           <div className={[
             "release-info-header",
