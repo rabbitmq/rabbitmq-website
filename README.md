@@ -1,5 +1,8 @@
 # Website
 
+This repository contains the source code of the RabbitMQ website, rabbitmq.com.
+**Please make sure to read the Workflow section before contributing**.
+
 ## Workflow
 
 ### TL;DR
