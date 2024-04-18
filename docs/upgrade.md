@@ -25,9 +25,7 @@ limitations under the License.
 
 This guide covers topics related to RabbitMQ installation upgrades.
 
-It is important to consider a number of things before upgrading RabbitMQ.
-
-1. [An overview](#basics) of how RabbitMQ can be upgraded
+1. [An overview](#basics) of several common approaches to upgrading RabbitMQ
 1. [RabbitMQ version upgradability](#rabbitmq-version-upgradability), version upgrading from and version upgrading to
 1. [Erlang version requirement](#rabbitmq-erlang-version-requirement)
 1. [Plugin compatibility between versions](#rabbitmq-plugins-compatibility)
@@ -35,6 +33,7 @@ It is important to consider a number of things before upgrading RabbitMQ.
 1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version
 1. How upgrades of [multi-node clusters](#clusters) is different from those with only a single node
 1. Marking [nodes for maintenance](#maintenance-mode)
+1. [Recommended upgrade steps](#recommended-upgrade-steps)
 1. [Caveats](#caveats)
 1. [Handling node restarts](#rabbitmq-restart-handling) in applications
 
@@ -501,168 +500,6 @@ which disc node will be the upgrader, stop that node last, and start it first.
 Otherwise changes to the cluster configuration that were made between the
 upgrader node stopping and the last node stopping will be lost.
 
-## Caveats {#caveats}
-
-There are some minor things to consider during upgrade process when stopping and
-restarting nodes.
-
-### Known Erlang OTP Bugs that Can Affect Upgrades {#otp-bugs}
-
-There are currently no known bugs in the [supported Erlang series](./which-erlang) that can affect upgrades.
-
-### Quorum Queues {#quorum-queues}
-
-[Quorum queues](./quorum-queues) depend on a [quorum](./quorum-queues#what-is-quorum) of nodes to
-be online for any queue operations to succeed. This includes successful new leader election should
-a cluster node that hosts some leaders shut down.
-
-In the context of rolling upgrades, this means that a quorum of nodes must be present at all times
-during an upgrade. If this is not the case, quorum queues will become unavailable and will be not
-able to satisfy their data safety guarantees.
-
-Latest RabbitMQ releases provide a [health check](./monitoring#health-checks) command that would fail
-should any quorum queues on the target node lose their quorum in case the node was to be shut down:
-
-```bash
-# Exits with a non-zero code if one or more quorum queues will lose online quorum
-# should target node be shut down
-rabbitmq-diagnostics check_if_node_is_quorum_critical
-```
-
-For example, consider a three node cluster with nodes A, B, and C. If node B is currently down
-and there are quorum queues having their leader replica on node A, this check will fail if executed
-against node A. When node B comes back online, the same check would succeed because
-the quorum queues with leader on node A would have a quorum of replicas online.
-
-Quorum queue quorum state can be verified by listing queues in the management UI or using `rabbitmq-queues`:
-
-```bash
-rabbitmq-queues -n rabbit@to-be-stopped quorum_status <queue name>
-```
-
-### Mirrored Queues Replica Synchronisation {#mirrored-queues-synchronisation}
-
-In environments that use [classic mirrored queues](./ha) (a **deprecated feature scheduled for removal**),
-it is important to make sure that all mirrored queues on a node
-have a synchronised follower replica (mirror) **before stopping that node**.
-
-RabbitMQ will not promote unsynchronised queue mirrors on controlled queue leader shutdown when
-[default promotion settings](./ha#promotion-while-down) are used.
-However if a queue leader encounters any errors during shutdown, an [unsynchronised queue mirror](./ha#unsynchronised-mirrors)
-might still be promoted. It is generally safer option to synchronise all classic mirrored queues
-with replicas on a node before shutting the node down.
-
-Latest RabbitMQ releases provide a [health check](./monitoring#health-checks) command that would fail
-should any classic mirrored queues on the target node have no synchronised mirrors:
-
-```bash
-# Exits with a non-zero code if target node hosts leader replica of at least one queue
-# that has out-of-sync mirror.
-rabbitmq-diagnostics check_if_node_is_mirror_sync_critical
-```
-
-For example, consider a three node cluster with nodes A, B, and C. If there are classic mirrored queues
-with the only synchronised replica on node A (the leader), this check will fail if executed
-against node A. When one of other replicas is re-synchronised, the same check would succeed because
-there would be at least one replica suitable for promotion.
-
-Classic mirrored queue replica state can be verified by listing queues in the management UI or using `rabbitmqctl`:
-
-```bash
-# For queues with non-empty `mirror_pids`, you must have at least one
-# `synchronised_mirror_pids`.
-#
-# Note that mirror_pids is a new field alias introduced in RabbitMQ 3.11.4
-rabbitmqctl -n rabbit@to-be-stopped list_queues --local name mirror_pids synchronised_mirror_pids
-```
-
-If there are unsynchronised queues, either enable
-automatic synchronisation or [trigger it using `rabbitmqctl`](./ha#unsynchronised-mirrors) manually.
-
-RabbitMQ shutdown process will not wait for queues to be synchronised
-if a synchronisation operation is in progress.
-
-### Mirrored queue leaders rebalancing {#mirrored-queue-masters-rebalance}
-
-Some upgrade scenarios can cause mirrored queue leaders to be unevenly distributed
-between nodes in a cluster. This will put more load on the nodes with more queue leaders.
-For example a full-stop upgrade will make all queue leaders migrate to the "upgrader" node -
-the one stopped last and started first.
-A rolling upgrade of three nodes with two mirrors will also cause all queue leaders to be on the same node.
-
-You can move a queue leader for a queue using a temporary [policy](./parameters) with
-`ha-mode: nodes` and `ha-params: [<node>]`
-The policy can be created via management UI or rabbitmqctl command:
-
-```bash
-rabbitmqctl set_policy --apply-to queues --priority 100 move-my-queue '^<queue>$;' '{"ha-mode":"nodes", "ha-params":["<new-master-node>"]}'
-rabbitmqctl clear_policy move-my-queue
-```
-
-A [queue leader rebalancing script](https://github.com/rabbitmq/support-tools/blob/main/scripts/rebalance-queue-masters)
-is available. It rebalances queue leaders for all queues.
-
-The script has certain assumptions (e.g. the default node name) and can fail to run on
-some installations. The script should be considered
-experimental. Run it in a non-production environment first.
-
-A [queue leader rebalance command](./man/rabbitmq-queues.8) is available. It rebalances queue leaders for all queues, or those that match the given name pattern. queue leaders for mirrored queues and leaders for quorum queues are also rebalanced in the [post-upgrade command](./man/rabbitmq-upgrade.8).
-
-There is also a [third-party plugin](https://github.com/Ayanda-D/rabbitmq-queue-master-balancer)
-that rebalances queue leaders. The plugin has some additional configuration and reporting tools,
-but is not supported or verified by the RabbitMQ team. Use at your own risk.
-
-
-## Handling Node Restarts in Applications {#rabbitmq-restart-handling}
-
-In order to reduce or eliminate the downtime, applications (both producers
-and consumers) should be able to cope with a server-initiated connection
-close. Some client libraries offer automatic connection recovery
-to help with this:
-
-* [Java client](/client-libraries/java-api-guide#recovery)
-* [.NET client](/client-libraries/dotnet-api-guide#connection-recovery)
-* [Bunny](http://rubybunny.info/articles/error_handling.html#network_connection_failures) (Ruby)
-
-In most client libraries there is a way to react to a connection closure, for example:
-
-* [Pika](https://pika.readthedocs.io/en/stable/modules/connection.html#pika.connection.Connection.add_on_close_callback) (Python)
-* [Go](https://pkg.go.dev/github.com/rabbitmq/amqp091-go#Connection.NotifyClose)
-
-The recovery procedure for many applications follows the same steps:
-
-1. Reconnect
-2. Re-open channels
-3. Restore channel settings (e.g. the [`basic.qos` setting](./confirms), publisher confirms)
-4. Recover topology
-
-Topology recovery includes the following actions, performed for every channel:
-
-1. Re-declare exchanges declared by the application
-2. Re-declare queues
-3. Recover bindings (both queue and [exchange-to-exchange](./e2e) ones)
-4. Recover consumers
-
-This algorithm covers the majority of use cases and is what the
-aforementioned automatic recovery feature implements.
-
-During a rolling upgrade when a node is stopped, clients connected to this node
-will be disconnected using a server-sent `connection.close` method and should reconnect to a different node.
-This can be achieved by using a load balancer or proxy in front of the cluster
-or by specifying multiple server hosts if client library supports this feature.
-
-Many client libraries libraries support host lists, for example:
-
-* [Java client](https://rabbitmq.github.io/rabbitmq-java-client/api/current/com/rabbitmq/client/ConnectionFactory.html#newConnection%28com.rabbitmq.client.Address%5B%5D%29)
-* [.NET client](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/main/projects/RabbitMQ.Client/client/api/ConnectionFactory.cs#L392)
-* [Bunny](http://api.rubybunny.info/Bunny/Session.html#constructor_details)
-
-
-## Windows {#windows-upgrade-caveats}
-
-If the value of the environment variable `COMPUTERNAME` does not equal
-`HOSTNAME` (upper vs lower case, or other differences) please see the [Windows Configuration guide](./windows-configuration#computername-vs-hostname)
-for instructions on how to upgrade RabbitMQ.
 
 ## Recommended Upgrade Steps {#recommended-upgrade-steps}
 
@@ -840,3 +677,168 @@ running again.
 If the new version provides new feature flags, you should
 now enable them if you upgraded all nodes and you are
 sure you do not want to rollback. See the [feature flags guide](./feature-flags).
+
+
+
+## Caveats {#caveats}
+
+There are some minor things to consider during upgrade process when stopping and
+restarting nodes.
+
+### Known Erlang OTP Bugs that Can Affect Upgrades {#otp-bugs}
+
+There are currently no known bugs in the [supported Erlang series](./which-erlang) that can affect upgrades.
+
+### Quorum Queues {#quorum-queues}
+
+[Quorum queues](./quorum-queues) depend on a [quorum](./quorum-queues#what-is-quorum) of nodes to
+be online for any queue operations to succeed. This includes successful new leader election should
+a cluster node that hosts some leaders shut down.
+
+In the context of rolling upgrades, this means that a quorum of nodes must be present at all times
+during an upgrade. If this is not the case, quorum queues will become unavailable and will be not
+able to satisfy their data safety guarantees.
+
+Latest RabbitMQ releases provide a [health check](./monitoring#health-checks) command that would fail
+should any quorum queues on the target node lose their quorum in case the node was to be shut down:
+
+```bash
+# Exits with a non-zero code if one or more quorum queues will lose online quorum
+# should target node be shut down
+rabbitmq-diagnostics check_if_node_is_quorum_critical
+```
+
+For example, consider a three node cluster with nodes A, B, and C. If node B is currently down
+and there are quorum queues having their leader replica on node A, this check will fail if executed
+against node A. When node B comes back online, the same check would succeed because
+the quorum queues with leader on node A would have a quorum of replicas online.
+
+Quorum queue quorum state can be verified by listing queues in the management UI or using `rabbitmq-queues`:
+
+```bash
+rabbitmq-queues -n rabbit@to-be-stopped quorum_status <queue name>
+```
+
+### Mirrored Queues Replica Synchronisation {#mirrored-queues-synchronisation}
+
+In environments that use [classic mirrored queues](./ha) (a **deprecated feature scheduled for removal**),
+it is important to make sure that all mirrored queues on a node
+have a synchronised follower replica (mirror) **before stopping that node**.
+
+RabbitMQ will not promote unsynchronised queue mirrors on controlled queue leader shutdown when
+[default promotion settings](./ha#promotion-while-down) are used.
+However if a queue leader encounters any errors during shutdown, an [unsynchronised queue mirror](./ha#unsynchronised-mirrors)
+might still be promoted. It is generally safer option to synchronise all classic mirrored queues
+with replicas on a node before shutting the node down.
+
+Latest RabbitMQ releases provide a [health check](./monitoring#health-checks) command that would fail
+should any classic mirrored queues on the target node have no synchronised mirrors:
+
+```bash
+# Exits with a non-zero code if target node hosts leader replica of at least one queue
+# that has out-of-sync mirror.
+rabbitmq-diagnostics check_if_node_is_mirror_sync_critical
+```
+
+For example, consider a three node cluster with nodes A, B, and C. If there are classic mirrored queues
+with the only synchronised replica on node A (the leader), this check will fail if executed
+against node A. When one of other replicas is re-synchronised, the same check would succeed because
+there would be at least one replica suitable for promotion.
+
+Classic mirrored queue replica state can be verified by listing queues in the management UI or using `rabbitmqctl`:
+
+```bash
+# For queues with non-empty `mirror_pids`, you must have at least one
+# `synchronised_mirror_pids`.
+#
+# Note that mirror_pids is a new field alias introduced in RabbitMQ 3.11.4
+rabbitmqctl -n rabbit@to-be-stopped list_queues --local name mirror_pids synchronised_mirror_pids
+```
+
+If there are unsynchronised queues, either enable
+automatic synchronisation or [trigger it using `rabbitmqctl`](./ha#unsynchronised-mirrors) manually.
+
+RabbitMQ shutdown process will not wait for queues to be synchronised
+if a synchronisation operation is in progress.
+
+### Mirrored queue leaders rebalancing {#mirrored-queue-masters-rebalance}
+
+Some upgrade scenarios can cause mirrored queue leaders to be unevenly distributed
+between nodes in a cluster. This will put more load on the nodes with more queue leaders.
+For example a full-stop upgrade will make all queue leaders migrate to the "upgrader" node -
+the one stopped last and started first.
+A rolling upgrade of three nodes with two mirrors will also cause all queue leaders to be on the same node.
+
+You can move a queue leader for a queue using a temporary [policy](./parameters) with
+`ha-mode: nodes` and `ha-params: [<node>]`
+The policy can be created via management UI or rabbitmqctl command:
+
+```bash
+rabbitmqctl set_policy --apply-to queues --priority 100 move-my-queue '^<queue>$;' '{"ha-mode":"nodes", "ha-params":["<new-master-node>"]}'
+rabbitmqctl clear_policy move-my-queue
+```
+
+A [queue leader rebalancing script](https://github.com/rabbitmq/support-tools/blob/main/scripts/rebalance-queue-masters)
+is available. It rebalances queue leaders for all queues.
+
+The script has certain assumptions (e.g. the default node name) and can fail to run on
+some installations. The script should be considered
+experimental. Run it in a non-production environment first.
+
+A [queue leader rebalance command](./man/rabbitmq-queues.8) is available. It rebalances queue leaders for all queues, or those that match the given name pattern. queue leaders for mirrored queues and leaders for quorum queues are also rebalanced in the [post-upgrade command](./man/rabbitmq-upgrade.8).
+
+There is also a [third-party plugin](https://github.com/Ayanda-D/rabbitmq-queue-master-balancer)
+that rebalances queue leaders. The plugin has some additional configuration and reporting tools,
+but is not supported or verified by the RabbitMQ team. Use at your own risk.
+
+
+## Handling Node Restarts in Applications {#rabbitmq-restart-handling}
+
+In order to reduce or eliminate the downtime, applications (both producers
+and consumers) should be able to cope with a server-initiated connection
+close. Some client libraries offer automatic connection recovery
+to help with this:
+
+* [Java client](/client-libraries/java-api-guide#recovery)
+* [.NET client](/client-libraries/dotnet-api-guide#connection-recovery)
+* [Bunny](http://rubybunny.info/articles/error_handling.html#network_connection_failures) (Ruby)
+
+In most client libraries there is a way to react to a connection closure, for example:
+
+* [Pika](https://pika.readthedocs.io/en/stable/modules/connection.html#pika.connection.Connection.add_on_close_callback) (Python)
+* [Go](https://pkg.go.dev/github.com/rabbitmq/amqp091-go#Connection.NotifyClose)
+
+The recovery procedure for many applications follows the same steps:
+
+1. Reconnect
+2. Re-open channels
+3. Restore channel settings (e.g. the [`basic.qos` setting](./confirms), publisher confirms)
+4. Recover topology
+
+Topology recovery includes the following actions, performed for every channel:
+
+1. Re-declare exchanges declared by the application
+2. Re-declare queues
+3. Recover bindings (both queue and [exchange-to-exchange](./e2e) ones)
+4. Recover consumers
+
+This algorithm covers the majority of use cases and is what the
+aforementioned automatic recovery feature implements.
+
+During a rolling upgrade when a node is stopped, clients connected to this node
+will be disconnected using a server-sent `connection.close` method and should reconnect to a different node.
+This can be achieved by using a load balancer or proxy in front of the cluster
+or by specifying multiple server hosts if client library supports this feature.
+
+Many client libraries libraries support host lists, for example:
+
+* [Java client](https://rabbitmq.github.io/rabbitmq-java-client/api/current/com/rabbitmq/client/ConnectionFactory.html#newConnection%28com.rabbitmq.client.Address%5B%5D%29)
+* [.NET client](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/main/projects/RabbitMQ.Client/client/api/ConnectionFactory.cs#L392)
+* [Bunny](http://api.rubybunny.info/Bunny/Session.html#constructor_details)
+
+
+## Windows {#windows-upgrade-caveats}
+
+If the value of the environment variable `COMPUTERNAME` does not equal
+`HOSTNAME` (upper vs lower case, or other differences) please see the [Windows Configuration guide](./windows-configuration#computername-vs-hostname)
+for instructions on how to upgrade RabbitMQ.
