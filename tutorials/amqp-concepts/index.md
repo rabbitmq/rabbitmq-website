@@ -317,7 +317,7 @@ stored in memory when possible.
 The same distinction is made for [messages at publishing time](/docs/publishers#message-properties).
 
 In environments and use cases where durability is important, applications
-must use durable queues *and* make sure that publish mark published messages as persisted.
+must use durable queues *and* make sure that publishers mark published messages as persisted.
 
 This topic is covered in more detailed in the [Queues guide](/docs/queues#durability).
 
