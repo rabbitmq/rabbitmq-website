@@ -430,7 +430,7 @@ to learn more.
 
 ### Queue and Stream Leader Replica Placement {#replica-placement}
 
-Every queue and srream in RabbitMQ has a primary replica. That replica is called
+Every queue and stream in RabbitMQ has a primary replica. That replica is called
 _the leader_. All publishing operations on queues and streams go through the leader
 replica first and then are replicated to followers (secondary replicas). This is necessary to
 guarantee FIFO ordering of messages.
