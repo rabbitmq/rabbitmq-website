@@ -108,7 +108,7 @@ We'll call our message publisher (sender) `Send.cs` and our message consumer (re
 then exit.
 
 In
-[`Send.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs),
+[`Send.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Send/Send.cs),
 we need to use some namespaces:
 
 ```csharp
@@ -164,7 +164,7 @@ await streamSystem.Close();
 Declaring a stream-queue is idempotent - it will only be created if it doesn't exist already.
 
 Streams model an append-only log of messages that can be repeatedly read until they expire.
-It is a good practice to define the retention policy always.  5Gb in this case.
+It is a good practice to define the retention policy always, 5Gb in this case.
 
 Streams model an append-only log of messages that can be repeatedly read until they expire.
 It is a good practise to define the retention policy. In this case 5G.
@@ -224,10 +224,10 @@ Note that we declare the stream-queue here as well. Because we might start
 the consumer before the producer, we want to make sure the queue exists
 before we try to consume messages from it.
 
+we need to use `ConsumerConfig` to configure the consumer. 
+
 We're about to tell the server to deliver us the messages from the
-queue. Since it will push us messages asynchronously, we provide a
-callback. That is what `MessageHandler` event handler
-does.
+queue. We provide a callback `MessageHandler` on the `ConsumerConfig`.
 
 `OffsetSpec` defines the starting point of the consumer. 
 In this case, we start from the first message. 
@@ -262,11 +262,11 @@ Console.ReadKey();
 
 await consumer.Close();
 await streamSystem.Close();
-
 ```
 
+
 [Here's the whole Receive.cs
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs).
+class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Receive/Receive.cs).
 
 ### Putting It All Together
 
@@ -290,5 +290,8 @@ dotnet run
 The consumer will print the message it gets from the publisher via
 RabbitMQ. The consumer will keep running, waiting for messages, so try restarting
 the publisher several times.
+
+The stream-queues are different from traditional queues in that they are append-only logs of messages.
+So you can run the different consumers and they will always start from the first message.
 
 Time to move on to [part 2](./tutorial-two-dotnet-stream) and deal with a confirmation.
