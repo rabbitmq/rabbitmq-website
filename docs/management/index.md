@@ -554,6 +554,10 @@ And this is the management UI with Basic Authentication activated (`management.o
 
 ![More than one OAuth 2.0 resource, with oauth_disable_basic_auth = false](./management-oauth-many-with-basic-auth.png)
 
+### Troubleshooting {#troubleshooting}
+
+[Troubleshooting OAuth 2 in the management ui](./troubleshooting-oauth2#management-ui) is a dedicated guide on OAuth 2.
+
 
 ## HTTP API {#http-api}
 
@@ -1240,6 +1244,7 @@ DELETE /api/reset
 ```bash
 rabbitmqctl eval 'rabbit_mgmt_storage:reset_all().'
 ```
+
 
 
 ## Memory Usage Analysis and Memory Management {#memory}

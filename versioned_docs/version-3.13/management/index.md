@@ -48,13 +48,14 @@ This guide covers:
  * How to [enable HTTPS for management UI](#single-listener-https) and its underlying API
  * How this plugin [operates in multi-node clusters](#clustering)
  * How to [disable metric collection](#disable-stats) to use [Prometheus](./prometheus) exclusively for monitoring
- * [Authenticating with OAuth 2](#oauth2-authentication):    
+ * [Authenticating with OAuth 2](#oauth2-authentication) 
  * [Strict transport security](#hsts), [Content security policy](#csp), [cross-origin resource sharing](#cors), and [other security-related header](#other-security-headers) control
  * [Statistics collection interval](#statistics-interval)
  * [Message rate mode](#rates-mode) (rate fidelity) and [data retention intervals](#sample-retention)
  * [HTTP API request logging](#http-logging)
  * How to set a [management UI login session timeout](#login-session-timeout)
  * How to [reset statistics database](#reset-stats) used by this plugin
+ * [Troubleshooting](#troubleshooting)
 
 The plugin also provides extension points that other plugins, such as
 [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top) or
@@ -463,7 +464,7 @@ management.oauth_provider_url = https://my-web-portal
 With the previous settings, the management UI exposes the HTTP endpoint `/login` which accepts `content-type: application/x-www-form-urlencoded` and it expects the JWT token in the `access_token` form field. This is the endpoint where the Web portal will redirect users to the management UI.
 Additionally, RabbitMQ also accepts a JWT token in the HTTP `Authorization` header when the user lands on the management UI.
 
-With `sp_initiated` logon types, there is no need to configure the `oauth_provider_url` if `auth_oauth2.issuer` was set. However, for `idp_initiated` flows the `auth_oauth2.issuer` url may not necessarily be the url where to send users to authenticate. When this occurs, the `management.oauth_provider_url` overrides the `auth_oauth2.issuer` url.
+With `sp_initiated` logon types, there is no need to configure the `oauth_provider_url` if `auth_oauth2.issuer` was set. However, for `idp_initiated` flows the `auth_oauth2.issuer` URL may not necessarily be the URL where to send users to authenticate. When this occurs, the `management.oauth_provider_url` overrides the `auth_oauth2.issuer` URL.
 
 ### Support multiple OAuth 2.0 resources {#support-multiple-resources}
 
@@ -554,6 +555,11 @@ This is the management UI layout for the previous configuration with basic authe
 And this is the management UI with Basic Authentication activated (`management.oauth_disable_basic_auth = false`).
 
 ![More than one OAuth 2.0 resource, with oauth_disable_basic_auth = false](./management-oauth-many-with-basic-auth.png)
+
+
+### Troubleshooting {#troubleshooting}
+
+[Troubleshooting OAuth 2 in the management ui](./troubleshooting-oauth2#management-ui) is a dedicated guide on OAuth 2.
 
 
 ## HTTP API {#http-api}
