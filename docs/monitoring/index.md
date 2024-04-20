@@ -439,14 +439,6 @@ compared to their previous values and historical mean/percentile values.
       <td><code>sockets_used</code></td>
     </tr>
     <tr>
-      <td>Message store disk reads</td>
-      <td><code>message_stats.disk_reads</code></td>
-    </tr>
-    <tr>
-      <td>Message store disk writes</td>
-      <td><code>message_stats.disk_writes</code></td>
-    </tr>
-    <tr>
       <td>Inter-node communication links</td>
       <td>cluster_links</td>
     </tr>
