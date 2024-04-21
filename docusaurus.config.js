@@ -353,7 +353,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © 2007-${new Date().getFullYear()} Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.`,
+        copyright: `Copyright © 2005-${new Date().getFullYear()} Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.`,
       },
       prism: {
         theme: prismThemes.github,
@@ -397,7 +397,7 @@ const config = {
       metadata: [
         {
           name: 'onetrust-data-domain',
-          content: '73d8ba46-8c12-43f6-8c22-24aa21b8d93d',
+          content: '018ee308-473e-754f-b0c2-cbe82d25512f',
         },
         {
           name: 'microsites-utag',
