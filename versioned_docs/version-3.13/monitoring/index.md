@@ -120,13 +120,13 @@ First step towards a useful monitoring system starts with infrastructure and
 kernel metrics. There are quite a few of them but some are more important than others.
 Collect the following metrics on all hosts that run RabbitMQ nodes or applications:
 
- * CPU stats (user, system, iowait & idle percentages)
- * Memory usage (used, buffered, cached & free percentages)
+ * CPU stats (user, system, iowait, idle percentages)
+ * Memory usage (used, buffered, cached and free percentages)
  * [Virtual Memory](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) statistics (dirty page flushes, writeback volume)
- * Disk I/O (operations & amount of data transferred per unit time, time to service operations)
+ * Disk I/O (frequency of operations, amount of data transferred per unit time, statistical distribution of long I/O operation take to completes, I/O operation failure rates)
  * Free disk space on the mount used for the [node data directory](./relocate)
  * File descriptors used by `beam.smp` vs. [max system limit](./networking#open-file-handle-limit)
- * TCP connections by state (`ESTABLISHED`, `CLOSE_WAIT`, `TIME_WAIT`)
+ * TCP connections by state (`ESTABLISHED`, `CLOSE_WAIT`, [`TIME_WAIT`](https://vincent.bernat.ch/en/blog/2014-tcp-time-wait-state-linux))
  * Network throughput (bytes received, bytes sent) & maximum network throughput
  * Network latency (between all RabbitMQ nodes in a cluster as well as to/from clients)
 
@@ -437,14 +437,6 @@ compared to their previous values and historical mean/percentile values.
     <tr>
       <td>Sockets used</td>
       <td><code>sockets_used</code></td>
-    </tr>
-    <tr>
-      <td>Message store disk reads</td>
-      <td><code>message_stats.disk_reads</code></td>
-    </tr>
-    <tr>
-      <td>Message store disk writes</td>
-      <td><code>message_stats.disk_writes</code></td>
     </tr>
     <tr>
       <td>Inter-node communication links</td>
