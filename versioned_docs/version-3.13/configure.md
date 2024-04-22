@@ -1496,11 +1496,11 @@ dedicated documentation guides that cover plugin configuration:
  * [rabbitmq_auth_backend_ldap](./ldap)
  * [rabbitmq_auth_backend_oauth](./oauth2#variables-configurable)
 
-### Configuration Value Encryption {#configuration-encryption}
 
-Sensitive configuration entries (e.g. password, URL containing
-credentials) can be encrypted in the RabbitMQ configuration file.
-The broker decrypts encrypted entries on start.
+## Configuration Value Encryption {#configuration-encryption}
+
+Sensitive `advanced.config` entries (e.g. password, URL containing
+credentials) can be encrypted. RabbitMQ nodes then decrypt encrypted entries on boot.
 
 Note that encrypted configuration entries don't make the
 system meaningfully more secure. Nevertheless, they
@@ -1550,12 +1550,18 @@ it can be in a separate file:
 RabbitMQ can also request an operator to enter the passphrase
 when it starts by using `{passphrase, prompt}`.
 
+### Encrypting advanced.config Values Using CLI Tools {#configuration-encryption-encode-value}
+
 Use [rabbitmqctl](./cli) and the `encode`
 command to encrypt values:
 
 ```bash
+# <<"guest">> here is a value to encode, as an Erlang binary,
+# as it would have appeared in advanced.config
 rabbitmqctl encode '<<"guest">>' mypassphrase
 {encrypted,<<"... long encrypted value...">>}
+# "amqp://fred:secret@host1.domain/my_vhost" here is a value to encode, provided as an Erlang string,
+# as it would have appeared in advanced.config
 rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
 {encrypted,<<"... long encrypted value...">>}
 ```
@@ -1563,33 +1569,41 @@ rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
 Or, on Windows:
 
 ```powershell
+# <<"guest">> here is a value to encode, as an Erlang binary,
+# as it would have appeared in advanced.config
 rabbitmqctl encode "<<""guest"">>" mypassphrase
 {encrypted,<<"... long encrypted value...">>}
+# "amqp://fred:secret@host1.domain/my_vhost" here is a value to encode, provided as an Erlang string,
+# as it would have appeared in advanced.config
 rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
 {encrypted,<<"... long encrypted value...">>}
 ```
 
-Add the `decode` command if you want to decrypt values:
+### Decrypting advanced.config Values Using CLI Tools {#configuration-encryption-decode-value}
+
+Use the `decode` command to decrypt values:
 
 ```bash
 rabbitmqctl decode '{encrypted, <<"...">>}' mypassphrase
-<<"guest">>
+# => <<"guest">>
 rabbitmqctl decode '{encrypted, <<"...">>}' mypassphrase
-"amqp://fred:secret@host1.domain/my_vhost"
+# => "amqp://fred:secret@host1.domain/my_vhost"
 ```
 
 Or, on Windows:
 
 ```powershell
 rabbitmqctl decode "{encrypted, <<""..."">>}" mypassphrase
-<<"guest">>
+# => <<"guest">>
 rabbitmqctl decode "{encrypted, <<""..."">>}" mypassphrase
-"amqp://fred:secret@host1.domain/my_vhost"
+# => "amqp://fred:secret@host1.domain/my_vhost"
 ```
 
 Values of different types can be encoded. The example above encodes
 both binaries (`<<"guest">>`) and strings
 (`"amqp://fred:secret@host1.domain/my_vhost"`).
+
+### Encryption Settings: Cipher, Hashing Function, Number of Iterations {#configuration-encryption-settings}
 
 The encryption mechanism uses PBKDF2 to produce a derived key
 from the passphrase. The default hash function is SHA512
@@ -1612,7 +1626,7 @@ These defaults can be changed in the configuration file:
 ].
 ```
 
-Or using [CLI tools](./cli):
+Or, using [CLI tools](./cli):
 
 ```bash
 rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
