@@ -522,14 +522,6 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
     </td>
   </tr>
 
-
-  <tr>
-    <th>rabbitmq_mqtt</th>
-    <td>
-      MQTT support.
-    </td>
-  </tr>
-
   <tr>
     <th>rabbitmq_tracing</th>
     <td>
