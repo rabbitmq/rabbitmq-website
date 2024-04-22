@@ -18,13 +18,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-import TutorialsHelp from '@site/src/components/Tutorials/TutorialsHelp.md';
-import TutorialsIntro from '@site/src/components/Tutorials/TutorialsIntro.md';
+import TutorialsHelp from '@site/src/components/Tutorials/TutorialsStreamHelp.md';
+import TutorialsIntro from '@site/src/components/Tutorials/TutorialsStreamIntro.md';
 import T1DiagramHello from '@site/src/components/Tutorials/T1DiagramHello.md';
 import T1DiagramSending from '@site/src/components/Tutorials/T1DiagramSending.md';
 import T1DiagramReceiving from '@site/src/components/Tutorials/T1DiagramReceiving.md';
 
-# RabbitMQ tutorial - "Hello World!"
+# RabbitMQ Stream tutorial - "Hello World!"
 
 ## Introduction
 
@@ -52,7 +52,7 @@ on behalf of the consumer.
 > protocol for [RabbitMQ streams](/docs/streams). There are a number of clients
 > for RabbitMQ in [many different
 > languages](/client-libraries/devtools) see the stream clients. We'll
-> use the .NET client stream provided by RabbitMQ.
+> use the [.NET stream client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client) provided by RabbitMQ.
 >
 > The client supports [.NET Core](https://www.microsoft.com/net/core) as
 > well as .NET Framework 6+. This tutorial will use RabbitMQ .NET stream client 1.8.0 and
@@ -103,8 +103,8 @@ Now we have the .NET project set up we can write some code.
 
 <T1DiagramSending/>
 
-We'll call our message publisher (sender) `Send.cs` and our message consumer (receiver)
-`Receive.cs`.  The publisher will connect to RabbitMQ, send a single message,
+We'll call our message producer (sender) `Send.cs` and our message consumer (receiver)
+`Receive.cs`.  The producer will connect to RabbitMQ, send a single message,
 then exit.
 
 In
@@ -175,6 +175,9 @@ whatever you like there.
 When the code above finishes running, the producer connection and stream-system
 connection will be closed. That's it for our producer.
 
+Each time you run the producer, it will send a single message to the server and the message will be 
+appended to the stream-queue.
+
 [Here's the whole Send.cs
 class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs).
 
@@ -196,9 +199,8 @@ As for the consumer, it is listening for messages from
 RabbitMQ. So unlike the producer which publishes a single message, we'll
 keep the consumer running continuously to listen for messages and print them out.
 
-<T1DiagramReceiving/>
 
-The code (in [`Receive.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs)) has almost the same `using` statements as `Send`:
+The code (in [`Receive.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Receive/Receive.cs)) has almost the same `using` statements as `Send`:
 
 ```csharp
 using System.Text;

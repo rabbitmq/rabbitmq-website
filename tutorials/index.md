@@ -43,7 +43,7 @@ Executable versions of these tutorials [are open source](https://github.com/rabb
 as is [this website](https://github.com/rabbitmq/rabbitmq-website).
 
 These tutorials focus on just one (the original) protocol supported by RabbitMQ.
-### AMQP tutorials
+### Queue tutorials
 
 <table id="tutorials">
     <colgroup>
