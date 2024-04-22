@@ -344,11 +344,9 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
   <tr>
     <th>rabbitmq_amqp1_0</th>
     <td>
-      AMQP 1.0 protocol support.
-      This plugin is several years old and is moderately
-      mature. It may have certain limitations with its current
-      architecture but most major AMQP 1.0 features should be in
-      place.
+      AMQP 1.0 protocol support. For 4.0 (currently in development), this plugin has
+      been integrated into the core and becomes a no-op.
+
       <ul>
         <li>
           <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_amqp1_0/README.md">README for this plugin</a>
