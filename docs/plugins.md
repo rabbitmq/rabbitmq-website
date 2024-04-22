@@ -471,7 +471,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
   <tr>
     <th>rabbitmq_mqtt</th>
     <td>
-      MQTT 3.1.1 support.
+      MQTT 5 and 3.1.1 support.
       <ul>
         <li><a href="./mqtt">Documentation for the MQTT plugin</a></li>
       </ul>
@@ -519,14 +519,6 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
       <ul>
         <li><a href="./stomp">Documentation for the STOMP plugin</a><br/></li>
       </ul>
-    </td>
-  </tr>
-
-
-  <tr>
-    <th>rabbitmq_mqtt</th>
-    <td>
-      MQTT support.
     </td>
   </tr>
 
