@@ -40,11 +40,6 @@ messages and prints them out.  We'll gloss over some of the detail in
 the .NET client API, concentrating on this very simple thing just to get
 started.  It's a "Hello World" of messaging.
 
-In the diagram below, "P" is our producer and "C" is our consumer. The
-box in the middle is a queue - a message buffer that RabbitMQ keeps
-on behalf of the consumer.
-
-<T1DiagramHello/>
 
 > #### The .NET stream client library
 >
@@ -101,7 +96,6 @@ Now we have the .NET project set up we can write some code.
 
 ### Sending
 
-<T1DiagramSending/>
 
 We'll call our message producer (sender) `Send.cs` and our message consumer (receiver)
 `Receive.cs`.  The producer will connect to RabbitMQ, send a single message,
@@ -166,11 +160,7 @@ Declaring a stream-queue is idempotent - it will only be created if it doesn't e
 Streams model an append-only log of messages that can be repeatedly read until they expire.
 It is a good practice to define the retention policy always, 5Gb in this case.
 
-Streams model an append-only log of messages that can be repeatedly read until they expire.
-It is a good practise to define the retention policy. In this case 5G.
-
-The message content is a byte array, so you can encode
-whatever you like there.
+The message content is a byte array, so you can encode whatever you like there.
 
 When the code above finishes running, the producer connection and stream-system
 connection will be closed. That's it for our producer.
@@ -179,7 +169,7 @@ Each time you run the producer, it will send a single message to the server and 
 appended to the stream-queue.
 
 [Here's the whole Send.cs
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs).
+class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Send/Send.cs).
 
 > #### Sending doesn't work!
 >
@@ -226,7 +216,7 @@ Note that we declare the stream-queue here as well. Because we might start
 the consumer before the producer, we want to make sure the queue exists
 before we try to consume messages from it.
 
-we need to use `ConsumerConfig` to configure the consumer. 
+We need to use `Consumer` class to create the consumer and `ConsumerConfig` to configure it. 
 
 We're about to tell the server to deliver us the messages from the
 queue. We provide a callback `MessageHandler` on the `ConsumerConfig`.

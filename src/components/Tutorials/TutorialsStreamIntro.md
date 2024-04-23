@@ -1,4 +1,4 @@
-[Stream-Queue](/docs/streams) is a type of queue introduced in RabbitMQ 3.9.
+Stream was introduced in RabbitMQ 3.9.
+[Here](/docs/streams) you can find more information.
 
-Data in a stream can be used via a RabbitMQ client library or through [RabbitMQ stream client](/docs/stream)
  

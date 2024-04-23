@@ -25,6 +25,9 @@ import T4DiagramToC from '@site/src/components/Tutorials/T4DiagramToC.md';
 import T5DiagramToC from '@site/src/components/Tutorials/T5DiagramToC.md';
 import T6DiagramToC from '@site/src/components/Tutorials/T6DiagramToC.md';
 
+
+import T1DiagramStreamToC from '@site/src/components/Tutorials/T1DiagramStreamToC.md';
+
 # RabbitMQ Tutorials
 
 These tutorials cover the basics of creating messaging
@@ -204,7 +207,7 @@ More info about [RabbitMQ streams](/docs/streams) on the [RabbitMQ blog](https:/
 
     The simplest thing that does *something*
 
-    <T1DiagramToC/>
+    <T1DiagramStreamToC/>
     * [C#](tutorials/tutorial-one-dotnet-stream)
   </td>
 
