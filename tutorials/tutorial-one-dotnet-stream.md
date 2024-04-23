@@ -286,4 +286,4 @@ the publisher several times.
 The stream-queues are different from traditional queues in that they are append-only logs of messages.
 So you can run the different consumers and they will always start from the first message.
 
-Time to move on to [part 2](./tutorial-two-dotnet-stream) and deal with a confirmation.
+[//]: # (Time to move on to [part 2]&#40;./tutorial-two-dotnet-stream&#41; and deal with a confirmation.)
