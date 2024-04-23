@@ -55,7 +55,6 @@ This guide covers:
  * [HTTP API request logging](#http-logging)
  * How to set a [management UI login session timeout](#login-session-timeout)
  * How to [reset statistics database](#reset-stats) used by this plugin
- * [Troubleshooting](#troubleshooting)
 
 The plugin also provides extension points that other plugins, such as
 [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top) or

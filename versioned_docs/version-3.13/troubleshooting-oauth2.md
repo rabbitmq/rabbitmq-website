@@ -70,7 +70,12 @@ OAuth resource [rabbitmq] not available. OpenId Discovery endpoint https://<the_
 
 This issue is caused when the endpoint is not returning a JSON payload which matches with the [OpenId Connect Discovery Configuration](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig). 
 There are two possible causes:
-- The Identity Provider is not compliant with OpenId Connect 
+- The payload returned by the endpoint is not compliant because it is empty or it is missing some critical information. To identify the root cause, you open the browser's javascript console and search for one of these possible error messages:
+  - `Payload does not contain openid configuration` This error occurs when the payload is empty or it is not a JSON payload
+  - `Missing authorization_endpoint` This error occurs when the JSON attribute `authorization_endpoint` is missing
+  - `Missing token_endpoint` This error occurs when the JSON attribute `token_endpoint` is missing
+  - `Missing jwks_uri` This error occurs when the JSON attribute `jwks_uri` is missing
+  
 - The url is wrong. Check out with your administrator of your Identity Provider to get the correct url to the OpenId Connect Discovery endpoint
 
 
