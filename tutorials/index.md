@@ -48,6 +48,8 @@ as is [this website](https://github.com/rabbitmq/rabbitmq-website).
 These tutorials focus on just one (the original) protocol supported by RabbitMQ.
 ### Queue tutorials
 
+This section covers the default RabbitMQ protocol, AMQP 0-9-1.
+
 <table id="tutorials">
     <colgroup>
         <col span="1" style={{width: '33%',}}/>
@@ -192,8 +194,9 @@ These tutorials focus on just one (the original) protocol supported by RabbitMQ.
   </tr>
 </table>
 
-### RabbitMQ Stream tutorials
-More info about [RabbitMQ streams](/docs/streams) on the [RabbitMQ blog](https://blog.rabbitmq.com/categories/streams/).
+### Stream tutorials
+
+This section covers the [RabbitMQ streams](/docs/streams) feature through the [Stream Plugin](/docs/stream)
 
 <table id="stream-tutorials">
     <colgroup>
