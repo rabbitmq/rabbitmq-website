@@ -422,7 +422,7 @@ const sidebars = {
         },
         {
             type: 'category',
-            label: '.NET Stream ',
+            label: '.NET Stream',
             items: [
                 {
                     type: 'doc',

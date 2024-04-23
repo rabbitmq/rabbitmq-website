@@ -158,7 +158,7 @@ await streamSystem.Close();
 Declaring a stream-queue is idempotent - it will only be created if it doesn't exist already.
 
 Streams model an append-only log of messages that can be repeatedly read until they expire.
-It is a good practice to define the retention policy always, 5Gb in this case.
+It is a good practice to always define the retention policy. 5Gb in this case.
 
 The message content is a byte array, so you can encode whatever you like there.
 
