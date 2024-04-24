@@ -177,13 +177,7 @@ const config = {
         },
         theme: {
           customCss: './src/css/custom.css',
-        },
-
-        // User tracking: Google tag for Google Analytics.
-        gtag: {
-          trackingID: 'G-9SLB9X7PHR',
-          anonymizeIP: true,
-        },
+        }
       }),
     ],
   ],
@@ -392,18 +386,6 @@ const config = {
         // disable it)
         searchPagePath: 'search',
       },
-
-      // User tracking: OneTrust Cookie Consent popup.
-      metadata: [
-        {
-          name: 'onetrust-data-domain',
-          content: '018ee308-473e-754f-b0c2-cbe82d25512f',
-        },
-        {
-          name: 'microsites-utag',
-          content: 'https://tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.js',
-        },
-      ],
     }),
 
   headTags: [
@@ -417,19 +399,19 @@ const config = {
     {
       tagName: 'script',
       attributes: {
-        href: '//www.vmware.com/files/templates/inc/utag_data.js',
-      },
-    },
-    {
-      tagName: 'script',
-      attributes: {
-        href: '//tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.sync.js',
+        src: 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js',
+        'data-domain-script': "018ee308-473e-754f-b0c2-cbe82d25512f-test",
       },
     },
     {
       tagName: 'script',
       attributes: {},
-      innerHTML: "function OptanonWrapper() { { window.dataLayer.push({ event: 'OneTrustGroupsUpdated' }); } }",
+      innerHTML: "function OptanonWrapper() {}",
+    },
+    {
+      tagName: 'script',
+      attributes: {},
+      innerHTML: "function setGTM(w, d, s, l, i) { w[l] = w[l] || []; w[l].push({  'gtm.start': new Date().getTime(),  event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0],  j = d.createElement(s),  dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); } if (document.cookie.indexOf('OptanonConsent') > -1 && document.cookie.indexOf('groups=') > -1) { setGTM(window, document, 'script', 'dataLayer', 'GTM-TT84L8K'); } else { waitForOnetrustActiveGroups(); } var timer; function waitForOnetrustActiveGroups() { if (document.cookie.indexOf('OptanonConsent') > -1 && document.cookie.indexOf('groups=') > -1) {  clearTimeout(timer);  setGTM(window, document, 'script', 'dataLayer', 'GTM-TT84L8K'); } else {  timer = setTimeout(waitForOnetrustActiveGroups, 250); } }",
     },
   ],
 
