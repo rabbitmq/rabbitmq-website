@@ -400,7 +400,7 @@ const config = {
       tagName: 'script',
       attributes: {
         src: 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js',
-        'data-domain-script': "018ee308-473e-754f-b0c2-cbe82d25512f-test",
+        'data-domain-script': "018ee308-473e-754f-b0c2-cbe82d25512f",
       },
     },
     {
