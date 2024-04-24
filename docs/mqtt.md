@@ -285,7 +285,7 @@ to the default [virtual host](./vhosts) used by this plugin:
 ```bash
 # username and password are both "mqtt-test"
 rabbitmqctl add_user mqtt-test mqtt-test
-rabbitmqctl set_permissions -p / mqtt-test ".*" ".*" ".*"
+rabbitmqctl set_permissions -p "/" mqtt-test ".*" ".*" ".*"
 rabbitmqctl set_user_tags mqtt-test management
 ```
 
