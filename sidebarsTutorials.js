@@ -431,6 +431,17 @@ const sidebars = {
                 }
             ]
         },
+        {
+            type: 'category',
+            label: 'Go Stream',
+            items: [
+                {
+                    type: 'doc',
+                    id: 'tutorial-one-go-stream',
+                    label: 'Hello World',
+                }
+            ]
+        },
     ],
 };
 

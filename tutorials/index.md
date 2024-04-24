@@ -212,6 +212,7 @@ This section covers the [RabbitMQ streams](/docs/streams) feature through the [S
 
     <T1DiagramStreamToC/>
     * [C#](tutorials/tutorial-one-dotnet-stream)
+    * [Go](tutorials/tutorial-one-go-stream)
   </td>
 
 </tr>
