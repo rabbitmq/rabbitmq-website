@@ -344,6 +344,9 @@ const config = {
                 label: 'Your California Privacy Rights',
                 href: 'https://www.vmware.com/help/privacy/california-privacy-rights.html',
               },
+              {
+                html: '<a class="footer__link-item" href="javascript:void(0);" onclick="OpenOneTrustPopup();">Cookie Settings</a>',
+              },
             ],
           },
         ],
@@ -412,6 +415,11 @@ const config = {
       tagName: 'script',
       attributes: {},
       innerHTML: "function setGTM(w, d, s, l, i) { w[l] = w[l] || []; w[l].push({  'gtm.start': new Date().getTime(),  event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0],  j = d.createElement(s),  dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); } if (document.cookie.indexOf('OptanonConsent') > -1 && document.cookie.indexOf('groups=') > -1) { setGTM(window, document, 'script', 'dataLayer', 'GTM-TT84L8K'); } else { waitForOnetrustActiveGroups(); } var timer; function waitForOnetrustActiveGroups() { if (document.cookie.indexOf('OptanonConsent') > -1 && document.cookie.indexOf('groups=') > -1) {  clearTimeout(timer);  setGTM(window, document, 'script', 'dataLayer', 'GTM-TT84L8K'); } else {  timer = setTimeout(waitForOnetrustActiveGroups, 250); } }",
+    },
+    {
+      tagName: 'script',
+      attributes: {},
+      innerHTML: "function OpenOneTrustPopup() { document.getElementsByClassName('ot-floating-button__open')[0].click(); }",
     },
   ],
 
