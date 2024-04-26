@@ -421,13 +421,22 @@ The management UI shows now a username/password login form for Basic Authenticat
 ![Single OAuth 2.0 resource, with oauth_disable_basic_auth = false](./management-oauth-with-basic-auth.png)
 
 
-### Logging out of the Managment UI {#about-logout-workflow}
+### Logging out of the management UI {#about-logout-workflow}
 
-RabbitMQ follows the [OpenID Connect RP-Initiated Logout 1.0](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)
-specification to implement the logout workflow. This means that the logout workflow is triggered from the management UI when the user clicks on the **Logout** button. Logging out from management UI not only logs the user out from the management UI itself but also from the Identity Provider.
+RabbitMQ implements the [OpenID Connect RP-Initiated Logout 1.0](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)
+specification to logout users from the management UI and from the OAuth Provider. It works as follows:
+
+  1. The user clicks **Logout**. 
+  2. If the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) returns an `end_session_endpoint`, the management UI sends a logout request to that endpoint to close the user's session in the OAuth Provider. When the request completes, the user is also logged out from the management ui.
+  3. If there is no `end_session_endpoint` returned, then the user is only logged out from the management UI.
+
+:::warning
+RabbitMQ 3.13.1 and earlier versions require the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) `end_session_endpoint` returned for OAuth 2.0 authentication to work. 
+:::
 
 There are other two additional scenarios which can trigger a logout. One scenario occurs when the OAuth Token expires. Although RabbitMQ renews the token in the background before it expires, if the token expires, the user is logged out.
 The second scenario is when the management UI session exceeds the maximum allowed time configured on the [Login Session Timeout](#login-session-timeout).
+
 
 ### Special attention to CSP header `connect-src` {#csp-header}
 
