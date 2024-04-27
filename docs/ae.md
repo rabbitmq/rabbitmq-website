@@ -77,15 +77,14 @@ This way of defining an alternate exchange is discouraged. Consider
 using a policy instead (see above).
 
 When creating an exchange the name of an AE can be
-optionally supplied in the <code>exchange.declare</code>
-method's <code>arguments</code> table by specifying a key
-of 'alternate-exchange' and a value of type 'S' (string)
-containing the name.
+optionally supplied in the `exchange.declare`
+method's `arguments` table by specifying a key
+of 'alternate-exchange' and a string value containing the name.
 
 When an AE has been specified, in addition to the usual
-<em>configure</em> permissions on the declared exchange,
-the user needs to have <em>read</em> permissions on that
-exchange and <em>write</em> permissions on the AE.
+`configure` permission on the declared exchange,
+the user needs to have `read` permissions on that
+exchange and `write` permissions on the AE.
 
 For example:
 
@@ -109,8 +108,8 @@ of 'key1', and a queue 'unrouted' to 'my-ae'.
 
 ## How Alternate Exchanges Work {#how-it-works}
 
-Whenever an exchange with a configured AE cannot route a message
-to any queue, it publishes the message to the specified AE
+Whenever a message published to an exchange with a configured AE cannot be routed
+to any queue, the channel re-publishes the message to the specified AE
 instead. If that AE does not exist then a warning is logged. If
 an AE cannot route a message, it in turn publishes the message
 to its AE, if it has one configured. This process continues
