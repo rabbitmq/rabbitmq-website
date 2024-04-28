@@ -243,7 +243,9 @@ Now the modified schema can be loaded into the new virtual host from the Managem
 UI or by running the following command from the CLI:
 
 ```bash
-rabbitadmin import -V NEW_VHOST NEW_VHOST.json
+# Import definitions for a single virtual host using rabbitmqadmin.
+# See https://www.rabbitmq.com/docs/definitions to learn more.
+rabbitmqadmin import -V NEW_VHOST NEW_VHOST.json
 ```
 
 ### Point Consumers to use Quorum Queues in the New Virtual Host

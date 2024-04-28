@@ -247,7 +247,7 @@ error. This is clearly one of the cases where migration is not needed,
 but care must be taken as to avoid exclusive queue declarations with
 an explicit `x-queue-type: quorum` argument.
 
-## Migrate the Queues by Virtual Host {#new-vhost-migration}
+## Migrate the Queues One Virtual Host at a Time {#new-vhost-migration}
 
 The procedure to migrate from classic mirrored queues to quorum queues
 is similar to a [blue-green cluster upgrade](/docs/blue-green-upgrade),
@@ -339,10 +339,12 @@ The following changes needs to be made to this file before loading it back into 
    messages.
 
 Now the modified schema can be loaded into the new virtual host from
-UI or by running the following command from the command line:
+UI or using CLI tools:
 
 ```bash
-rabbitadmin import -V NEW_VHOST NEW_VHOST.json
+# Import definitions for a single virtual host using rabbitmqadmin.
+# See https://www.rabbitmq.com/docs/definitions to learn more.
+rabbitmqadmin import -V NEW_VHOST NEW_VHOST.json
 ```
 
 ### Point consumers to the new vhost
