@@ -529,7 +529,7 @@ another and use in a single Certificate Authority bundle file
 is to simply concatenate them:
 
 ```bash
-cat rootca/ca_certificate.pem otherca/ca_certificate.pem < all_cacerts.pem
+cat rootca/ca_certificate.pem otherca/ca_certificate.pem > all_cacerts.pem
 ```
 
 ### Enabling Peer Verification {#peer-verification-configuration}
