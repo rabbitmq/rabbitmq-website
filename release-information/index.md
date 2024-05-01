@@ -35,32 +35,37 @@ the release notes of the target release.
 <RabbitMQServerReleaseInfoTable/>
 
 :::note
-Older releases that are not in this table are unsupported.
+Older releases not listed in the table above are unsupported.
 :::
 
 ## Support Policy {#support-policy}
 
 In January 2023, the term **general support** was replaced with **community
-support** to avoid confusion with the VMware [terminology related to the
-support lifecycle policy](https://tanzu.vmware.com/support/lifecycle_policy).
+support** to avoid confusion with the VMware [terminology related to the support lifecycle policy](https://tanzu.vmware.com/support/lifecycle_policy).
 
 ### Community Support
 
+:::important
+From June 1st, 2024 and onwards, RabbitMQ Core Team only provides support to paying customers
+and [regularly contributing users](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md).
+:::
+
 As a result of feedback from the [community](/contact#community-resources) and
-those with a commercial license, RabbitMQ patch releases are produced
-regularly. Community support is provided by [community
-resources](/contact#community-resources). Refer to the previous table for end
-dates for this support.
+those with a commercial license, RabbitMQ patch releases are produced regularly.
+
+Community support for [regularly contributing users](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md)
+is provided via [community resources](/contact#community-resources). Refer to the previous table for end dates for this support.
+
+[Users who do not contribute](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md) or hold a valid commercial license
+can use community resources for questions but are not entitled to any support from the RabbitMQ Team at Broadcom.
 
 ### Extended Commercial Support
 
-Extended Commercial Support is included in [VMware’s Commercial Open Source
-RabbitMQ Support](https://tanzu.vmware.com/rabbitmq/oss). RabbitMQ patches are
-produced for security and high severity issues that are reported by users with
-a commercial license. If you already have a license, go to [paid commercial
-support enquiries](/contact#paid-support). Refer to the previous table for end
-dates for this support.
+Extended Commercial Support is included in [VMware’s Commercial Open Source RabbitMQ Support](https://tanzu.vmware.com/rabbitmq/oss).
+RabbitMQ patches are produced for security and high severity issues that are reported by users with
+a commercial license. If you already have a license, go to [paid commercial support enquiries](/contact#paid-support).
+Refer to the previous table for end dates for this support.
 
 ## The Next Release
 
-RabbitMQ 4.0 is next, it is expected to be released later in 2024.
+RabbitMQ 4.0 is next, it is expected to be released in late 2024.

@@ -162,7 +162,7 @@ a [blue-green upgrade](./blue-green-upgrade) strategy should be used.
 Unless otherwise specified in release notes, RabbitMQ plugin API
 introduces no breaking changes within a release series (e.g. between
 `3.12.5` and `3.12.13`). If upgrading to a new minor or major version
-(e.g. `3.13.1`), plugin must be upgraded to their versions that support
+(e.g. `3.13.2`), plugin must be upgraded to their versions that support
 the new RabbitMQ version series.
 
 In rare cases patch versions of RabbitMQ can break some plugin APIs.
@@ -215,7 +215,7 @@ RabbitMQ does not support downgrades; it's strongly advised to back node's data 
 upgrading.
 
 Single node deployments are often local development or test environments. In such cases, if
-the upgrade involves jumping multiple release series (eg. from `3.8.15` to `3.13.1`),
+the upgrade involves jumping multiple release series (eg. from `3.8.15` to `3.13.2`),
 it's easier to simply delete everything in the data directory and go directly
 to the desired version. Effectively, it's no longer an upgrade but a fresh installation of the new version.
 Please note that this process will **delete all data** in your RabbitMQ (definitions and messages), but this is usually
