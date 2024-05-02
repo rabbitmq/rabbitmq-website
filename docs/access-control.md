@@ -203,7 +203,7 @@ On Windows, `rabbitmqctl` becomes `rabbitmqctl.bat` and shell escaping would be 
 
 ```powershell
 # password is provided as a command line argument
-rabbitmqctl.bat add_user 'username' '9a55f70a841f18b97c3a7db939b7adc9e34a0f1d'
+rabbitmqctl.bat add_user username '9a55f70a841f18b97c3a7db939b7adc9e34a0f1d'
 ```
 
 ### Listing Users
