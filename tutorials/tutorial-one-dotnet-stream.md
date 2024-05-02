@@ -43,15 +43,15 @@ started.  It's a "Hello World" of messaging.
 
 > #### The .NET stream client library
 >
-> RabbitMQ speaks multiple protocols. This tutorial uses RabbitMQ stream protocol which is a dedicate
+> RabbitMQ speaks multiple protocols. This tutorial uses RabbitMQ stream protocol which is a dedicated
 > protocol for [RabbitMQ streams](/docs/streams). There are a number of clients
 > for RabbitMQ in [many different
-> languages](/client-libraries/devtools) see the stream clients. We'll
-> use the [.NET stream client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client) provided by RabbitMQ.
+> languages](/client-libraries/devtools), see the stream client libraries for each language.
+> We'll use the [.NET stream client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client) provided by RabbitMQ.
 >
 > The client supports [.NET Core](https://www.microsoft.com/net/core) as
 > well as .NET Framework 6+. This tutorial will use RabbitMQ .NET stream client 1.8.0 and
-> .NET Core so you will ensure
+> .NET Core, so you make sure
 > you have it [installed](https://www.microsoft.com/net/core) and in your PATH.
 >
 > You can also use the .NET Framework to complete this tutorial however the
@@ -128,8 +128,8 @@ machine we'd simply specify its hostname or IP address on the `StreamSystemConfi
 
 Next we create a Producer.
 
-To send, we must declare a stream-queue for us to send to; then we can publish a message
-to the stream-queue:
+To send, we must declare a stream for us to send to; then we can publish a message
+to the stream:
 
 ```csharp
 using System.Text;
@@ -155,10 +155,10 @@ await producer.Close();
 await streamSystem.Close();
 ```
 
-Declaring a stream-queue is idempotent - it will only be created if it doesn't exist already.
+Declaring a stream is idempotent - it will only be created if it doesn't exist already.
 
 Streams model an append-only log of messages that can be repeatedly read until they expire.
-It is a good practice to always define the retention policy. 5Gb in this case.
+It is a good practice to always define the retention policy, 5Gb in this case.
 
 The message content is a byte array, so you can encode whatever you like there.
 
@@ -166,7 +166,7 @@ When the code above finishes running, the producer connection and stream-system
 connection will be closed. That's it for our producer.
 
 Each time you run the producer, it will send a single message to the server and the message will be 
-appended to the stream-queue.
+appended to the stream.
 
 [Here's the whole Send.cs
 class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Send/Send.cs).
@@ -178,9 +178,8 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Se
 > be wrong. Maybe the broker was started without enough free disk space
 > (by default it needs at least 50 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
-> limit if necessary. The <a
-> href="../configure#config-items">configuration
-> file documentation</a> will show you how to set <code>disk_free_limit</code>.
+> limit if necessary. The [configuration file documentation](/docs/configure#config-items)
+> will show you how to set <code>disk_free_limit</code>.
 
 
 ### Receiving
@@ -199,8 +198,8 @@ using RabbitMQ.Stream.Client.Reliable;
 ```
 
 Setting up is the same as the producer; we create a stream-system,
-consumer, and declare the stream-queue from which we're going to consume.
-Note this matches up with the queue that `Send` publishes to.
+consumer, and declare the stream from which we're going to consume.
+Note this matches up with the stream that `Send` publishes to.
 
 ```csharp
 var streamSystem = await StreamSystem.Create(new StreamSystemConfig());
@@ -212,14 +211,14 @@ await streamSystem.CreateStream(new StreamSpec("hello-stream")
 ...
 ```
 
-Note that we declare the stream-queue here as well. Because we might start
-the consumer before the producer, we want to make sure the queue exists
+Note that we declare the stream here as well. Because we might start
+the consumer before the producer, we want to make sure the stream exists
 before we try to consume messages from it.
 
 We need to use `Consumer` class to create the consumer and `ConsumerConfig` to configure it. 
 
 We're about to tell the server to deliver us the messages from the
-queue. We provide a callback `MessageHandler` on the `ConsumerConfig`.
+stream. We provide a callback `MessageHandler` on the `ConsumerConfig`.
 
 `OffsetSpec` defines the starting point of the consumer. 
 In this case, we start from the first message. 
@@ -264,7 +263,7 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Re
 
 Open two terminals.
 
-You can run the clients in any order, as both declares the stream-queue. 
+You can run the clients in any order, as both declare the stream.
 We will run the consumer first so you can see it waiting for and then receiving the message:
 
 ```powershell
@@ -283,7 +282,7 @@ The consumer will print the message it gets from the publisher via
 RabbitMQ. The consumer will keep running, waiting for messages, so try restarting
 the publisher several times.
 
-The stream-queues are different from traditional queues in that they are append-only logs of messages.
+Streams are different from queues in that they are append-only logs of messages.
 So you can run the different consumers and they will always start from the first message.
 
 [//]: # (Time to move on to [part 2]&#40;./tutorial-two-dotnet-stream&#41; and deal with a confirmation.)

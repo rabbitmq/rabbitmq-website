@@ -34,24 +34,24 @@ import T1DiagramReceiving from '@site/src/components/Tutorials/T1DiagramReceivin
 
 ## "Hello World"
 
-### (using the Golang Stream Client)
+### (using the Go Stream Client)
 
-In this part of the tutorial we'll write two programs in GO; a
+In this part of the tutorial we'll write two programs in Go; a
 producer that sends a single message, and a consumer that receives
 messages and prints them out. We'll gloss over some of the detail in
-the GO client API, concentrating on this very simple thing just to get
+the Go client API, concentrating on this very simple thing just to get
 started. It's a "Hello World" of messaging.
 
 
 > #### The GO stream client library
 >
-> RabbitMQ speaks multiple protocols. This tutorial uses RabbitMQ stream protocol which is a dedicate
+> RabbitMQ speaks multiple protocols. This tutorial uses RabbitMQ stream protocol which is a dedicated
 > protocol for [RabbitMQ streams](/docs/streams). There are a number of clients
 > for RabbitMQ in [many different
-> languages](/client-libraries/devtools) see the stream clients. We'll
-> use the [GO stream client](https://github.com/rabbitmq/rabbitmq-stream-go-client) provided by RabbitMQ.
+> languages](/client-libraries/devtools), see the stream client libraries for each language.
+> We'll use the [Go stream client](https://github.com/rabbitmq/rabbitmq-stream-go-client) provided by RabbitMQ.
 >
-> RabbitMQ GO client 1.4 and later versions are distributed
+> RabbitMQ Go client 1.4 and later versions are distributed
 > via [go get](https://github.com/rabbitmq/rabbitmq-stream-go-client?tab=readme-ov-file#installing).
 >
 > This tutorial assumes you are using powershell on Windows. On MacOS and Linux nearly
@@ -59,7 +59,7 @@ started. It's a "Hello World" of messaging.
 
 ### Setup
 
-First let's verify that you have GO toolchain in `PATH`:
+First let's verify that you have Go toolchain in `PATH`:
 
 ```powershell
 go version
@@ -77,7 +77,7 @@ go get -u
 
 This will create two new files named `send.go` and `receive.go`.
 
-Now we have the GO project set up we can write some code.
+Now we have the Go project set up we can write some code.
 
 ### Sending
 
@@ -113,10 +113,10 @@ we connect to a RabbitMQ node on the local machine - hence the
 _localhost_. If we wanted to connect to a node on a different
 machine we'd simply specify its hostname or IP address on the `EnvironmentOptions`.
 
-Next we create a Producer.
+Next we create a producer.
 
-To send, we must declare a stream-queue for us to send to; then we can publish a message
-to the stream-queue:
+To send, we must declare a stream for us to send to; then we can publish a message
+to the stream:
 
 ```go
     env, err := stream.NewEnvironment(stream.NewEnvironmentOptions())
@@ -152,10 +152,10 @@ to the stream-queue:
     }
 ```
 
-Declaring a stream-queue is idempotent - it will only be created if it doesn't exist already.
+Declaring a stream is idempotent - it will only be created if it doesn't exist already.
 
 Streams model an append-only log of messages that can be repeatedly read until they expire.
-It is a good practice to always define the retention policy. 5Gb in this case.
+It is a good practice to always define the retention policy, 5Gb in this case.
 
 The message content is a byte array, so you can encode whatever you like there.
 
@@ -163,7 +163,7 @@ When the code above finishes running, the producer connection and stream-system
 connection will be closed. That's it for our producer.
 
 Each time you run the producer, it will send a single message to the server and the message will be
-appended to the stream-queue.
+appended to the stream.
 
 [Here's the whole send.go
 struct](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/send.go).
@@ -175,9 +175,8 @@ struct](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/send.
 > be wrong. Maybe the broker was started without enough free disk space
 > (by default it needs at least 50 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
-> limit if necessary. The <a
-> href="../configure#config-items">configuration
-> file documentation</a> will show you how to set <code>disk_free_limit</code>.
+> limit if necessary. The [configuration file documentation](/docs/configure#config-items)
+> will show you how to set <code>disk_free_limit</code>.
 
 ### Receiving
 
@@ -196,8 +195,8 @@ import (
 ```
 
 Setting up is the same as the producer; we create a, consumer,
-and declare the stream-queue from which we're going to consume.
-Note this matches up with the queue that `send` publishes to.
+and declare the stream from which we're going to consume.
+Note this matches up with the stream that `send` publishes to.
 
 ```go
 
@@ -218,8 +217,8 @@ if err != nil {
 ...
 ```
 
-Note that we declare the stream-queue here as well. Because we might start
-the consumer before the producer, we want to make sure the queue exists
+Note that we declare the stream here as well. Because we might start
+the consumer before the producer, we want to make sure the stream exists
 before we try to consume messages from it.
 
 We need to use `Consumer` struct to create the consumer and `ConsumerOptions` to configure it.
@@ -272,7 +271,7 @@ struct](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/recei
 
 Open two terminals.
 
-You can run the clients in any order, as both declares the stream-queue.
+You can run the clients in any order, as both declare the stream.
 We will run the consumer first so you can see it waiting for and then receiving the message:
 
 ```powershell
@@ -289,6 +288,6 @@ The consumer will print the message it gets from the publisher via
 RabbitMQ. The consumer will keep running, waiting for messages, so try restarting
 the publisher several times.
 
-The stream-queues are different from traditional queues in that they are append-only logs of messages.
+Streams are different from queues in that they are append-only logs of messages.
 So you can run the different consumers and they will always start from the first message.
 

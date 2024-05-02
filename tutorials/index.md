@@ -194,7 +194,7 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
   </tr>
 </table>
 
-### Stream tutorials
+## Stream tutorials
 
 This section covers the [RabbitMQ streams](/docs/streams) feature through the [Stream Plugin](/docs/stream)
 
