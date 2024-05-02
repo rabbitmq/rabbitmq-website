@@ -22,13 +22,14 @@ limitations under the License.
 
 ## What is a Dead Letter Exchange {#overview}
 
-Messages from a queue can be "dead-lettered", which means these messages are republished to an exchange when any of the following events occur.
+Messages from a queue can be "dead-lettered", which means these messages are republished to an exchange when any of the following four events occur.
 
- * The message is [negatively acknowledged](./confirms) by a consumer using `basic.reject` or `basic.nack` with `requeue` parameter set to `false`.
- * The message expires due to [per-message TTL](./ttl), or
- * The message is dropped because its queue exceeded a [length limit](./maxlength)
+1. The message is [negatively acknowledged](./confirms) by a consumer using `basic.reject` or `basic.nack` with `requeue` parameter set to `false`, or
+1. The message expires due to [per-message TTL](./ttl), or
+1. The message is dropped because its queue exceeded a [length limit](./maxlength), or
+1. The message is returned more times to a quorum queue than the [delivery-limit](./quorum-queues#poison-message-handling).
 
-Note that if a queue expires, the messages in the queue are not "dead-lettered".
+If an entire [queue expires](./ttl#queue-ttl), the messages in the queue are **not** dead-lettered.
 
 Dead letter exchanges (DLXs) are normal exchanges. They can be
 any of the usual types and are declared as normal.
@@ -142,7 +143,7 @@ instance, this can happen when a queue "dead-letters"
 messages to the default exchange without specifying a
 dead-letter routing key. Messages in such cycles (that is,
 messages that reach the same queue twice) are
-dropped <em>if there was no rejections in the entire cycle</em>.
+dropped <em>if there was no rejection in the entire cycle</em>.
 
 ## Safety {#safety}
 
@@ -183,7 +184,7 @@ of several fields:
 
 New entries are prepended to the beginning of the `x-death`
 array. In the case where `x-death` already contains an entry with
-the same queue and dead lettering reason, it's count field is
+the same queue and dead lettering reason, its count field is
 incremented and it is moved to the beginning of the array.
 
 The `reason` is a name describing why the
