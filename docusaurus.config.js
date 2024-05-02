@@ -358,6 +358,7 @@ const config = {
         darkTheme: prismThemes.dracula,
         additionalLanguages: [
           'bash',
+          'batch',
           'csharp',
           'elixir',
           'erlang',
