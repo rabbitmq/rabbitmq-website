@@ -1,6 +1,10 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 ---
 title: Authentication, Authorisation, Access Control
 ---
+
 <!--
 Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
@@ -201,17 +205,20 @@ rabbitmqctl add_user 'username' '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b'
 
 On Windows, `rabbitmqctl` becomes `rabbitmqctl.bat` and shell escaping is different based on your shell:
 
+<Tabs>
+<TabItem value="powershell" label="PowerShell" default>
 ```powershell
-# powershell
 # password is provided as a command line argument
 rabbitmqctl.bat add_user 'username' '9a55f70a841f18b97c3a7db939b7adc9e34a0f1d'
 ```
-
+</TabItem>
+<TabItem value="cmd" label="cmd">
 ```batch
-rem cmd.exe
 rem password is provided as a command line argument
 rabbitmqctl.bat add_user "username" "9a55f70a841f18b97c3a7db939b7adc9e34a0f1d"
 ```
+</TabItem>
+</Tabs>
 
 ### Listing Users
 
