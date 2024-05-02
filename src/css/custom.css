@@ -128,6 +128,14 @@ html[data-theme='dark'] .mermaid-msg > rect {
   display: none;
 }
 
+.ot-sdk-show-settings {
+  cursor: pointer;
+}
+
+.ot-sdk-show-settings:hover {
+  text-decoration: var(--ifm-link-hover-decoration);
+}
+
 /* -------------------------------------------------------------------
  * Docs introduction page.
  * ------------------------------------------------------------------- */
