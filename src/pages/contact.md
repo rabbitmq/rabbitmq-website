@@ -24,7 +24,7 @@ limitations under the License.
 
 Effective June 1st 2024, the RabbitMQ team will adopt a new [community support and release policy](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md) for the open source distribution.
 
-The changes do not impact the current RabbitMQ open source license. The RabbitMQ core team will continue developing
+The changes do not impact the current RabbitMQ open source license. The RabbitMQ core team continues developing
 open source RabbitMQ under the Mozilla Public License 2.0 [on GitHub](https://github.com/rabbitmq).
 
 With the new policy, older open source release series (for example, RabbitMQ 3.12.x) will no longer receive
