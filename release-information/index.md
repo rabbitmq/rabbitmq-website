@@ -46,7 +46,7 @@ support** to avoid confusion with the VMware [terminology related to the support
 ### Community Support
 
 :::important
-From June 1st, 2024 and onwards, RabbitMQ Core Team only provides support to paying customers
+From June 1st, 2024 and onwards, the [RabbitMQ Core Team at Broadcom](https://github.com/rabbitmq/) only provides support to paying customers
 and [regularly contributing users](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md).
 :::
 
