@@ -20,18 +20,44 @@ limitations under the License.
 
 # Getting Help and Support
 
+## Open Source Edition and Community Support Policy
+
+Effective June 1st 2024, the RabbitMQ team will adopt a new [community support and release policy](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md) for the open source distribution.
+
+The changes do not impact the current RabbitMQ open source license. The RabbitMQ core team will continue developing
+open source RabbitMQ under the Mozilla Public License 2.0 [on GitHub](https://github.com/rabbitmq).
+
+With the new policy, older open source release series (for example, RabbitMQ 3.12.x) will no longer receive
+updates (patch releases). Patch releases for older series of both the open source and commercial editions
+will be available to customers that have [VMware Tanzu RabbitMQ commercial licenses](https://tanzu.vmware.com/rabbitmq).
+
+
 ## Overview {#overview}
 
-If you have questions about RabbitMQ or need help, there are several ways
-to get it:
+There are two primary ways to obtain RabbitMQ support from the core development team at Broadcom:
 
- * Freely available [community resources](#community-resources) (mailing list, Discord server, community Slack, and so on)
- * [Paid commercial support](#paid-support) from VMware and other vendors
-
-There's also a separate email address for [responsible disclosure of security issues](#security).
+ * [Paid commercial support](#paid-support)
+ * For [users who run the latest series](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md), a number [community resources](#community-resources) is available
 
 
-## Community Support {#community-resources}
+## Community Resources {#community-resources}
+
+### GitHub Discussions
+
+The recommended channel for questions, discussions, investigations, root cause analysis, and so on
+is [GitHub Discussions](https://github.com/rabbitmq/rabbitmq-server/discussions).
+The RabbitMQ Team at Broadcom will engage according to the [Community Support Eligibility Policy](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md).
+
+GitHub Discussions is also the place where Team RabbitMQ posts release announcements.
+
+Questions or discussions filed as issues will be converted to discussions.
+
+### Discord Community Server
+
+Another recommended community resource is the [RabbitMQ community Discord server](https://www.rabbitmq.com/discord/).
+
+The channel offers free of charge, best effort support from the community according to the [Community Support Eligibility Policy](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md).
+There is no guarantee of response or specific turnaround time.
 
 ### Public Community Mailing List
 
@@ -41,25 +67,6 @@ ask questions and share your experiences with RabbitMQ.
 
 The list offers a free, best effort support from the community and the RabbitMQ core team.
 There is no guarantee of response or specific turnaround time.
-
-### Discord Community Server
-
-Feel free to join our [Discord community server](https://www.rabbitmq.com/discord/).
-
-The channel offers free of charge, best effort support from the community.
-There is no guarantee of response or specific turnaround time.
-
-### GitHub
-
-Most of RabbitMQ development happens in the open under the [rabbitmq GitHub organization](https://github.com/rabbitmq).
-See [our GitHub guide](/github) for an overview of our development process
-and our [Contributor repository](https://github.com/rabbitmq/contribute/) for practical guides,
-for instance, on how to use Bazel for RabbitMQ development.
-
-
-Please use [GitHub Discussions](https://github.com/rabbitmq/rabbitmq-server/discussions)
-for questions, discussions, investigations, root cause analysis, and so on. Questions or discussions
-filed as issues will be closed and converted to discussions.
 
 ### Twitter
 
