@@ -211,8 +211,11 @@ This section covers the [RabbitMQ streams](/docs/streams) feature through the [S
     The simplest thing that does *something*
 
     <T1DiagramStreamToC/>
+    * [Java](tutorials/tutorial-one-java-stream)
     * [C#](tutorials/tutorial-one-dotnet-stream)
     * [Go](tutorials/tutorial-one-go-stream)
+    * [Python](tutorials/tutorial-one-python-stream)
+    * [Rust](tutorials/tutorial-one-rust-stream)
   </td>
 
 </tr>
