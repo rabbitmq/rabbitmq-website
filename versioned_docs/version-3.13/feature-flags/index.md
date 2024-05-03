@@ -357,6 +357,16 @@ The following feature flags are provided by RabbitMQ core.
 
   <tr>
     <td></td>
+    <td>3.13.1</td>
+    <td>quorum_queue_non_voters</td>
+    <td>
+      Support for the non-voter quorum queue replica state.
+    </td>
+  </tr>
+
+
+  <tr>
+    <td></td>
     <td>3.13.0</td>
     <td>message_containers</td>
     <td>
@@ -373,6 +383,16 @@ The following feature flags are provided by RabbitMQ core.
       reduces the number of metrics served by `GET /api/queues/`
     </td>
   </tr>
+
+  <tr>
+    <td></td>
+    <td>3.13.0</td>
+    <td>stream_filtering</td>
+    <td>
+      <a href="https://www.rabbitmq.com/blog/2023/10/16/stream-filtering">Stream filtering</a> support.
+    </td>
+  </tr>
+
   <tr>
     <td></td>
     <td>3.13.0</td>
