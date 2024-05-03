@@ -225,7 +225,7 @@ before we try to consume messages from it.
 We need to use `Consumer` struct to create the consumer.
 
 We're about to tell the server to deliver us the messages from the
-queue. The `Consumer` provides the iterator `next()` to get the next message from the stream.
+queue. The `Consumer` provides the method `next()` to get the next message from the stream.
 
 `offset` defines the starting point of the consumer.
 In this case, we start from the first message.
