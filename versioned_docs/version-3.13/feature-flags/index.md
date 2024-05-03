@@ -346,7 +346,7 @@ The following feature flags are provided by RabbitMQ core.
       <p>
       Enables <a href="https://www.youtube.com/watch?v=whVqpgvep90">Khepri</a>, a currently experimental schema data store
       with vastly superior peer failure and network split handling characteristics
-      compared to Mnesia.
+      compared to Mnesia
       </p>
 
       <p>
@@ -360,17 +360,16 @@ The following feature flags are provided by RabbitMQ core.
     <td>3.13.1</td>
     <td>quorum_queue_non_voters</td>
     <td>
-      Support for the non-voter quorum queue replica state.
+      Support for the non-voter quorum queue replica state
     </td>
   </tr>
-
 
   <tr>
     <td></td>
     <td>3.13.0</td>
     <td>message_containers</td>
     <td>
-      Enables a new AMQP 1.0-based message format used internally.
+      Enables a new AMQP 1.0-based message format used internally
     </td>
   </tr>
 
@@ -389,7 +388,7 @@ The following feature flags are provided by RabbitMQ core.
     <td>3.13.0</td>
     <td>stream_filtering</td>
     <td>
-      <a href="https://www.rabbitmq.com/blog/2023/10/16/stream-filtering">Stream filtering</a> support.
+      <a href="https://www.rabbitmq.com/blog/2023/10/16/stream-filtering">Stream filtering</a> support
     </td>
   </tr>
 
@@ -400,7 +399,7 @@ The following feature flags are provided by RabbitMQ core.
     <td>
       Removes `max_segment_size_bytes` from the list of policy keys that
       can be dynamically updated for streams. Changing `max_segment_size_bytes` for an existing
-      cluster is not safe, so it is not a good fit for dynamic policy-based updates.
+      cluster is not safe, so it is not a good fit for dynamic policy-based updates
     </td>
   </tr>
 
