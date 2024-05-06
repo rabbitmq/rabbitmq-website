@@ -245,7 +245,11 @@ async def receive():
 
     print("Press control +C to close")
     await consumer.start()
-    await consumer.subscribe(stream=STREAM_NAME, callback=on_message)
+      await consumer.subscribe(
+        stream=STREAM_NAME,
+        callback=on_message,
+        offset_specification=ConsumerOffsetSpecification(OffsetType.FIRST, None),
+    )
     await consumer.run()
     # give time to the consumer task to close the consumer
     await asyncio.sleep(1)
