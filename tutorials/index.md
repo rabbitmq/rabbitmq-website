@@ -214,6 +214,7 @@ This section covers the [RabbitMQ streams](/docs/streams) feature through the [S
     * [C#](tutorials/tutorial-one-dotnet-stream)
     * [Go](tutorials/tutorial-one-go-stream)
     * [Rust](tutorials/tutorial-one-rust-stream)
+    * [Python](tutorials/tutorial-one-python-stream)
   </td>
 
 </tr>

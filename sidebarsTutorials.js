@@ -442,6 +442,29 @@ const sidebars = {
                 }
             ]
         },
+        {
+            type: 'category',
+            label: 'Rust Stream',
+            items: [
+                {
+                    type: 'doc',
+                    id: 'tutorial-one-rust-stream',
+                    label: 'Hello World',
+                }
+            ]
+        },
+        {
+            type: 'category',
+            label: 'Python Stream',
+            items: [
+                {
+                    type: 'doc',
+                    id: 'tutorial-one-python-stream',
+                    label: 'Hello World',
+                }
+            ]
+        },
+
     ],
 };
 
