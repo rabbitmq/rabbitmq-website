@@ -34,122 +34,105 @@ import T1DiagramReceiving from '@site/src/components/Tutorials/T1DiagramReceivin
 
 ## "Hello World"
 
-### (using the Go Stream Client)
+### (using the Java Stream Client)
 
-In this part of the tutorial we'll write two programs in Go; a
+In this part of the tutorial we'll write two programs in Java; a
 producer that sends a single message, and a consumer that receives
 messages and prints them out. We'll gloss over some of the detail in
-the Go client API, concentrating on this very simple thing just to get
+the Java client API, concentrating on this very simple thing just to get
 started. It's a "Hello World" of messaging.
 
 
-> #### The GO stream client library
+> #### The Java stream client library
 >
 > RabbitMQ speaks multiple protocols. This tutorial uses RabbitMQ stream protocol which is a dedicated
 > protocol for [RabbitMQ streams](/docs/streams). There are a number of clients
 > for RabbitMQ in [many different
 > languages](/client-libraries/devtools), see the stream client libraries for each language.
-> We'll use the [Go stream client](https://github.com/rabbitmq/rabbitmq-stream-go-client) provided by RabbitMQ.
+> We'll use the [Java stream client](https://github.com/rabbitmq/rabbitmq-stream-java-client) provided by RabbitMQ.
 >
-> RabbitMQ Go client 1.4 and later versions are distributed
-> via [go get](https://github.com/rabbitmq/rabbitmq-stream-go-client?tab=readme-ov-file#installing).
+> RabbitMQ Java client 0.15.0 and later versions are distributed
+> via [Maven Repository](https://mvnrepository.com/artifact/com.rabbitmq/stream-client).
 >
 > This tutorial assumes you are using powershell on Windows. On MacOS and Linux nearly
 > any shell will work.
 
 ### Setup
 
-First let's verify that you have Go toolchain in `PATH`:
+First let's verify that you have Java toolchain in `PATH`:
 
 ```powershell
-go --help
+java --help
 ```
-
 should produce a help message.
 
-Now let's generate two projects, one for the publisher and one for the consumer:
+We use [Maven](https://maven.apache.org/) to manage dependencies and build the project.
+You can find the whole project in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/).
+
+You need to verify if you have Maven installed or you can use the Maven wrapper included in the project:
 
 ```powershell
-go mod init github.com/rabbitmq/rabbitmq-tutorials
-go get -u github.com/rabbitmq/rabbitmq-stream-go-client
-go get -u 
+./mvnw --help
 ```
 
-This will create two new files named `send.go` and `receive.go`.
 
-Now we have the Go project set up we can write some code.
+Let's add the dependencies to the `pom.xml` file:
+
+```xml
+<dependency>
+    <groupId>com.rabbitmq</groupId>
+    <artifactId>stream-client</artifactId>
+    <version>0.15.0</version>
+</dependency>
+```
 
 ### Sending
 
-We'll call our message producer (sender) `send.go` and our message consumer (receiver)
-`receive.go`. The producer will connect to RabbitMQ, send a single message,
+We'll call our message producer (sender) `Send.java` and our message consumer (receiver)
+`Receive.java`. The producer will connect to RabbitMQ, send a single message,
 then exit.
 
 In
-[`send.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/send.go),
+[`Send.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Send.java),
 we need to use some namespaces:
 
-```go
-import (
-    "github.com/rabbitmq/rabbitmq-stream-go-client/pkg/amqp"
-    "github.com/rabbitmq/rabbitmq-stream-go-client/pkg/stream"
-)
+```java
+import com.rabbitmq.stream.*;
+import java.io.IOException;
 ```
 
 then we can create a connection to the server:
 
-```go
-env, err := stream.NewEnvironment(
-		stream.NewEnvironmentOptions())
+```java
+Environment environment = Environment.builder().build();       
 ...
 ```
 
-The entry point of the stream GO client is the `Environment`.
+The entry point of the stream Java client is the `Environment`.
 It deals with stream management and the creation of publisher and consumer instances.
 
 It abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us. Here
 we connect to a RabbitMQ node on the local machine - hence the
 _localhost_. If we wanted to connect to a node on a different
-machine we'd simply specify its hostname or IP address on the `EnvironmentOptions`.
+machine we'd simply specify its hostname or IP address on the `Environment.builder()`.
 
 Next we create a producer.
 
 To send, we must declare a stream for us to send to; then we can publish a message
 to the stream:
 
-```go
-    env, err := stream.NewEnvironment(stream.NewEnvironmentOptions())
-    if err != nil {
-        log.Fatalf("Failed to create environment: %v", err)
-    }
-    streamName := "hello-go-stream"
-    err = env.DeclareStream(streamName, &stream.StreamOptions{
-			    MaxLengthBytes: stream.ByteCapacity{}.GB(5),
-			},)
+```java
+String stream = "hello-java-stream";
+environment.streamCreator().stream(stream).maxLengthBytes(ByteCapacity.GB(5)).create();
+Producer producer = environment.producerBuilder().stream(stream).build();
+producer.send(producer.messageBuilder().addData("Hello, World!".getBytes()).build(), null);
+System.out.println(" [x] 'Hello, World!' message sent");
 
-    if err != nil {
-        log.Fatalf("Failed to declare stream: %v", err)
-    }
-	
-    producer, err := env.NewProducer(streamName, stream.NewProducerOptions())
-    if err != nil {
-        log.Fatalf("Failed to create producer: %v", err)
-    }
-
-    err = producer.Send(amqp.NewMessage([]byte("Hello world")))
-    if err != nil {
-        log.Fatalf("Failed to send message: %v", err)
-    }
-    fmt.Printf(" [x] 'Hello world' Message sent\n")
-
-    reader := bufio.NewReader(os.Stdin)
-    fmt.Println(" [x] Press enter to close the producer")
-    _, _ = reader.ReadString('\n')
-    err = producer.Close()
-    if err != nil {
-        log.Fatalf("Failed to close producer: %v", err)
-    }
+System.out.println(" [x] Press Enter to close the producer...");
+System.in.read();
+producer.close();
+environment.close();
 ```
 
 Declaring a stream is idempotent - it will only be created if it doesn't exist already.
@@ -165,8 +148,8 @@ connection will be closed. That's it for our producer.
 Each time you run the producer, it will send a single message to the server and the message will be
 appended to the stream.
 
-[Here's the whole send.go
-struct](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/send.go).
+[Here's the whole Send.java
+class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Send.java).
 
 > #### Sending doesn't work!
 >
@@ -184,36 +167,24 @@ As for the consumer, it is listening for messages from
 RabbitMQ. So unlike the producer which publishes a single message, we'll
 keep the consumer running continuously to listen for messages and print them out.
 
-The code (in [`receive.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/receive.go))
-has the same `import` statements as `send`:
+The code (in [`Receive.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Receive.java))
+needs some `import`:
 
-```go
-import (
-    "github.com/rabbitmq/rabbitmq-stream-go-client/pkg/amqp"
-    "github.com/rabbitmq/rabbitmq-stream-go-client/pkg/stream"
-)
+```java
+import com.rabbitmq.stream.ByteCapacity;
+import com.rabbitmq.stream.Consumer;
+import com.rabbitmq.stream.Environment;
+import com.rabbitmq.stream.OffsetSpecification;
 ```
 
 Setting up is the same as the producer; we create a, consumer,
 and declare the stream from which we're going to consume.
 Note this matches up with the stream that `send` publishes to.
 
-```go
-
-env, err := stream.NewEnvironment(stream.NewEnvironmentOptions())
-if err != nil {
-    log.Fatalf("Failed to create environment: %v", err)
-}
-
-streamName := "hello-go-stream"
-err = env.DeclareStream(streamName,
-		&stream.StreamOptions{
-			MaxLengthBytes: stream.ByteCapacity{}.GB(2),
-		},
-	)
-if err != nil {
-    log.Fatalf("Failed to declare stream: %v", err)
-}
+```java
+Environment environment = Environment.builder().build();
+String stream = "hello-java-stream";
+environment.streamCreator().stream(stream).maxLengthBytes(ByteCapacity.GB(5)).create();
 ...
 ```
 
@@ -221,51 +192,33 @@ Note that we declare the stream here as well. Because we might start
 the consumer before the producer, we want to make sure the stream exists
 before we try to consume messages from it.
 
-We need to use `Consumer` struct to create the consumer and `ConsumerOptions` to configure it.
+We need to use `Consumer` class to create the consumer and `environment.consumerBuilder()` to configure it.
 
 We're about to tell the server to deliver us the messages from the
-queue. We provide a callback `MessageHandler`.
+queue. We provide a callback `.messageHandler`.
 
-`SetOffset` defines the starting point of the consumer.
+`offset` defines the starting point of the consumer.
 In this case, we start from the first message.
 
-```go
-    env, err := stream.NewEnvironment(
-		stream.NewEnvironmentOptions())
-	if err != nil {
-        log.Fatalf("Failed to create environment: %v", err)
-    }
-    streamName := "hello-go-stream"
-    err = env.DeclareStream(streamName,
-		&stream.StreamOptions{
-			MaxLengthBytes: stream.ByteCapacity{}.GB(5),
-		},
-	)
-	if err != nil {
-	    log.Fatalf("Failed to declare stream: %v", err)
-	}
-    
-    messagesHandler := func(consumerContext stream.ConsumerContext, message *amqp.Message) {
-		fmt.Printf("Stream: %s - Received message: %s\n", consumerContext.Consumer.GetStreamName(),
-			message.Data)}
+```java
+ Environment environment = Environment.builder().build();
+ String stream = "hello-java-stream";
+ environment.streamCreator().stream(stream).maxLengthBytes(ByteCapacity.GB(5)).create();
 
-    consumer, err := env.NewConsumer(streamName, messagesHandler, 
-        stream.NewConsumerOptions().SetOffset(stream.OffsetSpecification{}.First()))
-    if err != nil {
-        log.Fatalf("Failed to create consumer: %v", err)
-    }
-    
-    reader := bufio.NewReader(os.Stdin)
-    fmt.Println(" [x] Waiting for messages. enter to close the consumer")
-    _, _ = reader.ReadString('\n')
-    err = consumer.Close()
-    if err != nil {
-        log.Fatalf("Failed to close consumer: %v", err)
-    }
+ Consumer consumer = environment.consumerBuilder()
+            .stream(stream)
+            .offset(OffsetSpecification.first())
+            .messageHandler((unused, message) -> {
+                System.out.println("Received message: " + new String(message.getBodyAsBinary()));
+            }).build();
+
+ System.out.println(" [x]  Press Enter to close the consumer...");
+ System.in.read();
+ consumer.close();
+ environment.close();
 ```
 
-[Here's the whole receive.go
-struct](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/receive.go).
+[Here's the whole Receive.java class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Receive.java).
 
 ### Putting It All Together
 
@@ -275,13 +228,13 @@ You can run the clients in any order, as both declare the stream.
 We will run the consumer first so you can see it waiting for and then receiving the message:
 
 ```powershell
- go run receive.go
+ ./mvnw -q compile exec:java -Dexec.mainClass="Receive"
 ```
 
 Then run the producer:
 
 ```powershell
-go run send.go
+ ./mvnw -q compile exec:java -Dexec.mainClass="Send"
 ```
 
 The consumer will print the message it gets from the publisher via
@@ -290,4 +243,3 @@ the publisher several times.
 
 Streams are different from queues in that they are append-only logs of messages.
 So you can run the different consumers and they will always start from the first message.
-

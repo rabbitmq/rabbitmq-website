@@ -422,6 +422,17 @@ const sidebars = {
         },
         {
             type: 'category',
+            label: 'Java Stream',
+            items: [
+                {
+                    type: 'doc',
+                    id: 'tutorial-one-java-stream',
+                    label: 'Hello World',
+                }
+            ]
+        },
+        {
+            type: 'category',
             label: '.NET Stream',
             items: [
                 {

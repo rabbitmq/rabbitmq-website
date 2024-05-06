@@ -34,7 +34,7 @@ import T1DiagramReceiving from '@site/src/components/Tutorials/T1DiagramReceivin
 ## "Hello World"
 ### (using the Python (rstream) Stream Client)
 
-In this part of the tutorial we'll write two programs in C#; a
+In this part of the tutorial we'll write two programs in Python; a
 producer that sends a single message, and a consumer that receives
 messages and prints them out.  We'll gloss over some of the detail in
 the Python client API, concentrating on this very simple thing just to get
