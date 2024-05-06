@@ -85,7 +85,7 @@ We'll call our message producer (sender) `send.rs` and our message consumer (rec
 then exit.
 
 In
-[`send.rs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/rust.rs),
+[`send.rs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/send.rs),
 we need to use some namespaces:
 
 ```rust
