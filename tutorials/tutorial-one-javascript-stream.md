@@ -32,7 +32,7 @@ import T1DiagramReceiving from '@site/src/components/Tutorials/T1DiagramReceivin
 <TutorialsIntro/>
 
 ## "Hello World"
-### (using the Python (rstream) Stream Client)
+### (using the Node.js Stream Client)
 
 In this part of the tutorial we'll write two programs in Python; a
 producer that sends a single message, and a consumer that receives
@@ -41,111 +41,123 @@ the Python client API, concentrating on this very simple thing just to get
 started.  It's a "Hello World" of messaging.
 
 
-> #### The Python (rstream) stream client library
+> #### The Node.js stream client library
 >
 > RabbitMQ speaks multiple protocols. This tutorial uses RabbitMQ stream protocol which is a dedicated
 > protocol for [RabbitMQ streams](/docs/streams). There are a number of clients
 > for RabbitMQ in [many different
 > languages](/client-libraries/devtools), see the stream client libraries for each language.
-> We'll use the [Python (rstream) stream client](https://github.com/qweeze/rstream) original built by George Fortunatov now supported by RabbitMQ.
+> We'll use the [Node.js stream client](https://github.com/coders51/rabbitmq-stream-js-client) built and supported by Coders51.
 >
-> The client supports [Python >= 3.9](https://www.python.org/downloads/). 
-> This tutorial will use rstream client 0.19.1 version. 
-> Python (rstream) client 0.19.1 and later versions are distributed via [pip](https://pypi.org/project/rstream/).
+> The client supports [Node.js >= 16.x](https://nodejs.org/en/download). 
+> This tutorial will use Node.js stream client 0.3.1 version. 
+> The client 0.3.1 and later versions are distributed via [npm](https://github.com/coders51/rabbitmq-stream-js-client?tab=readme-ov-file#installing-via-npm).
 >
 > This tutorial assumes you are using powershell on Windows. On MacOS and Linux nearly
 > any shell will work.
 
 ### Setup
 
-First let's verify that you have Python toolchain in `PATH`:
+First let's verify that you have node toolchain in `PATH`:
 
 ```powershell
-python3 --help
+npm --help
 ```
 
 should produce a help message.
 
-Now let's create a folder project and install the dependencies:
+Now let's create a project and install the dependencies:
 
 ```powershell
-mkdir python-restream
-cd python-restream
-pip install mmh3 
-pip install uamqp
-pip install rstream
+npm init 
+```
+then install the client:
+
+```powershell
+npm install rabbitmq-stream-js-client
 ```
 
+how package.json should look like:
 
-Now create new files named `send.py` and `receive.py`. 
-Now we have thePython project set up we can write some code.
+```json
+{
+
+  "name": "rabbitmq-stream-node-tutorial",
+  "version": "1.0.0",
+  "description": "Tutorial for the nodejs RabbitMQ stream client",
+  "scripts": {
+    "send": "node send.js",
+    "receive": "node receive.js"
+  },
+  "dependencies": {
+    "rabbitmq-stream-js-client": "^0.3.1"
+  }
+}
+```
+
+Now create new files named `receive.js` and `send.js`. 
+Now we have the Node.js project set up we can write some code.
 
 ### Sending
 
 
-We'll call our message producer (sender) `send.py` and our message consumer (receiver)
-`receive.py`.  The producer will connect to RabbitMQ, send a single message,
+We'll call our message producer (sender) `send.js` and our message consumer (receiver)
+`receive.js`.  The producer will connect to RabbitMQ, send a single message,
 then exit.
 
 In
-[`send.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/send.py),
-we need some import:
+[`send.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs-stream/send.js),
+we need to add the client:
 
-```python
-import asyncio
-from rstream import Producer
+```javascript
+const rabbit = require("rabbitmq-stream-js-client")
 ```
 
 then we can create a connection to the server:
 
-```python
-async with Producer(
-        host="localhost",
-        username="guest",
-        password="guest",
-    ) as producer
+```javascript
+const client = await rabbit.connect({
+    hostname: "localhost",
+    port: 5552,
+    username: "guest",
+    password: "guest",
+    vhost: "/",
+})
 ...
 ```
-The entry point of the producer is the `Producer` class.
+The entry point of the client is the `Client` class.
 It deals with stream management and the creation of publisher instances. 
 
 It abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us. Here
 we connect to a RabbitMQ node on the local machine - hence the
 _localhost_. If we wanted to connect to a node on a different
-machine we'd simply specify its hostname or IP address on the `Producer` parameters.
+machine we'd simply specify its hostname or IP address on the `Client` parameters.
 
 To send, we must declare a stream for us to send to; then we can publish a message
 to the stream:
 
-```python
-import asyncio
+```javascript
+const streamName = "test-queue-stream";
 
-from rstream import Producer
+console.log("Connecting...");
+const client = await rabbit.connect({
+        vhost: "/",
+        port: 5552,
+        hostname: "localhost",
+        username: "guest",
+        password: "guest",
+    });
 
-STREAM_NAME = "hello-python-stream"
-# 5GB
-STREAM_RETENTION = 5000000000
+console.log("Making sure the stream exists...");
+const streamSizeRetention = 5 * 1e9
+await client.createStream({ stream: streamName, arguments: { "max-length-bytes": streamSizeRetention } });
 
+const publisher = await client.declarePublisher({ stream: streamName });
 
-async def send():
-    async with Producer(
-        host="localhost",
-        username="guest",
-        password="guest",
-    ) as producer:
-        await producer.create_stream(
-            STREAM_NAME, exists_ok=True, arguments={"MaxLengthBytes": STREAM_RETENTION}
-        )
+console.log("Sending a message...");
+await publisher.send(Buffer.from("Test message"));
 
-        await producer.send(stream=STREAM_NAME, message=b"Hello, World!")
-
-        print(" [x] Hello, World! message sent")
-
-        input(" [x] Press Enter to close the producer  ...")
-
-
-asyncio.run(send())
 ```
 
 Declaring a stream is idempotent - it will only be created if it doesn't exist already.
@@ -155,14 +167,14 @@ It is a good practice to always define the retention policy, 5Gb in this case.
 
 The message content is a byte array, so you can encode whatever you like there.
 
-When the code above finishes running, the producer  connection will be closed. 
-That's it for our producer.
+When the code above finishes running, the producer connection and stream-system
+connection will be closed. That's it for our producer.
 
 Each time you run the producer, it will send a single message to the server and the message will be 
 appended to the stream.
 
-[Here's the whole send.py
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/send.py).
+[Here's the whole send.js
+script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs-stream/send.js).
 
 > #### Sending doesn't work!
 >
@@ -182,27 +194,27 @@ RabbitMQ. So unlike the producer which publishes a single message, we'll
 keep the consumer running continuously to listen for messages and print them out.
 
 
-The code (in [`receive.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/receive.py)) 
-needs some `import` statements:
+The code (in [`receive.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs-stream/receive.js)) 
+needs to use the client as well:
 
-```python
-import asyncio
-import signal
 
-from rstream import AMQPMessage, Consumer, MessageContext
+```javascript
+const rabbit = require("rabbitmq-stream-js-client")
 ```
 
 Setting up is the same as the producer; we create a consumer, and declare the stream from which we're going to consume.
 Note this matches up with the stream that `send` publishes to.
 
-```python
-...
-consumer = Consumer(host="localhost", username="guest", password="guest")
-    await consumer.create_stream(
-        STREAM_NAME, exists_ok=True, arguments={"MaxLengthBytes": STREAM_RETENTION}
-    )
-
-...
+```javascript
+const client = await rabbit.connect({
+    hostname: "localhost",
+    port: 5552,
+    username: "guest",
+    password: "guest",
+    vhost: "/",
+})
+const streamSizeRetention = 5 * 1e9
+await client.createStream({ stream: streamName, arguments: { "max-length-bytes": streamSizeRetention } });
 ```
 
 Note that we declare the stream here as well. Because we might start
@@ -210,56 +222,56 @@ the consumer before the producer, we want to make sure the stream exists
 before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
-stream. We provide a callback `on_message` on the `consumer.subscribe`.
+stream. We provide a callback `(message: Message)` on the `client.declareConsumer`.
 
-`offset_specification` defines the starting point of the consumer. 
+`offset` defines the starting point of the consumer. 
 In this case, we start from the first message. 
 
 
-```python
-import asyncio
-import signal
+```javascript
+const rabbit = require("rabbitmq-stream-js-client")
 
-from rstream import AMQPMessage, Consumer, MessageContext
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
-STREAM_NAME = "hello-python-stream"
-# 5GB
-STREAM_RETENTION = 5000000000
+async function main() {
+    const streamName = "test-queue-stream"
 
+    console.log("Connecting...");
+    const client = await rabbit.connect({
+        hostname: "localhost",
+        port: 5552,
+        username: "guest",
+        password: "guest",
+        vhost: "/",
+    })
 
-async def receive():
-    consumer = Consumer(host="localhost", username="guest", password="guest")
-    await consumer.create_stream(
-        STREAM_NAME, exists_ok=True, arguments={"MaxLengthBytes": STREAM_RETENTION}
-    )
+    console.log("Making sure the stream exists...");
+    const streamSizeRetention = 5 * 1e9
+    await client.createStream({ stream: streamName, arguments: { "max-length-bytes": streamSizeRetention } });
 
-    loop = asyncio.get_event_loop()
-    loop.add_signal_handler(
-        signal.SIGINT, lambda: asyncio.create_task(consumer.close())
-    )
+    console.log("Declaring the consumer with offset...");
+    await client.declareConsumer({ stream: streamName, offset: rabbit.Offset.first() }, (message) => {
+        console.log(`Received message ${message.content.toString()}`)
+    })
 
-    async def on_message(msg: AMQPMessage, message_context: MessageContext):
-        stream = message_context.consumer.get_stream(message_context.subscriber_name)
-        print("Got message: {} from stream {}".format(msg, stream))
+    await sleep(2000)
 
-    print("Press control +C to close")
-    await consumer.start()
-      await consumer.subscribe(
-        stream=STREAM_NAME,
-        callback=on_message,
-        offset_specification=ConsumerOffsetSpecification(OffsetType.FIRST, None),
-    )
-    await consumer.run()
-    # give time to the consumer task to close the consumer
-    await asyncio.sleep(1)
+    console.log("Closing the connection...");
+    await client.close()
+}
 
+main()
+    .then(() => console.log("done!"))
+    .catch((res) => {
+        console.log("Error while receiving message!", res)
+        process.exit(-1)
+    })
 
-asyncio.run(receive())
 ```
 
 
-[Here's the whole receive.py
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/receive.py).
+[Here's the whole receive.js
+script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs-stream/receive.js).
 
 ### Putting It All Together
 
@@ -269,12 +281,12 @@ You can run the clients in any order, as both declare the stream.
 We will run the consumer first so you can see it waiting for and then receiving the message:
 
 ```powershell
-python receive.py
+npm run receive
 ```
 Then run the producer:
 
 ```powershell
-python send.py
+npm run send
 ```
 
 The consumer will print the message it gets from the publisher via
