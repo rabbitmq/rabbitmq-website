@@ -66,6 +66,7 @@ const config = {
         },
         '3.12': {
           releases: [
+            {version: '3.12.14', release_date: "2024-05-06", },
             {version: '3.12.13', release_date: "2024-02-16", },
             {version: '3.12.12', release_date: "2024-01-09", },
             {version: '3.12.11', release_date: "2023-12-22", },
@@ -115,7 +116,7 @@ const config = {
             {version: '3.11.1', release_date: "2022-10-13", },
             {version: '3.11.0', release_date: "2022-09-28", },
           ],
-          end_of_support: "2023-12-31",
+          end_of_support: "2024-07-31",
         },
         '3.10': {
           releases: [
