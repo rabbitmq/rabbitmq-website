@@ -101,7 +101,7 @@ let environment = Environment::builder().build().await?;
 ...
 ```
 
-The entry point of the stream GO client is the `Environment`.
+The entry point of the stream rust client is the `Environment`.
 It deals with stream management and the creation of publisher and consumer instances.
 
 It abstracts the socket connection, and takes care of
