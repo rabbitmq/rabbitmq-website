@@ -128,11 +128,7 @@ environment.streamCreator().stream(stream).maxLengthBytes(ByteCapacity.GB(5)).cr
 Producer producer = environment.producerBuilder().stream(stream).build();
 producer.send(producer.messageBuilder().addData("Hello, World!".getBytes()).build(), null);
 System.out.println(" [x] 'Hello, World!' message sent");
-
-System.out.println(" [x] Press Enter to close the producer...");
-System.in.read();
-producer.close();
-environment.close();
+...
 ```
 
 Declaring a stream is idempotent - it will only be created if it doesn't exist already.
@@ -201,21 +197,14 @@ queue. We provide a callback `.messageHandler`.
 In this case, we start from the first message.
 
 ```java
- Environment environment = Environment.builder().build();
- String stream = "hello-java-stream";
- environment.streamCreator().stream(stream).maxLengthBytes(ByteCapacity.GB(5)).create();
-
- Consumer consumer = environment.consumerBuilder()
+Consumer consumer = environment.consumerBuilder()
             .stream(stream)
             .offset(OffsetSpecification.first())
             .messageHandler((unused, message) -> {
                 System.out.println("Received message: " + new String(message.getBodyAsBinary()));
             }).build();
 
- System.out.println(" [x]  Press Enter to close the consumer...");
- System.in.read();
- consumer.close();
- environment.close();
+....
 ```
 
 [Here's the whole Receive.java class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Receive.java).

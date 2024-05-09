@@ -134,15 +134,10 @@ to the stream:
             }
         }
     }
-
     let producer = environment.producer().build(stream).await?;
-
     producer
         .send_with_confirm(Message::builder().body("Hello, World!").build())
         .await?;
-    println!("Sent message to stream: {}", stream);
-    producer.close().await?;
-    Ok(())
 ```
 
 Declaring a stream is idempotent - it will only be created if it doesn't exist already.
@@ -160,7 +155,7 @@ Each time you run the producer, it will send a single message to the server and 
 appended to the stream.
 
 [Here's the whole send.rs
-struct](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/send.rs).
+script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/send.rs).
 
 > #### Sending doesn't work!
 >
@@ -179,7 +174,7 @@ RabbitMQ. So unlike the producer which publishes a single message, we'll
 keep the consumer running continuously to listen for messages and print them out.
 
 The code (in [`receive.rs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/receive.rs))
-needs some `import` 
+needs some namespaces 
 
 ```rust
 use std::io::stdin;
@@ -194,18 +189,16 @@ and declare the stream from which we're going to consume.
 Note this matches up with the stream that `send` publishes to.
 
 ```rust
-
- use rabbitmq_stream_client::Environment;
-    let environment = Environment::builder().build().await?;
-    let stream = "hello-rust-stream";
-    let create_response = environment
+let environment = Environment::builder().build().await?;
+let stream = "hello-rust-stream";
+let create_response = environment
         .stream_creator()
         .max_length(ByteCapacity::GB(5))
         .create(stream)
         .await;
 
-    if let Err(e) = create_response {
-        if let StreamCreateError::Create { stream, status } = e {
+if let Err(e) = create_response {
+    if let StreamCreateError::Create { stream, status } = e {
             match status {
                 // we can ignore this error because the stream already exists
                 ResponseCode::StreamAlreadyExists => {}
@@ -231,15 +224,15 @@ queue. The `Consumer` provides the method `next()` to get the next message from 
 In this case, we start from the first message.
 
 ```rust
-    let mut consumer = environment
+let mut consumer = environment
         .consumer()
         .offset(OffsetSpecification::First)
         .build(stream)
         .await
         .unwrap();
 
-    let handle = consumer.handle();
-    task::spawn(async move {
+let handle = consumer.handle();
+task::spawn(async move {
         while let Some(delivery) = consumer.next().await {
             let d = delivery.unwrap();
             println!("Got message: {:#?} with offset: {}",
@@ -248,13 +241,10 @@ In this case, we start from the first message.
         }
     });
 
-
-    println!("Press any key to close the consumer");
-     _ = stdin().read_line(&mut "".to_string());
 ```
 
 [Here's the whole receive.rs
-struct](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/receive.rs).
+script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/receive.rs).
 
 ### Putting It All Together
 

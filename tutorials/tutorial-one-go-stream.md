@@ -166,7 +166,7 @@ Each time you run the producer, it will send a single message to the server and 
 appended to the stream.
 
 [Here's the whole send.go
-struct](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/send.go).
+script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/send.go).
 
 > #### Sending doesn't work!
 >
@@ -184,7 +184,7 @@ As for the consumer, it is listening for messages from
 RabbitMQ. So unlike the producer which publishes a single message, we'll
 keep the consumer running continuously to listen for messages and print them out.
 
-The code (in [`receive.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/receive.go))
+The code (in [`receive.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/receive.go))
 has the same `import` statements as `send`:
 
 ```go
@@ -229,43 +229,20 @@ queue. We provide a callback `MessageHandler`.
 `SetOffset` defines the starting point of the consumer.
 In this case, we start from the first message.
 
-```go
-    env, err := stream.NewEnvironment(
-		stream.NewEnvironmentOptions())
-	if err != nil {
-        log.Fatalf("Failed to create environment: %v", err)
-    }
-    streamName := "hello-go-stream"
-    err = env.DeclareStream(streamName,
-		&stream.StreamOptions{
-			MaxLengthBytes: stream.ByteCapacity{}.GB(5),
-		},
-	)
-	if err != nil {
-	    log.Fatalf("Failed to declare stream: %v", err)
-	}
-    
-    messagesHandler := func(consumerContext stream.ConsumerContext, message *amqp.Message) {
-		fmt.Printf("Stream: %s - Received message: %s\n", consumerContext.Consumer.GetStreamName(),
+```go   
+messagesHandler := func(consumerContext stream.ConsumerContext, message *amqp.Message) {
+	fmt.Printf("Stream: %s - Received message: %s\n", consumerContext.Consumer.GetStreamName(),
 			message.Data)}
 
-    consumer, err := env.NewConsumer(streamName, messagesHandler, 
+consumer, err := env.NewConsumer(streamName, messagesHandler, 
         stream.NewConsumerOptions().SetOffset(stream.OffsetSpecification{}.First()))
-    if err != nil {
-        log.Fatalf("Failed to create consumer: %v", err)
-    }
-    
-    reader := bufio.NewReader(os.Stdin)
-    fmt.Println(" [x] Waiting for messages. enter to close the consumer")
-    _, _ = reader.ReadString('\n')
-    err = consumer.Close()
-    if err != nil {
-        log.Fatalf("Failed to close consumer: %v", err)
-    }
+if err != nil {
+    log.Fatalf("Failed to create consumer: %v", err)
+}
 ```
 
 [Here's the whole receive.go
-struct](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/receive.go).
+script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/receive.go).
 
 ### Putting It All Together
 

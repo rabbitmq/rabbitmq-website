@@ -119,33 +119,17 @@ To send, we must declare a stream for us to send to; then we can publish a messa
 to the stream:
 
 ```python
-import asyncio
-
-from rstream import Producer
 
 STREAM_NAME = "hello-python-stream"
 # 5GB
 STREAM_RETENTION = 5000000000
 
+...        
+await producer.create_stream(
+            STREAM_NAME, exists_ok=True, arguments={"MaxLengthBytes": STREAM_RETENTION})
 
-async def send():
-    async with Producer(
-        host="localhost",
-        username="guest",
-        password="guest",
-    ) as producer:
-        await producer.create_stream(
-            STREAM_NAME, exists_ok=True, arguments={"MaxLengthBytes": STREAM_RETENTION}
-        )
-
-        await producer.send(stream=STREAM_NAME, message=b"Hello, World!")
-
-        print(" [x] Hello, World! message sent")
-
-        input(" [x] Press Enter to close the producer  ...")
-
-
-asyncio.run(send())
+await producer.send(stream=STREAM_NAME, message=b"Hello, World!")
+...
 ```
 
 Declaring a stream is idempotent - it will only be created if it doesn't exist already.
@@ -162,7 +146,7 @@ Each time you run the producer, it will send a single message to the server and 
 appended to the stream.
 
 [Here's the whole send.py
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/send.py).
+script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/send.py).
 
 > #### Sending doesn't work!
 >
@@ -217,17 +201,6 @@ In this case, we start from the first message.
 
 
 ```python
-import asyncio
-import signal
-
-from rstream import AMQPMessage, Consumer, MessageContext
-
-STREAM_NAME = "hello-python-stream"
-# 5GB
-STREAM_RETENTION = 5000000000
-
-
-async def receive():
     consumer = Consumer(host="localhost", username="guest", password="guest")
     await consumer.create_stream(
         STREAM_NAME, exists_ok=True, arguments={"MaxLengthBytes": STREAM_RETENTION}
@@ -242,24 +215,12 @@ async def receive():
         stream = message_context.consumer.get_stream(message_context.subscriber_name)
         print("Got message: {} from stream {}".format(msg, stream))
 
-    print("Press control +C to close")
-    await consumer.start()
-      await consumer.subscribe(
-        stream=STREAM_NAME,
-        callback=on_message,
-        offset_specification=ConsumerOffsetSpecification(OffsetType.FIRST, None),
-    )
-    await consumer.run()
-    # give time to the consumer task to close the consumer
-    await asyncio.sleep(1)
-
-
-asyncio.run(receive())
+...
 ```
 
 
 [Here's the whole receive.py
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/receive.py).
+script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/receive.py).
 
 ### Putting It All Together
 

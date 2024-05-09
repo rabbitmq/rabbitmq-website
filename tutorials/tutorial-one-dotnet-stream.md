@@ -132,12 +132,7 @@ To send, we must declare a stream for us to send to; then we can publish a messa
 to the stream:
 
 ```csharp
-using System.Text;
-using RabbitMQ.Stream.Client;
-using RabbitMQ.Stream.Client.Reliable;
-
-var streamSystem = await StreamSystem.Create(new StreamSystemConfig());
-
+...
 await streamSystem.CreateStream(new StreamSpec("hello-stream")
 {
     MaxLengthBytes = 5_000_000_000
@@ -147,12 +142,6 @@ var producer = await Producer.Create(new ProducerConfig(streamSystem, "hello-str
 
 
 await producer.Send(new Message(Encoding.UTF8.GetBytes($"Hello, World")));
-Console.WriteLine(" [x] Sent 'Hello, World'");
-
-Console.WriteLine(" [x] Press any key to exit");
-Console.ReadKey();
-await producer.Close();
-await streamSystem.Close();
 ```
 
 Declaring a stream is idempotent - it will only be created if it doesn't exist already.
@@ -225,18 +214,7 @@ In this case, we start from the first message.
 
 
 ```csharp
-using System.Text;
-using RabbitMQ.Stream.Client;
-using RabbitMQ.Stream.Client.Reliable;
-
-var streamSystem = await StreamSystem.Create(new StreamSystemConfig());
-
-await streamSystem.CreateStream(new StreamSpec("hello-stream")
-{
-    MaxLengthBytes = 5_000_000_000
-});
-
-
+...
 var consumer = await Consumer.Create(new ConsumerConfig(streamSystem, "hello-stream")
 {
     OffsetSpec = new OffsetTypeFirst(),
@@ -248,11 +226,6 @@ var consumer = await Consumer.Create(new ConsumerConfig(streamSystem, "hello-str
     }
 });
 
-Console.WriteLine(" [x] Press any key to exit");
-Console.ReadKey();
-
-await consumer.Close();
-await streamSystem.Close();
 ```
 
 
