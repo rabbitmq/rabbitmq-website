@@ -48,7 +48,7 @@ This guide covers:
  * How to [enable HTTPS for management UI](#single-listener-https) and its underlying API
  * How this plugin [operates in multi-node clusters](#clustering)
  * How to [disable metric collection](#disable-stats) to use [Prometheus](./prometheus) exclusively for monitoring
- * [Authenticating with OAuth 2](#oauth2-authentication)    
+ * [Authenticating with OAuth 2](#oauth2-authentication)
  * [Strict transport security](#hsts), [Content security policy](#csp), [cross-origin resource sharing](#cors), and [other security-related header](#other-security-headers) control
  * [Statistics collection interval](#statistics-interval)
  * [Message rate mode](#rates-mode) (rate fidelity) and [data retention intervals](#sample-retention)
