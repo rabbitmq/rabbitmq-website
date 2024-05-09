@@ -48,7 +48,7 @@ This guide covers:
  * How to [enable HTTPS for management UI](#single-listener-https) and its underlying API
  * How this plugin [operates in multi-node clusters](#clustering)
  * How to [disable metric collection](#disable-stats) to use [Prometheus](./prometheus) exclusively for monitoring
- * [Authenticating with OAuth 2](#oauth2-authentication) 
+ * [Authenticating with OAuth 2](#oauth2-authentication)    
  * [Strict transport security](#hsts), [Content security policy](#csp), [cross-origin resource sharing](#cors), and [other security-related header](#other-security-headers) control
  * [Statistics collection interval](#statistics-interval)
  * [Message rate mode](#rates-mode) (rate fidelity) and [data retention intervals](#sample-retention)
@@ -437,7 +437,6 @@ RabbitMQ 3.13.1 and earlier versions require the [OpenId Connect Discovery endpo
 There are other two additional scenarios which can trigger a logout. One scenario occurs when the OAuth Token expires. Although RabbitMQ renews the token in the background before it expires, if the token expires, the user is logged out.
 The second scenario is when the management UI session exceeds the maximum allowed time configured on the [Login Session Timeout](#login-session-timeout).
 
-
 ### Special attention to CSP header `connect-src` {#csp-header}
 
 To support the OAuth 2.0 protocol, RabbitMQ makes asynchronous REST calls to the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest). If you override the default [CSP headers](#csp), you have to make sure that the `connect-src` CSP directive whitelists the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest).
@@ -463,7 +462,7 @@ management.oauth_provider_url = https://my-web-portal
 With the previous settings, the management UI exposes the HTTP endpoint `/login` which accepts `content-type: application/x-www-form-urlencoded` and it expects the JWT token in the `access_token` form field. This is the endpoint where the Web portal will redirect users to the management UI.
 Additionally, RabbitMQ also accepts a JWT token in the HTTP `Authorization` header when the user lands on the management UI.
 
-With `sp_initiated` logon types, there is no need to configure the `oauth_provider_url` if `auth_oauth2.issuer` was set. However, for `idp_initiated` flows the `auth_oauth2.issuer` URL may not necessarily be the URL where to send users to authenticate. When this occurs, the `management.oauth_provider_url` overrides the `auth_oauth2.issuer` URL.
+With `sp_initiated` logon types, there is no need to configure the `oauth_provider_url` if `auth_oauth2.issuer` was set. However, for `idp_initiated` flows the `auth_oauth2.issuer` url may not necessarily be the url where to send users to authenticate. When this occurs, the `management.oauth_provider_url` overrides the `auth_oauth2.issuer` url.
 
 ### Support multiple OAuth 2.0 resources {#support-multiple-resources}
 
@@ -555,10 +554,10 @@ And this is the management UI with Basic Authentication activated (`management.o
 
 ![More than one OAuth 2.0 resource, with oauth_disable_basic_auth = false](./management-oauth-many-with-basic-auth.png)
 
-
 ### Troubleshooting {#troubleshooting}
 
-[Troubleshooting OAuth 2 in the management ui](./troubleshooting-oauth2#management-ui) is a dedicated guide on OAuth 2.
+[Troubleshooting management UI access in OAuth 2-enabled clusters](./troubleshooting-oauth2#management-ui) is a companion guide
+dedicated to common OAuth 2-specific issues.
 
 
 ## HTTP API {#http-api}
@@ -1246,6 +1245,7 @@ DELETE /api/reset
 ```bash
 rabbitmqctl eval 'rabbit_mgmt_storage:reset_all().'
 ```
+
 
 
 ## Memory Usage Analysis and Memory Management {#memory}
