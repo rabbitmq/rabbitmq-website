@@ -139,38 +139,20 @@ This setting controls the size of these.
 Default: (500000000 bytes).
 
 While this argument can be configured via a policy, it will _only_ be applied
-to the stream if the policy is set at stream declaration time. If this argument
+to the stream if the policy is set (exists) at stream declaration time. If this argument
 is changed for a matching but pre-existing stream it **will not be changed** even
 if the effective policy of the queue record may indicate it is.
 
-Hence it is best to only configure this via an option queue argument:
+Hence it is best to only configure this via an option queue argument,
+`x-stream-filter-size-bytes`.
 
-* `x-stream-filter-size-bytes`
+:::note
+While `x-stream-filter-size-bytes` can be configured via a policy, it will _only_ be applied
+to the stream if the policy exists at stream declaration time
+:::
 
-The value is set in bytes.
-
-The size of the Bloom filter used for [filtering](#filtering).
-The value must be between 16 and 255.
-Default: 16.
-
-This argument can be changed via a policy but it will not be actually picked up
-by the stream until the next time the stream is restarted. Either by a leader
-election or if explicitly restarted via `rabbitmq-streams restart_stream`.
-
-While this argument can be configured via a policy, it will _only_ be applied
-to the stream if the policy is set at stream declaration time. If this argument
-is changed for a matching but pre-existing stream it **will not be changed** even
-if the effective policy of the queue record may indicate it is.
-
-Hence it is best to only configure this via an option queue argument:
-
-* `x-stream-filter-size-bytes`
-
-The value is set in bytes.
-
-The size of the Bloom filter used for [filtering](#filtering).
-The value must be between 16 and 255.
-Default: 16.
+The following example in Java demonstrates how the argument can be set
+at stream declaration time in application code:
 
 ```java
 Map<String, Object> arguments = new HashMap<>();
@@ -184,6 +166,12 @@ channel.queueDeclare(
   arguments
 );
 ```
+
+The value is set in bytes.
+
+The size of the Bloom filter used for [filtering](#filtering).
+The value must be between 16 and 255.
+Default: 16.
 
 
 ### Client Operations
