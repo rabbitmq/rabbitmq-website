@@ -24,7 +24,7 @@ limitations under the License.
 Demonstrate how to authenticate using OAuth 2.0 protocol
 and Okta as Authorization Server using the following flows:
 
-1. Access management ui via a browser
+1. Access management UI via a browser
 
 ## Prerequisites to follow this guide
 

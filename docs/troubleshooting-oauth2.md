@@ -25,7 +25,7 @@ limitations under the License.
 
 This guide covers the most common errors encountered using OAuth 2.0 authentication protocol in OAuth 2.0 authentication backend and management plugin and how to diagnose them.
 
-## Troubleshooting OAuth 2 in the management ui {#management-ui}
+## Troubleshooting OAuth 2 in the management UI {#management-ui}
 
 ### OpenId Discovery endpoint not reachable {#openid-discovery-endpoint-not-reachable-error}
 
@@ -49,7 +49,7 @@ The quickest way to identity the root cause is by opening the browser's javascri
 - `net::ERR_CONNECTION_REFUSED` The endpoint is down or is not reachable. 
 - `net::ERR_CERT_AUTHORITY_INVALID` The endpoint's SSL Certificate is not trusted by your browser. If you want to trust this certificate, click on the URL in the error message. The browser will prompt you to trust it. 
 
-If you did not find any errors searching for `net::ERR` search instead for `CORS`. If you find an error similar to the one shown below, the browser is blocking the response returned by the endpoint and therefore it is not being delivered it to the management ui. This is due to the [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) policy. You should ask the administrator of your Identity Provider to add the management UI's URL to the list of allowed **origins**.  
+If you did not find any errors searching for `net::ERR` search instead for `CORS`. If you find an error similar to the one shown below, the browser is blocking the response returned by the endpoint and therefore it is not being delivered it to the management UI. This is due to the [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) policy. You should ask the administrator of your Identity Provider to add the management UI's URL to the list of allowed **origins**.
 
   `Access to fetch at 'https://<the_issuer_url>>/.well-known/openid-configuration' from origin 
   '<rabbitmq_url_to_management_ui>' has been blocked by CORS policy`. 
@@ -91,7 +91,7 @@ Not authorized
 
 #### Troubleshoot the issue
 
-This issue occurs when the token does not have enough scopes or permissions to access the management ui. You need at least one of these scopes or the equivalent scope:
+This issue occurs when the token does not have enough scopes or permissions to access the management UI. You need at least one of these scopes or the equivalent scope:
 - `rabbitmq.tag:administrator`
 - `rabbitmq.tag:management`
 - `rabbitmq.tag:monitoring`
