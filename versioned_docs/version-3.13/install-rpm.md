@@ -73,14 +73,13 @@ CentOS 7 and Fedora releases older than 26 are examples of such distributions.
 
 Currently the list of supported RPM-based distributions includes
 
- * Fedora 35 through 39
+ * Fedora 36 through 40
  * [CentOS Stream](https://centos.org/centos-stream/) 9.x and 8.x
  * RedHat Enterprise Linux 9.x and 8.x
  * Amazon Linux 2023
  * Rocky Linux 9.x and 8.x
  * Alma Linux 9.x and 8.x
  * Oracle Linux 9.x and 8.x
- * openSUSE Leap 15.3 and later versions
 
 The packages may work on other RPM-based distributions
 if [dependencies](#package-dependencies) are satisfied but their testing and support
