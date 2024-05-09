@@ -62,7 +62,7 @@ const config = {
               ],
             },
           ],
-          end_of_support: "2025-08-31",
+          end_of_support: "2025-12-31",
         },
         '3.12': {
           releases: [
