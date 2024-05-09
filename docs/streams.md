@@ -145,33 +145,6 @@ if the effective policy of the queue record may indicate it is.
 
 Hence it is best to only configure this via an option queue argument:
 
-* `x-stream-filter-size-bytes`
-
-The value is set in bytes.
-
-The size of the Bloom filter used for [filtering](#filtering).
-The value must be between 16 and 255.
-Default: 16.
-
-This argument can be changed via a policy but it will not be actually picked up
-by the stream until the next time the stream is restarted. Either by a leader
-election or if explicitly restarted via `rabbitmq-streams restart_stream`.
-
-While this argument can be configured via a policy, it will _only_ be applied
-to the stream if the policy is set at stream declaration time. If this argument
-is changed for a matching but pre-existing stream it **will not be changed** even
-if the effective policy of the queue record may indicate it is.
-
-Hence it is best to only configure this via an option queue argument:
-
-* `x-stream-filter-size-bytes`
-
-The value is set in bytes.
-
-The size of the Bloom filter used for [filtering](#filtering).
-The value must be between 16 and 255.
-Default: 16.
-
 ```java
 Map<String, Object> arguments = new HashMap<>();
 arguments.put("x-queue-type", "stream");
@@ -184,6 +157,15 @@ channel.queueDeclare(
   arguments
 );
 ```
+
+* `x-stream-filter-size-bytes`
+
+The value is set in bytes.
+
+The size of the Bloom filter used for [filtering](#filtering).
+The value must be between 16 and 255.
+Default: 16.
+
 
 
 ### Client Operations
