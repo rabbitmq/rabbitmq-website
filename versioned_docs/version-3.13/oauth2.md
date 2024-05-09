@@ -24,6 +24,8 @@ limitations under the License.
 
 This [RabbitMQ authentication/authorisation backend](./access-control) plugin lets applications (clients) and users authenticate and authorize using JWT-encoded OAuth 2.0 access tokens.
 
+There's also a companion [troubleshooting guide for OAuth 2-specific problems](./troubleshooting-oauth2).
+
 This guide covers
 
  * [How it works](#how-it-works)

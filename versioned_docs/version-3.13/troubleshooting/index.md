@@ -38,6 +38,7 @@ messaging-based systems:
  * [Channels](#channels) and channel leaks
  * [TLS](#tls)
  * [LDAP](#ldap)
+ * [OAuth 2.0](#oauth2)
  * [Traffic captures](#capturing-traffic)
 
 node memory usage, metrics and monitoring,
@@ -148,6 +149,9 @@ how to identify application channel leaks and other relevant topics.
 
 [LDAP guide](./ldap#troubleshooting) explains how to enable LDAP decision and query logging.
 
+## OAuth 2.0 {#oauth2}
+
+[OAuth 2.0](./troubleshooting-oauth2) is a dedicated guide on the topic of OAuth 2.0.
 
 ## Capturing Traffic {#capturing-traffic}
 

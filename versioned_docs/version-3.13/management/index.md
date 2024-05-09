@@ -48,7 +48,7 @@ This guide covers:
  * How to [enable HTTPS for management UI](#single-listener-https) and its underlying API
  * How this plugin [operates in multi-node clusters](#clustering)
  * How to [disable metric collection](#disable-stats) to use [Prometheus](./prometheus) exclusively for monitoring
- * [Authenticating with OAuth 2](#oauth2-authentication):    
+ * [Authenticating with OAuth 2](#oauth2-authentication)
  * [Strict transport security](#hsts), [Content security policy](#csp), [cross-origin resource sharing](#cors), and [other security-related header](#other-security-headers) control
  * [Statistics collection interval](#statistics-interval)
  * [Message rate mode](#rates-mode) (rate fidelity) and [data retention intervals](#sample-retention)
@@ -437,7 +437,6 @@ RabbitMQ 3.13.1 and earlier versions require the [OpenId Connect Discovery endpo
 There are other two additional scenarios which can trigger a logout. One scenario occurs when the OAuth Token expires. Although RabbitMQ renews the token in the background before it expires, if the token expires, the user is logged out.
 The second scenario is when the management UI session exceeds the maximum allowed time configured on the [Login Session Timeout](#login-session-timeout).
 
-
 ### Special attention to CSP header `connect-src` {#csp-header}
 
 To support the OAuth 2.0 protocol, RabbitMQ makes asynchronous REST calls to the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest). If you override the default [CSP headers](#csp), you have to make sure that the `connect-src` CSP directive whitelists the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest).
@@ -554,6 +553,11 @@ This is the management UI layout for the previous configuration with basic authe
 And this is the management UI with Basic Authentication activated (`management.oauth_disable_basic_auth = false`).
 
 ![More than one OAuth 2.0 resource, with oauth_disable_basic_auth = false](./management-oauth-many-with-basic-auth.png)
+
+### Troubleshooting {#troubleshooting}
+
+[Troubleshooting management UI access in OAuth 2-enabled clusters](./troubleshooting-oauth2#management-ui) is a companion guide
+dedicated to common OAuth 2-specific issues.
 
 
 ## HTTP API {#http-api}
@@ -1241,6 +1245,7 @@ DELETE /api/reset
 ```bash
 rabbitmqctl eval 'rabbit_mgmt_storage:reset_all().'
 ```
+
 
 
 ## Memory Usage Analysis and Memory Management {#memory}

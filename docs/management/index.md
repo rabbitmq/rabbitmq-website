@@ -48,7 +48,7 @@ This guide covers:
  * How to [enable HTTPS for management UI](#single-listener-https) and its underlying API
  * How this plugin [operates in multi-node clusters](#clustering)
  * How to [disable metric collection](#disable-stats) to use [Prometheus](./prometheus) exclusively for monitoring
- * [Authenticating with OAuth 2](#oauth2-authentication)    
+ * [Authenticating with OAuth 2](#oauth2-authentication)
  * [Strict transport security](#hsts), [Content security policy](#csp), [cross-origin resource sharing](#cors), and [other security-related header](#other-security-headers) control
  * [Statistics collection interval](#statistics-interval)
  * [Message rate mode](#rates-mode) (rate fidelity) and [data retention intervals](#sample-retention)
@@ -553,6 +553,11 @@ This is the management UI layout for the previous configuration with basic authe
 And this is the management UI with Basic Authentication activated (`management.oauth_disable_basic_auth = false`).
 
 ![More than one OAuth 2.0 resource, with oauth_disable_basic_auth = false](./management-oauth-many-with-basic-auth.png)
+
+### Troubleshooting {#troubleshooting}
+
+[Troubleshooting management UI access in OAuth 2-enabled clusters](./troubleshooting-oauth2#management-ui) is a companion guide
+dedicated to common OAuth 2-specific issues.
 
 
 ## HTTP API {#http-api}
@@ -1240,6 +1245,7 @@ DELETE /api/reset
 ```bash
 rabbitmqctl eval 'rabbit_mgmt_storage:reset_all().'
 ```
+
 
 
 ## Memory Usage Analysis and Memory Management {#memory}
