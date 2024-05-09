@@ -200,9 +200,18 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
   </tr>
 </table>
 
+## AMQP 0-9-1 Overview and Quick Reference
+
+Once you have been through the tutorials (or if you want to
+skip ahead), you may wish to read an
+[Introduction to RabbitMQ Concepts](/tutorials/amqp-concepts)
+and browse our
+[AMQP 0-9-1 Quick Reference Guide](/amqp-0-9-1-quickref).
+
+
 ## Stream tutorials
 
-This section covers the [RabbitMQ streams](/docs/streams) feature through the [Stream Plugin](/docs/stream)
+This section covers the RabbitMQ streams feature through the [Stream Plugin](/docs/stream)
 
 <table id="stream-tutorials">
     <colgroup>
@@ -229,6 +238,15 @@ This section covers the [RabbitMQ streams](/docs/streams) feature through the [S
 
 </table>
 
+## Stream Overview and Blog Posts
+
+Once you have been through the tutorials (or if you want to
+skip ahead), you may wish to read the
+[RabbitMQ stream documentation](/docs/streams)
+and browse our
+[stream blog posts](/blog/tags/streams).
+
+
 
 ## Getting Help
 
@@ -237,13 +255,6 @@ ask them on [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabb
 [RabbitMQ community Discord server](https://rabbitmq.com/discord/), or the public [RabbitMQ community Slack](https://rabbitmq.com/slack/).
 
 
-## AMQP 0-9-1 Overview and Quick Reference
-
-Once you have been through the tutorials (or if you want to
-skip ahead), you may wish to read an
-[Introduction to RabbitMQ Concepts](/tutorials/amqp-concepts)
-and browse our
-[AMQP 0-9-1 Quick Reference Guide](/amqp-0-9-1-quickref).
 
 
 ## Tutorials in Other Languages

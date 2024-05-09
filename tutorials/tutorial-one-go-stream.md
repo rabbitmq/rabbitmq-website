@@ -119,10 +119,6 @@ To send, we must declare a stream for us to send to; then we can publish a messa
 to the stream:
 
 ```go
-    env, err := stream.NewEnvironment(stream.NewEnvironmentOptions())
-    if err != nil {
-        log.Fatalf("Failed to create environment: %v", err)
-    }
     streamName := "hello-go-stream"
     err = env.DeclareStream(streamName, &stream.StreamOptions{
 			    MaxLengthBytes: stream.ByteCapacity{}.GB(5),
@@ -141,15 +137,7 @@ to the stream:
     if err != nil {
         log.Fatalf("Failed to send message: %v", err)
     }
-    fmt.Printf(" [x] 'Hello world' Message sent\n")
-
-    reader := bufio.NewReader(os.Stdin)
-    fmt.Println(" [x] Press enter to close the producer")
-    _, _ = reader.ReadString('\n')
-    err = producer.Close()
-    if err != nil {
-        log.Fatalf("Failed to close producer: %v", err)
-    }
+...
 ```
 
 Declaring a stream is idempotent - it will only be created if it doesn't exist already.

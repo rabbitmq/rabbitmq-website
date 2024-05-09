@@ -201,20 +201,15 @@ In this case, we start from the first message.
 
 
 ```python
-    consumer = Consumer(host="localhost", username="guest", password="guest")
-    await consumer.create_stream(
-        STREAM_NAME, exists_ok=True, arguments={"MaxLengthBytes": STREAM_RETENTION}
-    )
+consumer = Consumer(host="localhost", username="guest", password="guest")
+await consumer.create_stream(
+    STREAM_NAME, exists_ok=True, arguments={"MaxLengthBytes": STREAM_RETENTION}
+)
 
-    loop = asyncio.get_event_loop()
-    loop.add_signal_handler(
-        signal.SIGINT, lambda: asyncio.create_task(consumer.close())
-    )
-
-    async def on_message(msg: AMQPMessage, message_context: MessageContext):
-        stream = message_context.consumer.get_stream(message_context.subscriber_name)
-        print("Got message: {} from stream {}".format(msg, stream))
-
+...
+async def on_message(msg: AMQPMessage, message_context: MessageContext):
+    stream = message_context.consumer.get_stream(message_context.subscriber_name)
+    print("Got message: {} from stream {}".format(msg, stream))
 ...
 ```
 
@@ -244,5 +239,3 @@ the publisher several times.
 
 Streams are different from queues in that they are append-only logs of messages.
 So you can run the different consumers and they will always start from the first message.
-
-[//]: # (Time to move on to [part 2]&#40;./tutorial-two-dotnet-stream&#41; and deal with a confirmation.)
