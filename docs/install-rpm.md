@@ -26,11 +26,11 @@ import {
   RabbitMQServerPackageFilename,
 } from '@site/src/components/RabbitMQServer';
 
-# Installing on RPM-based Linux (RHEL, CentOS Stream, Fedora, Amazon Linux 2023, openSUSE)
+# Installing on RPM-based Linux (RHEL, CentOS Stream, Fedora, Amazon Linux 2023)
 
 ## Overview {#overview}
 
-This guide covers RabbitMQ installation on RPM-based Linux (Red Hat Enterprise Linux, CentOS Stream, Fedora, openSUSE).
+This guide covers RabbitMQ installation on RPM-based Linux (Red Hat Enterprise Linux, CentOS Stream, Fedora).
 
 With the [exception of Fedora](https://packages.fedoraproject.org/pkgs/rabbitmq-server/rabbitmq-server/), the versions included
 into standard RPM-based distribution repositories can be
@@ -105,7 +105,6 @@ There are three alternative sources for modern Erlang on RPM-based distributions
    down to only provide those components needed to run
    RabbitMQ. This is the recommended option.
  * Fedora provides [up-to-date Erlang packages](https://packages.fedoraproject.org/pkgs/erlang/erlang/)
- * [openSUSE](https://www.opensuse.org/) produces [Erlang packages](https://software.opensuse.org/download.html?project=devel%3Alanguages%3Aerlang%3AFactory&package=erlang) for openSUSE Leap
  * [Erlang Solutions](https://www.erlang-solutions.com/resources/download.html) produces packages that are usually reasonably up to
    date and involve installation of a potentially excessive list of dependencies
 
@@ -117,29 +116,6 @@ as well as Yum repository, as described in its README.
 
 As the name suggests, the package strips off some Erlang modules and dependencies
 that are not essential for running RabbitMQ.
-
-### Erlang packages from openSUSE {#install-from-suse-repository}
-
-openSUSE package repositories provide Erlang so it can be installed using Zypper:
-
-```bash
-sudo zypper in erlang
-```
-
-Erlang versions available in the standard repositories will in practice be behind the most recent version.
-To use the last version with the newest features, add the
-[openSUSE Factory repositories for Erlang](http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/):
-
-```bash
-# add the openSUSE erlang factory, obs:// extracts the http url for the matching distro.
-sudo zypper ar -f  obs://devel:languages:erlang:Factory openSUSE-Erlang-Factory
-
-# import the signing key and refresh the repository
-sudo zypper --gpg-auto-import-keys refresh
-
-# install a recent Erlang version
-sudo zypper in erlang
-```
 
 ## Package Dependencies {#package-dependencies}
 
@@ -181,7 +157,7 @@ rpm --import 'https://github.com/rabbitmq/signing-keys/releases/download/3.0/clo
 
 In order to use the Yum repository, a `.repo` file (e.g. `rabbitmq.repo`) has to be
 added under the `/etc/yum.repos.d/` directory. The contents of the file will vary slightly
-between distributions (e.g. CentOS Stream 9, CentOS Stream 8, or OpenSUSE).
+between distributions (e.g. CentOS Stream 9, CentOS Stream 8).
 
 #### Red Hat 8, CentOS Stream 8, Modern Fedora Releases
 
@@ -439,59 +415,6 @@ autorefresh=1
 type=rpm-md
 ```
 
-#### OpenSUSE
-
-The following example targets OpenSUSE and only installs the RabbitMQ package repository.
-Erlang is assumed to be provisioned from the [`devel:languages:erlang:Factory`](https://software.opensuse.org/./download?project=devel%3Alanguages%3Aerlang%3AFactory&package=erlang) repository.
-
-```ini
-##
-## RabbitMQ server
-##
-
-[rabbitmq_server]
-name=rabbitmq_server
-baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/opensuse/15.1/$basearch
-repo_gpgcheck=1
-enabled=1
-gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key
-gpgcheck=1
-sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-metadata_expire=300
-pkg_gpgcheck=1
-autorefresh=1
-type=rpm-md
-
-[rabbitmq_server-noarch]
-name=rabbitmq_server-noarch
-baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/opensuse/15.1/noarch
-repo_gpgcheck=1
-enabled=1
-gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key
-gpgcheck=1
-sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-metadata_expire=300
-pkg_gpgcheck=1
-autorefresh=1
-type=rpm-md
-
-[rabbitmq_server-source]
-name=rabbitmq_server-source
-baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/opensuse/15.1/SRPMS
-repo_gpgcheck=1
-enabled=1
-gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key
-gpgcheck=1
-sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-metadata_expire=300
-pkg_gpgcheck=1
-autorefresh=1
-type=rpm-md
-```
-
 
 ### Install Packages with dnf (yum)
 
@@ -514,25 +437,6 @@ Finally, install modern Erlang and RabbitMQ:
 ## install RabbitMQ and zero dependency Erlang
 dnf install -y erlang rabbitmq-server
 ```
-
-### Install Packages with Zypper
-
-First, update Zypper package metadata:
-
-```bash
-## refresh the RabbitMQ repositories
-zypper --gpg-auto-import-keys refresh rabbitmq_server
-zypper --gpg-auto-import-keys refresh rabbitmq_server-noarch
-zypper --gpg-auto-import-keys refresh rabbitmq_server-source
-```
-
-Then install the packages:
-
-```bash
-## install the package from Cloudsmith repository
-zypper install --repo rabbitmq_server-noarch
-```
-
 
 
 ## Package Version Locking in On RPM-based Distributions {#rpm-version-locking}
@@ -581,7 +485,7 @@ from [GitHub](https://github.com/rabbitmq/rabbitmq-server/releases).
 | Description | Download | Signature |
 |-------------|----------|-----------|
 | RPM for RHEL Linux 8.x and 9.x, CentOS Stream 8 and 9, Fedora 35+, Amazon Linux 2023, Rocky Linux, Alma Linux | <a href={RabbitMQServerPackageURL({packageType: 'rpm-el8'})}>{RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}</a> | <a href={RabbitMQServerPackageSigURL({packageType: 'rpm-el8'})}>Signature</a> |
-| RPM for openSUSE Linux | <a href={RabbitMQServerPackageURL({packageType: 'rpm-suse'})}>{RabbitMQServerPackageFilename({packageType: 'rpm-suse'})}</a> | <a href={RabbitMQServerPackageSigURL({packageType: 'rpm-suse'})}>Signature</a> |
+
 
 ## Run RabbitMQ Server {#running-rpm}
 
