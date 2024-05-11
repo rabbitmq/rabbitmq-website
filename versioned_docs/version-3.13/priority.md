@@ -103,7 +103,7 @@ higher prioritised messages may in practice need to wait for lower priority mess
 
 - 5 more messages are then published quickly and sent to the consumer immediately, because, the consumer has only 1 in-flight (unacknowledged) message out of 10 declared as qos (prefetch).
 
-- Next, 10 more messages are published quickly and sent to the consumer, only 4 out of the 10 messages are sent to the consumer (because the original `basic.qos` (consumer prefetch) value of 10 is now full), the remaining 5 messages must wait in the queue (ready messages).
+- Next, 10 more messages are published quickly and sent to the consumer, only 4 out of the 10 messages are sent to the consumer (because the original `basic.qos` (consumer prefetch) value of 10 is now full), the remaining 6 messages must wait in the queue (ready messages).
 
 - The consumer now acknowledges 5 messages so now 5 out of the 6 messages waiting above are then sent to the consumer.
 
