@@ -434,11 +434,18 @@ rabbitmq-plugins --offline enable rabbitmq_peer_discovery_k8s
 
 ### Important: Prerequisites and Deployment Considerations
 
+:::important
+The recommended option for deploying RabbitMQ to Kubernetes is the [RabbitMQ Kubernetes Cluster Operator](../kubernetes/operator/operator-overview).
+
+It follows the recommendations listed below.
+:::
+
 With this mechanism, nodes fetch a list of their peers from
 a Kubernetes API endpoint using a set of configured values:
 a URI scheme, host, port, as well as the token and certificate paths.
 
-There are several prerequisites and deployment choices that must be taken into
+If the recommended option of the [RabbitMQ Kubernetes Cluster Operator](../kubernetes/operator/operator-overview) cannot be used,
+there are several prerequisites and deployment choices that must be taken into
 account when deploying RabbitMQ to Kubernetes, with this peer discovery mechanism
 and in general.
 
@@ -476,10 +483,21 @@ and so on.
 It is therefore highly recommended that `/etc/rabbitmq` is mounted as writeable and owned by
 RabbitMQ's effective user (typically `rabbitmq`).
 
+#### Use Parallel podManagementPolicy
+
+`podManagementPolicy: "Parallel"` is the recommended option for RabbitMQ clusters.
+
+Because of [how nodes rejoin their cluster](./clustering#restarting), `podManagementPolicy` set to `OrderedReady`
+can lead to a deployment deadlock with certain readiness probes (covered below).
+
+`podManagementPolicy: "Parallel"` avoids this problem, and the Kubernetes peer discovery plugin
+then deals with the [natural race condition present during parallel cluster formation](#initial-formation-race-condition).
+
+
 #### Use Most Basic Health Checks for RabbitMQ Pod Readiness Probes
 
 A readiness probe that expects the node to be fully booted and have rejoined its cluster peers
-can prevent a deployment that restarts all RabbitMQ pods and relies on the `OrderedReady` pod management policy.
+can deadlock a deployment that restarts all RabbitMQ pods and relies on the `OrderedReady` pod management policy.
 Deployments that use the `Parallel` pod management policy
 will not be affected.
 
