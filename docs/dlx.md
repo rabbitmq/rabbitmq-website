@@ -24,10 +24,11 @@ limitations under the License.
 
 Messages from a queue can be "dead-lettered", which means these messages are republished to an exchange when any of the following four events occur.
 
-1. The message is [negatively acknowledged](./confirms) by a consumer using `basic.reject` or `basic.nack` with `requeue` parameter set to `false`, or
-1. The message expires due to [per-message TTL](./ttl), or
-1. The message is dropped because its queue exceeded a [length limit](./maxlength), or
-1. The message is returned more times to a quorum queue than the [delivery-limit](./quorum-queues#poison-message-handling).
+1. The message is [negatively acknowledged](./confirms) by an AMQP 1.0 receiver using the [`rejected`](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-rejected)
+outcome or by an AMQP 0.9.1 consumer using `basic.reject` or `basic.nack` with `requeue` parameter set to `false`, or
+2. The message expires due to [per-message TTL](./ttl), or
+3. The message is dropped because its queue exceeded a [length limit](./maxlength), or
+4. The message is returned more times to a quorum queue than the [delivery-limit](./quorum-queues#poison-message-handling).
 
 If an entire [queue expires](./ttl#queue-ttl), the messages in the queue are **not** dead-lettered.
 
@@ -132,22 +133,20 @@ the message originally landed on is declared with
 its dead letter exchange with the `bar` routing key.
 
 Note, if a specific routing key was not set for the
-queue, messages on it are dead-lettered with <em>all</em>
+queue, messages on it are dead-lettered with *all*
 their original routing keys.  This includes routing keys
 added by the `CC` and `BCC` headers
 (refer to [Sender-selected distribution](./sender-selected) for details about these two headers).
 
+### Dead-letter cycle
 
-It is possible to form a cycle of message dead-lettering.  For
-instance, this can happen when a queue "dead-letters"
-messages to the default exchange without specifying a
-dead-letter routing key. Messages in such cycles (that is,
-messages that reach the same queue twice) are
-dropped <em>if there was no rejection in the entire cycle</em>.
+It is possible to form a cycle of message dead-lettering where the same message reaches the same queue twice.
+For example, this can happen when a queue "dead-letters" messages to the default exchange without specifying a dead-letter routing key.
+To prevent automatic infinite message looping within RabbitMQ, RabbitMQ will detect a cycle and drop the message *if there was no rejection in the entire cycle*.
 
 ## Safety {#safety}
 
-By default, dead-lettered messages are re-published <em>without</em> publisher
+By default, dead-lettered messages are re-published *without* publisher
 [confirms](./confirms) turned on internally. Therefore using DLX in a clustered
 RabbitMQ environment is not guaranteed to be safe. Messages are removed from the
 original queue immediately after publishing to the DLX target queue. This ensures
@@ -162,50 +161,54 @@ where messages are re-published with publisher confirms turned on internally.
 Dead-lettering a message modifies its headers:
 
  * the exchange name is replaced with that of the latest dead-letter exchange
- * the routing key may be replaced with that specified in a queue performing dead lettering,
+ * the routing key may be replaced with that specified in a queue performing dead lettering (i.e. configured `dead-letter-routing-key`),
  * if the above happens, the `CC` header will also be removed, and
  * the `BCC` header will be removed as per [Sender-selected distribution](./sender-selected)
 
-The dead-lettering process adds an array to the header of
-each dead-lettered message named `x-death`.
-This array contains an entry for each dead lettering event, which is
-identified by a pair of `{queue, reason}`.
-Each such entry is a table that consists
-of several fields:
+A single message can be dead lettered multiple times.
+Each time a message is dead lettered, this event will be recorded within the message header.
+To prevent the header from growing unboundedly, the dead letter event history is compressed by the `{Queue, Reason}` pair.
 
- * `queue`: the name of the queue the message was in before it was dead-lettered
- * `reason`: the reason for dead lettering (desribed further below)
- * `time`: the date and time the message was dead lettered as a 64-bit AMQP 0-9-1 timestamp
- * `exchange`: the exchange the message was published to (note, this is a dead letter exchange if the message is dead lettered multiple times)
- * `routing-keys`: the routing keys (including `CC` keys but excluding
-   `BCC` ones) the message was published with
- * `count`: how many times this message was dead-lettered in this queue for this reason
- * `original-expiration` (if the message was dead-lettered due to [per-message TTL](./ttl#per-message-ttl-in-publishers)): the original `expiration` property of the message. The `expiration` property is removed from the message on dead-lettering to prevent it from expiring again in any queues it is routed to.
+An AMQP 1.0 message will contain a [message annotation](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-message-annotations)
+with a symbolic key `x-opt-deaths` and the value being an [array](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html#type-array)
+of [map](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html#type-map)s.
+An AMQP 0.9.1 message will contain an `x-death` header with the value being an array.
+The array in both AMQP 1.0 and AMQP 0.9.1 is ordered by recency, that is the most recent dead-lettering event is recorded in the first array element.
 
-New entries are prepended to the beginning of the `x-death`
-array. In the case where `x-death` already contains an entry with
-the same queue and dead lettering reason, its count field is
-incremented and it is moved to the beginning of the array.
+The following table describes the AMQP 1.0 map key value pairs and the AMQP 0.9.1 table of the array elements.
+All AMQP 1.0 keys are of type `symbol`. AMQP 1.0 clients must not depend on the order of the map's key-value pairs.
+
+| AMQP 1.0 key | AMQP 1.0 value type | AMQP 0.9.1 key | AMQP 0.9.1 value type | Description |
+| ------------ | ------------------- | -------------- | --------------------- | ----------- |
+| queue  | string | queue | longstr | The name of the queue this message was dead lettered from. |
+| reason  | symbol | reason | longstr | Why this message was dead lettered (described below). |
+| count  | ulong | count | long | How many times this message was dead lettered from this queue for this reason. |
+| first-time | [timestamp](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html#type-timestamp) | | | When this message was dead lettered the first time from this queue for this reason. |
+| last-time | [timestamp](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html#type-timestamp) | | | When this message was dead lettered the last time from this queue for this reason. |
+| | | time | timestamp | When this message was dead lettered the first time from this queue for this reason. |
+| exchange  | string | exchange | longstr | The exchange this message was published to before this message got dead lettered for the first time from this queue for this reason. |
+| routing-keys | array of string | routing-keys | array of longstr | The routing keys (including `CC`) of this message before it got dead lettered for the first time from this queue for this reason. |
+| ttl | uint | | | AMQP 1.0 [header](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-header)'s `ttl` (time to live in milliseconds) before this message got dead lettered for the first time from this queue for this reason. |
+| | | original-expiration | longstr | The original `expiration` property of this message before it got dead lettered for the first time from this queue for this reason. |
+
+AMQP 1.0 `ttl` and AMQP 0.9.1 `original-expiration` are optional and recorded because the original message's TTL is removed from the message on dead-lettering to prevent it from expiring again in any queues it is routed to.
 
 The `reason` is a name describing why the
 message was dead-lettered and is one of the following:
 
- * `rejected`: the message was rejected with the `requeue` parameter set to `false`
+ * `rejected`: the message was rejected
  * `expired`: the [message TTL](./ttl) has expired
  * `maxlen`: the [maximum allowed queue length](./maxlength) was exceeded
  * `delivery_limit`: the message is returned more times than the limit (set by policy argument [delivery-limit](./quorum-queues#poison-message-handling) of quorum queues).
 
-Three top-level headers are added for the very first dead-lettering
-event. They are
+In addition, the following six AMQP 1.0 message annotations or AMQP 0.9.1 headers are added for the very first dead-lettering event:
 
- * `x-first-death-reason`
- * `x-first-death-queue`
- * `x-first-death-exchange`
+1. `x-first-death-queue`: The first queue this message was dead lettered from.
+2. `x-first-death-reason`: Why this message was dead lettered for the first time.
+3. `x-first-death-exchange`: The exchange this message was published to before this message got dead lettered for the first time.
+4. `x-last-death-queue`: The last queue this message was dead lettered from.
+5. `x-last-death-reason`: Why this message was dead lettered for the last time.
+6. `x-last-death-exchange`: The exchange this message was published to before this message got dead lettered the last time.
 
-They have the same values as the `reason`, `queue`,
-and `exchange` fields of the original dead lettering event.
-Once added, these headers are never modified.
-
-Note that the array is sorted most-recent-first, so the
-most recent dead-lettering is recorded in the first
-entry.
+The `x-first-*` annotations are never modified.
+Whenever a message is dead lettered subsequently, the `x-last-*` annotations are updated.
