@@ -10,8 +10,6 @@ A [previous post](/blog/2023/10/16/stream-filtering) gave an introduction to str
 In this post we cover the internals of stream filtering.
 Knowing the design and implementation will help you to configure and use stream filtering in the most optimal way for your use cases.
 
-_Note: RabbitMQ 3.13 is in development at the time of writing_
-
 <!-- truncate -->
 ## Concepts
 

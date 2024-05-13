@@ -9,8 +9,6 @@ It allows to save bandwidth between the broker and consuming applications when t
 
 Keep reading to find out how stream filtering works and see it in action.
 
-_Note: RabbitMQ 3.13 is in development at the time of writing_
-
 <!-- truncate -->
 
 ## Concepts of Stream Filtering
@@ -84,7 +82,7 @@ It covers among others that a message does not always have to be associated to a
 ## Trying It Out 
 
 Let's see stream filtering in action.
-Start a RabbitMQ 3.13 (in development at the time of writing) node:
+Start a RabbitMQ 3.13+ node:
 
 ```shell
 docker run -it --rm --name rabbitmq -p 5552:5552 \
