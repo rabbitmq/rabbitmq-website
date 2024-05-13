@@ -133,6 +133,7 @@ Miscellaneous projects:
  * &#x2713; [RabbitMQ Stream Go client](https://github.com/rabbitmq/rabbitmq-stream-go-client)
  * Rabbit Hole, [RabbitMQ HTTP API client for Go](https://github.com/michaelklishin/rabbit-hole)
  * [amqpc](https://github.com/gocardless/amqpc), a load testing tool for RabbitMQ clusters
+ * [signal-flow](https://github.com/harpy-wings/signal-flow) Simplifying AMQP client experience
 
 
 ## iOS and Android {#ios-android}
