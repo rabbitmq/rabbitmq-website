@@ -435,7 +435,7 @@ rabbitmq-plugins --offline enable rabbitmq_peer_discovery_k8s
 ### Important: Prerequisites and Deployment Considerations
 
 :::important
-The recommended option for deploying RabbitMQ to Kubernetes is the [RabbitMQ Kubernetes Cluster Operator](../kubernetes/operator/operator-overview).
+The recommended option for deploying RabbitMQ to Kubernetes is the [RabbitMQ Kubernetes Cluster Operator](/kubernetes/operator/operator-overview).
 
 It follows the recommendations listed below.
 :::
@@ -444,7 +444,7 @@ With this mechanism, nodes fetch a list of their peers from
 a Kubernetes API endpoint using a set of configured values:
 a URI scheme, host, port, as well as the token and certificate paths.
 
-If the recommended option of the [RabbitMQ Kubernetes Cluster Operator](../kubernetes/operator/operator-overview) cannot be used,
+If the recommended option of the [RabbitMQ Kubernetes Cluster Operator](/kubernetes/operator/operator-overview) cannot be used,
 there are several prerequisites and deployment choices that must be taken into
 account when deploying RabbitMQ to Kubernetes, with this peer discovery mechanism
 and in general.
