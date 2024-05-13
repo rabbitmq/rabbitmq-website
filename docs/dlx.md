@@ -26,9 +26,9 @@ Messages from a queue can be "dead-lettered", which means these messages are rep
 
 1. The message is [negatively acknowledged](./confirms) by an AMQP 1.0 receiver using the [`rejected`](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-rejected)
 outcome or by an AMQP 0.9.1 consumer using `basic.reject` or `basic.nack` with `requeue` parameter set to `false`, or
-1. The message expires due to [per-message TTL](./ttl), or
-1. The message is dropped because its queue exceeded a [length limit](./maxlength), or
-1. The message is returned more times to a quorum queue than the [delivery-limit](./quorum-queues#poison-message-handling).
+2. The message expires due to [per-message TTL](./ttl), or
+3. The message is dropped because its queue exceeded a [length limit](./maxlength), or
+4. The message is returned more times to a quorum queue than the [delivery-limit](./quorum-queues#poison-message-handling).
 
 If an entire [queue expires](./ttl#queue-ttl), the messages in the queue are **not** dead-lettered.
 
@@ -133,7 +133,7 @@ the message originally landed on is declared with
 its dead letter exchange with the `bar` routing key.
 
 Note, if a specific routing key was not set for the
-queue, messages on it are dead-lettered with <em>all</em>
+queue, messages on it are dead-lettered with *all*
 their original routing keys.  This includes routing keys
 added by the `CC` and `BCC` headers
 (refer to [Sender-selected distribution](./sender-selected) for details about these two headers).
@@ -142,11 +142,11 @@ added by the `CC` and `BCC` headers
 
 It is possible to form a cycle of message dead-lettering where the same message reaches the same queue twice.
 For example, this can happen when a queue "dead-letters" messages to the default exchange without specifying a dead-letter routing key.
-To prevent automatic infinite message looping within RabbitMQ, RabbitMQ will detect a cycle and drop the message <em>if there was no rejection in the entire cycle</em>.
+To prevent automatic infinite message looping within RabbitMQ, RabbitMQ will detect a cycle and drop the message *if there was no rejection in the entire cycle*.
 
 ## Safety {#safety}
 
-By default, dead-lettered messages are re-published <em>without</em> publisher
+By default, dead-lettered messages are re-published *without* publisher
 [confirms](./confirms) turned on internally. Therefore using DLX in a clustered
 RabbitMQ environment is not guaranteed to be safe. Messages are removed from the
 original queue immediately after publishing to the DLX target queue. This ensures
@@ -204,11 +204,11 @@ message was dead-lettered and is one of the following:
 In addition, the following six AMQP 1.0 message annotations or AMQP 0.9.1 headers are added for the very first dead-lettering event:
 
 1. `x-first-death-queue`: The first queue this message was dead lettered from.
-1. `x-first-death-reason`: Why this message was dead lettered for the first time.
-1. `x-first-death-exchange`: The exchange this message was published to before this message got dead lettered for the first time.
-1. `x-last-death-queue`: The last queue this message was dead lettered from.
-1. `x-last-death-reason`: Why this message was dead lettered for the last time.
-1. `x-last-death-exchange`: The exchange this message was published to before this message got dead lettered the last time.
+2. `x-first-death-reason`: Why this message was dead lettered for the first time.
+3. `x-first-death-exchange`: The exchange this message was published to before this message got dead lettered for the first time.
+4. `x-last-death-queue`: The last queue this message was dead lettered from.
+5. `x-last-death-reason`: Why this message was dead lettered for the last time.
+6. `x-last-death-exchange`: The exchange this message was published to before this message got dead lettered the last time.
 
 The `x-first-*` annotations are never modified.
 Whenever a message is dead lettered subsequently, the `x-last-*` annotations are updated.
