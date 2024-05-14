@@ -76,7 +76,7 @@ dotnet new console --name Worker
 mv Worker/Program.cs Worker/Worker.cs
 cd NewTask
 dotnet add package RabbitMQ.Client
-cd /docs/Worker
+cd ../Worker
 dotnet add package RabbitMQ.Client
 ```
 
