@@ -187,7 +187,7 @@ All AMQP 1.0 keys are of type `symbol`. AMQP 1.0 clients must not depend on the 
 | last-time | [timestamp](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html#type-timestamp) | | | When this message was dead lettered the last time from this queue for this reason. |
 | | | time | timestamp | When this message was dead lettered the first time from this queue for this reason. |
 | exchange  | string | exchange | longstr | The exchange this message was published to before this message got dead lettered for the first time from this queue for this reason. |
-| routing-keys | array of string | routing-keys | array of longstr | The routing keys (including `CC`) of this message before it got dead lettered for the first time from this queue for this reason. |
+| routing-keys | array of string | routing-keys | array of longstr | The routing keys (including `CC` but excluding `BCC`) of this message before it got dead lettered for the first time from this queue for this reason. |
 | ttl | uint | | | AMQP 1.0 [header](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-header)'s `ttl` (time to live in milliseconds) before this message got dead lettered for the first time from this queue for this reason. |
 | | | original-expiration | longstr | The original `expiration` property of this message before it got dead lettered for the first time from this queue for this reason. |
 
