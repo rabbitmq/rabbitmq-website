@@ -120,6 +120,12 @@ html[data-theme='dark'] .mermaid-msg > rect {
   font-size: smaller !important;
 }
 
+.floating-logo {
+  max-width: 175px;
+  max-height: 175px;
+  float: right;
+}
+
 /* -------------------------------------------------------------------
  * OneTrust useless cookie icon.
  * ------------------------------------------------------------------- */
