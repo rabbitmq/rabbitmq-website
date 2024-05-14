@@ -74,11 +74,9 @@ User credentials, target virtual host and (optionally) client [certificate](./ss
 initiation time.
 
 There is a default pair of credentials called the [default user](#default-state). This user can only
-be [used for **host-local connections**](#loopback-users) by default. Remote connections that use
-it will be refused.
+be [used for **host-local connections**](#loopback-users) by default. Remote connections attempting to use it will be refused.
 
-[Production environments](./production-checklist) should not use the default user and create
-new user accounts with generated credentials instead.
+[Production environments](./production-checklist) should not use the default user. Instead, it is recommended to create new user accounts with generated credentials.
 
 
 ## Default Virtual Host and User {#default-state}
