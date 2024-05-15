@@ -51,7 +51,7 @@ There is a dedicated **KeyCloak realm** called `Test` configured as follows:
 
 * You configured an [rsa](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys) signing key
 * And a [rsa provider](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys/providers)
-* And three clients: `rabbitmq-client-code` for the rabbitmq managament UI, `mgt_api_client` to access via the
+* And three clients: `rabbitmq-client-code` for the rabbitmq management UI, `mgt_api_client` to access via the
 management api and `producer` to access via AMQP protocol.
 
 
