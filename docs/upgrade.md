@@ -274,7 +274,7 @@ shutdown during rolling upgrades. This is covered below.
 
 ### After Restarting All Nodes {#after-restarting}
 
-After performing a rolling upgrade and putting the last node out of [maintenence mode](#maintenance-mode),
+After performing a rolling upgrade and putting the last node out of [maintenance mode](#maintenance-mode),
 perform the following steps:
 
  * Enable all [feature flags](./feature-flags) in the cluster using `rabbitmqctl enable_feature_flag all`
