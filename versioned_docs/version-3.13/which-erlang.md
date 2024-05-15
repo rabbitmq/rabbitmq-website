@@ -69,7 +69,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
         <td>
       <ul class="notes">
         <li>
-          The 3.13 release series is compatible wtih Erlang 26.
+          The 3.13 release series is compatible with Erlang 26.
         </li>
         <li>
           OpenSSL 3 support in Erlang is considered to
@@ -104,7 +104,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
         <td>
       <ul class="notes">
         <li>
-          The 3.12 release series is compatible wtih Erlang 26.
+          The 3.12 release series is compatible with Erlang 26.
         </li>
         <li>
           OpenSSL 3 support in Erlang is considered to
@@ -140,7 +140,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
         <td>
       <ul class="notes">
         <li>
-          The 3.12 release series is compatible wtih Erlang 26.
+          The 3.12 release series is compatible with Erlang 26.
         </li>
         <li>
           OpenSSL 3 support in Erlang is considered to
@@ -175,7 +175,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     <td>
       <ul class="notes">
         <li>
-          The 3.12 release series is compatible wtih Erlang 26.
+          The 3.12 release series is compatible with Erlang 26.
         </li>
         <li>
           OpenSSL 3 support in Erlang is considered to
