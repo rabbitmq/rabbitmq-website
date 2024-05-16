@@ -29,7 +29,7 @@ Classic queues uses the **non-replicated** FIFO queue implementation.
 If data safety is a priority, the recommendation is to use [quorum queues](./quorum-queues) and [streams](./streams) instead of classic queues.
 
 Classic queues are the default queue type
-as long as the default queue type is not overriden for the virtual host.
+as long as the default queue type is not overridden for the virtual host.
 
 There are [two versions](#versions) (implementations) of classic queue message storage
 and indexing.
