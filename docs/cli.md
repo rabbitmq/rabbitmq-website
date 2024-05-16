@@ -155,7 +155,7 @@ When the `--offline` flag is used, the command will rely on [environment variabl
 to determine where to find the plugins directory of the local node.
 
 For example, it will respect and use the `RABBITMQ_PLUGINS_DIR` environment variable value
-just like a RabbitMQ node would. When `RABBITMQ_PLUGINS_DIR` is overriden for server nodes,
+just like a RabbitMQ node would. When `RABBITMQ_PLUGINS_DIR` is overridden for server nodes,
 it must also be set identically for the local OS user that invokes CLI tools.
 
 

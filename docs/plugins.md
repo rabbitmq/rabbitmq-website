@@ -173,7 +173,7 @@ installed RabbitMQ version changes between upgrades.
 
 ### rabbitmq-plugins {#offline-mode}
 
-When plugin directories are overriden using an environment variable, the same variable
+When plugin directories are overridden using an environment variable, the same variable
 must also be set identically for the local OS user that invokes CLI tools.
 
 If this is not done, [`rabbitmq-plugins` in offline mode](./cli#offline-mode) will not
