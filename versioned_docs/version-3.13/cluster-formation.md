@@ -488,7 +488,13 @@ RabbitMQ's effective user (typically `rabbitmq`).
 `podManagementPolicy: "Parallel"` is the recommended option for RabbitMQ clusters.
 
 Because of [how nodes rejoin their cluster](./clustering#restarting), `podManagementPolicy` set to `OrderedReady`
-can lead to a deployment deadlock with certain readiness probes (covered below).
+can lead to a deployment deadlock with certain readiness probes:
+
+ * Kubernetes will expect the first node to pass a readiness probe
+ * The readiness probe may require a fully booted node
+ * The node will fully boot after it detects that its peers have come online
+ * Kubernetes will not start any more pods until the first one boots
+ * The deployment therefore is deadlocked
 
 `podManagementPolicy: "Parallel"` avoids this problem, and the Kubernetes peer discovery plugin
 then deals with the [natural race condition present during parallel cluster formation](#initial-formation-race-condition).
