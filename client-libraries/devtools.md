@@ -50,7 +50,7 @@ would like to see added to this list.
 
  * &#x2713; [Spring AMQP project for Java](https://spring.io/projects/spring-amqp)
  * &#x2713; [Spring Cloud Data Flow](https://dataflow.spring.io/)
- * &#x2713; [Spring Integration](http://docs.spring.io/spring-integration/reference/html/amqp.html)
+ * &#x2713; [Spring Integration](http://docs.spring.io/spring-integration/reference/amqp.html)
 
 
 ## .NET {#dotnet-dev}
