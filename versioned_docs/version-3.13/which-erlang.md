@@ -37,9 +37,8 @@ At the moment they are Erlang `26.x` and `25.x`.
 ### Erlang 27 Support
 
 :::warning
-Erlang 27 is currently not supported by any available RabbitMQ versions.
+Erlang 27 (released in May 2024) is currently [not supported by any available RabbitMQ version](/blog/2024/05/23/erlang27-support).
 There are significant performance regressions when running RabbitMQ on Erlang 27.
-We are looking into the root causes of these regressions.
 :::
 
 ### Erlang 26 Support
