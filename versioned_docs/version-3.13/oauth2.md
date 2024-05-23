@@ -773,6 +773,10 @@ There is an [example](./oauth2-examples-multiresource) that demonstrate multiple
 
 This advanced setting is only required when the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) does not return an `end_session_endpoint` and you want Single Logout functionality. In other words, when the user logs out from the management UI it is also logged out from the OAuth Provider.
 
+:::info
+If the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) does return an `end_session_endpoint`, the management UI uses it over the configured endpoint. 
+:::
+
 Here is an example configuration that sets `end_session_endpoint`:
 
 ```ini
