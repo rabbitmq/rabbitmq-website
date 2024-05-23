@@ -741,7 +741,7 @@ This latter configuration is more relevant when users present tokens which are i
 
 ### Configure OAuth 2.0 provider's end_session_endpoint {#configure-end-session-endpoint}
 
-This advanced setting is only required when the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) does not return an `end_session_endpoint` and you still want to Single Logout functionality. In other words, when the user logs out from the management UI it is also logged out from the OAuth Provider.
+This advanced setting is only required when the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) does not return an `end_session_endpoint` and you want Single Logout functionality. In other words, when the user logs out from the management UI it is also logged out from the OAuth Provider.
 
 Here is an example configuration that sets `end_session_endpoint`:
 
