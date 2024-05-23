@@ -431,7 +431,7 @@ specification to logout users from the management UI and from the OAuth Provider
   3. If there is no `end_session_endpoint` returned, then the user is only logged out from the management UI.
 
 :::info
-If the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) does not return an `end_session_endpoint`, you can configure it in the [OAuth 2.0 authentication backend plugin](./oauth2#).
+If the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) does not return an `end_session_endpoint`, you can configure it in the [OAuth 2.0 authentication backend plugin](./oauth2#configure-end-session-endpoint).
 :::
 
 :::warning
