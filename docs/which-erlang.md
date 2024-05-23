@@ -34,6 +34,14 @@ RabbitMQ supports up to [two most recent Erlang release series](https://groups.g
 
 At the moment they are Erlang `26.x` and `25.x`.
 
+### Erlang 27 Support
+
+:::warning
+Erlang 27 is currently not supported by any available RabbitMQ versions.
+There are significant performance regressions when running RabbitMQ on Erlang 27.
+We are looking into the root causes of these regressions.
+:::
+
 ### Erlang 26 Support
 
 Erlang 26 is supported starting with RabbitMQ 3.12.0.
