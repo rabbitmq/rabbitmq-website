@@ -445,6 +445,14 @@ basis. The user is granted the respective permission for
 operations on all resources with names matching the regular
 expressions.
 
+So, for example, in the table above the <code>queue.bind</code>
+operation specifies that <em>write</em> is needed on <code>queue</code>
+and <em>read</em> is needed on <code>exchange</code>.
+So to allow a user to bind queue named <code>queueA</code> and
+exchange named <code>exchangeB</code> the user will need a <em>write</em>
+regex matching <code>queueA</code> and a <em>read</em> regex matching
+<code>exchangeB</code> in the correct vhost.
+
 For convenience RabbitMQ maps AMQP 0-9-1's
 default exchange's blank name to 'amq.default' when
 performing permission checks.
