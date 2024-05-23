@@ -9,7 +9,7 @@ While it contains a lot of exciting features and improvements, unfortunately Rab
 doesn't work well with this version. We are aware of significant performance regressions,
 as high as 30% lower message throughput in many common workloads.
 
-We are invistigating the root cause of this regression.
+We are investigating the root cause of this regression.
 Please do not use Erlang/OTP 27 with RabbitMQ at this time.
 
 We will announce support for Erlang/OTP 27 when we are confident that it works well with RabbitMQ.
