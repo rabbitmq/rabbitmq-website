@@ -52,7 +52,8 @@ This guide covers a variety of authentication, authorisation and user management
  * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz))
 
 [Password-based](./passwords) authentication has a companion guide.
-A closely related topic of [TLS support](./ssl) is also covered in a dedicated guide.
+Two closely related topics of [OAuth 2 support](./oauth2) and  [TLS support](./ssl), including x.509-certificate based authentication,
+are covered in dedicated guides.
 
 
 ## Terminology and Definitions {#terminology-and-definitions}
@@ -74,18 +75,10 @@ the user must have a certain set of permissions.
 User credentials, target virtual host and (optionally) client [certificate](./ssl) are specified at connection
 initiation time.
 
-:::important
-[Production environments](./production-checklist) should not use the default user. Create
-new user accounts with generated credentials instead.
-:::
 
 There is a default pair of credentials called the [default user](#default-state). This user can only
 be [used for **host-local connections**](#loopback-users) by default. Remote connections that use
-the default user will be refused with a [log message](./logging) similar to this:
-
-```
-[error] <0.918.0> PLAIN login refused: user 'guest' can only connect via localhost
-```
+the default user will be refused.
 
 [Production environments](./production-checklist) should not use the default user.
 Create new user accounts with generated credentials instead.
@@ -131,11 +124,18 @@ With this mechanism, any client-provided password will be ignored.
 
 ## "guest" user can only connect from localhost {#loopback-users}
 
-By default, the <code>guest</code> user is prohibited from
+By default, the `guest` user is prohibited from
 connecting from remote hosts; it can only connect over
-a loopback interface (i.e. <code>localhost</code>). This
+a loopback interface (`localhost`). This
 applies to [connections regardless of the protocol](./connections).
 Any other users will not (by default) be restricted in this way.
+
+Remote connections that use
+the default user will be refused with a [log message](./logging) similar to this:
+
+```
+[error] <0.918.0> PLAIN login refused: user 'guest' can only connect via localhost
+```
 
 The recommended way to address this in production systems
 is to create a new user with generated credentials, or set of users, with the permissions
@@ -157,8 +157,9 @@ which allows remote connections for <code>guest</code> looks like so:
 # DANGER ZONE!
 #
 # allowing remote connections for default user is highly discouraged
-# as it dramatically decreases the security of the system. Delete the user
-# instead and create a new one with generated secure credentials.
+# as it dramatically decreases the security of the system. Delete the default user
+# instead and create a new one with generated secure credentials, or use JWT tokens,
+# or x.509 certificates for clients to authenticate themselves
 loopback_users = none
 ```
 
