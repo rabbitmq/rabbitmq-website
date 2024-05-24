@@ -26,7 +26,7 @@ Operators need to be able to reason about node's memory use,
 both absolute and relative ("what uses most memory"). This is an
 important aspect of [system monitoring](./monitoring).
 
-This guide focusses on reasoning about node's reported (monitored) memory footprint.
+This guide focuses on reasoning about node's reported (monitored) memory footprint.
 It is accompanied by a few closely related guides:
 
  * [Memory Threshold and Limit](./memory)
