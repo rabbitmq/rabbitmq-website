@@ -1,6 +1,3 @@
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 ---
 title: Authentication, Authorisation, Access Control
 ---
@@ -21,6 +18,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Authentication, Authorisation, Access Control
 
@@ -66,19 +66,29 @@ authorisation as "determining what the user is and isn't allowed to do."
 
 ## The Basics {#basics}
 
-Clients use RabbitMQ features to [connect](./connections) to it. Every connection has
+When clients [connect](./connections) to RabbitMQ, they specify a set of credentials:
+a username-password pair, a [JWT token](./oauth2), or a [x.509 certificate](./ssl). Every connection has
 an associated user which is authenticated. It also targets a [virtual host](./vhosts) for which
 the user must have a certain set of permissions.
 
 User credentials, target virtual host and (optionally) client [certificate](./ssl) are specified at connection
 initiation time.
 
+:::important
+[Production environments](./production-checklist) should not use the default user. Create
+new user accounts with generated credentials instead.
+:::
+
 There is a default pair of credentials called the [default user](#default-state). This user can only
 be [used for **host-local connections**](#loopback-users) by default. Remote connections that use
-it will be refused.
+the default user will be refused with a [log message](./logging) similar to this:
 
-[Production environments](./production-checklist) should not use the default user and create
-new user accounts with generated credentials instead.
+```
+[error] <0.918.0> PLAIN login refused: user 'guest' can only connect via localhost
+```
+
+[Production environments](./production-checklist) should not use the default user.
+Create new user accounts with generated credentials instead.
 
 
 ## Default Virtual Host and User {#default-state}
@@ -128,7 +138,7 @@ applies to [connections regardless of the protocol](./connections).
 Any other users will not (by default) be restricted in this way.
 
 The recommended way to address this in production systems
-is to create a new user or set of users with the permissions
+is to create a new user with generated credentials, or set of users, with the permissions
 to access the necessary virtual hosts. This can be done
 using [CLI tools](./cli), [HTTP API or definitions import](./management).
 
@@ -440,10 +450,19 @@ perform permission checks.
 </table>
 
 Permissions are expressed as a triple of regular expressions
-— one each for configure, write and read — on per-vhost
+— one each for configure, write and read — on a per-vhost
 basis. The user is granted the respective permission for
 operations on all resources with names matching the regular
 expressions.
+
+For example, the table above demonstrates that the <code>queue.bind</code>
+protocol operation requires <em>write</em> permission on the target <code>queue</code>
+and the <em>read</em> permission is required on the target <code>exchange</code>.
+
+In other words, in order to allow a user to bind a queue named <code>queueA</code> to
+an exchange named <code>exchangeB</code> the user will need the <em>write</em>
+permission regex (for the correct virtual host) to match <code>queueA</code>,
+and the <em>read</em> permission regex to match <code>exchangeB</code>.
 
 For convenience RabbitMQ maps AMQP 0-9-1's
 default exchange's blank name to 'amq.default' when
