@@ -57,7 +57,7 @@ its <code>impersonator</code> tag set. By default, no users have
 this tag set. In particular, the <code>administrator</code> tag
 does not allow this.
 
-## Federation Interations
+## Federation Interactions
 
 The [federation plugin](./federation) can deliver
 messages from an upstream on which the <code>user-id</code>
