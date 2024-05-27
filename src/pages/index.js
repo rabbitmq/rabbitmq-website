@@ -318,9 +318,9 @@ flowchart TD
                   are available. These commercial offerings include all of the
                   features of RabbitMQ, with some additional management and
                   advanced features like <Link
-                  to="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html">warm
+                  to="https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/3.13/tanzu-rabbitmq-kubernetes/standby-replication.html">warm
                   standby replication</Link> and <Link
-                  to="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/clustering-compression-rabbitmq.html">intra-cluster
+                  to="https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/3.13/tanzu-rabbitmq-kubernetes/clustering-compression-rabbitmq.html">intra-cluster
                   data compression</Link>. These features are a must for
                   heavy workloads.</p>
                 <p>For a list of the commercial offerings, take a look at
