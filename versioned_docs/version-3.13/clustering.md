@@ -41,7 +41,7 @@ and more. [Cluster Formation and Peer Discovery](./cluster-formation) is a close
 that focuses on peer discovery and cluster formation automation-related topics. For queue contents
 (message) replication, see the [Quorum Queues](./quorum-queues) guide.
 
-[VMware Tanzu RabbitMQ](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/index.html) provides an [Intra-cluster Compression](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/clustering-compression-rabbitmq.html) feature.
+[VMware Tanzu RabbitMQ](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/index.html) provides an [Intra-cluster Compression](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/3.13/tanzu-rabbitmq-kubernetes/clustering-compression-rabbitmq.html) feature.
 
 A RabbitMQ cluster is a logical grouping of one or
 several nodes, each  sharing users, virtual hosts,
