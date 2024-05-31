@@ -137,7 +137,7 @@ The body in this example includes a few keys:
       <td>src-queue-args</td>
       <td>
         <p>
-            Optional arguments for <code>src-queue</code> declaraion, eg. the queue type.
+            Optional arguments for <code>src-queue</code> declaration, eg. the queue type.
         </p>
       </td>
     </tr>
@@ -176,7 +176,7 @@ The body in this example includes a few keys:
       <td>dest-queue-args</td>
       <td>
         <p>
-            Optional arguments for <code>dest-queue</code> declaraion, eg. the queue type.
+            Optional arguments for <code>dest-queue</code> declaration, eg. the queue type.
         </p>
       </td>
     </tr>
