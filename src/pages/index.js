@@ -24,7 +24,7 @@ export default function Home() {
             </div>
             <div class={styles.heroCta}>
               <Link className="button button--primary" to="/tutorials">Getting Started</Link>
-              <Link className={styles.release_notes_link} to="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.2">RabbitMQ 3.13.2</Link>
+              <Link className={styles.release_notes_link} to="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.3">RabbitMQ 3.13.3</Link>
             </div>
           </div>
         </div>
