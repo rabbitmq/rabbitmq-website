@@ -62,10 +62,8 @@ removal difficult to reason about in case of node restarts during upgrades and s
 so the use of transient queues is discouraged. Support for transient queues
 is deprecated and will be removed in **RabbitMQ 4.0**.
 
-Classic queues can be mirrored across multiple nodes in the
-cluster. This functionality is deprecated and will be removed
-in **RabbitMQ 4.0**. [Quorum queues](./quorum-queues)
-and [streams](./streams) provide a better alternative when high availability and
+Classic queues is a non-replicated queue type starting with RabbitMQ 4.0.
+[Quorum queues](./quorum-queues) and [streams](./streams) provide a better alternative when high availability and
 data safety is required.
 
 Until **RabbitMQ 3.12**, classic queues could operate in **lazy mode**.

@@ -64,7 +64,7 @@
 ### <code class="Cm">post_upgrade</code> {#post_upgrade}
       </dt>
       <dd>
-        <p class="Pp">Runs post-upgrade tasks. In the current version, it performs the rebalance of mirrored and quorum queues across all nodes in the cluster.</p>
+        <p class="Pp">Runs post-upgrade tasks. This is a command that can be expected to evolve over time.</p>
       </dd>
       <dt >
 ### <code class="Cm">await_online_quorum_plus_one</code> {#await_online_quorum_plus_one}

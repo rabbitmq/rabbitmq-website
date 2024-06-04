@@ -260,7 +260,7 @@ returns a non-zero exit code if the RabbitMQ node is not running
           <p class="Pp">Ensures that the node will start next time, even if it was not the last to shut down.</p>
           <p class="Pp">Normally when you shut down a RabbitMQ cluster altogether, the first node you restart should be the last one to go down, since it may have seen things happen that other nodes did not. But sometimes that's not possible: for instance, if the entire cluster loses power then all nodes may think they were not the last to shut down.</p>
           <p class="Pp">In such a case you can invoke <code class="Cm">force_boot</code> while the node is down. This will tell the node to unconditionally start the next time you ask it. Any changes to the cluster after this node shut down will be lost.</p>
-          <p class="Pp">If the last node to go down is permanently lost then you should use <code class="Cm">forget_cluster_node</code> <code class="Fl">--offline</code> instead of this command, as it will ensure that mirrored queues whose leader replica was on the lost node get promoted.</p>
+          <p class="Pp">If the last node to go down is permanently lost then you should use <code class="Cm">forget_cluster_node</code> <code class="Fl">--offline</code> instead of this command.</p>
           <p class="Pp">For example, this will force the node not to wait for other nodes the next time it is started:</p>
           <p class="Pp"></p>
           <div class="Bd Bd-indent lang-bash">
@@ -398,32 +398,6 @@ Start the node when ready
             <code class="Li">update_cluster_nodes -n <var class="Va">rabbit@A</var> <var class="Va">rabbit@B</var> <var class="Va">rabbit@C</var></code>
           </div>
           <p class="Pp">To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/clustering.html">RabbitMQ Clustering guide</a></p>
-        </dd>
-      </dl>
-    </section>
-    <section class="Ss">
-### Replication {#Replication}
-      <dl class="Bl-tag">
-        <dt >
-#### <code class="Cm">sync_queue</code> [<code class="Fl">-p</code> <var class="Ar">vhost</var>] <var class="Ar">queue</var> {#sync_queue}
-        </dt>
-        <dd>
-          <dl class="Bl-tag">
-            <dt><var class="Ar">queue</var></dt>
-            <dd>The name of the queue to synchronise.</dd>
-          </dl>
-          <p class="Pp">Instructs a mirrored queue with unsynchronised mirrors (follower replicas) to synchronise them. The queue will block while synchronisation takes place (all publishers and consumers using the queue will block or temporarily see no activity). This command can only be used with mirrored queues. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/ha.html">RabbitMQ Mirroring guide</a></p>
-          <p class="Pp">Note that queues with unsynchronised replicas and active consumers will become synchronised eventually (assuming that consumers make progress). This command is primarily useful for queues that do not have active consumers.</p>
-        </dd>
-        <dt >
-#### <code class="Cm">cancel_sync_queue</code> [<code class="Fl">-p</code> <var class="Ar">vhost</var>] <var class="Ar">queue</var> {#cancel_sync_queue}
-        </dt>
-        <dd>
-          <dl class="Bl-tag">
-            <dt><var class="Ar">queue</var></dt>
-            <dd>The name of the queue to cancel synchronisation for.</dd>
-          </dl>
-          <p class="Pp">Instructs a synchronising mirrored queue to stop synchronising itself.</p>
         </dd>
       </dl>
     </section>
@@ -1297,18 +1271,6 @@ fanout
 #### <code class="Cm">memory</code> {#memory}
             </dt>
             <dd>Bytes of memory allocated by the runtime for the queue, including stack, heap, and internal structures.</dd>
-            <dt >
-#### <code class="Cm">mirror_pids</code> {#mirror_pids}
-            </dt>
-            <dd>
-              If the queue is mirrored, this lists the IDs of the mirrors (follower replicas). To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/ha.html">RabbitMQ Mirroring guide</a>
-            </dd>
-            <dt >
-#### <code class="Cm">synchronised_mirror_pids</code> {#synchronised_mirror_pids}
-            </dt>
-            <dd>
-              If the queue is mirrored, this gives the IDs of the mirrors (follower replicas) which are in sync with the leader replica. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/ha.html">RabbitMQ Mirroring guide</a>
-            </dd>
             <dt >
 #### <code class="Cm">state</code> {#state~2}
             </dt>

@@ -28,16 +28,15 @@ replicated FIFO queue based on the [Raft consensus algorithm](https://raft.githu
 
 Quorum queues are designed to be safer and provide simpler, well defined failure handling semantics that users should find easier to reason about when designing and operating their systems.
 
-Quorum queues and [streams](./streams) now replace the original, replicated [mirrored classic queue](./ha). Mirrored classic queues are [now deprecated and scheduled for removal](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/).
-Use the [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq) guide for migrating
-RabbitMQ installations that currently use classic mirrored queues.
+Quorum queues and [streams](./streams) are the two replicated data structures
+available. Classic queue mirroring was removed starting with RabbitMQ 4.0.
 
 Quorum queues are optimized for [set of use cases](#use-cases) where [data safety](#data-safety) is
 a top priority. This is covered in [Motivation](#motivation).
 Quorum queues should be considered the default option for a replicated queue type.
 
 Quorum queues also have important [differences in behaviour](#behaviour)
-and some [limitations](#feature-comparison) compared to classic mirrored queues,
+and some [limitations](#feature-comparison),
 including workload-specific ones, e.g. when consumers [repeatedly requeue the same message](#repeated-requeues).
 
 Some features, such as [poison message handling](#poison-message-handling), are specific
@@ -85,25 +84,9 @@ When applied to queue mirroring in RabbitMQ [clusters](./clustering)
 this means that the majority of replicas (including the currently elected queue leader)
 agree on the state of the queue and its contents.
 
-### Differences between Quorum Queues and Classic Mirrored Queues
-
-Quorum queues share many of the fundamentals with [queues](./queues) of other types in RabbitMQ.
-However, they are more purpose-built, focus on data safety and predictable recovery,
-and do not support certain features.
-
-The differences [are covered](#feature-comparison) in this guide.
-
-Classic mirrored queues in RabbitMQ have technical limitations that makes it difficult to provide
-comprehensible guarantees and clear failure handling semantics.
-
-Certain failure scenarios can result in mirrored queues
-confirming messages too early, potentially resulting in a data loss.
-
-
 ## Feature Comparison with Regular Queues {#feature-comparison}
 
 Quorum queues share most of the fundamentals with other [queue](./queues) types.
-A client library that can use regular mirrored queues will be able to use quorum queues.
 
 The following operations work the same way for quorum queues as they do for regular queues:
 
@@ -427,7 +410,7 @@ For example, a cluster of three nodes will have three replicas, one on each node
 In a cluster of seven nodes, three nodes will have one replica each but four more nodes won't host any replicas
 of the newly declared queue.
 
-Like with classic mirrored queues, the replication factor (number of replicas a queue has) can be configured for quorum queues.
+The replication factor (number of replicas a queue has) can be configured for quorum queues.
 
 The minimum factor value that makes practical sense is three.
 It is highly recommended for the factor to be an odd number.
@@ -555,14 +538,14 @@ quorum queue's *follower* will be elected leader and resume
 operations.
 
 Failed and rejoining followers will re-synchronise ("catch up") with the leader.
-In contrast to classic mirrored queues, a temporary replica failure
+With quorum queues, a temporary replica failure
 does not require a full re-synchronization from the currently elected leader. Only the delta
 will be transferred if a re-joining replica is behind the leader. This "catching up" process
 does not affect leader availability.
 
 Except for the initial replica set selection, replicas must be explicitly added to a quorum queue.
 When a new replica is [added](#replica-management), it will synchronise the entire queue state
-from the leader, similarly to classic mirrored queues.
+from the leader.
 
 ### Fault Tolerance and Minimum Number of Replicas Online {#quorum-requirements}
 
@@ -640,12 +623,12 @@ will therefore remain consistent.
 ## Quorum Queue Performance Characteristics {#performance}
 
 Quorum queues are designed to trade latency for throughput and have been tested
-and compared against durable [classic mirrored queues](./ha) in 3, 5 and 7 node configurations at several
-message sizes.
+in 3, 5 and 7 node configurations with several different message sizes.
 
 In scenarios using both consumer acks and publisher confirms
 quorum queues have been observed to have superior throughput to
-classic mirrored queues. For example, take a look at [these benchmarks with 3.10](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/)
+classic mirrored queues (deprecated in 2021, removed in 2024 for RabbitMQ 4.0).
+For example, take a look at [these benchmarks with 3.10](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/)
 and [another with 3.12](https://blog.rabbitmq.com/posts/2023/05/rabbitmq-3.12-performance-improvements/#significant-improvements-to-quorum-queues).
 
 As quorum queues persist all data to disks before doing anything it is recommended
@@ -742,8 +725,7 @@ When a message has been returned more times than the limit the message will be d
 
 ## Resources that Quorum Queues Use {#resource-use}
 
-Quorum queues are optimised for data safety and performance and typically require more resources (disk and RAM)
-than classic mirrored queues under a steady workload. Each quorum queue process maintains an in-memory index of
+Quorum queues are optimised for data safety and performance. Each quorum queue process maintains an in-memory index of
 the messages in the queue, which requires at least 32 bytes of metadata for each message (more, if the message was returned or has a TTL set).
 A quorum queue process will therefore use at least 1MB for every 30000 messages in the queue (message size is irrelevant).
 You can perform back-of-the-envelope calculations based on the number of queues and expected or maximum number of messages in them).

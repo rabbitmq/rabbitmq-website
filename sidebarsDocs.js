@@ -212,16 +212,6 @@ const sidebars = {
             },
             {
               type: 'doc',
-              id: 'ha/index',
-              label: 'Mirrored Classic Queues',
-            },
-            {
-              type: 'doc',
-              id: 'migrate-mcq-to-qq',
-              label: 'Migrate Mirrored Classic Queues to Quorum Queues',
-            },
-            {
-              type: 'doc',
               id: 'ttl',
               label: 'Time-to-Live and Expiration',
             },

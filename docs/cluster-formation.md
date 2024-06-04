@@ -464,7 +464,7 @@ to a value in the 5-10 second range.
 If a stateless set is used recreated nodes will not have their persisted data and will start as blank nodes.
 This can lead to data loss and higher network traffic volume due to more frequent
 data synchronisation of both [quorum queues](./quorum-queues)
-and [classic queue mirrors](./ha) on newly joining nodes.
+and [streams](./streams) on newly joining nodes.
 
 #### Use Persistent Volumes
 

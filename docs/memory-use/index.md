@@ -83,7 +83,6 @@ Memory use breakdown reports allocated memory distribution on the target node, b
  * Code (bytecode, module metadata)
  * ETS (in memory key/value store) tables
  * Atom tables
- * (Deprecated, scheduled for removal) Classic mirrored queue replicas
  * Other
 
 Generally there is no overlap between the categories (no double accounting for the same memory).
@@ -180,19 +179,6 @@ reserved_unallocated: 0.0 gb (0.0%)
       the more memory will generally be attributed to this section. However, this greatly depends on
       queue properties and whether messages were published as transient.
       See <a href="./memory">Memory</a>, <a href="./queues">Queues</a>, and <a href="./lazy-queues">Lazy Queues</a> guides
-      for more information.
-    </td>
-  </tr>
-
-  <tr>
-    <td>queue_slave_procs</td>
-    <td>Queues</td>
-    <td>
-      Classic queue mirrors, indices and messages kept in memory. Reducing the number of mirrors (replicas) or not mirroring queues with
-      inherently transient data can reduce the amount of RAM used by mirrors. The greater the number of messages enqueued,
-      the more memory will generally be attributed to this section. However, this greatly depends on
-      queue properties and whether messages were published as transient.
-      See <a href="./memory">Memory</a>, <a href="./queues">Queues</a>, <a href="./ha">Mirroring</a>, and <a href="./lazy-queues">Lazy Queues</a> guides
       for more information.
     </td>
   </tr>
