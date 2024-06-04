@@ -43,17 +43,8 @@ keep a small number of messages in memory (up to 2048 at the time of writing) ba
 Classic queue mirroring will be removed in a future version of RabbitMQ.
 Classic queues will remain a supported non-replicated queue type.
 
- - **The recommendation is:** If you are using **RabbitMQ 3.11** and earlier versions, either
-upgrade to **RabbitMQ 3.12** now and switch to quorum queues if possible (refer to [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq.md) if you want to do this)
-or turn on `lazy` queue mode for classic queues to avoid running into memory issues.
-
-[Quorum queues](./quorum-queues) are the alternative to classic queues. Quorum Queues are a more modern queue type
-that offers high availability via replication and focuses on data safety.
-From RabbitMQ 3.10 onwwards, quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and
-provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues.
-
-[Streams](./streams) are another messaging data structure available as of [RabbitMQ 3.9](/release-information),
-and is also replicated.
+[Quorum queues](./quorum-queues) is the only replicated queue type as of RabbitMQ 4.0.
+[Streams](./streams) are another replicated messaging data structure.
 
 ## A Deeper Dive into Lazy Queues {#overview}
 
@@ -341,13 +332,3 @@ Given the following interleaved message sizes:
 Only the first **20** messages below the `queue_index_embed_msgs_below` value will be loaded into memory on node startup.
 In this scenario, messages will use **21KB** of system memory, and queue process will use another **32KB** of system memory.
 The total system memory required for the queue process to finish starting is **53KB**.
-
-
-### Mirroring of Lazy Queues
-
-When enabling [automatic queue mirroring](./ha#unsynchronised-mirrors), consider the expected on disk
-data set of the queues involved. Queues with a sizeable data set
-(say, tens of gigabytes or more) will have to replicate it to
-the newly added mirror(s), which can put a significant load on
-cluster resources such as network bandwidth and disk I/O. This is
-a common scenario with lazy queues, for example.

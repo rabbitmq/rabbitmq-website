@@ -394,8 +394,7 @@ The [Quorum Queues guide](./quorum-queues) covers this topic in more detail.
 Assuming all cluster members
 are available, a messaging (AMQP 0-9-1, AMQP 1.0, MQTT, STOMP) client can connect to any node and
 perform any operation. Nodes will route operations to the
-[quorum queue leader](./quorum-queues) or [queue leader replica](./ha#leader-migration-data-locality)
-transparently to clients.
+[quorum queue leader](./quorum-queues) transparently to clients.
 
 With all supported messaging protocols a client is only connected to one node
 at a time.
@@ -409,10 +408,6 @@ for individual clients to learn more.
 
 With [quorum queues](./quorum-queues) and [streams](./streams), clients will only be able to perform
 operations on queues that have a quorum of replicas online.
-
-With classic mirrored queues, there are scenarios where it may not be possible for a client to transparently continue
-operations after connecting to a different node. They usually involve
-[non-mirrored queues hosted on a failed node](./ha#non-mirrored-queue-behavior-on-node-failure).
 
 ### Stream Clients
 
@@ -508,7 +503,7 @@ known at the time of shutdown.
 across multiple cluster nodes with parallel replication and a predictable [leader election](./quorum-queues#leader-election)
 and [data safety](./quorum-queues#data-safety) behavior as long as a majority of replicas are online.
 
-Non-replicated classic queues can also be used in clusters. Non-mirrored queue [behaviour in case of node failure](./ha#non-mirrored-queue-behavior-on-node-failure)
+Non-replicated classic queues can also be used in clusters. Their behaviour in case of node failure
 depends on [queue durability](./queues#durability).
 
 RabbitMQ clustering has several modes of dealing with [network partitions](./partitions),

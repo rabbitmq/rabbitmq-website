@@ -116,10 +116,6 @@ majority side. Quorum queue replicas on the minority side will no longer
 make progress (i.e. accept new messages, deliver to consumers, etc), all this work will be
 done by the new leader.
 
-[Classic mirrored queues](./ha) which are split across the partition will end up with
-one leader on each side of the partition, again with both sides
-acting independently.
-
 Unless a [partition handling strategy](#automatic-handling),
 such as <code>pause_minority</code>, is configured to be used,
 the split will continue even after network connectivity is restored.

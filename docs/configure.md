@@ -1291,20 +1291,6 @@ mnesia_table_loading_retry_limit = 10
   </tr>
 
   <tr>
-    <td>`mirroring_sync_batch_size`</td>
-    <td>
-      Batch size used to transfer messages to an unsynchronised replica (queue mirror).
-      See [documentation on eager batch synchronization](./ha#batch-sync).
-      <p>
-        Default:
-```ini
-mirroring_sync_batch_size = 4096
-```
-      </p>
-    </td>
-  </tr>
-
-  <tr>
     <td>`queue_leader_locator`</td>
     <td>
       queue leader location strategy. Available strategies are:
@@ -1312,9 +1298,7 @@ mirroring_sync_batch_size = 4096
         <li>`balanced`</li>
         <li>`client-local`</li>
       </ul>
-      See the
-      [documentation
-      on queue leader location](./ha#queue-leader-location) for more information.
+
       <p>
         Default:
 ```ini

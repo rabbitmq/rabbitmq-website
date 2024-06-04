@@ -424,14 +424,6 @@ The following feature flags are provided by RabbitMQ core.
   <tr>
     <td>3.12.0</td>
     <td>3.11.0</td>
-    <td>classic_mirrored_queue_version</td>
-    <td>
-      Support setting version for classic mirrored queues
-    </td>
-  </tr>
-  <tr>
-    <td>3.12.0</td>
-    <td>3.11.0</td>
     <td>direct_exchange_routing_v2</td>
     <td>
       v2 direct exchange routing implementation

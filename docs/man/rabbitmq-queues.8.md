@@ -175,16 +175,6 @@
           </div>
         </dd>
         <dt >
-#### <code class="Cm">check_if_node_is_mirror_sync_critical</code> {#check_if_node_is_mirror_sync_critical}
-        </dt>
-        <dd>
-          <p class="Pp">Health check that exits with a non-zero code if there are classic mirrored queues without online synchronised mirrors (queues that would potentially lose data if the target node is shut down).</p>
-          <p class="Pp">Example:</p>
-          <div class="Bd Bd-indent lang-bash">
-            <code class="Li">rabbitmq-queues check_if_node_is_mirror_sync_critical</code>
-          </div>
-        </dd>
-        <dt >
 #### <code class="Cm">check_if_node_is_quorum_critical</code> {#check_if_node_is_quorum_critical}
         </dt>
         <dd>

@@ -45,7 +45,7 @@ Modern RabbitMQ versions provide several queue types plus streams:
 
  * [Quorum queues](./quorum-queues): replicated, durable, data-safety oriented
  * [Streams](./streams): a replicated, durable data structure that supports different operations (than a queue)
- * Classic queues: the original queue type, oriented towards non-mirrored queue use cases (mirroring is deprecated)
+ * Classic queues: the original queue type, single replica only starting with RabbitMQ 4.0
 
 These queue types have different storage implementations and applicable configuration
 settings that can be tuned are also different.
