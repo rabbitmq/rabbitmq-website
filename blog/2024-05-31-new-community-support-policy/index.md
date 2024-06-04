@@ -12,7 +12,7 @@ The goal of these changes is to ensure that the RabbitMQ team has time to focus 
 ### What is Community Support?
 
 Community support is defined as all questions, root cause analysis requests, issue reports, and other interactions the RabbitMQ core team
-has with open source RabbitMQ users on GitHub and our [community forums](https://www.rabbitmq.com/contact).
+has with open source RabbitMQ users on GitHub and our [community forums](/contact).
 
 ## Community Support Policy Changes
 
@@ -31,7 +31,7 @@ Effective June 1st 2024, the RabbitMQ team will adopt a new release policy for t
 The changes do not impact the current RabbitMQ Open Source License. The RabbitMQ core team will continue
 developing Open Source RabbitMQ under the Mozilla Public License 2.0 on GitHub.
 
-With the new policy, older [Open Source release](https://www.rabbitmq.com/release-information) versions (for example, RabbitMQ 3.12.x and older)
+With the new policy, older [Open Source release](/release-information) versions (for example, RabbitMQ 3.12.x and older)
 will no longer receive patches through community support.
 Patches for older versions of both the Open Source and Commercial versions will be available to customers that have VMware Tanzu RabbitMQ commercial licenses.
 
