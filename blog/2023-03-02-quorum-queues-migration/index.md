@@ -337,6 +337,12 @@ The following changes needs to be made to this file before loading it back into 
 7. Policies that apply federation rules to exchanges need to be
    removed for the period of the migration, to avoid duplicate
    messages.
+8. Add `x-queue-type` declarations back for all quorum queues. If you follow the
+   advice that clients should declare their queues before starting consumption,
+   DeclareQueue invocations after the first one will fail with `Exception (406) Reason: "PRECONDITION_FAILED - inequivalent 
+   arg 'x-queue-type' for queue '$QUEUE_NAME' in vhost '$VHOST': received none but current is the value 
+   'quorum' of type 'longstr'"`
+
 
 Now the modified schema can be loaded into the new virtual host from
 UI or using CLI tools:
