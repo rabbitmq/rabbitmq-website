@@ -394,10 +394,12 @@ subscribing.
 
 For example:
 
-    UNSUBSCRIBE
-    id:1234
-    durable:true
-    auto-delete:false
+```
+UNSUBSCRIBE
+id:1234
+durable:true
+auto-delete:false
+```
 
 ### Temp Queue Destinations {#d.tqd}
 
@@ -411,11 +413,13 @@ temporary queues in distinct sessions.
 To use a temp queue, put the `reply-to` header on a `SEND` frame and
 use a header value starting with `/temp-queue/`. For example:
 
-    SEND
-    destination:/queue/reply-test
-    reply-to:/temp-queue/foo
+```
+SEND
+destination:/queue/reply-test
+reply-to:/temp-queue/foo
 
-    Hello World!
+Hello World!
+```
 
 This frame creates a temporary queue (with a generated name) that is private
 to the session and automatically subscribes to that queue.
@@ -458,9 +462,11 @@ When subscribing to an `exchange` or `topic` destination, RabbitMQ would generat
 a queue name by default. It is possible to provide
 a custom name using the `x-queue-name` header:
 
-    SUBSCRIBE
-    destination:/topic/alarms
-    x-queue-name:my-alarms-queue
+```
+SUBSCRIBE
+destination:/topic/alarms
+x-queue-name:my-alarms-queue
+```
 
 ## Controlling RabbitMQ Queue Parameters with STOMP {#queue-parameters}
 
@@ -584,11 +590,13 @@ The `SUBSCRIBE` frame supports a `x-stream-offset` header to specify the offset
 to start consuming from in a [stream](./streams). A typical subscription frame
 for a stream will look like the following:
 
-    SUBSCRIBE
-    destination:/amq/queue/my-stream
-    ack:client
-    prefetch-count:10
-    x-stream-offset:next
+```
+SUBSCRIBE
+destination:/amq/queue/my-stream
+ack:client
+prefetch-count:10
+x-stream-offset:next
+```
 
 Note the `ack` and `prefetch-count` headers are also necessary. The `x-stream-offset` header
 has the same semantics as in [AMQP 0.9.1](./streams#consuming), the possible values are:
@@ -661,9 +669,11 @@ The list of supported headers is
 For example, if you want to use priority queues with STOMP, you
 can SUBSCRIBE (or SEND) with the following header:
 
-    SUBSCRIBE
-    destination:/queue/my-priority-queue
-    x-max-priority:5
+```
+SUBSCRIBE
+destination:/queue/my-priority-queue
+x-max-priority:5
+```
 
 ### Queue Immutability
 
