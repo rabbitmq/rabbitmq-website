@@ -307,7 +307,7 @@ for connection (see `auth_ldap.servers.*` above).
 
 ```ini
 # Sets Server Name Indication for LDAP connections.
-# If an LDAP server host is availble via multiple domain names, set this value
+# If an LDAP server host is available via multiple domain names, set this value
 # to the preferred domain name target LDAP server
 auth_ldap.ssl_options.sni = ldap.identity.eng.megacorp.local
 ```
