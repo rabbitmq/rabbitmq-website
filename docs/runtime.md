@@ -44,6 +44,7 @@ Topics covered include:
  * How to [reduce CPU utilisation](#cpu-reduce-idle-usage) on moderately or lightly loaded nodes
  * [Memory allocator](#allocators) settings
  * [Open file handle limit](#open-file-handle-limit)
+ * [Atom Usage](#atom-usage)
  * [Inter-node communication buffer](#distribution-buffer) size
  * [Erlang process limit](#erlang-process-limit)
  * [Erlang crash dumps](#crash-dumps)
@@ -339,6 +340,23 @@ variable:
 ```bash
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+P 2000000"
 ```
+
+## Atom Usage {#atom-usage}
+
+Similar to the [Erlang Process Limit](#erlang-process-limit) the runtime has a limit to the number of atoms 
+that can exist on a node. By default this is set to 5 million. This limit should suffice for the majority of 
+use cases, howver, if needed (and at the cost of potentially increased memory usage) the Atom Table size can be customized. 
+It is not recomended to reduce this below the default as there are no performace benifits in doing so and could [cause
+instability](./quorum_queues/index.md#atom-use).  
+  
+To customize, add `+t` to the additioanl args shell variable:  
+```bash
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+t <size>"
+```
+or directly set the max atoms shell variable:  
+```bash
+RABBITMQ_MAX_NUMBER_OF_ATOMS=<size>
+``` 
 
 ## Erlang Crash Dumps {#crash-dumps}
 
