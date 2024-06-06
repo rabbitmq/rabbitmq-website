@@ -346,7 +346,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+P 2000000"
 Similar to the [Erlang Process Limit](#erlang-process-limit) the runtime has a limit to the number of atoms
 that can exist on a node. RabbitMQ nodes use the default of 5 million. This limit should suffice for the majority of
 use cases. However, in environments with very large numbers of quorum queues, the limit
-may need a bump. Such workloads [are recommended against](./quorum_queues#atom-use).
+may need a bump. Such workloads [are recommended against](./quorum-queues#atom-use).
 
 In order to increase the limit, use the `+t` runtime argument:
 
