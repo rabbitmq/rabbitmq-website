@@ -93,8 +93,7 @@ This is covered in more detail in the [Windows Configuration](./windows-configur
 
 RabbitMQ requires a 64-bit [supported version of Erlang](./which-erlang) for Windows to be installed.
 
-[Erlang 25.3](https://www.erlang.org/patches/otp-25.3.2) is the latest supported version.
-Binary builds of other (for example, earlier) versions of Erlang for Windows can be obtained from the [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree.html) page.
+Binary builds of recent versions of Erlang for Windows can be obtained from the [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree.html) page.
 
 Erlang **must be installed using an administrative account** or it won't be discoverable to the RabbitMQ Windows service.
 Once a supported version of Erlang is installed, download the RabbitMQ installer, `rabbitmq-server-{version}.exe`
