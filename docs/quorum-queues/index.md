@@ -778,13 +778,10 @@ of returning the message near the head of the queue.
 The internal implementation of quorum queues converts the queue name
 into an Erlang atom. If queues with arbitrary names are continuously
 created and deleted it _may_ threaten the long term stability of the
-RabbitMQ system if the size of the atom table reaches the maximum limit, 
-5 million by RabbitMQ default (about 1 million by erlang default). 
+RabbitMQ system if the size of the atom table reaches the default limit of 
+5 million.  
 It is not recommended to use quorum queues in this manner at this point.  
-
-Howver, if needed, and at the cost of potentially increased memory usage, 
-the Atom Table size can be increased by passing `+t <size>` with the [erlang start up options](https://www.erlang.org/doc/apps/erts/erl_cmd.html) 
-or setting the `RABBITMQ_MAX_NUMBER_OF_ATOMS` shell setting. 
+See [Atom Usage](./runtime.md#atom-usage) for runtime configuration.  
 
 ## Quorum Queue Performance Tuning {#performance-tuning}
 
