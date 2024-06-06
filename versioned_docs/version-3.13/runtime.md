@@ -358,7 +358,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+t 9000000"
 Or the `RABBITMQ_MAX_NUMBER_OF_ATOMS` environment variable:
 
 ```bash
-# # sets the limit to 9M
+# sets the limit to 9M
 RABBITMQ_MAX_NUMBER_OF_ATOMS=9000000
 ```
 
