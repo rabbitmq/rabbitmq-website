@@ -50,7 +50,7 @@ the exception of [at-least-once dead-lettering](./quorum-queues#dead-lettering).
 
 Classic queues do not support [poison message handling](https://en.wikipedia.org/wiki/Poison_message),
 unlike [quorum queues](./quorum-queues). Classic queues also do not
-support at-least-once dead-lettering, suported by quorum queues.
+support at-least-once dead-lettering, supported by quorum queues.
 
 [Per-consumer QoS prefetch](./consumer-prefetch) should be
 preferred over global QoS prefetch, even though classic queues support
