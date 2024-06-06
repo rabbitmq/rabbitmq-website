@@ -796,9 +796,14 @@ of returning the message near the head of the queue.
 The internal implementation of quorum queues converts the queue name
 into an Erlang atom. If queues with arbitrary names are continuously
 created and deleted it _may_ threaten the long term stability of the
-RabbitMQ system (if the size of the atom table reaches the maximum limit,
-about 1M by default). It is not recommended to use quorum queues in this manner
-at this point.
+RabbitMQ system if the size of the atom table reaches the default limit of
+5 million.
+
+While quorum queues were not designed to be used in high churn environments
+(non-mirrored classic queues are the optimal choice for those), the limit
+can be increased if really necessary.
+
+See [the Runtime guide](./runtime#atom-usage) to learn more.
 
 
 ## Quorum Queue Performance Tuning {#performance-tuning}

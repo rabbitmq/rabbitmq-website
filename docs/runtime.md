@@ -47,6 +47,7 @@ Topics covered include:
  * [Inter-node communication buffer](#distribution-buffer) size
  * [Erlang process limit](#erlang-process-limit)
  * [Erlang crash dumps](#crash-dumps)
+ * [Atom usage](#atom-usage)
 
 ## VM Settings {#vm-settings}
 
@@ -339,6 +340,29 @@ variable:
 ```bash
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+P 2000000"
 ```
+
+## Atom Usage {#atom-usage}
+
+Similar to the [Erlang Process Limit](#erlang-process-limit) the runtime has a limit to the number of atoms
+that can exist on a node. RabbitMQ nodes use the default of 5 million. This limit should suffice for the majority of
+use cases. However, in environments with very large numbers of quorum queues, the limit
+may need a bump. Such workloads [are recommended against](./quorum_queues#atom-use).
+
+In order to increase the limit, use the `+t` runtime argument:
+
+```bash
+# sets the limit to 9M
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+t 9000000"
+```
+
+Or the `RABBITMQ_MAX_NUMBER_OF_ATOMS` environment variable:
+
+```bash
+# # sets the limit to 9M
+RABBITMQ_MAX_NUMBER_OF_ATOMS=9000000
+```
+
+The value must be a power of 10.
 
 ## Erlang Crash Dumps {#crash-dumps}
 
