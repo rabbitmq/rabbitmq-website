@@ -784,7 +784,7 @@ It is not recommended to use quorum queues in this manner at this point.
 
 Howver, if needed, and at the cost of potentially increased memory usage, 
 the Atom Table size can be increased by passing the `+t` flag as an [erlang start up option](https://www.erlang.org/doc/apps/erts/erl_cmd.html) 
-or setting the RABBITMQ_MAX_NUMBER_OF_ATOMS shell setting. 
+or setting the `RABBITMQ_MAX_NUMBER_OF_ATOMS` shell setting. 
 
 ## Quorum Queue Performance Tuning {#performance-tuning}
 
