@@ -54,7 +54,7 @@ accompanied by [a public GitHub repository](https://github.com/rabbitmq/rabbitmq
     - [Preferred username claims](#preferred-username-claims)
 	- [Use Rich Authorization Requests tokens](#use-rar-tokens)
 * Use different OAuth 2.0 servers
-	- [KeyCloak](./oauth2-examples-keycloak)
+	- [Keycloak](./oauth2-examples-keycloak)
 	- [Auth0](./oauth2-examples-auth0)
 	- [Azure Active Directory](./oauth2-examples-azure)
   - [OAuth2 Proxy](./oauth2-examples-proxy)
@@ -75,7 +75,7 @@ accompanied by [a public GitHub repository](https://github.com/rabbitmq/rabbitmq
 
 To demonstrate OAuth 2.0 you need, at least, an OAuth 2.0 authorization server and RabbitMQ appropriately configured for the chosen authorization server. This guide uses [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html) as authorization server to demonstrate basic and advanced configuration to access to the Management UI and various messaging protocols.
 
-This guide also demonstrates how to configure RabbitMQ to use other authorization servers besides [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html) such as [KeyCloak](./oauth2-examples-keycloak). The table of content of this guide has the full list of authorization servers.
+This guide also demonstrates how to configure RabbitMQ to use other authorization servers besides [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html) such as [Keycloak](./oauth2-examples-keycloak). The table of content of this guide has the full list of authorization servers.
 
 Run the following two commands to start UAA and RabbitMQ configured for UAA:
 
