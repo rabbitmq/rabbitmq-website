@@ -1,5 +1,5 @@
 ---
-title: Use KeyCloak as OAuth 2.0 server
+title: Use Keycloak as OAuth 2.0 server
 displayed_sidebar: docsSidebar
 ---
 <!--
@@ -19,7 +19,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Use KeyCloak as OAuth 2.0 server
+# Use Keycloak as OAuth 2.0 server
 
 Demonstrate how to authenticate using the OAuth 2.0 protocol
 and Keycloak as Authorization Server using the following flows:
@@ -33,21 +33,21 @@ and Keycloak as Authorization Server using the following flows:
 * Docker
 * make
 
-## Deploy Key Cloak
+## Deploy Keycloak
 
-1. First, deploy **Key Cloak**. It comes preconfigured with all the required scopes, users and clients.
+1. First, deploy **Keycloak**. It comes preconfigured with all the required scopes, users and clients.
 
-2. Run the following command to start **Key Cloak** server:
+2. Run the following command to start **Keycloak** server:
 
     ```bash
     make start-keycloak
     ```
 
-    **Key Cloak** comes configured with its own signing key. And the [rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/keycloak/rabbitmq.config) used by `make start-keycloak` is also configured with the same signing key.
+    **Keycloak** comes configured with its own signing key. And the [rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/keycloak/rabbitmq.config) used by `make start-keycloak` is also configured with the same signing key.
 
-3. Access KeyCloak management interface go to http://0.0.0.0:8080/ and enter `admin` as username and password.
+3. Access Keycloak management interface go to http://0.0.0.0:8080/ and enter `admin` as username and password.
 
-There is a dedicated **KeyCloak realm** called `Test` configured as follows:
+There is a dedicated **Keycloak realm** called `Test` configured as follows:
 
 * You configured an [rsa](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys) signing key
 * And a [rsa provider](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys/providers)
@@ -57,7 +57,7 @@ management api and `producer` to access via AMQP protocol.
 
 ## Start RabbitMQ
 
-Run the command below to start RabbitMQ configured with the **KeyCloak** server we started in the previous section:
+Run the command below to start RabbitMQ configured with the **Keycloak** server we started in the previous section:
 ```bash
 export MODE=keycloak
 make start-rabbitmq
@@ -102,7 +102,7 @@ Note: Ensure you install pika 1.3
 ## Access Management UI
 
 1. Go to http://localhost:15672.
-2. Click on the single button on the page which redirects to **Key Cloak** to authenticate.
+2. Click on the single button on the page which redirects to **Keycloak** to authenticate.
 3. Enter `rabbit_admin` and `rabbit_admin` and you should be redirected back to RabbitMQ Management fully logged in.
 
 
@@ -112,7 +112,7 @@ Note: Ensure you install pika 1.3
 make stop-keycloak
 ```
 
-## Notes about setting up KeyCloak
+## Notes about setting up Keycloak
 
 ### Configure JWT signing Keys
 

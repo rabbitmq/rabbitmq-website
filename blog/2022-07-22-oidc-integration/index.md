@@ -66,6 +66,6 @@ However, it is highly recommended that existing clusters configured to use UAA f
 In theory, any OAuth 2.0 server which is OpenID Connect compliant should be supported. RabbitMQ has been tested
 against the following OAuth 2.0 servers:
 
-* KeyCloak
+* Keycloak
 * Auth0
 * Azure Active Directory
