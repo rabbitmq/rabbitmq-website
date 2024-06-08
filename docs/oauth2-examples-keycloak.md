@@ -33,17 +33,17 @@ and Keycloak as Authorization Server using the following flows:
 * Docker
 * make
 
-## Deploy Key Cloak
+## Deploy Keycloak
 
-1. First, deploy **Key Cloak**. It comes preconfigured with all the required scopes, users and clients.
+1. First, deploy **Keycloak**. It comes preconfigured with all the required scopes, users and clients.
 
-2. Run the following command to start **Key Cloak** server:
+2. Run the following command to start **Keycloak** server:
 
     ```bash
     make start-keycloak
     ```
 
-    **Key Cloak** comes configured with its own signing key. And the [rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/keycloak/rabbitmq.config) used by `make start-keycloak` is also configured with the same signing key.
+    **Keycloak** comes configured with its own signing key. And the [rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/keycloak/rabbitmq.config) used by `make start-keycloak` is also configured with the same signing key.
 
 3. Access Keycloak management interface go to http://0.0.0.0:8080/ and enter `admin` as username and password.
 
@@ -102,7 +102,7 @@ Note: Ensure you install pika 1.3
 ## Access Management UI
 
 1. Go to http://localhost:15672.
-2. Click on the single button on the page which redirects to **Key Cloak** to authenticate.
+2. Click on the single button on the page which redirects to **Keycloak** to authenticate.
 3. Enter `rabbit_admin` and `rabbit_admin` and you should be redirected back to RabbitMQ Management fully logged in.
 
 
