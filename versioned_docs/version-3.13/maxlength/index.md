@@ -84,7 +84,7 @@ rabbitmqctl set_policy my-pol "^one-meg$" \
   <tr>
     <th>rabbitmqctl on Windows</th>
     <td>
-```powershell
+```PowerShell
 rabbitmqctl.bat set_policy my-pol "^one-meg$" ^
   "{""max-length-bytes"":1048576}" ^
   --apply-to queues
@@ -116,7 +116,7 @@ rabbitmqctl set_policy my-pol "^two-messages$" \
   <tr>
     <th>rabbitmqctl on Windows</th>
     <td>
-```powershell
+```PowerShell
 rabbitmqctl.bat set_policy my-pol "^two-messages$" ^
   "{""max-length"":2,""overflow"":""reject-publish""}" ^
   --apply-to queues

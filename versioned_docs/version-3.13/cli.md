@@ -558,11 +558,11 @@ rabbitmq-diagnostics  status
 rabbitmq-diagnostics  status --node rabbit@target-hostname.local
 ```
 
-```powershell
+```PowerShell
 rabbitmq-diagnostics .bat status
 ```
 
-```powershell
+```PowerShell
 rabbitmq-diagnostics .bat status --node rabbit@target-hostname.local
 ```
 
@@ -591,11 +591,11 @@ rabbitmqctl shutdown
 rabbitmqctl shutdown --node rabbit@target-hostname.local
 ```
 
-```powershell
+```PowerShell
 rabbitmqctl.bat shutdown
 ```
 
-```powershell
+```PowerShell
 rabbitmqctl.bat shutdown --node rabbit@target-hostname.local
 ```
 

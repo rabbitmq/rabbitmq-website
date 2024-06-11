@@ -45,7 +45,7 @@ To build the .NET/C# client libraries on Windows, you will need
 
 To build the client with Visual Studio, first run
 
-```powershell
+```PowerShell
 build.bat
 ```
 
@@ -61,7 +61,7 @@ Then
 
 To build the client without Visual Studio, run
 
-```powershell
+```PowerShell
 build.bat
 ```
 

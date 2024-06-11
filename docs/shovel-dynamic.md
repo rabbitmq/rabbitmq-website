@@ -72,7 +72,7 @@ rabbitmqctl set_parameter shovel my-shovel \
 On Windows `rabbitmqctl` is named `rabbitmqctl.bat` and command line value escaping will be
 different:
 
-```powershell
+```PowerShell
 rabbitmqctl.bat set_parameter shovel my-shovel ^
   "{""src-protocol"": ""amqp091"", ""src-uri"":""amqp://localhost"", ""src-queue"": ""source-queue"", ^
    ""dest-protocol"": ""amqp091"", ""dest-uri"": ""amqp://remote.rabbitmq.local"", ^

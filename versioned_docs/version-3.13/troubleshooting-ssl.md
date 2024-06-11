@@ -155,7 +155,7 @@ rabbitmqctl eval 'ssl:versions().'
 
 Or, on Windows
 
-```powershell
+```PowerShell
 rabbitmqctl.bat eval 'ssl:versions().'
 ```
 
@@ -179,7 +179,7 @@ rabbitmq-diagnostics cipher_suites --format openssl --silent
 
 Or, on Windows:
 
-```powershell
+```PowerShell
 rabbitmq-diagnostics.bat cipher_suites --format openssl --silent
 ```
 

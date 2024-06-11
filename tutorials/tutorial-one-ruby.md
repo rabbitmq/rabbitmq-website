@@ -223,7 +223,7 @@ the producer from another terminal.
 > ```
 >
 > On Windows, omit the sudo:
-> ```powershell
+> ```PowerShell
 > rabbitmqctl.bat list_queues
 > ```
 

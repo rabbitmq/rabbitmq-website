@@ -1,6 +1,7 @@
 ---
 title: Command Line Tools
 ---
+
 <!--
 Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
@@ -17,6 +18,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Command Line Tools
 
@@ -89,13 +93,22 @@ any missing arguments when executed.
 
 To find out what commands are available, use the `help` command:
 
+<Tabs>
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl help
-```
 
-```bash
 rabbitmq-diagnostics help
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat help
+
+rabbitmq-diagnostics.bat help
+```
+</TabItem>
+</Tabs>
 
 The command can display usage information for a particular command:
 
@@ -550,21 +563,22 @@ and so on.
 To retrieve node status, use `rabbitmq-diagnostics status` or `rabbitmq-diagnostics.bat status`
 with an optional `--node` target:
 
+<Tabs>
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-diagnostics  status
-```
 
-```bash
 rabbitmq-diagnostics  status --node rabbit@target-hostname.local
 ```
-
-```powershell
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
 rabbitmq-diagnostics .bat status
-```
 
-```powershell
 rabbitmq-diagnostics .bat status --node rabbit@target-hostname.local
 ```
+</TabItem>
+</Tabs>
 
 ### Starting a node
 
@@ -583,21 +597,20 @@ the node, which depends on the package typed used when RabbitMQ was installed.
 To stop a node using RabbitMQ CLI tools, use
 `rabbitmqctl shutdown` or `rabbitmqctl.bat shutdown` with an optional `--node` target:
 
+<Tabs>
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl shutdown
-```
-
-```bash
 rabbitmqctl shutdown --node rabbit@target-hostname.local
 ```
-
-```powershell
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
 rabbitmqctl.bat shutdown
-```
-
-```powershell
 rabbitmqctl.bat shutdown --node rabbit@target-hostname.local
 ```
+</TabItem>
+</Tabs>
 
 ## rabbitmqadmin {#http-api-cli}
 

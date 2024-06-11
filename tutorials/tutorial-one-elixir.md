@@ -208,7 +208,7 @@ created a queue above &#8210; using `AMQP.Queue.declare`.
 > ```
 >
 > On Windows, omit the sudo:
-> ```powershell
+> ```PowerShell
 > rabbitmqctl.bat list_queues
 > ```
 

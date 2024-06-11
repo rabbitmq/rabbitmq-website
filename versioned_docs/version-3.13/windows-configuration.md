@@ -47,7 +47,7 @@ To specify a non-standard port to be used for Erlang distribution, do the follow
  * Remove the RabbitMQ Windows service using `.\rabbitmq-service.bat remove`
  * Create the `%AppData%\RabbitMQ\rabbitmq-env-conf.bat` file with the following contents (use your own port number):
 
-```powershell
+```PowerShell
 set DIST_PORT=44556
 ```
 
@@ -70,7 +70,7 @@ the version you wish RabbitMQ to use. If you must upgrade Erlang, use this proce
  * Install the new version of Erlang
  * Open the "RabbitMQ Command Prompt (sbin dir)" start menu item and run the commands below to reinstall the Windows service
 
-```powershell
+```PowerShell
 .\rabbitmq-service.bat remove
 .\rabbitmq-service.bat install
 .\rabbitmq-service.bat start
@@ -115,7 +115,7 @@ One of these options can be used to mitigate:
 
  * Avoid using non-ASCII characters in RabbitMQ installation and [node directory](./relocate) paths
  * On recent versions of Windows, issue the command
-   ```powershell
+   ```PowerShell
    chcp 65001
    ```
    before using CLI tools to force
@@ -149,7 +149,7 @@ Two possible mitigations are:
 	a.  in PowerShell: `Set-ItemProperty HKCU:\Console VirtualTerminalLevel -Type DWORD 1`
 	b. open a new console window for changes to take effect
 
-For further information, including caveats, see [Colored text output in PowerShell console using ANSI / VT100 codes](https://stackoverflow.com/questions/51680709/colored-text-output-in-powershell-console-using-ansi-vt100-codes)
+For further information, including caveats, see [Colored text output in PowerShell console using ANSI / VT100 codes](https://stackoverflow.com/questions/51680709/colored-text-output-in-PowerShell-console-using-ansi-vt100-codes)
 
 
 ## Installing as a non-administrator User Leaves `.erlang.cookie` in the Wrong Place {#cookie-location}
@@ -196,7 +196,7 @@ First, log in using the administrative account you used, or will use, to
 install RabbitMQ and create the `%AppData%\RabbitMQ\rabbitmq-env-conf.bat` file
 with the following contents:
 
-```powershell
+```PowerShell
 @echo off
 set SERVER_ADDITIONAL_ERL_ARGS=-kernel net_ticktime 120
 ```
@@ -208,7 +208,7 @@ If you have not yet installed RabbitMQ, the setting will be picked up during ins
 If you have already installed RabbitMQ, open the "RabbitMQ Command Prompt (sbin dir)"
 start menu item and run these commands:
 
-```powershell
+```PowerShell
 .\rabbitmq-service.bat stop
 .\rabbitmq-service.bat remove
 .\rabbitmq-service.bat install

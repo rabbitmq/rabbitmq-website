@@ -469,7 +469,7 @@ rabbitmqctl set_global_parameter mqtt_port_to_vhost_mapping \
 
 with `rabbitmqctl.bat` on Windows:
 
-```powershell
+```PowerShell
 rabbitmqctl.bat set_global_parameter mqtt_port_to_vhost_mapping ^
     "{""1883"":""vhost1"", ""8883"":""vhost1"", ""1884"":""vhost2"", ""8884"":""vhost2""}"
 ```
@@ -557,7 +557,7 @@ rabbitmqctl set_global_parameter mqtt_default_vhosts \
 
 With `rabbitmqctl`, on Windows:
 
-```powershell
+```PowerShell
 rabbitmqctl set_global_parameter mqtt_default_vhosts ^
     "{""O=client,CN=guest"": ""vhost1"", ""O=client,CN=rabbit"": ""vhost2""}'
 ```

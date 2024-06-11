@@ -1552,7 +1552,7 @@ rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
 
 Or, on Windows:
 
-```powershell
+```PowerShell
 # <<"guest">> here is a value to encode, as an Erlang binary,
 # as it would have appeared in advanced.config
 rabbitmqctl encode "<<""guest"">>" mypassphrase
@@ -1576,7 +1576,7 @@ rabbitmqctl decode '{encrypted, <<"...">>}' mypassphrase
 
 Or, on Windows:
 
-```powershell
+```PowerShell
 rabbitmqctl decode "{encrypted, <<""..."">>}" mypassphrase
 # => <<"guest">>
 rabbitmqctl decode "{encrypted, <<""..."">>}" mypassphrase
@@ -1619,7 +1619,7 @@ rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
 
 Or, on Windows:
 
-```powershell
+```PowerShell
 rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
                      "<<""guest"">>" mypassphrase
 ```
@@ -1696,7 +1696,7 @@ with administrator permissions:
  * Run `rabbitmq-service.bat stop` to stop the service
  * Run `rabbitmq-service.bat remove` to remove the Windows service (this will *not* remove RabbitMQ or its data directory)
  * Set environment variables via command line, i.e. run commands like the following:
-   ```powershell
+   ```PowerShell
    set RABBITMQ_BASE=C:\Data\RabbitMQ
    ```
  * Run `rabbitmq-service.bat install`

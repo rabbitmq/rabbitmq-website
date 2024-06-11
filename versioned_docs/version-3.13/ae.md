@@ -61,7 +61,7 @@ rabbitmqctl set_policy AE "^my-direct$" '{"alternate-exchange":"my-ae"}' --apply
 
 Or, on Windows:
 
-```powershell
+```PowerShell
 rabbitmqctl.bat set_policy AE "^my-direct$" "{""alternate-exchange"":""my-ae""}" --apply-to exchanges
 ```
 

@@ -93,7 +93,7 @@ policy definition:
     <tr>
         <th>rabbitmqctl (Windows)</th>
         <td>
-            ```powershell
+            ```PowerShell
             rabbitmqctl set_policy TTL ".*" "{""message-ttl"":60000}" --apply-to queues
             ```
         </td>
@@ -275,7 +275,7 @@ The following policy makes all queues expire after 30 minutes since last use:
     <tr>
         <th>rabbitmqctl (Windows)</th>
         <td>
-            ```powershell
+            ```PowerShell
             rabbitmqctl.bat set_policy expiry ".*" "{""expires"":1800000}" --apply-to queues
             ```
         </td>

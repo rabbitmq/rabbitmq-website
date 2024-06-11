@@ -254,7 +254,7 @@ the publisher from another terminal.
 > ```
 >
 > On Windows, omit the sudo:
-> ```powershell
+> ```PowerShell
 > rabbitmqctl.bat list_queues
 > ```
 
@@ -270,7 +270,7 @@ Time to move on to [part 2](./tutorial-two-java) and build a simple _work queue_
 > ```
 >
 > or on Windows:
-> ```powershell
+> ```PowerShell
 > set CP=.;amqp-client-5.16.0.jar;slf4j-api-1.7.36.jar;slf4j-simple-1.7.36.jar
 > java -cp %CP% Send
 > ```

@@ -228,7 +228,7 @@ rabbitmqctl set_policy federate-me \
   <tr>
     <th>rabbitmqctl (Windows)</th>
     <td>
-```powershell
+```PowerShell
 rabbitmqctl.bat set_policy federate-me ^
     "^federated\." "{""federation-upstream-set"":""all""}" ^
     --priority 1 ^
@@ -345,7 +345,7 @@ rabbitmqctl set_policy ttl-fed \
   <tr>
     <th>rabbitmqctl (Windows)</th>
     <td>
-```powershell
+```PowerShell
 rabbitmqctl set_policy ttl-fed ^
     "^tf\." "{""federation-upstream-set"":""all"", ""message-ttl"":60000}" ^
     --priority 1 ^
@@ -356,7 +356,7 @@ rabbitmqctl set_policy ttl-fed ^
   <tr>
     <th>HTTP API</th>
     <td>
-```powershell
+```PowerShell
 PUT /api/policies/%2f/ttl-fed
     {"pattern": "^tf\.",
     "definition": {"federation-upstream-set":"all", "message-ttl":60000},
@@ -679,7 +679,7 @@ rabbitmqctl set_operator_policy transient-queue-ttl \
     <tr>
         <th>rabbitmqctl (Windows)</th>
         <td>
-```powershell
+```PowerShell
 rabbitmqctl.bat set_operator_policy transient-queue-ttl ^
     "^amq\." "{""expires"": 1800000}" ^
     --priority 1 ^

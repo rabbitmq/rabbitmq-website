@@ -137,15 +137,17 @@ First let's define an upstream:
     <th>rabbitmqctl</th>
     <td>
 ```bash
-rabbitmqctl set_parameter federation-upstream my-upstream \<br/>'{"uri":"amqp://target.hostname","expires":3600000}'
+rabbitmqctl set_parameter federation-upstream my-upstream \
+    '{"uri":"amqp://target.hostname","expires":3600000}'
 ```
     </td>
   </tr>
   <tr>
     <th>rabbitmqctl.bat (Windows)</th>
     <td>
-```powershell
-rabbitmqctl.bat set_parameter federation-upstream my-upstream ^<br/>"{""uri"":""amqp://target.hostname"",""expires"":3600000}"
+```PowerShell
+rabbitmqctl.bat set_parameter federation-upstream my-upstream `
+    '"{""uri"":""amqp://target.hostname"",""expires"":3600000}"'
 ```
     </td>
   </tr>
@@ -176,15 +178,17 @@ Then define a policy that will match built-in exchanges and use this upstream:
     <th>rabbitmqctl</th>
     <td>
 ```bash
-rabbitmqctl set_policy --apply-to exchanges federate-me "^amq\." '{"federation-upstream-set":"all"}'
+rabbitmqctl set_policy --apply-to exchanges federate-me "^amq\." \
+    '{"federation-upstream-set":"all"}'
 ```
     </td>
   </tr>
   <tr>
     <th>rabbitmqctl (Windows)</th>
     <td>
-```powershell
-rabbitmqctl.bat set_policy --apply-to exchanges federate-me "^amq\." ^<br/>"{""federation-upstream-set"":""all""}"
+```PowerShell
+rabbitmqctl.bat set_policy --apply-to exchanges federate-me "^amq\." `
+    '"{""federation-upstream-set"":""all""}"'
 ```
     </td>
   </tr>
@@ -193,7 +197,7 @@ rabbitmqctl.bat set_policy --apply-to exchanges federate-me "^amq\." ^<br/>"{""f
     <td>
 ```ini
 PUT /api/policies/%2f/federate-me
-{"pattern":"^amq\.", "definition":{"federation-upstream-set":"all"}, \<br/> "apply-to":"exchanges"}
+{"pattern":"^amq\.", "definition":{"federation-upstream-set":"all"}, "apply-to":"exchanges"}
 ```
     </td>
   </tr>
