@@ -58,13 +58,13 @@ started.  It's the "Hello World" of RabbitMQ Streams.
 
 ### Setup
 
-First let's verify that you have node toolchain in `PATH`:
+First let's verify that you have the Node.js toolchain in `PATH`:
 
 ```powershell
 npm --help
 ```
 
-should produce a help message.
+Running that command should produce a help message.
 
 Now let's create a project:
 

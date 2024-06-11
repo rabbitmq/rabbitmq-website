@@ -49,10 +49,9 @@ started.  It's the "Hello World" of RabbitMQ Streams.
 > languages](/client-libraries/devtools), see the stream client libraries for each language.
 > We'll use the [.NET stream client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client) provided by RabbitMQ.
 >
-> The client supports [.NET Core](https://www.microsoft.com/net/core).
-> This tutorial will use RabbitMQ .NET stream client 1.8.0 and
-> .NET Core, so you make sure
-> you have it [installed](https://www.microsoft.com/net/core) and in your PATH.
+> The client supports [.NET](https://dotnet.microsoft.com).
+> This tutorial will use RabbitMQ .NET stream client 1.8.0 and .NET, so you make sure
+> you have it [installed](https://dotnet.microsoft.com) and in your PATH.
 >
 > RabbitMQ .NET stream client 1.8 and later versions are distributed via [nuget](https://www.nuget.org/packages/RabbitMQ.Stream.Client/).
 >
@@ -61,7 +60,7 @@ started.  It's the "Hello World" of RabbitMQ Streams.
 
 ### Setup
 
-First let's verify that you have .NET Core toolchain in `PATH`:
+First let's verify that you have the .NET toolchain in `PATH`:
 
 ```PowerShell
 dotnet --help
