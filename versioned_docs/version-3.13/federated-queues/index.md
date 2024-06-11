@@ -130,7 +130,7 @@ rabbitmqctl set_parameter federation-upstream origin '{"uri":"amqp://remote-host
 
 On Windows, use <code>rabbitmqctl.bat</code> and suitable PowerShell quoting:
 
-```powershell
+```PowerShell
 # Adds a federation upstream named "origin"
 rabbitmqctl.bat set_parameter federation-upstream origin "{""uri"":""amqp://remote-host.local:5672""}"
 ```
@@ -147,7 +147,7 @@ rabbitmqctl set_policy queue-federation "^federated\." '{"federation-upstream-se
 
 Here's a Windows version of the above example:
 
-```powershell
+```PowerShell
 # Adds a policy named "queue-federation"
 rabbitmqctl.bat set_policy queue-federation "^federated\." "{""federation-upstream-set"":""all""}" ^
     --priority 10 ^

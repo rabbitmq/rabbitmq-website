@@ -104,7 +104,7 @@ To specify a queue mode using a policy, add the key `queue-mode` to a policy def
   <tr>
     <th>rabbitmqctl (Windows)</th>
     <td>
-      ```powershell
+      ```PowerShell
       rabbitmqctl set_policy Lazy "^lazy-queue$" "{""queue-mode"":""lazy""}" --apply-to queues
       ```
     </td>
@@ -134,7 +134,7 @@ to specify a different `queue-mode`:
   <tr>
     <th>rabbitmqctl (Windows)</th>
     <td>
-      ```powershell
+      ```PowerShell
       rabbitmqctl set_policy Lazy "^lazy-queue$" "{""queue-mode"":""default""}" --apply-to queues
       ```
     </td>

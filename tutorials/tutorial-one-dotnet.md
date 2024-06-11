@@ -64,14 +64,14 @@ on behalf of the consumer.
 >
 > RabbitMQ .NET client 5.0 and later versions are distributed via [nuget](https://www.nuget.org/packages/RabbitMQ.Client).
 >
-> This tutorial assumes you are using powershell on Windows. On MacOS and Linux nearly
+> This tutorial assumes you are using PowerShell on Windows. On MacOS and Linux nearly
 > any shell will work.
 
 ### Setup
 
 First let's verify that you have .NET Core toolchain in `PATH`:
 
-```powershell
+```PowerShell
 dotnet --help
 ```
 
@@ -79,7 +79,7 @@ should produce a help message.
 
 Now let's generate two projects, one for the publisher and one for the consumer:
 
-```powershell
+```PowerShell
 dotnet new console --name Send
 mv Send/Program.cs Send/Send.cs
 dotnet new console --name Receive
@@ -90,7 +90,7 @@ This will create two new directories named `Send` and `Receive`.
 
 Then we add the client dependency.
 
-```powershell
+```PowerShell
 cd Send
 dotnet add package RabbitMQ.Client
 cd ../Receive
@@ -269,14 +269,14 @@ Open two terminals.
 
 You can run the clients in any order, as both declares the queue. We will run the consumer first so you can see it waiting for and then receiving the message:
 
-```powershell
+```PowerShell
 cd Receive
 dotnet run
 ```
 
 Then run the producer:
 
-```powershell
+```PowerShell
 cd Send
 dotnet run
 ```

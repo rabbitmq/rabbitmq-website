@@ -172,7 +172,7 @@ declaring the queue in both programs.
 > ```
 >
 > On Windows, omit the sudo:
-> ```powershell
+> ```PowerShell
 > rabbitmqctl.bat list_queues
 > ```
 

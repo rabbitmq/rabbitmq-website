@@ -290,7 +290,7 @@ user that installed RabbitMQ.
 Here is a complete `rabbitmq-env-conf.bat` file using the `-ssl_dist_opfile` setting ([strategy two](#linux-strategy-two) covered above).
 Note the use of forward-slash directory delimiters.
 
-```powershell
+```PowerShell
 @echo off
 rem NOTE: If spaces are present in any of these paths,
 rem double quotes must be used.

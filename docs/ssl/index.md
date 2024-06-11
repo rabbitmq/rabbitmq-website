@@ -926,7 +926,7 @@ system-wide. Only administrative users can have write access to the system-wide 
 
 The following example adds a certificate to the store of user `Root` (also known as `Trust` in some .NET implementation)
 
-```powershell
+```PowerShell
 # Windows
 certmgr -add -all \path\to\cacert.cer -s Root
 ```
@@ -938,7 +938,7 @@ certmgr -add -c Trust /path/to/cacert.cer
 
 To add a certificate to the system-wide (machine) certificate store instead, run
 
-```powershell
+```PowerShell
 # Windows
 certmgr -add -all \path\to\cacert.cer -s -r localMachine Root
 ```

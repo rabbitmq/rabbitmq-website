@@ -144,7 +144,7 @@ rabbitmqctl set_parameter federation-upstream my-upstream \<br/>'{"uri":"amqp://
   <tr>
     <th>rabbitmqctl.bat (Windows)</th>
     <td>
-```powershell
+```PowerShell
 rabbitmqctl.bat set_parameter federation-upstream my-upstream ^<br/>"{""uri"":""amqp://target.hostname"",""expires"":3600000}"
 ```
     </td>
@@ -183,7 +183,7 @@ rabbitmqctl set_policy --apply-to exchanges federate-me "^amq\." '{"federation-u
   <tr>
     <th>rabbitmqctl (Windows)</th>
     <td>
-```powershell
+```PowerShell
 rabbitmqctl.bat set_policy --apply-to exchanges federate-me "^amq\." ^<br/>"{""federation-upstream-set"":""all""}"
 ```
     </td>

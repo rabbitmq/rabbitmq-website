@@ -60,7 +60,7 @@ It does, however, manage the required dependencies.
 
 To install RabbitMQ using Chocolatey, run the following command from the command line or from PowerShell:
 
-```powershell
+```PowerShell
 choco install rabbitmq
 ```
 
@@ -115,7 +115,7 @@ can be managed from the Start menu.
 ## CLI Tools {#cli}
 
 RabbitMQ nodes are often managed, inspected and operated using [CLI Tools](./cli)
-in [PowerShell](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/powershell).
+in [PowerShell](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/PowerShell).
 
 On Windows, CLI tools have a `.bat` suffix compared to other platforms. For example,
 `rabbitmqctl` on Windows is invoked as `rabbitmqctl.bat`.
@@ -127,7 +127,7 @@ The main [CLI tools guide](./cli) covers most topics related to command line too
 
 In order to explore what commands various RabbitMQ CLI tools provide, use the `help` command:
 
-```powershell
+```PowerShell
 # lists commands provided by rabbitmqctl.bat
 rabbitmqctl.bat help
 
@@ -140,7 +140,7 @@ rabbitmq-plugins.bat help
 
 To learn about a specific command, pass its name as an argument to `help`:
 
-```powershell
+```PowerShell
 rabbitmqctl.bat help add_user
 ```
 
@@ -195,7 +195,7 @@ Note that CLI tools will have to [authenticate to the target RabbitMQ node](#cli
 To stop the broker or check its status, use
 `rabbitmqctl.bat` in `sbin` (as an administrator).
 
-```powershell
+```PowerShell
 rabbitmqctl.bat stop
 ```
 
@@ -204,7 +204,7 @@ rabbitmqctl.bat stop
 The following [CLI command](#cli) runs a basic [health check](./monitoring#health-checks)
 and displays some information about the node if it is running.
 
-```powershell
+```PowerShell
 # A basic health check of both the node and CLI tool connectivity/authentication
 rabbitmqctl.bat status
 ```

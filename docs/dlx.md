@@ -61,7 +61,7 @@ rabbitmqctl set_policy DLX ".*" '{"dead-letter-exchange":"my-dlx"}' --apply-to q
   <tr>
     <th>rabbitmqctl (Windows)</th>
     <td>
-```powershell
+```PowerShell
 rabbitmqctl set_policy DLX ".*" "{""dead-letter-exchange"":""my-dlx""}" --apply-to queues
 ```
     </td>

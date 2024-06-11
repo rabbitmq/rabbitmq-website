@@ -155,7 +155,7 @@ or edit [configuration](./configure#configuration-files).
 
 Run the command
 
-```powershell
+```PowerShell
 rabbitmq-server.bat -detached
 ```
 
@@ -197,7 +197,7 @@ or edit [configuration](./configure#configuration-files).
 
 Install the service by running
 
-```powershell
+```PowerShell
 rabbitmq-service.bat install
 ```
 
@@ -218,7 +218,7 @@ same functions as the service script.
 
 To start the broker, execute
 
-```powershell
+```PowerShell
 rabbitmq-service.bat start
 ```
 
@@ -256,7 +256,7 @@ which has to be placed into the correct location for the user.
 To stop the broker or check its status, use
 `rabbitmqctl.bat` in `sbin` (as an administrator).
 
-```powershell
+```PowerShell
 rabbitmqctl.bat stop
 ```
 
@@ -266,7 +266,7 @@ rabbitmqctl.bat stop
 The following command performs the most basic node health check and displays some information about
 the node if it is running:
 
-```powershell
+```PowerShell
 rabbitmqctl.bat status
 ```
 

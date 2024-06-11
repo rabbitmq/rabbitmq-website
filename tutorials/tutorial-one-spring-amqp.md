@@ -318,7 +318,7 @@ java -jar target/rabbitmq-tutorials.jar --spring.profiles.active=hello-world,sen
 > ```
 >
 > On Windows, omit the sudo:
-> ```powershell
+> ```PowerShell
 > rabbitmqctl.bat list_queues
 > ```
 

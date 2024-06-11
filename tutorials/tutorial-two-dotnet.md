@@ -69,7 +69,7 @@ program will schedule tasks to our work queue, so let's name it
 
 Like [tutorial one](./tutorial-one-dotnet) we need to generate two projects.
 
-```powershell
+```PowerShell
 dotnet new console --name NewTask
 mv NewTask/Program.cs NewTask/NewTask.cs
 dotnet new console --name Worker

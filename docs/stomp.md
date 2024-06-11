@@ -516,7 +516,7 @@ rabbitmqctl set_policy stomp-queues "^stomp-" '{"max-length":1000}' --apply-to q
 
 with `rabbitmqctl.bat` on Windows:
 
-```powershell
+```PowerShell
 rabbitmqctl.bat set_policy stomp-queues "^stomp-" "{""max-length"":1000}" --apply-to queues
 ```
 

@@ -217,8 +217,8 @@ rabbitmqctl add_user 'username' '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b'
 On Windows, `rabbitmqctl` becomes `rabbitmqctl.bat` and shell escaping is different based on your shell:
 
 <Tabs>
-<TabItem value="powershell" label="PowerShell" default>
-```powershell
+<TabItem value="PowerShell" label="PowerShell" default>
+```PowerShell
 # password is provided as a command line argument
 rabbitmqctl.bat add_user 'username' '9a55f70a841f18b97c3a7db939b7adc9e34a0f1d'
 ```
@@ -239,7 +239,7 @@ To list users in a cluster, use `rabbitmqctl list_users`:
 rabbitmqctl list_users
 ```
 
-```powershell
+```PowerShell
 rabbitmqctl.bat list_users
 ```
 
@@ -249,7 +249,7 @@ The output can be changed to be JSON:
 rabbitmqctl list_users --formatter=json
 ```
 
-```powershell
+```PowerShell
 rabbitmqctl.bat list_users --formatter=json
 ```
 
@@ -261,7 +261,7 @@ To delete a user, use `rabbitmqctl delete_user`:
 rabbitmqctl delete_user 'username'
 ```
 
-```powershell
+```PowerShell
 rabbitmqctl.bat delete_user 'username'
 ```
 
@@ -276,7 +276,7 @@ To grant [permissions](#authorisation) to a user in a [virtual host](./vhosts), 
 rabbitmqctl set_permissions -p "custom-vhost" "username" ".*" ".*" ".*"
 ```
 
-```powershell
+```PowerShell
 # First ".*" for configure permission on every entity
 # Second ".*" for write permission on every entity
 # Third ".*" for read permission on every entity
@@ -292,7 +292,7 @@ To revoke [permissions](#authorisation) from a user in a [virtual host](./vhosts
 rabbitmqctl clear_permissions -p "custom-vhost" "username"
 ```
 
-```powershell
+```PowerShell
 # Revokes permissions in a virtual host
 rabbitmqctl.bat clear_permissions -p 'custom-vhost' 'username'
 ```

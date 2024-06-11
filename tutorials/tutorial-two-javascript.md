@@ -253,7 +253,7 @@ to learn more.
 > ```
 >
 > On Windows, drop the sudo:
-> ```powershell
+> ```PowerShell
 > rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
 > ```
 

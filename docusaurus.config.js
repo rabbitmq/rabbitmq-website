@@ -368,7 +368,7 @@ const config = {
           'java',
           'json',
           'php',
-          'powershell',
+          'PowerShell',
           'python',
           'shell-session',
           'yaml',

@@ -143,7 +143,7 @@ PLUGINS_DIR="/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.1
 
 On Windows, a semicolon is used as path separator:
 
-```powershell
+```PowerShell
 # Example rabbitmq-env-conf.bat file that features a colon-separated list of plugin directories
 PLUGINS_DIR="C:\Example\RabbitMQ\plugins;C:\Example\RabbitMQ\rabbitmq_server-3.11.6\plugins"
 ```

@@ -445,7 +445,7 @@ Consider mirroring to the majority (N/2+1) nodes with "ha-mode":"exactly" instea
 See [Replication Factor](#replication-factor) above.
 :::
 
-```powershell
+```PowerShell
 rabbitmqctl.bat set_policy ha-all "^ha\." "{""ha-mode"":""all""}"
 ```
     </td>
@@ -511,7 +511,7 @@ cluster:
   <tr>
     <th>rabbitmqctl (Windows)</th>
     <td>
-      ```powershell
+      ```PowerShell
       rabbitmqctl set_policy ha-nodes "^nodes\." ^
 "{""ha-mode"":""nodes"",""ha-params"":[""rabbit@nodeA"", ""rabbit@nodeB""]}"
       ```
