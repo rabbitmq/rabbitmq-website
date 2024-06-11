@@ -240,8 +240,6 @@ The complete [receive.rs file](https://github.com/rabbitmq/rabbitmq-tutorials/bl
 
 ### Putting It All Together
 
-Open two terminals.
-
 In order to run both examples, open two terminal (shell) tabs.
 
 Both parts of this tutorial can be run in any order, as they both declare the stream.

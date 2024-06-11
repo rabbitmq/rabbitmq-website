@@ -43,7 +43,7 @@ the Go client API, concentrating on this very simple thing just to get
 started. It's a "Hello World" of messaging.
 
 
-> #### The GO stream client library
+> #### The Go stream client library
 >
 > RabbitMQ speaks multiple protocols. This tutorial uses RabbitMQ stream protocol which is a dedicated
 > protocol for [RabbitMQ streams](/docs/streams). There are a number of clients
@@ -228,8 +228,6 @@ if err != nil {
 The complete [receive.go file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/receive.go) can be found on GitHub.
 
 ### Putting It All Together
-
-Open two terminals.
 
 In order to run both examples, open two terminal (shell) tabs.
 
