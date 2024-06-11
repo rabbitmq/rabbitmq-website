@@ -211,7 +211,7 @@ Consumer consumer = environment.consumerBuilder()
 // ...
 ```
 
-The [complete `Receive.java` file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Receive.java)
+The complete [`Receive.java` file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Receive.java)
 can be found on GitHub.
 
 ### Putting It All Together

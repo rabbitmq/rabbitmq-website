@@ -72,6 +72,8 @@ dotnet --help
 
 should produce a help message.
 
+An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/).
+
 Now let's generate two projects, one for the publisher and one for the consumer:
 
 ```powershell
@@ -95,7 +97,6 @@ dotnet add package RabbitMQ.Stream.Client
 Now we have the .NET project set up we can write some code.
 
 ### Sending
-
 
 We'll call our message producer (sender) `Send.cs` and our message consumer (receiver)
 `Receive.cs`.  The producer will connect to RabbitMQ, send a single message,
@@ -123,9 +124,9 @@ It is used for configuration of RabbitMQ stream publishers, stream consumers, an
 It abstracts the socket connection, and takes care of protocol version negotiation and authentication and so on for us.
 
 This tutorial assumes that stream publishers and consumer connect to a RabbitMQ node running locally, that is, on _localhost_.
-To connect to a node on a different machine, simply specify target hostname or IP addresson the `StreamSystemConfig`.
+To connect to a node on a different machine, simply specify target hostname or IP address on the `StreamSystemConfig`.
 
-Next let's create a Producer.
+Next let's create a producer.
 
 The producer will also declare a stream it will publish messages to and then publish a message:
 
@@ -220,15 +221,14 @@ var consumer = await Consumer.Create(new ConsumerConfig(streamSystem, "hello-str
 });
 
 ```
-The [complete `Receive.cs` file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Receive/Receive.cs) can be found on GitHub.
+The complete [`Receive.cs` file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Receive/Receive.cs) can be found on GitHub.
 
 ### Putting It All Together
 
 In order to run both examples, open two terminal (shell) tabs.
 
 Both parts of this tutorial can be run in any order, as they both declare the stream.
-Let's run the consumer first so that when the first publisher is started, the consumer
-will print it:
+Let's run the consumer first so that when the first publisher is started, the consumer will print it:
 
 
 ```powershell
