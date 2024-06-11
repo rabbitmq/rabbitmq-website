@@ -51,7 +51,7 @@ started. It's a "Hello World" of messaging.
 > languages](/client-libraries/devtools), see the stream client libraries for each language.
 > We'll use the [Java stream client](https://github.com/rabbitmq/rabbitmq-stream-java-client) provided by RabbitMQ.
 >
-> RabbitMQ Java client 0.15.0 and later versions are distributed
+> RabbitMQ Java client 0.16.0 and later versions are distributed
 > via [Maven Repository](https://mvnrepository.com/artifact/com.rabbitmq/stream-client).
 >
 > This tutorial assumes you are using powershell on Windows. On MacOS and Linux nearly
@@ -66,12 +66,13 @@ java --help
 ```
 
 This tutorial will use [Maven](https://maven.apache.org/) to manage dependencies and build the project.
+It is not necessary to install Maven as the tutorial uses the [Maven Wrapper](https://maven.apache.org/wrapper/).
 An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/).
 
-Next, let's verify if Maven is installed so that a Maven wrapper can be used:
+Next, let's verify if Maven works properly:
 
 ``` shell
-mvn --help
+./mvnw --version
 ```
 
 Next, create a `pom.xml` file with the RabbitMQ Stream Java client as a dependency:
@@ -80,7 +81,7 @@ Next, create a `pom.xml` file with the RabbitMQ Stream Java client as a dependen
 <dependency>
     <groupId>com.rabbitmq</groupId>
     <artifactId>stream-client</artifactId>
-    <version>0.15.0</version>
+    <version>0.16.0</version>
 </dependency>
 ```
 
@@ -149,7 +150,7 @@ Each time the producer is run, it will send a single message to the server and t
 appended to the stream.
 
 The complete [`Send.java` file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Send.java) can
-be found on GitHub..
+be found on GitHub.
 
 > #### Sending doesn't work!
 >
@@ -194,7 +195,7 @@ Note that the consumer part also declares the stream. This is to allow either pa
 first, be it the producer or the consumer.
 
 The `Consumer` class is used to instantiate a stream consumer and `environment.consumerBuilder()`
-providers a builder object that configures it.
+provides a builder object that configures it.
 Finally, the `.messageHandler` method accepts a handler for delivered messages.
 
 The `offset` parameter defines the starting point of the consumer.
@@ -218,7 +219,7 @@ can be found on GitHub.
 In order to run both examples, open two terminal (shell) tabs.
 
 Both parts of this tutorial can be run in any order, as they both declare the stream.
-Let's will run the consumer first so that when the first publisher is started, the consumer
+Let's run the consumer first so that when the first publisher is started, the consumer
 will print it:
 
 ``` bash
