@@ -59,24 +59,22 @@ started. It's a "Hello World" of messaging.
 
 ### Setup
 
-First let's verify that you have Java toolchain in `PATH`:
+This tutorial requires `java` to be in `PATH`. To verify it, run:
 
-```powershell
+``` bash
 java --help
 ```
-should produce a help message.
 
-We use [Maven](https://maven.apache.org/) to manage dependencies and build the project.
-You can find the whole project in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/).
+This tutorial will use [Maven](https://maven.apache.org/) to manage dependencies and build the project.
+An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/).
 
-You need to verify if you have Maven installed or you can use the Maven wrapper included in the project:
+Next, let's verify if Maven is installed so that a Maven wrapper can be used:
 
-```powershell
-./mvnw --help
+``` shell
+mvn --help
 ```
 
-
-Let's add the dependencies to the `pom.xml` file:
+Next, create a `pom.xml` file with the RabbitMQ Stream Java client as a dependency:
 
 ```xml
 <dependency>
@@ -88,39 +86,43 @@ Let's add the dependencies to the `pom.xml` file:
 
 ### Sending
 
-We'll call our message producer (sender) `Send.java` and our message consumer (receiver)
-`Receive.java`. The producer will connect to RabbitMQ, send a single message,
-then exit.
+Next, let's create two files for the message producer (sender) and the message consumer (receiver) part of this tutorial.
+They will be called  [`Send.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Send.java) and
+[`Receiver.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Receiver.java), respectively.
 
-In
-[`Send.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Send.java),
-we need to use some namespaces:
+The producer will connect to RabbitMQ, send a single message, then exit. The consumer will consume and print it
+to standard output.
+
+At the top of `Send.java`, import a few key classes this tutorial uses:
 
 ```java
 import com.rabbitmq.stream.*;
 import java.io.IOException;
 ```
 
-then we can create a connection to the server:
+With these classes imported, en `Environment` now can be instantiated:
 
 ```java
-Environment environment = Environment.builder().build();       
-...
+Environment environment = Environment.builder().build();
+// ...
 ```
 
 The entry point of the stream Java client is the `Environment`.
-It deals with stream management and the creation of publisher and consumer instances.
+It is used for configuration of RabbitMQ stream publishers, stream consumers,
+and streams themselves.
 
-It abstracts the socket connection, and takes care of
-protocol version negotiation and authentication and so on for us. Here
-we connect to a RabbitMQ node on the local machine - hence the
-_localhost_. If we wanted to connect to a node on a different
-machine we'd simply specify its hostname or IP address on the `Environment.builder()`.
+It abstracts away a TCP or TLS socket connection, and takes care of
+protocol version negotiation and authentication and so on for us.
 
-Next we create a producer.
+This tutorial assumes that stream publishers and consumer connect to
+a RabbitMQ node running locally, that is, on _localhost_. To connect to a node on a different
+machine, simply specify target hostname or IP address using the builder
+returned by `Environment.builder()`.
 
-To send, we must declare a stream for us to send to; then we can publish a message
-to the stream:
+Next, let's create a producer.
+
+The producer will also declare a stream it will publish messages to and then publish
+a message:
 
 ```java
 String stream = "hello-java-stream";
@@ -131,21 +133,23 @@ System.out.println(" [x] 'Hello, World!' message sent");
 ...
 ```
 
-Declaring a stream is idempotent - it will only be created if it doesn't exist already.
+The stream declaration operation is idempotent: the stream will only be created if it doesn't exist already.
 
-Streams model an append-only log of messages that can be repeatedly read until they expire.
-It is a good practice to always define the retention policy, 5Gb in this case.
+A stream is an append-only log abtraction that allows for repeated consumption of messages until they expire.
+It is a good practice to always define the retention policy. In the example above,
+the stream is limited to be 5 GiB in size.
 
-The message content is a byte array, so you can encode whatever you like there.
+The message content is a byte array. Applications can encode the data they need to transfer using any
+appropriate format such as JSON, MessagePack, and so on.
 
 When the code above finishes running, the producer connection and stream-system
 connection will be closed. That's it for our producer.
 
-Each time you run the producer, it will send a single message to the server and the message will be
+Each time the producer is run, it will send a single message to the server and the message will be
 appended to the stream.
 
-[Here's the whole Send.java
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Send.java).
+The complete [`Send.java` file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Send.java) can
+be found on GitHub..
 
 > #### Sending doesn't work!
 >
@@ -159,12 +163,12 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/
 
 ### Receiving
 
-As for the consumer, it is listening for messages from
-RabbitMQ. So unlike the producer which publishes a single message, we'll
-keep the consumer running continuously to listen for messages and print them out.
+The other part of this tutorial, the consumer, will connect to a RabbitMQ node and
+wait for messages to be pushed to it. Unlike the producer, which in this tutorial publishes a single message and stops,
+the consumer will be running continuously, consume the messages RabbitMQ will push to it, and print the received payloads out.
 
-The code (in [`Receive.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Receive.java))
-needs some `import`:
+Similarly to `Send.java`, [`Receive.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Receive.java)
+will need some classes to be imported first:
 
 ```java
 import com.rabbitmq.stream.ByteCapacity;
@@ -173,28 +177,28 @@ import com.rabbitmq.stream.Environment;
 import com.rabbitmq.stream.OffsetSpecification;
 ```
 
-Setting up is the same as the producer; we create a, consumer,
-and declare the stream from which we're going to consume.
-Note this matches up with the stream that `send` publishes to.
+When it comes to the initial setup, the consumer part
+is very similar the producer one; we use the default connection
+settings and declare the stream from which the consumer will consume.
+
+Note that the stream name must match that used by the producer.
 
 ```java
 Environment environment = Environment.builder().build();
 String stream = "hello-java-stream";
 environment.streamCreator().stream(stream).maxLengthBytes(ByteCapacity.GB(5)).create();
-...
+// ...
 ```
 
-Note that we declare the stream here as well. Because we might start
-the consumer before the producer, we want to make sure the stream exists
-before we try to consume messages from it.
+Note that the consumer part also declares the stream. This is to allow either part to be started
+first, be it the producer or the consumer.
 
-We need to use `Consumer` class to create the consumer and `environment.consumerBuilder()` to configure it.
+The `Consumer` class is used to instantiate a stream consumer and `environment.consumerBuilder()`
+providers a builder object that configures it.
+Finally, the `.messageHandler` method accepts a handler for delivered messages.
 
-We're about to tell the server to deliver us the messages from the
-queue. We provide a callback `.messageHandler`.
-
-`offset` defines the starting point of the consumer.
-In this case, we start from the first message.
+The `offset` parameter defines the starting point of the consumer.
+In this case, the consumer starts from the very first message available in the stream.
 
 ```java
 Consumer consumer = environment.consumerBuilder()
@@ -203,32 +207,34 @@ Consumer consumer = environment.consumerBuilder()
             .messageHandler((unused, message) -> {
                 System.out.println("Received message: " + new String(message.getBodyAsBinary()));
             }).build();
-
-....
+// ...
 ```
 
-[Here's the whole Receive.java class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Receive.java).
+The [complete `Receive.java` file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Receive.java)
+can be found on GitHub.
 
 ### Putting It All Together
 
-Open two terminals.
+In order to run both examples, open two terminal (shell) tabs.
 
-You can run the clients in any order, as both declare the stream.
-We will run the consumer first so you can see it waiting for and then receiving the message:
+Both parts of this tutorial can be run in any order, as they both declare the stream.
+Let's will run the consumer first so that when the first publisher is started, the consumer
+will print it:
 
-```powershell
+``` bash
  ./mvnw -q compile exec:java -Dexec.mainClass="Receive"
 ```
 
 Then run the producer:
 
-```powershell
+``` bash
  ./mvnw -q compile exec:java -Dexec.mainClass="Send"
 ```
 
 The consumer will print the message it gets from the publisher via
-RabbitMQ. The consumer will keep running, waiting for messages, so try restarting
-the publisher several times.
+RabbitMQ. The consumer will keep running, waiting for new deliveries. Try re-running
+the publisher several times to observe that.
 
-Streams are different from queues in that they are append-only logs of messages.
-So you can run the different consumers and they will always start from the first message.
+Streams are different from queues in that they are append-only logs of messages
+that can be consumed repeatedly.
+When multiple consumers consume from a stream, they will start from the first available message.

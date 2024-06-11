@@ -34,16 +34,16 @@ These tutorials cover the basics of creating messaging
 applications using RabbitMQ.
 
 You need to have the RabbitMQ server installed to go through the tutorials,
-please see the [installation guide](/docs/download) or use the [Docker
-image](https://hub.docker.com/_/rabbitmq/).
+please see the [installation guide](/docs/download) or use the [community Docker image](https://hub.docker.com/_/rabbitmq/).
 
 
 Executable versions of these tutorials [are open source](https://github.com/rabbitmq/rabbitmq-tutorials),
 as is [this website](https://github.com/rabbitmq/rabbitmq-website).
 
-These tutorials focus on two protocols supported by RabbitMQ:
- - [Original Protocol (AMQP-0-9-1)](#queue-tutorials)
- - [RabbitMQ Streams](#stream-tutorials)
+There are two groups of tutorials:
+
+ * [RabbitMQ queues](#queue-tutorials)
+ * [RabbitMQ streams](#stream-tutorials)
 
 :::note
 You can use these tutorials with any versions of RabbitMQ. That said, we
