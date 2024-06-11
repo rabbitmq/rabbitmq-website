@@ -57,7 +57,7 @@ started.  It's a "Hello World" of messaging.
 > You can also use the .NET Framework to complete this tutorial however the
 > setup steps will be different.
 >
-> RabbitMQ .NET client 1.8 and later versions are distributed via [nuget](https://www.nuget.org/packages/RabbitMQ.Stream.Client/).
+> RabbitMQ .NET stream client 1.8 and later versions are distributed via [nuget](https://www.nuget.org/packages/RabbitMQ.Stream.Client/).
 >
 > This tutorial assumes you are using powershell on Windows. On MacOS and Linux nearly
 > any shell will work.
@@ -118,18 +118,16 @@ var streamSystem = await StreamSystem.Create(new StreamSystemConfig());
 ...
 ```
 The entry point of the stream .NET client is the `StreamSystem`.
-It deals with stream management and the creation of publisher and consumer instances. 
+It is used for configuration of RabbitMQ stream publishers, stream consumers, and streams themselves.
 
-It abstracts the socket connection, and takes care of
-protocol version negotiation and authentication and so on for us. Here
-we connect to a RabbitMQ node on the local machine - hence the
-_localhost_. If we wanted to connect to a node on a different
-machine we'd simply specify its hostname or IP address on the `StreamSystemConfig`.
+It abstracts the socket connection, and takes care of protocol version negotiation and authentication and so on for us.
 
-Next we create a Producer.
+This tutorial assumes that stream publishers and consumer connect to a RabbitMQ node running locally, that is, on _localhost_.
+To connect to a node on a different machine, simply specify target hostname or IP addresson the `StreamSystemConfig`.
 
-To send, we must declare a stream for us to send to; then we can publish a message
-to the stream:
+Next let's create a Producer.
+
+The producer will also declare a stream it will publish messages to and then publish a message:
 
 ```csharp
 ...
@@ -144,21 +142,21 @@ var producer = await Producer.Create(new ProducerConfig(streamSystem, "hello-str
 await producer.Send(new Message(Encoding.UTF8.GetBytes($"Hello, World")));
 ```
 
-Declaring a stream is idempotent - it will only be created if it doesn't exist already.
+The stream declaration operation is idempotent: the stream will only be created if it doesn't exist already.
 
-Streams model an append-only log of messages that can be repeatedly read until they expire.
-It is a good practice to always define the retention policy, 5Gb in this case.
+A stream is an append-only log abtraction that allows for repeated consumption of messages until they expire.
+It is a good practice to always define the retention policy.
+In the example above, the stream is limited to be 5 GiB in size.
 
-The message content is a byte array, so you can encode whatever you like there.
+The message content is a byte array.
+Applications can encode the data they need to transfer using any appropriate format such as JSON, MessagePack, and so on.
 
 When the code above finishes running, the producer connection and stream-system
 connection will be closed. That's it for our producer.
 
-Each time you run the producer, it will send a single message to the server and the message will be 
-appended to the stream.
+Each time the producer is run, it will send a single message to the server and the message will be appended to the stream.
 
-[Here's the whole Send.cs
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Send/Send.cs).
+The complete [`Send.cs` file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Send/Send.cs) can be found on GitHub.
 
 > #### Sending doesn't work!
 >
@@ -173,12 +171,10 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Se
 
 ### Receiving
 
-As for the consumer, it is listening for messages from
-RabbitMQ. So unlike the producer which publishes a single message, we'll
-keep the consumer running continuously to listen for messages and print them out.
+The other part of this tutorial, the consumer, will connect to a RabbitMQ node and wait for messages to be pushed to it.
+Unlike the producer, which in this tutorial publishes a single message and stops, the consumer will be running continuously, consume the messages RabbitMQ will push to it, and print the received payloads out.
 
-
-The code (in [`Receive.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Receive/Receive.cs)) has almost the same `using` statements as `Send`:
+Similarly to `Send.cs`, [`Receive.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Receive/Receive.cs) will need to use some namespaces:
 
 ```csharp
 using System.Text;
@@ -186,9 +182,9 @@ using RabbitMQ.Stream.Client;
 using RabbitMQ.Stream.Client.Reliable;
 ```
 
-Setting up is the same as the producer; we create a stream-system,
-consumer, and declare the stream from which we're going to consume.
-Note this matches up with the stream that `Send` publishes to.
+When it comes to the initial setup, the consumer part is very similar the producer one; we use the default connection settings and declare the stream from which the consumer will consume.
+
+Note that the stream name must match that used by the producer.
 
 ```csharp
 var streamSystem = await StreamSystem.Create(new StreamSystemConfig());
@@ -200,17 +196,14 @@ await streamSystem.CreateStream(new StreamSpec("hello-stream")
 ...
 ```
 
-Note that we declare the stream here as well. Because we might start
-the consumer before the producer, we want to make sure the stream exists
-before we try to consume messages from it.
+Note that the consumer part also declares the stream.
+This is to allow either part to be started first, be it the producer or the consumer.
 
-We need to use `Consumer` class to create the consumer and `ConsumerConfig` to configure it. 
+The `Consumer` class is used to instantiate a stream consumer and the `ConsumerConfig` record to configure it.
+We provide a `MessageHandler` callback to process delivered messages.
 
-We're about to tell the server to deliver us the messages from the
-stream. We provide a callback `MessageHandler` on the `ConsumerConfig`.
-
-`OffsetSpec` defines the starting point of the consumer. 
-In this case, we start from the first message. 
+The `OffsetSpec` property defines the starting point of the consumer.
+In this case, the consumer starts from the very first message available in the stream.
 
 
 ```csharp
@@ -227,17 +220,16 @@ var consumer = await Consumer.Create(new ConsumerConfig(streamSystem, "hello-str
 });
 
 ```
-
-
-[Here's the whole Receive.cs
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Receive/Receive.cs).
+The [complete `Receive.cs` file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Receive/Receive.cs) can be found on GitHub.
 
 ### Putting It All Together
 
-Open two terminals.
+In order to run both examples, open two terminal (shell) tabs.
 
-You can run the clients in any order, as both declare the stream.
-We will run the consumer first so you can see it waiting for and then receiving the message:
+Both parts of this tutorial can be run in any order, as they both declare the stream.
+Let's run the consumer first so that when the first publisher is started, the consumer
+will print it:
+
 
 ```powershell
 cd Receive
@@ -252,10 +244,11 @@ dotnet run
 ```
 
 The consumer will print the message it gets from the publisher via
-RabbitMQ. The consumer will keep running, waiting for messages, so try restarting
-the publisher several times.
+RabbitMQ. The consumer will keep running, waiting for new deliveries. Try re-running
+the publisher several times to observe that.
 
-Streams are different from queues in that they are append-only logs of messages.
-So you can run the different consumers and they will always start from the first message.
+Streams are different from queues in that they are append-only logs of messages
+that can be consumed repeatedly.
+When multiple consumers consume from a stream, they will start from the first available message.
 
 [//]: # (Time to move on to [part 2]&#40;./tutorial-two-dotnet-stream&#41; and deal with a confirmation.)
