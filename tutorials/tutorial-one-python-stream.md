@@ -71,7 +71,7 @@ Now let's create a folder project and install the dependencies:
 ```powershell
 mkdir python-restream
 cd python-restream
-pip install mmh3 
+pip install typing_extensions 
 pip install rstream
 ```
 
