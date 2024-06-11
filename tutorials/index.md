@@ -25,25 +25,36 @@ import T4DiagramToC from '@site/src/components/Tutorials/T4DiagramToC.md';
 import T5DiagramToC from '@site/src/components/Tutorials/T5DiagramToC.md';
 import T6DiagramToC from '@site/src/components/Tutorials/T6DiagramToC.md';
 
+
+import T1DiagramStreamToC from '@site/src/components/Tutorials/T1DiagramStreamToC.md';
+
 # RabbitMQ Tutorials
 
 These tutorials cover the basics of creating messaging
 applications using RabbitMQ.
 
 You need to have the RabbitMQ server installed to go through the tutorials,
-please see the [installation guide](/docs/download) or use the [Docker
-image](https://hub.docker.com/_/rabbitmq/).
+please see the [installation guide](/docs/download) or use the [community Docker image](https://hub.docker.com/_/rabbitmq/).
 
-:::note
-You can use these tutorials with any versions of RabbitMQ. That said, we
-recommend to familiarize yourself with the latest version!
-:::
 
 Executable versions of these tutorials [are open source](https://github.com/rabbitmq/rabbitmq-tutorials),
 as is [this website](https://github.com/rabbitmq/rabbitmq-website).
 
-These tutorials focus on just one (the original) protocol supported by RabbitMQ.
-Examples for [RabbitMQ streams](/docs/streams) on the [RabbitMQ blog](https://blog.rabbitmq.com/categories/streams/).
+There are two groups of tutorials:
+
+ * [RabbitMQ queues](#queue-tutorials)
+ * [RabbitMQ streams](#stream-tutorials)
+
+:::note
+You can use these tutorials with any versions of RabbitMQ. That said, we
+recommend to familiarize yourself with the latest version!
+For the stream tutorials, you need to use RabbitMQ 3.9.0 or later.
+:::
+
+
+### Queue tutorials
+
+This section covers the default RabbitMQ protocol, AMQP 0-9-1.
 
 <table id="tutorials">
     <colgroup>
@@ -189,6 +200,53 @@ Examples for [RabbitMQ streams](/docs/streams) on the [RabbitMQ blog](https://bl
   </tr>
 </table>
 
+## AMQP 0-9-1 Overview and Quick Reference
+
+Once you have been through the tutorials (or if you want to
+skip ahead), you may wish to read an
+[Introduction to RabbitMQ Concepts](/tutorials/amqp-concepts)
+and browse our
+[AMQP 0-9-1 Quick Reference Guide](/amqp-0-9-1-quickref).
+
+
+## Stream tutorials
+
+This section covers the RabbitMQ streams feature through the [Stream Plugin](/docs/stream)
+
+<table id="stream-tutorials">
+    <colgroup>
+        <col span="1" style={{width: '33%',}}/>
+        <col span="1" style={{width: '33%',}}/>
+        <col span="1" style={{width: '33%',}}/>
+    </colgroup>
+<tr>
+  <td id="tutorial-one" style={{verticalAlign: 'top',}}>
+    ## 1. "Hello World!"
+
+    The simplest thing that does *something*
+
+    <T1DiagramStreamToC/>
+    * [Java](tutorials/tutorial-one-java-stream)
+    * [C#](tutorials/tutorial-one-dotnet-stream)
+    * [Go](tutorials/tutorial-one-go-stream)
+    * [Python](tutorials/tutorial-one-python-stream)
+    * [Rust](tutorials/tutorial-one-rust-stream)
+    * [Node.js](tutorials/tutorial-one-javascript-stream)
+  </td>
+
+</tr>
+
+</table>
+
+## Stream Overview and Blog Posts
+
+Once you have been through the tutorials (or if you want to
+skip ahead), you may wish to read the
+[RabbitMQ stream documentation](/docs/streams)
+and browse our
+[stream blog posts](/blog/tags/streams).
+
+
 
 ## Getting Help
 
@@ -197,13 +255,6 @@ ask them on [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabb
 [RabbitMQ community Discord server](https://rabbitmq.com/discord/), or the public [RabbitMQ community Slack](https://rabbitmq.com/slack/).
 
 
-## AMQP 0-9-1 Overview and Quick Reference
-
-Once you have been through the tutorials (or if you want to
-skip ahead), you may wish to read an
-[Introduction to RabbitMQ Concepts](/tutorials/amqp-concepts)
-and browse our
-[AMQP 0-9-1 Quick Reference Guide](/amqp-0-9-1-quickref).
 
 
 ## Tutorials in Other Languages
