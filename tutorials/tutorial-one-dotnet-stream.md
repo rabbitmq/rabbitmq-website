@@ -38,7 +38,7 @@ In this part of the tutorial we'll write two programs in C#; a
 producer that sends a single message, and a consumer that receives
 messages and prints them out.  We'll gloss over some of the detail in
 the .NET client API, concentrating on this very simple thing just to get
-started.  It's a "Hello World" of messaging.
+started.  It's the "Hello World" of RabbitMQ Streams.
 
 
 > #### The .NET stream client library
@@ -49,30 +49,27 @@ started.  It's a "Hello World" of messaging.
 > languages](/client-libraries/devtools), see the stream client libraries for each language.
 > We'll use the [.NET stream client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client) provided by RabbitMQ.
 >
-> The client supports [.NET Core](https://www.microsoft.com/net/core) as
-> well as .NET Framework 6+. This tutorial will use RabbitMQ .NET stream client 1.8.0 and
+> The client supports [.NET Core](https://www.microsoft.com/net/core).
+> This tutorial will use RabbitMQ .NET stream client 1.8.0 and
 > .NET Core, so you make sure
 > you have it [installed](https://www.microsoft.com/net/core) and in your PATH.
 >
-> You can also use the .NET Framework to complete this tutorial however the
-> setup steps will be different.
->
 > RabbitMQ .NET stream client 1.8 and later versions are distributed via [nuget](https://www.nuget.org/packages/RabbitMQ.Stream.Client/).
 >
-> This tutorial assumes you are using powershell on Windows. On MacOS and Linux nearly
+> This tutorial assumes you are using PowerShell on Windows. On MacOS and Linux nearly
 > any shell will work.
 
 ### Setup
 
 First let's verify that you have .NET Core toolchain in `PATH`:
 
-```powershell
+```PowerShell
 dotnet --help
 ```
 
-should produce a help message.
+Running that command should produce a help message.
 
-An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/).
+An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/).
 
 Now let's generate two projects, one for the publisher and one for the consumer:
 

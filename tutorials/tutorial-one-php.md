@@ -41,7 +41,7 @@ that requires PHP 7.x or 8.x.
 First program will be a producer that sends a single message, and the second one will be a consumer that receives
 messages and prints them out.  We'll gloss over some of the detail in
 the [php-amqplib](https://github.com/php-amqplib/php-amqplib) API, concentrating on this very simple thing just to get
-started.  It's a "Hello World" of messaging.
+started.  It's the "Hello World" of RabbitMQ Streams.
 
 In the diagram below, "P" is our producer and "C" is our consumer. The
 box in the middle is a queue - a message buffer that RabbitMQ keeps
