@@ -123,7 +123,7 @@ It is used for configuration of RabbitMQ stream publishers, stream consumers, an
 
 It abstracts the socket connection, and takes care of protocol version negotiation and authentication and so on for us.
 
-This tutorial assumes that stream publishers and consumer connect to a RabbitMQ node running locally, that is, on _localhost_.
+This tutorial assumes that stream publisher and consumer connect to a RabbitMQ node running locally, that is, on _localhost_.
 To connect to a node on a different machine, simply specify target hostname or IP address on the `StreamSystemConfig`.
 
 Next let's create a producer.

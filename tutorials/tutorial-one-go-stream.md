@@ -72,9 +72,9 @@ An executable version of this tutorial can be found in the [RabbitMQ tutorials r
 Now let's create the project:
 
 ```shell
-mkdir rabbitmq-stream
-cd rabbitmq-stream
-go mod init rabbitmq/stream
+mkdir go-stream
+cd go-stream
+go mod init go/stream
 ```
 
 Now we have the Go project set up we can write some code.
@@ -112,33 +112,32 @@ It is used for configuration of RabbitMQ stream publishers, stream consumers, an
 
 It abstracts the socket connection, and takes care of protocol version negotiation and authentication and so on for us.
 
-This tutorial assumes that stream publishers and consumer connect to a RabbitMQ node running locally, that is, on _localhost_.
+This tutorial assumes that stream publisher and consumer connect to a RabbitMQ node running locally, that is, on _localhost_.
 To connect to a node on a different machine, simply specify target hostname or IP address on the `EnvironmentOptions`.
 
 Next let's create a producer.
 
 The producer will also declare a stream it will publish messages to and then publish a message:
-to the stream:
 
 ```go
-    streamName := "hello-go-stream"
-    err = env.DeclareStream(streamName, &stream.StreamOptions{
-			    MaxLengthBytes: stream.ByteCapacity{}.GB(5),
-			},)
+streamName := "hello-go-stream"
+err = env.DeclareStream(streamName, &stream.StreamOptions{
+MaxLengthBytes: stream.ByteCapacity{}.GB(5),
+},)
 
-    if err != nil {
-        log.Fatalf("Failed to declare stream: %v", err)
-    }
-	
-    producer, err := env.NewProducer(streamName, stream.NewProducerOptions())
-    if err != nil {
-        log.Fatalf("Failed to create producer: %v", err)
-    }
+if err != nil {
+    log.Fatalf("Failed to declare stream: %v", err)
+}
 
-    err = producer.Send(amqp.NewMessage([]byte("Hello world")))
-    if err != nil {
-        log.Fatalf("Failed to send message: %v", err)
-    }
+producer, err := env.NewProducer(streamName, stream.NewProducerOptions())
+if err != nil {
+    log.Fatalf("Failed to create producer: %v", err)
+}
+
+err = producer.Send(amqp.NewMessage([]byte("Hello world")))
+if err != nil {
+    log.Fatalf("Failed to send message: %v", err)
+}
 ...
 ```
 

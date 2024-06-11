@@ -115,15 +115,14 @@ and streams themselves.
 It abstracts away a TCP or TLS socket connection, and takes care of
 protocol version negotiation and authentication and so on for us.
 
-This tutorial assumes that stream publishers and consumer connect to
+This tutorial assumes that stream publisher and consumer connect to
 a RabbitMQ node running locally, that is, on _localhost_. To connect to a node on a different
 machine, simply specify target hostname or IP address using the builder
 returned by `Environment.builder()`.
 
 Next, let's create a producer.
 
-The producer will also declare a stream it will publish messages to and then publish
-a message:
+The producer will also declare a stream it will publish messages to and then publish a message:
 
 ```java
 String stream = "hello-java-stream";
