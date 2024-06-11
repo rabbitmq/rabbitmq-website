@@ -66,6 +66,8 @@ python3 --help
 
 should produce a help message.
 
+An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/).
+
 Now let's create a folder project and install the dependencies:
 
 ```powershell
@@ -75,20 +77,18 @@ pip install typing_extensions
 pip install rstream
 ```
 
-
 Now create new files named `send.py` and `receive.py`. 
-Now we have thePython project set up we can write some code.
+Now we have the Python project set up we can write some code.
 
 ### Sending
 
 
-We'll call our message producer (sender) `send.py` and our message consumer (receiver)
-`receive.py`.  The producer will connect to RabbitMQ, send a single message,
-then exit.
+We'll call our message producer (sender) `send.py` and our message consumer (receiver) `receive.py`.
+The producer will connect to RabbitMQ, send a single message, then exit.
 
 In
 [`send.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/send.py),
-we need some import:
+we need some imports:
 
 ```python
 import asyncio
@@ -105,17 +105,18 @@ async with Producer(
     ) as producer
 ...
 ```
+
 The entry point of the producer is the `Producer` class.
-It deals with stream management and the creation of publisher instances. 
+It is used for configuration of RabbitMQ stream publishers and streams themselves.
 
-It abstracts the socket connection, and takes care of
-protocol version negotiation and authentication and so on for us. Here
-we connect to a RabbitMQ node on the local machine - hence the
-_localhost_. If we wanted to connect to a node on a different
-machine we'd simply specify its hostname or IP address on the `Producer` parameters.
+It abstracts the socket connection, and takes care of protocol version negotiation and authentication and so on for us.
 
-To send, we must declare a stream for us to send to; then we can publish a message
-to the stream:
+This tutorial assumes that stream publisher and consumer connect to a RabbitMQ node running locally, that is, on _localhost_.
+To connect to a node on a different machine, simply specify target hostname or IP address on the `Producers` parameters.
+
+Next let's create a producer.
+
+The producer will also declare a stream it will publish messages to and then publish a message:
 
 ```python
 
@@ -131,21 +132,21 @@ await producer.send(stream=STREAM_NAME, message=b"Hello, World!")
 ...
 ```
 
-Declaring a stream is idempotent - it will only be created if it doesn't exist already.
+The stream declaration operation is idempotent: the stream will only be created if it doesn't exist already.
 
-Streams model an append-only log of messages that can be repeatedly read until they expire.
-It is a good practice to always define the retention policy, 5Gb in this case.
+A stream is an append-only log abtraction that allows for repeated consumption of messages until they expire.
+It is a good practice to always define the retention policy.
+In the example above, the stream is limited to be 5 GiB in size.
 
-The message content is a byte array, so you can encode whatever you like there.
+The message content is a byte array.
+Applications can encode the data they need to transfer using any appropriate format such as JSON, MessagePack, and so on.
 
-When the code above finishes running, the producer  connection will be closed. 
+When the code above finishes running, the producer connection will be closed.
 That's it for our producer.
 
-Each time you run the producer, it will send a single message to the server and the message will be 
-appended to the stream.
+Each time the producer is run, it will send a single message to the server and the message will be appended to the stream.
 
-[Here's the whole send.py
-script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/send.py).
+The complete [send.py file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/send.py) can be found on GitHub.
 
 > #### Sending doesn't work!
 >
@@ -160,13 +161,10 @@ script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/s
 
 ### Receiving
 
-As for the consumer, it is listening for messages from
-RabbitMQ. So unlike the producer which publishes a single message, we'll
-keep the consumer running continuously to listen for messages and print them out.
+The other part of this tutorial, the consumer, will connect to a RabbitMQ node and wait for messages to be pushed to it.
+Unlike the producer, which in this tutorial publishes a single message and stops, the consumer will be running continuously, consume the messages RabbitMQ will push to it, and print the received payloads out.
 
-
-The code (in [`receive.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/receive.py)) 
-needs some `import` statements:
+Similarly to `send.py`, [`receive.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/receive.py) needs some imports:
 
 ```python
 import asyncio
@@ -175,66 +173,67 @@ import signal
 from rstream import AMQPMessage, Consumer, MessageContext
 ```
 
-Setting up is the same as the producer; we create a consumer, and declare the stream from which we're going to consume.
-Note this matches up with the stream that `send` publishes to.
+When it comes to the initial setup, the consumer part is very similar the producer one; we use the default connection settings and declare the stream from which the consumer will consume.
 
 ```python
 ...
-consumer = Consumer(host="localhost", username="guest", password="guest")
-    await consumer.create_stream(
-        STREAM_NAME, exists_ok=True, arguments={"MaxLengthBytes": STREAM_RETENTION}
-    )
-
-...
-```
-
-Note that we declare the stream here as well. Because we might start
-the consumer before the producer, we want to make sure the stream exists
-before we try to consume messages from it.
-
-We're about to tell the server to deliver us the messages from the
-stream. We provide a callback `on_message` on the `consumer.subscribe`.
-
-`offset_specification` defines the starting point of the consumer. 
-In this case, we start from the first message. 
-
-
-```python
 consumer = Consumer(host="localhost", username="guest", password="guest")
 await consumer.create_stream(
     STREAM_NAME, exists_ok=True, arguments={"MaxLengthBytes": STREAM_RETENTION}
 )
-
-...
-async def on_message(msg: AMQPMessage, message_context: MessageContext):
-    stream = message_context.consumer.get_stream(message_context.subscriber_name)
-    print("Got message: {} from stream {}".format(msg, stream))
 ...
 ```
 
+Note that the consumer part also declares the stream.
+This is to allow either part to be started first, be it the producer or the consumer.
 
-[Here's the whole receive.py
-script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/receive.py).
+We provide a `on_message` callback to the `consumer.subscribe` function.
+
+`offset_specification` defines the starting point of the consumer. 
+In this case, the consumer starts from the very first message available in the stream.
+
+```python
+async def on_message(msg: AMQPMessage, message_context: MessageContext):
+    stream = message_context.consumer.get_stream(message_context.subscriber_name)
+    print("Got message: {} from stream {}".format(msg, stream))
+
+await consumer.start()
+await consumer.subscribe(
+    stream=STREAM_NAME,
+    callback=on_message,
+    offset_specification=ConsumerOffsetSpecification(OffsetType.FIRST, None),
+)
+await consumer.run()
+...
+```
+
+The complete [receive.py file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/receive.py) can be found on GitHub.
 
 ### Putting It All Together
 
 Open two terminals.
 
-You can run the clients in any order, as both declare the stream.
-We will run the consumer first so you can see it waiting for and then receiving the message:
+In order to run both examples, open two terminal (shell) tabs.
 
-```powershell
+Both parts of this tutorial can be run in any order, as they both declare the stream.
+Let's run the consumer first so that when the first publisher is started, the consumer will print it:
+
+```shell
 python receive.py
 ```
+
 Then run the producer:
 
-```powershell
+```shell
 python send.py
 ```
 
 The consumer will print the message it gets from the publisher via
-RabbitMQ. The consumer will keep running, waiting for messages, so try restarting
-the publisher several times.
+RabbitMQ. The consumer will keep running, waiting for new deliveries. Try re-running
+the publisher several times to observe that.
 
-Streams are different from queues in that they are append-only logs of messages.
-So you can run the different consumers and they will always start from the first message.
+Streams are different from queues in that they are append-only logs of messages
+that can be consumed repeatedly.
+When multiple consumers consume from a stream, they will start from the first available message.
+
+
