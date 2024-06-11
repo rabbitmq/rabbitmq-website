@@ -66,18 +66,18 @@ npm --help
 
 should produce a help message.
 
-Now let's create a project and install the dependencies:
+Now let's create a project:
 
-```powershell
+```shell
 npm init 
 ```
 then install the client:
 
-```powershell
+```shell
 npm install rabbitmq-stream-js-client
 ```
 
-how package.json should look like:
+This is how `package.json` should look like:
 
 ```json
 {
@@ -99,7 +99,6 @@ Now create new files named `receive.js` and `send.js`.
 Now we have the Node.js project set up we can write some code.
 
 ### Sending
-
 
 We'll call our message producer (sender) `send.js` and our message consumer (receiver)
 `receive.js`.  The producer will connect to RabbitMQ, send a single message,
@@ -125,17 +124,18 @@ const client = await rabbit.connect({
 })
 ...
 ```
+
 The entry point of the client is the `Client` class.
-It deals with stream management and the creation of publisher instances. 
+It is used for stream management and the creation of publisher instances.
+ 
+It abstracts the socket connection, and takes care of protocol version negotiation and authentication and so on for us.
 
-It abstracts the socket connection, and takes care of
-protocol version negotiation and authentication and so on for us. Here
-we connect to a RabbitMQ node on the local machine - hence the
-_localhost_. If we wanted to connect to a node on a different
-machine we'd simply specify its hostname or IP address on the `Client` parameters.
+This tutorial assumes that stream publisher and consumer connect to a RabbitMQ node running locally, that is, on _localhost_.
+To connect to a node on a different machine, simply specify target hostname or IP address `Client` parameters.
 
-To send, we must declare a stream for us to send to; then we can publish a message
-to the stream:
+Next let's create a producer.
+
+The producer will also declare a stream it will publish messages to and then publish a message:
 
 ```javascript
 const streamName = "test-queue-stream";
@@ -157,24 +157,23 @@ const publisher = await client.declarePublisher({ stream: streamName });
 
 console.log("Sending a message...");
 await publisher.send(Buffer.from("Test message"));
-
 ```
 
-Declaring a stream is idempotent - it will only be created if it doesn't exist already.
+The stream declaration operation is idempotent: the stream will only be created if it doesn't exist already.
 
-Streams model an append-only log of messages that can be repeatedly read until they expire.
-It is a good practice to always define the retention policy, 5Gb in this case.
+A stream is an append-only log abtraction that allows for repeated consumption of messages until they expire.
+It is a good practice to always define the retention policy.
+In the example above, the stream is limited to be 5 GiB in size.
 
-The message content is a byte array, so you can encode whatever you like there.
+The message content is a byte array.
+Applications can encode the data they need to transfer using any appropriate format such as JSON, MessagePack, and so on.
 
 When the code above finishes running, the producer connection and stream-system
 connection will be closed. That's it for our producer.
 
-Each time you run the producer, it will send a single message to the server and the message will be 
-appended to the stream.
+Each time the producer is run, it will send a single message to the server and the message will be appended to the stream.
 
-[Here's the whole send.js
-script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs-stream/send.js).
+The complete [send.js file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs-stream/send.js) can be found on GitHub.
 
 > #### Sending doesn't work!
 >
@@ -186,24 +185,18 @@ script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-node
 > limit if necessary. The [configuration file documentation](/docs/configure#config-items)
 > will show you how to set <code>disk_free_limit</code>.
 
-
 ### Receiving
 
-As for the consumer, it is listening for messages from
-RabbitMQ. So unlike the producer which publishes a single message, we'll
-keep the consumer running continuously to listen for messages and print them out.
+The other part of this tutorial, the consumer, will connect to a RabbitMQ node and wait for messages to be pushed to it.
+Unlike the producer, which in this tutorial publishes a single message and stops, the consumer will be running continuously, consume the messages RabbitMQ will push to it, and print the received payloads out.
 
-
-The code (in [`receive.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs-stream/receive.js)) 
-needs to use the client as well:
-
+Similarly to `send.js`, [`receive.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs-stream/receive.js) will need to use the client:
 
 ```javascript
 const rabbit = require("rabbitmq-stream-js-client")
 ```
 
-Setting up is the same as the producer; we create a consumer, and declare the stream from which we're going to consume.
-Note this matches up with the stream that `send` publishes to.
+When it comes to the initial setup, the consumer part is very similar the producer one; we use the default connection settings and declare the stream from which the consumer will consume.
 
 ```javascript
 const client = await rabbit.connect({
@@ -217,49 +210,47 @@ const streamSizeRetention = 5 * 1e9
 await client.createStream({ stream: streamName, arguments: { "max-length-bytes": streamSizeRetention } });
 ```
 
-Note that we declare the stream here as well. Because we might start
-the consumer before the producer, we want to make sure the stream exists
-before we try to consume messages from it.
+Note that the consumer part also declares the stream.
+This is to allow either part to be started first, be it the producer or the consumer.
 
-We're about to tell the server to deliver us the messages from the
-stream. We provide a callback `(message: Message)` on the `client.declareConsumer`.
+We use the `declareConsumer` method to create the consumer.
+We provide a  callback to process delivered messages.
 
-`offset` defines the starting point of the consumer. 
-In this case, we start from the first message. 
-
+`offset` defines the starting point of the consumer.
+In this case, the consumer starts from the very first message available in the stream.
 
 ```javascript
 await client.declareConsumer({ stream: streamName, offset: rabbit.Offset.first() }, (message) => {
         console.log(`Received message ${message.content.toString()}`)
 })
-
 ```
 
-
-[Here's the whole receive.js
-script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs-stream/receive.js).
+The complete [receive.js file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs-stream/receive.js) can be found on GitHub.
 
 ### Putting It All Together
 
-Open two terminals.
+In order to run both examples, open two terminal (shell) tabs.
 
-You can run the clients in any order, as both declare the stream.
-We will run the consumer first so you can see it waiting for and then receiving the message:
+Both parts of this tutorial can be run in any order, as they both declare the stream.
+Let's run the consumer first so that when the first publisher is started, the consumer will print it:
 
-```powershell
+```shell
 npm run receive
 ```
+
 Then run the producer:
 
-```powershell
+```shell
 npm run send
 ```
 
 The consumer will print the message it gets from the publisher via
-RabbitMQ. The consumer will keep running, waiting for messages, so try restarting
-the publisher several times.
+RabbitMQ. The consumer will keep running, waiting for new deliveries. Try re-running
+the publisher several times to observe that.
 
-Streams are different from queues in that they are append-only logs of messages.
-So you can run the different consumers and they will always start from the first message.
+Streams are different from queues in that they are append-only logs of messages
+that can be consumed repeatedly.
+When multiple consumers consume from a stream, they will start from the first available message.
+
 
 [//]: # (Time to move on to [part 2]&#40;./tutorial-two-dotnet-stream&#41; and deal with a confirmation.)
