@@ -222,13 +222,13 @@ Let's run the consumer first so that when the first publisher is started, the co
 will print it:
 
 ``` bash
- ./mvnw -q compile exec:java -Dexec.mainClass="Receive"
+ ./mvnw -q compile exec:java '-Dexec.mainClass=Receive'
 ```
 
 Then run the producer:
 
 ``` bash
- ./mvnw -q compile exec:java -Dexec.mainClass="Send"
+ ./mvnw -q compile exec:java '-Dexec.mainClass=Send'
 ```
 
 The consumer will print the message it gets from the publisher via
