@@ -72,7 +72,6 @@ Now let's create a folder project and install the dependencies:
 mkdir python-restream
 cd python-restream
 pip install mmh3 
-pip install uamqp
 pip install rstream
 ```
 
