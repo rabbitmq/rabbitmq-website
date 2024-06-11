@@ -67,14 +67,15 @@ cargo --version
 ```
 should produce a help message.
 
-Now let's generate two projects, one for the publisher and one for the consumer:
+An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/).
 
-```powershell
+
+Now let's create the project:
+
+```shell
 cargo new rust-stream
 cd rust-stream
 ```
-
-This will create two new files named `send.rs` and `receive.rs` inside the dir `src/bin`.
 
 Now we have the Rust project set up we can write some code.
 
@@ -86,7 +87,7 @@ then exit.
 
 In
 [`send.rs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/send.rs),
-we need to use some namespaces:
+we need some `use` declarations:
 
 ```rust
 use rabbitmq_stream_client::error::StreamCreateError;
@@ -101,61 +102,59 @@ let environment = Environment::builder().build().await?;
 ...
 ```
 
-The entry point of the stream rust client is the `Environment`.
-It deals with stream management and the creation of publisher and consumer instances.
+The entry point of the stream Rust client is the `Environment`.
+It is used for configuration of RabbitMQ stream publishers, stream consumers, and streams themselves.
 
-It abstracts the socket connection, and takes care of
-protocol version negotiation and authentication and so on for us. Here
-we connect to a RabbitMQ node on the local machine - hence the
-_localhost_. If we wanted to connect to a node on a different
-machine we'd simply specify its hostname or IP address on the `Environment::builder()`.
+It abstracts the socket connection, and takes care of protocol version negotiation and authentication and so on for us.
 
-Next we create a producer.
+This tutorial assumes that stream publisher and consumer connect to a RabbitMQ node running locally, that is, on _localhost_.
+To connect to a node on a different machine, simply specify target hostname or IP address on the `Environment::builder()`.
 
-To send, we must declare a stream for us to send to; then we can publish a message
-to the stream:
+Next let's create a producer.
+
+The producer will also declare a stream it will publish messages to and then publish a message:
 
 ```rust
-    let stream = "hello-rust-stream";
-    let create_response = environment
-        .stream_creator()
-        .max_length(ByteCapacity::GB(5))
-        .create(stream)
-        .await;
+let stream = "hello-rust-stream";
+let create_response = environment
+    .stream_creator()
+    .max_length(ByteCapacity::GB(5))
+    .create(stream)
+    .await;
 
-    if let Err(e) = create_response {
-        if let StreamCreateError::Create { stream, status } = e {
-            match status {
-                // we can ignore this error because the stream already exists
-                ResponseCode::StreamAlreadyExists => {}
-                err => {
-                    println!("Error creating stream: {:?} {:?}", stream, err);
-                }
+if let Err(e) = create_response {
+    if let StreamCreateError::Create { stream, status } = e {
+        match status {
+            // we can ignore this error because the stream already exists
+            ResponseCode::StreamAlreadyExists => {}
+            err => {
+                println!("Error creating stream: {:?} {:?}", stream, err);
             }
         }
     }
-    let producer = environment.producer().build(stream).await?;
-    producer
-        .send_with_confirm(Message::builder().body("Hello, World!").build())
-        .await?;
+}
+let producer = environment.producer().build(stream).await?;
+producer
+    .send_with_confirm(Message::builder().body("Hello, World!").build())
+    .await?;
 ```
 
-Declaring a stream is idempotent - it will only be created if it doesn't exist already.
+The stream declaration operation is idempotent: the stream will only be created if it doesn't exist already.
 In this case, we ignore the error `StreamAlreadyExists` because we don't care if the stream already exists.
 
-Streams model an append-only log of messages that can be repeatedly read until they expire.
-It is a good practice to always define the retention policy, 5Gb in this case.
+A stream is an append-only log abtraction that allows for repeated consumption of messages until they expire.
+It is a good practice to always define the retention policy.
+In the example above, the stream is limited to be 5 GiB in size.
 
-The message content is a byte array, so you can encode whatever you like there.
+The message content is a byte array.
+Applications can encode the data they need to transfer using any appropriate format such as JSON, MessagePack, and so on.
 
 When the code above finishes running, the producer connection and stream-system
 connection will be closed. That's it for our producer.
 
-Each time you run the producer, it will send a single message to the server and the message will be
-appended to the stream.
+Each time the producer is run, it will send a single message to the server and the message will be appended to the stream.
 
-[Here's the whole send.rs
-script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/send.rs).
+The complete [send.rs file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/send.rs) can be found on GitHub.
 
 > #### Sending doesn't work!
 >
@@ -169,12 +168,10 @@ script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src
 
 ### Receiving
 
-As for the consumer, it is listening for messages from
-RabbitMQ. So unlike the producer which publishes a single message, we'll
-keep the consumer running continuously to listen for messages and print them out.
+The other part of this tutorial, the consumer, will connect to a RabbitMQ node and wait for messages to be pushed to it.
+Unlike the producer, which in this tutorial publishes a single message and stops, the consumer will be running continuously, consume the messages RabbitMQ will push to it, and print the received payloads out.
 
-The code (in [`receive.rs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/receive.rs))
-needs some namespaces 
+Similarly to `send.rs`, [`receive.rs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/receive.rs) needs `use` declarations:
 
 ```rust
 use std::io::stdin;
@@ -184,9 +181,7 @@ use futures::{StreamExt};
 use tokio::task;
 ```
 
-Setting up is the same as the producer; we create a, consumer,
-and declare the stream from which we're going to consume.
-Note this matches up with the stream that `send` publishes to.
+When it comes to the initial setup, the consumer part is very similar the producer one; we use the default connection settings and declare the stream from which the consumer will consume.
 
 ```rust
 let environment = Environment::builder().build().await?;
@@ -211,17 +206,15 @@ if let Err(e) = create_response {
 ...
 ```
 
-Note that we declare the stream here as well. Because we might start
-the consumer before the producer, we want to make sure the stream exists
-before we try to consume messages from it.
+Note that the consumer part also declares the stream.
+This is to allow either part to be started first, be it the producer or the consumer.
 
-We need to use `Consumer` struct to create the consumer.
+We use the `Consumer` struct to create the consumer.
 
-We're about to tell the server to deliver us the messages from the
-queue. The `Consumer` provides the method `next()` to get the next message from the stream.
+`Consumer` provides the method `next()` to get the next message from the stream.
 
 `offset` defines the starting point of the consumer.
-In this case, we start from the first message.
+In this case, the consumer starts from the very first message available in the stream.
 
 ```rust
 let mut consumer = environment
@@ -243,29 +236,33 @@ task::spawn(async move {
 
 ```
 
-[Here's the whole receive.rs
-script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/receive.rs).
+The complete [receive.rs file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/receive.rs) can be found on GitHub.
 
 ### Putting It All Together
 
 Open two terminals.
 
-You can run the clients in any order, as both declare the stream.
-We will run the consumer first so you can see it waiting for and then receiving the message:
+In order to run both examples, open two terminal (shell) tabs.
 
-```powershell
- cargo run --bin receive
+Both parts of this tutorial can be run in any order, as they both declare the stream.
+Let's run the consumer first so that when the first publisher is started, the consumer will print it:
+
+```shell
+cargo run --bin receive
 ```
 
 Then run the producer:
 
-```powershell
+```shell
 cargo run --bin send
 ```
 
 The consumer will print the message it gets from the publisher via
-RabbitMQ. The consumer will keep running, waiting for messages, so try restarting
-the publisher several times.
+RabbitMQ. The consumer will keep running, waiting for new deliveries. Try re-running
+the publisher several times to observe that.
 
-Streams are different from queues in that they are append-only logs of messages.
-So you can run the different consumers and they will always start from the first message.
+Streams are different from queues in that they are append-only logs of messages
+that can be consumed repeatedly.
+When multiple consumers consume from a stream, they will start from the first available message.
+
+
