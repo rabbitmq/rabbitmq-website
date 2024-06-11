@@ -59,13 +59,13 @@ started. It's the "Hello World" of RabbitMQ Streams.
 
 ### Setup
 
-First let's verify that you have Go toolchain in `PATH`:
+First let's verify that you have the Go toolchain in `PATH`:
 
 ```shell
 go help
 ```
 
-should produce a help message.
+Running that command should produce a help message.
 
 An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/).
 

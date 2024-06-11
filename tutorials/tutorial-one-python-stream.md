@@ -49,8 +49,8 @@ started.  It's the "Hello World" of RabbitMQ Streams.
 > languages](/client-libraries/devtools), see the stream client libraries for each language.
 > We'll use the [Python (rstream) stream client](https://github.com/qweeze/rstream) original built by George Fortunatov now supported by RabbitMQ.
 >
-> The client supports [Python >= 3.9](https://www.python.org/downloads/). 
-> This tutorial will use rstream client 0.19.1 version. 
+> The client supports [Python >= 3.9](https://www.python.org/downloads/).
+> This tutorial will use rstream client 0.19.1 version.
 > Python (rstream) client 0.19.1 and later versions are distributed via [pip](https://pypi.org/project/rstream/).
 >
 > This tutorial assumes you are using powershell on Windows. On MacOS and Linux nearly
@@ -58,26 +58,34 @@ started.  It's the "Hello World" of RabbitMQ Streams.
 
 ### Setup
 
-First let's verify that you have Python toolchain in `PATH`:
+First let's verify that you have the Python toolchain in your `PATH`:
 
-```powershell
-python3 --help
+```bash
+python --help
 ```
 
-should produce a help message.
+Running that command should produce a help message.
 
 An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/).
 
 Now let's create a folder project and install the dependencies:
 
-```powershell
-mkdir python-restream
-cd python-restream
-pip install typing_extensions 
+```bash
+# using pip
+mkdir python-rstream
+cd python-rstream
+pip install typing_extensions
 pip install rstream
+
+# using Pipenv
+mkdir python-rstream
+cd python-rstream
+pipenv install typing_extensions
+pipenv install rstream
+pipenv shell
 ```
 
-Now create new files named `send.py` and `receive.py`. 
+Now create two new files named `send.py` and `receive.py`.
 Now we have the Python project set up we can write some code.
 
 ### Sending
@@ -124,7 +132,7 @@ STREAM_NAME = "hello-python-stream"
 # 5GB
 STREAM_RETENTION = 5000000000
 
-...        
+...
 await producer.create_stream(
             STREAM_NAME, exists_ok=True, arguments={"MaxLengthBytes": STREAM_RETENTION})
 
@@ -189,7 +197,7 @@ This is to allow either part to be started first, be it the producer or the cons
 
 We provide a `on_message` callback to the `consumer.subscribe` function.
 
-`offset_specification` defines the starting point of the consumer. 
+`offset_specification` defines the starting point of the consumer.
 In this case, the consumer starts from the very first message available in the stream.
 
 ```python
@@ -231,7 +239,5 @@ RabbitMQ. The consumer will keep running, waiting for new deliveries. Try re-run
 the publisher several times to observe that.
 
 Streams are different from queues in that they are append-only logs of messages
-that can be consumed repeatedly.
-When multiple consumers consume from a stream, they will start from the first available message.
-
-
+that can be consumed repeatedly. When multiple consumers consume from a stream,
+they will start from the first available message.
