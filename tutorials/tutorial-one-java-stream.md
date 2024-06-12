@@ -105,7 +105,6 @@ With these classes imported, en `Environment` now can be instantiated:
 
 ```java
 Environment environment = Environment.builder().build();
-// ...
 ```
 
 The entry point of the stream Java client is the `Environment`.
@@ -130,7 +129,6 @@ environment.streamCreator().stream(stream).maxLengthBytes(ByteCapacity.GB(5)).cr
 Producer producer = environment.producerBuilder().stream(stream).build();
 producer.send(producer.messageBuilder().addData("Hello, World!".getBytes()).build(), null);
 System.out.println(" [x] 'Hello, World!' message sent");
-...
 ```
 
 The stream declaration operation is idempotent: the stream will only be created if it doesn't exist already.
@@ -187,7 +185,6 @@ Note that the stream name must match that used by the producer.
 Environment environment = Environment.builder().build();
 String stream = "hello-java-stream";
 environment.streamCreator().stream(stream).maxLengthBytes(ByteCapacity.GB(5)).create();
-// ...
 ```
 
 Note that the consumer part also declares the stream. This is to allow either part to be started
@@ -207,7 +204,6 @@ Consumer consumer = environment.consumerBuilder()
             .messageHandler((unused, message) -> {
                 System.out.println("Received message: " + new String(message.getBodyAsBinary()));
             }).build();
-// ...
 ```
 
 The complete [`Receive.java` file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Receive.java)

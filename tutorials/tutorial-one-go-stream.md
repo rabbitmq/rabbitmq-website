@@ -74,7 +74,7 @@ Now let's create the project:
 ```shell
 mkdir go-stream
 cd go-stream
-go mod init go/stream
+go get -u github.com/rabbitmq/rabbitmq-stream-go-client
 ```
 
 Now we have the Go project set up we can write some code.
@@ -91,11 +91,12 @@ we need to import some packages:
 
 ```go
 import (
-	"bufio"
-	"fmt"
-	"github.com/rabbitmq/rabbitmq-stream-go-client/pkg/amqp"
-	"github.com/rabbitmq/rabbitmq-stream-go-client/pkg/stream"
-	"os"
+    "bufio"
+    "fmt"
+    "github.com/rabbitmq/rabbitmq-stream-go-client/pkg/amqp"
+    "github.com/rabbitmq/rabbitmq-stream-go-client/pkg/stream"
+    "log"
+    "os"
 )
 ```
 
@@ -104,7 +105,6 @@ then we can create a connection to the server:
 ```go
 env, err := stream.NewEnvironment(
 		stream.NewEnvironmentOptions())
-...
 ```
 
 The entry point of the stream Go client is the `Environment`.
@@ -121,13 +121,11 @@ The producer will also declare a stream it will publish messages to and then pub
 
 ```go
 streamName := "hello-go-stream"
-err = env.DeclareStream(streamName, &stream.StreamOptions{
-MaxLengthBytes: stream.ByteCapacity{}.GB(5),
-},)
-
-if err != nil {
-    log.Fatalf("Failed to declare stream: %v", err)
-}
+env.DeclareStream(streamName,
+    &stream.StreamOptions{
+        MaxLengthBytes: stream.ByteCapacity{}.GB(2),
+    },
+)
 
 producer, err := env.NewProducer(streamName, stream.NewProducerOptions())
 if err != nil {
@@ -138,7 +136,6 @@ err = producer.Send(amqp.NewMessage([]byte("Hello world")))
 if err != nil {
     log.Fatalf("Failed to send message: %v", err)
 }
-...
 ```
 
 The stream declaration operation is idempotent: the stream will only be created if it doesn't exist already.
@@ -176,11 +173,12 @@ Similarly to `send.go`, [`receive.go`](https://github.com/rabbitmq/rabbitmq-tuto
 
 ```go
 import (
-	"bufio"
-	"fmt"
-	"github.com/rabbitmq/rabbitmq-stream-go-client/pkg/amqp"
-	"github.com/rabbitmq/rabbitmq-stream-go-client/pkg/stream"
-	"os"
+    "bufio"
+    "fmt"
+    "github.com/rabbitmq/rabbitmq-stream-go-client/pkg/amqp"
+    "github.com/rabbitmq/rabbitmq-stream-go-client/pkg/stream"
+    "log"
+    "os"
 )
 ```
 
@@ -193,15 +191,11 @@ if err != nil {
 }
 
 streamName := "hello-go-stream"
-err = env.DeclareStream(streamName,
-		&stream.StreamOptions{
-			MaxLengthBytes: stream.ByteCapacity{}.GB(2),
-		},
-	)
-if err != nil {
-    log.Fatalf("Failed to declare stream: %v", err)
-}
-...
+env.DeclareStream(streamName,
+    &stream.StreamOptions{
+        MaxLengthBytes: stream.ByteCapacity{}.GB(2),
+    },
+)
 ```
 
 Note that the consumer part also declares the stream.
@@ -234,7 +228,7 @@ In order to run both examples, open two terminal (shell) tabs.
 We need to pull dependencies first:
 
 ```shell
- go mod tidy
+go get -u
 ```
 
 Both parts of this tutorial can be run in any order, as they both declare the stream.

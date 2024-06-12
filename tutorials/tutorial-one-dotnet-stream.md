@@ -112,7 +112,6 @@ then we can create a connection to the server:
 
 ```csharp
 var streamSystem = await StreamSystem.Create(new StreamSystemConfig());
-...
 ```
 The entry point of the stream .NET client is the `StreamSystem`.
 It is used for configuration of RabbitMQ stream publishers, stream consumers, and streams themselves.
@@ -127,14 +126,12 @@ Next let's create a producer.
 The producer will also declare a stream it will publish messages to and then publish a message:
 
 ```csharp
-...
 await streamSystem.CreateStream(new StreamSpec("hello-stream")
 {
     MaxLengthBytes = 5_000_000_000
 });
 
 var producer = await Producer.Create(new ProducerConfig(streamSystem, "hello-stream"));
-
 
 await producer.Send(new Message(Encoding.UTF8.GetBytes($"Hello, World")));
 ```
@@ -190,7 +187,6 @@ await streamSystem.CreateStream(new StreamSpec("hello-stream")
 {
     MaxLengthBytes = 5_000_000_000
 });
-...
 ```
 
 Note that the consumer part also declares the stream.
@@ -204,7 +200,6 @@ In this case, the consumer starts from the very first message available in the s
 
 
 ```csharp
-...
 var consumer = await Consumer.Create(new ConsumerConfig(streamSystem, "hello-stream")
 {
     OffsetSpec = new OffsetTypeFirst(),
@@ -215,7 +210,6 @@ var consumer = await Consumer.Create(new ConsumerConfig(streamSystem, "hello-str
         await Task.CompletedTask;
     }
 });
-
 ```
 The complete [`Receive.cs` file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet-stream/Receive/Receive.cs) can be found on GitHub.
 

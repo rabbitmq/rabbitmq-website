@@ -65,10 +65,10 @@ First let's verify that you have the Rust toolchain in `PATH`:
 rustc --version
 cargo --version
 ```
+
 Running that command should produce a help message.
 
 An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/).
-
 
 Now let's create the project:
 
