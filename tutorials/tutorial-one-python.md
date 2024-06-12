@@ -37,7 +37,7 @@ import T1DiagramReceiving from '@site/src/components/Tutorials/T1DiagramReceivin
 
 In this part of the tutorial we'll write two small programs in Python; a
 producer (sender) that sends a single message, and a consumer (receiver) that receives
-messages and prints them out. It's the "Hello World" of RabbitMQ Streams.
+messages and prints them out. It's the "Hello World" of messaging.
 
 In the diagram below, "P" is our producer and "C" is our consumer. The
 box in the middle is a queue - a message buffer that RabbitMQ keeps
