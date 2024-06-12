@@ -122,7 +122,6 @@ const client = await rabbit.connect({
     password: "guest",
     vhost: "/",
 })
-...
 ```
 
 The entry point of the client is the `Client` class.
@@ -138,7 +137,7 @@ Next let's create a producer.
 The producer will also declare a stream it will publish messages to and then publish a message:
 
 ```javascript
-const streamName = "test-queue-stream";
+const streamName = "hello-nodejs-stream";
 
 console.log("Connecting...");
 const client = await rabbit.connect({
