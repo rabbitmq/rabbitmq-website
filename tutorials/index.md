@@ -211,7 +211,7 @@ and browse our
 
 ## Stream tutorials
 
-This section covers the RabbitMQ streams feature through the [Stream Plugin](/docs/stream)
+This section covers [RabbitMQ streams](/docs/streams).
 
 <table id="stream-tutorials">
     <colgroup>
