@@ -77,13 +77,16 @@ cargo new rust-stream
 cd rust-stream
 ```
 
+Copy the required dependencies from the [Cargo.toml file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/Cargo.toml) on GitHub in your own `Cargo.toml` file.
+
 Now we have the Rust project set up we can write some code.
 
 ### Sending
 
-We'll call our message producer (sender) `send.rs` and our message consumer (receiver)
-`receive.rs`. The producer will connect to RabbitMQ, send a single message,
-then exit.
+We'll call our message producer (sender) `send.rs` and our message consumer (receiver) `receive.rs`.
+The producer will connect to RabbitMQ, send a single message, then exit.
+
+Create the `send.rs` file in the `src/bin` directory.
 
 In
 [`send.rs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/send.rs),
@@ -99,7 +102,6 @@ then we can create a connection to the server:
 ```rust
 use rabbitmq_stream_client::Environment;
 let environment = Environment::builder().build().await?;
-...
 ```
 
 The entry point of the stream Rust client is the `Environment`.
@@ -171,6 +173,8 @@ The complete [send.rs file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/
 The other part of this tutorial, the consumer, will connect to a RabbitMQ node and wait for messages to be pushed to it.
 Unlike the producer, which in this tutorial publishes a single message and stops, the consumer will be running continuously, consume the messages RabbitMQ will push to it, and print the received payloads out.
 
+Create the `receive.rs` file in the `src/bin` directory.
+
 Similarly to `send.rs`, [`receive.rs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/receive.rs) needs `use` declarations:
 
 ```rust
@@ -184,6 +188,7 @@ use tokio::task;
 When it comes to the initial setup, the consumer part is very similar the producer one; we use the default connection settings and declare the stream from which the consumer will consume.
 
 ```rust
+use rabbitmq_stream_client::Environment;
 let environment = Environment::builder().build().await?;
 let stream = "hello-rust-stream";
 let create_response = environment
@@ -203,7 +208,6 @@ if let Err(e) = create_response {
             }
         }
     }
-...
 ```
 
 Note that the consumer part also declares the stream.
@@ -233,7 +237,6 @@ task::spawn(async move {
                      d.offset(),);
         }
     });
-
 ```
 
 The complete [receive.rs file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/src/bin/receive.rs) can be found on GitHub.
