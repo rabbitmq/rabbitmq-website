@@ -111,7 +111,6 @@ async with Producer(
         username="guest",
         password="guest",
     ) as producer
-...
 ```
 
 The entry point of the producer is the `Producer` class.
@@ -132,12 +131,10 @@ STREAM_NAME = "hello-python-stream"
 # 5GB
 STREAM_RETENTION = 5000000000
 
-...
 await producer.create_stream(
             STREAM_NAME, exists_ok=True, arguments={"MaxLengthBytes": STREAM_RETENTION})
 
 await producer.send(stream=STREAM_NAME, message=b"Hello, World!")
-...
 ```
 
 The stream declaration operation is idempotent: the stream will only be created if it doesn't exist already.
@@ -178,18 +175,22 @@ Similarly to `send.py`, [`receive.py`](https://github.com/rabbitmq/rabbitmq-tuto
 import asyncio
 import signal
 
-from rstream import AMQPMessage, Consumer, MessageContext
+from rstream import (
+    AMQPMessage,
+    Consumer,
+    MessageContext,
+    ConsumerOffsetSpecification,
+    OffsetType
+)
 ```
 
 When it comes to the initial setup, the consumer part is very similar the producer one; we use the default connection settings and declare the stream from which the consumer will consume.
 
 ```python
-...
 consumer = Consumer(host="localhost", username="guest", password="guest")
 await consumer.create_stream(
     STREAM_NAME, exists_ok=True, arguments={"MaxLengthBytes": STREAM_RETENTION}
 )
-...
 ```
 
 Note that the consumer part also declares the stream.
@@ -212,7 +213,6 @@ await consumer.subscribe(
     offset_specification=ConsumerOffsetSpecification(OffsetType.FIRST, None),
 )
 await consumer.run()
-...
 ```
 
 The complete [receive.py file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/receive.py) can be found on GitHub.
