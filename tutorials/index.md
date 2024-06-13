@@ -234,6 +234,15 @@ This section covers [RabbitMQ streams](/docs/streams).
     * [Node.js](tutorials/tutorial-one-javascript-stream)
   </td>
 
+  <td id="tutorial-two" style={{verticalAlign: 'top',}}>
+    ## 2. "Offset Tracking"
+
+    Keep track of message processing
+
+    * [Java](tutorials/tutorial-two-java-stream)
+  </td>
+
+
 </tr>
 
 </table>
