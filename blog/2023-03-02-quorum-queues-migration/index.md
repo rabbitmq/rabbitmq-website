@@ -337,9 +337,6 @@ The following changes needs to be made to this file before loading it back into 
 7. Policies that apply federation rules to exchanges need to be
    removed for the period of the migration, to avoid duplicate
    messages.
-8. Add `x-queue-type` declarations back for all quorum queues where necessary,
-   or set the default queue type node-wide
-   using `default_queue_type`, a `rabbitmq.conf` setting that is available [in RabbitMQ `3.13.3`](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.3) and later versions
 
 
 Now the modified schema can be loaded into the new virtual host from
@@ -383,6 +380,24 @@ After the queue has been drained, the shovel can be deleted:
 ```bash
 rabbitmqctl clear_parameter shovel migrate-QUEUE_TO_MIGRATE
 ```
+
+### Ensure future queue declarations succeed
+
+Best practices say to declare queues each time you try to use them. Unfortunately, if 
+you left your clients with no queue type value, after [Moving Definitions](#moving-definitions) 
+then future sessions would hit a `PRECONDITION_FAILURE` when they re-declare existing queues.
+
+To avoid this scenario, you have three options:
+
+1. Add `x-queue-type` declarations back to all clients using quorum queues.
+2. set the default queue type node-wide using `default_queue_type`, a `rabbitmq.conf`
+   setting that is available [in RabbitMQ `3.13.3`](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.3)
+   and later versions
+3. Set `quorum_queue.property_equivalence.relaxed_checks_on_redeclaration = true`
+   available since [RabbitMQ `3.11.16`](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.16)
+
+If you chose option 3., setting `quorum_queue.property_equivalence.relaxed_checks_on_redeclaration = true`, you can 
+safely set that configuration value at any time in the migration process.
 
 ## Migrate in place {#in-place-migration}
 
