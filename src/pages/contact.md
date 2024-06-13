@@ -29,7 +29,7 @@ open source RabbitMQ under the Mozilla Public License 2.0 [on GitHub](https://gi
 
 With the new policy, older open source release series (for example, RabbitMQ 3.12.x) will no longer receive
 updates (patch releases). Patch releases for older series of both the open source and commercial editions
-will be available to customers that have [VMware Tanzu RabbitMQ commercial licenses](https://tanzu.vmware.com/rabbitmq).
+will be available to customers that have [VMware Tanzu RabbitMQ commercial licenses](#paid-support)
 
 
 ## Overview {#overview}
@@ -37,7 +37,38 @@ will be available to customers that have [VMware Tanzu RabbitMQ commercial licen
 There are two primary ways to obtain RabbitMQ support from the core development team at Broadcom:
 
  * [Paid commercial support](#paid-support)
- * For [users who run the latest series](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md), a number [community resources](#community-resources) is available
+ * For [users who run the latest series](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md),
+   a number [community resources](#community-resources) is available
+
+
+## Paid Commercial Support {#paid-support}
+
+### Enquiries
+
+For enquiries about VMware’s Commercial Open Source RabbitMQ support, go to
+[this page](https://tanzu.vmware.com/rabbitmq/oss) for more information and a
+contact form. For information about VMware Tanzu RabbitMQ, the Enterprise
+version of RabbitMQ, go to the [VMware Tanzu RabbitMQ product page](https://tanzu.vmware.com/rabbitmq). 
+
+Note that **both** of the above links will redirect you to [this form](https://go-vmware.broadcom.com/contact-us).
+When asked "What is your solution of interest?",
+please choose "Cloud Native Application Development and Delivery". Then, fill out the rest of the form.
+
+### Existing Commercial Users
+
+If you already have a license with Broadcom for one or the other (that is Open
+Source RabbitMQ or an Enterprise version of RabbitMQ) and you need to file a
+support ticket, you can do it using the [Customer Portal for VMware
+products](https://customerconnect.vmware.com/home). Refer to the [VMware
+support page](https://tanzu.vmware.com/support) for other support information.
+For questions about booking training or consulting, please contact the
+[appropriate vendor](/commercial-offerings).
+
+### Issues
+
+If you make a sales or support inquiry and do not get a prompt response, please
+email [rabbitmq-core@groups.vmware.com](mailto:rabbitmq-core@groups.vmware.com)
+and Team RabbitMQ will ensure you get prompt service.
 
 
 ## Community Resources {#community-resources}
@@ -97,23 +128,3 @@ The list **must only** be used for things that need to be discussed in private.
 
 If you want to ask a question about how to use RabbitMQ please use
 [community resources](#community-resources) or open a [paid support](#paid-support) ticket instead.
-
-
-## Paid Commercial Support Enquiries {#paid-support}
-
-For enquiries about VMware’s Commercial Open Source RabbitMQ support, go to
-[this page](https://tanzu.vmware.com/rabbitmq/oss) for more information and a
-contact form. For information about VMware Tanzu RabbitMQ, the Enterprise
-version of RabbitMQ, go to the [VMware Tanzu RabbitMQ product
-page](https://tanzu.vmware.com/rabbitmq). If you already have a license with
-VMware for one or the other (that is Open Source RabbitMQ or an Enterprise
-version of RabbitMQ) and you need to file a support ticket, you can do it using
-the [Customer Portal for VMware
-products](https://customerconnect.vmware.com/home). Refer to the [VMware
-support page](https://tanzu.vmware.com/support) for other support information.
-For questions about booking training or consulting, please contact the
-[appropriate vendor](/commercial-offerings).
-
-If you have questions about how to use RabbitMQ and do not want to
-purchase a support contract or learn about commercial offerings, please use the
-[RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users) instead.
