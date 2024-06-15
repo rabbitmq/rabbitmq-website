@@ -177,10 +177,10 @@ Make sure the following ports are accessible:
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
    the cluster uses [federation](./federation) or CLI tools are used on machines outside the subnet),
-   these ports should not be publicly exposed. See [networking guide](./networking) for details.
- * 35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
-   and is allocated from a dynamic range (computed as server distribution port + 10000 through
-   server distribution port + 10010). See [networking guide](./networking) for details.
+   these ports should not be publicly exposed
+ * 35672-35682: used by CLI tools (so, these are client TCP ports) for [communication with nodes](#epmd-inet-dist-port-range)
+   and is allocated from a dynamic port range. The range computed as server distribution port + 10000 through
+   server distribution port + 10010
  * 15672, 15671: [HTTP API](./management) clients, [management UI](./management) and [rabbitmqadmin](./management-cli), without and with TLS
    (only if the [management plugin](./management) is enabled)
  * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](./stomp) is enabled)
@@ -307,43 +307,43 @@ For RabbitMQ, the default range is limited to a single value computed as
 in using port 25672. This single port can be [configured](./configure)
 using the `RABBITMQ_DIST_PORT` environment variable.
 
+:::info
+When configuring firewall rules, remote connections
+on the inter-node communication port must be allowed from every cluster node's IP address and every host where
+CLI tools might be used
+:::
+
 RabbitMQ [command line tools](./cli) also use a range of ports. The default range is computed by taking the RabbitMQ
 distribution port value and adding 10000 to it. The next 10 ports are also part
 of this range. Thus, by default, this range is 35672 through 35682. This range
-can be configured using the <span class="envvar">RABBITMQ_CTL_DIST_PORT_MIN</span>
-and <span class="envvar">RABBITMQ_CTL_DIST_PORT_MAX</span> environment variables.
+can be configured using the `RABBITMQ_CTL_DIST_PORT_MIN`
+and `RABBITMQ_CTL_DIST_PORT_MAX` environment variables.
 Note that limiting the range to a single port will prevent more than one CLI
 tool from running concurrently on the same host and may affect CLI commands
 that require parallel connections to multiple cluster nodes. A port range of 10
 is therefore a recommended value.
 
-When configuring firewall rules it is highly recommended to allow remote connections
-on the inter-node communication port from every cluster member and every host where
+When configuring firewall rules, remote connections
+on the inter-node communication port must be allowed from every cluster node's IP address and every host where
 CLI tools might be used. epmd port must be open for CLI tools and clustering
 to function.
 
 On Windows, the following settings have no effect when RabbitMQ runs as a service.
 Please see [Windows Configuration](./windows-configuration) for details.
 
-The range used by RabbitMQ can also be controlled via two configuration keys:
+The range used by RabbitMQ can also be controlled via two configuration keys
+in `rabbitmq.conf`:
 
- * `kernel.inet_dist_listen_min` in the <b>classic</b> config format <em>only</em>
- * `kernel.inet_dist_listen_max` in the <b>classic</b> config format <em>only</em>
+ * `inet_dist_listen_min`
+ * `inet_dist_listen_max`
 
 They define the range's lower and upper bounds, inclusive.
 
 The example below uses a range with a single port but a value different from default:
 
-```erlang
-[
-  {kernel, [
-    {inet_dist_listen_min, 33672},
-    {inet_dist_listen_max, 33672}
-  ]},
-  {rabbit, [
-    ...
-  ]}
-].
+``` ini
+inet_dist_listen_min = 33672
+inet_dist_listen_max = 33672
 ```
 
 To verify what port is used by a node for inter-node and CLI tool communication,
