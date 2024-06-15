@@ -177,10 +177,10 @@ Make sure the following ports are accessible:
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
    the cluster uses [federation](./federation) or CLI tools are used on machines outside the subnet),
-   these ports should not be publicly exposed. See [networking guide](./networking) for details.
+   these ports should not be publicly exposed
  * 35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
    and is allocated from a dynamic range (computed as server distribution port + 10000 through
-   server distribution port + 10010). See [networking guide](./networking) for details.
+   server distribution port + 10010)
  * 15672, 15671: [HTTP API](./management) clients, [management UI](./management) and [rabbitmqadmin](./management-cli), without and with TLS
    (only if the [management plugin](./management) is enabled)
  * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](./stomp) is enabled)
