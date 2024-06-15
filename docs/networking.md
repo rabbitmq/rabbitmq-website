@@ -194,7 +194,7 @@ to use [different ports and specific network interfaces](./networking).
 
 ## How to Temporarily Stop New Client Connections {#listener-suspension}
 
-Starting with RabbitMQ `3.8.8`, client connection listeners can be *suspended* to prevent new client
+Client connection listeners can be *suspended* to prevent new client
 connections from being accepted. Existing connections will not be affected in any way.
 
 This can be useful during node operations and is one of the steps performed
@@ -1026,7 +1026,7 @@ are effective for both IPv4 and IPv6 connections):
 </table>
 
 Note that default values for these vary between Linux kernel releases and distributions.
-Using a recent kernel (3.9 or later) is recommended.
+Using a recent kernel version (such as 6.x or later) is recommended.
 
 
 <a id="os-tuning-important-how-to-configure"></a>
