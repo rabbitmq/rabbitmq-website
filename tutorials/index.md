@@ -235,7 +235,7 @@ This section covers [RabbitMQ streams](/docs/streams).
   </td>
 
   <td id="tutorial-two" style={{verticalAlign: 'top',}}>
-    ## 2. "Offset Tracking"
+    ## 2. Offset Tracking
 
     Keep track of message processing
 
