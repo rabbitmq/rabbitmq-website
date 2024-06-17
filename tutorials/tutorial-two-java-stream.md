@@ -39,6 +39,8 @@ We'll see how a consumer can navigate through a stream and can even restart wher
 We'll use [the stream Java client](/tutorials/tutorial-one-java-stream#using-the-java-stream-client).
 Make sure to follow [the setup steps](/tutorials/tutorial-one-java-stream#setup) from the first tutorial.
 
+An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/).
+
 ### Sending
 
 The sending program starts by instanciating the `Environment` and creating the stream:
