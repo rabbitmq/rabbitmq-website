@@ -1,5 +1,5 @@
 ---
-title: RabbitMQ tutorial - "Offset Tracking"
+title: RabbitMQ tutorial - Offset Tracking
 ---
 
 <!--
@@ -22,19 +22,19 @@ limitations under the License.
 import TutorialsHelp from '@site/src/components/Tutorials/TutorialsStreamHelp.md';
 import TutorialsIntro from '@site/src/components/Tutorials/TutorialsStreamIntro.md';
 
-# RabbitMQ Stream tutorial - "Offset Tracking"
+# RabbitMQ Stream tutorial - Offset Tracking
 
 ## Introduction
 
 <TutorialsHelp/>
 <TutorialsIntro/>
 
-## "Offset Tracking"
+## Offset Tracking
 
 ### Setup
 
 In this part of the tutorial we'll write two programs in Java; a producer that sends a wave of messages with a poison message at the end, and a consumer that receives messages and stops when it gets the poison message.
-We'll see how a consumer can navigate through a stream and can even start where it left off in a previous execution.
+We'll see how a consumer can navigate through a stream and can even restart where it left off in a previous execution.
 
 We'll use [the stream Java client](/tutorials/tutorial-one-java-stream#using-the-java-stream-client).
 Make sure to follow [the setup steps](/tutorials/tutorial-one-java-stream#setup) from the first tutorial.
@@ -87,9 +87,9 @@ Let's create now the receiving program.
 ### Receiving
 
 The receiving program starts a consumer that attaches at the beginning of the stream (`OffsetSpecification.first()`).
-We keep track of the offsets of the first and last messages in the message handler.
+We use variables to output the offsets of the first last received messages at the end of the program.
 
-The consumer stops when it receives the poison message: it stores the offset in a variable, closes the consumer, and decrement the latch count.
+The consumer stops when it receives the poison message: it assigns the offset to a variable, closes the consumer, and decrement the latch count.
 Like for the sender, the `CountDownLatch` helps us moving on when the consumer job is done.
 
 ```java
@@ -153,10 +153,15 @@ First message received.
 Done consuming, first offset 0, last offset 99.
 ```
 
-A stream is different from a queue: consumer can read and re-read the same messages and the messages stay in the stream.
+:::note[What is an offset?]
+We can think of a stream as an array where elements are messages.
+The offset is the index of a given message in the array.
+:::
 
-Let's try this, but this time we will attach at a given location in the stream.
-We need to use the `offset` offset specification.
+A stream is different from a queue: consumers can read and re-read the same messages and the messages stay in the stream.
+
+Let's try this feature.
+We will use the `offset(long)` specification to attach at a given offset.
 Set the `offsetSpecification` variable from `OffsetSpecification.first()` to `OffsetSpecification.offset(42)`:
 
 ```java
@@ -198,7 +203,7 @@ This time you should only see:
 Started consuming...
 ```
 
-The consumer is waiting for some new messages in the stream.
+The consumer is waiting for new messages in the stream.
 Let's publish some by running the sender again.
 Back to the first tab:
 
@@ -215,13 +220,15 @@ First message received.
 Done consuming, first offset 100, last offset 199.
 ```
 
+The receiver stopped because of the new poison message the sender put at the end of the stream.
+
 We saw we can "browse" a stream: from the beginning, from any offset, even for new messages.
 In the next section we will how to leverage server-side offset tracking to resume where a consumer left off in a previous execution.
 
 ### Server-Side Offset Tracking
 
 RabbitMQ Streams provide server-side offset tracking to store the progress of a given consumer in a stream.
-If the consumer were to stop for any reason (crash, upgrade, ...), it would be able to re-attach where it stopped previously to avoid processing the same messages.
+If the consumer were to stop for any reason (crash, upgrade, etc), it would be able to re-attach where it stopped previously to avoid processing the same messages.
 
 Note RabbitMQ Streams provides an API for offset tracking, but you are free to use any other solution to store the progress of your consuming applications.
 It may depend on the use case, but a relational database can be a good solution as well.
@@ -230,6 +237,7 @@ Let's modify the receiver to store the offset of processed messages.
 The updated lines are outlined with comments:
 
 ```java
+// start consuming at the beginning of the stream
 OffsetSpecification offsetSpecification = OffsetSpecification.first();
 AtomicLong messageCount = new AtomicLong(0);
 environment.consumerBuilder()
@@ -253,4 +261,72 @@ environment.consumerBuilder()
         }
     })
     .build();
+```
+
+Let's see the most relevant changes:
+* We start consuming at the beginning of the stream with `OffsetSpecification.first()`.
+* We must set a name for our consumer.
+This will be the key to store and retrieve the last stored offset.
+* We will handle the offset tracking ourselves with the manual tracking strategy.
+* We store the offset we reached every 10 messages.
+This is an unusually low value for offset storage frequency, but this is OK for this tutorial.
+Values in the real world are rather in the hundreds or in the thousands.
+* We store the offset before closing the consumer, just after getting the poison message.
+
+Let's run the updated receiver:
+
+
+```shell
+./mvnw -q compile exec:java '-Dexec.mainClass=OffsetTrackingReceive'
+```
+
+Here is the output:
+
+```shell
+Started consuming...
+First message received.
+Done consuming, first offset 0, last offset 99.
+```
+
+There is nothing surprising there: we consumed messages from the beginning of the stream to the first poison message.
+
+Let's start the receiver another time:
+
+```shell
+./mvnw -q compile exec:java '-Dexec.mainClass=OffsetTrackingReceive'
+```
+
+Here is the output:
+
+```shell
+Started consuming...
+First message received.
+Done consuming, first offset 100, last offset 199.
+```
+
+We restarted exactly where we left off: the last offset in the first run was 99 and the first offset in this second run is 100.
+Note the `first` offset specification is ignored: a stored offset takes precedence over the offset specification parameter.
+We stored offset tracking information in the first run, so the client library uses it to resume consuming at the right position in the second run.
+
+This concludes this tutorial on consuming semantics in RabbitMQ Streams.
+We saw a consumer can attach anywhere in a stream.
+Consuming applications are likely to keep track of the point they reached in a stream.
+They can use the built-in server-side offset tracking feature we demonstrated in this tutorial.
+They are also free to use any other data store solution for this task.
+
+You can learn more about offset tracking on the [RabbitMQ blog](https://www.rabbitmq.com/blog/2021/09/13/rabbitmq-streams-offset-tracking) and in the [stream Java client documentation](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#consumer-offset-tracking).
+
+
+```shell
+./mvnw -q compile exec:java '-Dexec.mainClass=OffsetTrackingSend'
+```
+
+```shell
+./mvnw -q compile exec:java '-Dexec.mainClass=OffsetTrackingReceive'
+```
+
+```shell
+Started consuming...
+First message received.
+Done consuming, first offset 221, last offset 320.
 ```
