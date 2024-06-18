@@ -27,6 +27,7 @@ import T6DiagramToC from '@site/src/components/Tutorials/T6DiagramToC.md';
 
 
 import T1DiagramStreamToC from '@site/src/components/Tutorials/T1DiagramStreamToC.md';
+import T2DiagramStreamToC from '@site/src/components/Tutorials/T2DiagramStreamToC.md';
 
 # RabbitMQ Tutorials
 
@@ -239,6 +240,7 @@ This section covers [RabbitMQ streams](/docs/streams).
 
     Keep track of message processing
 
+    <T2DiagramStreamToC/>
     * [Java](tutorials/tutorial-two-java-stream)
   </td>
 
