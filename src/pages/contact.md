@@ -45,6 +45,10 @@ There are two primary ways to obtain RabbitMQ support from the core development 
 
 ### Enquiries
 
+:::important
+On the sales contact form, when asked "What is your solution of interest?", please choose "Cloud Native Application Development and Delivery"
+:::
+
 For enquiries about VMware’s Commercial Open Source RabbitMQ support, go to
 [this page](https://tanzu.vmware.com/rabbitmq/oss) for more information and a
 contact form. For information about VMware Tanzu RabbitMQ, the Enterprise
