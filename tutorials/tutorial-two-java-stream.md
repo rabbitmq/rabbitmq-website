@@ -33,7 +33,7 @@ import TutorialsIntro from '@site/src/components/Tutorials/TutorialsStreamIntro.
 
 ### Setup
 
-This part of the tutorial consists in writing two programs in Java; a producer that sends a wave of messages with a poison message at the end, and a consumer that receives messages and stops when it gets the poison message.
+This part of the tutorial consists in writing two programs in Java; a producer that sends a wave of messages with a marker message at the end, and a consumer that receives messages and stops when it gets the marker message.
 It shows how a consumer can navigate through a stream and can even restart where it left off in a previous execution.
 
 This tutorial uses [the stream Java client](/tutorials/tutorial-one-java-stream#using-the-java-stream-client).
@@ -59,7 +59,7 @@ try (Environment environment = Environment.builder().build()) {
 ```
 
 The program then creates a `Producer` instance and publish 100 messages.
-The body value of the last message is set to `poison`; this is a marker for the consumer to stop consuming.
+The body value of the last message is set to `marker`; this is a marker for the consumer to stop consuming.
 
 Note the use of a `CountDownLatch`: it is decremented with `countDown` in each message confirm callback.
 This ensures the broker received all the messages before closing the program.
@@ -73,7 +73,7 @@ int messageCount = 100;
 CountDownLatch confirmedLatch = new CountDownLatch(messageCount);
 
 IntStream.range(0, messageCount).forEach(i -> {
-    String body = i == messageCount - 1 ? "poison" : "hello";
+    String body = i == messageCount - 1 ? "marker" : "hello";
     producer.send(producer.messageBuilder()
                           .addData(body.getBytes(UTF_8))
                           .build(),
@@ -91,7 +91,7 @@ Let's now create the receiving program.
 The receiving program starts a consumer that attaches at the beginning of the stream (`OffsetSpecification.first()`).
 It uses variables to output the offsets of the first and last received messages at the end of the program.
 
-The consumer stops when it receives the poison message: it assigns the offset to a variable, closes the consumer, and decrement the latch count.
+The consumer stops when it receives the marker message: it assigns the offset to a variable, closes the consumer, and decrement the latch count.
 Like for the sender, the `CountDownLatch` tells the program when to move on when the consumer is done with his job.
 
 ```java
@@ -107,7 +107,7 @@ environment.consumerBuilder()
           System.out.println("First message received.");
         }
         String body = new String(msg.getBodyAsBinary(), StandardCharsets.UTF_8);
-        if ("poison".equals(body)) {
+        if ("marker".equals(body)) {
           lastOffset.set(ctx.offset());
           ctx.consumer().close();
           consumeLatch.countDown();
@@ -221,7 +221,7 @@ First message received.
 Done consuming, first offset 100, last offset 199.
 ```
 
-The receiver stopped because of the new poison message the sender put at the end of the stream.
+The receiver stopped because of the new marker message the sender put at the end of the stream.
 
 This section showed how to "browse" a stream: from the beginning, from any offset, even for new messages.
 The next section covers how to leverage server-side offset tracking to resume where a consumer left off in a previous execution.
@@ -254,7 +254,7 @@ environment.consumerBuilder()
             ctx.storeOffset(); // store offset every 10 messages
         }
         String body = new String(msg.getBodyAsBinary(), StandardCharsets.UTF_8);
-        if (body.equals("poison")) {
+        if (body.equals("marker")) {
             lastOffset.set(ctx.offset());
             ctx.storeOffset(); // store the offset on consumer closing
             ctx.consumer().close();
@@ -272,7 +272,7 @@ It is the key to store and retrieve the last stored offset value.
 * The offset is stored every 10 messages.
 This is an unusually low value for offset storage frequency, but this is OK for this tutorial.
 Values in the real world are rather in the hundreds or in the thousands.
-* The offset is stored before closing the consumer, just after getting the poison message.
+* The offset is stored before closing the consumer, just after getting the marker message.
 
 Let's run the updated receiver:
 
@@ -288,7 +288,7 @@ First message received.
 Done consuming, first offset 0, last offset 99.
 ```
 
-There is nothing surprising there: the consumer got the messages from the beginning of the stream and stopped when it reached the poison message. 
+There is nothing surprising there: the consumer got the messages from the beginning of the stream and stopped when it reached the marker message. 
 
 Let's start it another time:
 
