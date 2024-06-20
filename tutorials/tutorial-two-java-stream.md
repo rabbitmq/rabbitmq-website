@@ -43,7 +43,7 @@ An executable version of this tutorial can be found in the [RabbitMQ tutorials r
 
 ### Sending
 
-The sending program starts by instanciating the `Environment` and creating the stream:
+The sending program starts by instantiating the `Environment` and creating the stream:
 
 ```java
 try (Environment environment = Environment.builder().build()) {
@@ -84,7 +84,7 @@ IntStream.range(0, messageCount).forEach(i -> {
 boolean completed = confirmedLatch.await(60, TimeUnit.SECONDS);
 ```
 
-Let's create now the receiving program.
+Let's now create the receiving program.
 
 ### Receiving
 
