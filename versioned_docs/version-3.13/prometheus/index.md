@@ -713,6 +713,7 @@ Grouped under `queue_metrics`. This group contains all the metrics for every que
 | rabbitmq_detailed_queue_head_message_timestamp    | Timestamp of the first message in the queue, if any  |
 | rabbitmq_detailed_queue_disk_reads_total          | Total number of times queue read messages from disk        |
 | rabbitmq_detailed_queue_disk_writes_total         | Total number of times queue wrote messages to disk         |
+| rabbitmq_detailed_stream_segments                 | Total number of stream segment files                        |
 
 #### Connection/channel metrics
 
