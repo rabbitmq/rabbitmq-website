@@ -267,7 +267,10 @@ queues and bindings through the management
 plugin or other means.
 
 All users can only list objects within the virtual
-hosts they have any permissions for.
+hosts they have any permissions for. However, if you only want those users to have "read-only" access, 
+in order words, you want them to list all objects and view all their metrics but you do not want them to
+modify those objects (queues or streams, exchanges, bindings) in any way (consume, publish, delete or create) all you need to do is grant one permission with an empty regular expression and on any of the three actions, `read` or `write`
+or `configure`. 
 
 If access to management UI is impossible to due the lack of users
 with sufficient permissions or forgotten/incorrect permissions, [CLI tools](./cli) must
