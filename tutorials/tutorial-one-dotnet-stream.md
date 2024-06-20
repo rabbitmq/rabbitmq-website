@@ -138,7 +138,7 @@ await producer.Send(new Message(Encoding.UTF8.GetBytes($"Hello, World")));
 
 The stream declaration operation is idempotent: the stream will only be created if it doesn't exist already.
 
-A stream is an append-only log abtraction that allows for repeated consumption of messages until they expire.
+A stream is an append-only log abstraction that allows for repeated consumption of messages until they expire.
 It is a good practice to always define the retention policy.
 In the example above, the stream is limited to be 5 GiB in size.
 
