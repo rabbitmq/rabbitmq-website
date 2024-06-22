@@ -66,7 +66,7 @@ responsible as much as RabbitMQ nodes are.
 [Publisher confirms](#publisher-confirms) and [consumer delivery acknowledgements](#consumer-acknowledgements)
 are very similar features that solve similar problems in different contexts:
 
-1. Consumer acknolwedgements, as the name suggests, cover RabbitMQ communication with consumers
+1. Consumer acknowledgements, as the name suggests, cover RabbitMQ communication with consumers
 2. Publisher confirms cover publisher communication with RabbitMQ
 
 The two features, however, are entirely orthogonal and unaware of each other.
