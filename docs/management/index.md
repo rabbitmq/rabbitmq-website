@@ -22,6 +22,9 @@ import {
   RabbitMQServerGitTag,
 } from '@site/src/components/RabbitMQServer';
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Management Plugin
 
 ## Overview {#overview}
@@ -48,6 +51,7 @@ This guide covers:
  * How to [enable HTTPS for management UI](#single-listener-https) and its underlying API
  * How this plugin [operates in multi-node clusters](#clustering)
  * How to [disable metric collection](#disable-stats) to use [Prometheus](./prometheus) exclusively for monitoring
+ * How to create [a user with limited permissions for monitoring purposes](#monitoring-permissions) only
  * [Authenticating with OAuth 2](#oauth2-authentication)
  * [Strict transport security](#hsts), [Content security policy](#csp), [cross-origin resource sharing](#cors), and [other security-related header](#other-security-headers) control
  * [Statistics collection interval](#statistics-interval)
@@ -269,24 +273,78 @@ plugin or other means.
 All users can only list objects within the virtual
 hosts they have any permissions for.
 
-If access to management UI is impossible to due the lack of users
-with sufficient permissions or forgotten/incorrect permissions, [CLI tools](./cli) must
-be used to manage the users and their credentials. [rabbitmqctl add_user](./man/rabbitmqctl.8#add_user)
-should be used to create a user, [rabbitmqctl set_permissions](./man/rabbitmqctl.8#set_permissions) to grant the
-user the desired permissions and finally, [rabbitmqctl
-set_user_tags](./man/rabbitmqctl.8#set_user_tags) should be used to give the user management UI access permissions.
+### Monitoring-Only (Read-Only) Access {#monitoring-permissions}
 
-### Command Line Examples {#cli-examples}
+Some users are created exclusively for [observability purposes](./monitoring). More specifically,
+such users need to list all objects and inspect their metrics but not have the [permissions](./access-control)
+to add or delete entities ([queues](./queues), [streams](./streams), exchanges, bindings, and so on).
+Such users also do not need to publish or consume messages.
+
+This can be accomplished by
+
+1. Creating a user tagged as `monitoring`
+2. Granting it permissions (`configure`, `read`, `write`) that are empty (will match no objects)
+
+Both steps can be accomplished using the management UI or the [HTTP API](#http-api), or, if
+those options are not available or optimal, using [CLI tools](./cli):
+
+ * [`rabbitmqctl add_user`](./man/rabbitmqctl.8#add_user) can be used to create the user
+ * [`rabbitmqctl set_permissions`](./man/rabbitmqctl.8#set_permissions) to grant the
+   user the desired permissions and finally,
+ * [`rabbitmqctl set_user_tags`](./man/rabbitmqctl.8#set_user_tags)
+   to tag it with `monitoring`, which will grant them management UI access
+
+### Command Line Examples: Create a User with Monitoring-Only Access
 
 The following example creates a user with complete access to the management UI/HTTP API (as in,
 all virtual hosts and management features):
 
+<Tabs>
+<TabItem value="bash" label="bash" default>
 ```bash
-# create a user
-rabbitmqctl add_user full_access s3crEt
-# tag the user with "administrator" for full management UI and HTTP API access
-rabbitmqctl set_user_tags full_access administrator
+# See the Access Control guide to learn about user management.
+#
+# Password is provided as a command line argument.
+# Note that certain characters such as !, &, $, #, and so on must be escaped to avoid
+# special interpretation by the shell.
+rabbitmqctl add_user 'monitoring' '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b'
+
+# tag user 'monitoring' with a tag of the same name
+rabbitmqctl set_user_tags 'monitoring' 'monitoring'
+
+# grant the user empty permissions
+rabbitmqctl set_permissions --vhost 'vhost-name' 'monitoring' '^$' '^$' '^$'
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# See the Access Control guide to learn about user management.
+#
+# password is provided as a command line argument
+rabbitmqctl.bat add_user 'monitoring' '9a55f70a841f18b97c3a7db939b7adc9e34a0f1d'
+
+# passwords with special characters must be quoted correctly
+rabbitmqctl.bat add_user 'monitoring' '"w63pnZ&LnYMO(t"'
+
+# grant the user empty permissions
+rabbitmqctl.bat set_permissions --vhost 'vhost-name' 'monitoring' '^$' '^$' '^$'
+```
+</TabItem>
+<TabItem value="cmd" label="cmd">
+```batch
+rem See the Access Control guide to learn about user management.
+
+rem password is provided as a command line argument
+rabbitmqctl.bat add_user "monitoring" "9a55f70a841f18b97c3a7db939b7adc9e34a0f1d"
+
+rem passwords with special characters must be quoted correctly
+rabbitmqctl.bat add_user "monitoring" "w63pnZ&LnYMO(t"
+
+rem grant the user empty permissions
+rabbitmqctl set_permissions --vhost "vhost-name" "monitoring" "^$" "^$" "^$"
+```
+</TabItem>
+</Tabs>
 
 
 ## Authenticating with OAuth 2 {#oauth2-authentication}
