@@ -304,8 +304,6 @@ Supported keys of the JSON objects are
   <tbody>
     <tr>
       <td><code>upstream</code></td>
-    </tr>
-    <tr>
       <td>
         The name of an upstream. Mandatory.
       </td>
