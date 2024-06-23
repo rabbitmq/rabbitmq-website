@@ -122,7 +122,7 @@ Collect the following metrics on all hosts that run RabbitMQ nodes or applicatio
 
  * CPU stats (user, system, iowait, idle percentages)
  * Memory usage (used, buffered, cached and free percentages)
- * [Kernel page cache](/memory-use#page-cache), in particular in clusters where [streams](./streams) are used
+ * [Kernel page cache](./memory-use#page-cache), in particular in clusters where [streams](./streams) are used
  * [Virtual Memory](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) statistics (dirty page flushes, writeback volume)
  * Disk I/O (frequency of operations, amount of data transferred per unit time, statistical distribution of long I/O operation take to completes, I/O operation failure rates)
  * Free disk space on the mount used for the [node data directory](./relocate)
