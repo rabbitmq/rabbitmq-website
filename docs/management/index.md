@@ -68,6 +68,12 @@ use to extend the UI.
 
 ## Management UI and External Monitoring Systems {#external-monitoring}
 
+:::important
+Prefer external monitoring options where possible.
+[Infrastructure and kernel-level monitoring](./monitoring) is also crucially important to have
+in any production system.
+:::
+
 The management UI and its [HTTP API](#http-api) is a built-in [monitoring option](./monitoring) for RabbitMQ.
 This is a convenient option for development and in environments where
 external monitoring is difficult or impossible to introduce.
@@ -83,7 +89,7 @@ However, the management UI has a number of limitations:
    (or a convention on JWT token scopes)
 
 Long term metric storage and visualisation services such as [Prometheus and Grafana](./prometheus)
-or the [ELK stack](https://www.elastic.co/what-is/elk-stack) are more suitable options for production systems. They offer:
+or the [ELK stack](https://www.elastic.co/elastic-stack/) are more suitable options for production systems. They offer:
 
  * Decoupling of the monitoring system from the system being monitored
  * Lower overhead
