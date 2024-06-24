@@ -1318,7 +1318,7 @@ mirroring_sync_batch_size = 4096
       <p>
         Default:
 ```ini
-queue_leader_locator = balanced
+queue_leader_locator = client-local
 ```
       </p>
     </td>

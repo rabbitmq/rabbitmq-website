@@ -1302,7 +1302,7 @@ mnesia_table_loading_retry_limit = 10
       <p>
         Default:
 ```ini
-queue_leader_locator = balanced
+queue_leader_locator = client-local
 ```
       </p>
     </td>
