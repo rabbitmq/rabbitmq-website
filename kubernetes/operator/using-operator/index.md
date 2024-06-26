@@ -150,11 +150,7 @@ The child resources created by the Cluster Operator always have the following se
 * `app.kubernetes.io/component` - the component it belongs to. Currently always set to `rabbitmq`.
 * `app.kubernetes.io/part-of` - The name of a higher level application this one is part of. Currently always set to `rabbitmq`.
 
-The same set of labels is applied to the Pods created by the StatefulSet. In addition to the above, the following
-two annotations are added to the Pods:
-
-* `prometheus.io/port` - with value `15692`.
-* `prometheus.io/scrape` - with value `true`.
+The same set of labels is applied to the Pods created by the StatefulSet.
 
 ## Existing examples {#examples}
 
