@@ -83,9 +83,11 @@ a good outcome.
 
 ### Health Checks' Role in Monitoring
 
-A [Health check](#health-checks) is the most basic aspect of monitoring. It involves a command or
-set of commands that collect a few essential metrics of the monitored system [over
-time](#monitoring-frequency) and test them. For example, whether RabbitMQ's Erlang VM is running is
+[Health checks](#health-checks) are another important aspect of monitoring. A health check involves a command or
+set of commands that collect a few essential metrics of the monitored system [over time](#monitoring-frequency)
+and assert on the state (health) of the system based on that metric.
+
+For example, whether RabbitMQ's Erlang VM is running is
 one such check. The metric in this case is "is an OS process running?". The normal operating
 parameters are "the process must be running". Finally, there is an evaluation step.
 
