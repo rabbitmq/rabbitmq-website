@@ -47,6 +47,7 @@ This guide covers
 
  * [Advanced usage](#advanced-usage)    
     * [Use default OAuth 2.0 provider](#use-oauth-provider)
+    * [Configure OAuth 2.0 provider's end_session_endpoint](#configure-end-session-endpoint)
     * [Configure multiple resource servers](#multiple-resource-servers)
     * [Configure multiple OAuth 2.0 providers](#multiple-oauth-providers)
 
@@ -737,6 +738,35 @@ auth_oauth2.oauth_providers.prodkeycloak.https.cacertfile = /opts/certs/prodcace
 ```
 
 This latter configuration is more relevant when users present tokens which are issued or signed by different OAuth 2.0 providers. However, one can still use it provided `auth_oauth2.default_oauth_provider` is set.
+
+### Configure OAuth 2.0 provider's end_session_endpoint {#configure-end-session-endpoint}
+
+This advanced setting is only required when the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) does not return an `end_session_endpoint` and you want Single Logout functionality. In other words, when the user logs out from the management UI it is also logged out from the OAuth Provider.
+
+:::info
+If the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) does return an `end_session_endpoint`, the management UI uses it over the configured endpoint. 
+:::
+
+Here is an example configuration that sets `end_session_endpoint`:
+
+```ini
+auth_oauth2.resource_server_id = rabbitmq-prod
+auth_oauth2.scope_prefix = rabbitmq.
+auth_oauth2.issuer = https://prodkeycloak:8080/realm/prod
+auth_oauth2.end_session_endpoint = https://prodkeycloak:8080/realm/prod/logout
+```
+
+The equivalent configuration where the identity provider is configured under `auth_oauth2.oauth_providers` variable is:
+
+```ini
+auth_oauth2.resource_server_id = rabbitmq-prod
+auth_oauth2.scope_prefix = rabbitmq.
+auth_oauth2.default_oauth_provider = prodkeycloak
+
+auth_oauth2.oauth_providers.prodkeycloak.issuer = https://prodkeycloak:8080/realm/prod
+auth_oauth2.oauth_providers.prodkeycloak.end_session_endpoint = https://prodkeycloak:8080/realm/prod/logout
+```
+
 
 
 ### Configure multiple resource servers {#multiple-resource-servers}
