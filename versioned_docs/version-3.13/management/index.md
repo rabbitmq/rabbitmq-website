@@ -124,7 +124,7 @@ During automated deployments, the plugin can be enabled via
 
 ### Management UI Access {#usage-ui}
 
-The management UI can be accessed using a Web browser at `http://<i>{node-hostname}</i>:15672/`.
+The management UI can be accessed using a Web browser at <code>http://<i>node-hostname</i>:15672/</code>.
 
 For example, for a node running on a machine with the hostname of `warp10.local`,
 it can be accessed by users with [sufficient privileges](#permissions) at either `http://warp10.local:15672/`
@@ -629,7 +629,7 @@ dedicated to common OAuth 2-specific issues.
 ### API Endpoints {#http-api-endpoints}
 
 When activated, the management plugin provides an HTTP API at
-`http://<i>server-name</i>:15672/api/` by default. Browse to that
+<code>http://<i>server-name</i>:15672/api/</code> by default. Browse to that
 location for more information on the API. For convenience the same API reference is
 <a href={`https://rawcdn.githack.com/rabbitmq/rabbitmq-server/${RabbitMQServerGitTag()}/deps/rabbitmq_management/priv/www/api/index.html`}>available on GitHub</a>.
 
@@ -651,7 +651,7 @@ of the cluster.
 
 [rabbitmqadmin](./management-cli) is a Python command  line tool
 that interacts with the HTTP API. It can be downloaded from any RabbitMQ node that
-has the management plugin enabled at `http://<i>{node-hostname}</i>:15672/cli/`.
+has the management plugin enabled at <code>http://<i>node-hostname</i>:15672/cli/</code>.
 
 For HTTP API clients in several languages,
 see [Developer Tools](/client-libraries/devtools).
