@@ -126,7 +126,7 @@ Here's an example that creates a virtual host named `qa1` with [quorum queues](.
 a description and two tags:
 
 ```bash
-rabbitmqctl add_vhost qa1 --description "QA environment 1" --default-queue-type quorum --tags qa,project-a
+rabbitmqctl add_vhost qa1 --description "QA env 1" --default-queue-type quorum
 ```
 
 `rabbitmqctl update_vhost_metadata` can be used to update all or some of the metadata values
@@ -174,10 +174,14 @@ curl -u userename:pa$sw0rD -X GET http://rabbitmq.local:15672/api/vhosts/qa1
 ```
 
 
-## Default Queue Type {#default-queue-type}
+## Default Queue Type (DQT) {#default-queue-type}
 
-When a client declares a queue without explicitly specifying its type, a configurable default
-type is used. The default can be overridden by specifying it in virtual host metadata (see above).
+When a client declares a queue without explicitly specifying its type using the `x-queue-type` header,
+a configurable default type is used. The default can be overridden by specifying it in virtual host metadata (see above):
+
+```bash
+rabbitmqctl add_vhost qa1 --description "QA environment 1" --default-queue-type quorum --tags qa,project-a
+```
 
 Supported queue types are:
 
@@ -188,6 +192,42 @@ Supported queue types are:
 The default is only effective for new queue declarations; updating the default will not affect
 queue type of any existing queues or streams because queue type is immutable and cannot
 be changed after declaration.
+
+Starting with RabbitMQ `3.13.4`, for queues that were declared without an explicitly set
+queue type, the effective virtual host default will be injected into the queue properties
+at [definition export time](./definitions).
+
+### Node-wide Default Queue Type (Node-wide DQT)
+
+Starting with RabbitMQ `3.13.4`, instead of configuring the same default queue type for every virtual host
+in the cluster, a node-wide default can be set using `rabbitmq.conf`:
+
+```ini
+# supported values are: quorum, stream, classic, or a custom queue type module name
+default_queue_type = quorum
+```
+
+When both the virtual host DQT and the node-wide DQT are set, the virtual host one will take
+precedence.
+
+### Migration to Quorum Queues: a Way to Relax Queue Property Equivalence Checks
+
+[Queue property equivalence check](./queues#property-equivalence) for queue type can be relaxed
+using a boolean setting, `quorum_queue.property_equivalence.relaxed_checks_on_redeclaration`,
+makes it possible to relax queue property equivalence checks
+for quorum queues.
+
+Specifically, when a quorum queue is redeclared and the client-provided
+type is set to "classic", this setting will help avoid a channel exception, making it
+easier to migrate to quorum queues step by step, without upgrading all applications in a short
+period of time.
+
+```ini
+# this setting is meant to be used during transitionary periods when
+# RabbitMQ default queue type is changed but not all applications have been
+# updated yet
+quorum_queue.property_equivalence.relaxed_checks_on_redeclaration = true
+```
 
 
 ## Deleting a Virtual Host {#deleting}

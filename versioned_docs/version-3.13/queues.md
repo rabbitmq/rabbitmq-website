@@ -114,6 +114,11 @@ or affect application availability.
 
 ### Declaration and Property Equivalence {#property-equivalence}
 
+:::tip
+Specifically for the queue type property, the property equivalence
+check can be relaxed. Alternatively, a default queue type (DQT) can be configured.
+:::
+
 Before a queue can be used it has to be declared. Declaring
 a queue will cause it to be created if it does not already
 exist. The declaration will have no effect if the queue does
@@ -122,6 +127,10 @@ declaration. When the existing queue attributes are not the
 same as those in the declaration a channel-level exception
 with code 406 (<code>PRECONDITION_FAILED</code>) will be raised.
 
+Specifically for the queue type property, the property equivalence
+checks can be relaxed or configured to use a default.
+
+See the [Virtual Hosts guide](./vhosts#default-queue-type) to learn more.
 
 ### Optional Arguments {#optional-arguments}
 
@@ -148,6 +157,7 @@ Optional queue arguments can be set in a couple of ways:
 
  * To groups of queues using [policies](./parameters#policies) (recommended)
  * On a per-queue basis when a queue is declared by a client
+ * For the `x-queue-type` argument, [using a default queue type](./vhosts#default-queue-type)
 
 The former option is more flexible, non-intrusive, does not require application
 modifications and redeployments. Therefore it is highly recommended for most users.
