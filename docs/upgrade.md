@@ -95,7 +95,7 @@ can abort an upgrade by switching applications back to the existing cluster.
 
 :::danger
 This upgrade strategy changes replica identities, can result in massive unnecessary data transfers between
-nodes, and is only safe with important precautions. Therefore, it is [highly recommended against]((#grow-then-shrink)).
+nodes, and is only safe with important precautions. Therefore, it is [highly recommended against](#grow-then-shrink).
 :::
 
 A [grow-and-shrink upgrade](#grow-then-shrink) usually involves the following steps. Consider a three node cluster with nodes
