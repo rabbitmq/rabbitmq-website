@@ -60,6 +60,10 @@ Below is a brief overview of the common strategies. The rest of the guide covers
 
 ### In-place Upgrades {#in-place}
 
+:::tip
+This upgrade strategy is recommended
+:::
+
 An in-place upgrade usually involves the following steps performed by a deployment tool or manually
 by an operator. Each step is covered in more detail later in this guide. An intentionally oversimplified
 list of steps would include:
@@ -77,11 +81,22 @@ and the [Blue/Green deployment](./blue-green-upgrade) upgrade strategy cover the
 
 ### Blue-Green Deployment Upgrades
 
+:::tip
+This upgrade strategy is the safest option. It is recommended
+for environments where a rolling in-place upgrade is not an option
+for any reason, or extra safety is particularly important
+:::
+
 [The Blue/Green deployment](./blue-green-upgrade) strategy offers the benefit of making the upgrade process safer at the cost of
 temporary increasing infrastructure footprint. The safety aspect comes from the fact that the operator
 can abort an upgrade by switching applications back to the existing cluster.
 
 ### Grow-then-Shrink Upgrades
+
+:::danger
+This upgrade strategy changes replica identities, can result in massive unnecessary data transfers between
+nodes, and is only safe with important precautions. Therefore, it is [highly recommended against]((#grow-then-shrink)).
+:::
 
 A [grow-and-shrink upgrade](#grow-then-shrink) usually involves the following steps. Consider a three node cluster with nodes
 A, B, and C:
@@ -295,6 +310,10 @@ With quorum queues and streams that have large data sets, this means that the cl
 experience substantial network traffic volume and disk I/O spikes that a rolling in-place upgrade would not.
 
 Consider using [in-place upgrades](#in-place) or [Blue/Green deployment upgrades](./blue-green-upgrade) instead.
+:::
+
+:::danger
+In order to safely perform a grow-then-shrink upgrade, several precautions must be taken
 :::
 
 A Grow-then-Shrink upgrade usually involves the following steps. Consider a three node cluster with nodes
