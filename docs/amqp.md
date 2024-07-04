@@ -39,30 +39,28 @@ Whether format v1 is still supported is determined by the [deprecated feature fl
 ### Address v2
 
 This section defines the new v2 address formats.
-Pull Request [#10873](https://github.com/rabbitmq/rabbitmq-server/pull/10873) explains why v2 was introduced.
 
 #### Target Address v2
 
 The possible v2 [target address](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-target) formats are:
 ```
-1) /exchange/:exchange/key/:routing-key
-2) /exchange/:exchange
-3) /queue/:queue
+1) /exchanges/:exchange/:routing-key
+2) /exchanges/:exchange
+3) /queues/:queue
 4) <null>
 ```
 
 The first three formats are [strings](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html#type-string).
 
-The 1st format `/exchange/:exchange/key/:routing-key` causes all messages on the given [link](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#section-links) to be sent to exchange `:exchange` with routing key `:routing-key`.
+The 1st format `/exchanges/:exchange/:routing-key` causes all messages on the given [link](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#section-links) to be sent to exchange `:exchange` with routing key `:routing-key`.
 
-The 2nd format `/exchange/:exchange` causes all messages on the given link to be sent to exchange `:exchange` with the empty routing key `""`.
+The 2nd format `/exchanges/:exchange` causes all messages on the given link to be sent to exchange `:exchange` with the empty routing key `""`.
 This is useful for exchange types that ignore the routing key, such as the [fanout](/tutorials/amqp-concepts#exchange-fanout) exchange or the [headers](/tutorials/amqp-concepts#exchange-headers) exchange.
 
 Setting the default exchange `""` in either of the first two formats is disallowed. Instead, use the 3rd format.
 
-The 3rd format `/queue/:queue` causes all messages on the given link to be sent to queue `:queue`.\
-If the deprecated feature `amqp_address_v1` is denied, the queue must exist.\
-If the deprecated feature `amqp_address_v1` is permitted and the queue does not exist, the queue will be auto-created.\
+The 3rd format `/queues/:queue` causes all messages on the given link to be sent to queue `:queue`.\
+The queue must exist.
 Internally, this queue target still uses the default exchange. Hence, the user needs write permissions to exchange `amq.default`.
 
 The first 3 formats require the target address to be the same for all messages on the given link.
@@ -73,9 +71,9 @@ As explained in the AMQP extension [Using the AMQP Anonymous Terminus for Messag
 each message's `to` field of the [properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-properties) section must be set.
 The allowed `to` address strings must have the same format, i.e. one of
 ```
-1) /exchange/:exchange/key/:routing-key
-2) /exchange/:exchange
-3) /queue/:queue
+1) /exchanges/:exchange/:routing-key
+2) /exchanges/:exchange
+3) /queues/:queue
 ```
 where the exchange must exist.
 If a message cannot be routed because no queue is bound to the exchange, RabbitMQ settles the message with the [released outcome](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-released).
@@ -89,12 +87,22 @@ If your publishing application needs to send to a
 
 The only valid v2 [source address](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-source) string format is
 ```
-1) /queue/:queue
+1) /queues/:queue
 ```
 where clients consume messages from queue `:queue`.
+The queue must exist.
 
-If the deprecated feature `amqp_address_v1` is denied, the queue must exist.\
-If the deprecated feature `amqp_address_v1` is permitted and the queue does not exist, the queue will be auto-created.
+#### Percent-encoding
+
+Address format v2 requires exchange names, routing keys, and queue names to be percent-encoded according to [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986#section-2.1).
+
+For example, a client that wants to send to exchange `amq.direct` with routing key `my-routing_key/123` must use target address `/exchanges/amq.direct/my-routing_key%2F123`.
+
+Note that percent-encoding in address format v2 must be applied to all AMQP fields that require an `address`:
+* `address` field in [target](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-target)
+* `address` field in [source](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-source)
+* `to` field in message [properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-properties)
+* `reply-to` field in message [properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-properties)
 
 ### Address v1
 
@@ -113,30 +121,30 @@ This section lists the **deprecated** v1 address string formats.
 ```
 
 The 1st format `/exchange/:exchange/:routing-key` causes all messages on the given link to be sent to exchange `:exchange` with routing key `:routing-key`.
-The equivalent v2 format is `/exchange/:exchange/key/:routing-key`.
+The equivalent v2 format is `/exchanges/:exchange/:routing-key`.
 
 The 2nd format `/exchange/:exchange` causes all messages on the given link to be sent to exchange `:exchange` while the routing key can optionally be provided in the
 message `subject` field of the [properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-properties) section.
-In v2, defining different routing keys per message requires setting the target address to the AMQP null value and the message `to` field to `/exchange/:exchange/key/:routing-key`.
+In v2, defining different routing keys per message requires setting the target address to the AMQP null value and the message `to` field to `/exchanges/:exchange/:routing-key`.
 
 The 3rd format `/topic/:routing-key` causes all messages on the given link to be sent to RabbitMQ's default topic exchange called `amq.topic` with topic `routing-key`.
-In v2, use `/exchange/amq.topic/key/:routing-key`.
+In v2, use `/exchanges/amq.topic/:routing-key`.
 
 The 4th format `/amq/queue/:queue` causes all messages on the given link to be sent to queue `:queue` (to be more precise, internally, to the default exchange with routing key `:queue`).
 Queue `:queue` must exist.
-In v2, use `/queue/:queue`.
+In v2, use `/queues/:queue`.
 
 The 5th format `/queue/:queue` has similar semantics to the 4th format.
 However, RabbitMQ will auto declare queue `:queue`, i.e. create such a queue if it doesn't exist.
 The queue is never auto deleted by RabbitMQ.
-In v2, use `/queue/:queue`.
+In v2, use `/queues/:queue`.
 RabbitMQ 4.0 allows AMQP clients to create RabbitMQ topologies including queues with client defined queue types, properties, and arguments.
 Hence, there is no need for RabbitMQ itself to auto declare a specific queue for a given queue target address format.
 
 The 6th format `:queue` is redundant to the 5th format.
 
 The 7th format causes the message to be sent to the queue provided in the message `subject` field.
-In v2, to send messages to different queues, set the target address to the AMQP null value and the message `to` field to `/queue/:queue`.
+In v2, to send messages to different queues, set the target address to the AMQP null value and the message `to` field to `/queues/:queue`.
 
 #### Source Address v1
 
@@ -163,4 +171,4 @@ The 5th format `:queue` is redundant to the 4th format.
 
 As explained previously, RabbitMQ 4.0 allows AMQP clients to create RabbitMQ topologies including queues with client defined queue types, properties, and arguments.
 Hence, there is no need for RabbitMQ itself to auto declare a specific queue for a given queue source address format.
-In v2, clients should first declare their own queues and bindings, and then attach with source address `/queue/:queue` which causes the client to consume from that queue.
+In v2, clients should first declare their own queues and bindings, and then attach with source address `/queues/:queue` which causes the client to consume from that queue.
