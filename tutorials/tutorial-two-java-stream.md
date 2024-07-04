@@ -71,7 +71,7 @@ Producer producer = environment.producerBuilder()
 
 int messageCount = 100;
 CountDownLatch confirmedLatch = new CountDownLatch(messageCount);
-
+System.out.printf("Publishing %d messages%n", messageCount);
 IntStream.range(0, messageCount).forEach(i -> {
     String body = i == messageCount - 1 ? "marker" : "hello";
     producer.send(producer.messageBuilder()
@@ -82,11 +82,15 @@ IntStream.range(0, messageCount).forEach(i -> {
 });
 
 boolean completed = confirmedLatch.await(60, TimeUnit.SECONDS);
+System.out.printf("Messages confirmed: %b.%n", completed);
 ```
 
 Let's now create the receiving program.
 
 ### Receiving
+
+The receiving program creates an `Environment` instance and makes sure the stream is created as well.
+This part of the code is the same as in the sending program, so it is skipped in the next code snippets for brevity's sake.
 
 The receiving program starts a consumer that attaches at the beginning of the stream (`OffsetSpecification.first()`).
 It uses variables to output the offsets of the first and last received messages at the end of the program.
