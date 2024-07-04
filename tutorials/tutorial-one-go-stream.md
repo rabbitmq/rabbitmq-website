@@ -163,6 +163,11 @@ The complete [send.go file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The [configuration file documentation](/docs/configure#config-items)
 > will show you how to set <code>disk_free_limit</code>.
+>
+> Another reason may be that the program exits _before_ the message makes it to the broker.
+> Sending is asynchronous in some client libraries: the function returns immediately but the message is enqueued in the IO layer before going over the wire.
+> The sending program asks the user to press a key to finish the process: the message has plenty of time to reach the broker.
+> The stream protocol provides a confirm mechanism to make sure the broker receives outbound messages, but this tutorial does not use this mechanism for simplicity's sake.
 
 ### Receiving
 
