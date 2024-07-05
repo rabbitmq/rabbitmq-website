@@ -33,57 +33,100 @@ import TutorialsIntro from '@site/src/components/Tutorials/TutorialsStreamIntro.
 
 ### Setup
 
-This part of the tutorial consists in writing two programs in Java; a producer that sends a wave of messages with a marker message at the end, and a consumer that receives messages and stops when it gets the marker message.
+This part of the tutorial consists in writing two programs in Go; a producer that sends a wave of messages with a marker message at the end, and a consumer that receives messages and stops when it gets the marker message.
 It shows how a consumer can navigate through a stream and can even restart where it left off in a previous execution.
 
-This tutorial uses [the stream Java client](/tutorials/tutorial-one-java-stream#using-the-java-stream-client).
-Make sure to follow [the setup steps](/tutorials/tutorial-one-java-stream#setup) from the first tutorial.
+This tutorial uses [the stream Go client](/tutorials/tutorial-one-go-stream#using-the-go-stream-client).
+Make sure to follow [the setup steps](/tutorials/tutorial-one-go-stream#setup) from the first tutorial.
 
-An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/).
+An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/).
 
 ### Sending
 
-The sending program starts by instantiating the `Environment` and creating the stream:
+The sending program starts by creating the environment and declaring the stream:
+
+```go
+env, err := stream.NewEnvironment(
+    stream.NewEnvironmentOptions().
+        SetHost("localhost").
+        SetPort(5552).
+        SetUser("guest").
+        SetPassword("guest"))
+
+streamName := "stream-offset-tracking-go"
+err = env.DeclareStream(streamName,
+    &stream.StreamOptions{
+        MaxLengthBytes: stream.ByteCapacity{}.GB(2),
+    },
+)
+```
+
+Note the error handling code is omitted for brevity.
+
+The program then creates a producer and publishes 100 messages.
+The body value of the last message is set to `marker`; this is a marker for the consumer to stop consuming.
+
+The program uses a `handlePublishConfirm` function and a channel to make sure all messages make it to the broker before exiting.
+Let's skip this part for now and see the bulk of the sending first:
 
 ```java
-try (Environment environment = Environment.builder().build()) {
-    String stream = "stream-offset-tracking-java";
-    environment.streamCreator()
-      .stream(stream)
-      .maxLengthBytes(ByteCapacity.GB(1))
-      .create();
+producer, err := env.NewProducer(streamName, stream.NewProducerOptions())
 
-     // publishing code to come
+messageCount := 100
+ch := make(chan bool)
+chPublishConfirm := producer.NotifyPublishConfirmation()
+handlePublishConfirm(chPublishConfirm, messageCount, ch)
 
+fmt.Printf("Publishing %d messages\n", messageCount)
+for i := 0; i < messageCount; i++ {
+    var body string
+    if i == messageCount-1 {
+        body = "marker"
+    } else {
+        body = "hello"
+    }
+    err = producer.Send(amqp.NewMessage([]byte(body)))
+}
+_ = <-ch
+fmt.Println("Messages confirmed")
+
+err = producer.Close()
+```
+
+The sending program uses 2 channels and a Go routine to move on and exit when the broker confirmed the messages.
+Let's focus on this part.
+
+The producer `NotifyPublishConfirmation` function returns the first channel.
+The client library sends the broker confirmations on this channel and a routine declared in `handlePublishConfirm` receives these confirmations:
+
+```go
+messageCount := 100
+chPublishConfirm := producer.NotifyPublishConfirmation()
+ch := make(chan bool)
+handlePublishConfirm(chPublishConfirm, messageCount, ch)
+```
+
+The routine deals with the messages and sends `true` to the second channel when the expected number of confirmations is reached:
+
+```go
+func handlePublishConfirm(confirms stream.ChannelPublishConfirm, messageCount int, ch chan bool) {
+	go func() {
+		confirmedCount := 0
+		for confirmed := range confirms {
+			for _, _ = range confirmed {
+				confirmedCount++
+				if confirmedCount == messageCount {
+					ch <- true
+				}
+			}
+		}
+	}()
 }
 ```
 
-The program then creates a `Producer` instance and publishes 100 messages.
-The body value of the last message is set to `marker`; this is a marker for the consumer to stop consuming.
+The main program is waiting on the second channel just after the sending loop, so it moves on as soon as something arrives on the channel (the `true` value the routine sent).
 
-Note the use of a `CountDownLatch`: it is decremented with `countDown` in each message confirm callback.
-This ensures the broker received all the messages before closing the program.
-
-```java
-Producer producer = environment.producerBuilder()
-                               .stream(stream)
-                               .build();
-
-int messageCount = 100;
-CountDownLatch confirmedLatch = new CountDownLatch(messageCount);
-System.out.printf("Publishing %d messages%n", messageCount);
-IntStream.range(0, messageCount).forEach(i -> {
-    String body = i == messageCount - 1 ? "marker" : "hello";
-    producer.send(producer.messageBuilder()
-                          .addData(body.getBytes(UTF_8))
-                          .build(),
-                  ctx -> confirmedLatch.countDown()
-    );
-});
-
-boolean completed = confirmedLatch.await(60, TimeUnit.SECONDS);
-System.out.printf("Messages confirmed: %b.%n", completed);
-```
+There is no risk the program stops before all the messages made it to the broker thanks to this synchronization mechanism.
 
 Let's now create the receiving program.
 
