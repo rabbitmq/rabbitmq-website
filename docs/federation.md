@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Federation Plugin
+# Exchange and Queue Federation
 
 ## Overview {#overview}
 
@@ -30,13 +30,17 @@ requiring clustering. This is useful for a number of reasons.
 The federation plugin can transmit messages between brokers
 (or clusters) in different administrative domains:
 
-* they may have different users and virtual hosts;
-* they may run on different versions of RabbitMQ and Erlang
+ * they may be hosted in different data centers, potentially on different continents
+ * they may have different users, virtual hosts, permissions and purpose
+ * they may run on different versions of RabbitMQ and Erlang
+ * they may be of different sizes
+ * they may be
 
 ### WAN friendliness
 
-The federation plugin uses AMQP 0-9-1 to communicate between brokers, and is
-designed to tolerate intermittent connectivity.
+The federation plugin communication is entirely asynchronous and assumes that connections between
+clusters will fail from time to time. So it tolerates intermittent connectivity
+well and does not create coupling between remote clusters (in terms of availability).
 
 ### Specificity
 
@@ -46,49 +50,53 @@ fit the desired architecture of the system.
 ### Scalability with Growing Connected Node Count
 
 Federation does not require O(n<sup>2</sup>) connections between
-_N_ brokers (although this is the easiest way to set things up), which should mean it scales better.
+_N_ brokers (although this is the easiest way to set things up).
 
 
 ## What Does It Do? {#what-does-it-do}
 
-The federation plugin allows you to make exchanges and queues
-<i>federated</i>. A federated exchange or queue can receive
-messages from one or more <i>upstreams</i> (remote exchanges
-and queues on other brokers). A federated exchange can route
-messages published upstream to a local queue. A federated
-queue lets a local consumer receive messages from an upstream queue.
+The federation plugin make it possible to _federate_ exchanges and queues.
+A federated exchange or queue can receive
+messages from one or more remote clusters called _upstreams_ (to be more precise: exchanges
+and queues that exist in remote clusters).
 
-Federation links connect to upstreams using RabbitMQ Erlang client. Therefore
+A federated exchange can route messages published upstream to a local queue. A federated
+queue lets a local consumer receive messages from an upstream queue when the remote queue
+itself does not have any consumers online.
+
+Federation links connect to upstreams largely the same way an application would. Therefore
 they can connect to a specific vhost, use TLS, use multiple
 [authentication mechanisms](./authentication).
 
-For more details, see the documentation on <a href="./federated-exchanges">federated
-exchanges</a> and [federated queues](./federated-queues).
+Federation documentation is organized as a number of more focussed guides:
 
+ * [Exchange federation](./federated-exchanges): for replicating a flow of messages through an exchange to a remote cluster
+ * [Queue federation](./federated-queues): to create a "logical queue" across N clusters that will move messages where consumers are (if there are no local consumers)
+ * [Federation settings reference](./federation-reference)
 
 ## How is Federation Set Up? {#how-is-it-configured}
 
-To use federation, one needs to configure two things
+Two steps are involved in setting up federation:
 
-* One or more upstreams that define federation connections
+* First, one or more upstreams must be defined. They provide federation with information about how to connect
   to other nodes. This can be done via [runtime parameters](./parameters)
   or the [federation management plugin](https://github.com/rabbitmq/rabbitmq-federation-management) which
   adds a federation management tab to the [management UI](./management).
-* One or more [policies](./parameters#policies) that match exchanges/queues and makes them
-  federated.
+* To enable federation, one or more [policies](./parameters#policies) that match exchanges or queues must be declared.
+  The policy will make them federated.
 
 
 ## Getting Started {#getting-started}
 
 The federation plugin is included in the RabbitMQ distribution. To
-enable it, use [rabbitmq-plugins](./man/rabbitmq-plugins.8):
+enable it, use [rabbitmq-plugins](./cli):
 
 ```bash
 rabbitmq-plugins enable rabbitmq_federation
 ```
 
-When using the management plugin, you will also want to
-enable `rabbitmq_federation_management`:
+If [management UI](./management/) is used, it is recommended that
+`rabbitmq_federation_management` is also enabled:
 
 ```bash
 rabbitmq-plugins enable rabbitmq_federation_management
@@ -117,11 +125,16 @@ generic information on parameters and policies, see the guide on
 [parameters and policies](./parameters).
 For full details on the parameters used by federation, see the [federation reference](./federation-reference).
 
-Parameters and policies can be set in three ways - either with
-an invocation of `rabbitmqctl`, a call to the
-management HTTP API, or (usually) through the web UI presented
-by `rabbitmq_federation_management`. The HTTP API
-does not present all possibilities - in particular, it does not support management of upstream sets.
+Parameters and policies can be set in three ways:
+
+ * Using [CLI tools](./cli)
+ * In the management UI if an extension plugin (`rabbitmq_federation_management`) is enabled
+ * Using the HTTP API
+
+The HTTP API has a limitation: it does not support management of upstream sets.
+
+
+## A Basic Example {#tutorial}
 
 ### A Basic Example {#tutorial}
 
