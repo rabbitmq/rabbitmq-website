@@ -18,6 +18,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Exchange and Queue Federation
 
 ## Overview {#overview}
@@ -136,102 +139,84 @@ The HTTP API has a limitation: it does not support management of upstream sets.
 
 ## A Basic Example {#tutorial}
 
-### A Basic Example {#tutorial}
-
 Here we will federate all the built-in exchanges except for
 the default exchange, with a single upstream. The upstream
 will be defined to buffer messages when disconnected for up
 to one hour (3600000ms).
 
-First let's define an upstream:
+To define an upstream, use one of the following examples,
+one per tab:
 
-<table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
+<Tabs>
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_parameter federation-upstream my-upstream \
     '{"uri":"amqp://target.hostname","expires":3600000}'
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>rabbitmqctl.bat (Windows)</th>
-    <td>
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 rabbitmqctl.bat set_parameter federation-upstream my-upstream `
     '"{""uri"":""amqp://target.hostname"",""expires"":3600000}"'
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>HTTP API</th>
-    <td>
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+Navigate to `Admin` > `Federation Upstreams` >
+`Add a new upstream`. Enter "my-upstream" next to Name,
+"amqp://target.hostname" next to URI, and 36000000 next to
+Expiry. Click Add upstream.
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
 ```bash
 PUT /api/parameters/federation-upstream/%2f/my-upstream
 {"value":{"uri":"amqp://target.hostname","expires":3600000}}
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>Web UI</th>
-    <td>
-      Navigate to `Admin` > `Federation Upstreams` >
-      `Add a new upstream`. Enter "my-upstream" next to Name,
-      "amqp://target.hostname" next to URI, and 36000000 next to
-      Expiry. Click Add upstream.
-    </td>
-  </tr>
-</table>
+</TabItem>
+</Tabs>
 
 Then define a policy that will match built-in exchanges and use this upstream:
 
-<table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
+<Tabs>
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy --apply-to exchanges federate-me "^amq\." \
     '{"federation-upstream-set":"all"}'
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>rabbitmqctl (Windows)</th>
-    <td>
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 rabbitmqctl.bat set_policy --apply-to exchanges federate-me "^amq\." `
     '"{""federation-upstream-set"":""all""}"'
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>HTTP API</th>
-    <td>
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+Navigate to `Admin` > `Policies` > `Add / update a policy`.
+Enter "federate-me" next to "Name", "^amq\." next to
+"Pattern", choose "Exchanges" from the "Apply to" drop down list
+and enter "federation-upstream-set" = "all"
+in the first line next to "Policy". Click "Add" policy.
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
 ```ini
 PUT /api/policies/%2f/federate-me
 {"pattern":"^amq\.", "definition":{"federation-upstream-set":"all"}, "apply-to":"exchanges"}
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>Management UI</th>
-    <td>
-      Navigate to `Admin` > `Policies` > `Add / update a policy`.
-      Enter "federate-me" next to "Name", "^amq\." next to
-      "Pattern", choose "Exchanges" from the "Apply to" drop down list
-      and enter "federation-upstream-set" = "all"
-      in the first line next to "Policy". Click "Add" policy.
-    </td>
-  </tr>
-</table>
+</TabItem>
+</Tabs>
 
-We tell the policy to federate all exchanges whose names
-begin with "amq." (i.e. all the built in exchanges except
-for the default exchange) with (implicit) low priority, and
+The defined policy will make the exchanges _whose names
+begin with "amq." (all the built-in exchanges except
+for the default one) with (implicit) low priority, and
 to federate them using the implicitly created upstream set
-"all", which includes our newly-created upstream.  Any other
-matching policy with a priority greater than 0 will take
+"all", which includes our newly-created upstream.
+
+Any other [matching policy](./parameters#policies) with a priority greater than 0 will take
 precedence over this policy. Keep in mind that `federate-me`
 is just a name we used for this example, you can use any
 string you want there.
