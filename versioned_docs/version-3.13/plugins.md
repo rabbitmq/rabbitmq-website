@@ -19,6 +19,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Plugins
 
 ## Overview {#overview}
@@ -80,6 +83,18 @@ as their status (enabled or disabled) can be obtained using `rabbitmq-plugins li
 rabbitmq-plugins list
 ```
 
+To list available plugins without the legend header (marker explanations at the top):
+
+```bash
+rabbitmq-plugins list -s
+```
+
+To list available plugins in JSON:
+
+```bash
+rabbitmq-plugins list --formatter=json
+```
+
 
 ## Different Ways to Enable Plugins {#ways-to-enable-plugins}
 
@@ -129,24 +144,34 @@ package types and can be [overridden](./relocate) using the
 Please see [File and Directory Locations guide](./relocate) to learn about the default
 value on various platforms.
 
+:::tip
+the plugin directory can be a list of paths separated by a colon (on Linux, MacOS, BSD)
+or a semicolon (Windows with PowerShell)
+:::
+
 The built-in plugin directory is by definition version-independent: its contents will change
 from release to release. So will its exact path (by default) which contains version number,
 e.g. `/usr/lib/rabbitmq/lib/rabbitmq_server-3.11.6/plugins`. Because of this
 automated installation of 3rd party plugins into this directory is harder and more error-prone,
-and therefore not recommended. To solve this problem, the plugin directory can be a list
-of paths separated by a colon (on Linux, MacOS, BSD):
+and therefore not recommended.
 
+To solve this problem, the plugin directory can be a list of paths separated by a colon (on Linux, MacOS, BSD)
+or a semicolon (Windows with PowerShell):
+
+<Tabs>
+<TabItem value="bash" label="bash" default>
 ```bash
 # Example rabbitmq-env.conf file that features a colon-separated list of plugin directories
 PLUGINS_DIR="/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.11.6/plugins"
 ```
-
-On Windows, a semicolon is used as path separator:
-
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell" default>
 ```PowerShell
 # Example rabbitmq-env-conf.bat file that features a colon-separated list of plugin directories
 PLUGINS_DIR="C:\Example\RabbitMQ\plugins;C:\Example\RabbitMQ\rabbitmq_server-3.11.6\plugins"
 ```
+</TabItem>
+</Tabs>
 
 Plugin directory paths that don't have a version-specific component and are not updated
 by RabbitMQ package installers during upgrades are optimal for 3rd party plugin installation.
@@ -214,6 +239,11 @@ must be readable and writable by the effective operating system user of the Rabb
 
 
 ## Troubleshooting {#troubleshooting}
+
+:::tip
+A significant majority of 3rd-party plugin activation issues come down to
+insufficient filesystem permissions
+:::
 
 If a 3rd party plugin was installed but cannot be found, the most likely reasons
 are
@@ -344,7 +374,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
   <tr>
     <th>rabbitmq_amqp1_0</th>
     <td>
-      AMQP 1.0 protocol support. For 4.0 (currently in development), this plugin has
+      AMQP 1.0 protocol support. For 4.x (currently in development), this plugin has
       been integrated into the core and becomes a no-op.
 
       <ul>
@@ -626,7 +656,7 @@ The table below lists of plugins only available in [Tanuz RabbitMQ®](https://ta
 
 ## Discontinued {#discontinued}
 
-All plugins below have been <em>discontinued</em>. They don't (or won't) ship
+All plugins below have been **discontinued**. They no longer ship
 with the RabbitMQ distribution and are no longer actively maintained by the RabbitMQ core team.
 
  * `rabbitmq_auth_backend_amqp`
