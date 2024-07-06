@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Reasoning About Memory Use
+# Reasoning About Memory Footprint
 
 ## Overview {#overview}
 
@@ -29,7 +29,7 @@ important aspect of [system monitoring](./monitoring).
 This guide focusses on reasoning about node's reported (monitored) memory footprint.
 It is accompanied by a few closely related guides:
 
- * [Memory Threshold and Limit](./memory)
+ * [Memory Alarm Threshold](./memory)
  * [Resource Alarms](./alarms)
 
 RabbitMQ provides tools that report and help analyse node memory use:
@@ -74,15 +74,15 @@ Memory use breakdown reports allocated memory distribution on the target node, b
  * [Connections](#breakdown-connections) (further split into four categories: readers, writers, channels, other)
  * [Quorum queue](./quorum-queues) replicas
  * [Stream](./streams) replicas
- * Message Store and Indices
+ * Classic queue message store and indices
  * [Binary heap references](#breakdown-binaries)
- * Node-local metrics (stats database)
- * Internal database tables
- * Plugins
- * Memory allocated but not yet used
+ * Node-local metrics ([management plugin](./management) stats database)
+ * Internal schema database tables
+ * [Plugins](./plugins), including protocols that transfer messages, such as [Shovel](./shovel) and [Federation](./federation), and their internal queues
+ * Memory [allocated but not yet used](./runtime#allocators)
  * Code (bytecode, module metadata)
  * ETS (in memory key/value store) tables
- * Atom tables
+ * [Atom tables](./runtime)
  * Other
 
 Generally there is no overlap between the categories (no double accounting for the same memory).
@@ -112,7 +112,6 @@ atom: 0.0015 gb (0.11%)
 mnesia: 0.0006 gb (0.04%)
 msg_index: 0.0002 gb (0.01%)
 queue_procs: 0.0002 gb (0.01%)
-queue_slave_procs: 0.0 gb (0.0%)
 reserved_unallocated: 0.0 gb (0.0%)
 ```
 
@@ -179,6 +178,19 @@ reserved_unallocated: 0.0 gb (0.0%)
       the more memory will generally be attributed to this section. However, this greatly depends on
       queue properties and whether messages were published as transient.
       See <a href="./memory">Memory</a>, <a href="./queues">Queues</a>, and <a href="./lazy-queues">Lazy Queues</a> guides
+      for more information.
+    </td>
+  </tr>
+
+  <tr>
+    <td>queue_slave_procs</td>
+    <td>Queues</td>
+    <td>
+      Classic queue mirrors, indices and messages kept in memory. Reducing the number of mirrors (replicas) or not mirroring queues with
+      inherently transient data can reduce the amount of RAM used by mirrors. The greater the number of messages enqueued,
+      the more memory will generally be attributed to this section. However, this greatly depends on
+      queue properties and whether messages were published as transient.
+      See <a href="./memory">Memory</a>, <a href="./queues">Queues</a>, <a href="./ha">Mirroring</a>, and <a href="./lazy-queues">Lazy Queues</a> guides
       for more information.
     </td>
   </tr>

@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Memory Threshold and Limit
+# Memory Alarm Threshold
 
 <!--
    To avoid terminology soup:
@@ -203,7 +203,8 @@ an [absolute memory limit](./memory#absolute-limit).
 Another Kubernetes-specific memory footprint aspect is how the OS-managed [kernel page cache](./memory-use#page-cache),
 in particular in clusters where streams and super streams are used.
 
-## Stop All Publishing {#stop-publishing}
+
+## How to Temporarily Stop All Publishing {#stop-publishing}
 
 When the threshold or absolute limit is set to `0`, it makes the memory alarm go off
 immediately and thus eventually blocks all publishing connections. This may be
@@ -229,12 +230,40 @@ limited. The server will detect this and log a message like:
 2018-11-22 10:44:33.654 [warning] Only 2048MB of 12037MB memory usable due to limited address space.
 ```
 
+## Unrecognised Platforms {#unrecognised-platforms}
 
-## Configuring the Paging Threshold {#paging}
+If the RabbitMQ server is unable to detect the operating system it is running on,
+it will append a warning to the [log file](./logging). It then assumes than
+1GB of RAM is installed:
 
-This section **is obsolete** or not applicable for [quorum queues](./quorum-queues), [streams](./streams)
-and classic queues storage version 2 (CQv2). All of them
-actively move data to disk and do not generally accumulate a significant
+```ini
+2018-11-22 10:44:33.654 [warning] Unknown total memory size for your OS {unix,magic_homegrown_os}. Assuming memory size is 1024MB.
+```
+
+In this case, the `vm_memory_high_watermark`
+configuration value is used to scale the assumed 1GB
+RAM. With the default value of
+`vm_memory_high_watermark` set to 0.4,
+RabbitMQ's memory threshold is set to 410MB, thus it will
+throttle producers whenever RabbitMQ is using more than
+410MB memory. Thus when RabbitMQ can't recognize your
+platform, if you actually have 8GB RAM installed and you
+want RabbitMQ to throttle producers when the server is using
+above 3GB, set `vm_memory_high_watermark` to 3.
+
+For guidelines on recommended RAM watermark settings,
+see [Production Checklist](./production-checklist#resource-limits-ram).
+
+
+## CQv1: Configuring the Paging Threshold {#paging}
+
+:::warning
+This section **is obsolete**: it **does not apply** to [quorum queues](./quorum-queues), [streams](./streams)
+and classic queues storage version 2 (CQv2); it is therefore only
+relevant for CQv1, the original classic queue storage implementation
+:::
+
+All of them actively move data to disk and do not generally accumulate a significant
 backlog of messages in memory.
 
 Before the broker hits the high watermark and blocks
@@ -259,28 +288,3 @@ vm_memory_high_watermark.relative = 0.4
 
 The above configuration starts paging at 30% of memory used, and
 blocks publishers at 40%.
-
-
-## Unrecognised Platforms {#unrecognised-platforms}
-
-If the RabbitMQ server is unable to detect the operating system it is running on,
-it will append a warning to the [log file](./logging). It then assumes than
-1GB of RAM is installed:
-
-```ini
-2018-11-22 10:44:33.654 [warning] Unknown total memory size for your OS {unix,magic_homegrown_os}. Assuming memory size is 1024MB.
-```
-
-In this case, the `vm_memory_high_watermark`
-configuration value is used to scale the assumed 1GB
-RAM. With the default value of
-`vm_memory_high_watermark` set to 0.4,
-RabbitMQ's memory threshold is set to 410MB, thus it will
-throttle producers whenever RabbitMQ is using more than
-410MB memory. Thus when RabbitMQ can't recognize your
-platform, if you actually have 8GB RAM installed and you
-want RabbitMQ to throttle producers when the server is using
-above 3GB, set `vm_memory_high_watermark` to 3.
-
-For guidelines on recommended RAM watermark settings,
-see [Production Checklist](./production-checklist#resource-limits-ram).
