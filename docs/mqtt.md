@@ -18,6 +18,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # MQTT Plugin
 
 ## Overview {#overview}
@@ -230,7 +233,7 @@ The latter enables sending messages from an AMQP 0.9.1, AMQP 1.0 or STOMP client
 The benefits of using the MQTT QoS 0 queues type are:
 
 1. Support for larger fanouts, e.g. sending a message from the "cloud" (RabbitMQ) to all devices (MQTT clients).
-1. Lower memory usage
+1. Lower [memory usage](./memory-use/)
 1. Lower publisher confirm latency
 1. Lower end-to-end latency
 
@@ -239,7 +242,7 @@ This can happen when the network connection between MQTT subscribing client and 
 
 ### Overload protection
 
-To protect against high memory usage due to MQTT QoS 0 messages piling up in the MQTT connection process mailbox, RabbitMQ intentionally drops QoS 0 messages from the MQTT QoS 0 queue if both conditions are true:
+To protect against high [memory usage](./memory-use/) due to MQTT QoS 0 messages piling up in the MQTT connection process mailbox, RabbitMQ intentionally drops QoS 0 messages from the MQTT QoS 0 queue if both conditions are true:
 
 1. the number of messages in the MQTT connection process mailbox exceeds the configured `mqtt.mailbox_soft_limit` (defaults to 200), and
 1. the socket sending to the MQTT client is busy (not sending fast enough due to TCP backpressure).
@@ -459,27 +462,29 @@ mqtt.vhost            = /
 Note the plugin listens on ports 1883, 1884, 8883, and 8884. Imagine you
 want clients connecting to ports 1883 and 8883 to connect to the `vhost1` virtual
 host, and clients connecting to ports 1884 and 8884 to connect to the `vhost2`
-virtual host. You can specify port-to-vhost mapping by setting the
+virtual host. A port-to-vhost mapping can be created by setting the
 `mqtt_port_to_vhost_mapping` global parameter with `rabbitmqctl`:
 
+<Tabs>
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_global_parameter mqtt_port_to_vhost_mapping \
     '{"1883":"vhost1", "8883":"vhost1", "1884":"vhost2", "8884":"vhost2"}'
 ```
-
-with `rabbitmqctl.bat` on Windows:
-
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 rabbitmqctl.bat set_global_parameter mqtt_port_to_vhost_mapping ^
     "{""1883"":""vhost1"", ""8883"":""vhost1"", ""1884"":""vhost2"", ""8884"":""vhost2""}"
 ```
-
-and with the HTTP API:
-
-```bash
+</TabItem>
+<TabItem value="HTTP API" label="HTTP API">
+```ini
 PUT /api/global-parameters/mqtt_port_to_vhost_mapping
 # => {"value": {"1883":"vhost1", "8883":"vhost1", "1884":"vhost2", "8884":"vhost2"}}
 ```
+</TabItem>
+</Tabs>
 
 If there's no mapping for a given port (because the port cannot be found in
 the `mqtt_port_to_vhost_mapping` global parameter JSON document or if the global parameter
@@ -497,11 +502,15 @@ to the username and to separate with a colon.
 
 For example, connecting with
 
-    /:guest
+```ini
+/:guest
+```
 
-is equivalent to the default vhost and username.
+is equivalent to the default vhost and username, while
 
-    mqtt-vhost:mqtt-username
+```
+mqtt-vhost:mqtt-username
+```
 
 means connecting to the vhost `mqtt-host` with username `mqtt-username`.
 
@@ -548,26 +557,29 @@ maps certificates' subject's Distinguished Name to their target virtual host. Le
 map 2 certificates, `O=client,CN=guest` and `O=client,CN=rabbit`, to the `vhost1` and `vhost2`
 virtual hosts, respectively.
 
-Global parameters can be set up with `rabbitmqctl`:
+Global parameters can be set up with using the following methods:
 
+<Tabs>
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_global_parameter mqtt_default_vhosts \
     '{"O=client,CN=guest": "vhost1", "O=client,CN=rabbit": "vhost2"}'
 ```
-
-With `rabbitmqctl`, on Windows:
-
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 rabbitmqctl set_global_parameter mqtt_default_vhosts ^
     "{""O=client,CN=guest"": ""vhost1"", ""O=client,CN=rabbit"": ""vhost2""}'
 ```
-
-And with the HTTP API:
-
+</TabItem>
+<TabItem value="HTTP API" label="HTTP API">
 ```bash
 PUT /api/global-parameters/mqtt_default_vhosts
 # => {"value": {"O=client,CN=guest": "vhost1", "O=client,CN=rabbit": "vhost2"}}
 ```
+</TabItem>
+</Tabs>
+
 
 Note that:
 
@@ -582,12 +594,13 @@ to reconnect to switch to a new virtual host.
 is considered more specific than the port-to-vhost mapping with the `mqtt_port_to_vhost_mapping`
 global parameter and so takes precedence over it.
 
+
 ### [Flow Control](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901251) {#flow}
 
 The `prefetch` option controls the maximum number of unacknowledged PUBLISH packets with QoS=1 that will be delivered.
 This option is interpreted in the same way as [consumer prefetch](./consumer-prefetch).
 
-An MQTT 5.0 client can define a lower number by setting [Receive Maximum](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901049) in the CONNECT packet.
+An MQTT 5.0 client can define a lower number by setting [Receive Maximum](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901049) in the `CONNECT` packet.
 
 ### Custom Exchanges {#custom-exchanges}
 
@@ -595,6 +608,7 @@ The `exchange` option determines which exchange messages from MQTT clients are p
 The exchange must be created before clients publish any messages. The exchange is expected to be a [topic exchange](/tutorials/amqp-concepts#exchange-topic).
 
 The default topic exchange `amq.topic` is pre-declared: It therefore exists when RabbitMQ is started.
+
 
 ## Retained Messages and Stores {#retained}
 
@@ -673,7 +687,9 @@ In fact, metrics delivery via the management API is [deprecated](https://blog.ra
 Unlike AMQP 0.9.1 and AMQP 1.0, MQTT is not designed to maximise throughput: For example, there are no [multi-acks](./confirms#consumer-acks-multiple-parameter).
 Every [PUBLISH](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901100) packet with QoS 1 needs to be acknowledged individually.
 1. Decrease TCP buffer sizes as described in section [TCP Listener Options](#listener-opts).
-This substantially reduces memory usage in RabbitMQ when many clients connect.
+
+This substantially reduces [memory usage](./memory-use/) in environments with many concurrently connected clients.
+
 1. Less topic levels (in an MQTT topic and MQTT topic filter) perform better than more topic levels.
 For example, prefer to structure your topic as `city/name` instead of `continent/country/city/name`, if possible.
 Each topic level in a topic filter currently creates its own entry in the database used by RabbitMQ.
