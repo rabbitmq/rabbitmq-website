@@ -40,13 +40,15 @@ This tutorial uses [the stream Go client](/tutorials/tutorial-one-go-stream#usin
 Make sure to follow [the setup steps](/tutorials/tutorial-one-go-stream#setup) from the first tutorial.
 
 An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go-stream/).
+The sending program is called `offset_tracking_send.go` and the receiving program is called `offset_tracking_receive.go`.
+The tutorial focuses on the usage of the client library, so the final code in the repository should be used to create the scaffolding of the files (e.g. imports, main function, etc).
 
 ### Sending
 
 The sending program starts by creating the environment and declaring the stream:
 
 ```go
-env, err := stream.NewEnvironment(
+env, _ := stream.NewEnvironment(
     stream.NewEnvironmentOptions().
         SetHost("localhost").
         SetPort(5552).
@@ -54,7 +56,7 @@ env, err := stream.NewEnvironment(
         SetPassword("guest"))
 
 streamName := "stream-offset-tracking-go"
-err = env.DeclareStream(streamName,
+env.DeclareStream(streamName,
     &stream.StreamOptions{
         MaxLengthBytes: stream.ByteCapacity{}.GB(2),
     },
@@ -70,7 +72,7 @@ The program uses a `handlePublishConfirm` function and a channel to make sure al
 Let's skip this part for now and see the bulk of the sending first:
 
 ```java
-producer, err := env.NewProducer(streamName, stream.NewProducerOptions())
+producer, _ := env.NewProducer(streamName, stream.NewProducerOptions())
 
 messageCount := 100
 ch := make(chan bool)
@@ -85,12 +87,12 @@ for i := 0; i < messageCount; i++ {
     } else {
         body = "hello"
     }
-    err = producer.Send(amqp.NewMessage([]byte(body)))
+    producer.Send(amqp.NewMessage([]byte(body)))
 }
 _ = <-ch
 fmt.Println("Messages confirmed")
 
-err = producer.Close()
+producer.Close()
 ```
 
 The sending program uses 2 channels and a Go routine to move on and exit when the broker confirmed the messages.
@@ -132,41 +134,38 @@ Let's now create the receiving program.
 
 ### Receiving
 
-The receiving program creates an `Environment` instance and makes sure the stream is created as well.
+The receiving program creates the environment and declares the stream as well.
 This part of the code is the same as in the sending program, so it is skipped in the next code snippets for brevity's sake.
 
-The receiving program starts a consumer that attaches at the beginning of the stream (`OffsetSpecification.first()`).
+The receiving program starts a consumer that attaches at the beginning of the stream (`stream.OffsetSpecification{}.First()`).
 It uses variables to output the offsets of the first and last received messages at the end of the program.
 
-The consumer stops when it receives the marker message: it assigns the offset to a variable, closes the consumer, and decrement the latch count.
-Like for the sender, the `CountDownLatch` tells the program when to move on when the consumer is done with his job.
+The consumer stops when it receives the marker message: it assigns the offset to a variable, closes the consumer, and sends `true` to a channel.
+Like for the sender, the channel tells the program when to move on when the consumer is done with its job.
 
-```java
-OffsetSpecification offsetSpecification = OffsetSpecification.first();
-AtomicLong firstOffset = new AtomicLong(-1);
-AtomicLong lastOffset = new AtomicLong(0);
-CountDownLatch consumeLatch = new CountDownLatch(1);
-environment.consumerBuilder()
-    .stream(stream)
-    .offset(offsetSpecification)
-    .messageHandler((ctx, msg) -> {
-        if (firstOffset.compareAndSet(-1, ctx.offset())) {
-          System.out.println("First message received.");
-        }
-        String body = new String(msg.getBodyAsBinary(), StandardCharsets.UTF_8);
-        if ("marker".equals(body)) {
-          lastOffset.set(ctx.offset());
-          ctx.consumer().close();
-          consumeLatch.countDown();
-        }
-    })
-    .build();
-System.out.println("Started consuming...");
+```go
+var firstOffset int64 = -1
+var lastOffset atomic.Int64
+ch := make(chan bool)
+messagesHandler := func(consumerContext stream.ConsumerContext, message *amqp.Message) {
+    if atomic.CompareAndSwapInt64(&firstOffset, -1, consumerContext.Consumer.GetOffset()) {
+        fmt.Println("First message received.")
+    }
+    if string(message.GetData()) == "marker" {
+        lastOffset.Store(consumerContext.Consumer.GetOffset())
+        consumerContext.Consumer.Close()
+        ch <- true
+    }
+}
 
-consumeLatch.await(60, TimeUnit.MINUTES);
+offsetSpecification := stream.OffsetSpecification{}.First()
+_, _ = env.NewConsumer(streamName, messagesHandler,
+    stream.NewConsumerOptions().
+        SetOffset(offsetSpecification))
+fmt.Println("Started consuming...")
+_ = <-ch
 
-System.out.printf("Done consuming, first offset %d, last offset %d.%n",
-                  firstOffset.get(), lastOffset.get());
+fmt.Printf("Done consuming, first offset %d, last offset %d.\n", firstOffset, lastOffset.Load())
 ```
 
 ### Exploring the Stream
@@ -176,14 +175,14 @@ In order to run both examples, open two terminal (shell) tabs.
 In the first tab, run the sender to publish a wave of messages:
 
 ```shell
-./mvnw -q compile exec:java '-Dexec.mainClass=OffsetTrackingSend'
+go run offset_tracking_send.go
 ```
 
 The output is the following:
 
 ```shell
 Publishing 100 messages
-Messages confirmed: true.
+Messages confirmed.
 ```
 
 Let's run now the receiver.
@@ -191,7 +190,7 @@ Open a new tab.
 Remember it should start from the beginning of the stream because of the `first` offset specification.
 
 ```shell
-./mvnw -q compile exec:java '-Dexec.mainClass=OffsetTrackingReceive'
+go run offset_tracking_receive.go
 ```
 
 Here is the output:
@@ -209,18 +208,18 @@ The offset is the index of a given message in the array.
 
 A stream is different from a queue: consumers can read and re-read the same messages and the messages stay in the stream.
 
-Let's try this feature by using the `offset(long)` specification to attach at a given offset.
-Set the `offsetSpecification` variable from `OffsetSpecification.first()` to `OffsetSpecification.offset(42)`:
+Let's try this feature by using the `offset` specification to attach at a given offset.
+Set the `offsetSpecification` variable from `stream.OffsetSpecification{}.First()` to `stream.OffsetSpecification{}.Offset(42)`:
 
-```java
-OffsetSpecification offsetSpecification = OffsetSpecification.offset(42);
+```go
+offsetSpecification := stream.OffsetSpecification{}.Offset(42)
 ```
 
 Offset 42 is arbitrary, it could have been any number between 0 and 99.
 Run the receiver again:
 
 ```shell
-./mvnw -q compile exec:java '-Dexec.mainClass=OffsetTrackingReceive'
+go run offset_tracking_receive.go
 ```
 
 The output is the following:
@@ -235,14 +234,14 @@ There is also a way to attach at the very end of stream to see only new messages
 This is the `next` offset specification.
 Let's try it:
 
-```java
-OffsetSpecification offsetSpecification = OffsetSpecification.next();
+```go
+offsetSpecification := stream.OffsetSpecification{}.Next()
 ```
 
 Run the receiver:
 
 ```shell
-./mvnw -q compile exec:java '-Dexec.mainClass=OffsetTrackingReceive'
+go run offset_tracking_receive.go
 ```
 
 This time the consumer does not get any messages:
@@ -256,7 +255,7 @@ Let's publish some by running the sender again.
 Back to the first tab:
 
 ```shell
-./mvnw -q compile exec:java '-Dexec.mainClass=OffsetTrackingSend'
+go run offset_tracking_send.go
 ```
 
 Wait for the program to exit and switch back to the receiver tab.
@@ -284,35 +283,52 @@ It may depend on the use case, but a relational database can be a good solution 
 Let's modify the receiver to store the offset of processed messages.
 The updated lines are outlined with comments:
 
-```java
-// start consuming at the beginning of the stream
-OffsetSpecification offsetSpecification = OffsetSpecification.first();
-AtomicLong messageCount = new AtomicLong(0);
-environment.consumerBuilder()
-    .stream(stream)
-    .offset(offsetSpecification)
-    .name("offset-tracking-tutorial") // the consumer must a have name
-    .manualTrackingStrategy().builder() // activate manual offset tracking
-    .messageHandler((ctx, msg) -> {
-        if (firstOffset.compareAndSet(-1, ctx.offset())) {
-            System.out.println("First message received.");
-        }
-        if (messageCount.incrementAndGet() % 10 == 0) {
-            ctx.storeOffset(); // store offset every 10 messages
-        }
-        String body = new String(msg.getBodyAsBinary(), StandardCharsets.UTF_8);
-        if (body.equals("marker")) {
-            lastOffset.set(ctx.offset());
-            ctx.storeOffset(); // store the offset on consumer closing
-            ctx.consumer().close();
-            consumeLatch.countDown();
-        }
-    })
-    .build();
+```go
+var firstOffset int64 = -1
+var messageCount int64 = -1 // number of received messages
+var lastOffset atomic.Int64
+ch := make(chan bool)
+messagesHandler := func(consumerContext stream.ConsumerContext, message *amqp.Message) {
+    if atomic.CompareAndSwapInt64(&firstOffset, -1, consumerContext.Consumer.GetOffset()) {
+        fmt.Println("First message received.")
+    }
+    if atomic.AddInt64(&messageCount, 1)%10 == 0 {
+        consumerContext.Consumer.StoreOffset() // store offset every 10 messages
+    }
+    if string(message.GetData()) == "marker" {
+        lastOffset.Store(consumerContext.Consumer.GetOffset())
+        consumerContext.Consumer.StoreOffset() // store the offset on consumer closing
+        consumerContext.Consumer.Close()
+        ch <- true
+    }
+}
+
+var offsetSpecification stream.OffsetSpecification
+consumerName := "offset-tracking-tutorial" // name of the consumer
+storedOffset, err := env.QueryOffset(consumerName, streamName) // get last stored offset
+if errors.Is(err, stream.OffsetNotFoundError) {
+    // start consuming at the beginning of the stream if no stored offset
+    offsetSpecification = stream.OffsetSpecification{}.First()
+} else {
+    // start just after the last stored offset
+    offsetSpecification = stream.OffsetSpecification{}.Offset(storedOffset + 1)
+}
+
+_, err = env.NewConsumer(streamName, messagesHandler,
+    stream.NewConsumerOptions().
+        SetManualCommit(). // activate manual offset tracking
+        SetConsumerName(consumerName). // the consumer must a have name
+        SetOffset(offsetSpecification))
+fmt.Println("Started consuming...")
+_ = <-ch
+
+fmt.Printf("Done consuming, first offset %d, last offset %d.\n", firstOffset, lastOffset.Load())
 ```
 
 The most relevant changes are:
-* The consumers attaches at the beginning of the stream with `OffsetSpecification.first()`.
+* The program looks up the last stored offset before creating the consumer.
+If there is no stored offset (it is likely the very first time this consumer starts), it uses `first`.
+If there is a stored offset, it uses the `offset` specification to start just after (`stored offset + 1`), which assumes the message with the stored offset has been processed in the previous instance of the application.
 * The consumer must have a name.
 It is the key to store and retrieve the last stored offset value.
 * The manual tracking strategy is activated, which implies explicit calls to store offsets.
@@ -324,7 +340,7 @@ Values in the real world are rather in the hundreds or in the thousands.
 Let's run the updated receiver:
 
 ```shell
-./mvnw -q compile exec:java '-Dexec.mainClass=OffsetTrackingReceive'
+go run offset_tracking_receive.go
 ```
 
 Here is the output:
@@ -340,7 +356,7 @@ There is nothing surprising there: the consumer got the messages from the beginn
 Let's start it another time:
 
 ```shell
-./mvnw -q compile exec:java '-Dexec.mainClass=OffsetTrackingReceive'
+go run offset_tracking_receive.go
 ```
 
 Here is the output:
@@ -352,7 +368,6 @@ Done consuming, first offset 100, last offset 199.
 ```
 
 The consumer restarted exactly where we left off: the last offset in the first run was 99 and the first offset in this second run is 100.
-Note the `first` offset specification is ignored: a stored offset takes precedence over the offset specification parameter.
 The consumer stored offset tracking information in the first run, so the client library uses it to resume consuming at the right position in the second run.
 
 This concludes this tutorial on consuming semantics in RabbitMQ Streams.
@@ -361,4 +376,4 @@ Consuming applications are likely to keep track of the point they reached in a s
 They can use the built-in server-side offset tracking feature as demonstrated in this tutorial.
 They are also free to use any other data store solution for this task.
 
-See the [RabbitMQ blog](https://www.rabbitmq.com/blog/2021/09/13/rabbitmq-streams-offset-tracking) and the [stream Java client documentation](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#consumer-offset-tracking) for more information on offset tracking.
+See the [RabbitMQ blog](https://www.rabbitmq.com/blog/2021/09/13/rabbitmq-streams-offset-tracking) for more information on offset tracking.

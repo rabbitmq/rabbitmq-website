@@ -40,6 +40,8 @@ This tutorial uses [the stream Java client](/tutorials/tutorial-one-java-stream#
 Make sure to follow [the setup steps](/tutorials/tutorial-one-java-stream#setup) from the first tutorial.
 
 An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/).
+The sending program is called `OffsetTrackingSend.java` and the receiving program is called `OffsetTrackingReceive.java`.
+The tutorial focuses on the usage of the client library, so the final code in the repository should be used to create the scaffolding of the files (e.g. imports, main function, etc).
 
 ### Sending
 
@@ -96,7 +98,7 @@ The receiving program starts a consumer that attaches at the beginning of the st
 It uses variables to output the offsets of the first and last received messages at the end of the program.
 
 The consumer stops when it receives the marker message: it assigns the offset to a variable, closes the consumer, and decrement the latch count.
-Like for the sender, the `CountDownLatch` tells the program when to move on when the consumer is done with his job.
+Like for the sender, the `CountDownLatch` tells the program when to move on when the consumer is done with its job.
 
 ```java
 OffsetSpecification offsetSpecification = OffsetSpecification.first();
@@ -269,7 +271,7 @@ environment.consumerBuilder()
 ```
 
 The most relevant changes are:
-* The consumers attaches at the beginning of the stream with `OffsetSpecification.first()`.
+* The consumer attaches at the beginning of the stream with `OffsetSpecification.first()`.
 * The consumer must have a name.
 It is the key to store and retrieve the last stored offset value.
 * The manual tracking strategy is activated, which implies explicit calls to store offsets.
