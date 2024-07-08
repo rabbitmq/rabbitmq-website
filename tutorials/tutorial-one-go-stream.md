@@ -74,6 +74,7 @@ Now let's create the project:
 ```shell
 mkdir go-stream
 cd go-stream
+go mod init github.com/rabbitmq/rabbitmq-tutorials
 go get -u github.com/rabbitmq/rabbitmq-stream-go-client
 ```
 
