@@ -154,43 +154,40 @@ export function RabbitMQServerReleaseInfoTable() {
         releaseDate = "-";
       }
 
-      var endOfSupportDates = ["-", "-"];
+      var endOfSupportDate = "-";
       var hasOSSSupport = false;
       if (releaseBranch.end_of_support) {
         /* Release branch is supported. */
         if (previousReleaseBranch) {
           const prevReleases = previousReleaseBranch.releases;
           const initialPrevRelease = prevReleases[prevReleases.length - 1];
-          endOfSupportDates[0] = new Date(initialPrevRelease.release_date);
+          endOfSupportDate = new Date(initialPrevRelease.release_date);
         } else {
           hasOSSSupport = true;
-          endOfSupportDates[0] = <abbr title="Supported until the next major or minor release branch is published.">Next release</abbr>;
+          endOfSupportDate = <abbr title="Supported until the next major or minor release branch is published.">Next release</abbr>;
         }
-        endOfSupportDates[1] = new Date(releaseBranch.end_of_support);
       }
 
-      for (const i in endOfSupportDates) {
-        const date = endOfSupportDates[i];
+      const date = endOfSupportDate;
 
-        var className;
-        var content;
-        if (date instanceof Date) {
-          const supported = date > now;
-          className = supported ? "supported-release" : "unsupported-release";
-          content = date.toLocaleDateString("en-GB", dateOptions);
-        } else {
-          className = hasOSSSupport ?
-            "supported-release" : "unsupported-release";
-          content = date;
-        }
-        endOfSupportDates[i] = <div className={[
-          "release-eos",
-          i == 0 ? "release-eos-community" : "release-eos-commercial",
-          className,
-          latestReleaseBranchClassName,
-          isLatestReleaseForBranch ? "" : showClassName
-        ].join(' ')}>{content}</div>;
+      var className;
+      var content;
+      if (date instanceof Date) {
+        const supported = date > now;
+        className = supported ? "supported-release" : "unsupported-release";
+        content = date.toLocaleDateString("en-GB", dateOptions);
+      } else {
+        className = hasOSSSupport ?
+          "supported-release" : "unsupported-release";
+        content = date;
       }
+      endOfSupportDate = <div className={[
+        "release-eos",
+        "release-eos-community",
+        className,
+        latestReleaseBranchClassName,
+        isLatestReleaseForBranch ? "" : showClassName
+      ].join(' ')}>{content}</div>;
 
       if (isLatestReleaseForBranch) {
         var releaseBranchLink;
@@ -244,7 +241,7 @@ export function RabbitMQServerReleaseInfoTable() {
             isLatestReleaseForBranch ? "" : showClassName
           ].join(' ')}>{releaseDate}</div>
 
-          {endOfSupportDates}
+          {endOfSupportDate}
         </>
       );
 
@@ -280,12 +277,6 @@ export function RabbitMQServerReleaseInfoTable() {
             "release-eos",
             "release-eos-community"
           ].join(' ')}>End of Community Support</div>
-
-          <div className={[
-            "release-info-header",
-            "release-eos",
-            "release-eos-commercial"
-          ].join(' ')}>End of Extended Commercial Support</div>
 
           {rows}
         </div>
