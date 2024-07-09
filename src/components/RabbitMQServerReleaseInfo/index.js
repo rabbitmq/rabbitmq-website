@@ -286,8 +286,6 @@ export function RabbitMQServerReleaseInfoTable() {
       <dl className="release-legend">
         <dt className="supported-releaase latest-release"></dt>
         <dd>Latest release, fully supported</dd>
-        <dt className="supported-release"></dt>
-        <dd>Old release, still supported but upgrade is recommended</dd>
         <dt className="unsupported-release"></dt>
         <dd>Old release, unsupported</dd>
         {(typeof releaseBranches['current'].releases !== 'undefined' &&
