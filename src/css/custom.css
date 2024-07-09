@@ -229,7 +229,6 @@ html[data-theme='dark'] .release-information {
     [links] auto
     [reldate] 120px
     [eos-community] 120px
-    [eos-commercial] 120px
     [end];
   grid-template-rows: auto;
 
@@ -325,10 +324,6 @@ html[data-theme='dark'] .release-information {
 
 .release-info-grid .release-eos-community {
   grid-column: 6 / span 1;
-}
-
-.release-info-grid .release-eos-commercial {
-  grid-column: 7 / span 1;
 }
 
 .release-info-grid .release-toggle {
