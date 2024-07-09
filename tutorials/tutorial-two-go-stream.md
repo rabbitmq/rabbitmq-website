@@ -153,18 +153,18 @@ messagesHandler := func(consumerContext stream.ConsumerContext, message *amqp.Me
     }
     if string(message.GetData()) == "marker" {
         lastOffset.Store(consumerContext.Consumer.GetOffset())
+        _ = consumerContext.Consumer.Close()
         ch <- true
     }
 }
 
 offsetSpecification := stream.OffsetSpecification{}.First()
-consumer, _ := env.NewConsumer(streamName, messagesHandler,
+_, _ = env.NewConsumer(streamName, messagesHandler,
     stream.NewConsumerOptions().
         SetOffset(offsetSpecification))
 
 fmt.Println("Started consuming...")
 _ = <-ch
-_ = consumer.Close()
 
 fmt.Printf("Done consuming, first offset %d, last offset %d.\n", firstOffset, lastOffset.Load())
 ```
