@@ -379,4 +379,4 @@ Consuming applications are likely to keep track of the point they reached in a s
 They can use the built-in server-side offset tracking feature as demonstrated in this tutorial.
 They are also free to use any other data store solution for this task.
 
-See the [RabbitMQ blog](https://www.rabbitmq.com/blog/2021/09/13/rabbitmq-streams-offset-tracking) for more information on offset tracking.
+See the [RabbitMQ blog](https://www.rabbitmq.com/blog/2021/09/13/rabbitmq-streams-offset-tracking) and the [stream Go client documentation](https://github.com/rabbitmq/rabbitmq-stream-go-client?tab=readme-ov-file#manual-track-offset) for more information on offset tracking.
