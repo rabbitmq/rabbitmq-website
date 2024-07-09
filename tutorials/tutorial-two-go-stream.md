@@ -112,17 +112,19 @@ The routine deals with the messages and sends `true` to the second channel when 
 
 ```go
 func handlePublishConfirm(confirms stream.ChannelPublishConfirm, messageCount int, ch chan bool) {
-	go func() {
-		confirmedCount := 0
-		for confirmed := range confirms {
-			for _, _ = range confirmed {
-				confirmedCount++
-				if confirmedCount == messageCount {
-					ch <- true
-				}
-			}
-		}
-	}()
+    go func() {
+        confirmedCount := 0
+        for confirmed := range confirms {
+            for _, _ = range confirmed {
+                if msg.IsConfirmed() {
+                    confirmedCount++
+                    if confirmedCount == messageCount {
+                        ch <- true
+                    }
+                }
+            }
+        }
+    }()
 }
 ```
 

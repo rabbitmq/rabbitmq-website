@@ -79,7 +79,11 @@ IntStream.range(0, messageCount).forEach(i -> {
     producer.send(producer.messageBuilder()
                           .addData(body.getBytes(UTF_8))
                           .build(),
-                  ctx -> confirmedLatch.countDown()
+                  ctx -> {
+                      if (ctx.isConfirmed()) {
+                        confirmedLatch.countDown();
+                      }
+                  }
     );
 });
 
