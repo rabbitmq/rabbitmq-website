@@ -45,7 +45,7 @@ There are two primary ways to obtain RabbitMQ support from the core development 
 
 ### Enquiries
 
-Please use [contact-tanzu-data.pdl@broadcom.com](mailto:contact-tanzu-data.pdl@broadcom.com) contact Broadcom sales.
+Please use [contact-tanzu-data.pdl@broadcom.com](mailto:contact-tanzu-data.pdl@broadcom.com) to contact Broadcom sales.
 
 To learn about the commercial support options, see [VMware's Commercial Open Source RabbitMQ support](https://tanzu.vmware.com/rabbitmq/oss).
 
