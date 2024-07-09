@@ -45,22 +45,20 @@ There are two primary ways to obtain RabbitMQ support from the core development 
 
 ### Enquiries
 
-For enquiries about VMware’s Commercial Open Source RabbitMQ support, go to
-[this page](https://tanzu.vmware.com/rabbitmq/oss) for more information and a
-contact form. For information about VMware Tanzu RabbitMQ, the Enterprise
-version of RabbitMQ, go to the [VMware Tanzu RabbitMQ product page](https://tanzu.vmware.com/rabbitmq). 
+Please use [contact-tanzu-data.pdl@broadcom.com](mailto:contact-tanzu-data.pdl@broadcom.com) contact Broadcom sales.
 
-Note that **both** of the above links will redirect you to [this form](https://go-vmware.broadcom.com/contact-us).
-When asked "What is your solution of interest?",
-please choose "Cloud Native Application Development and Delivery". Then, fill out the rest of the form.
+To learn about the commercial support options, see [VMware's Commercial Open Source RabbitMQ support](https://tanzu.vmware.com/rabbitmq/oss).
+
+For information about VMware Tanzu RabbitMQ, the Enterprise
+version of RabbitMQ, go to the [VMware Tanzu RabbitMQ product page](https://tanzu.vmware.com/rabbitmq).
 
 ### Existing Commercial Users
 
 If you already have a license with Broadcom for one or the other (that is Open
 Source RabbitMQ or an Enterprise version of RabbitMQ) and you need to file a
-support ticket, you can do it using the [Customer Portal for VMware
-products](https://customerconnect.vmware.com/home). Refer to the [VMware
-support page](https://tanzu.vmware.com/support) for other support information.
+support ticket, you can do it using the [Customer Portal for VMware products](https://customerconnect.vmware.com/home).
+
+Refer to the [VMware support page](https://tanzu.vmware.com/support) for other support information.
 For questions about booking training or consulting, please contact the
 [appropriate vendor](/commercial-offerings).
 
