@@ -143,7 +143,7 @@ The receiving program starts a consumer that attaches at the beginning of the st
 It uses variables to output the offsets of the first and last received messages at the end of the program.
 
 The consumer stops when it receives the marker message: it assigns the offset to a variable, closes the consumer, and sends `true` to a channel.
-Like for the sender, the channel tells the program when to move on when the consumer is done with its job.
+Like for the sender, the channel tells the program to move on when the consumer is done with its job.
 
 ```go
 var firstOffset int64 = -1
@@ -370,7 +370,7 @@ First message received.
 Done consuming, first offset 100, last offset 199.
 ```
 
-The consumer restarted exactly where we left off: the last offset in the first run was 99 and the first offset in this second run is 100.
+The consumer restarted exactly where it left off: the last offset in the first run was 99 and the first offset in this second run is 100.
 The consumer stored offset tracking information in the first run, so the client library uses it to resume consuming at the right position in the second run.
 
 This concludes this tutorial on consuming semantics in RabbitMQ Streams.

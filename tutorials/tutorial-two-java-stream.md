@@ -102,13 +102,13 @@ The receiving program starts a consumer that attaches at the beginning of the st
 It uses variables to output the offsets of the first and last received messages at the end of the program.
 
 The consumer stops when it receives the marker message: it assigns the offset to a variable, closes the consumer, and decrement the latch count.
-Like for the sender, the `CountDownLatch` tells the program when to move on when the consumer is done with its job.
+Like for the sender, the `CountDownLatch` tells the program to move on when the consumer is done with its job.
 
 ```java
 OffsetSpecification offsetSpecification = OffsetSpecification.first();
 AtomicLong firstOffset = new AtomicLong(-1);
 AtomicLong lastOffset = new AtomicLong(0);
-CountDownLatch consumeLatch = new CountDownLatch(1);
+CountDownLatch consumedLatch = new CountDownLatch(1);
 environment.consumerBuilder()
     .stream(stream)
     .offset(offsetSpecification)
@@ -120,13 +120,13 @@ environment.consumerBuilder()
         if ("marker".equals(body)) {
           lastOffset.set(ctx.offset());
           ctx.consumer().close();
-          consumeLatch.countDown();
+          consumedLatch.countDown();
         }
     })
     .build();
 System.out.println("Started consuming...");
 
-consumeLatch.await(60, TimeUnit.MINUTES);
+consumedLatch.await(60, TimeUnit.MINUTES);
 
 System.out.printf("Done consuming, first offset %d, last offset %d.%n",
                   firstOffset.get(), lastOffset.get());
@@ -145,7 +145,7 @@ In the first tab, run the sender to publish a wave of messages:
 The output is the following:
 
 ```shell
-Publishing 100 messages
+Publishing 100 messages...
 Messages confirmed: true.
 ```
 
@@ -268,7 +268,7 @@ environment.consumerBuilder()
             lastOffset.set(ctx.offset());
             ctx.storeOffset(); // store the offset on consumer closing
             ctx.consumer().close();
-            consumeLatch.countDown();
+            consumedLatch.countDown();
         }
     })
     .build();
@@ -314,7 +314,7 @@ First message received.
 Done consuming, first offset 100, last offset 199.
 ```
 
-The consumer restarted exactly where we left off: the last offset in the first run was 99 and the first offset in this second run is 100.
+The consumer restarted exactly where it left off: the last offset in the first run was 99 and the first offset in this second run is 100.
 Note the `first` offset specification is ignored: a stored offset takes precedence over the offset specification parameter.
 The consumer stored offset tracking information in the first run, so the client library uses it to resume consuming at the right position in the second run.
 

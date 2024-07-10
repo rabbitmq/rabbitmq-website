@@ -242,6 +242,7 @@ This section covers [RabbitMQ streams](/docs/streams).
 
     <T2DiagramStreamToC/>
     * [Java](tutorials/tutorial-two-java-stream)
+    * [C#](tutorials/tutorial-two-dotnet-stream)
     * [Go](tutorials/tutorial-two-go-stream)
   </td>
 
