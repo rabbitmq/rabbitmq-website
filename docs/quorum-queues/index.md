@@ -105,7 +105,7 @@ Some features are not currently supported by quorum queues.
 
 ### Feature Matrix {#feature-matrix}
 
-| Feature | Classic Mirrored | Quorum |
+| Feature | Classic queues | Quorum queues |
 | :-------- | :------- | ------ |
 | [Non-durable queues](./queues) | yes | no |
 | [Exclusivity](./queues) | yes | no |
@@ -116,6 +116,8 @@ Some features are not currently supported by quorum queues.
 | [Queue length limits](./maxlength) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
 | [Lazy behaviour](./lazy-queues) | yes | always (since 3.10) |
 | [Message priority](./priority) | yes | no |
+| [Single Active Consumer](./consumers.html#single-active-consumer) | yes | yes |
+| [Consumer exclusivity](./consumers.html#exclusivity) | yes | no (use [Single Active Consumer](./consumers.html#single-active-consumer)) |
 | [Consumer priority](./consumer-priority) | yes | yes |
 | [Dead letter exchanges](./dlx) | yes | yes |
 | Adheres to [policies](./parameters#policies) | yes | yes (see [Policy support](#policy-support)) |
