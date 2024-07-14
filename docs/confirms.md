@@ -106,7 +106,7 @@ explain how deliveries are identified (and acknowledgements
 indicate their respective deliveries).  When a consumer
 (subscription) is registered, messages will be delivered
 (pushed) by RabbitMQ using the `basic.deliver`
-method.  The method carries a <em>delivery tag</em>, which
+method.  The method carries a `delivery tag`, which
 uniquely identifies the delivery on a channel. Delivery tags are
 therefore scoped per channel.
 
@@ -642,7 +642,7 @@ message will be delivered again.  This is not the case: the
 restart has caused the broker to lose the message.  In order to
 guarantee persistence, a client should use confirms.  If the
 publisher's channel had been in confirm mode, the publisher
-would <em>not</em> have received an ack for the lost message
+would **not** have received an ack for the lost message
 (since the message hadn't been written to disk yet).
 
 
