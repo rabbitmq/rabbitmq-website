@@ -179,11 +179,10 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send
 > If this is your first time using RabbitMQ and you don't see the "Sent"
 > message then you may be left scratching your head wondering what could
 > be wrong. Maybe the broker was started without enough free disk space
-> (by default it needs at least 50 MB free) and is therefore refusing to
+> (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
-> limit if necessary. The <a
-> href="../configure#config-items">configuration
-> file documentation</a> will show you how to set <code>disk_free_limit</code>.
+> limit if necessary. See the <a href="/docs/configure#config-items">Configuration guide</a> to learn about how
+> to override <code>disk_free_limit</code>
 
 
 ### Receiving
