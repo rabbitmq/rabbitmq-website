@@ -378,12 +378,12 @@ different resource in each virtual host. A second level of
 access control is enforced when certain operations are
 performed on resources.
 
-RabbitMQ distinguishes between <em>configure</em>,
-<em>write</em> and <em>read</em> operations on a
-resource. The <em>configure</em> operations create or
+RabbitMQ distinguishes between `configure`,
+`write` and `read` operations on a
+resource. The `configure` operations create or
 destroy resources, or alter their behaviour. The
-<em>write</em> operations inject messages into a
-resource. And the <em>read</em> operations retrieve messages
+`write` operations inject messages into a
+resource. And the `read` operations retrieve messages
 from a resource.
 
 In order to perform an operation on a resource the user must
@@ -457,13 +457,13 @@ operations on all resources with names matching the regular
 expressions.
 
 For example, the table above demonstrates that the <code>queue.bind</code>
-protocol operation requires <em>write</em> permission on the target <code>queue</code>
-and the <em>read</em> permission is required on the target <code>exchange</code>.
+protocol operation requires `write` permission on the target <code>queue</code>
+and the `read` permission is required on the target <code>exchange</code>.
 
 In other words, in order to allow a user to bind a queue named <code>queueA</code> to
-an exchange named <code>exchangeB</code> the user will need the <em>write</em>
+an exchange named <code>exchangeB</code> the user will need the `write`
 permission regex (for the correct virtual host) to match <code>queueA</code>,
-and the <em>read</em> permission regex to match <code>exchangeB</code>.
+and the `read` permission regex to match <code>exchangeB</code>.
 
 For convenience RabbitMQ maps AMQP 0-9-1's
 default exchange's blank name to 'amq.default' when
