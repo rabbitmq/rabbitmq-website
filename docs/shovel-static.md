@@ -66,11 +66,17 @@ The names in the list must be distinct.
 A shovel definition looks like this at the top level:
 
 ```erlang
-{<em>shovel_name</em>, [
-  {source, [ <em>...protocol specific config...</em> ]},
-  {destination, [ <em>...protocol specific config...</em> ]},
-  {ack_mode, <em>a_mode</em>},
-  {reconnect_delay, <em>reconn_delay</em>}
+{shovel_name, [
+  {source, [
+    %% protocol-specific source configuration goes here
+  ]},
+  {destination, [
+    %% protocol-specific destination configuration goes here
+  ]},
+  %% 'confirm' is the default acknowledgement mode
+  {ack_mode, confirm},
+  %% reconnect with a 5 second delay
+  {reconnect_delay, 5}
 ]}
 ```
 
@@ -193,7 +199,9 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
           up the topology.
         </p>
 ```erlang
-  {declarations, <em>declaration_list</em>}
+  {declarations, [
+    %% declaration list
+  ]}
 ```
         <p>
           The declarations follow method and property names used by the <a href="./erlang-client-user-guide">RabbitMQ Erlang Client</a>.
