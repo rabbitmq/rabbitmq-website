@@ -147,8 +147,10 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/send.php).
 > message then you may be left scratching your head wondering what could
 > be wrong. Maybe the broker was started without enough free disk space
 > (by default it needs at least 50 MB free) and is therefore refusing to
-> accept messages. Check the broker logfile to confirm and reduce the
-> limit if necessary. The [configuration file documentation](/docs/configure#config-items)
+> accept messages. Check the broker [log file](/docs/logging/) to see if there
+> is a [resource alarm](/docs/alarms) logged and reduce the
+> free disk space threshold if necessary.
+> The [Configuration guide](/docs/configure#config-items)
 > will show you how to set <code>disk_free_limit</code>.
 
 
