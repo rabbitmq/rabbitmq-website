@@ -594,7 +594,7 @@ to reconnect to switch to a new virtual host.
 is considered more specific than the port-to-vhost mapping with the `mqtt_port_to_vhost_mapping`
 global parameter and so takes precedence over it.
 
-#### Use client_id from client certificate to authenticate 
+#### Use the client_id from client certificate to authenticate 
 
 By the default, the plugin passes the `client_id` as credential to the configured authentication backends. However, it is possible to extract the `client_id` from the certificate. 
 

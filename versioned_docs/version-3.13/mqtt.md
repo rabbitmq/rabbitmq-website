@@ -594,16 +594,16 @@ to reconnect to switch to a new virtual host.
 is considered more specific than the port-to-vhost mapping with the `mqtt_port_to_vhost_mapping`
 global parameter and so takes precedence over it.
 
-#### Use client_id from client certificate to authenticate 
+#### Use the client_id from client certificate to authenticate 
 
 By the default, the plugin passes the `client_id` as credential to the configured authentication backends. However, it is possible to extract the `client_id` from the certificate. 
 
-First, you must configure which certificate's attribute has the `client_id` by setting the configuration variable `mqtt.ssl_cert_client_id_from`. The acceptable values are:
+First, you must configure where RabbitMQ extracts the `client_id` from the certificate by setting the configuration variable `mqtt.ssl_cert_client_id_from`. The acceptable options are:
 - `distinguished_name`, this is the DN, or distinguished name, of the certificate
 - `common_name`, this is the CN part of the distinguished name
 - `subject_alternative_name` or `subject_alt_name`, here the `client_id` is specified in certificate's extension. You can specify further alternative names which can be of several types.
 
-If you set `mqtt.ssl_cert_client_id_from` to `subject_alternative_name` or `subject_alt_name`, you can configure the type of alternative name via the `mqtt.ssl_cert_client_id_san_type` configuration variable. If you do not set it, its default value is `dns`. The acceptable values are:
+If you set `mqtt.ssl_cert_client_id_from` to `subject_alternative_name` or `subject_alt_name`, you can configure the type of alternative name via the `mqtt.ssl_cert_client_id_san_type` configuration variable. If you do not set it, its default value is `dns`. The acceptable options are:
 - `dns`
 - `ip` 
 - `email` 
