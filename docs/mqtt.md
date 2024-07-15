@@ -610,7 +610,7 @@ If you set `mqtt.ssl_cert_client_id_from` to `subject_alternative_name` or `subj
 - `uri`
 - `other_name`
 
-If there can be more than alternative name of the type specified, you can configure which one to choose via the `mqtt.ssl_cert_client_id_san_index` configuration variable. By default, it always pick the first name, i.e. `mqtt.ssl_cert_client_id_san_index = 0`.
+If there can be more than alternative name of the configured type, you can configure which one to choose via the `mqtt.ssl_cert_client_id_san_index` configuration variable. By default, it always pick the first name, i.e. `mqtt.ssl_cert_client_id_san_index = 0`.
 
 Here is an example where the username is extracted from the certificate's `common_name` and the `client_id` is extracted from the first SAN -subject alternative name- of type uri:
 
