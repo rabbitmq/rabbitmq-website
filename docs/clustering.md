@@ -452,10 +452,10 @@ There are two options available:
 :::tip
 Using `client-local` strategy is usually a good choice if the connections that declare queues
 are evenly distributed between nodes. In such case, even though the queue/leaders are placed locally
-(where the connection is), they are well balanced within the cluster. Otherwise, you probably
-want to use the `balanced` strategy. The disadvantage of the `balanced` strategy is that the
-connection that declared the queue may not have the best possible performance when using this queues,
-if a different node is picked. For example, for short-lived queues, `client-local` is probably
+(where the connection is), they are well balanced within the cluster. Otherwise, prefer the `balanced` strategy.
+The disadvantage of the `balanced` strategy is that the connection that declared the queue may not have
+the best possible performance when using this queues,
+if a different node is picked. For example, [for short-lived queues](./queues#temporary-queues), `client-local` is probably
 a better choice. [Exclusive queues](./queues#exclusive-queues) are always declared locally.
 :::
 
