@@ -143,6 +143,11 @@ const sidebars = {
             },
             {
               type: 'doc',
+              id: 'local-random-exchange',
+              label: 'Local random exchange',
+            },
+            {
+              type: 'doc',
               id: 'connection-blocked',
               label: 'Blocked Connection Notifications',
             },
