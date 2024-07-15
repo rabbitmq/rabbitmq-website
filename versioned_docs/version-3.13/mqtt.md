@@ -596,23 +596,23 @@ global parameter and so takes precedence over it.
 
 #### Use client_id from client certificate to authenticate 
 
-By the default, the plugin passes the `client_id` it received from the MQTT connection to the configured authentication backends as a credential. However, it is possible to extract the `client_id` from the certificate in a very similar way as we extract the username. 
+By the default, the plugin passes the `client_id` as credential to the configured authentication backends. However, it is possible to extract the `client_id` from the certificate. 
 
-First, you must configure which certificate's attribute has the `client_id` by setting the configuration variable `mqtt.ssl_cert_client_id_from`. The allowed values are:
-- `distinguished_name`, this is the full DN, or distinguished name, of the certificate
-- `common_name`, this is just the CN part of the distinguished name
-- `subject_alternative_name` or `subject_alt_name`, here the `client_id` is specified in certificate's extension which allows to specify further alternative names which can be of several types.
+First, you must configure which certificate's attribute has the `client_id` by setting the configuration variable `mqtt.ssl_cert_client_id_from`. The acceptable values are:
+- `distinguished_name`, this is the DN, or distinguished name, of the certificate
+- `common_name`, this is the CN part of the distinguished name
+- `subject_alternative_name` or `subject_alt_name`, here the `client_id` is specified in certificate's extension. You can specify further alternative names which can be of several types.
 
-If you set `mqtt.ssl_cert_client_id_from` to `subject_alternative_name` or `subject_alt_name`, you should configure `mqtt.ssl_cert_client_id_san_type` which contains the `client_id`, otherwise it defaults to `dns`, its type which can be:
+If you set `mqtt.ssl_cert_client_id_from` to `subject_alternative_name` or `subject_alt_name`, you can configure the type of alternative name via the `mqtt.ssl_cert_client_id_san_type` configuration variable. If you do not set it, its default value is `dns`. The acceptable values are:
 - `dns`
 - `ip` 
 - `email` 
 - `uri`
 - `other_name`
 
-And if there can be more than alternative name of the type specified, you can configure which one to choose via the `mqtt.ssl_cert_client_id_san_index` configuration variable. By default, it always pick the first name, i.e. `mqtt.ssl_cert_client_id_san_index = 0`.
+If there can be more than alternative name of the type specified, you can configure which one to choose via the `mqtt.ssl_cert_client_id_san_index` configuration variable. By default, it always pick the first name, i.e. `mqtt.ssl_cert_client_id_san_index = 0`.
 
-Here is an example where the username is extracted from the certificate's `common_name` and the `client_id` from the first SAN -subject alternative name- of type uri:
+Here is an example where the username is extracted from the certificate's `common_name` and the `client_id` is extracted from the first SAN -subject alternative name- of type uri:
 
 ```ini
 ssl_cert_login_from = common_name
