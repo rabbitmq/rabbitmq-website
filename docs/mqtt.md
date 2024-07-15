@@ -698,9 +698,6 @@ Also, routing messages with fewer topic levels is faster.
 1. In workloads with high subscription churn, increase Mnesia configuration parameter `dump_log_write_threshold` (e.g. `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-mnesia dump_log_write_threshold 20000"`)
 1. When connecting many clients, increase the maximum number of Erlang processes (e.g. `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+P 10000000`)
 and the maximum number of open ports (e.g. `ERL_MAX_PORTS=10000000`).
-1. Do **not** use [configuration](./configure) or [policy](./parameters) `queue_master_locator = min-masters`.
-`min-masters` reads all queue records from RabbitMQ's database to decide on which node to place a classic queue, which becomes expensive for clusters containing many queues.
-Note that `queue_master_locator = min-masters` is a default configuration as of rabbitmq/cluster-operator v2.7.0.
 
 Consult the [Networking](./networking) and [Configuration](./configure) guides for more information.
 

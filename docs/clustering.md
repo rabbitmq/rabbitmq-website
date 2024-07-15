@@ -425,40 +425,60 @@ to learn more.
 
 ### Queue and Stream Leader Replica Placement {#replica-placement}
 
-Every queue and stream in RabbitMQ has a primary replica. That replica is called
+Every queue and stream in RabbitMQ has a primary replica (in case of classic queues,
+it is the only replica). That replica is called
 _the leader_. All publishing operations on queues and streams go through the leader
-replica first and then are replicated to followers (secondary replicas). This is necessary to
+replica first and then are replicated to the followers (secondary replicas). This is necessary to
 guarantee FIFO ordering of messages.
 
 To avoid some nodes in a cluster hosting a significant majority of queue leader
 replicas and thus handling most of the load, queue leaders should
 be reasonably evenly distributed across cluster nodes.
 
-Queue leaders can be distributed between nodes using several
-strategies. Which strategy is used is controlled in three ways,
-namely, using the `x-queue-master-locator` [optional queue argument](./queues#optional-arguments), setting the `queue-master-locator`
-policy key or by defining the `queue_master_locator`
-key in [`the configuration file`](./configure#configuration-files).
+Queue leader distribution can be controlled in three ways:
+1. a policy, by setting `queue-leader-locator`
+1. [the configuration file](./configure#configuration-files), by setting `queue_leader_locator`
+1. [optional queue argument](./queues#optional-arguments), by setting the `x-queue-leader-locator` ([not recommended](./parameters))
 
 There are two options available:
 
- * `balanced`, the default strategy, uses the data on how many replicas peer nodes host,
-   when there are relatively few (say, no more than 1000) queues in the cluster; it falls back
-   to a more efficient strategy of picking a random node when there are many queues
- * `client-local` will always pick the node the client is connected to
+ * `client-local`, the default, will always pick the node the client is connected to
+ * `balanced`, which takes into account the number of queues/leaders already running
+   on each node in the cluster; when there are relatively few
+   queues in the cluster, it picks the node with the least number of them; when there
+   are many (more than 1000 by default), it just picks a random node (calculating the
+   exact number can be slow with many queues, and a random choice is generally just as good)
 
-The following example sets the `queue_leader_locator` setting in `rabbitmq.conf` to its default value:
+:::tip
+Using `client-local` strategy is usually a good choice if the connections that declare queues
+are evenly distributed between nodes. In such case, even though the queue/leaders are placed locally
+(where the connection is), they are well balanced within the cluster. Otherwise, prefer the `balanced` strategy.
+The disadvantage of the `balanced` strategy is that the connection that declared the queue may not have
+the best possible performance when using this queues,
+if a different node is picked. For example, [for short-lived queues](./queues#temporary-queues), `client-local` is probably
+a better choice. [Exclusive queues](./queues#exclusive-queues) are always declared locally.
+:::
+
+The following example sets the `queue_leader_locator` setting in `rabbitmq.conf` to ensure a balanced queue distribution:
 
 ``` ini
 queue_leader_locator = balanced
 ```
 
-The client-provided queue argument takes presedence when both are used.
+The client-provided queue argument takes precedence when both are used.
 
 Note that all Raft-based features, namely quorum queues and streams, use this value as a suggestion.
 Raft leader election algorithm involves a degree of randomness, therefore the selected recommended
 node will have a replica placed on it but it will not always be the leader replica.
 
+:::note
+For backwards compatibility, `queue-master-locator` (policy argument), `x-queue-master-locator`
+(queue argument) and `queue_master_locator` (configuration option) are still supported by classic queues.
+However, these are deprecated in favour of the options listed above.
+
+These options allow different values: `client-local`, `random` and `min-masters`. The latter two
+are now mapped to `balanced` internally.
+:::
 
 ## Clustering and Observability {#clustering-and-observability}
 

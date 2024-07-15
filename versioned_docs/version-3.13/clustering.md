@@ -447,18 +447,20 @@ key in [`the configuration file`](./configure#configuration-files).
 
 There are two options available:
 
- * `balanced`, the default strategy, uses the data on how many replicas peer nodes host,
-   when there are relatively few (say, no more than 1000) queues in the cluster; it falls back
-   to a more efficient strategy of picking a random node when there are many queues
- * `client-local` will always pick the node the client is connected to
+ * `client-local`, the default strategy, will always pick the node the client is connected to
+ * `balanced`, which takes into account the number of queues/leaders already running
+   on each node in the cluster; when there are relatively few
+   queues in the cluster, it picks the node with the least number of them; when there
+   are many (more than 1000 by default), it just picks a random node (calculating the
+   exact number can be slow with many queues, and a random choice is generally just as good)
 
-The following example sets the `queue_leader_locator` setting in `rabbitmq.conf` to its default value:
+The following example sets the `queue_leader_locator` setting in `rabbitmq.conf` to ensure a balanced queue distribution:
 
 ``` ini
 queue_leader_locator = balanced
 ```
 
-The client-provided queue argument takes presedence when both are used.
+The client-provided queue argument takes precedence when both are used.
 
 Note that all Raft-based features, namely quorum queues and streams, use this value as a suggestion.
 Raft leader election algorithm involves a degree of randomness, therefore the selected recommended
