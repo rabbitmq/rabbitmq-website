@@ -615,6 +615,13 @@ cat /proc/$RABBITMQ_BEAM_PROCESS_PID/limits
 can be used to display effective limits of a running process. `$RABBITMQ_BEAM_PROCESS_PID`
 is the OS PID of the Erlang VM running RabbitMQ, as returned by `rabbitmq-diagnostics status`.
 
+`ERL_MAX_PORTS` defaults to 65536, if you set LimitNOFILE to higher than this,
+you will want to update `ERL_MAX_PORTS`. To see the maximum ports of the
+rabbitmq process, the following command can be ran.
+
+```bash
+rabbitmqctl eval 'erlang:system_info(port_limit).'
+```
 
 ## Managing the Service {#managing-service}
 
