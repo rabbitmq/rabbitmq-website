@@ -1783,6 +1783,18 @@ More variables are covered in the [File and Directory Locations guide](./relocat
   </tr>
 
   <tr>
+    <td>ERL_MAX_PORTS</td>
+    <td>
+      This limit corresponds to the [maximum open file handle limit](./networking#open-file-handle-limit) in the kernel.
+      When the latter is set to a value higher than 65536, `ERL_MAX_PORT` must be adjusted accordingly.
+
+      <p>
+        <strong>Default</strong>: 65536
+      </p>
+    </td>
+  </tr>
+
+  <tr>
     <td>ERL_EPMD_ADDRESS</td>
     <td>
       Interface(s) used by <a href="./networking#epmd">epmd</a>, a component in inter-node and CLI tool communication.
@@ -1940,7 +1952,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
     </td>
   </tr>
 
-  <li>
+  <tr>
     <td>RABBITMQ_LOG_BASE</td>
     <td>
       Can be used to override log files directory location.
@@ -1960,7 +1972,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
         </ul>
       </p>
     </td>
-  </li>
+  </tr>
 
   <tr>
     <td>RABBITMQ_MNESIA_BASE</td>
