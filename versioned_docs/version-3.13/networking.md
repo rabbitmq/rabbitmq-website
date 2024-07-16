@@ -632,6 +632,11 @@ Several factors can limit how many concurrent connections a single node can supp
 
 ### Open File Handle Limit {#open-file-handle-limit}
 
+:::important
+When overriding the max open file handle limit to
+a higher value, the `ERL_MAX_PORTS` environment variable must be [overridden](./configure) accordingly.
+:::
+
 Most operating systems limit the number of file handles that
 can be opened at the same time. When an OS process (such as RabbitMQ's Erlang VM) reaches
 the limit, it won't be able to open any new files or accept any more
@@ -639,6 +644,8 @@ TCP connections. The limit will also affect how much memory the [Erlang runtime]
 will allocate upfront. This means that the limit on some modern distributions
 [can be too high](https://blog.rabbitmq.com/posts/2022/08/high-initial-memory-consumption-of-rabbitmq-nodes-on-centos-stream-9/) and need
 lowering.
+
+#### How to Override the Limit
 
 How the limit is configured [varies from OS to OS](https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/performance/open-files-limit.md) and distribution to distribution, e.g. depending on whether systemd is used.
 For Linux, Controlling System Limits on Linux
@@ -651,7 +658,24 @@ in the host controls the limits.
 
 MacOS uses a [similar system](https://superuser.com/questions/433746/is-there-a-fix-for-the-too-many-open-files-in-system-error-on-os-x-10-7-1).
 
-On Windows, the limit for the Erlang runtime is controlled using the `ERL_MAX_PORTS` environment variable.
+On Windows, the limit for the Erlang runtime is controlled exclusively using the `ERL_MAX_PORTS` environment variable.
+
+#### The ERL_MAX_PORTS Environment Variable {#erl-max-ports}
+
+The [runtime](./runtime/) has a related limit, controlled via the `ERL_MAX_PORTS` environment
+variable.
+
+By default the limit is usually set to 65536. When overriding the max open file handle limit to
+a higher value, `ERL_MAX_PORTS` must be [overridden](./configure) accordingly.
+
+To find out the effective `ERL_MAX_PORTS` value of a RabbitMQ node,
+use the following command:
+
+```bash
+rabbitmqctl eval 'erlang:system_info(port_limit).'
+```
+
+#### Basic Estimates of the Necessary Limit
 
 When optimising for the number of concurrent connections,
 make sure your system has enough file descriptors to

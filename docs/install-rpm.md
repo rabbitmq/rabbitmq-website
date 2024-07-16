@@ -570,6 +570,9 @@ For example, to set the max open file handle limit (`nofile`) to `64000`:
 LimitNOFILE=64000
 ```
 
+If `LimitNOFILE` is set to a value higher than 65536, [the `ERL_MAX_PORTS` environment variable](./networking#erl-max-ports) must be
+updated accordingly to increase a [runtime](./runtime/) limit.
+
 See [systemd documentation](https://www.freedesktop.org/software/systemd/man/systemd.exec.html) to learn about
 the supported limits and other directives.
 
@@ -590,6 +593,9 @@ The file has to be installed on Docker hosts at `/etc/docker/daemon.json`:
 }
 ```
 
+If the limits above are set to a value higher than 65536,
+[the `ERL_MAX_PORTS` environment variable](./networking#erl-max-ports) must be updated accordingly to increase a [runtime](./runtime/) limit.
+
 ### Without systemd (Older Linux Distributions)
 
 The most straightforward way to adjust the per-user limit for
@@ -601,10 +607,13 @@ to invoke `ulimit` before the service is started.
 ulimit -S -n 64000
 ```
 
-This <em>soft</em> limit cannot go higher than the <em>hard</em> limit (which defaults to 4096 in many distributions).
+This `soft` limit cannot go higher than the `hard` limit (which defaults to 4096 in many distributions).
 [The hard limit can be increased](https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/performance/open-files-limit.md) via
 `/etc/security/limits.conf`. This also requires enabling the [pam_limits.so](http://askubuntu.com/a/34559) module
 and re-login or reboot. Note that limits cannot be changed for running OS processes.
+
+If the limits above are set to a value higher than 65536,
+[the `ERL_MAX_PORTS` environment variable](./networking#erl-max-ports) must be updated accordingly to increase a [runtime](./runtime/) limit.
 
 For more information about controlling `fs.file-max`
 with `sysctl`, please refer to the excellent

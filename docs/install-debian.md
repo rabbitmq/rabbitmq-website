@@ -552,12 +552,15 @@ the `guest` user.
 
 RabbitMQ installations running production workloads may need system
 limits and kernel parameters tuning in order to handle a decent number of
-concurrent connections and queues. The main setting that needs adjustment
+concurrent connections and queues.
+
+The main setting that needs adjustment
 is the max number of open files, also known as `ulimit -n`.
 The default value on many operating systems is too low for a messaging
-broker (`1024` on several Linux distributions). We recommend allowing
-for at least 65536 file descriptors for user `rabbitmq` in
-production environments. 4096 should be sufficient for many development
+broker (`1024` on several Linux distributions).
+
+The recommended value of file descriptors limit allowed for user `rabbitmq` in
+production environments is at least 65536. 8192 should be sufficient for most development
 workloads.
 
 There are two limits in play: the maximum number of open files the OS kernel
@@ -574,6 +577,9 @@ For example, to set the max open file handle limit (`nofile`) to `64000`:
 [Service]
 LimitNOFILE=64000
 ```
+
+If `LimitNOFILE` is set to a value higher than 65536, [the `ERL_MAX_PORTS` environment variable](./networking#erl-max-ports) must be
+updated accordingly to increase a [runtime](./runtime/) limit.
 
 See [systemd documentation](https://www.freedesktop.org/software/systemd/man/systemd.exec.html) to learn about
 the supported limits and other directives.
@@ -595,6 +601,9 @@ The file has to be installed on Docker hosts at `/etc/docker/daemon.json`:
 }
 ```
 
+If the limits above are set to a value higher than 65536,
+[the `ERL_MAX_PORTS` environment variable](./networking#erl-max-ports) must be updated accordingly to increase a [runtime](./runtime/) limit.
+
 ### Verifying the Limit {#verifying-limits}
 
 [RabbitMQ management UI](./management) displays the number of file descriptors available
@@ -614,7 +623,6 @@ cat /proc/$RABBITMQ_BEAM_PROCESS_PID/limits
 
 can be used to display effective limits of a running process. `$RABBITMQ_BEAM_PROCESS_PID`
 is the OS PID of the Erlang VM running RabbitMQ, as returned by `rabbitmq-diagnostics status`.
-
 
 ## Managing the Service {#managing-service}
 
@@ -655,16 +663,16 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            ├─2860 inet_gethost 4
            └─2861 inet_gethost 4
 
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.12.0. Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: /var/log/rabbitmq/rabbit@localhost_upgrade.log
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: Starting broker...
-Dec 26 10:21:32 localhost.localdomain rabbitmq-server[957]: systemd unit for activation check: "rabbitmq-server.service"
-Dec 26 10:21:32 localhost.localdomain systemd[1]: Started RabbitMQ broker.
-Dec 26 10:21:32 localhost.localdomain rabbitmq-server[957]: completed with 6 plugins.
+Jun 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
+Jun 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.13.4. Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Jun 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
+Jun 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
+Jun 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
+Jun 26 10:21:30 localhost.localdomain rabbitmq-server[957]: /var/log/rabbitmq/rabbit@localhost_upgrade.log
+Jun 26 10:21:30 localhost.localdomain rabbitmq-server[957]: Starting broker...
+Jun 26 10:21:32 localhost.localdomain rabbitmq-server[957]: systemd unit for activation check: "rabbitmq-server.service"
+Jun 26 10:21:32 localhost.localdomain systemd[1]: Started RabbitMQ broker.
+Jun 26 10:21:32 localhost.localdomain rabbitmq-server[957]: completed with 6 plugins.
 ```
 
 `rabbitmqctl`, `rabbitmq-diagnostics`,
@@ -713,15 +721,15 @@ sudo journalctl --system | grep rabbitmq
 The output will look similar to this:
 
 ```ini
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.12.0. Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
-Dec 26 11:03:04 localhost rabbitmq-server[968]: /var/log/rabbitmq/rabbit@localhost_upgrade.log
-Dec 26 11:03:04 localhost rabbitmq-server[968]: Starting broker...
-Dec 26 11:03:05 localhost rabbitmq-server[968]: systemd unit for activation check: "rabbitmq-server.service"
-Dec 26 11:03:06 localhost rabbitmq-server[968]: completed with 6 plugins.
+Jun 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
+Jun 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.13.4. Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Jun 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
+Jun 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
+Jun 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
+Jun 26 11:03:04 localhost rabbitmq-server[968]: /var/log/rabbitmq/rabbit@localhost_upgrade.log
+Jun 26 11:03:04 localhost rabbitmq-server[968]: Starting broker...
+Jun 26 11:03:05 localhost rabbitmq-server[968]: systemd unit for activation check: "rabbitmq-server.service"
+Jun 26 11:03:06 localhost rabbitmq-server[968]: completed with 6 plugins.
 ```
 
 ### Log Rotation
