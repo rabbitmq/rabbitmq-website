@@ -120,9 +120,37 @@ spec:
   name: my-queue
   rabbitmqClusterReference:
     connectionSecret:
-      name: my-rabbit-creds # has to an existing secret in the same namespace as this Queue object
+      name: my-rabbit-creds # has to be an existing secret in the same namespace as this Queue object
 ```
+* If `rabbitmqClusterReference.namespace` is specified, a secret from that namespace will be used:
+```bash
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-rabbit-creds
+  namespace: rabbitmq-system
+  annotations:
+    rabbitmq.com/topology-allowed-namespaces: "qq-namespace" # has to be "*" or match namespace name(s) where RabbitMQ objects are deployed
+type: Opaque
+stringData:
+  username: a-user # has to be an existing user
+  password: a-secure-password
+  uri: https://my.rabbit:15672 # uri for the management api; when scheme is not provided in uri, operator defaults to 'http'
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: qq-example
+  namespace: qq-namespace
+spec:
+  name: my-queue
+  rabbitmqClusterReference:
+    namespace: rabbitmq-system
+    connectionSecret:
+      name: my-rabbit-creds # has to be an existing secret in the namespace specified in rabbitmqClusterReference.namespace
 
+```
 Note that `spec.rabbitmqClusterReference` is an immutable field. You cannot update the connectionSecret name after creation.
 
 ## Custom Connection URI {#uri-annotation}
