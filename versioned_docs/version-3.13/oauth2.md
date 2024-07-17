@@ -364,7 +364,7 @@ a write permission on all exchanges starting with `x-prod-`, and any routing key
 ```json
 {
   "sub" : "bob",
-  "scope" : [ "rabbitmq.write:*/q-{vhost}-*/u-{sub}-*" ]
+  "scope" : [ "rabbitmq.write:*/x-{vhost}-*/u-{sub}-*" ]
 }
 ```
 
