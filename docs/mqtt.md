@@ -596,11 +596,11 @@ global parameter and so takes precedence over it.
 
 #### Use the client_id from client certificate to authenticate 
 
-You can configure RabbitMQ to ensure the `client_id` received over the MQTT connection matches the `client_id` found in the client's certificate. If they match, RabbitMQ proceeds with the user's authentication by passing the user's identity along with the `client_id` to the configured authentication backend(s). Some authentication backends, like the `rabbitmq_auth_backend_http`, may use `client_id` credential in addition to `username` to make authentication and/or authorization decisions. 
+You can configure RabbitMQ to ensure the `client_id` received over the MQTT connection matches the `client_id` found in the client's certificate. If they match, RabbitMQ proceeds with the user's authentication by passing the user's identity along with the `client_id` to the configured authentication backend(s). Some authentication backends, like the `rabbitmq_auth_backend_http`, may use `client_id` credential in addition to `username` to make authentication and/or authorization decisions. If the `client_id`(s) did not match, RabbitMQ closes the connection with the reason code `2`, meaning, `the client identifier is not allowed by the server`.
 
 First, you must configure where RabbitMQ extracts the `client_id` from the certificate by setting the configuration variable `mqtt.ssl_cert_client_id_from`. The acceptable options are:
 - `distinguished_name`, this is the DN, or distinguished name, of the certificate
-- `subject_alternative_name` or `subject_alt_name`, here the `client_id` is specified in certificate's extension. You can specify further alternative names which can be of several types.
+- `subject_alternative_name`, here the `client_id` is specified in certificate's extension. You can specify further alternative names which can be of several types.
 
 If you set `mqtt.ssl_cert_client_id_from` to `subject_alternative_name`, you can configure the type of alternative name via the `mqtt.ssl_cert_client_id_san_type` configuration variable. If you do not set it, its default value is `dns`. The acceptable options are:
 - `dns`
