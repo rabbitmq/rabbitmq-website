@@ -9,6 +9,8 @@ authors: [mklishin]
 Effective June 1st, the RabbitMQ community support and release policies will change for the open source distributions of RabbitMQ.
 The goal of these changes is to ensure that the RabbitMQ team has time to focus on developing new features for the Open Source and commercial versions of RabbitMQ. 
 
+<!-- truncate -->
+
 ### What is Community Support?
 
 Community support is defined as all questions, root cause analysis requests, issue reports, and other interactions the RabbitMQ core team
