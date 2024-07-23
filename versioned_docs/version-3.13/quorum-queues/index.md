@@ -537,6 +537,31 @@ or quorum queues in a particular set of virtual hosts:
 rabbitmq-queues rebalance quorum --vhost-pattern "production.*"
 ```
 
+## Quorum Queue Continuous Membership Reconciliation
+
+In addition to controlling Quorum Queue replica membership by using the initial target size and the CLI and HTTP APIs to add or delete members, grow or shrink the [replica membership](#replica-management),
+RabbitMQ can be configured to automatically try to grow the Quorum Queue replica membership to a configured target group size by enabling the continuous membership reconciliation feature.
+
+When enbable, RabbitMq will periodically check every quorum queues current membership group size, and compare it with a target value. If a queue is below the target value,
+RabbitMQ will attempt to grow the queue onto availible nodes, if any, up to the target value.
+Each node will periodically assessing their local leader quorom queue memberships. The default evaluation interval is 60 minutes, with a shorter 'trigger timeout' if a trigger event occurs, such as a node is added or removed to the cluster, or a policy is changed.
+
+### Configuration
+
+#### Static Configuration
+
+The following configuration parameters control the behavior of continuous membership reconciliation:
+
+- `quorum_queue.continuous_membership_reconciliation.enabled` (boolean): Enables or disables continuous membership reconciliation. Default: `true`.
+- `quorum_queue.continuous_membership_reconciliation.auto_remove` (boolean): Enables or disables automatic removal of member nodes that are no longer part of the cluster, but still a member of the Quorum Queue. Default: `false`.
+- `quorum_queue.continuous_membership_reconciliation.interval` (integer): The default evaluation interval in milliseconds. Default: `3600000` (60 minutes).
+- `quorum_queue.continuous_membership_reconciliation.trigger_interval` (integer): The interval in milliseconds when a trigger event occurs, such as a node is added or removed from the cluster, a policy change etc. Default: `10000` (10 seconds).
+- `quorum_queue.continuous_membership_reconciliation.target_group_size` (integer): The target group size for queue members.
+
+#### Policies and Arguments
+
+- **Policy**: `target-group-size` (integer): Defines the target group size for queues. This policy can be set by users and operators.
+- **Argument**: `x-quorum-target-group-size` (integer): Specifies the target group size for a particular queue.
 
 ## Quorum Queue Behaviour {#behaviour}
 
