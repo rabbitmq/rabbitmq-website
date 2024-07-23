@@ -500,6 +500,18 @@ If you prefer to return per-object (unaggregated) metrics on the `/metrics` endp
 prometheus.return_per_object_metrics = true
 ```
 
+### Prometheus endpoints: `/metrics/memory-breakdown` {#memory-breakdown-endpoint}
+
+This endpoint provides metrics similar to the output of `rabbitmq-diagnostics memory_breakdown`.
+It aggregates memory usage by different components to provide a more detailed view of
+where the memory is allocated.
+
+Memory breakdown is a separate endpoint, since providing this information requires
+iterating through all the Erlang processes. This is not a problem in most systems, but becomes
+relatively expensive in large deployments. In systems with tens of thousands (or more)
+connections and/or queues (each connection and queue is at least 1 process),
+it is recommended to either not use this endpoint at all, or to scrape it infrequently.
+
 ### Prometheus endpoints: `/metrics/per-object` {#per-object-endpoint}
 
 RabbitMQ offers a dedicated endpoint
