@@ -5,6 +5,7 @@
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
 import {themes as prismThemes} from 'prism-react-renderer';
+import imgRendering from './src/rehype/img-rendering.js';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -180,6 +181,7 @@ const config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/rabbitmq/rabbitmq-website/tree/main/',
+          rehypePlugins: [imgRendering],
         },
         theme: {
           customCss: './src/css/custom.css',
