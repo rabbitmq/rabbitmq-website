@@ -155,7 +155,7 @@ We've therefore made this the only option for classic queues going forward.
 Let's start by looking at what we expect to happen for users that currently use non-lazy classic queues version 1 (CQv1), after the upgrade.
 The screenshot was taken from 12 bytes message sizes test.
 
-![Classic queues: non-lazy classic queues in 3.11 vs 3.12)](lazy-3.11-vs-3.12.png)
+![Classic queues: non-lazy classic queues in 3.11 vs 3.12](lazy-3.11-vs-3.12.png)
 
 As you can see, 3.12 performs better in every single test: higher throughput, lower latency, less variability (fewer spikes in rates).
 At the same time, 3.12 has a much lower memory usage (similar to lazy queues). On the last panel you can see 3.11 memory spikes whenever the queues get longer,
@@ -166,7 +166,7 @@ while 3.12 only exceeds 1GB memory usage in the tests that involve many connecti
 Above, we saw some of the benefits that most users should get after upgrading to RabbitMQ 3.12, but we are just getting started! Let's add classic queues version 2
 to the comparison:
 
-![Classic queues: non-lazy classic queues in 3.11 vs 3.12 v1 and v2)](lazy-3.11-vs-3.12-v1-and-v2.png)
+![Classic queues: non-lazy classic queues in 3.11 vs 3.12 v1 and v2](lazy-3.11-vs-3.12-v1-and-v2.png)
 
 With CQv2, we observe even higher throughput and even lower latency. Especially in the second test when the queue gets long, version 2 doesn't exceed 50ms latency,
 while 3.11 can spike into multiple seconds.
@@ -226,7 +226,7 @@ quorum queues should now perform better and more predictably.
 
 A more likely scenario is a situation where the consumers were unavailable for some time and need to catch up. Let's focus on these tests:
 
-![Quorum queues: 3.11 vs 3.12)](qq-3.11-vs-3.12-consumption.png)
+![Quorum queues: 3.11 vs 3.12](qq-3.11-vs-3.12-consumption.png)
 
 In the first phase of each test, consumers are off and a backlog of messages is created. Then the consumers start. In the first test 10 of them,
 in the second test 50, but only one is active (as a [Single Active Consumer](/docs/consumers#single-active-consumer)).
@@ -240,7 +240,7 @@ In our test, we started a node, imported 100,000 classic queues version 2 and th
 while 3.11 needed 15 minutes to start serving clients again. 3.11 hit a memory alarm on startup, which made the boot
 process particularly slow. There was a client running just to see when it loses the connection and can establish it again.
 
-![Node restart with 100k classic queues v2: 3.11 vs 3.12)](100k-queues-restart.png)
+![Node restart with 100k classic queues v2: 3.11 vs 3.12](100k-queues-restart.png)
 
 ### No More Periodic Resource Usage Spikes With Many Idle Queues
 
