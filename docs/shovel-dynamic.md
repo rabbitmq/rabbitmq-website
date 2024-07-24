@@ -131,6 +131,9 @@ The body in this example includes a few keys:
           If the source queue does not exist on the target virtual host, and <code>src-queue-args</code>
           parameter was not provided, shovel will declare a classic durable queue with no optional arguments.
         </p>
+        <p>
+          See also [Predeclared topology](#predeclared-topology) section below.
+        </p>
       </td>
     </tr>
     <tr>
@@ -170,6 +173,9 @@ The body in this example includes a few keys:
             and <code>dest-queue-args</code> parameter was not provided,
             shovel will declare a classic durable queue with no optional arguments.
           </p>
+          <p>
+            See also [Predeclared topology](#predeclared-topology) section below.
+          </p>
       </td>
     </tr>
     <tr>
@@ -184,6 +190,43 @@ The body in this example includes a few keys:
 </table>
 
 There are other Shovel definition keys that will be covered later in this guide.
+
+### Predeclared topology {#predeclared-topology}
+
+There are deployment scenarios where the topology is automatically [imported from a definitions file at boot time](./definitions#import-on-boot). In these scenarios, we can configure the plugin to wait until the queue is available by adding the following line to the `rabbitmq.conf` file: 
+```ini
+shovel.topology.predeclared = true 
+```
+
+If you stil want the shovel to declare the source or destination resource, you can override the configuration set earlier by setting the following arguments:
+
+<table>
+  <caption>Additional Dynamic Shovel Definition Settings</caption>
+
+  <thead>
+    <tr>
+      <td><strong>Key</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>src-predeclared</td>
+      <td>
+        When set to <code>true</code>, the plugin waits until <code>src-queue</code> is available, 
+        otherwise the plugin declares it using <code>src-queue-args</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>dest-predeclared</td>
+      <td>
+        When set to <code>true</code>, the plugin waits until <code>dest-queue</code> is available, 
+        otherwise the plugin declares it using <code>dest-queue-args</code>.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Using HTTP API
 
