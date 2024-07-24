@@ -552,9 +552,9 @@ If a node is failed in an unrecoverable way and cannot be brought back, it must 
 This also means that [upgrades](./upgrade/) do not trigger automatic membership reconciliation.
 :::
 
-### Configuration
+### CMR Configuration
 
-#### Static Configuration
+#### `rabbitmq.conf`
 
 <table class="name-description">
   <caption>Continuous Membership Reconciliation (CMR) Settings</caption>
@@ -835,7 +835,7 @@ The `rabbit` application has several quorum queue related configuration items av
 <table>
   <thead>
     <tr>
-      <td><code>advanced.config</code> Configuration Key</td>
+      <td><code>advanced.config</code> <a href="./configure/">configuration key</a></td>
       <td>Description</td>
       <td>Default value</td>
     </tr>
