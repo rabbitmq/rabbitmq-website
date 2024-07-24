@@ -650,7 +650,8 @@ The following configuration parameters control the behavior of continuous member
     `quorum_queue.continuous_membership_reconciliation.trigger_interval`
     </td>
     <td>
-      The interval in milliseconds when a trigger event occurs, such as a node is added or removed from the cluster, a policy change, etc.
+      The reconciliation delay in milliseconds, used when a trigger event occurs, for example, a node is added or removed from the cluster or an applicable policy changes.
+      This delay will be applied only once, then the regular interval will be used again.
 
       <p>
         <ul>
