@@ -548,7 +548,7 @@ from the cluster, explicitly removing quorum queue replicas may still be necessa
 
 In addition to controlling quorum queue replica membership by using the initial target size and [explicit replica management](#replica-management),
 nodes can be configured to automatically try to grow the quorum queue replica membership
-to a configured target group size by enabling the continuous membership reconciliation feature.
+to a configured target replica number (group size) by enabling the continuous membership reconciliation feature.
 
 When enbable, every quorum queue leader replica will periodically check its current membership group size
 (the number of replicas online), and compare it with the target value.
@@ -575,16 +575,141 @@ This also means that [upgrades](./upgrade/) do not trigger automatic membership 
 
 The following configuration parameters control the behavior of continuous membership reconciliation:
 
-- `quorum_queue.continuous_membership_reconciliation.enabled` (boolean): Enables or disables continuous membership reconciliation. Default: `true`.
-- `quorum_queue.continuous_membership_reconciliation.auto_remove` (boolean): Enables or disables automatic removal of member nodes that are no longer part of the cluster, but still a member of the Quorum Queue. Default: `false`.
-- `quorum_queue.continuous_membership_reconciliation.interval` (integer): The default evaluation interval in milliseconds. Default: `3600000` (60 minutes).
-- `quorum_queue.continuous_membership_reconciliation.trigger_interval` (integer): The interval in milliseconds when a trigger event occurs, such as a node is added or removed from the cluster, a policy change etc. Default: `10000` (10 seconds).
-- `quorum_queue.continuous_membership_reconciliation.target_group_size` (integer): The target group size for queue members.
+<table class="name-description">
+  <caption>Continuous Membership Reconciliation (CMR) Settings</caption>
+  <thead>
+    <td>`rabbitmq.conf` <a href="./configure">configuration key</a></td>
+    <td>Description</td>
+  </thead>
 
-#### Policies and Arguments
+  <tr>
+    <td>
+    `quorum_queue.continuous_membership_reconciliation.enabled`
+    </td>
+    <td>
+      Enables or disables continuous membership reconciliation.
+      <p>
+        <ul>
+          <li>Data type: boolean</li>
+          <li>Default: `true`</li>
+        </ul>
+      </p>
+    </td>
+  </tr>
 
-- **Policy**: `target-group-size` (integer): Defines the target group size for queues. This policy can be set by users and operators.
-- **Argument**: `x-quorum-target-group-size` (integer): Specifies the target group size for a particular queue.
+  <tr>
+    <td>
+    `quorum_queue.continuous_membership_reconciliation.target_group_size`
+    </td>
+    <td>
+      The target replica count (group size) for queue members.
+
+      <p>
+        <ul>
+          <li>Data type: positive integer</li>
+          <li>Default: none</li>
+        </ul>
+      </p>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+    `quorum_queue.continuous_membership_reconciliation.auto_remove`
+    </td>
+    <td>
+      Enables or disables automatic removal of member nodes that are no longer part of the cluster, but still a member of the quorum queue.
+
+      <p>
+        <ul>
+          <li>Data type: boolean</li>
+          <li>Default: `false`</li>
+        </ul>
+      </p>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+    `quorum_queue.continuous_membership_reconciliation.interval`
+    </td>
+    <td>
+      The default evaluation interval in milliseconds.
+
+      <p>
+        <ul>
+          <li>Data type: positive integer</li>
+          <li>Default: `3600000` (60 minutes)</li>
+        </ul>
+      </p>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+    `quorum_queue.continuous_membership_reconciliation.trigger_interval`
+    </td>
+    <td>
+      The interval in milliseconds when a trigger event occurs, such as a node is added or removed from the cluster, a policy change, etc.
+
+      <p>
+        <ul>
+          <li>Data type: positive integer</li>
+          <li>Default: `10000` (10 seconds)</li>
+        </ul>
+      </p>
+    </td>
+  </tr>
+</table>
+
+#### Policy Keys
+
+<table class="name-description">
+  <caption>Policy-driven CMR Settings</caption>
+  <thead>
+    <td><a href="./parameters#policies">Policy key</a></td>
+    <td>Description</td>
+  </thead>
+
+  <tr>
+    <td>
+    `target-group-size`
+    </td>
+    <td>
+      Defines the target replica count (group size) for matching queues. This policy can be set by users and operators.
+      <p>
+        <ul>
+          <li>Data type: positive integer</li>
+          <li>Default: none</li>
+        </ul>
+      </p>
+    </td>
+  </tr>
+</table>
+
+<table class="name-description">
+  <caption>Optional Arguments-driven CMR Settings</caption>
+  <thead>
+    <td><a href="./queues#optional-arguments">Optional arguments key</a></td>
+    <td>Description</td>
+  </thead>
+
+  <tr>
+    <td>
+    `x-quorum-target-group-size`
+    </td>
+    <td>
+      Defines the target replica count (group size) for matching queues. This key can be overridden by operator policies.
+      <p>
+        <ul>
+          <li>Data type: positive integer</li>
+          <li>Default: none</li>
+        </ul>
+      </p>
+    </td>
+  </tr>
+</table>
+
 
 ## Quorum Queue Behaviour {#behaviour}
 

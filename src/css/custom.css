@@ -196,6 +196,10 @@ html[data-theme='dark'] .mermaid-msg > rect {
   }
 }
 
+.name-description tr td:nth-child(1) {
+  font-size: 90%;
+}
+
 /* -------------------------------------------------------------------
  * Release Information table.
  * ------------------------------------------------------------------- */
