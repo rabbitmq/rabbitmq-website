@@ -172,3 +172,16 @@ The 5th format `:queue` is redundant to the 4th format.
 As explained previously, RabbitMQ 4.0 allows AMQP clients to create RabbitMQ topologies including queues with client defined queue types, properties, and arguments.
 Hence, there is no need for RabbitMQ itself to auto declare a specific queue for a given queue source address format.
 In v2, clients should first declare their own queues and bindings, and then attach with source address `/queues/:queue` which causes the client to consume from that queue.
+
+## Limitations
+
+RabbitMQ does not support the following AMQP features:
+* "Suspending" or "resuming" a [link](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#section-links) including
+    * Figure 2.8: Link Recovery
+    * "exactly once" delivery
+    * [resuming deliveries](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-resuming-deliveries)
+    * [Terminus Expiry Policy](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-terminus-expiry-policy)
+* `aborted` field in [transfer](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-transfer) frame
+* [Modified](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-modified) outcome works with [quorum queues](./quorum-queues), but not with [classic queues](./classic-queues). (Modifying a message in a [stream](./streams) doesn't make sense given that a stream is an immutable log.)
+* `dynamic` field in [source](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-source) and [target](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-target): clients can instead dynamically create server topologies (exchanges, queues, bindings) via HTTP over AMQP **prior** to attaching a link.
+* [Transactions](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transactions-v1.0-os.html)
