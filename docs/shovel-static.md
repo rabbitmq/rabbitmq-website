@@ -196,7 +196,7 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
         <p>
           An optional list of AMQP 0-9-1 operations to be executed by the Shovel
           before it starts transferring messages. They are typically used to set
-          up the topology.
+          up the topology.        
         </p>
 ```erlang
   {declarations, [
@@ -277,6 +277,8 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
             the value is <code>&lt;&lt;>></code> (the empty binary string) then the
             <em>most recently declared queue</em> in <code>declarations</code> is used.
             This allows anonymous queues to be declared and used.
+
+            See also [Predeclared topology section](#predeclared-topology) below.
           </p>
       </td>
     </tr>
@@ -294,6 +296,17 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
     </tr>
   </tbody>
 </table>
+
+#### Predeclared topology {#predeclared-topology}
+
+The `declarations` attribute is typically used to set up the topology. At the very least, it must set up the source queue. 
+
+There are deployment scenarios where the topology is automatically [imported from a definitions file at boot time](./definitions#import-on-boot). In these scenarios, we can configure the plugin to wait until the queue is available by adding the following line to the `rabbitmq.conf` file: 
+```ini
+shovel.topology.predeclared = true 
+```
+
+With the above configuration, if a static shovel has no `declarations` attribute or it is empty, the piugin will wait until the source's `queue` is eventually declared. 
 
 ### AMQP 1.0 Source Keys
 
