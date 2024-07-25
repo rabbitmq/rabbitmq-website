@@ -467,13 +467,13 @@ More memory and more CPU will be consumed.
 Comparing figure 1 (at-most-once dead lettering) with figure 2 (at-least-once dead lettering), we observe that at-least-once dead lettering will require
 sending more messages (including acknowledgements).
 
-### Caveat 3 - Overflow drop-head
+### Caveat 4 - Overflow drop-head
 
 As explained in the [Usage](#usage) section, enabling `at-least-once` dead lettering requires setting `overflow` to `reject-publish`.
 Setting `overflow` to `drop-head` will make dead letter strategy fall back to `at-most-once`.
 `drop-head` is not supported because dropping dead lettered messages from the source quorum queue would violate `at-least-once` semantics.
 
-### Caveat 4 - Switching dead letter strategy
+### Caveat 5 - Switching dead letter strategy
 
 For a quorum queue, it is possible to switch the dead-letter strategy via a policy from `at-most-once`
 to `at-least-once` and vice versa. If the dead-letter strategy is changed either directly
