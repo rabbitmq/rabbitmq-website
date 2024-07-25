@@ -719,6 +719,12 @@ cluster at any time, while the cluster is running.
 
 ## Restarting Cluster Nodes {#restarting}
 
+:::important
+Users running RabbitMQ on Kubernetes must also consult
+[the following section](#restarting-readiness-probes) that explains how to avoid a well known
+cluster restart deadlock scenario specific to Kubernetes.
+:::
+
 Nodes that have been joined to a cluster can be stopped at
 any time. They can also fail or be terminated by the OS.
 
@@ -735,6 +741,16 @@ completes, the node **won't be fully started and functional**.
 
 It is therefore important to understand the process node go through when
 they are stopped and restarted.
+
+:::important
+Upon restart the node will try to contact that peer 10 times by
+default, with 30 second response timeouts. This means that by default, all cluster
+members must come online within 5 minutes.
+
+In environments where nodes are deployed and verified sequentially,
+such as Kubernetes with the `OrderedReady` pod management policy,
+the restart can run into deadlock unless [a number of recommendations is followed](#restarting-readiness-probes).
+:::
 
 A stopping node picks an online cluster member (only disc
 nodes will be considered) to sync with after restart. Upon
@@ -799,15 +815,18 @@ must be the first node to be started after the upgrade. That node will be design
 a cluster-wide schema migration that other nodes can sync from and apply when they
 rejoin.
 
-### Restarts and Health Checks (Readiness Probes) {#restarting-readiness-probes}
+### Node Restarts, Kubernetes Pod Management and Health Checks (Readiness Probes) {#restarting-readiness-probes}
+
+:::important
+Use the `Parallel` pod management policy when running RabbitMQ on Kubernetes.
+:::
 
 In some environments, node restarts are controlled with a designated [health check](./monitoring#health-checks).
 The checks verify that one node has started and the deployment process can proceed to the next one.
 If the check does not pass, the deployment of the node is considered to be incomplete and the deployment process
 will typically wait and retry for a period of time. One popular example of such environment is Kubernetes
 where an operator-defined [readiness probe](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
-can prevent a deployment from proceeding when the [`OrderedReady` pod management policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees) is used. Deployments that use the `Parallel` pod management policy
-will not be affected but must worry about the [natural race condition during initial cluster formation](./cluster-formation#initial-formation-race-condition).
+can prevent a deployment from proceeding when the [`OrderedReady` pod management policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees) is used. Using the `Parallel` pod management policy helps avoid this problem.
 
 Given the [peer syncing behavior described above](#restarting-schema-sync), such a health check can prevent a cluster-wide restart
 from completing in time. Checks that explicitly or implicitly assume a fully booted node that's rejoined
