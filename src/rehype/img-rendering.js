@@ -1,5 +1,6 @@
 import {visit} from 'unist-util-visit';
 import {h} from 'hastscript';
+const _ = require('lodash');
 
 const plugin = (options) => {
     const transformer = async (ast) => {
@@ -39,7 +40,7 @@ const plugin = (options) => {
                 // we add the figure and the caption, the original node sits in the middle
                 const figure = h("figure", {}, [
                     node,
-                    h("figcaption", caption)
+                    h("figcaption", _.unescape(caption))
                 ])
                 parentNode.children = [figure]
             }
