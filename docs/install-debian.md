@@ -87,7 +87,7 @@ i.e. inline with [distribution EOL policy](https://wiki.debian.org/DebianRelease
 
 Currently the list of supported Debian-based distributions includes
 
- * Ubuntu 20.04 through 23.04
+ * Ubuntu 20.04, 22.04 and 24.04
  * Debian Bullseye (11), Bookworm (12), and Trixie ("testing")
 
 The package may work on other Debian-based distributions
@@ -290,6 +290,7 @@ In order to set up an apt repository that provides the correct package, a few
 decisions have to be made. One is determining the distribution name. It often
 matches the Debian or Ubuntu release used:
 
+ * `noble` for Ubuntu 24.04
  * `jammy` for Ubuntu 23.04
  * `jammy` for Ubuntu 22.04
  * `focal` for Ubuntu 20.04
@@ -308,6 +309,7 @@ with the RabbitMQ apt repositories.
 
 | Release         | Distribution |
 |-----------------|--------------|
+| Ubuntu 24.04    | `noble`      |
 | Ubuntu 23.04    | `jammy`      |
 | Ubuntu 22.04    | `jammy`      |
 | Ubuntu 20.04    | `focal`      |
@@ -760,9 +762,9 @@ on Launchpad:
 
 The Erlang repositores on Launchpad currently target the following Ubuntu distributions:
 
+ * Ubuntu 24.04 (Noble)
  * Ubuntu 22.04 (Jammy)
  * Ubuntu 20.04 (Focal)
- * Ubuntu 18.04 (Bionic)
 
 Alternatively, Cloudsmith and its mirror (see above) supports the same versions
 and also can be used on Debian distributions, not just Ubuntu.
@@ -833,6 +835,7 @@ decisions have to be made. One is determining the distribution name. It typicall
 the Debian or Ubuntu release used but only a handful of distributions are
 supported (indexed) by the Erlang Debian packages maintained by Team RabbitMQ:
 
+ * `noble` for Ubuntu 24.04
  * `jammy` for Ubuntu 22.04
  * `focal` for Ubuntu 20.04
  * `bionic` for Ubuntu 18.04
@@ -849,6 +852,7 @@ with the Launchpad repository.
 
 | Release         | Distribution Name |
 |-----------------|-----------|
+| Ubuntu 24.04    | `noble`   |
 | Ubuntu 23.04    | `jammy`   |
 | Ubuntu 22.04    | `jammy`   |
 | Ubuntu 20.04    | `focal`   |
