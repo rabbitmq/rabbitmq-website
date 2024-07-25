@@ -31,7 +31,8 @@ can be used for both transient (one-off) and permanently running workloads.
 
 Information about dynamic shovels is stored in RabbitMQ's schema database,
 along with users, permissions, queues, etc. They therefore can be
-exported together with other [schema definitions](./definitions).
+exported together with other [schema definitions](./definitions) in combination
+with the [pre-declared topology mode](#predeclared-topology).
 
 
 ## Configuration {#configuration}
@@ -132,7 +133,8 @@ The body in this example includes a few keys:
           parameter was not provided, shovel will declare a classic durable queue with no optional arguments.
         </p>
         <p>
-          See also [Predeclared topology](#predeclared-topology) section below.
+          Shovels can use a pre-declared topology instead of declaring the source.
+          See the [Predeclared topology](#predeclared-topology) section below.
         </p>
       </td>
     </tr>
@@ -174,7 +176,8 @@ The body in this example includes a few keys:
             shovel will declare a classic durable queue with no optional arguments.
           </p>
           <p>
-            See also [Predeclared topology](#predeclared-topology) section below.
+            Shovels can use a pre-declared topology instead of declaring the destination.
+            See the [Predeclared topology](#predeclared-topology) section below.
           </p>
       </td>
     </tr>
@@ -191,16 +194,25 @@ The body in this example includes a few keys:
 
 There are other Shovel definition keys that will be covered later in this guide.
 
-### Predeclared topology {#predeclared-topology}
+### Pre-declared Topology {#predeclared-topology}
 
-There are deployment scenarios where the topology is automatically [imported from a definitions file at boot time](./definitions#import-on-boot). In these scenarios, we can configure the plugin to wait until the queue is available by adding the following line to the `rabbitmq.conf` file: 
+Shovels can use a pre-declared topology instead of declaring its source and destination.
+
+For example, this may be necessary when the topology is [imported from a definitions file at boot time](./definitions#import-on-boot).
+Using a pre-declared topology avoids a chicken-and-egg problem between the import of definitions and
+Shovel plugin startup: the plugin must be enabled for definitions to pass validation (of the runtime parameters part).
+
+Here is how the plugin can be configured to wait until the source is available [using `rabbitmq.conf`](./configure/):
+
 ```ini
+# all shovels started on this node will use pre-declared topology
 shovel.topology.predeclared = true 
 ```
 
-If you stil want the shovel to declare the source or destination resource, you can override the configuration set earlier by setting the following arguments:
+If only some shovels need to use a pre-declared topology, the same behavior can be configured
+for specific shovels using the following shovel properties:
 
-<table>
+<table class="name-description">
   <caption>Additional Dynamic Shovel Definition Settings</caption>
 
   <thead>
@@ -214,15 +226,15 @@ If you stil want the shovel to declare the source or destination resource, you c
     <tr>
       <td>src-predeclared</td>
       <td>
-        When set to <code>true</code>, the plugin waits until <code>src-queue</code> is available, 
-        otherwise the plugin declares it using <code>src-queue-args</code>.
+        When set to <code>true</code>, the plugin waits until <code>src-queue</code> is available
+        instead of declaring the topology itself using <code>src-queue-args</code>.
       </td>
     </tr>
     <tr>
       <td>dest-predeclared</td>
       <td>
-        When set to <code>true</code>, the plugin waits until <code>dest-queue</code> is available, 
-        otherwise the plugin declares it using <code>dest-queue-args</code>.
+        When set to <code>true</code>, the plugin waits until <code>dest-queue</code> is available
+        instead of declaring the topology itself using <code>dest-queue-args</code>.
       </td>
     </tr>
   </tbody>
