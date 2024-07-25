@@ -8,10 +8,7 @@ const plugin = (options) => {
             const altAttribute = node.attributes.find(a => a.name === "alt")
             var alt = altAttribute === undefined ? undefined : altAttribute.value
             alt = alt === "" ? undefined : alt
-            const hasCaption = parentNode.children
-                .findIndex(c => c.name === "figcaption") === -1 ? false : true
-            const parentIsParagraph = parentNode.tagName === "p" ? true : false
-            if (alt === undefined || hasCaption || !parentIsParagraph) {
+            if (alt === undefined) {
                 // nothing to do if there is no text
                 return
             } else {
