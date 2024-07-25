@@ -548,8 +548,11 @@ or a quorum queue-related policy change.
 :::warning
 Note that a node or quorum queue replica failure does not trigger automatic membership reconciliation.
 
-If a node is failed in an unrecoverable way and cannot be brought back, it must be explicitly removed from the cluster.
-This also means that [upgrades](./upgrade/) do not trigger automatic membership reconciliation.
+If a node is failed in an unrecoverable way and cannot be brought back, it must be explicitly removed from the cluster
+or the operator must opt-in and enable the `quorum_queue.continuous_membership_reconciliation.auto_remove` setting.
+
+This also means that [upgrades](./upgrade/) do not trigger automatic membership reconciliation since nodes
+are expected to come back and only a minority (often just one) node is stopped for upgrading at a time.
 :::
 
 ### CMR Configuration
