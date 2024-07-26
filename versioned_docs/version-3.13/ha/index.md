@@ -21,8 +21,13 @@ limitations under the License.
 # Classic Queue Mirroring (Deprecated)
 
 :::danger
-This guide covers a [**deprecated feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/) scheduled
-for removal in the next release, RabbitMQ 4.0
+This guide covers a feature that has been [**deprecated for several years**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/)
+and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) the next major series, RabbitMQ 4.x.
+:::
+
+:::important
+[Quorum queues](./quorum-queues) and/or [streams](./streams) should be used instead of mirrored classic queues.
+**Non-replicated** classic queues continue being supported and developed.
 :::
 
 ## Wait, There's a Better Way: Modern Replicated Queue Type and Streams {#interstitial}
@@ -66,12 +71,14 @@ This guide assumes general familiarity with [RabbitMQ clustering](./clustering).
 
 ## What is Queue Mirroring {#what-is-mirroring}
 
-:::danger[Important]
-Classic queue mirroring is a [**deprecated feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/) scheduled
-for removal in the next release, RabbitMQ 4.0.
+:::danger
+This guide covers a feature that has been [**deprecated for several years**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/)
+and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) the next major series, RabbitMQ 4.x.
+:::
 
-Consider using [quorum queues](./quorum-queues), [streams](./streams), or a non-replicated classic queue
-v2 instead.
+:::important
+[Quorum queues](./quorum-queues) and/or [streams](./streams) should be used instead of mirrored classic queues.
+**Non-replicated** classic queues continue being supported and developed.
 :::
 
 By default, contents of a queue within a RabbitMQ cluster are located on
