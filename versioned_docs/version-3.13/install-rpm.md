@@ -180,7 +180,6 @@ name=modern-erlang-el8
 # Unlike Cloudsmith, the mirror does not have any traffic quotas
 baseurl=https://yum1.novemberain.com/erlang/el/8/$basearch
         https://yum2.novemberain.com/erlang/el/8/$basearch
-        https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/8/$basearch
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-erlang.E495BB49CC4BBE5B.key
@@ -198,7 +197,6 @@ name=modern-erlang-el8-noarch
 # Unlike Cloudsmith, it does not have any traffic quotas
 baseurl=https://yum1.novemberain.com/erlang/el/8/noarch
         https://yum2.novemberain.com/erlang/el/8/noarch
-        https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/8/noarch
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-erlang.E495BB49CC4BBE5B.key
@@ -217,7 +215,6 @@ name=modern-erlang-el8-source
 # Unlike Cloudsmith, it does not have any traffic quotas
 baseurl=https://yum1.novemberain.com/erlang/el/8/SRPMS
         https://yum2.novemberain.com/erlang/el/8/SRPMS
-        https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/8/SRPMS
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-erlang.E495BB49CC4BBE5B.key
@@ -238,7 +235,6 @@ autorefresh=1
 name=rabbitmq-el8
 baseurl=https://yum2.novemberain.com/rabbitmq/el/8/$basearch
         https://yum1.novemberain.com/rabbitmq/el/8/$basearch
-        https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/8/$basearch
 repo_gpgcheck=1
 enabled=1
 # Cloudsmith's repository key and RabbitMQ package signing key
@@ -256,7 +252,6 @@ type=rpm-md
 name=rabbitmq-el8-noarch
 baseurl=https://yum2.novemberain.com/rabbitmq/el/8/noarch
         https://yum1.novemberain.com/rabbitmq/el/8/noarch
-        https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/8/noarch
 repo_gpgcheck=1
 enabled=1
 # Cloudsmith's repository key and RabbitMQ package signing key
@@ -274,7 +269,6 @@ type=rpm-md
 name=rabbitmq-el8-source
 baseurl=https://yum2.novemberain.com/rabbitmq/el/8/SRPMS
         https://yum1.novemberain.com/rabbitmq/el/8/SRPMS
-        https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/8/SRPMS
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key
@@ -308,7 +302,6 @@ name=modern-erlang-el9
 # Unlike Cloudsmith, it does not have any traffic quotas
 baseurl=https://yum1.novemberain.com/erlang/el/9/$basearch
         https://yum2.novemberain.com/erlang/el/9/$basearch
-        https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/9/$basearch
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-erlang.E495BB49CC4BBE5B.key
@@ -326,7 +319,6 @@ name=modern-erlang-el9-noarch
 # Unlike Cloudsmith, it does not have any traffic quotas
 baseurl=https://yum1.novemberain.com/erlang/el/9/noarch
         https://yum2.novemberain.com/erlang/el/9/noarch
-        https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/9/noarch
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-erlang.E495BB49CC4BBE5B.key
@@ -345,7 +337,6 @@ name=modern-erlang-el9-source
 # Unlike Cloudsmith, it does not have any traffic quotas
 baseurl=https://yum1.novemberain.com/erlang/el/9/SRPMS
         https://yum2.novemberain.com/erlang/el/9/SRPMS
-        https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/9/SRPMS
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-erlang.E495BB49CC4BBE5B.key
@@ -366,7 +357,6 @@ autorefresh=1
 name=rabbitmq-el9
 baseurl=https://yum2.novemberain.com/rabbitmq/el/9/$basearch
         https://yum1.novemberain.com/rabbitmq/el/9/$basearch
-        https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/9/$basearch
 repo_gpgcheck=1
 enabled=1
 # Cloudsmith's repository key and RabbitMQ package signing key
@@ -384,7 +374,6 @@ type=rpm-md
 name=rabbitmq-el9-noarch
 baseurl=https://yum2.novemberain.com/rabbitmq/el/9/noarch
         https://yum1.novemberain.com/rabbitmq/el/9/noarch
-        https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/9/noarch
 repo_gpgcheck=1
 enabled=1
 # Cloudsmith's repository key and RabbitMQ package signing key
@@ -402,7 +391,6 @@ type=rpm-md
 name=rabbitmq-el9-source
 baseurl=https://yum2.novemberain.com/rabbitmq/el/9/SRPMS
         https://yum1.novemberain.com/rabbitmq/el/9/SRPMS
-        https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/9/SRPMS
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key
