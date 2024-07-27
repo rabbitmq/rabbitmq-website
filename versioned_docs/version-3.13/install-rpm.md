@@ -177,7 +177,7 @@ The contents of the file will vary slightly between distribution families:
  * Older distribution: RHEL 8, Rocky Linux 8, Alma Linux 8, Amazon Linux 2023, older Fedora Releases
 
 
-<Tabs>
+<Tabs groupId="distribution-family-specific">
 <TabItem value="modern-oses" label="Modern Fedora Releases, Red Hat 9, CentOS Stream 9, Rocky Linux 9, Amazon Linux 2023, Oracle Linux 9, Alma Linux 9">
 
 The following example sets up a repository that will install RabbitMQ and its Erlang dependency from

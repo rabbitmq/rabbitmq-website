@@ -195,38 +195,39 @@ depending on the programming language used.
 
 To add a user, use `rabbitmqctl add_user`. It has multiple ways of specifying a [password](./passwords):
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # will prompt for password, only use this option interactively
 rabbitmqctl add_user "username"
-```
 
-```bash
 # Password is provided via standard input.
 # Note that certain characters such as !, &, $, #, and so on must be escaped to avoid
 # special interpretation by the shell.
 echo '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b' | rabbitmqctl add_user 'username'
-```
 
-```bash
 # Password is provided as a command line argument.
 # Note that certain characters such as !, &, $, #, and so on must be escaped to avoid
 # special interpretation by the shell.
 rabbitmqctl add_user 'username' '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b'
 ```
-
-On Windows, `rabbitmqctl` becomes `rabbitmqctl.bat` and shell escaping is different based on your shell:
-
-<Tabs>
-<TabItem value="PowerShell" label="PowerShell" default>
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 # password is provided as a command line argument
 rabbitmqctl.bat add_user 'username' '9a55f70a841f18b97c3a7db939b7adc9e34a0f1d'
+
+# passwords with special characters must be quoted correctly
+rabbitmqctl.bat add_user 'username' '"w63pnZ&LnYMO(t"'
 ```
 </TabItem>
 <TabItem value="cmd" label="cmd">
 ```batch
 rem password is provided as a command line argument
 rabbitmqctl.bat add_user "username" "9a55f70a841f18b97c3a7db939b7adc9e34a0f1d"
+
+rem passwords with special characters must be quoted correctly
+rabbitmqctl.bat add_user "username" "w63pnZ&LnYMO(t"
 ```
 </TabItem>
 </Tabs>
@@ -235,79 +236,112 @@ rabbitmqctl.bat add_user "username" "9a55f70a841f18b97c3a7db939b7adc9e34a0f1d"
 
 To list users in a cluster, use `rabbitmqctl list_users`:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl list_users
 ```
-
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 rabbitmqctl.bat list_users
 ```
+</TabItem>
+</Tabs>
 
 The output can be changed to be JSON:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl list_users --formatter=json
 ```
-
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 rabbitmqctl.bat list_users --formatter=json
 ```
+</TabItem>
+</Tabs>
 
 ### Deleting a User
 
 To delete a user, use `rabbitmqctl delete_user`:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl delete_user 'username'
 ```
-
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 rabbitmqctl.bat delete_user 'username'
 ```
+</TabItem>
+</Tabs>
 
 ### Granting Permissions to a User
 
 To grant [permissions](#authorisation) to a user in a [virtual host](./vhosts), use `rabbitmqctl set_permissions`:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # First ".*" for configure permission on every entity
 # Second ".*" for write permission on every entity
 # Third ".*" for read permission on every entity
 rabbitmqctl set_permissions -p "custom-vhost" "username" ".*" ".*" ".*"
 ```
-
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 # First ".*" for configure permission on every entity
 # Second ".*" for write permission on every entity
 # Third ".*" for read permission on every entity
 rabbitmqctl.bat set_permissions -p 'custom-vhost' 'username' '.*' '.*' '.*'
 ```
+</TabItem>
+</Tabs>
 
 ### Clearing Permissions of a User in a Virtual Host
 
 To revoke [permissions](#authorisation) from a user in a [virtual host](./vhosts), use `rabbitmqctl clear_permissions`:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # Revokes permissions in a virtual host
 rabbitmqctl clear_permissions -p "custom-vhost" "username"
 ```
-
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 # Revokes permissions in a virtual host
 rabbitmqctl.bat clear_permissions -p 'custom-vhost' 'username'
 ```
+</TabItem>
+</Tabs>
 
 ### Operations on Multiple Virtual Hosts
 
 Every `rabbitmqctl` permission management operation is scoped to a single virtual host.
 Bulk operations have to be scripted, with the list of virtual hosts coming from `rabbitmqctl list_vhosts --silent`:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # Assumes a Linux shell.
 # Grants a user permissions to all virtual hosts.
 for v in $(rabbitmqctl list_vhosts --silent); do rabbitmqctl set_permissions -p $v "a-user" ".*" ".*" ".*"; done
 ```
-
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat list_vhosts --silent | %{ rabbitmqctl.bat set_permissions -p $_ 'a-user' '.*' '.*' '.*' }
+```
+</TabItem>
+</Tabs>
 
 ## Seeding (Pre-creating) Users and Permissions {#seeding}
 
@@ -861,9 +895,19 @@ will be logged differently. See [TLS Troubleshooting guide](./troubleshooting-ss
 [rabbitmqctl authenticate_user](./cli) can be used to test authentication
 for a username and password pair:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl authenticate_user "a-username" "a/password"
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# note that double quotes are required due to the & character
+rabbitmqctl.bat authenticate_user 'a-username' '"a/p&assword"'
+```
+</TabItem>
+</Tabs>
 
 If authentication succeeds, it will exit with
 the code of zero. In case of a failure, a non-zero exit code will be used and a failure error message will be printed.
@@ -887,6 +931,8 @@ a problem used in a particular programming language or environment.
 [rabbitmqctl list_permissions](./cli) can be used to inspect a user's
 permission in a given virtual host:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl list_permissions --vhost /
 # => Listing permissions for vhost "/" ...
@@ -901,6 +947,14 @@ rabbitmqctl list_permissions --vhost gw1
 # => guest	.*	.*	.*
 # => user2	^user2	^user2	^user2
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat list_permissions --vhost /
+rabbitmqctl.bat list_permissions --vhost gw1
+```
+</TabItem>
+</Tabs>
 
 [Server logs](./logging) will contain entries about operation authorisation
 failures. For example, if a user does not have any permissions configured for a virtual host:

@@ -116,7 +116,7 @@ To add an upstream, use the `rabbitmqctl set_parameter` command. It accepts thre
 
 The following example configures an upstream named "origin" which can be contacted at <code>remote-host.local:5672</code>:
 
-<Tabs>
+<Tabs groupId="shell-specific">
 <TabItem value="bash" label="bash" default>
 ```bash
 # Adds a federation upstream named "origin"
@@ -136,7 +136,7 @@ More upstream definition parameters are covered in the [Federation Reference gui
 Once an upstream has been specified, a policy that controls federation can be added. It is added just like
 any other [policy](./parameters#policies), using:
 
-<Tabs>
+<Tabs groupId="shell-specific">
 <TabItem value="bash" label="bash" default>
 ```bash
 # Adds a policy named "exchange-federation"

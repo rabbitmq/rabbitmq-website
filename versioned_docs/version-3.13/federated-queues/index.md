@@ -1,6 +1,7 @@
 ---
 title: Federated Queues
 ---
+
 <!--
 Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
@@ -17,6 +18,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Federated Queues
 
@@ -123,36 +127,44 @@ To add an upstream, use the `rabbitmqctl set_parameter` command. It accepts thre
 
 The following example configures an upstream named "origin" which can be contacted at `remote-host.local:5672`:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # Adds a federation upstream named "origin"
 rabbitmqctl set_parameter federation-upstream origin '{"uri":"amqp://remote-host.local:5672"}'
 ```
-
-On Windows, use <code>rabbitmqctl.bat</code> and suitable PowerShell quoting:
-
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 # Adds a federation upstream named "origin"
-rabbitmqctl.bat set_parameter federation-upstream origin "{""uri"":""amqp://remote-host.local:5672""}"
+rabbitmqctl.bat set_parameter federation-upstream origin '"{""uri"":""amqp://remote-host.local:5672""}"'
 ```
+</TabItem>
+</Tabs>
 
 Once an upstream has been specified, a policy that controls federation can be added.
 It is added just like any other [policy](./parameters#policies), using `rabbitmqctl set_policy`:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # Adds a policy named "queue-federation"
-rabbitmqctl set_policy queue-federation "^federated\." '{"federation-upstream-set":"all"}' \
+rabbitmqctl set_policy queue-federation "^federated\." \
+    '{"federation-upstream-set":"all"}' \
     --priority 10 \
     --apply-to queues
 ```
-
-Here's a Windows version of the above example:
-
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 # Adds a policy named "queue-federation"
-rabbitmqctl.bat set_policy queue-federation "^federated\." "{""federation-upstream-set"":""all""}" ^
-    --priority 10 ^
+rabbitmqctl.bat set_policy queue-federation '^federated\.' `
+    '"{""federation-upstream-set"":""all""}"' `
+    --priority 10 `
     --apply-to queues
 ```
+</TabItem>
+</Tabs>
 
 In the example above, the policy will match queues whose name begins with a `federated.` prefix
 in the default virtual host. Those queues will set up federation links for all declared upstreams.

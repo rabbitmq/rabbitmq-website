@@ -154,7 +154,7 @@ and <a href="#apt-cloudsmith-erlang">on Cloudsmith.io</a>.
 
 Below is a shell snippet that performs those steps.
 
-<Tabs>
+<Tabs groupId="distribution-specific">
 <TabItem value="ubuntu-noble" label="Ubuntu 24.04" default>
 ```bash
 #!/bin/sh
@@ -566,7 +566,7 @@ must be placed under the `/etc/apt/sources.list.d/` directory.
 
 The contents of the file will vary slightly based on the distribution used.
 
-<Tabs>
+<Tabs groupId="distribution-specific">
 <TabItem value="ubuntu-noble" label="Ubuntu 24.04" default>
 ```bash
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
@@ -1196,7 +1196,7 @@ must be placed under the `/etc/apt/sources.list.d/` directory.
 The file should have a repository (apt source file) definition line. Its
 contents will vary from Ubuntu version to Ubuntu version.
 
-<Tabs>
+<Tabs groupId="distribution-specific">
 <TabItem value="ubuntu-noble" label="Ubuntu 24.04" default>
 ```bash
 # This Launchpad PPA repository provides Erlang packages produced by the RabbitMQ team

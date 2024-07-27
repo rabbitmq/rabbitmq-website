@@ -93,7 +93,7 @@ any missing arguments when executed.
 
 To find out what commands are available, use the `help` command:
 
-<Tabs>
+<Tabs groupId="shell-specific">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl help
@@ -112,21 +112,55 @@ rabbitmq-diagnostics.bat help
 
 The command can display usage information for a particular command:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-diagnostics help status
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat help add_vhost
+
+rabbitmq-diagnostics.bat help status
+```
+</TabItem>
+</Tabs>
 
 Alternatively, the `--help` option can be used:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl --help
+
+rabbitmq-diagnostics --help
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat --help
+
+rabbitmq-diagnostics.bat --help
+```
+</TabItem>
+</Tabs>
+
 
 including for individual commands:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-diagnostics status --help
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmq-diagnostics.bat status --help
+```
+</TabItem>
+</Tabs>
 
 
 ## rabbitmqctl {#rabbitmqctl}
@@ -563,7 +597,7 @@ and so on.
 To retrieve node status, use `rabbitmq-diagnostics status` or `rabbitmq-diagnostics.bat status`
 with an optional `--node` target:
 
-<Tabs>
+<Tabs groupId="shell-specific">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-diagnostics  status
@@ -597,7 +631,7 @@ the node, which depends on the package typed used when RabbitMQ was installed.
 To stop a node using RabbitMQ CLI tools, use
 `rabbitmqctl shutdown` or `rabbitmqctl.bat shutdown` with an optional `--node` target:
 
-<Tabs>
+<Tabs groupId="shell-specific">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl shutdown

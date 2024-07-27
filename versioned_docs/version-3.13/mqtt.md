@@ -465,7 +465,7 @@ host, and clients connecting to ports 1884 and 8884 to connect to the `vhost2`
 virtual host. A port-to-vhost mapping can be created by setting the
 `mqtt_port_to_vhost_mapping` global parameter with `rabbitmqctl`:
 
-<Tabs>
+<Tabs groupId="shell-specific">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_global_parameter mqtt_port_to_vhost_mapping \
@@ -559,7 +559,7 @@ virtual hosts, respectively.
 
 Global parameters can be set up with using the following methods:
 
-<Tabs>
+<Tabs groupId="shell-specific">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_global_parameter mqtt_default_vhosts \

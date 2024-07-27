@@ -147,7 +147,7 @@ to one hour (3600000ms).
 To define an upstream, use one of the following examples,
 one per tab:
 
-<Tabs>
+<Tabs groupId="shell-specific">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_parameter federation-upstream my-upstream \
@@ -179,7 +179,7 @@ PUT /api/parameters/federation-upstream/%2f/my-upstream
 
 Then define a policy that will match built-in exchanges and use this upstream:
 
-<Tabs>
+<Tabs groupId="shell-specific">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy --apply-to exchanges federate-me "^amq\." \
