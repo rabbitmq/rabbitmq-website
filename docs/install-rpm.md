@@ -165,6 +165,12 @@ The contents of the repository file will vary slightly between distribution fami
 Make sure to use the appropriate tab below.
 :::
 
+:::important
+These repository mirrors only provide 64-bit x86 (`amd64`) packages of Erlang.
+64-bit ARM (`aarch64`) Erlang packages must be [downloaded from GitHub](https://github.com/rabbitmq/erlang-rpm/releases)
+and installed with `rpm` directly as explained in the [zero dependency Erlang RPM package README](https://github.com/rabbitmq/erlang-rpm/blob/erlang-26/README.md#direct-downloads-from-github).
+:::
+
 The contents of the file will vary slightly between distribution families:
 
  * Most recent distributions: modern Fedora Releases, Red Hat 9, CentOS Stream 9, Rocky Linux 9, Alma Linux 9
@@ -172,10 +178,10 @@ The contents of the file will vary slightly between distribution families:
 
 
 <Tabs>
-<TabItem value="modern-oses" label="Modern Fedora Releases, Red Hat 9, CentOS Stream 9, Rocky Linux 9, Alma Linux 9">
+<TabItem value="modern-oses" label="Modern Fedora Releases, Red Hat 9, CentOS Stream 9, Rocky Linux 9, Amazon Linux 2023, Oracle Linux 9, Alma Linux 9">
+
 The following example sets up a repository that will install RabbitMQ and its Erlang dependency from
-a Cloudsmith mirror,
-and targets **CentOS Stream 9**, Amazon Linux 2023, and modern Fedora releases.
+a Cloudsmith mirror, and targets RHEL 9, CentOS Stream 9, Amazon Linux 2023, modern Fedora releases, Rocky Linux 9, Alma Linux 9, Oracle Linux 9.
 
 These repository mirrors only provide 64-bit x86 (`amd64`) packages of Erlang.
 
@@ -294,10 +300,9 @@ type=rpm-md
 ```
 </TabItem>
 
-<TabItem value="older-oses" label="RHEL 8, Rocky Linux 8, Alma Linux 8, Amazon Linux 2023, Older Fedora Releases">
+<TabItem value="older-oses" label="RHEL 8, Rocky Linux 8, Alma Linux 8, Oracle Linux 8, Older Fedora Releases">
 The following example sets up a repository that will install RabbitMQ and its Erlang dependency from
-a Cloudsmith mirror, and targets **CentOS Stream 8**. The same repository definition **can be used by recent Fedora releases**,
-and Amazon Linux 2023.
+a Cloudsmith mirror, and targets RHEL 8, Rocky Linux 8, Alma Linux 8. The same repository definition **can be used by older Fedora releases**.
 
 These repository mirrors only provide 64-bit x86 (`amd64`) packages of Erlang.
 
@@ -430,7 +435,7 @@ Next install dependencies from the standard repositories:
 
 ```bash
 ## install these dependencies from standard OS repositories
-dnf install socat logrotate -y
+dnf install -y socat logrotate
 ```
 
 Finally, install modern Erlang and RabbitMQ:
@@ -460,8 +465,7 @@ After [downloading](#downloads) the server package, issue the following command 
 ## install these dependencies from standard OS repositories
 dnf install -y socat logrotate
 
-# This example assumes the CentOS Stream 8 version of the package, suitable for
-# Red Hat 8, CentOS Stream 9, CentOS Stream 8 and modern Fedora releases.
+# The RabbitMQ RPM package is suitable for both RHEL 9 (modern) and RHEL 8-based (older) distributions
 dnf install -y ${RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}`}
 </CodeBlock>
 
@@ -473,8 +477,7 @@ dnf install -y ${RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}`}
 ## install these dependencies from standard OS repositories
 dnf install -y socat logrotate
 
-# This example assumes the CentOS 8 version of the package, suitable for
-# Red Hat 8, CentOS Stream 9, CentOS Stream 8 and modern Fedora releases.
+# The RabbitMQ RPM package is suitable for both RHEL 9 (modern) and RHEL 8-based (older) distributions
 dnf install -y ${RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}`}
 </CodeBlock>
 
