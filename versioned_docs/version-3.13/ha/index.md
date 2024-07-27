@@ -21,8 +21,8 @@ limitations under the License.
 # Classic Queue Mirroring (Deprecated)
 
 :::danger
-This guide covers a feature that has been [**deprecated for several years**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/)
-and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) the next major series, RabbitMQ 4.x.
+This guide covers a feature that had been [**deprecated since 2021**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/)
+and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) for the next major series, RabbitMQ 4.x.
 :::
 
 :::important
