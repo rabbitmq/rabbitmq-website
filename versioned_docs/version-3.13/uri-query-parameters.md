@@ -144,8 +144,7 @@ against the hostname `myhost`.
         {cacertfile, "path-to-ca-certificate"},
         {certfile, "path-to-certificate"},
         {keyfile, "path-to-keyfile"},
-        {verify, verify_peer},
-        {fail_if_no_peer_cert, true}
+        {verify, verify_peer}
     ]}
 ]}
 ```
