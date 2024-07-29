@@ -1,6 +1,7 @@
 ---
 title: Alternate Exchanges
 ---
+
 <!--
 Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
@@ -17,6 +18,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Alternate Exchanges
 
@@ -55,15 +59,23 @@ To specify an AE using policy, add the key 'alternate-exchange'
 to a policy definition and make sure that the policy matches the exchange(s)
 that need the AE defined. For example:
 
+<Tabs>
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy AE "^my-direct$" '{"alternate-exchange":"my-ae"}' --apply-to exchanges
 ```
-
-Or, on Windows:
-
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
+rabbitmqctl.bat set_policy AE '^my-direct$' '"{""alternate-exchange"":""my-ae""}"' --apply-to exchanges
+```
+</TabItem>
+<TabItem value="cmd" label="cmd">
+```batch
 rabbitmqctl.bat set_policy AE "^my-direct$" "{""alternate-exchange"":""my-ae""}" --apply-to exchanges
 ```
+</TabItem>
+</Tabs>
 
 This will apply an AE of "my-ae" to the exchange called
 "my-direct". Policies can also be defined using the management
