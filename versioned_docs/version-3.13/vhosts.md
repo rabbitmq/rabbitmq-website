@@ -126,7 +126,7 @@ Here's an example that creates a virtual host named `qa1` with [quorum queues](.
 a description and two tags:
 
 ```bash
-rabbitmqctl add_vhost qa1 --description "QA environment 1" --default-queue-type quorum --tags qa,project-a
+rabbitmqctl add_vhost qa1 --description "QA env 1" --default-queue-type quorum
 ```
 
 `rabbitmqctl update_vhost_metadata` can be used to update all or some of the metadata values
@@ -180,7 +180,7 @@ When a client declares a queue without explicitly specifying its type using the 
 a configurable default type is used. The default can be overridden by specifying it in virtual host metadata (see above):
 
 ```bash
-rabbitmqctl add_vhost qa1 --description "QA env 1" --default-queue-type quorum
+rabbitmqctl add_vhost qa1 --description "QA environment 1" --default-queue-type quorum --tags qa,project-a
 ```
 
 Supported queue types are:
