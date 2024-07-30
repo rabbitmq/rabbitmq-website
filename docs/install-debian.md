@@ -1120,10 +1120,10 @@ modern Erlang and RabbitMQ, please refer to [Install RabbitMQ from a Cloudsmith 
 
 ### Modern Erlang on Ubuntu
 
-::important
-The apt repository described in this section is specific to Ubuntu.
-It **cannot** be used with Debian distributions.
-::
+:::important
+The apt repositories described in this section are specific to Ubuntu.
+They **cannot** be used with Debian distributions.
+:::
 
 Standard Debian and Ubuntu repositories tend to provide outdated versions of Erlang/OTP. Team RabbitMQ maintains
 several apt repositories that includes [packages of latest Erlang/OTP releases](https://launchpad.net/~rabbitmq/)
