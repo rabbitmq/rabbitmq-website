@@ -1525,6 +1525,17 @@ fanout
           </div>
         </dd>
         <dt >
+#### <code class="Cm">remove_classic_queue_mirroring_from_policies</code> {#remove_classic_queue_mirroring_from_policies}
+        </dt>
+        <dd>
+          <p class="Pp">Removes any HA argument from all policies. Only node wide, does not accept virtual host as input.</p>
+          <p class="Pp">The below command will delete any HA argument from any regular and operator policy on the node:</p>
+          <p class="Pp"></p>
+          <div class="Bd Bd-indent lang-bash">
+            <code class="Li">rabbitmqctl remove_classic_queue_mirroring_from_policies</code>
+          </div>
+        </dd>
+        <dt >
 #### <code class="Cm">list_policies</code> [<code class="Fl">-p</code> <var class="Ar">vhost</var>] {#list_policies}
         </dt>
         <dd>
