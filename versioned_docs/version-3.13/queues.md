@@ -314,7 +314,7 @@ Client libraries or applications **may** choose to connect to the node that host
 for improved data locality.
 
 This general rule applies to all protocols supported by RabbitMQ except for one.
-[Streams](./streams/) are an exception to this rule, and require clients to connect to a node
+[Streams](./streams/) are an exception to this rule, and require clients, regardless of the protocol they use, to connect to a node
 that hosts a replica (a leader of rollower) of the target stream.
 Consequently, RabbitMQ Stream protocol clients will [connect to multiple nodes in parallel](https://www.rabbitmq.com/blog/2021/07/23/connecting-to-streams).
 
@@ -342,7 +342,7 @@ Client libraries or applications **may** choose to connect to the node that host
 for improved data locality.
 
 This general rule applies to all protocols supported by RabbitMQ except for one.
-[Streams](./streams/) are an exception to this rule, and require clients to connect to a node
+[Streams](./streams/) are an exception to this rule, and require clients, regardless of the protocol they use, to connect to a node
 that hosts a replica (a leader of rollower) of the target stream.
 Consequently, RabbitMQ Stream protocol clients will [connect to multiple nodes in parallel](https://www.rabbitmq.com/blog/2021/07/23/connecting-to-streams).
 
