@@ -49,6 +49,7 @@ The information about RabbitMQ queues covered in this topic includes:
  * [Message Ordering](#message-ordering) in a queue
  * [Queue Durability](#durability) and how it relates to message persistence
  * [Replicated Queue Types](#distributed)
+ * [Transparent Operation Routing](#transparent-operation-routing) for clients
  * [Temporary](#temporary-queues) and [exclusive](#exclusive-queues) queues
  * [Runtime Resource](#runtime-characteristics) usage by queue replicas
  * [Optional Queue Arguments](#optional-arguments) ("x-arguments")
@@ -295,11 +296,15 @@ It is common to make exclusive queues server-named.
 Exclusive queues are declared on the "client-local" node (the node that the client declaring
 the queue is connected to), regardless of the `queue_leader_locator` value.
 
+
 ## Replicated and Distributed Queues {#distributed}
 
 [Quorum queues](./quorum-queues) is replicated, data safety and consistency-oriented queue type.
-Classic queues historically supported replication but it is **deprecated** and should be avoided.
+Classic queues historically supported replication but this feature was **removed** for RabbitMQ 4.x.
 
+Any client [connection](./connections/) can use any queue, whether it is replicated or not,
+regardless of the node the queue replica is hosted on or the node the client is connected to.
+RabbitMQ will route the operations to the appropriate node transparently for the clients.
 
 Queues can also be [federated](./federated-queues)
 across loosely coupled nodes or clusters.
@@ -309,6 +314,14 @@ are orthogonal features and should not be considered direct alternatives.
 
 [Streams](./streams) is another replicated data structure supported by RabbitMQ, with a different
 set of supported operations and features.
+
+
+## Non-Replicated Queues and Client Operations {#transparent-operation-routing}
+
+Any client [connection](./connections/) can use any queue, including non-replicated (single replica) queues,
+regardless of the node the queue replica is hosted on or the node the client is connected to.
+RabbitMQ will route the operations to the appropriate node transparently for the clients.
+
 
 ## Time-to-Live and Length Limit {#ttl-and-limits}
 
