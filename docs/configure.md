@@ -421,7 +421,7 @@ This section describes the original configuration format that has been supersede
 a [modern alternative](#config-file).
 
 Only a limited number of features and advanced (or rarely used) settings require the use
-of this format. When this is an, use `rabbitmq.conf`.
+of this format. When this is an option, use `rabbitmq.conf`.
 :::
 
 Some configuration settings are not possible or are difficult to configure
