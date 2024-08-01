@@ -322,6 +322,14 @@ Any client [connection](./connections/) can use any queue, including non-replica
 regardless of the node the queue replica is hosted on or the node the client is connected to.
 RabbitMQ will route the operations to the appropriate node transparently for the clients.
 
+This general rule applies to all protocols supported by RabbitMQ except for one.
+[Streams](./streams/) are an exception to this rule, and RabbitMQ Stream protocol clients
+will [connect to multiple nodes in parallel](https://www.rabbitmq.com/blog/2021/07/23/connecting-to-streams)
+where possible.
+
+Client libraries or applications **may** choose to connect to the node that hosts the current leader replica of a specific queue
+for improved data locality.
+
 
 ## Time-to-Live and Length Limit {#ttl-and-limits}
 
