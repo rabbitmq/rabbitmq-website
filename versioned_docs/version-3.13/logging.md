@@ -1,6 +1,28 @@
 ---
 title: Logging
 ---
+
+
+<!--
+Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Logging
 
 ## Overview {#overview}
@@ -57,24 +79,58 @@ for example, the standard stream one.
 
 ## Log File Location {#log-file-location}
 
-Please see the [File and Directory Location](./relocate) guide to find default log file location for various platforms.
-
 There are two ways to configure log file location. One is the [configuration file](./configure). This option is recommended.
 The other is the `RABBITMQ_LOGS` environment variable. It can be useful in development environments.
 
-Use [RabbitMQ management UI](./management) or [`rabbitmq-diagnostics -q log_location`](./cli)
-to find when a node stores its log file(s).
+:::warning
+`RABBITMQ_LOGS` cannot be combined with the configuration file settings. When `RABBITMQ_LOGS`
+is set, the logging-related settings from `rabbitmq.conf` will be effectively ignored.
+:::
+
+See the [File and Directory Location](./relocate) guide to find default log file location for various platforms.
+
+Log fiel location can be found in the [RabbitMQ management UI](./management) on the node page
+as well as using [`rabbitmq-diagnostics`](./cli):
+
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+rabbitmq-diagnostics -q log_location
+```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmq-diagnostics.bat -q log_location
+```
+</TabItem>
+<TabItem value="cmd" label="cmd">
+```batch
+rabbitmq-diagnostics.bat -q log_location
+```
+</TabItem>
+</Tabs>
 
 The `RABBITMQ_LOGS` variable value can be either a file path or a hyphen (`-`).
-`RABBITMQ_LOGS=-` will result in all log messages being sent to standard output.
-See [Logging to Console (Standard Output)](#logging-to-console).
+Setting the value to a hyphen like so
 
-The environment variable takes precedence over the configuration file. When in doubt, consider
-overriding log file location via the config file. As a consequence of the environment variable precedence,
-if the environment variable is set, the configuration key `log.file` will not have any effect.
+``` bash
+# Instructs the node to log to standard streams.
+# IMPORTANT: the environment variable takes precedence over the configuration file.
+# When it is set, all logging-related rabbitmq.conf settings will be
+# effectively ignored.
+RABBITMQ_LOGS=-
+```
+the node will send all log messages to [standard I/O streams](#logging-to-console), namely to standard output.
+
+:::important
+The environment variable takes precedence over the configuration file. When it is set,
+all logging-related `rabbitmq.conf` settings will be effectively ignored.
+
+The recommended way of overriding log file location is [via `rabbitmq.conf`](#logging-to-a-file).
+:::
 
 
-## Configuration {#configuration}
+## How Logging is Configured {#configuration}
 
 Several sections below cover various configuration settings related to logging.
 They all use `rabbitmq.conf`, the modern configuration format.
