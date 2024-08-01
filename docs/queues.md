@@ -359,26 +359,20 @@ how many resources (RAM, disk space) a queue can use at most, e.g.
 when consumers go offline or their throughput falls behind publishers.
 
 
-## In Memory and Durable Storage {#storage}
+## In Durable and In-Memory Storage {#storage}
 
-Queues keep messages in RAM and/or on disk. In some protocols (e.g. AMQP 0-9-1)
-this is in part controlled by the client. In AMQP 0-9-1, this is done
+In modern RabbitMQ versions, quorum queues and classic queues v2 alike actively move data to disk and only keep a relatively
+small working set in memory.
+
+In some protocols (e.g. AMQP 0-9-1) clients can publish messages as persistent or transient. Transient
+messages will still be stored on disk but will be discarded during the next node restart.
+
+In AMQP 0-9-1, this is done
 via a message property (<code>delivery_mode</code> or, in some clients, <code>persistent</code>).
 
-Publishing messages as transient suggests that RabbitMQ should keep as many messages
-as possible in RAM. Queues will, however, page even transient messages to disk when
-they find themselves under [memory pressure](./memory).
-
-Persistent messages routed to durable queues are persisted in batches
-or when a certain amount of time passes (fraction of a second).
-
-[Lazy queues](./lazy-queues) page messages out to disk more aggressively
-regardless of their persistence property.
-
-See [Memory Usage](./memory-use), [Alarms](./alarms),
-[Memory Alarms](./memory), [Free Disk Space Alarms](./disk-alarms),
-[Production Checklist](./production-checklist), and [Message Store Configuration](./persistence-conf)
-guide for details.
+Other relevant guides on the topic are [Quorum Queues](./quorum-queues#resource-use), [Streams](./streams#feature-comparison),
+[Reasoning About Memory Usage](./memory-use), [Alarms](./alarms), [Memory Alarms](./memory), [Free Disk Space Alarms](./disk-alarms),
+[Production Checklist](./production-checklist), and [Message Store Configuration](./persistence-conf).
 
 
 ## Priorities {#priorities}
