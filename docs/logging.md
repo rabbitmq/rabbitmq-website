@@ -174,6 +174,9 @@ log.file.rotation.date = $D0
 
 # keep up to 5 archived log files in addition to the current one
 log.file.rotation.count = 5
+
+# archived log files will be compressed
+log.file.rotation.compress = true
 ```
 
 ```ini
@@ -201,6 +204,9 @@ log.file.rotation.size = 10485760
 
 # keep up to 5 archived log files in addition to the current one
 log.file.rotation.count = 5
+
+# archived log files will be compressed
+log.file.rotation.compress = true
 ```
 
 
