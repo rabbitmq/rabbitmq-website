@@ -306,13 +306,17 @@ Any client [connection](./connections/) can use any queue, whether it is replica
 regardless of the node the queue replica is hosted on or the node the client is connected to.
 RabbitMQ will route the operations to the appropriate node transparently for clients.
 
-This general rule applies to all protocols supported by RabbitMQ except for one.
-[Streams](./streams/) are an exception to this rule, and RabbitMQ Stream protocol clients
-will [connect to multiple nodes in parallel](https://www.rabbitmq.com/blog/2021/07/23/connecting-to-streams)
-where possible.
+For example, in a cluster with nodes A, B and C, a client connected to node A can consume
+from a queue Q hosted on B, while a client connected to node C can publish in a way that routes
+messages to queue Q.
 
 Client libraries or applications **may** choose to connect to the node that hosts the current leader replica of a specific queue
 for improved data locality.
+
+This general rule applies to all protocols supported by RabbitMQ except for one.
+[Streams](./streams/) are an exception to this rule, and require clients to connect to a node
+that hosts a replica (a leader of rollower) of the target stream.
+Consequently, RabbitMQ Stream protocol clients will [connect to multiple nodes in parallel](https://www.rabbitmq.com/blog/2021/07/23/connecting-to-streams).
 
 Queues can also be [federated](./federated-queues)
 across loosely coupled nodes or clusters.
@@ -330,13 +334,17 @@ Any client [connection](./connections/) can use any queue, including non-replica
 regardless of the node the queue replica is hosted on or the node the client is connected to.
 RabbitMQ will route the operations to the appropriate node transparently for clients.
 
-This general rule applies to all protocols supported by RabbitMQ except for one.
-[Streams](./streams/) are an exception to this rule, and RabbitMQ Stream protocol clients
-will [connect to multiple nodes in parallel](https://www.rabbitmq.com/blog/2021/07/23/connecting-to-streams)
-where possible.
+For example, in a cluster with nodes A, B and C, a client connected to node A can consume
+from a queue Q hosted on B, while a client connected to node C can publish in a way that routes
+messages to queue Q.
 
 Client libraries or applications **may** choose to connect to the node that hosts the current leader replica of a specific queue
 for improved data locality.
+
+This general rule applies to all protocols supported by RabbitMQ except for one.
+[Streams](./streams/) are an exception to this rule, and require clients to connect to a node
+that hosts a replica (a leader of rollower) of the target stream.
+Consequently, RabbitMQ Stream protocol clients will [connect to multiple nodes in parallel](https://www.rabbitmq.com/blog/2021/07/23/connecting-to-streams).
 
 
 ## Time-to-Live and Length Limit {#ttl-and-limits}
