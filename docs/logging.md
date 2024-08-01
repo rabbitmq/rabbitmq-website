@@ -153,8 +153,8 @@ for the file output.
 
 ### Rotation Using Logrotate {#logrotate}
 
-On Linux, BSD and other UNIX-like systems, [logrotate](https://linux.die.net/man/8/logrotate) is an alternative
-way of log file rotation and compression.
+On Linux, BSD and other UNIX-like systems, [logrotate](https://linux.die.net/man/8/logrotate) is a widely used
+log file rotation tool. It is very mature and supports a lot of options.
 
 RabbitMQ [Debian](./install-debian) and [RPM](./install-rpm) packages will set up `logrotate` to run weekly on files
 located in default `/var/log/rabbitmq` directory. Rotation configuration can be found in `/etc/logrotate.d/rabbitmq-server`.
