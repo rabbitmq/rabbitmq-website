@@ -184,11 +184,6 @@ log.file.rotation.compress = true
 log.file.rotation.date = $D23
 ```
 
-```ini
-# rotate every night at midnight
-log.file.rotation.date = $D0
-```
-
 ### Built-in File Size-based Rotation
 
 :::warning
