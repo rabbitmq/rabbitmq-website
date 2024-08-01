@@ -416,10 +416,12 @@ the configuration file is loaded.
 
 ### The advanced.config File {#advanced-config-file}
 
-:::warning
+:::info
 This section describes the original configuration format that has been superseded by
-a [modern alternative](#config-file). A very limited number of features requires the use
-of this format. When in doubt, use `rabbitmq.conf`.
+a [modern alternative](#config-file).
+
+Only a limited number of features and advanced (or rarely used) settings require the use
+of this format. When this is an, use `rabbitmq.conf`.
 :::
 
 Some configuration settings are not possible or are difficult to configure
