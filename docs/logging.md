@@ -8,8 +8,10 @@ title: Logging
 Log files is a very important aspect of system observability,
 much like [monitoring](./monitoring).
 
-Developers and operators should inspect logs when troubleshooting an issue or assessing the
-state of the system.
+RabbitMQ starts logging early on node start. Many important pieces of information
+about node's state and configuration will be logged during or after node boot.
+
+Developers and operators should inspect logs when troubleshooting an issue or assessing the state of the system.
 
 RabbitMQ supports a number of features when it comes to logging.
 
@@ -49,9 +51,9 @@ messages.
 Nodes [log to a file](#logging-to-a-file) by default, if no outputs are explicitly configured.
 If some are configured, they will be used.
 
-RabbitMQ versions prior to 3.9.0 would always log to a file unless explicitly configured
-not to do so. With later versions, the same behavior can be achieved by explicitly
-listing a file output next to other desired log outputs, such as the standard stream one.
+If logging to a file plus another output is necessary,
+a file output must be explicitly listed next to the other desired log outputs,
+for example, the standard stream one.
 
 ## Log File Location {#log-file-location}
 
@@ -74,10 +76,12 @@ if the environment variable is set, the configuration key `log.file` will not ha
 
 ## Configuration {#configuration}
 
-RabbitMQ starts logging early on node start. See the [Configuration guide](./configure)
-for a general overview of how to configure RabbitMQ.
+Several sections below cover various configuration settings related to logging.
+They all use `rabbitmq.conf`, the modern configuration format.
 
-### Logging to a File {#logging-to-a-file}
+See the [Configuration guide](./configure) for a general overview of how to configure RabbitMQ.
+
+## Logging to a File {#logging-to-a-file}
 
 Logging to a file is one of the most common options for RabbitMQ installations. In modern releases,
 RabbitMQ nodes only log to a file if explicitly configured to do so using
@@ -134,7 +138,11 @@ log.file.formatter.time_format = epoch_usecs
 
 The rest of this guide describes more options, including more advanced ones.
 
-### Log Rotation {#log-rotation}
+## Log Rotation {#log-rotation}
+
+:::info
+When logging to a file, the recommended rotation option is `logrotate`
+:::
 
 RabbitMQ nodes always append to the log files, so a complete log history is preserved.
 Log file rotation is not performed by default. [Debian](./install-debian) and [RPM](./install-rpm) packages will set up
@@ -143,7 +151,20 @@ log [rotation via `logrotate`](#logrotate) after package installation.
 `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` settings control log file rotation
 for the file output.
 
-#### Built-in Periodic Rotation
+### Rotation Using Logrotate {#logrotate}
+
+On Linux, BSD and other UNIX-like systems, [logrotate](https://linux.die.net/man/8/logrotate) is an alternative
+way of log file rotation and compression.
+
+RabbitMQ [Debian](./install-debian) and [RPM](./install-rpm) packages will set up `logrotate` to run weekly on files
+located in default `/var/log/rabbitmq` directory. Rotation configuration can be found in `/etc/logrotate.d/rabbitmq-server`.
+
+### Built-in Periodic Rotation
+
+:::warning
+`log.file.rotation.date` cannot be combined with `log.file.rotation.size`, the two
+options are mutually exclusive
+:::
 
 Use `log.file.rotation.date` to set up minimalistic periodic rotation:
 
@@ -165,7 +186,12 @@ log.file.rotation.date = $D23
 log.file.rotation.date = $D0
 ```
 
-#### Built-in File Size-based Rotation
+### Built-in File Size-based Rotation
+
+:::warning
+`log.file.rotation.size` cannot be combined with `log.file.rotation.date`, the two
+options are mutually exclusive
+:::
 
 `log.file.rotation.size` controls rotation based on the current log file size:
 
@@ -177,16 +203,8 @@ log.file.rotation.size = 10485760
 log.file.rotation.count = 5
 ```
 
-#### Rotation Using Logrotate {#logrotate}
 
-On Linux, BSD and other UNIX-like systems, [logrotate](https://linux.die.net/man/8/logrotate) is an alternative
-way of log file rotation and compression.
-
-RabbitMQ [Debian](./install-debian) and [RPM](./install-rpm) packages will set up `logrotate` to run weekly on files
-located in default `/var/log/rabbitmq` directory. Rotation configuration can be found in `/etc/logrotate.d/rabbitmq-server`.
-
-
-### Logging to Console (Standard Output) {#logging-to-console}
+## Logging to Console (Standard Output) {#logging-to-console}
 
 Logging to standard streams (console) is another popular option for RabbitMQ installations,
 in particular when RabbitMQ nodes are deployed in containers.
@@ -251,7 +269,7 @@ log.console.formatter.time_format = epoch_usecs
 Please note that `RABBITMQ_LOGS=-` will deactivate the file output
 even if `log.file` is configured.
 
-### Logging to Syslog {#logging-to-syslog}
+## Logging to Syslog {#logging-to-syslog}
 
 RabbitMQ logs can be forwarded to a Syslog server via TCP or UDP. UDP is used by default
 and **requires Syslog service configuration**. TLS is also supported.
@@ -262,7 +280,7 @@ Syslog output has to be explicitly configured:
 log.syslog = true
 ```
 
-#### Syslog Endpoint Configuration
+### Syslog Endpoint Configuration
 
 By default the Syslog logger will send log messages to UDP port 514 using
 the [RFC 3164](https://www.ietf.org/rfc/rfc3164.txt) protocol. [RFC 5424](https://tools.ietf.org/html/rfc5424)
