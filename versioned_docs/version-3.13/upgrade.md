@@ -26,7 +26,7 @@ limitations under the License.
 This guide covers topics related to RabbitMQ installation upgrades.
 
 1. [An overview](#basics) of several common approaches to upgrading RabbitMQ
-1. [RabbitMQ version upgradability](#rabbitmq-version-upgradability), version upgrading from and version upgrading to
+1. [RabbitMQ version upgradability](#rabbitmq-version-upgradability): explains what versions or series can be upgraded to what later series
 1. [Erlang version requirement](#rabbitmq-erlang-version-requirement)
 1. [Plugin compatibility between versions](#rabbitmq-plugins-compatibility)
 1. Features [that do not support in-place upgrade](#unsupported-inplace-upgrade)
@@ -37,12 +37,13 @@ This guide covers topics related to RabbitMQ installation upgrades.
 1. [Caveats](#caveats)
 1. [Handling node restarts](#rabbitmq-restart-handling) in applications
 
-Changes between RabbitMQ versions are documented in the [change log](/release-information).
+See [Release Information](/release-information) to find out what RabbitMQ release series are supported.
+Release notes of individual releases are [published on GitHub](https://github.com/rabbitmq/rabbitmq-server/releases).
 
 ## Important Note on Upgrading to 3.12 and 3.13
 
-:::warning
-RabbitMQ 3.12 requires all previously existing feature flags to be enabled before the upgrade.
+:::important
+RabbitMQ 3.12 requires all previously existing feature flags to be [enabled](./feature-flags#how-to-enable-feature-flags) before the upgrade.
 
 The upgrade will fail if you miss this step.
 :::
@@ -57,6 +58,8 @@ as well as several most commonly used strategies:
  * A grow-then-shrink approach where one or more new nodes are added to the cluster, then the old nodes are eventually removed
 
 Below is a brief overview of the common strategies. The rest of the guide covers each strategy in more detail.
+
+The [RabbitMQ version upgradability](#rabbitmq-version-upgradability) section explains what versions or series can be upgraded to what later series.
 
 ### In-place Upgrades {#in-place}
 
@@ -120,15 +123,45 @@ Similarly to [rolling upgrades](#rolling-upgrades), grow-and-shrink upgrades bet
 
 ## RabbitMQ Version Upgradability {#rabbitmq-version-upgradability}
 
-When an upgrade jumps multiple release series (e.g. goes from `3.9.x` to `3.13.x`), it may be necessary to perform
-one or more intermediate upgrades first. For example, when upgrading from `3.9.x` to `3.13.x`, it would be necessary to
-first upgrade to 3.10.x, then to 3.11.x, then to 3.12.x, and finally upgrade to 3.13.0,
-or consider a [The Blue/Green deployment](./blue-green-upgrade) upgrade.
-
 All versions starting with `3.7.27` support [rolling upgrades](#rolling-upgrades) to compatible
 later versions using [feature flags](./feature-flags).
 
-A [full cluster stop](#full-stop-upgrades) may be required for feature version upgrades.
+A [full cluster stop](#full-stop-upgrades) may be required for feature version upgrades
+but such cases are rare in modern release series thanks to feature flags.
+
+:::important
+As a rule of thumb, upgrade to the latest patch release in the target series,
+and then [enable all stable feature flags](./feature-flags#how-to-enable-feature-flags)
+after all cluster nodes have been upgraded.
+:::
+
+:::important
+When an upgrade jumps multiple release series (e.g. goes from `3.9.x` to `3.13.x`), it may be necessary to perform
+one or more intermediate upgrades first.
+
+For each intermediary upgrade, upgrade to the latest patch release in the target series,
+and then [enable all stable feature flags](./feature-flags#how-to-enable-feature-flags)
+after all cluster nodes have been upgraded.
+:::
+
+When an upgrade jumps multiple release series (e.g. goes from `3.9.x` to `3.13.x`), it may be necessary to perform
+one or more intermediate upgrades first. For each intermediary upgrade, upgrade to the latest patch release in the target series,
+and then [enable all stable feature flags](./feature-flags#how-to-enable-feature-flags)
+after all cluster nodes have been upgraded.
+
+For example, when upgrading from `3.9.x` to `3.13.x`, it would be necessary to
+
+1. First upgrade to the latest 3.10.x patch release
+2. Then to the latest patch release of 3.11.x
+3. Then to the latest patch release of 3.12.x
+4. Finally, upgrade to the latest release in the 3.13.x
+
+Don't forget to [enable all stable feature flags](./feature-flags#how-to-enable-feature-flags) every step of
+the process or the follow step may fail because some feature flags have [graduated](./feature-flags#graduation) (became mandatory).
+
+Or consider a [The Blue/Green deployment](./blue-green-upgrade) upgrade in one go.
+
+### Release Series Upgradeability with Rolling Upgrades
 
 Current release series upgrade compatibility with **rolling** upgrade:
 
@@ -140,6 +173,8 @@ Current release series upgrade compatibility with **rolling** upgrade:
 | 3.9.x    | 3.10.x |                                                               |
 | 3.8.x    | 3.9.x  |                                                               |
 | 3.7.18   | 3.8.x  |                                                               |
+
+### Release Series Upgradeability with Full Stop Upgrades
 
 Current release series upgrade compatibility with **full stop** upgrade:
 
