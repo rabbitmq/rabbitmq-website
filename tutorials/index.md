@@ -27,6 +27,7 @@ import T6DiagramToC from '@site/src/components/Tutorials/T6DiagramToC.md';
 
 
 import T1DiagramStreamToC from '@site/src/components/Tutorials/T1DiagramStreamToC.md';
+import T2DiagramStreamToC from '@site/src/components/Tutorials/T2DiagramStreamToC.md';
 
 # RabbitMQ Tutorials
 
@@ -233,6 +234,18 @@ This section covers [RabbitMQ streams](/docs/streams).
     * [Rust](tutorials/tutorial-one-rust-stream)
     * [Node.js](tutorials/tutorial-one-javascript-stream)
   </td>
+
+  <td id="tutorial-two" style={{verticalAlign: 'top',}}>
+    ## 2. Offset Tracking
+
+    Keep track of message processing
+
+    <T2DiagramStreamToC/>
+    * [Java](tutorials/tutorial-two-java-stream)
+    * [C#](tutorials/tutorial-two-dotnet-stream)
+    * [Go](tutorials/tutorial-two-go-stream)
+  </td>
+
 
 </tr>
 

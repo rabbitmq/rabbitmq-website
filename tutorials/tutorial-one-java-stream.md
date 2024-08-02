@@ -38,7 +38,7 @@ import T1DiagramReceiving from '@site/src/components/Tutorials/T1DiagramReceivin
 
 In this part of the tutorial we'll write two programs in Java; a
 producer that sends a single message, and a consumer that receives
-messages and prints them out. We'll gloss over some of the detail in
+messages and prints them out. We'll gloss over some of the details in
 the Java client API, concentrating on this very simple thing just to get
 started. It's the "Hello World" of RabbitMQ Streams.
 
@@ -101,7 +101,7 @@ import com.rabbitmq.stream.*;
 import java.io.IOException;
 ```
 
-With these classes imported, en `Environment` now can be instantiated:
+With these classes imported, an `Environment` now can be instantiated:
 
 ```java
 Environment environment = Environment.builder().build();

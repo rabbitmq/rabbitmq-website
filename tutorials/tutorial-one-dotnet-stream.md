@@ -88,6 +88,7 @@ cd Send
 dotnet add package RabbitMQ.Stream.Client 
 cd ../Receive
 dotnet add package RabbitMQ.Stream.Client 
+cd ..
 ```
 
 Now we have the .NET project set up we can write some code.

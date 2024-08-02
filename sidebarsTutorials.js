@@ -428,6 +428,11 @@ const sidebars = {
                     type: 'doc',
                     id: 'tutorial-one-java-stream',
                     label: 'Hello World',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-two-java-stream',
+                    label: 'Offset Tracking',
                 }
             ]
         },
@@ -439,6 +444,11 @@ const sidebars = {
                     type: 'doc',
                     id: 'tutorial-one-dotnet-stream',
                     label: 'Hello World',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-two-dotnet-stream',
+                    label: 'Offset Tracking',
                 }
             ]
         },
@@ -450,7 +460,13 @@ const sidebars = {
                     type: 'doc',
                     id: 'tutorial-one-go-stream',
                     label: 'Hello World',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-two-go-stream',
+                    label: 'Offset Tracking',
                 }
+
             ]
         },
         {

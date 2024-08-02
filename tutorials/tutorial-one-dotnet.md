@@ -88,7 +88,7 @@ mv Receive/Program.cs Receive/Receive.cs
 
 This will create two new directories named `Send` and `Receive`.
 
-Then we add the client dependency.
+Then add the client dependency.
 
 ```PowerShell
 cd Send
