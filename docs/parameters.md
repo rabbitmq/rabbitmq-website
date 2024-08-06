@@ -18,6 +18,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Parameters and Policies
 
 ## Overview {#overview}
@@ -69,49 +72,83 @@ it, it's tied to a virtual host (federation links will target
 some resources of this virtual host), and its value defines connection
 parameters to an upstream broker.
 
-Vhost-scoped parameters can be set, cleared and listed:
+Virtual host-scoped parameters can be set, cleared and listed:
 
-<table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
-      `rabbitmqctl set_parameter [-p vhost] <component_name> <name> <value>`<br/>
-      `rabbitmqctl clear_parameter [-p vhost] <component_name> <name>`<br/>
-      `rabbitmqctl list_parameters [-p vhost]`
-    </td>
-  </tr>
-  <tr>
-    <th>HTTP API</th>
-    <td>
-      `PUT /api/parameters/{component_name}/{vhost}/{name}`<br/>
-      `DELETE /api/parameters/{component_name}/{vhost}/{name}`<br/>
-      `GET /api/parameters`<br/>
-    </td>
-  </tr>
-</table>
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+# sets a runtime parameter in a virtual host
+rabbitmqctl set_parameter [-p vhost] <component_name> <name> <value>
+
+# clears (unsets) a runtime parameter in a virtual host
+rabbitmqctl clear_parameter [-p vhost] <component_name> <name>
+
+# lists runtime parameters in a virtual host
+rabbitmqctl list_parameters [-p vhost]
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# sets a runtime parameter in a virtual host
+rabbitmqctl.bat set_parameter [-p vhost] <component_name> <name> <value>
+
+# clears (unsets) a runtime parameter in a virtual host
+rabbitmqctl.bat clear_parameter [-p vhost] <component_name> <name>
+
+# lists runtime parameters in a virtual host
+rabbitmqctl.bat list_parameters [-p vhost]
+```
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
+PUT /api/parameters/{component_name}/{vhost}/{name}
+DELETE /api/parameters/{component_name}/{vhost}/{name}
+GET /api/parameters
+```
+</TabItem>
+</Tabs>
 
 Global parameters is the other kind of parameters.
 An example of a global parameter is the name of the cluster.
 Global parameters can be set, cleared and listed:
 
-<table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
-      `rabbitmqctl set_global_parameter <name> <value>`<br/>
-      `rabbitmqctl clear_global_parameter <name>`<br/>
-      `rabbitmqctl list_global_parameters`
-    </td>
-  </tr>
-  <tr>
-    <th>HTTP API</th>
-    <td>
-      `PUT /api/global-parameters/name`<br/>
-      `DELETE /api/global-parameters/name`<br/>
-      `GET /api/global-parameters`<br/>
-    </td>
-  </tr>
-</table>
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+# sets a global (virtual-host-independent) runtime parameter
+rabbitmqctl set_global_parameter <name> <value>
+
+# clears (unsets) a global (virtual-host-independent) runtime parameter
+rabbitmqctl clear_global_parameter <name>
+
+# lists global (virtual-host-independent) runtime parameters
+rabbitmqctl list_global_parameters
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# sets a global (virtual-host-independent) runtime parameter
+rabbitmqctl.bat set_global_parameter <name> <value>
+
+# clears (unsets) a global (virtual-host-independent) runtime parameter
+rabbitmqctl.bat clear_global_parameter <name>
+
+# lists global (virtual-host-independent) runtime parameters
+rabbitmqctl.bat list_global_parameters
+```
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
+PUT /api/global-parameters/name
+DELETE /api/global-parameters/name
+GET /api/global-parameters
+```
+</TabItem>
+</Tabs>
 
 Since a parameter value is a JSON document, you will usually
 need to quote it when creating one on the command line
@@ -213,32 +250,26 @@ Policies can be used to configure
 
 An example of defining a policy looks like:
 
-<table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy federate-me \
     "^federated\." '{"federation-upstream-set":"all"}' \
     --priority 1 \
     --apply-to exchanges
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>rabbitmqctl (Windows)</th>
-    <td>
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 rabbitmqctl.bat set_policy federate-me ^
     "^federated\." "{""federation-upstream-set"":""all""}" ^
     --priority 1 ^
     --apply-to exchanges
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>HTTP API</th>
-    <td>
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
 ```ini
 PUT /api/policies/%2f/federate-me
     {"pattern": "^federated\.",
@@ -246,31 +277,35 @@ PUT /api/policies/%2f/federate-me
      "priority": 1,
     "apply-to": "exchanges"}
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>Web UI</th>
-    <td>
-      <ul>
-        <li>
-          Navigate to Admin > Policies > Add / update a
-          policy.
-        </li>
-        <li>
-          Enter "federate-me" next to Name, "^federated\." next to
-          Pattern, and select "Exchanges" next to Apply to.
-        </li>
-        <li>
-          Enter "federation-upstream-set" = "all" in the first line next to
-          Policy.
-        </li>
-        <li>
-          Click Add policy.
-        </li>
-      </ul>
-    </td>
-  </tr>
-</table>
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+<ol>
+  <li>
+    Navigate to `Admin` > `Policies` > `Add / update a
+    policy`.
+  </li>
+  <li>
+    Enter a policy name (such as "federated") next to Name, a pattern (such as "^federated\.") next to
+    Pattern, and select what kind of entities (exchanges in this example) the policy should apply to using the `Apply to`
+    drop down.
+  </li>
+  <li>
+    Enter "federation-upstream-set" = "all" (or a specific upstream name) in the first line next to
+    `Policy`.
+  </li>
+  <li>
+    Click `Add policy`.
+  </li>
+</ol>
+</TabItem>
+</Tabs>
+
+:::danger
+When multiple policies match an entity and they all have equal priorities, the effective one
+will be chosen undeterministically. **Such cases should be avoided** by paying attention
+to what priorities various policies use.
+:::
 
 This matches the value `"all"` with the key
 `"federation-upstream-set"` for all exchanges
@@ -341,67 +376,56 @@ keys combined in the same policy definition.
 
 Here's an example:
 
-<table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy ttl-fed \
     "^tf\." '{"federation-upstream-set":"all", "message-ttl":60000}' \
     --priority 1 \
     --apply-to queues
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>rabbitmqctl (Windows)</th>
-    <td>
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 rabbitmqctl set_policy ttl-fed ^
     "^tf\." "{""federation-upstream-set"":""all"", ""message-ttl"":60000}" ^
     --priority 1 ^
     --apply-to queues
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>HTTP API</th>
-    <td>
-```PowerShell
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
 PUT /api/policies/%2f/ttl-fed
     {"pattern": "^tf\.",
     "definition": {"federation-upstream-set":"all", "message-ttl":60000},
     "priority": 1,
     "apply-to": "queues"}
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>Web UI</th>
-    <td>
-      <ul>
-        <li>
-          Navigate to Admin > Policies > Add / update a
-          policy.
-        </li>
-        <li>
-          Enter "ttl-fed" next to Name, "^tf\." next to
-          Pattern, and select "Queues" next to Apply to.
-        </li>
-        <li>
-          Enter "federation-upstream-set" = "all" in the first line next to
-          Policy.
-        </li>
-        <li>
-          Enter "ha-mode" = "exactly" and "ha-params" = 2 on the following form lines.
-        </li>
-        <li>
-          Click Add policy.
-        </li>
-      </ul>
-    </td>
-  </tr>
-</table>
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+<ol>
+  <li>
+    Navigate to `Admin` > `Policies` > `Add / update a
+    policy`.
+  </li>
+  <li>
+    Enter a policy name (such as "federated") next to Name, a pattern (such as "^federated\.") next to
+    Pattern, and select what kind of entities (queues in this example) the policy should apply to using the `Apply to`
+    drop down.
+  </li>
+  <li>
+    Enter "federation-upstream-set" = "all" (or a specific upstream name) in the first line next to
+    `Policy`.
+  </li>
+  <li>
+    Click `Add policy`.
+  </li>
+</ol>
+</TabItem>
+</Tabs>
 
 By doing that all the queues matched by the pattern "^tf\\." will have the `"federation-upstream-set"`
 and the policy definitions applied to them.
@@ -543,43 +567,6 @@ try to not override user-provided policies where possible.
         <td> </td>
     </tr>
     <tr>
-        <th>ha-mode</th>
-        <td>
-          The order of preference:
-
-          <ol>
-            <li>all</li>
-            <li>exactly</li>
-            <li>nodes</li>
-          </ol>
-        </td>
-        <td> </td>
-        <td> </td>
-    </tr>
-    <tr>
-        <th>ha-params</th>
-        <td>
-          <ul>
-            <li>greater value when both values are integers</li>
-            <li>integer value when only one value is an integer</li>
-            <li>longer list when both values are a list of nodes</li>
-            <li>operator policy value when both values are an equal length list of nodes</li>
-          </ul>
-        </td>
-        <td> </td>
-        <td> </td>
-    </tr>
-    <tr>
-        <th>ha-sync-mode</th>
-        <td>
-            <ul>
-                <li>operator policy value</li>
-            </ul>
-        </td>
-        <td> </td>
-        <td> </td>
-    </tr>
-    <tr>
         <th>max-in-memory-bytes</th>
         <td> </td>
         <td>
@@ -675,32 +662,26 @@ When `rabbitmqctl` is used, the command name is `set_operator_policy`
 instead of `set_policy`. In the HTTP API, `/api/policies/` in request path
 becomes `/api/operator-policies/`:
 
-<table>
-    <tr>
-        <th>rabbitmqctl</th>
-        <td>
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_operator_policy transient-queue-ttl \
     "^amq\." '{"expires":1800000}' \
     --priority 1 \
     --apply-to queues
 ```
-        </td>
-    </tr>
-    <tr>
-        <th>rabbitmqctl (Windows)</th>
-        <td>
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
 rabbitmqctl.bat set_operator_policy transient-queue-ttl ^
     "^amq\." "{""expires"": 1800000}" ^
     --priority 1 ^
     --apply-to queues
 ```
-        </td>
-    </tr>
-    <tr>
-        <th>HTTP API</th>
-        <td>
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
 ```ini
 PUT /api/operator-policies/%2f/transient-queue-ttl
                 {"pattern": "^amq\.",
@@ -708,31 +689,35 @@ PUT /api/operator-policies/%2f/transient-queue-ttl
                  "priority": 1,
                  "apply-to": "queues"}
 ```
-        </td>
-    </tr>
-    <tr>
-        <th>Web UI</th>
-        <td>
-            <ul>
-                <li>
-                  Navigate to Admin > Policies > Add / update an operator
-                  policy.
-                </li>
-                <li>
-                  Enter "transient-queue-ttl" next to Name, "^amq\." next to
-                  Pattern, and select "Queues" next to Apply to.
-                </li>
-                <li>
-                  Enter "expires" = 1800000 in the first line next to
-                  Policy.
-                </li>
-                <li>
-                  Click Add policy.
-                </li>
-            </ul>
-        </td>
-    </tr>
-</table>
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+<ol>
+  <li>
+    Navigate to `Admin` > `Policies` > `Add / update an operator
+    policy`.
+  </li>
+  <li>
+    Enter queue name ("transient-queue-ttl" in this example) next to Name, a pattern ("^amq\." in this example) next to
+    `Pattern`, and select what kind of entities (queues in this example) the policy should apply to using the `Apply to`
+    drop down.
+  </li>
+  <li>
+    Enter "expires" = 1800000 in the first line next to
+    `Policy`.
+  </li>
+  <li>
+    Click `Add policy`.
+  </li>
+</ol>
+</TabItem>
+</Tabs>
+
+:::danger
+When multiple policies match an entity and they all have equal priorities, the effective one
+will be chosen undeterministically. **Such cases should be avoided** by paying attention
+to what priorities various policies use.
+:::
 
 ### How to Disable Operator Policy Changes {#disable-operator-policy-changes}
 
