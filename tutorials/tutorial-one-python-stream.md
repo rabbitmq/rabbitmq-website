@@ -74,13 +74,11 @@ Now let's create a folder project and install the dependencies:
 # using pip
 mkdir python-rstream
 cd python-rstream
-pip install typing_extensions
 pip install rstream
 
 # using Pipenv
 mkdir python-rstream
 cd python-rstream
-pipenv install typing_extensions
 pipenv install rstream
 pipenv shell
 ```
