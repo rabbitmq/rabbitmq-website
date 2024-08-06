@@ -23,6 +23,20 @@ import TabItem from '@theme/TabItem';
 
 # Exchange and Queue Federation
 
+This guide covers various topics related to cluster federation, both
+of exchanges and queues:
+
+ * [Federation overview](#overview)
+ * [What does federation do?](#what-does-it-do)
+ * [Getting started](#getting-started)
+ * [A basic example](#tutorial)
+ * [Federation connections](#link-failures)
+ * [Federating clusters](#clustering)
+ * Federation [support for TLS](#tls-connections)
+ * Monitoring federation [link status](#status)
+ * [Troubleshooting](#troubleshooting)
+
+
 ## Overview {#overview}
 
 The high-level goal of the Federation plugin is to transmit messages between brokers without
@@ -423,3 +437,60 @@ Enable the `rabbitmq_federation_management` [plugin](./plugins) that extends
 [management UI](./management) with a new page that displays federation links in the cluster.
 It can be found under `Admin` > `Federation Status`, or by using the
 `GET /api/federation-links` HTTP API endpoint.
+
+
+## Troubleshooting {#troubleshooting}
+
+### Federation Links Do Not Start
+
+Federation links are started when
+
+* There is a configured upstream (or a set of upstreams)
+* There is a policy that matches some exchanges or queues
+* Federation can connect to the target upstream
+
+Therefore, in order to narrow down the problem, the recommended steps are:
+
+ * Inspect federation upstreams
+ * Inspect [policies](./parameters#policies), in particular looking for policies with conflicting [priorities](./parameters#policy-priorities)
+ * Inspect [node logs](./logging/)
+
+#### Inspect Federation Upstreams
+
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+rabbitmq-diagnostics list_parameters --formatter=pretty_table
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmq-diagnostics.bat list_parameters --formatter=pretty_table
+```
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+Make sure that the `rabbitmq_federation_management` [plugin](./plugins/) is enabled.
+
+Navigate to `Admin` > `Federation Upstreams`.
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
+GET /api/parameters
+```
+</TabItem>
+</Tabs>
+
+#### Inspect Policies
+
+Only one policy in RabbitMQ can be applied at a time, and that out of N policies
+with equal priorities a random one will be selected.
+
+In other words, when there are conflicting policies that match the exchanges or queues
+that are meant to be federated, the policy that enables federation is not guaranteed
+to be the effective one.
+
+Using explicit different policies and avoiding policies that `--apply-to all` will reduce
+the risk of running into this problem.
