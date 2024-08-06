@@ -41,7 +41,7 @@ Make sure to follow [the setup steps](/tutorials/tutorial-one-rust-stream#setup)
 
 An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/).
 
-Please note that the executable version is already implementing the `Server-Side Offset Tracking` feature explained at the end of this tutorial, and this needs to be take in account when testing ths scenario.
+Please note that the executable version is already implementing the [Server-Side Offset Tracking`](#server-side-offset-tracking) feature explained at the end of this tutorial, and this needs to be take in account when testing ths scenario.
 
 The sending program is called `offset_tracking_send.rs` and the receiving program is called `receive_offset_tracking.rs`.
 The tutorial focuses on the usage of the client library, so the final code in the repository should be used to create the scaffolding of the files (e.g. imports, main functions, etc).
@@ -333,6 +333,7 @@ The line of code that implements it are explained below:
     let notify_on_close_cloned = notify_on_close.clone();
 
     task::spawn(async move {
+        let mut received_messages = -1;
         while let Some(delivery) = consumer.next().await {
             let d = delivery.unwrap();
 
@@ -346,7 +347,9 @@ The line of code that implements it are explained below:
                 );
             }
 
-            if received_messages.fetch_add(1, Ordering::Relaxed) % 10 == 0
+
+            received_messages +=1;
+            if received_messages % 10 == 0
                 || String::from_utf8_lossy(d.message().data().unwrap()).contains("marker")
             {
                 // We can store an offset every 10 messages or after the marker is found
