@@ -285,7 +285,7 @@ export function RabbitMQServerReleaseInfoTable() {
             "release-info-header",
             "release-eos",
             "release-eos-commercial"
-          ].join(' ')}>End of Extended Commercial Support</div>
+          ].join(' ')}>Commercial End of Service</div>
 
           {rows}
         </div>
