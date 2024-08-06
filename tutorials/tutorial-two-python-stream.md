@@ -41,7 +41,7 @@ Make sure to follow [the setup steps](/tutorials/tutorial-one-python-stream#setu
 
 An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/).
 
-Please note that the executable version is already implementing the `Server-Side Offset Tracking` feature explained at the end of this tutorial, and this needs to be take in account when testing this scenario.
+Please note that the executable version is already implementing the [Server-Side Offset Tracking](#server-side-offset-tracking) feature explained at the end of this tutorial, and this needs to be take in account when testing this scenario.
 
 The sending program is called `offset_tracking_send.py` and the receiving program is called `offset_tracking_receive.py`.
 The tutorial focuses on the usage of the client library, so the final code in the repository should be used to create the scaffolding of the files (e.g. imports, main functions, etc).
@@ -52,9 +52,9 @@ The sending program creates a `Producer` instance and publishes 100 messages.
 
 The body value of the last message is set to `marker`; this is a marker for the consumer to stop consuming.
 
-The sending is managing messages confirmations so in case of the rstream client we need to define a callback `_on_publish_confirm_client` which is managing the confirmations.
+The program deals with message confirmations thanks to the `_on_publish_confirm_client` callback.
 
-Note the use of a `asyncio.Condition`: The main routine is waiting for it until all the messages get confirmed by the `_on_publish_confirm_client` callback which then notify the main routine.
+Note the use of a `asyncio.Condition`: The main routine is waiting on it until all the messages get confirmed in the `_on_publish_confirm_client` callback which then notifies the main routine.
 This ensures the broker received all the messages before closing the program.
 
 ```python
@@ -118,8 +118,8 @@ Let's now create the receiving program.
 
 The receiving program starts a consumer that attaches at the beginning of the stream `ConsumerOffsetSpecification(OffsetType.FIRST)`.
 It uses two variables: `first_offset` and `last_offset` to output the offsets of the first and last received messages at the end of the program.
-We need to define a callback `on_message` to manage the receving of the messages.
-The consumer stops when it receives the marker message: it assigns the offset to a `last_offset` variable and closes the consumer.
+The `on_message` callback handles incoming messages.
+The consumer stops when it receives the marker message: it assigns the message offset to a `last_offset` variable and closes the consumer.
 
 ```python
 message_count = -1
@@ -235,20 +235,20 @@ The offset is the index of a given message in the array.
 A stream is different from a queue: consumers can read and re-read the same messages and the messages stay in the stream.
 
 Let's try this feature by using the `ConsumerOffsetSpecification(OffsetType.OFFSET, long)` specification to attach at a given offset different from 0.
-Inside the subscribe method of Consumer, set the `ConsumerOffsetSpecification` variable from 
+Set the `ConsumerOffsetSpecification` variable in the subscribe method of the consumer from:
 
 ```python
-    offset_specification=ConsumerOffsetSpecification(
-        OffsetType.FIRST
-    ),
+offset_specification=ConsumerOffsetSpecification(
+    OffsetType.FIRST
+),
 ```
 
 to:
 
 ```python
-    offset_specification = ConsumerOffsetSpecification(
-        OffsetType.OFFSET, 42
-    )
+offset_specification = ConsumerOffsetSpecification(
+    OffsetType.OFFSET, 42
+)
 ```
 
 Offset 42 is arbitrary, it could have been any number between 0 and 99.
@@ -271,8 +271,8 @@ This is the `ConsumerOffsetSpecification(OffsetType.NEXT)` offset specification.
 Let's try it:
 
 ```python
-    offset_specification = ConsumerOffsetSpecification(
-        OffsetType.NEXT)
+offset_specification = ConsumerOffsetSpecification(
+    OffsetType.NEXT)
 ```
 
 Run the receiver:
@@ -322,6 +322,7 @@ The updated lines are outlined with comments:
 
 ```python
 async def on_message(msg: AMQPMessage, message_context: MessageContext):
+    # variable to keep track of the number of received messages
     global message_count
     global first_offset
     global last_offset
@@ -356,6 +357,7 @@ async def on_message(msg: AMQPMessage, message_context: MessageContext):
         await consumer.close()
 
 async def consume():
+    # the offset to start consuming from
     stored_offset = -1
     global first_offset
     global last_offset
@@ -396,6 +398,13 @@ async def consume():
 
 ```
 
+The most relevant changes are:
+* The consumer must have a name.
+It is the key to store and retrieve the last stored offset value.
+* The offset is stored every 10 messages.
+This is an unusually low value for offset storage frequency, but this is OK for this tutorial.
+Values in the real world are rather in the hundreds or in the thousands.
+* The offset is stored before closing the consumer, just after getting the marker message.
 
 Let's run the receiver:
 
@@ -427,14 +436,6 @@ First message received.
 Done consuming, first offset 100, last offset 199.
 ```
 
-The most relevant implementations are:
-* The consumer must have a name.
-It is the key to store and retrieve the last stored offset value.
-* The offset is stored every 10 messages.
-This is an unusually low value for offset storage frequency, but this is OK for this tutorial.
-Values in the real world are rather in the hundreds or in the thousands.
-* The offset is stored before closing the consumer, just after getting the marker message.
-
 The consumer restarted exactly where it left off: the last offset in the first run was 99 and the first offset in this second run is 100.
 The consumer stored offset tracking information in the first run, so the client library uses it to resume consuming at the right position in the second run.
 
@@ -444,4 +445,4 @@ Consuming applications are likely to keep track of the point they reached in a s
 They can use the built-in server-side offset tracking feature as demonstrated in this tutorial.
 They are also free to use any other data store solution for this task.
 
-See the [RabbitMQ blog](https://www.rabbitmq.com/blog/2021/09/13/rabbitmq-streams-offset-tracking) and the [stream Java client documentation](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#consumer-offset-tracking) for more information on offset tracking.
+See the [RabbitMQ blog](https://www.rabbitmq.com/blog/2021/09/13/rabbitmq-streams-offset-tracking) and [rstream documentation](https://github.com/qweeze/rstream?tab=readme-ov-file#server-side-offset-tracking) for more information on offset tracking.
