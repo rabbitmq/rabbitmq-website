@@ -285,7 +285,7 @@ export function RabbitMQServerReleaseInfoTable() {
             "release-info-header",
             "release-eos",
             "release-eos-commercial"
-          ].join(' ')}>Commercial End of Service</div>
+          ].join(' ')}><a href="https://knowledge.broadcom.com/external/article/103829/clarification-on-what-eos-end-of-support.html">Commercial End of Service</a></div>
 
           {rows}
         </div>
