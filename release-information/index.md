@@ -27,7 +27,7 @@ import {
 Use this information to find out what RabbitMQ releases are currently covered
 by community or extended commercial support and what release is coming next.
 
-If you want to [upgrade](./docs/upgrade/) from one release to another, read the documentation and
+If you want to upgrade from one release to another, read the documentation and
 the release notes of the target release.
 
 ## RabbitMQ Releases {#currently-supported}
