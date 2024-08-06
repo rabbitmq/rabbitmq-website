@@ -332,17 +332,6 @@ The default values are `"all"` and `"0"` respectively.
 
 ### Policy Priorities {#policy-priorities}
 
-:::important
-Matching policies are then sorted by priority and the one with the highest priority will take
-effect.
-:::
-
-:::danger
-When multiple policies match an entity and they all have equal priorities, the effective one
-will be chosen undeterministically. **Such cases should be avoided** by paying attention
-to what priorities various policies use.
-:::
-
 Policy **patterns** are matched against exchange and queue **names** to determine what policy (if any)
 should then inject a set of key-value pairs (the definition of that policy) into the [optional arguments](./queues#optional-arguments)
 of matching queues (exchanges).
@@ -351,6 +340,18 @@ of matching queues (exchanges).
 name, a mechanism is needed to resolve such policy conflicts. This mechanism is called policy priorities.
 Every policy has a a numeric priority associated with it. This priority can be specified when declaring
 a policy. If not explicitly provided, the priority of 0 will be used.
+
+:::important
+**At most one policy matches** a queue or exchange. Matching policies are then sorted by priority
+and the one with the highest priority will take
+effect.
+:::
+
+:::danger
+When multiple policies match an entity and they all have equal priorities, the effective one
+will be chosen undeterministically. **Such cases should be avoided** by paying attention
+to what priorities various policies use.
+:::
 
 Matching policies are then sorted by priority and the one with the highest priority will take
 effect.
