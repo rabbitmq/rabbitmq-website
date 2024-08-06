@@ -281,6 +281,12 @@ export function RabbitMQServerReleaseInfoTable() {
             "release-eos-community"
           ].join(' ')}>End of Community Support</div>
 
+          <div className={[
+            "release-info-header",
+            "release-eos",
+            "release-eos-commercial"
+          ].join(' ')}>End of Extended Commercial Support</div>
+
           {rows}
         </div>
       </div>

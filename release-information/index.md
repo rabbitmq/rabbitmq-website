@@ -64,6 +64,7 @@ can use community resources for questions but are not entitled to any support fr
 Extended Commercial Support is included in [VMware’s Commercial Open Source RabbitMQ Support](https://tanzu.vmware.com/rabbitmq/oss).
 RabbitMQ patches are produced for security and high severity issues that are reported by users with
 a commercial license. If you already have a license, go to [paid commercial support enquiries](/contact#paid-support).
+Refer to the previous table for end dates for this support.
 
 ## The Next Release
 
