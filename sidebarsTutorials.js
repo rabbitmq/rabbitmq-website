@@ -477,7 +477,12 @@ const sidebars = {
                     type: 'doc',
                     id: 'tutorial-one-rust-stream',
                     label: 'Hello World',
-                }
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-two-rust-stream',
+                    label: 'Offset Tracking',
+                },
 
             ]
         },
