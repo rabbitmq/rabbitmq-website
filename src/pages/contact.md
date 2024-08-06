@@ -38,14 +38,14 @@ There are two primary ways to obtain RabbitMQ support from the core development 
 
  * [Paid commercial support](#paid-support)
  * For [users who run the latest series](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md),
-   a number [community resources](#community-resources) is available
+   several [community resources](#community-resources) are available
 
 
 ## Paid Commercial Support {#paid-support}
 
 ### Enquiries
 
-Please use [contact-tanzu-data.pdl@broadcom.com](mailto:contact-tanzu-data.pdl@broadcom.com) to contact Broadcom sales.
+To buy a commercial license, contact Broadcom sales at [contact-tanzu-data.pdl@broadcom.com](mailto:contact-tanzu-data.pdl@broadcom.com).
 
 To learn about the commercial support options, see [VMware's Commercial Open Source RabbitMQ support](https://tanzu.vmware.com/rabbitmq/oss).
 
@@ -54,9 +54,11 @@ version of RabbitMQ, go to the [VMware Tanzu RabbitMQ product page](https://tanz
 
 ### Existing Commercial Users
 
-If you already have a license with Broadcom for one or the other (that is Open
-Source RabbitMQ or an Enterprise version of RabbitMQ) and you need to file a
-support ticket, you can do it using the [Customer Portal for VMware products](https://customerconnect.vmware.com/home).
+Customers with a commercial license for RabbitMQ are entitled to support for both the OSS and Commercial product distributions.
+For more information refer to the [Scope of Support for OSS RabbitMQ](https://knowledge.broadcom.com/external/article/297326/scope-of-support-for-oss-rabbitmq.html).
+
+Customer questions and issues related to either the OSS or the Commercial distributions
+must be opened through the [Broadcom Support Portal](https://support.broadcom.com/).
 
 Refer to the [VMware support page](https://tanzu.vmware.com/support) for other support information.
 For questions about booking training or consulting, please contact the

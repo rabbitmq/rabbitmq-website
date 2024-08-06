@@ -233,6 +233,7 @@ html[data-theme='dark'] .release-information {
     [links] auto
     [reldate] 120px
     [eos-community] 120px
+    [eos-commercial] 120px
     [end];
   grid-template-rows: auto;
 

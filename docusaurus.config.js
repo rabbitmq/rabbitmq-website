@@ -67,7 +67,7 @@ const config = {
               ],
             },
           ],
-          end_of_support: "2025-12-31",
+          end_of_support: "2027-12-31",
         },
         '3.12': {
           releases: [
@@ -87,7 +87,7 @@ const config = {
             {version: '3.12.1', release_date: "2023-06-26", },
             {version: '3.12.0', release_date: "2023-06-02", },
           ],
-          end_of_support: "2024-12-31",
+          end_of_support: "2025-06-30",
         },
         '3.11': {
           releases: [
@@ -121,7 +121,7 @@ const config = {
             {version: '3.11.1', release_date: "2022-10-13", },
             {version: '3.11.0', release_date: "2022-09-28", },
           ],
-          end_of_support: "2024-07-31",
+          end_of_support: "2024-06-30",
         },
         '3.10': {
           releases: [
