@@ -50,7 +50,7 @@ elements a lot more informed.
 
 ### Grafana Support {#overview-grafana}
 
-Collected metrics are not very useful unless they are visualised. Team RabbitMQ provides a [prebuilt set of Grafana dashboards](https://grafana.com/rabbitmq)
+Collected metrics are not very useful unless they are visualised. Team RabbitMQ provides a [prebuilt set of Grafana dashboards](https://grafana.com/orgs/rabbitmq)
 that visualise a large number of available RabbitMQ and [runtime](./runtime) metrics in context-specific ways.
 
 There is a number of dashboards available:
