@@ -48,6 +48,7 @@ This guide covers:
  * [The basics](#basics) of how clients use RabbitMQ
  * [Connection lifecycle](#lifecycle)
  * How to [encrypt traffic on client connections](#tls)
+ * How [clients can provide a connection name](#client-provided-names) for easier troubleshooting
  * Connection [event logging](#logging)
  * [Monitoring](#monitoring) of connections and how to detect [high connection churn](#high-connection-churn) scenarios
  * Sustaining a [large number of concurrent connections](#large-number-of-connections)
