@@ -26,19 +26,32 @@ import TabItem from '@theme/TabItem';
 
 ## Overview {#overview}
 
+### Standard RabbitMQ CLI Tools
+
 RabbitMQ ships with multiple command line tools, each with a set of related commands:
 
  * [`rabbitmqctl`](./man/rabbitmqctl.8) for service management and general operator tasks
- * [`rabbitmq-diagnostics`](./man/rabbitmq-diagnostics.8) for diagnostics and [health checking](./monitoring)
+ * [`rabbitmq-diagnostics`](./man/rabbitmq-diagnostics.8) for diagnostics [monitoring and health checking](./monitoring)
  * [`rabbitmq-plugins`](./man/rabbitmq-plugins.8) for [plugin management](./plugins)
  * [`rabbitmq-queues`](./man/rabbitmq-queues.8) for maintenance tasks on [queues](./queues), in particular [quorum queues](./quorum-queues)
  * [`rabbitmq-streams`](./man/rabbitmq-streams.8) for maintenance tasks on [streams](./streams)
  * [`rabbitmq-upgrade`](./man/rabbitmq-upgrade.8) for maintenance tasks related to [upgrades](./upgrade)
 
-they can be found under the `sbin` directory in installation root.
-
 On Windows, the above tool names will end with `.bat`, e.g. `rabbitmqctl` in a Windows installation will
 be named `rabbitmqctl.bat`.
+
+### Key Topics
+
+This guide covers a number of topics related to RabbitMQ CLI tools usage:
+
+ * [Installation](#installation) and [requirements](#requirements) for running CLI tools
+ * How [CLI tools authenticate to RabbitMQ nodes](#erlang-cookie) and how to [troubleshoote authentication failures](#cli-authentication-failures)
+ * [Command line usage](#optional)
+ * [CLI tools and clustering](#cli-and-clustering)
+ * How to [address a specific node](#node-names)
+ * Caveats around CLI tools [usage in containerized environments](#containers)
+
+### Additional Tools
 
 Additional tools are optional and can be obtained from GitHub:
 
@@ -196,8 +209,7 @@ Most commands only support the online mode (when target node is running).
 [rabbitmq-streams](./man/rabbitmq-streams.8) allows the operator to manage replicas of [streams](./streams/).
 It ships with RabbitMQ.
 
-It supports both online (when target node is running) and offline mode (changes
-take effect on node restart).
+Most commands only support the online mode (when target node is running).
 
 `rabbitmq-streams` uses a [shared secret authentication mechanism](#erlang-cookie) (described below) with server nodes.
 
@@ -212,7 +224,6 @@ take effect on node restart).
 
 `rabbitmq-diagnostics` uses a [shared secret authentication mechanism](#erlang-cookie) (described below) with server nodes.
 
-
 ## rabbitmq-plugins {#rabbitmq-plugins}
 
 [rabbitmq-plugins](./man/rabbitmq-plugins.8) is a tool that manages plugins:
@@ -222,6 +233,16 @@ It supports both online (when target node is running) and offline mode (changes
 take effect on node restart).
 
 `rabbitmq-plugins` uses a [shared secret authentication mechanism](#erlang-cookie) (described below) with server nodes.
+
+## rabbitmq-upgrade {#rabbitmq-upgrade}
+
+[rabbitmq-upgrade](./man/rabbitmq-upgrade.8) is a tool dedicated to pre-upgrade, upgrade and post-upgrade operations.
+It ships with RabbitMQ.
+
+Most commands only support the online mode (when target node is running).
+
+`rabbitmq-upgrade` uses a [shared secret authentication mechanism](#erlang-cookie) (described below) with server nodes.
+
 
 ### Offline Mode {#offline-mode}
 
