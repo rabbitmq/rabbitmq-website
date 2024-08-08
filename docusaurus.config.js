@@ -278,8 +278,10 @@ const config = {
         ],
       },
       announcementBar: {
-        id: 'new-release',
-        content: '<strong style="font-size: var(--ifm-h4-font-size);"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.6">RabbitMQ 3.13.6 is released!</a></strong>',
+        // id: 'new-release',
+        // content: '<strong style="font-size: var(--ifm-h4-font-size);"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.6">RabbitMQ 3.13.6 is released!</a></strong>',
+        id: 'latest-announcement',
+        content: '<strong style="font-size: var(--ifm-h4-font-size);"><a href="https://github.com/rabbitmq/rabbitmq-server/discussions/11959">Important news for Debian and RPM package repository users</a></strong>',
         backgroundColor: 'var(--ifm-color-primary-contrast-background)',
         textColor: 'var(--ifm-font-color-base)',
         isCloseable: true,
