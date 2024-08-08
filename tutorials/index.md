@@ -245,6 +245,7 @@ This section covers [RabbitMQ streams](/docs/streams).
     * [C#](tutorials/tutorial-two-dotnet-stream)
     * [Go](tutorials/tutorial-two-go-stream)
     * [Python](tutorials/tutorial-two-python-stream)
+    * [Rust](tutorials/tutorial-two-rust-stream)
   </td>
 
 
