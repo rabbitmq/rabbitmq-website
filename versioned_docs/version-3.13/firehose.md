@@ -55,7 +55,7 @@ Finally, to turn on firehose tracing with
 
 ```bash
 rabbitmqctl trace_on -p [virtual host]
-```.
+```
 
 
 ## Turn off firehose {#disabling}
