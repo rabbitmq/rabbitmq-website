@@ -141,6 +141,7 @@ Some features are not currently supported by quorum queues.
 | Adheres to [policies](./parameters#policies) | yes | yes (see [Policy support](#policy-support)) |
 | Poison message handling | no | yes |
 | Global [QoS Prefetch](#global-qos) | yes | no |
+| [Server-named queues](./queues#server-named-queues) | yes | no |
 
 Modern quorum queues also offer [higher throughput and less latency variability](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/)
 for many workloads.
