@@ -77,7 +77,7 @@ with reply code 403 (<code>ACCESS_REFUSED</code>).
 
 In AMQP 0-9-1, the broker can generate a unique queue name on behalf of
 an app. To use this feature, pass an empty string as the queue name
-argument: The same generated name may be obtained by subsequent
+argument: the same generated name may be obtained by subsequent
 methods in the same channel by using the empty string where a queue
 name is expected. This works because the channel remembers the last
 server-generated queue name.
