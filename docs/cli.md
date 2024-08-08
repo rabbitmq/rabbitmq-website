@@ -24,6 +24,18 @@ import TabItem from '@theme/TabItem';
 
 # Command Line Tools
 
+## Table of Contents
+
+This guide covers a number of topics related to RabbitMQ CLI tools usage:
+
+ * [Overview](#overview)
+ * [Installation](#installation) and [requirements](#requirements) for running CLI tools
+ * How [CLI tools authenticate to RabbitMQ nodes](#erlang-cookie) and how to [troubleshoote authentication failures](#cli-authentication-failures)
+ * [Command line usage](#passing-arguments)
+ * [CLI tools and clustering](#cli-and-clustering)
+ * How to [address a specific node](#node-names)
+ * Caveats around CLI tools [usage in containerized environments](#containers)
+
 ## Overview {#overview}
 
 ### Standard RabbitMQ CLI Tools
@@ -39,17 +51,6 @@ RabbitMQ ships with multiple command line tools, each with a set of related comm
 
 On Windows, the above tool names will end with `.bat`, e.g. `rabbitmqctl` in a Windows installation will
 be named `rabbitmqctl.bat`.
-
-### Key Topics
-
-This guide covers a number of topics related to RabbitMQ CLI tools usage:
-
- * [Installation](#installation) and [requirements](#requirements) for running CLI tools
- * How [CLI tools authenticate to RabbitMQ nodes](#erlang-cookie) and how to [troubleshoote authentication failures](#cli-authentication-failures)
- * [Command line usage](#optional)
- * [CLI tools and clustering](#cli-and-clustering)
- * How to [address a specific node](#node-names)
- * Caveats around CLI tools [usage in containerized environments](#containers)
 
 ### Additional Tools
 
