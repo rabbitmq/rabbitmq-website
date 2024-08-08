@@ -182,6 +182,35 @@ and more.
 
 `rabbitmqctl` uses a [shared secret authentication mechanism](#erlang-cookie) (described below) with server nodes.
 
+## rabbitmq-queues {#rabbitmq-queues}
+
+[rabbitmq-queues](./man/rabbitmq-queues.8) allows the operator to manage replicas of [replicated queues](./quorum-queues/).
+It ships with RabbitMQ.
+
+Most commands only support the online mode (when target node is running).
+
+`rabbitmq-queues` uses a [shared secret authentication mechanism](#erlang-cookie) (described below) with server nodes.
+
+## rabbitmq-streams {#rabbitmq-streams}
+
+[rabbitmq-streams](./man/rabbitmq-streams.8) allows the operator to manage replicas of [streams](./streams/).
+It ships with RabbitMQ.
+
+It supports both online (when target node is running) and offline mode (changes
+take effect on node restart).
+
+`rabbitmq-streams` uses a [shared secret authentication mechanism](#erlang-cookie) (described below) with server nodes.
+
+## rabbitmq-diagnostics {#rabbitmq-diagnostics}
+
+[rabbitmq-diagnostics](./man/rabbitmq-diagnostics.8) is the primary tool for inspecting node state.
+It has many commands that allow the operator to study various aspects of the system.
+It ships with RabbitMQ.
+
+It supports both online (when target node is running) and offline mode (changes
+take effect on node restart).
+
+`rabbitmq-diagnostics` uses a [shared secret authentication mechanism](#erlang-cookie) (described below) with server nodes.
 
 ## rabbitmq-plugins {#rabbitmq-plugins}
 
@@ -291,6 +320,39 @@ must be specified:
 # that successfully resolves
 rabbitmq-diagnostics -n rabbit@host1.messaging.eng.coolcorporation.banana check_alarms --longnames
 ```
+
+### Caveats in Containerized Environments {#containers}
+
+When RabbitMQ is running in a container, there are two common ways of running CLI tools:
+
+1. Do it within the container itself, using [`docker exec`](https://docs.docker.com/reference/cli/docker/container/exec/) and similar
+tooling
+2. Forward the [relevant inter-node communication ports](./networking#ports) and do it from the host
+
+There are two common problems that may arise with this approach.
+
+#### Shared Secret Mismatch Between The Host and the Container
+
+When CLI tools are run in the host, the local [shared secret](#erlang-cookie) must
+match that in the container. When this is not the case, CLI tools will fail
+to authenticate and won't be able to perform any operation on the target node.
+
+#### Shared Secret Seeding Race Condition
+
+:::danger
+If the [shared secret](#erlang-cookie) used by the container is not pre-seeded, the node
+must be allowed to boot before CLI commands can be run against it
+:::
+
+When a CLI tool runs on a host where the [shared secret](#erlang-cookie) is not pre-seeded
+and before the local booting RabbitMQ node has a chance to create the cookie file, it
+will create a confusing situation where the secret seeded may be overwritten
+during node boot.
+
+As a result, CLI tools may fail to authenticate, RabbitMQ node may fail to access the created file
+and thus stop with an error, and other problematic scenarios that stem from the fact that
+the secret does not match.
+
 
 ## Options and Positional Arguments {#passing-arguments}
 
