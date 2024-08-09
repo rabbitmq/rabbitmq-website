@@ -36,10 +36,8 @@ also verify repository signatures.
 RabbitMQ release artifacts, both binary and source,
 are signed using [GnuPG](http://www.gnupg.org/) and [our release signing key](https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc).
 
-Services that distribute packages can do signing on behalf of the publisher. [Package Cloud](#package-cloud) is one such
-service used by RabbitMQ. Users who provision packages from Package Cloud must import the Package Cloud-provided signing keys
-instead of those used by the RabbitMQ team.
-
+In addition, Debian and RPM package repository content is signed by their
+upstream repository's key. Currently this means Cloudsmith repository keys.
 
 ## Importing Signing Keys {#importing-gpg-keys}
 
@@ -105,17 +103,12 @@ The same main RabbitMQ signing key can be imported from [keys.openpgp.org](https
 curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor > /usr/share/keyrings/com.rabbitmq.team.gpg
 ```
 
-When using the [Team RabbitMQ modern Erlang PPA](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang)
-and [PackageCloud apt repository](https://packagecloud.io/rabbitmq/rabbitmq-server), two more keys need
-to be added:
+When using the [Team RabbitMQ modern Erlang PPA](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang),
+one more key needs to be added:
 
 ```bash
 ## Team RabbitMQ's main signing key
 curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor > /usr/share/keyrings/com.rabbitmq.team.gpg
-## Launchpad PPA that provides modern Erlang releases
-curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf77f1eda57ebb1cc" | sudo gpg --dearmor > /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg
-## PackageCloud RabbitMQ repository
-curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | sudo gpg --dearmor > /usr/share/keyrings/io.packagecloud.rabbitmq.gpg
 ```
 
 ### With RPM {#importing-rpm}
@@ -193,27 +186,6 @@ To import the key:
 # import the Cloudsmith key
 curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key -o cloudsmith-rabbitmq-key.asc
 gpg --import cloudsmith-rabbitmq-key.asc
-```
-
-After importing the key please follow the installation instructions in the [Debian](./install-debian) or [RPM-based Linux](./install-rpm) guides.
-
-
-
-## Package Cloud {#package-cloud}
-
-[Package Cloud](https://packagecloud.io/rabbitmq) is a hosted package distribution
-service that uses their own signing keys to sign the artifacts uploaded to it. The key(s) then
-must be added to the system.
-
-Package Cloud provides repository setup script that include signing key import. However,
-note that the script **does not** currently follow Debian best practices in terms of GPG key handling.
-
-To import the key:
-
-```bash
-# import the PackageCloud key
-curl -1sLf https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey -o packagecloud-rabbitmq-key.asc
-gpg --import packagecloud-rabbitmq-key.asc
 ```
 
 After importing the key please follow the installation instructions in the [Debian](./install-debian) or [RPM-based Linux](./install-rpm) guides.
