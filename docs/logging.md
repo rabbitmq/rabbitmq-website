@@ -89,7 +89,7 @@ is set, the logging-related settings from `rabbitmq.conf` will be effectively ig
 
 See the [File and Directory Location](./relocate) guide to find default log file location for various platforms.
 
-Log fiel location can be found in the [RabbitMQ management UI](./management) on the node page
+Log file location can be found in the [RabbitMQ management UI](./management) on the node page
 as well as using [`rabbitmq-diagnostics`](./cli):
 
 <Tabs groupId="shell-specific">
