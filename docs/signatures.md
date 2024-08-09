@@ -142,15 +142,16 @@ source archive and its associated detached signature from
 the download area:
 
 ```bash
-gpg --verify rabbitmq-server_3.9.3-1_all.deb.asc rabbitmq-server_3.9.3-1_all.deb
-gpg: Signature made Wed Aug 11 16:20:14 2021 MSK
-gpg:                using RSA key 0A9AF2115F4687BD29803A206B73A36E6026DFCA
-gpg: using subkey 0xEDF4AE3B59B046FA instead of primary key 0x6B73A36E6026DFCA
-gpg: using PGP trust model
-gpg: Good signature from "RabbitMQ Signing Key <info@rabbitmq.com>" [full]
-Primary key fingerprint: 4E30 C634 2FB4 AF5C 6334  2330 79A1 D640 D80A 61F0
-     Subkey fingerprint: 5EC4 26E8 A6F3 523D D924  8FC8 EDF4 AE3B 59B0 46FA
-gpg: binary signature, digest algorithm SHA512
+gpg --verify rabbitmq-server_3.13.6-1_all.deb.asc rabbitmq-server_3.13.6-1_all.deb
+# => gpg: Signature made Tue Jul 23 16:44:46 2024 EDT
+# => gpg:                using RSA key 0A9AF2115F4687BD29803A206B73A36E6026DFCA
+# => gpg: key 6B73A36E6026DFCA: public key "RabbitMQ Release Signing Key <info@rabbitmq.com>" imported
+# => gpg: Total number processed: 1
+# => gpg:               imported: 1
+# => gpg: Good signature from "RabbitMQ Release Signing Key <info@rabbitmq.com>" [unknown]
+# => gpg: WARNING: This key is not certified with a trusted signature!
+# => gpg:          There is no indication that the signature belongs to the owner.
+# => Primary key fingerprint: 0A9A F211 5F46 87BD 2980  3A20 6B73 A36E 6026 DFCA
 ```
 
 If the signature is invalid, a "BAD signature"
