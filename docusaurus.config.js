@@ -183,7 +183,7 @@ const config = {
             'https://github.com/rabbitmq/rabbitmq-website/tree/main/',
           rehypePlugins: [imgRendering],
           // silence a warning about older blog posts with Docusaurus 3.5.0+
-          // onUntruncatedBlogPosts: 'ignore'
+          onUntruncatedBlogPosts: 'ignore'
         },
         theme: {
           customCss: './src/css/custom.css',
