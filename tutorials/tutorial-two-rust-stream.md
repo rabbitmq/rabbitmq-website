@@ -120,6 +120,8 @@ It uses two variables: `first_offset` and `last_offset` to output the offsets of
 The consumer stops when it receives the marker message: it assigns the offset to the `last_offset` variable and closes the consumer.
 
 ```rust
+    let mut first_offset: i64 = -1;
+    let mut last_offset: i64 = -1;
     let mut consumer = environment
         .consumer()
         .offset(OffsetSpecification::First)
@@ -127,41 +129,27 @@ The consumer stops when it receives the marker message: it assigns the offset to
         .await
         .unwrap();
 
-    let first_cloned_offset = first_offset.clone();
-    let last_cloned_offset = last_offset.clone();
-    let notify_on_close_cloned = notify_on_close.clone();
+    while let Some(delivery) = consumer.next().await {
+        let d = delivery.unwrap();
 
-    task::spawn(async move {
-        while let Some(delivery) = consumer.next().await {
-            let d = delivery.unwrap();
-
-            if first_offset.load(Ordering::Relaxed) == -1 {
-                println!("consuming first message");
-                _ = first_offset.compare_exchange(
-                    first_offset.load(Ordering::Relaxed),
-                    d.offset() as i64,
-                    Ordering::Relaxed,
-                    Ordering::Relaxed,
-                );
-            }
-
-            if  String::from_utf8_lossy(d.message().data().unwrap()).contains("marker")
-            {
-                last_offset.store(d.offset() as i64, Ordering::Relaxed);
-                let handle = consumer.handle();
-                _ = handle.close().await;
-                notify_on_close_cloned.notify_one();
-                break;
-            }
+        if first_offset == -1 {
+            println!("consuming first message");
+            first_offset = f.offset() as i64;
         }
-    });
 
-    notify_on_close.notified().await;
+        if  String::from_utf8_lossy(d.message().data().unwrap()).contains("marker")
+        {
+            last_offset = d.offset() as i64;
+            let handle = consumer.handle();
+            _ = handle.close().await;
+            break;
+        }
+    }
 
-    if first_cloned_offset.load(Ordering::Relaxed) != -1 {
+    if first_offset != -1 {
         println!(
             "Done consuming first_offset: {:?} last_offset: {:?}  ",
-            first_cloned_offset, last_cloned_offset
+            first_offset, last_offset
         );
     }
 ```
@@ -303,6 +291,8 @@ Let's modify the receiver to store the offset of processed messages.
 The line of code that implements it are explained below:
 
 ```rust
+    let mut first_offset: i64 = -1;
+    let mut last_offset: i64 = -1;
     let mut consumer = environment
         .consumer()
         // The consumer needs a name to use Server-Side Offset Tracking
@@ -329,53 +319,35 @@ The line of code that implements it are explained below:
         .await
         .unwrap();
 
-    let first_cloned_offset = first_offset.clone();
-    let last_cloned_offset = last_offset.clone();
-    let notify_on_close_cloned = notify_on_close.clone();
+    let mut received_messages: i64 = -1;
+    while let Some(delivery) = consumer.next().await {
+        let d = delivery.unwrap();
 
-    task::spawn(async move {
-        let mut received_messages = -1;
-        while let Some(delivery) = consumer.next().await {
-            let d = delivery.unwrap();
-
-            if first_offset.load(Ordering::Relaxed) == -1 {
-                println!("First message received");
-                _ = first_offset.compare_exchange(
-                    first_offset.load(Ordering::Relaxed),
-                    d.offset() as i64,
-                    Ordering::Relaxed,
-                    Ordering::Relaxed,
-                );
-            }
-
-
-            received_messages +=1;
-            if received_messages % 10 == 0
-                || String::from_utf8_lossy(d.message().data().unwrap()).contains("marker")
-            {
-                // We can store an offset every 10 messages or after the marker is found
-                let _ = consumer
-                    .store_offset(d.offset())
-                    .await
-                    .unwrap_or_else(|e| println!("Err: {}", e));
-                if String::from_utf8_lossy(d.message().data().unwrap()).contains("marker") {
-                    last_offset.store(d.offset() as i64, Ordering::Relaxed);
-                    let handle = consumer.handle();
-                    _ = handle.close().await;
-                    notify_on_close_cloned.notify_one();
-                    break;
-
-                }
+        if first_offset == -1 {
+            first_offset = d.offset() as i64;
+        }
+        received_messages = received_messages + 1;
+        if received_messages % 10 == 0
+            || String::from_utf8_lossy(d.message().data().unwrap()).contains("marker")
+        {
+            // We store the offset in the server
+            let _ = consumer
+                .store_offset(d.offset())
+                .await
+                .unwrap_or_else(|e| println!("Err: {}", e));
+            if String::from_utf8_lossy(d.message().data().unwrap()).contains("marker") {
+                last_offset = d.offset() as i64;
+                let handle = consumer.handle();
+                _ = handle.close().await;
+                break;
             }
         }
-    });
+    }
 
-    notify_on_close.notified().await;
-
-    if first_cloned_offset.load(Ordering::Relaxed) != -1 {
+    if first_offset != -1 {
         println!(
             "Done consuming first_offset: {:?} last_offset: {:?}  ",
-            first_cloned_offset, last_cloned_offset
+            first_offset, last_offset
         );
     }
 ```
