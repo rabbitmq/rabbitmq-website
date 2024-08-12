@@ -120,8 +120,8 @@ It uses two variables: `first_offset` and `last_offset` to output the offsets of
 The consumer stops when it receives the marker message: it assigns the offset to the `last_offset` variable and closes the consumer.
 
 ```rust
-    let mut first_offset: i64 = -1;
-    let mut last_offset: i64 = -1;
+    let mut first_offset: Option<u64> = None;
+    let mut last_offset: Option<u64> = None;
     let mut consumer = environment
         .consumer()
         .offset(OffsetSpecification::First)
@@ -132,25 +132,23 @@ The consumer stops when it receives the marker message: it assigns the offset to
     while let Some(delivery) = consumer.next().await {
         let d = delivery.unwrap();
 
-        if first_offset == -1 {
-            println!("consuming first message");
-            first_offset = f.offset() as i64;
+        if !first_offset.is_some()  {
+            println!("First message received");
+            first_offset = Some(d.offset());
         }
 
         if  String::from_utf8_lossy(d.message().data().unwrap()).contains("marker")
         {
-            last_offset = d.offset() as i64;
+            last_offset = Some(d.offset());
             let handle = consumer.handle();
             _ = handle.close().await;
             break;
         }
     }
 
-    if first_offset != -1 {
+    if first_offset.is_some() {
         println!(
-            "Done consuming first_offset: {:?} last_offset: {:?}  ",
-            first_offset, last_offset
-        );
+            "Done consuming first_offset: {:?} last_offset: {:?}  ", first_offset.unwrap(), last_offset.unwrap())
     }
 ```
 
@@ -291,8 +289,8 @@ Let's modify the receiver to store the offset of processed messages.
 The line of code that implements it are explained below:
 
 ```rust
-    let mut first_offset: i64 = -1;
-    let mut last_offset: i64 = -1;
+    let mut first_offset: Option<u64> = None;
+    let mut last_offset: Option<u64> = None;
     let mut consumer = environment
         .consumer()
         // The consumer needs a name to use Server-Side Offset Tracking
@@ -323,8 +321,9 @@ The line of code that implements it are explained below:
     while let Some(delivery) = consumer.next().await {
         let d = delivery.unwrap();
 
-        if first_offset == -1 {
-            first_offset = d.offset() as i64;
+        if !first_offset.is_some()  {
+            println!("First message received");
+            first_offset = Some(d.offset());
         }
         received_messages = received_messages + 1;
         if received_messages % 10 == 0
@@ -336,7 +335,7 @@ The line of code that implements it are explained below:
                 .await
                 .unwrap_or_else(|e| println!("Err: {}", e));
             if String::from_utf8_lossy(d.message().data().unwrap()).contains("marker") {
-                last_offset = d.offset() as i64;
+                last_offset = Some(d.offset());
                 let handle = consumer.handle();
                 _ = handle.close().await;
                 break;
@@ -344,11 +343,9 @@ The line of code that implements it are explained below:
         }
     }
 
-    if first_offset != -1 {
+    if first_offset.is_some() {
         println!(
-            "Done consuming first_offset: {:?} last_offset: {:?}  ",
-            first_offset, last_offset
-        );
+            "Done consuming first_offset: {:?} last_offset: {:?}  ", first_offset.unwrap(), last_offset.unwrap())
     }
 ```
 
