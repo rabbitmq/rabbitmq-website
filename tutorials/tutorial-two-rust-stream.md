@@ -36,12 +36,12 @@ import TutorialsIntro from '@site/src/components/Tutorials/TutorialsStreamIntro.
 This part of the tutorial consists in writing two programs in Rust; a producer that sends a wave of messages with a marker message at the end, and a consumer that receives messages and stops when it gets the marker message.
 It shows how a consumer can navigate through a stream and can even restart where it left off in a previous execution.
 
-This tutorial uses [stream Rust client](https://github.com/rabbitmq/rabbitmq-stream-rust-client).
+This tutorial uses [the stream Rust client](https://github.com/rabbitmq/rabbitmq-stream-rust-client).
 Make sure to follow [the setup steps](/tutorials/tutorial-one-rust-stream#setup) from the first tutorial.
 
 An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/rust-stream/).
 
-Please note that the executable version is already implementing the [Server-Side Offset Tracking`](#server-side-offset-tracking) feature explained at the end of this tutorial, and this needs to be take in account when testing ths scenario.
+Please note that the executable version is already implementing the [Server-Side Offset Tracking](#server-side-offset-tracking) section explained at the end of this tutorial, and this needs to be take in account when testing this scenario.
 
 The sending program is called `offset_tracking_send.rs` and the receiving program is called `receive_offset_tracking.rs`.
 The tutorial focuses on the usage of the client library, so the final code in the repository should be used to create the scaffolding of the files (e.g. imports, main functions, etc).
@@ -51,24 +51,24 @@ The tutorial focuses on the usage of the client library, so the final code in th
 The sending program starts by instantiating the `Environment` and creating the stream:
 
 ```rust
-    let create_response = environment
-        .stream_creator()
-        .max_length(ByteCapacity::GB(2))
-        .create(stream)
-        .await;
+let create_response = environment
+    .stream_creator()
+    .max_length(ByteCapacity::GB(2))
+    .create(stream)
+    .await;
 
-    if let Err(e) = create_response {
-        if let StreamCreateError::Create { stream, status } = e {
-            match status {
-                // we can ignore this error because the stream already exists
-                ResponseCode::StreamAlreadyExists => {}
-                err => {
-                    println!("Error creating stream: {:?} {:?}", stream, err);
-                    std::process::exit(1);
-                }
+if let Err(e) = create_response {
+    if let StreamCreateError::Create { stream, status } = e {
+        match status {
+            // we can ignore this error because the stream already exists
+            ResponseCode::StreamAlreadyExists => {}
+            err => {
+                println!("Error creating stream: {:?} {:?}", stream, err);
+                std::process::exit(1);
             }
         }
     }
+}
 ```
 
 The program then creates a `Producer` instance and publishes 100 messages.
@@ -79,34 +79,36 @@ Note the use of a `tokio::sync::Notify`: The main routine is waiting for it unti
 This ensures the broker received all the messages before closing the program.
 
 ```rust
-    let producer = environment.producer().build(stream).await?;
+let producer = environment.producer().build(stream).await?;
 
-    for i in 0..message_count {
-        let msg;
-        if i < message_count - 1 {
-            msg = Message::builder().body(format!("hello{}", i)).build();
-        } else {
-            msg = Message::builder().body(format!("marker{}", i)).build();
-        };
+println!("Publishing {:?} messages", message_count);
 
-        let counter = confirmed_messages.clone();
-        let notifier = notify_on_send.clone();
-        producer
-            .send(msg, move |_| {
-                let inner_counter = counter.clone();
-                let inner_notifier = notifier.clone();
-                async move {
-                    if inner_counter.fetch_add(1, Ordering::Relaxed) == message_count - 1 {
-                        inner_notifier.notify_one();
-                    }
+for i in 0..message_count {
+    let msg;
+    if i < message_count - 1 {
+        msg = Message::builder().body(format!("hello{}", i)).build();
+    } else {
+        msg = Message::builder().body(format!("marker{}", i)).build();
+    };
+
+    let counter = confirmed_messages.clone();
+    let notifier = notify_on_send.clone();
+    producer
+        .send(msg, move |_| {
+            let inner_counter = counter.clone();
+            let inner_notifier = notifier.clone();
+            async move {
+                if inner_counter.fetch_add(1, Ordering::Relaxed) == message_count - 1 {
+                    inner_notifier.notify_one();
                 }
-            })
-            .await?;
-    }
+            }
+        })
+        .await?;
+}
 
-    notify_on_send.notified().await;
-    println!("Messages confirmed: True");
-    producer.close().await?;
+notify_on_send.notified().await;
+println!("Messages confirmed: True");
+producer.close().await?;
 ```
 
 Let's now create the receiving program.
@@ -115,54 +117,43 @@ Let's now create the receiving program.
 
 The receiving program creates an `Environment` instance and makes sure the stream is created as well.
 This part of the code is the same as in the sending program, so it is skipped in the next code snippets for brevity's sake.
+
 The receiving program starts a consumer that attaches at the beginning of the stream `OffsetSpecification::First`.
 It uses two variables: `first_offset` and `last_offset` to output the offsets of the first and last received messages at the end of the program.
+
 The consumer stops when it receives the marker message: it assigns the offset to the `last_offset` variable and closes the consumer.
 
 ```rust
-    let mut consumer = environment
-        .consumer()
-        .offset(OffsetSpecification::First)
-        .build(stream)
-        .await
-        .unwrap();
+let mut first_offset: Option<u64> = None;
+let mut last_offset: Option<u64> = None;
+let mut consumer = environment
+    .consumer()
+    .offset(OffsetSpecification::First)
+    .build(stream)
+    .await
+    .unwrap();
 
-    let first_cloned_offset = first_offset.clone();
-    let last_cloned_offset = last_offset.clone();
-    let notify_on_close_cloned = notify_on_close.clone();
+while let Some(delivery) = consumer.next().await {
+    let d = delivery.unwrap();
 
-    task::spawn(async move {
-        while let Some(delivery) = consumer.next().await {
-            let d = delivery.unwrap();
-
-            if first_offset.load(Ordering::Relaxed) == -1 {
-                println!("consuming first message");
-                _ = first_offset.compare_exchange(
-                    first_offset.load(Ordering::Relaxed),
-                    d.offset() as i64,
-                    Ordering::Relaxed,
-                    Ordering::Relaxed,
-                );
-            }
-
-            if  String::from_utf8_lossy(d.message().data().unwrap()).contains("marker")
-            {
-                last_offset.store(d.offset() as i64, Ordering::Relaxed);
-                let handle = consumer.handle();
-                _ = handle.close().await;
-                notify_on_close_cloned.notify_one();
-            }
-        }
-    });
-
-    notify_on_close.notified().await;
-
-    if first_cloned_offset.load(Ordering::Relaxed) != -1 {
-        println!(
-            "Done consuming first_offset: {:?} last_offset: {:?}  ",
-            first_cloned_offset, last_cloned_offset
-        );
+    if !first_offset.is_some()  {
+        println!("First message received");
+        first_offset = Some(d.offset());
     }
+
+    if  String::from_utf8_lossy(d.message().data().unwrap()).contains("marker")
+    {
+        last_offset = Some(d.offset());
+        let handle = consumer.handle();
+        _ = handle.close().await;
+        break;
+    }
+}
+
+if first_offset.is_some() {
+    println!(
+        "Done consuming first_offset: {:?} last_offset: {:?}  ", first_offset.unwrap(), last_offset.unwrap())
+}
 ```
 
 ### Exploring the Stream
@@ -209,23 +200,23 @@ Let's try this feature by using the `OffsetSpecification::Offset` specification 
 When creating the environment for the Consumer, set the `OffsetSpecification` variable from 
 
 ```rust
-    consumer = environment
-        .consumer()
-        .offset(OffsetSpecification::First)
-        .build(stream)
-        .await
-        .unwrap();
+consumer = environment
+    .consumer()
+    .offset(OffsetSpecification::First)
+    .build(stream)
+    .await
+    .unwrap();
 ```
 
 to:
 
 ```rust
-    consumer = environment
-        .consumer()
-        .offset(OffsetSpecification::Offset(42))
-        .build(stream)
-        .await
-        .unwrap();
+consumer = environment
+    .consumer()
+    .offset(OffsetSpecification::Offset(42))
+    .build(stream)
+    .await
+    .unwrap();
 ```
 
 Offset 42 is arbitrary, it could have been any number between 0 and 99.
@@ -248,12 +239,12 @@ This is the `OffsetSpecification::Next` offset specification.
 Let's try it:
 
 ```rust
-    consumer = environment
-        .consumer()
-        .offset(OffsetSpecification::Next)
-        .build(stream)
-        .await
-        .unwrap();
+consumer = environment
+    .consumer()
+    .offset(OffsetSpecification::Next)
+    .build(stream)
+    .await
+    .unwrap();
 ```
 
 Run the receiver:
@@ -299,25 +290,43 @@ RabbitMQ Streams provides an API for offset tracking, but it is possible to use 
 It may depend on the use case, but a relational database can be a good solution as well.
 
 Let's modify the receiver to store the offset of processed messages.
-The line of code that implements it are explained below:
+The updated lines are outlined with comments:
 
 ```rust
-    let mut consumer = environment
-        .consumer()
-        // The consumer needs a name to use Server-Side Offset Tracking
-        .name("consumer-1")
-        .offset(OffsetSpecification::First)
-        .build(stream)
-        .await
-        .unwrap();
+let mut first_offset: Option<u64> = None;
+let mut last_offset: Option<u64> = None;
+let mut consumer = environment
+    .consumer()
+    // The consumer needs a name to use Server-Side Offset Tracking
+    .name("consumer-1")
+    .offset(OffsetSpecification::First)
+    .build(stream)
+    .await
+    .unwrap();
 
-    println!("Started consuming");
+println!("Started consuming");
 
-    // We can query if a stored offset exists
-    let mut stored_offset: u64 = consumer.query_offset().await.unwrap_or_else(|_| 0);
+// We can query if a stored offset exists
+let mut stored_offset: u64 = consumer.query_offset().await.unwrap_or_else(|_| 0);
 
-    if stored_offset >  0 {
-        stored_offset += 1;
+if stored_offset >  0 {
+    stored_offset += 1;
+}
+consumer = environment
+    .consumer()
+    // The consumer needs a name to use Server-Side Offset Tracking
+    .name("consumer-1")
+    .offset(OffsetSpecification::Offset(stored_offset))
+    .build(stream)
+    .await
+    .unwrap();
+
+let mut received_messages: i64 = -1;
+while let Some(delivery) = consumer.next().await {
+    let d = delivery.unwrap();
+
+    if !first_offset.is_some()  {
+        first_offset = Some(d.offset());
     }
     consumer = environment
         .consumer()
@@ -328,54 +337,37 @@ The line of code that implements it are explained below:
         .await
         .unwrap();
 
-    let first_cloned_offset = first_offset.clone();
-    let last_cloned_offset = last_offset.clone();
-    let notify_on_close_cloned = notify_on_close.clone();
+    let mut received_messages: i64 = -1;
+    while let Some(delivery) = consumer.next().await {
+        let d = delivery.unwrap();
 
-    task::spawn(async move {
-        let mut received_messages = -1;
-        while let Some(delivery) = consumer.next().await {
-            let d = delivery.unwrap();
-
-            if first_offset.load(Ordering::Relaxed) == -1 {
-                println!("First message received");
-                _ = first_offset.compare_exchange(
-                    first_offset.load(Ordering::Relaxed),
-                    d.offset() as i64,
-                    Ordering::Relaxed,
-                    Ordering::Relaxed,
-                );
-            }
-
-
-            received_messages +=1;
-            if received_messages % 10 == 0
-                || String::from_utf8_lossy(d.message().data().unwrap()).contains("marker")
-            {
-                // We can store an offset every 10 messages or after the marker is found
-                let _ = consumer
-                    .store_offset(d.offset())
-                    .await
-                    .unwrap_or_else(|e| println!("Err: {}", e));
-                if String::from_utf8_lossy(d.message().data().unwrap()).contains("marker") {
-                    last_offset.store(d.offset() as i64, Ordering::Relaxed);
-                    let handle = consumer.handle();
-                    _ = handle.close().await;
-                    notify_on_close_cloned.notify_one();
-
-                }
+        if !first_offset.is_some()  {
+            println!("First message received");
+            first_offset = Some(d.offset());
+        }
+        received_messages = received_messages + 1;
+        if received_messages % 10 == 0
+            || String::from_utf8_lossy(d.message().data().unwrap()).contains("marker")
+        {
+            // We store the offset in the server
+            let _ = consumer
+                .store_offset(d.offset())
+                .await
+                .unwrap_or_else(|e| println!("Err: {}", e));
+            if String::from_utf8_lossy(d.message().data().unwrap()).contains("marker") {
+                last_offset = Some(d.offset());
+                let handle = consumer.handle();
+                _ = handle.close().await;
+                break;
             }
         }
-    });
-
-    notify_on_close.notified().await;
-
-    if first_cloned_offset.load(Ordering::Relaxed) != -1 {
-        println!(
-            "Done consuming first_offset: {:?} last_offset: {:?}  ",
-            first_cloned_offset, last_cloned_offset
-        );
     }
+}
+
+if first_offset.is_some() {
+    println!(
+        "Done consuming first_offset: {:?} last_offset: {:?}  ", first_offset.unwrap(), last_offset.unwrap())
+}
 ```
 
 
@@ -427,4 +419,4 @@ Consuming applications are likely to keep track of the point they reached in a s
 They can use the built-in server-side offset tracking feature as demonstrated in this tutorial.
 They are also free to use any other data store solution for this task.
 
-See the [RabbitMQ blog](https://www.rabbitmq.com/blog/2021/09/13/rabbitmq-streams-offset-tracking) and the [stream Java client documentation](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#consumer-offset-tracking) for more information on offset tracking.
+See the [RabbitMQ blog](https://www.rabbitmq.com/blog/2021/09/13/rabbitmq-streams-offset-tracking) for more information on offset tracking.
