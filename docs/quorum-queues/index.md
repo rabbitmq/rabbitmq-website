@@ -108,8 +108,8 @@ Some features are not currently supported by quorum queues.
 
 | Feature | Classic queues | Quorum queues |
 | :-------- | :------- | ------ |
-| [Non-durable queues](./queues) | yes | no |
-| [Exclusivity](./queues) | yes | no |
+| [Non-durable queues](#non-durable-queues) | yes | no |
+| [Exclusivity](#exclusivity) | yes | no |
 | Per message persistence | per message | always |
 | Membership changes | automatic | manual  |
 | [Message TTL (Time-To-Live)](./ttl) | yes | yes ([since 3.10](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/)) |
@@ -129,12 +129,12 @@ Some features are not currently supported by quorum queues.
 Modern quorum queues also offer [higher throughput and less latency variability](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/)
 for many workloads.
 
-#### Non-durable Queues
+#### Non-durable Queues {#non-durable-queues}
 
 Classic queues can be [non-durable](./queues). Quorum queues are always durable per their
 assumed [use cases](#use-cases).
 
-#### Exclusivity
+#### Exclusivity {#exclusivity}
 
 [Exclusive queues](./queues#exclusive-queues) are tied to the lifecycle of their declaring connection.
 Quorum queues by design are replicated and durable, therefore the exclusive property makes
