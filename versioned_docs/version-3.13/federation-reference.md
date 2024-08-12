@@ -69,7 +69,7 @@ of a link (connection). Upstreams are defined using the
 an upstream name and an upstream definition JSON object:
 
 ```bash
-rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
+rabbitmqctl set_parameter federation-upstream 'name' 'json-object'
 ```
 
 The upstream definition object can contain the following keys:
