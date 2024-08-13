@@ -221,11 +221,11 @@ channel.consume(queue, function(msg) {
     console.log(" [x] Done");
     channel.ack(msg);
   }, secs * 1000);
-  }, {
-    // manual acknowledgment mode,
-    // see /docs/confirms for details
-    noAck: false
-  });
+}, {
+  // manual acknowledgment mode,
+  // see /docs/confirms for details
+  noAck: false
+});
 ```
 
 Using this code, you can ensure that even if you terminate a worker using
