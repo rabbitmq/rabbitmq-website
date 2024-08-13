@@ -135,7 +135,6 @@ against the hostname `myhost`.
 </table>
 
 [TLS options](./ssl) can also be specified globally using the
-`amqp_client.ssl_options` configuration key in the `rabbitmq.config` or
 `advanced.config` file in this manner:
 
 ```erlang
