@@ -135,8 +135,7 @@ against the hostname `myhost`.
 </table>
 
 [TLS options](./ssl) can also be specified globally using the
-`amqp_client.ssl_options` configuration key in the `rabbitmq.config` or
-`advanced.config` file in this manner:
+`amqp_client.ssl_options` configuration key in `advanced.config` like so:
 
 ```erlang
 {amqp_client, [
@@ -146,7 +145,7 @@ against the hostname `myhost`.
         {keyfile, "path-to-keyfile"},
         {verify, verify_peer}
     ]}
-]}
+]}.
 ```
 
 They will be merged with the TLS parameters from the URI (the latter will take
