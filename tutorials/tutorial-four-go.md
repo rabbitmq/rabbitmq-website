@@ -261,11 +261,11 @@ func main() {
         defer cancel()
 
         body := bodyFrom(os.Args)
-	    err = ch.PublishWithContext(ctx,
+        err = ch.PublishWithContext(ctx,
                 "logs_direct",         // exchange
                 severityFrom(os.Args), // routing key
-                false, // mandatory
-                false, // immediate
+                false,                 // mandatory
+                false,                 // immediate
                 amqp.Publishing{
                         ContentType: "text/plain",
                         Body:        []byte(body),
