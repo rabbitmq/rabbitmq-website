@@ -22,6 +22,9 @@ import {
   DotNetClientDocURL,
 } from '@site/src/components/DotNetClient';
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # TLS Support
 
 ## Table of Contents {#overview}
@@ -43,6 +46,7 @@ connections:
  * How to control what [TLS version](#tls-versions) and [cipher suite](#cipher-suites) are enabled
  * [TLSv1.3](#tls1.3) support
  * Tools that can be used to [evaluate a TLS setup](#tls-evaluation-tools)
+ * [Certificate and key rotation](#rotation)
  * Known [attacks on TLS](#major-vulnerabilities) and their mitigation
  * How to use [private key passwords](#private-key-passwords)
 
@@ -2016,6 +2020,61 @@ Could not determine the protocol, only simulating generic clients.
  OpenSSL 1.1.1d (Debian)      TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
  OpenSSL 3.0.3 (git)          TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
 ```
+
+## TLS Certificate and Private Key Rotation {#rotation}
+
+Server TLS certificates (public keys) and private keys have expiration dates and will need to be replaced
+(rotated) every so often.
+
+The replacement process involves the following steps:
+
+1. Replace the files on disk
+2. Clear the certificate and private key store cache on the node
+
+Without the second step, the new certificate/key pair will be used by the node after a period of time,
+as the TLS implementation in the runtimes purges its certificate store cache.
+
+### Replacing Certificate and Private Key Files on Disk
+
+Simply replace the server certificate, server private key and (if needed) the [certificate authority](#peer-verification)
+bundle files with their new versions.
+
+### Clearing the Certificate and Private Key Store Cache
+
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+rabbitmqctl eval -n [target-node@hostname] 'ssl:clear_pem_cache().'
+```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat eval -n [target-node@hostname] 'ssl:clear_pem_cache().'
+```
+</TabItem>
+<TabItem value="cmd" label="cmd">
+```batch
+rabbitmqctl.bat eval -n [target-node@hostname] "ssl:clear_pem_cache()."
+```
+</TabItem>
+</Tabs>
+
+
+
+## The Trust Store Plugin
+
+[`rabbitmq_trust_store`](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_trust_store) is a plugin that
+targets environments where [peer verification](#peer-verification) is heavily used and the list of trusted certificates is fairly dynamic.
+That is, that the trusted leaf client certificates changes fairly often and it makes more sense to whitelist
+them than to use certificate revocation or intermediate certificates.
+
+The trust store plugin supports two sources of trusted leaf client certificates:
+
+ * A local directory with certificates
+ * A set of HTTPS endpoints that follows a certain convention
+
+Please refer to the [doc guide](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_trust_store) of the plugin
+to learn more about how both options can be set up.
 
 
 ## Using TLS in the Erlang Client {#erlang-client}
