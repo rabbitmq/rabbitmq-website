@@ -206,7 +206,7 @@ Here is how the plugin can be configured to wait until the source is available [
 
 ```ini
 # all shovels started on this node will use pre-declared topology
-shovel.topology.predeclared = true 
+shovel.topology.predeclared = true
 ```
 
 If only some shovels need to use a pre-declared topology, the same behavior can be configured
@@ -446,22 +446,25 @@ the declaration process.
       <td>ack-mode</td>
       <td>
         <p>
-          Determines how the shovel should <a href="./confirms">acknowledge</a> consumed messages.
+          Determines how the shovel should <a href="./confirms/">acknowledge</a> consumed messages.
+          Valid values are <code>on-confirm</code>, <code>on-publish</code>, and <code>no-ack</code>.
+          <code>on-confirm</code> is used by default.
+        </p>
+        <p>
           If set to <code>on-confirm</code> (the default), messages are
-          acknowledged to the source broker after they have been confirmed
+          <a href="./confirms/">acknowledged</a> to the source broker after they have been confirmed
           by the destination. This handles network errors and broker
           failures without losing messages, and is the slowest option.
         </p>
         <p>
-          If set to <code>on-publish</code>, messages are acknowledged to
+          If set to <code>on-publish</code>, messages are <a href="./confirms/">acknowledged</a> to
           the source broker after they have been published at the
-          destination. This handles network errors without losing messages,
+          destination (but not yet confirmed). This handles network errors without losing messages,
           but may lose messages in the event of broker failures.
         </p>
         <p>
-          If set to <code>no-ack</code>, message acknowledgements are not
-          used. This is the fastest option, but may lose messages in the
-          event of network or broker failures.
+          If set to <code>no-ack</code>, <a href="./confirms/">automatic message acknowledgements</a> will be used.
+          This option will offer the highest throughput but is not safe (will lose messages in the event of network or broker failures).
         </p>
       </td>
     </tr>
@@ -687,22 +690,25 @@ counterparts.
       <td>ack-mode</td>
       <td>
         <p>
-          Determines how the shovel should <a href="./confirms">acknowledge</a> consumed messages.
+          Determines how the shovel should <a href="./confirms/">acknowledge</a> consumed messages.
+          Valid values are <code>on-confirm</code>, <code>on-publish</code>, and <code>no-ack</code>.
+          <code>on-confirm</code> is used by default.
+        </p>
+        <p>
           If set to <code>on-confirm</code> (the default), messages are
-          acknowledged to the source broker after they have been confirmed
+          <a href="./confirms/">acknowledged</a> to the source broker after they have been confirmed
           by the destination. This handles network errors and broker
           failures without losing messages, and is the slowest option.
         </p>
         <p>
-          If set to <code>on-publish</code>, messages are acknowledged to
+          If set to <code>on-publish</code>, messages are <a href="./confirms/">acknowledged</a> to
           the source broker after they have been published at the
-          destination. This handles network errors without losing messages,
+          destination (but not yet confirmed). This handles network errors without losing messages,
           but may lose messages in the event of broker failures.
         </p>
         <p>
-          If set to <code>no-ack</code>, message acknowledgements are not
-          used. This is the fastest option, but may lose messages in the
-          event of network or broker failures.
+          If set to <code>no-ack</code>, <a href="./confirms/">automatic message acknowledgements</a> will be used.
+          This option will offer the highest throughput but is not safe (will lose messages in the event of network or broker failures).
         </p>
       </td>
     </tr>

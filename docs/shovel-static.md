@@ -125,7 +125,7 @@ Some keys are supported by both AMQP 0-9-1 and AMQP 1.0 sources.
 They are described in the table below.
 
 <table>
-  <caption>General Static Shovel Keys (Properties)</caption>
+  <caption>Common (Protocol-Independent) Static Shovel Keys (Properties)</caption>
 
   <thead>
     <tr>
@@ -153,22 +153,25 @@ They are described in the table below.
       <td>ack-mode</td>
       <td>
         <p>
-          Determines how the shovel should <a href="./confirms">acknowledge</a> consumed messages.
+          Determines how the shovel should <a href="./confirms/">acknowledge</a> consumed messages.
+          Valid values are <code>on-confirm</code>, <code>on-publish</code>, and <code>no-ack</code>.
+          <code>on-confirm</code> is used by default.
+        </p>
+        <p>
           If set to <code>on-confirm</code> (the default), messages are
-          acknowledged to the source broker after they have been confirmed
+          <a href="./confirms/">acknowledged</a> to the source broker after they have been confirmed
           by the destination. This handles network errors and broker
           failures without losing messages, and is the slowest option.
         </p>
         <p>
-          If set to <code>on-publish</code>, messages are acknowledged to
+          If set to <code>on-publish</code>, messages are <a href="./confirms/">acknowledged</a> to
           the source broker after they have been published at the
-          destination. This handles network errors without losing messages,
+          destination (but not yet confirmed). This handles network errors without losing messages,
           but may lose messages in the event of broker failures.
         </p>
         <p>
-          If set to <code>no-ack</code>, message acknowledgements are not
-          used. This is the fastest option, but may lose messages in the
-          event of network or broker failures.
+          If set to <code>no-ack</code>, <a href="./confirms/">automatic message acknowledgements</a> will be used.
+          This option will offer the highest throughput but is not safe (will lose messages in the event of network or broker failures).
         </p>
       </td>
     </tr>
@@ -196,7 +199,7 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
         <p>
           An optional list of AMQP 0-9-1 operations to be executed by the Shovel
           before it starts transferring messages. They are typically used to set
-          up the topology.        
+          up the topology.
         </p>
 ```erlang
   {declarations, [
@@ -299,14 +302,14 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
 
 #### Predeclared topology {#predeclared-topology}
 
-The `declarations` attribute is typically used to set up the topology. At the very least, it must set up the source queue. 
+The `declarations` attribute is typically used to set up the topology. At the very least, it must set up the source queue.
 
-There are deployment scenarios where the topology is automatically [imported from a definitions file at boot time](./definitions#import-on-boot). In these scenarios, we can configure the plugin to wait until the queue is available by adding the following line to the `rabbitmq.conf` file: 
+There are deployment scenarios where the topology is automatically [imported from a definitions file at boot time](./definitions#import-on-boot). In these scenarios, we can configure the plugin to wait until the queue is available by adding the following line to the `rabbitmq.conf` file:
 ```ini
-shovel.topology.predeclared = true 
+shovel.topology.predeclared = true
 ```
 
-With the above configuration, if a static shovel has no `declarations` attribute or it is empty, the piugin will wait until the source's `queue` is eventually declared. 
+With the above configuration, if a static shovel has no `declarations` attribute or it is empty, the piugin will wait until the source's `queue` is eventually declared.
 
 ### AMQP 1.0 Source Keys
 
