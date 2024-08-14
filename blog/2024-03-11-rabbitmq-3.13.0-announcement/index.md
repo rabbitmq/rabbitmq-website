@@ -22,7 +22,7 @@ will be 4.0!
 ## Experimental Support For Khepri (Mnesia Replacement)
 
 Apart from the new features mentioned in the first paragraph, RabbitMQ 3.13
-includes experimental support for [Khepri](https://www.youtube.com/watch?v=whVqpgvep90). Khepri is a new storage backend for
+includes experimental support for [Khepri](https://github.com/rabbitmq/khepri). Khepri is a new storage backend for
 RabbitMQ metadata that is designed to replace Mnesia. It is not yet ready for
 production use but we encourage users to try it out in test environments and
 provide feedback.

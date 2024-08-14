@@ -344,7 +344,7 @@ The following feature flags are provided by RabbitMQ core.
     <td>khepri_db</td>
     <td>
       <p>
-      Enables <a href="https://www.youtube.com/watch?v=whVqpgvep90">Khepri</a>, a currently experimental schema data store
+      Enables <a href="https://github.com/rabbitmq/khepri">Khepri</a>, a currently experimental schema data store
       with vastly superior peer failure and network split handling characteristics
       compared to Mnesia
       </p>

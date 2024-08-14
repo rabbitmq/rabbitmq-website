@@ -62,7 +62,7 @@ latency and memory footprint.
 
 <KhepriLogo className="floating-logo"/>
 
-[Khepri](https://www.youtube.com/watch?v=whVqpgvep90) is a new storage backend
+[Khepri](https://github.com/rabbitmq/khepri) is a new storage backend
 for RabbitMQ metadata that is designed to replace Mnesia. It is not yet *ready
 for production use* but we encourage users to try it out in test environments
 and provide feedback.
