@@ -168,6 +168,16 @@ Global parameters are used by the MQTT plugin.
 
 ## Policies {#policies}
 
+:::tip
+Policies is a mechanism of configuring certain properties of groups
+of queues, streams, exchanges. They are designed for parameters that can change at runtime.
+:::
+
+:::note
+Since queue (stream) type is set at declaration time and cannot be changed, policies cannot
+be used to configure queue type, by design. To specify queue (stream) type, use [optional arguments](./queues#optional-arguments).
+:::
+
 Policies is **the recommended way** of configuring [optional arguments](./queues#optional-arguments)
 for queues, exchanges, and some plugins.
 
