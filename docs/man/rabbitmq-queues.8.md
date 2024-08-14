@@ -175,6 +175,16 @@
           </div>
         </dd>
         <dt >
+#### <code class="Cm">check_if_cluster_has_classic_queue_mirroring_policy</code> {#check_if_cluster_has_classic_queue_mirroring_policy}
+        </dt>
+        <dd>
+          <p class="Pp">Health check that exits with a non-zero code if there are policies in the cluster that enable classic queue mirroring. Classic queue mirroring has been deprecated since 2021 and was completely removed in the RabbitMQ 4.0 development cycle.</p>
+          <p class="Pp">Example:</p>
+          <div class="Bd Bd-indent lang-bash">
+            <code class="Li">rabbitmq-queues check_if_cluster_has_classic_queue_mirroring_policy</code>
+          </div>
+        </dd>
+        <dt >
 #### <code class="Cm">check_if_node_is_quorum_critical</code> {#check_if_node_is_quorum_critical}
         </dt>
         <dd>
@@ -193,6 +203,6 @@
   </section>
   <section class="Sh">
 ## AUTHOR {#AUTHOR}
-    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:rabbitmq-core@groups.vmware.com">rabbitmq-core@groups.vmware.com</a>&gt;</p>
+    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:contact-tanzu-data.pdl@broadcom.com">contact-tanzu-data.pdl@broadcom.com</a>&gt;</p>
   </section>
 </div>

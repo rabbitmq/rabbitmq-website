@@ -646,10 +646,10 @@ terabytes
           <p class="Pp">See <code class="Cm">quorum_status</code> in <a class="Xr" href="rabbitmq-queues.8.html">rabbitmq-queues(8)</a></p>
         </dd>
         <dt >
-#### <code class="Cm">check_if_node_is_mirror_sync_critical</code> {#check_if_node_is_mirror_sync_critical}
+#### <code class="Cm">check_if_cluster_has_classic_queue_mirroring_policy</code> {#check_if_cluster_has_classic_queue_mirroring_policy}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">check_if_node_is_mirror_sync_critical</code> in <a class="Xr" href="rabbitmq-queues.8.html">rabbitmq-queues(8)</a></p>
+          <p class="Pp">See <code class="Cm">check_if_cluster_has_classic_queue_mirroring_policy</code> in <a class="Xr" href="rabbitmq-queues.8.html">rabbitmq-queues(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">check_if_node_is_quorum_critical</code> {#check_if_node_is_quorum_critical}
@@ -666,6 +666,6 @@ terabytes
   </section>
   <section class="Sh">
 ## AUTHOR {#AUTHOR}
-    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:rabbitmq-core@groups.vmware.com">rabbitmq-core@groups.vmware.com</a>&gt;</p>
+    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:contact-tanzu-data.pdl@broadcom.com">contact-tanzu-data.pdl@broadcom.com</a>&gt;</p>
   </section>
 </div>

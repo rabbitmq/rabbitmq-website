@@ -227,11 +227,11 @@ returns a non-zero exit code if the RabbitMQ node is not running
           <ul class="Bl-bullet Bl-compact">
             <li id="disc">
 #### <code class="Cm">disc</code> {#change_cluster_node_type}
-
+            
 </li>
             <li id="ram">
 #### <code class="Cm">ram</code> {#change_cluster_node_type}
-
+            
 </li>
           </ul>
 
@@ -260,7 +260,7 @@ returns a non-zero exit code if the RabbitMQ node is not running
           <p class="Pp">Ensures that the node will start next time, even if it was not the last to shut down.</p>
           <p class="Pp">Normally when you shut down a RabbitMQ cluster altogether, the first node you restart should be the last one to go down, since it may have seen things happen that other nodes did not. But sometimes that's not possible: for instance, if the entire cluster loses power then all nodes may think they were not the last to shut down.</p>
           <p class="Pp">In such a case you can invoke <code class="Cm">force_boot</code> while the node is down. This will tell the node to unconditionally start the next time you ask it. Any changes to the cluster after this node shut down will be lost.</p>
-          <p class="Pp">If the last node to go down is permanently lost then you should use <code class="Cm">forget_cluster_node</code> <code class="Fl">--offline</code> instead of this command.</p>
+          <p class="Pp">If the last node to go down is permanently lost then you should use <code class="Cm">forget_cluster_node</code> <code class="Fl">--offline</code> instead of this command, as it will ensure that mirrored queues whose leader replica was on the lost node get promoted.</p>
           <p class="Pp">For example, this will force the node not to wait for other nodes the next time it is started:</p>
           <p class="Pp"></p>
           <div class="Bd Bd-indent lang-bash">
@@ -321,83 +321,6 @@ returns a non-zero exit code if the RabbitMQ node is not running
             <code class="Li">rabbitmqctl join_cluster hare@elena --ram</code>
           </div>
           <p class="Pp">To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/clustering.html">RabbitMQ Clustering guide</a>.</p>
-        </dd>
-        <dt >
-#### <code class="Cm">rename_cluster_node</code> <var class="Ar">oldnode1</var> <var class="Ar">newnode1</var> [<var class="Ar">oldnode2</var> <var class="Ar">newnode2 ...</var>] {#rename_cluster_node}
-        </dt>
-        <dd>
-          <p class="Pp">Supports renaming of cluster nodes in the local database.</p>
-          <p class="Pp">This subcommand causes <code class="Nm">rabbitmqctl</code> to temporarily become the node in order to make the change. The local cluster node must therefore be completely stopped; other nodes can be online or offline.</p>
-          <p class="Pp">This subcommand takes an even number of arguments, in pairs representing the old and new names for nodes. You must specify the old and new names for this node and for any other nodes that are stopped and being renamed at the same time.</p>
-          <p class="Pp">It is possible to stop all nodes and rename them all simultaneously (in which case old and new names for all nodes must be given to every node) or stop and rename nodes one at a time (in which case each node only needs to be told how its own name is changing).</p>
-          <p class="Pp">For example, this command will rename the node "rabbit@misshelpful" to the node "rabbit@cordelia"</p>
-          <p class="Pp"></p>
-          <div class="Bd Bd-indent lang-bash">
-            <code class="Li">rabbitmqctl rename_cluster_node rabbit@misshelpful rabbit@cordelia</code>
-          </div>
-          <p class="Pp">Note that this command only changes the local database. It may also be necessary to rename the local database directories and configure the new node name. For example:</p>
-          <p class="Pp"></p>
-          <ol class="Bl-enum Bl-compact">
-            <li>
-Stop the node:
-              <p class="Pp"></p>
-              <div class="Bd Bd-indent lang-bash">
-                <code class="Li">rabbitmqctl stop rabbit@misshelpful</code>
-              </div>
-              <p class="Pp"></p>
-
-</li>
-            <li>
-Rename the node in the local database:
-              <p class="Pp"></p>
-              <div class="Bd Bd-indent lang-bash">
-                <code class="Li">rabbitmqctl rename_cluster_node rabbit@misshelpful rabbit@cordelia</code>
-              </div>
-              <p class="Pp"></p>
-
-</li>
-            <li>
-Rename the local database directories (note, you do not need to do this if you have set the RABBITMQ_MNESIA_DIR environment variable):
-              <p class="Pp"></p>
-              <div class="Bd Bd-indent Li">
-                <pre>mv \
-  /var/lib/rabbitmq/mnesia/rabbit\@misshelpful \
-  /var/lib/rabbitmq/mnesia/rabbit\@cordelia
-mv \
-  /var/lib/rabbitmq/mnesia/rabbit\@misshelpful-rename \
-  /var/lib/rabbitmq/mnesia/rabbit\@cordelia-rename
-mv \
-  /var/lib/rabbitmq/mnesia/rabbit\@misshelpful-plugins-expand \
-  /var/lib/rabbitmq/mnesia/rabbit\@cordelia-plugins-expand</pre>
-              </div>
-              <p class="Pp"></p>
-
-</li>
-            <li>
-If node name is configured e.g. using <var class="Ar">/etc/rabbitmq/rabbitmq-env.conf</var> , it also needs to be updated there.
-              <p class="Pp"></p>
-
-</li>
-            <li>
-Start the node when ready
-</li>
-          </ol>
-        </dd>
-        <dt >
-#### <code class="Cm">update_cluster_nodes</code> <var class="Ar">clusternode</var> {#update_cluster_nodes}
-        </dt>
-        <dd>
-          <dl class="Bl-tag">
-            <dt><var class="Ar">clusternode</var></dt>
-            <dd>The node to consult for up-to-date information.</dd>
-          </dl>
-          <p class="Pp">Instructs an already clustered node to contact <var class="Ar">clusternode</var> to cluster when booting up. This is different from <code class="Cm">join_cluster</code> since it does not join any cluster - it checks that the node is already in a cluster with <var class="Ar">clusternode</var>.</p>
-          <p class="Pp">The need for this command is motivated by the fact that clusters can change while a node is offline. Consider a situation where node <var class="Va">rabbit@A</var> and <var class="Va">rabbit@B</var> are clustered. <var class="Va">rabbit@A</var> goes down, <var class="Va">rabbit@C</var> clusters with <var class="Va">rabbit@B</var>, and then <var class="Va">rabbit@B</var> leaves the cluster. When <var class="Va">rabbit@A</var> starts back up, it'll try to contact <var class="Va">rabbit@B</var>, but this will fail since <var class="Va">rabbit@B</var> is not in the cluster anymore. The following command will rename node <var class="Va">rabbit@B</var> to <var class="Va">rabbit@C</var> on node <var class="Va">rabbitA</var></p>
-          <p class="Pp"></p>
-          <div class="Bd Bd-indent lang-bash">
-            <code class="Li">update_cluster_nodes -n <var class="Va">rabbit@A</var> <var class="Va">rabbit@B</var> <var class="Va">rabbit@C</var></code>
-          </div>
-          <p class="Pp">To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/clustering.html">RabbitMQ Clustering guide</a></p>
         </dd>
       </dl>
     </section>
@@ -1271,6 +1194,18 @@ fanout
 #### <code class="Cm">memory</code> {#memory}
             </dt>
             <dd>Bytes of memory allocated by the runtime for the queue, including stack, heap, and internal structures.</dd>
+            <dt >
+#### <code class="Cm">mirror_pids</code> {#mirror_pids}
+            </dt>
+            <dd>
+              If the queue is mirrored, this lists the IDs of the mirrors (follower replicas). To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/ha.html">RabbitMQ Mirroring guide</a>
+            </dd>
+            <dt >
+#### <code class="Cm">synchronised_mirror_pids</code> {#synchronised_mirror_pids}
+            </dt>
+            <dd>
+              If the queue is mirrored, this gives the IDs of the mirrors (follower replicas) which are in sync with the leader replica. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/ha.html">RabbitMQ Mirroring guide</a>
+            </dd>
             <dt >
 #### <code class="Cm">state</code> {#state~2}
             </dt>
@@ -2622,6 +2557,6 @@ stomp_headers
   </section>
   <section class="Sh">
 ## AUTHOR {#AUTHOR}
-    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:rabbitmq-core@groups.vmware.com">rabbitmq-core@groups.vmware.com</a>&gt;</p>
+    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:contact-tanzu-data.pdl@broadcom.com">contact-tanzu-data.pdl@broadcom.com</a>&gt;</p>
   </section>
 </div>
