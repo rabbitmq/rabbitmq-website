@@ -99,6 +99,16 @@
             <code class="Li">rabbitmq-streams stream_status --vhost "a-vhost" "a-stream"</code>
           </div>
         </dd>
+        <dt >
+#### <code class="Cm">restart_stream</code> <var class="Ar">stream</var> <code class="Fl">--vhost</code> <var class="Ar">virtual-host</var> <code class="Fl">---preferred-leader-node</code> <var class="Ar">node</var> {#restart_stream}
+        </dt>
+        <dd>
+          <p class="Pp">Restarts a stream including all of it's replicas. The optional preferred node flag instructs the command to try to place the leader on a specific node during the restart.</p>
+          <p class="Pp">Example:</p>
+          <div class="Bd Bd-indent lang-bash">
+            <code class="Li">rabbitmq-streams restart_stream --vhost "a-vhost" "a-stream" --preferred-leader-node "node"</code>
+          </div>
+        </dd>
       </dl>
     </section>
     <section class="Ss">
@@ -435,6 +445,6 @@ inactive
   </section>
   <section class="Sh">
 ## AUTHOR {#AUTHOR}
-    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:rabbitmq-core@groups.vmware.com">rabbitmq-core@groups.vmware.com</a>&gt;</p>
+    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:contact-tanzu-data.pdl@broadcom.com">contact-tanzu-data.pdl@broadcom.com</a>&gt;</p>
   </section>
 </div>

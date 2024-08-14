@@ -64,7 +64,7 @@
 ### <code class="Cm">post_upgrade</code> {#post_upgrade}
       </dt>
       <dd>
-        <p class="Pp">Runs post-upgrade tasks. This is a command that can be expected to evolve over time.</p>
+        <p class="Pp">Runs post-upgrade tasks. In the current version, it performs the rebalance of mirrored and quorum queues across all nodes in the cluster.</p>
       </dd>
       <dt >
 ### <code class="Cm">await_online_quorum_plus_one</code> {#await_online_quorum_plus_one}
@@ -94,6 +94,6 @@
   </section>
   <section class="Sh">
 ## AUTHOR {#AUTHOR}
-    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:rabbitmq-core@groups.vmware.com">rabbitmq-core@groups.vmware.com</a>&gt;</p>
+    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:contact-tanzu-data.pdl@broadcom.com">contact-tanzu-data.pdl@broadcom.com</a>&gt;</p>
   </section>
 </div>

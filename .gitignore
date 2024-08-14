@@ -20,3 +20,7 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea/
+# these can be copied from rabbitmq-server/deps/rabbit/docs by accident
+docs/man/*.html
+docs/man/*.8
+docs/man/*.sh
