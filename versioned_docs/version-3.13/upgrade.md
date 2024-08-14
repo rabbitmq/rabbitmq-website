@@ -777,7 +777,17 @@ rabbitmq-queues -n rabbit@to-be-stopped quorum_status <queue name>
 
 ### Mirrored Queues Replica Synchronisation {#mirrored-queues-synchronisation}
 
-In environments that use [classic mirrored queues](./ha) (a **deprecated feature scheduled for removal**),
+:::danger
+This section covers a feature that had been [**deprecated since 2021**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/)
+and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) for the next major series, RabbitMQ 4.x.
+:::
+
+:::important
+[Quorum queues](./quorum-queues) and/or [streams](./streams) should be used instead of mirrored classic queues.
+**Non-replicated** classic queues continue being supported and developed.
+:::
+
+In environments that use [classic mirrored queues](./ha) (a **deprecated feature removal for RabbitMQ 4.0**),
 it is important to make sure that all mirrored queues on a node
 have a synchronised follower replica (mirror) **before stopping that node**.
 
@@ -787,10 +797,12 @@ However if a queue leader encounters any errors during shutdown, an [unsynchroni
 might still be promoted. It is generally safer option to synchronise all classic mirrored queues
 with replicas on a node before shutting the node down.
 
-Latest RabbitMQ releases provide a [health check](./monitoring#health-checks) command that would fail
+RabbitMQ 3.13.x series provides a [health check](./monitoring#health-checks) command that would fail
 should any classic mirrored queues on the target node have no synchronised mirrors:
 
 ```bash
+## IMPORTANT: classic queue mirroring, together with this health checks, were REMOVED for RabbitMQ 4.0.
+#
 # Exits with a non-zero code if target node hosts leader replica of at least one queue
 # that has out-of-sync mirror.
 rabbitmq-diagnostics check_if_node_is_mirror_sync_critical

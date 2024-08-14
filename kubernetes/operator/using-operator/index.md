@@ -665,7 +665,7 @@ spec:
 
 **Description:** TerminationGracePeriodSeconds is the timeout that each rabbitmqcluster pod will have to run the container preStop lifecycle hook to ensure graceful termination.
 The lifecycle hook checks quorum status of existing quorum queues and synchronization of mirror queues, before safely terminates pods.
-See [rabbitmq-queues check_if_node_is_quorum_critical](/docs/man/rabbitmq-queues.8#check_if_node_is_quorum_critical) and [rabbitmq-queues check_if_node_is_mirror_sync_critical](/docs/man/rabbitmq-queues.8#check_if_node_is_mirror_sync_critical) for more details.
+See [rabbitmq-queues check_if_node_is_quorum_critical](/docs/man/rabbitmq-queues.8#check_if_node_is_quorum_critical) for more details.
 It defaults to 604800 seconds ( a week long) to ensure that the hook can finish running.
 If pods are terminated before the lifecycle hook finishes running, there could be potential data loss.
 
