@@ -47,6 +47,7 @@ connections:
  * [TLSv1.3](#tls1.3) support
  * Tools that can be used to [evaluate a TLS setup](#tls-evaluation-tools)
  * [Certificate and key rotation](#rotation)
+ * The [trust store plugin](#trust-store-plugin) for environments where trusted certificates changes frequently
  * Known [attacks on TLS](#major-vulnerabilities) and their mitigation
  * How to use [private key passwords](#private-key-passwords)
 
@@ -2060,8 +2061,7 @@ rabbitmqctl.bat eval -n [target-node@hostname] "ssl:clear_pem_cache()."
 </Tabs>
 
 
-
-## The Trust Store Plugin
+## The Trust Store Plugin {#trust-store-plugin}
 
 [`rabbitmq_trust_store`](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_trust_store) is a plugin that
 targets environments where [peer verification](#peer-verification) is heavily used and the list of trusted certificates is fairly dynamic.
