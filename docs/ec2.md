@@ -118,5 +118,5 @@ Several other guides cover topics highly relevant for running RabbitMQ clusters 
  * [Peer Discovery](./cluster-formation)
  * [Configuration](./configure)
  * [Monitoring](./monitoring)
- * [Production Checklist](./production-checklist)
+ * [Deployment Guidelines](./production-checklist)
  * [File and Directory Locations](./relocate)

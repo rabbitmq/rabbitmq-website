@@ -48,7 +48,7 @@ and more.
 
 Since configuration affects many areas of the system, including plugins, individual [documentation guides](./index.md)
 dive deeper into what can be configured. [Runtime Tuning](./runtime) is a companion to this guide that focuses
-on the configurable parameters in the runtime. [Production Checklist](./production-checklist) is a related guide
+on the configurable parameters in the runtime. [Deployment Guidelines](./production-checklist) is a related guide
 that outlines what settings will likely need tuning in most production environments.
 
 
@@ -1113,8 +1113,11 @@ management_db_cache_multiplier = 5
       <p>
         Default:
 ```ini
+# see the Access Control guide to learn more
 auth_mechanisms.1 = PLAIN
 auth_mechanisms.2 = AMQPLAIN
+# see the Access Control and Deployment Guidelines guides to learn more
+auth_mechanisms.3 = ANONYMOUS
 ```
       </p>
     </td>
@@ -2304,7 +2307,7 @@ and more. To Linux users these limits can be known as "ulimit limits".
 
 RabbitMQ nodes are most commonly affected by the maximum [open file handle limit](./networking#open-file-handle-limit).
 Default limit value on most Linux distributions is usually 1024, which is very low for a messaging broker (or generally, any data service).
-See [Production Checklist](./production-checklist) for recommended values.
+See [Deployment Guidelines](./production-checklist) for recommended values.
 
 ### Modifying Limits
 

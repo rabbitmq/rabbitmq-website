@@ -194,7 +194,7 @@ it from connecting clients. In addition to successful authentication, management
 The tags are managed using [rabbitmqctl](./man/rabbitmqctl.8#set_user_tags).
 Newly created users do not have any tags set on them by default.
 
-See [Production Checklist](./production-checklist) for general recommendations on user and credential
+See [Deployment Guidelines](./production-checklist) for general recommendations on user and credential
 management.
 
 <table>
@@ -355,7 +355,7 @@ rabbitmqctl set_permissions --vhost "vhost-name" "monitoring" "^$" "^$" "^$"
 
 ## Authenticating with OAuth 2 {#oauth2-authentication}
 
-You can configure RabbitMQ to use [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_oauth2) to authenticate client applications, however, to use OAuth 2.0 authentication in the management UI, you have to configure it separately. 
+You can configure RabbitMQ to use [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_oauth2) to authenticate client applications, however, to use OAuth 2.0 authentication in the management UI, you have to configure it separately.
 
 There are two ways to initiate OAuth 2.0 authentication in the management UI:
 - *Service-Provided Initiated login*. The is the OAuth method and the default way to initiate authentication in the management UI. It uses the [OAuth 2.0 Authorization Code Flow with PKCE](https://datatracker.ietf.org/doc/html/rfc7636) to redirect users to the configured OAuth 2.0 provider to authenticate. When they are authenticated, users get an access token, and are then returned back to the management UI where they are automatically logged in. The management UI is tested against these OAuth 2.0 providers:
@@ -403,13 +403,13 @@ management.oauth_scopes = <SPACE-SEPARATED LIST OF SCOPES. See below>
 - `oauth_scopes` is a mandatory field which must be set at all times except in the case when OAuth providers automatically grant scopes associated to the `oauth_client_id`. `oauth_scopes` is a list of space-separated strings that indicate which permissions the application is requesting. Most OAuth providers only issue tokens with the scopes requested during the user authentication. RabbitMQ sends this field along with its `oauth_client_id` during the user authentication. If this field is not set, RabbitMQ defaults to `openid profile`.
 
 Given above configuration, when a user visits the management UI, the following two events take place:
-1. RabbitMQ uses the URL found in `auth_oauth2.issuer` followed by the path `/.well-known/openid-configuration` to download the OpenID Provider configuration. It contains information about other endpoints such as the `jwks_uri` (used to download the keys to validate the token's signature) or the `token_endpoint`. 
+1. RabbitMQ uses the URL found in `auth_oauth2.issuer` followed by the path `/.well-known/openid-configuration` to download the OpenID Provider configuration. It contains information about other endpoints such as the `jwks_uri` (used to download the keys to validate the token's signature) or the `token_endpoint`.
 
     :::warning
     If RabbitMQ cannot download the OpenID provider configuration, it shows an error message and OAuth 2.0 authentication is disabled in the management UI.
     :::
 
-2. RabbitMQ displays a button with the label "Click here to login". When the user clicks on the button, the management UI initiates the OAuth 2.0 Authorization Code Flow, which redirects the user to the identity provider to authenticate and get a token. 
+2. RabbitMQ displays a button with the label "Click here to login". When the user clicks on the button, the management UI initiates the OAuth 2.0 Authorization Code Flow, which redirects the user to the identity provider to authenticate and get a token.
 
 ### Configure client secret {#configure-client-secret}
 
@@ -490,7 +490,7 @@ The management UI shows now a username/password login form for Basic Authenticat
 RabbitMQ implements the [OpenID Connect RP-Initiated Logout 1.0](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)
 specification to logout users from the management UI and from the OAuth Provider. It works as follows:
 
-  1. The user clicks **Logout**. 
+  1. The user clicks **Logout**.
   2. If the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) returns an `end_session_endpoint`, the management UI sends a logout request to that endpoint to close the user's session in the OAuth Provider. When the request completes, the user is also logged out from the management ui.
   3. If there is no `end_session_endpoint` returned, then the user is only logged out from the management UI.
 
@@ -499,7 +499,7 @@ If the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-conne
 :::
 
 :::warning
-RabbitMQ 3.13.1 and earlier versions require the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) `end_session_endpoint` returned for OAuth 2.0 authentication to work. 
+RabbitMQ 3.13.1 and earlier versions require the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) `end_session_endpoint` returned for OAuth 2.0 authentication to work.
 :::
 
 There are other two additional scenarios which can trigger a logout. One scenario occurs when the OAuth Token expires. Although RabbitMQ renews the token in the background before it expires, if the token expires, the user is logged out.

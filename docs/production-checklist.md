@@ -30,7 +30,7 @@ important to assess system configuration and have a plan for "day two operations
 activities such as [upgrades](./upgrade) before going into production.
 
 
-## Overview {#toc}
+## Table of Contents {#toc}
 
 Production systems have concerns that go beyond configuration: system observability,
 security, application development practices, resource usage, [release support timeline](/release-information), and more.
@@ -142,6 +142,21 @@ of provisioning (sharing a set of credentials between some or all instances).
 For IoT applications that involve many clients performing the same or similar
 function and having fixed IP addresses, it may make sense to [authenticate using x509 certificates](./ssl) or
 [source IP address ranges](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range).
+
+### Anonymous Login
+
+For production environments, it is almost always a good idea to disable anonymous logins.
+
+You can disable the `ANONYMOUS` [SASL mechansim](access-control#mechanisms) in [rabbitmq.conf](configure#config-file) as follows:
+
+``` ini
+auth_mechanisms.1 = PLAIN
+auth_mechanisms.2 = AMQPLAIN
+# note: the ANONYMOUS mechanism is not listed
+
+# Value none has a special meaning that no user is configured for anonymous logins.
+anonymous_login_user = none
+```
 
 ## Monitoring and Resource Limits {#monitoring-and-resource-usage}
 
@@ -348,7 +363,7 @@ Production environments may require network configuration
 tuning, for example, to sustain a high number of concurrent clients.
 Please refer to the [Networking Guide](./networking) for details.
 
-### <a id="networking-throughput" class="anchor" href="#networking-throughput">Minimum Available Network Throughput Estimate</a>
+### Minimum Available Network Throughput Estimate {#networking-throughput}
 
 With higher message rates and large message payloads, traffic bandwidth available to cluster nodes becomes an important
 factor.
@@ -356,9 +371,9 @@ factor.
 The following (intentionally oversimplified) formula can be used to compute the **minimum amount of bandwidth**
 that must be available to cluster nodes, in bits per second:
 
-<pre class="lang-ini">
+``` ini
 MR * MS * 110% * 8
-</pre>
+```
 
 where
 
@@ -369,9 +384,9 @@ where
 
 For example, with a message rate (`MR`) of 20K per second and 6 KB message payloads (`MS`):
 
-<pre class="lang-ini">
+``` ini
 20K * 6 KB * 110% * 8 bit/B = 20000 * 6000 * 1.1 * 8 = 1.056 (gigabit/second)
-</pre>
+```
 
 With the above inputs, cluster nodes must have network links with throughput of at least 1.056 gigabit per second.
 
