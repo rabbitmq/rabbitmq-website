@@ -370,6 +370,15 @@ See [Java client guide](/client-libraries/java-api-guide#consuming) for examples
 
 See [.NET client guide](/client-libraries/dotnet-api-guide#consuming) for examples.
 
+## Limiting the number of Consumers per channel
+
+In some scenarios where consumer leaks can happen it is good to limit the number of consumers that can be active on 
+each channel. This can be configured in [rabbitmq.conf](./configure#config-file) using the setting `consumer_max_per_channel`:
+
+```ini
+consumer_max_per_channel = 100
+```
+
 ## Fetching Individual Messages ("Pull API") {#fetching}
 
 With AMQP 0-9-1 it is possible to fetch messages one by one using the `basic.get` protocol
