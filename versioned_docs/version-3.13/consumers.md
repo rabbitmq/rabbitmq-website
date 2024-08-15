@@ -140,15 +140,6 @@ See [Java client guide](/client-libraries/java-api-guide#consuming) for examples
 
 See [.NET client guide](/client-libraries/dotnet-api-guide#consuming) for examples.
 
-## Limiting the number of Consumers per channel
-
-In some scenarios where consumer leaks can happen it is good to limit the number of consumers that can be active on
-each channel. This can be configured in [rabbitmq.conf](./configure#config-file) using the setting `consumer_max_per_channel`:
-
-```ini
-consumer_max_per_channel = 100
-```
-
 ## Message Properties and Delivery Metadata {#message-properties}
 
 Every delivery combines message metadata and delivery information. Different client
@@ -469,6 +460,16 @@ rabbitmqctl set_policy queue_consumer_timeout "with_delivery_timeout\.*" '{"cons
 Set the `x-consumer-timeout` [optional queue argument](./queues#optional-arguments) on a queue when the queue is declared.
 The timeout is specified in milliseconds.
 Whether the timeout should be enforced is evaluated periodically, at one minute intervals.
+
+
+## Limiting the number of Consumers per channel
+
+In some scenarios where consumer leaks can happen it is good to limit the number of consumers that can be active on
+each channel. This can be configured in [rabbitmq.conf](./configure#config-file) using the setting `consumer_max_per_channel`:
+
+```ini
+consumer_max_per_channel = 100
+```
 
 
 ## Exclusivity {#exclusivity}
