@@ -814,7 +814,7 @@ The built-in mechanisms are:
       configured in <code>anonymous_login_user</code> and <code>anonymous_login_pass</code> (both are set to <code>guest</code> by default).
       In other words, any unauthenticated client will be able to connect and act as the configured <code>anonymous_login_user</code>.
       <strong>For production environments, remove this mechanism.</strong>
-      See the [Deployment Guidelines](http://localhost:3000/docs/next/production-checklist#anonymous-login) documentation.
+      See the <a href="./production-checklist#anonymous-login">Deployment Guidelines</a> guide.
     </td>
   </tr>
 
