@@ -149,7 +149,7 @@ each channel. This can be configured in [rabbitmq.conf](./configure#config-file)
 consumer_max_per_channel = 100
 ```
 
-### Message Properties and Delivery Metadata {#message-properties}
+## Message Properties and Delivery Metadata {#message-properties}
 
 Every delivery combines message metadata and delivery information. Different client
 libraries use slightly different ways of providing access to those properties. Typically

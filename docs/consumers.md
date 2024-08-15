@@ -140,7 +140,7 @@ See [Java client guide](/client-libraries/java-api-guide#consuming) for examples
 
 See [.NET client guide](/client-libraries/dotnet-api-guide#consuming) for examples.
 
-### Message Properties and Delivery Metadata {#message-properties}
+## Message Properties and Delivery Metadata {#message-properties}
 
 Every delivery combines message metadata and delivery information. Different client
 libraries use slightly different ways of providing access to those properties. Typically
