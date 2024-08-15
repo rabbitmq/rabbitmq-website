@@ -248,6 +248,15 @@ Clients that attempt that will run into an error that looks like this in the log
 failed to negotiate connection parameters: negotiated channel_max = 2047 is higher than the maximum allowed value (32)
 ```
 
+### Maximum number of Channels per Node
+
+It is possible to configure the maximum number of channels that are allowed to be open on each node in a cluster using the
+configuration parameter `channel_max_per_node`:
+
+```ini
+# no more than 500 channels can be opened on each node at the same time
+channel_max_per_node = 500
+```
 
 ## Monitoring, Metrics and Diagnostics {#monitoring}
 
