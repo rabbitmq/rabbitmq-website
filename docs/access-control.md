@@ -770,8 +770,8 @@ auth_backends.2       = internal
 ## Authentication Mechanisms {#mechanisms}
 
 RabbitMQ supports multiple SASL authentication
-mechanisms. There are three such mechanisms built into the
-server: <code>PLAIN</code>, <code>AMQPLAIN</code>,
+mechanisms. There are four such mechanisms built into the
+server: <code>PLAIN</code>, <code>AMQPLAIN</code>, <code>ANONYMOUS</code>,
 and <code>RABBIT-CR-DEMO</code>, and one — <code>EXTERNAL</code> —
 available as a [plugin](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl).
 
@@ -807,6 +807,18 @@ The built-in mechanisms are:
   </tr>
 
   <tr>
+    <td>ANONYMOUS</td>
+    <td>
+      This mechanism is enabled by default allowing anonymous clients to connect without providing
+      any credentials. RabbitMQ will internally authenticate and authorize the client using the credentials
+      configured in <code>anonymous_login_user</code> and <code>anonymous_login_pass</code> (both are set to <code>guest</code> by default).
+      In other words, any unauthenticated client will be able to connect and act as the configured <code>anonymous_login_user</code>.
+      <strong>For production environments, remove this mechanism.</strong>
+      See the [production checklist](http://localhost:3000/docs/next/production-checklist#anonymous-login) documentation.
+    </td>
+  </tr>
+
+  <tr>
     <td>EXTERNAL</td>
     <td>
       Authentication happens using an out-of-band mechanism
@@ -831,10 +843,9 @@ the <code>rabbit</code> application determines which of the
 installed mechanisms are offered to connecting clients. This
 variable should be a list of atoms corresponding to
 mechanism names, for example
-<code>['PLAIN', 'AMQPLAIN']</code> by default. The server-side list is not
-considered to be in any particular order. See the
-[configuration file](./configure#configuration-files)
-documentation.
+<code>['PLAIN', 'AMQPLAIN', 'ANONYMOUS']</code> by default.
+The server mechanisms are ordered in decreasing level of preference.
+See the [configuration file](./configure#configuration-files) documentation.
 
 
 ### Mechanism Configuration in the Client {#client-mechanism-configuration}

@@ -1115,6 +1115,7 @@ management_db_cache_multiplier = 5
 ```ini
 auth_mechanisms.1 = PLAIN
 auth_mechanisms.2 = AMQPLAIN
+auth_mechanisms.3 = ANONYMOUS
 ```
       </p>
     </td>

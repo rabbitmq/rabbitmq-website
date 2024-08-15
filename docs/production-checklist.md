@@ -143,6 +143,19 @@ For IoT applications that involve many clients performing the same or similar
 function and having fixed IP addresses, it may make sense to [authenticate using x509 certificates](./ssl) or
 [source IP address ranges](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range).
 
+### Anonymous Login
+
+For production environments, prohibit anonymous logins.
+
+You can disallow [SASL mechansim](access-control#mechanisms) `ANONYMOUS` in [rabbitmq.conf](configure#config-file) as follows:
+```
+# Remove 'ANONYMOUS' from the list of advertised SASL mechanisms, e.g.
+auth_mechanisms = ['PLAIN', 'AMQPLAIN']
+
+# Value none has a special meaning that no user is configured for anonymous logins.
+anonymous_login_user = none
+```
+
 ## Monitoring and Resource Limits {#monitoring-and-resource-usage}
 
 RabbitMQ nodes are limited by various resources, both physical
