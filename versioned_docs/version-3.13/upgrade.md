@@ -19,6 +19,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Upgrading RabbitMQ
 
 ## Overview {#overview}
@@ -399,20 +402,42 @@ and all replicas can be transferred away and replaced over duration of a single 
 
 To determine if a node is quorum critical, use the following [health check](./monitoring#health-checks):
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # exits with a non-zero status if shutting down target node would leave some quorum queues
 # or streams without an online majority
 rabbitmq-diagnostics check_if_node_is_quorum_critical
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# exits with a non-zero status if shutting down target node would leave some quorum queues
+# or streams without an online majority
+rabbitmq-diagnostics.bat check_if_node_is_quorum_critical
+```
+</TabItem>
+</Tabs>
 
 The following [health check](./monitoring#health-checks) must be used to determine if there may be
 any remaining initial quorum queue replica log transfers:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # exits with a non-zero status if there are any ongoing initial quorum queue
 # replica sync operations
 rabbitmq-diagnostics check_if_new_quorum_queue_replicas_have_finished_initial_sync
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# exits with a non-zero status if there are any ongoing initial quorum queue
+# replica sync operations
+rabbitmq-diagnostics.bat check_if_new_quorum_queue_replicas_have_finished_initial_sync
+```
+</TabItem>
+</Tabs>
 
 :::tip
 Consider adding and removing a single node at a time
@@ -433,25 +458,54 @@ The mode is explicitly turned on and off by the operator using a bunch of new CL
 For mixed-version cluster compatibility, this feature must be [enabled using a feature flag](./feature-flags)
 once all cluster members have been upgraded to a version that supports it:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl enable_feature_flag maintenance_mode_status
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat enable_feature_flag maintenance_mode_status
+```
+</TabItem>
+</Tabs>
+
 
 ### Put a Node into Maintenance Mode
 
 To put a node under maintenance, use `rabbitmq-upgrade drain`:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-upgrade drain
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmq-upgrade.bat drain
+```
+</TabItem>
+</Tabs>
 
 As all other CLI commands, this command can be invoked against an arbitrary node (including remote ones)
 using the `-n` switch:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # puts node rabbit@node2.cluster.rabbitmq.svc into maintenance mode
 rabbitmq-upgrade drain -n rabbit@node2.cluster.rabbitmq.svc
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# puts node rabbit@node2.cluster.rabbitmq.svc into maintenance mode
+rabbitmq-upgrade.bat drain -n rabbit@node2.cluster.rabbitmq.svc
+```
+</TabItem>
+</Tabs>
 
 When a node is in maintenance mode, it **will not be available for serving client traffic**
 and will try to transfer as many of its responsibilities as practically possible and safe.
@@ -478,20 +532,52 @@ for long periods of time.
 
 ### Revive a Node from Maintenance Mode
 
+:::tip
+The command described below exists to roll back (to the extent possible) the effects of
+the `drain` one mentioned above.
+
+It is not necessary to run it after a node restart because a restarted node will reset its
+maintenance mode state.
+:::
+
 A node in maintenance mode can be *revived*, that is, **brought back into its regular operational state**,
 using `rabbitmq-upgrade revive`:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-upgrade revive
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmq-upgrade.bat revive
+```
+</TabItem>
+</Tabs>
+
+The command exists to roll back (to the extent possible) the effects of the `drain` one.
+
+It is not necessary to run it after a node restart because a restarted node will reset its
+maintenance mode state.
 
 As all other CLI commands, this command can be invoked against an arbitrary node (including remote ones)
 using the `-n` switch:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # revives node rabbit@node2.cluster.rabbitmq.svc from maintenance
 rabbitmq-upgrade revive -n rabbit@node2.cluster.rabbitmq.svc
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# revives node rabbit@node2.cluster.rabbitmq.svc from maintenance
+rabbitmq-upgrade.bat revive -n rabbit@node2.cluster.rabbitmq.svc
+```
+</TabItem>
+</Tabs>
 
 When a node is revived or restarted (e.g. after an upgrade), it will again accept client connections
 and be considered for primary queue replica placements.
@@ -581,15 +667,34 @@ to be enabled **before** the upgrade. If all feature flags were enabled after th
 previous upgrade, this should already be the case. However, it's better to verify
 the state of feature flags with
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl list_feature_flags --formatter=pretty_table
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat list_feature_flags --formatter=pretty_table
+```
+</TabItem>
+</Tabs>
+
 
 and enable all feature flags with
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl enable_feature_flag all
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat enable_feature_flag all
+```
+</TabItem>
+</Tabs>
 
 Repeat these steps [at the end of the upgrade process](#enable-ff-after-upgrade)
 to fully take advantage of the new features and be prepared for the next upgrade in the future.
@@ -758,11 +863,22 @@ able to satisfy their data safety guarantees.
 Latest RabbitMQ releases provide a [health check](./monitoring#health-checks) command that would fail
 should any quorum queues on the target node lose their quorum in case the node was to be shut down:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # Exits with a non-zero code if one or more quorum queues will lose online quorum
 # should target node be shut down
 rabbitmq-diagnostics check_if_node_is_quorum_critical
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# Exits with a non-zero code if one or more quorum queues will lose online quorum
+# should target node be shut down
+rabbitmq-diagnostics.bat check_if_node_is_quorum_critical
+```
+</TabItem>
+</Tabs>
 
 For example, consider a three node cluster with nodes A, B, and C. If node B is currently down
 and there are quorum queues having their leader replica on node A, this check will fail if executed
@@ -771,9 +887,18 @@ the quorum queues with leader on node A would have a quorum of replicas online.
 
 Quorum queue quorum state can be verified by listing queues in the management UI or using `rabbitmq-queues`:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-queues -n rabbit@to-be-stopped quorum_status <queue name>
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmq-queues.bat -n rabbit@to-be-stopped quorum_status <queue name>
+```
+</TabItem>
+</Tabs>
 
 ### Mirrored Queues Replica Synchronisation {#mirrored-queues-synchronisation}
 
@@ -800,6 +925,8 @@ with replicas on a node before shutting the node down.
 RabbitMQ 3.13.x series provides a [health check](./monitoring#health-checks) command that would fail
 should any classic mirrored queues on the target node have no synchronised mirrors:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 ## IMPORTANT: classic queue mirroring, together with this health checks, were REMOVED for RabbitMQ 4.0.
 #
@@ -807,6 +934,17 @@ should any classic mirrored queues on the target node have no synchronised mirro
 # that has out-of-sync mirror.
 rabbitmq-diagnostics check_if_node_is_mirror_sync_critical
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+## IMPORTANT: classic queue mirroring, together with this health checks, were REMOVED for RabbitMQ 4.0.
+#
+# Exits with a non-zero code if target node hosts leader replica of at least one queue
+# that has out-of-sync mirror.
+rabbitmq-diagnostics.bat check_if_node_is_mirror_sync_critical
+```
+</TabItem>
+</Tabs>
 
 For example, consider a three node cluster with nodes A, B, and C. If there are classic mirrored queues
 with the only synchronised replica on node A (the leader), this check will fail if executed
@@ -815,6 +953,8 @@ there would be at least one replica suitable for promotion.
 
 Classic mirrored queue replica state can be verified by listing queues in the management UI or using `rabbitmqctl`:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # For queues with non-empty `mirror_pids`, you must have at least one
 # `synchronised_mirror_pids`.
@@ -822,6 +962,17 @@ Classic mirrored queue replica state can be verified by listing queues in the ma
 # Note that mirror_pids is a new field alias introduced in RabbitMQ 3.11.4
 rabbitmqctl -n rabbit@to-be-stopped list_queues --local name mirror_pids synchronised_mirror_pids
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# For queues with non-empty `mirror_pids`, you must have at least one
+# `synchronised_mirror_pids`.
+#
+# Note that mirror_pids is a new field alias introduced in RabbitMQ 3.11.4
+rabbitmqctl.bat -n rabbit@to-be-stopped list_queues --local name mirror_pids synchronised_mirror_pids
+```
+</TabItem>
+</Tabs>
 
 If there are unsynchronised queues, either enable
 automatic synchronisation or [trigger it using `rabbitmqctl`](./ha#unsynchronised-mirrors) manually.
@@ -841,10 +992,20 @@ You can move a queue leader for a queue using a temporary [policy](./parameters)
 `ha-mode: nodes` and `ha-params: [<node>]`
 The policy can be created via management UI or rabbitmqctl command:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
-rabbitmqctl set_policy --apply-to queues --priority 100 move-my-queue '^<queue>$;' '{"ha-mode":"nodes", "ha-params":["<new-master-node>"]}'
+rabbitmqctl set_policy --apply-to queues --priority 100 move-my-queue '^<queue>$;' '{"ha-mode":"nodes", "ha-params":["<new-leader-node>"]}'
 rabbitmqctl clear_policy move-my-queue
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat set_policy --apply-to queues --priority 100 move-my-queue '^<queue>$;' '{"ha-mode":"nodes", "ha-params":["<new-leader-node>"]}'
+rabbitmqctl.bat clear_policy move-my-queue
+```
+</TabItem>
+</Tabs>
 
 A [queue leader rebalancing script](https://github.com/rabbitmq/support-tools/blob/main/scripts/rebalance-queue-masters)
 is available. It rebalances queue leaders for all queues.

@@ -19,6 +19,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Upgrading RabbitMQ
 
 ## Overview {#overview}
@@ -26,7 +29,7 @@ limitations under the License.
 This guide covers topics related to RabbitMQ installation upgrades.
 
 1. [An overview](#basics) of several common approaches to upgrading RabbitMQ
-1. [RabbitMQ version upgradability](#rabbitmq-version-upgradability), version upgrading from and version upgrading to
+1. [RabbitMQ version upgradability](#rabbitmq-version-upgradability): explains what versions or series can be upgraded to what later series
 1. [Erlang version requirement](#rabbitmq-erlang-version-requirement)
 1. [Plugin compatibility between versions](#rabbitmq-plugins-compatibility)
 1. Features [that do not support in-place upgrade](#unsupported-inplace-upgrade)
@@ -189,7 +192,7 @@ Current release series upgrade compatibility with **full stop** upgrade:
 | 3.6.x    | 3.8.x  |                                                              |
 | 3.6.x    | 3.7.x  |                                                              |
 | 3.5.x    | 3.7.x  |                                                              |
-| =< 3.4.x | 3.6.16 |
+| =< 3.4.x | 3.6.16 |                                                              |
 
 
 ## Erlang Version Requirements {#rabbitmq-erlang-version-requirement}
@@ -398,20 +401,42 @@ and all replicas can be transferred away and replaced over duration of a single 
 
 To determine if a node is quorum critical, use the following [health check](./monitoring#health-checks):
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # exits with a non-zero status if shutting down target node would leave some quorum queues
 # or streams without an online majority
 rabbitmq-diagnostics check_if_node_is_quorum_critical
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# exits with a non-zero status if shutting down target node would leave some quorum queues
+# or streams without an online majority
+rabbitmq-diagnostics.bat check_if_node_is_quorum_critical
+```
+</TabItem>
+</Tabs>
 
 The following [health check](./monitoring#health-checks) must be used to determine if there may be
 any remaining initial quorum queue replica log transfers:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # exits with a non-zero status if there are any ongoing initial quorum queue
 # replica sync operations
 rabbitmq-diagnostics check_if_new_quorum_queue_replicas_have_finished_initial_sync
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# exits with a non-zero status if there are any ongoing initial quorum queue
+# replica sync operations
+rabbitmq-diagnostics.bat check_if_new_quorum_queue_replicas_have_finished_initial_sync
+```
+</TabItem>
+</Tabs>
 
 :::tip
 Consider adding and removing a single node at a time
@@ -432,25 +457,54 @@ The mode is explicitly turned on and off by the operator using a bunch of new CL
 For mixed-version cluster compatibility, this feature must be [enabled using a feature flag](./feature-flags)
 once all cluster members have been upgraded to a version that supports it:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl enable_feature_flag maintenance_mode_status
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat enable_feature_flag maintenance_mode_status
+```
+</TabItem>
+</Tabs>
+
 
 ### Put a Node into Maintenance Mode
 
 To put a node under maintenance, use `rabbitmq-upgrade drain`:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-upgrade drain
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmq-upgrade.bat drain
+```
+</TabItem>
+</Tabs>
 
 As all other CLI commands, this command can be invoked against an arbitrary node (including remote ones)
 using the `-n` switch:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # puts node rabbit@node2.cluster.rabbitmq.svc into maintenance mode
 rabbitmq-upgrade drain -n rabbit@node2.cluster.rabbitmq.svc
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# puts node rabbit@node2.cluster.rabbitmq.svc into maintenance mode
+rabbitmq-upgrade.bat drain -n rabbit@node2.cluster.rabbitmq.svc
+```
+</TabItem>
+</Tabs>
 
 When a node is in maintenance mode, it **will not be available for serving client traffic**
 and will try to transfer as many of its responsibilities as practically possible and safe.
@@ -477,20 +531,52 @@ for long periods of time.
 
 ### Revive a Node from Maintenance Mode
 
+:::tip
+The command described below exists to roll back (to the extent possible) the effects of
+the `drain` one mentioned above.
+
+It is not necessary to run it after a node restart because a restarted node will reset its
+maintenance mode state.
+:::
+
 A node in maintenance mode can be *revived*, that is, **brought back into its regular operational state**,
 using `rabbitmq-upgrade revive`:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-upgrade revive
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmq-upgrade.bat revive
+```
+</TabItem>
+</Tabs>
+
+The command exists to roll back (to the extent possible) the effects of the `drain` one.
+
+It is not necessary to run it after a node restart because a restarted node will reset its
+maintenance mode state.
 
 As all other CLI commands, this command can be invoked against an arbitrary node (including remote ones)
 using the `-n` switch:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # revives node rabbit@node2.cluster.rabbitmq.svc from maintenance
 rabbitmq-upgrade revive -n rabbit@node2.cluster.rabbitmq.svc
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# revives node rabbit@node2.cluster.rabbitmq.svc from maintenance
+rabbitmq-upgrade.bat revive -n rabbit@node2.cluster.rabbitmq.svc
+```
+</TabItem>
+</Tabs>
 
 When a node is revived or restarted (e.g. after an upgrade), it will again accept client connections
 and be considered for primary queue replica placements.
@@ -580,15 +666,34 @@ to be enabled **before** the upgrade. If all feature flags were enabled after th
 previous upgrade, this should already be the case. However, it's better to verify
 the state of feature flags with
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl list_feature_flags --formatter=pretty_table
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat list_feature_flags --formatter=pretty_table
+```
+</TabItem>
+</Tabs>
+
 
 and enable all feature flags with
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl enable_feature_flag all
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat enable_feature_flag all
+```
+</TabItem>
+</Tabs>
 
 Repeat these steps [at the end of the upgrade process](#enable-ff-after-upgrade)
 to fully take advantage of the new features and be prepared for the next upgrade in the future.
@@ -687,9 +792,8 @@ be aware that queues and connections can migrate to other nodes
 during the upgrade.
 
 If clients support connections recovery and can connect to different nodes, they will reconnect
-to the nodes that are still running. If clients are configured to create
-exclusive queues, these queues might be recreated on different nodes
-after client reconnection.
+to the nodes that are still running. If clients are configured to create exclusive queues,
+these queues might be recreated on different nodes after client reconnection.
 
 To handle such migrations, make sure you have enough
 spare resources on the remaining nodes so they can handle the extra load.
@@ -754,11 +858,22 @@ able to satisfy their data safety guarantees.
 Latest RabbitMQ releases provide a [health check](./monitoring#health-checks) command that would fail
 should any quorum queues on the target node lose their quorum in case the node was to be shut down:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # Exits with a non-zero code if one or more quorum queues will lose online quorum
 # should target node be shut down
 rabbitmq-diagnostics check_if_node_is_quorum_critical
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# Exits with a non-zero code if one or more quorum queues will lose online quorum
+# should target node be shut down
+rabbitmq-diagnostics.bat check_if_node_is_quorum_critical
+```
+</TabItem>
+</Tabs>
 
 For example, consider a three node cluster with nodes A, B, and C. If node B is currently down
 and there are quorum queues having their leader replica on node A, this check will fail if executed
@@ -767,9 +882,19 @@ the quorum queues with leader on node A would have a quorum of replicas online.
 
 Quorum queue quorum state can be verified by listing queues in the management UI or using `rabbitmq-queues`:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-queues -n rabbit@to-be-stopped quorum_status <queue name>
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmq-queues.bat -n rabbit@to-be-stopped quorum_status <queue name>
+```
+</TabItem>
+</Tabs>
+
 
 ## Handling Node Restarts in Applications {#rabbitmq-restart-handling}
 
