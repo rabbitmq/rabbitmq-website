@@ -892,7 +892,7 @@ systemctl start rabbitmq-server
 
 On most systems, a node should be able to start and run with all defaults.
 Please refer to the [Configuration guide](./configure) to learn more
-and [Production Checklist](./production-checklist) for guidelines beyond
+and [Deployment Guidelines](./production-checklist) for guidelines beyond
 development environments.
 
 Note: the node is set up to run as system user `rabbitmq`.

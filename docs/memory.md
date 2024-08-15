@@ -252,7 +252,7 @@ want RabbitMQ to throttle producers when the server is using
 above 3GB, set `vm_memory_high_watermark` to 3.
 
 For guidelines on recommended RAM watermark settings,
-see [Production Checklist](./production-checklist#resource-limits-ram).
+see [Deployment Guidelines](./production-checklist#resource-limits-ram).
 
 
 ## CQv1: Configuring the Paging Threshold {#paging}

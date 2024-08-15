@@ -814,7 +814,7 @@ The built-in mechanisms are:
       configured in <code>anonymous_login_user</code> and <code>anonymous_login_pass</code> (both are set to <code>guest</code> by default).
       In other words, any unauthenticated client will be able to connect and act as the configured <code>anonymous_login_user</code>.
       <strong>For production environments, remove this mechanism.</strong>
-      See the [production checklist](http://localhost:3000/docs/next/production-checklist#anonymous-login) documentation.
+      See the [Deployment Guidelines](http://localhost:3000/docs/next/production-checklist#anonymous-login) documentation.
     </td>
   </tr>
 
@@ -838,12 +838,20 @@ The built-in mechanisms are:
 
 ### Mechanism Configuration in the Server {#server-mechanism-configuration}
 
-The configuration variable <code>auth_mechanisms</code> in
-the <code>rabbit</code> application determines which of the
-installed mechanisms are offered to connecting clients. This
-variable should be a list of atoms corresponding to
-mechanism names, for example
-<code>['PLAIN', 'AMQPLAIN', 'ANONYMOUS']</code> by default.
+The <code>auth_mechanisms</code> configuration key determines which of the
+installed mechanisms are offered to connecting clients.
+
+This variable should be a list of accepted values corresponding to
+mechanism names, for example, the following list
+
+``` ini
+auth_mechanisms.1 = PLAIN
+auth_mechanisms.2 = AMQPLAIN
+auth_mechanisms.3 = ANONYMOUS
+```
+
+is used by default.
+
 The server mechanisms are ordered in decreasing level of preference.
 See the [configuration file](./configure#configuration-files) documentation.
 

@@ -370,7 +370,7 @@ via a message property (<code>delivery_mode</code> or, in some clients, <code>pe
 
 Other relevant guides on the topic are [Quorum Queues](./quorum-queues#resource-use), [Streams](./streams#feature-comparison),
 [Reasoning About Memory Usage](./memory-use), [Alarms](./alarms), [Memory Alarms](./memory), [Free Disk Space Alarms](./disk-alarms),
-[Production Checklist](./production-checklist), and [Message Store Configuration](./persistence-conf).
+[Deployment Guidelines](./production-checklist), and [Message Store Configuration](./persistence-conf).
 
 
 ## Priorities {#priorities}
