@@ -372,7 +372,7 @@ See [.NET client guide](/client-libraries/dotnet-api-guide#consuming) for exampl
 
 ## Limiting the number of Consumers per channel
 
-In some scenarios where consumer leaks can happen it is good to limit the number of consumers that can be active on 
+In some scenarios where consumer leaks can happen it is good to limit the number of consumers that can be active on
 each channel. This can be configured in [rabbitmq.conf](./configure#config-file) using the setting `consumer_max_per_channel`:
 
 ```ini
