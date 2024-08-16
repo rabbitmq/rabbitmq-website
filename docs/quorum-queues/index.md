@@ -80,7 +80,7 @@ Quorum queues pass a [refactored and more demanding version](https://github.com/
 This ensures they behave as expected under network partitions and failure scenarios.
 The new test runs continuously to spot possible regressions and is enhanced regularly to test new features (e.g. [dead lettering](#dead-lettering)).
 
-#### What is a Quorum? {#what-is-quorum}
+### What is a Quorum? {#what-is-quorum}
 
 If intentionally simplified, [quorum](https://en.wikipedia.org/wiki/Quorum_(distributed_computing)) in a distributed system can
 be defined as an agreement between the majority of nodes (`(N/2)+1` where `N` is the total number of
@@ -89,6 +89,7 @@ system participants).
 When applied to queue mirroring in RabbitMQ [clusters](./clustering)
 this means that the majority of replicas (including the currently elected queue leader)
 agree on the state of the queue and its contents.
+
 
 ## Use Cases {#use-cases}
 
@@ -103,12 +104,12 @@ Quorum queues are _not_ designed to be used for every problem.
 Stock tickers, instant messaging systems and RPC reply queues benefit less or
 not at all from use of quorum queues.
 
-Publishers should use publisher confirms as this is how clients can interact with
-the quorum queue consensus system. Publisher confirms will only be issued once
+Publishers should [use publisher confirms](./publishers#data-safety) as this is how clients can interact with
+the quorum queue consensus system. Publisher confirms will [only be issued](./confirms#when-publishes-are-confirmed) once
 a published message has been successfully replicated to a quorum of replicas
 and is considered "safe" within the context of the queue.
 
-Consumers should use manual acknowledgements to ensure messages that aren't
+Consumers should use [manual acknowledgements](./confirms) to ensure messages that aren't
 successfully processed are returned to the queue so that
 another consumer can re-attempt processing.
 
@@ -132,9 +133,9 @@ Quorum queues share most of the fundamentals with other [queue](./queues) types.
 
 The following operations work the same way for quorum queues as they do for classic queues:
 
- * Consumption (subscription)
+ * Consumption, consumer registration
  * [Consumer acknowledgements](./confirms) (except for global [QoS and prefetch](#global-qos))
- * Cancelling consumers
+ * Consumer cancellation
  * Purging
  * Deletion
 
@@ -148,13 +149,14 @@ With some queue operations there are minor differences:
 | Feature | Classic queues | Quorum queues |
 | :-------- | :------- | ------ |
 | [Non-durable queues](./queues) | yes | no |
+| Message replication | no | yes |
 | [Exclusivity](./queues) | yes | no |
 | Per message persistence | per message | always |
-| Membership changes | automatic | [semi-automatic](#replica-reconciliation)   |
-| [Message TTL (Time-To-Live)](./ttl) | yes | yes ([since 3.10](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/)) |
+| Membership changes | no | [semi-automatic](#replica-reconciliation)   |
+| [Message TTL (Time-To-Live)](./ttl) | yes | yes |
 | [Queue TTL](./ttl#queue-ttl) | yes | partially (lease is not renewed on queue re-declaration) |
 | [Queue length limits](./maxlength) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
-| [Lazy behaviour](./lazy-queues) | yes | always (since 3.10) |
+| [Lazy behaviour](./lazy-queues) | yes | always |
 | [Message priority](./priority) | yes | [yes](./quorum-queues#priorities) |
 | [Single Active Consumer](./consumers#single-active-consumer) | yes | yes |
 | [Consumer exclusivity](./consumers#exclusivity) | yes | no (use [Single Active Consumer](./consumers#single-active-consumer)) |
@@ -294,12 +296,18 @@ the message delivery mode must be set to persistent when publishing messages to 
 
 ### Priorities
 
-Quorum queues support [consumer priorities](./consumer-priority) and since 4.0 they
-support a type of message prioritisation that is quite different
+:::important
+Quorum queue priority support is available as of RabbitMQ 4.0. However, there are differences
+in how quorum queues and classic queues implement priorities.
+:::
+
+Quorum queues support [consumer priorities](./consumer-priority) and starting with 4.0,
+they also support a type of message prioritisation that is quite different
 from [classic queue message priorities](./priority).
 
 Quorum queue message priorities are always active and do not require a policy to work.
-As soon as a quorum queue receives a message with a priority set it will use that.
+As soon as a quorum queue receives a message with a priority set it will enable
+prioritization.
 
 Quorum queues internally only support two priorities: high and low. Messages without
 a priority set will be mapped to low as will priorities 0 - 4. Messages with a
@@ -309,12 +317,18 @@ High priority messages will be favoured over low priority messages at a ratio
 of 2:1, i.e. for every 2 high priority message the queue will deliver 1 low priority
 message (if available). Hence, quorum queues implement a kind of non-strict, 
 "fair share" priority processing. This ensures progress is always made on low
-priority messages but high priorities are favoured at a ratio of 2:1. Note if
-a high priority message was published before a low priority one the high priority
-message will always be delivered first even if it is the low priorities' turn.
+priority messages but high priorities are favoured at a ratio of 2:1.
 
-For more advanced message priority scenarios we commend using multiple queues,
-one for each priority and assign consumer resources accordingly.
+:::important
+If a high priority message was published before a low priority one the high priority
+message will always be delivered first even if it is the low priorities' turn
+:::
+
+#### More Advanced Scenarios
+
+For more advanced message priority scenarios, separate queues should be used for different
+message types, one for each type (priority). Queues used for more important message types
+should generally have more (overprovisioned) consumers.
 
 
 ### Poison Message Handling {#poison-message-handling}
@@ -330,7 +344,9 @@ deliberate ones. For [AMQP](./amqp) the header section `delivery-count` field wi
 include failures (client connection lost, returns using the modified outcome with `delivery-failed=true`)
 and is thus a separate counter.
 
-**Since RabbitMQ 4.0 the delivery limit for quorum queues is defaulted to 20.**
+:::info
+Starting with RabbitMQ 4.0, the delivery limit for quorum queues defaults to 20
+:::
 
 This can be increased or decreased using a [policy](./parameters#policies) argument, `delivery-limit`.
 There is no way to set it to the old, unlimited default.
@@ -361,9 +377,10 @@ policy keys they adhere to.
 | `dead-letter-routing-key` | String |
 | `delivery-limit` | Number |
 
-## Features not supported
 
-### Non-durable Queues
+## Features that are not Supported
+
+### Transient (non-Durable) Queues
 
 Classic queues can be [non-durable](./queues). Quorum queues are always durable per their
 assumed [use cases](#use-cases).
@@ -443,7 +460,7 @@ With some queue operations there are minor differences:
  * Setting [QoS prefetch](#global-qos) for consumers
 
 
-## Quorum Queue Membership Management {#replication}
+## Replication Factor and Membership Management {#replication}
 
 When a quorum queue is declared, an initial number of replicas for it must be started in the cluster.
 By default the number of replicas to be started is up to three, one per RabbitMQ node in the cluster.
@@ -1008,7 +1025,7 @@ can be increased if really necessary.
 
 See [the Runtime guide](./runtime#atom-usage) to learn more.
 
-## Quorum Queue Performance Tuning {#performance-tuning}
+## Performance Tuning {#performance-tuning}
 
 This section aims to cover a couple of tunable parameters that may increase throughput of quorum queues for
 **some workloads**. Other workloads may not see any increases, or observe decreases in throughput, with these settings.
