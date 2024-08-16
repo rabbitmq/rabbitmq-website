@@ -33,7 +33,7 @@ leader election properties to ensure high availability even during upgrades
 or other turbulence.
 
 Quorum queues are optimized for certain [use cases](#use-cases) where [data safety](#data-safety) is
-the top priority. This is covered in [Motivation](#motivation) section.
+the top priority. This is covered in the [Motivation](#motivation) section.
 
 Quorum queues have [differences in behaviour](#behaviour) compared to classic
 queues as well as some [limitations](#feature-comparison) that it is important
