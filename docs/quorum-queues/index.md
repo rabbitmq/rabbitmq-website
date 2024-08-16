@@ -120,7 +120,7 @@ In some cases quorum queues should not be used. They typically involve:
  * Temporary queues: transient or exclusive queues, high queue churn (declaration and deletion rates)
  * Lowest possible latency: the underlying consensus algorithm has an inherently higher latency due to its data safety features
  * When data safety is not a priority (e.g. applications do not use [manual acknowledgements and publisher confirms](./confirms) are not used)
- * Very long queue backlogs(5M+ messages) ([streams](./stream) are likely to be a better fit)
+ * Very long queue backlogs (5M+ messages) ([streams](./stream) are likely to be a better fit)
  * Large fanouts: ([streams](./stream) are likely to be a better fit)
 
 
