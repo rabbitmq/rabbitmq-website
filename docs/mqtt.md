@@ -303,27 +303,28 @@ that make sure remote clients can successfully connect:
 
  * Create one or more new user(s), grant them full permissions to the virtual host used by the MQTT plugin and make clients
    that connect from remote hosts use those credentials. This is the recommended option.
- * Set `default_user` and `default_pass` via [plugin configuration](#config) to a non-`guest` user who has the
+ * Set `anonymous_login_user` and `anonymous_login_pass` to a non-`guest` user who has the
 [appropriate permissions](./access-control).
 
 
 ### Anonymous Connections {#anonymous-connections}
 
-MQTT supports optional authentication (clients may provide no credentials) but RabbitMQ
-does not. Therefore a default set of credentials is used for anonymous connections.
+MQTT supports optional authentication (clients may provide no credentials).
+Therefore a default set of credentials is used for anonymous connections.
 
-The `mqtt.default_user` and `mqtt.default_pass` configuration keys are used to specify
+The `anonymous_login_user` and `anonymous_login_pass` configuration keys are used to specify
 the credentials:
 
 ```ini
-mqtt.default_user = some-user
-mqtt.default_pass = s3kRe7
+anonymous_login_user = some-user
+anonymous_login_pass = s3kRe7
 ```
 
 It is possible to disable anonymous connections:
 
 ```ini
 mqtt.allow_anonymous = false
+anonymous_login_user = none
 ```
 
 If the `mqtt.allow_anonymous` key is set to `false` then clients **must** provide credentials.
@@ -344,8 +345,6 @@ mqtt.listeners.tcp.default = 1883
 # anonymous connections, if allowed, will use the default
 # credentials specified here
 mqtt.allow_anonymous  = true
-mqtt.default_user     = guest
-mqtt.default_pass     = guest
 
 mqtt.vhost            = /
 mqtt.exchange         = amq.topic
@@ -774,8 +773,6 @@ With the second one, there is a limit of 2 GB per vhost. Both are node-local
 To configure the store, use <code>rabbitmq_mqtt.retained_message_store</code> configuration key:
 
 ```ini
-mqtt.default_user                        = guest
-mqtt.default_pass                        = guest
 mqtt.allow_anonymous                     = true
 mqtt.vhost                               = /
 mqtt.exchange                            = amq.topic
