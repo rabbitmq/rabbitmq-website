@@ -28,11 +28,13 @@ production use but we encourage users to try it out in test environments and
 provide feedback.
 
 Our plan is to completely remove Mnesia in the future. This should
-significantly improve RabbitMQ tolerance to network partitions. Once we switch
+significantly improve RabbitMQ's tolerance to network partitions. Once we switch
 to Khepri, there will be no partition handling strategy configuration
 (`pause_minority`, `autoheal`, etc) — Khepri is based on the Raft protocol,
 just like quorum queues and therefore the semantics of what to do when a
 partition occurs are well defined and not configurable.
+
+A recorded talk about [Khepri](https://www.youtube.com/watch?v=whVqpgvep90) is available.
 
 :::warning
 The command below enables an experimental feature that cannot be disabled.
@@ -47,7 +49,7 @@ rabbitmqctl enable_feature_flag khepri_db
 You shouldn't really notice any difference after enabling Khepri. The main
 difference is what happens internally when you declare exchanges, queues,
 bindings and so on. We encourage experimentation such as declaring your actual
-topology first and then enabling Khepri (to validate everything works as
+topology first and then enabling Khepri (to validate that everything works as
 expected), inducing failures to validate the cluster remains available (as long
 as the majority of the nodes is up and connected) and so on. Please report any
 issues you run into.
