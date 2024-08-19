@@ -253,8 +253,7 @@ let firstOffset = undefined;
 let offsetSpecification = rabbit.Offset.first();
 try {
   const offset = await client.queryOffset({ reference: consumerRef, stream: streamName }); // take the offset stored on the server if it exists
-  firstOffset = offset + 1n; // start from the message after 'marker'
-  offsetSpecification = rabbit.Offset.offset(offset);
+  offsetSpecification = rabbit.Offset.offset(offset + 1n); // start from the message after 'marker'
 } catch (e) {}
 
 let lastOffset = offsetSpecification.value;
@@ -268,7 +267,6 @@ const consumer = await client.declareConsumer(
       console.log("First message received");
     }
     if (messageCount % 10 === 0) {
-      console.log("Storing offset");
       await consumer.storeOffset(message.offset); // store offset every 10 messages
     }
     if (message.content.toString() === "marker") {
@@ -277,6 +275,7 @@ const consumer = await client.declareConsumer(
       await consumer.storeOffset(message.offset); // store the offset on consumer closing
       console.log(`Done consuming, first offset was ${firstOffset}, last offset was ${lastOffset}`);
       await consumer.close(true);
+      process.exit(0);
     }
   }
 );
@@ -306,16 +305,6 @@ Here is the output:
 Connecting...
 Start consuming...
 First message received
-Storing offset
-Storing offset
-Storing offset
-Storing offset
-Storing offset
-Storing offset
-Storing offset
-Storing offset
-Storing offset
-Storing offset
 Marker found
 Done consuming, first offset was 0, last offset was 99
 ```
@@ -337,16 +326,6 @@ Here is the output:
 ```shell
 Connecting...
 Start consuming...
-Storing offset
-Storing offset
-Storing offset
-Storing offset
-Storing offset
-Storing offset
-Storing offset
-Storing offset
-Storing offset
-Storing offset
 Marker found
 Done consuming, first offset was 100, last offset was 201
 ```
