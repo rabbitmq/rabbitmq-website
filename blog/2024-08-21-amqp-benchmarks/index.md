@@ -120,7 +120,7 @@ Latencies by percentile:
         100% .... 24873 ms       99.99% .... 24873 ms
 ```
 
-The same benchmark against RabbitMQ 3.13 results in 4.5 times less throughput.
+The same benchmark against RabbitMQ 3.13 results in 4.5 times lower throughput.
 
 <details>
 <summary>Detailed test execution</summary>
