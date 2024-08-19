@@ -15,11 +15,11 @@ Additionally, this blog post suggests that AMQP 1.0 can perform slightly better 
 
 The following setup applies to all benchmarks in this blog post:
 * Intel NUC 11
-* 8 CPUs
+* 8 CPU cores
 * 32 GB RAM
 * Ubuntu 22.04
 * Single node RabbitMQ server
-* Server runs with (only) 3 scheduler threads ([emulator flag](https://www.erlang.org/doc/apps/erts/erl_cmd.html#emulator-flags) `+S 3`)
+* Server runs with (only) 3 scheduler threads (set via [runtime flags](https://www.erlang.org/doc/apps/erts/erl_cmd.html#emulator-flags) as `+S 3`)
 * Erlang/OTP 27.0.1
 * Clients and server run on the same box
 
@@ -42,7 +42,7 @@ The following [advanced.config](/docs/configure#advanced-config-file) is applied
 ```
 
 Metrics collection is disabled in the `rabbitmq_management_agent` plugin.
-For production, Prometheus should be used.
+For [production environments](https://www.rabbitmq.com/docs/production-checklist), [Prometheus](https://www.rabbitmq.com/docs/prometheus) is the recommended option.
 
 RabbitMQ server is started as follows:
 ```bash
@@ -268,7 +268,7 @@ Latencies by percentile:
 <details>
 <summary>Default Flow Control Settings</summary>
 
-The previous benchmark calls fsync 1,244 times in module [ra_log_wal](https://github.com/rabbitmq/ra/blob/e95ab7b9df1f8f4ffec8535d60185b3bc33a09bc/src/ra_log_wal.erl#L770) (Raft write ahead log).
+The previous benchmark calls fsync 1,244 times in the [ra_log_wal](https://github.com/rabbitmq/ra/blob/e95ab7b9df1f8f4ffec8535d60185b3bc33a09bc/src/ra_log_wal.erl#L770) module (that implements the Raft write-ahead log).
 
 The same benchmark with default flow control settings calls fsync 15,493 times resulting in significantly lower throughput:
 ```
@@ -297,12 +297,14 @@ Each fsync took 5.9 ms on average.
 (15,493 - 1,244) * 5.9 ms = 84 seconds
 ```
 
-Therefore, this benchmark with default flow control settings is blocked for 84 seconds longer executing fsync than the previous benchmark with increased flow control settings.
+Therefore, this benchmark with default flow control settings is blocked for 84 seconds longer executing `fsync` than the previous benchmark with increased flow control settings.
 This shows how critical enterprise-grade high performance disks are to get the best results out of quorum queues.
-For your production workloads, we recommend using disks that fsync faster rather than increasing RabbitMQ flow control settings.
+For your production workloads, we recommend using disks with lower `fsync` latency rather than tweaking
+RabbitMQ flow control settings.
 
-It's worth noting that the `ra_log_wal` is shared across all quorum queues on a given RabbitMQ node.
-This is beneficial because `ra_log_wal` will automatically batch multiple Ra commands into a single fsync call when there are dozens of quorum queues with hundreds of connections.
+It's worth noting that the Raft WAL log is shared by all quorum queue replicas on a given RabbitMQ node.
+This means that `ra_log_wal` will automatically batch multiple Raft commands (operations) into a single `fsync`
+call when there are dozens of quorum queues with hundreds of connections.
 Consequently, flushing an individual Ra command to disk becomes cheaper on average when there is more traffic on the node.
 Our benchmark ran somewhat artificially with a single connection as fast as possible.
 </details>
@@ -455,8 +457,10 @@ Latencies by percentile:
          50% ..... 1011 ms       99.90% ..... 1615 ms
         100% ..... 1616 ms       99.99% ..... 1616 ms
 ```
-We see high throughput.
-Note that end-to-end latencies are very high just because the sender can write into the stream at a higher rate than RabbitMQ being able to dispatch messages to the receiver.
+It is easy to observe a substantially higher throughput.
+
+Note that end-to-end latencies are very high just because the sender can write into the stream at a higher rate than RabbitMQ being able
+to dispatch messages to the consumer ("receiver" in `quiver` terms).
 
 ### AMQP 1.0 in 3.13
 ```
@@ -604,7 +608,27 @@ func main() {
 
 ### AMQP 1.0 in 4.0
 
-Function [erlang:memory/0](https://www.erlang.org/doc/apps/erts/erlang.html#memory/0) returns the memory size in bytes for each memory type.
+The examples below directly invoke [`erlang:memory/0`](https://www.erlang.org/doc/apps/erts/erlang.html#memory/0) on the node,
+a function that returns the memory size in bytes for each memory type.
+
+:::tip
+To retrieve the same information from a running node, use [`rabbitmq-diagnostics`](/docs/cli) like so:
+
+``` shell
+rabbitmq-diagnostics -s memory_breakdown
+```
+
+This command can format the numbers using different information units (e.g. MiB, GiB) and supports JSON
+output with `--formatter=json`:
+
+``` shell
+# pipes the output to `jq` for more readable formatting
+rabbitmq-diagnostics -s memory_breakdown --formatter=json | jq
+```
+:::
+
+Here are the runtime-reported memory footprint numbers:
+
 ```erlang
 1> erlang:memory().
 [{total,5330809208},
@@ -622,6 +646,9 @@ Function [erlang:memory/0](https://www.erlang.org/doc/apps/erts/erlang.html#memo
 ```
 
 ### AMQP 1.0 in 3.13
+
+To compare, the runtime-reported memory footprint numbers in this test are:
+
 ```erlang
 1> erlang:memory().
 [{total,12066294144},
@@ -638,7 +665,7 @@ Function [erlang:memory/0](https://www.erlang.org/doc/apps/erts/erlang.html#memo
 1480318
 ```
 
-We observe that the memory usage of `processes` in RabbitMQ 3.13 is 11.1 GB compared to only 4.8 GB in RabbitMQ 4.0.
+We observe that the memory usage of `processes` in RabbitMQ 3.13 is 11.1 GB compared to only 4.8 GB in RabbitMQ 4.0 (a reduction of about 56%).
 As explained in the [previous](/blog/2024/08/05/native-amqp#amqp-10-in-rabbitmq-313) blog post, the RabbitMQ 3.13 implementation of AMQP 1.0 is resource heavy because each AMQP 1.0 session in the plugin includes an AMQP 0.9.1 client and maintains AMQP 0.9.1 state.
 
 ### AMQP 0.9.1 in 4.0
