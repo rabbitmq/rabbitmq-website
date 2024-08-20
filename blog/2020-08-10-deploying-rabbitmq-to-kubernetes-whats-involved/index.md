@@ -6,15 +6,30 @@ authors: [mklishin]
 
 Over time, we have seen the number of Kubernetes-related queries on our community
 [mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users)
-and [Slack](https://rabbitmq-slack.herokuapp.com/) channels soar. In this post we'd like to explain the basics
+and [Slack](https://rabbitmq-slack.herokuapp.com/) channels soar.
+
+In 2024, the answer to most Kubernetes-related question is: [use the Kubernetes Operator](/kubernetes/operator/operator-overview) built by the RabbitMQ Core Team.
+ It incorporates all the best practices and is the strongly recommended option.
+
+This post explains the basics
 of a DIY deployment of RabbitMQ on Kubernetes: what Kubernetes resources will be necessary, how to make sure
 RabbitMQ nodes use durable storage, how to approach configuration of sensitive values, and so on.
 
 <!-- truncate -->
 
+## An Update from 2024
+
+:::tip
+Instead of rolling your own deployment of RabbitMQ to Kubernetes, consider [using the Kubernetes Operator](/kubernetes/operator/operator-overview)
+built by the RabbitMQ Core Team. It incorporates all the best practices and is the strongly recommended option.
+:::
+
+
 ## Introduction
 
-Deploying a stateful data service such as RabbitMQ to Kubernetes is a bit like assembling a jigsaw puzzle.
+Deploying a stateful data service such as RabbitMQ to Kubernetes without [using the Kubernetes Operator](/kubernetes/operator/operator-overview)
+is a bit like assembling a jigsaw puzzle.
+
 There are multiple pieces involved:
 
  * A [Kubernetes namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
