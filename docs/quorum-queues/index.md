@@ -309,19 +309,19 @@ Quorum queue message priorities are always active and do not require a policy to
 As soon as a quorum queue receives a message with a priority set it will enable
 prioritization.
 
-Quorum queues internally only support two priorities: high and low. Messages without
-a priority set will be mapped to low as will priorities 0 - 4. Messages with a
+Quorum queues internally only support two priorities: high and normal. Messages without
+a priority set will be mapped to normal as will priorities 0 - 4. Messages with a
 priority higher than 4 will be mapped to high.
 
-High priority messages will be favoured over low priority messages at a ratio
-of 2:1, i.e. for every 2 high priority message the queue will deliver 1 low priority
+High priority messages will be favoured over normal priority messages at a ratio
+of 2:1, i.e. for every 2 high priority message the queue will deliver 1 normal priority
 message (if available). Hence, quorum queues implement a kind of non-strict, 
-"fair share" priority processing. This ensures progress is always made on low
+"fair share" priority processing. This ensures progress is always made on normal
 priority messages but high priorities are favoured at a ratio of 2:1.
 
 :::important
-If a high priority message was published before a low priority one the high priority
-message will always be delivered first even if it is the low priorities' turn
+If a high priority message was published before a normal priority one, the high priority
+message will always be delivered first even if it is the normal priority's turn.
 :::
 
 #### More Advanced Scenarios
