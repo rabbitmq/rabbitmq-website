@@ -2,6 +2,7 @@
 title: "AMQP 1.0 Benchmarks"
 tags: ["AMQP 1.0", "RabbitMQ 4.0", "Performance"]
 authors: [dansari]
+image: ./throughput-classic-queue.svg
 ---
 
 This blog post demonstrates that [native AMQP 1.0](/blog/2024/08/05/native-amqp) in RabbitMQ 4.0 provides significant performance and scalability improvements compared to AMQP 1.0 in RabbitMQ 3.13.
