@@ -606,16 +606,16 @@ func main() {
 </details>
 </details>
 
-### AMQP 1.0 in 4.0
-
 The examples below directly invoke [`erlang:memory/0`](https://www.erlang.org/doc/apps/erts/erlang.html#memory/0) on the node,
 a function that returns the memory size in bytes for each memory type.
 
-:::tip
-To retrieve the same information from a running node, use [`rabbitmq-diagnostics`](/docs/cli) like so:
+<details>
+<summary>`rabbitmq-diagnostics`</summary>
+
+To retrieve the same information from a running node, use [CLI](/docs/cli) command [rabbitmq-diagnostics](/docs/man/rabbitmq-diagnostics.8) like so:
 
 ``` shell
-rabbitmq-diagnostics -s memory_breakdown
+rabbitmq-diagnostics memory_breakdown
 ```
 
 This command can format the numbers using different information units (e.g. MiB, GiB) and supports JSON
@@ -623,9 +623,11 @@ output with `--formatter=json`:
 
 ``` shell
 # pipes the output to `jq` for more readable formatting
-rabbitmq-diagnostics -s memory_breakdown --formatter=json | jq
+rabbitmq-diagnostics memory_breakdown --formatter=json | jq
 ```
-:::
+</details>
+
+### AMQP 1.0 in 4.0
 
 Here are the runtime-reported memory footprint numbers:
 
