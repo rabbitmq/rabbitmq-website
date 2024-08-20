@@ -18,11 +18,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Classic Queue Mirroring (Deprecated)
 
 :::danger
-This guide covers a feature that had been [**deprecated since 2021**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/)
-and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) for the next major series, RabbitMQ 4.x.
+This guide covers a feature that had been [**deprecated since 2021**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/) and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) for the next major series, RabbitMQ 4.x.
 :::
 
 :::important
@@ -32,7 +34,7 @@ and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pul
 
 ## Wait, There's a Better Way: Modern Replicated Queue Type and Streams {#interstitial}
 
-This guide covers a [**long time deprecated**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/) and [**in 4.x, removed**]((https://github.com/rabbitmq/rabbitmq-server/pull/9815)) legacy feature: mirroring (queue contents replication) of classic queues.
+This guide covers a [**long time deprecated**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/) and [**in 4.x, removed**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) legacy feature: mirroring (queue contents replication) of classic queues.
 [Quorum queues](./quorum-queues) and/or [streams](./streams) should be used instead of mirrored classic queues.
 
 Quorum queues are a more advanced queue type, which offers high availability using  replication and focuses on data safety. Quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues. Please [migrate from Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq) now.
@@ -47,9 +49,14 @@ classic queues will remain a supported non-replicated queue type.
 
 ## Overview {#overview}
 
-Topics covered in this guide include
+Topics covered in this guide include,
+for migrating away from classic mirrored queues:
 
  * [Next generation replicated queues and streams](#interstitial), and why they should be preferred over classic queue mirroring
+ * How to [detect what policies enable classic queue mirroring](#detect-usage)
+
+For historical reference:
+
  * What is [classic queue mirroring](#what-is-mirroring) and how it works
  * How to [enable it](#ways-to-configure)
  * What [mirroring settings are available](#mirroring-arguments)
@@ -62,7 +69,7 @@ Topics covered in this guide include
 
 and more.
 
-This guide assumes general familiarity with [RabbitMQ clustering](./clustering).
+This guide assumes general familiarity with [RabbitMQ clustering](./clustering), [quorum queues](./quorum-queues), and [streams](./streams).
 
 
 ## What is Queue Mirroring {#what-is-mirroring}
@@ -286,19 +293,86 @@ When a new queue mirror is added, the event is logged:
 It is possible to list queue leader and mirrors using `rabbitmqctl list_queues`. In this
 example we also display queue policy since it's highly relevant:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 # mirror_pids is a new field alias introduced in RabbitMQ 3.11.4
 rabbitmqctl list_queues name policy pid mirror_pids
 
 # => Timeout: 60.0 seconds ...
 # => Listing queues for vhost / ...
-# => two.replicas ha-two <hare@warp10.1.2223.0> [<rabbit@warp10.3.1360.0>]
+# => two.replicas ha-two <hare@hostname-2.1.2223.0> [<rabbit@hostname-1.3.1360.0>]
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat list_queues name policy pid mirror_pids
+
+# => Timeout: 60.0 seconds ...
+# => Listing queues for vhost / ...
+# => two.replicas ha-two <hare@hostname-2.1.2223.0> [<rabbit@hostname-1.3.1360.0>]
+```
+</TabItem>
+<TabItem value="cmd" label="cmd">
+```batch
+rem mirror_pids is a new field alias introduced in RabbitMQ 3.11.4
+rabbitmqctl.bat list_queues name policy pid mirror_pids
+
+rem => Timeout: 60.0 seconds ...
+rem => Listing queues for vhost / ...
+rem => two.replicas ha-two <hare@host-2.1.2223.0> [<rabbit@hostname-1.3.1360.0>]
+```
+</TabItem>
+</Tabs>
 
 If a queue that's expected to be mirroring is not, this usually means that its name
 doesn't match that specified in the policy that controls mirroring or that another
 policy takes priority (and does not enable mirroring).
 See [Runtime Parameters and Policies](./parameters#policies) to learn more.
+
+
+## How to Detect Policies that Enable Classic Queue Mirroring {#detect-usage}
+
+In order to prepare for migration away from classic mirrored queues, it may be necessary to first
+understand whether there are any policies in the cluster that enable use this deprecated feature.
+
+There are two `rabbitmq-diagnostics` commands that help with this:
+
+ * `rabbitmq-diagnostics check_if_cluster_has_classic_queue_mirroring_policy`, a [health check](./monitoring#health-checks)
+ * `rabbitmq-diagnostics list_policies_with_classic_queue_mirroring` that lists the problematic policies
+
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+# exits with a non-zero code if any policies in the cluster
+# enable classic queue mirroring
+rabbitmq-diagnostics check_if_cluster_has_classic_queue_mirroring_policy
+
+# lists policies that enable classic queue mirroring
+rabbitmq-diagnostics list_policies_with_classic_queue_mirroring -s --formatter=pretty_table
+```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# exits with a non-zero code if any policies in the cluster
+# enabling classic queue mirroring
+rabbitmq-diagnostics.bat check_if_cluster_has_classic_queue_mirroring_policy
+
+# lists policies that enable classic queue mirroring
+rabbitmq-diagnostics.bat list_policies_with_classic_queue_mirroring -s --formatter=pretty_table
+```
+</TabItem>
+<TabItem value="cmd" label="cmd">
+```batch
+rem exits with a non-zero code if any policies in the cluster
+rem enabling classic queue mirroring
+rabbitmq-diagnostics.bat check_if_cluster_has_classic_queue_mirroring_policy
+
+rem lists policies that enable classic queue mirroring
+rabbitmq-diagnostics.bat list_policies_with_classic_queue_mirroring -s --formatter=pretty_table
+```
+</TabItem>
+</Tabs>
 
 
 ## Mirroring and CQv2 {#cqv2}
@@ -384,28 +458,20 @@ Below is a policy where queues whose names begin with
 "`two.`" are mirrored to any two nodes in the
 cluster, with [automatic synchronisation](#configuring-synchronisation):
 
-<table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy ha-two "^two\." \
   '{"ha-mode":"exactly","ha-params":2,"ha-sync-mode":"automatic"}'
 ```
-          </td>
-        </tr>
-        <tr>
-          <th>rabbitmqctl (Windows)</th>
-          <td>
-```bash
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
 rabbitmqctl.bat set_policy ha-two "^two\." ^
    "{""ha-mode"":""exactly"",""ha-params"":2,""ha-sync-mode"":""automatic""}"
- ```
-          </td>
-        </tr>
-        <tr>
-          <th>HTTP API</th>
-          <td>
+```
+</TabItem>
+<TabItem value="http-api" label="HTTP API">
 ```ini
 PUT /api/policies/%2f/ha-two
 {
@@ -417,38 +483,35 @@ PUT /api/policies/%2f/ha-two
   }
 }
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>Web UI</th>
-    <td>
-      <ul>
-        <li>
-          Navigate to Admin > Policies > Add / update a
-          policy.
-        </li>
-        <li>
-          Enter "ha-two" next to Name and "^two\." next to
-          Pattern.
-        </li>
-        <li>
-          Enter "ha-mode" = "exactly" in the first line
-          next to Policy, then "ha-params" = 2 in the second
-          line, then "ha-sync-mode" = "automatic" in the third,
-          and set the type on the second line to "Number".
-        </li>
-        <li>
-          Click Add policy.
-        </li>
-      </ul>
-    </td>
-  </tr>
-</table>
+</TabItem>
+<TabItem value="ui" label="Management UI">
+  <ul>
+    <li>
+      Navigate to `Admin` > `Policies` > `Add / update a
+      policy`.
+    </li>
+    <li>
+      Enter "ha-two" next to Name and "^two\." next to
+      `Pattern`.
+    </li>
+    <li>
+      Enter "ha-mode" = "exactly" in the first line
+      next to Policy, then "ha-params" = 2 in the second
+      line, then "ha-sync-mode" = "automatic" in the third,
+      and set the type on the second line to "Number".
+    </li>
+    <li>
+      Click `Add policy`.
+    </li>
+  </ul>
+</TabItem>
+</Tabs>
 
-<table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
+The following example uses the `"all"` mode, which is excessive
+and usually unnecessary in clusters of five nodes or larger:
+
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 :::warning
 Mirroring to all nodes is unnecessary and will result
 in unnecessary resource waste.
@@ -460,11 +523,8 @@ See [Replication Factor](#replication-factor) above.
 ```bash
 rabbitmqctl set_policy ha-all "^ha\." '{"ha-mode":"all"}'
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>rabbitmqctl (Windows)</th>
-    <td>
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
 :::warning
 Mirroring to all nodes is unnecessary and will result
 in unnecessary resource waste.
@@ -476,11 +536,20 @@ See [Replication Factor](#replication-factor) above.
 ```PowerShell
 rabbitmqctl.bat set_policy ha-all "^ha\." "{""ha-mode"":""all""}"
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>HTTP API</th>
-    <td>
+</TabItem>
+<TabItem value="http-api" label="HTTP API">
+```ini
+PUT /api/policies/%2f/ha-two
+{
+  "pattern":"^two\.",
+  "definition": {
+    "ha-mode":"all",
+    "ha-sync-mode":"automatic"
+  }
+}
+```
+</TabItem>
+<TabItem value="ui" label="Management UI">
 :::warning
 Mirroring to all nodes is unnecessary and will result
 in unnecessary resource waste.
@@ -489,97 +558,72 @@ Consider mirroring to the majority (N/2+1) nodes with "ha-mode":"exactly" instea
 See [Replication Factor](#replication-factor) above.
 :::
 
-      ```ini
-      PUT /api/policies/%2f/ha-all {"pattern":"^ha\.", "definition":{"ha-mode":"all"}}
-      ```
-    </td>
-  </tr>
-  <tr>
-    <th>Web UI</th>
-    <td>
-:::warning
-Mirroring to all nodes is unnecessary and will result
-in unnecessary resource waste.
-
-Consider mirroring to the majority (N/2+1) nodes with "ha-mode":"exactly" instead.
-See [Replication Factor](#replication-factor) above.
-:::
-
-      <ul>
-        <li>
-          Navigate to <code>Admin</code> > <code>Policies</code> > <code>Add / update a policy</code>.
-        </li>
-        <li>
-          Enter "ha-all" next to Name, "^ha\." next to Pattern,
-          and "ha-mode" = "all" into Definition properties (or press Queues[Classic] -> "HA mode" and enter word "all" into value)
-        </li>
-        <li>
-          Click <code>Add policy</code>.
-        </li>
-      </ul>
-    </td>
-  </tr>
-</table>
+  <ul>
+    <li>
+      Navigate to <code>Admin</code> > <code>Policies</code> > <code>Add / update a policy</code>.
+    </li>
+    <li>
+      Enter "ha-all" next to Name, "^ha\." next to `Pattern`,
+      and "ha-mode" = "all" into Definition properties (or press Queues[Classic] -> "HA mode" and enter word "all" into value)
+    </li>
+    <li>
+      Click <code>Add policy</code>.
+    </li>
+  </ul>
+</TabItem>
+</Tabs>
 
 A policy where queues whose names begin with
 "`nodes.`" are mirrored to specific nodes in the
 cluster:
 
-
-<table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
-      ```bash
-      rabbitmqctl set_policy ha-nodes "^nodes\." \
-'{"ha-mode":"nodes","ha-params":["rabbit@nodeA", "rabbit@nodeB"]}'
-      ```
-    </td>
-  </tr>
-  <tr>
-    <th>rabbitmqctl (Windows)</th>
-    <td>
-      ```PowerShell
-      rabbitmqctl set_policy ha-nodes "^nodes\." ^
-"{""ha-mode"":""nodes"",""ha-params"":[""rabbit@nodeA"", ""rabbit@nodeB""]}"
-      ```
-    </td>
-  </tr>
-  <tr>
-    <th>HTTP API</th>
-    <td>
-      ```ini
-      PUT /api/policies/%2f/ha-nodes
-{"pattern":"^nodes\.", "definition":{"ha-mode":"nodes", "ha-params":["rabbit@nodeA", "rabbit@nodeB"]}
-      ```
-    </td>
-  </tr>
-  <tr>
-    <th>Web UI</th>
-    <td>
-      <ul>
-        <li>
-          Navigate to Admin > Policies > Add / update a
-          policy.
-        </li>
-        <li>
-          Enter "ha-nodes" next to Name and "^nodes\." next to
-          Pattern.
-        </li>
-        <li>
-          Enter "ha-mode" = "nodes" in the first line next to
-          Policy, then "ha-params" in the second line, set the
-          second line's type to "List", and then enter
-          "rabbit@nodeA" and "rabbit@nodeB" in the sublist which
-          appears.
-        </li>
-        <li>
-          Click Add policy.
-        </li>
-      </ul>
-    </td>
-  </tr>
-</table>
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+rabbitmqctl set_policy ha-nodes "^nodes\." \
+  '{"ha-mode":"nodes","ha-params":["rabbit@nodeA", "rabbit@nodeB"]}'
+```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat set_policy ha-nodes "^nodes\." ^
+  "{""ha-mode"":""nodes"",""ha-params"":[""rabbit@nodeA"", ""rabbit@nodeB""]}"
+```
+</TabItem>
+<TabItem value="http-api" label="HTTP API">
+```ini
+PUT /api/policies/%2f/ha-nodes
+  {
+    "pattern":"^nodes\.",
+    "definition":{
+      "ha-mode":"nodes",
+      "ha-params":["rabbit@nodeA", "rabbit@nodeB"]
+    }
+```
+</TabItem>
+<TabItem value="ui" label="Management UI">
+  <ul>
+    <li>
+      Navigate to `Admin` > `Policies` > `Add / update a
+      policy`.
+    </li>
+    <li>
+      Enter "ha-nodes" next to Name and "^nodes\." next to
+      `Pattern`.
+    </li>
+    <li>
+      Enter "ha-mode" = "nodes" in the first line next to
+      Policy, then "ha-params" in the second line, set the
+      second line's type to "List", and then enter
+      "rabbit@nodeA" and "rabbit@nodeB" in the sublist which
+      appears.
+    </li>
+    <li>
+      Click `Add policy`.
+    </li>
+  </ul>
+</TabItem>
+</Tabs>
 
 
 ## Mirrored Queue Implementation and Semantics {#behaviour}
@@ -748,22 +792,63 @@ a common scenario with lazy queues, for example.
 
 To see mirror status (whether they are synchronised), use:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
-# mirror_pids is a new field alias introduced in RabbitMQ 3.11.4
 rabbitmqctl list_queues name mirror_pids synchronised_mirror_pids
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat list_queues name mirror_pids synchronised_mirror_pids
+```
+</TabItem>
+<TabItem value="cmd" label="cmd">
+```batch
+rabbitmqctl.bat list_queues name mirror_pids synchronised_mirror_pids
+```
+</TabItem>
+</Tabs>
 
 It is possible to manually synchronise a queue:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
-rabbitmqctl sync_queue {name}
+rabbitmqctl sync_queue "{name}"
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat sync_queue '{name}'
+```
+</TabItem>
+<TabItem value="cmd" label="cmd">
+```batch
+rabbitmqctl.bat sync_queue "{name}"
+```
+</TabItem>
+</Tabs>
 
 Or cancel an in-progress synchronisation:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
-rabbitmqctl cancel_sync_queue {name}
+rabbitmqctl cancel_sync_queue "{name}"
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat cancel_sync_queue '{name}'
+```
+</TabItem>
+<TabItem value="cmd" label="cmd">
+```batch
+rabbitmqctl.bat cancel_sync_queue "{name}"
+```
+</TabItem>
+</Tabs>
 
 These features are also available through the management plugin.
 
