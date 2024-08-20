@@ -2,6 +2,7 @@
 title: "Native AMQP 1.0"
 tags: ["AMQP 1.0", "RabbitMQ 4.0", "New Features"]
 authors: [dansari]
+image: ./native-amqp.png
 ---
 
 We are pleased to announce that RabbitMQ 4.0 supports [AMQP 1.0](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-overview-v1.0-os.html) as a core protocol, providing the following benefits:
