@@ -247,4 +247,4 @@ We encourage you to try and test AMQP 1.0 in RabbitMQ 4.0 and provide [feedback]
 You can use the latest [`rabbitmq:4.0-rc`](https://hub.docker.com/layers/library/rabbitmq/4.0-rc/images/sha256-87a732a851771a283bb2d650e919fe57aae88d3dffbff7d490e2ff978b9e7747) docker image.
 While we encourage you to build new applications with AMQP 1.0, we will continue to support and maintain AMQP 0.9.1 in RabbitMQ 4.x.
 
-Stay tuned for more technical blog posts on AMQP 1.0 features and performance benchmarks.
+Stay tuned for more technical [blog posts on AMQP 1.0](/blog/tags/amqp-1-0) features and performance benchmarks.
