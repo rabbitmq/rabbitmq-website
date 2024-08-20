@@ -19,6 +19,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues
 
 Which is better: mirrored classic queues or quorum queues? [Quorum queues](./quorum-queues) are the much better choice and they will be [the only option starting with RabbitMQ version 4.0](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/).
@@ -38,6 +41,39 @@ it is recommended to review the [quorum queue documentation](./quorum-queues) fi
 * The level of complexity involved in migrating from mirrored classic queues to quorum queues depends on the features that are currently being used by the mirrored classic queues. Some features require a change in the way queues are being used (refer to [Mirrored Classic Queue Features that require Changes in the Way the Queue is Used](#mcq-changes-way-queue-is-used)), while other features simply require removing the feature from the source code or moving it to policy (refer to [Mirrored Classic Queue Features that can be removed from Source Code or moved to a Policy](#mcq-features-to-remove)).
 
 * It is also important to note that migrated applications should be thoroughly tested against quorum queues because the behaviour can differ under the load and in edge cases.
+
+## How to Detect Policies that Enable Classic Queue Mirroring
+
+In order to prepare for migration away from classic mirrored queues, it may be necessary to first
+understand whether there are any policies in the cluster that enable use this deprecated feature.
+
+There are two `rabbitmq-diagnostics` commands that help with this:
+
+ * `rabbitmq-diagnostics check_if_cluster_has_classic_queue_mirroring_policy`, a [health check](./monitoring#health-checks)
+ * `rabbitmq-diagnostics list_policies_with_classic_queue_mirroring` that lists the problematic policies
+
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+# exits with a non-zero code if any policies in the cluster
+# enable classic queue mirroring
+rabbitmq-diagnostics check_if_cluster_has_classic_queue_mirroring_policy
+
+# lists policies that enable classic queue mirroring
+rabbitmq-diagnostics list_policies_with_classic_queue_mirroring -s --formatter=pretty_table
+```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# exits with a non-zero code if any policies in the cluster
+# enabling classic queue mirroring
+rabbitmq-diagnostics.bat check_if_cluster_has_classic_queue_mirroring_policy
+
+# lists policies that enable classic queue mirroring
+rabbitmq-diagnostics.bat list_policies_with_classic_queue_mirroring -s --formatter=pretty_table
+```
+</TabItem>
+</Tabs>
 
 ## Deciding which Migration Route to take: Compatibility Considerations
 
@@ -59,6 +95,8 @@ To find the mirrored classic queues that must be migrated, run the following scr
 
 Note, the following command uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from any RabbitMQ version later than 3.10.13/3.11.5, or manually match the policy name to it's definition.
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 #!/bin/sh
 printf "%s\t%s\t%s\n" vhost queue_name mirrors
@@ -68,9 +106,13 @@ for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
 	xargs -x -r -L1 -d '\n' printf "%s\t%s\n" "$vhost"
 done
 ```
+</TabItem>
+</Tabs>
 
 All mirrored classic queues that include `ha-mode` in their effective policy definition must be migrated to a different type of queue. All these queues are listed as mirrored classic queues in the Management UI and CLI. Find the policies that apply it by running the following script:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 #!/bin/sh
 printf "%s\t%s\t%s\t%s\t%s\t%s\n" vhost policy_name pattern apply_to definition priority
@@ -79,6 +121,8 @@ for vhost in $(rabbitmqctl -q list_vhosts | tail -n +2) ; do
     grep 'ha-mode'
 done
 ```
+</TabItem>
+</Tabs>
 
 ## Mirrored Classic Queue Features that require Changes in the Way the Queue is Used {#mcq-changes-way-queue-is-used}
 
@@ -105,15 +149,23 @@ Global [QoS prefetch](./quorum-queues#global-qos) where a channel sets a single 
 
 To find out if this feature is used, run the following command on a running system and check for non-empty output:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl list_channels pid name global_prefetch_count | sed -n '/\t0$/!p'
 ```
+</TabItem>
+</Tabs>
 
 A list of channel PIDs that have global QoS turned on are returned. Then, run the following command to map the channel PID to a queue name to verify if it is a mirrored classic queue.
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl list_consumers queue_name channel_pid
 ```
+</TabItem>
+</Tabs>
 
 ### `x-cancel-on-ha-failover` for Consumers
 
@@ -178,12 +230,25 @@ host with quorum queues. The only change you need to make is to update the virtu
 
 ### Create the Destination Virtual Host
 
-[Create the new virtual host](./vhosts#creating) with the correct default queue type (quorum) in the existing cluster. The queue type should be selected from the **queue type** drop down list when the new virtual host is being added via management UI. Alternatively, it can also be created using the CLI interface by specifying the default queue type and adding the permissions. Ensure all required users have access and can connect to the new virtual host by following the steps in the [set permissions](./man/rabbitmqctl.8#set_permissions).
+[Create the new virtual host](./vhosts#creating) with the correct default queue type (quorum) in the existing cluster. The queue type should be selected from the **queue type** drop down list when the new virtual host is being added via management UI.
 
+Alternatively, it can also be created using the CLI interface by specifying the default queue type and adding the permissions.
+Ensure all required users have access and can connect to the new virtual host by following the steps in the [Access Control guide](./access-control#user-management).
+
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl add_vhost NEW_VHOST --default-queue-type quorum
 rabbitmqctl set_permissions -p NEW_VHOST USERNAME '.*' '.*' '.*'
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat add_vhost NEW_VHOST --default-queue-type quorum
+rabbitmqctl.bat set_permissions -p NEW_VHOST USERNAME '.*' '.*' '.*'
+```
+</TabItem>
+</Tabs>
 
 ### Create the Federation Upstream
 
@@ -193,11 +258,22 @@ default vhost URI is `amqp:///%2f`).
 
 The federation upstream can be created using the management UI or the CLI:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_parameter federation-upstream quorum-migration-upstream \
     --vhost NEW_VHOST \
     '{"uri":"amqp:///OLD_VHOST", "trust-user-id":true}'
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat set_parameter federation-upstream quorum-migration-upstream ^
+    --vhost NEW_VHOST ^
+    "{""uri"":""amqp:///OLD_VHOST"", ""trust-user-id"":true}"
+```
+</TabItem>
+</Tabs>
 
 When this form of URI with an empty hostname is used, there is no
 need to specify credentials. Connection is only possible within
@@ -208,13 +284,27 @@ preserved as shown in the previous CLI example.
 
 ### Moving Definitions
 
-Export the [definitions](./definitions) from the source virtual host to a file. This is
-available on the **Overview** page of the management UI (don't forget to
-select a single virtual host). Alternatively, you can export the definitions using the CLI with the following command:
+Export the [definitions](./definitions) from the source virtual host to a file
+using the following CLI command:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
-rabbitmqadmin export -V OLD_VHOST OLD_VHOST.json
+# exports definitions of a specific virtual host
+rabbitmqctl export_definitions --vhost="{original_vhost}" /path/to/original_vhost.json
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# exports definitions of a specific virtual host
+rabbitmqctl.bat export_definitions --vhost='{original_vhost}' \path\to\original_vhost.json
+```
+</TabItem>
+</Tabs>
+
+Alternatively, definitions can be exported in the management UI on the **Overview** page. Don't forget to
+select the specific virtual host in the top right corner!
+
 
 Make the following changes to this file before loading it back into the NEW_VHOST:
 
@@ -242,11 +332,20 @@ Make the following changes to this file before loading it back into the NEW_VHOS
 Now the modified schema can be loaded into the new virtual host from the Management
 UI or by running the following command from the CLI:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
-# Import definitions for a single virtual host using rabbitmqadmin.
-# See https://www.rabbitmq.com/docs/definitions to learn more.
-rabbitmqadmin import -V NEW_VHOST NEW_VHOST.json
+# imports definitions of a specific virtual host
+rabbitmqctl import_definitions /path/to/updated_definitions.json
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# imports definitions of a specific virtual host
+rabbitmqctl.bat import_definitions \path\to\updated_vhost.json
+```
+</TabItem>
+</Tabs>
 
 ### Point Consumers to use Quorum Queues in the New Virtual Host
 
@@ -267,17 +366,38 @@ virtual host, and start consumers on the new virtual host.
 
 For every non-empty queue in the old virtual host, a shovel needs to be configured. For example:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_parameter shovel migrate-QUEUE_TO_MIGRATE \
   '{"src-protocol": "amqp091", "src-uri": "amqp:///OLD_VHOST", "src-queue": "QUEUE_TO_MIGRATE",
     "dest-protocol": "amqp091", "dest-uri": "amqp:///NEW_VHOST", "dest-queue": "QUEUE_TO_MIGRATE"}'
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat set_parameter shovel migrate-QUEUE_TO_MIGRATE ^
+  "{""src-protocol"": ""amqp091"", ""src-uri"": ""amqp:///OLD_VHOST"", ""src-queue"": ""QUEUE_TO_MIGRATE"",
+    ""dest-protocol"": ""amqp091"", ""dest-uri"": ""amqp:///NEW_VHOST"", ""dest-queue"": ""QUEUE_TO_MIGRATE""}"
+```
+</TabItem>
+</Tabs>
 
 After the queue is drained, the shovel can be deleted:
 
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
-rabbitmqctl clear_parameter shovel migrate-QUEUE_TO_MIGRATE
+rabbitmqctl delete_shovel migrate-QUEUE_TO_MIGRATE
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat delete_shovel shovel migrate-QUEUE_TO_MIGRATE
+```
+</TabItem>
+</Tabs>
+
 
 ## Migrate Mirrored Classic Queues to Quorum Queues in Place {#migrate-in-place}
 
