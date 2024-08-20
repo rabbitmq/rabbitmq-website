@@ -32,7 +32,7 @@ and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pul
 
 ## Wait, There's a Better Way: Modern Replicated Queue Type and Streams {#interstitial}
 
-This guide covers a [**deprecated and scheduled for removal feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/): mirroring (queue contents replication) of classic queues.
+This guide covers a [**long time deprecated**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/) and [**in 4.x, removed**]((https://github.com/rabbitmq/rabbitmq-server/pull/9815)) legacy feature: mirroring (queue contents replication) of classic queues.
 [Quorum queues](./quorum-queues) and/or [streams](./streams) should be used instead of mirrored classic queues.
 
 Quorum queues are a more advanced queue type, which offers high availability using  replication and focuses on data safety. Quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues. Please [migrate from Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq) now.
@@ -44,11 +44,6 @@ Quorum queues should be the **default choice** for a replicated queue type.
 Classic queue mirroring will be **removed in a future version** of RabbitMQ:
 classic queues will remain a supported non-replicated queue type.
 
-[Classic queues version 2](./persistence-conf#queue-version) can be used with mirroring.
-However, combining v1 and v2 members is not recommended. It may happen if some nodes default to version 1 while other
-nodes default to version 2 (a new mirror will use the local node's default version if not explicitly set). Version 2
-is significantly faster in many situations and can overload a v1 mirror. The easiest solution is to switch to version 2
-using policies before changing the default version in the configuration.
 
 ## Overview {#overview}
 
@@ -58,6 +53,7 @@ Topics covered in this guide include
  * What is [classic queue mirroring](#what-is-mirroring) and how it works
  * How to [enable it](#ways-to-configure)
  * What [mirroring settings are available](#mirroring-arguments)
+ * Why [mixed CQv1 and CQv2 clusters are not recommended with mirroring](#cqv2)
  * What [replication factor](#replication-factor) is recommended
  * [Data locality](#leader-migration-data-locality)
  * [Leader election](#behaviour) (mirror promotion) and [unsynchronised mirrors](#unsynchronised-mirrors)
@@ -303,6 +299,19 @@ If a queue that's expected to be mirroring is not, this usually means that its n
 doesn't match that specified in the policy that controls mirroring or that another
 policy takes priority (and does not enable mirroring).
 See [Runtime Parameters and Policies](./parameters#policies) to learn more.
+
+
+## Mirroring and CQv2 {#cqv2}
+
+:::warning
+[Classic queues version 2](./persistence-conf#queue-version) can be used with mirroring.
+However, combining v1 and v2 members is not recommended
+:::
+
+It may happen if some nodes default to version 1 while other
+nodes default to version 2 (a new mirror will use the local node's default version if not explicitly set). Version 2
+is significantly faster in many situations and can overload a v1 mirror. The easiest solution is to switch to version 2
+using policies before changing the default version in the configuration.
 
 
 ## Queue Leader Replicas, Leader Migration, Data Locality {#leader-migration-data-locality}
