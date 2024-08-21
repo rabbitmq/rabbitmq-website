@@ -24,6 +24,10 @@ dansari:
   name: "David Ansari"
   url: https://github.com/ansd
   image_url: https://github.com/ansd.png
+  socials:
+    github: ansd
+    linkedin: ansd
+    mastodon: https://m.ansd.xyz/@ansd
 
 david:
   name: "David Wragg"
@@ -68,6 +72,10 @@ kura:
   name: "Michał Kuratczyk"
   url: https://github.com/mkuratczyk
   image_url: https://github.com/mkuratczyk.png
+  socials:
+    github: mkuratczyk
+    linkedin: mkuratczyk
+    mastodon: https://fosstodon.org/@kura
 
 marek:
   name: "Marek Majkowski"
@@ -87,6 +95,9 @@ mklishin:
   name: "Michael Klishin"
   url: https://github.com/michaelklishin
   image_url: https://github.com/michaelklishin.png
+  socials:
+    github: michaelklishin
+    linkedin: michaelklishin
 
 mrosales:
   name: "Marcial Rosales"
