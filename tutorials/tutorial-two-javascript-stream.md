@@ -273,15 +273,15 @@ const consumer = await client.declareConsumer(
       console.log("Marker found");
       lastOffset = message.offset;
       await consumer.storeOffset(message.offset); // store the offset on consumer closing
-      console.log(`Done consuming, first offset was ${firstOffset}, last offset was ${lastOffset}`);
       await consumer.close(true);
-      process.exit(0);
     }
   }
 );
 
 console.log(`Start consuming...`);
 await sleep(2000);
+console.log(`Done consuming, first offset was ${firstOffset}, last offset was ${lastOffset}`);
+process.exit(0);
 ```
 
 The most relevant changes are:
