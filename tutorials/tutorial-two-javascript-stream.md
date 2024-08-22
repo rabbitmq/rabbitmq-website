@@ -36,7 +36,7 @@ import TutorialsIntro from '@site/src/components/Tutorials/TutorialsStreamIntro.
 This part of the tutorial consists in writing two programs in Javascript; a producer that sends a wave of messages with a marker message at the end, and a consumer that receives messages and stops when it gets the marker message.
 It shows how a consumer can navigate through a stream and can even restart where it left off in a previous execution.
 
-This tutorial uses [the stream Javascript client](/tutorials/tutorial-one-javascript-stream#using-the-node.js-stream-client).
+This tutorial uses [the stream Javascript client](/tutorials/tutorial-one-javascript-stream#using-the-nodejs-stream-client).
 Make sure to follow [the setup steps](/tutorials/tutorial-one-javascript-stream#setup) from the first tutorial.
 
 An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs-stream/).
@@ -85,7 +85,7 @@ for (let i = 0; i < messageCount; i++) {
 }
 ```
 
-For any problem you have in sending the messages i suggest you to checkout some solutions [`here`](/tutorials/tutorial-one-javascript-stream#sending-doesn't-work!)
+For any problem you have in sending the messages i suggest you to checkout some solutions [`here`](/tutorials/tutorial-one-javascript-stream#sending-does-not-work)
 
 Let's now create the receiving program.
 

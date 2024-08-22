@@ -32,7 +32,7 @@ import T1DiagramReceiving from '@site/src/components/Tutorials/T1DiagramReceivin
 <TutorialsIntro/>
 
 ## "Hello World"
-### (using the Node.js Stream Client)
+### (using the NodeJs Stream Client)
 
 In this part of the tutorial we'll write two programs in JavaScript; a
 producer that sends a single message, and a consumer that receives
@@ -174,7 +174,7 @@ Each time the producer is run, it will send a single message to the server and t
 
 The complete [send.js file](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs-stream/send.js) can be found on GitHub.
 
-> #### Sending doesn't work!
+> #### Sending does not work
 >
 > If this is your first time using RabbitMQ and you don't see the "Sent"
 > message then you may be left scratching your head wondering what could
