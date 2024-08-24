@@ -232,6 +232,9 @@ rabbitmqctl.bat add_user "username" "w63pnZ&LnYMO(t"
 </TabItem>
 </Tabs>
 
+A newly added user must be [granted permissions](#grant-permissions) for one or more virtual hosts,
+otherwise its connections will be refused.
+
 ### Listing Users
 
 To list users in a cluster, use `rabbitmqctl list_users`:
@@ -281,7 +284,7 @@ rabbitmqctl.bat delete_user 'username'
 </TabItem>
 </Tabs>
 
-### Granting Permissions to a User
+### Granting Permissions to a User {#grant-permissions}
 
 To grant [permissions](#authorisation) to a user in a [virtual host](./vhosts), use `rabbitmqctl set_permissions`:
 
@@ -898,8 +901,18 @@ preference order for network connections.
 
 ## Troubleshooting Authentication {#troubleshooting-authn}
 
-[Server logs](./logging) will contain entries about failed authentication
-attempts:
+This section covers several very common problems related to authentication.
+For authorization (permission) errors, see [another section below](#troubleshooting-authz).
+
+:::tip
+Inspecting [server logs](./logging) is crucially important when investigating authentication-related
+issues.
+:::
+
+### Incorrect Permissions
+
+A failed authentication attempt, that is, when incorrect credentials were specified by the client,
+will result in [a server log message](./logging) that looks like this:
 
 ```ini
 2019-03-25 12:28:19.047 [info] <0.1613.0> accepting AMQP connection <0.1613.0> (127.0.0.1:63839 -> 127.0.0.1:5672)
@@ -928,31 +941,73 @@ rabbitmqctl.bat authenticate_user 'a-username' '"a/p&assword"'
 </TabItem>
 </Tabs>
 
-If authentication succeeds, it will exit with
-the code of zero. In case of a failure, a non-zero exit code will be used and a failure error message will be printed.
+If authentication succeeds, it will exit with the code of zero. In case of a failure,
+a non-zero exit code will be used and a failure error message will be printed.
 
 <code>rabbitmqctl authenticate_user</code> will use a CLI-to-node communication connection to attempt to authenticate
 the username/password pair against an internal API endpoint.
 The connection is assumed to be trusted. If that's not the case, its traffic can be [encrypted using TLS](./clustering-ssl).
 
-:::tip
-If credentials are reported as correct, connections from localhost succeed but remote connections
-fail, the issue is [default user connectivity limitations](#loopback-users). A separate user
-with generated credentials must be [created](#user-management) for clients (including [shovels](./shovel) and [federation links](./federation)) connecting
-from remote hosts.
+### Default User's Connection From Remote Hosts are Refused
+
+:::danger
+[Default user cannot connect from remote hosts](#loopback-users) for a reason. Enabling such
+connections can dramatically decrease the security of the cluster. Consider creating
+a [unique user with generated credentials](#user-management) for all production clusters.
 :::
+
+If credentials are reported as correct, connections from localhost succeed but remote connections
+fail, the issue is [default user connectivity limitations](#loopback-users).
+
+In this case, the error will look like this:
+
+```
+2024-08-24 17:28:32.153698-04:00 [error] <0.1567.0> PLAIN login refused: user 'guest' can only connect via localhost
+```
+
+A separate user with generated credentials must be [created](#user-management) for clients (including [shovels](./shovel)
+and [federation links](./federation)) connecting from remote hosts.
+
+### Authentication Failure Notifications in AMQP 0-9-1
 
 Per AMQP 0-9-1 spec, authentication failures should result
 in the server closing TCP connection immediately. However,
 with RabbitMQ clients can opt in to receive a more specific
-notification using the [authentication failure
-notification](./auth-notification) extension to AMQP 0-9-1. Modern client libraries
+notification using the [authentication failure notification](./auth-notification) extension to AMQP 0-9-1. Modern client libraries
 support that extension transparently to the user: no configuration would be necessary and
 authentication failures will result in a visible returned error, exception or other way of communicating
 a problem used in a particular programming language or environment.
 
 
 ## Troubleshooting Authorisation {#troubleshooting-authz}
+
+:::tip
+Inspecting [server logs](./logging) is crucially important when investigating authorization-related
+issues.
+:::
+
+### Missing Permissions
+
+The most common scenario with authorization failures is when a user was
+created but not [granted permissions](#grant-permissions) for the virtual host the client
+tries to connect to.
+
+In this case, the connection will be refused with a message that looks like this:
+
+
+```ini
+2019-03-25 12:26:16.301 [info] <0.1594.0> accepting AMQP connection <0.1594.0> (127.0.0.1:63793 -> 127.0.0.1:5672)
+2019-03-25 12:26:16.309 [error] <0.1594.0> Error on AMQP connection <0.1594.0> (127.0.0.1:63793 -> 127.0.0.1:5672, user: 'user2', state: opening):
+access to vhost '/' refused for user 'user2'
+2019-03-25 12:26:16.310 [info] <0.1594.0> closing AMQP connection <0.1594.0> (127.0.0.1:63793 -> 127.0.0.1:5672, vhost: 'none', user: 'user2')
+```
+
+### Insufficient Permissions
+
+Another very common scenario is that the permissions are defined but they are
+[insufficient for the operations that the client tries to perform](#authorisation).
+
+In this case the connection will be accepted
 
 [rabbitmqctl list_permissions](./cli) can be used to inspect a user's
 permission in a given virtual host:
@@ -982,17 +1037,7 @@ rabbitmqctl.bat list_permissions --vhost gw1
 </TabItem>
 </Tabs>
 
-[Server logs](./logging) will contain entries about operation authorisation
-failures. For example, if a user does not have any permissions configured for a virtual host:
-
-```ini
-2019-03-25 12:26:16.301 [info] <0.1594.0> accepting AMQP connection <0.1594.0> (127.0.0.1:63793 -> 127.0.0.1:5672)
-2019-03-25 12:26:16.309 [error] <0.1594.0> Error on AMQP connection <0.1594.0> (127.0.0.1:63793 -> 127.0.0.1:5672, user: 'user2', state: opening):
-access to vhost '/' refused for user 'user2'
-2019-03-25 12:26:16.310 [info] <0.1594.0> closing AMQP connection <0.1594.0> (127.0.0.1:63793 -> 127.0.0.1:5672, vhost: 'none', user: 'user2')
-```
-
-authorisation failures (permission violations) are also logged:
+Authorisation failures (permission violations) are logged with the following messages:
 
 ```ini
 2019-03-25 12:30:05.209 [error] <0.1627.0> Channel error on connection <0.1618.0> (127.0.0.1:63881 -> 127.0.0.1:5672, vhost: 'gw1', user: 'user2'), channel 1:
