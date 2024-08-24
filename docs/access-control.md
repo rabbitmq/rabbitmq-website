@@ -49,7 +49,7 @@ This guide covers a variety of authentication, authorisation and user management
  * How to rotate credentials and [revoke access](#revoke) for a user
  * [Shell escaping](#passwords-and-shell-escaping) of characters in generated passwords
  * How to [pre-create users](#seeding) and their permissions
- * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz))
+ * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz)
 
 [Password-based](./passwords) authentication has a companion guide.
 Two closely related topics of [OAuth 2 support](./oauth2) and  [TLS support](./ssl), including x.509-certificate based authentication,
@@ -934,6 +934,13 @@ the code of zero. In case of a failure, a non-zero exit code will be used and a 
 <code>rabbitmqctl authenticate_user</code> will use a CLI-to-node communication connection to attempt to authenticate
 the username/password pair against an internal API endpoint.
 The connection is assumed to be trusted. If that's not the case, its traffic can be [encrypted using TLS](./clustering-ssl).
+
+:::tip
+If credentials are reported as correct, connections from localhost succeed but remote connections
+fail, the issue is [default user connectivity limitations](#loopback-users). A separate user
+with generated credentials must be [created](#user-management) for clients (including [shovels](./shovel) and [federation links](./federation)) connecting
+from remote hosts.
+:::
 
 Per AMQP 0-9-1 spec, authentication failures should result
 in the server closing TCP connection immediately. However,
