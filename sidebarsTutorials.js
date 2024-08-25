@@ -511,6 +511,11 @@ const sidebars = {
                     type: 'doc',
                     id: 'tutorial-one-javascript-stream',
                     label: 'Hello World',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-two-javascript-stream',
+                    label: 'Offset Tracking',
                 }
             ]
         },

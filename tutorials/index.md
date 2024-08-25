@@ -246,6 +246,7 @@ This section covers [RabbitMQ streams](/docs/streams).
     * [Go](tutorials/tutorial-two-go-stream)
     * [Python](tutorials/tutorial-two-python-stream)
     * [Rust](tutorials/tutorial-two-rust-stream)
+    * [Node.js](tutorials/tutorial-two-javascript-stream)
   </td>
 
 
