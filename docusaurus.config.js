@@ -50,6 +50,7 @@ const config = {
         },
         '3.13': {
           releases: [
+            {version: '3.13.7', release_date: "2024-08-26", },
             {version: '3.13.6', release_date: "2024-07-23", },
             {version: '3.13.5', release_date: "2024-07-19", },
             {version: '3.13.4', release_date: "2024-07-03", },

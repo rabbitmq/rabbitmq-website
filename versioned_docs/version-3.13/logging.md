@@ -649,15 +649,15 @@ Service logs will include standard output and standard error streams of the node
 The output of <code>journalctl --system</code> will look similar to this:
 
 ```
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.13.6. Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
-Dec 26 11:03:04 localhost rabbitmq-server[968]: /var/log/rabbitmq/rabbit@localhost_upgrade.log
-Dec 26 11:03:04 localhost rabbitmq-server[968]: Starting broker...
-Dec 26 11:03:05 localhost rabbitmq-server[968]: systemd unit for activation check: "rabbitmq-server.service"
-Dec 26 11:03:06 localhost rabbitmq-server[968]: completed with 6 plugins.
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.13.7. Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
+Aug 26 11:03:04 localhost rabbitmq-server[968]: /var/log/rabbitmq/rabbit@localhost_upgrade.log
+Aug 26 11:03:04 localhost rabbitmq-server[968]: Starting broker...
+Aug 26 11:03:05 localhost rabbitmq-server[968]: systemd unit for activation check: "rabbitmq-server.service"
+Aug 26 11:03:06 localhost rabbitmq-server[968]: completed with 6 plugins.
 ```
 
 

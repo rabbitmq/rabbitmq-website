@@ -1033,16 +1033,16 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            ├─2860 inet_gethost 4
            └─2861 inet_gethost 4
 
-Jun 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Jun 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.13.6. Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
-Jun 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
-Jun 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
-Jun 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
-Jun 26 10:21:30 localhost.localdomain rabbitmq-server[957]: /var/log/rabbitmq/rabbit@localhost_upgrade.log
-Jun 26 10:21:30 localhost.localdomain rabbitmq-server[957]: Starting broker...
-Jun 26 10:21:32 localhost.localdomain rabbitmq-server[957]: systemd unit for activation check: "rabbitmq-server.service"
-Jun 26 10:21:32 localhost.localdomain systemd[1]: Started RabbitMQ broker.
-Jun 26 10:21:32 localhost.localdomain rabbitmq-server[957]: completed with 6 plugins.
+Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
+Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.13.7. Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
+Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
+Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
+Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: /var/log/rabbitmq/rabbit@localhost_upgrade.log
+Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: Starting broker...
+Aug 26 10:21:32 localhost.localdomain rabbitmq-server[957]: systemd unit for activation check: "rabbitmq-server.service"
+Aug 26 10:21:32 localhost.localdomain systemd[1]: Started RabbitMQ broker.
+Aug 26 10:21:32 localhost.localdomain rabbitmq-server[957]: completed with 6 plugins.
 ```
 
 `rabbitmqctl`, `rabbitmq-diagnostics`,
@@ -1091,15 +1091,15 @@ sudo journalctl --system | grep rabbitmq
 The output will look similar to this:
 
 ```ini
-Jun 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Jun 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.13.6. Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
-Jun 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
-Jun 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
-Jun 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
-Jun 26 11:03:04 localhost rabbitmq-server[968]: /var/log/rabbitmq/rabbit@localhost_upgrade.log
-Jun 26 11:03:04 localhost rabbitmq-server[968]: Starting broker...
-Jun 26 11:03:05 localhost rabbitmq-server[968]: systemd unit for activation check: "rabbitmq-server.service"
-Jun 26 11:03:06 localhost rabbitmq-server[968]: completed with 6 plugins.
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.13.7. Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
+Aug 26 11:03:04 localhost rabbitmq-server[968]: /var/log/rabbitmq/rabbit@localhost_upgrade.log
+Aug 26 11:03:04 localhost rabbitmq-server[968]: Starting broker...
+Aug 26 11:03:05 localhost rabbitmq-server[968]: systemd unit for activation check: "rabbitmq-server.service"
+Aug 26 11:03:06 localhost rabbitmq-server[968]: completed with 6 plugins.
 ```
 
 ### Log Rotation
