@@ -478,24 +478,6 @@ semantics, they are limited only to a few arguments:
     <td> </td>
   </tr>
   <tr>
-    <th>ha-mode</th>
-    <td> <span>&#10003;</span> </td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr>
-    <th>ha-params</th>
-    <td> <span>&#10003;</span> </td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr>
-    <th>ha-sync-mode</th>
-    <td> <span>&#10003;</span> </td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr>
     <th>max-in-memory-bytes</th>
     <td> </td>
     <td> <span>&#10003;</span> </td>
