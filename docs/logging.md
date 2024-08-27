@@ -450,7 +450,6 @@ The categories are:
  * `connection`: [connection lifecycle events](#connection-lifecycle-events) for AMQP 0-9-1, AMQP 1.0, MQTT and STOMP.
  * `channel`: channel logs. Mostly errors and warnings on AMQP 0-9-1 channels.
  * `queue`: queue logs. Mostly debug messages.
- * `mirroring`: queue mirroring logs. Queue mirrors status changes: starting/stopping/synchronizing.
  * `federation`: federation plugin logs.
  * `upgrade`: verbose upgrade logs. These can be excessive.
  * `default`: all other log entries. You cannot override file location for this category.
