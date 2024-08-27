@@ -531,7 +531,7 @@ or
 
 ```erlang
 %% A consumer process is not provided so the calling
-process (`self()`) will be the consumer
+%% process (`self()`) will be the consumer
 #'basic.consume_ok'{consumer_tag = Tag} =
   amqp_channel:call(Channel, #'basic.consume'{queue = Q})
 ```
