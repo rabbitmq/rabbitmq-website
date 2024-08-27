@@ -797,20 +797,6 @@ vm_memory_calculation_strategy = allocated
     </td>
   </tr>
   <tr>
-    <td>`vm_memory_high_watermark_paging_ratio`</td>
-    <td>
-      Fraction of the high watermark limit at which queues
-      start to page messages out to disc to free up
-      memory. See the [memory-based flow control](./memory) documentation.
-      <p>
-        Default:
-```ini
-vm_memory_high_watermark_paging_ratio = 0.5
-```
-      </p>
-    </td>
-  </tr>
-  <tr>
     <td>`total_memory_available_override_value`</td>
     <td>
       Makes it possible to override the total amount of memory
