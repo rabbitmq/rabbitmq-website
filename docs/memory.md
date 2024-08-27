@@ -35,12 +35,6 @@ It is accompanied by a few closely related guides:
  * [Monitoring](./monitoring)
  * [Resource Alarms](./alarms)
 
-Portions of this guide related to queue content paging to disk
-do not apply to classic queues v2 (CQv2), [quorum queues](./quorum-queues), [streams](./streams)
-and super streams (partitioned streams). All of them
-actively move data to disk and do not generally accumulate a significant
-backlog of messages in memory.
-
 ## Memory Threshold: What it is and How it Works {#threshold}
 
 RabbitMQ nodes can be provided with a memory footprint limit hint. If the node's memory footprint
@@ -55,8 +49,8 @@ executed.
 By default, including if the limit hint is not configured, a RabbitMQ node will use about 40%
 of the available RAM, it raises a memory [alarm](./alarms) and will block all
 connections that are publishing messages. Once the [memory alarm](./alarms) has cleared (e.g. due
-to the server paging messages to disk or delivering them to
-clients that consume and [acknowledge the deliveries](./confirms)) normal service resumes.
+to delivering some messages to clients that consume and [acknowledge the deliveries](./confirms)) normal
+service resumes.
 
 :::warning
 The limit does not prevent RabbitMQ nodes
@@ -193,6 +187,11 @@ RAM is queried.
 
 ## Running RabbitMQ in Containers and on Kubernetes {#containers}
 
+:::tip
+[RabbiMQ Cluster Operator for Kubernetes](https://www.rabbitmq.com/kubernetes/operator/operator-overview) automatically
+configures the memory limit. Using the Operator is the recommended way to run RabbitMQ on Kubernetes.
+:::
+
 When a RabbitMQ node is running in a container, its ability to [detect the amount of available memory](./memory)
 will depend on external factors: the version of the [runtime used](./runtime),
 the OS version and settings used by the image, the version of cgroups used, and ultimately the version of Kubernetes.
@@ -253,38 +252,3 @@ above 3GB, set `vm_memory_high_watermark` to 3.
 
 For guidelines on recommended RAM watermark settings,
 see [Deployment Guidelines](./production-checklist#resource-limits-ram).
-
-
-## CQv1: Configuring the Paging Threshold {#paging}
-
-:::warning
-This section **is obsolete**: it **does not apply** to [quorum queues](./quorum-queues), [streams](./streams)
-and classic queues storage version 2 (CQv2); it is therefore only
-relevant for CQv1, the original classic queue storage implementation
-:::
-
-All of them actively move data to disk and do not generally accumulate a significant
-backlog of messages in memory.
-
-Before the broker hits the high watermark and blocks
-publishers, it will attempt to free up memory by instructing
-CQv1 queues to page their contents out to disc. Both persistent
-and transient messages will be paged out (the persistent
-messages will already be on disc but will be evicted from
-memory).
-
-By default this starts to happen when the broker is 50% of
-the way to the high watermark (i.e. with a default high
-watermark of 0.4, this is when 20% of memory is used). To
-change this value, modify
-the `vm_memory_high_watermark_paging_ratio`
-configuration from its default value
-of `0.5`. For example:
-
-```ini
-vm_memory_high_watermark_paging_ratio = 0.75
-vm_memory_high_watermark.relative = 0.4
-```
-
-The above configuration starts paging at 30% of memory used, and
-blocks publishers at 40%.
