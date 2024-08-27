@@ -470,6 +470,12 @@ the declaration process.
       </td>
     </tr>
     <tr>
+      <td>src-consumer-args</td>
+      <td>
+        Consumer arguments, such as `x-single-active-consumer` or `x-stream-offset`.
+      </td>
+    </tr>
+    <tr>
       <td>dest-exchange</td>
       <td>
         <p>
