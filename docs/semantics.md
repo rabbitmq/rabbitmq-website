@@ -157,15 +157,12 @@ displayed_sidebar: docsSidebar
 
     <div class="docSection">
         <a name="exclusive-durable" class="anchor" id="exclusive-durable"></a>
-        <h2 class="docHeading"><a class="anchor" href="#exclusive-durable">Exclusive queues, durability and mirroring</a></h2>
+        <h2 class="docHeading"><a class="anchor" href="#exclusive-durable">Exclusive queues and durability</a></h2>
         <p>
             An exclusive queue is one which is deleted whenever the connection that declares it is closed. Although AMQP 0-9-1 allows you to declare a durable exclusive queue, the durability is meaningless since the queue will vanish anyway
             as soon as the broker stops. Therefore RabbitMQ will ignore the durable flag in a declaration of an exclusive queue and create an exclusive transient queue.
         </p>
 
-        <p>
-            Similarly, there is no benefit to mirroring an exclusive queue, since such a queue will be deleted when the node it was declared on shuts down. Therefore RabbitMQ will never mirror exclusive queues.
-        </p>
     </div>
     <div id="help-and-feedback">
         <h2>Getting Help and Providing Feedback</h2>
