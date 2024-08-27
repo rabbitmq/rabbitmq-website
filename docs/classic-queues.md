@@ -31,11 +31,6 @@ If data safety is a priority, the recommendation is to use [quorum queues](./quo
 Classic queues are the default queue type
 as long as the default queue type is not overridden for the virtual host.
 
-There are [two versions](#versions) (implementations) of classic queue message storage
-and indexing.
-The version only impacts how the data is stored on and read from disk: all features are
-available in both versions.
-
 ## Classic Queue Features {#features}
 
 Classic queues fully support [queue exclusivity](./queues),
@@ -66,13 +61,6 @@ Classic queues is a non-replicated queue type starting with RabbitMQ 4.0.
 [Quorum queues](./quorum-queues) and [streams](./streams) provide a better alternative when high availability and
 data safety is required.
 
-Until **RabbitMQ 3.12**, classic queues could operate in **lazy mode**.
-As of RabbitMQ 3.12 the queue mode is ignored and classic queues
-behave in a similar manner to lazy queues. They only keep a small
-number of messages in memory based on the consumption rate;
-all other messages are written to disk directly.
-
-
 ## Persistence (Durable Storage) in Classic Queues {#persistence}
 
 Classic queues use an on-disk index for storing message locations on disk
@@ -83,8 +71,8 @@ are always persisted to disk except when:
 
  * the queue is declared as transient or messages are transient
  * messages are smaller than the embedding threshold (defaults to 4096 bytes)
- * for **RabbitMQ 3.12** and later versions: the queue is short (queues may
-   keep up to 2048 messages in memory at most, depending on the consumer delivery rate)
+ * the queue is short (queues may keep up to 2048 messages in memory at most,
+   depending on the consumer delivery rate)
 
 In general messages are not kept in memory unless the rate of
 consumption of messages is high enough that the messages that
@@ -129,32 +117,25 @@ the index.
 
 #### Classic Queue Implementation Version 1
 
-Version 1 is the default and the original implementation of classic
-queues. The index in version 1 uses a combination of a journal and
-segment files. When reading messages from segment files it loads
-an entire segment file in memory, which can lead to memory issues
-but does reduce the amount of I/O performed. Version 1 embeds
-small messages in the index, further worsening memory issues.
+RabbitMQ 4.0 removed support for classic queues version 1.
 
 ### Classic Queue Implementation Version 2
 
-Version 2 takes advantage of the improved performance of modern
-storage devices and is the recommended version. The index in
-version 2 only uses segment files and only loads messages from
+The index in version 2 only uses segment files and only loads messages from
 disk when necessary. It will load more messages based on the
 current consumption rate. Version 2 does not embed messages
 in its index, instead a per-queue message store is used.
 
 Version 2 was added in **RabbitMQ 3.10.0** and was significantly
-improved in **RabbitMQ 3.12.0**. It is currently possible to
-switch back and forth between version 1 and version 2. In the future,
-version 1 will be removed and the migration to version 2 will be performed
-automatically on node startup after the upgrade.
+improved in **RabbitMQ 3.12.0**. Version 1 queues are no longer
+supported starting with **RabbitMQ 4.0**.
 
-The version can be changed using the `queue-version` policy key.
-When setting a new version via policy the queue will immediately
-convert its data on disk. It is possible to upgrade to version 2
-or downgrade to version 1. Note that for large queues the conversion
+## Version 1 to Version 2 Migration {#migration}
+
+When a RabbitMQ 4.0 node starts, it will automatically migrate any existing
+v1 queues to v2 (it will rewrite their on-disk representation).
+
+Note that for large queues the conversion
 may take some time and results in the queue being unavailable while
 the conversion is running. As a point of reference, on our test machine,
 the migration takes:
@@ -168,10 +149,8 @@ the migration takes:
 Given the numbers above, unless there is a lot of queues with a lot of messages,
 the migration should complete in a matter of seconds.
 
-The default version can be set through configuration by setting
-`classic_queue.default_version` in rabbitmq.conf. Changing the default version
-only affects newly declared queues. Pre-existing queues will remain on version 1,
-until explicitly migrated or deleted and redeclared.
+It is possible to perform this migration before upgrading to RabbitMQ 4.0.
+Please refer to the RabbitMQ 3.13 documentation for details.
 
 ## Resource Use with Classic Queues {#resource-use}
 
@@ -188,7 +167,6 @@ Some related information includes:
  * [File and Directory Locations](./relocate)
  * [Runtime Tuning](./runtime)
  * [Queues](./queues#runtime-characteristics) and their runtime characteristics
- * [Lazy Queues](./lazy-queues) for **RabbitMQ before 3.12**
 
 
 ### File Handle Usage with Classic Queues {#file-handles}
@@ -197,29 +175,9 @@ The RabbitMQ server is limited in the [number of file handles](./networking#open
 it can open. Every running network connection requires one file handle,
 and the rest are available for queues to use.
 
-Classic queues behave differently with regard to file handle
-usage depending on the version used.
-
-Version 1 tries to avoid running out of file descriptors.
-If there are more disk-accessing queues than
-file handles after network connections have been taken into
-account, then the disk-accessing queues will share the file
-handles among themselves; each gets to use a file handle for a
-while before it is taken back and given to another queue.
-
-This prevents the server from crashing due to there being too
-many disk-accessing queues, but it can become expensive. The
-management plugin can show I/O statistics for each node in the
-cluster; as well as showing rates of reads, writes, seeks and so
-on it will also show a rate of file handle churn — the rate at
-which file handles are recycled in this way. A busy server with
-too few file handles might be doing hundreds of reopens per
-second - in which case its performance is likely to increase
-notably if given more file handles.
-
-Version 2 does not try to accomodate for low numbers of file
-descriptors anymore. It expects servers to have a large file
-descriptor limit configured and to always be able to open a
+Classic queues version 2 do not try to accomodate for low numbers
+of file descriptors anymore like v1 used to do. They expect servers to
+have a large file descriptor limit configured and to always be able to open a
 new file handle when necessary. The index keeps up to 4 file
 handles open at any time, and the per-queue store keeps 1
 file handle open but may open another one when flushing data
@@ -239,14 +197,7 @@ on the consume rate. Classic queues will, however, avoid reading
 larger messages from disk too early. In **RabbitMQ 3.12** this
 means messages larger than the embedded threshold (by default, 4096 bytes).
 
-The index in version 1 has to read entire segment files in order
-to access the messages inside. This can lead to memory usage spikes,
-especially when many messages are embedded. This also leads to
-spikes in CPU usage due to increased garbage collection. In addition,
-the index will buffer writes and keep data up to 1MB in memory
-before flushing to disk.
-
-The index and per-queue store in version 2 will buffer entries.
+The index and per-queue store in version 2 buffer entries.
 This is typically not a concern as far as the index is concerned
 since it only tracks metadata. The per-queue store will however
 use up to 1MB of memory by default (512KB in the write buffer

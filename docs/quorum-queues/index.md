@@ -156,7 +156,7 @@ With some queue operations there are minor differences:
 | [Message TTL (Time-To-Live)](./ttl) | yes | yes |
 | [Queue TTL](./ttl#queue-ttl) | yes | partially (lease is not renewed on queue re-declaration) |
 | [Queue length limits](./maxlength) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
-| [Lazy behaviour](./lazy-queues) | yes | always |
+| Keeps messages in memory | see [Classic Queues](./classic-queues#memory) | never (see [Resource Use](#resource-use))|
 | [Message priority](./priority) | yes | [yes](./quorum-queues#priorities) |
 | [Single Active Consumer](./consumers#single-active-consumer) | yes | yes |
 | [Consumer exclusivity](./consumers#exclusivity) | yes | no (use [Single Active Consumer](./consumers#single-active-consumer)) |
@@ -403,17 +403,6 @@ a channel error will be returned.
 
 Use [per-consumer QoS prefetch](./consumer-prefetch),
 which is the default in several popular clients.
-
-### Lazy Mode
-
-Quorum queues store their message content on disk (per Raft requirements) and
-only keep a small metadata record of each message in memory. This is a change from
-early versions of quorum queues where there was an option to keep the message bodies
-in memory as well. This never proved to be beneficial especially when the queue length
-was large.
-
-The [`lazy` mode configuration](./lazy-queues#configuration) does not apply.
-
 
 ## Usage {#usage}
 
