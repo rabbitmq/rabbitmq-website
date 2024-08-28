@@ -440,12 +440,7 @@ log.syslog.formatter = json
 ## Log Message Categories {#log-message-categories}
 
 RabbitMQ has several categories of messages, which can be logged with different
-levels or to different files.
-
-The categories replace the `rabbit.log_levels` configuration setting in versions
-earlier than 3.7.0.
-
-The categories are:
+levels or to different files. The categories are:
 
  * `connection`: [connection lifecycle events](#connection-lifecycle-events) for AMQP 0-9-1, AMQP 1.0, MQTT and STOMP.
  * `channel`: channel logs. Mostly errors and warnings on AMQP 0-9-1 channels.
