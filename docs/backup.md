@@ -43,7 +43,7 @@ Every RabbitMQ node has a data directory that stores all the information that re
 on that node.
 
 A data directory contains two types of data: definitions (metadata, schema/topology) and
-message store data.
+messages.
 
 ### Definitions (Topology) {#rabbitmq-definitions}
 
@@ -59,13 +59,13 @@ means that in practice definitions can be exported from any cluster node with th
 
 ### Messages {#rabbitmq-messages}
 
-Messages are stored in a message store. For the purpose of this guide we will define "message store"
-as an internal store for messages, a single entity that's transparent to the user.
-
 Each node has its own data directory and stores messages for the queues and streams that have
-their leader replica hosted on that node. Messages can be replicated between nodes if
-a [replicated queue type](./quorum-queues) or [stream](./streams) with multiple replicas is used.
-Messages are stored in subdirectories of the node's data directory.
+a member hosted on that node. Messages are stored in subdirectories of the node's data directory.
+
+Each queue type has its own subdirectory:
+* `msg_stores` contains classic queues messages.
+* `quorum` contains quorum queues messages.
+* `stream` contains stream messages.
 
 ### Data Lifecycle {#data-lifespan}
 
@@ -134,19 +134,8 @@ as a result miss a small percentage of recent publishes to them.
 
 ### Manually Backing Up Messages {#manual-messages-backup}
 
-Presently this is the only way of backing up messages.
-
-Message data is stored in the [node's data directory](./relocate) mentioned above.
-
-In RabbitMQ versions starting with 3.7.0 all messages data is combined in the
-`msg_stores/vhosts` directory and stored in a subdirectory per vhost.
-Each vhost directory is named with a hash and contains a `.vhost` file with
-the vhost name, so a specific vhost's message set can be backed up separately.
-
-In RabbitMQ versions prior to 3.7.0 messages are stored in several directories
-under the node data directory: `queues`, `msg_store_persistent` and `msg_store_transient`.
-Also there is a `recovery.dets` file which contains recovery metadata if the node
-was stopped gracefully.
+Presently this is the only way of backing up messages. You can copy the
+[folders mentioned above](#rabbitmq-messages).
 
 ### Restoring from a Manual Messages Backup {#manual-messages-restore}
 
