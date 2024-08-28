@@ -922,10 +922,3 @@ prometheus.ssl.fail_if_no_peer_cert = true
 ## To enforce TLS (disable the non-TLS port):
 # prometheus.tcp.listener = none
 ```
-
-
-## Using Prometheus with RabbitMQ 3.7 {#3rd-party-plugin}
-
-RabbitMQ versions prior to 3.8 used a separate plugin,
-[prometheus_rabbitmq_exporter](https://github.com/deadtrickster/prometheus_rabbitmq_exporter),
-to expose metrics to Prometheus.

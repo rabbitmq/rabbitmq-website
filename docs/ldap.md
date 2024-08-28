@@ -684,9 +684,7 @@ have.
 
 Note the longer `rabbitmq_auth_backend_ldap` prefix.
 Queries are expressed using a domain-specific language expressed in Erlang terms (data structures),
-so they can be defined only using the
-[classic config format](./configure#erlang-term-config-file). Starting with RabbitMQ 3.7
-query definitions are commonly placed into the [advanced.config file](./configure#advanced-config-file).
+so they can be defined only using the [advanced config format](./configure#advanced-config-file).
 
 ### Queries and Their Types {#query-types}
 
