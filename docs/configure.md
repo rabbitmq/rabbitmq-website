@@ -760,7 +760,7 @@ ssl_handshake_timeout = 5000
       to the OS:
 
 ```ini
-vm_memory_high_watermark.relative = 0.6
+vm_memory_high_watermark.relative = 0.7
 ```
 ```ini
 vm_memory_high_watermark.absolute = 2GB
@@ -773,7 +773,7 @@ vm_memory_high_watermark.absolute = 2GB
         Default:
 
 ```ini
-vm_memory_high_watermark.relative = 0.4
+vm_memory_high_watermark.relative = 0.6
 ```
       </p>
     </td>

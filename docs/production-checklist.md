@@ -178,8 +178,8 @@ RabbitMQ uses [Resource-driven alarms](./alarms)
 to throttle publishers when consumers do not keep up.
 
 By default, RabbitMQ will not accept any new messages when it detects
-that it's using more than 40% of the available memory (as reported by the OS):
-`vm_memory_high_watermark.relative = 0.4`. This is a safe default
+that it's using more than 60% of the available memory (as reported by the OS):
+`vm_memory_high_watermark.relative = 0.6`. This is a safe default
 and care should be taken when modifying this value, even when the
 host is a dedicated RabbitMQ node.
 
@@ -192,7 +192,8 @@ A few recommendations when adjusting the default
 `vm_memory_high_watermark`:
 
  * Nodes hosting RabbitMQ should have at least <strong>256 MiB</strong> of
-   memory available at all times. Deployments that use [quorum queues](./quorum-queues), [Shovel](./shovel) and [Federation](./federation) may need more.
+   memory available at all times. Deployments that use [quorum queues](./quorum-queues) require more,
+   see [how quorum queue use resources](./quorum-queues#resource-us) for more informatio.
  * The recommended `vm_memory_high_watermark.relative` range is `0.4 to 0.7`
  * Values above `0.7` should be used with care and with solid [memory usage](./memory-use) and infrastructure-level [monitoring](./monitoring) in place.
    The OS and file system must be left with at least 30% of the memory, otherwise performance may degrade severely due to paging.
@@ -219,48 +220,14 @@ default ensures that RabbitMQ works out of the box for
 everyone. As for production deployments, we recommend the
 following:
 
-<ul class="plain">
-  <li>
-    <p>
-      The minimum recommended free disk space low watermark value is about the same
-      as the high memory watermark. For example, on a node configured to have its memory watermark of 4GB,
-      <code>disk_free_limit.absolute = 4G</code> would be a recommended minimum.
-    </p>
+The minimum recommended free disk space low watermark value is about the same
+as the high memory watermark. For example, on a node configured to have its memory watermark of 4GB,
+<code>disk_free_limit.absolute = 4G</code> would be a recommended minimum.
 
-    <p>
-      In the example above, if available disk space drops
-      below 4GB, all publishers will be blocked and no new messages
-      will be accepted. Queues will need to be drained by
-      consumers before publishing will be allowed to resume.
-    </p>
-  </li>
-  <li>
-    <p>
-      Continuing with the example above, <code>disk_free_limit.absolute = 6G</code>
-      is a safer value.
-    </p>
-
-    <p>
-      If RabbitMQ needs to
-      flush to disk up to its high memory watermark worth of data, as can sometimes be the case during
-      shutdown, there will be sufficient disk space available for RabbitMQ
-      to start again in all but the most pessimistic scenarios.
-      6GB
-    </p>
-  </li>
-  <li>
-    <p>
-      Continuing with the example above, <code>disk_free_limit.absolute = 8G</code>
-      is the safest value to use.
-    </p>
-
-    <p>
-      It should be enough disk space for the most pessimistic scenario where a node first has to move
-      up its high memory watermark worth of data (so, about 4 GiB) to disk, and then perform an on disk
-      data operation that could temporarily nearly double the amount of disk space used.
-    </p>
-  </li>
-</ul>
+:::warning
+Running out of disk space is a very serious problem, commonly leading to outages
+and data loss. When in doubt, overprovision the disk space and/or use a high `disk_free_limit`.
+:::
 
 ### Open File Handles Limit {#resource-limits-file-handle-limit}
 
