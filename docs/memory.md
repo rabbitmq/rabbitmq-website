@@ -46,7 +46,7 @@ to detect the total amount of RAM available to it on startup and when
 <code>rabbitmqctl set_vm_memory_high_watermark <em>value</em></code> is
 executed.
 
-By default, including if the limit hint is not configured, a RabbitMQ node will use about 40%
+By default, including if the limit hint is not configured, a RabbitMQ node will use about 60%
 of the available RAM, it raises a memory [alarm](./alarms) and will block all
 connections that are publishing messages. Once the [memory alarm](./alarms) has cleared (e.g. due
 to delivering some messages to clients that consume and [acknowledge the deliveries](./confirms)) normal
@@ -57,13 +57,6 @@ The limit does not prevent RabbitMQ nodes
 from using more than the computed limit, it is merely the point at which
 publishers are throttled
 :::
-
-Note that this does not prevent the RabbitMQ server
-from using more than the computed limit, it is merely the point at which
-publishers are throttled. Erlang's garbage collector can, in
-the worst case, cause double the amount of memory to be used
-(by default, 80% of RAM). It is strongly recommended that OS
-swap or page files are enabled.
 
 ## Configuring the Memory Limit (or Threshold) {#configuring-threshold}
 
@@ -140,13 +133,13 @@ such as Kubernetes. Prefer the [absolute threshold](#absolute-limit) instead.
 The memory threshold at which the flow control is triggered
 can be adjusted by editing the [configuration file](./configure#configuration-files).
 
-The example below sets the threshold to the default value of 0.4:
+The example below sets the threshold to the default value of 0.6:
 ```ini
 # new style config format, recommended
-vm_memory_high_watermark.relative = 0.4
+vm_memory_high_watermark.relative = 0.6
 ```
 
-The default value of 0.4 stands for 40% of available (detected) RAM.
+The default value of 0.6 stands for 60% of available (detected) RAM.
 
 ### Updating Memory Threshold on a Running Node
 
@@ -166,7 +159,7 @@ rabbitmqctl set_vm_memory_high_watermark absolute <em><memory_limit></em>
 For example:
 
 ```bash
-rabbitmqctl set_vm_memory_high_watermark 0.6
+rabbitmqctl set_vm_memory_high_watermark 0.7
 ```
 
 and
@@ -239,16 +232,9 @@ it will append a warning to the [log file](./logging). It then assumes than
 2018-11-22 10:44:33.654 [warning] Unknown total memory size for your OS {unix,magic_homegrown_os}. Assuming memory size is 1024MB.
 ```
 
-In this case, the `vm_memory_high_watermark`
-configuration value is used to scale the assumed 1GB
-RAM. With the default value of
-`vm_memory_high_watermark` set to 0.4,
-RabbitMQ's memory threshold is set to 410MB, thus it will
-throttle producers whenever RabbitMQ is using more than
-410MB memory. Thus when RabbitMQ can't recognize your
-platform, if you actually have 8GB RAM installed and you
-want RabbitMQ to throttle producers when the server is using
-above 3GB, set `vm_memory_high_watermark` to 3.
+In this case, set `total_memory_available_override_value` to the amount of memory
+actually available on your system. The `vm_memory_high_watermark.relative`
+will then be calculated relative to the value set in `total_memory_available_override_value`.
 
 For guidelines on recommended RAM watermark settings,
 see [Deployment Guidelines](./production-checklist#resource-limits-ram).

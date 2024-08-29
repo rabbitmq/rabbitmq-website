@@ -769,24 +769,6 @@ The upgrade process can require additional resources.
 Make sure there are enough resources available to proceed, in particular free
 memory and free disk space.
 
-It's recommended to have at least half of the system memory free
-before the upgrade. Default memory watermark is 0.4 so it should be
-ok, but you should still double-check. Starting with RabbitMQ `3.6.11`
-the way nodes [calculate their total RAM consumption](./memory-use) has changed.
-
-When upgrading from an earlier version,
-it is required that the node has enough free disk space to fit at
-least a full copy of the node data directory. Nodes create backups
-before proceeding to upgrade their database. If disk space is
-depleted, the node will abort upgrading and may fail to start
-until the data directory is restored from the backup.
-
-For example, if you have 10 GiB of free system memory and the Erlang
-process (i.e. `beam.smp`) memory footprint is around 6 GiB, then it
-can be unsafe to proceed. Likewise w.r.t. disk if you have 10 GiB of
-free space and the data directory (e.g. `/var/lib/rabbitmq`) takes
-10 GiB.
-
 When upgrading a cluster using the rolling upgrade strategy,
 be aware that queues and connections can migrate to other nodes
 during the upgrade.
@@ -794,6 +776,8 @@ during the upgrade.
 If clients support connections recovery and can connect to different nodes, they will reconnect
 to the nodes that are still running. If clients are configured to create exclusive queues,
 these queues might be recreated on different nodes after client reconnection.
+This will lead to additional memory usage on the running nodes, while
+one of the nodes is being upgraded.
 
 To handle such migrations, make sure you have enough
 spare resources on the remaining nodes so they can handle the extra load.
