@@ -638,7 +638,7 @@ are expected to come back and only a minority (often just one) node is stopped f
       <p>
         <ul>
           <li>Data type: boolean</li>
-          <li>Default: `true`</li>
+          <li>Default: `false`</li>
         </ul>
       </p>
     </td>
