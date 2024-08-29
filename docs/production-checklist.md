@@ -225,8 +225,10 @@ as the high memory watermark. For example, on a node configured to have its memo
 <code>disk_free_limit.absolute = 4G</code> would be a recommended minimum.
 
 :::warning
-Running out of disk space is a very serious problem, commonly leading to outages
-and data loss. When in doubt, overprovision the disk space and/or use a high `disk_free_limit`.
+Nodes running out of disk space should be considered a very serious operational problem,
+commonly leading to outages and possibly data loss for the affected node.
+
+When in doubt, overprovision the disk space and/or use a high `disk_free_limit`.
 :::
 
 ### Open File Handles Limit {#resource-limits-file-handle-limit}
@@ -235,7 +237,7 @@ Operating systems limit maximum number of concurrently open file handles, which
 includes network sockets. Make sure that you have limits set high enough to allow
 for expected number of concurrent connections and queues.
 
-Make sure your environment allows for at least 50K open file descriptors for effective RabbitMQ
+Make sure production environments allow for at least 50K open file descriptors for effective RabbitMQ
 user, including in development environments.
 
 As a guideline, multiply the 95th percentile number of concurrent connections
