@@ -595,7 +595,7 @@ The following configuration parameters control the behavior of continuous member
       <p>
         <ul>
           <li>Data type: boolean</li>
-          <li>Default: `true`</li>
+          <li>Default: `false`</li>
         </ul>
       </p>
     </td>
