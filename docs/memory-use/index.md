@@ -639,7 +639,7 @@ If message payloads are large, they will not be reflected in the queue process m
 
 ### Why does the queue memory grow and shrink when publishing/consuming? {#queue-memory-usage-dynamics}
 
-Erlang uses [generational garbage collection](https://www.erlang-solutions.com/blog/erlang-19-0-garbage-collector.html) for each Erlang process.
+Erlang uses [generational garbage collection](https://www.erlang-solutions.com/blog/erlang-garbage-collector/) for each Erlang process.
 Garbage collection is done per queue, independently of all other Erlang processes.
 
 When garbage collection runs, it will copy used process memory before deallocating unused memory.
@@ -654,12 +654,12 @@ This can lead to the queue process using up to twice as much memory during garba
 If Erlang VM tries to allocate more memory than is available, the VM itself will either crash or be killed by the OOM killer.
 When the Erlang VM crashes, RabbitMQ will lose all non-persistent data.
 
-High memory watermark blocks publishers and prevents new messages from being enqueued.
-Since garbage collection can double the memory used by a queue, it is unsafe to set the high memory watermark above `0.5`.
-The default high memory watermark is set to `0.4` since this is safer as not all memory is used by queues.
-This is entirely workload specific, which differs across RabbitMQ deployments.
+Garbage collection can briefly double the memory used by a queue. However, given that:
+* the garbage collection process is performed on different queues at different times
+* and given that in modern RabbitMQ versions, all types of queues (classic, quorum, streams)
+  either don't store messages in memory at all or store only a limited amount of messages in memory
 
-We recommend many queues so that memory allocation / garbage collection is spread across many Erlang processes.
+a significant spike in overall RabbitMQ node memory usage caused by the garbage collection process is very unlikely.
 
 ## Total Memory Use Calculation Strategies {#strategies}
 
