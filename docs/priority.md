@@ -118,8 +118,7 @@ higher prioritised messages may in practice need to wait for lower priority mess
 ## Interaction with Other Features {#interaction-with-other-features}
 
 In general, priority queues have all the features of standard
-RabbitMQ queues: they support persistence, paging, mirroring,
-and so on. There are a couple of interactions that developers should be
+RabbitMQ queues. There are a couple of interactions that developers should be
 aware of.
 
 [Messages which should expire](./ttl) still

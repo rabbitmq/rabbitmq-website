@@ -663,7 +663,6 @@ curl --silent -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@host
 # =>         "connection_channels": 3924000,
 # =>         "connection_other": 79830276,
 # =>         "queue_procs": 17642024,
-# =>         "queue_slave_procs": 0,
 # =>         "plugins": 63119396,
 # =>         "other_proc": 18043684,
 # =>         "metrics": 7272108,
@@ -716,7 +715,6 @@ rabbitmq-diagnostics -q memory_breakdown --unit "MB"
 # => atom: 1.0826 mb (0.48%)
 # => msg_index: 0.0317 mb (0.01%)
 # => plugins: 0.0119 mb (0.01%)
-# => queue_slave_procs: 0.0 mb (0.0%)
 # => mgmt_db: 0.0 mb (0.0%)
 # => reserved_unallocated: 0.0 mb (0.0%)
 ```

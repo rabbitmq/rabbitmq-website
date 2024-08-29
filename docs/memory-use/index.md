@@ -176,22 +176,8 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>
       Classic queue leaders, indices and messages kept in memory. The greater the number of messages enqueued,
       the more memory will generally be attributed to this section. However, this greatly depends on
-      queue properties and whether messages were published as transient.
-      See <a href="./memory">Memory</a>, <a href="./queues">Queues</a>, and <a href="./lazy-queues">Lazy Queues</a> guides
-      for more information.
-    </td>
-  </tr>
-
-  <tr>
-    <td>queue_slave_procs</td>
-    <td>Queues</td>
-    <td>
-      Classic queue mirrors, indices and messages kept in memory. Reducing the number of mirrors (replicas) or not mirroring queues with
-      inherently transient data can reduce the amount of RAM used by mirrors. The greater the number of messages enqueued,
-      the more memory will generally be attributed to this section. However, this greatly depends on
-      queue properties and whether messages were published as transient.
-      See <a href="./memory">Memory</a>, <a href="./queues">Queues</a>, <a href="./ha">Mirroring</a>, and <a href="./lazy-queues">Lazy Queues</a> guides
-      for more information.
+      queue type and properties.
+      See <a href="./memory">Memory</a>, <a href="./classic-queues">Classic Queues</a> for more information.
     </td>
   </tr>
 
@@ -331,7 +317,6 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory |
         "other_system": 21496756,
         "plugins": 3103424,
         "queue_procs": 2957624,
-        "queue_slave_procs": 0,
         "total": 89870336
     }
 }
@@ -365,7 +350,6 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/r
         "other_system": 19,
         "plugins": 3,
         "queue_procs": 4,
-        "queue_slave_procs": 0,
         "reserved_unallocated": 0,
         "total": 100
     }
@@ -676,10 +660,6 @@ The default high memory watermark is set to `0.4` since this is safer as not all
 This is entirely workload specific, which differs across RabbitMQ deployments.
 
 We recommend many queues so that memory allocation / garbage collection is spread across many Erlang processes.
-
-If the messages in a queue take up a lot of memory, we recommend lazy queues so that they are stored on disk
-as soon as possible and not kept in memory longer than is necessary.
-
 
 ## Total Memory Use Calculation Strategies {#strategies}
 

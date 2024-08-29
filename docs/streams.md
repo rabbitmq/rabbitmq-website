@@ -382,7 +382,7 @@ read semantics.
 | Membership changes | automatic | manual  |
 | [TTL](./ttl) | yes | no (but see [Retention](#retention)) |
 | [Queue length limits](./maxlength) | yes | no (but see [Retention](#retention))|
-| [Lazy behaviour](./lazy-queues) | yes | inherent |
+| Keeps messages in memory | see [Classic Queues](./classic-queues#memory) | never |
 | [Message priority](./priority) | yes | no |
 | [Consumer priority](./consumer-priority) | yes | no |
 | [Dead letter exchanges](./dlx) | yes | no |
@@ -401,12 +401,6 @@ they cannot be [non-durable](./queues#properties) like regular queues.
 Streams are always durable per their assumed [use cases](#use-cases), they cannot be
 [exclusive](./queues#exclusive-queues) like regular queues.
 They are not meant to be used as [temporary queues](./queues#temporary-queues).
-
-
-#### Lazy Mode
-
-Streams store all data directly on disk, after a message has been written
-it does not use any memory until it is read. Streams are inherently [lazy](./lazy-queues), so to speak.
 
 
 #### Global QoS {#global-qos}
