@@ -59,8 +59,8 @@ When the Cluster Operator is deployed, update the manifest by completing the fol
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-            - <b>name: OPERATOR_SCOPE_NAMESPACE</b>
-              <b>value: "custom-namespace,my-namespace"</b>
+            - name: OPERATOR_SCOPE_NAMESPACE
+              value: "custom-namespace,my-namespace"
     # ...
     ```
 3. Save the manifest. The Cluster Operator Pod is updated to use this configuration.
