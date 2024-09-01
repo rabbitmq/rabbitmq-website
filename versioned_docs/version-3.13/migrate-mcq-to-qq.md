@@ -184,7 +184,7 @@ code, or move them to a policy.
 
 Quorum queues do not support lazy mode (`x-queue-mode=lazy`).
 
-To migrate mirrored lazy classic queues, remove the `x-queue-mode=lazy` declaration argument or remove it from the policy if it is set via a policy. For more information about the lazy mode, go to [Lazy Queues](./lazy-queues#overview).
+To migrate mirrored lazy classic queues, remove the `x-queue-mode=lazy` declaration argument or remove it from the policy if it is set via a policy. For more information about the lazy mode, see [Lazy Queues](./lazy-queues).
 
 ### Transient Queues
 

@@ -294,7 +294,7 @@ was large.
 The memory limit configuration is still permitted but has no
 effect. The only option now is effectively the same as configuring: `x-max-in-memory-length=0`
 
-The [`lazy` mode configuration](./lazy-queues#configuration) does not apply.
+The [`lazy` mode configuration](./lazy-queues) does not apply to quorum queues.
 
 #### Global QoS {#global-qos}
 

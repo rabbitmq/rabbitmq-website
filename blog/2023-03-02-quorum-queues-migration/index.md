@@ -219,7 +219,7 @@ code completely, or move them to a policy instead.
 ### Lazy queues
 
 Classic queue can optionally operate in [lazy
-mode](/docs/lazy-queues#overview), but for quorum
+mode](/docs/lazy-queues), but for quorum
 queues this is the only way of operation. The best way to handle this
 for migration is to move `x-queue-mode` from source code to a policy.
 
