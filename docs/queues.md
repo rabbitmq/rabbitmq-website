@@ -265,6 +265,14 @@ delete the queues they declare before disconnection, this is not always convenie
 On top of that, client connections can fail, potentially leaving unused
 resources (queues) behind.
 
+:::tip
+Consider using [server-generated names](#names) for temporary queues. Since such queues
+are not meant to be shared between N consumers, using unique names makes sense.
+
+Shared temporary queues can lead to a [natural race condition](#shared-temporary-queues) between RabbitMQ node actions
+and recovering clients.
+:::
+
 There are three ways to make queue deleted automatically:
 
  * Exclusive queues (covered below)
@@ -283,7 +291,14 @@ deleted. For such cases, use exclusive queues or queue TTL.
 ## Exclusive Queues {#exclusive-queues}
 
 An exclusive queue can only be used (consumed from, purged, deleted, etc)
-by its declaring connection. An attempt to use an exclusive queue from
+by its declaring connection.
+
+:::tip
+Consider using [server-generated names](#names) for exclusive queues. Since such queues
+cannot be shared between N consumers, using server-generated names makes most sense.
+:::
+
+An attempt to use an exclusive queue from
 a different connection will result in a channel-level exception
 <code>RESOURCE_LOCKED</code> with an error message that says
 <code>cannot obtain exclusive access to locked queue</code>.
@@ -472,3 +487,35 @@ It is possible to determine queue length in a number of ways:
  * Using the [rabbitmqctl](./man/rabbitmqctl.8) <code>list_queues</code> command.
 
 Queue length is defined as the number of messages ready for delivery.
+
+
+## Avoid Temporary Queues with Well-Known Names {#shared-temporary-queues}
+
+A [temporary queue](#temporary-queues) that is not exclusive can be client named and shared
+between multiple consumers. This, however, is not recommended and can lead to a race condition
+between RabbitMQ node operations and client recovery.
+
+Consider the following scenario:
+
+ * A consumer uses an auto-delete queue with a well-known names
+ * Client's connection fails
+ * Client detects it and initiates connection recovery
+
+As the failed connection which had the only consumer on an auto-delete queue,
+the queue must be deleted by RabbitMQ. This operation will take some time,
+during which the consumer may recover.
+
+Then depending on the timing of operations, the queue can be
+
+1. Declared by the recovering client and then deleted
+2. Deleted and then re-declared
+
+In the first case, the client will try to re-register its consumer on a queue that's
+been concurrently deleted, which will lead to a channel exception.
+
+There are two solutions to this fundamental race condition:
+
+1. Introduce a connection recovery delay. For example, several RabbitMQ client libraries
+   use a connection recovery delay of 5 seconds by default
+2. Use server-named queues, which side steps the problem entirely since the new client connection
+   will use a different queue name from its predecessor
