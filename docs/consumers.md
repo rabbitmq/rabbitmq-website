@@ -121,6 +121,11 @@ recovery. Usually the following recovery sequence works well:
 In other words, consumers are usually recovered last, after their target queues and those queues'
 bindings are in place.
 
+:::important
+Note that automatically recovering connections that use auto-delete and exclusive queues
+should [make sure that these queues are server-named](./queues#shared-temporary-queues).
+:::
+
 ## Registering a Consumer (Subscribing, "Push API") {#subscribing}
 
 Applications can subscribe to have RabbitMQ push enqueued messages (deliveries) to them.
