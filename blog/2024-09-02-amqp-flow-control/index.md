@@ -56,16 +56,46 @@ The type [uint](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1
 
 Even after the link is successfully set up ("[attached](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-idp315568)" in AMQP 1.0 terms), RabbitMQ is not allowed to start sending messages to the consumer until the consumer sends its first `flow` frame, granting link credit to the sending queue.
 
-In its simplest form, when a client (receiver) grants a single credit to the queue (sender), the queue will send a single message, as illustrated in [Figure 2.43](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-idp416352) of the AMQP 1.0 specification:
+In its simplest form, when a client (receiver) grants a single credit to the queue (sender), the queue will send a single message, as illustrated in [Figure 2.43: Synchronous Get](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-idp416352) of the AMQP 1.0 specification:
 
-![AMQP 1.0 Figure 2.43: Synchronous Get](figure-2-43.png)
+```
+Receiver                                      Sender
+=================================================================
+                                      ...
+flow(link-credit=1)               ---------->
+                                        +---- transfer(...)
+*block until transfer arrives*         /
+                                  <---+
+                                      ...
+-----------------------------------------------------------------
+```
 
-Synchronously getting a single message at a time will result in low throughput. Therefore, a client typically grants multiple credits to a queue, as shown in [Figure 2.45](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-idp424576) of the AMQP 1.0 specification:
+Synchronously getting a single message at a time will result in low throughput. Therefore, a client typically grants multiple credits to a queue, as shown in [Figure 2.45: Asynchronous Notification](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-idp424576) of the AMQP 1.0 specification:
 
-![AMQP 1.0 Figure 2.45: Asynchronous Notification](figure-2-45.png)
+```
+Receiver                                          Sender
+=====================================================================
+                                      ...
+                                  <----------     transfer(...)
+                                  <----------     transfer(...)
+flow(link-credit=delta)           ---+   +---     transfer(...)
+                                      \ /
+                                       x
+                                      / \
+                                  <--+   +-->
+                                  <----------     transfer(...)
+                                  <----------     transfer(...)
+flow(link-credit=delta)           ---+   +---     transfer(...)
+                                      \ /
+                                       x
+                                      / \
+                                  <--+   +-->
+                                      ...
+---------------------------------------------------------------------
+```
 
 If the receiver grants N credits and waits for **all** N messages to arrive before granting the next N credits, throughput will be higher compared to figure 2.43 where `N=1`.
-However, if you look closely at Figure 2.45, you will observe that the receiver grants more credits before receiving all previous messages.
+However, if you look closely at figure 2.45, you will observe that the receiver grants more credits before receiving all previous messages.
 This approach results in the highest throughput.
 For example, in figure 2.45, the receiver might have granted 6 credits initially, and then sends another `flow` frame with `link-credit = 6` to RabbitMQ whenever it has received 3 messages.
 
@@ -106,7 +136,7 @@ You might wonder: What are good values for link-credit and how often should the 
 As is often the case, the answer is that you will need to benchmark your specific workload with different values to find out.
 
 Instead of implementing fancy algorithms, I would recommend starting simple:
-For example, the client could initially grant 200 link credits and send a flow with `link-credit = 200` whenever the remaining link credit falls below 100.
+for example, the client could initially grant 200 link credits and send a flow with `link-credit = 200` whenever the remaining link credit falls below 100.
 
 In fact, this is what RabbitMQ does the other way around:
 The RabbitMQ AMQP 1.0 [session process](https://github.com/rabbitmq/rabbitmq-server/blob/v4.0.0-beta.6/deps/rabbit/src/rabbit_amqp_session.erl) grants initially [170 link credits](https://github.com/rabbitmq/rabbitmq-server/blob/v4.0.0-beta.6/deps/rabbit/src/rabbit_amqp_session.erl#L52) to the publisher, and grants again 170 link credits when the remaining link credit falls below half (i.e. 85) **and** the number of unconfirmed messages is less than 170.
@@ -349,14 +379,14 @@ What happens in the following scenario?
 ```
 Receiver                                  Sender
 =======================================================================
-                             ...
+                              ...
 link state:                               link state:
  link-credit = 3                           link-credit = 3
 
 flow(link-credit = 6)     ---+   +---     transfer(...)
-                             \ /
-                              x
-                             / \
+                              \ /
+                               x
+                              / \
                           <--+   +-->
 
 link state:                               link state:
@@ -429,7 +459,7 @@ These are 32-bit [RFC-1982](https://www.ietf.org/rfc/rfc1982.txt) serial numbers
 The delivery-count is initialized by the sender, which sends its chosen value in the `initial-delivery-count` field of the [attach](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-attach) frame.
 
 The sender can initialize the delivery-count to any value it chooses, such as 0, 10, or 4,294,967,295.
-This value has no intrinsic meaning beyond the purpose we discussed earlier: Comparing the delivery-count of the receiver with that of the sender to determine how many messages are in-flight.
+This value has no intrinsic meaning beyond the purpose we discussed earlier: comparing the delivery-count of the receiver with that of the sender to determine how many messages are in-flight.
 
 :::
 
@@ -485,9 +515,28 @@ If there are not enough messages to send, the sender must still exhaust all link
 By setting the `drain` field to `true`, the consumer requests RabbitMQ to "Either send a [transfer](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-transfer) or a [flow](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-flow) frame."
 If the source queue is empty, RabbitMQ will promptly reply with only a `flow` frame.
 
-Therefore, the `drain` field allows a consumer to set a timeout when synchronously getting messages, as shown in [Figure 2.44](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-idp416352) of the AMQP 1.0 specification:
+Therefore, the `drain` field allows a consumer to set a timeout when synchronously getting messages, as shown in [Figure 2.44: Synchronous Get with a Timeout](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-idp416352) of the AMQP 1.0 specification:
 
-![AMQP 1.0 Figure 2.44: Synchronous Get with a Timeout](figure-2-44.png)
+```
+    Receiver                                      Sender
+    =================================================================
+                                          ...
+    flow(link-credit=1)               ---------->
+  *wait for link-credit <= 0*
+    flow(drain=True)                  ---+   +--- transfer(...)
+                                          \ /
+                                           x
+                                          / \
+(1)                                   <--+   +-->
+(2)                                   <---------- flow(...)
+                                          ...
+    -----------------------------------------------------------------
+      (1) If a message is available within the timeout, it will
+          arrive at this point.
+      (2) If a message is not available within the timeout, the
+          drain flag will ensure that the sender promptly advances the
+          delivery-count until link-credit is consumed.
+```
 
 Because the link-credit is consumed quickly, the consumer can unambiguously determine whether a message was received or if the operation timed out.
 
@@ -500,10 +549,27 @@ Similar to the `drain` field, the `echo` field is:
 ```xml
 <field name="echo" type="boolean" default="false"/>
 ```
-The consumer can set the `echo` field to request RabbitMQ to reply with a `flow` frame.
-One use case is depicted in [Figure 2.46](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-idp429232) of the AMQP 1.0 specification:
 
-![AMQP 1.0 Figure 2.46: Stopping Incoming Messages](figure-2-46.png)
+The consumer can set the `echo` field to request RabbitMQ to reply with a `flow` frame.
+One use case is depicted in [Figure 2.46: Stopping Incoming Messages](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-idp429232) of the AMQP 1.0 specification:
+
+```
+    Receiver                                       Sender
+    ================================================================
+                                           ...
+                                       <---------- transfer(...)
+    flow(...,                          ---+   +--- transfer(...)
+         link-credit=0,                    \ /
+         echo=True)                         x
+                                           / \
+(1)                                    <--+   +-->
+(2)                                    <---------- flow(...)
+                                           ...
+    ----------------------------------------------------------------
+      (1) In-flight transfers can still arrive until the flow state
+          is updated at the sender.
+      (2) At this point no further transfers will arrive.
+```
 
 :::tip[Benefit #5]
 
