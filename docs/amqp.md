@@ -23,14 +23,14 @@ limitations under the License.
 ## Address
 
 An AMQP [address](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-address-string) determines where a message is sent to or consumed from.
-What internal object an AQMP address refers to and how an AMQP address is resolved is not defined by the AMQP specification because different AMQP brokers have different models to receive, store, and send messages.
+What internal object an AMQP address refers to and how an AMQP address is resolved is not defined by the AMQP specification because different AMQP brokers have different models to receive, store, and send messages.
 
 RabbitMQ implements the powerful and flexible [AMQ 0.9.1 model](/tutorials/amqp-concepts) comprising [exchanges](/tutorials/amqp-concepts#exchanges), [queues](/tutorials/amqp-concepts#queues), and [bindings](/tutorials/amqp-concepts#bindings).
 Therefore, AMQP clients talking to RabbitMQ send messages to exchanges and consume messages from queues.
 Hence, the AMQP addresses that RabbitMQ understands and resolves contain exchange names, queue names, and routing keys.
 
 RabbitMQ 4.0 introduces a new RabbitMQ specific AMQP address format, v2.
-The old RabbitMQ 3.x address format is referrered to as v1.
+The old RabbitMQ 3.x address format is referred to as v1.
 
 AMQP clients should use address format v2.
 Address format v1 is deprecated in RabbitMQ 4.0 and will be unsupported in a future RabbitMQ version.
@@ -182,7 +182,20 @@ RabbitMQ does not support the following AMQP features:
     * [resuming deliveries](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-resuming-deliveries)
     * [Terminus Expiry Policy](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-terminus-expiry-policy)
 * `aborted` field in [transfer](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-transfer) frame
-* [Modified](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-modified) outcome works with [quorum queues](./quorum-queues), but not with [classic queues](./classic-queues). (Modifying a message in a [stream](./streams) doesn't make sense given that a stream is an immutable log.)
 * `dynamic` field in [source](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-source) and [target](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-target): clients can instead dynamically create server topologies (exchanges, queues, bindings) via HTTP over AMQP **prior** to attaching a link.
 * [Transactions](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transactions-v1.0-os.html)
 * Protocol Header for TLS Security Layer ([Figure 5.1](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-security-v1.0-os.html#section-tls)) including a protocol id of two. Instead, RabbitMQ runs a pure TLS server and therefore implements [section 5.2.1](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-security-v1.0-os.html#doc-tls-alternative-establishment).
+
+### Modified Outcome
+Modifying message annotations with the [modified](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-modified) outcome is supported in [quorum queues](./quorum-queues), but not in [classic queues](./classic-queues).
+Modifying a message in a [stream](./streams) doesn't make sense given that a stream is an immutable log.
+
+If field `undeliverable-here` is
+* `true`, classic queues and quorum queues will [dead letter](/docs/dlx) the message. If dead lettering is not configured, the message will be discarded.
+* `false`, classic queues and quorum queues will requeue the message.
+
+:::warning
+
+The behaviour of `undeliverable-here` may change in a future RabbitMQ version. For example, if `undeliverable-here = true`, instead of dead lettering the message, in the future, queues might requeue the message while ensuring that the message is not redelivered to the modifying link endpoint.
+
+:::
