@@ -705,3 +705,4 @@ The AMQP 0.9.1 implementation in RabbitMQ performs well since it has been stable
 Use cases where AMQP 1.0 will likely outperform AMQP 0.9.1 include:
 * Sending to or receiving from a stream because a stream encodes messages in AMQP 1.0 format (as covered in this blog post).
 * Leveraging queue locality using the [RabbitMQ AMQP 1.0 Java client](https://github.com/rabbitmq/rabbitmq-amqp-java-client). (This feature will be covered separately.)
+* Publishing to or consuming from other queues when one target queue reaches its limits on the same connection (as covered in the [AMQP 1.0 flow control](/blog/2024/09/02/amqp-flow-control) blog post).
