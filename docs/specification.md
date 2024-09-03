@@ -5,11 +5,7 @@ displayed_sidebar: docsSidebar
 <div id="left-content">
     <div class="docSection">
         <a name="spec" class="anchor" id="spec"></a>
-        <p>RabbitMQ implements version 0-9-1 of the AMQP specification in the core, with a number of [extensions](./extensions) to the specification.</p>
-        <p>
-            RabbitMQ implements AMQP 1.0 via a [plugin](./plugins). However, AMQP 1.0 is a completely different protocol than AMQP 0-9-1 and hence not a suitable replacement for the latter. RabbitMQ will therefore continue to
-            support AMQP 0-9-1 indefinitely.
-        </p>
+        <p>RabbitMQ implements the AMQP 1.0 specification and AMQP 0-9-1 specification with a number of [AMQP 0-9-1 extensions](./extensions) in the core.</p>
         <p>
             The 0-9-1 (with and without extensions) specifications are linked to below for your convenience. We recommend reading them if you want to learn more about AMQP 0-9-1. Please see our
             [AMQP 0-9-1 Overview guide](/tutorials/amqp-concepts), [AMQP 0-9-1 Reference guide](/amqp-0-9-1-reference), and the rest of [documentation](./index.md) for more information.
@@ -25,6 +21,15 @@ displayed_sidebar: docsSidebar
                     <th>Protocol Version</th>
                     <th>Documentation (PDF)</th>
                     <th>Machine-Readable Spec (XML)</th>
+                </tr>
+                <tr>
+                    <td>AMQP 1.0</td>
+                    <td>
+                        <a href="https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-complete-v1.0-os.pdf">Specification</a>
+                    </td>
+                    <td>
+                        <a href="https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-overview-v1.0-os.xml">Full</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>AMQP 0-9-1 (incl. extensions)</td>
@@ -69,51 +74,6 @@ displayed_sidebar: docsSidebar
                 </tr>
             </tbody>
         </table>
-
-        <h2 class="docHeading"><a class="anchor" href="#release-version-mapping">Specification Versions Supported</a></h2>
-        <p>
-            The following table describes the version of the AMQP protocol specification implemented by RabbitMQ release 2.0.0 and later:
-        </p>
-
-        <table class="styled-table">
-            <tbody>
-                <tr>
-                    <th>Component</th>
-                    <th>Implements AMQP protocol version</th>
-                </tr>
-                <tr>
-                    <td>Server</td>
-                    <td>0-9-1</td>
-                </tr>
-                <tr>
-                    <td>Java client</td>
-                    <td>0-9-1</td>
-                </tr>
-                <tr>
-                    <td>.NET/C# client</td>
-                    <td>0-9-1</td>
-                </tr>
-                <tr>
-                    <td>Erlang client</td>
-                    <td>0-9-1</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="docSection">
-        <a name="ver-diffs" class="anchor" id="ver-diffs"></a>
-        <h2 class="docHeading"><a class="anchor" href="#ver-diffs">Differences between versions</a></h2>
-        <p>Please see the <a href="./amqp-0-8-to-0-9-1">0-8 to 0-9-1 page</a>.</p>
-        <p>
-            AMQP 1.0 introduced significant changes to the spec compared to 0-9-1, and at least in RabbitMQ, considered to be a separate protocol, support for which is provided using a plugin.
-        </p>
-    </div>
-
-    <div class="docSection">
-        <a name="interop" class="anchor" id="interop"></a>
-        <h2 class="docHeading"><a class="anchor" href="#interop">Interoperability</a></h2>
-        <p>Please see the <a href="./nteroperability">interoperability page</a>.</p>
     </div>
 
     <div class="docSection">

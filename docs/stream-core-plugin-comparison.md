@@ -49,7 +49,7 @@ Stream core designates stream features in the broker with only default plugins a
 Streams store messages using the AMQP 1.0 message format.
 
 * RabbitMQ Stream client libraries are expected to support the AMQP 1.0 message format
-* The broker handles the conversion between AMQP 1.0 and AMQP 0.9.1 for AMQP 0.9.1 clients
+* The broker handles the [conversion](./conversions) between AMQP 1.0 and AMQP 0.9.1 for AMQP 0.9.1 clients
 * AMQP 0.9.1 and stream clients can write to and read from the same stream, but [Sub-Entry Batching](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression) is not supported.
 * RabbitMQ Stream supports the following section of the AMQP 1.0 message format:
      * properties

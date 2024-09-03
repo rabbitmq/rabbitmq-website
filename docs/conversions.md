@@ -20,40 +20,29 @@ limitations under the License.
 
 # Inter-Protocol Property Conversions
 
-This guide covers RabbitMQ 3.13 and later versions.
-
-
-## Table of contents {#toc}
-
- * [Overview](#overview)
- * [Conventions](#conventions)
- * [AMQP -> AMQP 0.9.1](#amqp-amqpl)
- * [AMQP 0.9.1 -> AMQP](#amqpl-amqp)
- * [MQTT 5.0 -> AMQP](#mqtt-amqp)
- * [MQTT 5.0 -> AMQP 0.9.1](#mqtt-amqpl)
- * [AMQP -> MQTT 5.0](#amqp-mqtt)
- * [AMQP 0.9.1 -> MQTT 5.0](#amqpl-mqtt)
-
 ## Overview {#overview}
 
-RabbitMQ is a multi-protocol broker supporting [AMQP 1.0](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-overview-v1.0-os.html)
-(henceforth AMQP), [AMQP 0.9.1](/resources/specs/amqp0-9-1.pdf),
-[MQTT](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html), [STOMP](https://stomp.github.io/),
-and the [RabbitMQ Streams](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_stream/docs/PROTOCOL.adoc) protocols.
+RabbitMQ is a multi-protocol broker supporting:
+* [AMQP 1.0](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-overview-v1.0-os.html) (henceforth AMQP),
+* [AMQP 0.9.1](/resources/specs/amqp0-9-1.pdf)
+* [MQTT](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)
+* [STOMP](https://stomp.github.io/)
+* [RabbitMQ Streams](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
+
 Messages can readily be published by one protocol and consumed by others.
 This necessitates data format conversions between different protocol formats.
 Prior to RabbitMQ 3.13 all messages were converted into an internal format based
 on the AMQP 0.9.1 protocol when published to RabbitMQ. This approach often resulted in unnecessary
 conversions and/or data fidelity issues.
 
-Since RabbitMQ 3.13 the approach has changed for the AMQP 0.9.1 and MQTT protocols
+In current RabbitMQ versions, the approach has changed for the AMQP, AMQP 0.9.1 and MQTT protocols
 in that messages will always be stored in their original format and only converted
 _if_ consumed by a protocol different from the originating protocol. This has the advantage
 that no protocol specific information is lost when the originating and the consuming protocols
 are the same.
 
 The only exception to this rule are [streams](./streams): No matter which protocol published,
-streams internally store their messages as AMQP 1.0 encoded data. Hence, when for example publishing using AMQP 0.9.1
+streams internally store their messages as AMQP encoded data. Hence, when for example publishing using AMQP 0.9.1
 a conversion to AMQP takes place.
 
 All conversions have been re-written and formalised.
@@ -75,11 +64,11 @@ an AMQP `message_id` of type `utf8` with more than 255 bytes will fail the first
 If there is no matching line then the data will not be converted (and therefore not be
 available to the consuming application).
 
-## AMQP 0.9.1 {#amqp-amqpl}
+## AMQP 1.0 -> AMQP 0.9.1 {#amqp-amqpl}
 
-In RabbitMQ 3.13 the AMQP (1.0) plugin does not implement these conversion rules yet
-and they are only used when reading from a stream. However they will be used
-as of RabbitMQ 4.0+.
+A conversion from AMQP to AMQP 0.9.1 takes place if the message is consumed with AMQP 0.9.1 and the message either
+* was published with AMQP 1.0, or
+* is consumed from a stream.
 
 | AMQP section           | AMQP field           | AMQP type                 | Condition            | AMQP 0.9.1 section         | AMQP 0.9.1 Field               | AMQP 0.9.1 Type | Comment                                                                             |
 | ---------------------- | -------------------- | ------------------------- | -------------------- | -------------------------- | ------------------------------ | --------------- | ----------------------------------------------------------------------------------- |
@@ -116,7 +105,7 @@ as of RabbitMQ 4.0+.
 | amqp.sequence          | \*                   | \*                        |                      | payload                    |                                | AMQP 1.0 encoded binary          | properties.type will be set to "amqp-1.0"                                           |
 
 
-### AMQP 0.9.1 type conversions {#amqp-amqpl-types}
+### Type Conversions {#amqp-amqpl-types}
 
 | AMQP 1.0 type | Condition    | AMQP 0.9.1 type      | Comment                                             |
 | ------------- | ------------ | -------------------- | --------------------------------------------------- |
@@ -140,7 +129,7 @@ as of RabbitMQ 4.0+.
 | symbol        |              | longstr              |
 
 
-## AMQP {#amqpl-amqp}
+## AMQP 0.9.1 -> AMQP 1.0 {#amqpl-amqp}
 
 | AMQP 0.9.1 section | AMQP 0.9.1 field | AMQP 0.9.1 type     | Condition                             | AMQP 1.0 section       | AMQP 1.0 Field   | AMQP 1.0 Type | Comment                             |
 | ------------------ | ---------------- | ------------------- | ------------------------------------- | ---------------------- | ---------------- | ------------- | ----------------------------------- |
@@ -168,7 +157,7 @@ as of RabbitMQ 4.0+.
 | payload            | \-               | binary              |                                       | data                   | \-               | data          |                                     |
 
 
-### AMQP type conversions {#amqpl-amqp-types}
+### Type Conversions {#amqpl-amqp-types}
 
 | AMQP 0.9.1 type | Condition                            | AMQP 1.0 type | Comment                                    |
 | --------------- | ------------------------------------ | ------------- | ------------------------------------------ |
@@ -194,7 +183,7 @@ as of RabbitMQ 4.0+.
 | table.value     |                                      | \*            | converted according to this table          |
 
 
-## AMQP {#mqtt-amqp}
+## MQTT 5.0 -> AMQP 1.0 {#mqtt-amqp}
 
 | MQTT 5.0 Section             | MQTT Field                 | MQTT 5.0 Type         | Condition                             | AMQP 1.0 Section       | AMQP 1.0 Field | AMQP 1.0 Type | Comment                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | ---------------------------- | -------------------------- | --------------------- | ------------------------------------- | ---------------------- | -------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -215,7 +204,7 @@ as of RabbitMQ 4.0+.
 | Payload                      |                            |                       | Payload Format Indicator set          | amqp.value             |                | utf8          | If the Payload Format Indicator is set, convert the MQTT payload to a string (i.e. single AMQP value section) because an AMQP string is UTF-8 encoded                                                                                                                                                                                                                                                                                                |
 
 
-## AMQP type conversions {#mqtt-amqp-types}
+### Type Conversions {#mqtt-amqp-types}
 
 | MQTT 5.0 Type        | Condition    | AMQP 1.0 Type | Comment                               |
 | -------------------- | -------------| ------------- | ------------------------------------- |
@@ -228,7 +217,7 @@ as of RabbitMQ 4.0+.
 | utf8 string pairs    |              | map           | de-duplicate keys, but maintains order|
 
 
-## AMQP 0.9.1 {#mqtt-amqpl}
+## MQTT 5.0 -> AMQP 0.9.1 {#mqtt-amqpl}
 
 | MQTT 5.0 Section    | MQTT 5.0 Field            | MQTT 5.0 Type         | Condition      | AMQP 0.9.1 Section | AMQP 0.9.1 Field               | AMQP 0.9.1 Type | Comment                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------- | ------------------------- | --------------------- | -------------- | ------------------ | ------------------------------ | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -247,7 +236,7 @@ as of RabbitMQ 4.0+.
 | Payload             |                           |                       |                | payload            |                                |                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 
 
-## AMQP 0.9.1 type conversions {#mqtt-amqpl-types}
+### Type Conversions {#mqtt-amqpl-types}
 
 | MQTT 5.0 Type   | Condition                            | AMQP 0.9.1 Type                  | Comment                                                                                      |
 | --------------- | ------------------------------------ | -------------------------------- | -------------------------------------------------------------------------------------------- |
@@ -261,7 +250,7 @@ as of RabbitMQ 4.0+.
 | utf8 pairs      |                                      | table                            | "Duplicate fields are illegal" in AMQP 0.9.1 Field Tables. RabbitMQ sorts the fields by key. |
 
 
-## MQTT 5.0 {#amqp-mqtt}
+## AMQP 1.0 -> MQTT 5.0 {#amqp-mqtt}
 
 | AMQP 1.0 section       | AMQP 1.0 field       | AMQP 1.0 type             | Condition                                                                 | MQTT 5.0 Section   | MQTT 5.0 Field            | MQTT 5.0 Type        | Comment                                                                                                                                                                                                                                                                    |
 | ---------------------- | -------------------- | ------------------------- | ------------------------------------------------------------------------- | -------------------| --------------------------| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -287,7 +276,7 @@ as of RabbitMQ 4.0+.
 | data                   |                      | *                         | other single AMQP value section or amqp-sequence sections                 | Payload            |                           | binary               | Encode with the AMQP type system and include a Content Type `message/vnd.rabbitmq.amqp`. This Content Type is not registered. |
 
 
-## MQTT 5.0 {#amqpl-mqtt}
+## AMQP 0.9.1 -> MQTT 5.0 {#amqpl-mqtt}
 
 | AMQP 0.9.1 section | AMQP 0.9.1 field | AMQP 0.9.1 type     | Condition                         | MQTT 5.0 Section   |  MQTT 5.0 Field          | MQTT 5.0 Type        | Comment                                                        |
 | ------------------ | ---------------- | ------------------- | --------------------------------- | ------------------ | -------------------------| -------------------- | -------------------------------------------------------------- |

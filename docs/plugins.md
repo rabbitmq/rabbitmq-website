@@ -372,20 +372,6 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
   <tbody>
   <tr>
-    <th>rabbitmq_amqp1_0</th>
-    <td>
-      AMQP 1.0 protocol support. For 4.x (currently in development), this plugin has
-      been integrated into the core and becomes a no-op.
-
-      <ul>
-        <li>
-          <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_amqp1_0/README.md">README for this plugin</a>
-        </li>
-      </ul>
-    </td>
-  </tr>
-
-  <tr>
     <th>rabbitmq_auth_backend_ldap</th>
     <td>
       Authentication and authorisation plugin using an external

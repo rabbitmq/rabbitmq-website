@@ -1,5 +1,5 @@
 ---
-title: Protocol Extensions
+title: AMQP 0-9-1 Protocol Extensions
 ---
 <!--
 Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
@@ -18,11 +18,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Protocol Extensions
+# AMQP 0-9-1 Protocol Extensions
 
 ## Overview
 
-The RabbitMQ implements a number of extensions of the
+RabbitMQ implements a number of extensions of the
 [AMQP 0-9-1 specification](./specification), which we
 document here.
 
