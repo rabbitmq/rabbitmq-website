@@ -24,9 +24,10 @@ limitations under the License.
 
 ## Version Negotiation
 
-RabbitMQ natively supports both AMQP 1.0 and AMQP 0.9.1 without requiring any additional plugins.
+RabbitMQ natively supports both AMQP 1.0 and AMQP 0.9.1 out of the box, without requiring any additional plugins.
 
-By default, RabbitMQ listens on port 5672, accepting connections for both AMQP 1.0 and AMQP 0.9.1.
+By default, RabbitMQ [listens on port](./networking#ports) 5672, accepting [connections](./connections) for both AMQP 1.0 and AMQP 0.9.1.
+
 After establishing a TCP or TLS connection and before sending any AMQP frames, the client sends a protocol header indicating whether it wants to use AMQP 1.0 or AMQP 0.9.1, as outlined in [Section 2.2 Version Negotiation](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#section-version-negotiation).
 
 For AMQP 1.0 connections, RabbitMQ requires the use of Simple Authentication and Security Layer ([SASL](https://datatracker.ietf.org/doc/html/rfc4422)), as described in [Section 5.3 SASL](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-security-v1.0-os.html#section-sasl).
@@ -43,18 +44,24 @@ This allows clients to set message hashes, checksums, and digital signatures not
 
 ## Virtual Hosts
 
-By default, when opening an AMQP connection, the client will be connected to the `default_vhost` configured in [rabbitmq.conf](/docs/configure#config-file):
-```
+RabbitMQ supports logical multi-tenancy with [virtual hosts](./vhosts).
+
+If no virtual host was explicitly specified by the connecting application, the connection use the `default_vhost` configured in [rabbitmq.conf](/docs/configure#config-file):
+
+``` ini
 default_vhost = /
 ```
 
-The client can connect to a different [virtual host](/docs/vhosts) by prefixing the value of the `hostname` field in the [open](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-open) frame with `vhost:`.
+AMQP 1.0 clients can connect to a different [virtual host](/docs/vhosts) by prefixing the value of the `hostname` field in the [open](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-open)
+frame with `vhost:`.
+
 For example, to connect to a virtual host called `tenant-1`, the client sets the `hostname` field to `vhost:tenant-1`.
 
-## Address
+## Addresses
 
 An AMQP 1.0 [address](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-address-string) determines where a message is sent to or consumed from.
-What internal object an AMQP address refers to and how an AMQP address is resolved is not defined by the AMQP 1.0 specification because different AMQP 1.0 brokers have different models to receive, store, and forward messages.
+What internal object an AMQP address refers to and how an AMQP address is resolved is not defined by the AMQP 1.0 specification.
+Different AMQP 1.0 brokers can choose to interprete the provided address differently.
 
 RabbitMQ implements the powerful and flexible [AMQ 0.9.1 model](/tutorials/amqp-concepts) comprising [exchanges](/tutorials/amqp-concepts#exchanges), [queues](/tutorials/amqp-concepts#queues), and [bindings](/tutorials/amqp-concepts#bindings).
 Therefore, AMQP clients talking to RabbitMQ send messages to exchanges and consume messages from queues.
@@ -63,7 +70,10 @@ Hence, the AMQP addresses that RabbitMQ understands and resolves contain exchang
 RabbitMQ 4.0 introduces a new RabbitMQ specific AMQP address format, v2.
 The old RabbitMQ 3.x address format is referred to as v1.
 
-AMQP clients should use address format v2.
+:::important
+AMQP clients should use address format v2
+:::
+
 Address format v1 is deprecated in RabbitMQ 4.0 and will be unsupported in a future RabbitMQ version.
 Whether format v1 is still supported is determined by the [deprecated feature flag](https://github.com/rabbitmq/rabbitmq-server/pull/7390) `amqp_address_v1` whose deprecation phase is `permitted_by_default` in RabbitMQ 4.0.
 
@@ -74,12 +84,12 @@ This section defines the new v2 address formats.
 #### Target Address v2
 
 The possible v2 [target address](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-target) formats are:
-```
-1) /exchanges/:exchange/:routing-key
-2) /exchanges/:exchange
-3) /queues/:queue
-4) <null>
-```
+
+
+1. `/exchanges/:exchange/:routing-key`
+2. `/exchanges/:exchange`
+3. `/queues/:queue`
+4. `<null>`
 
 The first three formats are [strings](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html#type-string).
 
@@ -101,25 +111,28 @@ The 4th format is the AMQP [null](https://docs.oasis-open.org/amqp/core/v1.0/os/
 As explained in the AMQP extension [Using the AMQP Anonymous Terminus for Message Routing](https://docs.oasis-open.org/amqp/anonterm/v1.0/cs01/anonterm-v1.0-cs01.html),
 each message's `to` field of the [properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-properties) section must be set.
 The allowed `to` address strings must have the same format, i.e. one of
-```
-1) /exchanges/:exchange/:routing-key
-2) /exchanges/:exchange
-3) /queues/:queue
-```
-where the exchange must exist.
-If a message cannot be routed because no queue is bound to the exchange, RabbitMQ settles the message with the [released outcome](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-released).
 
-If your publishing application needs to send to a
-* single destination: prefer one of the first three string formats over the 4th (null) format as the first three formats provide slightly better performance
-* small number of different destinations: prefer opening one link per destination with one of the first three formats
-* large number of different destinations: prefer the 4th (null) format defining each destination in the `to` field.
+1. `/exchanges/:exchange/:routing-key`
+2. `/exchanges/:exchange`
+3. `/queues/:queue`
+
+where the exchange must exist.
+
+If a message [cannot be routed](./publishers##unroutable), for example, because no queue is bound to the target exchange,
+RabbitMQ settles the message with the [`released` outcome](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-released).
+
+If a publishing application needs to publish (send) message to
+
+* a single destination: prefer one of the first three string formats over the 4th (null) format as the first three formats provide slightly better performance
+* a small number of different destinations: prefer opening one link per destination with one of the first three formats
+* a large number of different destinations: prefer the 4th (null) format defining each destination in the `to` field
 
 #### Source Address v2
 
 The only valid v2 [source address](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-source) string format is
-```
-1) /queues/:queue
-```
+
+1. `/queues/:queue`
+
 where clients consume messages from queue `:queue`.
 The queue must exist.
 
@@ -137,19 +150,19 @@ Note that percent-encoding in address format v2 must be applied to all AMQP fiel
 
 ### Address v1
 
-This section lists the **deprecated** v1 address string formats.
+:::warning
+This section lists the **deprecated** v1 address string formats
+:::
 
 #### Target Address v1
 
-```
-1) /exchange/:exchange/:routing-key
-2) /exchange/:exchange
-3) /topic/:routing-key
-4) /amq/queue/:queue
-5) /queue/:queue
-6) :queue
-7) /queue
-```
+1. `/exchange/:exchange/:routing-key`
+2. `/exchange/:exchange`
+3. `/topic/:routing-key`
+4. `/amq/queue/:queue`
+5. `/queue/:queue`
+6. `:queue`
+7. `/queue`
 
 The 1st format `/exchange/:exchange/:routing-key` causes all messages on the given link to be sent to exchange `:exchange` with routing key `:routing-key`.
 The equivalent v2 format is `/exchanges/:exchange/:routing-key`.
@@ -179,13 +192,11 @@ In v2, to send messages to different queues, set the target address to the AMQP 
 
 #### Source Address v1
 
-```
-1) /exchange/:exchange/:binding-key
-2) /topic/:binding-key
-3) /amq/queue/:queue
-4) /queue/:queue
-5) :queue
-```
+1. `/exchange/:exchange/:binding-key`
+2. `/topic/:binding-key`
+3. `/amq/queue/:queue`
+4. `/queue/:queue`
+5. `:queue`
 
 The 1st format `/exchange/:exchange/:binding-key` causes RabbitMQ to declare a queue and bind that queue to exchange `:exchange` with binding key `:binding-key`.
 Messages are then consumed from that queue.
@@ -206,7 +217,8 @@ In v2, clients should first declare their own queues and bindings, and then atta
 
 ## Outcomes
 
-An [outcome](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#section-delivery-state) indicates the result of processing at the receiver.
+An [outcome](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#section-delivery-state) indicates the result of delivery (message)
+processing at the receiver.
 
 The following table describes the outcomes when the client is the sender/publisher/producer with RabbitMQ acting as the receiver:
 
@@ -291,11 +303,13 @@ Modifying message annotations with the [modified](https://docs.oasis-open.org/am
 Modifying a message in a [stream](./streams) doesn't make sense given that a stream is an immutable log.
 
 If field `undeliverable-here` is
-* `true`, classic queues and quorum queues will [dead letter](/docs/dlx) the message. If dead lettering is not configured, the message will be discarded.
+
+* `true`, classic queues and quorum queues will [dead letter](./dlx) the message. If dead lettering is not configured, the message will be discarded.
 * `false`, classic queues and quorum queues will requeue the message.
 
 :::warning
+The behaviour of `undeliverable-here` may change in a future RabbitMQ version.
 
-The behaviour of `undeliverable-here` may change in a future RabbitMQ version. For example, if `undeliverable-here = true`, instead of dead lettering the message, in the future, queues might requeue the message while ensuring that the message is not redelivered to the modifying link endpoint.
-
+For example, if `undeliverable-here = true`, instead of dead lettering the message, in the future,
+queues might requeue the message while ensuring that the message is not redelivered to the modifying link endpoint.
 :::
