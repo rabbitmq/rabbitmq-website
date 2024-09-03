@@ -29,13 +29,10 @@ are covered by the [Networking](./networking) and [Troubleshooting Networking](.
 RabbitMQ supports several protocols:
 
  * [AMQP 0-9-1](./specification) with [extensions](./extensions)
- * [AMQP 1.0](https://www.amqp.org/resources/download)
+ * [AMQP 1.0](./amqp)
  * [RabbitMQ Stream Protocol](./stream)
- * [MQTT](./mqtt) 3.1 through 5.0
+ * [MQTT](./mqtt) 3.1, 3.1.1, and 5.0
  * [STOMP](./stomp) 1.0 through 1.2
-
-Note that despite the similarities in naming, AMQP 0-9-1 and AMQP 1.0 are different protocols, not
-different versions of the same protocol.
 
 Many topics in this guide are equally applicable to all protocols. When that's not the case, the guide tries
 to highlight protocol-specific features and practices.
@@ -367,8 +364,8 @@ using [channel exceptions](./channels#error-handling) ("soft errors").
 
 #### AMQP 1.0
 
-In AMQP 1.0, most errors fall into either [session errors](http:/..oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-idp239696) or
-[link errors](http:/..oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-idp348080).
+In AMQP 1.0, most errors fall into either [session errors](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-session-error) or
+[link errors](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-link-error).
 A session error is unrecoverable and leads to all operations received by the peer that's detected the
 error to be discarded until session termination.
 

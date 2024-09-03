@@ -40,7 +40,7 @@ export default function Home() {
               <section>
                 <Heading as="h2">Interoperable</Heading>
                 <p>RabbitMQ <Link to="/docs/protocols">supports several open
-                  standard protocols</Link>, including AMQP 1.0 and MQTT 5.
+                  standard protocols</Link>, including AMQP 1.0 and MQTT 5.0.
                   There are multiple client libraries available, which can be
                   used with your programming language of choice, just pick one.
                   No vendor lock-in!</p>

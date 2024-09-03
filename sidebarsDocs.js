@@ -376,7 +376,7 @@ const sidebars = {
             {
               type: 'doc',
               id: 'extensions',
-              label: 'Protocol Extensions',
+              label: 'AMQP 0-9-1 Extensions',
             },
           ]
         },
