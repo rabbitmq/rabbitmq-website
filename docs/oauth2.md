@@ -236,7 +236,7 @@ See the advanced usage section called [Multiple Resource Servers](#multiple-reso
 
 #### Multiple OAuth Providers configuration {#multiple-oauth-providers-configuration}
 
-Each `auth_oauth2.oauth_providers.<id/index>.` entry has the following variables.
+Each `auth_oauth2.oauth_providers.{id/index}` entry has the following sub-keys.
 
 | Key                          | Documentation
 |------------------------------|-----------
@@ -249,9 +249,9 @@ Each `auth_oauth2.oauth_providers.<id/index>.` entry has the following variables
 | `https.fail_if_no_peer_cert` | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`.
 | `https.hostname_verification` | Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`.
 | `https.crl_check`              | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false.
-| `signing_keys`               | Paths to the [signing key files](#signing-key-files).
+| `signing_keys`               | Local filesystem paths to the [signing key files](#signing-key-files). The files must exist and be readable
 | `default_key`                | ID of the default signing key
-| `algorithms`                 | Restrict [the usable algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support).
+| `algorithms`                 | Used to restrict [the list of enabled algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support)
 
 Here is an example which configures two resources (`prod` and `dev`) where each resource is managed by two distinct identity providers:
 
