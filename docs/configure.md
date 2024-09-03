@@ -324,6 +324,8 @@ The syntax can be briefly explained in 3 lines:
  * One setting uses one line
  * Lines are structured `Key = Value`
  * Any line starting with a `#` character is a comment
+ * Values that contain the `#` character, such as generated strings, generated passwords, encrypted values,
+   and so on, can be escaped with single quotes like so: `'efd3!53a9@92#a08_d_6d'`
 
 A minimalistic example configuration file follows:
 
@@ -332,7 +334,7 @@ A minimalistic example configuration file follows:
 listeners.tcp.default = 5673
 ```
 
-The same example in the [classic config format](#config-file-formats):
+The above example is equivalent to the following [classic config format](#config-file-formats):
 
 ```erlang
 %% this is a comment
@@ -363,6 +365,25 @@ To override the main RabbitMQ config file location, use the `RABBITMQ_CONFIG_FIL
 (or `RABBITMQ_CONFIG_FILES` to use a `conf.d`-style directory of sorted files) [environment variables](#customise-environment).
 Use `.conf` as file extension for the new style config format, e.g. `/etc/rabbitmq/rabbitmq.conf` or
 `/data/configuration/rabbitmq/rabbitmq.conf`
+
+### Value Escaping
+
+:::important
+Lines that use escaped values must not contain any (in particularly trailing) comments. Please any comments necessary
+above the line instead.
+:::
+
+Values that contain the `#` character, usually machine-generated, can be escaped with single quotes:
+
+``` ini
+# escaping is not necessary here but may be a good idea for generated
+# values
+default_user = '7f11ddc4f1900a233964'
+# escaping is important here as without it,
+# the # character and everything that follows it would be
+# considered a comment
+default_pass = 'efd3!53a9@92#a08_d_6d'
+```
 
 ### Using a Directory of .conf Files {#config-confd-directory}
 
