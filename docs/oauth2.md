@@ -210,7 +210,7 @@ auth_oauth2.algorithms.2 = RS256
 
 #### Multiple Resource Servers configuration {#multiple-resource-servers-configuration}
 
-Each `auth_oauth2.resource_servers.<id/index>.` entry has the following variables. Except for the variables `id` and `oauth_provider_id`, if a resource does not configure a variable, RabbitMQ uses the variable configured at the root level. For instance, if the resource `auth_oauth2.resource_servers.prod` does not configure `preferred_username_claims` variable, RabbitMQ uses the value configured in `auth_oauth2.preferred_username_claims` for the resource `prod`.
+Each `auth_oauth2.resource_servers.<id/index>.` entry has the following variables shown in the table below. Except for the variables `id` and `oauth_provider_id`, if a resource does not configure a variable, RabbitMQ uses the variable configured at the root level. For instance, if the resource `auth_oauth2.resource_servers.prod` does not configure `preferred_username_claims` variable, RabbitMQ uses the value configured in `auth_oauth2.preferred_username_claims` for the resource `prod`.
 
 | Key                          | Documentation
 |------------------------------|-----------
@@ -219,9 +219,11 @@ Each `auth_oauth2.resource_servers.<id/index>.` entry has the following variable
 | `additional_scopes_key`      | Configure the plugin to look for scopes in other fields (maps to `additional_rabbitmq_scopes` in the old format).
 | `scope_prefix`               | [Configure the prefix for all scopes](#scope-prefix). The default value is `auth_oauth2.resource_server_id` followed by the dot `.` character.
 | `preferred_username_claims`  | [List of the JWT claims](#preferred-username-claims) to look for the username associated with the token separated by commas.
-| `oauth_provider_id`          | The OAuth Provider Identifier associated to this resource. RabbitMQ uses the signing keys issued by this OAuth Provider to validate tokens which whose audience matches this resource's id.
+| `oauth_provider_id`          | The identifier of the OAuth Provider associated to this resource. RabbitMQ uses the signing keys issued by this OAuth Provider to validate tokens whose audience matches this resource's id.
 
-Usually, a numeric value is used as `index`, for example `auth_oauth2.resource_servers.1.id = rabbit_prod`. However, it can be any string, for example `auth_oauth2.resource_servers.rabbit_prod.jwks_url = http://some_url`. By default, the `index` is the resource server's id. However, you can override it via the `id` attribute like in `auth_oauth2.resource_servers.1.id = rabbit_prod`.
+All available configurable parameters for each OAuth 2 provider is documented [in a separate section](#multiple-oauth-providers-configuration).
+
+Usually, a numeric value is used as `index`, for example `auth_oauth2.resource_servers.1.id = rabbit_prod`. However, it can be any string, for example `auth_oauth2.resource_servers.rabbit_prod.jwks_url = http://some_url`. By default, the `index` is the resource server's id. However, you can override it via the `id` variable like in `auth_oauth2.resource_servers.1.id = rabbit_prod`.
 
 Here is an example which configures two resources (`prod` and `dev`) which are used by the users and clients managed by
 the same identity provider whose issuer url is `https://my-idp.com/`:
@@ -236,7 +238,7 @@ See the advanced usage section called [Multiple Resource Servers](#multiple-reso
 
 #### Multiple OAuth Providers configuration {#multiple-oauth-providers-configuration}
 
-Each `auth_oauth2.oauth_providers.<id/index>.` entry has the following variables.
+Each `auth_oauth2.oauth_providers.{id/index}` entry has the following sub-keys.
 
 | Key                          | Documentation
 |------------------------------|-----------
@@ -249,7 +251,9 @@ Each `auth_oauth2.oauth_providers.<id/index>.` entry has the following variables
 | `https.fail_if_no_peer_cert` | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`.
 | `https.hostname_verification` | Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`.
 | `https.crl_check`              | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false.
-
+| `signing_keys`               | Local filesystem paths to the [signing key files](#signing-key-files). The files must exist and be readable
+| `default_key`                | ID of the default signing key
+| `algorithms`                 | Used to restrict [the list of enabled algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support)
 
 Here is an example which configures two resources (`prod` and `dev`) where each resource is managed by two distinct identity providers:
 
@@ -281,7 +285,11 @@ It contains the expiration time after which the JWT MUST NOT be accepted for pro
 
 #### Audience must have/match the resource_server_id
 
-The `aud` ([Audience](https://tools.ietf.org/html/rfc7519#page-9)) identifies the recipients and/or resource_server of the JWT. By default, **RabbitMQ uses this field to validate the token** although you can deactivate it by the `verify_aud` variable set to `false`.  When it set to `true`, this attribute must either match the `resource_server_id` variable or in case of a list, it must contain the `resource_server_id`.
+The `aud` ([Audience](https://tools.ietf.org/html/rfc7519#page-9)) identifies the recipients and/or resource_server of the JWT.
+
+By default, **RabbitMQ uses this field to validate the token**. This validation can be disabled by setting the `auth_oauth2.verify_aud` setting set to `false`.
+When verification is enabled, this `aud` field must either match the `resource_server_id` value or, in case of a list,
+it must contain the `resource_server_id` value.
 
 ### Token expiration and refresh {#token-expiration}
 
@@ -744,7 +752,8 @@ This latter configuration is more relevant when users present tokens which are i
 This advanced setting is only required when the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) does not return an `end_session_endpoint` and you want Single Logout functionality. In other words, when the user logs out from the management UI it is also logged out from the OAuth Provider.
 
 :::info
-If the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) does return an `end_session_endpoint`, the management UI uses it over the configured endpoint. 
+If the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest) response does include an `end_session_endpoint`,
+the management UI uses it over the configured endpoint.
 :::
 
 Here is an example configuration that sets `end_session_endpoint`:
@@ -799,6 +808,9 @@ The list of supported resource servers is the combination of `auth_oauth2.resour
 There is an [example](./oauth2-examples-multiresource) that demonstrate multiple OAuth 2 resources.
 :::
 
+A list of [all the configurable variables](#multiple-resource-servers-configuration) for
+each OAuth Provider is documented in a separate section.
+
 ### Configure multiple OAuth 2.0 providers {#multiple-oauth-providers}
 
 It only makes sense to set multiple OAuth 2.0 providers if there are [multiple resources configured](#multiple-resource-servers).
@@ -819,6 +831,9 @@ auth_oauth2.oauth_providers.prod.https.cacertfile = /opts/certs/prod.pem
 auth_oauth2.oauth_providers.dev.issuer = https://rabbit_dev:8080
 auth_oauth2.oauth_providers.dev.https.cacertfile = /opts/certs/dev.pem
 ```
+
+A list of [all the configurable variables](#multiple-resource-servers-configuration) for
+each OAuth Provider is documented in a separate section.
 
 ## Examples {#examples}
 
