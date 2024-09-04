@@ -71,7 +71,9 @@ RabbitMQ 4.0 introduces a new RabbitMQ specific AMQP address format, v2.
 The old RabbitMQ 3.x address format is referred to as v1.
 
 :::important
-AMQP clients should use address format v2
+
+AMQP clients should use address format v2.
+
 :::
 
 Address format v1 is deprecated in RabbitMQ 4.0 and will be unsupported in a future RabbitMQ version.
@@ -121,7 +123,7 @@ where the exchange must exist.
 If a message [cannot be routed](./publishers#unroutable), for example, because no queue is bound to the target exchange,
 RabbitMQ settles the message with the [`released` outcome](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-released).
 
-If a publishing application needs to publish (send) message to
+If a publishing application needs to publish (send) messages to
 
 * a single destination: prefer one of the first three string formats over the 4th (null) format as the first three formats provide slightly better performance
 * a small number of different destinations: prefer opening one link per destination with one of the first three formats
@@ -151,7 +153,9 @@ Note that percent-encoding in address format v2 must be applied to all AMQP fiel
 ### Address v1
 
 :::warning
-This section lists the **deprecated** v1 address string formats
+
+This section lists the **deprecated** v1 address string formats.
+
 :::
 
 #### Target Address v1
@@ -308,8 +312,10 @@ If field `undeliverable-here` is
 * `false`, classic queues and quorum queues will requeue the message.
 
 :::warning
+
 The behaviour of `undeliverable-here` may change in a future RabbitMQ version.
 
 For example, if `undeliverable-here = true`, instead of dead lettering the message, in the future,
 queues might requeue the message while ensuring that the message is not redelivered to the modifying link endpoint.
+
 :::
