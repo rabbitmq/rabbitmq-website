@@ -892,6 +892,15 @@ log.file.level = info
     </td>
   </tr>
   <tr>
+    <td>`session_max`</td>
+    <td>
+        Maximum number of AMQP 1.0 sessions that can be simultaneously active on an AMQP 1.0 connection.
+        <p>Default: `64`</p>
+        <p>Min value: `1`</p>
+        <p>Max value: `65535`</p>
+    </td>
+  </tr>
+  <tr>
     <td>`channel_max`</td>
     <td>
       Maximum permissible number of channels to
