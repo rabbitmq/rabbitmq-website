@@ -266,6 +266,7 @@ rabbitmq_global_messages_dead_lettered_maxlen_total{queue_type="rabbit_mqtt_qos0
 The [Native MQTT](https://blog.rabbitmq.com/posts/2023/03/native-mqtt/#new-mqtt-qos-0-queue-type) blog post describes the MQTT QoS 0 queue type in more detail.
 
 ## Users and Authentication {#authentication}
+
 MQTT clients will be able to connect provided that they have a set of credentials for an existing user with the appropriate permissions.
 
 For an MQTT connection to succeed, it must successfully authenticate and the user must
@@ -593,6 +594,41 @@ to reconnect to switch to a new virtual host.
 is considered more specific than the port-to-vhost mapping with the `mqtt_port_to_vhost_mapping`
 global parameter and so takes precedence over it.
 
+#### Usage of client_id Extraction from Client Certificates for Authentication
+
+Nodes can be configured to verify that the `client_id` set on the MQTT connection matches the `client_id` found in the client's certificate.
+
+If they match, RabbitMQ proceeds with the user's authentication by passing the user's identity along with the `client_id` to the configured authentication backend(s).
+Some authentication backends, like the `rabbitmq_auth_backend_http`, may use `client_id` credential in addition to `username` to make authentication and/or authorization decisions.
+If the `client_id`(s) did not match, RabbitMQ closes the connection with the reason code `2`, meaning, "the client identifier is not allowed by the server".
+
+In order to do so, RabbitMQ must first be instructed how to fetch the `client_id` from the certificate. This is done with the `mqtt.ssl_cert_client_id_from` configuration key.
+The acceptable values are:
+
+ * `distinguished_name`: this is the DN, or [distinguished name](https://en.wikipedia.org/wiki/X.509), of the certificate
+ * `subject_alternative_name`: the Subject Alternative Name or SAN, which comes from a certificate's extensions section
+    Because different ypes of Subject Alternative Names exist, the type may need to be specified as well
+
+If `mqtt.ssl_cert_client_id_from` is set to `subject_alternative_name`, the type of alternative name can be configured using `mqtt.ssl_cert_client_id_san_type`. The default type, used if the setting
+is omitted, is `dns`. The acceptable values are:
+
+ * `dns`
+ * `ip`
+ * `email`
+ * `uri`
+ * `other_name`
+
+A certificate can contain multiple SAN fields of the same type, for example, two alternative DNS names. If this is the case, use the `mqtt.ssl_cert_client_id_san_index` configuration key
+to specify the index to be used. By default, RabbitMQ will pick the first value, that is, the default value of `mqtt.ssl_cert_client_id_san_index` is `0`.
+
+Below an example where the username is extracted from the certificate's distinguished name and the `client_id` is extracted from
+the first SAN (Subject Alternative Name) of type `uri`:
+
+```ini
+ssl_cert_login_from = distinguished_name
+mqtt.ssl_cert_client_id_from = subject_alternative_name
+mqtt.ssl_cert_client_id_san_type = uri
+```
 
 ### [Flow Control](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901251) {#flow}
 
@@ -601,7 +637,8 @@ This option is interpreted in the same way as [consumer prefetch](./consumer-pre
 
 An MQTT 5.0 client can define a lower number by setting [Receive Maximum](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901049) in the `CONNECT` packet.
 
-### Custom Exchanges {#custom-exchanges}
+
+## Custom Exchanges {#custom-exchanges}
 
 The `exchange` option determines which exchange messages from MQTT clients are published to.
 The exchange must be created before clients publish any messages. The exchange is expected to be a [topic exchange](/tutorials/amqp-concepts#exchange-topic).
