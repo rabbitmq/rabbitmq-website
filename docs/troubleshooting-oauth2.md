@@ -23,7 +23,7 @@ limitations under the License.
 
 ## Overview {#overview}
 
-This guide covers the most common errors encountered using OAuth 2.0 authentication protocol in OAuth 2.0 authentication backend and management plugin and how to diagnose them.
+This guide covers the most common errors encountered using [OAuth 2.0](./oauth2/) and management plugin and how to diagnose them.
 
 ## Troubleshooting OAuth 2 in the management UI {#management-ui}
 
@@ -41,19 +41,26 @@ OAuth resource [rabbitmq] not available. OpenId Discovery endpoint https://<the_
 #### Troubleshoot the issue
 
 These are the most common reasons for this issue:
-- The endpoint is either down or is not reachable (e.g. there is a firewall which blocks access).
-- The endpoint has a SSL certificate not trusted by the browser.
-- The browser is blocking access due to [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) policy.
 
-The quickest way to identity the root cause is by opening the browser's javascript console and searching for `net::ERR_`. These are the two possible errors you may find:
-- `net::ERR_CONNECTION_REFUSED` The endpoint is down or is not reachable.
-- `net::ERR_CERT_AUTHORITY_INVALID` The endpoint's SSL Certificate is not trusted by your browser. If you want to trust this certificate, click on the URL in the error message. The browser will prompt you to trust it.
+ * The endpoint is either down or is not reachable (e.g. there is a firewall which blocks access)
+ * The endpoint has a TLS certificate not [trusted](./ssl#peer-verification) by the browser
+ * The browser is blocking access due to [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) policy
 
-If you did not find any errors searching for `net::ERR` search instead for `CORS`. If you find an error similar to the one shown below, the browser is blocking the response returned by the endpoint and therefore it is not being delivered it to the management UI. This is due to the [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) policy. You should ask the administrator of your Identity Provider to add the management UI's URL to the list of allowed **origins**.
+The quickest way to identity the root cause is by opening the browser's javascript console and searching for `net::ERR_`.
+These are the two most likely errors:
 
-  `Access to fetch at 'https://<the_issuer_url>>/.well-known/openid-configuration' from origin
-  '<rabbitmq_url_to_management_ui>' has been blocked by CORS policy`.
+ * `net::ERR_CONNECTION_REFUSED`: the endpoint is down or is not reachable
+ * `net::ERR_CERT_AUTHORITY_INVALID`: the endpoint's TLS certificate is not [trusted](./ssl#peer-verification) by the browser. To trust the certificate,
+   click on the URL in the error message and follow the prompt
 
+If there are no errors found for `net::ERR` search instead for `CORS`. An error similar to the one shown below means that the browser is blocking the response returned by
+the endpoint and therefore it is not being delivered it to the management UI. This is due to the [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) policy.
+Contact the administrator of the Identity Provider to add the management UI's URL to the list of allowed **origins**.
+
+```
+Access to fetch at 'https://<the_issuer_url>>/.well-known/openid-configuration' from origin
+'<rabbitmq_url_to_management_ui>' has been blocked by CORS policy`.
+```
 
 ### OpenId Discovery endpoint not compliant {#openid-discovery-endpoint-not-compliant-error}
 
@@ -68,15 +75,16 @@ OAuth resource [rabbitmq] not available. OpenId Discovery endpoint https://<the_
 
 #### Troubleshoot the issue
 
-This issue is caused when the endpoint is not returning a JSON payload which matches with the [OpenId Connect Discovery Configuration](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig).
-There are the possible causes:
-- The payload returned by the endpoint is not compliant because it is empty or it is missing some critical information. To identify the root cause, you open the browser's javascript console and search for one of these possible error messages:
+This error means that the endpoint does not return a JSON payload which matches with the [OpenId Connect Discovery Configuration](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig) format.
+
+There are several the possible causes:
+
+ * The payload returned by the endpoint is not compliant because it is empty or it is missing some critical information. To identify the root cause, you open the browser's javascript console and search for one of these possible error messages:
   - `Payload does not contain openid configuration` This error occurs when the payload is empty or it is not a JSON payload
   - `Missing authorization_endpoint` This error occurs when the JSON attribute `authorization_endpoint` is missing
   - `Missing token_endpoint` This error occurs when the JSON attribute `token_endpoint` is missing
   - `Missing jwks_uri` This error occurs when the JSON attribute `jwks_uri` is missing
-
-- The url is wrong. Check out with your administrator of your Identity Provider to get the correct url to the OpenId Connect Discovery endpoint
+* The url is incorrect. Contact the maintainers of the Identity Provider to get the correct URL for the OpenID Connect discovery endpoint
 
 
 ### Not authorized {#not-authorized-error}
@@ -108,12 +116,15 @@ Follow these steps to find out which scopes or permissions are carried in the to
 8. Paste the value into the text field *Encoded*
 9. Look at the payload's text field *Decoded*
 10. Search for the token attribute `scope` in the tokens' payload or for the value configured in `auth_oauth2.additional_scopes_key`, if any.
-11. Once you found the appropriate token's scope attribute, find within the attribute's value any of the scopes listed above. Please, take into account if you have configured [auth_oauth2.scope_prefix](./oauth2#scope-prefix). If you did, the scopes will be named like  `myprefix_tag:administrator`. If you instead configured [scope aliases](./oauth2-examples#use-scope-aliases), you need to find the scope alias that maps to one of the scopes listed above.
+11. Once you found the appropriate token's scope attribute, find within the attribute's value any of the scopes listed above. If [auth_oauth2.scope_prefix](./oauth2#scope-prefix) is used, it must be taken into account: the scopes will be named like  `myprefix_tag:administrator`. If [scope aliases](./oauth2-examples#use-scope-aliases) are used, find the scope alias that maps to one of the scopes listed above
 
 
-### OpenId Discovery endpoint not reachable due to bad certificate {#openid-discovery-endpoint-bad-certificate}
+### OpenId Discovery Endpoint not Reachable Due to a Certificate SAN (or CN) and Target Hostname Mismatch {#openid-discovery-endpoint-san-cn-mismatch}
 
-This issue is not necessarily specific to the management UI, it may also occur when an application is authenticating via one of the messaging protocols. It occurs when RabbitMQ has to download the OpenId Connect configuration via the url configured in `auth_oauth2.issuer` and the certificate used by the issuer uses a wildcard certificate. This means that the certificate's CN attribute does not match exactly the issuer's domain name. This is very common on SaaS deployments.
+This issue is not necessarily specific to the management UI, it may also occur when an application is authenticating via one of the messaging protocols.
+It occurs when RabbitMQ has to download the OpenID Connect configuration via the URL configured in `auth_oauth2.issuer` and the certificate used by the issuer uses a wildcard certificate.
+This means that the certificate's SAN (Subject Alternative Name) or CN certificate attributes does not match the issuer's domain name exactly.
+This is a very common situation in SaaS deployments.
 
 #### Steps to reproduce the issue
 
@@ -124,7 +135,7 @@ This issue is not necessarily specific to the management UI, it may also occur w
 
 #### Troubleshoot the issue
 
-1. Access RabbitMQ logs.
-2. Look up for `{bad_cert,hostname_check_failed}`.
-3. If you find an entry it means that RabbitMQ tried to contact the url found in  `auth_oauth2.issuer` and the issuer presented a wildcard certificate.
-4. To fix this issue, add the following line to your RabbitMQ configuration `auth_oauth2.https.hostname_verification = wildcard`. Or `auth_oauth2.oauth_providers.<my_oauth_provider_name>.https.hostname_verification = wildcard` if you are using multiple OAuth providers.
+1. Access RabbitMQ [logs](./logging)
+2. Look up for `{bad_cert,hostname_check_failed}`
+3. Look for an entry it says that RabbitMQ tried to contact the url found in `auth_oauth2.issuer` and the issuer presented a wildcard certificate
+4. To fix this issue, add the following line to your RabbitMQ configuration `auth_oauth2.https.hostname_verification = wildcard`. Or `auth_oauth2.oauth_providers.<my_oauth_provider_name>.https.hostname_verification = wildcard` if you are using multiple OAuth providers

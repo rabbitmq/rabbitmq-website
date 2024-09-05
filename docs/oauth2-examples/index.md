@@ -25,11 +25,11 @@ limitations under the License.
 
 This tutorial-style guide has two primary goals:
 
-1. Explore how applications and end users can [authenticate](./access-control) with RabbitMQ server using OAuth 2.0 protocol rather than the traditional username/password pairs or x.509 certificates.
+1. Explore how applications and end users can [authenticate](./access-control) with RabbitMQ server using OAuth 2.0 rather than the traditional username/password pairs or x.509 certificates.
 2. Explore what it takes to set up RabbitMQ Server with OAuth 2.0 authentication mechanism across several authorization servers.
 
-The guide is
-accompanied by [a public GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) which hosts all the scripts required to deploy the examples demonstrated on the guide.
+The guide is accompanied by [a public GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial)
+which hosts all the scripts required to deploy the examples demonstrated on the guide.
 
 ## Table of Content {#toc}
 
@@ -474,7 +474,7 @@ There are two ways to configure RabbitMQ with multiple signing keys:
 
  * **Statically** configure them via `rabbitmq.conf` as shown in the [plugin documentation page](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_oauth2#variables-configurable-in-rabbitmqconf).
  * **Dynamically** add the keys to a running RabbitMQ node without having to restart it.
-   
+
 First you add a second signing key called `legacy-token-2-key` whose public key is `conf/public-2.pem`:
 
 ```bash
