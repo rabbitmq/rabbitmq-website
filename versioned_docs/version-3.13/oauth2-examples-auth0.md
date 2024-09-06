@@ -76,7 +76,7 @@ In the settings, choose:
 * Allowed Origins (CORS): `http://localhost:15672`
 
 
-## Create the management ui user
+## Create a User for Management UI Access
 
 ### Create user
 

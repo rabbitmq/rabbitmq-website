@@ -33,36 +33,43 @@ which hosts all the scripts required to deploy the examples demonstrated on the 
 
 ## Table of Contents {#toc}
 
-<!-- TOC depthFrom:2 depthTo:3 withLinks:1 updateOnSave:1 orderedList:0 -->
+### Basics
 
 * [Prerequisites to follow this guide](#prerequisites)
 * [Getting started with UAA and RabbitMQ](#getting-started-with-uaa-and-rabbitmq)
-* [Access Management UI using OAuth 2.0 tokens](#access-management-ui)
-    - [Service-Provider initiated logon](#service-provider-initiated-logon)
-    - [Identity-Provider initiated logon](#identity-provider-initiated-logon)
-* [Access other protocols using OAuth 2.0 tokens](#access-other-protocols)    
-    - [Management REST api](#monitoring-agent-accessing-management-rest-api)
-	  - [AMQP protocol](#amqp-protocol)
-	  - [JMS protocol](#jms-protocol)
-	  - [MQTT protocol](#mqtt-protocol)
-    - [AMQP 1.0 protocol](#amqp10-protocol)
-* [Messaging on Topic Exchanges](#messaging-on-topic-exchanges)    
-* [Use advanced OAuth 2.0 configuration](#advanced-configuration)
-	- [Use custom scope field](#use-custom-scope-field)
-	- [Use multiple asymmetrical signing keys](#use-multiple-asymmetrical-signing-keys)
-    - [Use Scope Aliases](#use-scope-aliases)
-    - [Preferred username claims](#preferred-username-claims)
-	- [Use Rich Authorization Requests tokens](#use-rar-tokens)
-* Use different OAuth 2.0 servers
-	- [Keycloak](./oauth2-examples-keycloak)
-	- [Auth0](./oauth2-examples-auth0)
-	- [Microsoft Entra ID](./oauth2-examples-entra-id) (formerly known as Azure Active Directory)
-  - [OAuth2 Proxy](./oauth2-examples-proxy)
-  - [Okta](./oauth2-examples-okta)
-  - [Google](./oauth2-examples-google)  **NOT SUPPORTED**
-  - [Multiple OAuth 2.0 servers and/or audiences](./oauth2-examples-multiresource)
 
-<!-- /TOC -->
+### Management UI Access
+
+* [Access Management UI using OAuth 2.0 tokens](#access-management-ui)
+* [Service-Provider initiated logon](#service-provider-initiated-logon)
+* [Identity-Provider initiated logon](#identity-provider-initiated-logon)
+
+### Using [various protocols using JWT tokens](#access-other-protocols)
+
+* [Management UI](#management-ui)
+* [AMQP 0-9-1](#amqp-protocol) (and [scopes for topic exchanges](#using-topic-exchanges) in a separate section)
+* [AMQP 1.0](#amqp10-protocol)
+* [JMS](#jms-clients)
+* [MQTT](#mqtt-protocol)
+
+### Signing Keys, Scope Aliases, Rich Authorization Requests
+
+* [How to Use Advanced OAuth 2.0 Configuration](#advanced-configuration)
+* [Using a custom scope field](#using-custom-scope-field)
+* [Using multiple asymmetrical signing keys](#using-multiple-asymmetrical-signing-keys)
+* [Using scope aliases](#using-scope-aliases)
+* [Preferred username claims](#preferred-username-claims)
+* [Using Rich Authorization Requests tokens](#use-rar-tokens)
+
+### Examples for Specific OAuth 2.0 Identity Providers
+
+ * [Keycloak](./oauth2-examples-keycloak)
+ * [Auth0](./oauth2-examples-auth0)
+ * [Microsoft Entra ID](./oauth2-examples-entra-id) (formerly known as Azure Active Directory)
+ * [OAuth2 Proxy](./oauth2-examples-proxy)
+ * [Okta](./oauth2-examples-okta)
+ * [Google](./oauth2-examples-google)  **NOT SUPPORTED**
+ * [Multiple OAuth 2.0 servers and/or audiences](./oauth2-examples-multiresource)
 
 ## Prerequisites Used by the Examples in This Guide {#prerequisites}
 
@@ -132,11 +139,11 @@ To configure the RabbitMQ Management UI with OAuth 2.0, the following configurat
 in `rabbitmq.conf`:
 
 ```ini
-...
+# ...
 management.oauth_enabled = true
 management.oauth_client_id = rabbit_client_code
 management.oauth_provider_url = http://localhost:8080
-...
+# ...
 ```
 
 ### Identity-Provider initiated logon {#identity-provider-initiated-logon}
@@ -168,12 +175,12 @@ By default, the RabbitMQ Management UI is configured with **service-provider ini
 in `rabbitmq.conf`:
 
 ```ini
-...
+# ...
 management.oauth_enabled = true
 management.oauth_client_id = rabbit_client_code
 management.oauth_provider_url = http://localhost:8080
 management.oauth_initiated_logon_type = idp_initiated
-...
+# ...
 ```
 
 **Important**: when the user logs out, or its RabbitMQ session expired, or the token expired, the user is directed to the
@@ -185,7 +192,7 @@ It is only when the user clicks **Click here to login** , the user is redirected
 
 The following subsections demonstrate how to use access tokens with any messaging protocol and also to access the management rest api.
 
-### Management REST api {#monitoring-agent-accessing-management-rest-api}
+### Management REST api {#management-ui}
 
 In this scenario a monitoring agent uses RabbitMQ HTTP API to collect monitoring information.
 Because it is not an end user, or human, you refer to it as a *service account*.
@@ -280,7 +287,7 @@ make stop-all-apps
 ```
 
 
-### JMS protocol {#jms-protocol}
+### JMS protocol {#jms-clients}
 
 In this use case you are demonstrating a basic JMS application which reads, via an environment variable (`TOKEN`),
 the JWT token that will use as password when authenticating with RabbitMQ.
@@ -389,28 +396,65 @@ And send a message. It uses the *client_id*  `jms_producer`, declared in UAA, to
 make start-amqp1_0-publisher
 ```
 
-## Messaging on Topic Exchanges {#messaging-on-topic-exchanges}
+## Using Topic Exchanges {#using-topic-exchanges}
 
-This section has been dedicated exclusively to explain what scopes you need in order to operate on **Topic Exchanges**.
+This section explains what scopes will be necessary for applications that use topic exchanges.
 
-**NOTE**: None of the users and/or clients declared in any of authorization servers provided by this tutorial have the
-appropriate scopes to operate on **Topic Exchanges**. In the [MQTT Protocol](#mqtt-protocol) section, the application used a hand-crafted token with the scopes to operate on **Topic Exchanges**.
+:::important
 
-To bind and/or unbind a queue to/from a **Topic Exchange**, you need to have the following scopes:
+None of the users and/or clients declared in any of authorization servers provided by this tutorial have the
+appropriate scopes for topic exchanges. In the [MQTT](#mqtt-protocol) section, the application used a hand-crafted token
+with appropriate the scopes because that protocol's routing is entirely topics-based.
 
-- **write** permission on the queue and routing key -> `rabbitmq.write:<vhost>/<queue>/<routingkey>`
-> e.g. `rabbitmq.write:*/*/*`
+:::
 
-- **read** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
-> e.g. `rabbitmq.read:*/*/*`
+To bind and/or unbind a queue to/from a topic exchange, you need to have the following scopes:
 
-To publish to a **Topic Exchange**, you need to have the following scope:
+<table>
+  <caption>For consumers</caption>
+  <thead>
+    <tr>
+      <td>Permission</td>
+      <td>Example</td>
+    </tr>
+  </thead>
 
-- **write** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
-> e.g. `rabbitmq.write:*/*/*`
+  <tbody>
+    <tr>
+      <td>**write** permission on the queue and routing key -> `rabbitmq.write:<vhost>/<queue>/<routingkey>`</td>
+      <td>`rabbitmq.write:*/*/*`</td>
+    </tr>
+    <tr>
+      <td>**read** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`</td>
+      <td>`rabbitmq.read:*/*/*`</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <caption>For publishers</caption>
+  <thead>
+    <tr>
+      <td>Permission</td>
+      <td>Example</td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>**write** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`</td>
+      <td>`rabbitmq.write:*/*/*`</td>
+    </tr>
+  </tbody>
+</table>
 
 
-OAuth 2.0 authorisation backend supports variable expansion when checking permission on topics. It supports any JWT claim whose value is a plain string and the `vhost` variable. For example, if a user has connected with the token below against the vhost `prod`, they should have write permission to send to any exchange starting with `x-prod-` and any routing key starting with `u-bob-`:
+OAuth 2.0 authorisation backend supports variable expansion when checking permission on topics.
+It supports any JWT claim whose value is a plain string and the `vhost` variable.
+
+For example, if a user has connected with the token below against the vhost `prod`,
+they should have write permission to send to any exchange starting with `x-prod-`
+and any routing key starting with `u-bob-`:
 
 ```json
 {
@@ -419,9 +463,9 @@ OAuth 2.0 authorisation backend supports variable expansion when checking permis
 }
 ```
 
-## Use advanced OAuth 2.0 configuration {#advanced-configuration}
+## Advanced OAuth 2.0 Configuration Topics {#advanced-configuration}
 
-### Use a Custom Scope Field {#use-custom-scope-field}
+### Using a Custom Scope Field {#using-custom-scope-field}
 
 There are some authorization servers which cannot include RabbitMQ scopes into the standard
 JWT `scope` field. Instead, they can include RabbitMQ scopes in a custom JWT scope of their choice.
@@ -459,7 +503,7 @@ validate which is:
 }
 ```
 
-### Use multiple asymmetrical signing keys {#use-multiple-asymmetrical-signing-keys}
+### Using Multiple Asymmetrical Signing Keys {#using-multiple-asymmetrical-signing-keys}
 
 This scenario explores the use case where JWT tokens may be signed by different asymmetrical signing keys.
 
@@ -484,14 +528,14 @@ make curl-with-token URL=http://localhost:15672/api/overview TOKEN=$(bin/jwt_tok
 `bin/jwt_token` searches for private and public key files under the `conf` directory and jwt files under `jwts`.
 
 
-### Using Scope Aliases {#use-scope-aliases}
+### Using Scope Aliases {#using-scope-aliases}
 
 In this use case you are going to demonstrate how to configure RabbitMQ to handle
 *custom scopes*. But what are *custom scopes*? They are any
 scope whose format is not compliant with RabbitMQ format. For instance, `api://rabbitmq:Read.All`
 is one of the custom scopes you will use in this use case.
 
-#### How to configure RabbitMQ with custom scope mapping
+#### How to Configure RabbitMQ to Use a Custom Scope Mapping
 
 Starting with [RabbitMQ `3.10.0`](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0),
 the OAuth 2.0 plugin supports mapping of a scope aliases (arbitrary scope values or "names") to one or more scopes
@@ -500,14 +544,14 @@ in the format that follows the RabbitMQ OAuth 2.0 plugin conventions.
 See below a sample RabbitMQ configuration where you map `api://rabbitmq:Read.All`
 custom scope to `rabbitmq.read:*/*` RabbitMQ scope.
 
-```
+``` erl
 {rabbitmq_auth_backend_oauth2, [
- ...,
+ %%...,
 	{scope_aliases, #{
 		<<"api://rabbitmq:Read.All">>      => [<<"rabbitmq.read:*/*">>],
 	  ...
 	},
-	...
+	%%...
 ]}
 ```
 
@@ -515,9 +559,9 @@ Additionally, you can map a custom scope to many RabbitMQ scopes. For instance b
 are mapping the role `api://rabbitmq:producer` to 3 RabbitMQ scopes which grants
 `read`, `write` and `configure` access on any resource and on any vhost:
 
-```
+``` erl
 {rabbitmq_auth_backend_oauth2, [
- ...,
+  %% ...,
 
 	{scope_aliases, #{
 		<<"api://rabbitmq:producer">> => [
@@ -526,7 +570,7 @@ are mapping the role `api://rabbitmq:producer` to 3 RabbitMQ scopes which grants
 			<<"rabbitmq.configure:*/*">>
 		]
 	}},
-	...
+	%% ...
 ]}
 ```
 
@@ -553,10 +597,10 @@ Now, let's say you do configure RabbitMQ OAuth 2.0 plugin with `extra_scopes_sou
 
 
 ```ini
-...
+# ...
 auth_oauth2.resource_server_id = rabbitmq
 auth_oauth2.additional_scopes_key = roles
-...
+# ...
 ```
 
 With this configuration, RabbitMQ expects *custom scopes* in the field `roles` and
@@ -770,6 +814,5 @@ The command above launches the application in the background, you can check the 
 ```bash
 docker logs producer_with_roles -f
 ```
-
 
 For more information on this new capability check out the [OAuth 2 guide](./oauth2#rich-authorization-request).
