@@ -41,8 +41,10 @@ Let's test the following flow:
 
 ## Prerequisites for Using OAuth 2 Proxy and Keycloak
 
-- Docker
-- make
+* Docker
+* make
+* `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
+contains all the configuration files and scripts used on this example.
 
 ## Deploy Keycloak
 

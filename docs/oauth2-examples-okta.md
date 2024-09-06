@@ -28,8 +28,11 @@ and Okta as Authorization Server using the following flows:
 
 ## Prerequisites to follow this guide
 
-- Have an account in https://www.okta.com.
-- Docker
+* Have an [Okta account](https://www.okta.com)
+* Docker
+* `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
+contains all the configuration files and scripts used on this example
+
 
 ## Create your app integration in Okta UI
 
@@ -64,7 +67,8 @@ Finally, click on **Save** and write down the following values, as you will need
   * **ClientID**  
   * **Okta domain name**
 
-## Create Okta OAuth 2.0 authorization server, scopes and claims for your app
+
+## Create Okta OAuth 2.0 Authorization Server, Scopes and Claims
 
 An authorization server is used to authenticate users and issue access tokens that can be used to access protected resources. In Okta, an authorization server can be used to define scopes, which are essentially permissions that determine what resources a user can access. By defining scopes, you can control the level of access that different users have to your resources.
 
@@ -104,7 +108,7 @@ And below are the steps to create a claim for **role** to distinguish `admin` an
 
 **Note**: the expression above returns a claim named `role` with value `admin` if the user is a member of the `admin` group, and `monitoring` if the user is a member of the `monitoring` group:
 
-### Create groups to allow access to RabbitMQ Management UI
+### Create Groups to Allow Access to Management UI
 
 1. Log in to your Okta Admin Dashboard and navigate to the **Groups** page by clicking on the **Groups** tab in the top menu.
 
@@ -119,9 +123,10 @@ And below are the steps to create a claim for **role** to distinguish `admin` an
 6. Once you've finished configuring the group, click the **Create Group** button to create the group.
 
 
-## Assign App and users to groups
+## Assign App and Users to Groups
 
-To assign a user to a group in Okta, and grant them access to an app associated with that group, you can follow these steps. For our use case we want to assign some users to `dev` and `admin` group and assign the `rabbitmq-oauth2` app to both groups.
+Next step is to assign a user to a group in Okta, and grant them access to an app associated with that group. For our use case we want to assign some users
+to `dev` and `admin` group and assign the `rabbitmq-oauth2` app to both groups.
 
 1. Log in to your Okta Admin Dashboard and navigate to the **Users** page by clicking on the **Directory** tab in the top menu, and then selecting **People**.
 
@@ -142,11 +147,11 @@ To assign a user to a group in Okta, and grant them access to an app associated 
 Once you've added the user to the appropriate groups and apps, they should have access to the app and any resources associated with those groups.
 
 
-## Configure RabbitMQ to use Okta  as OAuth 2.0 authentication backend:
+## Configure RabbitMQ to use Okta as OAuth 2.0 Authentication Backend
 
 The configuration on Okta side is done. You now have to configure RabbitMQ to use the resources you just created.
 
-[rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/rabbitmq.config) is a RabbitMQ advanced configuration to **enable okta as OAuth 2.0 authentication backend** for the RabbitMQ OAuth2 and Management plugins.
+[rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/rabbitmq.conf) is a RabbitMQ configuration to **enable okta as OAuth 2.0 authentication backend** for the RabbitMQ OAuth2 and Management plugins. And [advanced.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/advanced.config) is the RabbitMQ advanced configuration that maps RabbitMQ scopes to the permissions previously configured in Okta. 
 
 Update it with the following values (you should have noted these in the previous steps):
 
@@ -164,11 +169,12 @@ make start-rabbitmq
 ```
 
 
-## Verify RabbitMQ Management UI access
+## Verify RabbitMQ Management UI Access
 
-Go to RabbitMQ Management UI `https://localhost:15671`. Depending on your browser, ignore the security warnings (raised by the fact that you are using a self-signed certificate) to proceed.
+Go to RabbitMQ Management UI `https://localhost:15671`. Depending on your browser, ignore the security warnings (raised by the fact that a [self-signed certificate](./ssl#peer-verification) is used)
+to proceed.
 
 Once on the RabbitMQ Management UI page, click on the **Click here to log in** button,
 authenticate with your **okta user**.
 
-At the end, you should be redirected back to the RabbitMQ Management UI.
+When login succeeds, you will be redirected back to the RabbitMQ Management UI.

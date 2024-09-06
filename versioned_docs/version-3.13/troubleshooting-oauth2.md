@@ -116,7 +116,7 @@ Follow these steps to find out which scopes or permissions are carried in the to
 8. Paste the value into the text field *Encoded*
 9. Look at the payload's text field *Decoded*
 10. Search for the token attribute `scope` in the tokens' payload or for the value configured in `auth_oauth2.additional_scopes_key`, if any.
-11. Once you found the appropriate token's scope attribute, find within the attribute's value any of the scopes listed above. If [auth_oauth2.scope_prefix](./oauth2#scope-prefix) is used, it must be taken into account: the scopes will be named like  `myprefix_tag:administrator`. If [scope aliases](./oauth2-examples#use-scope-aliases) are used, find the scope alias that maps to one of the scopes listed above
+11. Once you found the appropriate token's scope attribute, find within the attribute's value any of the scopes listed above. If [auth_oauth2.scope_prefix](./oauth2#scope-prefix) is used, it must be taken into account: the scopes will be named like  `myprefix_tag:administrator`. If [scope aliases](./oauth2-examples#using-scope-aliases) are used, find the scope alias that maps to one of the scopes listed above
 
 
 ### OpenId Discovery Endpoint not Reachable Due to a Certificate SAN (or CN) and Target Hostname Mismatch {#openid-discovery-endpoint-san-cn-mismatch}
