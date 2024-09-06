@@ -892,12 +892,21 @@ log.file.level = info
     </td>
   </tr>
   <tr>
-    <td>`session_max`</td>
+    <td>`session_max_per_connection`</td>
     <td>
         Maximum number of AMQP 1.0 sessions that can be simultaneously active on an AMQP 1.0 connection.
         <p>Default: `64`</p>
         <p>Min value: `1`</p>
         <p>Max value: `65535`</p>
+    </td>
+  </tr>
+  <tr>
+    <td>`link_max_per_session`</td>
+    <td>
+        Maximum number of AMQP 1.0 links that can be simultaneously active on an AMQP 1.0 session.
+        <p>Default: `256`</p>
+        <p>Min value: `1`</p>
+        <p>Max value: `4294967295`</p>
     </td>
   </tr>
   <tr>
