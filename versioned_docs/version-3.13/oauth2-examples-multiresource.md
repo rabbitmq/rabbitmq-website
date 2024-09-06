@@ -29,7 +29,9 @@ and several OAuth resources using the following flows:
 
 ## Prerequisites
 
-- Docker
+* Docker
+* `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
+contains all the configuration files and scripts used on this example.
 
 ## Single OAuth 2.0 vs Multiple OAuth 2.0 resources
 

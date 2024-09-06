@@ -32,6 +32,8 @@ and Auth0 as Authorization Server using the following flows:
 
 * Have an account in https://auth0.com/.
 * Docker
+* `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
+contains all the configuration files and scripts used on this example.
 
 ## Create RabbitMQ API
 
@@ -46,7 +48,7 @@ In Auth0, resources are mapped to Application APIs.
 ### Configure permissions in RabbitMQ API
 
 1. Edit the API we just created with the name `rabbitmq`.
-2. Go into Permissions and add the permissions (scope) this api can grant. We are going to add the following scopes:
+2. Go into Permissions and add the permissions (scope) this api can grant. You are going to add the following scopes:
 
 	* `rabbitmq.read:*/*`
 	* `rabbitmq.write:*/*`
@@ -74,57 +76,37 @@ In the settings, choose:
 * Allowed Origins (CORS): `http://localhost:15672`
 
 
-## Create a new user
+## Create the management ui user
 
-You can use your current Auth0 user to login to RabbitMQ or create a dedicated user for that. Up to you.
+### Create user
 
-### Authorize rabbitmq-management application
-
-1. Go to **Authorized Applications**.
-2. click on **Authorize** and select all the scopes.
+1. Go to **User Management** > **Users**.
+2. Create a user. This is the user you will use to login via the management UI.
 
 ### Create permissions and grant them
 
-1. Go to "Roles".
+1. Go to **Roles**.
 2. Create the role called `rabbitmq.tag:administrator`.
-3. Go to "Permissions" and select all the permissions.
-4. Go to "Users" and make sure our user is listed else add our user to the
+3. Go to **Permissions** and select all the permissions.
+4. Go to **Users** and make sure our user is listed else add our user to the
 list of users which have this role.
 
+## Configure RabbitMQ to authenticate with Auth0
 
-## Configure RabbitMQ with Auth0 signing key
+To configure RabbitMQ you need to gather the following information from Auth0:
 
-1. From Auth0 dashboard, go to **Settings > List of Valid Keys**, and **Copy Signing Certificate** from the **CURRENTLY USED** signing key.
+1. Go to **dashboard > Applications > Applications**.
+2. Click on the application `rabbitmq-management`.
+3. Take note of the *Client ID* value
+4. And take note of the *Domain* value
+5. Use the last values in *Client ID* and *Domain* fields in the RabbitMQ configuration file
 
-2. Create `/tmp/certificate.pem` and paste the certificate.
-
-3. Run `openssl x509 -in /tmp/certificate.pem -pubkey -noout > /tmp/public.pem` to extract the public key from the certificate and paste the public key into `rabbitmq.config`.
-
-Below we have a sample RabbitMQ configuration where we have set the `default_key` identifier that we copied from
-Auth0 and also the public key we extracted from `/tmp/public.pem`.
-
-```erlang
-{key_config, [
-	{default_key, <<"LQPlyC9P_gOhzMLx7r2Qm">>},
-	{signing_keys,
-		#{<<"LQPlyC9P_gOhzMLx7r2Qm">> => {pem, <<"-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuELzgXF5ZiEMkA0EnRii
-Nf1pck5SkzK4HN6y+Zvy9F2e2soJ/i7acaVX0z5O1Fj2ez0UIe1cwJxurTdlFHQD
-MAHD6Mhr5vhY+UEACk9QXp5jbRQwApzEnmDoEuKKVFmTK9Jvm+339kRWz6vv/CqB
-cMWSVjp+bnd+XosA8SwKSboQ9Vs4LdJi0fqIOyu2o+FRkf6p5qPMYLndJAKZfwSg
-aeCgC2hpBiylBsYBdHQEmawgcUjW+CKAOaMEix/799jRjpXkmUFxZ+H/wbLnu880
-/bqJidYlvoJt88skYlzqmAxf/BWhaudVkiqtFNZcr2kwsZk/O+7GNFk4N0/UdE4Y
-CwIDAQAB
------END PUBLIC KEY-----">>}
-		 }
-	}]
-}
-
-```
+Edit the configuration file [conf/auth0/rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/auth0/rabbitmq.conf) and replace `{CLIENT_ID}` and `{DOMAIN}` with the
+values you gathered above.
 
 ## Start RabbitMQ
 
-Run the following commands to run RabbitMQ:
+Run the following commands to start RabbitMQ:
 
 ```bash
 export MODE=auth0
@@ -136,23 +118,21 @@ make start-rabbitmq
 1. Go to management UI `http://localhost:15672`.
 2. Click on the single button, authenticate with your secondary Auth0 user. You should be redirected back to the management UI.
 
-Auth0 issues an access token like this one below. Where we receive in the `scope` claim
-the requested scopes, and in the `permissions` claim the permissions. We have configured
-RabbitMQ with `{extra_scopes_source, <<"permissions">>},` which means RabbitMQ uses
-the scopes in the `permissions` claim too.
+**Auth0** issues an access token like this one below. It has in the `scope` claim
+the requested scopes configured in `management.oauth_scopes`, and in the `permissions` claim all the scopes you configured for this user in Auth0. RabbitMQ read the scopes from the `scope` claim but also from the claim name configured in `auth_oauth2.additional_scopes_key` whose value is `permissions`.
 
 ```javascript
 {
-  "iss": "https://dev-prbc0gw4.us.auth0.com/",
-  "sub": "auth0|6294e0afdc4dea0068d780a7",
+  "iss": "https://dev-tm5ebsbbdcbqddcj.us.auth0.com/",
+  "sub": "auth0|66d980b862efcd9f5144f42a",
   "aud": [
     "rabbitmq",
-    "https://dev-prbc0gw4.us.auth0.com/userinfo"
+    "https://dev-tm5ebsbbdcbqddcj.us.auth0.com/userinfo"
   ],
-  "iat": 1654002181,
-  "exp": 1654088581,
-  "azp": "ffxcvJb6byeNG1Qr6us0Mg0Jp5HyzwwV",
+  "iat": 1725533554,
+  "exp": 1725619954,
   "scope": "openid profile rabbitmq.tag:administrator",
+  "azp": "IC1fqsSjkQq2cVsYyHUuQyq30OAYuUv2",
   "permissions": [
     "rabbitmq.configure:*/*",
     "rabbitmq.read:*/*",

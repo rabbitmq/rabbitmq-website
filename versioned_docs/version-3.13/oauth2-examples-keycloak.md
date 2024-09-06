@@ -32,6 +32,8 @@ and Keycloak as Authorization Server using the following flows:
 
 * Docker
 * make
+* `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
+contains all the configuration files and scripts used on this example.
 
 ## Deploy Keycloak
 
@@ -43,21 +45,17 @@ and Keycloak as Authorization Server using the following flows:
     make start-keycloak
     ```
 
-    **Keycloak** comes configured with its own signing key. And the [rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/keycloak/rabbitmq.config) used by `make start-keycloak` is also configured with the same signing key.
-
-3. Access Keycloak management interface go to http://0.0.0.0:8080/ and enter `admin` as username and password.
-
 There is a dedicated **Keycloak realm** called `Test` configured as follows:
 
-* You configured an [rsa](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys) signing key
-* And a [rsa provider](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys/providers)
-* And three clients: `rabbitmq-client-code` for the rabbitmq management UI, `mgt_api_client` to access via the
+* A [rsa](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys) signing key
+* A [rsa provider](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys/providers)
+* Three clients: `rabbitmq-client-code` for the rabbitmq management UI, `mgt_api_client` to access via the
 management api and `producer` to access via AMQP protocol.
 
 
 ## Start RabbitMQ
 
-Run the command below to start RabbitMQ configured with the **Keycloak** server we started in the previous section:
+Run the command below to start RabbitMQ configured with the **Keycloak** server we started in the previous section: This is the [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/keycloak/rabbitmq.conf) used for **Keycloak**.
 ```bash
 export MODE=keycloak
 make start-rabbitmq
@@ -65,7 +63,7 @@ make start-rabbitmq
 
 ## Access Management api
 
-Access the management api using the client [mgt_api_client](http://0.0.0.0:8080/admin/master/console/#/realms/test/clients/c5be3c24-0c88-4672-a77a-79002fcc9a9d) which has the scope [rabbitmq.tag:administrator](http://0.0.0.0:8080/admin/master/console/#/realms/test/client-scopes/f6e6dd62-22bf-4421-910e-e6070908764c).
+To access the management api run the following command. It uses the client [mgt_api_client](http://0.0.0.0:8080/admin/master/console/#/realms/test/clients/c5be3c24-0c88-4672-a77a-79002fcc9a9d) which has the scope [rabbitmq.tag:administrator](http://0.0.0.0:8080/admin/master/console/#/realms/test/client-scopes/f6e6dd62-22bf-4421-910e-e6070908764c).
 
 ```bash
 make curl-keycloak url=http://localhost:15672/api/overview client_id=mgt_api_client secret=LWOuYqJ8gjKg3D2U8CJZDuID3KiRZVDa
@@ -113,19 +111,6 @@ make stop-keycloak
 ```
 
 ## Notes about setting up Keycloak
-
-### Configure JWT signing Keys
-
-1. At the realm level, you go to `Keys > Providers` tab.
-2. Create one of type `rsa` and you enter the private key and certificate of the public key.
-3. In this repository you do not have yet the certificate for the public key but it is easy to generate. Give it priority `101` or greater than the rest of available keys so that it is picked up when you request a token.
-
-IMPORTANT: You cannot hard code the **kid** hence you have to add the key to RabbitMQ via the command
-```bash
-docker exec -it rabbitmq rabbitmqctl add_uaa_key Gnl2ZlbRh3rAr6Wymc988_5cY7T5GuePd5dpJlXDJUk --pem-file=conf/public.pem
-```
-or you have to modify the RabbitMQ configuration so that it says `Gnl2ZlbRh3rAr6Wymc988_5cY7T5GuePd5dpJlXDJUk`
-rather than `legacy-token-key`.
 
 ### Configure Client
 
