@@ -39,13 +39,13 @@ contains all the configuration files and scripts used on this example.
 When using **Entra ID as OAuth 2.0 server**, your client app (in our case RabbitMQ) needs a way to trust the security tokens issued to it by the **Microsoft identity platform**.
 
 1. The first step in establishing that trust is by **registering your app** with the identity platform in Entra ID.
+   :::tip
 
-  <g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about App registration in Entra ID are available [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app).
+   Learn more about [app registration in Entra ID](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)
 
+   :::
 2. Once you have logged onto your account in [Entra ID Portal](https://portal.azure.com), go to **Entra ID ** (use the search bar if you are not able to easily find it).
-
 3. In the left-hand navigation menu, click on **App Registrations**. Then, select **New registration**.
-
 4. In the **Register an application** pane, provide the following information:
 
     * **Name**: the name you would like to give to your application (ex: *rabbitmq-oauth2*)
@@ -53,7 +53,12 @@ When using **Entra ID as OAuth 2.0 server**, your client app (in our case Rabbit
     * On the **Select a platform** drop-down list, select **Single-page application (SPA)**
     * Configure the **Redirect URI** to: `https://localhost:15671/js/oidc-oauth/login-callback.html`
 
-    <g-emoji class="g-emoji" alias="warning" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png">⚠️</g-emoji> **IMPORTANT**: As you may have noticed, Entra ID only allows `https` links as **Redirect URI**. To fit this need, you will enable HTTPS for RabbitMQ Management UI, on port `15671`.
+    :::important
+
+    Entra ID only allows `https` URIs as **Redirect URI**. To learn how to [enable HTTPS for RabbitMQ management UI](./management#single-listener-https)
+    on port `15671`, see the management UI guide.
+
+    :::
 
 5. Click on **Register**.
 
@@ -115,7 +120,8 @@ App roles are defined by using the [Entra ID portal](https://portal.azure.com) d
 
 3. Click on **Apply**.
 
-## Assign App Roles to users
+
+## Assign App Roles to Users
 
 Now that some roles have been created for your application, you still need to assign these to some users.
 
@@ -148,7 +154,7 @@ It is optional to create a signing key for your application. If you create one t
 For example, given your application id, `{my-app-id}` and your tenant `{tenant}`, the OIDC discovery endpoint uri would be `https://login.microsoftonline.com/{tenant}/.well-known/openid-configuration?appid={my-app-id}`. The returned payload contains the `jwks_uri` attribute whose value is something like `https://login.microsoftonline.com/{tenant}/discovery/keys?appid=<my-app-idp>`. RabbitMQ should be configured with that `jwks_uri` value.
 
 
-## Configure RabbitMQ to use Entra ID as OAuth 2.0 authentication backend
+## Configure RabbitMQ to Use Entra ID as OAuth 2.0 Authentication Backend
 
 The configuration on Entra ID side is done. Next, configure RabbitMQ to use these resources.
 
@@ -182,11 +188,18 @@ export MODE=entra
 make start-rabbitmq
 ```
 
-<g-emoji class="g-emoji" alias="arrow_right" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/27a1.png">➡️</g-emoji> This starts a docker container named `rabbitmq`, with RabbitMQ Management UI/API with HTTPS enabled, and configured to use your Entra ID as OAuth 2.0 Authentication Backend, based on the information you provided in [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/entra/rabbitmq.conf) in the previous steps of this tutorial.
+This starts a Docker container named `rabbitmq`, with RabbitMQ Management UI/API with HTTPS enabled, and configured to use your Entra ID as OAuth 2.0 authentication backend,
+based on the information you provided in [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/entra/rabbitmq.conf)
+in the previous steps of this tutorial.
 
 ## Automatic generation of a TLS Certificate and Key Pair
 
-> **Important**: Remember when you have registered your app on Entra ID that it only allows **https** protocol for OAuth 2.0 **Redirect URI**? You will thus need to enable HTTPS for RabbitMQ Management UI amd its underlying API.
+:::important
+
+Entra ID only allows `https` URIs as **Redirect URI**. To learn how to [enable HTTPS for RabbitMQ management UI](./management#single-listener-https)
+on port `15671`, see the management UI guide.
+
+:::
 
 When you run `make start-rabbitmq` for the first time with `MODE=entra`, before RabbitMQ is deployed, a TLS certificate is generated for RabbitMQ so that it listens on HTTPS port 15671.  
 
@@ -195,7 +208,8 @@ The script generates the following files in `conf/entra/certs`:
 * **cert.pem**: a self-signed certificate (cn=localhost)
 * **key.pem**: the private key associated to the `cert.pem` certificate
 
-<g-emoji class="g-emoji" alias="arrow_right" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/27a1.png">➡️</g-emoji> These files will be mounted into the `rabbitmq` docker container in the next steps of this tutorial, where they will be used to configure HTTPS for the RabbitMQ Management UI/API
+These files will be mounted into the `rabbitmq` container later in this tutorial,
+where they will be used to configure HTTPS for the RabbitMQ Management UI and HTTP API.
 
 ## Verify RabbitMQ Management UI access
 
@@ -205,8 +219,11 @@ Once on the RabbitMQ Management UI page, click on the **Click here to log in** b
 authenticate with your **Entra ID user**. The first time, you are likely going to have to give your
 consent (it depends on the policies applied to Entra AD on your side).
 
-<g-emoji class="g-emoji" alias="warning" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png">⚠️</g-emoji> At first login, you may face the `AADSTS90008` error: just click on **Click here to log in** button
-again and it will disappear (this issue seems to be known, as illustrated [here](https://docs.microsoft.com/en-us/ansrs/questions/671457/after-34accept34-on-consent-prompt-on-azure-sso-lo.html#answer-893848))
+:::tip
+At first login, you may run into an error name `AADSTS90008`. This is a [known issue](https://docs.microsoft.com/en-us/ansrs/questions/671457/after-34accept34-on-consent-prompt-on-azure-sso-lo.html#answer-893848).
+
+Click on **Click here to log in** button again and it will disappear.
+:::
 
 At the end, you should be redirected back to the RabbitMQ Management UI.
 
