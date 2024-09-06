@@ -167,12 +167,19 @@ RabbitMQ uess the resource server identity for these two purposes:
 OAuth 2.0 tokens use scopes to communicate what set of permissions particular client are granted. The scopes are free form strings.
 
 By default, `resource_server_id` followed by the dot (`.`) character is the prefix used for scopes to avoid scope collisions (or unintended overlap).
-However, in some environments, it is not possible to use `resource_server_id` as the prefix for all scopes. For these environments, there is a new variable called `scope_prefix` which overrides the default scope prefix. Empty strings are allowed.
+However, in some environments, it is not possible to use `resource_server_id` as the prefix for all scopes. For these environments, there is a new variable called `scope_prefix` which overrides the default scope prefix.
 
 Given the below configuration, the scope associated with the permission `read:*/*` is `api://read:*/*`.
 ```ini
 ...
 auth_oauth2.scope_prefix = api://
+...
+```
+
+To use an empty string as prefix, use this configuration:
+```ini
+...
+auth_oauth2.scope_prefix = ''
 ...
 ```
 
@@ -399,35 +406,12 @@ auth_oauth2.resource_server_id = my_rabbit_server
 auth_oauth2.issuer = https://my-idp-provider/somerealm
 ```
 
-or
-
-```erlang
-[
-  {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, <<"my_rabbit_server">>},
-    {issuer, <<"https://my-idp-provider/somerealm">>}    
-  ]},
-].
-```
-
-Sample configuration using jwks_url:
+Sample configuration which configures the jwks_url rather than the issuer:
 ```ini
 auth_oauth2.resource_server_id = my_rabbit_server
 auth_oauth2.jwks_url = "https://my-jwt-issuer/jwks.json
 ```
 
-or
-
-```erlang
-[
-  {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, <<"my_rabbit_server">>},
-    {key_config, [
-      {jwks_url, <<"https://my-jwt-issuer/jwks.json">>}
-    ]}
-  ]},
-].
-```
 
 :::info
 If you have both endpoints configured, RabbitMQ uses `jwks_url` because it does not need to discover it via the `issuer` url.
@@ -443,18 +427,6 @@ auth_oauth2.https.cacertfile = /opts/certs/cacert.pem
 ...
 ```
 
-or
-
-```erlang
-[
-  {rabbitmq_auth_backend_oauth2, [
-    ...
-    {key_config, [
-      {cacertfile, <<"/opts/certs/cacert.pem">>}
-    ]}
-  ]},
-].
-```
 
 **VERY IMPORTANT**: Since RabbitMQ 3.13, if `auth_oauth2.https.peer_verification` variable is not set, RabbitMQ sets it to `verify_peer` as long as there are trusted certificates installed in the OS or the user configured `auth_oauth2.https.cacertfile`.
 
@@ -494,28 +466,9 @@ VwIDAQAB
 
 it translates into the following configuration (in the [advanced RabbitMQ config format](./configure)):
 
-```erlang
-[
-  %% ...
-  %% backend configuration
-  {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, <<"my_rabbit_server">>},
-    %% UAA signing key configuration
-    {key_config, [
-      {signing_keys, #{
-        <<"a-key-ID">> => {pem, <<"-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2dP+vRn+Kj+S/oGd49kq
-6+CKNAduCC1raLfTH7B3qjmZYm45yDl+XmgK9CNmHXkho9qvmhdksdzDVsdeDlhK
-IdcIWadhqDzdtn1hj/22iUwrhH0bd475hlKcsiZ+oy/sdgGgAzvmmTQmdMqEXqV2
-B9q9KFBmo4Ahh/6+d4wM1rH9kxl0RvMAKLe+daoIHIjok8hCO4cKQQEw/ErBe4SF
-2cr3wQwCfF1qVu4eAVNVfxfy/uEvG3Q7x005P3TcK+QcYgJxav3lictSi5dyWLgG
-QAvkknWitpRK8KVLypEj5WKej6CF8nq30utn15FQg0JkHoqzwiCqqeen8GIPteI7
-VwIDAQAB
------END PUBLIC KEY-----">>}
-          }}
-      ]}
-    ]}
-].
+```ini
+auth_oauth2.resource_server_id = my_rabbit_server
+auth_oauth2.signing_keys.a-key-ID = /path-to-signing-key-pem-file
 ```
 
 If a symmetric key is used, the configuration looks like this:
@@ -539,14 +492,9 @@ If a symmetric key is used, the configuration looks like this:
 
 By default the plugin looks for the `scope` key in the token, you can configure the plugin to also look in other fields using the `extra_scopes_source` variable. Values format accepted are scope as **string** or **list**
 
-```erlang
-[
-  {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, <<"my_rabbit_server">>},
-    {extra_scopes_source, <<"my_custom_scope_key">>},
-    ...
-    ]}  
-].
+```ini
+auth_oauth2.resource_server_id = my_rabbit_server
+auth_oauth2.additional_scopes_key = my_custom_scope_key
 ```
 
 Token sample:

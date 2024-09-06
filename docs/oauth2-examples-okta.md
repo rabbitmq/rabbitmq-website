@@ -28,8 +28,10 @@ and Okta as Authorization Server using the following flows:
 
 ## Prerequisites to follow this guide
 
-- Have an account in https://www.okta.com.
-- Docker
+* Have an account in https://www.okta.com.
+* Docker
+* `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
+contains all the configuration files and scripts used on this example.
 
 ## Create your app integration in Okta UI
 
@@ -142,11 +144,11 @@ To assign a user to a group in Okta, and grant them access to an app associated 
 Once you've added the user to the appropriate groups and apps, they should have access to the app and any resources associated with those groups.
 
 
-## Configure RabbitMQ to use Okta  as OAuth 2.0 authentication backend:
+## Configure RabbitMQ to use Okta as OAuth 2.0 authentication backend:
 
 The configuration on Okta side is done. You now have to configure RabbitMQ to use the resources you just created.
 
-[rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/rabbitmq.config) is a RabbitMQ advanced configuration to **enable okta as OAuth 2.0 authentication backend** for the RabbitMQ OAuth2 and Management plugins.
+[rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/rabbitmq.conf) is a RabbitMQ configuration to **enable okta as OAuth 2.0 authentication backend** for the RabbitMQ OAuth2 and Management plugins. And [advanced.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/advanced.config) is the RabbitMQ advanced configuration that maps RabbitMQ scopes to the permissions previously configured in Okta. 
 
 Update it with the following values (you should have noted these in the previous steps):
 

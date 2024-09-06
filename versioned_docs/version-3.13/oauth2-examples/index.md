@@ -25,13 +25,13 @@ limitations under the License.
 
 This tutorial-style guide has two primary goals:
 
-1. Explore how applications and end users can [authenticate](./access-control) with RabbitMQ server using OAuth 2.0 protocol rather than the traditional username/password pairs or x.509 certificates.
+1. Explore how applications and end users can [authenticate](./access-control) with RabbitMQ server using OAuth 2.0 rather than the traditional username/password pairs or x.509 certificates.
 2. Explore what it takes to set up RabbitMQ Server with OAuth 2.0 authentication mechanism across several authorization servers.
 
-The guide is
-accompanied by [a public GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) which hosts all the scripts required to deploy the examples demonstrated on the guide.
+The guide is accompanied by [a public GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial)
+which hosts all the scripts required to deploy the examples demonstrated on the guide.
 
-## Table of Content {#toc}
+## Table of Contents {#toc}
 
 <!-- TOC depthFrom:2 depthTo:3 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -56,7 +56,7 @@ accompanied by [a public GitHub repository](https://github.com/rabbitmq/rabbitmq
 * Use different OAuth 2.0 servers
 	- [Keycloak](./oauth2-examples-keycloak)
 	- [Auth0](./oauth2-examples-auth0)
-	- [Azure Active Directory](./oauth2-examples-azure)
+	- [Microsoft Entra ID](./oauth2-examples-entra-id) (formerly known as Azure Active Directory)
   - [OAuth2 Proxy](./oauth2-examples-proxy)
   - [Okta](./oauth2-examples-okta)
   - [Google](./oauth2-examples-google)  **NOT SUPPORTED**
@@ -69,7 +69,8 @@ accompanied by [a public GitHub repository](https://github.com/rabbitmq/rabbitmq
  * Docker must be installed
  * Ruby must be installed
  * make
-
+ * `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
+contains all the configuration files and scripts used on all the examples.
 
 ## Getting started with UAA and RabbitMQ {#getting-started-with-uaa-and-rabbitmq}
 
@@ -82,7 +83,7 @@ Run the following two commands to start UAA and RabbitMQ configured for UAA:
   1. `make start-uaa` to get UAA server running
   2. `make start-rabbitmq` to start RabbitMQ server
 
-The last command starts a RabbitMQ with [a specific configuration file](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq.config).
+The last command starts a RabbitMQ with a specific configuration file, [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq.conf).
 
 ## Access Management UI using OAuth 2.0 tokens {#access-management-ui}
 
@@ -128,16 +129,14 @@ It was signed with the symmetric key.
 ![JWT token](./admin-token-signed-sym-key.png)
 
 To configure the RabbitMQ Management UI with OAuth 2.0, the following configuration entries are required
-in `advanced.config`:
+in `rabbitmq.conf`:
 
-```erlang
- ...
- {rabbitmq_management, [
-    {oauth_enabled, true},
-    {oauth_client_id, "rabbit_client_code"},
-    {oauth_provider_url, "http://localhost:8080"},
-    ...
-  ]},
+```ini
+...
+management.oauth_enabled = true
+management.oauth_client_id = rabbit_client_code
+management.oauth_provider_url = http://localhost:8080
+...
 ```
 
 ### Identity-Provider initiated logon {#identity-provider-initiated-logon}
@@ -165,17 +164,16 @@ by submitting a form with their OAuth token in the `access_token` form field as 
 
 If the access token is valid, RabbitMQ redirects the user to the **Overview** page.
 
-By default, the RabbitMQ Management UI is configured with **service-provider initiated logon**, to configure **Identity-Provider initiated logon**,
-add one entry to `advanced.config`. For example:
+By default, the RabbitMQ Management UI is configured with **service-provider initiated logon**, to configure **Identity-Provider initiated logon**, the following configuration entries are required
+in `rabbitmq.conf`:
 
-```erlang
- ...
- {rabbitmq_management, [
-    {oauth_enabled, true},
-    {oauth_provider_url, "http://localhost:8080"},
-    {oauth_initiated_logon_type, idp_initiated},
-    ...
-  ]},
+```ini
+...
+management.oauth_enabled = true
+management.oauth_client_id = rabbit_client_code
+management.oauth_provider_url = http://localhost:8080
+management.oauth_initiated_logon_type = idp_initiated
+...
 ```
 
 **Important**: when the user logs out, or its RabbitMQ session expired, or the token expired, the user is directed to the
@@ -430,15 +428,10 @@ JWT `scope` field. Instead, they can include RabbitMQ scopes in a custom JWT sco
 
 It is possible to configure RabbitMQ with a different field to look for scopes as shown below:
 
-```erlang
-[
-  {rabbitmq_auth_backend_oauth2, [
-    ...
-    {extra_scopes_source, <<"extra_scope">>},
-    ...
-    ]}
-  ]},
-].
+```ini
+...
+auth_oauth2.additional_scopes_key = extra_scope
+...
 ```
 
 To test this feature you are going to build a token, sign it and use it to hit one of the RabbitMQ management endpoints.
@@ -474,7 +467,7 @@ There are two ways to configure RabbitMQ with multiple signing keys:
 
  * **Statically** configure them via `rabbitmq.conf` as shown in the [plugin documentation page](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_oauth2#variables-configurable-in-rabbitmqconf).
  * **Dynamically** add the keys to a running RabbitMQ node without having to restart it.
-   
+
 First you add a second signing key called `legacy-token-2-key` whose public key is `conf/public-2.pem`:
 
 ```bash
@@ -558,11 +551,12 @@ token where the custom scopes are in the `scope` field :
 
 Now, let's say you do configure RabbitMQ OAuth 2.0 plugin with `extra_scopes_source` as shown below:
 
-```
-  {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, <<"rabbitmq">>},
-    {extra_scopes_source, <<"roles">>},
-    ...
+
+```ini
+...
+auth_oauth2.resource_server_id = rabbitmq
+auth_oauth2.additional_scopes_key = roles
+...
 ```
 
 With this configuration, RabbitMQ expects *custom scopes* in the field `roles` and
@@ -606,8 +600,8 @@ uaac client add consumer_with_roles --name consumer_with_roles \
 
 In the OAuth 2.0 tutorial repository, there are two RabbitMQ configuration files ready to be used, for UAA:
 
-- [conf/uaa/rabbitmq-scope-aliases.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq-scope-aliases.config): configures a set of scope aliases.
-- [conf/uaa/rabbitmq-scope-aliases-and-extra-scope.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq-scope-aliases-and-extra-scope.config): configures a `extra_scopes_source` and a set of scope aliases.
+- [conf/uaa/advanced-scope-aliases.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/advanced-scope-aliases.config): configures a set of scope aliases.
+- [conf/uaa/rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq.conf) : configure the rest of oauth2 configuration in addition to configuring `extra_scope` as another claim from where to read scopes from
 
 
 #### Demo 1: Launch RabbitMQ with custom scopes in scope field
@@ -615,7 +609,7 @@ In the OAuth 2.0 tutorial repository, there are two RabbitMQ configuration files
 To launch RabbitMq with scope mappings and with *custom scopes* in the `scope` field you run the following command:
 
 ```bash
-CONFIG=rabbitmq-scope-aliases.config make start-rabbitmq
+ADVANCED=advanced-scope-aliases.config make start-rabbitmq
 ```
 
 This command will stop RabbitMQ if it is already running.
@@ -658,7 +652,7 @@ make stop-perftest-consumer CONSUMER=consumer_with_roles
 To launch RabbitMq with scope mappings and with *custom scopes* in the `extra_scope` you run the following command:
 
 ```bash
-CONFIG=rabbitmq-scope-aliases-and-extra-scope.config make start-rabbitmq
+make start-rabbitmq
 ```
 
 This command will stop RabbitMQ if it is already running
@@ -706,12 +700,12 @@ Most authorization servers return the user's GUID in the `sub` claim rather than
 
 Given this configuration:
 
-```
-  ...
-  {rabbitmq_auth_backend_oauth2, [
-    {resource_server_id, <<"rabbitmq">>},
-    {preferred_username_claims, [<<"user_name">> ,<<"email">>]},
-  ...
+```ini
+...
+auth_oauth2.resource_server_id = rabbitmq
+auth_oauth2.preferred_username_claims.1 = user_name
+auth_oauth2.preferred_username_claims.2 = email
+...
 ```
 
 RabbitMQ would first look for the `user_name` claim and if it is not found it looks for `email`. Else it uses its default lookup mechanism which first looks for `sub` and then `client_id`.

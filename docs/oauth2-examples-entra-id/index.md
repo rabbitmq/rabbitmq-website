@@ -1,5 +1,5 @@
 ---
-title: Use Azure Active Directory (Azure AD) as OAuth 2.0 server
+title: Use Microsoft Entra ID (previously known as Azure AD) as OAuth 2.0 server
 displayed_sidebar: docsSidebar
 ---
 <!--
@@ -19,10 +19,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Use Azure Active Directory (Azure AD) as OAuth 2.0 server
+# Use Microsoft Entra ID (formerly known as Microsoft Azure AD) as OAuth 2.0 server
 
 Demonstrate how to authenticate using the OAuth 2.0 protocol
-and Azure Active Directory as Authorization Server using the following flows:
+and Microsoft Entra ID as Authorization Server using the following flows:
 
 * Access the management UI via a browser
 
@@ -31,16 +31,18 @@ and Azure Active Directory as Authorization Server using the following flows:
 * Have an account in https://portal.azure.com.
 * Docker
 * Openssl
+* `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
+contains all the configuration files and scripts used on this example.
 
 ## Register your app
 
-When using **Azure AD as OAuth 2.0 server**, your client app (in our case RabbitMQ) needs a way to trust the security tokens issued to it by the **Microsoft identity platform**.
+When using **Entra ID as OAuth 2.0 server**, your client app (in our case RabbitMQ) needs a way to trust the security tokens issued to it by the **Microsoft identity platform**.
 
-1. The first step in establishing that trust is by **registering your app** with the identity platform in Azure AD.
+1. The first step in establishing that trust is by **registering your app** with the identity platform in Entra ID.
 
-  <g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about App registration in Azure AD are available [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app).
+  <g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about App registration in Entra ID are available [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app).
 
-2. Once you have logged onto your account in [Azure Portal](https://portal.azure.com), go to **Azure Active Directory** (use the search bar if you are not able to easily find it).
+2. Once you have logged onto your account in [Entra ID Portal](https://portal.azure.com), go to **Entra ID ** (use the search bar if you are not able to easily find it).
 
 3. In the left-hand navigation menu, click on **App Registrations**. Then, select **New registration**.
 
@@ -51,32 +53,33 @@ When using **Azure AD as OAuth 2.0 server**, your client app (in our case Rabbit
     * On the **Select a platform** drop-down list, select **Single-page application (SPA)**
     * Configure the **Redirect URI** to: `https://localhost:15671/js/oidc-oauth/login-callback.html`
 
-    <g-emoji class="g-emoji" alias="warning" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png">⚠️</g-emoji> **IMPORTANT**: As you may have noticed, Azure AD only allows `https` links as **Redirect URI**. To fit this need, you will enable HTTPS for RabbitMQ Management UI, on port `15671`.
+    <g-emoji class="g-emoji" alias="warning" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png">⚠️</g-emoji> **IMPORTANT**: As you may have noticed, Entra ID only allows `https` links as **Redirect URI**. To fit this need, you will enable HTTPS for RabbitMQ Management UI, on port `15671`.
 
 5. Click on **Register**.
 
-    ![Azure AD OAuth 2.0 App](./azure-ad-oauth-registered-app.png)
+    ![Entra ID OAuth 2.0 App](./entra-id-oauth-registered-app.png)
 
     Note the following values, as you will need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side:
 
     * Directory (tenant ID)
     * Application (client) ID
 
-6. Click on the **Endpoints** tab.
+6. Click on the **Endpoints** tab if it is visible.
 7. On the right pane that has just opened, copy the value of **OpenID Connect metadata document** (ex: `https://login.microsoftonline.com/{TENANT_ID}/v2.0/.well-known/openid-configuration`) and open it in your browser.
 
     Note the value of the `jwks_uri` key (ex: `https://login.microsoftonline.com/{TENANT_ID}/discovery/v2.0/keys`), as you will also need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side.
 
-    ![Azure AD JWKS URI](./azure-ad-jwks-uri.png)
+    ![Entra ID JWKS URI](./entra-id-jwks-uri.png)
+8. If the **Endpoints** tab is not visible,     
 
 
 ## Create OAuth 2.0 roles for your app
 
-App roles are defined by using the [Azure portal](https://portal.azure.com) during the app registration process. When a user signs in to your application, Azure AD emits a `roles` claim for each role that the user or service principal has been granted (you will have a look at it at the end of this tutorial).
+App roles are defined by using the [Entra ID portal](https://portal.azure.com) during the app registration process. When a user signs in to your application, Entra ID emits a `roles` claim for each role that the user or service principal has been granted (you will have a look at it at the end of this tutorial).
 
-<g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about roles in Azure AD are available [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps).
+<g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about roles in Entra ID are available [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps).
 
-1. Still in [Azure Portal](https://portal.azure.com), go back to **Azure Active Directory** home page.
+1. Still in [Entra ID Portal](https://portal.azure.com), go back to **Entra ID** home page.
 
 2. In the left-hand menu, click on **App Registrations** and then click on your **application name** to open your application **Overview** pane.
 
@@ -116,11 +119,11 @@ App roles are defined by using the [Azure portal](https://portal.azure.com) duri
 
 Now that some roles have been created for your application, you still need to assign these to some users.
 
-1. Still in [Azure Portal](https://portal.azure.com), go back to **Azure Active Directory** home page and, in the left-hand menu, click on **Enterprise Applications**.
+1. Still in [Entra ID Portal](https://portal.azure.com), go back to **Entra ID** home page and, in the left-hand menu, click on **Enterprise Applications**.
 
 2. In the new left-hand menu, select **Manage -> All applications**. Use the **Search Bar** and/or the available filters to find your application.
 
-    ![Azure AD Enterprise Applications](./azure-ad-enterprise-application.png)
+    ![Entra ID Enterprise Applications](./entra-id-enterprise-application.png)
 
 3. Click on the application you just created, for which you want to assign roles to users/groups, then, in the left-hand navigation menu, Select **Manage -> Users and groups**.
 
@@ -145,84 +148,69 @@ It is optional to create a signing key for your application. If you create one t
 For example, given your application id, `{my-app-id}` and your tenant `{tenant}`, the OIDC discovery endpoint uri would be `https://login.microsoftonline.com/{tenant}/.well-known/openid-configuration?appid={my-app-id}`. The returned payload contains the `jwks_uri` attribute whose value is something like `https://login.microsoftonline.com/{tenant}/discovery/keys?appid=<my-app-idp>`. RabbitMQ should be configured with that `jwks_uri` value.
 
 
-## Configure RabbitMQ to use Azure AD as OAuth 2.0 authentication backend
+## Configure RabbitMQ to use Entra ID as OAuth 2.0 authentication backend
 
-The configuration on Azure side is done. Next, configure RabbitMQ to use these resources.
+The configuration on Entra ID side is done. Next, configure RabbitMQ to use these resources.
 
-[rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/azure/rabbitmq.config) is a sample RabbitMQ advanced configuration to **enable Azure AD as OAuth 2.0 authentication backend** for the RabbitMQ Management UI.
+[rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/entra/rabbitmq.conf) is a sample RabbitMQ configuration to **enable Entra ID as OAuth 2.0 authentication backend** for the RabbitMQ Management UI.
 
 Update it with the following values:
 
-* **Tenant ID** associated to the app that you registered in Azure AD
-* **Application ID** associated to the app that you registered in Azure AD
+* **Tenant ID** associated to the app that you registered in Entra ID
+* **Application ID** associated to the app that you registered in Entra ID
 * Value of the **jwks_uri** key from `https://login.microsoftonline.com/{TENANT_ID}/v2.0/.well-known/openid-configuration`
 
-```bash
-$ vi rabbitmq.config
-[
-  {rabbit, [
-   {auth_backends, [rabbit_auth_backend_oauth2, rabbit_auth_backend_internal]}
-  ]},
-  {rabbitmq_management, [
-     {oauth_enabled, true},
-     {oauth_client_id, "PUT YOUR AZURE AD APPLICATION ID"},
-     {oauth_provider_url, "https://login.microsoftonline.com/AZURE_AD_TENANT_ID"}
- ]},
- {rabbitmq_auth_backend_oauth2, [
-   {resource_server_id, <<"PUT YOUR AZURE AD APPLICATION ID">>},
-   {extra_scopes_source, <<"roles">>},
-   {key_config, [
-     {jwks_url, <<"PUT YOUR AZURE AD JWKS URI VALUE">>}
-   ]}
- ]}
-].
+```ini
+auth_backends.1 = rabbit_auth_backend_oauth2
+auth_backends.2 = rabbit_auth_backend_internal
+
+management.oauth_enabled = true
+management.oauth_client_id = {PUT YOUR AZURE AD APPLICATION ID}
+management.oauth_provider_url = https://login.microsoftonline.com/{YOUR_ENTRA_ID_TENANT_ID}
+
+auth_oauth2.resource_server_id = {PUT YOUR AZURE AD APPLICATION ID}
+auth_oauth2.additional_scopes_key = roles
+auth_oauth2.jwks_url = {PUT YOUR ENTRA ID JWKS URI VALUE}
 ```
-
-> **Important**: Please update the [configuration file provided with this tutorial](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/azure/rabbitmq.config), as it will be automatically loaded in the RabbitMQ instance that you are going to deploy later in this tutorial
-
-### Generate a TLS Certificate and Key Pair
-
-> **Important**: Remember when you have registered your app on Azure AD that it only allows **https** protocol for OAuth 2.0 **Redirect URI**? You will thus need to enable HTTPS for RabbitMQ Management UI amd its underlying API.
-
-For the purpose of this tutorial, you can generate a self-signed certificate/key pair.
-
-Run the following command (depending on your config, you may have to be root):
-```bash
-make build-azure
-```
-
-This generates the following files in `conf/azure`:
-* **rabbitmq-ca.**crt**: a custom certificate authority that is used to generate and sign a self signed certificate for RabbitMQ
-* **rabbitmq.crt**: a self-signed certificate (cn=localhost)
-* **rabbitmq.key**: the private key associated to the `rabbitmq.crt` certificate
-
-<g-emoji class="g-emoji" alias="arrow_right" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/27a1.png">➡️</g-emoji> These files will be mounted into the `rabbitmq` docker container in the next steps of this tutorial, where they will be used to configure HTTPS for the RabbitMQ Management UI/API
 
 ## Start RabbitMQ
 
 Run the following commands to run RabbitMQ docker image:
 
 ```bash
-export MODE=azure
+export MODE=entra
 make start-rabbitmq
 ```
 
-<g-emoji class="g-emoji" alias="arrow_right" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/27a1.png">➡️</g-emoji> This starts a docker container named `rabbitmq`, with RabbitMQ Management UI/API with HTTPS enabled, and configured to use your Azure AD as OAuth 2.0 Authentication Backend, based on the information you provided in `rabbitmq.config` in the previsous steps of this tutorial.
+<g-emoji class="g-emoji" alias="arrow_right" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/27a1.png">➡️</g-emoji> This starts a docker container named `rabbitmq`, with RabbitMQ Management UI/API with HTTPS enabled, and configured to use your Entra ID as OAuth 2.0 Authentication Backend, based on the information you provided in [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/entra/rabbitmq.conf) in the previous steps of this tutorial.
+
+## Automatic generation of a TLS Certificate and Key Pair
+
+> **Important**: Remember when you have registered your app on Entra ID that it only allows **https** protocol for OAuth 2.0 **Redirect URI**? You will thus need to enable HTTPS for RabbitMQ Management UI amd its underlying API.
+
+When you run `make start-rabbitmq` for the first time with `MODE=entra`, before RabbitMQ is deployed, a TLS certificate is generated for RabbitMQ so that it listens on HTTPS port 15671.  
+
+The script generates the following files in `conf/entra/certs`:
+* **cacert.pem**: a custom certificate authority that is used to generate and sign a self signed certificate for RabbitMQ
+* **cert.pem**: a self-signed certificate (cn=localhost)
+* **key.pem**: the private key associated to the `cert.pem` certificate
+
+<g-emoji class="g-emoji" alias="arrow_right" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/27a1.png">➡️</g-emoji> These files will be mounted into the `rabbitmq` docker container in the next steps of this tutorial, where they will be used to configure HTTPS for the RabbitMQ Management UI/API
 
 ## Verify RabbitMQ Management UI access
 
 Go to RabbitMQ Management UI `https://localhost:15671`. Depending on your browser, ignore the security warnings (raised by the fact that you are using a self-signed certificate) to proceed.
 
 Once on the RabbitMQ Management UI page, click on the **Click here to log in** button,
-authenticate with your **Azure AD user**. The first time, you are likely going to have to give your
-consent (it depends on the policies applied to Azure AD on your side).
+authenticate with your **Entra ID user**. The first time, you are likely going to have to give your
+consent (it depends on the policies applied to Entra AD on your side).
 
 <g-emoji class="g-emoji" alias="warning" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png">⚠️</g-emoji> At first login, you may face the `AADSTS90008` error: just click on **Click here to log in** button
 again and it will disappear (this issue seems to be known, as illustrated [here](https://docs.microsoft.com/en-us/ansrs/questions/671457/after-34accept34-on-consent-prompt-on-azure-sso-lo.html#answer-893848))
 
 At the end, you should be redirected back to the RabbitMQ Management UI.
 
-Azure AD issues an access token like this one below. The permissions are managed in the `roles` claim.
+Entra AD issues an access token like this one below. The permissions are managed in the `roles` claim.
 You have configured RabbitMQ with `{extra_scopes_source, <<"roles">>},` which means RabbitMQ uses
 the scopes in the `roles` claim to define permissions for a logged-in user.
 
