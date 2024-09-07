@@ -242,6 +242,16 @@ cluster_formation.classic_config.nodes.2 = rabbit@hostname2.eng.example.local
 
 ## DNS Peer Discovery Backend {#peer-discovery-dns}
 
+:::important
+
+This peer discovery mechanism is sensitive to system configuration that
+affects hostname resolution changes.
+
+For example, a deployment tool that modifies the [local host file](https://en.wikipedia.org/wiki/Hosts_(file))
+can affect (break) this peer discovery mechanism.
+
+:::
+
 ### DNS Peer Discovery Overview
 
 Another built-in peer discovery mechanism as of RabbitMQ 3.7.0 is DNS-based.
@@ -276,6 +286,26 @@ cluster_formation.peer_discovery_backend = dns
 
 cluster_formation.dns.hostname = discovery.eng.example.local
 ```
+
+### Host File Modifications in Containerized Environments
+
+:::warning
+
+In some containerized environments, the [local host file](https://en.wikipedia.org/wiki/Hosts_(file)) is modified at container
+startup time. This can affect hostname resolution on the host and make it impossible for this peer
+discovery mechanism to do its job.
+
+:::
+
+In some containerized environments, the [local host file](https://en.wikipedia.org/wiki/Hosts_(file)) is modified at container
+startup time, for example, a configuration- or convention-based local hostname can be added to it.
+
+This can affect hostname resolution on the host and make it impossible for this peer
+discovery mechanism to do its job.
+
+Podman is one known example of a tool that can perform such host file modifications.
+In order to avoid this, set its [`host_containers_internal_ip` setting](https://github.com/containers/common/blob/main/docs/containers.conf.5.md)
+must be set to a blank string.
 
 
 ## Peer Discovery on AWS (EC2) {#peer-discovery-aws}
