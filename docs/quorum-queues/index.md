@@ -19,6 +19,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Quorum Queues
 
 ## Overview {#overview}
@@ -62,7 +65,7 @@ Topics covered in this document include:
  * What guarantees quorum queues offer in terms of [leader failure handling](#leader-election), [data safety](#data-safety) and [availability](#availability)
  * Continuous [Membership Reconciliation](#replica-reconciliation)
  * [Performance](#performance) characteristics of quorum queues and [performance tuning](#performance-tuning) relevant to them
- * [Poison message handling](#poison-message-handling) provided by quorum queues
+ * [Poison message handling](#poison-message-handling) (failure-redelivery loop protection)
  * [Configurable settings](#configuration) of quorum queues
  * Resource use of quorum queues, most importantly their [memory footprint](#resource-use)
 
@@ -331,34 +334,153 @@ message types, one for each type (priority). Queues used for more important mess
 should generally have more (overprovisioned) consumers.
 
 
-### Poison Message Handling {#poison-message-handling}
+## Poison Message Handling {#poison-message-handling}
 
-Quorum queues support handling of [poison messages](https://en.wikipedia.org/wiki/Poison_message),
+Quorum queue support handling of [poison messages](https://en.wikipedia.org/wiki/Poison_message),
 that is, messages that cause a consumer to repeatedly requeue a delivery (possibly due to a consumer failure)
-such that the message is never consumed completely and [positively acknowledged](./confirms) so that it can be marked for deletion by RabbitMQ.
+such that the message is never consumed completely and [positively acknowledged](./confirms) so that it can be marked for
+deletion by RabbitMQ.
 
-Quorum queues keep track of the number of unsuccessful delivery attempts and expose it in the
-`x-delivery-count` header/message-annotation that is included with any redelivered message.
-The `x-delivery-count` header/message-annotation includes _all_ returns to the queue including failed and
-deliberate ones. For [AMQP](./amqp) the header section `delivery-count` field will only
-include failures (client connection lost, returns using the modified outcome with `delivery-failed=true`)
-and is thus a separate counter.
+Quorum queues keep track of the number of unsuccessful (re)delivery attempts and expose it in the
+"x-delivery-count" header that is included with any redelivered message.
 
-:::info
-Starting with RabbitMQ 4.0, the delivery limit for quorum queues defaults to 20
-:::
+:::important
 
-This can be increased or decreased using a [policy](./parameters#policies) argument, `delivery-limit`.
-There is no way to set it to the old, unlimited default.
-
-When a message has been returned more times than the limit the message will be dropped or
+When a message has been redelivered more times than the limit the message will be dropped (removed) or
 [dead-lettered](./dlx) (if a DLX is configured).
+
+:::
 
 It is recommended that all quorum queues have a dead letter configuration of some
 sort to ensure messages aren't dropped and lost unintentionally. Using a single
 [stream](./streams) for a low priority dead letter policy is a good, low resource way to ensure
 dropped messages are retained for some time after.
 
+:::important
+
+Starting with RabbitMQ 4.0, the delivery limit for quorum queues defaults to 20.
+There is no way to set it to the old, unlimited default.
+
+:::
+
+### Configuring the Limit {#position-message-handling-configuring-limit}
+
+It is possible to set a delivery limit for a queue using a [policy](./parameters#policies) argument, `delivery-limit`.
+
+The following example sets the limit to 50 for queues whose names begin with
+`qq`.
+
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+rabbitmqctl set_policy qq-overrides \
+    "^qq\." '{"delivery-limit": 50}' \
+    --priority 20 \
+    --apply-to "quorum_queues"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat set_policy qq-overrides ^
+    "^qq\." "{""delivery-limit"": 50}" ^
+    --priority 20 ^
+    --apply-to "quorum_queues"
+```
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
+PUT /api/policies/%2f/qq-overrides
+    {"pattern": "^qq\.",
+     "definition": {"delivery-limit": 50},
+     "priority": 1,
+    "apply-to": "quorum_queues"}
+```
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+<ol>
+  <li>
+    Navigate to `Admin` > `Policies` > `Add / update a
+    policy`.
+  </li>
+  <li>
+    Enter a policy name (such as "qq-overrides") next to Name, a pattern (such as "^qq\.") next to
+    Pattern, and select what kind of entities (quorum queues in this example) the policy should apply to using the `Apply to`
+    drop down.
+  </li>
+  <li>
+    Enter "delivery-limit" for policy argument and 50 for its value in the first line next to
+    `Policy`.
+  </li>
+  <li>
+    Click `Add policy`.
+  </li>
+</ol>
+</TabItem>
+</Tabs>
+
+### Configuring the Limit and Setting Up Dead-Lettering {#position-message-handling-configuring-dlx}
+
+Messages that are redelivered more times than the limit allows for will be either dropped (removed) or [dead-lettered](./dlx).
+
+The following example configures both the limit and an exchange to dead-letter (republish) such
+messages. The target exchange in this example is called "redeliveries.limit.dlx". Declaring it and setting up its topology
+(binding queues and/or streams to it) is not covered in this example.
+
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+rabbitmqctl set_policy qq-overrides \
+    "^qq\." '{"delivery-limit": 50, "dead-letter-exchange": "redeliveries.limit.dlx"}' \
+    --priority 20 \
+    --apply-to "quorum_queues"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat set_policy qq-overrides ^
+    "^qq\." "{""delivery-limit"": 50, ""dead-letter-exchange"": ""redeliveries.limit.dlx""}" ^
+    --priority 20 ^
+    --apply-to "quorum_queues"
+```
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
+PUT /api/policies/%2f/qq-overrides
+    {"pattern": "^qq\.",
+     "definition": {"delivery-limit": 50, "dead-letter-exchange": "redeliveries.limit.dlx"},
+     "priority": 1,
+    "apply-to": "quorum_queues"}
+```
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+<ol>
+  <li>
+    Navigate to `Admin` > `Policies` > `Add / update a
+    policy`.
+  </li>
+  <li>
+    Enter a policy name (such as "qq-overrides") next to Name, a pattern (such as "^qq\.") next to
+    Pattern, and select what kind of entities (quorum queues in this example) the policy should apply to using the `Apply to`
+    drop down.
+  </li>
+  <li>
+    Enter "delivery-limit" for policy argument and 50 for its value in the first line next to
+    `Policy`, then "dead-letter-exchange" for the second key and "redeliveries.limit.dlx" for its value.
+  </li>
+  <li>
+    Click `Add policy`.
+  </li>
+</ol>
+</TabItem>
+</Tabs>
+
+To learn more about dead-lettering, please consult its [dedicated guide](./dlx).
 
 
 ### Policy Support {#policy-support}
