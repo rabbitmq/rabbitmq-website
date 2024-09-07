@@ -23,7 +23,7 @@ limitations under the License.
 
 ## Overview {#overview}
 
-This guide covers the most common errors encountered using [OAuth 2.0](./oauth2/) and [management plugin](./management) and how to diagnose them.
+This guide covers the most common errors encountered using [OAuth 2.0](./oauth2/) and the [management plugin](./management) and how to diagnose them.
 
 ## Troubleshooting OAuth 2 in the management UI {#management-ui}
 
@@ -42,7 +42,7 @@ OAuth resource [rabbitmq] not available. OpenId Discovery endpoint https://<the_
 
 These are the most common reasons for this issue:
 
-* The endpoint is unreachable (e.g. there is a firewall which blocks access) or target service is down
+* The endpoint is unreachable, for example, there is a firewall which blocks access or a target service is down
 * The endpoint has a [TLS certificate not trusted](./ssl#peer-verification) by the browser
 * The browser is blocking access due to a [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) policy
 
@@ -79,18 +79,21 @@ OAuth resource [rabbitmq] not available. OpenId Discovery endpoint https://<the_
 
 This issue is caused when the endpoint is not returning a JSON payload which matches with the [OpenId Connect Discovery Configuration](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig).
 These are the possible causes:
-- The payload returned by the endpoint is not compliant because it is empty or it is missing some critical information. To identify the root cause, open the browser's javascript console and search for one of these possible error messages:
+- The payload returned by the endpoint is not compliant because it is empty or it is missing some critical information. To identify the root cause, open the browser's JavaScript console and search for one of these possible error messages:
   - `Payload does not contain openid configuration` This error occurs when the payload is empty or it is not a JSON payload.
   - `Missing authorization_endpoint` This error occurs when the JSON attribute `authorization_endpoint` is missing.
   - `Missing token_endpoint` This error occurs when the JSON attribute `token_endpoint` is missing.
   - `Missing jwks_uri` This error occurs when the JSON attribute `jwks_uri` is missing.
-- The url is wrong. Check out with your administrator of your Identity Provider to get the correct url to the OpenId Connect Discovery endpoint.
+- The URL is wrong. Retrieve the correct url to the OpenId Connect Discovery endpoint from your identity provider administrator.
 
 ### Not authorized {#not-authorized-error}
 
 #### Steps to reproduce
 
-Open the root url of the management UI in the browser, click on the button "Click here to logon" and enter the credentials requested by your Identity Provider. You are redirected back to the management UI with the following error:
+Open the root URL of the management UI in the browser. Click on the button "Click here to logon" and
+enter the credentials requested by the identity provider.
+
+You are redirected back to the management UI with the following error:
 
 ```
 Not authorized
@@ -106,16 +109,16 @@ This issue occurs when the token does not have enough scopes or permissions to a
 * `rabbitmq.tag:policymaker`.
 
 Follow these steps to find out which scopes or permissions are carried in the token:
-1. Open your browwser's developer tool (e.g. in Chrome or Firefox, right-click on the page and click on *Inspect* menu option).
-2. Go to the tab *Application*.
-3. Select the option *Storage* > *Local Storage* in the left panel.
-4. Click on the tree option which matches the URL of the management UI.
-5. Select the Key *rabbitmq.credentials* in the right panel.
-6. Copy its value.
-7. Go to the url https://jwt.io.
-8. Paste the value into the text field *Encoded*.
-9. Look at the payload's text field *Decoded*.
-10. Search for the token attribute `scope` in the tokens' payload or for the value configured in `auth_oauth2.additional_scopes_key`, if any.
+1. Open your browwser's developer tool (for example, in Chrome or Firefox, right-click on the page and click on *Inspect* menu option)
+2. Go to the *Application* tab
+3. Select the option *Storage* > *Local Storage* in the left panel
+4. Click on the tree option which matches the URL of the management UI
+5. Select the Key *rabbitmq.credentials* in the right panel
+6. Copy its value
+7. Navigate to https://jwt.io
+8. Paste the value into the text field *Encoded*
+9. Look at the payload's text field *Decoded*
+10. Search for the token attribute `scope` in the tokens' payload or for the value configured in `auth_oauth2.additional_scopes_key`, if any
 11. Once you found the appropriate token's scope attribute, find within the attribute's value any of the scopes listed above. If [auth_oauth2.scope_prefix](./oauth2#scope-prefix) is used, it must be taken into account: the scopes will be named like  `myprefix_tag:administrator`. If [scope aliases](./oauth2-examples#using-scope-aliases) are used, find the scope alias that maps to one of the scopes listed above
 
 
@@ -132,7 +135,7 @@ This issue is not necessarily specific to the management UI, it may also occur w
 
 #### Troubleshooting
 
-1. Access RabbitMQ logs.
-2. Look for `{bad_cert,hostname_check_failed}`.
-3. If you find an entry it means that RabbitMQ tried to contact the url found in `auth_oauth2.issuer` and the issuer presented a wildcard certificate.
-4. To fix this issue, add the following line to your RabbitMQ configuration `auth_oauth2.https.hostname_verification = wildcard`, or `auth_oauth2.oauth_providers.<my_oauth_provider_name>.https.hostname_verification = wildcard` if you are using multiple OAuth providers.
+1. Access the RabbitMQ logs
+2. Look for `{bad_cert,hostname_check_failed}`
+3. If you find an entry, it means that RabbitMQ tried to contact the URL found in `auth_oauth2.issuer` and the issuer presented a wildcard certificate
+4. To fix this issue, add the following line to `rabbitmq.conf`: `auth_oauth2.https.hostname_verification = wildcard`, or `auth_oauth2.oauth_providers.<my_oauth_provider_name>.https.hostname_verification = wildcard` if multiple identity providers are used
