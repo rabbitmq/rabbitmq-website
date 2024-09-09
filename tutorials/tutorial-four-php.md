@@ -133,7 +133,7 @@ $channel->basic_publish($msg, 'direct_logs', $severity);
 ```
 
 To simplify things we will assume that 'severity' can be one of
-'info', 'warning', 'error'.
+`info`, `warning`, or `error`.
 
 Subscribing
 -----------
