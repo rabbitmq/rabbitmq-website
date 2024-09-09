@@ -131,7 +131,7 @@ AMQP.Basic.publish(channel, "direct_logs", severity, message)
 ```
 
 To simplify things we will assume that 'severity' can be one of
-'info', 'warning', 'error'.
+`info`, `warning`, or `error`.
 
 
 Subscribing

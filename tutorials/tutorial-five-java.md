@@ -57,7 +57,7 @@ Messages sent to a `topic` exchange can't have an arbitrary
 `routing_key` - it must be a list of words, delimited by dots. The
 words can be anything, but usually they specify some features
 connected to the message. A few valid routing key examples:
-"`stock.usd.nyse`", "`nyse.vmw`", "`quick.orange.rabbit`". There can be as
+`stock.usd.nyse`, `nyse.vmw`, `quick.orange.rabbit`. There can be as
 many words in the routing key as you like, up to the limit of 255
 bytes.
 
@@ -78,10 +78,10 @@ In this example, we're going to send messages which all describe
 animals. The messages will be sent with a routing key that consists of
 three words (two dots). The first word in the routing key
 will describe speed, second a colour and third a species:
-"`<speed>.<colour>.<species>`".
+`<speed>.<colour>.<species>`.
 
-We created three bindings: Q1 is bound with binding key "`*.orange.*`"
-and Q2 with "`*.*.rabbit`" and "`lazy.#`".
+We created three bindings: Q1 is bound with binding key `*.orange.*`
+and Q2 with `*.*.rabbit` and `lazy.#`.
 
 These bindings can be summarised as:
 
@@ -89,19 +89,19 @@ These bindings can be summarised as:
   * Q2 wants to hear everything about rabbits, and everything about lazy
     animals.
 
-A message with a routing key set to "`quick.orange.rabbit`"
+A message with a routing key set to `quick.orange.rabbit`
 will be delivered to both queues. Message
-"`lazy.orange.elephant`" also will go to both of them. On the other hand
-"`quick.orange.fox`" will only go to the first queue, and
-"`lazy.brown.fox`" only to the second. "`lazy.pink.rabbit`" will
+`lazy.orange.elephant` also will go to both of them. On the other hand
+`quick.orange.fox` will only go to the first queue, and
+`lazy.brown.fox` only to the second. `lazy.pink.rabbit` will
 be delivered to the second queue only once, even though it matches two bindings.
-"`quick.brown.fox`" doesn't match any binding so it will be discarded.
+`quick.brown.fox` doesn't match any binding so it will be discarded.
 
 What happens if we break our contract and send a message with one or
-four words, like "`orange`" or "`quick.orange.new.rabbit`"? Well,
+four words, like `orange` or `quick.orange.new.rabbit`? Well,
 these messages won't match any bindings and will be lost.
 
-On the other hand "`lazy.orange.new.rabbit`", even though it has four
+On the other hand `lazy.orange.new.rabbit`, even though it has four
 words, will match the last binding and will be delivered to the second
 queue.
 
@@ -109,10 +109,10 @@ queue.
 >
 > Topic exchange is powerful and can behave like other exchanges.
 >
-> When a queue is bound with "`#`" (hash) binding key - it will receive
+> When a queue is bound with `#` (hash) binding key - it will receive
 > all the messages, regardless of the routing key - like in `fanout` exchange.
 >
-> When special characters, "`*`" (star) and "`#`" (hash), aren't used in bindings,
+> When special characters, `*` (star) and `#` (hash), aren't used in bindings,
 > the topic exchange will behave just like a `direct` one.
 
 Putting it all together
@@ -120,7 +120,7 @@ Putting it all together
 
 We're going to use a `topic` exchange in our logging system. We'll
 start off with a working assumption that the routing keys of logs will
-have two words: "`<facility>.<severity>`".
+have two words: `<facility>.<severity>`.
 
 The code is almost the same as in the
 [previous tutorial](./tutorial-four-java).
@@ -212,13 +212,13 @@ To receive all the logs:
 java -cp $CP ReceiveLogsTopic "#"
 ```
 
-To receive all logs from the facility "`kern`":
+To receive all logs from the facility `kern`:
 
 ```bash
 java -cp $CP ReceiveLogsTopic "kern.*"
 ```
 
-Or if you want to hear only about "`critical`" logs:
+Or if you want to hear only about `critical` logs:
 
 ```bash
 java -cp $CP ReceiveLogsTopic "*.critical"
@@ -230,7 +230,7 @@ You can create multiple bindings:
 java -cp $CP ReceiveLogsTopic "kern.*" "*.critical"
 ```
 
-And to emit a log with a routing key "`kern.critical`" type:
+And to emit a log with a routing key `kern.critical` type:
 
 ```bash
 java -cp $CP EmitLogTopic "kern.critical" "A critical kernel error"
