@@ -46,14 +46,10 @@ service that returns Fibonacci numbers.
 
 To illustrate how an RPC service could be used we're going to
 create a simple client class. It's going to expose a method named `CallAsync`
-which sends an RPC request and blocks until the answer is received:
+which sends an RPC request and awaits the answer:
 
-```csharp
-using var rpcClient = new RpcClient();
-
-Console.WriteLine(" [x] Requesting fib({0})", n);
-var response = await rpcClient.CallAsync(n);
-Console.WriteLine(" [.] Got '{0}'", response);
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/RPCClient/RPCClient.cs#L112-L120
 ```
 
 > #### A note on RPC
@@ -84,17 +80,8 @@ message and a server replies with a response message. In order to
 receive a response we need to send a 'callback' queue address with the
 request:
 
-```csharp
-var props = channel.CreateBasicProperties();
-props.ReplyTo = replyQueueName;
-
-var messageBytes = Encoding.UTF8.GetBytes(message);
-channel.BasicPublish(exchange: string.Empty,
-                     routingKey: "rpc_queue",
-                     basicProperties: props,
-                     body: messageBytes);
-
-// ... then code to read a response message from the callback_queue ...
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/RPCClient/RPCClient.cs#L60-L74
 ```
 
 > #### Message properties
@@ -163,92 +150,19 @@ Putting it all together
 
 The Fibonacci task:
 
-```csharp
-static int Fib(int n)
-{
-    if (n is 0 or 1)
-    {
-        return n;
-    }
-
-    return Fib(n - 1) + Fib(n - 2);
-}
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/RPCServer/RPCServer.cs#L59-L68
 ```
 
-We declare our fibonacci function. It assumes only valid positive integer input.
-(Don't expect this one to work for big numbers,
-and it's probably the slowest recursive implementation possible).
+We declare our fibonacci function. It assumes only valid positive integer
+input. (Don't expect this one to work for big numbers, and it's probably the
+slowest recursive implementation possible).
 
 
-The code for our RPC server [RPCServer.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCServer/RPCServer.cs) looks like this:
+The code for our RPC server looks like this:
 
-```csharp
-using System.Text;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-
-var factory = new ConnectionFactory { HostName = "localhost" };
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-
-channel.QueueDeclare(queue: "rpc_queue",
-                     durable: false,
-                     exclusive: false,
-                     autoDelete: false,
-                     arguments: null);
-channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
-var consumer = new EventingBasicConsumer(channel);
-channel.BasicConsume(queue: "rpc_queue",
-                     autoAck: false,
-                     consumer: consumer);
-Console.WriteLine(" [x] Awaiting RPC requests");
-
-consumer.Received += (model, ea) =>
-{
-    string response = string.Empty;
-
-    var body = ea.Body.ToArray();
-    var props = ea.BasicProperties;
-    var replyProps = channel.CreateBasicProperties();
-    replyProps.CorrelationId = props.CorrelationId;
-
-    try
-    {
-        var message = Encoding.UTF8.GetString(body);
-        int n = int.Parse(message);
-        Console.WriteLine($" [.] Fib({message})");
-        response = Fib(n).ToString();
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine($" [.] {e.Message}");
-        response = string.Empty;
-    }
-    finally
-    {
-        var responseBytes = Encoding.UTF8.GetBytes(response);
-        channel.BasicPublish(exchange: string.Empty,
-                             routingKey: props.ReplyTo,
-                             basicProperties: replyProps,
-                             body: responseBytes);
-        channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
-    }
-};
-
-Console.WriteLine(" Press [enter] to exit.");
-Console.ReadLine();
-
-// Assumes only valid positive integer input.
-// Don't expect this one to work for big numbers, and it's probably the slowest recursive implementation possible.
-static int Fib(int n)
-{
-    if (n is 0 or 1)
-    {
-        return n;
-    }
-
-    return Fib(n - 1) + Fib(n - 2);
-}
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/RPCServer/RPCServer.cs
 ```
 
 The server code is rather straightforward:
@@ -257,98 +171,15 @@ The server code is rather straightforward:
     the queue.
   * We might want to run more than one server process. In order
     to spread the load equally over multiple servers we need to set the
-    `prefetchCount` setting in `channel.BasicQos`.
-  * We use `BasicConsume` to access the queue. Then we register a delivery handler in which
+    `prefetchCount` setting in `channel.BasicQosAsync`.
+  * We use `BasicConsumeAsync` to access the queue. Then we register a delivery handler in which
     we do the work and send the response back.
 
 
-The code for our RPC client [RPCClient.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCClient/RPCClient.cs):
+The code for our RPC client:
 
-```csharp
-using System.Collections.Concurrent;
-using System.Text;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-
-public class RpcClient : IDisposable
-{
-    private const string QUEUE_NAME = "rpc_queue";
-
-    private readonly IConnection connection;
-    private readonly IModel channel;
-    private readonly string replyQueueName;
-    private readonly ConcurrentDictionary<string, TaskCompletionSource<string>> callbackMapper = new();
-
-    public RpcClient()
-    {
-        var factory = new ConnectionFactory { HostName = "localhost" };
-
-        connection = factory.CreateConnection();
-        channel = connection.CreateModel();
-        // declare a server-named queue
-        replyQueueName = channel.QueueDeclare().QueueName;
-        var consumer = new EventingBasicConsumer(channel);
-        consumer.Received += (model, ea) =>
-        {
-            if (!callbackMapper.TryRemove(ea.BasicProperties.CorrelationId, out var tcs))
-                return;
-            var body = ea.Body.ToArray();
-            var response = Encoding.UTF8.GetString(body);
-            tcs.TrySetResult(response);
-        };
-
-        channel.BasicConsume(consumer: consumer,
-                             queue: replyQueueName,
-                             autoAck: true);
-    }
-
-    public Task<string> CallAsync(string message, CancellationToken cancellationToken = default)
-    {
-        IBasicProperties props = channel.CreateBasicProperties();
-        var correlationId = Guid.NewGuid().ToString();
-        props.CorrelationId = correlationId;
-        props.ReplyTo = replyQueueName;
-        var messageBytes = Encoding.UTF8.GetBytes(message);
-        var tcs = new TaskCompletionSource<string>();
-        callbackMapper.TryAdd(correlationId, tcs);
-
-        channel.BasicPublish(exchange: string.Empty,
-                             routingKey: QUEUE_NAME,
-                             basicProperties: props,
-                             body: messageBytes);
-
-        cancellationToken.Register(() => callbackMapper.TryRemove(correlationId, out _));
-        return tcs.Task;
-    }
-
-    public void Dispose()
-    {
-        // closing a connection will also close all channels on it
-        connection.Close();
-    }
-}
-
-public class Rpc
-{
-    public static async Task Main(string[] args)
-    {
-        Console.WriteLine("RPC Client");
-        string n = args.Length > 0 ? args[0] : "30";
-        await InvokeAsync(n);
-
-        Console.WriteLine(" Press [enter] to exit.");
-        Console.ReadLine();
-    }
-
-    private static async Task InvokeAsync(string n)
-    {
-        using var rpcClient = new RpcClient();
-
-        Console.WriteLine(" [x] Requesting fib({0})", n);
-        var response = await rpcClient.CallAsync(n);
-        Console.WriteLine(" [.] Got '{0}'", response);
-    }
-}
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/RPCClient/RPCClient.cs
 ```
 
 The client code is slightly more involved:
@@ -357,7 +188,7 @@ The client code is slightly more involved:
     exclusive 'callback' queue for replies.
   * We subscribe to the 'callback' queue, so that
     we can receive RPC responses.
-  * Our `Call` method makes the actual RPC request.
+  * Our `CallAsync` method makes the actual RPC request.
   * Here, we first generate a unique `CorrelationId`
     number and save it to identify the appropriate response when it arrives.
   * Next, we publish the request message, with two properties:
@@ -370,17 +201,9 @@ The client code is slightly more involved:
 
 Making the Client request:
 
-```csharp
-using var rpcClient = new RpcClient();
-
-Console.WriteLine(" [x] Requesting fib({0})", n);
-var response = await rpcClient.CallAsync(n);
-Console.WriteLine(" [.] Got '{0}'", response);
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/RPCClient/RPCClient.cs#L112-L120
 ```
-
-Now is a good time to take a look at our full example source code (which includes basic exception handling) for
-[RPCClient.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCClient/RPCClient.cs) and [RPCServer.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCServer/RPCServer.cs).
-
 
 Set up as usual (see [tutorial one](./tutorial-one-dotnet)):
 
@@ -406,7 +229,7 @@ service, but it has some important advantages:
  * If the RPC server is too slow, you can scale up by just running
    another one. Try running a second `RPCServer` in a new console.
  * On the client side, the RPC requires sending and
-   receiving only one message. No synchronous calls like `QueueDeclare`
+   receiving only one message. No synchronous calls like `QueueDeclareAsync`
    are required. As a result the RPC client needs only one network
    round trip for a single RPC request.
 
@@ -420,6 +243,5 @@ complex (but important) problems, like:
  * Protecting against invalid incoming messages
    (eg checking bounds, type) before processing.
 
->
->If you want to experiment, you may find the [management UI](/docs/management) useful for viewing the queues.
->
+
+If you want to experiment, you may find the [management UI](/docs/management) useful for viewing the queues.

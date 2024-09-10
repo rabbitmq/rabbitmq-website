@@ -235,6 +235,10 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      codeblock: {
+        showGithubLink: true,
+        githubLinkLabel: 'View on GitHub'
+      },
       colorMode: {
         respectPrefersColorScheme: true
       },
@@ -435,7 +439,10 @@ const config = {
   markdown: {
     mermaid: true,
   },
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: [
+      '@docusaurus/theme-mermaid',
+      'docusaurus-theme-github-codeblock'
+  ],
 };
 
 export default config;
