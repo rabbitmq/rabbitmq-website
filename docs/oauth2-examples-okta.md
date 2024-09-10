@@ -38,7 +38,8 @@ contains all the configuration files and scripts used on this example
 
 When using **Okta as OAuth 2.0 server**, your client app (in our case RabbitMQ) needs a way to trust the security tokens issued to it by the **Okta OIDC Sign-In Widget**.
 
-The first step in establishing that trust is by **creating your app** with the identity platform in Okta. More details about App registration in Okta are available [here](https://help.okta.com/en-us/Content/Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm).
+The first step in establishing that trust is by **creating your app** with the identity platform in Okta. To learn more about App registration in Okta,
+please refer to [Okta documentation](https://help.okta.com/en-us/Content/Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm).
 
 Once you have logged onto your account in [Okta](https://www.okta.com), follow below steps:
 

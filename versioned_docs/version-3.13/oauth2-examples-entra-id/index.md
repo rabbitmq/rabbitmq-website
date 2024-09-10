@@ -84,7 +84,7 @@ App roles are defined by using the [Entra ID portal](https://portal.azure.com) d
 
 :::info
 
-More details about roles in Entra ID are available [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps).
+To learn more about roles in Entra ID, see [Entra ID documentation](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps)
 
 :::
 
@@ -100,7 +100,8 @@ More details about roles in Entra ID are available [here](https://docs.microsoft
 
 :::info
 
-More details about how permissions are managed on RabbitMQ when using OAuth 2.0 are available [here](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial#about-permissions).
+To learn more about how permissions are managed when RabbitMQ is used together with OAuth 2.0,
+see [this portion of the OAuth 2 tutorial](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial#about-permissions)
 
 :::
 

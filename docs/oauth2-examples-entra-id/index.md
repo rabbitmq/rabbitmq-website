@@ -75,7 +75,7 @@ When using **Entra ID as OAuth 2.0 server**, your client app (in our case Rabbit
     Note the value of the `jwks_uri` key (ex: `https://login.microsoftonline.com/{TENANT_ID}/discovery/v2.0/keys`), as you will also need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side.
 
     ![Entra ID JWKS URI](./entra-id-jwks-uri.png)
-8. If the **Endpoints** tab is not visible,     
+8. If the **Endpoints** tab is not visible,
 
 
 ## Create OAuth 2.0 roles for your app
@@ -84,7 +84,7 @@ App roles are defined by using the [Entra ID portal](https://portal.azure.com) d
 
 :::info
 
-More details about roles in Entra ID are available [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps).
+To learn more about roles in Entra ID, see [Entra ID documentation](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps)
 
 :::
 
@@ -100,7 +100,8 @@ More details about roles in Entra ID are available [here](https://docs.microsoft
 
 :::info
 
-More details about how permissions are managed on RabbitMQ when using OAuth 2.0 are available [here](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial#about-permissions).
+To learn more about how permissions are managed when RabbitMQ is used together with OAuth 2.0,
+see [this portion of the OAuth 2 tutorial](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial#about-permissions)
 
 :::
 
