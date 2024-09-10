@@ -28,6 +28,10 @@ import {
 
 # Client Documentation
 
+## AMQP 1.0
+
+ * [Documentation for all supported programming languages](./amqp-client-libraries.md)
+
 ## Java
 
  * [Downloads and Installation](./java-client.md)
