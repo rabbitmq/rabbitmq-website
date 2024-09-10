@@ -24,7 +24,7 @@ limitations under the License.
 This guide explains how to set up OAuth 2.0 for RabbitMQ
 and Microsoft Entra ID as Authorization Server using the following flows:
 
-* Access the management UI via a browser
+* Access the management UI via a browser.
 
 ## Prerequisites to follow this guide
 
@@ -67,14 +67,6 @@ When using **Entra ID as OAuth 2.0 server**, your client app (in our case Rabbit
 
     * Directory (tenant ID)
     * Application (client) ID
-
-6. Click on the **Endpoints** tab if it is visible.
-7. On the right pane that has just opened, copy the value of **OpenID Connect metadata document** (ex: `https://login.microsoftonline.com/{TENANT_ID}/v2.0/.well-known/openid-configuration`) and open it in your browser.
-
-    Note the value of the `jwks_uri` key (ex: `https://login.microsoftonline.com/{TENANT_ID}/discovery/v2.0/keys`), as you will also need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side.
-
-    ![Entra ID JWKS URI](./entra-id-jwks-uri.png)
-8. If the **Endpoints** tab is not visible,
 
 
 ## Create OAuth 2.0 roles for your app
@@ -159,6 +151,21 @@ Now that some roles have been created for your application, you still need to as
 
 9. Repeat the operations for all the roles you want to assign.
 
+## Create scope required by Management ui during authorization
+
+So far we have created the roles and granted the roles to the user who is going to
+access the management UI. When this user logs into RabbitMQ management UI, its token
+contains the granted roles.
+
+1. Go to **App registrations**.
+2. Click on your application.
+3. Go to **Manage** option on the left menu and choose the option **Expose an API**.
+4. Click on **Add a scope**.
+5. Enter a name, eg. `management-ui`. Enter the same name for **Admin consent display name** and a description and save it.
+7. The scope is named `api://{Application (client) ID}/{scope_name}`.
+
+RabbitMQ management ui must provide this scope in `management.oauth_scopes` along with `openid profiles` scopes.
+
 ## Configure Custom Signing Keys
 
 It is optional to create a signing key for your application. If you create one though, you must append an `appid` query parameter containing the *app ID* to the `jwks_uri`. Otherwise, the standard jwks_uri endpoint will not include the custom signing key and RabbitMQ will not find the signing key to validate the token's signature.
@@ -180,15 +187,15 @@ Update it with the following values:
 
 ```ini
 auth_backends.1 = rabbit_auth_backend_oauth2
-auth_backends.2 = rabbit_auth_backend_internal
 
 management.oauth_enabled = true
-management.oauth_client_id = {PUT YOUR AZURE AD APPLICATION ID}
-management.oauth_provider_url = https://login.microsoftonline.com/{YOUR_ENTRA_ID_TENANT_ID}
+management.oauth_client_id = {Application(client) ID}
+management.oauth_scopes = openid profile api://{Application(client) ID}/rabbitmq
 
-auth_oauth2.resource_server_id = {PUT YOUR AZURE AD APPLICATION ID}
+auth_oauth2.resource_server_id = {Application(client) ID}
 auth_oauth2.additional_scopes_key = roles
-auth_oauth2.jwks_url = {PUT YOUR ENTRA ID JWKS URI VALUE}
+auth_oauth2.issuer = https://login.microsoftonline.com/{Directory (tenant) ID}
+
 ```
 
 ## Start RabbitMQ
