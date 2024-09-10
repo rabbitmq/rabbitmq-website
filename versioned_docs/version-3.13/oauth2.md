@@ -26,32 +26,37 @@ This [RabbitMQ authentication/authorisation backend](./access-control) plugin le
 
 There's also a companion [troubleshooting guide for OAuth 2-specific problems](./troubleshooting-oauth2).
 
-This guide covers
+## Table of Contents
 
- * [How it works](#how-it-works)
-    * [Prerequisites](#prerequisites)
-    * [Authorization Flow](#authorization-flow)
-    * [Variables configurable in rabbitmq.conf](#variables-configurable)
-    * [Token validation](#token-validation)
-    * [Token expiration and refresh](#token-expiration)
-    * [Scope-to-Permission translation](#scope-translation)
-    * [Topic Exchange scopes](#topic-exchange-scopes)
-    * [Scope and tags](#scope-and-tags)
+### [How it works](#how-it-works)
 
- * [Basic usage](#basic-usage)
-    * [Configure OAuth 2.0 provider's issuer](#configure-issuer)
-    * [Configure signing keys](#configure-signing-keys)
-    * [Use a different token field for the scope](#use-different-token-field)
-    * [Preferred username claims](#preferred-username-claims)
-    * [Rich Authorization Request](#rich-authorization-request)
+* [Prerequisites](#prerequisites)
+* [Authorization Flow](#authorization-flow)
+* [Variables configurable in rabbitmq.conf](#variables-configurable)
+* [Token validation](#token-validation)
+* [Token expiration and refresh](#token-expiration)
+* [Scope-to-Permission translation](#scope-translation)
+* [Topic Exchange scopes](#topic-exchange-scopes)
+* [Scope and tags](#scope-and-tags)
 
- * [Advanced usage](#advanced-usage)    
-    * [Use default OAuth 2.0 provider](#use-oauth-provider)
-    * [Configure OAuth 2.0 provider's end_session_endpoint](#configure-end-session-endpoint)
-    * [Configure multiple resource servers](#multiple-resource-servers)
-    * [Configure multiple OAuth 2.0 providers](#multiple-oauth-providers)
+### [Basic usage](#basic-usage)
 
- * [Examples](#examples)
+* [Configure OAuth 2.0 provider's issuer](#configure-issuer)
+* [Configure signing keys](#configure-signing-keys)
+* [Use a different token field for the scope](#use-different-token-field)
+* [Preferred username claims](#preferred-username-claims)
+* [Rich Authorization Request](#rich-authorization-request)
+
+### [Advanced usage](#advanced-usage)
+
+* [Use default OAuth 2.0 provider](#use-oauth-provider)
+* [Configure OAuth 2.0 provider's end_session_endpoint](#configure-end-session-endpoint)
+* [Configure multiple resource servers](#multiple-resource-servers)
+* [Configure multiple OAuth 2.0 providers](#multiple-oauth-providers)
+
+### Examples for Specific Identity Providers
+
+ * How to [set up RabbitMQ with OAuth 2: examples](#examples)
 
 
 ## How it works {#how-it-works}

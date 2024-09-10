@@ -75,14 +75,18 @@ When using **Entra ID as OAuth 2.0 server**, your client app (in our case Rabbit
     Note the value of the `jwks_uri` key (ex: `https://login.microsoftonline.com/{TENANT_ID}/discovery/v2.0/keys`), as you will also need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side.
 
     ![Entra ID JWKS URI](./entra-id-jwks-uri.png)
-8. If the **Endpoints** tab is not visible,     
+8. If the **Endpoints** tab is not visible,
 
 
 ## Create OAuth 2.0 roles for your app
 
 App roles are defined by using the [Entra ID portal](https://portal.azure.com) during the app registration process. When a user signs in to your application, Entra ID emits a `roles` claim for each role that the user or service principal has been granted (you will have a look at it at the end of this tutorial).
 
-<g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about roles in Entra ID are available [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps).
+:::info
+
+To learn more about roles in Entra ID, see [Entra ID documentation](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps)
+
+:::
 
 1. Still in [Entra ID Portal](https://portal.azure.com), go back to **Entra ID** home page.
 
@@ -94,7 +98,12 @@ App roles are defined by using the [Entra ID portal](https://portal.azure.com) d
 
 2. Then, click on **Create App Role** to create an OAuth 2.0 role that will be used to give access to the RabbitMQ Management UI.
 
-    <g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about how permissions are managed on RabbitMQ when using OAuth 2.0 are available [here](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial#about-permissions).
+:::info
+
+To learn more about how permissions are managed when RabbitMQ is used together with OAuth 2.0,
+see [this portion of the OAuth 2 tutorial](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial#about-permissions)
+
+:::
 
 3. On the right menu that has just opened, provide the requested information:
 
@@ -141,7 +150,11 @@ Now that some roles have been created for your application, you still need to as
 
 7. Back to the **Add assignment** pane, below **Select a Role**, click on *None Selected* and, on the **Select a role** pane that has just opened on the right, search and select the role you want to assign to the selected users.
 
-    <g-emoji class="g-emoji" alias="bulb" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4a1.png">💡</g-emoji> If only one role is available for your application, it would be automatically selected and greyed by default.
+    :::tip
+
+    If only one role is available for your application, it would be automatically selected and greyed by default.
+
+    :::
 
 8. Choose a role (only a single role can be selected at a time), click on the **Select** button, and click on the **Assign** button to finalize the assignment of users and groups to the app.
 
