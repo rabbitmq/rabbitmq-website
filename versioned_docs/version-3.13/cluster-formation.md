@@ -307,6 +307,10 @@ Podman is one known example of a tool that can perform such host file modificati
 In order to avoid this, set its [`host_containers_internal_ip` setting](https://github.com/containers/common/blob/main/docs/containers.conf.5.md)
 must be set to a blank string.
 
+In environments where container-level settings cannot be tuned, the runtime
+can be [configured to ignore the standard local hosts file](./networking#the-inetrc-file)
+and only use DNS or a pre-configured set of hostname-to-IP address mappings.
+
 
 ## Peer Discovery on AWS (EC2) {#peer-discovery-aws}
 

@@ -18,6 +18,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Networking and RabbitMQ
 
 ## Overview {#overview}
@@ -53,6 +56,7 @@ There are several areas which can be configured or tuned. Each has a section in 
  * Kernel TCP settings and limits (e.g. [TCP keepalives](#tcp-keepalives) and [open file handle limit](#open-file-handle-limit))
  * How to allow Erlang runtime to accept inbound connections
    when [MacOS Application Firewall](#firewalls-mac-os) is enabled
+ * More [advanced settings](#advanced-settings) related to networking
 
 This guide also covers a few topics closely related to networking:
 
@@ -948,10 +952,41 @@ net.ipv4.tcp_keepalive_probes=4
 net.ipv4.tcp_tw_reuse = 1
 ```
 
+## More Advanced Networking Settings {#advanced-settings}
 
-## OS Level Tuning {#os-tuning}
+### The inetrc File
 
-<a id="os-tuning-intro"></a>
+The [Erlang runtime](./runtime/) allows for a number of hostname resolution-related settings to be tuned
+using a file known as the [inetrc file](http://erlang.org/doc/apps/erts/inet_cfg.html).
+
+The path to the file can be specified by adding an extra runtime argument using the [`RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment variable](./configure/):
+
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-kernel inetrc '/path/to/inetrc.file'"
+```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+$env:ERL_INETRC = "-kernel inetrc 'c:\path\to\inetrc.file'"
+```
+</TabItem>
+</Tabs>
+
+The file can be used to configure a number of settings related to hostname resolution on the node (not system-wide):
+
+ * Hostnames and host addresses (similarly to the [local host file](https://en.wikipedia.org/wiki/Hosts_(file)))
+ * Local domain name
+ * Nameservers
+ * Preferred hostname lookup method (e.g. local host file vs. DNS)
+ * Hostname caching interval
+ * Search domains
+
+Please consult the [inetrc file documentation](http://erlang.org/doc/apps/erts/inet_cfg.html) to learn more.
+
+
+### OS Level Tuning {#os-tuning}
 
 Operating system settings can affect operation of RabbitMQ.
 Some are directly related to networking (e.g. TCP settings), others
@@ -961,7 +996,7 @@ Understanding these limits is important, as they may change depending on
 the workload.
 
 
-<a id="os-tuning-important-options"></a>
+### Key Relevant Kernel Options
 
 A few important configurable kernel options include (note that despite option names they
 are effective for both IPv4 and IPv6 connections):
@@ -1053,7 +1088,7 @@ Note that default values for these vary between Linux kernel releases and distri
 Using a recent kernel version (such as 6.x or later) is recommended.
 
 
-<a id="os-tuning-important-how-to-configure"></a>
+### sysctl-based Configuration
 
 Kernel parameter tuning differs from OS to OS. This guide focuses on Linux.
 To configure a kernel parameter interactively, use `sysctl -w` (requires superuser
@@ -1068,7 +1103,7 @@ To make the changes permanent (stick between reboots), they need to be added to
 and [sysctl.conf(5)](http://man7.org/linux/man-pages/man5/sysctl.conf.5.html)
 for more details.
 
-<a id="os-tuning-outro"></a>
+###
 
 TCP stack tuning is a broad topic that is covered in much detail elsewhere:
 

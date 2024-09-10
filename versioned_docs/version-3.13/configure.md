@@ -2162,18 +2162,28 @@ More variables are covered in the [File and Directory Locations guide](./relocat
     <td>
       Standard parameters for the `erl` command used when
       invoking the RabbitMQ Server. This should be overridden for
-      debugging purposes only. Overriding this variable
-      *replaces* the default value.
+      debugging purposes only.
+
+      :::danger
+
+      Setting this variable will replace the defaults provided by RabbitMQ.
+
+      :::
+
+      :::tip
+
+      Consider using `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` to add or override individual settings instead.
+
+      :::
 
       <p>
         <strong>Default</strong>:
 
         <ul>
           <li>
-          **Unix*:**
-            `+P 1048576 +t 5000000 +stbt db +zdbbl 128000`
+          **UNIX**: `+P 1048576 +t 5000000 +stbt db +zdbbl 128000`
           </li>
-          <li>**Windows:** None</li>
+          <li>**Windows**: (none)</li>
         </ul>
       </p>
     </td>
@@ -2190,8 +2200,8 @@ More variables are covered in the [File and Directory Locations guide](./relocat
         <strong>Default</strong>:
 
         <ul>
-          <li>**Unix*:** None</li>
-          <li>**Windows:** None</li>
+          <li>**Unix**: (none) </li>
+          <li>**Windows**: (none)</li>
         </ul>
       </p>
     </td>
