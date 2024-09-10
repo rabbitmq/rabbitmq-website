@@ -244,8 +244,8 @@ cluster_formation.classic_config.nodes.2 = rabbit@hostname2.eng.example.local
 
 :::important
 
-This peer discovery mechanism is sensitive to system configuration that
-affects hostname resolution changes.
+This peer discovery mechanism is sensitive to OS and RabbitMQ configuration that
+[affects hostname resolution](./networking#dns).
 
 For example, a deployment tool that modifies the [local host file](https://en.wikipedia.org/wiki/Hosts_(file))
 can affect (break) this peer discovery mechanism.
@@ -495,10 +495,17 @@ In addition, since RabbitMQ nodes [resolve their own and peer hostnames during b
 CoreDNS [caching timeout may need to be decreased](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#stable-network-id) from default 30 seconds
 to a value in the 5-10 second range.
 
+:::important
+
+CoreDNS [caching timeout may need to be decreased](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#stable-network-id)
+from default 30 seconds to a value in the 5-10 second range
+
+:::
+
 If a stateless set is used recreated nodes will not have their persisted data and will start as blank nodes.
 This can lead to data loss and higher network traffic volume due to more frequent
 data synchronisation of both [quorum queues](./quorum-queues)
-and [classic queue mirrors](./ha) on newly joining nodes.
+and [streams](./streams) on newly joining nodes.
 
 #### Use Persistent Volumes
 

@@ -56,7 +56,7 @@ There are several areas which can be configured or tuned. Each has a section in 
  * Kernel TCP settings and limits (e.g. [TCP keepalives](#tcp-keepalives) and [open file handle limit](#open-file-handle-limit))
  * How to allow Erlang runtime to accept inbound connections
    when [MacOS Application Firewall](#firewalls-mac-os) is enabled
- * More [advanced settings](#advanced-settings) related to networking
+ * [OS-level tuning](#os-tuning) related to networking
 
 This guide also covers a few topics closely related to networking:
 
@@ -952,41 +952,7 @@ net.ipv4.tcp_keepalive_probes=4
 net.ipv4.tcp_tw_reuse = 1
 ```
 
-## More Advanced Networking Settings {#advanced-settings}
-
-### The inetrc File
-
-The [Erlang runtime](./runtime/) allows for a number of hostname resolution-related settings to be tuned
-using a file known as the [inetrc file](http://erlang.org/doc/apps/erts/inet_cfg.html).
-
-The path to the file can be specified by adding an extra runtime argument using the [`RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment variable](./configure/):
-
-<Tabs groupId="shell-specific">
-<TabItem value="bash" label="bash" default>
-```bash
-export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-kernel inetrc '/path/to/inetrc.file'"
-```
-</TabItem>
-<TabItem value="PowerShell" label="PowerShell">
-```PowerShell
-$env:ERL_INETRC = "-kernel inetrc 'c:\path\to\inetrc.file'"
-```
-</TabItem>
-</Tabs>
-
-The file can be used to configure a number of settings related to hostname resolution on the node (not system-wide):
-
- * Hostnames and host addresses (similarly to the [local host file](https://en.wikipedia.org/wiki/Hosts_(file)))
- * Local domain name
- * Nameservers
- * Preferred hostname lookup method (e.g. local host file vs. DNS)
- * Hostname caching interval
- * Search domains
-
-Please consult the [inetrc file documentation](http://erlang.org/doc/apps/erts/inet_cfg.html) to learn more.
-
-
-### OS Level Tuning {#os-tuning}
+## OS Level Tuning {#os-tuning}
 
 Operating system settings can affect operation of RabbitMQ.
 Some are directly related to networking (e.g. TCP settings), others
@@ -1237,9 +1203,9 @@ It should be pointed out that this is only necessary with very constrained
 clients and networks. Handshake timeouts in other circumstances indicate
 a problem elsewhere.
 
-### TLS (SSL) Handshake {#tls-handshake}
+### TLS Handshake {#tls-handshake}
 
-If TLS/SSL is enabled, it may be necessary to increase also the TLS/SSL
+If [TLS is enabled](./ssl), it may be necessary to increase also the TLS
 handshake timeout. This can be done via
 the `rabbit.ssl_handshake_timeout` (in milliseconds):
 
@@ -1300,10 +1266,41 @@ To deactivate reverse DNS lookups:
 reverse_dns_lookups = false
 ```
 
+### The inetrc File
+
+The [Erlang runtime](./runtime/) allows for a number of hostname resolution-related settings to be tuned
+using a file known as the [inetrc file](http://erlang.org/doc/apps/erts/inet_cfg.html).
+
+The path to the file can be specified by adding an extra runtime argument using the [`RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment variable](./configure/):
+
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-kernel inetrc '/path/to/inetrc.file'"
+```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+$env:ERL_INETRC = "-kernel inetrc 'c:\path\to\inetrc.file'"
+```
+</TabItem>
+</Tabs>
+
+The file can be used to configure a number of settings related to hostname resolution on the node (not system-wide):
+
+ * Hostnames and host addresses (similarly to the [local host file](https://en.wikipedia.org/wiki/Hosts_(file)))
+ * Local domain name
+ * Nameservers
+ * Preferred hostname lookup method (e.g. local host file vs. DNS)
+ * Hostname caching interval
+ * Search domains
+
+Please consult the [inetrc file documentation](http://erlang.org/doc/apps/erts/inet_cfg.html) to learn more.
+
 ### Verify Hostname Resolution {#dns-verify-resolution}
 
 Since hostname resolution is a [prerequisite for successful inter-node communication](./clustering#hostname-resolution-requirement),
-starting with [RabbitMQ `3.8.6`](/release-information), CLI tools provide two commands that help verify
+CLI tools provide two commands that help verify
 that hostname resolution on a node works as expected. The commands are not meant to replace
 [`dig`](https://en.wikipedia.org/wiki/Dig_(command)) and other specialised DNS tools but rather
 provide a way to perform most basic checks while taking [Erlang runtime hostname resolver features](https://erlang.org/doc/apps/erts/inet_cfg.html)
