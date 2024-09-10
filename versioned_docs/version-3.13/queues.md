@@ -144,10 +144,15 @@ The map is used by various features and plugins such as
  * Queue type (e.g. [quorum](./quorum-queues) or [classic](./classic-queues))
  * [Message and queue TTL](./ttl)
  * [Queue length limit](./maxlength)
- * Max number of [priorities](./priority)
- * [Consumer priorities](./consumer-priority)
+ * Quorum queue [redelivery limit](./quorum-queues#poison-message-handling)
+ * Max number of [priorities](./priority) of a classic queue
 
 and so on.
+
+The same idea is also used with other protocol operations, for example, when
+registering a consumer:
+
+ * [Consumer priorities](./consumer-priority)
 
 Most optional arguments can be dynamically changed after queue declaration but there are
 exceptions. For example, [queue type](./quorum-queues) (`x-queue-type`) and max number

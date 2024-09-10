@@ -359,13 +359,20 @@ dropped messages are retained for some time after.
 :::important
 
 Starting with RabbitMQ 4.0, the delivery limit for quorum queues defaults to 20.
-There is no way to set it to the old, unlimited default.
+
+The 3.13.x era behavior where there was no lilmit can be restored by setting the limit to `-1`
+using an [optional queue argument](./queues#optional-arguments) at declaration time or using a policy as demonstrated below.
+
 
 :::
+
+See [repeated requeues](#repeated-requeues) for more details.
 
 ### Configuring the Limit {#position-message-handling-configuring-limit}
 
 It is possible to set a delivery limit for a queue using a [policy](./parameters#policies) argument, `delivery-limit`.
+
+#### Overriding the Limit
 
 The following example sets the limit to 50 for queues whose names begin with
 `qq`.
@@ -412,6 +419,62 @@ PUT /api/policies/%2f/qq-overrides
   </li>
   <li>
     Enter "delivery-limit" for policy argument and 50 for its value in the first line next to
+    `Policy`.
+  </li>
+  <li>
+    Click `Add policy`.
+  </li>
+</ol>
+</TabItem>
+</Tabs>
+
+#### Disaling the Limit
+
+The following example disables the limit for queues whose names begin with
+`qq.unlimited`.
+
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+rabbitmqctl set_policy qq-overrides \
+    "^qq\.unlimited" '{"delivery-limit": -1}' \
+    --priority 20 \
+    --apply-to "quorum_queues"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat set_policy qq-overrides ^
+    "^qq\.unlimited" "{""delivery-limit"": -1}" ^
+    --priority 20 ^
+    --apply-to "quorum_queues"
+```
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
+PUT /api/policies/%2f/qq-overrides
+    {"pattern": "^qq\.unlimited",
+     "definition": {"delivery-limit": -1},
+     "priority": 1,
+    "apply-to": "quorum_queues"}
+```
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+<ol>
+  <li>
+    Navigate to `Admin` > `Policies` > `Add / update a
+    policy`.
+  </li>
+  <li>
+    Enter a policy name (such as "qq-overrides") next to Name, a pattern (such as "^qq\.unlimited") next to
+    Pattern, and select what kind of entities (quorum queues in this example) the policy should apply to using the `Apply to`
+    drop down.
+  </li>
+  <li>
+    Enter "delivery-limit" for policy argument and -1 for its value in the first line next to
     `Policy`.
   </li>
   <li>
@@ -1110,17 +1173,17 @@ truncated regularly. To be able to truncate a section of the log all messages
 in that section needs to be acknowledged. Usage patterns that continuously
 [reject or nack](./nack) the same message with the `requeue` flag set to true
 could cause the log to grow in an unbounded fashion and eventually fill
-up the disks. Therefore since RabbitMQ 4.0 a default `delivery-limit` of 20 is always set 
-after which the message will be dropped or dead lettered.
+up the disks. Therefore since RabbitMQ 4.0 a default `delivery-limit` of 20 is
+always set after which the message will be dropped or dead lettered.
 
 Messages that are rejected or nacked back to a quorum queue will be
 returned to the _back_ of the queue _if_ no [delivery-limit](#poison-message-handling) is set.
-This avoids
-the above scenario where repeated re-queues causes the Raft log to grow in an
-unbounded manner. If a `delivery-limit` is set it will use the original behaviour
+This avoids the above scenario where repeated re-queues causes the Raft log to grow in an unbounded manner. If a `delivery-limit` is set it will use the original behaviour
 of returning the message near the head of the queue.
-(NB: since 4.0 a delivery-limit will only be unset _if_ a queue was upgraded
-from a prior version, newly declared queues will always have a default of 20).
+
+The old unlimited delivery-limit behaviour can be restored by setting a queue
+argument or policy with a delivery limit of -1. It is not recommended to do
+so but may be needed for 3.13.x compatibility in some rare cases.
 
 ### Increased Atom Use {#atom-use}
 
