@@ -23,11 +23,33 @@ import TabItem from '@theme/TabItem';
 
 # AMQP 1.0 Client Libraries
 
+This page documents the usage of [AMQP 1.0](/docs/next/amqp) client libraries for **RabbitMQ 4.0 or more**.
+
+The RabbitMQ team supports the following libraries:
+
+* [RabbitMQ AMQP 1.0 **Java** client](https://github.com/rabbitmq/rabbitmq-amqp-java-client)
+* [RabbitMQ AMQP 1.0 **.NET** client](https://github.com/rabbitmq/rabbitmq-amqp-dotnet-client)
+
+Application developers will find here how to use the libraries for the most common use cases.
+For other information like licensing, downloading, dependency management, advanced and specific usage and configuration, please see the README page in the repository of the respective libraries.
+
 ## Overview
 
-TODO
+The RabbitMQ team maintains a set of AMQP 1.0 client libraries [designed and optimized](/blog/2024/08/05/native-amqp#rabbitmq-amqp-10-clients) for RabbitMQ.
+They offer a simple and safe, yet powerful API on top of AMQP 1.0.
+Applications can publish and consume messages with these libraries, as well as manage the server topology.
+The libraries also offer advanced features like automatic connection and topology recovery, and connection affinity with queues.
+
+:::note
+
+RabbitMQ is compatible with any AMQP-1.0-compliant client library.
+It is not mandatory to use the RabbitMQ AMQP 1.0 client libraries with RabbitMQ, but applications are strongly encouraged to do so for the best experience.
+
+:::
 
 ## Client API
+
+This section covers how to use the RabbitMQ AMQP 1.0 client libraries to connect to a cluster, and publish and consume messages.
 
 ### Connecting
 
@@ -550,5 +572,3 @@ management.unbind()
 
 </TabItem>
 </Tabs>
-
-

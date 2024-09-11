@@ -30,7 +30,7 @@ import {
 
 ## AMQP 1.0
 
- * [Documentation for all supported programming languages](./amqp-client-libraries.md)
+ * [Documentation for RabbitMQ AMQP 1.0 libraries](./amqp-client-libraries.md)
 
 ## Java
 
