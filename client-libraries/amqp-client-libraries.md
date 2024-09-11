@@ -37,7 +37,7 @@ For other information like licensing, downloading, dependency management, advanc
 
 The RabbitMQ team maintains a set of AMQP 1.0 client libraries [designed and optimized](/blog/2024/08/05/native-amqp#rabbitmq-amqp-10-clients) for RabbitMQ.
 They offer a simple and safe, yet powerful API on top of AMQP 1.0.
-Applications can publish and consume messages with these libraries, as well as manage the server topology.
+Applications can publish and consume messages with these libraries, as well as manage the server topology in a consistent way across programming languages.
 The libraries also offer advanced features like automatic connection and topology recovery, and connection affinity with queues.
 
 :::note
@@ -56,7 +56,7 @@ This section covers how to use the RabbitMQ AMQP 1.0 client libraries to connect
 Libraries provide an entry point to a node or a cluster of nodes.
 Its name is the "environment".
 The environment allows creating connections.
-It can contain infrastucture-related configuration settings shared between connections (e.g. pools of threads for the Java library).
+It can contain infrastucture-related configuration settings shared between connections (e.g. pools of threads for Java).
 Here is how to create the environment:
 
 <Tabs groupId="languages">
@@ -118,7 +118,7 @@ IConnection connection = await environment.CreateConnectionAsync();
 </Tabs>
 
 Libraries use the `ANONYMOUS` [SASL authentication mechanism](/docs/next/access-control#mechanisms) by default.
-Connections are long-lived objects.
+Connections are expected to be long-lived objects, applications should avoid connection churn.
 They must be closed when they are no longer needed.
 
 ### Publishing
@@ -217,7 +217,7 @@ Libraries translate the API calls into the [address format v2](/docs/next/amqp#a
 
 It is also possible to define the target on a per-message basis.
 The publisher must be defined without any target and each message define its target in the `to` field of the properties section.
-Libraries provide helpers in the message creation API to define the message target, without having to deal with the  [address format](/docs/next/amqp#address-v2).
+Libraries provide helpers in the message creation API to define the message target, which avoids dealing with the  [address format](/docs/next/amqp#address-v2).
 
 The following snippet shows how to create a publisher without a target and define messages with different target types:
 
@@ -302,7 +302,8 @@ Here is an example:
 * Another consumer gets the message and executes the database operation again.
 
 It is difficult to completely avoid duplicate messages, this is why processing should be idempotent.
-The consumer API allows nevertheless to pause the delivery of messages, get the number of unsettled messages to make sure it reaches 0 at some point, and then close the consumer.
+The consumer API provides a way to avoid duplicate messages when a consumer gets closed.
+It consists in pausing the delivery of messages, getting the number of unsettled messages to make sure it reaches 0 at some point, and then closing the consumer.
 This ensures the consumer has finally quiesced and all the received messages have been processed.
 
 Here is an example of a consumer graceful shutdown:
@@ -391,7 +392,7 @@ management.close();
 </Tabs>
 
 The management API should be closed as soon as it is no longer needed.
-An application usually creates the topology it needs when it starts, so the management object can be after this step.
+An application usually creates the topology it needs when it starts, so the management object can be closed after this step.
 
 ### Exchanges
 
@@ -457,7 +458,7 @@ management.queue()
 </TabItem>
 </Tabs>
 
-The management API support [queue arguments](/docs/next/queues#optional-arguments) explicitly:
+The management API supports [queue arguments](/docs/next/queues#optional-arguments) explicitly:
 
 <Tabs groupId="languages">
 <TabItem value="java" label="Java">
