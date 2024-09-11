@@ -125,7 +125,7 @@ In the previous example, every message published with the publisher will go to t
 
 :::info
 
-RabbitMQ uses the [AMQP 0.9.1 model](/tutorials/amqp-concepts) comprising exchanges, queues, and bindings.
+RabbitMQ uses the [AMQ 0.9.1 model](/tutorials/amqp-concepts) comprising exchanges, queues, and bindings.
 
 :::
 
@@ -347,7 +347,208 @@ Consumer consumer = connection.consumerBuilder()
 </TabItem>
 </Tabs>
 
+Consider also using the [native stream protocol](/docs/next/stream) with the stream client library for your preferred programming language when working with streams.
 
 ## Topology Management
 
-TODO
+Applications can manage the RabbitMQ's [AMQ 0.9.1 model](/tutorials/amqp-concepts): declaring and deleting exchanges, queues, and bindings.
+
+To do so, they need to get the management API from a connection:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Getting the management object from the environment"
+Management management = connection.management();
+// ...
+// close the management instance when it is no longer needed
+management.close();
+```
+
+</TabItem>
+</Tabs>
+
+The management API should be closed as soon as it is no longer needed.
+An application usually creates the topology it needs when it starts, so the management object can be after this step.
+
+### Exchanges
+
+Here is how to create an [exchange](/tutorials/amqp-concepts#exchanges) of a built-in type:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Creating an exchange of a built-in type"
+management.exchange()
+    .name("my-exchange")
+    .type(Management.ExchangeType.FANOUT) // enum for built-in type
+    .declare();
+```
+
+</TabItem>
+</Tabs>
+
+It is also possible to specify the exchange type as a string (for non-built-in type exchanges):
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Creating an exchange of a non-built-in type"
+management.exchange()
+    .name("my-exchange")
+    .type("x-delayed-message") // non-built-in type
+    .autoDelete(false)
+    .argument("x-delayed-type", "direct")
+    .declare();
+```
+
+</TabItem>
+</Tabs>
+
+Here is how to delete an exchange:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Deleting an exchange"
+management.exchangeDeletion().delete("my-exchange");
+```
+
+</TabItem>
+</Tabs>
+
+### Queues
+
+Here is how to create a [queue](/tutorials/amqp-concepts#queues) with [the default queue type](/docs/next/vhosts#default-queue-type):
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Creating a classic queue"
+management.queue()
+    .name("my-queue")
+    .exclusive(true)
+    .autoDelete(false)
+    .declare();
+```
+
+</TabItem>
+</Tabs>
+
+The management API support [queue arguments](/docs/next/queues#optional-arguments) explicitly:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Creating a queue with arguments"
+management.queue()
+    .name("my-queue")
+    .type(Management.QueueType.CLASSIC)
+    .messageTtl(Duration.ofMinutes(10))
+    .maxLengthBytes(ByteCapacity.MB(100))
+    .declare();
+```
+
+</TabItem>
+</Tabs>
+
+The management API makes also the distinction between arguments shared by all queue types and arguments valid only for a given type.
+Here is an example with the creation of a [quorum queue](/docs/next/quorum-queues):
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Creating a quorum queue"
+management
+    .queue()
+    .name("my-quorum-queue")
+    .quorum() // set queue type to 'quorum'
+        .quorumInitialGroupSize(3) // specific to quorum queues
+        .deliveryLimit(3) // specific to quorum queues
+    .queue()
+    .declare();
+```
+
+</TabItem>
+</Tabs>
+
+It is possible to query information about a queue:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Getting queue information"
+Management.QueueInfo info = management.queueInfo("my-queue");
+long messageCount = info.messageCount();
+int consumerCount = info.consumerCount();
+String leaderNode = info.leader();
+```
+
+</TabItem>
+</Tabs>
+
+This API can also be used to check whether a queue exists or not.
+
+And here is how to delete a queue:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Deleting a queue"
+management.queueDeletion().delete("my-queue");
+```
+
+</TabItem>
+</Tabs>
+
+### Bindings
+
+The management API supports [binding](/tutorials/amqp-concepts#bindings) a queue to an exchange:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Binding a queue to an exchange"
+management.binding()
+    .sourceExchange("my-exchange")
+    .destinationQueue("my-queue")
+    .key("foo")
+    .bind();
+```
+
+</TabItem>
+</Tabs>
+
+There is also support for [exchange-to-exchange binding](/docs/next/e2e):
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Binding an exchange to another exchange"
+management.binding()
+    .sourceExchange("my-exchange")
+    .destinationExchange("my-other-exchange")
+    .key("foo")
+    .bind();
+```
+
+</TabItem>
+</Tabs>
+
+It is also possible to unbind entities:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Deleting the binding between an exchange and a queue"
+management.unbind()
+    .sourceExchange("my-exchange")
+    .destinationQueue("my-queue")
+    .key("foo")
+    .unbind();
+```
+
+</TabItem>
+</Tabs>
+
+
