@@ -227,21 +227,17 @@ publisher.publish(message, context -> {
 // create the message
 var message = new AmqpMessage("Hello");
 // publish the message and deal with broker feedback
-
-// The result is synchronous, use a `List<Task<PublishResult>>` to increase 
-// the performances 
+// The result is synchronous, use a `List<Task<PublishResult>>` to increase the performances 
 PublishResult pr = await publisher.PublishAsync(message);
-
-if (pr.Outcome.State == OutcomeState.Accepted)
-{
-    // the broker accepted (confirmed) the message
-}
-else
-{
-// deal with possible failure
-}
-
-
+  switch (pr.Outcome.State)
+    {
+        case OutcomeState.Accepted:
+              // the broker accepted (confirmed) the message
+            break;
+        case OutcomeState.Failed:
+            // deal with possible failure
+            break;
+    }
 ```
 
 </TabItem>
@@ -377,7 +373,6 @@ IConsumer consumer = await connection.ConsumerBuilder()
     .MessageHandler(async (context, message) =>
     {
         // deal with the message
-
         await context.AcceptAsync();// settle the message
     }
 ).BuildAndStartAsync();
@@ -482,10 +477,9 @@ IConsumer consumer = await connection.ConsumerBuilder()
     .Stream()
     .Offset(StreamOffsetSpecification.First)
     .Builder()
-    .MessageHandler( async (context, message) =>
-        {
+    .MessageHandler( async (context, message) => {
             // message processing
-        })
+    })
     .BuildAndStartAsync();
 
 ```
@@ -523,13 +517,10 @@ IConsumer consumer = await connection.ConsumerBuilder()
     .FilterValues(["invoices", "order"]) 
     .FilterMatchUnfiltered(true) 
     .Builder()
-    .MessageHandler(
-        async (context, message) =>
-        {
+    .MessageHandler(async (context, message) => {
             // message processing
         }
 ).BuildAndStartAsync();
-
 ```
 
 </TabItem>
@@ -642,6 +633,7 @@ management.exchangeDeletion().delete("my-exchange");
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Deleting an exchange"
+IExchangeSpecification exchangeSpec = management.Exchange("my-exchange");
 await exchangeSpec.DeleteAsync();
 ```
 
@@ -697,7 +689,8 @@ management.queue()
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Creating a queue with arguments"
-IQueueSpecification queueSpec = management.Queue(queueName)
+IQueueSpecification queueSpec = management
+    .Queue(queueName)
     .Type(QueueType.CLASSIC)
     .MessageTtl(TimeSpan.FromMinutes(10))
     .MaxLengthBytes(ByteCapacity.Mb(100));
@@ -735,7 +728,6 @@ IQueueSpecification queueSpec = management
         .QuorumInitialGroupSize(3) // specific to quorum queues
         .DeliveryLimit(3) // specific to quorum queues
     .Queue();
-    
 await queueSpec.DeclareAsync();
 ```
 
@@ -756,6 +748,16 @@ String leaderNode = info.leader();
 ```
 
 </TabItem>
+<TabItem value="csharp" label="C#">
+
+```csharp title="Getting queue information"
+IQueueInfo queueInfo = await management.GetQueueInfoAsync("my-queue");
+ulong messageCount = queueInfo.MessageCount();
+uint consumerCount = queueInfo.ConsumerCount();
+string leader = queueInfo.Leader();
+```
+
+</TabItem>
 </Tabs>
 
 This API can also be used to check whether a queue exists or not.
@@ -770,6 +772,15 @@ management.queueDeletion().delete("my-queue");
 ```
 
 </TabItem>
+<TabItem value="csharp" label="C#">
+
+```csharp title="Deleting a queue"
+QueueSpecification queueSpec = management.Queue("myqueue");
+await queueSpec.DeleteAsync();
+```
+
+</TabItem>
+
 </Tabs>
 
 ### Bindings
@@ -785,6 +796,18 @@ management.binding()
     .destinationQueue("my-queue")
     .key("foo")
     .bind();
+```
+
+</TabItem>
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Binding an exchange to another exchange"
+IBindingSpecification bindingSpec = management.Binding()
+    .SourceExchange("my-exchange")
+    .DestinationQueue("my-queue")
+    .Key("foo");
+await bindingSpec.BindAsync();
 ```
 
 </TabItem>
@@ -804,6 +827,19 @@ management.binding()
 ```
 
 </TabItem>
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Binding an exchange to another exchange"
+IBindingSpecification bindingSpec = management.Binding()
+    .SourceExchange("my-exchange")
+    .DestinationExchange("my-other-exchange")
+    .Key("foo");
+await bindingSpec.BindAsync();
+```
+
+</TabItem>
+
 </Tabs>
 
 It is also possible to unbind entities:
@@ -817,6 +853,17 @@ management.unbind()
     .destinationQueue("my-queue")
     .key("foo")
     .unbind();
+```
+
+</TabItem>
+<TabItem value="csharp" label="C#">
+
+```csharp title="Deleting the binding between an exchange and a queue"
+IBindingSpecification bindingSpec = management.Binding()
+    .SourceExchange("my-exchange")
+    .DestinationQueue("my-queue")
+    .Key("foo");
+await bindingSpec.UnbindAsync();
 ```
 
 </TabItem>
