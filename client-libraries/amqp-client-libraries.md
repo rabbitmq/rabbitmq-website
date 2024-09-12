@@ -633,8 +633,7 @@ management.exchangeDeletion().delete("my-exchange");
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Deleting an exchange"
-IExchangeSpecification exchangeSpec = management.Exchange("my-exchange");
-await exchangeSpec.DeleteAsync();
+await management.Exchange("my-exchange").DeleteAsync();
 ```
 
 </TabItem>
@@ -690,7 +689,7 @@ management.queue()
 
 ```csharp title="Creating a queue with arguments"
 IQueueSpecification queueSpec = management
-    .Queue(queueName)
+    .Queue("my-queue")
     .Type(QueueType.CLASSIC)
     .MessageTtl(TimeSpan.FromMinutes(10))
     .MaxLengthBytes(ByteCapacity.Mb(100));
@@ -723,7 +722,7 @@ management
 
 ```csharp title="Creating a quorum queue"
 IQueueSpecification queueSpec = management
-    .Queue(queueName)
+    .Queue("my-quorum-queue")
     .Quorum() // set queue type to 'quorum'
         .QuorumInitialGroupSize(3) // specific to quorum queues
         .DeliveryLimit(3) // specific to quorum queues
@@ -775,8 +774,7 @@ management.queueDeletion().delete("my-queue");
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Deleting a queue"
-QueueSpecification queueSpec = management.Queue("myqueue");
-await queueSpec.DeleteAsync();
+await management.Queue("myqueue").DeleteAsync();
 ```
 
 </TabItem>
