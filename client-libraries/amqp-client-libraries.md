@@ -80,8 +80,18 @@ environment.close();
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Creating the environment"
+using RabbitMQ.AMQP.Client;
+using RabbitMQ.AMQP.Client.Impl;
+
+....
+//create the environment instance
 IEnvironment environment = await AmqpEnvironment.CreateAsync(
-    ConnectionSettingBuilder.Create().ContainerId(containerId).Build());
+    ConnectionSettingBuilder.Create().Build());
+
+
+// close the environment when the application stops
+await environment.CloseAsync();
+
 ```
 
 </TabItem>
@@ -111,7 +121,19 @@ connection.close();
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Opening a connection"
+
+// open a connection from the environment setting   
 IConnection connection = await environment.CreateConnectionAsync();
+
+//open a connection from the environment with different settings
+ConnectionSettingBuilder otherSettingBuilder = ConnectionSettingBuilder.Create()
+    .ContainerId("my_containerId")
+    .Host("localhost");
+IConnection connection = await environment.CreateConnectionAsync(otherSettingBuilder.Build());
+
+
+// close the connection when it is no longer necessary
+await connection.CloseAsync();
 ```
 
 </TabItem>
@@ -139,6 +161,22 @@ Publisher publisher = connection.publisherBuilder()
 // close the publisher when it is no longer necessary 
 publisher.close();
 ```
+
+</TabItem>
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Creating a publisher"
+// The publisher can use exchange (optionally with a key) or queue to publish messages. 
+IPublisher publisher = await connection.PublisherBuilder().Exchange("foo").Key("bar")
+    .BuildAsync();
+
+// ...
+// close the publisher when it is no longer necessary 
+await publisher.CloseAsync();
+publisher.Dispose();
+```
+
 
 </TabItem>
 </Tabs>
@@ -181,6 +219,33 @@ publisher.publish(message, context -> {
 ```
 
 </TabItem>
+
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Publishing a message"
+// create the message
+var message = new AmqpMessage("Hello");
+// publish the message and deal with broker feedback
+
+// The result is synchronous, use a `List<Task<PublishResult>>` to increase 
+// the performances 
+PublishResult pr = await publisher.PublishAsync(message);
+
+if (pr.Outcome.State == OutcomeState.Accepted)
+{
+    // the broker accepted (confirmed) the message
+}
+else
+{
+// deal with possible failure
+}
+
+
+```
+
+</TabItem>
+
 </Tabs>
 
 The publisher example above send messages to a given exchange with a given routing key, but this is not the only supported target for a publisher.
@@ -204,6 +269,31 @@ Publisher publisher2 = connection.publisherBuilder()
 Publisher publisher3 = connection.publisherBuilder()
     .queue("some-queue") // /queues/some-queue
     .build();
+```
+
+</TabItem>
+
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Creating publishers with different targets"
+// publish to an exchange with a routing key
+Publisher publisher = await connection.PublisherBuilder()
+    .Exchange("foo")
+    .Key("bar")
+    .BuildAsync();
+
+
+// publish to an exchange without a routing key
+Publisher publisher = await connection.PublisherBuilder()
+    .Exchange("foo") // /exchanges/foo
+    .BuildAsync();
+
+// publish to a queue
+  IPublisher publisher = await _connection.PublisherBuilder()
+  .Queue("some-queue")// /queues/some-queue
+  .BuildAsync();
+
 ```
 
 </TabItem>
@@ -246,6 +336,14 @@ Message message3 = publisher.message()
 ```
 
 </TabItem>
+<TabItem value="csharp" label="C#">
+
+```csharp title="Setting the target in messages"
+// Not Implemented yet
+
+```
+
+</TabItem>
 </Tabs>
 
 ### Consuming
@@ -269,6 +367,24 @@ Consumer consumer = connection.consumerBuilder()
 ```
 
 </TabItem>
+
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Creating a consumer"
+IConsumer consumer = await connection.ConsumerBuilder()
+    .Queue("some-queue")
+    .MessageHandler(async (context, message) =>
+    {
+        // deal with the message
+
+        await context.AcceptAsync();// settle the message
+    }
+).BuildAndStartAsync();
+```
+
+</TabItem>
+
 </Tabs>
 
 Once the application is done processing a message, it must _settle_ it.
@@ -310,7 +426,6 @@ Here is an example of a consumer graceful shutdown:
 
 <Tabs groupId="languages">
 <TabItem value="java" label="Java">
-
 ```java title="Closing a consumer gracefully"
 // pause the delivery of messages
 consumer.pause();
@@ -319,8 +434,19 @@ long unsettledMessageCount = consumer.unsettledMessageCount();
 // close the consumer
 consumer.close();
 ```
+</TabItem>
+<TabItem value="csharp" label="C#">
+```csharp title="Closing a consumer gracefully"
+// pause the delivery of messages
+consumer.pause();
+// ensure the number of unsettled messages reaches 0
+long unsettledMessageCount = consumer.UnsettledMessageCount();
+// close the consumer
+consumer.close();
+```
 
 </TabItem>
+
 </Tabs>
 
 An application can still close a consumer without pausing it, at the risk of processing the same messages several times.
@@ -347,6 +473,25 @@ Consumer consumer = connection.consumerBuilder()
 ```
 
 </TabItem>
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Attaching to the beginning of a stream"
+IConsumer consumer = await connection.ConsumerBuilder()
+    .Queue("some-stream")
+    .Stream()
+    .Offset(StreamOffsetSpecification.First)
+    .Builder()
+    .MessageHandler( async (context, message) =>
+        {
+            // message processing
+        })
+    .BuildAndStartAsync();
+
+```
+
+</TabItem>
+
 </Tabs>
 
 There is also support for [stream filtering](/docs/next/streams#filtering) configuration:
@@ -365,6 +510,26 @@ Consumer consumer = connection.consumerBuilder()
         // message processing
     })
     .build();
+```
+
+</TabItem>
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Configuring stream filtering"
+IConsumer consumer = await connection.ConsumerBuilder()
+    .Queue("some-stream")
+    .Stream()
+    .FilterValues(["invoices", "order"]) 
+    .FilterMatchUnfiltered(true) 
+    .Builder()
+    .MessageHandler(
+        async (context, message) =>
+        {
+            // message processing
+        }
+).BuildAndStartAsync();
+
 ```
 
 </TabItem>
@@ -389,6 +554,17 @@ management.close();
 ```
 
 </TabItem>
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Getting the management object from the environment"
+IManagement management = connection.Management();
+// ...
+// close the management instance when it is no longer needed
+await management.CloseAsync()
+```
+
+</TabItem>
 </Tabs>
 
 The management API should be closed as soon as it is no longer needed.
@@ -409,6 +585,18 @@ management.exchange()
 ```
 
 </TabItem>
+
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Creating an exchange of a built-in type"
+IExchangeSpecification exchangeSpec = management
+        .Exchange(exchangeName)
+        .Type(ExchangeType.TOPIC);
+await exchangeSpec.DeclareAsync();
+```
+
+</TabItem>
 </Tabs>
 
 It is also possible to specify the exchange type as a string (for non-built-in type exchanges):
@@ -426,6 +614,18 @@ management.exchange()
 ```
 
 </TabItem>
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Creating an exchange of a non-built-in type"
+
+// Not Implemented yet
+
+
+
+```
+
+</TabItem>
 </Tabs>
 
 Here is how to delete an exchange:
@@ -435,6 +635,14 @@ Here is how to delete an exchange:
 
 ```java title="Deleting an exchange"
 management.exchangeDeletion().delete("my-exchange");
+```
+
+</TabItem>
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Deleting an exchange"
+await exchangeSpec.DeleteAsync();
 ```
 
 </TabItem>
@@ -456,6 +664,19 @@ management.queue()
 ```
 
 </TabItem>
+
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Creating a classic queue"
+IQueueSpecification queueSpec = management
+    .Queue("myqueue")
+    .Exclusive(true)
+    .AutoDelete(false)
+await queueSpec.DeclareAsync();
+```
+
+</TabItem>
 </Tabs>
 
 The management API supports [queue arguments](/docs/next/queues#optional-arguments) explicitly:
@@ -470,6 +691,17 @@ management.queue()
     .messageTtl(Duration.ofMinutes(10))
     .maxLengthBytes(ByteCapacity.MB(100))
     .declare();
+```
+
+</TabItem>
+<TabItem value="csharp" label="C#">
+
+```csharp title="Creating a queue with arguments"
+IQueueSpecification queueSpec = management.Queue(queueName)
+    .Type(QueueType.CLASSIC)
+    .MessageTtl(TimeSpan.FromMinutes(10))
+    .MaxLengthBytes(ByteCapacity.Mb(100));
+await queueSpec.DeclareAsync();
 ```
 
 </TabItem>
@@ -493,6 +725,22 @@ management
 ```
 
 </TabItem>
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Creating a quorum queue"
+IQueueSpecification queueSpec = management
+    .Queue(queueName)
+    .Quorum() // set queue type to 'quorum'
+        .QuorumInitialGroupSize(3) // specific to quorum queues
+        .DeliveryLimit(3) // specific to quorum queues
+    .Queue();
+    
+await queueSpec.DeclareAsync();
+```
+
+</TabItem>
+
 </Tabs>
 
 It is possible to query information about a queue:
