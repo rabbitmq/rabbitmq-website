@@ -29,6 +29,9 @@
     "@docusaurus/types": "^3.5.2",
     "path-to-regexp": ">=8.0.0"
   },
+  "overrides": {
+    "send": "^0.19.0"
+  },
   "browserslist": {
     "production": [
       ">0.5%",
