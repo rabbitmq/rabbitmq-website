@@ -341,6 +341,22 @@ The following feature flags are provided by RabbitMQ core.
   <tr>
     <td></td>
     <td>4.0</td>
+    <td>rabbitmq_4.0.0</td>
+    <td>
+      Enables multiple features and changes introduced in RabbitMQ 4.0.
+
+      RabbitMQ 4.0 uses a single flag to control multiple features and changes.
+      If you upgrade to RabbitMQ 4.0, it will be running in
+      backwards-compatible mode until this feature flag is enabled. For example,
+      [new quorum queue features](https://www.rabbitmq.com/blog/2024/08/28/quorum-queues-in-4.0) and
+      the [new AMQP-1.0 flow control mechanism](https://www.rabbitmq.com/blog/2024/09/02/amqp-flow-control)
+      will not be available.
+    </td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td>4.0</td>
     <td>khepri_db</td>
     <td>
       <p>
@@ -368,7 +384,7 @@ The following feature flags are provided by RabbitMQ core.
       </p>
 
       <p>
-        Make sure to first Khepri with appropriate workloads in non-production environments before adopting it in production.
+        Make sure to first test Khepri with appropriate workloads in non-production environments before adopting it in production.
       </p>
     </td>
   </tr>
