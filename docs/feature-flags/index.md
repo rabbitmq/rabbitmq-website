@@ -340,17 +340,35 @@ The following feature flags are provided by RabbitMQ core.
 
   <tr>
     <td></td>
-    <td></td>
+    <td>4.0</td>
     <td>khepri_db</td>
     <td>
       <p>
-      Enables <a href="https://github.com/rabbitmq/khepri">Khepri</a>, a currently experimental schema data store
-      with vastly superior peer failure and network split handling characteristics
-      compared to Mnesia
+        Enables <a href="https://github.com/rabbitmq/khepri">Khepri</a>, a Raft-based schema data store
+        with vastly superior (namely more predictable) node and network failure recovery characteristics
+        compared to Mnesia.
       </p>
 
       <p>
-      Make sure to test Khepri extensively with appropriate workloads before using it in production.
+        :::info
+
+        Khepri is fully supported (just like Mnesia) starting with RabbitMQ 4.0. This feature flag must be
+        explicitly enabled (opt-in) due to its scope.
+
+        :::
+      </p>
+
+      <p>
+        :::important
+
+        Due to extensive Khepri schema changes in RabbitMQ 4.0, 3.13.x clusters that have Khepri enabled
+        won't be upgradeable in-place to 4.0. Such clusters should use <a href="./blue-green-upgrade">Blue-Green deployment upgrade strategy</a>.
+
+        :::
+      </p>
+
+      <p>
+        Make sure to first Khepri with appropriate workloads in non-production environments before adopting it in production.
       </p>
     </td>
   </tr>
