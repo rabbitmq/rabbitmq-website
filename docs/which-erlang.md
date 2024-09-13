@@ -86,6 +86,11 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
           The 3.13 release series is compatible with Erlang 26.
         </li>
         <li>
+          Starting with Erlang 26, <a href="./ssl#peer-verification">TLS client peer verification</a> is enabled by default by the TLS implementation.
+          If client TLS certificate and key pair is not configured, TLS-enabled <a href="./shovel#ssl">Shovels</a>, <a href="./federation#tls-connections">Federation links</a> and <a href="./ldap#tls">LDAP server connections</a>
+          will fail. If peer verification is not necessary, it can be disabled.
+        </li>
+        <li>
           OpenSSL 3 support in Erlang is considered to
           be mature and ready for production use.
         </li>
@@ -119,6 +124,11 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       <ul class="notes">
         <li>
           The 3.12 release series is compatible with Erlang 26.
+        </li>
+        <li>
+          Starting with Erlang 26, <a href="./ssl#peer-verification">TLS client peer verification</a> is enabled by default by the TLS implementation.
+          If client TLS certificate and key pair is not configured, TLS-enabled <a href="./shovel#ssl">Shovels</a>, <a href="./federation#tls-connections">Federation links</a> and <a href="./ldap#tls">LDAP server connections</a>
+          will fail. If peer verification is not necessary, it can be disabled.
         </li>
         <li>
           OpenSSL 3 support in Erlang is considered to
@@ -155,6 +165,11 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       <ul class="notes">
         <li>
           The 3.12 release series is compatible with Erlang 26.
+        </li>
+        <li>
+          Starting with Erlang 26, <a href="./ssl#peer-verification">TLS client peer verification</a> is enabled by default by the TLS implementation.
+          If client TLS certificate and key pair is not configured, TLS-enabled <a href="./shovel#ssl">Shovels</a>, <a href="./federation#tls-connections">Federation links</a> and <a href="./ldap#tls">LDAP server connections</a>
+          will fail. If peer verification is not necessary, it can be disabled.
         </li>
         <li>
           OpenSSL 3 support in Erlang is considered to

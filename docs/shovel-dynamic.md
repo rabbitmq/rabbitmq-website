@@ -99,18 +99,43 @@ The body in this example includes a few keys:
         <p>
           Source connection URI. Mandatory. See
           the <a href="./uri-spec">AMQP URI reference</a> for
-          information on how RabbitMQ treats AMQP URIs in general,
-          and the <a href="./uri-query-parameters">query parameter reference</a> for additional
-          query parameters that are recognised by the Shovel and Federation plugins
-          (such as TLS settings).
+          information on how RabbitMQ treats AMQP URIs in general.
+
+          <dl>
+            <dt>
+              <code>cacertfile</code>, <code>certfile</code>, <code>keyfile</code>
+            </dt>
+            <dd>
+              Client TLS certificate and private key paths.
+              See the <a href="./ssl">TLS guide</a> for details.
+              Only of use when URI scheme is <code>amqps</code>.
+            </dd>
+            <dt>
+              <code>verify</code>, <code>fail_if_no_peer_cert</code>
+            </dt>
+            <dd>
+              Use to enable or disable peer verification of the server's TLS certificate.
+              See the <a href="./ssl#peer-verification">TLS guide</a> for details.
+              Only of use when URI scheme is <code>amqps</code>.
+
+              <p>
+                :::important
+
+                Note that starting with Erlang 26, peer verification for TLS clients (such as shovels)
+                is enabled by default.
+
+                :::
+              </p>
+            </dd>
+          </dl>
         </p>
         <p>
-          Note that this field can either be a string, or a list of
+          The value of this parameter can either be a string, or a list of
           strings. If more than one string is provided, the shovel will
           randomly pick <strong>one</strong> URI from the list until
           one of the endpoints succeeds.
         </p>
-        </td>
+      </td>
     </tr>
     <tr>
       <td>src-protocol</td>
@@ -629,9 +654,18 @@ counterparts.
             <code>verify</code>, <code>fail_if_no_peer_cert</code>
           </dt>
           <dd>
-            Use to configure verification of the server's TLS certificate.
-            See the <a href="./ssl">TLS guide</a> for details.
+            Use to enable or disable peer verification of the server's TLS certificate.
+            See the <a href="./ssl#peer-verification">TLS guide</a> for details.
             Only of use when URI scheme is <code>amqps</code>.
+
+            <p>
+              ::: important
+
+              Note that starting with Erlang 26, peer verification for TLS clients (such as shovels)
+              is enabled by default.
+
+              :::
+            </p>
           </dd>
         </dl>
       </td>

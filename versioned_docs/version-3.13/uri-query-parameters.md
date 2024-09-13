@@ -23,8 +23,7 @@ limitations under the License.
 
 ## Overview {#overview}
 
-This page is a less-formal companion to the <a
-href="./uri-spec">URI specification</a>, documenting how the
+This page is a less-formal companion to the [URI specification](./uri-spec) and [TLS](./ssl) guides, documenting how the
 officially-supported clients interpret URI parameters. Currently
 only the Erlang client does so.
 
@@ -40,7 +39,9 @@ Query parameters are added to the URI in the usual way. Any
 parameter can be omitted. The client will pick sensible defaults
 when they are.
 
-Example (non-encrypted):
+### Example A
+
+An example connection URI with TLS disabled:
 
 ```ini
 amqp://myhost?heartbeat=5&connection_timeout=10000
@@ -51,13 +52,27 @@ This specifies a (non-encrypted) network connection to the host
 and connection timeout is set to 10 seconds (10,000 milliseconds).
 Other parameters are set to their default values.
 
-Example (encrypted):
+### Example B
+
+In the following example URI, TLS and [TLS peer verification](./ssl#peer-verification)) on the client side of the connection are enabled:
 
 ```ini
 amqps://myhost?cacertfile=/path/to/ca_certificate.pem
   &certfile=/path/to/client_certificate.pem
   &keyfile=/path/to/client_key.pem
   &verify=verify_peer
+  &server_name_indication=myhost
+```
+
+### Example C
+
+In the following example URI, TLS is enabled but [TLS peer verification](./ssl#peer-verification)) on the client side of the connection is disabled:
+
+```ini
+amqps://myhost?cacertfile=/path/to/ca_certificate.pem
+  &certfile=/path/to/client_certificate.pem
+  &keyfile=/path/to/client_key.pem
+  &verify=verify_none
   &server_name_indication=myhost
 ```
 

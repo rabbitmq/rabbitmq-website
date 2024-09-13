@@ -237,6 +237,16 @@ Values between 120 and 300 seconds are recommended.
 
 ## Using TLS for LDAP Connections {#tls}
 
+:::important
+
+Starting with Erlang 26, [TLS client peer verification](./ssl#peer-verification) is enabled by default by the TLS implementation.
+
+If client TLS certificate and key pair is not configured, TLS-enabled LDAP server connections
+will fail. If peer verification is not necessary, it can be disabled, otherwise a certificate and private key
+pair must be configured for LDAP connections.
+
+:::
+
 It is possible to connect to LDAP servers using TLS. To instruct the
 plugin to do so, set the `auth_ldap.use_ssl` setting to `true`.
 If StartTLS is used by the LDAP server, use `auth_ldap.use_starttls` instead.

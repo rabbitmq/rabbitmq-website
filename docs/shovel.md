@@ -223,6 +223,16 @@ be restarted on another cluster node when a node failure is detected.
 
 ## Securing Shovel Connections with TLS {#tls}
 
+:::important
+
+Starting with Erlang 26, [TLS client peer verification](./ssl#peer-verification) is enabled by default by the TLS implementation.
+
+If client TLS certificate and key pair is not configured, TLS-enabled Shovels
+will fail to connect. If peer verification is not necessary, it can be disabled, otherwise a certificate and private key
+pair must be configured for TLS-enabled shovels.
+
+:::
+
 Shovel connections can use [TLS](./ssl). Because Shovel uses
 client libraries under the hood, it is necessary to both configure
 the source broker to [listen for TLS connections](./ssl)
@@ -230,7 +240,8 @@ and the Shovel to use TLS when connecting.
 
 To configure Shovel to use TLS, one needs to
 
- * Specify CA certificate and client certificate/key pair, as well as other parameters (e.g. [peer verification depth](./ssl#peer-verification-depth)) via [URI query parameters](./uri-query-parameters)
+ * Use the `amqps` URI scheme instead of `amqp`
+ * Specify CA certificate and client certificate/key pair, as well as other parameters (namely [enable or disable peer verification](./ssl#peer-verification), [peer verification depth](./ssl#peer-verification-depth)) via [URI query parameters](./uri-query-parameters)
  * Configure Erlang client to [use TLS](./ssl)
 
 

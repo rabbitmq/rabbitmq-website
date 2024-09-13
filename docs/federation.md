@@ -312,6 +312,16 @@ can. To summarise how clustering and federation interact:
 
 ## Securing Federation Connections with TLS {#tls-connections}
 
+:::important
+
+Starting with Erlang 26, [TLS client peer verification](./ssl#peer-verification) is enabled by default by the TLS implementation.
+
+If client TLS certificate and key pair is not configured, TLS-enabled Federation links
+will fail to connect. If peer verification is not necessary, it can be disabled, otherwise a certificate and private key
+pair must be configured for TLS-enabled Federation links.
+
+:::
+
 Federation connections (links) can be secured with TLS. Because Federation uses
 a RabbitMQ client under the hood, it is necessary to both configure
 source broker to [listen for TLS connections](./ssl)
@@ -320,9 +330,8 @@ and Federation/Erlang client to use TLS.
 To configure Federation to use TLS, one needs to
 
  * Use the `amqps` URI scheme instead of `amqp`
- * Specify CA certificate and client certificate/key pair via [URI query parameters](./uri-query-parameters)
-   when configuring upstream(s)
- * [Configure Erlang client to use TLS](./ssl)
+ * Specify CA certificate and client certificate/key pair, as well as other parameters (namely [enable or disable peer verification](./ssl#peer-verification), [peer verification depth](./ssl#peer-verification-depth)) via [URI query parameters](./uri-query-parameters)
+ * Configure Erlang client to [use TLS](./ssl)
 
 Just like with "regular" client connections, server's CA should be
 trusted on the node where federation link(s) runs, and vice versa.
