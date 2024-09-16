@@ -550,33 +550,41 @@ The [management UI](./management) and the
 [CLI](./man/rabbitmqctl.8) can [report](#active-consumer) which consumer is the current
 active one on a queue where the feature is enabled.
 
-### SAC Behavior
 
-Please note the following about single active consumer:
+### SAC and Consumer Priority
 
- * When used with a classic queue, there's no guarantee on the selected active consumer,
- it is picked randomly, even if [consumer priorities](#priority) are in use.
- * If the queue is a quorum queue, and a new consumer registers with a higher priority,
- then the queue stops delivering messages to the current active consumer. When all
- messages are acknowledged, the new consumer becomes the active consumer.
- Learn more about this behaviour [in the blog post announcing this feature](https://www.rabbitmq.com/blog/2024/08/28/quorum-queues-in-4.0#consumer-priorities-combined-with-single-active-consumer).
- * Trying to register a consumer with the exclusive consume flag set to
- true will result in an error if single active consumer is enabled on
- the queue.
- * Messages are always delivered to the active consumer, even if it is
- too busy at some point. This can happen when using manual acknowledgment
- and `basic.qos`, the consumer may be busy dealing with the maximum number of
- unacknowledged messages it requested with `basic.qos`.
- In this case, the other consumers are ignored and
- messages are enqueued.
- * It is not possible to enable single active consumer with a [policy](./parameters#policies).
- Here is the reason why. Policies in RabbitMQ are dynamic by nature, they can
- come and go, enabling and disabling the features they declare. Imagine suddenly
- disabling single active consumer on a queue: the broker would start sending messages to
- inactive consumers and messages would be processed in parallel, exactly
- the opposite of what single active consumer is trying to achieve. As the semantics
- of single active consumer do not play well with the dynamic nature of policies,
- this feature can be enabled only when declaring a queue, with queue arguments.
+When used with a classic queue, the initial active consumer is picked randomly, even if [consumer priorities](#priority) are in use.
+
+If the queue is a quorum queue, and a new consumer registers with a higher priority,
+then the queue stops delivering messages to the current active consumer. When all
+messages are acknowledged, the new consumer becomes the active consumer.
+Learn more about this behaviour [in the blog post announcing this feature](https://www.rabbitmq.com/blog/2024/08/28/quorum-queues-in-4.0#consumer-priorities-combined-with-single-active-consumer).
+
+### SAC and Exclusive Consumers are Mutually Exclusive
+
+Trying to register an exclusive consumer with SAC will result in
+an error. SAC by definition assumes that there will be multiple consumers online.
+
+### SAC and Channel Prefetch
+
+Messages are always delivered to the active consumer, even if it is
+too busy at some point. This can happen when using manual acknowledgment
+and `basic.qos`, the consumer may be busy dealing with the maximum number of
+unacknowledged messages it requested with `basic.qos`.
+In this case, the other consumers are ignored and
+the delivery is returned to the queue.
+
+### SAC Cannot Be Enabled with a Policy
+
+The Single Active Consumer feature cannot be enabled with a [policy](./parameters#policies).
+Since policies in RabbitMQ are dynamic by nature, they can
+come and go, enabling and disabling the features they declare. Imagine suddenly
+disabling single active consumer on a queue: the broker would start sending messages to
+inactive consumers and messages would be processed in parallel, exactly
+the opposite of what single active consumer is trying to achieve. As the semantics
+of single active consumer do not play well with the dynamic nature of policies,
+this feature can be enabled only when declaring a queue, with queue arguments.
+
 
 ## Consumer Activity {#active-consumer}
 
