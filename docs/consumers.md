@@ -504,12 +504,15 @@ A typical sequence of events would be the following:
 
  * A queue is declared and some consumers register to it at roughly the
  same time.
- * The very first registered consumer become the *single active consumer*:
+ * The very first registered consumer becomes the *single active consumer*:
  messages are dispatched to it and the other consumers are ignored.
- * The single active consumer is cancelled for some reason or simply dies.
- One of the registered consumer becomes the new single active consumer and
- messages are now dispatched to it. In other terms, the queue fails over
- automatically to another consumer.
+ * If the queue is a quorum queue, and a new consumer registers with a higher priority,
+ the queue will stop delivering messages to the current active consumer and once
+ all messages are acknowledged, the new consumer will become the active consumer.
+ * When the single active consumer is cancelled for some reason or simply dies,
+ another consumer is selected as the active one. In other words, the queue fails over
+ automatically to another consumer. See [SAC Behavior](#sac-behavior) for more details on how
+ the new consumer is selected.
 
 Note that without the single active consumer feature enabled, messages
 would be dispatched to all consumers using round-robin.
@@ -551,9 +554,13 @@ active one on a queue where the feature is enabled.
 
 Please note the following about single active consumer:
 
- * There's no guarantee on the selected active consumer, it is
- picked up randomly, even if [consumer priorities](#priority)
- are in use.
+ * When used with a classic queue, there's no guarantee on the selected active consumer,
+ it is picked randomly, even if [consumer priorities](#priority) are in use.
+ * When used with a quorum queue, if consumer priority is set, the highest priority
+ consumer is selected as the active consumer. If a higher priority consumer registers,
+ the queue will stop delivering messages to the current active consumer and once
+ all the messages are achnowledged, the new consumer will become the active consumer.
+ Learn more about this behviour [in the blog post announcing this feature](https://www.rabbitmq.com/blog/2024/08/28/quorum-queues-in-4.0#consumer-priorities-combined-with-single-active-consumer).
  * Trying to register a consumer with the exclusive consume flag set to
  true will result in an error if single active consumer is enabled on
  the queue.
