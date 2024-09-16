@@ -232,10 +232,13 @@ PublishResult pr = await publisher.PublishAsync(message);
   switch (pr.Outcome.State)
     {
         case OutcomeState.Accepted:
-              // the broker accepted (confirmed) the message
+            // the broker accepted (confirmed) the message
             break;
-        case OutcomeState.Failed:
-            // deal with possible failure
+        case OutcomeState.Released:
+            
+            break;
+        case OutcomeState.Rejected:
+            // deal with the Rejected reason
             break;
     }
 ```
