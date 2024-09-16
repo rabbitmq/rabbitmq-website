@@ -418,7 +418,7 @@ The following feature flags are provided by RabbitMQ core.
   </tr>
 
   <tr>
-    <td></td>
+    <td>4.0.0</td>
     <td>3.13.0</td>
     <td>stream_filtering</td>
     <td>
@@ -427,7 +427,7 @@ The following feature flags are provided by RabbitMQ core.
   </tr>
 
   <tr>
-    <td></td>
+    <td>4.0.0</td>
     <td>3.13.0</td>
     <td>stream_update_config_command</td>
     <td>
@@ -438,7 +438,7 @@ The following feature flags are provided by RabbitMQ core.
   </tr>
 
   <tr>
-    <td></td>
+    <td>4.0.0</td>
     <td>3.12.0</td>
     <td>restart_streams</td>
     <td>
@@ -447,7 +447,7 @@ The following feature flags are provided by RabbitMQ core.
     </td>
   </tr>
   <tr>
-    <td></td>
+    <td>4.0.0</td>
     <td>3.12.0</td>
     <td>stream_sac_coordinator_unblock_group</td>
     <td>
