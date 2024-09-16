@@ -935,7 +935,7 @@ The following example sets the limit to 50 for queues whose names begin with
 ```bash
 rabbitmqctl set_policy qq-overrides \
     "^qq\." '{"delivery-limit": 50}' \
-    --priority 20 \
+    --priority 123 \
     --apply-to "quorum_queues"
 ```
 </TabItem>
@@ -944,7 +944,7 @@ rabbitmqctl set_policy qq-overrides \
 ```PowerShell
 rabbitmqctl.bat set_policy qq-overrides ^
     "^qq\." "{""delivery-limit"": 50}" ^
-    --priority 20 ^
+    --priority 123 ^
     --apply-to "quorum_queues"
 ```
 </TabItem>
@@ -994,7 +994,7 @@ messages. The target exchange in this example is called "redeliveries.limit.dlx"
 ```bash
 rabbitmqctl set_policy qq-overrides \
     "^qq\." '{"delivery-limit": 50, "dead-letter-exchange": "redeliveries.limit.dlx"}' \
-    --priority 20 \
+    --priority 123 \
     --apply-to "quorum_queues"
 ```
 </TabItem>
@@ -1003,7 +1003,7 @@ rabbitmqctl set_policy qq-overrides \
 ```PowerShell
 rabbitmqctl.bat set_policy qq-overrides ^
     "^qq\." "{""delivery-limit"": 50, ""dead-letter-exchange"": ""redeliveries.limit.dlx""}" ^
-    --priority 20 ^
+    --priority 123 ^
     --apply-to "quorum_queues"
 ```
 </TabItem>
