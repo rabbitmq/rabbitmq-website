@@ -428,7 +428,7 @@ PUT /api/policies/%2f/qq-overrides
 </TabItem>
 </Tabs>
 
-#### Disaling the Limit
+#### Disabling the Limit
 
 The following example disables the limit for queues whose names begin with
 `qq.unlimited`.
