@@ -511,7 +511,7 @@ A typical sequence of events would be the following:
  messages are acknowledged, the new consumer becomes the active consumer.
  * When the single active consumer is cancelled for some reason or simply dies,
  another consumer is selected as the active one. In other words, the queue fails over
- automatically to another consumer. Refer to [SAC Behavior](#sac-behavior) for more details
+ automatically to another consumer. Refer to [SAC Behavior](#initial-sac-selection) for more details
  about how the new consumer is selected.
 
 Note that without the single active consumer feature enabled, messages
@@ -551,13 +551,13 @@ The [management UI](./management) and the
 active one on a queue where the feature is enabled.
 
 
-### SAC and Consumer Priority
+### Initial SAC Selection {#initial-sac-selection}
 
 When used with a classic queue, the initial active consumer is picked randomly, even if [consumer priorities](#priority) are in use.
 
-If the queue is a quorum queue, and a new consumer registers with a higher priority,
-then the queue stops delivering messages to the current active consumer. When all
-messages are acknowledged, the new consumer becomes the active consumer.
+If the queue is a quorum queue, and a new consumer registers with a higher priority, then the queue stops delivering messages
+to the current active consumer. When all messages are acknowledged, the new consumer becomes the active consumer.
+
 Learn more about this behaviour [in the blog post announcing this feature](https://www.rabbitmq.com/blog/2024/08/28/quorum-queues-in-4.0#consumer-priorities-combined-with-single-active-consumer).
 
 ### SAC and Exclusive Consumers are Mutually Exclusive
