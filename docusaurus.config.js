@@ -230,6 +230,7 @@ const config = {
         sidebarPath: './sidebarsClientLibs.js',
       },
     ],
+    "./src/plugins/configure-svgo.js",
   ],
 
   themeConfig:

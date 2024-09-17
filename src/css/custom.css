@@ -39,7 +39,12 @@ html[data-theme='dark'] {
 }
 
 /* Images/figures and captions. */
-figure img {
+figure {
+  width: fit-content;
+}
+
+figure img,
+figure svg {
   border: 1px solid var(--ifm-toc-border-color);
 }
 
