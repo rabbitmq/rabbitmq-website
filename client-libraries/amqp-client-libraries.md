@@ -917,7 +917,6 @@ Publisher publisher = connection.publisherBuilder()
 ```
 
 </TabItem>
-
 </Tabs>
 
 And on consumer instances as well:
@@ -935,5 +934,60 @@ Consumer consumer = connection.consumerBuilder()
 ```
 
 </TabItem>
+</Tabs>
 
+### Automatic Connection Recovery
+
+Automatic connection recovery is activated by default: client libraries will automatically restore a connection after an unexpected closing (e.g. network glitch, node restart, etc).
+Automatic topology recovery is also activated as soon as connection recovery is: client libraries will recreate AMQP entities, as well as publishers and consumers for the recovering connection.
+Developers have less to worry about network stability and node restart, as client libraries will take care of it.
+
+The client tries to reconnect every 5 seconds until it succeeds. It is possible to change this behavior by customizing the back-off delay policy:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Setting a back-off policy for connection recovery"
+Connection connection = environment.connectionBuilder()
+    .recovery()
+    .backOffDelayPolicy(BackOffDelayPolicy.fixed(Duration.ofSeconds(2)))
+    .connectionBuilder().build();
+```
+
+</TabItem>
+</Tabs>
+
+It is also possible to deactivate topology recovery if it is not appropriate for a given application.
+The application would usually register a connection [lifecycle listener](#lifecycle-listeners) to know when the connection is recovered and recover its own state accordingly.
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Deactivating topology recovery"
+Connection connection = environment.connectionBuilder()
+    .recovery()
+    .topology(false) // deactivate topology recovery
+    .connectionBuilder()
+    .listeners(context -> {
+        // set listener that restores application state when connection is recovered
+    })
+    .build();
+```
+
+</TabItem>
+</Tabs>
+
+It is also possible to deactivate recovery altogether:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Deactivating recovery"
+Connection connection = environment.connectionBuilder()
+    .recovery()
+    .activated(false) // deactivate recovery
+    .connectionBuilder().build();
+```
+
+</TabItem>
 </Tabs>
