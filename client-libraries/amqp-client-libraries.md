@@ -874,3 +874,66 @@ await bindingSpec.UnbindAsync();
 
 </TabItem>
 </Tabs>
+
+## Advanced Usage
+
+### Lifecycle Listeners
+
+Applications can react to state changes of some API components by adding listeners.
+An application can add a listener to a connection to stop publishing messages when the connection is recovering after a connection.
+The application can then resume publishing when the connection has recovered and is open again.
+
+Here is how to set a listener on a connection:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Setting a listener on a connection"
+Connection connection = environment.connectionBuilder()
+    .listeners(context -> { // set one or several listeners
+        context.previousState(); // the previous state
+        context.currentState(); // the current (new) state
+        context.failureCause(); // the cause of the failure (in case of failure)
+        context.resource(); // the connection
+    }).build();
+```
+
+</TabItem>
+
+</Tabs>
+
+It is also possible to set listeners on publisher instances:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Setting a listener on a publisher"
+Publisher publisher = connection.publisherBuilder()
+    .listeners(context -> {
+        // ...
+    })
+    .exchange("foo").key("bar")
+    .build();
+```
+
+</TabItem>
+
+</Tabs>
+
+And on consumer instances as well:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Setting a listener on a consumer"
+Consumer consumer = connection.consumerBuilder()
+    .listeners(context -> {
+        // ...
+    })
+    .queue("my-queue")
+    .build();
+```
+
+</TabItem>
+
+</Tabs>
