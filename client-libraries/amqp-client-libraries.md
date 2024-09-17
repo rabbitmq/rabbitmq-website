@@ -47,6 +47,21 @@ It is not mandatory to use the RabbitMQ AMQP 1.0 client libraries with RabbitMQ,
 
 :::
 
+## Safety
+
+RabbitMQ AMQP 1.0 client libraries are safe by default, they always create [durable entities](/docs/queues#durability) and always publish persistent messages.
+
+## Guarantees
+
+RabbitMQ AMQP 1.0 client libraries provide at-least-once guarantees.
+
+The broker always [confirms](#publishing) the proper handling of published messages.
+Publishers achieve this by using the `unsettled` [sender settle mode](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-sender-settle-mode) and the `first` [receiver settle mode](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-receiver-settle-mode) when they get created.
+
+Consumers must always [signal](#message-processing-result-outcome) the result of message processing to the broker.
+Consumers use the same settings as publishers when they get created (`first` [receiver settle mode](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-receiver-settle-mode) and `unsettled` [sender settle mode](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-sender-settle-mode)).
+
+
 ## Client API
 
 This section covers how to use the RabbitMQ AMQP 1.0 client libraries to connect to a cluster, and publish and consume messages.
@@ -66,7 +81,7 @@ Here is how to create the environment:
 import com.rabbitmq.client.amqp.*;
 import com.rabbitmq.client.amqp.impl.AmqpEnvironmentBuilder;
 
-...
+// ...
 
 // create the environment instance
 Environment environment = new AmqpEnvironmentBuilder()
@@ -83,15 +98,14 @@ environment.close();
 using RabbitMQ.AMQP.Client;
 using RabbitMQ.AMQP.Client.Impl;
 
-....
-//create the environment instance
+// ...
+
+// create the environment instance
 IEnvironment environment = await AmqpEnvironment.CreateAsync(
     ConnectionSettingBuilder.Create().Build());
-
-
+// ...
 // close the environment when the application stops
 await environment.CloseAsync();
-
 ```
 
 </TabItem>
@@ -121,7 +135,6 @@ connection.close();
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Opening a connection"
-
 // open a connection from the environment setting   
 IConnection connection = await environment.CreateConnectionAsync();
 
@@ -130,8 +143,7 @@ ConnectionSettingBuilder otherSettingBuilder = ConnectionSettingBuilder.Create()
     .ContainerId("my_containerId")
     .Host("localhost");
 IConnection connection = await environment.CreateConnectionAsync(otherSettingBuilder.Build());
-
-
+// ...
 // close the connection when it is no longer necessary
 await connection.CloseAsync();
 ```
@@ -177,7 +189,6 @@ await publisher.CloseAsync();
 publisher.Dispose();
 ```
 
-
 </TabItem>
 </Tabs>
 
@@ -220,7 +231,6 @@ publisher.publish(message, context -> {
 
 </TabItem>
 
-
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Publishing a message"
@@ -235,10 +245,10 @@ PublishResult pr = await publisher.PublishAsync(message);
             // the broker accepted (confirmed) the message
             break;
         case OutcomeState.Released:
-            
+            // the broker could not route the message anywhere 
             break;
         case OutcomeState.Rejected:
-            // deal with the Rejected reason
+            // at least one queue rejected the message
             break;
     }
 ```
@@ -292,7 +302,6 @@ Publisher publisher = await connection.PublisherBuilder()
   IPublisher publisher = await _connection.PublisherBuilder()
   .Queue("some-queue")// /queues/some-queue
   .BuildAsync();
-
 ```
 
 </TabItem>
@@ -339,7 +348,6 @@ Message message3 = publisher.message()
 
 ```csharp title="Setting the target in messages"
 // Not Implemented yet
-
 ```
 
 </TabItem>
@@ -424,6 +432,7 @@ Here is an example of a consumer graceful shutdown:
 
 <Tabs groupId="languages">
 <TabItem value="java" label="Java">
+
 ```java title="Closing a consumer gracefully"
 // pause the delivery of messages
 consumer.pause();
@@ -432,8 +441,10 @@ long unsettledMessageCount = consumer.unsettledMessageCount();
 // close the consumer
 consumer.close();
 ```
+
 </TabItem>
 <TabItem value="csharp" label="C#">
+
 ```csharp title="Closing a consumer gracefully"
 // pause the delivery of messages
 consumer.pause();
@@ -471,7 +482,6 @@ Consumer consumer = connection.consumerBuilder()
 ```
 
 </TabItem>
-
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Attaching to the beginning of a stream"
@@ -484,7 +494,6 @@ IConsumer consumer = await connection.ConsumerBuilder()
             // message processing
     })
     .BuildAndStartAsync();
-
 ```
 
 </TabItem>
@@ -612,11 +621,7 @@ management.exchange()
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Creating an exchange of a non-built-in type"
-
 // Not Implemented yet
-
-
-
 ```
 
 </TabItem>
