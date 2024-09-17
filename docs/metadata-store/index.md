@@ -11,12 +11,13 @@ import MetadataStoreRole from './metadata-store-role.svg';
 ## Role of the metadata store
 
 The metadata store is the database where RabbitMQ records everything except
-queue messages:
-* internal users; "internal" as opposed to users defined externally, for
-  instance LDAP
-* virtual hosts
-* topotogy: exchanges, queues, bindings
-* runtime parameters and policies
+queue and stream messages:
+
+ * users and permissions in the internal data store; "internal" as opposed to users defined externally, for
+   instance, [LDAP](../ldap/)
+ * virtual hosts
+ * topology: exchanges, queues, bindings
+ * [runtime parameters and policies](../parameters)
 
 <figure className={diagramStyles.diagram}>
 <MetadataStoreRole/>
@@ -27,13 +28,14 @@ In a cluster, the metadata store is responsible for replicating that across
 all RabbitMQ nodes.
 
 The metadata store subsystem relies on a backend library to provide the
-database and its replication.
+database, its replication algorithm and failure recovery characteristics.
 
-## Supported backends
+## Supported Backends
 
 RabbitMQ supports two different libraries that provide this database:
-* Mnesia
-* Khepri
+
+ * Mnesia
+ * Khepri
 
 Only one of them is used at a given time. Each one is described below.
 
@@ -44,23 +46,32 @@ Only one of them is used at a given time. Each one is described below.
 <figcaption>Erlang/OTP logo</figcaption>
 </figure>
 
-Mnesia is the only backend used by RabbitMQ until RabbitMQ 3.13.x. This
-library is part of Erlang/OTP’s standard distribution and is maintained by the
-same people that maintain Erlang.
+Mnesia is the original backend, and the only backend used by RabbitMQ until RabbitMQ 3.13.x.
+This library is part of Erlang/OTP’s standard distribution.
 
-It is efficient, provides transactions and cluster replication, an API for
+It is reasonably efficient, provides transactions and cluster replication, an API for
 backup and restore and, being a native Erlang/OTP library, is perfectly
 integrated in any Erlang application.
 
-Unfortunately, the replication part does not help the Erlang application above
-—&nbsp;RabbitMQ in this case&nbsp;— to deal with network issues very much.
-RabbitMQ is on its own to solve conflicts in the data if two nodes could not
+Mnesia's weak points are its failure recovery characteristics, in particular when it comes
+to network partitions. Its replication algorithm assumes that the system
+that uses Mnesia can afford to throw away all data on one side of a network partition,
+which is not always the case and does not match the expectations of
+many technical operations teams.
+
+:::danger
+
+Mnesia's weak points are its failure recovery characteristics, in particular when it comes
+to network partitions
+
+:::
+
+With Mnesia, it's up to RabbitMQ to resolve conflicts in the data if two nodes could not
 communicate for a while and the database was updated on one side (e.g. a queue
 was declared).
 
 To deal with this, [network partition strategies](./partitions) were introduced
-in RabbitMQ. However they are fragile and are difficult to reason about, even
-opque to application developers.
+in RabbitMQ. However they are by no means a fundamental solution and are difficult to reason about.
 
 ### Khepri
 
@@ -69,14 +80,22 @@ opque to application developers.
 <figcaption>Khepri logo</figcaption>
 </figure>
 
-Khepri becomes an option in RabbitMQ 4.0.x. It is developed by the RabbitMQ
-team and reuses the work done for [quorum queues](./quorum-queues) and
+Khepri is a fully supported metadata store in RabbitMQ 4.0.x. It is developed by the RabbitMQ
+team and reuses a lot of the work done for [quorum queues](./quorum-queues) and
 [streams](./streams).
 
-Indeed all these components are based on the Raft algorithm. Therefore the
-behavior is well defined in the case of a loss of connectivity and is way
+Indeed all these components are based on the [Raft consensus algorithm](https://raft.github.io/).
+Therefore the behavior is well defined in the case of a loss of connectivity and is way
 easier to reason about. The behavior is also consistent across RabbitMQ
 components and subsystems because they all use the same algorithm.
+
+:::important
+
+Khepri's failure recovery characteristics are those of the Raft
+consensus algorithm, which is already used by quorum queues and
+RabbitMQ streams
+
+:::
 
 The goal is to ultimately switch to Khepri only and stop using Mnesia.
 However, the use of Khepri is a breaking change compared to Mnesia —&nbsp;even
@@ -89,6 +108,7 @@ Europe 2023 confenence. You can watch the [recording of "Khepri: Replacing
 Mnesia in RabbitMQ"](https://www.youtube.com/watch?v=whVqpgvep90) on YouTube.
 
 :::tip
+
 Khepri will become the default backend in RabbitMQ 4.1.0, expected to be
 released in May 2025.
 
@@ -96,10 +116,11 @@ Mnesia will still be supported. An existing RabbitMQ deployment will continue
 to use it once upgraded to RabbitMQ 4.1.x until Khepri is explicitly enabled
 by the administrator.
 
-Mnesia support will be removed in a future version, likely RabbitMQ 4.2.0 at
-the end of year 2025. That is why **the RabbitMQ team encourages users to test
-their workload and applications with Khepri** to further iron out issues and
-performance problems.
+Mnesia support will be removed in a future version, likely RabbitMQ 4.2.0 in late 2025.
+That is why **the RabbitMQ team encourages users to test
+their workload and applications with Khepri** to true mature Khepri to become
+the future default (and only) metadata store in RabbitMQ.
+
 :::
 
 The few next pages will explain how to enable Khepri and will cover these
