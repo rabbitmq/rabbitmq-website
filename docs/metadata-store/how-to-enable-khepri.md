@@ -2,36 +2,34 @@
 title: How to Enable Khepri
 ---
 
-import diagramStyles from './diagram.module.css';
-import EnableInUI from './enable-khepri_db-in_management-ui.svg';
-
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+import diagramStyles from './diagram.module.css';
+import EnableInUI from './enable-khepri_db-in_management-ui.svg';
+
 # How to Enable Khepri
 
-As of RabbitMQ 4.0, Mnesia is still the default metadata store backend. Khepri has to be
-explicitly enabled using the `khepri_db` [feature flag](../feature-flags/).
+As of RabbitMQ 4.0, Mnesia is still the default metadata store backend. Khepri
+has to be explicitly enabled using the `khepri_db` [feature
+flag](../feature-flags).
 
 This page demonstrates how to enable Khepri in various situations and what the
 user should be aware of.
 
 :::important
+While Khepri is fully supported in RabbitMQ 4.0.x, it does not have the 17
+years of extensive use that Mnesia has. We encourage all RabbitMQ users to
+test Khepri thoroughly before adopting it in production.
 
-While Khepri is fully supported in RabbitMQ 4.0.x, it does not have the 17 years of
-extensive use that Mnesia has.
-
-We encourage all RabbitMQ users to test Khepri thoroughly before adopting it in production.
-
-It will be **possible to upgrade from 4.0.x to future releases** with Khepri enabled.
-
+It will be **possible to upgrade from 4.0.x to future releases** with Khepri
+enabled.
 :::
-
 
 ## Terminology
 
-The [feature flags](../feature-flags/) subsystem uses the words *stable* and *experimental* to
-qualify feature flags maturity.
+The [feature flags](../feature-flags) subsystem uses the words *stable* and
+*experimental* to qualify feature flags maturity.
 
 An *experimental* feature flag is used in two situations:
 
@@ -45,14 +43,13 @@ Khepri in RabbitMQ 3.13.x was in the first group. Be reassured that Khepri in
 RabbitMQ 4.0.0 and onward is in that second group and is therefore fully
 supported.
 
-
 ## On a brand new RabbitMQ node
 
 ### Using the CLI
 
 1.  Start the new RabbitMQ node using a method of your choice. The example
-    below executes the [`rabbitmq-server(8)` command](../man/rabbitmq-server.8)
-    directly:
+    below executes the [`rabbitmq-server(8)`
+    command](../man/rabbitmq-server.8) directly:
 
     <Tabs groupId="shell-specific">
     <TabItem value="bash" label="bash" default>
@@ -74,18 +71,17 @@ supported.
     <Tabs groupId="shell-specific">
     <TabItem value="bash" label="bash" default>
     ```bash
-    # Opt-in to enable Khepri
+    # Opt-in to enable Khepri.
     rabbitmqctl enable_feature_flag --experimental khepri_db
     ```
     </TabItem>
     <TabItem value="PowerShell" label="PowerShell">
     ```PowerShell
-    # Opt-in to enable Khepri
+    # Opt-in to enable Khepri.
     rabbitmqctl.bat enable_feature_flag --experimental khepri_db
     ```
     </TabItem>
     </Tabs>
-
 
 See the next page to learn more about what happens when nodes with Mnesia and
 nodes with Khepri are clustered together.
@@ -112,11 +108,11 @@ nodes with Khepri are clustered together.
     </TabItem>
     </Tabs>
 
-3. Open and log into the [management UI](../management#usage-ui).
+3.  Open and log into the [management UI](../management#usage-ui).
 
-4. Navigate to *"Admin > Feature Flags"*.
+4.  Navigate to *"Admin > Feature Flags"*.
 
-5. Tick *"I understand the risk"* and click the *"Enable"* button:
+5.  Tick *"I understand the risk"* and click the *"Enable"* button:
 
     <figure className={diagramStyles.diagram}>
     <EnableInUI/>
@@ -126,24 +122,15 @@ nodes with Khepri are clustered together.
 
 ### Using an Environment Variable
 
-:::warning
+`$RABBITMQ_FEATURE_FLAGS` environment varable to set the list of feature flags
+to enable at boot time on a new node. The variable must be set to the
+exhaustive list of feature flags to enable on this node. This variable is
+considered on the very first boot only; it is ignored afterwards.
 
+:::warning
 The use of this variable requires caution: because the variable takes an
 exhaustive list, all feature flags that must be enabled in a given cluster
 must be listed.
-
-:::
-
-`$RABBITMQ_FEATURE_FLAGS` environment varable to set the list
-of feature flags to enable at boot time on a new node. The variable must be
-set to the exhaustive list of feature flags to enable on this node. This
-variable is considered on the very first boot only; it is ignored afterwards.
-
-::: important
-
-This
-variable is considered on the very first boot only; it is ignored afterwards
-
 :::
 
 Start the new RabbitMQ node using a method of your choice, setting the
@@ -164,23 +151,16 @@ rabbitmq-server.bat
 </TabItem>
 </Tabs>
 
-Note that this example does not list other feature flags to keep it short:
-you need to fill that list.
+Note that this example does not list other feature flags to keep it short: you
+need to fill that list.
 
 The RabbitMQ node will use Khepri right from the beginning.
 
 ## On an Existing Standalone Node or Cluster
 
-Khepri can be enabled when all cluster nodes are online and the cluster is [healthy](../monitoring), like
-any other feature flag. Khepri cannot be enabled it while a node or the entire
-cluster is stopped.
-
-::: importnt
-
-Khepri cannot be enabled it while a node or the entire
-cluster is stopped
-
-:::
+Khepri can be enabled when **all cluster nodes are online** and **the cluster
+is [healthy](../monitoring)**, like any other feature flag. Khepri cannot be
+enabled it while a node or the entire cluster is stopped.
 
 To enable Khepri, use either the [CLI command](#using-the-cli) on the
 [management UI](#using-the-management-ui) methods described above.
@@ -190,21 +170,21 @@ regular activities of RabbitMQ. However this migration takes resources and
 will pause other activities near the end of the process for a short period of
 time. Therefore, perform this migration away from peek load.
 
-
 ## What Happens When Khepri is Enabled? {#migration}
 
 The migration from Mnesia to Khepri is the responsibility of the
-[`khepri_mnesia_migration` library](https://rabbitmq.github.io/khepri_mnesia_migration/).
+[`khepri_mnesia_migration`
+library](https://rabbitmq.github.io/khepri_mnesia_migration/).
 
 This library performs the migration in two phases:
 
 1. It synchronizes the cluster membership from Mnesia to Khepri.
 2. It copies records from Mnesia tables to the Khepri store.
 
-### Step One: Cluster Membership Synchronization
+### Step 1: Cluster Membership Synchronization
 
 The common situation is that Khepri is enabled in a Mnesia-based cluster and
-thus all nodes involved are single isolated nodes from Khepri's point of view.
+thus all nodes involved are single isolated nodes from Khepri’s point of view.
 
 To be extra safe and avoid the loss of data in case some nodes were already
 clustered at the Khepri levet too, `khepri_mnesia_migration` uses several
@@ -226,8 +206,8 @@ here are the steps it goes through:
     4. the node name
 
     Therefore, in the case some nodes were already clustered at the Khepri
-    level, the Khepri clusters will be sorted with the largest cluster (set of nodes)
-    first.
+    level, the Khepri clusters will be sorted with the largest cluster (set of
+    nodes) first.
 
     But usually, nodes will be unclustered and thus sorted by node uptime and
     name.
@@ -238,7 +218,7 @@ here are the steps it goes through:
 5.  If some nodes were clustered at the Khepri level but were not in Mnesia,
     they are removed from Khepri
 
-### Step Two: Schema Records Copy
+### Step 2: Schema Records Copy
 
 Once the cluster membership view is the same between Mnesia and Khepri,
 `khepri_mnesia_migration` can proceed with the actual migration of the data.

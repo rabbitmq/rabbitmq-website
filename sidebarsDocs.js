@@ -466,8 +466,8 @@ const sidebars = {
           items: [
             {
               type: 'doc',
-              id: 'metadata-store/enabling-khepri',
-              label: 'Enabling Khepri',
+              id: 'metadata-store/how-to-enable-khepri',
+              label: 'How to enable Khepri',
             },
             {
               type: 'doc',
