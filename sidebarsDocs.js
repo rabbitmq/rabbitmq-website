@@ -476,8 +476,8 @@ const sidebars = {
             },
             {
               type: 'doc',
-              id: 'metadata-store/daily-use',
-              label: 'Daily use with Khepri',
+              id: 'metadata-store/consistency-and-availability',
+              label: 'Consistency and Availability Characteristics of Khepri',
             },
             {
               type: 'doc',
