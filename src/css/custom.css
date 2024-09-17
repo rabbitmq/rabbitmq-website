@@ -44,16 +44,23 @@ figure {
 }
 
 figure img,
-figure svg {
+figure svg,
+figure div.figure {
   border: 1px solid var(--ifm-toc-border-color);
 }
 
-figure.without-borders img {
+figure.without-borders img,
+figure.without-borders svg,
+figure.without-borders div.figure {
   border: none;
 }
 
 figure figcaption {
   font-style: italic;
+}
+
+figure div.figure {
+  padding: 10px;
 }
 
 [data-theme='light'] img[src$='#gh-dark-mode-only'],
