@@ -109,13 +109,23 @@ const sidebars = {
           items: [
             {
               type: 'doc',
-              id: 'feature-flags/index',
-              label: 'Feature Flags',
+              id: 'rolling-upgrade',
+              label: 'Rolling Upgrade',
             },
             {
               type: 'doc',
               id: 'blue-green-upgrade',
               label: 'Blue-Green Upgrade',
+            },
+            {
+              type: 'doc',
+              id: 'grow-then-shrink-upgrade',
+              label: 'Grow-Then-Shrink Upgrade',
+            },
+            {
+              type: 'doc',
+              id: 'feature-flags/index',
+              label: 'Feature Flags',
             },
           ],
         },

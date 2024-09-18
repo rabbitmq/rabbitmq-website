@@ -65,17 +65,6 @@ and so on.
 For example, RabbitMQ 3.13.x and 3.12.x nodes are compatible as long as no
 3.13.x-specific feature flags are enabled.
 
-<p class="box-warning">
-This subsystem does not guarantee that all future changes in
-RabbitMQ can be implemented as feature flags and entirely backwards
-compatible with older release series. Therefore, <strong>a future
-version of RabbitMQ might still require a cluster-wide shutdown for
-upgrading</strong>.
-
-Please always read <a href="/release-information">release notes</a> to see if a
-rolling upgrade to the next minor or major RabbitMQ version is possible.
-</p>
-
 ### Key CLI Tool Commands
 
  *  To list feature flags:

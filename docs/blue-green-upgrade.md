@@ -1,5 +1,5 @@
 ---
-title: Upgrading RabbitMQ Using Blue-Green Deployment Strategy
+title: Blue-Green Deployment
 displayed_sidebar: docsSidebar
 ---
 <!--
@@ -18,10 +18,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-
-# Upgrading RabbitMQ Using Blue-Green Deployment Strategy
-
-## Overview {#overview}
 
 Blue-green deployment is an [upgrade strategy](./upgrade) that is based on the idea of setting up
 a second RabbitMQ cluster (the "green" one) next to the current production
@@ -108,14 +104,14 @@ federation or shovel plugins finish to drain the queues on "blue".
 When they are empty, reconfigure your producers like you did for the consumers
 and start them again. At this point, everything is moved to the "green" cluster.
 
-## Decomission the "blue" Cluster {#decomission-blue}
+## Decommission the "blue" Cluster {#decommission-blue}
 
 You are now free to shutdown the nodes in the "blue" cluster.
 
 ## Real-world Example {#example}
 
 Dan Baskette, Gareth Smith and Claude Devarenne of Pivotal
-[published an article](https://content.pivotal.io/blog/blue-green-application-deployments-with-rabbitmq)
+[published an article](https://tanzu.vmware.com/content/blog/blue-green-application-deployments-with-rabbitmq)
 about this method where producers and consumers are CloudFoundry applications.
 The article is very detailed  and uses diagrams to describe the procedure.
 They also made a [video to show it in action](https://www.youtube.com/watch?v=S2oO-t-E38c).
