@@ -76,7 +76,7 @@ A blue-green upgrade usually involves the following steps performed by a deploym
 by an operator. Refer to the [blue-green deployment guide](./blue-green-upgrade) for more details about these steps:
 
 * Deploy a new cluster with the desired version
-* Synchronie metadata between the old and the new cluster (unless applications can declare their own metadata)
+* Synchronize metadata between the old and the new cluster (unless applications can declare their own metadata)
 * Set up federation
 * Switch consumers to the new cluster
 * Drain messages
@@ -87,7 +87,7 @@ There's also a simplfied version of the blue-green strategy, if some downtime is
 
 * Deploy a new cluster with the target version
 * Stop the applications
-* Synchronie metadata between the old and new clusters
+* Synchronize metadata between the old and new clusters
 * Move all messages from the old cluster to the new one (e.g. using [Shovel](./shovel))
 * Reconfigure applications to use the new cluster
 * Start publishers and consumers
@@ -266,7 +266,7 @@ using the [Cluster Operator](/kubernetes/operator/operator-overview), this is al
 ### Rebalancing Queue Leaders {#rebalance}
 
 If either the rolling or grown-then-shrink upgrade strategy is used, queue leaders will not be evenly distributed
-between the nodes. Rebalancing of queue and stream leaders helps spread the load across all cluster nodes.
+between the nodes after the upgrade. Rebalancing of queue and stream leaders helps spread the load across all cluster nodes.
 
 To rebalance all queue and stream leader replicas, run:
 
