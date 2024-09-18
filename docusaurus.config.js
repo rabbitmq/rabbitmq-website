@@ -286,7 +286,7 @@ const config = {
         // id: 'new-release',
         // content: '<strong style="font-size: var(--ifm-h4-font-size);"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.6">RabbitMQ 3.13.6 is released!</a></strong>',
         id: 'latest-announcement',
-        content: '<strong style="font-size: var(--ifm-h4-font-size);"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.0-rc.2">RabbitMQ 4.0 release candidate is ready for testing</a></strong>',
+        content: '<strong style="font-size: var(--ifm-h4-font-size);"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.0">RabbitMQ 4.0.0 is now availabte!</a></strong>',
         backgroundColor: 'var(--ifm-color-primary-contrast-background)',
         textColor: 'var(--ifm-font-color-base)',
         isCloseable: true,
