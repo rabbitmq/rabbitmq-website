@@ -43,7 +43,7 @@ additional constraints may apply. Please refer to the [version upgradability](./
 Please refer to the [version upgradability](./upgrade#rabbitmq-version-upgradability) table for information
 about the supported upgrade paths.
 
-#### Check Erlang Version Requirements
+### Check Erlang Version Requirements
 
 Refer to [Erlang Version Requirements](./upgrade#rabbitmq-erlang-version-requirement).
 
