@@ -48,7 +48,7 @@ Refer to the [rolling upgrade guide](./rolling-upgrade) page for more details, b
   * check [version upgradability](#rabbitmq-version-upgradability)
   * check [Erlang version requirements](#rabbitmq-erlang-version-requirement)
   * check [the release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.0)
-  * verify that all stable [feature flags are enabled](.//feature-flags#how-to-enable-feature-flags)
+  * verify that all stable [feature flags are enabled](./feature-flags#how-to-enable-feature-flags)
 * Check that the node or cluster is in a good state in order to be upgraded
   * no [alarms](./alarms) are in effect
   * no ongoing queue or stream replica sync operations
@@ -261,7 +261,7 @@ this check will fail if executed against node A or C, because if A or C went dow
 When automating the upgrade process, you can use `rabbitmq-upgrade await_online_quorum_plus_one` command
 to block the node shutdown process until there is enough nodes running to maintain quorum. Note that
 some deployment options already incorporate this check - for example, when running RabbitMQ on Kubernetes
-using the [Cluster Operator](./kubernetes/operator/operator-overview), this is already a part of the `preStop` hook.
+using the [Cluster Operator](/kubernetes/operator/operator-overview), this is already a part of the `preStop` hook.
 
 ### Rebalancing Queue Leaders {#rebalance}
 
