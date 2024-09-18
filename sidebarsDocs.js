@@ -115,7 +115,7 @@ const sidebars = {
             {
               type: 'doc',
               id: 'blue-green-upgrade',
-              label: 'Blue-Green Upgrade',
+              label: 'Blue-Green Deployment',
             },
             {
               type: 'doc',

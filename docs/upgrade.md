@@ -73,7 +73,7 @@ temporary increasing infrastructure footprint. The safety aspect comes from the 
 can abort an upgrade by switching applications back to the old cluster.
 
 A blue-green upgrade usually involves the following steps performed by a deployment tool or manually
-by an operator. Refer to the [blue-green upgrade guide](./blue-green-upgrade) for more details about these steps:
+by an operator. Refer to the [blue-green deployment guide](./blue-green-upgrade) for more details about these steps:
 
 * Deploy a new cluster with the desired version
 * Synchronie metadata between the old and the new cluster (unless applications can declare their own metadata)
@@ -150,7 +150,7 @@ The following shows the supported upgrade paths.
 RabbitMQ 3.13 included experimental support for Khepri. However, major changes
 had to be introduced since then, leading to incompatibilities between Khepri support
 in 3.13 and 4.0. Therefore, RabbitMQ 3.13 with Khepri enabled **cannot** be upgraded
-to 4.0. [Blue-Green Upgrade](./blue-green-upgrade) can still be used in this situation,
+to 4.0. [Blue-Green Deployment](./blue-green-upgrade) can still be used in this situation,
 since technically it is not an upgrade, but rather a migration to a fresh cluster.
 :::
 
