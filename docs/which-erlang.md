@@ -60,6 +60,36 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>4.0.0</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>26.2</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>26.2.x</li>
+      </ul>
+    </td>
+        <td>
+      <ul class="notes">
+        <li>
+          The 4.0 release series is compatible with Erlang 26.2.
+        </li>
+        :::warning
+        RabbitMQ 4.0 works with Erlang/OTP 27. However, there are known performance regressions,
+        which will be addressed in patch releases. Running RabbitMQ 4.0 on Erlang 27 is not recommended
+        in production but is perfectly ok in a development environment.
+        :::
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <ul>
         <li>3.13.7</li>
         <li>3.13.6</li>
         <li>3.13.5</li>
