@@ -22,7 +22,7 @@ Federation links have improved in performance since 3.1.x (roughly twice as fast
 
 **And what are they not for?**
 
-Now that both exchanges and queues can be federated, it's tempting to think "well, I can just federate everything and then I'll have a big virtual broker, like a cluster but with partition tolerance". Of course, as our old friend the CAP theorem suggests, it's not as simple as that; if you gain (P)artition-tolerance you have to lose something else, and in federation's case that's (C)onsistency. Federated queues will only ever contain a given message in one location; there's no mirroring. Think RAID-0 rather than [HA](/docs/ha)'s RAID-1.
+Now that both exchanges and queues can be federated, it's tempting to think "well, I can just federate everything and then I'll have a big virtual broker, like a cluster but with partition tolerance". Of course, as our old friend the CAP theorem suggests, it's not as simple as that; if you gain (P)artition-tolerance you have to lose something else, and in federation's case that's (C)onsistency. Federated queues will only ever contain a given message in one location; there's no mirroring. Think RAID-0 rather than [HA](/docs/3.13/ha)'s RAID-1.
 
 Of course you can connect clusters together with federation if you want RAID-10...
 

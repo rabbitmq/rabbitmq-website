@@ -27,7 +27,7 @@ As always, read the [full release notes](http://lists.rabbitmq.com/pipermail/rab
 **Scalable Storage means greater stability**
 
 The vision of Rabbit is that messaging should just works. Part of this is the need for stable behaviour at scale. You ideally need a broker that you can just start up and forget about. Our new Scalable Storage Engine takes us closer to this.
-RabbitMQ has always had its own storage engine whose job is to persist messages. We use this to provide guaranteed eventual delivery, support for transactions, and [high availability](/docs/ha).
+RabbitMQ has always had its own storage engine whose job is to persist messages. We use this to provide guaranteed eventual delivery, support for transactions, and [high availability](/docs/3.13/ha).
 
 But, in RabbitMQ 1.x, the broker used a naive albeit effective storage model: every message stored on disk would also be cached in RAM. While this helps performance it makes it much harder to manage scale unless you are able to predict growth and overprovision memory accordingly.
 

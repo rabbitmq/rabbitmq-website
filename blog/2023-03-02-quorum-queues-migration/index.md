@@ -21,7 +21,7 @@ Quorum Queues are better in all regards, but they are not
 can look like a daunting task.
 
 After a sneak peek into the future performance improvements, this post outlines a few possible migration strategies and includes guidance on how to deal with incompatible features.
-The [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues documentation](/docs/migrate-mcq-to-qq) is also available to help you through the migration process.
+The [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues documentation](/docs/3.13/migrate-mcq-to-qq) is also available to help you through the migration process.
 
 <!-- truncate -->
 
@@ -197,7 +197,7 @@ rabbitmqctl list_consumers queue_name channel_pid
 ### `x-cancel-on-ha-failover` for consumers
 
 Mirrored queues consumers can be [automatically
-cancelled](/docs/ha#cancellation) when a queue
+cancelled](/docs/3.13/ha#cancellation) when a queue
 leader fails over. This can cause a loss of information about which
 messages were sent to which consumer, and redelivery of such messages.
 

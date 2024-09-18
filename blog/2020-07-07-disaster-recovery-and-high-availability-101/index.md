@@ -201,7 +201,7 @@ We highly discourage clustering across a WAN due to the effect of network partit
 
 #### Classic Mirrored Queues
 
-Classic queues can be [mirrored](/docs/ha) and configured for either availability (AP) or consistency (CP). Using the *auto-heal* or *ignore *partition handling strategies will allow all brokers in a cluster to continue serving publishers and consumers even if one or more brokers get cut off by a network partition. However, on recovering from the partition, data may be lost.
+Classic queues can be [mirrored](/docs/3.13/ha) and configured for either availability (AP) or consistency (CP). Using the *auto-heal* or *ignore *partition handling strategies will allow all brokers in a cluster to continue serving publishers and consumers even if one or more brokers get cut off by a network partition. However, on recovering from the partition, data may be lost.
 
 Using the *pause_minority* partition handling strategy makes mirrored queues favour consistency. In the event of a network partition, any brokers on the minority side will pause themselves, closing all network connections. No confirmed writes will be lost, but any brokers on the minority side lose availability and if there are multiple partitions where no majority exists then the entire cluster becomes unavailable. Likewise, if a majority of nodes are down, the remaining brokers will pause themselves. 
 
@@ -215,7 +215,7 @@ In order to achieve high availability, clients also need to be able to reconnect
 
 #### Rack Awareness
 
-While RabbitMQ does not currently have rack awareness, you can achieve the same results via manually specifying the nodes that a replicated queue should be spread across. With mirrored queues you can specify the [list of nodes](/docs/ha#mirroring-arguments) it should be spread across. With quorum queues you must currently create the queue with an initial group size of 1 and then [add members](/docs/man/rabbitmq-queues.8#Replication) on the nodes to achieve the desired spread.
+While RabbitMQ does not currently have rack awareness, you can achieve the same results via manually specifying the nodes that a replicated queue should be spread across. With mirrored queues you can specify the [list of nodes](/docs/3.13/ha#mirroring-arguments) it should be spread across. With quorum queues you must currently create the queue with an initial group size of 1 and then [add members](/docs/man/rabbitmq-queues.8#Replication) on the nodes to achieve the desired spread.
 
 ### Capacity Planning
 

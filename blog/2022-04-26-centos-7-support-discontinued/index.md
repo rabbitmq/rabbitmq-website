@@ -10,9 +10,9 @@ that CentOS release series provides outdated versions of OpenSSL and Linux kerne
 CentOS 7 users are recommended to migrate to a new cluster which uses a more recent distribution
 via one of the options:
 
- * [In-place Upgrades](/docs/upgrade#basics)
+ * [In-place Upgrades](/docs/upgrade#rolling-upgrade)
  * [definition transfer](/docs/definitions)
- * [Blue-Green Deployment upgrade](/docs/upgrade#basics).
+ * [Blue-Green Deployment upgrade](/docs/upgrade#blue-green-deployment).
 
 <!-- truncate -->
 
@@ -53,9 +53,9 @@ is an emerging tool that makes it easier to migrate from CentOS 7 to a more mode
 
 Operating system migrations can be completed in several ways:
 
- * [In-place Upgrades](/docs/upgrade#basics)
+ * [In-place Upgrades](/docs/upgrade#rolling-upgrade)
  * Creation of a new cluster and [schema transfer](/docs/definitions) from the original one
- * [Blue-Green Deployment Upgrades](/docs/upgrade#basics)
+ * [Blue-Green Deployment Upgrades](/docs/upgrade#blue-green-deployment)
 
 Note: If you want to or it is a requirement that you need to upgrade the OS, the kernel, Erlang/OTP, and RabbitMQ at the same time,
 then it is highly recommended that you upgrade by either creating a new cluster and [transferring the schema](/docs/definitions)

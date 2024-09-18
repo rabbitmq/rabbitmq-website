@@ -11,7 +11,7 @@ So we've talked about how [RabbitMQ 3.0 can break things](/blog/2012/11/19/break
 
 ![](policy-ha.png)
 
-You can now [define queue mirroring](/docs/ha) in a much simpler and more flexible way. Your applications no longer need to know about it, and can work the same way in development and production. You can take an existing unmirrored queue and make it become mirrored with no downtime (and vice versa of course). Furthermore you can now mirror queues on to a set number of nodes in a cluster.
+You can now [define queue mirroring](/docs/3.13/ha) in a much simpler and more flexible way. Your applications no longer need to know about it, and can work the same way in development and production. You can take an existing unmirrored queue and make it become mirrored with no downtime (and vice versa of course). Furthermore you can now mirror queues on to a set number of nodes in a cluster.
 
 ## Faster mirroring
 

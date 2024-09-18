@@ -14,10 +14,10 @@ The metadata store is the database where RabbitMQ records everything except
 queue and stream messages:
 
 * users and permissions in the internal data store; "internal" as opposed to
-  users defined externally, for instance, [LDAP](../ldap)
+  users defined externally, for instance, [LDAP](./ldap)
 * virtual hosts
 * topology: exchanges, queues, bindings
-* [runtime parameters and policies](../parameters)
+* [runtime parameters and policies](./parameters)
 
 <figure className={diagramStyles.diagram}>
 <MetadataStoreRole/>
