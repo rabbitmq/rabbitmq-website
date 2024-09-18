@@ -49,6 +49,12 @@ const config = {
           releases: [
           ],
         },
+        '4.0': {
+          releases: [
+            {version: '4.0.0', release_date: "2024-09-18", },
+          ],
+          end_of_support: "2027-09-30",
+        },
         '3.13': {
           releases: [
             {version: '3.13.7', release_date: "2024-08-26", },
