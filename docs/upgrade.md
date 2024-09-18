@@ -137,10 +137,10 @@ The following shows the supported upgrade paths.
 
 | From     | To     | Notes                                                         |
 |----------|--------|---------------------------------------------------------------|
-| 3.13.x   | 4.0.x  | Some feature flags **must** be enabled **before** the upgrade |
+| 3.13.x   | 4.0.x  | All feature flags **must** be enabled **before** the upgrade  |
 | 3.12.x   | 3.13.x |                                                               |
 | 3.11.18  | 3.12.x | All feature flags **must** be enabled **before** the upgrade  |
-| 3.10.x   | 3.11.x | Some feature flags **must** be enabled **before** the upgrade |
+| 3.10.x   | 3.11.x | All feature flags **must** be enabled **before** the upgrade  |
 | 3.9.x    | 3.10.x |                                                               |
 | 3.8.x    | 3.9.x  |                                                               |
 | 3.7.18   | 3.8.x  |                                                               |

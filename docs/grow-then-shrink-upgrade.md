@@ -58,7 +58,7 @@ strategy has comparable characteristics to the in-place upgrade option:
 
 In addition, this approach has its own unique potential risks:
 
- * Node identities change during the upgrade process, which can affect [historical monitoring data](./monitoring/)
+ * Node identities change during the upgrade process, which can affect [historical monitoring data](./monitoring)
  * Nodes must transfer their data sets to the newly added members, which can result in a **very substantial increase
    in network traffic and disk I/O**
  * Premature removal of nodes (see below) can lead to a quorum loss for a subset of quorum queues and streams
@@ -75,7 +75,7 @@ In order to safely perform a grow-then-shrink upgrade, several precautions must 
    that is, that the removal of the node will not leave any quorum queues or streams without an online majority
  * Nodes must be removed from the cluster explicitly using `rabbitmqctl forget_cluster_node`
 
-[Streams](./streams/) specifically were not designed for environments where replica (node) identity change is frequent,
+[Streams](./streams) specifically were not designed for environments where replica (node) identity change is frequent,
 and all replicas can be transferred away and replaced over duration of a single cluster upgrade.
 
 ### Key Precautions

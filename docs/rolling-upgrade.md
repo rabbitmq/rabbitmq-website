@@ -158,7 +158,7 @@ the cluster successfully:
 
 ### Verify that the Upgrade Has Succeeded
 
-Like you did before the upgrade, verify the health and [monitoring data](./monitoring/) to
+Like you did before the upgrade, verify the health and [monitoring data](./monitoring) to
 make sure all cluster nodes are in good shape and the service is running again.
 
 ### Enable New Feature Flags {#enable-ff-after-upgrade}
