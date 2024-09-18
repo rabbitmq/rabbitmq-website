@@ -24,7 +24,7 @@ import TabItem from '@theme/TabItem';
 # Classic Queue Mirroring (Deprecated)
 
 :::danger
-This guide covers a feature that had been [**deprecated since 2021**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/) and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) for the next major series, RabbitMQ 4.x.
+This guide covers a feature that had been [**deprecated since 2021**](/blog/2021/08/21/4.0-deprecation-announcements) and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) from RabbitMQ 4.0.x.
 :::
 
 :::important
@@ -34,12 +34,12 @@ This guide covers a feature that had been [**deprecated since 2021**](https://bl
 
 ## Wait, There's a Better Way: Modern Replicated Queue Type and Streams {#interstitial}
 
-This guide covers a [**long time deprecated**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/) and [**in 4.x, removed**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) legacy feature: mirroring (queue contents replication) of classic queues.
+This guide covers a [**long time deprecated**](/blog/2021/08/21/4.0-deprecation-announcements) and [**in 4.x, removed**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) legacy feature: mirroring (queue contents replication) of classic queues.
 [Quorum queues](./quorum-queues) and/or [streams](./streams) should be used instead of mirrored classic queues.
 
-Quorum queues are a more advanced queue type, which offers high availability using  replication and focuses on data safety. Quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues. Please [migrate from Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq) now.
+Quorum queues are a more advanced queue type, which offers high availability using  replication and focuses on data safety. Quorum queues [support message TTL](/blog/2022/05/05/rabbitmq-3.10-release-overview) and provide [higher throughput and more stable latency](/blog/2022/05/16/rabbitmq-3.10-performance-improvements) compared to mirrored classic queues. Please [migrate from Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq) now.
 
-[Streams](./streams) is an [alternative messaging data structure](https://blog.rabbitmq.com/blog/2021/07/13/rabbitmq-streams-overview) supported by RabbitMQ.
+[Streams](./streams) is an [alternative messaging data structure](/blog/2021/07/13/rabbitmq-streams-overview) supported by RabbitMQ.
 Just like quorum queues, streams are replicated.
 
 Quorum queues should be the **default choice** for a replicated queue type.
@@ -75,7 +75,7 @@ This guide assumes general familiarity with [RabbitMQ clustering](./clustering),
 ## What is Queue Mirroring {#what-is-mirroring}
 
 :::danger
-This guide covers a feature that had been [**deprecated since 2021**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/)
+This guide covers a feature that had been [**deprecated since 2021**](/blog/2021/08/21/4.0-deprecation-announcements)
 and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) for the next major series, RabbitMQ 4.x.
 :::
 
@@ -129,7 +129,7 @@ replaced or removed in a future version.
 ## How Mirroring is Configured {#ways-to-configure}
 
 :::danger
-This guide covers a feature that had been [**deprecated since 2021**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/)
+This guide covers a feature that had been [**deprecated since 2021**](/blog/2021/08/21/4.0-deprecation-announcements)
 and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) for the next major series, RabbitMQ 4.x.
 :::
 
@@ -149,7 +149,7 @@ Please see [Runtime Parameters and Policies](./parameters#policies) for more inf
 ## Queue Arguments that Control Mirroring {#mirroring-arguments}
 
 :::danger
-This guide covers a feature that had been [**deprecated since 2021**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/)
+This guide covers a feature that had been [**deprecated since 2021**](/blog/2021/08/21/4.0-deprecation-announcements)
 and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) for the next major series, RabbitMQ 4.x.
 :::
 

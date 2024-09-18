@@ -14,7 +14,7 @@ RabbitMQ includes a bunch of cool new features. But in order to implement some o
 
 **Why did it change?** As anyone who's used mirrored queues will tell you, requiring applications to know which queues are mirrored is a pain. The new approach puts configuration in the broker, where it belongs, and also supports changing mirroring policy at any time.
 
-**What should I do?** You need to make sure your queues are still mirrored. For the full documentation [see here](/docs/ha), but if you just want to make sure that all queues (except those with auto-generated names) are mirrored across all nodes, run:
+**What should I do?** You need to make sure your queues are still mirrored. For the full documentation [see here](/docs/3.13/ha), but if you just want to make sure that all queues (except those with auto-generated names) are mirrored across all nodes, run:
 
 ```shell
 rabbitmqctl set_policy HA '^(?!amq\\.).*' '{"ha-mode": "all"}'

@@ -24,7 +24,7 @@ export default function Home() {
             </div>
             <div class={styles.heroCta}>
               <Link className="button button--primary" to="/tutorials">Getting Started</Link>
-              <Link className={styles.release_notes_link} to="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.7">RabbitMQ 3.13.7</Link>
+              <Link className={styles.release_notes_link} to="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.0">RabbitMQ 4.0.0</Link>
             </div>
           </div>
         </div>
@@ -48,7 +48,11 @@ export default function Home() {
               <section>
                 <Heading as="h2">Flexible</Heading>
                 <p>RabbitMQ provides many options you can combine to define how
-                  your messages go from the publisher to one or many consumers. <Link to="/tutorials/tutorial-four-python">Routing</Link>, <Link to="/tutorials/amqp-concepts#exchange-topic">filtering</Link>, <Link to="/docs/streams">streaming</Link>, <Link to="/docs/federation">federation</Link>, and so on, you name it.</p>
+                  your messages go from the publisher to one or many consumers. <Link
+                    to="/tutorials/tutorial-four-python">Routing</Link>, <Link
+                    to="/tutorials/amqp-concepts#exchange-topic">filtering</Link>, <Link
+                    to="/docs/streams">streaming</Link>, <Link
+                    to="/docs/federation">federation</Link>, and so on, you name it.</p>
               </section>
               <section>
                 <Heading as="h2">Reliable</Heading>
@@ -129,7 +133,8 @@ flowchart TD
                       correlation ID. The caller that pushed the order then
                       subscribes to another queue and waits for an answer with
                       that same correlation ID.</p>
-                    <p>To achieve low latency, a <Link to="/docs/classic-queues">classic queue</Link> is
+                    <p>To achieve low latency,
+                      a <Link to="/docs/classic-queues">classic queue</Link> is
                       a good fit here but it is at the expense of less safety —
                       the caller can still retry. If the order cannot be lost,
                       you might prefer to use a combination of <Link

@@ -215,7 +215,7 @@ www.rabbitmq.com/firehose.html,https://www.rabbitmq.com/docs/firehose,,TRUE,FALS
 www.rabbitmq.com/flow-control.html,https://www.rabbitmq.com/docs/flow-control,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/getstarted.html,https://www.rabbitmq.com/tutorials,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/github.html,https://www.rabbitmq.com/github,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/ha.html,https://www.rabbitmq.com/docs/ha,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/ha.html,https://www.rabbitmq.com/docs/3.13/ha,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/heartbeats.html,https://www.rabbitmq.com/docs/heartbeats,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/index.html,https://www.rabbitmq.com/docs/index,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/install-debian.html,https://www.rabbitmq.com/docs/install-debian,,TRUE,FALSE,FALSE,FALSE
@@ -267,7 +267,7 @@ www.rabbitmq.com/manpages.html,https://www.rabbitmq.com/docs/manpages,,TRUE,FALS
 www.rabbitmq.com/maxlength.html,https://www.rabbitmq.com/docs/maxlength,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/memory-use.html,https://www.rabbitmq.com/docs/memory-use,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/memory.html,https://www.rabbitmq.com/docs/memory,,TRUE,FALSE,FALSE,FALSE
-www.rabbitmq.com/migrate-mcq-to-qq.html,https://www.rabbitmq.com/docs/migrate-mcq-to-qq,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/migrate-mcq-to-qq.html,https://www.rabbitmq.com/docs/3.13/migrate-mcq-to-qq,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/monitoring.html,https://www.rabbitmq.com/docs/monitoring,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/mpl.html,https://www.mozilla.org/MPL/2.0/,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/mqtt.html,https://www.rabbitmq.com/docs/mqtt,,TRUE,FALSE,FALSE,FALSE

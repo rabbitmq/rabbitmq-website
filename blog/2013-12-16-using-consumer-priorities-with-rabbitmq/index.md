@@ -16,7 +16,7 @@ Let's say our cluster of workers doesn't run in exactly the same hardware. Some 
 
 ## Data Locality
 
-Another use for consumer priorities is to benefit from data locality. In RabbitMQ queue contents live in the node where the queue was originally declared, and in case of [mirrored queues](/docs/ha) there will be a master node that will coordinate the queue, so while consumers can connect to various nodes in the cluster, and get messages from the mirror, at the end of the day the information about who consumed what messages will travel back to the master. In this case we can use a consumer priority to tell RabbitMQ to first deliver messages to consumers connected to the master node. To do that the consumer that connects to the master node, will set a higher priority for itself when issuing a `basic.consume` command (provided it has a way of knowing it is connected to the master node).
+Another use for consumer priorities is to benefit from data locality. In RabbitMQ queue contents live in the node where the queue was originally declared, and in case of [mirrored queues](/docs/3.13/ha) there will be a master node that will coordinate the queue, so while consumers can connect to various nodes in the cluster, and get messages from the mirror, at the end of the day the information about who consumed what messages will travel back to the master. In this case we can use a consumer priority to tell RabbitMQ to first deliver messages to consumers connected to the master node. To do that the consumer that connects to the master node, will set a higher priority for itself when issuing a `basic.consume` command (provided it has a way of knowing it is connected to the master node).
 
 ## Declaring consumer priorities
 

@@ -6,11 +6,11 @@ authors: [matthew]
 
 In
 RabbitMQ 2.6.0
-we introduced [Highly Available](/docs/ha)
+we introduced [Highly Available](/docs/3.13/ha)
 queues. These necessitated a
 [new extension](/docs/consumer-cancel)
 to AMQP, and a fair amount of
-[documentation](/docs/ha), but to date, little has
+[documentation](/docs/3.13/ha), but to date, little has
 been written on how they work.
 
 <!-- truncate -->

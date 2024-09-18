@@ -42,7 +42,7 @@ Here we can see another new feature of RabbitMQ 3.4: the queue maintains a count
 
 It would therefore be reasonable to say "this queue is using 841MB of memory" - except that the message bodies might also be shared with other queues.
 
-As an aside, note that "In memory" and "Persistent" messages are not antonyms here: a non-persistent message can be paged out under memory pressure and a persistent message can be in memory too. See [the documentation](/docs/memory#paging) for a bit more information about paging.
+As an aside, note that "In memory" and "Persistent" messages are not antonyms here: a non-persistent message can be paged out under memory pressure and a persistent message can be in memory too. See [the documentation](/docs/3.13/memory#paging) for a bit more information about paging.
 
 We can also see this information in the queue list view:
 

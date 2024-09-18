@@ -72,7 +72,7 @@ full sync, while the new algorithm takes around 10 seconds for the
 same amount of messages.
 
 Read more about mirror queue synchronization
-[here](/docs/ha#batch-sync).
+[here](/docs/3.13/ha#batch-sync).
 
 ## Moving to Git
 

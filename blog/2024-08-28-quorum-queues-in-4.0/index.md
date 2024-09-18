@@ -17,7 +17,7 @@ RabbitMQ 4.0 (currently in beta) includes new quorum queue features:
 
 Support for message priorities has been probably the most demanded quorum queue feature,
 mostly requested by existing classic mirrored queue users who wanted to migrate to quorum queues
-(remember, [support for classic queue mirroring was removed for 4.0](https://www.rabbitmq.com/docs/ha)).
+(remember, [support for classic queue mirroring was removed for 4.0](https://www.rabbitmq.com/docs/3.13/ha)).
 
 However, the way priorities are supported is significantly different compared to how classic queues
 handle them. Classic queues require `x-max-priority` argument to define the maximum
