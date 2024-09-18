@@ -28,11 +28,16 @@ but also make sure to test your system [using PerfTest](https://rabbitmq.github.
 
 ### Classic Queues: Massively Improved Classic Queues v2 (CQv2)
 
+:::note
+This paragraph was updated to reflect the changes to the roadmap. Classic queues version 2 will become the
+default and only option in RabbitMQ 4.0 (perviously we planned to make it the default in 3.13).
+:::
+
 Since RabbitMQ 3.10, we have had [two implementation of classic queues](/docs/persistence-conf#queue-version): the original
 one (CQv1) and a new one (CQv2). The difference between them is mostly around on-disk storage.
 
 Most users still use CQv1, but starting with 3.12 we highly recommend switching to,
-or at least evaluating, CQv2. Version 2 will become the default in 3.13 and will become the only implementation later on.
+or at least evaluating, CQv2. Version 2 will become the the only implementation available in RabbitMQ 4.0.
 
 The migration process is easy: add a new policy key or an optional queue argument, `x-queue-version=2`, when declaring the queue.
 To switch to CQv2 globally, set `classic_queue.default_version` to `2` in the config file:
