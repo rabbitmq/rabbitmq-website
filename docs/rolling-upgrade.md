@@ -190,7 +190,7 @@ Let's assume the cluster has three nodes, which means the nodes are called `serv
 1. `server-2` starts and [attempts to rejoin the cluster](./feature-flags#version-compatibility)
    - it has the same feature flags enabled as it had before it stopped (the state of feature flags is stored in a file)
    - feature flags that were introduced in RabbitMQ 4.0 or **not** enabled at this point
-   - therefore, the upgraded node can join the cluster1
+   - therefore, the upgraded node can join the cluster
 1. Once the node starts, it synchronizes its metadata (eg. becomes aware of queues declared while it was down), and starts quorum
    queue and stream members, which should quickly catch up with the rest of the cluster (any messages published while the node was down
    are replicated to it, etc)
