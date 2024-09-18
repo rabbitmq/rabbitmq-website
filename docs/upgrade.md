@@ -94,12 +94,14 @@ There's also a simplfied version of the blue-green strategy, if some downtime is
 ### Grow-then-Shrink Upgrade
 
 :::danger
-This upgrade strategy changes replica identities, can result in massive unnecessary data transfers between
-nodes, and is only safe with important precautions. Therefore, it is [highly recommended against](#grow-then-shrink).
+This upgrade strategy changes replica identities, can result in massive
+unnecessary data transfers between nodes, and is only safe with important
+precautions. Therefore, it is [highly recommended
+against](./grow-then-shrink-upgrade).
 :::
 
-A [grow-and-shrink upgrade](#grow-then-shrink) usually involves the following steps. Consider a three node cluster with nodes
-A, B, and C:
+A [grow-and-shrink upgrade](./grow-then-shrink-upgrade) usually involves the
+following steps. Consider a three node cluster with nodes A, B, and C:
 
 * Investigate if the current and target versions can be clustered together
   * check [version upgradability](#rabbitmq-version-upgradability); if a rolling upgrade between the old and new version is not supported,

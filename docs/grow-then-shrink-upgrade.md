@@ -27,7 +27,8 @@ This strategy involves node identity changes and replica transfers to the newly 
 With quorum queues and streams that have large data sets, this means that the cluster will
 experience substantial network traffic volume and disk I/O spikes that a rolling in-place upgrade would not.
 
-Consider using [in-place upgrades](#in-place) or [Blue/Green deployment upgrades](./blue-green-upgrade) instead.
+Consider using [in-place upgrades](./upgrade#rolling-upgrade) or [Blue/Green
+deployment upgrades](./blue-green-upgrade) instead.
 :::
 
 :::danger

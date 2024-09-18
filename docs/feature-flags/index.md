@@ -38,8 +38,8 @@ despite having different versions and thus potentially having different
 feature sets or implementation details.
 
 This subsystem was introduced to allow for **[rolling
-upgrades](./upgrade#rolling-upgrades) of cluster members without shutting
-down the entire cluster**.
+upgrades](./upgrade#rolling-upgrade) of cluster members without shutting down
+the entire cluster**.
 
 :::caution
 Feature flags are not meant to be used as a form of cluster configuration.
