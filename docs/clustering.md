@@ -1140,9 +1140,9 @@ contents will be replicated if the node will be selected to host a replica.
 Non-replicated queue contents on a reset node will be lost.
 
 ## Upgrading clusters {#upgrading}
-You can find instructions for upgrading a cluster in
-[the upgrade guide](./upgrade#clusters).
 
+You can find instructions for upgrading a cluster in [the upgrade
+guide](./upgrade).
 
 ## A Cluster on a Single Machine {#single-machine}
 
