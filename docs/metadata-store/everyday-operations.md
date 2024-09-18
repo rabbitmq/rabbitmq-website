@@ -1,8 +1,8 @@
 ---
-title: Consistency and Availability Characteristics of Khepri
+title: Everyday Operations with Khepri
 ---
 
-# Consistency and Availability Characteristics of Khepri
+# Everyday Operations with Khepri
 
 Even though the metadata store doesn’t store messages, its behavior will affect
 day-to-day behavior and technical operations of a RabbitMQ that uses it, at
@@ -95,7 +95,6 @@ configure its own queues/streams/bindings.
 Test suites that use multiple connections to different nodes can choose to use
 just one connection or connect to the same node, or inject a pause, or await a
 certain condition that indicates that the topology is in place.
-
 
 ## Client Resource Declaration on the Cluster Minority Side
 

@@ -1,8 +1,8 @@
 ---
-title: Consistency and Availability Characteristics of Khepri
+title: Everyday Operations with Khepri
 ---
 
-# Consistency and Availability Characteristics of Khepri
+# Everyday Operations with Khepri
 
 Even though the metadata store doesn’t store messages, its behavior will affect
 day-to-day behavior and technical operations of a RabbitMQ that uses it, at

@@ -486,8 +486,8 @@ const sidebars = {
             },
             {
               type: 'doc',
-              id: 'metadata-store/consistency-and-availability',
-              label: 'Consistency and Availability Characteristics of Khepri',
+              id: 'metadata-store/everyday-operations',
+              label: 'Everyday Operations with Khepri',
             },
             {
               type: 'doc',
