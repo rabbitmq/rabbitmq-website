@@ -33,21 +33,21 @@ maintained by the RabbitMQ team.
   </tr>
 
   <tr>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-java-client" target="_blank" rel="noopener noreferrer">AMQP 0.9.1 Java Client</a> 5.x</td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-amqp-java-client" target="_blank" rel="noopener noreferrer">AMQP 1.0 Java Client</a> 0.x</td>
+    <td>Currently supported</td>
+    <td></td>
+    <td>11, 17, 21, 22, 23</td>
+  </tr>
+
+  <tr>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-stream-java-client" target="_blank" rel="noopener noreferrer">Stream Java Client</a> 0.x</td>
     <td>Currently supported</td>
     <td></td>
     <td>8, 11, 17, 21, 22, 23</td>
   </tr>
 
   <tr>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-java-client" target="_blank" rel="noopener noreferrer">AMQP 0.9.1 Java Client</a> 4.x</td>
-    <td>31 July 2020</td>
-    <td>31 December 2020</td>
-    <td>6-8</td>
-  </tr>
-
-  <tr>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-stream-java-client" target="_blank" rel="noopener noreferrer">Stream Java Client</a> 0.x</td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-java-client" target="_blank" rel="noopener noreferrer">AMQP 0.9.1 Java Client</a> 5.x</td>
     <td>Currently supported</td>
     <td></td>
     <td>8, 11, 17, 21, 22, 23</td>
@@ -65,13 +65,6 @@ maintained by the RabbitMQ team.
     <td>Currently supported</td>
     <td></td>
     <td>8, 11, 17, 21, 22, 23</td>
-  </tr>
-
-  <tr>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-jms-client" target="_blank" rel="noopener noreferrer">JMS Client</a> 1.x</td>
-    <td>31 July 2020</td>
-    <td>31 December 2020</td>
-    <td>6-8</td>
   </tr>
 
   <tr>
@@ -96,6 +89,27 @@ maintained by the RabbitMQ team.
   </tr>
 
   <tr>
+    <td><a href="https://github.com/reactor/reactor-rabbitmq" target="_blank" rel="noopener noreferrer">Reactor RabbitMQ</a> 1.x</td>
+    <td>Currently supported</td>
+    <td></td>
+    <td>8, 11, 17</td>
+  </tr>
+
+  <tr>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-java-client" target="_blank" rel="noopener noreferrer">AMQP 0.9.1 Java Client</a> 4.x</td>
+    <td>31 July 2020</td>
+    <td>31 December 2020</td>
+    <td>6-8</td>
+  </tr>
+
+  <tr>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-jms-client" target="_blank" rel="noopener noreferrer">JMS Client</a> 1.x</td>
+    <td>31 July 2020</td>
+    <td>31 December 2020</td>
+    <td>6-8</td>
+  </tr>
+
+  <tr>
     <td><a href="https://github.com/rabbitmq/hop" target="_blank" rel="noopener noreferrer">Hop</a> 4.x</td>
     <td>31 March 2023</td>
     <td>31 March 2023</td>
@@ -106,13 +120,6 @@ maintained by the RabbitMQ team.
     <td><a href="https://github.com/rabbitmq/hop" target="_blank" rel="noopener noreferrer">Hop</a> 3.x</td>
     <td>31 March 2022</td>
     <td>31 July 2022</td>
-    <td>8, 11, 17</td>
-  </tr>
-
-  <tr>
-    <td><a href="https://github.com/reactor/reactor-rabbitmq" target="_blank" rel="noopener noreferrer">Reactor RabbitMQ</a> 1.x</td>
-    <td>Currently supported</td>
-    <td></td>
     <td>8, 11, 17</td>
   </tr>
 
