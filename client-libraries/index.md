@@ -28,6 +28,10 @@ import {
 
 # Client Documentation
 
+## AMQP 1.0
+
+ * [Documentation for RabbitMQ AMQP 1.0 libraries](./amqp-client-libraries.md)
+
 ## Java
 
  * [Downloads and Installation](./java-client.md)

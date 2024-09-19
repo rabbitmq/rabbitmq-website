@@ -289,6 +289,8 @@ The RabbitMQ team at Broadcom has developed two [AMQP 1.0 client libraries speci
 * [RabbitMQ AMQP 1.0 **Java** client](https://github.com/rabbitmq/rabbitmq-amqp-java-client)
 * [RabbitMQ AMQP 1.0 **.NET** client](https://github.com/rabbitmq/rabbitmq-amqp-dotnet-client)
 
+See the [AMQP client libraries page](/client-libraries/amqp-client-libraries) for more information.
+
 Currently, the AMQP 0.9.1 client ecosystem is more extensive, with a greater number of [AMQP 0.9.1 client libraries](/client-libraries/devtools) supported by the RabbitMQ team at Broadcom.
 
 ## Limitations

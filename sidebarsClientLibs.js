@@ -9,6 +9,11 @@ const sidebars = {
       label: 'Client Libraries',
     },
     {
+      type: 'doc',
+      id: 'amqp-client-libraries',
+      label: 'AMQP 1.0',
+    },
+    {
       type: 'category',
       label: 'Java',
       link: {type: 'doc', id: 'java-client'},
