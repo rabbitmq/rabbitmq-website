@@ -40,7 +40,7 @@ An *experimental* feature flag is used in two situations:
    it is ready to be enabled by default, possibly replacing an older system.
 
 Khepri in RabbitMQ 3.13.x was in the first group. Be reassured that Khepri in
-RabbitMQ 4.0.0 and onward is in that second group and is therefore fully
+RabbitMQ 4.0 and onward is in that second group and is therefore fully
 supported.
 
 ## On a brand new RabbitMQ node

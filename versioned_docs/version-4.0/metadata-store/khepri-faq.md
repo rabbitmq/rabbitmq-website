@@ -6,7 +6,7 @@ title: Khepri FAQ
 
 ### I see the `khepri_db` feature flag is marked as experimental in the RabbitMQ code. Is it supported? {#supported-even-if-experimental}
 
-Yes, starting from RabbitMQ 4.0.0, the RabbitMQ team will support nodes using
+Yes, starting from RabbitMQ 4.0, the RabbitMQ team will support nodes using
 Khepri. Likewise, an upgrade path will be provided to move to future versions.
 
 Khepri in RabbitMQ 3.13.x is unsupported however. It is not possible to
