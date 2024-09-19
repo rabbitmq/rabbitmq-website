@@ -42,7 +42,7 @@ cluster nodes. If this is not the case, some published messages **will be droppe
 
 Request/reply, often called RPC, is a popular pattern to implement with a messaging broker
 like RabbitMQ. One of the popular use cases is a microservices based architecture
-where one service requests data from another service. The pattern is covered in [tutorial six](/tutorials/).
+where one service requests data from another service. The pattern is covered in [tutorial six](/tutorials).
 
 Key requirements to support such a scenario include:
 

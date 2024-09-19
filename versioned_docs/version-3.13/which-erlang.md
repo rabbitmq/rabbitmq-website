@@ -655,7 +655,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     <td>
       <ul class="notes">
         <li>
-          <a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">Erlang/OTP <code>24</code> support announcement</a>
+          <a href="/blog/2021/03/23/erlang-24-support-roadmap">Erlang/OTP <code>24</code> support announcement</a>
         </li>
         <li>Erlang 24 was released on May 12, 2021</li>
         <li>Some community plugins and tools may be incompatible with Erlang 24</li>

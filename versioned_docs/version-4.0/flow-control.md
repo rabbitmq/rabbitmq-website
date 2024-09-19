@@ -51,5 +51,5 @@ Other components than connections can be in the
 can apply flow control that eventually propagates back to publishing connections.
 
 To find out if consumers and [prefetch settings](./confirms)
-can be key limiting factors, [take a look at relevant metrics](https://blog.rabbitmq.com/posts/2014/04/finding-bottlenecks-with-rabbitmq-3-3/).
+can be key limiting factors, [take a look at relevant metrics](/blog/2014/04/14/finding-bottlenecks-with-rabbitmq-3-3).
 See [Monitoring and Health Checks](./monitoring) guide to learn more.

@@ -425,7 +425,7 @@ the target stream. The protocol includes a topology discovery operation, so well
 libraries will select one of the suitable nodes. This won't be the case when a load balancer is used,
 however.
 
-See [Connecting to Streams](https://blog.rabbitmq.com/posts/2021/07/connecting-to-streams/#well-behaved-clients)
+See [Connecting to Streams](/blog/2021/07/23/connecting-to-streams#well-behaved-clients)
 to learn more.
 
 ### Queue and Stream Leader Replica Placement {#replica-placement}

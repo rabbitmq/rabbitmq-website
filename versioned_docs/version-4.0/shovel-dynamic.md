@@ -227,7 +227,7 @@ For example, this may be necessary when the topology is [imported from a definit
 Using a pre-declared topology avoids a chicken-and-egg problem between the import of definitions and
 Shovel plugin startup: the plugin must be enabled for definitions to pass validation (of the runtime parameters part).
 
-Here is how the plugin can be configured to wait until the source is available [using `rabbitmq.conf`](./configure/):
+Here is how the plugin can be configured to wait until the source is available [using `rabbitmq.conf`](./configure):
 
 ```ini
 # all shovels started on this node will use pre-declared topology

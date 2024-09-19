@@ -948,7 +948,7 @@ LimitNOFILE=64000
 ```
 
 If the limits above are set to a value higher than 65536,
-[the `ERL_MAX_PORTS` environment variable](./networking#erl-max-ports) must be updated accordingly to increase a [runtime](./runtime/) limit.
+[the `ERL_MAX_PORTS` environment variable](./networking#erl-max-ports) must be updated accordingly to increase a [runtime](./runtime) limit.
 
 See [systemd documentation](https://www.freedesktop.org/software/systemd/man/systemd.exec.html) to learn about
 the supported limits and other directives.
@@ -971,7 +971,7 @@ The file has to be installed on Docker hosts at `/etc/docker/daemon.json`:
 ```
 
 If the limits above are set to a value higher than 65536,
-[the `ERL_MAX_PORTS` environment variable](./networking#erl-max-ports) must be updated accordingly to increase a [runtime](./runtime/) limit.
+[the `ERL_MAX_PORTS` environment variable](./networking#erl-max-ports) must be updated accordingly to increase a [runtime](./runtime) limit.
 
 ### Verifying the Limit {#verifying-limits}
 

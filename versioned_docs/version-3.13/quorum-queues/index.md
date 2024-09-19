@@ -31,7 +31,7 @@ replicated FIFO queue based on the [Raft consensus algorithm](https://raft.githu
 
 Quorum queues are designed to be safer and provide simpler, well defined failure handling semantics that users should find easier to reason about when designing and operating their systems.
 
-Quorum queues and [streams](./streams) now replace the original, replicated [mirrored classic queue](./ha). Mirrored classic queues are [have long been deprecated](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/) and were [removed from RabbitMQ 4.x](https://github.com/rabbitmq/rabbitmq-server/pull/9815).
+Quorum queues and [streams](./streams) now replace the original, replicated [mirrored classic queue](./ha). Mirrored classic queues are [have long been deprecated](/blog/2021/08/21/4.0-deprecation-announcements) and were [removed from RabbitMQ 4.x](https://github.com/rabbitmq/rabbitmq-server/pull/9815).
 Use the [Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq) guide for migrating
 RabbitMQ installations that currently use classic mirrored queues.
 
@@ -132,7 +132,7 @@ Some features are not currently supported by quorum queues.
 | [Exclusivity](./queues) | yes | no |
 | Per message persistence | per message | always |
 | Membership changes | automatic | manual  |
-| [Message TTL (Time-To-Live)](./ttl) | yes | yes ([since 3.10](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/)) |
+| [Message TTL (Time-To-Live)](./ttl) | yes | yes ([since 3.10](/blog/2022/05/05/rabbitmq-3.10-release-overview)) |
 | [Queue TTL](./ttl#queue-ttl) | yes | partially (lease is not renewed on queue re-declaration) |
 | [Queue length limits](./maxlength) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
 | [Lazy behaviour](./lazy-queues) | yes | always (since 3.10) |
@@ -146,7 +146,7 @@ Some features are not currently supported by quorum queues.
 | Global [QoS Prefetch](#global-qos) | yes | no |
 | [Server-named queues](./queues#server-named-queues) | yes | no |
 
-Modern quorum queues also offer [higher throughput and less latency variability](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/)
+Modern quorum queues also offer [higher throughput and less latency variability](/blog/2022/05/16/rabbitmq-3.10-performance-improvements)
 for many workloads.
 
 #### Non-durable Queues
@@ -572,7 +572,7 @@ Note that a node or quorum queue replica failure does not trigger automatic memb
 If a node is failed in an unrecoverable way and cannot be brought back, it must be explicitly removed from the cluster
 or the operator must opt-in and enable the `quorum_queue.continuous_membership_reconciliation.auto_remove` setting.
 
-This also means that [upgrades](./upgrade/) do not trigger automatic membership reconciliation since nodes
+This also means that [upgrades](./upgrade) do not trigger automatic membership reconciliation since nodes
 are expected to come back and only a minority (often just one) node is stopped for upgrading at a time.
 :::
 
@@ -828,8 +828,8 @@ message sizes.
 
 In scenarios using both consumer acks and publisher confirms
 quorum queues have been observed to have superior throughput to
-classic mirrored queues. For example, take a look at [these benchmarks with 3.10](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/)
-and [another with 3.12](https://blog.rabbitmq.com/posts/2023/05/rabbitmq-3.12-performance-improvements/#significant-improvements-to-quorum-queues).
+classic mirrored queues. For example, take a look at [these benchmarks with 3.10](/blog/2022/05/16/rabbitmq-3.10-performance-improvements)
+and [another with 3.12](/blog/2023/05/17/rabbitmq-3.12-performance-improvements#significant-improvements-to-quorum-queues).
 
 As quorum queues persist all data to disks before doing anything it is recommended
 to use the fastest disks possible and certain [Performance Tuning](#performance-tuning) settings.

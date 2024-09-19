@@ -199,7 +199,7 @@ The following upstream parameters are only applicable to <a href="./federated-ex
       <td>
         The queue type of the [internal upstream queue](./federated-exchanges#details) used by exchange federation.
 
-        Defaults to `classic` (a single replica queue type). Set to `quorum` to use a [replicated queue type](./quorum-queues/).
+        Defaults to `classic` (a single replica queue type). Set to `quorum` to use a [replicated queue type](./quorum-queues).
 
         Changing the queue type will delete and recreate the upstream queue by default.
         This may lead to messages getting lost or not routed anywhere during the re-declaration.

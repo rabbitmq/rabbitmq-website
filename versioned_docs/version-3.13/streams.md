@@ -274,7 +274,7 @@ The single active consumer feature provides 2 benefits:
 * Messages are processed in order: there is only one consumer at a time.
 * Consumption continuity is maintained: a consumer from the group will take over if the active one stops or crashes.
 
-A [blog post](https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams/) provides more details on single active consumer for streams.
+A [blog post](/blog/2022/07/05/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams) provides more details on single active consumer for streams.
 
 ### Super Streams {#super-streams}
 
@@ -301,7 +301,7 @@ Use `rabbitmq-streams add_super_stream --help` to learn more about the command.
 Super streams add complexity compared to individual streams, so they should not be considered the default solution for all use cases involving streams.
 Consider using super streams only if you are sure you reached the limits of individual streams.
 
-A [blog post](https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-preview-super-streams) provides an overview of super streams.
+A [blog post](/blog/2022/07/13/rabbitmq-3-11-feature-preview-super-streams) provides an overview of super streams.
 
 ### Filtering {#filtering}
 
@@ -358,7 +358,7 @@ Additional notes on filtering:
 Set the `x-stream-match-unfiltered` argument to `true` to change this behavior and receive _unfiltered_ messages as well.
 * The `x-stream-filter` consumer argument accepts a string but also an array of strings to receive messages for different filter values.
 
-A [first blog post](https://blog.rabbitmq.com/posts/2023/10/stream-filtering/) provides an overview of stream filtering and a [second blog post](https://blog.rabbitmq.com/posts/2023/10/stream-filtering-internals/) covers internals.
+A [first blog post](/blog/2023/10/16/stream-filtering) provides an overview of stream filtering and a [second blog post](/blog/2023/10/24/stream-filtering-internals) covers internals.
 
 ## Feature Comparison: Regular Queues versus Streams {#feature-comparison}
 

@@ -71,7 +71,7 @@ RabbitMQ supports most MQTT 5.0 features including the following:
 * [Retained](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901104) messages with the limitations described in section [Retained Messages and Stores](#retained)
 * [MQTT over a WebSocket](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901285) via the [RabbitMQ Web MQTT Plugin](./web-mqtt)
 
-The [MQTT 5.0 blog post](https://blog.rabbitmq.com/posts/2023/07/mqtt5) provides a complete list of supported MQTT 5.0 features including their usage and implementation details.
+The [MQTT 5.0 blog post](/blog/2023/07/21/mqtt5) provides a complete list of supported MQTT 5.0 features including their usage and implementation details.
 
 MQTT clients can interoperate with other protocols.
 For example, MQTT publishers can send messages to AMQP 0.9.1 or AMQP 1.0 consumers if these consumers consume from a queue
@@ -233,7 +233,7 @@ The latter enables sending messages from an AMQP 0.9.1, AMQP 1.0 or STOMP client
 The benefits of using the MQTT QoS 0 queues type are:
 
 1. Support for larger fanouts, e.g. sending a message from the "cloud" (RabbitMQ) to all devices (MQTT clients).
-1. Lower [memory usage](./memory-use/)
+1. Lower [memory usage](./memory-use)
 1. Lower publisher confirm latency
 1. Lower end-to-end latency
 
@@ -242,7 +242,7 @@ This can happen when the network connection between MQTT subscribing client and 
 
 ### Overload protection
 
-To protect against high [memory usage](./memory-use/) due to MQTT QoS 0 messages piling up in the MQTT connection process mailbox, RabbitMQ intentionally drops QoS 0 messages from the MQTT QoS 0 queue if both conditions are true:
+To protect against high [memory usage](./memory-use) due to MQTT QoS 0 messages piling up in the MQTT connection process mailbox, RabbitMQ intentionally drops QoS 0 messages from the MQTT QoS 0 queue if both conditions are true:
 
 1. the number of messages in the MQTT connection process mailbox exceeds the configured `mqtt.mailbox_soft_limit` (defaults to 200), and
 1. the socket sending to the MQTT client is busy (not sending fast enough due to TCP backpressure).
@@ -263,7 +263,7 @@ The following Prometheus metric reported by a given RabbitMQ node shows how many
 rabbitmq_global_messages_dead_lettered_maxlen_total{queue_type="rabbit_mqtt_qos0_queue",dead_letter_strategy="disabled"} 0
 ```
 
-The [Native MQTT](https://blog.rabbitmq.com/posts/2023/03/native-mqtt/#new-mqtt-qos-0-queue-type) blog post describes the MQTT QoS 0 queue type in more detail.
+The [Native MQTT](/blog/2023/03/21/native-mqtt#new-mqtt-qos-0-queue-type) blog post describes the MQTT QoS 0 queue type in more detail.
 
 ## Users and Authentication {#authentication}
 MQTT clients will be able to connect provided that they have a set of credentials for an existing user with the appropriate permissions.
@@ -676,19 +676,19 @@ However, Management API metrics that are tied to AMQP 0.9.1 [channels](./channel
 MQTT is the standard protocol for the Internet of Things (IoT).
 A common IoT workload is that many MQTT devices publish sensor data periodically to the MQTT broker.
 There could be hundreds of thousands, sometimes even millions of IoT devices that connect to the MQTT broker.
-The blog post [Native MQTT](https://blog.rabbitmq.com/posts/2023/03/native-mqtt) demonstrates performance benchmarks of such workloads.
+The blog post [Native MQTT](/blog/2023/03/21/native-mqtt) demonstrates performance benchmarks of such workloads.
 
 This section aims at providing a non-exhaustive checklist with tips and tricks to configure RabbitMQ as an efficient MQTT broker that supports many client connections:
 
 1. Set `management_agent.disable_metrics_collector = true` to disable metrics collection in the [Management plugin](./management).
 The RabbitMQ Management plugin has not been designed for excessive metrics collection.
-In fact, metrics delivery via the management API is [deprecated](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/#disable-metrics-delivery-via-the-management-api--ui). Instead, use a tool that has been designed for collecting and querying a huge number of metrics: Prometheus.
+In fact, metrics delivery via the management API is [deprecated](/blog/2021/08/21/4.0-deprecation-announcements#disable-metrics-delivery-via-the-management-api--ui). Instead, use a tool that has been designed for collecting and querying a huge number of metrics: Prometheus.
 1. MQTT packets and subscriptions with QoS 0 provide much better performance than QoS 1.
 Unlike AMQP 0.9.1 and AMQP 1.0, MQTT is not designed to maximise throughput: For example, there are no [multi-acks](./confirms#consumer-acks-multiple-parameter).
 Every [PUBLISH](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901100) packet with QoS 1 needs to be acknowledged individually.
 1. Decrease TCP buffer sizes as described in section [TCP Listener Options](#listener-opts).
 
-This substantially reduces [memory usage](./memory-use/) in environments with many concurrently connected clients.
+This substantially reduces [memory usage](./memory-use) in environments with many concurrently connected clients.
 
 1. Less topic levels (in an MQTT topic and MQTT topic filter) perform better than more topic levels.
 For example, prefer to structure your topic as `city/name` instead of `continent/country/city/name`, if possible.
