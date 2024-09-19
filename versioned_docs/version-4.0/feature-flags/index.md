@@ -330,7 +330,7 @@ The following feature flags are provided by RabbitMQ core.
   <tr>
     <td></td>
     <td>4.0</td>
-    <td>rabbitmq_4.0.1</td>
+    <td>rabbitmq_4.0.0</td>
     <td>
       Enables multiple features and changes introduced in RabbitMQ 4.0.
 
