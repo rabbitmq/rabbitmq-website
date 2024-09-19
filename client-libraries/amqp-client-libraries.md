@@ -23,7 +23,7 @@ import TabItem from '@theme/TabItem';
 
 # AMQP 1.0 Client Libraries
 
-This page documents the usage of [AMQP 1.0](/docs/next/amqp) client libraries for **RabbitMQ 4.0 or more**.
+This page documents the usage of [AMQP 1.0](/docs/amqp) client libraries for **RabbitMQ 4.0 or more**.
 
 The RabbitMQ team supports the following libraries:
 
@@ -151,7 +151,7 @@ await connection.CloseAsync();
 </TabItem>
 </Tabs>
 
-Libraries use the `ANONYMOUS` [SASL authentication mechanism](/docs/next/access-control#mechanisms) by default.
+Libraries use the `ANONYMOUS` [SASL authentication mechanism](/docs/access-control#mechanisms) by default.
 Connections are expected to be long-lived objects, applications should avoid connection churn.
 They must be closed when they are no longer needed.
 
@@ -205,7 +205,7 @@ They follow the [AMQP 1.0 message format](https://docs.oasis-open.org/amqp/core/
 It is possible to define the body (as an array of bytes), standard properties, and application properties.
 
 When a message is published, the broker indicates how it dealt with it in an asynchronous callback.
-The client application take appropriate measures depending on the status (["outcome" in AMQP terms](/docs/next/amqp#outcomes)) the broker returned for the message (e.g. store the message in another place if the message has not been `accepted`).
+The client application take appropriate measures depending on the status (["outcome" in AMQP terms](/docs/amqp#outcomes)) the broker returned for the message (e.g. store the message in another place if the message has not been `accepted`).
 
 The following snippet shows how to create a message, publish it, and deal with the response from the broker:
 
@@ -309,13 +309,13 @@ Publisher publisher = await connection.PublisherBuilder()
 
 :::info
 
-Libraries translate the API calls into the [address format v2](/docs/next/amqp#address-v2).
+Libraries translate the API calls into the [address format v2](/docs/amqp#address-v2).
 
 :::
 
 It is also possible to define the target on a per-message basis.
 The publisher must be defined without any target and each message define its target in the `to` field of the properties section.
-Libraries provide helpers in the message creation API to define the message target, which avoids dealing with the  [address format](/docs/next/amqp#address-v2).
+Libraries provide helpers in the message creation API to define the message target, which avoids dealing with the  [address format](/docs/amqp#address-v2).
 
 The following snippet shows how to create a publisher without a target and define messages with different target types:
 
@@ -403,10 +403,10 @@ The next section covers the semantics of message settlement.
 
 Libraries allows applications to settle messages in different ways.
 They use terms as explicit as possible in the context of messaging applications.
-Each term maps to a [given _outcome_](/docs/next/amqp#outcomes) in the AMQP specification.
+Each term maps to a [given _outcome_](/docs/amqp#outcomes) in the AMQP specification.
 
 * `accept`: the application successfully processed the message and it can be deleted from the queue (`accepted` outcome)
-* `discard`: the application cannot process the message because it is invalid, the broker can drop it or [dead-letter](/docs/next/dlx) it if it is configured (`rejected` outcome)
+* `discard`: the application cannot process the message because it is invalid, the broker can drop it or [dead-letter](/docs/dlx) it if it is configured (`rejected` outcome)
 * `requeue`: the application did not process the message, the broker can requeue it and deliver it to the same or a different consumer (`released` outcome)
 
 #### Consumer Graceful Shutdown
@@ -462,9 +462,9 @@ An application can still close a consumer without pausing it, at the risk of pro
 
 #### Support for Streams
 
-Libraries have out-of-the-box support for [streams](/docs/next/streams) in consumer configuration.
+Libraries have out-of-the-box support for [streams](/docs/streams) in consumer configuration.
 
-It is possible to set where to attach to when [consuming](/docs/next/streams#consuming) from a stream:
+It is possible to set where to attach to when [consuming](/docs/streams#consuming) from a stream:
 
 <Tabs groupId="languages">
 <TabItem value="java" label="Java">
@@ -500,7 +500,7 @@ IConsumer consumer = await connection.ConsumerBuilder()
 
 </Tabs>
 
-There is also support for [stream filtering](/docs/next/streams#filtering) configuration:
+There is also support for [stream filtering](/docs/streams#filtering) configuration:
 
 <Tabs groupId="languages">
 <TabItem value="java" label="Java">
@@ -538,7 +538,7 @@ IConsumer consumer = await connection.ConsumerBuilder()
 </TabItem>
 </Tabs>
 
-Consider also using the [native stream protocol](/docs/next/stream) with the stream client library for your preferred programming language when working with streams.
+Consider also using the [native stream protocol](/docs/stream) with the stream client library for your preferred programming language when working with streams.
 
 ## Topology Management
 
@@ -649,7 +649,7 @@ await management.Exchange("my-exchange").DeleteAsync();
 
 ### Queues
 
-Here is how to create a [queue](/tutorials/amqp-concepts#queues) with [the default queue type](/docs/next/vhosts#default-queue-type):
+Here is how to create a [queue](/tutorials/amqp-concepts#queues) with [the default queue type](/docs/vhosts#default-queue-type):
 
 <Tabs groupId="languages">
 <TabItem value="java" label="Java">
@@ -678,7 +678,7 @@ await queueSpec.DeclareAsync();
 </TabItem>
 </Tabs>
 
-The management API supports [queue arguments](/docs/next/queues#optional-arguments) explicitly:
+The management API supports [queue arguments](/docs/queues#optional-arguments) explicitly:
 
 <Tabs groupId="languages">
 <TabItem value="java" label="Java">
@@ -708,7 +708,7 @@ await queueSpec.DeclareAsync();
 </Tabs>
 
 The management API makes also the distinction between arguments shared by all queue types and arguments valid only for a given type.
-Here is an example with the creation of a [quorum queue](/docs/next/quorum-queues):
+Here is an example with the creation of a [quorum queue](/docs/quorum-queues):
 
 <Tabs groupId="languages">
 <TabItem value="java" label="Java">
@@ -819,7 +819,7 @@ await bindingSpec.BindAsync();
 </TabItem>
 </Tabs>
 
-There is also support for [exchange-to-exchange binding](/docs/next/e2e):
+There is also support for [exchange-to-exchange binding](/docs/e2e):
 
 <Tabs groupId="languages">
 <TabItem value="java" label="Java">
