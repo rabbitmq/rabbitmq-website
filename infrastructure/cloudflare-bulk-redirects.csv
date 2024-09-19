@@ -417,4 +417,4 @@ www.rabbitmq.com/docs/documentation,https://www.rabbitmq.com/docs,,TRUE,FALSE,FA
 www.rabbitmq.com/docs/versions,https://www.rabbitmq.com/release-information,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/kubernetes/tanzu/installation,https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/installation.html,,TRUE,FALSE,FALSE,FALSE
 
-www.rabbitmq.com/docs/3.13,https://www.rabbitmq.com/docs,302,TRUE,FALSE,TRUE,TRUE
+www.rabbitmq.com/docs/4.0,https://www.rabbitmq.com/docs,302,TRUE,FALSE,TRUE,TRUE
