@@ -222,11 +222,11 @@ The `#amqp_params_network` record sets the following default values:
       <td>0</td>
     </tr>
     <tr>
-      <td><a href="./heartbeats">heartbeat</a></td>
+      <td><a href="/docs/heartbeats">heartbeat</a></td>
       <td>0</td>
     </tr>
     <tr>
-      <td><a href="./ssl">ssl_options</a></td>
+      <td><a href="/docs/ssl">ssl_options</a></td>
       <td>none</td>
     </tr>
     <tr>
@@ -311,7 +311,7 @@ The `#amqp_params_direct` record sets the following default values:
 ### Connecting to RabbitMQ Using an AMQP URI {#amqp-uris}
 
 Instead of working with records such `#amqp_params_network` directly,
-<a href="./uri-spec">AMQP URIs</a> may be used.
+<a href="/docs/uri-spec">AMQP URIs</a> may be used.
 
 The `amqp_uri:parse/1` function is provided for this purpose.
 It parses an URI and returns the equivalent `#amqp_params_network` or `#amqp_params_direct` record.
@@ -677,9 +677,9 @@ Applications are recommended to use a prefetch. Learn more in the
 ## Blocked Connections {#blocked}
 
 When a node detects that it is below a certain available resource threshold,
-it may <a href="./alarms">choose to stop reading from publishers' network sockets</a>.
+it may <a href="/docs/alarms">choose to stop reading from publishers' network sockets</a>.
 
-RabbitMQ supports <a href="./connection-blocked">a mechanism to allow clients to be told this has taken place</a>.
+RabbitMQ supports [a mechanism to allow clients to be told this has taken place](/docs/connection-blocked).
 
 Use `amqp_connection:register_blocked_handler/2` giving the
 pid of a process to which `#'connection.blocked'{}` and

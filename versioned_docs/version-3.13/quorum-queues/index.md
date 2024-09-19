@@ -863,7 +863,7 @@ The `rabbit` application has several quorum queue related configuration items av
 <table>
   <thead>
     <tr>
-      <td><code>advanced.config</code> <a href="./configure/">configuration key</a></td>
+      <td><code>advanced.config</code> <a href="./configure">configuration key</a></td>
       <td>Description</td>
       <td>Default value</td>
     </tr>

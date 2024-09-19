@@ -113,7 +113,7 @@ displayed_sidebar: docsSidebar
     <div class="docSection">
         <a name="interop" class="anchor" id="interop"></a>
         <h2 class="docHeading"><a class="anchor" href="#interop">Interoperability</a></h2>
-        <p>Please see the <a href="./nteroperability">interoperability page</a>.</p>
+        <p>Please see the <a href="/client-libraries/interoperability">interoperability page</a>.</p>
     </div>
 
     <div class="docSection">
