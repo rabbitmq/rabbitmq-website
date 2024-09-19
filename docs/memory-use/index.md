@@ -164,7 +164,7 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>quorum_queue_procs</td>
     <td>Queues</td>
     <td>
-      <a href=".//./quorum-queues">Quorum queue</a> processes, both currently elected leaders and followers.
+      <a href="./quorum-queues">Quorum queue</a> processes, both currently elected leaders and followers.
       Memory footprint can be capped on a per-queue basis.
       See the <a href="./quorum-queues">Quorum Queues</a> guide for more information.
     </td>
