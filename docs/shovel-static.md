@@ -153,24 +153,24 @@ They are described in the table below.
       <td>ack-mode</td>
       <td>
         <p>
-          Determines how the shovel should <a href="./confirms/">acknowledge</a> consumed messages.
+          Determines how the shovel should <a href="./confirms">acknowledge</a> consumed messages.
           Valid values are <code>on-confirm</code>, <code>on-publish</code>, and <code>no-ack</code>.
           <code>on-confirm</code> is used by default.
         </p>
         <p>
           If set to <code>on-confirm</code> (the default), messages are
-          <a href="./confirms/">acknowledged</a> to the source broker after they have been confirmed
+          <a href="./confirms">acknowledged</a> to the source broker after they have been confirmed
           by the destination. This handles network errors and broker
           failures without losing messages, and is the slowest option.
         </p>
         <p>
-          If set to <code>on-publish</code>, messages are <a href="./confirms/">acknowledged</a> to
+          If set to <code>on-publish</code>, messages are <a href="./confirms">acknowledged</a> to
           the source broker after they have been published at the
           destination (but not yet confirmed). This handles network errors without losing messages,
           but may lose messages in the event of broker failures.
         </p>
         <p>
-          If set to <code>no-ack</code>, <a href="./confirms/">automatic message acknowledgements</a> will be used.
+          If set to <code>no-ack</code>, <a href="./confirms">automatic message acknowledgements</a> will be used.
           This option will offer the highest throughput but is not safe (will lose messages in the event of network or broker failures).
         </p>
       </td>
@@ -207,7 +207,7 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
   ]}
 ```
         <p>
-          The declarations follow method and property names used by the <a href="./erlang-client-user-guide">RabbitMQ Erlang Client</a>.
+          The declarations follow method and property names used by the <a href="/client-libraries/erlang-client-user-guide">RabbitMQ Erlang Client</a>.
         </p>
         <p>
           A minimalistic declaration example:

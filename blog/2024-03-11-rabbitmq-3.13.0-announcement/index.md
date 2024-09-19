@@ -80,7 +80,7 @@ policy. To make sure new queues are created as v2 by default, you can set
 classic_queue.default_version = 2
 ```
 
-in [`rabbitmq.conf`](/docs/configure/).
+in [`rabbitmq.conf`](/docs/configure).
 
 The reason v1 remains the default has nothing to do with any v2 shortcomings
 but rather with the fact that changing the node default led to some back and
