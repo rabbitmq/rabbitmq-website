@@ -170,7 +170,7 @@ With some queue operations there are minor differences:
 | Global [QoS Prefetch](#global-qos) | yes | no |
 | [Server-named queues](./queues#server-named-queues) | yes | no |
 
-Modern quorum queues also offer [higher throughput and less latency variability](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/)
+Modern quorum queues also offer [higher throughput and less latency variability](/blog/2022/05/16/rabbitmq-3.10-performance-improvements)
 for many workloads.
 
 ### Queue and Per-Message TTL 
@@ -799,7 +799,7 @@ Note that a node or quorum queue replica failure does not trigger automatic memb
 If a node is failed in an unrecoverable way and cannot be brought back, it must be explicitly removed from the cluster
 or the operator must opt-in and enable the `quorum_queue.continuous_membership_reconciliation.auto_remove` setting.
 
-This also means that [upgrades](./upgrade/) do not trigger automatic membership reconciliation since nodes
+This also means that [upgrades](./upgrade) do not trigger automatic membership reconciliation since nodes
 are expected to come back and only a minority (often just one) node is stopped for upgrading at a time.
 :::
 
@@ -1051,8 +1051,8 @@ in 3, 5 and 7 node configurations with several different message sizes.
 In scenarios using both consumer acks and publisher confirms
 quorum queues have been observed to have superior throughput to
 classic mirrored queues (deprecated in 2021, removed in 2024 for RabbitMQ 4.0).
-For example, take a look at [these benchmarks with 3.10](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/)
-and [another with 3.12](https://blog.rabbitmq.com/posts/2023/05/rabbitmq-3.12-performance-improvements/#significant-improvements-to-quorum-queues).
+For example, take a look at [these benchmarks with 3.10](/blog/2022/05/16/rabbitmq-3.10-performance-improvements)
+and [another with 3.12](/blog/2023/05/17/rabbitmq-3.12-performance-improvements#significant-improvements-to-quorum-queues).
 
 As quorum queues persist all data to disks before doing anything it is recommended
 to use the fastest disks possible and certain [Performance Tuning](#performance-tuning) settings.

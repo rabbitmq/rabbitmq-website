@@ -198,7 +198,7 @@ and more.
 
 ## rabbitmq-queues {#rabbitmq-queues}
 
-[rabbitmq-queues](./man/rabbitmq-queues.8) allows the operator to manage replicas of [replicated queues](./quorum-queues/).
+[rabbitmq-queues](./man/rabbitmq-queues.8) allows the operator to manage replicas of [replicated queues](./quorum-queues).
 It ships with RabbitMQ.
 
 Most commands only support the online mode (when target node is running).
@@ -207,7 +207,7 @@ Most commands only support the online mode (when target node is running).
 
 ## rabbitmq-streams {#rabbitmq-streams}
 
-[rabbitmq-streams](./man/rabbitmq-streams.8) allows the operator to manage replicas of [streams](./streams/).
+[rabbitmq-streams](./man/rabbitmq-streams.8) allows the operator to manage replicas of [streams](./streams).
 It ships with RabbitMQ.
 
 Most commands only support the online mode (when target node is running).

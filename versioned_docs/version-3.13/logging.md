@@ -592,7 +592,7 @@ was stopped using `rabbitmqctl stop_app`.
 
 When debug logging is enabled, the node will log **a lot** of information
 that can be useful for troubleshooting. This log severity is meant to be
-used when troubleshooting, say, the [peer discovery activity](./cluster-formation/).
+used when troubleshooting, say, the [peer discovery activity](./cluster-formation).
 
 For example to log debug messages to a file:
 

@@ -70,7 +70,7 @@ Note that modern versions of Erlang can have incompatibilities with older distri
 or ship without much or any testing on older distributions or OS kernel versions.
 
 Older distributions can also lack a recent enough version of OpenSSL.
-[Supported Erlang versions](./which-erlang/) **cannot be used on distributions that do not provide OpenSSL 1.1** as a system library.
+[Supported Erlang versions](./which-erlang) **cannot be used on distributions that do not provide OpenSSL 1.1** as a system library.
 CentOS 7 and Fedora releases older than 26 are examples of such distributions.
 
 Currently the list of supported RPM-based distributions includes
@@ -576,7 +576,7 @@ LimitNOFILE=64000
 ```
 
 If `LimitNOFILE` is set to a value higher than 65536, [the `ERL_MAX_PORTS` environment variable](./networking#erl-max-ports) must be
-updated accordingly to increase a [runtime](./runtime/) limit.
+updated accordingly to increase a [runtime](./runtime) limit.
 
 See [systemd documentation](https://www.freedesktop.org/software/systemd/man/systemd.exec.html) to learn about
 the supported limits and other directives.
@@ -599,7 +599,7 @@ The file has to be installed on Docker hosts at `/etc/docker/daemon.json`:
 ```
 
 If the limits above are set to a value higher than 65536,
-[the `ERL_MAX_PORTS` environment variable](./networking#erl-max-ports) must be updated accordingly to increase a [runtime](./runtime/) limit.
+[the `ERL_MAX_PORTS` environment variable](./networking#erl-max-ports) must be updated accordingly to increase a [runtime](./runtime) limit.
 
 ### Without systemd (Older Linux Distributions)
 
@@ -618,7 +618,7 @@ This `soft` limit cannot go higher than the `hard` limit (which defaults to 4096
 and re-login or reboot. Note that limits cannot be changed for running OS processes.
 
 If the limits above are set to a value higher than 65536,
-[the `ERL_MAX_PORTS` environment variable](./networking#erl-max-ports) must be updated accordingly to increase a [runtime](./runtime/) limit.
+[the `ERL_MAX_PORTS` environment variable](./networking#erl-max-ports) must be updated accordingly to increase a [runtime](./runtime) limit.
 
 For more information about controlling `fs.file-max`
 with `sysctl`, please refer to the excellent

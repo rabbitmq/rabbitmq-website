@@ -233,7 +233,7 @@ The latter enables sending messages from an AMQP 0.9.1, AMQP 1.0 or STOMP client
 The benefits of using the MQTT QoS 0 queues type are:
 
 1. Support for larger fanouts, e.g. sending a message from the "cloud" (RabbitMQ) to all devices (MQTT clients).
-1. Lower [memory usage](./memory-use/)
+1. Lower [memory usage](./memory-use)
 1. Lower publisher confirm latency
 1. Lower end-to-end latency
 
@@ -242,7 +242,7 @@ This can happen when the network connection between MQTT subscribing client and 
 
 ### Overload protection
 
-To protect against high [memory usage](./memory-use/) due to MQTT QoS 0 messages piling up in the MQTT connection process mailbox, RabbitMQ intentionally drops QoS 0 messages from the MQTT QoS 0 queue if both conditions are true:
+To protect against high [memory usage](./memory-use) due to MQTT QoS 0 messages piling up in the MQTT connection process mailbox, RabbitMQ intentionally drops QoS 0 messages from the MQTT QoS 0 queue if both conditions are true:
 
 1. the number of messages in the MQTT connection process mailbox exceeds the configured `mqtt.mailbox_soft_limit` (defaults to 200), and
 1. the socket sending to the MQTT client is busy (not sending fast enough due to TCP backpressure).
@@ -688,7 +688,7 @@ Unlike AMQP 0.9.1 and AMQP 1.0, MQTT is not designed to maximise throughput: For
 Every [PUBLISH](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901100) packet with QoS 1 needs to be acknowledged individually.
 1. Decrease TCP buffer sizes as described in section [TCP Listener Options](#listener-opts).
 
-This substantially reduces [memory usage](./memory-use/) in environments with many concurrently connected clients.
+This substantially reduces [memory usage](./memory-use) in environments with many concurrently connected clients.
 
 1. Less topic levels (in an MQTT topic and MQTT topic filter) perform better than more topic levels.
 For example, prefer to structure your topic as `city/name` instead of `continent/country/city/name`, if possible.

@@ -23,7 +23,7 @@ limitations under the License.
 
 ## Overview {#overview}
 
-This guide covers the most common errors encountered using [OAuth 2.0](./oauth2/) and the [management plugin](./management) and how to diagnose them.
+This guide covers the most common errors encountered using [OAuth 2.0](./oauth2) and the [management plugin](./management) and how to diagnose them.
 
 ## Troubleshooting OAuth 2 in the management UI {#management-ui}
 

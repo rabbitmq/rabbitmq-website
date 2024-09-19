@@ -323,7 +323,7 @@ the queue is connected to), regardless of the `queue_leader_locator` value.
 [Quorum queues](./quorum-queues) is replicated, data safety and consistency-oriented queue type.
 Classic queues historically supported replication but this feature was **removed** for RabbitMQ 4.x.
 
-Any client [connection](./connections/) can use any queue, whether it is replicated or not,
+Any client [connection](./connections) can use any queue, whether it is replicated or not,
 regardless of the node the queue replica is hosted on or the node the client is connected to.
 RabbitMQ will route the operations to the appropriate node transparently for clients.
 
@@ -335,7 +335,7 @@ Client libraries or applications **may** choose to connect to the node that host
 for improved data locality.
 
 This general rule applies to all messaging data types supported by RabbitMQ except for one.
-[Streams](./streams/) are an exception to this rule, and require clients, regardless of the protocol they use, to connect to a node
+[Streams](./streams) are an exception to this rule, and require clients, regardless of the protocol they use, to connect to a node
 that hosts a replica (a leader of rollower) of the target stream.
 Consequently, RabbitMQ Stream protocol clients will [connect to multiple nodes in parallel](https://www.rabbitmq.com/blog/2021/07/23/connecting-to-streams).
 
@@ -351,7 +351,7 @@ set of supported operations and features.
 
 ## Non-Replicated Queues and Client Operations {#transparent-operation-routing}
 
-Any client [connection](./connections/) can use any queue, including non-replicated (single replica) queues,
+Any client [connection](./connections) can use any queue, including non-replicated (single replica) queues,
 regardless of the node the queue replica is hosted on or the node the client is connected to.
 RabbitMQ will route the operations to the appropriate node transparently for clients.
 
@@ -363,7 +363,7 @@ Client libraries or applications **may** choose to connect to the node that host
 for improved data locality.
 
 This general rule applies to all messaging data types supported by RabbitMQ except for one.
-[Streams](./streams/) are an exception to this rule, and require clients, regardless of the protocol they use, to connect to a node
+[Streams](./streams) are an exception to this rule, and require clients, regardless of the protocol they use, to connect to a node
 that hosts a replica (a leader of rollower) of the target stream.
 Consequently, RabbitMQ Stream protocol clients will [connect to multiple nodes in parallel](https://www.rabbitmq.com/blog/2021/07/23/connecting-to-streams).
 

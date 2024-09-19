@@ -112,7 +112,7 @@ enable it, use [rabbitmq-plugins](./cli):
 rabbitmq-plugins enable rabbitmq_federation
 ```
 
-If [management UI](./management/) is used, it is recommended that
+If [management UI](./management) is used, it is recommended that
 `rabbitmq_federation_management` is also enabled:
 
 ```bash
@@ -462,7 +462,7 @@ Therefore, in order to narrow down the problem, the recommended steps are:
 
  * Inspect federation upstreams
  * Inspect [policies](./parameters#policies), in particular looking for policies with conflicting [priorities](./parameters#policy-priorities)
- * Inspect [node logs](./logging/)
+ * Inspect [node logs](./logging)
 
 #### Inspect Federation Upstreams
 
@@ -480,7 +480,7 @@ rabbitmq-diagnostics.bat list_parameters --formatter=pretty_table
 </TabItem>
 
 <TabItem value="Management UI" label="Management UI">
-Make sure that the `rabbitmq_federation_management` [plugin](./plugins/) is enabled.
+Make sure that the `rabbitmq_federation_management` [plugin](./plugins) is enabled.
 
 Navigate to `Admin` > `Federation Upstreams`.
 </TabItem>

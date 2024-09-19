@@ -666,7 +666,7 @@ On Windows, the limit for the Erlang runtime is controlled exclusively using the
 
 #### The ERL_MAX_PORTS Environment Variable {#erl-max-ports}
 
-The [runtime](./runtime/) has a related limit, controlled via the `ERL_MAX_PORTS` environment
+The [runtime](./runtime) has a related limit, controlled via the `ERL_MAX_PORTS` environment
 variable.
 
 By default the limit is usually set to 65536. When overriding the max open file handle limit to
@@ -1268,10 +1268,10 @@ reverse_dns_lookups = false
 
 ### The inetrc File
 
-The [Erlang runtime](./runtime/) allows for a number of hostname resolution-related settings to be tuned
+The [Erlang runtime](./runtime) allows for a number of hostname resolution-related settings to be tuned
 using a file known as the [inetrc file](http://erlang.org/doc/apps/erts/inet_cfg.html).
 
-The path to the file can be specified by adding an extra runtime argument using the [`RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment variable](./configure/):
+The path to the file can be specified by adding an extra runtime argument using the [`RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment variable](./configure):
 
 <Tabs groupId="shell-specific">
 <TabItem value="bash" label="bash" default>
