@@ -202,7 +202,7 @@ stream.advertised_host = rabbitmq-1
 stream.advertised_port = 12345
 ```
 
-The [Connecting to Streams](https://blog.rabbitmq.com/posts/2021/07/connecting-to-streams/) blog post covers why the `advertised_host` and `advertised_port` settings are necessary in some deployments.
+The [Connecting to Streams](/blog/2021/07/23/connecting-to-streams) blog post covers why the `advertised_host` and `advertised_port` settings are necessary in some deployments.
 
 
 ### Maximum Frame Size {#frame-size}

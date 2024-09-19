@@ -486,7 +486,7 @@ to memory consumption growth on the node they are connected to. Finding
 a suitable prefetch value is a matter of trial and error and will vary from
 workload to workload. Values in the 100 through 300 range usually offer
 optimal throughput and do not run significant risk of overwhelming consumers.
-Higher values often [run into the law of diminishing returns](https://blog.rabbitmq.com/posts/2014/04/finding-bottlenecks-with-rabbitmq-3-3/).
+Higher values often [run into the law of diminishing returns](/blog/2014/04/14/finding-bottlenecks-with-rabbitmq-3-3).
 
 Prefetch value of 1 is the most conservative. It will
 significantly reduce throughput, in particular in

@@ -646,7 +646,7 @@ can be opened at the same time. When an OS process (such as RabbitMQ's Erlang VM
 the limit, it won't be able to open any new files or accept any more
 TCP connections. The limit will also affect how much memory the [Erlang runtime](./runtime)
 will allocate upfront. This means that the limit on some modern distributions
-[can be too high](https://blog.rabbitmq.com/posts/2022/08/high-initial-memory-consumption-of-rabbitmq-nodes-on-centos-stream-9/) and need
+[can be too high](/blog/2022/08/30/high-initial-memory-consumption-of-rabbitmq-nodes-on-centos-stream-9) and need
 lowering.
 
 #### How to Override the Limit

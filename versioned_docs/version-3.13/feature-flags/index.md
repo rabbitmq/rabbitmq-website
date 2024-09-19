@@ -472,7 +472,7 @@ The following feature flags are provided by RabbitMQ core.
     <td>3.11.0</td>
     <td>stream_single_active_consumer</td>
     <td>
-      <a href="https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams/">Single active consumer for streams</a>
+      <a href="/blog/2022/07/05/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams">Single active consumer for streams</a>
     </td>
   </tr>
   <tr>
@@ -602,7 +602,7 @@ The following feature flags are provided by plugin
     <td>3.12.0</td>
     <td>delete_ra_cluster_mqtt_node</td>
 	<td>
-	  <a href="https://blog.rabbitmq.com/posts/2023/03/native-mqtt/#what-else-improves-with-native-mqtt-in-312">Delete Ra cluster mqtt_node since MQTT client IDs are tracked locally</a>
+	  <a href="/blog/2023/03/21/native-mqtt#what-else-improves-with-native-mqtt-in-312">Delete Ra cluster mqtt_node since MQTT client IDs are tracked locally</a>
 	</td>
   </tr>
   <tr>
@@ -610,7 +610,7 @@ The following feature flags are provided by plugin
     <td>3.12.0</td>
     <td>rabbit_mqtt_qos0_queue</td>
 	<td>
-	  Support <a href="https://blog.rabbitmq.com/posts/2023/03/native-mqtt/#new-mqtt-qos-0-queue-type">pseudo queue type for MQTT QoS 0 subscribers</a> omitting a queue process
+	  Support <a href="/blog/2023/03/21/native-mqtt#new-mqtt-qos-0-queue-type">pseudo queue type for MQTT QoS 0 subscribers</a> omitting a queue process
 	</td>
   </tr>
 </table>

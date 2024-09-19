@@ -171,7 +171,7 @@ See [VM flag documentation](http://erlang.org/doc/man/erl.html) for more detaile
 ### Reducing CPU Usage {#cpu-reduce-idle-usage}
 
 CPU usage is by definition very workload-dependent metric. Some workloads naturally use more CPU resources.
-Others use [disk-heavy features such as quorum queues](https://blog.rabbitmq.com/posts/2020/04/quorum-queues-and-why-disks-matter/),
+Others use [disk-heavy features such as quorum queues](/blog/2020/04/21/quorum-queues-and-why-disks-matter),
 and if disk I/O throughput is insufficient, CPU resources will be wasted while nodes are busy waiting for I/O operations to complete.
 
 A couple of general recommendations can be applied to "moderately loaded" systems where a large percentage or
