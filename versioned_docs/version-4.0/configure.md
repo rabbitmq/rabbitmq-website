@@ -943,7 +943,7 @@ channel_operation_timeout = 15000
     <td>
         The largest allowed message payload size in bytes. Messages
         of larger size will be rejected with a suitable channel exception.
-        <p>Default: `134217728`</p>
+        <p>Default: `16777216`</p>
         <p>Max value: `536870912`</p>
     </td>
   </tr>
