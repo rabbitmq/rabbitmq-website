@@ -31,7 +31,7 @@
 ### <code class="Fl">--longnames</code> {#longnames}
       </dt>
       <dd>
-        ). The output of "hostname -s" is usually the correct hostname to use after the "@" sign. See <a class="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a> for details of configuring a RabbitMQ node.
+        ). The output of "hostname -s" is usually the correct hostname to use after the "@" sign. See <a class="Xr" href="rabbitmq-server.8">rabbitmq-server(8)</a> for details of configuring a RabbitMQ node.
       </dd>
       <dt >
 ### <code class="Fl">-q</code>, <code class="Fl">--quiet</code> {#q}
@@ -195,7 +195,7 @@ returns a non-zero exit code if the RabbitMQ node is not running
           <p class="Pp">Waits for the RabbitMQ application to start.</p>
           <p class="Pp">This command will wait for the RabbitMQ application to start at the node. It will wait for the pid file to be created if <var class="Ar">pidfile</var> is specified, then for a process with a pid specified in the pid file or the <code class="Fl">--pid</code> argument, and then for the RabbitMQ application to start in that process. It will fail if the process terminates without starting the RabbitMQ application.</p>
           <p class="Pp">If the specified pidfile is not created or the erlang node is not started within <code class="Fl">--timeout</code> the command will fail. The default timeout is 10 seconds.</p>
-          <p class="Pp">A suitable pid file is created by the <a class="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a> script. By default, this is located in the Mnesia directory. Modify the <code class="Ev">RABBITMQ_PID_FILE</code> environment variable to change the location.</p>
+          <p class="Pp">A suitable pid file is created by the <a class="Xr" href="rabbitmq-server.8">rabbitmq-server(8)</a> script. By default, this is located in the Mnesia directory. Modify the <code class="Ev">RABBITMQ_PID_FILE</code> environment variable to change the location.</p>
           <p class="Pp">For example, this command will return when the RabbitMQ node has started up:</p>
           <p class="Pp"></p>
           <div class="Bd Bd-indent lang-bash">
@@ -1198,13 +1198,13 @@ fanout
 #### <code class="Cm">mirror_pids</code> {#mirror_pids}
             </dt>
             <dd>
-              If the queue is mirrored, this lists the IDs of the mirrors (follower replicas). To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/ha">RabbitMQ Mirroring guide</a>
+              If the queue is mirrored, this lists the IDs of the mirrors (follower replicas). To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/3.13/ha">RabbitMQ Mirroring guide</a>
             </dd>
             <dt >
 #### <code class="Cm">synchronised_mirror_pids</code> {#synchronised_mirror_pids}
             </dt>
             <dd>
-              If the queue is mirrored, this gives the IDs of the mirrors (follower replicas) which are in sync with the leader replica. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/ha">RabbitMQ Mirroring guide</a>
+              If the queue is mirrored, this gives the IDs of the mirrors (follower replicas) which are in sync with the leader replica. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/3.13/ha">RabbitMQ Mirroring guide</a>
             </dd>
             <dt >
 #### <code class="Cm">state</code> {#state~2}
@@ -2553,7 +2553,7 @@ stomp_headers
   </section>
   <section class="Sh">
 ## SEE ALSO {#SEE_ALSO}
-    <p class="Pp"><a class="Xr" href="rabbitmq-diagnostics.8.html">rabbitmq-diagnostics(8)</a>, <a class="Xr" href="rabbitmq-plugins.8.html">rabbitmq-plugins(8)</a>, <a class="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>, <a class="Xr" href="rabbitmq-queues.8.html">rabbitmq-queues(8)</a>, <a class="Xr" href="rabbitmq-streams.8.html">rabbitmq-streams(8)</a>, <a class="Xr" href="rabbitmq-upgrade.8.html">rabbitmq-upgrade(8)</a>, <a class="Xr" href="rabbitmq-service.8.html">rabbitmq-service(8)</a>, <a class="Xr" href="rabbitmq-env.conf.5.html">rabbitmq-env.conf(5)</a>, <a class="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a></p>
+    <p class="Pp"><a class="Xr" href="rabbitmq-diagnostics.8">rabbitmq-diagnostics(8)</a>, <a class="Xr" href="rabbitmq-plugins.8">rabbitmq-plugins(8)</a>, <a class="Xr" href="rabbitmq-server.8">rabbitmq-server(8)</a>, <a class="Xr" href="rabbitmq-queues.8">rabbitmq-queues(8)</a>, <a class="Xr" href="rabbitmq-streams.8">rabbitmq-streams(8)</a>, <a class="Xr" href="rabbitmq-upgrade.8">rabbitmq-upgrade(8)</a>, <a class="Xr" href="rabbitmq-service.8">rabbitmq-service(8)</a>, <a class="Xr" href="rabbitmq-env.conf.5">rabbitmq-env.conf(5)</a>, <a class="Xr" href="rabbitmq-echopid.8">rabbitmq-echopid(8)</a></p>
   </section>
   <section class="Sh">
 ## AUTHOR {#AUTHOR}

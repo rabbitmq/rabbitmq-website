@@ -43,7 +43,7 @@
   </section>
   <section class="Sh">
 ## SEE ALSO {#SEE_ALSO}
-    <p class="Pp"><a class="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a>, <a class="Xr" href="rabbitmq-plugins.8.html">rabbitmq-plugins(8)</a>, <a class="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>, <a class="Xr" href="rabbitmq-queues.8.html">rabbitmq-queues(8)</a>, <a class="Xr" href="rabbitmq-streams.8.html">rabbitmq-streams(8)</a>, <a class="Xr" href="rabbitmq-upgrade.8.html">rabbitmq-upgrade(8)</a>, <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+    <p class="Pp"><a class="Xr" href="rabbitmq-echopid.8">rabbitmq-echopid(8)</a>, <a class="Xr" href="rabbitmq-plugins.8">rabbitmq-plugins(8)</a>, <a class="Xr" href="rabbitmq-server.8">rabbitmq-server(8)</a>, <a class="Xr" href="rabbitmq-queues.8">rabbitmq-queues(8)</a>, <a class="Xr" href="rabbitmq-streams.8">rabbitmq-streams(8)</a>, <a class="Xr" href="rabbitmq-upgrade.8">rabbitmq-upgrade(8)</a>, <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
   </section>
   <section class="Sh">
 ## AUTHOR {#AUTHOR}

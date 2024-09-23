@@ -15,7 +15,7 @@
   <section class="Sh">
 ## DESCRIPTION {#DESCRIPTION}
     <p class="Pp">RabbitMQ is an open source multi-protocol messaging broker.</p>
-    <p class="Pp">Running <code class="Nm">rabbitmq-server</code> starts a RabbitMQ node in the foreground. The node will display a startup banner and report when startup is complete. To shut down the server, use service management tools or <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a>.</p>
+    <p class="Pp">Running <code class="Nm">rabbitmq-server</code> starts a RabbitMQ node in the foreground. The node will display a startup banner and report when startup is complete. To shut down the server, use service management tools or <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a>.</p>
   </section>
   <section class="Sh">
 ## ENVIRONMENT {#ENVIRONMENT}
@@ -76,7 +76,7 @@
   </section>
   <section class="Sh">
 ## SEE ALSO {#SEE_ALSO}
-    <p class="Pp"><a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a>, <a class="Xr" href="rabbitmq-diagnostics.8.html">rabbitmq-diagnostics(8)</a>, <a class="Xr" href="rabbitmq-plugins.8.html">rabbitmq-plugins(8)</a>, <a class="Xr" href="rabbitmq-queues.8.html">rabbitmq-queues(8)</a>, <a class="Xr" href="rabbitmq-streams.8.html">rabbitmq-streams(8)</a>, <a class="Xr" href="rabbitmq-upgrade.8.html">rabbitmq-upgrade(8)</a>, <a class="Xr" href="rabbitmq-service.8.html">rabbitmq-service(8)</a>, <a class="Xr" href="rabbitmq-env.conf.5.html">rabbitmq-env.conf(5)</a>, <a class="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a></p>
+    <p class="Pp"><a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a>, <a class="Xr" href="rabbitmq-diagnostics.8">rabbitmq-diagnostics(8)</a>, <a class="Xr" href="rabbitmq-plugins.8">rabbitmq-plugins(8)</a>, <a class="Xr" href="rabbitmq-queues.8">rabbitmq-queues(8)</a>, <a class="Xr" href="rabbitmq-streams.8">rabbitmq-streams(8)</a>, <a class="Xr" href="rabbitmq-upgrade.8">rabbitmq-upgrade(8)</a>, <a class="Xr" href="rabbitmq-service.8">rabbitmq-service(8)</a>, <a class="Xr" href="rabbitmq-env.conf.5">rabbitmq-env.conf(5)</a>, <a class="Xr" href="rabbitmq-echopid.8">rabbitmq-echopid(8)</a></p>
   </section>
   <section class="Sh">
 ## AUTHOR {#AUTHOR}

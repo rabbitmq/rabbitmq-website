@@ -23,7 +23,7 @@
 ### <code class="Fl">-n</code> <var class="Ar">node</var> {#n}
       </dt>
       <dd>
-        Default node is "rabbit@<var class="Ar">target-hostname</var>", where <var class="Ar">target-hostname</var> is the local host. On a host named "myserver.example.com", the node name will usually be "rabbit@myserver" (unless <code class="Ev">RABBITMQ_NODENAME</code> has been overridden). The output of "hostname -s" is usually the correct suffix to use after the "@" sign. See <a class="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a> for details of configuring a RabbitMQ node.
+        Default node is "rabbit@<var class="Ar">target-hostname</var>", where <var class="Ar">target-hostname</var> is the local host. On a host named "myserver.example.com", the node name will usually be "rabbit@myserver" (unless <code class="Ev">RABBITMQ_NODENAME</code> has been overridden). The output of "hostname -s" is usually the correct suffix to use after the "@" sign. See <a class="Xr" href="rabbitmq-server.8">rabbitmq-server(8)</a> for details of configuring a RabbitMQ node.
       </dd>
       <dt >
 ### <code class="Fl">-q</code>, <code class="Fl">--quiet</code> {#q}
@@ -199,7 +199,7 @@
   </section>
   <section class="Sh">
 ## SEE ALSO {#SEE_ALSO}
-    <p class="Pp"><a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a>, <a class="Xr" href="rabbitmq-diagnostics.8.html">rabbitmq-diagnostics(8)</a>, <a class="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>, <a class="Xr" href="rabbitmq-streams.8.html">rabbitmq-streams(8)</a>, <a class="Xr" href="rabbitmq-upgrade.8.html">rabbitmq-upgrade(8)</a>, <a class="Xr" href="rabbitmq-service.8.html">rabbitmq-service(8)</a>, <a class="Xr" href="rabbitmq-env.conf.5.html">rabbitmq-env.conf(5)</a>, <a class="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a></p>
+    <p class="Pp"><a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a>, <a class="Xr" href="rabbitmq-diagnostics.8">rabbitmq-diagnostics(8)</a>, <a class="Xr" href="rabbitmq-server.8">rabbitmq-server(8)</a>, <a class="Xr" href="rabbitmq-streams.8">rabbitmq-streams(8)</a>, <a class="Xr" href="rabbitmq-upgrade.8">rabbitmq-upgrade(8)</a>, <a class="Xr" href="rabbitmq-service.8">rabbitmq-service(8)</a>, <a class="Xr" href="rabbitmq-env.conf.5">rabbitmq-env.conf(5)</a>, <a class="Xr" href="rabbitmq-echopid.8">rabbitmq-echopid(8)</a></p>
   </section>
   <section class="Sh">
 ## AUTHOR {#AUTHOR}
