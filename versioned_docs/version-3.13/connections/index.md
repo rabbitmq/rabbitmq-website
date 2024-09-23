@@ -434,7 +434,7 @@ actual table encoding is in a binary format and would not be human-friendly):
 ```haskell
 { "product"      = (longstr) "RabbitMQ",
   "platform"     = (longstr) "Erlang/OTP",
-  "information"  = (longstr) "Licensed under the MPL 2.0. Website: https://rabbitmq.com",
+  "information"  = (longstr) "Licensed under the MPL 2.0. Website: https://www.rabbitmq.com",
   "capabilities" = (table)   { "exchange_exchange_bindings" = (bool) true,
                                "consumer_cancel_notify"     = (bool) true,
                                "basic.nack"                 = (bool) true,

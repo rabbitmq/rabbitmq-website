@@ -3222,7 +3222,7 @@ contribute
         <h2>Getting Help and Providing Feedback</h2>
         <p>
             If you have questions about the contents of this guide or any other topic related to RabbitMQ, don't hesitate to ask them using <a href="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</a> or our
-            community <a href="https://rabbitmq.com/discord">Discord server</a>.
+            community <a href="https://www.rabbitmq.com/discord">Discord server</a>.
         </p>
     </div>
     <div id="contribute">

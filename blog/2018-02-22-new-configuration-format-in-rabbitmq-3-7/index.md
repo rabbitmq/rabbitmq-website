@@ -131,8 +131,8 @@ an [annotated example file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.
 ##
 ## Related doc guides:
 ##
-##  * http://rabbitmq.com/plugins.html
-##  * http://rabbitmq.com/access-control.html
+##  * http://www.rabbitmq.com/plugins.html
+##  * http://www.rabbitmq.com/access-control.html
 ##
 
 auth_backends.1   = rabbit_auth_backend_internal
