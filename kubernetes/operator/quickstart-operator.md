@@ -173,7 +173,7 @@ kubectl logs hello-world-server-0
   ##  ##
   ##########  Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
   ######  ##
-  ##########  Licensed under the MPL 2.0. Website: https://rabbitmq.com
+  ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com
 
   Erlang:      26.0.1 [jit]
   TLS Library: OpenSSL - OpenSSL 1.1.1u  30 May 2023

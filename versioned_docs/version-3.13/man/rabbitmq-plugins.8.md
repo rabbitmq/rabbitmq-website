@@ -14,10 +14,10 @@
   </section>
   <section class="Sh">
 ## DESCRIPTION {#DESCRIPTION}
-    <p class="Pp"><code class="Nm">rabbitmq-plugins</code> is a command line tool for managing RabbitMQ plugins. See the <a class="Lk" href="https://www.rabbitmq.com/plugins.html">RabbitMQ Plugins guide</a> for an overview of RabbitMQ plugins and how they are used.</p>
+    <p class="Pp"><code class="Nm">rabbitmq-plugins</code> is a command line tool for managing RabbitMQ plugins. See the <a class="Lk" href="https://www.rabbitmq.com/docs/plugins">RabbitMQ Plugins guide</a> for an overview of RabbitMQ plugins and how they are used.</p>
     <p class="Pp"><code class="Nm">rabbitmq-plugins</code> allows the operator to enable, disable and inspect plugins. It must be run by a user with write permissions to the RabbitMQ configuration directory.</p>
     <p class="Pp">Plugins can depend on other plugins. <code class="Nm">rabbitmq-plugins</code> resolves the dependencies and enables or disables all dependencies so that the user doesn't have to manage them explicitly. Plugins listed on the <code class="Nm">rabbitmq-plugins</code> command line are marked as explicitly enabled; dependent plugins are marked as implicitly enabled. Implicitly enabled plugins are automatically disabled again when they are no longer required.</p>
-    <p class="Pp">The <code class="Cm">enable</code>, <code class="Cm">disable</code>, and <code class="Cm">set</code> commands will update the plugins file and then attempt to connect to the broker and ensure it is running all enabled plugins. By default if it is not possible to connect to and authenticate with the target node (for example if it is stopped), the operation will fail. If <code class="Nm">rabbitmq-plugins</code> is used on the same host as the target node, <code class="Fl">--offline</code> can be specified to make <code class="Nm">rabbitmq-plugins</code> resolve and update plugin state directly (without contacting the node). Such changes will only have an effect on next node start. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/plugins.html">RabbitMQ Plugins guide</a></p>
+    <p class="Pp">The <code class="Cm">enable</code>, <code class="Cm">disable</code>, and <code class="Cm">set</code> commands will update the plugins file and then attempt to connect to the broker and ensure it is running all enabled plugins. By default if it is not possible to connect to and authenticate with the target node (for example if it is stopped), the operation will fail. If <code class="Nm">rabbitmq-plugins</code> is used on the same host as the target node, <code class="Fl">--offline</code> can be specified to make <code class="Nm">rabbitmq-plugins</code> resolve and update plugin state directly (without contacting the node). Such changes will only have an effect on next node start. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/plugins">RabbitMQ Plugins guide</a></p>
   </section>
   <section class="Sh">
 ## OPTIONS {#OPTIONS}
@@ -44,13 +44,13 @@
 ### <code class="Fl">-l</code>, <code class="Fl">--longnames</code> {#l}
       </dt>
       <dd>
-        Must be specified when the cluster is configured to use long (FQDN) node names. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/clustering.html">RabbitMQ Clustering guide</a>
+        Must be specified when the cluster is configured to use long (FQDN) node names. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/clustering">RabbitMQ Clustering guide</a>
       </dd>
       <dt >
 ### <code class="Fl">--erlang-cookie</code> <var class="Ar">cookie</var> {#erlang-cookie}
       </dt>
       <dd>
-        Shared secret to use to authenticate to the target node. Prefer using a local file or the <code class="Ev">RABBITMQ_ERLANG_COOKIE</code> environment variable instead of specifying this option on the command line. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/cli.html">RabbitMQ CLI Tools guide</a>
+        Shared secret to use to authenticate to the target node. Prefer using a local file or the <code class="Ev">RABBITMQ_ERLANG_COOKIE</code> environment variable instead of specifying this option on the command line. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/cli">RabbitMQ CLI Tools guide</a>
       </dd>
     </dl>
   </section>
@@ -207,6 +207,6 @@
   </section>
   <section class="Sh">
 ## AUTHOR {#AUTHOR}
-    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:rabbitmq-core@groups.vmware.com">rabbitmq-core@groups.vmware.com</a>&gt;</p>
+    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:contact-tanzu-data.pdl@broadcom.com">contact-tanzu-data.pdl@broadcom.com</a>&gt;</p>
   </section>
 </div>

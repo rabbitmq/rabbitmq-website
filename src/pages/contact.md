@@ -85,7 +85,7 @@ Questions or discussions filed as issues will be converted to discussions.
 
 ### Discord Community Server
 
-Another recommended community resource is the [RabbitMQ community Discord server](https://www.rabbitmq.com/discord/).
+Another recommended community resource is the [RabbitMQ community Discord server](https://www.rabbitmq.com/discord).
 
 The channel offers free of charge, best effort support from the community according to the [Community Support Eligibility Policy](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md).
 There is no guarantee of response or specific turnaround time.

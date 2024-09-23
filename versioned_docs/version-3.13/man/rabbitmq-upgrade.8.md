@@ -14,7 +14,7 @@
   </section>
   <section class="Sh">
 ## DESCRIPTION {#DESCRIPTION}
-    <p class="Pp"><code class="Nm">rabbitmq-upgrade</code> is a command line tool that provides commands used during the upgrade of RabbitMQ nodes. See the <a class="Lk" href="https://www.rabbitmq.com/upgrade.html">RabbitMQ upgrade guide</a> to learn more about RabbitMQ installation upgrades.</p>
+    <p class="Pp"><code class="Nm">rabbitmq-upgrade</code> is a command line tool that provides commands used during the upgrade of RabbitMQ nodes. See the <a class="Lk" href="https://www.rabbitmq.com/docs/upgrade">RabbitMQ upgrade guide</a> to learn more about RabbitMQ installation upgrades.</p>
   </section>
   <section class="Sh">
 ## OPTIONS {#OPTIONS}
@@ -41,13 +41,13 @@
 ### <code class="Fl">-l</code>, <code class="Fl">--longnames</code> {#l}
       </dt>
       <dd>
-        Must be specified when the cluster is configured to use long (FQDN) node names. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/clustering.html">RabbitMQ Clustering guide</a>
+        Must be specified when the cluster is configured to use long (FQDN) node names. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/clustering">RabbitMQ Clustering guide</a>
       </dd>
       <dt >
 ### <code class="Fl">--erlang-cookie</code> <var class="Ar">cookie</var> {#erlang-cookie}
       </dt>
       <dd>
-        Shared secret to use to authenticate to the target node. Prefer using a local file or the <code class="Ev">RABBITMQ_ERLANG_COOKIE</code> environment variable instead of specifying this option on the command line. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/cli.html">RabbitMQ CLI Tools guide</a>
+        Shared secret to use to authenticate to the target node. Prefer using a local file or the <code class="Ev">RABBITMQ_ERLANG_COOKIE</code> environment variable instead of specifying this option on the command line. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/cli">RabbitMQ CLI Tools guide</a>
       </dd>
     </dl>
   </section>
@@ -77,14 +77,14 @@
       </dt>
       <dd>
         <p class="Pp">Puts the node in maintenance mode. Such nodes will not serve any client traffic or considered for hosting any queue leader replicas.</p>
-        <p class="Pp">To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/upgrade.html#maintenance-mode">RabbitMQ Upgrade guide</a></p>
+        <p class="Pp">To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/upgrade#maintenance-mode">RabbitMQ Upgrade guide</a></p>
       </dd>
       <dt >
 ### <code class="Cm">revive</code> {#revive}
       </dt>
       <dd>
         <p class="Pp">Puts the node out of maintenance and into regular operating mode. Such nodes will again serve client traffic and considered for queue leader replica placement.</p>
-        <p class="Pp">To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/upgrade.html#maintenance-mode">RabbitMQ Upgrade guide</a></p>
+        <p class="Pp">To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/upgrade#maintenance-mode">RabbitMQ Upgrade guide</a></p>
       </dd>
     </dl>
   </section>
@@ -94,6 +94,6 @@
   </section>
   <section class="Sh">
 ## AUTHOR {#AUTHOR}
-    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:rabbitmq-core@groups.vmware.com">rabbitmq-core@groups.vmware.com</a>&gt;</p>
+    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:contact-tanzu-data.pdl@broadcom.com">contact-tanzu-data.pdl@broadcom.com</a>&gt;</p>
   </section>
 </div>

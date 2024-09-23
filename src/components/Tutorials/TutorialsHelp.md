@@ -9,5 +9,5 @@ adjusting.
 ### Where to get help
 
 If you're having trouble going through this tutorial you can contact us
-through [GitHub Discussions](https://github.com/rabbitmq/rabbitmq-server/discussions) or [RabbitMQ community Discord](https://www.rabbitmq.com/discord/).
+through [GitHub Discussions](https://github.com/rabbitmq/rabbitmq-server/discussions) or [RabbitMQ community Discord](https://www.rabbitmq.com/discord).
 :::

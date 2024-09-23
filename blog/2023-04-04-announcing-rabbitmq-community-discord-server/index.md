@@ -4,15 +4,15 @@ tags: ["announcements", ]
 authors: [mklishin]
 ---
 
-RabbitMQ now has an official [Discord server](https://rabbitmq.com/discord/) started by the core team.
-If you prefer Discord to [Slack](https://rabbitmq.com/slack/), feel free to join it and discuss all things RabbitMQ!
+RabbitMQ now has an official [Discord server](https://www.rabbitmq.com/discord) started by the core team.
+If you prefer Discord to [Slack](https://www.rabbitmq.com/slack), feel free to join it and discuss all things RabbitMQ!
 
 <!-- truncate -->
 
 ## Introducing RabbitMQ Community Discord Server
 
 Thanks to Gavin Roy, the RabbitMQ community has had a place to communicate, help each other and collaborate:
-our [community Slack](https://rabbitmq.com/slack/).
+our [community Slack](https://www.rabbitmq.com/slack).
 
 Today we introduce an official Discord server. It will be an alternative to Slack.
 
@@ -43,7 +43,7 @@ On top of that, Discord has several features that make a lot of sense for open s
 a public catalog of server, tools that help you describe and communicate code of conduct to the new members,
 a very flexible member permission system, and more.
 
-This sounded like an exciting alternative to try, so our team decided to set up an [official server for RabbitMQ](https://rabbitmq.com/discord/).
+This sounded like an exciting alternative to try, so our team decided to set up an [official server for RabbitMQ](https://www.rabbitmq.com/discord).
 
 ## When will community Slack be shut down?
 
