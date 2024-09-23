@@ -38,6 +38,11 @@ html[data-theme='dark'] {
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
+article h2,
+article h3 {
+  clear: both;
+}
+
 /* Images/figures and captions. */
 figure {
   width: fit-content;
