@@ -14,7 +14,7 @@
   </section>
   <section class="Sh">
 ## DESCRIPTION {#DESCRIPTION}
-    <p class="Pp"><code class="Nm">rabbitmq-streams</code> is a command line tool that provides commands used to manage streams, for example, add or delete stream replicas. See the <a class="Lk" href="https://www.rabbitmq.com/streams.html">RabbitMQ streams overview</a>.</p>
+    <p class="Pp"><code class="Nm">rabbitmq-streams</code> is a command line tool that provides commands used to manage streams, for example, add or delete stream replicas. See the <a class="Lk" href="https://www.rabbitmq.com/docs/streams">RabbitMQ streams overview</a>.</p>
   </section>
   <section class="Sh">
 ## OPTIONS {#OPTIONS}
@@ -41,13 +41,13 @@
 ### <code class="Fl">-l</code>, <code class="Fl">--longnames</code> {#l}
       </dt>
       <dd>
-        Must be specified when the cluster is configured to use long (FQDN) node names. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/clustering.html">RabbitMQ Clustering guide</a>
+        Must be specified when the cluster is configured to use long (FQDN) node names. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/clustering">RabbitMQ Clustering guide</a>
       </dd>
       <dt >
 ### <code class="Fl">--erlang-cookie</code> <var class="Ar">cookie</var> {#erlang-cookie}
       </dt>
       <dd>
-        Shared secret to use to authenticate to the target node. Prefer using a local file or the <code class="Ev">RABBITMQ_ERLANG_COOKIE</code> environment variable instead of specifying this option on the command line. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/cli.html">RabbitMQ CLI Tools guide</a>
+        Shared secret to use to authenticate to the target node. Prefer using a local file or the <code class="Ev">RABBITMQ_ERLANG_COOKIE</code> environment variable instead of specifying this option on the command line. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/cli">RabbitMQ CLI Tools guide</a>
       </dd>
     </dl>
   </section>

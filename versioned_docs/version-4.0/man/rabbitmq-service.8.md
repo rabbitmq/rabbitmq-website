@@ -72,19 +72,19 @@
 ### <code class="Ev">RABBITMQ_NODENAME</code> {#RABBITMQ_NODENAME}
       </dt>
       <dd>
-        Defaults to "rabbit@". followed by the computed hostname. Can be used to run multiple nodes on the same host. Every node in a cluster must have a unique <code class="Ev">RABBITMQ_NODENAME</code> To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/clustering.html">RabbitMQ Clustering guide</a>
+        Defaults to "rabbit@". followed by the computed hostname. Can be used to run multiple nodes on the same host. Every node in a cluster must have a unique <code class="Ev">RABBITMQ_NODENAME</code> To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/clustering">RabbitMQ Clustering guide</a>
       </dd>
       <dt >
 ### <code class="Ev">RABBITMQ_NODE_IP_ADDRESS</code> {#RABBITMQ_NODE_IP_ADDRESS}
       </dt>
       <dd>
-        By default RabbitMQ will bind to all IPv6 and IPv4 interfaces available. This variable limits the node to one network interface or address family. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/networking.html">RabbitMQ Networking guide</a>
+        By default RabbitMQ will bind to all IPv6 and IPv4 interfaces available. This variable limits the node to one network interface or address family. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/networking">RabbitMQ Networking guide</a>
       </dd>
       <dt >
 ### <code class="Ev">RABBITMQ_NODE_PORT</code> {#RABBITMQ_NODE_PORT}
       </dt>
       <dd>
-        AMQP 0-9-1 and AMQP 1.0 port. Defaults to 5672. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/networking.html">RabbitMQ Networking guide</a>
+        AMQP 0-9-1 and AMQP 1.0 port. Defaults to 5672. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/networking">RabbitMQ Networking guide</a>
       </dd>
       <dt >
 ### <code class="Ev">ERLANG_SERVICE_MANAGER_PATH</code> {#ERLANG_SERVICE_MANAGER_PATH}

@@ -32,6 +32,6 @@
   </section>
   <section class="Sh">
 ## AUTHOR {#AUTHOR}
-    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:rabbitmq-core@groups.vmware.com">rabbitmq-core@groups.vmware.com</a>&gt;</p>
+    <p class="Pp"><span class="An">The RabbitMQ Team</span> &lt;<a class="Mt" href="mailto:contact-tanzu-data.pdl@broadcom.com">contact-tanzu-data.pdl@broadcom.com</a>&gt;</p>
   </section>
 </div>
