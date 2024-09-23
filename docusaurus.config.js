@@ -329,11 +329,11 @@ const config = {
               },
               {
                 label: 'Discord',
-                href: 'https://www.rabbitmq.com/discord/',
+                href: 'https://www.rabbitmq.com/discord',
               },
               {
                 label: 'Slack',
-                href: 'https://www.rabbitmq.com/slack/',
+                href: 'https://www.rabbitmq.com/slack',
               },
               {
                 label: 'Contact us',

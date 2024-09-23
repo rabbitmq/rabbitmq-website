@@ -260,7 +260,7 @@ even on nodes with many queues.
 
 RabbitMQ 3.12 should improve the performance for virtually all users, often significantly. As always, we wholeheartedly recommend
 testing release candidates and new versions before you upgrade. We are also always interested in learning how people use RabbitMQ
-in [GitHub Discussions](https://github.com/rabbitmq/rabbitmq-server/discussions) and our [community Discord server](https://www.rabbitmq.com/discord/).
+in [GitHub Discussions](https://github.com/rabbitmq/rabbitmq-server/discussions) and our [community Discord server](https://www.rabbitmq.com/discord).
 
 If you can share information about your workload, [ideally as a perf-test command](https://perftest.rabbitmq.com/), it will help
 us make RabbitMQ better for you.

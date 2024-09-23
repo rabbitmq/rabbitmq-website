@@ -26,5 +26,5 @@ docker exec rabbitmq rabbitmq-plugins enable rabbitmq_stream rabbitmq_stream_man
 
 If you're having trouble going through this tutorial you can contact us
 through the [mailing
-list](https://groups.google.com/forum/#!forum/rabbitmq-users) or [discord community server](https://www.rabbitmq.com/discord/).
+list](https://groups.google.com/forum/#!forum/rabbitmq-users) or [discord community server](https://www.rabbitmq.com/discord).
 :::

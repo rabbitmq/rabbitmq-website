@@ -268,7 +268,7 @@ and browse our
 
 If you have any questions or comments regarding RabbitMQ, feel free to
 ask them on [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users),
-[RabbitMQ community Discord server](https://rabbitmq.com/discord/), or the public [RabbitMQ community Slack](https://rabbitmq.com/slack/).
+[RabbitMQ community Discord server](https://rabbitmq.com/discord), or the public [RabbitMQ community Slack](https://rabbitmq.com/slack).
 
 
 
