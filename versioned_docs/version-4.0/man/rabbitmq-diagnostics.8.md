@@ -26,7 +26,7 @@
 ### <code class="Fl">-n</code> <var class="Ar">node</var> {#n}
       </dt>
       <dd>
-        Default node is "rabbit@<var class="Ar">target-hostname</var>", where <var class="Ar">target-hostname</var> is the local host. On a host named "myserver.example.com", the node name will usually be "rabbit@myserver" (unless <code class="Ev">RABBITMQ_NODENAME</code> has been overridden). The output of "hostname -s" is usually the correct suffix to use after the "@" sign. See <a class="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a> for details of configuring a RabbitMQ node.
+        Default node is "rabbit@<var class="Ar">target-hostname</var>", where <var class="Ar">target-hostname</var> is the local host. On a host named "myserver.example.com", the node name will usually be "rabbit@myserver" (unless <code class="Ev">RABBITMQ_NODENAME</code> has been overridden). The output of "hostname -s" is usually the correct suffix to use after the "@" sign. See <a class="Xr" href="rabbitmq-server.8">rabbitmq-server(8)</a> for details of configuring a RabbitMQ node.
       </dd>
       <dt >
 ### <code class="Fl">-q</code>, <code class="Fl">--quiet</code> {#q}
@@ -93,7 +93,7 @@
 #### <code class="Cm">wait</code> {#wait}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">wait</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">wait</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
       </dl>
     </section>
@@ -104,7 +104,7 @@
 #### <code class="Cm">cluster_status</code> {#cluster_status}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">cluster_status</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">cluster_status</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
       </dl>
     </section>
@@ -115,7 +115,7 @@
 #### <code class="Cm">list_users</code> {#list_users}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_users</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_users</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
       </dl>
     </section>
@@ -126,31 +126,31 @@
 #### <code class="Cm">list_permissions</code> [<code class="Fl">-p</code> <var class="Ar">vhost</var>] {#list_permissions}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_permissions</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_permissions</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">list_topic_permissions</code> [<code class="Fl">-p</code> <var class="Ar">vhost</var>] {#list_topic_permissions}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_topic_permissions</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_topic_permissions</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">list_user_permissions</code> <var class="Ar">username</var> {#list_user_permissions}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_user_permissions</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_user_permissions</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">list_user_topic_permissions</code> <var class="Ar">username</var> {#list_user_topic_permissions}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_user_topic_permissions</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_user_topic_permissions</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">list_vhosts</code> [<var class="Ar">vhostinfoitem ...</var>] {#list_vhosts}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_vhosts</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_vhosts</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
       </dl>
     </section>
@@ -517,7 +517,7 @@ terabytes
 #### <code class="Cm">report</code> {#report}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">report</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">report</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">runtime_thread_stats</code> [<code class="Fl">--sample-interval</code> <var class="Ar">interval</var>] {#runtime_thread_stats}
@@ -534,7 +534,7 @@ terabytes
 #### <code class="Cm">schema_info</code> [<code class="Fl">--no_table_headers</code>] [<var class="Ar">column ...</var>] [<code class="Fl">--timeout</code> <var class="Ar">milliseconds</var>] {#schema_info}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">schema_info</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">schema_info</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">server_version</code> {#server_version}
@@ -572,13 +572,13 @@ terabytes
 #### <code class="Cm">list_global_parameters</code> {#list_global_parameters}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_global_parameters</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_global_parameters</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">list_parameters</code> [<code class="Fl">-p</code> <var class="Ar">vhost</var>] {#list_parameters}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_parameters</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_parameters</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
       </dl>
     </section>
@@ -589,13 +589,13 @@ terabytes
 #### <code class="Cm">list_operator_policies</code> [<code class="Fl">-p</code> <var class="Ar">vhost</var>] {#list_operator_policies}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_operator_policies</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_operator_policies</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">list_policies</code> [<code class="Fl">-p</code> <var class="Ar">vhost</var>] {#list_policies}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_policies</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_policies</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
       </dl>
     </section>
@@ -606,7 +606,7 @@ terabytes
 #### <code class="Cm">list_vhost_limits</code> [<code class="Fl">--vhost</code> <var class="Ar">vhost</var>] [<code class="Fl">--global</code>] [<code class="Fl">--no-table-headers</code>] {#list_vhost_limits}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_vhost_limits</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_vhost_limits</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
       </dl>
     </section>
@@ -632,7 +632,7 @@ terabytes
 #### <code class="Cm">list_feature_flags</code> [<var class="Ar">column ...</var>] [<code class="Fl">--timeout</code> <var class="Ar">milliseconds</var>] {#list_feature_flags}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_feature_flags</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_feature_flags</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
       </dl>
     </section>
@@ -643,26 +643,26 @@ terabytes
 #### <code class="Cm">quorum_status</code> <var class="Ar">queue</var> [<code class="Fl">--vhost</code> <var class="Ar">vhost</var>] {#quorum_status}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">quorum_status</code> in <a class="Xr" href="rabbitmq-queues.8.html">rabbitmq-queues(8)</a></p>
+          <p class="Pp">See <code class="Cm">quorum_status</code> in <a class="Xr" href="rabbitmq-queues.8">rabbitmq-queues(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">check_if_cluster_has_classic_queue_mirroring_policy</code> {#check_if_cluster_has_classic_queue_mirroring_policy}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">check_if_cluster_has_classic_queue_mirroring_policy</code> in <a class="Xr" href="rabbitmq-queues.8.html">rabbitmq-queues(8)</a></p>
+          <p class="Pp">See <code class="Cm">check_if_cluster_has_classic_queue_mirroring_policy</code> in <a class="Xr" href="rabbitmq-queues.8">rabbitmq-queues(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">check_if_node_is_quorum_critical</code> {#check_if_node_is_quorum_critical}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">check_if_node_is_quorum_critical</code> in <a class="Xr" href="rabbitmq-queues.8.html">rabbitmq-queues(8)</a></p>
+          <p class="Pp">See <code class="Cm">check_if_node_is_quorum_critical</code> in <a class="Xr" href="rabbitmq-queues.8">rabbitmq-queues(8)</a></p>
         </dd>
       </dl>
     </section>
   </section>
   <section class="Sh">
 ## SEE ALSO {#SEE_ALSO}
-    <p class="Pp"><a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a>, <a class="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>, <a class="Xr" href="rabbitmq-queues.8.html">rabbitmq-queues(8)</a>, <a class="Xr" href="rabbitmq-streams.8.html">rabbitmq-streams(8)</a>, <a class="Xr" href="rabbitmq-upgrade.8.html">rabbitmq-upgrade(8)</a>, <a class="Xr" href="rabbitmq-service.8.html">rabbitmq-service(8)</a>, <a class="Xr" href="rabbitmq-env.conf.5.html">rabbitmq-env.conf(5)</a>, <a class="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a></p>
+    <p class="Pp"><a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a>, <a class="Xr" href="rabbitmq-server.8">rabbitmq-server(8)</a>, <a class="Xr" href="rabbitmq-queues.8">rabbitmq-queues(8)</a>, <a class="Xr" href="rabbitmq-streams.8">rabbitmq-streams(8)</a>, <a class="Xr" href="rabbitmq-upgrade.8">rabbitmq-upgrade(8)</a>, <a class="Xr" href="rabbitmq-service.8">rabbitmq-service(8)</a>, <a class="Xr" href="rabbitmq-env.conf.5">rabbitmq-env.conf(5)</a>, <a class="Xr" href="rabbitmq-echopid.8">rabbitmq-echopid(8)</a></p>
   </section>
   <section class="Sh">
 ## AUTHOR {#AUTHOR}

@@ -16,7 +16,7 @@
 ## DESCRIPTION {#DESCRIPTION}
     <p class="Pp">RabbitMQ is an open source multi-protocol messaging broker.</p>
     <p class="Pp">Running <code class="Nm">rabbitmq-service.bat</code> allows the RabbitMQ broker to be run as a service in Windows® environments. The RabbitMQ broker service can be started and stopped using the Windows® services panel.</p>
-    <p class="Pp">By default the service will run in the authentication context of the local system account. It is therefore necessary to synchronise Erlang cookies between the local system account (typically <span class="Pa">C:\Windows\.erlang.cookie</span> and the account that will be used to run <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a>.</p>
+    <p class="Pp">By default the service will run in the authentication context of the local system account. It is therefore necessary to synchronise Erlang cookies between the local system account (typically <span class="Pa">C:\Windows\.erlang.cookie</span> and the account that will be used to run <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a>.</p>
   </section>
   <section class="Sh">
 ## COMMANDS {#COMMANDS}
@@ -33,7 +33,7 @@
 ### <code class="Cm">remove</code> {#remove}
       </dt>
       <dd>
-        Remove the service. If the service is running then it will automatically be stopped before being removed. No files will be deleted as a consequence and <a class="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a> will remain operable.
+        Remove the service. If the service is running then it will automatically be stopped before being removed. No files will be deleted as a consequence and <a class="Xr" href="rabbitmq-server.8">rabbitmq-server(8)</a> will remain operable.
       </dd>
       <dt >
 ### <code class="Cm">start</code> {#start}
@@ -98,7 +98,7 @@
   </section>
   <section class="Sh">
 ## SEE ALSO {#SEE_ALSO}
-    <p class="Pp"><a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a>, <a class="Xr" href="rabbitmq-diagnostics.8.html">rabbitmq-diagnostics(8)</a>, <a class="Xr" href="rabbitmq-plugins.8.html">rabbitmq-plugins(8)</a>, <a class="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>, <a class="Xr" href="rabbitmq-queues.8.html">rabbitmq-queues(8)</a>, <a class="Xr" href="rabbitmq-streams.8.html">rabbitmq-streams(8)</a>, <a class="Xr" href="rabbitmq-upgrade.8.html">rabbitmq-upgrade(8)</a>, <a class="Xr" href="rabbitmq-env.conf.5.html">rabbitmq-env.conf(5)</a>, <a class="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a></p>
+    <p class="Pp"><a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a>, <a class="Xr" href="rabbitmq-diagnostics.8">rabbitmq-diagnostics(8)</a>, <a class="Xr" href="rabbitmq-plugins.8">rabbitmq-plugins(8)</a>, <a class="Xr" href="rabbitmq-server.8">rabbitmq-server(8)</a>, <a class="Xr" href="rabbitmq-queues.8">rabbitmq-queues(8)</a>, <a class="Xr" href="rabbitmq-streams.8">rabbitmq-streams(8)</a>, <a class="Xr" href="rabbitmq-upgrade.8">rabbitmq-upgrade(8)</a>, <a class="Xr" href="rabbitmq-env.conf.5">rabbitmq-env.conf(5)</a>, <a class="Xr" href="rabbitmq-echopid.8">rabbitmq-echopid(8)</a></p>
   </section>
   <section class="Sh">
 ## AUTHOR {#AUTHOR}
