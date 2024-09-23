@@ -104,7 +104,7 @@ displayed_sidebar: docsSidebar
     <div class="docSection">
         <a name="ver-diffs" class="anchor" id="ver-diffs"></a>
         <h2 class="docHeading"><a class="anchor" href="#ver-diffs">Differences between versions</a></h2>
-        <p>Please see the <a href="./amqp-0-8-to-0-9-1">0-8 to 0-9-1 page</a>.</p>
+        <p>Please see the <a href="/amqp-0-8-to-0-9-1">0-8 to 0-9-1 page</a>.</p>
         <p>
             AMQP 1.0 introduced significant changes to the spec compared to 0-9-1, and at least in RabbitMQ, considered to be a separate protocol, support for which is provided using a plugin.
         </p>
