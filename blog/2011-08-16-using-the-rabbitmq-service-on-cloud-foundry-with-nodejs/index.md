@@ -4,7 +4,7 @@ tags: ["HowTo", ]
 authors: [mikeb]
 ---
 
-Recently we launched a [RabbitMQ service for Cloud Foundry](http://blog.cloudfoundry.com/post/8713844574/rabbitmq-cloud-foundry-cloud-messaging-that-just-works), making it simple to spin up a message broker to use with your apps on Cloud Foundry. There are tutorials online for using it with [Ruby on Rails](https://www.rabbitmq.com/cloudfoundry/rails) and with [Java apps using Spring](https://www.rabbitmq.com/cloudfoundry/spring). Here we are going to look at using the RabbitMQ service with Node.JS apps.
+Recently we launched a [RabbitMQ service for Cloud Foundry](http://blog.cloudfoundry.com/post/8713844574/rabbitmq-cloud-foundry-cloud-messaging-that-just-works), making it simple to spin up a message broker to use with your apps on Cloud Foundry. There are tutorials online for using it with Ruby on Rails and with Java apps using Spring. Here we are going to look at using the RabbitMQ service with Node.JS apps.
 
 <!-- truncate -->
 
