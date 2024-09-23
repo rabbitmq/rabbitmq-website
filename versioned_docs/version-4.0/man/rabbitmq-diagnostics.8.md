@@ -14,10 +14,10 @@
   </section>
   <section class="Sh">
 ## DESCRIPTION {#DESCRIPTION}
-    <p class="Pp"><code class="Nm">rabbitmq-diagnostics</code> is a command line tool that provides commands used for diagnostics, monitoring and health checks of RabbitMQ nodes. See the <a class="Lk" href="https://rabbitmq.com/docs">RabbitMQ documentation guides</a> to learn more about RabbitMQ diagnostics, monitoring and health checks.</p>
+    <p class="Pp"><code class="Nm">rabbitmq-diagnostics</code> is a command line tool that provides commands used for diagnostics, monitoring and health checks of RabbitMQ nodes. See the <a class="Lk" href="https://www.rabbitmq.com/docs">RabbitMQ documentation guides</a> to learn more about RabbitMQ diagnostics, monitoring and health checks.</p>
     <p class="Pp"><code class="Nm">rabbitmq-diagnostics</code> allows the operator to inspect node and cluster state. A number of health checks are available to be used interactively and by monitoring tools.</p>
     <p class="Pp"></p>
-    <p class="Pp">By default if it is not possible to connect to and authenticate with the target node (for example if it is stopped), the operation will fail. To learn more, see the <a class="Lk" href="https://rabbitmq.com/docs/monitoring">RabbitMQ Monitoring guide</a></p>
+    <p class="Pp">By default if it is not possible to connect to and authenticate with the target node (for example if it is stopped), the operation will fail. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/monitoring">RabbitMQ Monitoring guide</a></p>
   </section>
   <section class="Sh">
 ## OPTIONS {#OPTIONS}
@@ -44,13 +44,13 @@
 ### <code class="Fl">-l</code>, <code class="Fl">--longnames</code> {#l}
       </dt>
       <dd>
-        Must be specified when the cluster is configured to use long (FQDN) node names. To learn more, see the <a class="Lk" href="https://rabbitmq.com/docs/clustering">RabbitMQ Clustering guide</a>
+        Must be specified when the cluster is configured to use long (FQDN) node names. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/clustering">RabbitMQ Clustering guide</a>
       </dd>
       <dt >
 ### <code class="Fl">--erlang-cookie</code> <var class="Ar">cookie</var> {#erlang-cookie}
       </dt>
       <dd>
-        Shared secret to use to authenticate to the target node. Prefer using a local file or the <code class="Ev">RABBITMQ_ERLANG_COOKIE</code> environment variable instead of specifying this option on the command line. To learn more, see the <a class="Lk" href="https://rabbitmq.com/docs/cli">RabbitMQ CLI Tools guide</a>
+        Shared secret to use to authenticate to the target node. Prefer using a local file or the <code class="Ev">RABBITMQ_ERLANG_COOKIE</code> environment variable instead of specifying this option on the command line. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/cli">RabbitMQ CLI Tools guide</a>
       </dd>
     </dl>
   </section>
@@ -162,7 +162,7 @@
         </dt>
         <dd>
           <p class="Pp">Lists resource alarms, if any, in the cluster.</p>
-          <p class="Pp">See <a class="Lk" href="https://rabbitmq.com/docs/alarms">RabbitMQ Resource Alarms guide</a> to learn more.</p>
+          <p class="Pp">See <a class="Lk" href="https://www.rabbitmq.com/docs/alarms">RabbitMQ Resource Alarms guide</a> to learn more.</p>
           <p class="Pp">Example:</p>
           <div class="Bd Bd-indent lang-bash">
             <code class="Li">rabbitmq-diagnostics alarms</code>
@@ -184,7 +184,7 @@
         </dt>
         <dd>
           <p class="Pp">Health check that fails (returns with a non-zero code) if there are alarms in effect on any of the cluster nodes.</p>
-          <p class="Pp">See <a class="Lk" href="https://rabbitmq.com/docs/alarms">RabbitMQ Resource Alarms guide</a> to learn more.</p>
+          <p class="Pp">See <a class="Lk" href="https://www.rabbitmq.com/docs/alarms">RabbitMQ Resource Alarms guide</a> to learn more.</p>
           <p class="Pp">Example:</p>
           <div class="Bd Bd-indent lang-bash">
             <code class="Li">rabbitmq-diagnostics check_alarms</code>
@@ -220,7 +220,7 @@ years
         </dt>
         <dd>
           <p class="Pp">Health check that fails (returns with a non-zero code) if there are alarms in effect on the target node.</p>
-          <p class="Pp">See <a class="Lk" href="https://rabbitmq.com/docs/alarms">RabbitMQ Resource Alarms guide</a> to learn more.</p>
+          <p class="Pp">See <a class="Lk" href="https://www.rabbitmq.com/docs/alarms">RabbitMQ Resource Alarms guide</a> to learn more.</p>
           <p class="Pp">Example:</p>
           <div class="Bd Bd-indent lang-bash">
             <code class="Li">rabbitmq-diagnostics check_local_alarms</code>
@@ -232,7 +232,7 @@ years
         <dd>
           <p class="Pp">Health check that fails (returns with a non-zero code) if any listener ports on the target node cannot accept a new TCP connection opened by <code class="Nm">rabbitmq-diagnostics</code></p>
           <p class="Pp">The check only validates if a new TCP connection is accepted. It does not perform messaging protocol handshake or authenticate.</p>
-          <p class="Pp">See <a class="Lk" href="https://rabbitmq.com/docs/networking">RabbitMQ Networking guide</a> to learn more.</p>
+          <p class="Pp">See <a class="Lk" href="https://www.rabbitmq.com/docs/networking">RabbitMQ Networking guide</a> to learn more.</p>
           <p class="Pp">Example:</p>
           <div class="Bd Bd-indent lang-bash">
             <code class="Li">rabbitmq-diagnostics check_port_connectivity</code>
@@ -243,7 +243,7 @@ years
         </dt>
         <dd>
           <p class="Pp">Health check that fails (returns with a non-zero code) if the target node is not listening on the specified port (there is no listener that uses that port).</p>
-          <p class="Pp">See <a class="Lk" href="https://rabbitmq.com/docs/networking">RabbitMQ Networking guide</a> to learn more.</p>
+          <p class="Pp">See <a class="Lk" href="https://www.rabbitmq.com/docs/networking">RabbitMQ Networking guide</a> to learn more.</p>
           <p class="Pp">Example:</p>
           <div class="Bd Bd-indent lang-bash">
             <code class="Li">rabbitmq-diagnostics check_port_listener 5672</code>
@@ -254,7 +254,7 @@ years
         </dt>
         <dd>
           <p class="Pp">Health check that fails (returns with a non-zero code) if the target node does not have a listener for the specified protocol.</p>
-          <p class="Pp">See <a class="Lk" href="https://rabbitmq.com/docs/networking">RabbitMQ Networking guide</a> to learn more.</p>
+          <p class="Pp">See <a class="Lk" href="https://www.rabbitmq.com/docs/networking">RabbitMQ Networking guide</a> to learn more.</p>
           <p class="Pp">Example:</p>
           <div class="Bd Bd-indent lang-bash">
             <code class="Li">rabbitmq-diagnostics check_protocol_listener mqtt</code>
@@ -316,7 +316,7 @@ years
         </dt>
         <dd>
           <p class="Pp">Runs a peer discovery on the target node and prints the discovered nodes, if any.</p>
-          <p class="Pp">See <a class="Lk" href="https://rabbitmq.com/docs/cluster-formation">RabbitMQ Cluster Formation guide</a> to learn more.</p>
+          <p class="Pp">See <a class="Lk" href="https://www.rabbitmq.com/docs/cluster-formation">RabbitMQ Cluster Formation guide</a> to learn more.</p>
           <p class="Pp">Example:</p>
           <div class="Bd Bd-indent lang-bash">
             <code class="Li">rabbitmq-diagnostics discover_peers --timeout 60</code>
@@ -326,14 +326,14 @@ years
 #### <code class="Cm">environment</code> {#environment}
         </dt>
         <dd>
-          See <code class="Cm">environment</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a>
+          See <code class="Cm">environment</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a>
         </dd>
         <dt >
 #### <code class="Cm">erlang_cookie_hash</code> {#erlang_cookie_hash}
         </dt>
         <dd>
           <p class="Pp">Outputs a hashed value of the shared secret used by the target node to authenticate CLI tools and peers. The value can be compared with the hash found in error messages of CLI tools.</p>
-          <p class="Pp">See <a class="Lk" href="https://rabbitmq.com/docs/clustering#erlang-cookie">RabbitMQ Clustering guide</a> to learn more.</p>
+          <p class="Pp">See <a class="Lk" href="https://www.rabbitmq.com/docs/clustering#erlang-cookie">RabbitMQ Clustering guide</a> to learn more.</p>
           <p class="Pp">Example:</p>
           <div class="Bd Bd-indent lang-bash">
             <code class="Li">rabbitmq-diagnostics erlang_cookie_hash -q</code>
@@ -373,62 +373,62 @@ years
 #### <code class="Cm">list_bindings</code> [<code class="Fl">-p</code> <var class="Ar">vhost</var>] [<var class="Ar">bindinginfoitem ...</var>] {#list_bindings}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_bindings</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_bindings</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">list_channels</code> [<var class="Ar">channelinfoitem ...</var>] {#list_channels}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_channels</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_channels</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">list_ciphers</code> {#list_ciphers}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_ciphers</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_ciphers</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">list_connections</code> [<var class="Ar">connectioninfoitem ...</var>] {#list_connections}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_connections</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_connections</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">list_consumers</code> [<code class="Fl">-p</code> <var class="Ar">vhost</var>] {#list_consumers}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_consumers</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_consumers</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">list_exchanges</code> [<code class="Fl">-p</code> <var class="Ar">vhost</var>] [<var class="Ar">exchangeinfoitem ...</var>] {#list_exchanges}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_exchanges</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_exchanges</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">list_hashes</code> {#list_hashes}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_hashes</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_hashes</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">list_queues</code> [<code class="Fl">-p</code> <var class="Ar">vhost</var>] [<code class="Fl">--offline</code> | <code class="Fl">--online</code> | <code class="Fl">--local</code>] [<var class="Ar">queueinfoitem ...</var>] {#list_queues}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_queues</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_queues</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">list_unresponsive_queues</code> [<code class="Fl">--local</code>] [<code class="Fl">--queue-timeout</code> <var class="Ar">milliseconds</var>] [<var class="Ar">column ...</var>] [<code class="Fl">--no-table-headers</code>] {#list_unresponsive_queues}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">list_unresponsive_queues</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">list_unresponsive_queues</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">listeners</code> {#listeners}
         </dt>
         <dd>
           <p class="Pp">Lists listeners (bound sockets) on this node. Use this to inspect what protocols and ports the node is listening on for client, CLI tool and peer connections.</p>
-          <p class="Pp">See <a class="Lk" href="https://rabbitmq.com/docs/networking">RabbitMQ Networking guide</a> to learn more.</p>
+          <p class="Pp">See <a class="Lk" href="https://www.rabbitmq.com/docs/networking">RabbitMQ Networking guide</a> to learn more.</p>
           <p class="Pp">Example:</p>
           <div class="Bd Bd-indent lang-bash">
             <code class="Li">rabbitmq-diagnostics listeners</code>
@@ -490,7 +490,7 @@ terabytes
 </li>
           </ul>
 
-          <p class="Pp">See <a class="Lk" href="https://rabbitmq.com/docs/memory-use">RabbitMQ Memory Use guide</a> to learn more.</p>
+          <p class="Pp">See <a class="Lk" href="https://www.rabbitmq.com/docs/memory-use">RabbitMQ Memory Use guide</a> to learn more.</p>
           <p class="Pp">Example:</p>
           <p class="Pp"></p>
           <div class="Bd Bd-indent lang-bash">
@@ -550,14 +550,14 @@ terabytes
 #### <code class="Cm">status</code> {#status}
         </dt>
         <dd>
-          <p class="Pp">See <code class="Cm">status</code> in <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></p>
+          <p class="Pp">See <code class="Cm">status</code> in <a class="Xr" href="rabbitmqctl.8">rabbitmqctl(8)</a></p>
         </dd>
         <dt >
 #### <code class="Cm">tls_versions</code> {#tls_versions}
         </dt>
         <dd>
           <p class="Pp">Lists all TLS versions supported by the runtime on the target node. Note that RabbitMQ can be configured to only accept a subset of those versions, for example, SSLv3 is deactivated by default.</p>
-          <p class="Pp">See <a class="Lk" href="https://rabbitmq.com/docs/ssl">RabbitMQ TLS guide</a> to learn more.</p>
+          <p class="Pp">See <a class="Lk" href="https://www.rabbitmq.com/docs/ssl">RabbitMQ TLS guide</a> to learn more.</p>
           <p class="Pp">Example:</p>
           <div class="Bd Bd-indent lang-bash">
             <code class="Li">rabbitmq-diagnostics tls_versions -q</code>

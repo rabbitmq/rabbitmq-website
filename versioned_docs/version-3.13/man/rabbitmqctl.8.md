@@ -18,7 +18,7 @@
     <p class="Pp"><code class="Nm">rabbitmqctl</code> is the main command line tool for managing a RabbitMQ server node, together with <code class="Cm">rabbitmq-diagnostics</code> , <code class="Cm">rabbitmq-upgrade</code> , and others.</p>
     <p class="Pp">It performs all actions by connecting to the target RabbitMQ node on a dedicated CLI tool communication port and authenticating using a shared secret (known as the cookie file).</p>
     <p class="Pp">Diagnostic information is displayed if the connection failed, the target node was not running, or <code class="Nm">rabbitmqctl</code> could not authenticate to the target node successfully.</p>
-    <p class="Pp">To learn more, see the <a class="Lk" href="https://rabbitmq.com/docs/cli">RabbitMQ CLI Tools guide</a></p>
+    <p class="Pp">To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/cli">RabbitMQ CLI Tools guide</a></p>
   </section>
   <section class="Sh">
 ## OPTIONS {#OPTIONS}
@@ -168,7 +168,7 @@ returns a non-zero exit code if the RabbitMQ node is not running
 #### <code class="Cm">stop</code> [<var class="Ar">pid_file</var>] {#stop}
         </dt>
         <dd>
-          <p class="Pp">Stops the Erlang node on which RabbitMQ is running. To restart the node follow the instructions for "Running the Server" in the <a class="Lk" href="https://rabbitmq.com/docs/download">installation guide</a>.</p>
+          <p class="Pp">Stops the Erlang node on which RabbitMQ is running. To restart the node follow the instructions for "Running the Server" in the <a class="Lk" href="https://www.rabbitmq.com/docs/download">installation guide</a>.</p>
           <p class="Pp">If a <var class="Ar">pid_file</var> is specified, also waits for the process specified there to terminate. See the description of the <code class="Cm">wait</code> command for details on this file.</p>
           <p class="Pp">For example, to instruct the RabbitMQ node to terminate:</p>
           <p class="Pp"></p>
