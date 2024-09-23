@@ -154,12 +154,10 @@ registering a consumer:
 
  * [Consumer priorities](./consumer-priority)
 
-Most optional arguments can be dynamically changed after queue declaration but there are
-exceptions. For example, [queue type](./quorum-queues) (`x-queue-type`) and max number
-of [queue priorities](./priority) (`x-max-priority`) must be set at queue declaration time
-and cannot be changed after that.
+Some optional arguments are set at queue declaration time and remain immutable over the entire
+lifetime of the queue. Others can be dynamically changed after queue declaration via [policies](./parameters#policies).
 
-Optional queue arguments can be set in a couple of ways:
+Optional queue arguments can be set differently:
 
  * To groups of queues using [policies](./parameters#policies) (recommended)
  * On a per-queue basis when a queue is declared by a client
