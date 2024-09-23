@@ -213,6 +213,7 @@ www.rabbitmq.com/federation-reference.html,https://www.rabbitmq.com/docs/federat
 www.rabbitmq.com/federation.html,https://www.rabbitmq.com/docs/federation,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/firehose.html,https://www.rabbitmq.com/docs/firehose,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/flow-control.html,https://www.rabbitmq.com/docs/flow-control,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/how.html,https://www.rabbitmq.com/tutorials,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/getstarted.html,https://www.rabbitmq.com/tutorials,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/github.html,https://www.rabbitmq.com/github,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/ha.html,https://www.rabbitmq.com/docs/3.13/ha,,TRUE,FALSE,FALSE,FALSE
@@ -407,6 +408,7 @@ www.rabbitmq.com/user-limits.html,https://www.rabbitmq.com/docs/user-limits,,TRU
 www.rabbitmq.com/validated-user-id.html,https://www.rabbitmq.com/docs/validated-user-id,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/versions.html,https://www.rabbitmq.com/release-information,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/vhosts.html,https://www.rabbitmq.com/docs/vhosts,,TRUE,FALSE,FALSE,FALSE
+www.rabbitmq.com/virtual-hosts.html,https://www.rabbitmq.com/docs/vhosts,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/web-mqtt.html,https://www.rabbitmq.com/docs/web-mqtt,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/web-stomp.html,https://www.rabbitmq.com/docs/web-stomp,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/which-erlang.html,https://www.rabbitmq.com/docs/which-erlang,,TRUE,FALSE,FALSE,FALSE
@@ -416,5 +418,8 @@ www.rabbitmq.com/docs/contact,https://www.rabbitmq.com/contact,,TRUE,FALSE,FALSE
 www.rabbitmq.com/docs/documentation,https://www.rabbitmq.com/docs,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/docs/versions,https://www.rabbitmq.com/release-information,,TRUE,FALSE,FALSE,FALSE
 www.rabbitmq.com/kubernetes/tanzu/installation,https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/installation.html,,TRUE,FALSE,FALSE,FALSE
+
+www.rabbitmq.com/discord,https://discord.gg/VwWnkG3GWy,302,FALSE,FALSE,TRUE,FALSE
+www.rabbitmq.com/slack,http://rabbitmq-slack.herokuapp.com/,302,FALSE,FALSE,TRUE,FALSE
 
 www.rabbitmq.com/docs/4.0,https://www.rabbitmq.com/docs,302,TRUE,FALSE,TRUE,TRUE
