@@ -6,6 +6,8 @@ import './index.module.css';
 import diagramStyles from './diagram.module.css';
 import MetadataStoreRole from './metadata-store-role.svg';
 
+import KhepriLogo from '@site/static/img/khepri-logo.svg';
+
 # Metadata store
 
 ## Role of the metadata store
@@ -40,7 +42,7 @@ Only one of them is used at a given time. Each one is described below.
 
 ### Mnesia
 
-<figure style={{width: "120px", float: "right"}}>
+<figure className="without-borders" style={{float: "right"}}>
 ![](https://www.erlang.org/assets/img/erlang-logo.svg)
 <figcaption>Erlang/OTP logo</figcaption>
 </figure>
@@ -68,8 +70,8 @@ and are difficult to reason about.
 
 ### Khepri
 
-<figure style={{width: "120px", float: "right"}}>
-![](https://raw.githubusercontent.com/rabbitmq/khepri/main/doc/khepri-logo.svg)
+<figure className="without-borders" style={{float: "right"}}>
+<KhepriLogo className="floating-logo" style={{width: "100px", height: "175px",}}/>
 <figcaption>Khepri logo</figcaption>
 </figure>
 
