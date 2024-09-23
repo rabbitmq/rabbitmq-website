@@ -42,7 +42,7 @@ running on [VMware Tanzu™ Application Service](https://tanzu.vmware.com/applic
 ### VMware Tanzu RabbitMQ® for Kubernetes
 
 Tanzu RabbitMQ® for Kubernetes simplifies the operational experience to make RabbitMQ available on a Kubernetes-based platform,
-based on the [RabbitMQ Operators for Kubernetes](https://www.rabbitmq.com/kubernetes/operator/operator-overview.html).
+based on the [RabbitMQ Operators for Kubernetes](https://www.rabbitmq.com/kubernetes/operator/operator-overview).
 
 ### VMware Tanzu RabbitMQ® 
 
