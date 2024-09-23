@@ -1198,13 +1198,13 @@ fanout
 #### <code class="Cm">mirror_pids</code> {#mirror_pids}
             </dt>
             <dd>
-              If the queue is mirrored, this lists the IDs of the mirrors (follower replicas). To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/ha">RabbitMQ Mirroring guide</a>
+              If the queue is mirrored, this lists the IDs of the mirrors (follower replicas). To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/3.13/ha">RabbitMQ Mirroring guide</a>
             </dd>
             <dt >
 #### <code class="Cm">synchronised_mirror_pids</code> {#synchronised_mirror_pids}
             </dt>
             <dd>
-              If the queue is mirrored, this gives the IDs of the mirrors (follower replicas) which are in sync with the leader replica. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/ha">RabbitMQ Mirroring guide</a>
+              If the queue is mirrored, this gives the IDs of the mirrors (follower replicas) which are in sync with the leader replica. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/3.13/ha">RabbitMQ Mirroring guide</a>
             </dd>
             <dt >
 #### <code class="Cm">state</code> {#state~2}

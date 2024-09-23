@@ -335,7 +335,7 @@ returns a non-zero exit code if the RabbitMQ node is not running
             <dt><var class="Ar">queue</var></dt>
             <dd>The name of the queue to synchronise.</dd>
           </dl>
-          <p class="Pp">Instructs a mirrored queue with unsynchronised mirrors (follower replicas) to synchronise them. The queue will block while synchronisation takes place (all publishers and consumers using the queue will block or temporarily see no activity). This command can only be used with mirrored queues. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/ha">RabbitMQ Classic Queue Mirroring guide</a></p>
+          <p class="Pp">Instructs a mirrored queue with unsynchronised mirrors (follower replicas) to synchronise them. The queue will block while synchronisation takes place (all publishers and consumers using the queue will block or temporarily see no activity). This command can only be used with mirrored queues. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/3.13/ha">RabbitMQ Classic Queue Mirroring guide</a></p>
           <p class="Pp">Note that queues with unsynchronised replicas and active consumers will become synchronised eventually (assuming that consumers make progress). This command is primarily useful for queues that do not have active consumers.</p>
         </dd>
         <dt >
@@ -1224,13 +1224,13 @@ fanout
 #### <code class="Cm">mirror_pids</code> {#mirror_pids}
             </dt>
             <dd>
-              If the queue is mirrored, this lists the IDs of the mirrors (follower replicas). To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/ha">RabbitMQ Mirroring guide</a>
+              If the queue is mirrored, this lists the IDs of the mirrors (follower replicas). To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/3.13/ha">RabbitMQ Mirroring guide</a>
             </dd>
             <dt >
 #### <code class="Cm">synchronised_mirror_pids</code> {#synchronised_mirror_pids}
             </dt>
             <dd>
-              If the queue is mirrored, this gives the IDs of the mirrors (follower replicas) which are in sync with the leader replica. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/ha">RabbitMQ Mirroring guide</a>
+              If the queue is mirrored, this gives the IDs of the mirrors (follower replicas) which are in sync with the leader replica. To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/3.13/ha">RabbitMQ Mirroring guide</a>
             </dd>
             <dt >
 #### <code class="Cm">state</code> {#state~2}
