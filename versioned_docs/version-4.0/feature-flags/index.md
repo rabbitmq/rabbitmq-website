@@ -319,6 +319,16 @@ enabled promptly after upgrading all nodes in a RabbitMQ cluster to version
 
 The following feature flags are provided by RabbitMQ core.
 
+:::info
+
+Most feature flags listed below have very brief descriptions. They exist to
+avoid potentially unsafe operations in mixed-version clusters, correct
+a behavior that must be consistent across all cluster nodes, and so on.
+
+`khepri_db` is one exception because of [it scope](./metadata-store).
+
+:::
+
 <table>
   <tr>
    <th>Required</th>
@@ -349,7 +359,7 @@ The following feature flags are provided by RabbitMQ core.
     <td>khepri_db</td>
     <td>
       <p>
-        Enables <a href="https://github.com/rabbitmq/khepri">Khepri</a>, a Raft-based schema data store
+        Enables <a href="./metadata-store">Khepri</a>, a Raft-based schema data store
         with vastly superior (namely more predictable) node and network failure recovery characteristics
         compared to Mnesia.
       </p>
@@ -375,6 +385,15 @@ The following feature flags are provided by RabbitMQ core.
       <p>
         Make sure to first test Khepri with appropriate workloads in non-production environments before adopting it in production.
       </p>
+    </td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td>4.0</td>
+    <td>rabbit_exchange_type_local_random</td>
+    <td>
+      Use by the <a href="./local-random-exchange">Local Random Exchange</a>.
     </td>
   </tr>
 
