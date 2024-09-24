@@ -213,7 +213,7 @@ This extensive effort was due to several factors:
 * **Rolling Upgrades:** We support rolling upgrades from RabbitMQ 3.13 to 4.0, allowing you to upgrade your AMQP 1.0 workloads without downtime.
 
 Even though RabbitMQ 4.0 supports AMQP 1.0 natively, this does not imply that RabbitMQ supports all AMQP 1.0 features.
-Like any other AMQP 1.0 broker, RabbitMQ's AMQP 1.0 implementation has [documented limitations](/docs/next/amqp#limitations).
+Like any other AMQP 1.0 broker, RabbitMQ's AMQP 1.0 implementation has [documented limitations](/docs/amqp#limitations).
 
 ## RabbitMQ AMQP 1.0 clients
 
