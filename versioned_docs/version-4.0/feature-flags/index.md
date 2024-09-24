@@ -272,11 +272,16 @@ There are two ways to do this:
 
  1. Using the `RABBITMQ_FEATURE_FLAGS` environment variable:
     ```bash
+    # this is just an example, in practice this list will be much longer
     RABBITMQ_FEATURE_FLAGS=quorum_queue,implicit_default_bindings
     ```
- 2. Using the `forced_feature_flags_on_init` configuration parameter:
-    ```
-    erlang{rabbit, [{forced_feature_flags_on_init, [quorum_queue, implicit_default_bindings]}]}
+ 2. Using the `forced_feature_flags_on_init` setting in [`advanced.config`](./configure):
+
+    ```erlang
+    {rabbit, [
+      %% this is just an example, in practice this list will be much longer
+      {forced_feature_flags_on_init, [quorum_queue, implicit_default_bindings]}
+    ]}
     ```
 
 The environment variable has precedence over the configuration parameter.
