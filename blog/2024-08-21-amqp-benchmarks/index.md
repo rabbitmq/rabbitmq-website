@@ -160,7 +160,7 @@ Time [s]      Count [m]  Rate [m/s]  CPU [%]  RSS [M]  Time [s]      Count [m]  
 For our AMQP 0.9.1 benchmarks we use [PerfTest](https://perftest.rabbitmq.com/).
 We try to run a somewhat fair comparison of our previous AMQP 1.0 benchmark.
 
-Since an AMQP 1.0 [/queues/:queue](/docs/next/amqp#target-address-v2) target address sends to the default exchange, we also send to the default exchange via AMQP 0.9.1.
+Since an AMQP 1.0 [/queues/:queue](/docs/amqp#target-address-v2) target address sends to the default exchange, we also send to the default exchange via AMQP 0.9.1.
 Since we used [durable](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-header) messages with AMQP 1.0, we set the `persistent` flag in AMQP 0.9.1.
 Since RabbitMQ settles with the [released](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-released) outcome when a message cannot be routed, we set the `mandatory` flag in AMQP 0.9.1.
 Since RabbitMQ `v4.0.0-beta.5` uses a default `rabbit.max_link_credit` of 128 granting 128 more credits to the sending client when remaining credit falls below 0.5 * 128, we configure the AMQP 0.9.1 publisher to have at most 1.5 * 128 = 192 messages unconfirmed at a time.
