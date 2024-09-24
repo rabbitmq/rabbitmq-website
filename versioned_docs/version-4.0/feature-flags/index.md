@@ -321,7 +321,7 @@ The following feature flags are provided by RabbitMQ core.
 
 :::info
 
-Most feature flags listed below have very brief descriptions. They exist to
+Most feature flags listed below have very brief descriptions. This is because most feature flags only exist to
 avoid potentially unsafe operations in mixed-version clusters, correct
 a behavior that must be consistent across all cluster nodes, and so on.
 
