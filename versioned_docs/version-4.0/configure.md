@@ -349,7 +349,7 @@ The above example is equivalent to the following [classic config format](#config
 This example will alter the [port RabbitMQ listens on](./networking#ports) for
 AMQP 0-9-1 and AMQP 1.0 client connections from 5672 to 5673.
 
-The RabbitMQ server source repository contains [an example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbit/docs/rabbitmq.conf.example)
+The RabbitMQ server source repository contains [an example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v4.0.x/deps/rabbit/docs/rabbitmq.conf.example)
 named `rabbitmq.conf.example`. It contains examples of
 most of the configuration items you might want to set (with some very obscure ones omitted), along with
 documentation for those settings.
