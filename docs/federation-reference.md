@@ -131,8 +131,7 @@ The upstream definition object can contain the following keys:
 
         If set to <code>on-publish</code>, messages are acknowledged to
         the upstream broker after they have been published
-        downstream. This handles network errors without losing messages,
-        but may lose messages in the event of broker failures.
+        downstream. This may lose messages in the event of network or broker failures.
 
 
         If set to <code>no-ack</code>, message acknowledgements are not
