@@ -690,6 +690,22 @@ Grouped under `queue_coarse_metrics`:
 | rabbitmq_detailed_queue_messages                 | Sum of ready and unacknowledged messages - total queue depth |
 | rabbitmq_detailed_queue_process_reductions_total | Total number of queue process reductions                     |
 
+##### Queue delivery metrics
+
+These metrics are similar to those grouped under `channel_queue_metrics`, but do not include a channel ID in their labels. They are useful for monitoring the state of each queue individually.
+
+Grouped under `queue_delivery_metrics`:
+
+| Metric                                               | Description                                                                                    |
+|------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| rabbitmq_detailed_queue_get_ack_total                | Total number of messages fetched from a queue with basic.get in manual acknowledgement mode    |
+| rabbitmq_detailed_queue_get_total                    | Total number of messages fetched from a queue with basic.get in automatic acknowledgement mode |
+| rabbitmq_detailed_queue_messages_delivered_ack_total | Total number of messages delivered from a queue to consumers in manual acknowledgement mode    |
+| rabbitmq_detailed_queue_messages_delivered_total     | Total number of messages delivered from a queue to consumers in automatic acknowledgement mode |
+| rabbitmq_detailed_queue_messages_redelivered_total   | Total number of messages redelivered from a queue to consumers                                 |
+| rabbitmq_detailed_queue_messages_acked_total         | Total number of messages acknowledged by consumers on a queue                                  |
+| rabbitmq_detailed_queue_get_empty_total              | Total number of times basic.get operations fetched no message on a queue                       |
+
 ##### Per-queue consumer count
 
 Grouped under `queue_consumer_count`. This is a subset of `queue_metrics` which is skipped if `queue_metrics` are requested:
@@ -726,6 +742,34 @@ Grouped under `queue_metrics`. This group contains all the metrics for every que
 | rabbitmq_detailed_queue_disk_reads_total          | Total number of times queue read messages from disk        |
 | rabbitmq_detailed_queue_disk_writes_total         | Total number of times queue wrote messages to disk         |
 | rabbitmq_detailed_stream_segments                 | Total number of stream segment files                        |
+
+#### Exchange metrics
+
+Each metric in this group points to a single exchange via its label.
+So the size of the response here is directly proportional to the number of queues hosted
+on the node. 
+
+These metrics are similar to those grouped under `channel_exchange_metrics`, but do not include the channel ID in their labels. They are useful for monitoring the state of each exchange individually.
+
+Grouped under `exchange_metrics`:
+
+| Metric                                                        | Description                                                                                                  |
+|---------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| rabbitmq_detailed_exchange_messages_published_total           | Total number of messages published into an exchange                                                          |
+| rabbitmq_detailed_exchange_messages_confirmed_total           | Total number of messages published into an exchange and confirmed                                            |
+| rabbitmq_detailed_exchange_messages_unroutable_returned_total | Total number of messages published as mandatory into an exchange and returned to the publisher as unroutable |
+| rabbitmq_detailed_exchange_messages_unroutable_dropped_total  | Total number of messages published as non-mandatory into an exchange and dropped as unroutable               |
+
+#### Queue-Exchange metrics
+Each metric in this group points to a single queue-exchange pair via its label.
+
+These metrics are similar to those grouped under `channel_queue_exchange_metrics`, but do not include the channel ID in their labels. They are useful for monitoring the state of each queue-exchange pair individually.
+
+Grouped under `queue_exchange_metrics`:
+
+| Metric                                                        | Description                                                                                                  |
+|---------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| rabbitmq_detailed_queue_exchange_messages_published_total     | Total number of messages published into a queue through an exchange                                          |
 
 #### Connection/channel metrics
 
