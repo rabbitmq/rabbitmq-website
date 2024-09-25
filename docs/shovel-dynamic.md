@@ -484,8 +484,7 @@ the declaration process.
         <p>
           If set to <code>on-publish</code>, messages are <a href="./confirms">acknowledged</a> to
           the source broker after they have been published at the
-          destination (but not yet confirmed). This handles network errors without losing messages,
-          but may lose messages in the event of broker failures.
+          destination (but not yet confirmed). Messages may be lost in the event of network or broker failures.
         </p>
         <p>
           If set to <code>no-ack</code>, <a href="./confirms">automatic message acknowledgements</a> will be used.
@@ -743,8 +742,7 @@ counterparts.
         <p>
           If set to <code>on-publish</code>, messages are <a href="./confirms">acknowledged</a> to
           the source broker after they have been published at the
-          destination (but not yet confirmed). This handles network errors without losing messages,
-          but may lose messages in the event of broker failures.
+          destination (but not yet confirmed). Messages may be lost in the event of network or broker failures.
         </p>
         <p>
           If set to <code>no-ack</code>, <a href="./confirms">automatic message acknowledgements</a> will be used.
