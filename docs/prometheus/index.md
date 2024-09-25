@@ -747,7 +747,7 @@ Grouped under `queue_metrics`. This group contains all the metrics for every que
 
 Each metric in this group points to a single exchange via its label.
 So the size of the response here is directly proportional to the number of queues hosted
-on the node. 
+on the node.
 
 These metrics are similar to those grouped under `channel_exchange_metrics`, but do not include the channel ID in their labels. They are useful for monitoring the state of each exchange individually.
 
@@ -755,10 +755,10 @@ Grouped under `exchange_metrics`:
 
 | Metric                                                        | Description                                                                                                  |
 |---------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-| rabbitmq_detailed_exchange_messages_published_total           | Total number of messages published into an exchange                                                          |
-| rabbitmq_detailed_exchange_messages_confirmed_total           | Total number of messages published into an exchange and confirmed                                            |
-| rabbitmq_detailed_exchange_messages_unroutable_returned_total | Total number of messages published as mandatory into an exchange and returned to the publisher as unroutable |
-| rabbitmq_detailed_exchange_messages_unroutable_dropped_total  | Total number of messages published as non-mandatory into an exchange and dropped as unroutable               |
+| rabbitmq_detailed_exchange_messages_published_total           | Total number of messages published to an exchange                                                          |
+| rabbitmq_detailed_exchange_messages_confirmed_total           | Total number of messages published to an exchange and [confirmed](./confirms#publisher-confirms)                                            |
+| rabbitmq_detailed_exchange_messages_unroutable_returned_total | Total number of messages published as mandatory to an exchange and returned to the publisher as [unroutable](./publishers#unroutable) |
+| rabbitmq_detailed_exchange_messages_unroutable_dropped_total  | Total number of messages published as non-mandatory to an exchange and dropped as [unroutable](./publishers#unroutable)               |
 
 #### Queue-Exchange metrics
 Each metric in this group points to a single queue-exchange pair via its label.
@@ -825,10 +825,10 @@ Grouped under `channel_exchange_metrics`:
 
 | Metric                                                       | Description                                                                                                  |
 |--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-| rabbitmq_detailed_channel_messages_published_total           | Total number of messages published into an exchange on a channel                                             |
-| rabbitmq_detailed_channel_messages_confirmed_total           | Total number of messages published into an exchange and confirmed on the channel                             |
-| rabbitmq_detailed_channel_messages_unroutable_returned_total | Total number of messages published as mandatory into an exchange and returned to the publisher as unroutable |
-| rabbitmq_detailed_channel_messages_unroutable_dropped_total  | Total number of messages published as non-mandatory into an exchange and dropped as unroutable               |
+| rabbitmq_detailed_channel_messages_published_total           | Total number of messages published to an exchange on a channel                                             |
+| rabbitmq_detailed_channel_messages_confirmed_total           | Total number of messages published to an exchange and confirmed on the channel                             |
+| rabbitmq_detailed_channel_messages_unroutable_returned_total | Total number of messages published as mandatory to an exchange and returned to the publisher as unroutable |
+| rabbitmq_detailed_channel_messages_unroutable_dropped_total  | Total number of messages published as non-mandatory to an exchange and dropped as unroutable               |
 
 Grouped under `channel_queue_metrics`:
 
