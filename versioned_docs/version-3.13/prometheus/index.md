@@ -769,10 +769,10 @@ Grouped under `channel_exchange_metrics`:
 
 | Metric                                                       | Description                                                                                                  |
 |--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-| rabbitmq_detailed_channel_messages_published_total           | Total number of messages published into an exchange on a channel                                             |
-| rabbitmq_detailed_channel_messages_confirmed_total           | Total number of messages published into an exchange and confirmed on the channel                             |
-| rabbitmq_detailed_channel_messages_unroutable_returned_total | Total number of messages published as mandatory into an exchange and returned to the publisher as unroutable |
-| rabbitmq_detailed_channel_messages_unroutable_dropped_total  | Total number of messages published as non-mandatory into an exchange and dropped as unroutable               |
+| rabbitmq_detailed_channel_messages_published_total           | Total number of messages published to an exchange on a channel                                             |
+| rabbitmq_detailed_channel_messages_confirmed_total           | Total number of messages published to an exchange and confirmed on the channel                             |
+| rabbitmq_detailed_channel_messages_unroutable_returned_total | Total number of messages published as mandatory to an exchange and returned to the publisher as unroutable |
+| rabbitmq_detailed_channel_messages_unroutable_dropped_total  | Total number of messages published as non-mandatory to an exchange and dropped as unroutable               |
 
 Grouped under `channel_queue_metrics`:
 
