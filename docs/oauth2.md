@@ -152,19 +152,19 @@ In chronological order, here is the sequence of events that occur when a client 
 | `auth_oauth2.issuer`                       | The [issuer URL](#configure-issuer) of the authorization server that is used to either discover endpoints such as `jwks_uri` and/or where to redirect RabbitMQ management users to login and get a token.
 | `auth_oauth2.discovery_endpoint_path`      | The path used for the [OpenId discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata). The endpoint URI is built using `auth_oauth2.issuer`, this path or else the default path `.well-known/openid-configuration` followed by query parameters configured in the following variable
 | `auth_oauth2.discovery_endpoint_params`    | [List of HTTP query parameters](#discovery-endpoint-params) sent to the OpenId discovery endpoint.
-| `auth_oauth2.jwks_url`                     | The URL of the [JWKS endpoint](#jwks-endpoint). According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2), the endpoint URL must be https. Optional if you set `auth_oauth2.issuer`. If this URL is set, it overrides the `jwks_uri` discovered via the discovery endpoint.
+| `auth_oauth2.jwks_uri`                     | The URL of the [JWKS endpoint](#jwks-endpoint). According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2), the endpoint URL must be https. Optional if you set `auth_oauth2.issuer`. If this URL is set, it overrides the `jwks_uri` discovered via the discovery endpoint.
 | `auth_oauth2.token_endpoint`               | The URL of the OAuth 2.0 token endpoint. Optional if you set `auth_oauth2.issuer`. If this URL is set, it overrides the `token_endpoint` discovered via the discovery endpoint.
-| `auth_oauth2.https.cacertfile`             | Path to a file containing PEM-encoded CA certificates. The CA certificates are used to connect to any of these endpoints: `jwks_url`, `token_endpoint`, or the discovery endpoint.
+| `auth_oauth2.https.cacertfile`             | Path to a file containing PEM-encoded CA certificates. The CA certificates are used to connect to any of these endpoints: `jwks_uri`, `token_endpoint`, or the discovery endpoint.
 | `auth_oauth2.https.depth`                  | The maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid [certification path](ssl#peer-verification-depth). The default value is 10.
 | `auth_oauth2.https.peer_verification`      | Configures [peer verification](ssl#peer-verification). Available values: `verify_none`, `verify_peer`. The default value is `verify_peer` if there are trusted CA installed in the OS or `auth_oauth2.https.cacertfile` is set. <p/> **Deprecated**: This variable will be soon replaced by `auth_oauth2.https.verify`. Users should stop using this variable.
-| `auth_oauth2.https.fail_if_no_peer_cert`   | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`
-| `auth_oauth2.https.hostname_verification`  | Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`
-| `auth_oauth2.https.crl_check`              | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false
-| `auth_oauth2.algorithms`                   | Restrict [the usable algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support)
-| `auth_oauth2.verify_aud`                   | Whether to verify the [token's `aud`](#token-validation) field or not. The default value is `true`
-| `auth_oauth2.resource_servers`             | [Multiple OAuth 2.0 resources configuration](#multiple-resource-servers-configuration)
-| `auth_oauth2.oauth_providers`              | [Multiple OAuth 2.0 providers configuration](#multiple-oauth-providers-configuration)
-| `auth_oauth2.default_oauth_provider`       | ID of the OAuth 2.0 provider used for the `auth_oauth2.resource_servers`, that did not specify any (via the variable `oauth_provider_id`) or when `auth_oauth2.jwks_url` and `auth_oauth2.issuer` are both missing
+| `auth_oauth2.https.fail_if_no_peer_cert`   | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`.
+| `auth_oauth2.https.hostname_verification`  | Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`.
+| `auth_oauth2.https.crl_check`              | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false.
+| `auth_oauth2.algorithms`                   | Restrict [the usable algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support).
+| `auth_oauth2.verify_aud`                   | Whether to verify the [token's `aud`](#token-validation) field or not. The default value is `true`.
+| `auth_oauth2.resource_servers`             | [Multiple OAuth 2.0 resources configuration](#multiple-resource-servers-configuration).
+| `auth_oauth2.oauth_providers`              | [Multiple OAuth 2.0 providers configuration](#multiple-oauth-providers-configuration).
+| `auth_oauth2.default_oauth_provider`       | ID of the OAuth 2.0 provider used for the `auth_oauth2.resource_servers`, that did not specify any (via the variable `oauth_provider_id`) or when `auth_oauth2.jwks_uri` and `auth_oauth2.issuer` are both missing.
 
 
 #### Resource Server ID {#resource-server-id}
@@ -219,7 +219,7 @@ The following configuration sets the JWKS endpoint from which RabbitMQ downloads
 
 ```ini
 auth_oauth2.resource_server_id = new_resource_server_id
-auth_oauth2.jwks_url = https://my-jwt-issuer/jwks.json
+auth_oauth2.jwks_uri = https://my-jwt-issuer/jwks.json
 auth_oauth2.https.cacertfile = test/config_schema_SUITE_data/certs/cacert.pem
 auth_oauth2.https.peer_verification = verify_peer
 auth_oauth2.https.depth = 5
@@ -245,7 +245,7 @@ Each `auth_oauth2.resource_servers.<id/index>.` entry has the following variable
 
 All available configurable parameters for each OAuth 2 provider is documented [in a separate section](#multiple-oauth-providers-configuration).
 
-Usually, a numeric value is used as `index`, for example `auth_oauth2.resource_servers.1.id = rabbit_prod`. However, it can be any string, for example `auth_oauth2.resource_servers.rabbit_prod.jwks_url = http://some_url`. By default, the `index` is the resource server's id. However, you can override it via the `id` variable like in `auth_oauth2.resource_servers.1.id = rabbit_prod`.
+Usually, a numeric value is used as `index`, for example `auth_oauth2.resource_servers.1.id = rabbit_prod`. However, it can be any string, for example `auth_oauth2.resource_servers.rabbit_prod.jwks_uri = http://some_url`. By default, the `index` is the resource server's id. However, you can override it via the `id` variable like in `auth_oauth2.resource_servers.1.id = rabbit_prod`.
 
 Here is an example which configures two resources (`prod` and `dev`) which are used by the users and clients managed by
 the same identity provider whose issuer url is `https://my-idp.com/`:
@@ -268,7 +268,7 @@ Each `auth_oauth2.oauth_providers.{id/index}` entry has the following sub-keys.
 | `discovery_endpoint_path`    | The path used for the OpenId discovery endpoint. Default value is `.well-known/openid-configuration`
 | `discovery_endpoint_params`  | [List of HTTP query parameters](#discovery-endpoint-params) sent to the OpenId discovery endpoint.
 | `token_endpoint`             | The URL of the OAuth 2.0 token endpoint. Optional if you configured `issuer`.
-| `jwks_uri`                   | The URL of the [JWKS endpoint](#jwks-endpoint). According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2), the endpoint URL must be https. <p/>**Warning**: RabbitMQ uses for each OAuth Provider the variable name `jwks_uri` used by the OpenId Connect Discovery Specification rather than `jwks_url`. This variable is optional if you set `issuer`.
+| `jwks_uri`                   | The URL of the [JWKS endpoint](#jwks-endpoint). According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2), the endpoint URL must be https. This variable is optional if you set `issuer`.
 | `https.cacertfile`           | Path to a file containing PEM-encoded CA certificates used to connect `issuer` and/or `jwks_uri` URLs.
 | `https.depth`                | The maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid [certification path](ssl#peer-verification-depth). The default value is 10.
 | `https.verify`               | Configures [peer verification](ssl#peer-verification). Available values: `verify_none`, `verify_peer`. The default value is `verify_peer` if there are trusted CA installed in the OS or `auth_oauth2.https.cacertfile` is set.
@@ -412,7 +412,7 @@ the `monitoring` tag will be `my_rabbit.tag:monitoring`.
 
 ### Configure OAuth 2.0 provider's issuer {#configure-issuer}
 
-Before RabbitMQ 3.13, users had to either configure the JWKS endpoint (that is `auth_oauth2.jwks_url` variable) or statically [configure the signing keys](#configure-signing-keys). Now, users only need to configure the OpenID Provider's **issuer** URL and from this URL RabbitMQ downloads the OpenID Provider configuration which includes the JWKS endpoint in addition to other endpoints which will be useful in other contexts.
+Before RabbitMQ 3.13, users had to either configure the JWKS endpoint (that is `auth_oauth2.jwks_uri` variable) or statically [configure the signing keys](#configure-signing-keys). Now, users only need to configure the OpenID Provider's **issuer** URL and from this URL RabbitMQ downloads the OpenID Provider configuration which includes the JWKS endpoint in addition to other endpoints which will be useful in other contexts.
 
 Usually, this **issuer** URL is the same URL configured in the management plugin (`management.oauth_provider_url`). From now on, you only need to configure a single URL, specified by the `auth_oauth2.issuer` variable. Except in edge cases where the **issuer** URL does not host the login page. In those cases, the user configures the login page in the `management.oauth_provider_url` variable.
 
@@ -422,10 +422,10 @@ auth_oauth2.resource_server_id = my_rabbit_server
 auth_oauth2.issuer = https://my-idp-provider/somerealm
 ```
 
-Sample configuration which configures the jwks_url rather than the issuer:
+Sample configuration which configures the `jwks_uri` rather than the issuer:
 ```ini
 auth_oauth2.resource_server_id = my_rabbit_server
-auth_oauth2.jwks_url = "https://my-jwt-issuer/jwks.json
+auth_oauth2.jwks_uri = "https://my-jwt-issuer/jwks.json
 ```
 
 :::info
@@ -433,7 +433,7 @@ If you have both endpoints configured, RabbitMQ uses `jwks_url` because it does 
 :::
 
 :::info
-**Note about TLS variables for the `jwks_url` or the `issuer` url**: TLS variable such as the `cacertfile` are configured as follows regardless which url you are using:
+**Note about TLS variables for the `jwks_uri` or the `issuer` url**: TLS variable such as the `cacertfile` are configured as follows regardless which url you are using:
 :::
 
 ```ini
@@ -707,7 +707,7 @@ if RabbitMQ nodes `resource_server_id` is equal to `finance`, the plugin compute
 
 As long as you have only one OAuth 2.0 provider, you can skip this advanced usage although you can use it.
 
-Under the [basic usage](#configure-issuer) section, you configured the `issuer` url or maybe the `jwks_url` along with the TLS variables if needed. This advanced usage configures everything relative to the OAuth provider into a dedicated configuration.
+Under the [basic usage](#configure-issuer) section, you configured the `issuer` url or maybe the `jwks_uri` along with the TLS variables if needed. This advanced usage configures everything relative to the OAuth provider into a dedicated configuration.
 
 Here is an example configuration that uses `issuer` to configure the identity provider's URL:
 
@@ -782,7 +782,7 @@ All resource servers share the variables you set so far under `auth_oauth2.` suc
 - `scope_prefix`
 - `additional_scopes_key`
 - `resource_server_type`
-- `oauth_provider_id` - This is the identifier of the OAuth provider. It is configured in RabbitMQ. It provides all the variables to contact the authorization server and discover all its endpoints, such as the `jwks_uri` to download the signing keys to validate the token. If this variable is omitted, RabbitMQ looks up the default Authorization Provider's id in the variable `auth_oauth2.default_oauth_provider`, and if it is also omitted, RabbitMQ uses `auth_oauth2.issuer` or `auth_oauth2.jwks_url` to download the signings keys to validate the token.
+- `oauth_provider_id` - This is the identifier of the OAuth provider. It is configured in RabbitMQ. It provides all the variables to contact the authorization server and discover all its endpoints, such as the `jwks_uri` to download the signing keys to validate the token. If this variable is omitted, RabbitMQ looks up the default Authorization Provider's id in the variable `auth_oauth2.default_oauth_provider`, and if it is also omitted, RabbitMQ uses `auth_oauth2.issuer` or `auth_oauth2.jwks_uri` to download the signings keys to validate the token.
 
 The list of supported resource servers is the combination of `auth_oauth2.resource_servers` and `auth_oauth2.resource_server_id`. You can use both or only one of them.
 

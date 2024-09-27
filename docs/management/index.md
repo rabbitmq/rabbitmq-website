@@ -412,6 +412,8 @@ Given above configuration, when a user visits the management UI, the following t
 
     :::tip
     If you used to configure `management.oauth_metadata_url` because your provider did not use the standard OpenId Discovery endpoint's path, since RabbitMQ 4.1 you should instead configure the correct path as it is explained [here](./oauth2#discovery-endpoint-params).
+    `management.oauth_metadata_url` is now deprecated and it will be removed in 
+    RabbitMQ 4.2.0.
     :::
 
     :::tip
