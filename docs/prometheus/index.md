@@ -746,7 +746,7 @@ Grouped under `queue_metrics`. This group contains all the metrics for every que
 #### Exchange metrics
 
 Each metric in this group points to a single exchange via its label.
-So the size of the response here is directly proportional to the number of queues hosted
+So the size of the response here is directly proportional to the number of exchanges hosted
 on the node.
 
 These metrics are similar to those grouped under `channel_exchange_metrics`, but do not include the channel ID in their labels. They are useful for monitoring the state of each exchange individually.
