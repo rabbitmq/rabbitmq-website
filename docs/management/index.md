@@ -414,6 +414,10 @@ Given above configuration, when a user visits the management UI, the following t
     If you used to configure `management.oauth_metadata_url` because your provider did not use the standard OpenId Discovery endpoint's path, since RabbitMQ 4.1 you should instead configure the correct path as it is explained [here](./oauth2#discovery-endpoint-params).
     :::
 
+    :::tip
+    If you used to configure `auth_oauth2.metadata_url` because your provider used a slightly different OpenId Discovery endpoint url, since RabbitMQ 4.1 you should instead configure the correct path and/or include any additional parameters. Please read [this section of the documentation](./oauth2#discovery-endpoint-params) where it is explained how to do it. `auth_oauth2.metadata_url` may be deprecated in future versions.
+    :::
+
 2. RabbitMQ displays a button with the label "Click here to login". When the user clicks on the button, the management UI initiates the OAuth 2.0 Authorization Code Flow, which redirects the user to the identity provider to authenticate and get a token.
 
 ### Configure client secret {#configure-client-secret}
@@ -510,29 +514,18 @@ RabbitMQ 3.13.1 and earlier versions require the [OpenId Connect Discovery endpo
 There are other two additional scenarios which can trigger a logout. One scenario occurs when the OAuth Token expires. Although RabbitMQ renews the token in the background before it expires, if the token expires, the user is logged out.
 The second scenario is when the management UI session exceeds the maximum allowed time configured on the [Login Session Timeout](#login-session-timeout).
 
-### Configure Extra URI Parameters for Authorization and Token Endpoints {#extra-endpoint-params}
+### Configure extra parameters for authorization and token endpoints {#extra-endpoint-params}
 
-Some OAuth 2.0 providers require additional URI parameters to be included into the request sent to the **authorization endpoint** and/or to the **token endpoint**.
-These parameters are vendor- or IDP installation-specific. The Management UI already sends all the parameters required by the OAuth 2.0 Authorization Code flow.
+There are some OAuth 2.0 providers which require extra parameters in the request sent to the **authorization endpoint** and/or to the **token endpoint**. These parameters are custom parameters. The Management UI already sends all the parameters required by the OAuth 2.0 Authorization Code flow.
 
-In the followingexample an extra URI parameter called `audience` is added for both the **authorization** and **token** endpoints:
-
-```ini
-management.oauth_authorization_endpoint_params.audience = some-audience-id
-
-management.oauth_token_endpoint_params.audience = some-audience-id
-```
-
-Multiple parameters can be configured like so:
+Here is an example of setting an extra parameter called `audience` for both endpoints, the **authorization** and **token** endpoint:
 
 ```ini
 management.oauth_authorization_endpoint_params.audience = some-audience-id
-management.oauth_authorization_endpoint_params.example = example-value
-
 management.oauth_token_endpoint_params.audience = some-audience-id
-management.oauth_token_endpoint_params.other = other-value
 ```
 
+You can configure as many parameters as you need.
 
 ### Special attention to CSP header `connect-src` {#csp-header}
 
@@ -629,12 +622,11 @@ the following settings:
 - `resource` : `rabbit_prod`
 - `scopes` : `openid rabbitmq.tag:management rabbitmq.read:*/*`
 
-### Configure Extra URI Parameters for Authorization and Token Endpoints {#extra-endpoint-params}
+#### Configure extra parameters for authorization and token endpoints
 
-Some OAuth 2.0 providers require additional URI parameters to be included into the request sent to the **authorization endpoint** and/or to the **token endpoint**.
-These parameters are vendor- or IDP installation-specific. The Management UI already sends all the parameters required by the OAuth 2.0 Authorization Code flow.
+There are some OAuth 2.0 providers which require extra parameters in the request sent to the **authorization endpoint** and/or to the **token endpoint**. These parameters are custom parameters and specified per resource. The Management UI already sends all the parameters required by the OAuth 2.0 Authorization Code flow.
 
-The following example sets an extra URI parameter called `audience` for both endpoints for the resource `some-resource-id`:
+Here is an example of setting an extra parameter called `audience` for both endpoints for the resource `some-resource-id`:
 
 ```ini
 management.oauth_resource_servers.2.id = some-resource-id

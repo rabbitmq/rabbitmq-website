@@ -26,13 +26,36 @@ and Microsoft Entra ID as Authorization Server using the following flows:
 
  * Access the management UI via a browser using Entra ID (API version 2.0)
 
+<<<<<<< HEAD
+||||||| parent of 7839e208 (Explain how to configure extra params for authorize and token endpoints)
+=======
+* Access the management UI via a browser.
+>>>>>>> Modify Entra example so that it uses v2.0
+=======
+=======
+* Access the management UI via a browser using v2.0 api version
+
+>>>>>>> Explain how to configure extra params for authorize and token endpoints
+>>>>>>> 7839e208 (Explain how to configure extra params for authorize and token endpoints)
 
 ## Prerequisites to follow this guide
 
 * Have an account in https://portal.azure.com.
 * Docker
 * Openssl
+<<<<<<< HEAD
 * A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next) (the `next` branch) that contains all the configuration files and scripts used on this example.
+||||||| parent of 7839e208 (Explain how to configure extra params for authorize and token endpoints)
+* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) that contains all the configuration files and scripts used on this example
+=======
+* Docker.
+* Openssl.
+* `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
+contains all the configuration files and scripts used on this example.
+>>>>>>> Modify Entra example so that it uses v2.0
+=======
+* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) that contains all the configuration files and scripts used on this example
+>>>>>>> 7839e208 (Explain how to configure extra params for authorize and token endpoints)
 
 ## Register your app
 
@@ -66,8 +89,21 @@ When using **Entra ID as OAuth 2.0 server**, your client app (in our case Rabbit
 
     Note the following values, as you will need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side:
 
+<<<<<<< HEAD
     * Directory (tenant ID)
     * Application (client) ID
+||||||| parent of 7839e208 (Explain how to configure extra params for authorize and token endpoints)
+<<<<<<< HEAD
+    * **Directory (tenant ID)**
+    * **Application (client) ID**
+=======
+    * Directory (tenant ID)
+    * Application (client) ID
+>>>>>>> Modify Entra example so that it uses v2.0
+=======
+    * **Directory (tenant ID)**
+    * **Application (client) ID**
+>>>>>>> 7839e208 (Explain how to configure extra params for authorize and token endpoints)
 
 
 ## Create OAuth 2.0 roles for your app
@@ -146,11 +182,20 @@ Now that some roles have been created for your application, you still need to as
 
 9. Repeat the operations for all the roles you want to assign.
 
+<<<<<<< HEAD
 ## Create a Scope for Management UI Access
+||||||| parent of 7839e208 (Explain how to configure extra params for authorize and token endpoints)
+<<<<<<< HEAD
+## Create a Scope for Management UI Access
+=======
+## Create scope required by Management ui during authorization
+=======
+## Create scope required by Management UI during authorization
+>>>>>>> 7839e208 (Explain how to configure extra params for authorize and token endpoints)
 
-So far we have created the roles and granted the roles to the user who is going to
-access the management UI. When this user logs into RabbitMQ management UI, its token
-contains the granted roles.
+There is one last configuration step required. Without this step, the `access_token` returned
+by **Entra ID** is invalid. RabbitMQ cannot validate its signature because the `access_token` is meant for Microsoft resources.
+First, you need to create a scope associated to the application you registered for RabbitMQ management UI as follows:
 
 1. Go to **App registrations**.
 2. Click on your application.
@@ -159,7 +204,7 @@ contains the granted roles.
 5. Enter a name, eg. `management-ui`. Enter the same name for **Admin consent display name** and a description and save it.
 7. The scope is named `api://{Application (client) ID}/{scope_name}`.
 
-RabbitMQ management ui must provide this scope in `management.oauth_scopes` along with `openid profiles` scopes.
+Check out the last section to see how this scope is used to configure RabbitMQ.
 
 ## Configure Custom Signing Keys
 
@@ -188,18 +233,27 @@ In the following example, replace `{Application(client) ID}` with the actual *Ap
 auth_oauth2.discovery_endpoint_params.appid = {Application(client) ID}
 ```
 
-Without this bit of configuration, the standard `jwks_uri` endpoint will not include the custom signing key
-and therefore RabbitMQ will not find the necessary signing key to validate the token's signature.
+It is optional to create a signing key for your application. If you create one though, you must add the following RabbitMQ configuration. You need to replace `{Application(client) ID}` with your *Application(client) ID*. Without this configuration, the standard jwks_uri endpoint will not include the custom signing key and RabbitMQ will not find the signing key to validate the token's signature.
+
+```ini
+auth_oauth2.discovery_endpoint_params.appid = {Application(client) ID}
+```
 
 For more information, check out Microsoft Entra documentation about [configuring custom signing keys](https://learn.microsoft.com/en-us/entra/identity-platform/jwt-claims-customization#validate-token-signing-key).
-
 
 ## Configure RabbitMQ to Use Entra ID as OAuth 2.0 Authentication Backend
 
 The configuration on **Entra ID** side is done. Next, configure RabbitMQ to use these resources.
 
+<<<<<<< HEAD
 Clone [rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next/conf/entra/rabbitmq.conf.tmpl) from the tutorial repository
 to `rabbitmq.conf`. It must be in the same directory as `rabbitmq.conf.tmpl`.
+||||||| parent of 7839e208 (Explain how to configure extra params for authorize and token endpoints)
+Clone [rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/entra/rabbitmq.conf.tmpl) from the tutorial repository
+to `rabbitmq.conf`. It must be in the same directory as `rabbitmq.conf.tmpl`.
+=======
+Clone the file called [rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/entra/rabbitmq.conf.tmpl) as `rabbitmq.conf` (in the same folder as `rabbitmq.conf.tmpl`).
+>>>>>>> 7839e208 (Explain how to configure extra params for authorize and token endpoints)
 
 Edit the new `rabbitmq.conf` file and proceed as follows:
 
@@ -221,6 +275,7 @@ auth_oauth2.issuer = https://login.microsoftonline.com/{Directory (tenant) ID}/v
 #...
 ```
 
+
 ## Start RabbitMQ
 
 Run the following commands to run RabbitMQ docker image:
@@ -231,7 +286,7 @@ make start-rabbitmq
 ```
 
 This starts a Docker container named `rabbitmq`, with RabbitMQ Management UI/API with HTTPS enabled, and configured to use your Entra ID as OAuth 2.0 authentication backend,
-based on the values set in `rabbitmq.conf` in the previous steps of this tutorial.
+based on the information you provided in `rabbitmq.conf` in the previous steps of this tutorial.
 
 ## Automatic generation of a TLS Certificate and Key Pair
 

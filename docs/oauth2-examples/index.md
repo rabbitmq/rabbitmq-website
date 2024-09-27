@@ -45,7 +45,7 @@ The guide is accompanied by [a public GitHub repository](https://github.com/rabb
 
 ### Using [JWT tokens in several protocols](#access-other-protocols) to access RabbitMQ
 
-* [Management HTTP API](#management-http-api)
+* [Management REST API](#management-rest-api)
 * [AMQP 0-9-1](#amqp-protocol) (and [scopes for topic exchanges](#using-topic-exchanges) in a separate section)
 * [AMQP 1.0](#amqp10-protocol)
 * [JMS](#jms-clients)
@@ -190,7 +190,7 @@ It is only when the user clicks **Click here to login** , the user is redirected
 
 The following subsections demonstrate how to use access tokens with any messaging protocol and also to access the management HTTP API.
 
-### Management HTTP API {#management-http-api}
+### Management REST api {#management-rest-api}
 
 In this scenario a monitoring agent uses RabbitMQ HTTP API to collect monitoring information.
 Because it is not an end user, or human, you refer to it as a *service account*.

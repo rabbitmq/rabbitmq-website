@@ -137,25 +137,25 @@ In chronological order, here is the sequence of events that occur when a client 
 |--------------------------------------------|-----------
 | `auth_oauth2.resource_server_id`           | The [Resource Server ID](#resource-server-id)
 | `auth_oauth2.resource_server_type`         | The Resource Server Type required when using [Rich Authorization Request](#rich-authorization-request) token format
-| `auth_oauth2.additional_scopes_key`        | Configure the plugin to look for scopes in other fields (maps to `additional_rabbitmq_scopes` in the old format) |
-| `auth_oauth2.scope_prefix`                 | [Configure the prefix for all scopes](#scope-prefix). The default value is `auth_oauth2.resource_server_id` followed by the dot `.` character |
-| `auth_oauth2.preferred_username_claims`    | [List of the JWT claims](#preferred-username-claims) to look for the username associated with the token
-| `auth_oauth2.default_key`                  | ID of the default signing key
-| `auth_oauth2.signing_keys`                 | Paths to the [signing key files](#signing-key-files)
-| `auth_oauth2.issuer`                       | The [issuer URL](#configure-issuer) of the authorization server. Used to build the discovery endpoint URL to discover other endpoints such as such as `jwks_uri`. Management UI users will be sent to this for logging in
-| `auth_oauth2.jwks_url`                     | The URL of the [JWKS endpoint](#jwks-endpoint). According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2), the endpoint URL must use "https" for schema
-| `auth_oauth2.token_endpoint`               | The URL of the OAuth 2.0 token endpoint
-| `auth_oauth2.https.cacertfile`             | Path to a file containing PEM-encoded CA certificates. The CA certificates are used to connect to any of these endpoints: `jwks_url`, `token_endpoint`, or the `issuer`
-| `auth_oauth2.https.depth`                  | The maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid [certification path](ssl#peer-verification-depth). The default value is 10
-| `auth_oauth2.https.peer_verification`      | Configures [peer verification](ssl#peer-verification). Available values: `verify_none`, `verify_peer`. The default value is `verify_peer` if there are trusted CA installed in the OS or `auth_oauth2.https.cacertfile` is set. <p/> **Deprecated**: This variable will be soon replaced by `auth_oauth2.https.verify`. Users should stop using this variable
-| `auth_oauth2.https.fail_if_no_peer_cert`   | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`
-| `auth_oauth2.https.hostname_verification`  | Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`
-| `auth_oauth2.https.crl_check`              | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false
-| `auth_oauth2.algorithms`                   | Restrict [the usable algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support)
-| `auth_oauth2.verify_aud`                   | Whether to verify the [token's `aud`](#token-validation) field or not. The default value is `true`
-| `auth_oauth2.resource_servers`             | [Multiple OAuth 2.0 resources configuration](#multiple-resource-servers-configuration)
-| `auth_oauth2.oauth_providers`              | [Multiple OAuth 2.0 providers configuration](#multiple-oauth-providers-configuration)
-| `auth_oauth2.default_oauth_provider`       | ID of the OAuth 2.0 provider used for the `auth_oauth2.resource_servers`, that did not specify any (via the variable `oauth_provider_id`) or when `auth_oauth2.jwks_url` and `auth_oauth2.issuer` are both missing
+| `auth_oauth2.additional_scopes_key`        | Configure the plugin to look for scopes in other fields (maps to `additional_rabbitmq_scopes` in the old format). |
+| `auth_oauth2.scope_prefix`                 | [Configure the prefix for all scopes](#scope-prefix). The default value is `auth_oauth2.resource_server_id` followed by the dot `.` character. |
+| `auth_oauth2.preferred_username_claims`    | [List of the JWT claims](#preferred-username-claims) to look for the username associated with the token.
+| `auth_oauth2.default_key`                  | ID of the default signing key.
+| `auth_oauth2.signing_keys`                 | Paths to the [signing key files](#signing-key-files).
+| `auth_oauth2.issuer`                       | The [issuer URL](#configure-issuer) of the authorization server that is used to discover endpoints such as `jwks_uri` and others (https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+| `auth_oauth2.jwks_url`                     | The URL of the [JWKS endpoint](#jwks-endpoint). According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2), the endpoint URL must be https.
+| `auth_oauth2.token_endpoint`               | The URL of the OAuth 2.0 token endpoint.
+| `auth_oauth2.https.cacertfile`             | Path to a file containing PEM-encoded CA certificates. The CA certificates are used to connect to any of these endpoints: `jwks_url`, `token_endpoint`, or the `issuer`.
+| `auth_oauth2.https.depth`                  | The maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid [certification path](ssl#peer-verification-depth). The default value is 10.
+| `auth_oauth2.https.peer_verification`      | Configures [peer verification](ssl#peer-verification). Available values: `verify_none`, `verify_peer`. The default value is `verify_peer` if there are trusted CA installed in the OS or `auth_oauth2.https.cacertfile` is set. <p/> **Deprecated**: This variable will be soon replaced by `auth_oauth2.https.verify`. Users should stop using this variable.
+| `auth_oauth2.https.fail_if_no_peer_cert`   | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`.
+| `auth_oauth2.https.hostname_verification`  | Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`.
+| `auth_oauth2.https.crl_check`              | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false.
+| `auth_oauth2.algorithms`                   | Restrict [the usable algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support).
+| `auth_oauth2.verify_aud`                   | Whether to verify the [token's `aud`](#token-validation) field or not. The default value is `true`.
+| `auth_oauth2.resource_servers`             | [Multiple OAuth 2.0 resources configuration](#multiple-resource-servers-configuration).
+| `auth_oauth2.oauth_providers`              | [Multiple OAuth 2.0 providers configuration](#multiple-oauth-providers-configuration).
+| `auth_oauth2.default_oauth_provider`       | ID of the OAuth 2.0 provider used for the `auth_oauth2.resource_servers`, that did not specify any (via the variable `oauth_provider_id`) or when `auth_oauth2.jwks_url` and `auth_oauth2.issuer` are both missing.
 
 
 #### Resource Server ID {#resource-server-id}
