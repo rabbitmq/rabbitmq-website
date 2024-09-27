@@ -411,7 +411,7 @@ Given above configuration, when a user visits the management UI, the following t
     :::
 
     :::tip
-    If you used to configure `auth_oauth2.metadata_url` because your provider used a slightly different OpenId Discovery endpoint url, since RabbitMQ 4.1 you should instead configure the correct path and/or include any additional parameters. Please read [this section of the documentation](./oauth2#discovery-endpoint-params) where it is explained how to do it. `auth_oauth2.metadata_url` may be deprecated in future versions.
+    If you used to configure `auth_oauth2.metadata_url` because your provider did not use the standard path OpenId Discovery endpoint's path, since RabbitMQ 4.1 you should instead configure the correct path and/or include any additional parameters as it is explained [here](./oauth2#discovery-endpoint-params).
     :::
 
 2. RabbitMQ displays a button with the label "Click here to login". When the user clicks on the button, the management UI initiates the OAuth 2.0 Authorization Code Flow, which redirects the user to the identity provider to authenticate and get a token.
