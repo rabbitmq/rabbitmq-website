@@ -142,7 +142,7 @@ In chronological order, here is the sequence of events that occur when a client 
 | `auth_oauth2.preferred_username_claims`    | [List of the JWT claims](#preferred-username-claims) to look for the username associated with the token.
 | `auth_oauth2.default_key`                  | ID of the default signing key.
 | `auth_oauth2.signing_keys`                 | Paths to the [signing key files](#signing-key-files).
-| `auth_oauth2.issuer`                       | The [issuer URL](#configure-issuer) of the authorization server that is used to discover endpoints such as `jwk_uri` and others (https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+| `auth_oauth2.issuer`                       | The [issuer URL](#configure-issuer) of the authorization server that is used to discover endpoints such as `jwks_uri` and others (https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
 | `auth_oauth2.jwks_url`                     | The URL of the [JWKS endpoint](#jwks-endpoint). According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2), the endpoint URL must be https.
 | `auth_oauth2.token_endpoint`               | The URL of the OAuth 2.0 token endpoint.
 | `auth_oauth2.https.cacertfile`             | Path to a file containing PEM-encoded CA certificates. The CA certificates are used to connect to any of these endpoints: `jwks_url`, `token_endpoint`, or the `issuer`.

@@ -45,6 +45,7 @@ There's also a companion [troubleshooting guide for OAuth 2-specific problems](.
 * [Configure signing keys](#configure-signing-keys)
 * [Use a different token field for the scope](#use-different-token-field)
 * [Preferred username claims](#preferred-username-claims)
+* [Discovery Endpoint params](#discovery-endpoint-params)
 * [Rich Authorization Request](#rich-authorization-request)
 
 ### [Advanced usage](#advanced-usage)
@@ -107,6 +108,12 @@ Also, the `https://my-oauth2-provider.com/realm/rabbitmq/.well-known/openid-conf
 *.well-known/openid-configuration* is the OpenID standard path for the OpenID Provider Configuration endpoint
 :::
 
+If your provider exposes a different path and/or requires some extra http parameters for the OpenId discovery endpoint, you can configure them as follows:
+```ini
+auth_oauth2.discovery_endpoint_path = my/custom/path
+auth_oauth2.discovery_endpoint_params.appid = some-app-id
+```
+
 More detail is included in the next section about what happens during the authentication and how to configure OAuth 2.0 beyond the basic configuration shown previously.
 
 ### Authorization Flow {#authorization-flow}
@@ -118,7 +125,7 @@ Tokens must be digitally signed otherwise they are not accepted. RabbitMQ must h
   - **JWKS endpoint** - this is the HTTP endpoint that returns the signing keys used to digitally sign the tokens.
   - **OpenID Provider Configuration endpoint** - this is the endpoint that returns the provider's configuration including all its endpoints, such as the **JWKS endpoint**.
 
-When you configure RabbitMQ with one of two previous endpoints, RabbitMQ must make a HTTP request (or two, if we specify the latter endpoint) to download the signing keys. This is an operation that occurs once for any signing key not downloaded yet. When the OAuth 2.0 provider rotates the signing keys, newer tokens refer to a new signing key which RabbitMQ does not have yet which triggers another download of the newer signing keys.
+When you configure RabbitMQ with one of two previous endpoints, RabbitMQ must make a HTTP request (or two, if you specify the latter endpoint) to download the signing keys. This is an operation that occurs once for any signing key not downloaded yet. When the OAuth 2.0 provider rotates the signing keys, newer tokens refer to a new signing key which RabbitMQ does not have yet which triggers another download of the newer signing keys.
 
 The token can be any [JWT token](https://jwt.io/introduction/) which contains the `scope` and `aud` fields.
 
@@ -142,10 +149,12 @@ In chronological order, here is the sequence of events that occur when a client 
 | `auth_oauth2.preferred_username_claims`    | [List of the JWT claims](#preferred-username-claims) to look for the username associated with the token.
 | `auth_oauth2.default_key`                  | ID of the default signing key.
 | `auth_oauth2.signing_keys`                 | Paths to the [signing key files](#signing-key-files).
-| `auth_oauth2.issuer`                       | The [issuer URL](#configure-issuer) of the authorization server that is used to discover endpoints such as `jwk_uri` and others (https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
-| `auth_oauth2.jwks_url`                     | The URL of the [JWKS endpoint](#jwks-endpoint). According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2), the endpoint URL must be https.
-| `auth_oauth2.token_endpoint`               | The URL of the OAuth 2.0 token endpoint.
-| `auth_oauth2.https.cacertfile`             | Path to a file containing PEM-encoded CA certificates. The CA certificates are used to connect to any of these endpoints: `jwks_url`, `token_endpoint`, or the `issuer`.
+| `auth_oauth2.issuer`                       | The [issuer URL](#configure-issuer) of the authorization server that is used to either discover endpoints such as `jwks_uri` and/or where to redirect RabbitMQ management users to login and get a token.
+| `auth_oauth2.discovery_endpoint_path`      | The path used for the [OpenId discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata). The endpoint URI is built using `auth_oauth2.issuer`, this path or else the default path `.well-known/openid-configuration` followed by query parameters configured in the following variable
+| `auth_oauth2.discovery_endpoint_params`    | [List of HTTP query parameters](#discovery-endpoint-params) sent to the OpenId discovery endpoint.
+| `auth_oauth2.jwks_url`                     | The URL of the [JWKS endpoint](#jwks-endpoint). According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2), the endpoint URL must be https. Optional if you set `auth_oauth2.issuer`. If this URL is set, it overrides the `jwks_uri` discovered via the discovery endpoint.
+| `auth_oauth2.token_endpoint`               | The URL of the OAuth 2.0 token endpoint. Optional if you set `auth_oauth2.issuer`. If this URL is set, it overrides the `token_endpoint` discovered via the discovery endpoint.
+| `auth_oauth2.https.cacertfile`             | Path to a file containing PEM-encoded CA certificates. The CA certificates are used to connect to any of these endpoints: `jwks_url`, `token_endpoint`, or the discovery endpoint.
 | `auth_oauth2.https.depth`                  | The maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid [certification path](ssl#peer-verification-depth). The default value is 10.
 | `auth_oauth2.https.peer_verification`      | Configures [peer verification](ssl#peer-verification). Available values: `verify_none`, `verify_peer`. The default value is `verify_peer` if there are trusted CA installed in the OS or `auth_oauth2.https.cacertfile` is set. <p/> **Deprecated**: This variable will be soon replaced by `auth_oauth2.https.verify`. Users should stop using this variable.
 | `auth_oauth2.https.fail_if_no_peer_cert`   | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`.
@@ -206,7 +215,7 @@ auth_oauth2.algorithms.2 = RS256
 
 #### JWKS endpoint {#jwks-endpoint}
 
-The followibng configuration sets the JWKS endpoint from which RabbitMQ downloads the signing keys using the configured CA certificate and TLS variables.
+The following configuration sets the JWKS endpoint from which RabbitMQ downloads the signing keys using the configured CA certificate and TLS variables.
 
 ```ini
 auth_oauth2.resource_server_id = new_resource_server_id
@@ -220,13 +229,14 @@ auth_oauth2.algorithms.1 = HS256
 auth_oauth2.algorithms.2 = RS256
 ```
 
+
 #### Multiple Resource Servers configuration {#multiple-resource-servers-configuration}
 
 Each `auth_oauth2.resource_servers.<id/index>.` entry has the following variables shown in the table below. Except for the variables `id` and `oauth_provider_id`, if a resource does not configure a variable, RabbitMQ uses the variable configured at the root level. For instance, if the resource `auth_oauth2.resource_servers.prod` does not configure `preferred_username_claims` variable, RabbitMQ uses the value configured in `auth_oauth2.preferred_username_claims` for the resource `prod`.
 
 | Key                          | Documentation
 |------------------------------|-----------
-| `id`                         | The [Resource Server ID](#resource-server-id)
+| `id`                         | The [Resource Server ID](#resource-server-id).
 | `resource_server_type`       | The Resource Server Type required when using [Rich Authorization Request](#rich-authorization-request) token format.
 | `additional_scopes_key`      | Configure the plugin to look for scopes in other fields (maps to `additional_rabbitmq_scopes` in the old format).
 | `scope_prefix`               | [Configure the prefix for all scopes](#scope-prefix). The default value is `auth_oauth2.resource_server_id` followed by the dot `.` character.
@@ -254,18 +264,20 @@ Each `auth_oauth2.oauth_providers.{id/index}` entry has the following sub-keys.
 
 | Key                          | Documentation
 |------------------------------|-----------
-| `issuer`                     | URL of OAuth Provider. RabbitMQ uses this URL to build the OpenId Connect Discovery endpoint by appending the path `.well-known/openid-configuration` to this URL
-| `token_endpoint`             | The URL of the OAuth 2.0 token endpoint.
-| `jwks_uri`                   | The URL of the [JWKS endpoint](#jwks-endpoint). According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2), the endpoint URL must be https. <p/>**Warning**: RabbitMQ uses for each OAuth Provider the variable name `jwks_uri` used by the OpenId Connect Discovery Specification rather than `jwks_url`.
-| `https.cacertfile`           | Path to a file containing PEM-encoded CA certificates used to connect `issuer` and/or `jwks_uri` URLs
+| `issuer`                     | URL of OAuth Provider. It is used to build the discovery endpoint URL and/or to redirect RabbitMQ Management users to login and get a token.
+| `discovery_endpoint_path`    | The path used for the OpenId discovery endpoint. Default value is `.well-known/openid-configuration`
+| `discovery_endpoint_params`  | [List of HTTP query parameters](#discovery-endpoint-params) sent to the OpenId discovery endpoint.
+| `token_endpoint`             | The URL of the OAuth 2.0 token endpoint. Optional if you configured `issuer`.
+| `jwks_uri`                   | The URL of the [JWKS endpoint](#jwks-endpoint). According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2), the endpoint URL must be https. <p/>**Warning**: RabbitMQ uses for each OAuth Provider the variable name `jwks_uri` used by the OpenId Connect Discovery Specification rather than `jwks_url`. This variable is optional if you set `issuer`.
+| `https.cacertfile`           | Path to a file containing PEM-encoded CA certificates used to connect `issuer` and/or `jwks_uri` URLs.
 | `https.depth`                | The maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid [certification path](ssl#peer-verification-depth). The default value is 10.
 | `https.verify`               | Configures [peer verification](ssl#peer-verification). Available values: `verify_none`, `verify_peer`. The default value is `verify_peer` if there are trusted CA installed in the OS or `auth_oauth2.https.cacertfile` is set.
 | `https.fail_if_no_peer_cert` | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`.
 | `https.hostname_verification` | Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`.
 | `https.crl_check`              | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false.
-| `signing_keys`               | Local filesystem paths to the [signing key files](#signing-key-files). The files must exist and be readable
-| `default_key`                | ID of the default signing key
-| `algorithms`                 | Used to restrict [the list of enabled algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support)
+| `signing_keys`               | Local filesystem paths to the [signing key files](#signing-key-files). The files must exist and be readable.
+| `default_key`                | ID of the default signing key.
+| `algorithms`                 | Used to restrict [the list of enabled algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support).
 
 Here is an example which configures two resources (`prod` and `dev`) where each resource is managed by two distinct identity providers:
 
@@ -300,8 +312,7 @@ It contains the expiration time after which the JWT MUST NOT be accepted for pro
 The `aud` ([Audience](https://tools.ietf.org/html/rfc7519#page-9)) identifies the recipients and/or resource_server of the JWT.
 
 By default, **RabbitMQ uses this field to validate the token**. This validation can be disabled by setting the `auth_oauth2.verify_aud` setting set to `false`.
-When verification is enabled, this `aud` field must either match the `resource_server_id` value or, in case of a list,
-it must contain the `resource_server_id` value.
+When verification is enabled, this `aud` field must either match the `resource_server_id` value or, in case of a list, it must contain the `resource_server_id` value.
 
 ### Token expiration and refresh {#token-expiration}
 
@@ -401,9 +412,9 @@ the `monitoring` tag will be `my_rabbit.tag:monitoring`.
 
 ### Configure OAuth 2.0 provider's issuer {#configure-issuer}
 
-Before RabbitMQ 3.13, users had to either configure the JWKS endpoint (that is `auth_oauth2.jwks_url` variable) or statically [configure the signing keys](#configure-signing-keys). Now, users only need to configure the OpenID Provider's **issuer** URL and from this URL RabbitMQ downloads the OpenID Provider configuration which includes the JWKS endpoint in addition to other endpoints which will be useful in other contexts.
+Before RabbitMQ 3.13, users had to either configure the JWKS endpoint (that is `auth_oauth2.jwks_url` variable) or statically [configure the signing keys](#configure-signing-keys). Now, users only need to configure the OpenID Provider's **issuer** URL and from this URL RabbitMQ downloads the OpenID Provider configuration which includes the JWKS endpoint in addition to other endpoints which will be useful in other contexts. 
 
-Usually, this **issuer** URL is the same URL configured in the management plugin (`management.oauth_provider_url`). From now on, you only need to configure a single URL, specified by the `auth_oauth2.issuer` variable. Except in edge cases where the **issuer** URL does not host the login page. In that cases, the user configures the login page in the `management.oauth_provider_url` variable.
+Usually, this **issuer** URL is the same URL configured in the management plugin (`management.oauth_provider_url`). From now on, you only need to configure a single URL, specified by the `auth_oauth2.issuer` variable. Except in edge cases where the **issuer** URL does not host the login page. In those cases, the user configures the login page in the `management.oauth_provider_url` variable.
 
 Sample configuration using issuer:
 ```ini
@@ -417,13 +428,12 @@ auth_oauth2.resource_server_id = my_rabbit_server
 auth_oauth2.jwks_url = "https://my-jwt-issuer/jwks.json
 ```
 
-
 :::info
 If you have both endpoints configured, RabbitMQ uses `jwks_url` because it does not need to discover it via the `issuer` url.
 :::
 
 :::info
-**Note about TLS variables for the `jwks_url` or the `issuer` url**: TLS variable such as the `cacertfile` are configured as follows regardless which url we are using:
+**Note about TLS variables for the `jwks_url` or the `issuer` url**: TLS variable such as the `cacertfile` are configured as follows regardless which url you are using:
 :::
 
 ```ini
@@ -431,7 +441,6 @@ If you have both endpoints configured, RabbitMQ uses `jwks_url` because it does 
 auth_oauth2.https.cacertfile = /opts/certs/cacert.pem
 ...
 ```
-
 
 **VERY IMPORTANT**: Since RabbitMQ 3.13, if `auth_oauth2.https.peer_verification` variable is not set, RabbitMQ sets it to `verify_peer` as long as there are trusted certificates installed in the OS or the user configured `auth_oauth2.https.cacertfile`.
 
@@ -533,6 +542,28 @@ auth_oauth2.preferred_username_claims.2 = email
 ```
 
 In the example configuration, RabbitMQ searches for the `user_name` claim first and if it is not found, RabbitMQ searches for the `email`. If these are not found, RabbitMQ uses its default lookup mechanism which first looks for `sub` and then `client_id`.
+
+
+### Discovery endpoint parameters {#discovery-endpoint-params}
+
+Some OAuth 2.0 providers requires certain query parameters in the OpenId Discovery endpoint. For instance, Microsoft Entra ID requires a query parameter called `appid` when the application uses custom signing keys. The discovery endpoint returns an OpenId configuration tailored for the application that matches the `appid`.
+For instance, the `jkws_uri` endpoint returned in the OpenId configuration has already the query parameters sent to the discovery endpoint.
+
+Here is an example of setting these parameters including the rest of the variables used to build the OpenId discovery endpoint URL.
+
+``` ini
+# ...
+auth_oauth2.issuer = https://myissuer.com/v2
+auth_oauth2.discovery_endpoint_path = .well-known/authorization-server
+auth_oauth2.discovery_endpoint_params.param1 = value1
+auth_oauth2.discovery_endpoint_params.param2 = value2
+# ...
+```
+
+This is the URL built to access the OpenId Discovery endpoint:
+```
+https://myissuer.com/v2/.well-known/authorization-server?param1=value1&param2=value2
+```
 
 ### Rich Authorization Request {#rich-authorization-request}
 
@@ -728,8 +759,6 @@ auth_oauth2.default_oauth_provider = prodkeycloak
 auth_oauth2.oauth_providers.prodkeycloak.issuer = https://prodkeycloak:8080/realm/prod
 auth_oauth2.oauth_providers.prodkeycloak.end_session_endpoint = https://prodkeycloak:8080/realm/prod/logout
 ```
-
-
 
 ### Configure multiple resource servers {#multiple-resource-servers}
 

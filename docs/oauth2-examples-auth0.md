@@ -69,10 +69,9 @@ of the end user.
 In the settings, choose:
 
 * Application type : `Single Page applications`
-* Token Endpoint Authentication Method:  `None`
-* Allowed Callback URLs: `http://localhost:15672/js/oidc-oauth/login-callback.html`
-* Allowed Web Origins: `http://localhost:15672`
-* Allowed Origins (CORS): `http://localhost:15672`
+* Allowed Callback URLs: `https://localhost:15671/js/oidc-oauth/login-callback.html`
+* Allowed Web Origins: `https://localhost:15671`
+* Allowed Origins (CORS): `https://localhost:15671`
 
 
 ## Create a User for Management UI Access
@@ -100,8 +99,23 @@ To configure RabbitMQ you need to gather the following information from Auth0:
 4. And take note of the *Domain* value
 5. Use the last values in *Client ID* and *Domain* fields in the RabbitMQ configuration file
 
-Edit the configuration file [conf/auth0/rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/auth0/rabbitmq.conf) and replace `{CLIENT_ID}` and `{DOMAIN}` with the
-values you gathered above.
+Clone the configuration file [conf/auth0/rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/auth0/rabbitmq.conf.tmpl) as `rabbitmq.conf` (in the same folder as `rabbitmq.conf.tmpl`).
+
+Edit `rabbitmq.conf` and proceed as follows:
+
+1. Replace `{Client ID}` with the values you gathered above.
+2. Same for `{Domain}`
+
+:::important
+
+Since RabbitMQ 4.1.x, you must configure RabbitMQ to include a request parameter
+called `audience` whose value matches the value you set in `auth_oauth2.resource_server_id`.
+Earlier RabbitMQ versions always sent this parameter. If you do not configure it,
+Auth0 sends an invalid token and RabbitMQ shows the error message `No authorized`.
+
+These [two configuration lines](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/auth0/rabbitmq.conf.tmpl#L8-L9) configure the `audience` parameter with the value `rabbitmq`.
+
+:::
 
 ## Start RabbitMQ
 
@@ -114,7 +128,7 @@ make start-rabbitmq
 
 ## Verify Management UI flows
 
-1. Go to management UI `http://localhost:15672`.
+1. Go to management UI `https://localhost:15671`.
 2. Click on the single button, authenticate with your secondary Auth0 user. You should be redirected back to the management UI.
 
 **Auth0** issues an access token like this one below. It has in the `scope` claim

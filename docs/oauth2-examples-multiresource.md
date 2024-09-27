@@ -67,6 +67,7 @@ The RabbitMQ OAuth 2 plugin is configured like so:
     auth_oauth2.preferred_username_claims.1 = preferred_username
     auth_oauth2.preferred_username_claims.2 = user_name
     auth_oauth2.preferred_username_claims.3 = email
+    auth_oauth2.issuer = https://keycloak:8443/realms/test
     auth_oauth2.scope_prefix = rabbitmq.
     ```
     * With one oauth provider:

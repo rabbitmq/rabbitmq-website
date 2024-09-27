@@ -44,9 +44,9 @@ which hosts all the scripts required to deploy the examples demonstrated on the 
 * [Service-Provider initiated logon](#service-provider-initiated-logon)
 * [Identity-Provider initiated logon](#identity-provider-initiated-logon)
 
-### Using [various protocols using JWT tokens](#access-other-protocols)
+### Using [JWT tokens in several protocols](#access-other-protocols) to access RabbitMQ
 
-* [Management UI](#management-ui)
+* [Management REST API](#management-rest-api)
 * [AMQP 0-9-1](#amqp-protocol) (and [scopes for topic exchanges](#using-topic-exchanges) in a separate section)
 * [AMQP 1.0](#amqp10-protocol)
 * [JMS](#jms-clients)
@@ -142,7 +142,7 @@ in `rabbitmq.conf`:
 # ...
 management.oauth_enabled = true
 management.oauth_client_id = rabbit_client_code
-management.oauth_provider_url = http://localhost:8080
+auth_oauth2.issuer = http://localhost:8080
 # ...
 ```
 
@@ -178,21 +178,21 @@ in `rabbitmq.conf`:
 # ...
 management.oauth_enabled = true
 management.oauth_client_id = rabbit_client_code
-management.oauth_provider_url = http://localhost:8080
 management.oauth_initiated_logon_type = idp_initiated
+auth_oauth2.issuer = http://localhost:8080
 # ...
 ```
 
-**Important**: when the user logs out, or its RabbitMQ session expired, or the token expired, the user is directed to the
+**Important**: when the user logs out, or its RabbitMQ session expires, or the token expires, the user is directed to the
 RabbitMQ Management landing page which has a **Click here to login** button.
-The user is never automatically redirected back to the url configured in the `oauth_provider_url`.
-It is only when the user clicks **Click here to login** , the user is redirected to the configured url in `oauth_provider_url`.
+The user is never automatically redirected back to the url configured in the `auth_oauth2.issuer`.
+It is only when the user clicks **Click here to login** , the user is redirected to the configured url in `auth_oauth2.issuer`.
 
-## Access other protocols using OAuth 2.0 tokens {#access-other-protocols}
+## Using JWT tokens in several protocols to access RabbitMQ {#access-other-protocols}
 
 The following subsections demonstrate how to use access tokens with any messaging protocol and also to access the management rest api.
 
-### Management REST api {#management-ui}
+### Management REST api {#management-rest-api}
 
 In this scenario a monitoring agent uses RabbitMQ HTTP API to collect monitoring information.
 Because it is not an end user, or human, you refer to it as a *service account*.
@@ -509,7 +509,7 @@ This scenario explores the use case where JWT tokens may be signed by different 
 
 There are two ways to configure RabbitMQ with multiple signing keys:
 
- * **Statically** configure them via `rabbitmq.conf` as shown in the [plugin documentation page](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_oauth2#variables-configurable-in-rabbitmqconf).
+ * **Statically** configure them via `rabbitmq.conf` as shown in the [plugin documentation page](./oauth2#configure-signing-keys).
  * **Dynamically** add the keys to a running RabbitMQ node without having to restart it.
 
 First you add a second signing key called `legacy-token-2-key` whose public key is `conf/public-2.pem`:
@@ -530,16 +530,10 @@ make curl-with-token URL=http://localhost:15672/api/overview TOKEN=$(bin/jwt_tok
 
 ### Using Scope Aliases {#using-scope-aliases}
 
-In this use case you are going to demonstrate how to configure RabbitMQ to handle
-*custom scopes*. But what are *custom scopes*? They are any
-scope whose format is not compliant with RabbitMQ format. For instance, `api://rabbitmq:Read.All`
-is one of the custom scopes you will use in this use case.
+*Custom scopes*? are any scope whose format is not compliant with RabbitMQ format.
+For instance, `api://rabbitmq:Read.All` is one of the custom scopes you will use in this use case.
 
 #### How to Configure RabbitMQ to Use a Custom Scope Mapping
-
-Starting with [RabbitMQ `3.10.0`](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0),
-the OAuth 2.0 plugin supports mapping of a scope aliases (arbitrary scope values or "names") to one or more scopes
-in the format that follows the RabbitMQ OAuth 2.0 plugin conventions.
 
 See below a sample RabbitMQ configuration where you map `api://rabbitmq:Read.All`
 custom scope to `rabbitmq.read:*/*` RabbitMQ scope.
