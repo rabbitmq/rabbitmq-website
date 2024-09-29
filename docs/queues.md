@@ -158,6 +158,13 @@ registering a consumer:
 Some optional arguments are set at queue declaration time and remain immutable over the entire
 lifetime of the queue. Others can be dynamically changed after queue declaration via [policies](./parameters#policies).
 
+:::tip
+
+For keys that can be set via [policies](./parameters#policies), always first
+consider using a policy instead of setting these values in application code
+
+:::
+
 For example, [queue type](./quorum-queues) (`x-queue-type`) and max number
 of [queue priorities](./priority) (`x-max-priority`) must be set at queue declaration time
 and cannot be changed after that.

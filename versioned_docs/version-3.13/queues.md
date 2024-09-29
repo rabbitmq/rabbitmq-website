@@ -157,6 +157,13 @@ registering a consumer:
 Some optional arguments are set at queue declaration time and remain immutable over the entire
 lifetime of the queue. Others can be dynamically changed after queue declaration via [policies](./parameters#policies).
 
+:::tip
+
+For keys that can be set via [policies](./parameters#policies), always first
+consider using a policy instead of setting these values in application code
+
+:::
+
 Optional queue arguments can be set differently:
 
  * To groups of queues using [policies](./parameters#policies) (recommended)
