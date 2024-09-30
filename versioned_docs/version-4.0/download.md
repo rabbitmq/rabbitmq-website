@@ -35,8 +35,8 @@ See [RabbitMQ support timeline](/release-information) to find out what release s
 Experimenting with RabbitMQ on your workstation? Try the [community Docker image](https://hub.docker.com/_/rabbitmq/):
 
 ```bash
-# latest RabbitMQ 3.13
-docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.13-management
+# latest RabbitMQ 4.0.2
+docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4.0.2-management
 ```
 
 ## Open Source RabbitMQ Server
