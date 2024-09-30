@@ -360,7 +360,7 @@ dropped messages are retained for some time after.
 
 Starting with RabbitMQ 4.0, the delivery limit for quorum queues defaults to 20.
 
-The 3.13.x era behavior where there was no lilmit can be restored by setting the limit to `-1`
+The 3.13.x era behavior where there was no limit can be restored by setting the limit to `-1`
 using an [optional queue argument](./queues#optional-arguments) at declaration time or using a policy as demonstrated below.
 
 
