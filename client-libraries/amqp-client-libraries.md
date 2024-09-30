@@ -409,6 +409,13 @@ Each term maps to a [given _outcome_](/docs/amqp#outcomes) in the AMQP specifica
 * `discard`: the application cannot process the message because it is invalid, the broker can drop it or [dead-letter](/docs/dlx) it if it is configured (`rejected` outcome)
 * `requeue`: the application did not process the message, the broker can requeue it and deliver it to the same or a different consumer (`released` outcome)
 
+`discard` and `requeue` have an optional message annotation argument to combine with the existing ones held in the message header section.
+Such message annotations can be used to provide details on the `discard` or `requeue` reason.
+Application-specific annotation keys must start with the `x-opt-` prefix whereas annotation keys the broker understands start only with `x-`.
+Both `discard` and `requeue` use the `modified` outcome with the message annotation parameter.
+
+__Only quorum queues__ support the [modification of message annotations](/docs/amqp#modified-outcome) with the `modified` outcome.
+
 #### Consumer Graceful Shutdown
 
 A consumer _settles_ a message by accepting it, discarding it, or requeuing it.
