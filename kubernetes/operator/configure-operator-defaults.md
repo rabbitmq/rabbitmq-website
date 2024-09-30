@@ -28,6 +28,9 @@ To change the configuration, add or update the configuration environment variabl
 Cluster Operator deployment manifest. This is the YAML manifest artefact that is released with every new version of the RabbitMQ Cluster Operator on GitHub.
 The environment variables that can be set are listed in the table in [Cluster Operator Environment Variables](#parameters).
 
+The Cluster Operator repository has some [code examples under `docs/examples`](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples),
+including one demonstrating [modification of default resource requests and limits](https://github.com/rabbitmq/cluster-operator/blob/main/docs/examples/resource-limits/rabbitmq.yaml).
+
 ## Adding Cluster Operator Environment Variables to the Deployment Manifest
 
 When the Cluster Operator is deployed, update the manifest by completing the following steps:
