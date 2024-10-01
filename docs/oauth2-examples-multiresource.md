@@ -35,16 +35,16 @@ contains all the configuration files and scripts used on this example.
 
 ## Single OAuth 2.0 vs Multiple OAuth 2.0 resources
 
-All the examples demonstrated by this tutorial, except for this use case, configure a single **resource_server_id** and therefore a single **OAuth 2.0 server**.
+All the examples demonstrated so far, except for this one, configure a single **resource_server_id** and therefore a single **OAuth 2.0 server**.
 
 You could encounter scenarios where some management users and/or applications are registered in
 different OAuth2 servers or they could be registered on the same OAuth2 server however they could refer to RabbitMQ with different audience values. When this happens, you have to declare as many OAuth2 resources as audiences and/or authorization servers.
 
 The following three scenarios demonstrate various configurations you may encounter:
 
-* [Scenario 1]{#scenario1} - AMQP clients and management users are registered in same OAuth 2.0 server, **keycloak**, but with different audience, e.g. `rabbit_prod` and `rabbit_dev` respectively.
-* [Scenario 2]{#scenario2} - Each resource is managed on a dedicated realm (i.e. `rabbit_prod` resource -> https://keycloak:8443/realms/prod realm, `rabbit_dev` resource -> https://keycloak:8443/realms/dev) but under the same physical server, **keycloak**.
-* [Scenario 3]{#scenario3} - Each resource is managed on a dedicated OAuth server and realm (i.e. `rabbit_dev` -> https://devkeycloak:8443/realms/dev, `rabbit_dev` -> https://prodkeycloak:8442/realms/prod).
+* [Scenario 1](oauth2-examples-multiresource#scenario1) - AMQP clients and management users are registered in same OAuth 2.0 server, **keycloak**, but with different audience, e.g. `rabbit_prod` and `rabbit_dev` respectively.
+* [Scenario 2](./oauth2-examples-multiresource#scenario2) - Each resource is managed on a dedicated realm (i.e. `rabbit_prod` resource -> https://keycloak:8443/realms/prod realm, `rabbit_dev` resource -> https://keycloak:8443/realms/dev) but under the same physical server, **keycloak**.
+* [Scenario 3](./oauth2-examples-multiresource#scenario3) - Each resource is managed on a dedicated OAuth server and realm (i.e. `rabbit_dev` -> https://devkeycloak:8443/realms/dev, `rabbit_dev` -> https://prodkeycloak:8442/realms/prod).
 
 ## Scenario 1 - AMQP clients and management users registered in same OAuth 2.0 server but with different audience {#scenario1}
 
@@ -67,10 +67,7 @@ This is a summary of the configuration, found in [rabbitmq.scenario1.conf](https
     auth_oauth2.preferred_username_claims.1 = preferred_username
     auth_oauth2.preferred_username_claims.2 = user_name
     auth_oauth2.preferred_username_claims.3 = email
-    auth_oauth2.issuer = https://keycloak:8443/realms/test
     auth_oauth2.scope_prefix = rabbitmq.
-    auth_oauth2.https.peer_verification = verify_peer
-    auth_oauth2.https.cacertfile = /etc/rabbitmq/keycloak-cacert.pem
     ```
     * With one oauth provider:
     ```ini
@@ -153,7 +150,7 @@ Follow these steps to deploy Keycloak and RabbitMQ:
 This is a summary of the configuration to enable OAuth 2.0 in the management UI:
 
 * There are two users declared in Keycloak: `prod_user` and `dev_user`.
-* The two resources: `rabbit_prod` and `rabbit_dev` are declared in the RabbitMQ Management Plugin with their own OAuth2 client (`rabbit_prod_mgt_ui` and `rabbit_dev_mgt_ui`) scopes, and the label associated with each resource:
+* The two resources, `rabbit_prod` and `rabbit_dev` are declared in the RabbitMQ Management Plugin with their own OAuth2 client (`rabbit_prod_mgt_ui` and `rabbit_dev_mgt_ui`) scopes, and the label associated with each resource:
     ```ini
     management.oauth_resource_servers.1.id = rabbit_prod
     management.oauth_resource_servers.1.client_id = rabbit_prod_mgt_ui
@@ -165,7 +162,10 @@ This is a summary of the configuration to enable OAuth 2.0 in the management UI:
     management.oauth_resource_servers.2.label = RabbitMQ Development
     management.oauth_resource_servers.2.scopes = openid profile rabbitmq.tag:management
     ```
-* As there is only one OAuth2 server, both resources share the oauth provider called **keycloak**:
+
+    :::note
+    As there is only one OAuth2 server, both resources share the oauth provider called **keycloak**.
+    :::
 
 * Each OAuth2 client, `rabbit_prod_mgt_ui` and `rabbit_dev_mgt_ui`, is declared in Keycloak so that they can only emit tokens for their respective audience, be it `rabbit_prod` and `rabbit_dev` respectively.
 
@@ -179,4 +179,8 @@ Follow the steps to the management UI flows with two OAuth resources:
 
 Now, logout and repeat the same steps for `dev_user` user. For this user, RabbitMQ is configured to request the `rabbitmq.tag:management` scope only.
 
-**Note**: In step 3, if you login as the `dev_user`, RabbitMQ will not authorize the `dev_user` because RabbitMQ is configured to request the scope: `rabbitmq.tag:administrator` for `RabbitMQ Production`. The `dev_user` does not have the `rabbitmq.tag:administrator` scope, it has the `rabbitmq.tag:management` scope. In this scenario, the `dev_user` gets a token which has none of the scopes RabbitMQ supports.
+:::warning
+In step 3, if you login as the `dev_user`, RabbitMQ will not authorize the `dev_user` because RabbitMQ is configured to request the scope: `rabbitmq.tag:administrator` for `RabbitMQ Production`.
+
+The `dev_user` does not have the `rabbitmq.tag:administrator` scope, it has the `rabbitmq.tag:management` scope. In this scenario, the `dev_user` gets a token which has none of the scopes RabbitMQ supports.
+:::
