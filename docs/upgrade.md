@@ -108,7 +108,7 @@ following steps. Consider a three node cluster with nodes A, B, and C:
     that also means that these two versions cannot coexist in a single cluster
   * check [Erlang version requirements](#rabbitmq-erlang-version-requirement)
   * check [the release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.0)
- * Add a new node, node D, to the cluster (note, you may need to [disable new feature flags](feature-flags#how-to-start-new-node-disabled-feature-flags)
+ * Add a new node, node D, to the cluster
    for node D to be able to join the cluster)
  * Place a new replica of every quorum queue and every stream on the new node
 * Check that the node or cluster is in a good state
