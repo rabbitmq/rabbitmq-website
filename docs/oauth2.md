@@ -153,6 +153,7 @@ In chronological order, here is the sequence of events that occur when a client 
 | `auth_oauth2.discovery_endpoint_path`      | The path used for the [OpenId discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata). The endpoint URI is built using `auth_oauth2.issuer`, this path or else the default path `.well-known/openid-configuration` followed by query parameters configured in the following variable
 | `auth_oauth2.discovery_endpoint_params`    | [List of HTTP query parameters](#discovery-endpoint-params) sent to the OpenId discovery endpoint.
 | `auth_oauth2.jwks_uri`                     | The URL of the [JWKS endpoint](#jwks-endpoint). According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2), the endpoint URL must be https. Optional if you set `auth_oauth2.issuer`. If this URL is set, it overrides the `jwks_uri` discovered via the discovery endpoint.
+| `auth_oauth2.jwks_url`                     | This variable is **deprecated** and you should use instead `auth_oauth2.jwks_uri`. In RabbitMQ 4.2.0, this variable will be removed. In the meantime, RabbitMQ supports it until you change your configuration.
 | `auth_oauth2.token_endpoint`               | The URL of the OAuth 2.0 token endpoint. Optional if you set `auth_oauth2.issuer`. If this URL is set, it overrides the `token_endpoint` discovered via the discovery endpoint.
 | `auth_oauth2.https.cacertfile`             | Path to a file containing PEM-encoded CA certificates. The CA certificates are used to connect to any of these endpoints: `jwks_uri`, `token_endpoint`, or the discovery endpoint.
 | `auth_oauth2.https.depth`                  | The maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid [certification path](ssl#peer-verification-depth). The default value is 10.
@@ -429,7 +430,7 @@ auth_oauth2.jwks_uri = "https://my-jwt-issuer/jwks.json
 ```
 
 :::info
-If you have both endpoints configured, RabbitMQ uses `jwks_url` because it does not need to discover it via the `issuer` url.
+If you have both endpoints configured, RabbitMQ uses `jwks_uri` because it does not need to discover it via the `issuer` url.
 :::
 
 :::info

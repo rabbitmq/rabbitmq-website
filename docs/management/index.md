@@ -410,10 +410,9 @@ Given above configuration, when a user visits the management UI, the following t
     If RabbitMQ cannot download the OpenID provider configuration, it shows an error message and the OAuth 2.0 authentication option will be disabled in the management UI
     :::
 
-    :::tip
-    If you used to configure `management.oauth_metadata_url` because your provider did not use the standard OpenId Discovery endpoint's path, since RabbitMQ 4.1 you should instead configure the correct path as it is explained [here](./oauth2#discovery-endpoint-params).
-    `management.oauth_metadata_url` is now deprecated and it will be removed in 
-    RabbitMQ 4.2.0.
+    :::warning
+    `management.oauth_metadata_url` and `management.oauth_resource_servers.$id.oauth_metadata_url` are deprecated. You should configure the OpenId Discovery endpoint's path as it is explained [here](./oauth2#discovery-endpoint-params). 
+    These two settings will no longer exist in RabbitMQ 4.2.0. In the meantime, RabbitMQ will support them until you update your configuration.
     :::
 
     :::tip
