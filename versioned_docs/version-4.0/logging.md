@@ -48,6 +48,7 @@ This guide covers topics such as:
  * [Connection lifecycle events](#logged-events) logged
  * [Logging in JSON](#json)
  * [Log categories](#log-message-categories)
+ * [Advanced log formatting](#advanced-formatting)
  * How to [inspect service logs](#service-logs) on systemd-based Linux systems
  * [Log rotation](#log-rotation)
  * [Logging to Syslog](#logging-to-syslog)
@@ -197,7 +198,9 @@ The rest of this guide describes more options, including more advanced ones.
 ## Log Rotation {#log-rotation}
 
 :::info
+
 When logging to a file, the recommended rotation option is `logrotate`
+
 :::
 
 RabbitMQ nodes always append to the log files, so a complete log history is preserved.
@@ -437,6 +440,11 @@ log.syslog = true
 log.syslog.formatter = json
 ```
 
+Note that [JSON object field mapping can be customized](#json-field-mapping) to
+match a specific JSON-based logging format expected by the log collection
+tooling.
+
+
 ## Log Message Categories {#log-message-categories}
 
 RabbitMQ has several categories of messages, which can be logged with different
@@ -622,6 +630,207 @@ log.connection.level = info
 log.channel.level = info
 ```
 
+## Advanced Log Format {#advanced-formatting}
+
+This section covers features related to advanced log formatting. These settings are not necessary
+in most environments but can be used to adapt RabbitMQ logging to a specific format.
+
+Most examples in this section use the following format:
+
+``` ini
+log.file.formatter.level_format = lc4
+```
+
+However, the key can also be one of
+
+1. `log.file.formatter.level_format`
+2. `log.console.formatter.level_format`
+3. `log.exchange.formatter.level_format`
+
+In other words, most settings documented in this section are not specific to a particular
+log output, be it `file`, `console` or `exchange`.
+
+### Time Format
+
+Timestamps format can be set to one of the following formats:
+
+1. `rfc3339_space`: the RFC 3339 format with spaces, this is the default format
+2. `rfc3339_T`: same as above but with tabs
+3. `epoch_usecs`: timestamp (time since UNIX epoch) in microseconds
+4. `epoch_secs`: timestamp (time since UNIX epoch) in seconds
+
+``` ini
+# this is the default format
+log.file.formatter.time_format = rfc3339_space
+```
+
+For example, the following format
+
+``` ini
+log.file.formatter.time_format = epoch_usecs
+```
+
+will result in log messages that look like this:
+
+```
+1728025620684139 [info] <0.872.0> started TCP listener on [::]:5672
+1728025620687050 [info] <0.892.0> started TLS (SSL) listener on [::]:5671
+```
+
+### Log Level Format
+
+[Log level](#log-levels) can be formatted differently:
+
+``` ini
+# full value, lower case is the default format
+log.file.formatter.level_format = lc
+```
+
+``` ini
+# use the four character, upper case format
+log.file.formatter.level_format = uc4
+```
+
+The following values are valid:
+
+* `lc`: full value, lower case (the default), e.g. `warning` or `info`
+* `uc`: full value, upper case, e.g. `WARNING` or `INFO`
+* `lc3`: three characters, lower case, e.g. `inf` or `dbg`
+* `uc3`: three characters, upper case, e.g. `INF` or `WRN`
+* `lc4`: four characters, lower case, e.g. `dbug` or `warn`
+* `uc4`: four characters, upper case, e.g. `DBUG` or `WARN`
+
+### Log Message Format
+
+:::warning
+
+This setting should only be used as a last
+resort measure when overriding log format us a hard requirement
+of log collection tooling
+
+:::
+
+Besides the formatting of individual log message components
+(event time, log level, message, and so on), the entire log line format can be changed using
+the `` configuration setting.
+
+The setting must be set to a message pattern that uses the following
+`$variables`:
+
+* `$time`
+* `$level`
+* Erlang process `$pid`
+* Log `$msg`
+
+This is what the default format looks like:
+
+``` ini
+# '$time [$level] $pid $msg' is the default format
+log.console.formatter.plaintext.format = $time [$level] $pid $msg
+```
+
+The following customized format
+
+``` ini
+# '$time [$level] $pid $msg' is the default format
+log.console.formatter.plaintext.format = $level $time $msg
+```
+
+will produce log messages that look like this:
+
+```
+info 2024-10-04 03:23:52.968389-04:00 connection 127.0.0.1:57181 -> 127.0.0.1:5672: user 'guest' authenticated and granted access to vhost '/'
+debug 2024-10-04 03:24:03.338466-04:00 Will reconcile virtual host processes on all cluster members...
+debug 2024-10-04 03:24:03.338587-04:00 Will make sure that processes of 9 virtual hosts are running on all reachable cluster nodes
+```
+
+Notice how the Erlang process pid is excluded. This information can be essential for
+root cause analysis (RCA) and therefore the default format is highly recommended.
+
+
+### JSON Field Mapping {#json-field-mapping}
+
+[JSON logging](#json) can be customized in the following ways:
+
+ * Individual keys can be renamed by using a `{standard key}:{renamed key}` expression
+ * Individual keys can be dropped using a `{standard key:-}` expression
+ * All keys except for the explicitly listed ones can be dropped using a `*:-` expression
+
+The `log.file.formatter.json.field_map` key then must be set
+to a string value that contains a number of the above expressions.
+
+Before demonstrating an example, here is a message with the default mapping:
+
+```json
+{
+  "time":"2024-10-04 03:38:29.709578-04:00",
+  "level":"info",
+  "msg":"Time to start RabbitMQ: 2294 ms",
+  "line":427,
+  "pid":"<0.9.0>",
+  "file":"rabbit.erl",
+  "mfa":["rabbit","start_it",1]
+}
+
+{
+  "time":"2024-10-04 03:38:35.600956-04:00",
+  "level":"info",
+  "msg":"accepting AMQP connection 127.0.0.1:57604 -> 127.0.0.1:5672",
+  "pid":"<0.899.0>",
+  "domain":"rabbitmq.connection"
+}
+```
+
+Now, an example that uses JSON logging with a custom field mapping:
+
+```ini
+# log as JSON
+log.file.formatter = json
+
+# Rename the 'time' field to 'ts', 'level' to 'lvl' and 'msg' to 'message',
+# drop all other fields.
+# Use an 'escaped string' just to make the value stand out
+log.file.formatter.json.field_map = 'time:ts level:lvl msg:message *:-'
+```
+
+The example above will produce the following messages. Notice how some information
+is omitted compared to the default example above:
+
+```json
+{
+  "ts":"2024-10-04 03:34:43.600462-04:00",
+  "lvl":"info",
+  "message":"Time to start RabbitMQ: 2577 ms"
+}
+{
+  "ts":"2024-10-04 03:34:49.142396-04:00",
+  "lvl":"info",
+  "message":"accepting AMQP connection 127.0.0.1:57507 -> 127.0.0.1:5672"
+}
+```
+
+
+### Forced Single Line Logging
+
+:::warning
+
+This setting can lead to incomplete log messages and should only be used as a last
+resort measure when overriding log format us a hard requirement
+of log collection tooling
+
+:::
+
+Multi-line messages can be truncated to a single line:
+
+``` ini
+# Accepted values are 'on' and 'off'.
+# The default is 'off'.
+log.console.formatter.single_line = on
+```
+
+This setting can lead to incomplete log messages and should be used only as a last
+resort measure.
+
 
 ## Service Logs {#service-logs}
 
@@ -644,7 +853,7 @@ The output of <code>journalctl --system</code> will look similar to this:
 
 ```
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.13.7. Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 4.0.2. Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
