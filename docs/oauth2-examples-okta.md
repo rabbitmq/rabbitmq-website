@@ -24,7 +24,7 @@ limitations under the License.
 Demonstrate how to authenticate using OAuth 2.0 protocol
 and Okta as Authorization Server using the following flows:
 
-1. Access management UI via a browser
+1. Access [management UI](./management/) via a browser
 
 ## Prerequisites to follow this guide
 
@@ -63,9 +63,9 @@ In Trusted Origins (for Web and Native app integrations), choose **keep the defa
 
 In Assignments, choose **Allow everyone in your organization to access**.
 
-Finally, click on **Save** and write down the following values, as you will need them later to configure RabbitMQ:  
+Finally, click on **Save** and write down the following values, as you will need them later to configure RabbitMQ:
 
-  * **ClientID**  
+  * **ClientID**
   * **Okta domain name**
 
 
@@ -101,7 +101,7 @@ And below are the steps to create a claim for **role** to distinguish `admin` an
 
 6. Choose **Expression** as Value type
 
-7. In **Value** field enter the following expression:  
+7. In **Value** field enter the following expression:
   `isMemberOfGroupName("admin") ? "admin" : isMemberOfGroupName("monitoring") ? "monitoring" : ""`
 
 8. Click on create.
@@ -152,7 +152,7 @@ Once you've added the user to the appropriate groups and apps, they should have 
 
 The configuration on Okta side is done. You now have to configure RabbitMQ to use the resources you just created.
 
-[rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/rabbitmq.conf) is a RabbitMQ configuration to **enable okta as OAuth 2.0 authentication backend** for the RabbitMQ OAuth2 and Management plugins. And [advanced.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/advanced.config) is the RabbitMQ advanced configuration that maps RabbitMQ scopes to the permissions previously configured in Okta. 
+[rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/rabbitmq.conf) is a RabbitMQ configuration to **enable okta as OAuth 2.0 authentication backend** for the RabbitMQ OAuth2 and Management plugins. And [advanced.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/advanced.config) is the RabbitMQ advanced configuration that maps RabbitMQ scopes to the permissions previously configured in Okta.
 
 Update it with the following values (you should have noted these in the previous steps):
 

@@ -43,8 +43,7 @@ Let's test the following flow:
 
 * Docker
 * make
-* `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
-contains all the configuration files and scripts used on this example.
+* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) that contains all the configuration files and scripts used on this example
 
 ## Deploy Keycloak
 
@@ -94,7 +93,7 @@ make start-oauth2-proxy
 Oauth2 Proxy is configured using [Alpha configuration](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/oauth2-proxy/alpha-config.yaml). This type of configuration inserts the access token into the HTTP **Authorization** header.
 
 
-## Access Management UI
+## Access [management UI](./management/)
 
 Go to http://0.0.0.0:4180/, click on the **Sign in with Keycloak OIDC** link, and enter the credentials
 `rabbit_admin` as username and `rabbit_admin` as password. You should be redirected to RabbitMQ management UI.
