@@ -21,19 +21,18 @@ limitations under the License.
 
 # Use https://auth0.com/ as OAuth 2.0 server
 
-Demonstrate how to authenticate using the OAuth 2.0 protocol
+This guide explains how to set up OAuth 2.0 for RabbitMQ
 and Auth0 as Authorization Server using the following flows:
 
-* Access management UI via a browser
+* Access [management UI](./management/) via a browser
 * Access management rest api
-* Access AMQP protocol
+* Application authentication and authorization
 
 ## Prerequisites to follow this guide
 
 * Have an account in https://auth0.com/.
 * Docker
-* `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
-contains all the configuration files and scripts used on this example.
+* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) that contains all the configuration files and scripts used on this example
 
 ## Create RabbitMQ API
 

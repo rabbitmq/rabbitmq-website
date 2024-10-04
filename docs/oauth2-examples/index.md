@@ -40,7 +40,7 @@ which hosts all the scripts required to deploy the examples demonstrated on the 
 
 ### Management UI Access
 
-* [Access Management UI using OAuth 2.0 tokens](#access-management-ui)
+* [Access [management UI](./management/) using OAuth 2.0 tokens](#access-management-ui)
 * [Service-Provider initiated logon](#service-provider-initiated-logon)
 * [Identity-Provider initiated logon](#identity-provider-initiated-logon)
 
@@ -92,7 +92,7 @@ Run the following two commands to start UAA and RabbitMQ configured for UAA:
 
 The last command starts a RabbitMQ with a specific configuration file, [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq.conf).
 
-## Access Management UI using OAuth 2.0 tokens {#access-management-ui}
+## Access [management UI](./management/) using OAuth 2.0 tokens {#access-management-ui}
 
 The RabbitMQ Management UI can be configured with one of these two login modes:
 
@@ -802,7 +802,7 @@ make curl-with-token URL=http://localhost:15672/api/overview TOKEN=$(bin/jwt_tok
 
 Note: You are using curl to go to the URL using a TOKEN which you have built using the command bin/jwt_token which takes the JWT payload, the name of the signing key and the private and public certificates to sign the token
 
-*Use a Rich Authorization Token to access AMQP protocol*
+*Use a Rich Authorization Token to Application authentication and authorization*
 
 This time, You are going to use the same token you used in the previous section to access the AMQP protocol via the PerfTest tool which acts as a AMQP producer application:
 

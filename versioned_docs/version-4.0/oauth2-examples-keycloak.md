@@ -21,19 +21,18 @@ limitations under the License.
 
 # Use Keycloak as OAuth 2.0 server
 
-Demonstrate how to authenticate using the OAuth 2.0 protocol
+This guide explains how to set up OAuth 2.0 for RabbitMQ
 and Keycloak as Authorization Server using the following flows:
 
-* Access management UI via a browser
+* Access [management UI](./management/) via a browser
 * Access management rest api
-* Access AMQP protocol
+* Application authentication and authorization
 
 ## Prerequisites to follow this guide
 
 * Docker
 * make
-* `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
-contains all the configuration files and scripts used on this example.
+* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) that contains all the configuration files and scripts used on this example
 
 ## Deploy Keycloak
 
@@ -69,7 +68,7 @@ To access the management api run the following command. It uses the client [mgt_
 make curl-keycloak url=http://localhost:15672/api/overview client_id=mgt_api_client secret=LWOuYqJ8gjKg3D2U8CJZDuID3KiRZVDa
 ```
 
-## Access AMQP protocol with PerfTest
+## Application authentication and authorization with PerfTest
 
 To test OAuth 2.0 authentication with AMQP protocol you are going to use RabbitMQ PerfTest tool which uses RabbitMQ Java Client.
 
@@ -81,7 +80,7 @@ make start-perftest-producer-with-token PRODUCER=producer TOKEN=$(bin/keycloak/t
 
 **NOTE**: Initializing an application with a token has one drawback: the application cannot use the connection beyond the lifespan of the token. See the next section where you demonstrate how to refresh the token.
 
-## Access AMQP protocol with Pika
+## Application authentication and authorization with Pika
 
 In the following information, OAuth 2.0 authentication is tested with the AMQP protocol and the Pika library. These tests specifically demonstrate how to refresh a token on a live AMQP connection.
 
@@ -97,7 +96,7 @@ python3 pika-client/producer.py producer kbOFBXI9tANgKUq8vXHLhT6YhbivgXxn
 
 Note: Ensure you install pika 1.3
 
-## Access Management UI
+## Access [management UI](./management/)
 
 1. Go to http://localhost:15672.
 2. Click on the single button on the page which redirects to **Keycloak** to authenticate.

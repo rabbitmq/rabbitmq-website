@@ -404,7 +404,7 @@ or
 [
   {rabbitmq_auth_backend_oauth2, [
     {resource_server_id, <<"my_rabbit_server">>},
-    {issuer, <<"https://my-idp-provider/somerealm">>}    
+    {issuer, <<"https://my-idp-provider/somerealm">>}
   ]},
 ].
 ```
@@ -544,7 +544,7 @@ By default the plugin looks for the `scope` key in the token, you can configure 
     {resource_server_id, <<"my_rabbit_server">>},
     {extra_scopes_source, <<"my_custom_scope_key">>},
     ...
-    ]}  
+    ]}
 ].
 ```
 
@@ -773,7 +773,9 @@ All resource servers share the variables you set so far under `auth_oauth2.` suc
 The list of supported resource servers is the combination of `auth_oauth2.resource_servers` and `auth_oauth2.resource_server_id`. You can use both or only one of them.
 
 :::info
-There is an [example](./oauth2-examples-multiresource) that demonstrate multiple OAuth 2 resources.
+
+There is an [example](./oauth2-examples-multiresource) that demonstrate how to use multiple OAuth 2 resources.
+
 :::
 
 ### Configure OAuth 2.0 provider's end_session_endpoint {#configure-end-session-endpoint}

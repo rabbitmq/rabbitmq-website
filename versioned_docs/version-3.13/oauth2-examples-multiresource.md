@@ -1,5 +1,5 @@
 ---
-title: Use multiple OAuth 2.0 servers and/or audiences
+title: Using Multiple OAuth 2.0 Servers and/or Audiences
 displayed_sidebar: docsSidebar
 ---
 <!--
@@ -19,34 +19,33 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Use multiple OAuth 2.0 servers and/or audiences
+# Using Multiple OAuth 2.0 Servers and/or Audiences
 
-Demonstrate how to authenticate using the OAuth 2.0 protocol
+This guide explains how to set up OAuth 2.0 for RabbitMQ
 and several OAuth resources using the following flows:
 
-* Access AMQP protocol
-* Access Management UI
+* Application authentication and authorization
+* Access [management UI](./management/)
 
 ## Prerequisites
 
 * Docker
-* `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
-contains all the configuration files and scripts used on this example.
+* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) that contains all the configuration files and scripts used on this example
 
 ## Single OAuth 2.0 vs Multiple OAuth 2.0 resources
 
 All the examples demonstrated so far, except for this one, configure a single **resource_server_id** and therefore a single **OAuth 2.0 server**.
 
-You could encounter scenarios where some management users and/or applications are registered in
-different OAuth2 servers or they could be registered on the same OAuth2 server however they could refer to RabbitMQ with different audience values. When this happens, you have to declare as many OAuth2 resources as audiences and/or authorization servers.
+In some scenarios some management users and/or applications are registered in
+different OAuth 2 servers or they could be registered on the same OAuth 2 server but refer to RabbitMQ using different audience values. To support this scenario, as many OAuth 2 resources must be declared as audiences and/or authorization servers.
 
 The following three scenarios demonstrate various configurations you may encounter:
 
-* [Scenario 1](oauth2-examples-multiresource#scenario1) - AMQP clients and management users are registered in same OAuth 2.0 server, **keycloak**, but with different audience, e.g. `rabbit_prod` and `rabbit_dev` respectively.
-* [Scenario 2](./oauth2-examples-multiresource#scenario2) - Each resource is managed on a dedicated realm (i.e. `rabbit_prod` resource -> https://keycloak:8443/realms/prod realm, `rabbit_dev` resource -> https://keycloak:8443/realms/dev) but under the same physical server, **keycloak**.
-* [Scenario 3](./oauth2-examples-multiresource#scenario3) - Each resource is managed on a dedicated OAuth server and realm (i.e. `rabbit_dev` -> https://devkeycloak:8443/realms/dev, `rabbit_dev` -> https://prodkeycloak:8442/realms/prod).
+* [Scenario 1](oauth2-examples-multiresource#scenario1): messaging (AMQP) clients and management users are registered in same OAuth 2.0 server, **keycloak**, but with different audience, e.g. `rabbit_prod` and `rabbit_dev` respectively.
+* [Scenario 2](./oauth2-examples-multiresource#scenario2): each resource is managed on a dedicated realm (i.e. `rabbit_prod` resource -> https://keycloak:8443/realms/prod realm, `rabbit_dev` resource -> https://keycloak:8443/realms/dev) that all use the same OAuth 2 (IDP) server, in this example accessible at `keycloak`.
+* [Scenario 3](./oauth2-examples-multiresource#scenario3): each resource is managed on a dedicated OAuth 2 (IDP) server and realm (i.e. `rabbit_dev` -> https://devkeycloak:8443/realms/dev, `rabbit_dev` -> https://prodkeycloak:8442/realms/prod).
 
-## Scenario 1 - AMQP clients and management users registered in same OAuth 2.0 server but with different audience {#scenario1}
+## Scenario 1: Messaging (AMQP) Clients and Management Users Registered in the Same OAuth 2.0 Server but with Different Audiences {#scenario1}
 
 RabbitMQ is configured with two OAuth2 resources one called `rabbit_prod` and another `rabbit_dev`. For example purposes, let's say, the production team refer to RabbitMQ with the `rabbit_prod` audience. And the development team with the `rabbit_dev` audience.
 As both teams are registered in the same OAuth2 server you are going to configure its settings such as `issuer` at the root level so that both resources share the same configuration.
@@ -55,8 +54,8 @@ As both teams are registered in the same OAuth2 server you are going to configur
 
 This is a summary of the configuration, found in [rabbitmq.scenario1.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/multi-keycloak/rabbitmq.scenario1.conf):
 
-- There are two OAuth2 clients (`prod_producer` and `dev_producer`) declared in keycloak and configured to access their respective audience: `rabbit_prod` and `rabbit_dev`.
-- RabbitMQ OAuth2 plugin is configured:
+There are two OAuth2 clients (`prod_producer` and `dev_producer`) declared in Keycloak and configured to access their respective audience: `rabbit_prod` and `rabbit_dev`.
+The RabbitMQ OAuth 2 plugin is configured like so:
     * With two resources: `rabbit_prod` and `rabbit_dev`:
     ```ini
     auth_oauth2.resource_servers.1.id = rabbit_prod
@@ -88,7 +87,7 @@ Follow these steps to deploy Keycloak and RabbitMQ:
 
     :::tip
     It is recommended to follow the logs until keycloak is fully initialized: `docker logs keycloak -f`
-    :::    
+    :::
 
 2. Launch RabbitMQ with [rabbitmq.scenario1.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/multi-keycloak/rabbitmq.scenario1.conf):
 
@@ -109,7 +108,7 @@ Follow these steps to deploy Keycloak and RabbitMQ:
       "iat": 1690974539,
       "jti": "c8edec50-5f29-4bd0-b25b-d7a46dc3474e",
       "iss": "http://localhost:8081/realms/test",
-      "aud": "rabbit_prod",            
+      "aud": "rabbit_prod",
       "sub": "826065e7-bb58-4b65-bbf7-8982d6cca6c8",
       "typ": "Bearer",
       "azp": "prod_producer",
@@ -150,7 +149,7 @@ Follow these steps to deploy Keycloak and RabbitMQ:
 This is a summary of the configuration to enable OAuth 2.0 in the management UI:
 
 * There are two users declared in Keycloak: `prod_user` and `dev_user`.
-* The two resources, `rabbit_prod` and `rabbit_dev` are declared in the RabbitMQ Management Plugin with their own OAuth2 client (`rabbit_prod_mgt_ui` and `rabbit_dev_mgt_ui`) scopes, and the label associated with each resource:
+* The two resources, `rabbit_prod` and `rabbit_dev` are declared in the RabbitMQ management plugin with each with their own OAuth 2 client (`rabbit_prod_mgt_ui` and `rabbit_dev_mgt_ui`) scopes, and the label associated with each resource:
     ```ini
     management.oauth_resource_servers.1.id = rabbit_prod
     management.oauth_resource_servers.1.client_id = rabbit_prod_mgt_ui
@@ -186,7 +185,7 @@ The `dev_user` does not have the `rabbitmq.tag:administrator` scope, it has the 
 :::
 
 
-## Scenario 2 - Two OAuth 2.0 resources on dedicated realm under the same many OAuth providers {#scenario2}
+## Scenario 2: Two OAuth 2 Resources on Dedicated Realm Under as Many OAuth Providers {#scenario2}
 
 This scenario uses the same OAuth 2.0 provider called **keycloak**, however, this time there are two realms, `dev` and `prod`:
 - Under Realm `dev` there are users and clients with granted access to the `rabbit_dev` resource:
@@ -222,8 +221,10 @@ make start-keycloak
 ```
 
 :::tip
+
 Run `docker ps | grep keycloak` to check when the instance has started.
 It is recommended to follow the logs until both instances are fully initialized: `docker logs keycloak -f`
+
 :::
 
 2. Launch RabbitMQ.
@@ -281,7 +282,7 @@ make stop-keycloak
 make stop-rabbitmq
 ```
 
-## Scenario 3 - Two OAuth 2.0 resources on dedicated OAuth provider {#scenario3}
+## Scenario 3: Two OAuth 2 Resources on Dedicated OAuth 2 Providers {#scenario3}
 
 This scenario uses two separate OAuth 2.0 providers called `devkeycloak` and `prodkeycloak`, with the following setup:
 

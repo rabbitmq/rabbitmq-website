@@ -21,7 +21,7 @@ limitations under the License.
 
 # Use Microsoft Entra ID (formerly known as Microsoft Azure AD) as OAuth 2.0 server
 
-Demonstrate how to authenticate using the OAuth 2.0 protocol
+This guide explains how to set up OAuth 2.0 for RabbitMQ
 and Microsoft Entra ID as Authorization Server using the following flows:
 
 * Access the management UI via a browser
@@ -31,8 +31,7 @@ and Microsoft Entra ID as Authorization Server using the following flows:
 * Have an account in https://portal.azure.com.
 * Docker
 * Openssl
-* `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
-contains all the configuration files and scripts used on this example.
+* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) that contains all the configuration files and scripts used on this example
 
 ## Register your app
 
@@ -214,7 +213,7 @@ on port `15671`, see the management UI guide.
 
 :::
 
-When you run `make start-rabbitmq` for the first time with `MODE=entra`, before RabbitMQ is deployed, a TLS certificate is generated for RabbitMQ so that it listens on HTTPS port 15671.  
+When you run `make start-rabbitmq` for the first time with `MODE=entra`, before RabbitMQ is deployed, a TLS certificate is generated for RabbitMQ so that it listens on HTTPS port 15671.
 
 The script generates the following files in `conf/entra/certs`:
 * **cacert.pem**: a custom certificate authority that is used to generate and sign a self signed certificate for RabbitMQ
