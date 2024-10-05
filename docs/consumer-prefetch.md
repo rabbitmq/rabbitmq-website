@@ -36,29 +36,20 @@ single machine, and very slow when consuming across a cluster.
 Furthermore for many uses it is simply more natural to specify
 a prefetch count that applies to each consumer.
 
-Therefore RabbitMQ redefines the meaning of the
-`global` flag in the `basic.qos` method:
+Therefore RabbitMQ slightly deviates from the AMQP 0-9-1 spec
+when it comes to how the prefetch is applied to multiple consumers
+on a channel:
 
 <table class="styled-table">
   <tr>
-    <th><code>global</code></th>
     <th>Meaning of <code>prefetch_count</code> in AMQP 0-9-1</th>
     <th>Meaning of <code>prefetch_count</code> in RabbitMQ</th>
   </tr>
   <tr>
-    <th>false</th>
     <td>shared across all consumers on the channel</td>
     <td>applied separately to each new consumer on the channel</td>
   </tr>
-  <tr>
-    <th>true</th>
-    <td>shared across all consumers on the connection</td>
-    <td>shared across all consumers on the channel</td>
-  </tr>
 </table>
-
-Note that the default value for the `global` flag is
-`false` in most APIs.
 
 ## Single Consumer {#single-consumer}
 
