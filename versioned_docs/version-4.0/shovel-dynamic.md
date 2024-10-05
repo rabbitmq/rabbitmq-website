@@ -659,7 +659,7 @@ counterparts.
             Only of use when URI scheme is <code>amqps</code>.
 
             <p>
-              ::: important
+              :::important
 
               Note that starting with Erlang 26, peer verification for TLS clients (such as shovels)
               is enabled by default.
