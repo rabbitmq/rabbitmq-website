@@ -24,7 +24,8 @@ limitations under the License.
 This guide explains how to set up OAuth 2.0 for RabbitMQ
 and Microsoft Entra ID as Authorization Server using the following flows:
 
-* Access the management UI via a browser
+* Access the management UI via a browser using v2.0 api version
+
 
 ## Prerequisites to follow this guide
 
@@ -48,7 +49,7 @@ When using **Entra ID as OAuth 2.0 server**, your client app (in our case Rabbit
 4. In the **Register an application** pane, provide the following information:
 
     * **Name**: the name you would like to give to your application (ex: *rabbitmq-oauth2*)
-    * **Supported Account Types**: select **Accounts in this organizational directory only (Default Directory only - Single tenant)** (you can choose other options if you want to enlarge the audience of your app)
+    * **Supported Account Types**: select **Accounts in this organizational directory only (Default Directory only - Single tenant)** (this guide will focus on this option for simplicity)
     * On the **Select a platform** drop-down list, select **Single-page application (SPA)**
     * Configure the **Redirect URI** to: `https://localhost:15671/js/oidc-oauth/login-callback.html`
 
@@ -65,16 +66,8 @@ When using **Entra ID as OAuth 2.0 server**, your client app (in our case Rabbit
 
     Note the following values, as you will need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side:
 
-    * Directory (tenant ID)
-    * Application (client) ID
-
-6. Click on the **Endpoints** tab if it is visible.
-7. On the right pane that has just opened, copy the value of **OpenID Connect metadata document** (ex: `https://login.microsoftonline.com/{TENANT_ID}/v2.0/.well-known/openid-configuration`) and open it in your browser.
-
-    Note the value of the `jwks_uri` key (ex: `https://login.microsoftonline.com/{TENANT_ID}/discovery/v2.0/keys`), as you will also need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side.
-
-    ![Entra ID JWKS URI](./entra-id-jwks-uri.png)
-8. If the **Endpoints** tab is not visible,
+    * **Directory (tenant ID)**
+    * **Application (client) ID**
 
 
 ## Create OAuth 2.0 roles for your app
@@ -97,18 +90,12 @@ To learn more about roles in Entra ID, see [Entra ID documentation](https://docs
 
 2. Then, click on **Create App Role** to create an OAuth 2.0 role that will be used to give access to the RabbitMQ Management UI.
 
-:::info
-
-To learn more about how permissions are managed when RabbitMQ is used together with OAuth 2.0,
-see [this portion of the OAuth 2 tutorial](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial#about-permissions)
-
-:::
 
 3. On the right menu that has just opened, provide the requested information:
 
     * **Display Name**: the name you want to give to the role (ex: *Management UI Admin*)
     * **Allowed member types**: Both (Users/Groups + Applications)
-    * **Value**: `Application_ID.tag:administrator` (where *Application_ID* is the value of the *Application (client) ID* noted earlier in this tutorial)
+    * **Value**: `{Application_ID}.tag:administrator` (where *Application_ID* is the value of the *Application (client) ID* noted earlier in this tutorial)
     * **Description**: briefly describe what this role aims to (here just to give admin access to the RabbitMQ Management UI)
     * **Do you want to enable this app role**: `yes` (check the box)
 
@@ -122,7 +109,7 @@ see [this portion of the OAuth 2 tutorial](https://github.com/rabbitmq/rabbitmq-
 
     * **Display Name**: the name you want to give to the role (ex: *Configure All Vhosts*)
     * **Allowed member types**: Both (Users/Groups + Applications)
-    * **Value**: `Application_ID.configure:*/*` (where *Application_ID* is the value of the *Application (client) ID* noted earlier in this tutorial)
+    * **Value**: `{Application_ID}.configure:*/*` (where *Application_ID* is the value of the *Application (client) ID* noted earlier in this tutorial)
     * **Description**: briefly describe what this role aims to (here to give permissions to configure all resources on all the vhosts available on the RabbitMQ instance)
     * **Do you want to enable this app role**: `yes` (check the box)
 
@@ -159,37 +146,56 @@ Now that some roles have been created for your application, you still need to as
 
 9. Repeat the operations for all the roles you want to assign.
 
+## Create a Scope for Management UI Access
+
+There is one last configuration step required. Without this step, the `access_token` returned
+by **Entra ID** won't be useable with RabbitMQ. More specifically, RabbitMQ will not be able to validate its signature because the `access_token` is meant for Microsoft resources
+
+Therefore, create a new scope associated with the application registered above to be used for RabbitMQ management UI.
+To do so:
+
+1. Go to **App registrations**
+2. Click on your application
+3. Go to **Manage** option on the left menu and choose the option **Expose an API**
+4. Click on **Add a scope**
+5. Enter a name, eg. `management-ui`. Enter the same name for **Admin consent display name** and a description and save it
+7. The scope is named `api://{Application (client) ID}/{scope_name}`
+
+This scope will be used further below in this guide.
+
+
 ## Configure Custom Signing Keys
 
-It is optional to create a signing key for your application. If you create one though, you must append an `appid` query parameter containing the *app ID* to the `jwks_uri`. Otherwise, the standard jwks_uri endpoint will not include the custom signing key and RabbitMQ will not find the signing key to validate the token's signature.
+Creating a signing key for the application is optional. If a custom key is created, RabbitMQ must be configured accordingly.
+In the example below, replace `{Application(client) ID}` with the actual *Application(client) ID*.
 
-For example, given your application id, `{my-app-id}` and your tenant `{tenant}`, the OIDC discovery endpoint uri would be `https://login.microsoftonline.com/{tenant}/.well-known/openid-configuration?appid={my-app-id}`. The returned payload contains the `jwks_uri` attribute whose value is something like `https://login.microsoftonline.com/{tenant}/discovery/keys?appid=<my-app-idp>`. RabbitMQ should be configured with that `jwks_uri` value.
+Without this bit of configuration, the standard `jwks_uri` endpoint will not include the custom signing key
+and therefore RabbitMQ will not find the necessary signing key to validate the token's signature.
+
+```ini
+auth_oauth2.discovery_endpoint_params.appid = {Application(client) ID}
+```
+
+For more information, check out Microsoft Entra documentation about [configuring custom signing keys](https://learn.microsoft.com/en-us/entra/identity-platform/jwt-claims-customization#validate-token-signing-key).
 
 
 ## Configure RabbitMQ to Use Entra ID as OAuth 2.0 Authentication Backend
 
-The configuration on Entra ID side is done. Next, configure RabbitMQ to use these resources.
+The configuration on **Entra ID** side is done. Next, configure RabbitMQ to use these resources.
 
-[rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/entra/rabbitmq.conf) is a sample RabbitMQ configuration to **enable Entra ID as OAuth 2.0 authentication backend** for the RabbitMQ Management UI.
+Clone [rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/entra/rabbitmq.conf.tmpl) from the tutorial repository
+to `rabbitmq.conf`. It must be in the same directory as `rabbitmq.conf.tmpl`.
 
-Update it with the following values:
+Edit the new `rabbitmq.conf` file and proceed as follows:
 
-* **Tenant ID** associated to the app that you registered in Entra ID
-* **Application ID** associated to the app that you registered in Entra ID
-* Value of the **jwks_uri** key from `https://login.microsoftonline.com/{TENANT_ID}/v2.0/.well-known/openid-configuration`
+1. Replace `{Directory (tenant) ID}` with the value gathered earlier as **Application (client) ID**
+2. Replace `{Application(client) ID}` with the value gathered as **Application (client) ID**
+3. If you decide to configure your application with custom signing(s), you need to uncomment the following configuration line. This is required otherwise the `jwks_uri` endpoint announced by the OpenID Discovery endpoint does not contain applications' custom signing keys.
 
 ```ini
-auth_backends.1 = rabbit_auth_backend_oauth2
-auth_backends.2 = rabbit_auth_backend_internal
-
-management.oauth_enabled = true
-management.oauth_client_id = {PUT YOUR AZURE AD APPLICATION ID}
-management.oauth_provider_url = https://login.microsoftonline.com/{YOUR_ENTRA_ID_TENANT_ID}
-
-auth_oauth2.resource_server_id = {PUT YOUR AZURE AD APPLICATION ID}
-auth_oauth2.additional_scopes_key = roles
-auth_oauth2.jwks_url = {PUT YOUR ENTRA ID JWKS URI VALUE}
+#auth_oauth2.discovery_endpoint_params.appid = {Application(client) ID}
 ```
+
 
 ## Start RabbitMQ
 
@@ -201,8 +207,7 @@ make start-rabbitmq
 ```
 
 This starts a Docker container named `rabbitmq`, with RabbitMQ Management UI/API with HTTPS enabled, and configured to use your Entra ID as OAuth 2.0 authentication backend,
-based on the information you provided in [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/entra/rabbitmq.conf)
-in the previous steps of this tutorial.
+based on the values set in `rabbitmq.conf` in the previous steps of this tutorial.
 
 ## Automatic generation of a TLS Certificate and Key Pair
 

@@ -45,8 +45,8 @@ Once you have logged onto your account in [Okta](https://www.okta.com), follow b
 
 1. In the Admin Console, go to Applications.
 1. Click Create App Integration.
-1. To create an OIDC app integration, select OIDC - OpenID Connect as the Sign-in method.
-1. Choose the type of application to integrate with Okta. Select Web Application, Single-Page Application, or Native Application. In our use case it is Single-Page Application(SPA).
+1. To create an OIDC app integration, select **OIDC - OpenID Connect** as the Sign-in method.
+1. Choose the type of application to integrate with Okta. Select **Single-Page Application(SPA)**.
 1. Click Next.
 
 The App Integration Wizard for OIDC has three sections:
@@ -56,18 +56,30 @@ In General Settings, provide the following information:
   - **Name**: App integration name: Specify a name for your app integrationn (ex: *rabbitmq-oauth2*)
   - **Grant type**: Select **Authorization Code** and **Refresh Token**
   - **Redirect URI**:
-    * On the **Sign-in redirect URIs** type http://localhost:15672/js/oidc-oauth/login-callback.html
-    * Configure the **Sign-out redirect URIs** to https://localhost:15672
+    * On the **Sign-in redirect URIs** type https://localhost:15671/js/oidc-oauth/login-callback.html
+    * Configure the **Sign-out redirect URIs** to https://localhost:15671
 
 In Trusted Origins (for Web and Native app integrations), choose **keep the default values**.
 
 In Assignments, choose **Allow everyone in your organization to access**.
 
-Finally, click on **Save** and write down the following values, as you will need them later to configure RabbitMQ:
+:::warning
+
+Deactivate `Federation Broker Mode`. Our testing suggests that if the `Federation Broker Mode` was activated (this is what Okta recommends),
+it would not possible to assign this application to groups and users.
+
+:::
+
+Finally, prepare to copy and save a value that will be displayed on one of the following screens,
+then click on **Save**.
+
+:::important
+
+After clicking **Save**, take note of the following values, the will be necessary later to configure RabbitMQ:
 
   * **ClientID**
-  * **Okta domain name**
 
+:::
 
 ## Create Okta OAuth 2.0 Authorization Server, Scopes and Claims
 
@@ -78,6 +90,14 @@ Here are the steps to create scopes for `admin` and `dev` groups using the defau
 1. Log in to your Okta account and navigate to the **Authorization Servers** tab in the Okta Console under **Security-> API**.
 
 2. Click on the default authorization server that is provided.
+
+:::tip
+Take note of the following fields associated to the default authorization server,
+as you will need them later to configure RabbitMQ.
+
+  * **Issuer**.
+  * **Metadata URI**.
+:::
 
 3. Click on the **Scopes** tab and then click the **Add Scope** button.
 
@@ -147,18 +167,66 @@ to `dev` and `admin` group and assign the `rabbitmq-oauth2` app to both groups.
 
 Once you've added the user to the appropriate groups and apps, they should have access to the app and any resources associated with those groups.
 
+## Create access policy and rule
+
+This step is necessary otherwise the tokens do not carry any of the scopes granted to the users.
+
+1. [Create an access policy](https://developer.okta.com/docs/guides/customize-authz-server/main/#create-access-policies)
+2. [Create a rule](https://developer.okta.com/docs/guides/customize-authz-server/main/#create-rules-for-each-access-policy) for the access policy
+
+## [Optional] Test the Tokens Issued by Okta
+
+This step is optional but highly recommended.
+
+1. Go to the **default Authorization Server**
+2. Click on **Token Preview** tab
+3. Fill in all the fields. For **grant type** choose `Authorization Code`
+4. Click on **Preview Token** button
+5. Check the claim `role` to see if it contains the roles assigned earlier in this guide
+
 
 ## Configure RabbitMQ to use Okta as OAuth 2.0 Authentication Backend
 
-The configuration on Okta side is done. You now have to configure RabbitMQ to use the resources you just created.
+The configuration on the Okta side is done. Next, configure RabbitMQ to use the resources created above.
 
-[rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/rabbitmq.conf) is a RabbitMQ configuration to **enable okta as OAuth 2.0 authentication backend** for the RabbitMQ OAuth2 and Management plugins. And [advanced.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/advanced.config) is the RabbitMQ advanced configuration that maps RabbitMQ scopes to the permissions previously configured in Okta.
+For that, you will need the following values from the previous steps:
 
-Update it with the following values (you should have noted these in the previous steps):
+* **okta_client_app_ID**: the ID of the app registered in Okta to be used with RabbitMQ
+* **okta-Issuer**: the **default Authorization server**
+* **okta-Metadata-URI**: the **default Authorization server**
 
-  - **okta-domain-name** associated to your okta domain name.
-  - **okta_client_app_ID** associated to the okta app that you registered in okta for rabbitMQ.
+Copy [rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/rabbitmq.conf.tmpl) from the tutorial repository
+to `rabbitmq.conf`. It must be in the same directory as `rabbitmq.conf.tmpl`.
 
+There is a second configuration file, [advanced.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/advanced.config),
+that will not need any modifications. This is the RabbitMQ [advanced configuration file](./configure/) where RabbitMQ scopes are mapped to the permissions previously configured in Okta.
+
+Edit `rabbitmq.conf` and proceed as follows:
+
+1. Replace `{okta_client_app_ID}` with your **okta_client_app_ID**
+2. Replace `{okta-issuer}` with your **okta-Issuer**
+3. Ensure **okta-Metadata-URI** matches this value `{okta-issuer}/.well-known/oauth-authorization-server`
+or `{okta-issuer}/.well-known/openid-configuration`
+4. Else you need to determine the path that follows the uri in `{okta-issuer}` and update
+`auth_oauth2.discovery_endpoint_path` accordingly. For instance, if **okta-Metadata-URI** is `{okta-issuer}/some-other-endpoint`, you update `auth_oauth2.discovery_endpoint_path` with the value `some-other-endpoint`.
+
+
+### About the OpenId Discovery Endpoint
+
+RabbitMQ uses the standard OpenId discovery endpoint path `.well-known/openid-configuration`. Okta supports this path in addition to `.well-known/oauth-authorization-server`.
+The only difference observed between the two endpoints is that the latter returns more values in the `claims_supported` JSON field.
+
+The RabbitMQ's template configuration provided in the snippet below has this line.
+This means that RabbitMQ will use the standard path.
+
+If the default does not work as expected, try uncommenting this line to use
+the alternative path.
+
+``` ini
+## Uncomment to use '.well-known/oauth-authorization-server' as the discovery
+## endpoint path
+# auth_oauth2.discovery_endpoint_path = .well-known/oauth-authorization-server
+```
 
 ## Start RabbitMQ
 
@@ -169,11 +237,9 @@ export MODE=okta
 make start-rabbitmq
 ```
 
-
 ## Verify RabbitMQ Management UI Access
 
-Go to RabbitMQ Management UI `https://localhost:15671`. Depending on your browser, ignore the security warnings (raised by the fact that a [self-signed certificate](./ssl#peer-verification) is used)
-to proceed.
+Go to RabbitMQ Management UI `https://localhost:15671`. Depending on your browser, ignore the security warnings (raised by the fact that a [self-signed certificate](./ssl#peer-verification) is used) to proceed.
 
 Once on the RabbitMQ Management UI page, click on the **Click here to log in** button,
 authenticate with your **okta user**.

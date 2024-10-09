@@ -48,7 +48,7 @@ When using **Entra ID as OAuth 2.0 server**, your client app (in our case Rabbit
 4. In the **Register an application** pane, provide the following information:
 
     * **Name**: the name you would like to give to your application (ex: *rabbitmq-oauth2*)
-    * **Supported Account Types**: select **Accounts in this organizational directory only (Default Directory only - Single tenant)** (you can choose other options if you want to enlarge the audience of your app)
+    * **Supported Account Types**: select **Accounts in this organizational directory only (Default Directory only - Single tenant)** (this guide will focus on this option for simplicity)
     * On the **Select a platform** drop-down list, select **Single-page application (SPA)**
     * Configure the **Redirect URI** to: `https://localhost:15671/js/oidc-oauth/login-callback.html`
 

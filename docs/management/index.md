@@ -375,6 +375,7 @@ To configure OAuth 2.0 in the management UI you need a [minimum configuration](#
     * [Allow Basic and OAuth 2 authentication for management HTTP API](#allow-basic-auth-for-http-api)
     * [Allow Basic and OAuth 2 authentication for management UI](#allow-basic-auth-for-mgt-ui)
     * [Logging out of the management UI](#about-logout-workflow)
+    * [Configure extra parameters for authorization and token endpoints](#extra-endpoint-params)
     * [Special attention to CSP header `connect-src`](#csp-header)
     * [Identity-Provider initiated logon](#idp-initiated-logon)
     * [Support multiple OAuth 2.0 resources](#support-multiple-resources)
@@ -403,10 +404,14 @@ management.oauth_scopes = <SPACE-SEPARATED LIST OF SCOPES. See below>
 - `oauth_scopes` is a mandatory field which must be set at all times except in the case when OAuth providers automatically grant scopes associated to the `oauth_client_id`. `oauth_scopes` is a list of space-separated strings that indicate which permissions the application is requesting. Most OAuth providers only issue tokens with the scopes requested during the user authentication. RabbitMQ sends this field along with its `oauth_client_id` during the user authentication. If this field is not set, RabbitMQ defaults to `openid profile`.
 
 Given above configuration, when a user visits the management UI, the following two events take place:
-1. RabbitMQ uses the URL found in `auth_oauth2.issuer` followed by the path `/.well-known/openid-configuration` to download the OpenID Provider configuration. It contains information about other endpoints such as the `jwks_uri` (used to download the keys to validate the token's signature) or the `token_endpoint`.
+1. RabbitMQ uses the URL found in `auth_oauth2.issuer` to download the OpenID Provider configuration. Learn more in the [OAuth 2.0 guide](./oauth2#discovery-endpoint-params)
 
     :::warning
-    If RabbitMQ cannot download the OpenID provider configuration, it shows an error message and OAuth 2.0 authentication is disabled in the management UI.
+    If RabbitMQ cannot download the OpenID provider configuration, it shows an error message and the OAuth 2.0 authentication option will be disabled in the management UI
+    :::
+
+    :::tip
+    If you used to configure `management.oauth_metadata_url` because your provider did not use the standard OpenId Discovery endpoint's path, since RabbitMQ 4.1 you should instead configure the correct path as it is explained [here](./oauth2#discovery-endpoint-params).
     :::
 
 2. RabbitMQ displays a button with the label "Click here to login". When the user clicks on the button, the management UI initiates the OAuth 2.0 Authorization Code Flow, which redirects the user to the identity provider to authenticate and get a token.
@@ -505,6 +510,30 @@ RabbitMQ 3.13.1 and earlier versions require the [OpenId Connect Discovery endpo
 There are other two additional scenarios which can trigger a logout. One scenario occurs when the OAuth Token expires. Although RabbitMQ renews the token in the background before it expires, if the token expires, the user is logged out.
 The second scenario is when the management UI session exceeds the maximum allowed time configured on the [Login Session Timeout](#login-session-timeout).
 
+### Configure Extra URI Parameters for Authorization and Token Endpoints {#extra-endpoint-params}
+
+Some OAuth 2.0 providers require additional URI parameters to be included into the request sent to the **authorization endpoint** and/or to the **token endpoint**.
+These parameters are vendor- or IDP installation-specific. The Management UI already sends all the parameters required by the OAuth 2.0 Authorization Code flow.
+
+In the followingexample an extra URI parameter called `audience` is added for both the **authorization** and **token** endpoints:
+
+```ini
+management.oauth_authorization_endpoint_params.audience = some-audience-id
+
+management.oauth_token_endpoint_params.audience = some-audience-id
+```
+
+Multiple parameters can be configured like so:
+
+```ini
+management.oauth_authorization_endpoint_params.audience = some-audience-id
+management.oauth_authorization_endpoint_params.example = example-value
+
+management.oauth_token_endpoint_params.audience = some-audience-id
+management.oauth_token_endpoint_params.other = other-value
+```
+
+
 ### Special attention to CSP header `connect-src` {#csp-header}
 
 To support the OAuth 2.0 protocol, RabbitMQ makes asynchronous REST calls to the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest). If you override the default [CSP headers](#csp), you have to make sure that the `connect-src` CSP directive whitelists the [OpenId Connect Discovery endpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest).
@@ -600,6 +629,18 @@ the following settings:
 - `resource` : `rabbit_prod`
 - `scopes` : `openid rabbitmq.tag:management rabbitmq.read:*/*`
 
+### Configure Extra URI Parameters for Authorization and Token Endpoints {#extra-endpoint-params}
+
+Some OAuth 2.0 providers require additional URI parameters to be included into the request sent to the **authorization endpoint** and/or to the **token endpoint**.
+These parameters are vendor- or IDP installation-specific. The Management UI already sends all the parameters required by the OAuth 2.0 Authorization Code flow.
+
+The following example sets an extra URI parameter called `audience` for both endpoints for the resource `some-resource-id`:
+
+```ini
+management.oauth_resource_servers.2.id = some-resource-id
+management.oauth_resource_servers.2.oauth_authorization_endpoint_params.audience = some-resource-id
+management.oauth_resource_servers.2.oauth_token_endpoint_params.audience = some-resource-id
+```
 
 #### Optionally do not expose some resources in the management UI
 
