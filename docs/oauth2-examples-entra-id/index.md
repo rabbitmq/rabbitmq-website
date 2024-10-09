@@ -24,8 +24,16 @@ limitations under the License.
 This guide explains how to set up OAuth 2.0 for RabbitMQ
 and Microsoft Entra ID as Authorization Server using the following flows:
 
+<<<<<<< HEAD
  * Access the management UI via a browser using Entra ID (API version 2.0)
+||||||| parent of d7aec1c6 (Remove duplicate lines)
+<<<<<<< HEAD
+* Access the management UI via a browser using v2.0 api version
+=======
+* Access the management UI via a browser using v2.0 api version
+>>>>>>> d7aec1c6 (Remove duplicate lines)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 ||||||| parent of 7839e208 (Explain how to configure extra params for authorize and token endpoints)
 =======
@@ -38,6 +46,14 @@ and Microsoft Entra ID as Authorization Server using the following flows:
 >>>>>>> Explain how to configure extra params for authorize and token endpoints
 >>>>>>> 7839e208 (Explain how to configure extra params for authorize and token endpoints)
 
+||||||| parent of d7aec1c6 (Remove duplicate lines)
+=======
+* Access the management UI via a browser using v2.0 api version
+
+>>>>>>> Explain how to configure extra params for authorize and token endpoints
+
+=======
+>>>>>>> d7aec1c6 (Remove duplicate lines)
 ## Prerequisites to follow this guide
 
 * Have an account in https://portal.azure.com.
