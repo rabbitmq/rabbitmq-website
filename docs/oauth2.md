@@ -198,6 +198,42 @@ auth_oauth2.scope_prefix = ''
 ...
 ```
 
+#### Scope aliases {#scope-aliases}
+
+An scope alias is a mapping between a custom scope and a RabbitMQ's scope. A custom
+scope is any scope which is not recogonized by RabbitMQ.
+
+Scope aliases are necessary when you cannot create RabbitMQ scopes in your
+identity provider. Instead you have to name them following a format which is not
+recognizable by RabbitMQ.
+
+For instance, say you have these two roles in your identity provider:
+  - `admin`.
+  - `developer`.
+
+Also say that you want to map those roles to the following RabbitMQ scopes:
+  - `admin` to `rabbitmq.tag:administrator rabbitmq.read:*/`
+  - `developer` to `rabbitmq.tag:management rabbitmq.read:*/* rabbitmq.write:*/* rabbitmq.configure:*/*`
+
+You configure the scope aliases as follows. The mapping can be 1:1 or 1:many:
+```ìni
+# ...
+auth_oauth2.scope_aliases.admin = rabbitmq.tag:administrator rabbitmq.read:*/
+auth_oauth2.scope_aliases.developer = rabbitmq.tag:management rabbitmq.read:*/* rabbitmq.write:*/* rabbitmq.configure:*/*
+# ...
+```
+
+Sometimes, the alias is not made of a single word but instead it uses special characters
+and symbols including the separator character `.`. In those cases, you can configure the scope aliases as follows:
+```ìni
+# ...
+auth_oauth2.scope_aliases.1.alias = api://admin
+auth_oauth2.scope_aliases.1.scope = rabbitmq.tag:administrator rabbitmq.read:*/
+auth_oauth2.scope_aliases.2.alias = api://developer.All
+auth_oauth2.scope_aliases.2.scope = rabbitmq.tag:management rabbitmq.read:*/* rabbitmq.write:*/* rabbitmq.configure:*/*
+# ...
+```
+
 #### Signing keys files {#signing-key-files}
 
 The following configuration declares two signing keys and configures the kid of the default signing key. For more information check the section [Configure Signing keys](#configure-signing-keys).
@@ -241,6 +277,7 @@ Each `auth_oauth2.resource_servers.<id/index>.` entry has the following variable
 | `resource_server_type`       | The Resource Server Type required when using [Rich Authorization Request](#rich-authorization-request) token format.
 | `additional_scopes_key`      | Configure the plugin to look for scopes in other fields (maps to `additional_rabbitmq_scopes` in the old format).
 | `scope_prefix`               | [Configure the prefix for all scopes](#scope-prefix). The default value is `auth_oauth2.resource_server_id` followed by the dot `.` character.
+| `scope_aliases`              | [Configure scope aliases](#scope-aliases)
 | `preferred_username_claims`  | [List of the JWT claims](#preferred-username-claims) to look for the username associated with the token separated by commas.
 | `oauth_provider_id`          | The identifier of the OAuth Provider associated to this resource. RabbitMQ uses the signing keys issued by this OAuth Provider to validate tokens whose audience matches this resource's id.
 

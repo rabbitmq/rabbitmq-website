@@ -150,14 +150,15 @@ Once you've added the user to the appropriate groups and apps, they should have 
 
 ## Configure RabbitMQ to use Okta as OAuth 2.0 Authentication Backend
 
-The configuration on Okta side is done. You now have to configure RabbitMQ to use the resources you just created.
+The configuration on the Okta side is now done. The next step is to configure RabbitMQ
+to use the resources created earlier.
 
 [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/rabbitmq.conf) is a RabbitMQ configuration to **enable okta as OAuth 2.0 authentication backend** for the RabbitMQ OAuth2 and Management plugins. And [advanced.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/advanced.config) is the RabbitMQ advanced configuration that maps RabbitMQ scopes to the permissions previously configured in Okta.
 
-Update it with the following values (you should have noted these in the previous steps):
+Update it with the following values from the earlier steps:
 
-  - **okta-domain-name** associated to your okta domain name.
-  - **okta_client_app_ID** associated to the okta app that you registered in okta for rabbitMQ.
+* **okta-domain-name**: the Okta domain name
+* **okta_client_app_ID**: the Okta app registered above to be used with RabbitMQ
 
 
 ## Start RabbitMQ
