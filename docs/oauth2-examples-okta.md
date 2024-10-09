@@ -195,11 +195,8 @@ For that, you will need the following values from the previous steps:
 * **okta-Issuer**: the **default Authorization server**
 * **okta-Metadata-URI**: the **default Authorization server**
 
-Copy [rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/rabbitmq.conf.tmpl) from the tutorial repository
+Copy [rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next/conf/okta/rabbitmq.conf.tmpl) from the tutorial repository
 to `rabbitmq.conf`. It must be in the same directory as `rabbitmq.conf.tmpl`.
-
-There is a second configuration file, [advanced.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/advanced.config),
-that will not need any modifications. This is the RabbitMQ [advanced configuration file](./configure/) where RabbitMQ scopes are mapped to the permissions previously configured in Okta.
 
 Edit `rabbitmq.conf` and proceed as follows:
 
@@ -210,6 +207,15 @@ or `{okta-issuer}/.well-known/openid-configuration`
 4. Else you need to determine the path that follows the uri in `{okta-issuer}` and update
 `auth_oauth2.discovery_endpoint_path` accordingly. For instance, if **okta-Metadata-URI** is `{okta-issuer}/some-other-endpoint`, you update `auth_oauth2.discovery_endpoint_path` with the value `some-other-endpoint`.
 
+The mapping of the roles configured in okta, i.e. `monitoring` and `admin`, are configured
+at the bottom of the `rabbitmq.conf` file. Here it is configuration for convenience:
+
+```ini
+#...
+auth_oauth2.scope_aliases.admin = okta.read:*/* okta.write:*/* okta.configure:*/* okta.tag:administrator
+auth_oauth2.scope_aliases.monitoring = okta.tag:management okta.read:*/
+#...
+```
 
 ### About the OpenId Discovery Endpoint
 
