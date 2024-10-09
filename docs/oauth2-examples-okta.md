@@ -63,7 +63,7 @@ In Trusted Origins (for Web and Native app integrations), choose **keep the defa
 
 In Assignments, choose **Allow everyone in your organization to access**.
 
-:::tip
+:::warning
 
 Deactivate `Federation Broker Mode`. Our testing suggests that if the `Federation Broker Mode` was activated (this is what Okta recommends),
 it would not possible to assign this application to groups and users.
@@ -73,7 +73,7 @@ it would not possible to assign this application to groups and users.
 Finally, prepare to copy and save a value that will be displayed on one of the following screens,
 then click on **Save**.
 
-:::tip
+:::important
 
 After clicking **Save**, take note of the following values, the will be necessary later to configure RabbitMQ:
 
@@ -171,34 +171,35 @@ Once you've added the user to the appropriate groups and apps, they should have 
 
 This step is necessary otherwise the tokens do not carry any of the scopes granted to the users.
 
-1. Create access policy following these [instructions](https://developer.okta.com/docs/guides/customize-authz-server/main/#create-access-policies).
-2. Create rule for the access policy following these [instructions](https://developer.okta.com/docs/guides/customize-authz-server/main/#create-rules-for-each-access-policy).
+1. [Create an access policy](https://developer.okta.com/docs/guides/customize-authz-server/main/#create-access-policies)
+2. [Create a rule](https://developer.okta.com/docs/guides/customize-authz-server/main/#create-rules-for-each-access-policy) for the access policy
 
-## [Optional] Test the tokens issued by Okta
+## [Optional] Test the Tokens Issued by Okta
 
-This is totally optional but it can save you time.
+This step is optional but highly recommended.
 
-1. Go to the **default Authorization Server**.
-2. Click on **Token Preview** tab.
-3. Fill in all the fields. For **grant type** choose `Authorization Code`.
-4. Click on **Preview Token** button.
-5. Check the claim `role` to see if it contains the roles you assigned to your user.
-
+1. Go to the **default Authorization Server**
+2. Click on **Token Preview** tab
+3. Fill in all the fields. For **grant type** choose `Authorization Code`
+4. Click on **Preview Token** button
+5. Check the claim `role` to see if it contains the roles assigned earlier in this guide
 
 
 ## Configure RabbitMQ to use Okta as OAuth 2.0 Authentication Backend
 
-The configuration on Okta side is done. You now have to configure RabbitMQ to use the resources you just created. You took note of the following values:
+The configuration on the Okta side is done. Next, configure RabbitMQ to use the resources created above.
 
-* **okta_client_app_ID** associated to the okta app that you registered in okta for rabbitMQ.
-* **okta-Issuer** associated to the **default Authorization server**.
-* **okta-Metadata-URI** associated to the **default Authorization server**.
+For that, you will need the following values from the previous steps:
+
+* **okta_client_app_ID**: the ID of the app registered in Okta to be used with RabbitMQ
+* **okta-Issuer**: the **default Authorization server**
+* **okta-Metadata-URI**: the **default Authorization server**
 
 Copy [rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/rabbitmq.conf.tmpl) from the tutorial repository
-to `rabbitmq.conf` (it must be in the same directory as `rabbitmq.conf.tmpl`).
+to `rabbitmq.conf`. It must be in the same directory as `rabbitmq.conf.tmpl`.
 
 There is a second configuration file, [advanced.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/advanced.config),
-that will not need any modifications. This is the RabbitMQ [advanced configuration file](/configure/) where RabbitMQ scopes are mapped to the permissions previously configured in Okta.
+that will not need any modifications. This is the RabbitMQ [advanced configuration file](./configure/) where RabbitMQ scopes are mapped to the permissions previously configured in Okta.
 
 Edit `rabbitmq.conf` and proceed as follows:
 
@@ -210,14 +211,21 @@ or `{okta-issuer}/.well-known/openid-configuration`
 `auth_oauth2.discovery_endpoint_path` accordingly. For instance, if **okta-Metadata-URI** is `{okta-issuer}/some-other-endpoint`, you update `auth_oauth2.discovery_endpoint_path` with the value `some-other-endpoint`.
 
 
-### About OpenId Discovery Endpoint
+### About the OpenId Discovery Endpoint
 
-RabbitMQ uses the standard OpenId discovery endpoint path `.well-known/openid-configuration`. Okta supports this path in addition to `.well-known/oauth-authorization-server`. The only difference observed at the time of writing this guide is that the latter returns more values in the json attribute `claims_supported`.
+RabbitMQ uses the standard OpenId discovery endpoint path `.well-known/openid-configuration`. Okta supports this path in addition to `.well-known/oauth-authorization-server`.
+The only difference observed between the two endpoints is that the latter returns more values in the `claims_supported` JSON field.
 
-The RabbitMQ's template configuration provided in this example has this line commented out meaning that
-RabbitMQ will use the standard path. If you find any problems, try uncommenting this line.
-```
-#auth_oauth2.discovery_endpoint_path = .well-known/oauth-authorization-server
+The RabbitMQ's template configuration provided in the snippet below has this line.
+This means that RabbitMQ will use the standard path.
+
+If the default does not work as expected, try uncommenting this line to use
+the alternative path.
+
+``` ini
+## Uncomment to use '.well-known/oauth-authorization-server' as the discovery
+## endpoint path
+# auth_oauth2.discovery_endpoint_path = .well-known/oauth-authorization-server
 ```
 
 ## Start RabbitMQ

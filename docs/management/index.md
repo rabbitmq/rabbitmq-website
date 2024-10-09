@@ -404,10 +404,10 @@ management.oauth_scopes = <SPACE-SEPARATED LIST OF SCOPES. See below>
 - `oauth_scopes` is a mandatory field which must be set at all times except in the case when OAuth providers automatically grant scopes associated to the `oauth_client_id`. `oauth_scopes` is a list of space-separated strings that indicate which permissions the application is requesting. Most OAuth providers only issue tokens with the scopes requested during the user authentication. RabbitMQ sends this field along with its `oauth_client_id` during the user authentication. If this field is not set, RabbitMQ defaults to `openid profile`.
 
 Given above configuration, when a user visits the management UI, the following two events take place:
-1. RabbitMQ uses the URL found in `auth_oauth2.issuer` to download the OpenID Provider configuration. Check out the [OAuth 2.0](./oauth2#discovery-endpoint-params) documentation about OpenId discovery endpoint to learn more about it.
+1. RabbitMQ uses the URL found in `auth_oauth2.issuer` to download the OpenID Provider configuration. Learn more in the [OAuth 2.0 guide](./oauth2#discovery-endpoint-params)
 
     :::warning
-    If RabbitMQ cannot download the OpenID provider configuration, it shows an error message and OAuth 2.0 authentication is disabled in the management UI.
+    If RabbitMQ cannot download the OpenID provider configuration, it shows an error message and the OAuth 2.0 authentication option will be disabled in the management UI
     :::
 
     :::tip
@@ -510,18 +510,29 @@ RabbitMQ 3.13.1 and earlier versions require the [OpenId Connect Discovery endpo
 There are other two additional scenarios which can trigger a logout. One scenario occurs when the OAuth Token expires. Although RabbitMQ renews the token in the background before it expires, if the token expires, the user is logged out.
 The second scenario is when the management UI session exceeds the maximum allowed time configured on the [Login Session Timeout](#login-session-timeout).
 
-### Configure extra parameters for authorization and token endpoints {#extra-endpoint-params}
+### Configure Extra URI Parameters for Authorization and Token Endpoints {#extra-endpoint-params}
 
-There are some OAuth 2.0 providers which require extra parameters in the request sent to the **authorization endpoint** and/or to the **token endpoint**. These parameters are custom parameters. The Management UI already sends all the parameters required by the OAuth 2.0 Authorization Code flow. 
+Some OAuth 2.0 providers require additional URI parameters to be included into the request sent to the **authorization endpoint** and/or to the **token endpoint**.
+These parameters are vendor- or IDP installation-specific. The Management UI already sends all the parameters required by the OAuth 2.0 Authorization Code flow.
 
-Here is an example of setting an extra parameter called `audience` for both endpoints, the **authorization** and **token** endpoint:
+In the followingexample an extra URI parameter called `audience` is added for both the **authorization** and **token** endpoints:
 
-```ini 
-management.oauth_authorization_endpoint_params.audience = some-audience-id 
-management.oauth_token_endpoint_params.audience = some-audience-id 
+```ini
+management.oauth_authorization_endpoint_params.audience = some-audience-id
+
+management.oauth_token_endpoint_params.audience = some-audience-id
 ```
 
-You can configure as many parameters as you need. 
+Multiple parameters can be configured like so:
+
+```ini
+management.oauth_authorization_endpoint_params.audience = some-audience-id
+management.oauth_authorization_endpoint_params.example = example-value
+
+management.oauth_token_endpoint_params.audience = some-audience-id
+management.oauth_token_endpoint_params.other = other-value
+```
+
 
 ### Special attention to CSP header `connect-src` {#csp-header}
 
@@ -618,16 +629,17 @@ the following settings:
 - `resource` : `rabbit_prod`
 - `scopes` : `openid rabbitmq.tag:management rabbitmq.read:*/*`
 
-#### Configure extra parameters for authorization and token endpoints
+### Configure Extra URI Parameters for Authorization and Token Endpoints {#extra-endpoint-params}
 
-There are some OAuth 2.0 providers which require extra parameters in the request sent to the **authorization endpoint** and/or to the **token endpoint**. These parameters are custom parameters and specified per resource. The Management UI already sends all the parameters required by the OAuth 2.0 Authorization Code flow. 
+Some OAuth 2.0 providers require additional URI parameters to be included into the request sent to the **authorization endpoint** and/or to the **token endpoint**.
+These parameters are vendor- or IDP installation-specific. The Management UI already sends all the parameters required by the OAuth 2.0 Authorization Code flow.
 
-Here is an example of setting an extra parameter called `audience` for both endpoints for the resource `some-resource-id`:
+The following example sets an extra URI parameter called `audience` for both endpoints for the resource `some-resource-id`:
 
-```ini 
+```ini
 management.oauth_resource_servers.2.id = some-resource-id
-management.oauth_resource_servers.2.oauth_authorization_endpoint_params.audience = some-resource-id 
-management.oauth_resource_servers.2.oauth_token_endpoint_params.audience = some-resource-id 
+management.oauth_resource_servers.2.oauth_authorization_endpoint_params.audience = some-resource-id
+management.oauth_resource_servers.2.oauth_token_endpoint_params.audience = some-resource-id
 ```
 
 #### Optionally do not expose some resources in the management UI

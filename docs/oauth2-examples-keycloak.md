@@ -25,7 +25,7 @@ This guide explains how to set up OAuth 2.0 for RabbitMQ
 and Keycloak as Authorization Server using the following flows:
 
 * Access [management UI](./management/) via a browser
-* Access management rest api
+* Access management HTTP API
 * Application authentication and authorization
 
 ## Prerequisites to follow this guide

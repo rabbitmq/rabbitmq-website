@@ -406,7 +406,7 @@ Given above configuration, when a user visits the management UI, the following t
 1. RabbitMQ uses the URL found in `auth_oauth2.issuer` followed by the path `/.well-known/openid-configuration` to download the OpenID Provider configuration. It contains information about other endpoints such as the `jwks_uri` (used to download the keys to validate the token's signature) or the `token_endpoint`.
 
     :::warning
-    If RabbitMQ cannot download the OpenID provider configuration, it shows an error message and OAuth 2.0 authentication is disabled in the management UI.
+    If RabbitMQ cannot download the OpenID provider configuration, it shows an error message and the OAuth 2.0 authentication option will be disabled in the management UI
     :::
 
 2. RabbitMQ displays a button with the label "Click here to login". When the user clicks on the button, the management UI initiates the OAuth 2.0 Authorization Code Flow, which redirects the user to the identity provider to authenticate and get a token.

@@ -46,7 +46,7 @@ which hosts all the scripts required to deploy the examples demonstrated on the 
 
 ### Using [JWT tokens in several protocols](#access-other-protocols) to access RabbitMQ
 
-* [Management REST API](#management-rest-api)
+* [Management HTTP API](#management-http-api)
 * [AMQP 0-9-1](#amqp-protocol) (and [scopes for topic exchanges](#using-topic-exchanges) in a separate section)
 * [AMQP 1.0](#amqp10-protocol)
 * [JMS](#jms-clients)
@@ -190,9 +190,9 @@ It is only when the user clicks **Click here to login** , the user is redirected
 
 ## Using JWT tokens in several protocols to access RabbitMQ {#access-other-protocols}
 
-The following subsections demonstrate how to use access tokens with any messaging protocol and also to access the management rest api.
+The following subsections demonstrate how to use access tokens with any messaging protocol and also to access the management HTTP API.
 
-### Management REST api {#management-rest-api}
+### Management HTTP API {#management-http-api}
 
 In this scenario a monitoring agent uses RabbitMQ HTTP API to collect monitoring information.
 Because it is not an end user, or human, you refer to it as a *service account*.
@@ -786,9 +786,9 @@ make start-rabbitmq
 **NOTE**: You do not need to run any OAuth 2.0 server like UAA. This is because you are creating a token and signing it using the same
 private-public key pair RabbitMQ is configured with.
 
-*Use a Rich Authorization Token to access the management rest api*
+*Use a Rich Authorization Token to access the management HTTP API*
 
-You are going use this token [jwts/rar-token.json](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/jwts/rar-token.json) to access an endpoint of the management rest api.
+You are going use this token [jwts/rar-token.json](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/jwts/rar-token.json) to access an endpoint of the Management HTTP API.
 
 ```bash
 make curl-with-token URL=http://localhost:15672/api/overview TOKEN=$(bin/jwt_token rar-token.json legacy-token-key private.pem public.pem)

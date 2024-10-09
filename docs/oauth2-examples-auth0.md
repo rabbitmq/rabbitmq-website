@@ -1,5 +1,5 @@
 ---
-title: Use https://auth0.com/ as Auth 2.0 server
+title: Use auth0.com as OAuth 2.0 Server
 displayed_sidebar: docsSidebar
 ---
 <!--
@@ -19,18 +19,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Use https://auth0.com/ as OAuth 2.0 server
+# Use [auth0.com](https://auth0.com) as OAuth 2.0 server
 
 This guide explains how to set up OAuth 2.0 for RabbitMQ
 and Auth0 as Authorization Server using the following flows:
 
 * Access [management UI](./management/) via a browser
-* Access management rest api
+* Access management HTTP API
 * Application authentication and authorization
 
 ## Prerequisites to follow this guide
 
-* Have an account in https://auth0.com/.
+* Have an [Auth0](https://auth0.com/) account
 * Docker
 * A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) that contains all the configuration files and scripts used on this example
 
@@ -38,7 +38,7 @@ and Auth0 as Authorization Server using the following flows:
 
 In Auth0, resources are mapped to Application APIs.
 
-1. Once you have logged onto your account in https://auth0.com/, go to **dashboard > Applications > APIs > Create an API**.
+1. After logging into the Auth0 account, go to **dashboard > Applications > APIs > Create an API**.
 2. Give it the name `rabbitmq`. The important thing here is the `identifier` which must have the name of the *resource_server_id* we configured in RabbitMQ. This `identifier` goes into the `audience` JWT field. In our case, it is called `rabbitmq`.
 3. Choose `RS256` as the signing algorithm.
 4. Enable **RBAC**.
@@ -99,7 +99,8 @@ To configure RabbitMQ you need to gather the following information from Auth0:
 4. And take note of the *Domain* value
 5. Use the last values in *Client ID* and *Domain* fields in the RabbitMQ configuration file
 
-Clone the configuration file [conf/auth0/rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/auth0/rabbitmq.conf.tmpl) as `rabbitmq.conf` (in the same folder as `rabbitmq.conf.tmpl`).
+Copy [conf/auth0/rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/auth0/rabbitmq.conf.tmpl) as `rabbitmq.conf`.
+It must be in same folder as `rabbitmq.conf.tmpl`.
 
 Edit `rabbitmq.conf` and proceed as follows:
 
@@ -108,12 +109,14 @@ Edit `rabbitmq.conf` and proceed as follows:
 
 :::important
 
-Since RabbitMQ 4.1.x, you must configure RabbitMQ to include a request parameter
-called `audience` whose value matches the value you set in `auth_oauth2.resource_server_id`.
-Earlier RabbitMQ versions always sent this parameter. If you do not configure it,
-Auth0 sends an invalid token and RabbitMQ shows the error message `No authorized`.
+Starting with RabbitMQ 4.1.x, you must configure RabbitMQ to include a URI parameter
+called `audience` whose value matches the value of `auth_oauth2.resource_server_id`.
 
-These [two configuration lines](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/auth0/rabbitmq.conf.tmpl#L8-L9) configure the `audience` parameter with the value `rabbitmq`.
+Earlier RabbitMQ versions always sent this URI parameter. If this additional URI parameter is not configured,
+Auth0 will consider the token invalid and RabbitMQ will display "No authorized" for error.
+
+These [two configuration lines](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/auth0/rabbitmq.conf.tmpl#L8-L9)
+configure the `audience` parameter with the value `rabbitmq`.
 
 :::
 
