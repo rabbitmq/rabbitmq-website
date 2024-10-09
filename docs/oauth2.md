@@ -103,7 +103,7 @@ Based on the previous configuration, JWT Tokens presented to RabbitMQ for authen
 2. have a value in the `aud` field that matches `resource_server_id` value
 3. have scopes that must match the `resource_server_id` value, for example `new_resource_server_id.read:*/*`
 
-Also, the `https://my-oauth2-provider.com/realm/rabbitmq/.well-known/openid-configuration` endpoint must return the OpenID Provider Configuration which includes the JKWS url to download the signing keys.
+Also, the `https://my-oauth2-provider.com/realm/rabbitmq/.well-known/openid-configuration` endpoint must return the OpenID Provider Configuration which includes the JKWS URL to download the signing keys.
 :::info
 *.well-known/openid-configuration* is the OpenID standard path for the OpenID Provider Configuration endpoint
 :::
