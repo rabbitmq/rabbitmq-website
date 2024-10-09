@@ -27,7 +27,7 @@ The main reason is because it does not issue JWT access tokens
 but opaque access tokens. To support opaque access tokens, RabbitMQ would have to issue an
 external HTTP request to convert the opaque access token into a JWT access token.
 
-Under the [`/conf/google`](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/google) folder you can find the configuration used to connect the
+Under the [`/conf/google`](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next/conf/google) folder you can find the configuration used to connect the
 RabbitMQ management UI with Google OAuth 2.0 endpoints. With this configuration,
 you can get to a point where the user is authenticated by Google, and eventually
 you get the error message in the RabbitMQ Management UI "Not Authorized".

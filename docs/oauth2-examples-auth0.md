@@ -32,7 +32,7 @@ and Auth0 as Authorization Server using the following flows:
 
 * Have an [Auth0](https://auth0.com/) account
 * Docker
-* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) that contains all the configuration files and scripts used on this example
+* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next) for branch `next` that contains all the configuration files and scripts used on this example.
 
 ## Create RabbitMQ API
 
@@ -115,7 +115,7 @@ called `audience` whose value matches the value of `auth_oauth2.resource_server_
 Earlier RabbitMQ versions always sent this URI parameter. If this additional URI parameter is not configured,
 Auth0 will consider the token invalid and RabbitMQ will display "No authorized" for error.
 
-These [two configuration lines](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/auth0/rabbitmq.conf.tmpl#L8-L9)
+These [two configuration lines](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/next/conf/auth0/rabbitmq.conf.tmpl#L8-L9)
 configure the `audience` parameter with the value `rabbitmq`.
 
 :::

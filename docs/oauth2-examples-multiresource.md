@@ -30,7 +30,7 @@ and several OAuth resources using the following flows:
 ## Prerequisites
 
 * Docker
-* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) that contains all the configuration files and scripts used on this example
+* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next) for branch `next` that contains all the configuration files and scripts used on this example
 
 ## Single OAuth 2.0 vs Multiple OAuth 2.0 resources
 
@@ -52,7 +52,7 @@ As both teams are registered in the same OAuth2 server you are going to configur
 
 ### Test applications accessing AMQP protocol with their own audience
 
-This is a summary of the configuration, found in [rabbitmq.scenario1.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/multi-keycloak/rabbitmq.scenario1.conf):
+This is a summary of the configuration, found in [rabbitmq.scenario1.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/next/conf/multi-keycloak/rabbitmq.scenario1.conf):
 
 There are two OAuth2 clients (`prod_producer` and `dev_producer`) declared in Keycloak and configured to access their respective audience: `rabbit_prod` and `rabbit_dev`.
 The RabbitMQ OAuth 2 plugin is configured like so:
@@ -91,7 +91,7 @@ Follow these steps to deploy Keycloak and RabbitMQ:
     It is recommended to follow the logs until keycloak is fully initialized: `docker logs keycloak -f`
     :::
 
-2. Launch RabbitMQ with [rabbitmq.scenario1.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/multi-keycloak/rabbitmq.scenario1.conf):
+2. Launch RabbitMQ with [rabbitmq.scenario1.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/next/conf/multi-keycloak/rabbitmq.scenario1.conf):
 
     ```bash
     MODE="multi-keycloak" CONF="rabbitmq.scenario1.conf" make start-rabbitmq
@@ -198,7 +198,7 @@ This scenario uses the same OAuth 2.0 provider called **keycloak**, however, thi
 	- `prod_producer` with the audience `rabbit_prod` (password: `PdLHb1w8RH1oD5bpppgy8OF9G6QeRpL9`).
 	- `rabbit_prod_admin` (password: `rabbit_prod_admin`).
 
-Despite there is only one physical OAuth provider, you need to configure RabbitMQ with two OAuth 2.0 providers. Each tenant has its own `issuer` url. This is the configuration file used for this scenario is  [rabbitmq.scenario2.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/multi-keycloak/rabbitmq.scenario2.conf). For convenience here is the relevant part:
+Despite there is only one physical OAuth provider, you need to configure RabbitMQ with two OAuth 2.0 providers. Each tenant has its own `issuer` url. This is the configuration file used for this scenario is  [rabbitmq.scenario2.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/next/conf/multi-keycloak/rabbitmq.scenario2.conf). For convenience here is the relevant part:
 ```ini
 ...
 ## Oauth providers
@@ -296,7 +296,7 @@ This scenario uses two separate OAuth 2.0 providers called `devkeycloak` and `pr
 	- `prod_producer` with the audience `rabbit_prod` (password: `PdLHb1w8RH1oD5bpppgy8OF9G6QeRpL9`).
 	- `rabbit_prod_admin` (password: `rabbit_prod_admin`).
 
-Check out the section `oauth_providers` in the configuration file [rabbitmq.scenario3.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/multi-keycloak/rabbitmq.scenario3.conf) used by this scenario. Like in the scenario 2, there are two OAuth providers however this time the URL refers to two different hostnames. For convenience here is the relevant part:
+Check out the section `oauth_providers` in the configuration file [rabbitmq.scenario3.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/next/conf/multi-keycloak/rabbitmq.scenario3.conf) used by this scenario. Like in the scenario 2, there are two OAuth providers however this time the URL refers to two different hostnames. For convenience here is the relevant part:
 
 ```ini
 ...
