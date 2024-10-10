@@ -99,8 +99,7 @@ To configure RabbitMQ you need to gather the following information from Auth0:
 4. And take note of the *Domain* value
 5. Use the last values in *Client ID* and *Domain* fields in the RabbitMQ configuration file
 
-Copy [conf/auth0/rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/auth0/rabbitmq.conf.tmpl) as `rabbitmq.conf`.
-It must be in same folder as `rabbitmq.conf.tmpl`.
+Clone the configuration file [conf/auth0/rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/auth0/rabbitmq.conf.tmpl) as `rabbitmq.conf` (in the same folder as `rabbitmq.conf.tmpl`).
 
 Edit `rabbitmq.conf` and proceed as follows:
 
