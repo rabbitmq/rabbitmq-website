@@ -2,6 +2,9 @@ acogoluegnes:
   name: "Arnaud Cogoluègnes"
   url: https://github.com/acogoluegnes
   image_url: https://github.com/acogoluegnes.png
+  socials:
+    github: acogoluegnes
+    linkedin: arnaudcogoluegnes
 
 alebedeff:
   name: "Alexey Lebedeff"
@@ -108,6 +111,9 @@ nkarl:
   name: "Karl Nilsson"
   url: https://github.com/kjnilsson
   image_url: https://github.com/kjnilsson.png
+  socials:
+    github: kjnilsson
+    linkedin: kjnils
 
 simon:
   name: "Simon MacMullen"
