@@ -33,10 +33,12 @@ Consumer consumer = connection.consumerBuilder()
 
 These annotations could use different types including [map](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html#type-map), [list](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html#type-list), or [array](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html#type-array).
 This flexibility allows not only setting details like the last requeue reason, time, and consumer, but also tracking a history of requeue events.
+Maintaining such a history can reveal patterns, such as identifying consumers that requeue messages more frequently or discovering common requeue reasons across the system.
+However, keep in mind that quorum queues retain modified message annotations in memory, which increases the memory overhead per requeued message.
 
-Maintaining a history of requeue events can reveal patterns, such as identifying consumers that requeue messages more frequently or discovering common requeue reasons across the system.
+Setting custom headers before requeueing a message at the head of the queue is not supported in AMQP 0.9.1.
 
-Notably, setting custom headers before requeueing a message at the head of the queue is not supported in AMQP 0.9.1.
+Whether requeuing a message to a quorum queue via AMQP 1.0 or AMQP 0.9.1, the [x-delivery-count](https://www.rabbitmq.com/docs/quorum-queues#poison-message-handling) annotation will always be incremented.
 
 ## Dead Letter
 
