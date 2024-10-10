@@ -32,7 +32,7 @@ and Keycloak as Authorization Server using the following flows:
 
 * Docker
 * make
-* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) that contains all the configuration files and scripts used on this example
+* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next) for branch `next` that contains all the configuration files and scripts used on this example
 
 ## Deploy Keycloak
 
@@ -54,7 +54,7 @@ management api and `producer` to access via AMQP protocol.
 
 ## Start RabbitMQ
 
-Run the command below to start RabbitMQ configured with the **Keycloak** server we started in the previous section: This is the [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/keycloak/rabbitmq.conf) used for **Keycloak**.
+Run the command below to start RabbitMQ configured with the **Keycloak** server we started in the previous section: This is the [rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/next/conf/keycloak/rabbitmq.conf) used for **Keycloak**.
 ```bash
 export MODE=keycloak
 make start-rabbitmq
@@ -84,7 +84,7 @@ make start-perftest-producer-with-token PRODUCER=producer TOKEN=$(bin/keycloak/t
 
 In the following information, OAuth 2.0 authentication is tested with the AMQP protocol and the Pika library. These tests specifically demonstrate how to refresh a token on a live AMQP connection.
 
-The sample Python application [can be found on GitHub](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/pika-client).
+The sample Python application [can be found on GitHub](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next/pika-client).
 
 To run this sample code proceed as follows:
 ```bash

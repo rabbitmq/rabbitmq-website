@@ -30,8 +30,7 @@ and Okta as Authorization Server using the following flows:
 
 * Have an [Okta account](https://www.okta.com)
 * Docker
-* `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
-contains all the configuration files and scripts used on this example
+*  A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next) for branch `next` that contains all the configuration files and scripts used on this example.
 
 
 ## Create your app integration in Okta UI
@@ -195,10 +194,10 @@ For that, you will need the following values from the previous steps:
 * **okta-Issuer**: the **default Authorization server**
 * **okta-Metadata-URI**: the **default Authorization server**
 
-Copy [rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/rabbitmq.conf.tmpl) from the tutorial repository
+Copy [rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next/conf/okta/rabbitmq.conf.tmpl) from the tutorial repository
 to `rabbitmq.conf`. It must be in the same directory as `rabbitmq.conf.tmpl`.
 
-There is a second configuration file, [advanced.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/okta/advanced.config),
+There is a second configuration file, [advanced.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next/conf/okta/advanced.config),
 that will not need any modifications. This is the RabbitMQ [advanced configuration file](./configure/) where RabbitMQ scopes are mapped to the permissions previously configured in Okta.
 
 Edit `rabbitmq.conf` and proceed as follows:

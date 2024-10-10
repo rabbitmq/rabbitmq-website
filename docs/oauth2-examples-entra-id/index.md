@@ -32,7 +32,7 @@ and Microsoft Entra ID as Authorization Server using the following flows:
 * Have an account in https://portal.azure.com.
 * Docker
 * Openssl
-* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) that contains all the configuration files and scripts used on this example
+* A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next) for branch `next` that contains all the configuration files and scripts used on this example.
 
 ## Register your app
 
@@ -183,7 +183,7 @@ For more information, check out Microsoft Entra documentation about [configuring
 
 The configuration on **Entra ID** side is done. Next, configure RabbitMQ to use these resources.
 
-Clone [rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/entra/rabbitmq.conf.tmpl) from the tutorial repository
+Clone [rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next/conf/entra/rabbitmq.conf.tmpl) from the tutorial repository
 to `rabbitmq.conf`. It must be in the same directory as `rabbitmq.conf.tmpl`.
 
 Edit the new `rabbitmq.conf` file and proceed as follows:
