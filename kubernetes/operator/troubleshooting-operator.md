@@ -78,29 +78,62 @@ CoreDNS [caching timeout may need to be decreased](https://kubernetes.io/docs/co
 to a value in the 5-10 seconds range.
 
 ### Pods in CrashLoopBackOff State {#pods-crash-loop}
+
 Since Kubernetes restarts failing pods, if a RabbitMQ node can't start, it will likely enter
 the CrashLoopBackOff state - it attempts to start, fails and is restarted again. In such situations
 it might be hard to debug or fix the problem, if that requires accessing the pod or its data.
 
-In some cases, you know you can fix the problem by starting a fresh node, which will synchronise everything from
-the other nodes in the cluster. Here's how you can do that:
+One of the ways to debug such a situation is to create a new pod that is not part of the StatefulSet
+but has the same persistent volume mounted. Here's an example of a Pod definition that mounts the
+persistent volume of a RabbitMQ node:
 
-<p class="box-warning">
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug-rabbitmq
+spec:
+  volumes:
+    - name: persistence
+      persistentVolumeClaim:
+        claimName: persistence-RMQ_NAME-server-2
+  containers:
+    - name: debug-rabbitmq
+      image: ... # you can use any image here, but for some tasks you should use the same image you use in the statefulset
+      command: ["/bin/sleep", "36000"]
+      volumeMounts:
+        - mountPath: /var/lib/rabbitmq/mnesia/
+          name: persistence
+```
+
+Once you are done, exit the pod and delete it.
+
+### Recreate a Node {#recreate-node}
+
+In some cases, a node must be decomissioned (permanently removed from the cluster) and replaced with a new node.
+The new node will then synchronize the data from its peers.
+
+The process of node replacement with the Operator looks like so:
+
+:::danger
+
 The procedure below completely deletes a pod (RabbitMQ node) and its disk.
-This means the data from that node will be lost. Make sure you understand the consequences.
-</p>
+This means that all non-replicated data from that node will be lost. Make sure you understand the consequences.
+
+:::
+
+In this example, we assume that we want to recreate server-2. Adjust the commands if you want to delete a different node.
 
 1. `kubectl rabbitmq pause-reconciliation RMQ_NAME` (or add a label if you don't have the kubectl-rabbitmq plugin/CLI) - this means the Operator won't "fix" (overwrite) manual changes to the underlying objects
 1. `kubectl delete statefulset --cascade=orphan RMQ_NAME-server` - delete the statefulset so that it doesn't "fix" the pods (recreate the missing pod after we delete it)
-1. `kubectl delete pod RMQ_SERVER-server-2` (you can delete any pod you want here)
-1. `kubectl delete pvc RMQ_NAME-server-2`
-1. `kubectl delete pv PV_NAME` if needed (this will completely delete the previous disk/data)
-1. `kubectl rabbitmq resume-reconciliation RMQ_NAME` (or delete the label) - the Operator fixes the deployment by recreating the StatefulSet and the StatefulSet recreates the missing pod and PVC
-
-You can adapt this procedure to other situations as well - for example rather than deleting the disk,
-you can start a pod and attach the volume to investigate the contents.
-
-The only RabbitMQ specific parts of this process are the first and last steps. [Leran more about pausing RabbitmqCluster reconciliation](./using-operator#pause). The other commands are common Kubernetes administration tasks.
+1. `kubectl delete pod RMQ_NAME-server-2` (you can delete any pod you want here)
+1. `kubectl delete pvc persistence-RMQ_NAME-server-2` (if `persistentVolumeReclaimPolicy` is set to `Delete`, this will delete the PV and all the data on this node)
+1. `kubectl delete pv PV_NAME` (only needed if `persistentVolumeReclaimPolicy` is set to `Retain`; this will delete the PV and all the data on this node)
+1. `rabbitmqctl forget_cluster_node rabbit@RMQ_NAME-server-2.RMQ_NAME-nodes.NAMESPACE` (from any of the running nodes) - remove the deleted node from the cluster
+1. `kubectl rabbitmq resume-reconciliation RMQ_NAME` (or delete the label) - the Operator will recreate the StatefulSet, the StatefulSet will recreate the missing pod; the node should join the cluster
+1. Expand the quorum queues and streams to the new node:
+   * `rabbitmq-queues grow rabbit@RMQ_NAME-server-2.RMQ_NAME-nodes.NAMESPACE all`
+   * `rabbitmq-streams add_replica STREAM_NAME rabbit@RMQ_NAME-server-2.RMQ_NAME-nodes.NAMESPACE`
 
 ### Pods Are Stuck in the Terminating State {#pods-stuck-in-terminating-state}
 
