@@ -186,11 +186,14 @@ This is totally optional but it can save you time.
 
 ## Configure RabbitMQ to use Okta as OAuth 2.0 Authentication Backend
 
-The configuration on Okta side is done. You now have to configure RabbitMQ to use the resources you just created. You took note of the following values:
+The configuration on the Okta side is now done. The next step is to configure RabbitMQ
+to use the resources created earlier.
 
-  - **okta_client_app_ID** associated to the okta app that you registered in okta for rabbitMQ.
-  - **okta-Issuer** associated to the **default Authorization server**.
-  - **okta-Metadata-URI** associated to the **default Authorization server**.
+The following values will be necessary during the next steps:
+
+* **okta_client_app_ID**: the Okta app registered above to be used with RabbitMQ
+* **okta-Issuer**: the **default Authorization server**
+* **okta-Metadata-URI**: the **default Authorization server**
 
 Clone [rabbitmq.conf.tmpl](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next/conf/okta/rabbitmq.conf.tmpl) as `rabbitmq.conf` (in the same folder as `rabbitmq.conf.tmpl`).
 There is a second configuration file, [advanced.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next/conf/okta/advanced.config),
@@ -205,6 +208,15 @@ or `{okta-issuer}/.well-known/openid-configuration`
 4. Else you need to determine the path that follows the uri in `{okta-issuer}` and update
 `auth_oauth2.discovery_endpoint_path` accordingly. For instance, if **okta-Metadata-URI** is `{okta-issuer}/some-other-endpoint`, you update `auth_oauth2.discovery_endpoint_path` with the value `some-other-endpoint`.
 
+The mapping of the roles configured in Okta, such as `monitoring` and `admin`, are configured
+at the bottom of the `rabbitmq.conf` file. For example:
+
+```ini
+#...
+auth_oauth2.scope_aliases.admin = okta.read:*/* okta.write:*/* okta.configure:*/* okta.tag:administrator
+auth_oauth2.scope_aliases.monitoring = okta.tag:management okta.read:*/
+#...
+```
 
 ### About OpenId Discovery Endpoint
 
