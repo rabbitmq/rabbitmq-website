@@ -103,7 +103,7 @@ However, instead of using `basic.nack` or `basic.reject` with `requeue=false` to
 2. Wait for RabbitMQ to confirm the re-published message.
 3. Acknowledge the original message via `basic.ack`.
 
-Similarly, an AMQP 1.0 client can choose between dead lettering with custom message annotations or re-publishing the message, as described for AMQP 0.9.1 clients.
+An AMQP 1.0 client can choose between dead lettering with custom message annotations or re-publishing the message.
 Both approaches have their advantages and trade-offs:
 
 | Criteria | Dead Letter with Custom Reason | Re-publish with Custom Reason |
