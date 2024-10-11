@@ -81,7 +81,7 @@ The scenario depicted above is demonstrated in the [modified-outcome sample appl
 The sample app uses the [RabbitMQ AMQP 1.0 Java Client](https://github.com/rabbitmq/rabbitmq-amqp-java-client).
 
 You can run this sample application as follows:
-1. In the root directory of [rabbitmq-server v4.0.2](https://github.com/rabbitmq/rabbitmq-server/tree/v4.0.2), start RabbitMQ via `make run-broker`.
+1. Start RabbitMQ server via `docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4.0-management`
 2. In the root directory of [the sample app](https://github.com/ansd/modified-outcome/tree/v0.1.0), start the client via `mvn clean compile exec:java`.
 
 After publishing a message to the `orders` queue, the client app consumes the message and outputs the following on the console:
