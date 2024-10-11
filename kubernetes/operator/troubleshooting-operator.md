@@ -110,12 +110,16 @@ Once you are done, exit the pod and delete it.
 
 ### Recreate a Node {#recreate-node}
 
-In some cases, a node is failing and you know you can fix the problem by replacing it with a fresh node,
-which will synchronise everything from the other nodes in the cluster. Here's how you can do that:
+In some cases, a node must be decomissioned (permanently removed from the cluster) and replaced with a new node.
+The new node will then synchronize the data from its peers.
 
-:::warning
+The process of node replacement with the Operator looks like so:
+
+:::danger
+
 The procedure below completely deletes a pod (RabbitMQ node) and its disk.
-This means the data from that node will be lost. Make sure you understand the consequences.
+This means that all non-replicated data from that node will be lost. Make sure you understand the consequences.
+
 :::
 
 In this example, we assume that we want to recreate server-2. Adjust the commands if you want to delete a different node.
