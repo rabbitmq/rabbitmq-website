@@ -196,33 +196,46 @@ auth_oauth2.scope_prefix = ''
 ...
 ```
 
-#### Scope aliases {#scope-aliases}
+#### Scope Aliases {#scope-aliases}
 
-An scope alias is a mapping between a custom scope and a RabbitMQ's scope. A custom
-scope is any scope which is not recogonized by RabbitMQ.
+:::important
 
-Scope aliases are necessary when you cannot create RabbitMQ scopes in your
-identity provider. Instead you have to name them following a format which is not
-recognizable by RabbitMQ.
+Scope aliases are necessary when scopes in the RabbitMQ format cannot be
+configured on the identity provider (IDP) side
 
-For instance, say you have these two roles in your identity provider:
-  - `admin`.
-  - `developer`.
+:::
 
-Also say that you want to map those roles to the following RabbitMQ scopes:
-  - `admin` to `rabbitmq.tag:administrator rabbitmq.read:*/`
-  - `developer` to `rabbitmq.tag:management rabbitmq.read:*/* rabbitmq.write:*/* rabbitmq.configure:*/*`
+A scope alias is a mapping between a custom JWT token scope and a set of RabbitMQ-specific scopes. A custom
+scope can also be defined as any scope which is not recogonized by RabbitMQ's OAuth 2 subsystem.
 
-You configure the scope aliases as follows. The mapping can be 1:1 or 1:many:
+Scope aliases are necessary when scopes in the RabbitMQ format cannot be
+configured on the identity provider (IDP) side. Instead, a set of names is configured
+on the IDP side, and mapped to a set of scoped that RabbitMQ can parse and use.
+
+For instance, let's consider an identity provider with the following two roles:
+
+* `admin`
+* `developer`
+
+These roles should be mapped to the following RabbitMQ scopes:
+
+* `admin` to `rabbitmq.tag:administrator rabbitmq.read:*/`
+* `developer` to `rabbitmq.tag:management rabbitmq.read:*/* rabbitmq.write:*/* rabbitmq.configure:*/*`
+
+The following `rabbitmq.conf` example performs the aforementioned mapping using scope aliases. The mapping can be one-to-one or one-to-many:
+
 ```ìni
 # ...
+# the "admin" role above
 auth_oauth2.scope_aliases.admin = rabbitmq.tag:administrator rabbitmq.read:*/
+# the "developer" role above
 auth_oauth2.scope_aliases.developer = rabbitmq.tag:management rabbitmq.read:*/* rabbitmq.write:*/* rabbitmq.configure:*/*
 # ...
 ```
 
-Sometimes, the alias is not made of a single word but instead it uses special characters
-and symbols including the separator character `.`. In those cases, you can configure the scope aliases as follows:
+Sometimes an alias may have to use special characters and symbols including the separator character, `.`.
+In those cases, configure the scope aliases as follows:
+
 ```ìni
 # ...
 auth_oauth2.scope_aliases.1.alias = api://admin
@@ -232,7 +245,7 @@ auth_oauth2.scope_aliases.2.scope = rabbitmq.tag:management rabbitmq.read:*/* ra
 # ...
 ```
 
-#### Signing keys files {#signing-key-files}
+#### Signing Keys Files {#signing-key-files}
 
 The following configuration declares two signing keys and configures the kid of the default signing key. For more information check the section [Configure Signing keys](#configure-signing-keys).
 
