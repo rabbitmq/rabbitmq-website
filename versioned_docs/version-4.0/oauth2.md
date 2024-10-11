@@ -78,7 +78,7 @@ auth_backends.1 = rabbit_auth_backend_oauth2
 
 Next, let's take a look at the workflows the OAuth 2 plugin supports.
 
-### Prerequisites {#prerequisites}
+## Prerequisites {#prerequisites}
 
 To use the OAuth 2 plugin, all RabbitMQ nodes must be
 
@@ -109,7 +109,7 @@ Also, the `https://my-oauth2-provider.com/realm/rabbitmq/.well-known/openid-conf
 
 More detail is included in the next section about what happens during the authentication and how to configure OAuth 2.0 beyond the basic configuration shown previously.
 
-### Authorization Flow {#authorization-flow}
+## Authorization Flow {#authorization-flow}
 
 This plugin does not communicate with any OAuth 2.0 provider in order to authenticate user and grants access. Instead, it decodes an access token provided by the client and authorises a user based on the scopes found in the token.
 
@@ -131,7 +131,7 @@ In chronological order, here is the sequence of events that occur when a client 
 5. RabbitMQ validates that the token has the **audience** claim and whose value matches the `resource_server_id` (this operation can be deactivated by setting `auth_oauth2.verify_aud` to `false`).
 6. RabbitMQ translates the **scopes** found in the token into RabbitMQ **permissions** (the same permissions used in the RabbitMQ's internal database).
 
-### Variables configurable in rabbitmq.conf {#variables-configurable}
+## Variables Сonfigurable in rabbitmq.conf {#variables-configurable}
 
 | Key                                        | Documentation
 |--------------------------------------------|-----------
@@ -159,7 +159,7 @@ In chronological order, here is the sequence of events that occur when a client 
 
 
 
-#### Resource Server ID {#resource-server-id}
+## Resource Server ID {#resource-server-id}
 
 A RabbitMQ cluster must have at least one resource server identifier configured. If it has just one resource, this is configured in the `auth_oauth2.resource_server_id` variable and it is **mandatory**.
 If the RabbitMQ cluster has more than one OAuth resource then they are configured under `auth_oauth2.resource_servers.<index>` and in this case `auth_oauth2.resource_server_id` variable is not mandatory.
@@ -168,7 +168,7 @@ RabbitMQ uess the resource server identity for these two purposes:
 - To validate the token's audience (`aud`) whose value must contain the resource server identifier. This validation can be disabled though.
 - To initiate the OAuth 2.0 Authorization Code flow in the Management UI. This is the flow used to authenticate a user and to get its access token. RabbitMQ must include the resource server identifier in the request's attribute called `resource`.
 
-#### Scope prefix {#scope-prefix}
+## Scope Prefix {#scope-prefix}
 
 OAuth 2.0 tokens use scopes to communicate what set of permissions particular client are granted. The scopes are free form strings.
 
@@ -189,7 +189,7 @@ auth_oauth2.scope_prefix = ''
 ...
 ```
 
-#### Signing keys files {#signing-key-files}
+## Signing keys files {#signing-key-files}
 
 The following configuration declares two signing keys and configures the kid of the default signing key. For more information check the section [Configure Signing keys](#configure-signing-keys).
 
@@ -205,7 +205,7 @@ auth_oauth2.algorithms.1 = HS256
 auth_oauth2.algorithms.2 = RS256
 ```
 
-#### JWKS endpoint {#jwks-endpoint}
+## JWKS endpoint {#jwks-endpoint}
 
 The followibng configuration sets the JWKS endpoint from which RabbitMQ downloads the signing keys using the configured CA certificate and TLS variables.
 
@@ -221,7 +221,7 @@ auth_oauth2.algorithms.1 = HS256
 auth_oauth2.algorithms.2 = RS256
 ```
 
-#### Multiple Resource Servers configuration {#multiple-resource-servers-configuration}
+## Multiple Resource Servers configuration {#multiple-resource-servers-configuration}
 
 Each `auth_oauth2.resource_servers.<id/index>.` entry has the following variables shown in the table below. Except for the variables `id` and `oauth_provider_id`, if a resource does not configure a variable, RabbitMQ uses the variable configured at the root level. For instance, if the resource `auth_oauth2.resource_servers.prod` does not configure `preferred_username_claims` variable, RabbitMQ uses the value configured in `auth_oauth2.preferred_username_claims` for the resource `prod`.
 
