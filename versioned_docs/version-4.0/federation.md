@@ -51,7 +51,6 @@ The federation plugin can transmit messages between brokers
  * they may have different users, virtual hosts, permissions and purpose
  * they may run on different versions of RabbitMQ and Erlang
  * they may be of different sizes
- * they may be
 
 ### WAN friendliness
 
