@@ -54,7 +54,7 @@ Other parameters are set to their default values.
 
 ### Example B
 
-In the following example URI, TLS and [TLS peer verification](./ssl#peer-verification)) on the client side of the connection are enabled:
+In the following example URI, TLS and [TLS peer verification](./ssl#peer-verification) on the client side of the connection are enabled:
 
 ```ini
 amqps://myhost?cacertfile=/path/to/ca_certificate.pem
@@ -66,7 +66,7 @@ amqps://myhost?cacertfile=/path/to/ca_certificate.pem
 
 ### Example C
 
-In the following example URI, TLS is enabled but [TLS peer verification](./ssl#peer-verification)) on the client side of the connection is disabled:
+In the following example URI, TLS is enabled but [TLS peer verification](./ssl#peer-verification) on the client side of the connection is disabled:
 
 ```ini
 amqps://myhost?cacertfile=/path/to/ca_certificate.pem
