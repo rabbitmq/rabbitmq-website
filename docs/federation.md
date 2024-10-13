@@ -316,23 +316,69 @@ can. To summarise how clustering and federation interact:
 Starting with Erlang 26, [TLS client peer verification](./ssl#peer-verification) is enabled by default by the TLS implementation.
 
 If client TLS certificate and key pair is not configured, TLS-enabled Federation links
-will fail to connect. If peer verification is not necessary, it can be disabled, otherwise a certificate and private key
-pair must be configured for TLS-enabled Federation links.
+will fail to connect. A certificate (public key) and private key
+pair must be configured for TLS-enabled Federation links that need to use peer verification.
+
+If peer verification is not necessary, it can be disabled.
 
 :::
 
 Federation connections (links) can be secured with TLS. Because Federation uses
 a RabbitMQ client under the hood, it is necessary to both configure
-source broker to [listen for TLS connections](./ssl)
-and Federation/Erlang client to use TLS.
+the target broker to [listen for TLS connections](./ssl)
+and Federation to use TLS.
 
 To configure Federation to use TLS, one needs to
 
- * Use the `amqps` URI scheme instead of `amqp`
- * Specify CA certificate and client certificate/key pair, as well as other parameters (namely [enable or disable peer verification](./ssl#peer-verification), [peer verification depth](./ssl#peer-verification-depth)) via [URI query parameters](./uri-query-parameters)
- * Configure Erlang client to [use TLS](./ssl)
+ * In upstream URI, use the `amqps` for scheme instead of `amqp` and port `5671 instead of `5672` (assuming the default port is used but the port specified explicitly)
+ * In the same upstream URI, specify CA certificate and client certificate/key pair, as well as other parameters (namely [enable or disable peer verification](./ssl#peer-verification), [peer verification depth](./ssl#peer-verification-depth)) via [URI query parameters](./uri-query-parameters)
+ * Optionally, configure [TLS-related](./ssl/) settings or defaults common for all links (plus, optionally, [Shovel](./shovel)) via the Erlang client settings
 
-Just like with "regular" client connections, server's CA should be
+In the following example the upstream URI is modified to use TLS with a client certificate (public key)
+and private key pair but with peer verification disabled (for simplicity, it is encouraged for production use):
+
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+# Note the TLS-related settings in the upstream URI field
+rabbitmqctl set_parameter federation-upstream my-upstream \
+    '{"uri":"amqps://target.hostname:5671?cacertfile=/path/to/ca_bundle.pem&certfile=/path/to/client_certificate.pem&keyfile=/path/to/client_key.pem&verify=verify_none","expires":3600000}'
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+#
+rabbitmqctl.bat set_parameter federation-upstream my-upstream `
+    '"{""uri"":""amqps://target.hostname:5671?cacertfile=drive:\path\to\ca_bundle.pem&certfile=drive:\path\to\client_certificate.pem&keyfile=drive:\path\to\client_key.pem&verify=verify_none"",""expires"":3600000}"'
+```
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+Navigate to `Admin` > `Federation Upstreams` >
+`Add a new upstream`. Enter "my-upstream" next to Name, paste
+`"amqps://target.hostname:5671?cacertfile=/path/to/ca_bundle.pem&certfile=/path/to/client_certificate.pem&keyfile=/path/to/client_key.pem&verify=verify_none"` for URI,
+then enter 36000000 next to Expiry.
+
+Click Add upstream.
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```bash
+PUT /api/parameters/federation-upstream/%2f/my-upstream
+{"value":{"uri":"amqps://target.hostname:5671?cacertfile=/path/to/ca_bundle.pem&certfile=/path/to/client_certificate.pem&keyfile=/path/to/client_key.pem&verify=verify_none","expires":3600000}}
+```
+</TabItem>
+</Tabs>
+
+These examples use a URI with four additional [URI query parameters](./uri-query-parameters):
+
+ * `cacertfile`: the CA certificate bundle file that includes one or more CA certificates that were used to sign the client certificate and private key pair
+ * `certfile`: the client certificate (public key)
+ * `keyfile`: the client private key
+ * `verify`: [controls peer verification](./ssl#peer-verification) (in this specific example, disables it)
+
+Just like with "regular" client connections, if TLS-enabled federation links need to perform peer verification then server's CA must be
 trusted on the node where federation link(s) runs, and vice versa.
 
 
