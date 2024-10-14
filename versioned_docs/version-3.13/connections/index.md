@@ -320,12 +320,6 @@ The [Networking guide](./networking) has a section dedicated to [tuning for a la
 It explains how to reduce per-connection memory footprint.
 
 
-## TLS {#tls}
-
-Client connections can be encrypted with TLS. TLS also can be used as an additional
-or the primary way of authenticating clients. Learn more in the [TLS guide](./ssl).
-
-
 ## Flow Control {#flow-control}
 
 Connections that publish messages can outpace other parts of the system, most likely busy queues and queues
