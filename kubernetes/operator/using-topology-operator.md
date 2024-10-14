@@ -37,9 +37,7 @@ This information includes the following sections:
 ## RabbitMQ Cluster Operator Requirements {#requirements}
 
 * Messaging Topology Operator can be used with RabbitMQ clusters deployed using the Kubernetes [Cluster Operator](https://github.com/rabbitmq/cluster-operator).
-The minimal version required for Cluster Operator is `1.7.0`.
-* Messaging Topology Operator custom resources can only be created in the same namespace as the RabbitMQ cluster is deployed. For a RabbitmqCluster deployed in namespace
-"my-test-namespace", all Messaging Topology custom resources for this RabbitMQ cluster, such as `queues.rabbitmq.com` and `users.rabbitmq.com`, can only be created in namespace "my-test-namespace".
+The minimal version required for Cluster Operator is `2.0.0`.
 
 ## Scope Across Multiple Namespaces {#namespace-scope}
 
@@ -106,7 +104,7 @@ name cannot be updated once created
 
 The following manifest creates a queue and uses credentials in kubernetes secret `my-rabbit-creds` to connect to the RabbitMQ server:
 
-```bash
+```yaml
 ---
 apiVersion: v1
 kind: Secret
@@ -167,6 +165,41 @@ spec:
 ```
 Note that `spec.rabbitmqClusterReference` is an immutable field. For exampe, `connectionSecret`
 name cannot be updated once created.
+
+### Cross-Namespace connection secret
+
+Starting with Messaging Topology Operator `1.13`, it is possible to set a `namespace` in the `connectionSecret` object. However, the `Secret`
+**must** be annotated with `rabbitmq.com/topology-allowed-namespaces` and have a list of allowed namespaces. For example, a `Secret`
+in namespace `central-vault`, annotated with `rabbitmq.com/topology-allowed-namespaces: rabbitmq-service`, can be used by the Topology
+Operator to read RabbitMQ credentials, if and only if the Topology object (e.g. `Queue`) is in namespace `rabbitmq-service`.
+
+```yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rabbitmq-service-credentials
+  namespace: central-vault
+  annotations:
+    rabbitmq.com/topology-allowed-namespaces: rabbitmq-service
+type: Opaque
+stringData:
+  username: a-user # user must already exist in RabbitMQ
+  password: a-secure-password
+  uri: https://my.rabbit:15672 # (optional) uri for the management api; when scheme is not provided in uri, operator defaults to 'http'
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: my-queue
+  namespace: rabbitmq-service
+spec:
+  name: my-queue
+  rabbitmqClusterReference:
+    connectionSecret:
+      name: rabbitmq-service-credentials
+      namespace: central-vault
+```
 
 ## Custom Connection URI {#uri-annotation}
 
