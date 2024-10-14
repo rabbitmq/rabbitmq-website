@@ -301,12 +301,14 @@ and [bindings](https://github.com/rabbitmq/messaging-topology-operator/tree/main
 You can use Messaging Topology Operator to create RabbitMQ users and assign user permissions.
 Learn more about user management in the [Access Control guide](/docs/access-control#user-management).
 
+#### Users with auto-generated username and password {#auto-gen-users}
+
 Messaging Topology Operator creates users with generated credentials by default.
 
 The following manifest will create a user with generated username and password and the generated username and password can be
 accessed via a Kubernetes secret object:
 
-```bash
+```yaml
 apiVersion: rabbitmq.com/v1beta1
 kind: User
 metadata:
@@ -328,6 +330,8 @@ kubectl get users.rabbitmq.com user-example -o jsonpath='{.status.credentials.na
 Note that the Operator does not monitor the generated secret object and updating the secret object won't update the credentials.
 As a workaround, add a label or annotation to `users.rabbitmq.com` object to trigger the Operator to reconcile.
 
+#### Users with provided username and password {#provided-sec-users}
+
 The Operator also supports creating RabbitMQ users with provided credentials. When creating a user with provided username and password, create a kubernetes
 secret object contains keys `username` and `password` in its Data field. The Operator does not monitor the provided secret object and updating the secret
 object won't update the credentials. As a workaround, add a label or annotation to `users.rabbitmq.com` object to trigger the Operator to reconcile.
@@ -348,6 +352,55 @@ spec:
   importCredentialsSecret:
     name: my-rabbit-user # name of the secret
 ```
+
+#### Users with password hash and password-less users {#provided-sec-users}
+
+Since Topology Operator `v1.15.0`, it is possible to provide the user password using a SHA-512 hash. Other hash algorithms are not supported in the Topology Operator
+resource. To create a user with a password hash, use the field `passwordHash` in the credentials `Secret`:
+
+```yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-user-credentials # IMPORTANT: this Secret name must match .spec.importCredentialsSecret.name field in User object
+type: Opaque
+stringData:
+  username: my-user
+  passwordHash: tLXSw48rCJO5gc8zu2UJRxR+RfbmNIJMWA6udRQlb6zVWwZg # SHA-512 hash of "foobarbaz"
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: User
+metadata:
+  name: my-admin-user
+spec:
+  tags:
+  - administrator
+  rabbitmqClusterReference:
+    name: test # rabbitmqCluster must exist in the same namespace as this resource
+  importCredentialsSecret:
+    name: my-user-credentials # must match the name of the Secret
+```
+
+If the `passwordHash` field is present, then `password` field is ignored and the resulting credentials `Secret` will contain only the hash.
+If the hash is an empty string, a [passwordless user](https://www.rabbitmq.com/docs/passwords#passwordless-users) is created. For example:
+
+```yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-user-credentials
+type: Opaque
+stringData:
+  username: my-user
+  passwordHash: ""
+```
+
+It is important to note that empty string for `passwordHash` is **NOT** the same as not providing the field at all. In order to generate a passwordless
+user, an empty string `""` must be provided as `passwordHash`.
+
+#### User permission object {#user-permissions-obj}
 
 To set user permissions on an existing user, create `permissions.rabbitmq.com` resources.
 The following example will assign permissions to user `rabbit-user-1`:
