@@ -157,7 +157,7 @@ When it is used, RabbitMQ uses a pre-configured set of credentials.
 STOMP connections follow the flow described above.
 
 
-## Connection Traffic Encryption with TLS {#tls}
+## Connection Traffic Encryption with TLS {#encryption}
 
 All protocols supported by RabbitMQ allow for "clear text" (unencrypted) traffic, in other words,
 TLS is not a requirement. However, using TLS is highly recommended for production systems
