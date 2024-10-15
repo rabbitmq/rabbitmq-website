@@ -42,6 +42,10 @@ and [OAuth2 Proxy](https://oauth2-proxy.github.io/oauth2-proxy/) as Authorizatio
 * Docker
 * make
 * A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next) for branch `next` that contains all the configuration files and scripts used on this example.
+* The following entries in your /etc/hosts file. Without these entries you will get DNS errors in the browser. 
+```
+localhost keycloak rabbitmq oauth2-proxy
+```
 
 ## Deploy Keycloak
 
