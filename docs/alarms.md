@@ -82,7 +82,7 @@ producing or consuming.
 ## Effects on Data Safety {#data-safety}
 
 When an alarm is in effect, publishing connections will be blocked by TCP back pressure.
-In practice this means that publish operations will eventually time out of fail outright.
+In practice this means that publish operations will eventually time out or fail outright.
 Application developers must be prepared to handle such failures and use [publisher confirms](./confirms)
 to keep track of what messages have been successfully handled and processed by RabbitMQ.
 
