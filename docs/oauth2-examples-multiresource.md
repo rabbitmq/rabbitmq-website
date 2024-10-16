@@ -31,6 +31,10 @@ and several OAuth resources using the following flows:
 
 * Docker
 * A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next) for branch `next` that contains all the configuration files and scripts used on this example
+* Add the following entry to your /etc/hosts:
+```
+localhost keycloak devkeycloak prodkeycloak rabbitmq
+```
 
 ## Single OAuth 2.0 vs Multiple OAuth 2.0 resources
 
@@ -81,7 +85,7 @@ The RabbitMQ OAuth 2 plugin is configured like so:
 
 Follow these steps to deploy Keycloak and RabbitMQ:
 
-1. Launch Keycloak. Check out [Admin page](http://localhost:8081/admin/master/console/#/test) with the credentials `admin:admin`:
+1. Launch Keycloak. Check out [Admin page](https://localhost:8443/admin/master/console/#/test) with the credentials `admin:admin`:
 
     ```bash
     make start-keycloak
@@ -109,7 +113,6 @@ Follow these steps to deploy Keycloak and RabbitMQ:
       "exp": 1690974839,
       "iat": 1690974539,
       "jti": "c8edec50-5f29-4bd0-b25b-d7a46dc3474e",
-      "iss": "http://localhost:8081/realms/test",
       "aud": "rabbit_prod",
       "sub": "826065e7-bb58-4b65-bbf7-8982d6cca6c8",
       "typ": "Bearer",
@@ -172,7 +175,7 @@ This is a summary of the configuration to enable OAuth 2.0 in the management UI:
 
 Follow the steps to the management UI flows with two OAuth resources:
 
-1. Go to the [RabbitMQ Management UI](http://localhost:15672).
+1. Go to the [RabbitMQ Management UI](https://localhost:15671).
 2. Select `RabbitMQ Production` resource.
 3. Login as `prod_user`:`prod_user`.
 4. Keycloak prompts you to authorize various scopes for `prod_user`.
@@ -252,14 +255,14 @@ make stop-perftest-producer PRODUCER=prod_producer
 
 6. Verify `rabbit_dev_mgt_api` can access Management API because its token grants access to `rabbit_dev`:
 ```bash
-make curl-keycloak url=http://localhost:15672/api/overview client_id=rabbit_dev_mgt_api secret=La1Mvj7Qvt8iAqHisZyAguEE8rUpg014 realm=dev
+make curl-keycloak url=https://localhost:15671/api/overview client_id=rabbit_dev_mgt_api secret=La1Mvj7Qvt8iAqHisZyAguEE8rUpg014 realm=dev
 ```
 
 You should see in the standard output the json blob corresponding to the endpoint `/overview` in RabbitMQ's management api.
 
 8. Verify `mgt_api_client` cannot access Management API because its token does not grant access to `rabbit_dev` or `rabbit_prod`:
 ```bash
-make curl-keycloak url=http://localhost:15672/api/overview client_id=mgt_api_client secret=La1Mvj7Qvt8iAqHisZyAguEE8rUpg014 realm=test
+make curl-keycloak url=https://localhost:15671/api/overview client_id=mgt_api_client secret=La1Mvj7Qvt8iAqHisZyAguEE8rUpg014 realm=test
 ```
 
 You should see in the standard output the following:
@@ -269,7 +272,7 @@ You should see in the standard output the following:
 
 9. Verify Management UI access:
 
-	- Go to http://localhost:15672.
+	- Go to https://localhost:15671.
 	- Select *RabbitMQ Development* OAuth 2.0 resource.
 	- Click on "Click here to login".
 	- Authenticate with Keycloak using `rabbit_dev_admin` / `rabbit_dev_admin`.
@@ -349,14 +352,14 @@ make stop-perftest-producer PRODUCER=prod_producer
 
 6. Verify `rabbit_dev_mgt_api` can access Management API because its token grants access to `rabbit_dev`:
 ```bash
-make curl-dev-keycloak url=http://localhost:15672/api/overview client_id=rabbit_dev_mgt_api secret=p7v6DksWkcb6TUYK6payswovC0LqhU6A
+make curl-dev-keycloak url=https://localhost:15671/api/overview client_id=rabbit_dev_mgt_api secret=p7v6DksWkcb6TUYK6payswovC0LqhU6A
 ```
 
 You should see in the standard output the json blob corresponding to the endpoint `/overview` in RabbitMQ's management api.
 
 8. Verify `mgt_api_client` cannot access Management API because its token does not grant access to `rabbit_dev` or `rabbit_prod`:
 ```bash
-make curl-keycloak url=http://localhost:15672/api/overview client_id=mgt_api_client secret=La1Mvj7Qvt8iAqHisZyAguEE8rUpg014 realm=test
+make curl-keycloak url=https://localhost:15671/api/overview client_id=mgt_api_client secret=La1Mvj7Qvt8iAqHisZyAguEE8rUpg014 realm=test
 ```
 
 You should see in the standard output the following:
@@ -366,7 +369,7 @@ You should see in the standard output the following:
 
 9. Verify Management UI access:
 
-	- Go to http://localhost:15672.
+	- Go to https://localhost:15671.
 	- Select *RabbitMQ Development* OAuth 2.0 resource.
 	- Click on "Click here to login".
 	- Authenticate with Keycloak using `rabbit_dev_admin` / `rabbit_dev_admin`.
