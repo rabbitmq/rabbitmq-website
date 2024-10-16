@@ -228,27 +228,54 @@ be restarted on another cluster node when a node failure is detected.
 Starting with Erlang 26, [TLS client peer verification](./ssl#peer-verification) is enabled by default by the TLS implementation.
 
 If client TLS certificate and key pair is not configured, TLS-enabled Shovels
-will fail to connect. If peer verification is not necessary, it can be disabled, otherwise a certificate and private key
-pair must be configured for TLS-enabled shovels.
+will fail to connect. A certificate (public key) and private key
+pair must be configured for TLS-enabled Shovels that need to use peer verification.
+
+If peer verification is not necessary, it can be disabled.
 
 :::
 
-Shovel connections can use [TLS](./ssl). Because Shovel uses
-client libraries under the hood, it is necessary to both configure
-the source broker to [listen for TLS connections](./ssl)
-and the Shovel to use TLS when connecting.
-
 To configure Shovel to use TLS, one needs to
 
- * Use the `amqps` URI scheme instead of `amqp`
- * Specify CA certificate and client certificate/key pair, as well as other parameters (namely [enable or disable peer verification](./ssl#peer-verification), [peer verification depth](./ssl#peer-verification-depth)) via [URI query parameters](./uri-query-parameters)
- * Configure Erlang client to [use TLS](./ssl)
+ * In source and destination URIs, use the `amqps` for scheme instead of `amqp` and port `5671 instead of `5672` (assuming the default port is used but the port specified explicitly)
+ * In the same source and destination URIs, specify CA certificate and client certificate/key pair, as well as other parameters (namely [enable or disable peer verification](./ssl#peer-verification), [peer verification depth](./ssl#peer-verification-depth)) via [URI query parameters](./uri-query-parameters)
+ * Optionally, configure [TLS-related](./ssl/) settings or defaults common for all shovels (plus, optionally, [Federation links](./federation/)) via the Erlang client settings
 
+In the following example, the source URI does not use TLS (it connects to `localhost`, so this may be a reasonable call to make)
+while the destination URI is modified to use TLS with a client certificate (public key)
+and private key pair but with peer verification disabled (for simplicity, it is encouraged for production use):
 
-Just like with "regular" client connections, server's CA should be
-[trusted](./ssl#peer-verification) on the node where Shovel runs, and vice versa.
-The same [TLS troubleshooting methodology](./troubleshooting-ssl) that is recommended
-for application connections applies to shovels.
+```bash
+# Note: this user's access is limited to localhost.
+#
+# In the following example, the source URI connects to `localhost` and does not use TLS
+# while the destination URI is modified to use TLS with peer verification disabled
+# for simplicity
+curl -v -u guest:guest -X PUT http://localhost:15672/api/parameters/shovel/%2f/my-shovel \
+                       -H "content-type: application/json" \
+                       -d @- <<EOF
+{
+  "value": {
+    "src-protocol": "amqp091",
+    "src-uri": "amqp://localhost",
+    "src-queue": "source-queue",
+    "dest-protocol": "amqp091",
+    "dest-uri": "amqps://target.hostname:5671?cacertfile=/path/to/ca_bundle.pem&certfile=/path/to/client_certificate.pem&keyfile=/path/to/client_key.pem&verify=verify_none",
+    "dest-queue": "destination-queue"
+  }
+}
+EOF
+```
+
+These examples use a URI with four additional [URI query parameters](./uri-query-parameters):
+
+ * `cacertfile`: the CA certificate bundle file that includes one or more CA certificates that were used to sign the client certificate and private key pair
+ * `certfile`: the client certificate (public key)
+ * `keyfile`: the client private key
+ * `verify`: [controls peer verification](./ssl#peer-verification) (in this specific example, disables it)
+
+Just like with "regular" client connections, if TLS-enabled shovels need to perform peer verification then server's CA must be
+trusted on the node where shovels runs, and vice versa.
 
 
 ## Monitoring Shovels {#status}

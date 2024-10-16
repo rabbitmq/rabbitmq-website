@@ -114,7 +114,7 @@ The body in this example includes a few keys:
             </dt>
             <dd>
               Use to enable or disable peer verification of the server's TLS certificate.
-              See the <a href="./ssl#peer-verification">TLS guide</a> for details.
+              See <a href="./shovel#tls">Securing Shovel Connections with TLS</a> and the general <a href="./ssl#peer-verification">TLS guide</a> to learn more.
               Only of use when URI scheme is <code>amqps</code>.
 
               <p>
