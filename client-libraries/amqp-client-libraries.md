@@ -347,7 +347,24 @@ Message message3 = publisher.message()
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Setting the target in messages"
-// Not Implemented yet
+// no target defined on publisher creation
+IPublisher publisher = await connection.PublisherBuilder()
+                       .BuildAsync();
+
+// publish to an exchange with a routing key
+IMessage message = new AmqpMessage("Hello!").ToAddress()
+    .Exchange("foo")
+    .Key("bar")
+    .Build()
+
+await aPublisher.PublishAsync(message);
+
+// publish to a queue
+IMessage message = new AmqpMessage("Hello!").ToAddress()
+    .Queue("foo")
+    .Build()
+
+await aPublisher.PublishAsync(message);
 ```
 
 </TabItem>
@@ -628,7 +645,11 @@ management.exchange()
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Creating an exchange of a non-built-in type"
-// Not Implemented yet
+await _management.Exchange("myExchange")
+    .Type("x-delayed-message")
+    .Argument("x-delayed-type", "direct")
+    .DeclareAsync();
+
 ```
 
 </TabItem>
@@ -907,6 +928,21 @@ Connection connection = environment.connectionBuilder()
 
 </TabItem>
 
+<TabItem value="csharp" label="C#">
+
+```csharp title="Attach an event to the ChangeState"
+connection.ChangeState += ( 
+     sender, // the sender instance ( in this case the connection)
+     fromState, // the previous state
+     toState, // the current (new) state
+     e // the cause of the failure (in case of failure)
+     ) =>
+{
+  
+};
+```
+
+</TabItem>
 </Tabs>
 
 It is also possible to set listeners on publisher instances:
@@ -924,6 +960,18 @@ Publisher publisher = connection.publisherBuilder()
 ```
 
 </TabItem>
+
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Attach an event to the ChangeState"
+publisher.ChangeState += (sender, fromState, toState, e) =>
+{
+}
+```
+
+</TabItem>
+
 </Tabs>
 
 And on consumer instances as well:
@@ -941,6 +989,17 @@ Consumer consumer = connection.consumerBuilder()
 ```
 
 </TabItem>
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Attach an event to the ChangeState"
+consumer.ChangeState += (sender, fromState, toState, e) =>
+{
+}
+```
+
+</TabItem>
+
 </Tabs>
 
 ### Automatic Connection Recovery
@@ -962,6 +1021,23 @@ Connection connection = environment.connectionBuilder()
 ```
 
 </TabItem>
+
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Setting a back-off policy for connection recovery"
+class MyBackOffDelay : IBackOffDelayPolicy {
+    ...
+}
+
+await AmqpConnection.CreateAsync(
+    ConnectionSettingBuilder.Create().RecoveryConfiguration(
+    RecoveryConfiguration.Create()
+    .BackOffDelayPolicy(new MyBackOffDelay())).Build());
+```
+
+</TabItem>
+
 </Tabs>
 
 It is also possible to deactivate topology recovery if it is not appropriate for a given application.
@@ -982,6 +1058,21 @@ Connection connection = environment.connectionBuilder()
 ```
 
 </TabItem>
+
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Deactivating topology recovery"
+await AmqpConnection.CreateAsync(
+    ConnectionSettingBuilder.Create().RecoveryConfiguration(
+    RecoveryConfiguration.Create()
+    .Topology(false)) // deactivate topology recovery
+    .Build());
+
+```
+
+</TabItem>
+
 </Tabs>
 
 It is also possible to deactivate recovery altogether:
@@ -997,4 +1088,18 @@ Connection connection = environment.connectionBuilder()
 ```
 
 </TabItem>
+
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Deactivating recovery"
+await AmqpConnection.CreateAsync(
+        ConnectionSettingBuilder.Create().RecoveryConfiguration(
+        RecoveryConfiguration.Create().
+        Activated(false)).// deactivate recovery
+        Build());
+```
+
+</TabItem>
+
 </Tabs>
