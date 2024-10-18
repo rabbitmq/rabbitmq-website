@@ -94,6 +94,14 @@ pip install requests
 python3 pika-client/producer.py producer kbOFBXI9tANgKUq8vXHLhT6YhbivgXxn
 ```
 
+:::tip 
+If `pip` is not available try instead the following two commands to installing it: 
+```bash 
+python3 -m venv venv
+source venv/bin/activate
+```
+:::
+
 Note: Ensure you install pika 1.3
 
 ## Access [management UI](./management/)
