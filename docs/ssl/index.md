@@ -1614,7 +1614,7 @@ and consider [limiting the list of supported cipher suites](#cipher-suites).
 
 ### POODLE
 
-[POODLE](https://www.openssl.org/~bodo/ssl-poodle.pdf) is a known SSL/TLS attack that originally compromised SSLv3.
+[POODLE](https://templatelab.com/ssl-poodle/) is a known SSL/TLS attack that originally compromised SSLv3.
 Starting with version 3.4.0, RabbitMQ server refuses to accept SSLv3 connections. In December 2014, a modified version of
 the POODLE attack that affects TLSv1.0 was [announced](https://www.imperialviolet.org/2014/12/08/poodleagain.html).
 It is therefore recommended to either run Erlang 18.0 or later, which
