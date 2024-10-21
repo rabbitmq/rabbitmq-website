@@ -78,6 +78,10 @@ which hosts all the scripts required to deploy the examples demonstrated on the 
  * make
  * `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
 contains all the configuration files and scripts used on all the examples.
+ * The following entries in the `/etc/hosts` file:
+ ```
+ 127.0.0.1  localhost uaa rabbitmq
+ ```
 
 ## Getting started with UAA and RabbitMQ {#getting-started-with-uaa-and-rabbitmq}
 

@@ -78,7 +78,11 @@ which hosts all the scripts required to deploy the examples demonstrated on the 
  * make
  * `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
 contains all the configuration files and scripts used on all the examples.
-
+ * The following entries in the `/etc/hosts` file:
+ ```
+ 127.0.0.1  localhost uaa rabbitmq
+ ```
+ 
 ## Getting started with UAA and RabbitMQ {#getting-started-with-uaa-and-rabbitmq}
 
 To demonstrate OAuth 2.0 you need, at least, an OAuth 2.0 authorization server and RabbitMQ appropriately configured for the chosen authorization server. This guide uses [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html) as authorization server to demonstrate basic and advanced configuration to access to the Management UI and various messaging protocols.
