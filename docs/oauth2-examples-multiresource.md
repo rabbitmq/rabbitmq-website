@@ -31,7 +31,7 @@ and several OAuth resources using the following flows:
 
 * Docker
 * A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next) for branch `next` that contains all the configuration files and scripts used on this example
-* Add the following entry to your /etc/hosts:
+* Add the following entry to `/etc/hosts`:
 ```
 localhost keycloak devkeycloak prodkeycloak rabbitmq
 ```

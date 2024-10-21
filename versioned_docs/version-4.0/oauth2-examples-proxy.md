@@ -47,12 +47,15 @@ and [OAuth2 Proxy](https://oauth2-proxy.github.io/oauth2-proxy/) as Authorizatio
 127.0.0.1  localhost keycloak rabbitmq oauth2-proxy
 ```
 
-:::warning
-The first time you run `make start-keycloak` or `make start-oauth2-proxy` it 
-generates their corresponding TLS certificates. These certificates expire. 
-If you run into any issues with expired or invalid certificates, stop keycloak 
-and oauth-proxy and run `make clean-certs` command. The next time you deploy 
-keycloak and oauth2-proxy, they start with a newly generated certificate.
+:::info
+
+`make start-keycloak` or `make start-oauth2-proxy` will
+generate the TLS certificate and private keys necessary. These certificates have an expiration date.
+
+In case of any error messages that hint at expired or invalid certificates, stop Keycloak
+and `oauth-proxy` and run `make clean-certs` to regenerate the certificates and private keys,
+then restart Keycloak and the proxy
+
 :::
 
 ## Deploy Keycloak

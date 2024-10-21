@@ -33,7 +33,7 @@ and Keycloak as Authorization Server using the following flows:
 * Docker
 * make
 * A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial) that contains all the configuration files and scripts used on this example
-* Add the following entry to your /etc/hosts:
+    * Add the following entry to `/etc/hosts`:
 ```
 localhost keycloak rabbitmq
 ```
@@ -97,9 +97,9 @@ pip install requests
 python3 pika-client/producer.py producer kbOFBXI9tANgKUq8vXHLhT6YhbivgXxn
 ```
 
-:::tip 
-If `pip` is not available try instead the following two commands to installing it: 
-```bash 
+:::tip
+If `pip` is not available try instead the following two commands to installing it:
+```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
