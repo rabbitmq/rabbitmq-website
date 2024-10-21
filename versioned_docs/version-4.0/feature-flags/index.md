@@ -259,9 +259,14 @@ It is **impossible to disable a feature flag** once it is enabled.
 ## How to Override the List of Feature Flags to Enable on Initial Startup {#how-to-start-new-node-disabled-feature-flags}
 
 By default a new and unclustered node will start with all stable feature flags
-enabled, but this setting can be overridden. **Since enabled feature flags
-cannot be disabled, overriding the list of enabled feature flags is a safe
-thing to do for the first node boot only**.
+enabled, but this setting can be overridden.
+
+:::warning
+
+Since enabled, feature flags
+cannot be disabled, using this feature is only safe to use for enabling more flags
+
+:::
 
 This mechanism is only useful to allow a user to expand an existing cluster
 with a node running a newer version of RabbitMQ compared to the rest of the
@@ -272,16 +277,49 @@ There are two ways to do this:
 
  1. Using the `RABBITMQ_FEATURE_FLAGS` environment variable:
     ```bash
-    # this is just an example, in practice this list will be much longer
-    RABBITMQ_FEATURE_FLAGS=quorum_queue,implicit_default_bindings
+    # enables all feature flags in 4.0.2 except for khepri_db
+    RABBITMQ_FEATURE_FLAGS="delete_ra_cluster_mqtt_node,virtual_host_metadata,stream_single_active_consumer,quorum_queue,classic_mirrored_queue_version,rabbit_mqtt_qos0_queue,implicit_default_bindings,empty_basic_get_metric,'rabbitmq_4.0.0',message_containers,user_limits,queue_master_locator,detailed_queues_endpoint,stream_sac_coordinator_unblock_group,stream_update_config_command,stream_queue,stream_filtering,rabbit_exchange_type_local_random,quorum_queue_non_voters,tracking_records_in_ets,direct_exchange_routing_v2,amqp_address_v1,transient_nonexcl_queues,message_containers_deaths_v2,classic_queue_mirroring,management_metrics_collection,maintenance_mode_status,listener_records_in_ets,feature_flags_v2,global_qos,classic_queue_type_delivery_support,mqtt_v5,ram_node_type,drop_unroutable_metric,restart_streams"
     ```
  2. Using the `forced_feature_flags_on_init` setting in [`advanced.config`](./configure):
 
     ```erlang
-    %% ...
+    %% enables all feature flags in 4.0.2 except for khepri_db
     {rabbit, [
       %% this is just an example, in practice this list will be much longer
-      {forced_feature_flags_on_init, [quorum_queue, implicit_default_bindings]}
+      {forced_feature_flags_on_init, [
+          maintenance_mode_status,
+          direct_exchange_routing_v2,
+          user_limits,
+          transient_nonexcl_queues,
+          amqp_address_v1,stream_filtering,
+          implicit_default_bindings,
+          quorum_queue_non_voters,
+          'rabbitmq_4.0.0',
+          tracking_records_in_ets,
+          delete_ra_cluster_mqtt_node,
+          classic_queue_type_delivery_support,
+          restart_streams,
+          message_containers_deaths_v2,
+          feature_flags_v2,empty_basic_get_metric,
+          classic_queue_mirroring,
+          rabbit_exchange_type_local_random,
+          detailed_queues_endpoint,
+          stream_queue,
+          classic_mirrored_queue_version,
+          quorum_queue,
+          management_metrics_collection,
+          message_containers,
+          ram_node_type,
+          stream_sac_coordinator_unblock_group,
+          drop_unroutable_metric,
+          stream_single_active_consumer,
+          virtual_host_metadata,
+          listener_records_in_ets,
+          stream_update_config_command,
+          global_qos,
+          queue_master_locator,
+          rabbit_mqtt_qos0_queue,mqtt_v5
+      ]}
     ]},
     %% ...
     ```
