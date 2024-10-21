@@ -264,7 +264,9 @@ enabled, but this setting can be overridden.
 :::warning
 
 Since enabled, feature flags
-cannot be disabled, using this feature is only safe to use for enabling more flags
+cannot be disabled, using this feature is only safe to use for enabling more flags.
+Providing a list of flags identical to the currently enabled
+list is also safe, of course.
 
 :::
 
