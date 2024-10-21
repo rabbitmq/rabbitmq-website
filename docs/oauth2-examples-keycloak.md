@@ -33,6 +33,10 @@ and Keycloak as Authorization Server using the following flows:
 * Docker
 * make
 * A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next) for branch `next` that contains all the configuration files and scripts used on this example
+* Add the following entry to `/etc/hosts`:
+```
+localhost keycloak rabbitmq
+```
 
 ## Deploy Keycloak
 
@@ -46,8 +50,9 @@ and Keycloak as Authorization Server using the following flows:
 
 There is a dedicated **Keycloak realm** called `Test` configured as follows:
 
-* A [rsa](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys) signing key
-* A [rsa provider](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys/providers)
+* A [rsa](https://keycloak:8443/admin/master/console/#/test/realm-settings/keys) signing key. Use `admin`:`admin`
+ when prompted for credentials to access the Keycloak Administration page
+* A [rsa provider](https://keycloak:8443/admin/master/console/#/test/realm-settings/keys/providers)
 * Three clients: `rabbitmq-client-code` for the rabbitmq management UI, `mgt_api_client` to access via the
 management api and `producer` to access via AMQP protocol.
 
@@ -60,12 +65,16 @@ export MODE=keycloak
 make start-rabbitmq
 ```
 
+:::info
+RabbitMQ is deployed with TLS enabled and Keycloak is configured with the corresponding `redirect_url` which uses https.
+:::
+
 ## Access Management api
 
-To access the management api run the following command. It uses the client [mgt_api_client](http://0.0.0.0:8080/admin/master/console/#/realms/test/clients/c5be3c24-0c88-4672-a77a-79002fcc9a9d) which has the scope [rabbitmq.tag:administrator](http://0.0.0.0:8080/admin/master/console/#/realms/test/client-scopes/f6e6dd62-22bf-4421-910e-e6070908764c).
+To access the management api run the following command. It uses the client [mgt_api_client](https://keycloak:8443/admin/master/console/#/test/clients/c5be3c24-0c88-4672-a77a-79002fcc9a9d/settings) which has the scope [rabbitmq.tag:administrator](https://keycloak:8443/admin/master/console/#/test/client-scopes/f6e6dd62-22bf-4421-910e-e6070908764c/settings).
 
 ```bash
-make curl-keycloak url=http://localhost:15672/api/overview client_id=mgt_api_client secret=LWOuYqJ8gjKg3D2U8CJZDuID3KiRZVDa
+make curl-keycloak url=https://localhost:15671/api/overview client_id=mgt_api_client secret=LWOuYqJ8gjKg3D2U8CJZDuID3KiRZVDa
 ```
 
 ## Application authentication and authorization with PerfTest
@@ -75,7 +84,7 @@ To test OAuth 2.0 authentication with AMQP protocol you are going to use RabbitM
 First you obtain the token and pass it as a parameter to the make target `start-perftest-producer-with-token`.
 
 ```bash
-make start-perftest-producer-with-token PRODUCER=producer TOKEN=$(bin/keycloak/token producer kbOFBXI9tANgKUq8vXHLhT6YhbivgXxn)
+make start-perftest-producer-with-token PRODUCER=producer TOKEN=$(bin/keycloak/token producer kbOFBXI9tANgKUq8vXHLhT6YhbivgXxn test)
 ```
 
 **NOTE**: Initializing an application with a token has one drawback: the application cannot use the connection beyond the lifespan of the token. See the next section where you demonstrate how to refresh the token.
@@ -94,11 +103,19 @@ pip install requests
 python3 pika-client/producer.py producer kbOFBXI9tANgKUq8vXHLhT6YhbivgXxn
 ```
 
+:::tip
+If `pip` is not available try instead the following two commands to installing it:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+:::
+
 Note: Ensure you install pika 1.3
 
 ## Access [management UI](./management/)
 
-1. Go to http://localhost:15672.
+1. Go to https://localhost:15671.
 2. Click on the single button on the page which redirects to **Keycloak** to authenticate.
 3. Enter `rabbit_admin` and `rabbit_admin` and you should be redirected back to RabbitMQ Management fully logged in.
 

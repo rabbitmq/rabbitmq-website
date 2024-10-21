@@ -75,7 +75,7 @@ To test OAuth 2.0 authentication with AMQP protocol you are going to use RabbitM
 First you obtain the token and pass it as a parameter to the make target `start-perftest-producer-with-token`.
 
 ```bash
-make start-perftest-producer-with-token PRODUCER=producer TOKEN=$(bin/keycloak/token producer kbOFBXI9tANgKUq8vXHLhT6YhbivgXxn)
+make start-perftest-producer-with-token PRODUCER=producer TOKEN=$(bin/keycloak/token producer kbOFBXI9tANgKUq8vXHLhT6YhbivgXxn test)
 ```
 
 **NOTE**: Initializing an application with a token has one drawback: the application cannot use the connection beyond the lifespan of the token. See the next section where you demonstrate how to refresh the token.
@@ -93,6 +93,14 @@ pip install pika
 pip install requests
 python3 pika-client/producer.py producer kbOFBXI9tANgKUq8vXHLhT6YhbivgXxn
 ```
+
+:::tip 
+If `pip` is not available try instead the following two commands to installing it: 
+```bash 
+python3 -m venv venv
+source venv/bin/activate
+```
+:::
 
 Note: Ensure you install pika 1.3
 

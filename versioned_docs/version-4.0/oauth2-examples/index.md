@@ -78,7 +78,11 @@ which hosts all the scripts required to deploy the examples demonstrated on the 
  * make
  * `git clone https://github.com/rabbitmq/rabbitmq-oauth2-tutorial`. This github repository
 contains all the configuration files and scripts used on all the examples.
-
+ * The following entries in the `/etc/hosts` file:
+ ```
+ 127.0.0.1  localhost uaa rabbitmq
+ ```
+ 
 ## Getting started with UAA and RabbitMQ {#getting-started-with-uaa-and-rabbitmq}
 
 To demonstrate OAuth 2.0 you need, at least, an OAuth 2.0 authorization server and RabbitMQ appropriately configured for the chosen authorization server. This guide uses [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html) as authorization server to demonstrate basic and advanced configuration to access to the Management UI and various messaging protocols.
@@ -123,10 +127,16 @@ authorize RabbitMQ application as shown on the screenshot below.
 
 ![authorize application](./authorize-app.png)
 
-UAA has previously been configured and seeded with two users:
+UAA has previously been configured with two users:
 
 * `rabbit_admin:rabbit_admin`
 * and `rabbit_monitor:rabbit_monitor`
+
+:::tip
+First visit https://uaa:8443 so that your browser can trust the self-signed 
+certificate `uua` has. Otherwise, the management UI will fail to connect to 
+`uaa`. 
+:::
 
 Now navigating to the [local node's management UI](http://localhost:15672) and login using any of those two users.
 
@@ -142,7 +152,7 @@ in `rabbitmq.conf`:
 # ...
 management.oauth_enabled = true
 management.oauth_client_id = rabbit_client_code
-management.oauth_provider_url = http://localhost:8080
+management.oauth_provider_url = https://uaa:8443
 # ...
 ```
 
@@ -177,7 +187,6 @@ in `rabbitmq.conf`:
 ```ini
 # ...
 management.oauth_enabled = true
-management.oauth_client_id = rabbit_client_code
 management.oauth_provider_url = http://localhost:8080
 management.oauth_initiated_logon_type = idp_initiated
 # ...

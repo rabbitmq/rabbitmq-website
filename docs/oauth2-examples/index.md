@@ -76,6 +76,12 @@ The guide is accompanied by [a public GitHub repository](https://github.com/rabb
  * Ruby must be installed
  * make
  * A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next) for branch `next` that contains all the configuration files and scripts used on this example.
+ * The following entries must be in your `/etc/hosts` file:
+ 
+  ```
+  127.0.0.1 localhost uaa rabbitmq
+  ```
+
 
 ## Getting started with UAA and RabbitMQ {#getting-started-with-uaa-and-rabbitmq}
 
@@ -121,10 +127,16 @@ authorize RabbitMQ application as shown on the screenshot below.
 
 ![authorize application](./authorize-app.png)
 
-UAA has previously been configured and seeded with two users:
+UAA has previously been configured with two users:
 
 * `rabbit_admin:rabbit_admin`
 * and `rabbit_monitor:rabbit_monitor`
+
+:::tip
+First visit https://uaa:8443 so that your browser can trust the self-signed 
+certificate `uua` has. Otherwise, the management UI will fail to connect to 
+`uaa`. 
+:::
 
 Now navigating to the [local node's management UI](http://localhost:15672) and login using any of those two users.
 
@@ -140,9 +152,10 @@ in `rabbitmq.conf`:
 # ...
 management.oauth_enabled = true
 management.oauth_client_id = rabbit_client_code
-auth_oauth2.issuer = http://localhost:8080
+auth_oauth2.issuer = https://uaa:8443
 # ...
 ```
+
 
 ### Identity-Provider initiated logon {#identity-provider-initiated-logon}
 
@@ -169,15 +182,13 @@ by submitting a form with their OAuth token in the `access_token` form field as 
 
 If the access token is valid, RabbitMQ redirects the user to the **Overview** page.
 
-By default, the RabbitMQ Management UI is configured with **service-provider initiated logon**, to configure **Identity-Provider initiated logon**, the following configuration entries are required
-in `rabbitmq.conf`:
+By default, the RabbitMQ Management UI is configured with **service-provider initiated logon**, to configure **Identity-Provider initiated logon**, the following configuration entries are required in `rabbitmq.conf`:
 
 ```ini
 # ...
 management.oauth_enabled = true
-management.oauth_client_id = rabbit_client_code
 management.oauth_initiated_logon_type = idp_initiated
-auth_oauth2.issuer = http://localhost:8080
+management.oauth_provider_url = http://localhost:8080
 # ...
 ```
 
