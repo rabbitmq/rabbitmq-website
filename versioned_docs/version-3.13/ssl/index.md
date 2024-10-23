@@ -1108,9 +1108,12 @@ using System.Text;
 using RabbitMQ.client;
 using RabbitMQ.Util;
 
-namespace RabbitMQ.client.Examples {
-  public class TestSSL {
-    public static int Main(string[] args) {
+namespace RabbitMQ.client.Examples
+{
+  public class TestSSL
+  {
+    public static async Task<int> Main(string[] args)
+    {
       ConnectionFactory cf = new ConnectionFactory();
 
       cf.Ssl.Enabled = true;
@@ -1118,12 +1121,14 @@ namespace RabbitMQ.client.Examples {
       cf.Ssl.CertPath = "/path/to/client_key.p12";
       cf.Ssl.CertPassphrase = "MySecretPassword";
 
-      using (IConnection conn = cf.CreateConnection()) {
-        using (IModel ch = conn.CreateModel()) {
+      using (IConnection conn = await cf.CreateConnectionAsync())
+      {
+        using (IChannel ch = await conn.CreateChannelAsync())
+        {
           Console.WriteLine("Successfully connected and opened a channel");
-          ch.QueueDeclare("rabbitmq-dotnet-test", false, false, false, null);
+          await ch.QueueDeclareAsync("rabbitmq-dotnet-test", false, false, false, null);
           Console.WriteLine("Successfully declared a queue");
-          ch.QueueDelete("rabbitmq-dotnet-test");
+          await ch.QueueDeleteAsync("rabbitmq-dotnet-test");
           Console.WriteLine("Successfully deleted the queue");
         }
       }
