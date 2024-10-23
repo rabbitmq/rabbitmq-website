@@ -20,33 +20,29 @@ limitations under the License.
 
 # Sender-selected Distribution
 
+An AMQP publisher can optionally send a message with **multiple** routing keys.
+During routing, RabbitMQ will take all routing keys provided in the message headers into account.
 
-The routing logic in AMQP 0-9-1 does not offer a way for message
-[publishers](./publishers) to select intended recipients unless they
-bind their queues to the target destination (an exchange).
+For example, if an AMQP publisher sends a message with multiple routing keys to the [default exchange](/tutorials/amqp-concepts#exchange-default), each routing key represents a queue name, and RabbitMQ routes the message to all specified queues.
 
-The RabbitMQ broker treats the "CC" and "BCC" message headers
-in a special way to overcome this limitation.
-This is the equivalent of entering multiple recipients in the "CC"
-or "BCC" field of an email.
+In another example, if an AMQP publisher sends a message with multiple routing keys to a [topic exchange](/tutorials/amqp-concepts#exchange-topic), each routing key represents a topic.
 
-The values associated with the "CC" and "BCC" header keys will
-be added to the routing key if they are present. The message
-will be routed to all destinations matching the routing key
-supplied as a parameter to the `basic.publish`
-method, as well as the routes supplied in the "CC" and "BCC"
-headers. The type of "CC" and "BCC" values must be an array
-of [longstr](/amqp-0-9-1-reference#domain.longstr)
-and these keys are case-sensitive. If the header does not
-contain "CC" or "BCC" keys then this extension has no effect.
+Including multiple routing keys in a message allows it to be routed to more queues, depending on how the queues are bound to the exchange.
+RabbitMQ settles the message with the [accepted](./amqp#outcomes) outcome if it is routed to at least one queue and all queues confirm receipt.
+In other words, RabbitMQ accepts the message even if only a subset of the routing keys results in successful routing.
 
-The "BCC" key and value will be removed from the message
-prior to delivery, offering some confidentiality among
-consumers. This feature is a deviation from the AMQP 0-9-1
-specification which forbids any message modification,
-including headers. This feature imposes a small
-performance penalty.
+## AMQP 1.0
 
-This extension is independent of the client library used.
-Any AMQP 0-9-1 client with the ability to set header values
-at the time of publishing can make use of this extension.
+To use multiple routing keys in AMQP 1.0, the publisher sets a [message annotation](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-message-annotations) with the key `x-cc` and the value as a [list](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html#type-list) of [strings](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html#type-string).
+Each string in the list represents an additional routing key.
+
+These "CC" routing keys are used in addition to the routing key provided in the [AMQP address](./amqp#target-address-v2) string.
+
+## AMQP 0.9.1
+
+To use multiple routing keys in AMQP 0.9.1, the publisher sets the "CC" and "BCC" header keys.
+This is similar to specifying multiple recipients in the "CC" or "BCC" fields of an email.
+The value for "CC" and "BCC" must be an array of [longstr](/amqp-0-9-1-reference#domain.longstr).
+
+The message will be routed using both the routing key supplied as a parameter to the `basic.publish` method and the routing keys provided in the "CC" and "BCC" headers.
+The "BCC" key and value will be removed from the message prior to delivery, ensuring some level of confidentiality among consumers.
