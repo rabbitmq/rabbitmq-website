@@ -285,9 +285,8 @@ There are two ways to do this:
  2. Using the `forced_feature_flags_on_init` setting in [`advanced.config`](./configure):
 
     ```erlang
-    %% enables all feature flags in 4.0.2 except for khepri_db
     {rabbit, [
-      %% this is just an example, in practice this list will be much longer
+      %% enables all feature flags in 4.0.2 except for khepri_db
       {forced_feature_flags_on_init, [
           maintenance_mode_status,
           direct_exchange_routing_v2,
