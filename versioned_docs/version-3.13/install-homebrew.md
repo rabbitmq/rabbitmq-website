@@ -123,7 +123,7 @@ or CLI tools directly:
 
 ```bash
 /opt/homebrew/sbin/rabbitmqctl shutdown
-```bash
+```
 
 The command will wait for the node process to stop. If the target node is not running,
 it will exit with a warning.
