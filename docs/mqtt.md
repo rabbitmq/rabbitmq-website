@@ -609,7 +609,7 @@ The acceptable values are:
  * `subject_alternative_name`: the Subject Alternative Name or SAN, which comes from a certificate's extensions section
     Because different ypes of Subject Alternative Names exist, the type may need to be specified as well
 
-If `mqtt.ssl_cert_client_id_from` is set to `subject_alternative_name`, the type of alternative name can be configured using `mqtt.ssl_cert_client_id_san_type`. The default type, used if the setting
+If `mqtt.ssl_cert_client_id_from` is set to `subject_alternative_name`, the type of alternative name can be configured using `mqtt.ssl_cert_login_san_type`. The default type, used if the setting
 is omitted, is `dns`. The acceptable values are:
 
  * `dns`
@@ -618,8 +618,8 @@ is omitted, is `dns`. The acceptable values are:
  * `uri`
  * `other_name`
 
-A certificate can contain multiple SAN fields of the same type, for example, two alternative DNS names. If this is the case, use the `mqtt.ssl_cert_client_id_san_index` configuration key
-to specify the index to be used. By default, RabbitMQ will pick the first value, that is, the default value of `mqtt.ssl_cert_client_id_san_index` is `0`.
+A certificate can contain multiple SAN fields of the same type, for example, two alternative DNS names. If this is the case, use the `mqtt.ssl_cert_login_san_index` configuration key
+to specify the index to be used. By default, RabbitMQ will pick the first value, that is, the default value of `mqtt.ssl_cert_login_san_index` is `0`.
 
 Below an example where the username is extracted from the certificate's distinguished name and the `client_id` is extracted from
 the first SAN (Subject Alternative Name) of type `uri`:
@@ -627,7 +627,7 @@ the first SAN (Subject Alternative Name) of type `uri`:
 ```ini
 ssl_cert_login_from = distinguished_name
 mqtt.ssl_cert_client_id_from = subject_alternative_name
-mqtt.ssl_cert_client_id_san_type = uri
+mqtt.ssl_cert_login_san_type = uri
 ```
 
 ### [Flow Control](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901251) {#flow}
