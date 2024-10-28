@@ -53,7 +53,16 @@ const config = {
           releases: [
             {version: '4.0.3', release_date: "2024-10-28", },
             {version: '4.0.2', release_date: "2024-09-21", },
-            {version: '4.0.1', release_date: "2024-09-18", },
+            {
+              version: '4.0.1',
+              release_date: "2024-09-18",
+              links: [
+                {
+                  type: "announcement",
+                  url: "/blog/tags/rabbit-mq-4-0"
+                },
+              ],
+            },
           ],
           end_of_support: "2027-09-30",
         },
