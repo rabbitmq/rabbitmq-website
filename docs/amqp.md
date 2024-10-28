@@ -268,6 +268,10 @@ This section lists features that RabbitMQ supports exclusively in AMQP 1.0, whic
   * This can result in lower intra-cluster traffic, reducing latency and increasing throughput.
 * **[Sender Settle Mode](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-sender-settle-mode) `mixed`**: Allows a publisher to decide on a per-message basis whether to receive [confirmations](./confirms#publisher-confirms) from the broker.
 * **[Modified Outcome](#modified-outcome)**: Allows a quorum queue consumer to add and modify [message annotations](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-message-annotations) when requeueing or dead lettering a message.
+* **AMQP Filter Expressions**: RabbitMQ [implements](https://github.com/rabbitmq/rabbitmq-server/pull/12415) `properties` and `appliation-properties` filters of [AMQP Filter Expressions Version 1.0 Working Draft 09](https://groups.oasis-open.org/higherlogic/ws/public/document?document_id=66227) when consuming from a stream via AMQP 1.0.
+  * String prefix and suffix matching is also supported.
+  * This feature allows multiple concurrent clients each consuming only a subset of messages while maintaining message order.
+  * This feature reduces network traffic between RabbitMQ and clients by only dispatching those messages that the clients are actually interested in.
 * **Well defined [types](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html)**
 * **Better defined [message headers](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#section-message-format)**
 * **Enhanced Message Integrity**: Clients can set message hashes, checksums, and digital signatures not only over the message body but also over the [properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-properties) and [application-properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-application-properties) sections, as the bare message is immutable.
@@ -314,6 +318,8 @@ If field `undeliverable-here` is
 
 * `true`, classic queues and quorum queues will [dead letter](./dlx) the message. If dead lettering is not configured, the message will be discarded.
 * `false`, classic queues and quorum queues will requeue the message.
+
+The [AMQP 1.0 Modified Outcome](/blog/2024/10/11/modified-outcome) blog post describes use cases.
 
 :::warning
 
