@@ -400,20 +400,23 @@ See [.NET client guide](/client-libraries/dotnet-api-guide#basic-get) for exampl
 
 ## Delivery Acknowledgement Timeout {#acknowledgement-timeout}
 
-RabbitMQ enforces a timeout is enforced on consumer delivery acknowledgement.
-This is a **protection mechanism** that helps detect buggy (stuck) consumers that never acknowledge deliveries.
-Such consumers can affect node's on disk data compaction and potentially drive
-nodes out of disk space.
+RabbitMQ enforces a timeout on consumer delivery acknowledgement.
+This is a **protection mechanism** that detects when consumers do not acknowledge message deliveries.
+Configuring a delivery acknowledgement timeout can help prevent on-disk data compaction
+and driving nodes out of disk space.
 
 ### How it works
 
-If a consumer does not ack its delivery for more than the timeout value (30 minutes by default),
-its channel will be closed with a `PRECONDITION_FAILED` channel exception.
+If a consumer does not ack its delivery within the timeout value,
+its channel is closed with a `PRECONDITION_FAILED` channel exception.
 
-The error will be [logged](./logging) by the node that the consumer was
-connected to. All outstanding deliveries on that channel, from all consumers,
-will be [requeued](./confirms#automatic-requeueing).
+The error is [logged](./logging) by the node connected to the consumer.
+All the following deliveries on that channel, from all consumers,
+are then [requeued](./confirms#automatic-requeueing).
+To resolve a `PRECONDITION_FAILED` channel exception, reevaluate your consumer
+and consider increasing the timeout value.
 
+The default timeout value for RabbitMQ is 30 minutes.
 Whether the timeout should be enforced is evaluated periodically, at one minute intervals.
 Values lower than one minute are not supported, and values lower than five minutes
 are not recommended.
