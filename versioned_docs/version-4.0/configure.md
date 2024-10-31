@@ -1115,7 +1115,7 @@ collect_statistics_interval = 5000
     </td>
   </tr>
   <tr>
-    <td>`management_db_cache_multiplier`</td>
+    <td>`management.db_cache_multiplier`</td>
     <td>
       Affects the amount of time the [management plugin](./management#statistics-interval)
       will cache expensive management queries such as
@@ -1125,7 +1125,7 @@ collect_statistics_interval = 5000
       <p>
         Default:
 ```ini
-management_db_cache_multiplier = 5
+management.db_cache_multiplier = 5
 ```
       </p>
     </td>
