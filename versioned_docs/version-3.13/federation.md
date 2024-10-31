@@ -76,9 +76,10 @@ A federated exchange or queue can receive
 messages from one or more remote clusters called _upstreams_ (to be more precise: exchanges
 and queues that exist in remote clusters).
 
-A federated exchange can route messages published upstream to a local queue. A federated
-queue lets a local consumer receive messages from an upstream queue when the remote queue
-itself does not have any consumers online.
+A federated exchange will "replay" a stream of messages published to its upstream counterpart, and publish them to a local queue or stream.
+
+A federated queue lets a local consumer receive messages from an upstream queue when the remote queue
+itself does not have any local consumers online.
 
 Federation links connect to upstreams largely the same way an application would. Therefore
 they can connect to a specific vhost, use TLS, use multiple
@@ -139,7 +140,7 @@ In practice, for simple use cases you can almost ignore the
 existence of upstream sets, since there is an implicitly-defined upstream set called `all`
 to which all upstreams are added.
 
-Upstreams and upstream sets are both instances of [runtime parameters](./parameters).
+Upstreams and upstream sets are both defined using [runtime parameters](./parameters).
 Like exchanges and queues, each virtual host has its own distinct set of parameters and policies. For more
 generic information on parameters and policies, see the guide on
 [parameters and policies](./parameters).
@@ -167,6 +168,9 @@ one per tab:
 <Tabs groupId="shell-specific">
 <TabItem value="bash" label="bash" default>
 ```bash
+# target.hostname is just an example, replace it with a URI
+# of the target node (usually a member of a remote node/cluster,
+# or a URI that connects to a different virtual host within the same cluster)
 rabbitmqctl set_parameter federation-upstream my-upstream \
     '{"uri":"amqp://target.hostname","expires":3600000}'
 ```
@@ -174,6 +178,9 @@ rabbitmqctl set_parameter federation-upstream my-upstream \
 
 <TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
+# target.hostname is just an example, replace it with a URI
+# of the target node (usually a member of a remote node/cluster,
+# or a URI that connects to a different virtual host within the same cluster)
 rabbitmqctl.bat set_parameter federation-upstream my-upstream `
     '"{""uri"":""amqp://target.hostname"",""expires"":3600000}"'
 ```
