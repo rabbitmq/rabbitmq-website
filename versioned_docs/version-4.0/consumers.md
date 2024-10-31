@@ -376,7 +376,26 @@ See [Java client guide](/client-libraries/java-api-guide#consuming) for examples
 See [.NET client guide](/client-libraries/dotnet-api-guide#consuming) for examples.
 
 
-## Fetching Individual Messages ("Pull API") {#fetching}
+## Polling for Individual Messages ("Pull API") {#polling}
+
+:::danger
+
+The mechanism described in this section is a form of polling. As any polling-based
+approach in distributed systems, it is highly inefficient, in particular in cases where queues can
+be empty for periods of time.
+
+Besides integration tests, this AMQP 0-9-1 consumption mechanism is strongly recommended against.
+
+RabbitMQ [management](./management) and [Prometheus](./prometheus) plugins provide several metrics that help detect
+applications that use polling (`basic.get`).
+
+:::
+
+:::tip
+
+Use [long-lived consumers](#consumer-lifecycle) instead of polling.
+
+:::
 
 With AMQP 0-9-1 it is possible to fetch messages one by one using the `basic.get` protocol
 method. Messages are fetched in the FIFO order. It is possible to use automatic or manual acknowledgements,
@@ -402,7 +421,7 @@ See [.NET client guide](/client-libraries/dotnet-api-guide#basic-get) for exampl
 
 RabbitMQ enforces a timeout on consumer delivery acknowledgement.
 This is a **protection mechanism** that detects when consumers do not acknowledge message deliveries.
-Configuring a delivery acknowledgement timeout can help prevent on-disk data compaction 
+Configuring a delivery acknowledgement timeout can help prevent on-disk data compaction
 and driving nodes out of disk space.
 
 ### How it works
@@ -410,13 +429,13 @@ and driving nodes out of disk space.
 If a consumer does not ack its delivery within the timeout value,
 its channel is closed with a `PRECONDITION_FAILED` channel exception.
 
-The error is [logged](./logging) by the node connected to the consumer. 
+The error is [logged](./logging) by the node connected to the consumer.
 All the following deliveries on that channel, from all consumers,
 are then [requeued](./confirms#automatic-requeueing).
-To resolve a `PRECONDITION_FAILED` channel exception, reevaluate your consumer 
+To resolve a `PRECONDITION_FAILED` channel exception, reevaluate your consumer
 and consider increasing the timeout value.
 
-The default timeout value for RabbitMQ is 30 minutes. 
+The default timeout value for RabbitMQ is 30 minutes.
 Whether the timeout should be enforced is evaluated periodically, at one minute intervals.
 Values lower than one minute are not supported, and values lower than five minutes
 are not recommended.

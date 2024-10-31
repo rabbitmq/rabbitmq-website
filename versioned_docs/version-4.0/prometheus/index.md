@@ -278,7 +278,7 @@ Any metric drawn in red hints at an anti-pattern in the system. Such graphs try 
 uses of RabbitMQ. A **red graphs with non-zero metrics should be investigated**. Such metrics might indicate
 an issue in RabbitMQ configuration or sub-optimal actions by clients ([publishers](./publishers) or [consumers](./consumers)).
 
-In the example below we can see the usage of greatly inefficient [polling consumers](./consumers#fetching) that keep polling, even though
+In the example below we can see the usage of greatly inefficient [polling consumers](./consumers#polling) that keep polling, even though
 most or even all polling operation return no messages. Like any polling-based algorithm, it is wasteful
 and should be avoided where possible.
 
@@ -747,7 +747,7 @@ Grouped under `queue_metrics`. This group contains all the metrics for every que
 
 Each metric in this group points to a single exchange via its label.
 So the size of the response here is directly proportional to the number of exchanges hosted
-on the node. 
+on the node.
 
 These metrics are similar to those grouped under `channel_exchange_metrics`, but do not include the channel ID in their labels. They are useful for monitoring the state of each exchange individually.
 

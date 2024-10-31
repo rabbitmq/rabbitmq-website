@@ -375,7 +375,26 @@ See [Java client guide](/client-libraries/java-api-guide#consuming) for examples
 
 See [.NET client guide](/client-libraries/dotnet-api-guide#consuming) for examples.
 
-## Fetching Individual Messages ("Pull API") {#fetching}
+## Polling for Individual Messages ("Pull API") {#polling}
+
+:::danger
+
+The mechanism described in this section is a form of polling. As any polling-based
+approach in distributed systems, it is highly inefficient, in particular in cases where queues can
+be empty for periods of time.
+
+Besides integration tests, this AMQP 0-9-1 consumption mechanism is strongly recommended against.
+
+RabbitMQ [management](./management) and [Prometheus](./prometheus) plugins provide several metrics that help detect
+applications that use polling (`basic.get`).
+
+:::
+
+:::tip
+
+Use [long-lived consumers](#consumer-lifecycle) instead of polling.
+
+:::
 
 With AMQP 0-9-1 it is possible to fetch messages one by one using the `basic.get` protocol
 method. Messages are fetched in the FIFO order. It is possible to use automatic or manual acknowledgements,

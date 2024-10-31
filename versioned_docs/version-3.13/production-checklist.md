@@ -519,5 +519,5 @@ Note that closing a connection automatically closes all channels on it.
 
 ### Polling Consumers {#apps-polling-consumers}
 
-[Polling consumers](./consumers#fetching) (consumption with `basic.get`) is a feature that application developers
+[Polling consumers](./consumers#polling) (consumption with `basic.get`) is a feature that application developers
 should avoid in most cases as polling is inherently inefficient.
