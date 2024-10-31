@@ -84,6 +84,9 @@ Federation links connect to upstreams largely the same way an application would.
 they can connect to a specific vhost, use TLS, use multiple
 [authentication mechanisms](./authentication).
 
+Typically, federation is used to connect remote clusters. However, it can also be used
+to move data between [virtual hosts](./vhosts) within the same cluster.
+
 Federation documentation is organized as a number of more focussed guides:
 
  * [Exchange federation](./federated-exchanges): for replicating a flow of messages through an exchange to a remote cluster
@@ -99,7 +102,8 @@ Two steps are involved in setting up federation:
   or the [federation management plugin](https://github.com/rabbitmq/rabbitmq-federation-management) which
   adds a federation management tab to the [management UI](./management).
 * To enable federation, one or more [policies](./parameters#policies) that match exchanges or queues must be declared.
-  The policy will make them federated.
+  The policy will make the matched objects (e.g. exchanges) federated, and one federation link
+  (connection to other nodes) will be started for every match
 
 
 ## Getting Started {#getting-started}
