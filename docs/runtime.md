@@ -195,7 +195,7 @@ Turn off speculative [scheduler busy waiting](#busy-waiting) using the [`+sbwt` 
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+sbwt none +sbwtdcpu none +sbwtdio none"
 ```
 
-Speculative busy waiting usually not productive on moderately loaded systems.
+Speculative busy waiting is usually not productive on moderately loaded systems.
 
 #### Reduce Statistics Emission Frequency (Increase the Statistics Emission Interval)
 
