@@ -147,14 +147,28 @@ dropped <em>if there was no rejection in the entire cycle</em>.
 
 ## Safety {#safety}
 
-By default, dead-lettered messages are re-published <em>without</em> publisher
+Deadl-lettering is a form of message publishing, and as any form of publishing,
+it can fail in certain scenarios. For example, if dead lettering is
+configured to use a quorum queue that does not have an online quorum,
+the publishing will fail, and the node perfoming dead lettering will log
+a message similar to the following:
+
+```
+Cannot forward any dead-letter messages from source quorum queue 'qq.input' in vhost 'my-vhost'
+with configured dead-letter-exchange exchange 'amq.topic' in vhost 'my-vhost'
+and configured dead-letter-routing-key 'my-app.events.type.abc'
+```
+
+### Re-Publishing with Publisher Confirms
+
+By default, dead-lettered messages are re-published *without* publisher
 [confirms](./confirms) turned on internally. Therefore using DLX in a clustered
 RabbitMQ environment is not guaranteed to be safe. Messages are removed from the
 original queue immediately after publishing to the DLX target queue. This ensures
 that there is no chance of excessive message build up that could exhaust broker
 resources. However, messages can be lost if the target queue is not available to accept messages.
 
-Since RabbitMQ 3.10 quorum queues support [at-least-once dead-lettering](./quorum-queues#dead-lettering)
+Quorum queues support [at-least-once dead-lettering](./quorum-queues#dead-lettering)
 where messages are re-published with publisher confirms turned on internally.
 
 ## Dead-Lettered Effects on Messages {#effects}
