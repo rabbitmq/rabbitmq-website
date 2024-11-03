@@ -28,7 +28,7 @@ import TabItem from '@theme/TabItem';
 
 The RabbitMQ quorum queue is a modern queue type which implements a durable,
 replicated queue based on the [Raft consensus algorithm](https://raft.github.io/)
-and should be considered the default choice when needing a replicated, highly 
+and should be considered the default choice when needing a replicated, highly
 available queue.
 
 Quorum queues are designed for excellent data safety as well as reliable and fast
@@ -173,7 +173,7 @@ With some queue operations there are minor differences:
 Modern quorum queues also offer [higher throughput and less latency variability](/blog/2022/05/16/rabbitmq-3.10-performance-improvements)
 for many workloads.
 
-### Queue and Per-Message TTL 
+### Queue and Per-Message TTL
 
 Quorum queues support both [Queue TTL](./ttl#queue-ttl) and message TTL (since RabbitMQ 3.10)
 (including [Per-Queue Message TTL in Queues](./ttl#per-queue-message-ttl) and
@@ -318,7 +318,7 @@ priority higher than 4 will be mapped to high.
 
 High priority messages will be favoured over normal priority messages at a ratio
 of 2:1, i.e. for every 2 high priority message the queue will deliver 1 normal priority
-message (if available). Hence, quorum queues implement a kind of non-strict, 
+message (if available). Hence, quorum queues implement a kind of non-strict,
 "fair share" priority processing. This ensures progress is always made on normal
 priority messages but high priorities are favoured at a ratio of 2:1.
 
@@ -592,7 +592,7 @@ which is the default in several popular clients.
 ## Usage {#usage}
 
 Quorum queues share most of the fundamentals with other [queue](./queues) types.
-Any AMQP 0.9.1 client library that can specify [optional queue arguments](./queues#optional-arguments) 
+Any AMQP 0.9.1 client library that can specify [optional queue arguments](./queues#optional-arguments)
 when declaring will be able to use quorum queues.
 
 First we will cover how to declare a quorum queue using AMQP 0.9.1.
@@ -1164,7 +1164,7 @@ footprint can reach 512 MiB. You can expect your memory usage to look like this:
 ![Quorum Queues memory usage pattern](./quorum-queue-memory-usage-pattern.png)
 </figure>
 
-Because memory deallocation may take some time,
+Because memory is not guaranteed to be deadllocated instaltly by the [runtime](./runtime/),
 we recommend that the RabbitMQ node is allocated at least 3 times the memory of the default WAL file size limit.
 More will be required in high-throughput systems. 4 times is a good starting point for those.
 
@@ -1193,7 +1193,7 @@ so but may be needed for 3.13.x compatibility in some rare cases.
 The internal implementation of quorum queues converts the queue name
 into an Erlang atom. If queues with arbitrary names are continuously
 created and deleted it _may_ threaten the long term stability of the
-RabbitMQ system if the size of the atom table reaches the default limit of 
+RabbitMQ system if the size of the atom table reaches the default limit of
 5 million.
 
 While quorum queues were not designed to be used in high churn environments

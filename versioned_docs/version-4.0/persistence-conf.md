@@ -85,11 +85,14 @@ The limit can be controlled
 raft.wal_max_size_bytes = 32000000
 ```
 
-Because memory deallocation may take some time,
-we recommend that the RabbitMQ node is allocated at least 3 times the memory of the default WAL file size limit.
+:::important
+
+Because memory is not guaranteed to be deadllocated instaltly by the [runtime](./runtime/),
+we recommend that the RabbitMQ node is allocated at least 3 times the memory of the effective WAL file size limit.
 More will be required in high-throughput systems.
 4 times is a good starting point for those.
 
+:::
 
 ## Classic Queues {#classic-queues}
 
