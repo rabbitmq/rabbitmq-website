@@ -365,7 +365,10 @@ When verification is enabled, this `aud` field must either match the `resource_s
 
 ### Token expiration and refresh {#token-expiration}
 
-In RabbitMQ, token expiration and refresh processes vary between AMQP 1.0 and AMQP 0.9.1 protocols.
+Token expiration and refresh process in AMQP 1.0 and AMQP 0.9.1 protocols
+uses the same general idea but there are minor protocol-specific differences.
+
+#### AMQP 1.0
 
 For AMQP 1.0, if the latest token on an existing connection expires, RabbitMQ disconnects the
 client. To prevent disconnection, the client can proactively refresh the token before it expires.
@@ -380,12 +383,14 @@ RabbitMQ’s AMQP 1.0 clients support token refresh in
 [.NET](https://github.com/rabbitmq/rabbitmq-amqp-dotnet-client), and
 [Erlang](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_amqp_client).
 
+#### AMQP 0-9-1
+
 For AMQP 0.9.1, when a token expires on an existing connection, the broker refuses further
 operations after a limited time, but does not disconnect the client. To refresh the token, the
 client can use the AMQP 0.9.1
-[update-secret](src/pages/amqp-0-9-1-reference#connection.update-secret) method if supported by the
+[update-secret](/amqp-0-9-1-reference#connection.update-secret.new-secret) method if supported by the
 client. For an example, see the
-[Java client documentation](../client-libraries/java-api-guide#oauth2-refreshing-token). If the
+[Java client documentation](/client-libraries/java-api-guide#oauth2-refreshing-token). If the
 client does not support `update-secret`, it must disconnect and reconnect with a new token.
 
 ### Scope-to-Permission translation {#scope-translation}

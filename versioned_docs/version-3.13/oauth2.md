@@ -292,11 +292,15 @@ The `aud` ([Audience](https://tools.ietf.org/html/rfc7519#page-9)) identifies th
 
 ### Token expiration and refresh {#token-expiration}
 
-On an existing connection, the token can be refreshed by the [update-secret](/amqp-0-9-1-reference#connection.update-secret) AMQP 0.9.1 method.
-Please check your client whether it supports this method (for example documentation for the [Java client](/client-libraries/java-api-guide#oauth2-refreshing-token)).
-Otherwise the client has to disconnect and reconnect to use a new token.
+#### AMQP 0-9-1
 
-If the latest token expires on an existing connection, after a limited time the broker will refuse all operations (but it won't disconnect).
+For AMQP 0.9.1, when a token expires on an existing connection, the broker refuses further
+operations after a limited time, but does not disconnect the client. To refresh the token, the
+client can use the AMQP 0.9.1
+[update-secret](/amqp-0-9-1-reference#connection.update-secret.new-secret) method if supported by the
+client. For an example, see the
+[Java client documentation](/client-libraries/java-api-guide#oauth2-refreshing-token). If the
+client does not support `update-secret`, it must disconnect and reconnect with a new token.
 
 ### Scope-to-Permission translation {#scope-translation}
 
