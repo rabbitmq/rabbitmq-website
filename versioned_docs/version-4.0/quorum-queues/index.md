@@ -28,7 +28,7 @@ import TabItem from '@theme/TabItem';
 
 The RabbitMQ quorum queue is a modern queue type which implements a durable,
 replicated queue based on the [Raft consensus algorithm](https://raft.github.io/)
-and should be considered the default choice when needing a replicated, highly 
+and should be considered the default choice when needing a replicated, highly
 available queue.
 
 Quorum queues are designed for excellent data safety as well as reliable and fast
@@ -173,7 +173,7 @@ With some queue operations there are minor differences:
 Modern quorum queues also offer [higher throughput and less latency variability](/blog/2022/05/16/rabbitmq-3.10-performance-improvements)
 for many workloads.
 
-### Queue and Per-Message TTL 
+### Queue and Per-Message TTL
 
 Quorum queues support both [Queue TTL](./ttl#queue-ttl) and message TTL (since RabbitMQ 3.10)
 (including [Per-Queue Message TTL in Queues](./ttl#per-queue-message-ttl) and
@@ -318,7 +318,7 @@ priority higher than 4 will be mapped to high.
 
 High priority messages will be favoured over normal priority messages at a ratio
 of 2:1, i.e. for every 2 high priority message the queue will deliver 1 normal priority
-message (if available). Hence, quorum queues implement a kind of non-strict, 
+message (if available). Hence, quorum queues implement a kind of non-strict,
 "fair share" priority processing. This ensures progress is always made on normal
 priority messages but high priorities are favoured at a ratio of 2:1.
 
@@ -592,7 +592,7 @@ which is the default in several popular clients.
 ## Usage {#usage}
 
 Quorum queues share most of the fundamentals with other [queue](./queues) types.
-Any AMQP 0.9.1 client library that can specify [optional queue arguments](./queues#optional-arguments) 
+Any AMQP 0.9.1 client library that can specify [optional queue arguments](./queues#optional-arguments)
 when declaring will be able to use quorum queues.
 
 First we will cover how to declare a quorum queue using AMQP 0.9.1.
@@ -943,6 +943,7 @@ are expected to come back and only a minority (often just one) node is stopped f
   </tr>
 </table>
 
+
 ## Quorum Queue Behaviour {#behaviour}
 
 A quorum queue relies on a consensus protocol called Raft to ensure data consistency and safety.
@@ -1014,9 +1015,13 @@ permanently made unavailable.
 
 Generally quorum queues favours data consistency over availability.
 
-*_No guarantees are provided for messages that have not been confirmed using
-the publisher confirm mechanism_*. Such messages could be lost "mid-way", in an operating
-system buffer or otherwise fail to reach the queue leader.
+:::important
+
+Quorum quques cannot provide any safety guarantees for messages that have not been [confirmed to the publisher](./confirms).
+Such messages could be lost "in flight", in an operating
+system buffer or otherwise fail to reach the target node or the queue leader.
+
+:::
 
 
 ### Availability {#availability}
@@ -1129,7 +1134,6 @@ The following `advanced.config` example modifies all values listed above:
 ```
 
 
-
 ## Resource Use {#resource-use}
 
 Quorum queues are optimised for data safety and performance. Each quorum queue process maintains an in-memory index of
@@ -1165,7 +1169,7 @@ Because memory deallocation may take some time,
 we recommend that the RabbitMQ node is allocated at least 3 times the memory of the default WAL file size limit.
 More will be required in high-throughput systems. 4 times is a good starting point for those.
 
-### Repeated Requeues {#repeated-requeues}
+### Repeatedly Requeued Deliveries (Deliver-Requeue Loops) {#repeated-requeues}
 
 Internally quorum queues are implemented using a log where all operations including
 messages are persisted. To avoid this log growing too large it needs to be
@@ -1190,7 +1194,7 @@ so but may be needed for 3.13.x compatibility in some rare cases.
 The internal implementation of quorum queues converts the queue name
 into an Erlang atom. If queues with arbitrary names are continuously
 created and deleted it _may_ threaten the long term stability of the
-RabbitMQ system if the size of the atom table reaches the default limit of 
+RabbitMQ system if the size of the atom table reaches the default limit of
 5 million.
 
 While quorum queues were not designed to be used in high churn environments
@@ -1198,6 +1202,7 @@ While quorum queues were not designed to be used in high churn environments
 can be increased if really necessary.
 
 See [the Runtime guide](./runtime#atom-usage) to learn more.
+
 
 ## Performance Tuning {#performance-tuning}
 
