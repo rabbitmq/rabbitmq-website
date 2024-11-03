@@ -367,15 +367,26 @@ When verification is enabled, this `aud` field must either match the `resource_s
 
 In RabbitMQ, token expiration and refresh processes vary between AMQP 1.0 and AMQP 0.9.1 protocols.
 
-For **AMQP 1.0**, if the latest token on an existing connection expires, RabbitMQ disconnects the client.
-To prevent disconnection, the client should proactively refresh the token before it expires.
-The client can set a new token by sending an [HTTP over AMQP 1.0](https://github.com/oasis-tcs/amqp-specs/blob/master/http-over-amqp-v1.0-wd06a.docx) request.
-This request should use a `PUT` operation to the `/auth/tokens` endpoint, with the token included in the body as a [binary](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html#type-binary) [AMQP value](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-amqp-value).
-Token refresh is supported by RabbitMQ’s AMQP 1.0 clients in [Java](https://github.com/rabbitmq/rabbitmq-amqp-java-client), [.NET](https://github.com/rabbitmq/rabbitmq-amqp-dotnet-client), and [Erlang](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_amqp_client).
+For AMQP 1.0, if the latest token on an existing connection expires, RabbitMQ disconnects the
+client. To prevent disconnection, the client can proactively refresh the token before it expires.
+The client can set a new token by sending an
+[HTTP-over-AMQP 1.0](https://github.com/oasis-tcs/amqp-specs/blob/master/http-over-amqp-v1.0-wd06a.docx)
+request. This request uses a `PUT` operation on the `/auth/tokens` endpoint, with the token included
+in the body as a
+[binary](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html#type-binary)
+[AMQP value](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-amqp-value).
+RabbitMQ’s AMQP 1.0 clients support token refresh in
+[Java](https://github.com/rabbitmq/rabbitmq-amqp-java-client),
+[.NET](https://github.com/rabbitmq/rabbitmq-amqp-dotnet-client), and
+[Erlang](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_amqp_client).
 
-In the case of **AMQP 0.9.1**, when a token expires on an existing connection, the broker will refuse further operations after a limited time, but it will not disconnect the client.
-To refresh the token, the client should use the AMQP 0.9.1 [update-secret](/amqp-0-9-1-reference#connection.update-secret) method if supported by the client (for example, see the [Java client](/client-libraries/java-api-guide#oauth2-refreshing-token) documentation).
-If the client does not support `update-secret`, it must disconnect and reconnect with a new token.
+For AMQP 0.9.1, when a token expires on an existing connection, the broker refuses further
+operations after a limited time, but does not disconnect the client. To refresh the token, the
+client can use the AMQP 0.9.1
+[update-secret](src/pages/amqp-0-9-1-reference#connection.update-secret) method if supported by the
+client. For an example, see the
+[Java client documentation](../client-libraries/java-api-guide#oauth2-refreshing-token). If the
+client does not support `update-secret`, it must disconnect and reconnect with a new token.
 
 ### Scope-to-Permission translation {#scope-translation}
 
