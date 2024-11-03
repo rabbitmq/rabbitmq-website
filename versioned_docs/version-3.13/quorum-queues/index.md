@@ -791,9 +791,13 @@ permanently made unavailable.
 
 Generally quorum queues favours data consistency over availability.
 
-*_No guarantees are provided for messages that have not been confirmed using
-the publisher confirm mechanism_*. Such messages could be lost "mid-way", in an operating
-system buffer or otherwise fail to reach the queue leader.
+:::important
+
+Quorum quques cannot provide any safety guarantees for messages that have not been [confirmed to the publisher](./confirms).
+Such messages could be lost "in flight", in an operating
+system buffer or otherwise fail to reach the target node or the queue leader.
+
+:::
 
 
 ### Quorum Queue Availability {#availability}
@@ -1078,7 +1082,7 @@ Because memory deallocation may take some time,
 we recommend that the RabbitMQ node is allocated at least 3 times the memory of the default WAL file size limit.
 More will be required in high-throughput systems. 4 times is a good starting point for those.
 
-### Repeated Requeues {#repeated-requeues}
+### Repeatedly Requeued Deliveries (Deliver-Requeue Loops) {#repeated-requeues}
 
 Internally quorum queues are implemented using a log where all operations including
 messages are persisted. To avoid this log growing too large it needs to be
