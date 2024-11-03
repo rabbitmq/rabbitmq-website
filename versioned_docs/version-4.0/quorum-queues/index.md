@@ -1165,9 +1165,14 @@ footprint can reach 512 MiB. You can expect your memory usage to look like this:
 ![Quorum Queues memory usage pattern](./quorum-queue-memory-usage-pattern.png)
 </figure>
 
-Because memory deallocation may take some time,
-we recommend that the RabbitMQ node is allocated at least 3 times the memory of the default WAL file size limit.
-More will be required in high-throughput systems. 4 times is a good starting point for those.
+:::important
+
+Because memory is not guaranteed to be deadllocated instaltly by the [runtime](./runtime/),
+we recommend that the RabbitMQ node is allocated at least 3 times the memory of the effective WAL file size limit.
+More will be required in high-throughput systems.
+4 times is a good starting point for those.
+
+:::
 
 ### Repeatedly Requeued Deliveries (Deliver-Requeue Loops) {#repeated-requeues}
 
