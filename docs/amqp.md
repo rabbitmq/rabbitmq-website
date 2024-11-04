@@ -279,11 +279,10 @@ This section lists features that RabbitMQ supports exclusively in AMQP 1.0, whic
 
 ### AMQP 0.9.1 Features
 This section lists features that RabbitMQ supports exclusively in AMQP 0.9.1, which are currently not available in AMQP 1.0:
-* **[Transactions](./semantics)**: AMQP 0.9.1 provides limited support, whereas AMQP 1.0 currently does not support transactions (as listed in the [limitations](#limitations)).
 * **[Direct Reply-to](./direct-reply-to)**: While AMQP 1.0 clients can still perform Remote Procedure Calls (RPCs) by declaring a reply queue, the Direct Reply-to feature is exclusive to AMQP 0.9.1.
 * **[AMQP 0.9.1 Channel Interceptor](https://github.com/rabbitmq/internals/blob/master/interceptors.md)**: Plugins, such as the [Sharding Plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_sharding#rabbitmq-sharding-plugin), that intercept and modify frames are [currently](https://github.com/rabbitmq/rabbitmq-server/issues/10051) only supported for AMQP 0.9.1.
-* **Inspecting AMQP 0.9.1 Channel Details**: This can be done [in the Management UI](./channels#inspect-in-management-ui) or [using CLI tools](./channels#inspect-using-cli-tools). AMQP 1.0 session and link details currently cannot be inspected.
-* **Message rates in the Management UI**
+* **Message rates in the Management UI**: Message rates for exchanges and queues are shown in the Management UI for AMQP 0.9.1 connections. These rates are currently not available for AMQP 1.0 connections.
+* **[Transactions](./semantics)**: AMQP 0.9.1 provides limited support, whereas AMQP 1.0 currently does not support transactions (as listed in the [limitations](#limitations)).
 
 ### Clients
 
