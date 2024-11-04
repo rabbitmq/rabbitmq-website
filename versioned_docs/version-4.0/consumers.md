@@ -428,6 +428,13 @@ and driving nodes out of disk space.
 
 If a consumer does not ack its delivery within the timeout value,
 its channel is closed with a `PRECONDITION_FAILED` channel exception.
+The message will look like this:
+
+```
+Consumer 'consumer-tag-998754663370' on channel 1 and queue 'qq.1' in vhost '/' has timed out
+waiting for a consumer acknowledgement of a delivery with delivery tag = 10. Timeout used: 180000 ms.
+This timeout value can be configured, see consumers doc guide to learn more
+```
 
 The error is [logged](./logging) by the node connected to the consumer.
 All the following deliveries on that channel, from all consumers,
