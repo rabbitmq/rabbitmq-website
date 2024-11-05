@@ -435,7 +435,7 @@ waiting for a consumer acknowledgement of a delivery with delivery tag = 10. Tim
 This timeout value can be configured, see consumers doc guide to learn more
 ```
 
-The error is [logged](./logging) by the node connected to the consumer.
+The error is [logged](./logging) by the node to which the consumer was connected.
 All the following deliveries on that channel, from all consumers,
 are then [requeued](./confirms#automatic-requeueing).
 To resolve a `PRECONDITION_FAILED` channel exception, reevaluate your consumer
