@@ -120,7 +120,7 @@ A load balancer in front of RabbitMQ would make it virtually impossible to use t
     messages published on the node with no consumers will be dropped.
 
     The best way to ensure that, is to configure consumers with one specific node to connect to. If that node is unavailable,
-    these consumers will not (are expected not ot be) available either.
+    these consumers will not be (and are expected not to be) available either.
   </li>
   <li>
     On the publisher side, there is some flexibility: if a publisher reconnects to another node,
