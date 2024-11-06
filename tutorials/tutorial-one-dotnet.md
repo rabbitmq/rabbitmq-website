@@ -108,17 +108,17 @@ We'll call our message publisher (sender) `Send.cs` and our message consumer (re
 then exit.
 
 In
-[`Send.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/Send/Send.cs),
+[`Send.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs),
 we need to use some namespaces:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/Send/Send.cs#L1-L2
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs#L1-L2
 ```
 
 then we can create a connection to the server:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/Send/Send.cs#L1-L6
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs#L1-L6
 ```
 
 The connection abstracts the socket connection, and takes care of
@@ -134,7 +134,7 @@ To send, we must declare a queue for us to send to; then we can publish a messag
 to the queue:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/Send/Send.cs
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs
 ```
 
 Declaring a queue is idempotent - it will only be created if it doesn't
@@ -165,10 +165,10 @@ keep the consumer running continuously to listen for messages and print them out
 
 <T1DiagramReceiving/>
 
-The code (in [`Receive.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/Receive/Receive.cs)) has almost the same `using` statements as `Send`:
+The code (in [`Receive.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs)) has almost the same `using` statements as `Send`:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/Receive/Receive.cs#L1-L3
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs#L1-L3
 ```
 
 Setting up is the same as the publisher; we open a connection and a
@@ -176,7 +176,7 @@ channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `Send` publishes to.
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/Receive/Receive.cs#L5-L10
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs#L5-L10
 ```
 
 Note that we declare the queue here as well. Because we might start
@@ -189,7 +189,7 @@ callback. That is what `AsyncEventingBasicConsumer.Received` event handler
 does.
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/Receive/Receive.cs
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs
 ```
 
 ### Putting It All Together

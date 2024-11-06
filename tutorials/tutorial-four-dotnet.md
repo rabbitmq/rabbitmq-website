@@ -48,7 +48,7 @@ In previous examples we were already creating bindings. You may recall
 code like:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/ReceiveLogs/ReceiveLogs.cs#L15
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogs/ReceiveLogs.cs#L15
 ```
 
 A binding is a relationship between an exchange and a queue. This can
@@ -121,13 +121,13 @@ first.
 As always, we need to create an exchange first:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/EmitLogDirect/EmitLogDirect.cs#L8
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLogDirect/EmitLogDirect.cs#L8
 ```
 
 And we're ready to send a message:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/EmitLogDirect/EmitLogDirect.cs#L12-L13
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLogDirect/EmitLogDirect.cs#L12-L13
 ```
 
 To simplify things we will assume that 'severity' can be one of
@@ -143,7 +143,7 @@ we're interested in.
 
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/ReceiveLogsDirect/ReceiveLogsDirect.cs#L23-L29
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogsDirect/ReceiveLogsDirect.cs#L23-L29
 ```
 
 Putting it all together
@@ -157,13 +157,13 @@ Putting it all together
 The code for `EmitLogDirect.cs` class:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/EmitLogDirect/EmitLogDirect.cs
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLogDirect/EmitLogDirect.cs
 ```
 
 The code for `ReceiveLogsDirect.cs`:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/ReceiveLogsDirect/ReceiveLogsDirect.cs
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogsDirect/ReceiveLogsDirect.cs
 ```
 
 Create projects as usual (see [tutorial one](./tutorial-one-dotnet) for

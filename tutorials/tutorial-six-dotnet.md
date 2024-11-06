@@ -49,7 +49,7 @@ create a simple client class. It's going to expose a method named `CallAsync`
 which sends an RPC request and awaits the answer:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/RPCClient/RPCClient.cs#L112-L120
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCClient/RPCClient.cs#L112-L120
 ```
 
 > #### A note on RPC
@@ -81,7 +81,7 @@ receive a response we need to send a 'callback' queue address with the
 request:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/RPCClient/RPCClient.cs#L60-L74
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCClient/RPCClient.cs#L60-L74
 ```
 
 > #### Message properties
@@ -151,7 +151,7 @@ Putting it all together
 The Fibonacci task:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/RPCServer/RPCServer.cs#L59-L68
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCServer/RPCServer.cs#L59-L68
 ```
 
 We declare our fibonacci function. It assumes only valid positive integer
@@ -162,7 +162,7 @@ slowest recursive implementation possible).
 The code for our RPC server looks like this:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/RPCServer/RPCServer.cs
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCServer/RPCServer.cs
 ```
 
 The server code is rather straightforward:
@@ -179,7 +179,7 @@ The server code is rather straightforward:
 The code for our RPC client:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/RPCClient/RPCClient.cs
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCClient/RPCClient.cs
 ```
 
 The client code is slightly more involved:
@@ -202,7 +202,7 @@ The client code is slightly more involved:
 Making the Client request:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/RPCClient/RPCClient.cs#L112-L120
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCClient/RPCClient.cs#L112-L120
 ```
 
 Set up as usual (see [tutorial one](./tutorial-one-dotnet)):

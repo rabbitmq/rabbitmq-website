@@ -82,7 +82,7 @@ an exchange of this type, and call it `logs`:
 
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/EmitLog/EmitLog.cs#L8
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLog/EmitLog.cs#L8
 ```
 
 The fanout exchange is very simple. As you can probably guess from the
@@ -112,7 +112,7 @@ queues it knows. And that's exactly what we need for our logger.
 > Recall how we published a message before:
 >
 > ```csharp reference
-> https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/Send/Send.cs#L12-L14
+> https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs#L12-L14
 > ```
 >
 > The first parameter is the name of the exchange.
@@ -122,7 +122,7 @@ queues it knows. And that's exactly what we need for our logger.
 Now, we can publish to our named exchange instead:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/EmitLog/EmitLog.cs#L10-L12
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLog/EmitLog.cs#L10-L12
 ```
 
 Temporary queues
@@ -150,7 +150,7 @@ In the .NET client, when we supply no parameters to `QueueDeclareAsync()`
 we create a non-durable, exclusive, autodelete queue with a generated name:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/ReceiveLogs/ReceiveLogs.cs#L13-L14
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogs/ReceiveLogs.cs#L13-L14
 ```
 
 You can learn more about the `exclusive` flag and other queue
@@ -171,7 +171,7 @@ tell the exchange to send messages to our queue. That relationship
 between exchange and a queue is called a _binding_.
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/ReceiveLogs/ReceiveLogs.cs#L15
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogs/ReceiveLogs.cs#L15
 ```
 
 From now on the `logs` exchange will append messages to our queue.
@@ -197,7 +197,7 @@ value is ignored for `fanout` exchanges. Here goes the code for
 `EmitLog.cs` file:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/EmitLog/EmitLog.cs
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLog/EmitLog.cs
 ```
 
 As you see, after establishing the connection we declared the
@@ -210,7 +210,7 @@ but that's okay for us; if no consumer is listening yet we can safely discard th
 The code for `ReceiveLogs.cs`:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/ReceiveLogs/ReceiveLogs.cs
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogs/ReceiveLogs.cs
 ```
 
 Follow the setup instructions from [tutorial one](./tutorial-one-dotnet) to

@@ -128,13 +128,13 @@ The code is almost the same as in the
 The code for `EmitLogTopic.cs`:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/EmitLogTopic/EmitLogTopic.cs
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLogTopic/EmitLogTopic.cs
 ```
 
 The code for `ReceiveLogsTopic.cs`:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/ReceiveLogsTopic/ReceiveLogsTopic.cs
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogsTopic/ReceiveLogsTopic.cs
 ```
 
 Run the following examples:

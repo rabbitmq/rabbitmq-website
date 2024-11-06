@@ -84,12 +84,12 @@ Copy the code from our old _Send.cs_ to _NewTask.cs_ and make the following modi
 
 Update the initialization of the _message_ variable:
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/NewTask/NewTask.cs#L11
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/NewTask/NewTask.cs#L11
 ```
 
 Add the _GetMessage_ method to the end of the _NewTask_ class:
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/NewTask/NewTask.cs#L23-L26
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/NewTask/NewTask.cs#L23-L26
 ```
 
 Our old _Receive.cs_ script also requires some changes to
@@ -221,7 +221,7 @@ worker, once we're done with a task.
 
 After the existing _WriteLine_, add a call to _BasicAck_ and update _BasicConsume_ with _autoAck:false_:
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/Worker/Worker.cs#L26-L32
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Worker/Worker.cs#L26-L32
 ```
 
 Using this code, you can  ensure that even if you terminate a worker node using
@@ -282,7 +282,7 @@ that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/NewTask/NewTask.cs#L8-L9
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/NewTask/NewTask.cs#L8-L9
 ```
 
 This `QueueDeclareAsync` change needs to be applied to both the producer
@@ -293,7 +293,7 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent.
 
 After the existing _GetBytes_, set `IBasicProperties.Persistent` to `true`:
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/NewTask/NewTask.cs#L14-L17
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/NewTask/NewTask.cs#L14-L17
 ```
 
 > #### Note on Message Persistence
@@ -332,7 +332,7 @@ previous one. Instead, it will dispatch it to the next worker that is not still 
 
 After the existing _QueueDeclareAsync_ in _Worker.cs_ add the call to `BasicQos`:
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/Worker/Worker.cs#L9-L12
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Worker/Worker.cs#L9-L12
 ```
 
 > #### Note about queue size
@@ -348,13 +348,13 @@ Run the consumer (worker) first so that the topology (primarily the queue) is in
 Here is its complete code:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/Worker/Worker.cs
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Worker/Worker.cs
 ```
 
 Now run the task publisher (NewTask). Its final code is:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/NewTask/NewTask.cs
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/NewTask/NewTask.cs
 ```
 
 Using message acknowledgments and `BasicQosAsync` you can set up a

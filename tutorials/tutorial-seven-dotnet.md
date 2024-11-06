@@ -46,7 +46,7 @@ are not enabled by default. Publisher confirms are enabled at the channel level
 with the `ConfirmSelectAsync` method:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/PublisherConfirms/PublisherConfirms.cs#L28
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L28
 ```
 
 This method must be called on every channel that you expect to use publisher
@@ -95,7 +95,7 @@ wait for this whole batch to be confirmed. The following example uses a batch
 of 100:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/PublisherConfirms/PublisherConfirms.cs#L67-L91
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L67-L91
 ```
 
 
@@ -144,7 +144,7 @@ clean this list when confirms arrive and do something like logging a warning
 when messages are nack-ed:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/PublisherConfirms/PublisherConfirms.cs#L118-L156
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L118-L156
 ```
 
 The previous sample contains a callback that cleans the linked list when
@@ -192,7 +192,7 @@ case of error, but can be involved to implement correctly.
 
 ## Putting It All Together
 
-The [`PublisherConfirms.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-dotnet-client-7.0.0/dotnet/PublisherConfirms/PublisherConfirms.cs)
+The [`PublisherConfirms.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs)
 class contains code for the techniques we covered. We can compile it, execute it as-is and
 see how they each perform:
 
