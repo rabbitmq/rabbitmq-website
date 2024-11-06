@@ -252,15 +252,12 @@ To disconnect, simply close the channel and the connection:
 ```csharp
 await channel.CloseAsync();
 await conn.CloseAsync();
-channel.Dispose();
-conn.Dispose();
+await channel.DisposeAsync();
+await conn.DisposeAsync();
 ```
 
-Disposing channel and connection objects is not enough, they must be explicitly closed
-with the API methods from the example above.
-
-Note that closing the channel may be considered good practice, but isn&#8217;t strictly necessary here - it will be done
-automatically anyway when the underlying connection is closed.
+While disposing channel and connection objects is sufficient, the best practice
+is that they be explicitly closed first.
 
 Client disconnection events can be [observed in server node logs](/docs/networking#logging).
 
@@ -804,7 +801,7 @@ ConnectionFactory factory = new ConnectionFactory();
 try {
   IConnection conn = await factory.CreateConnectionAsync();
 } catch (RabbitMQ.Client.Exceptions.BrokerUnreachableException e) {
-  Thread.Sleep(5000);
+  await Task.Delay(5000);
   // apply retry logic
 }
 ```

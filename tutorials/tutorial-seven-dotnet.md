@@ -43,59 +43,41 @@ using publisher confirms and explain their pros and cons.
 
 Publisher confirms are a RabbitMQ extension to the AMQP 0.9.1 protocol, so they
 are not enabled by default. Publisher confirms are enabled at the channel level
-with the `ConfirmSelectAsync` method:
+via the `CreateChannelOptions` class:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L28
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L9-L15
 ```
 
-This method must be called on every channel that you expect to use publisher
-confirms. Confirms should be enabled just once, not for every message
-published.
+These options must be passed to every channel that you expect to use publisher
+confirms.
 
 ### Strategy #1: Publishing Messages Individually
 
 Let's start with the simplest approach to publishing with confirms, that is,
 publishing a message and awaiting its confirmation:
 
-```csharp
-while (ThereAreMessagesToPublish())
-{
-    byte[] body = ...;
-    IBasicProperties properties = ...;
-    await channel.BasicPublishAsync(exchange, queue, properties, body);
-    // uses a 5 second timeout
-    await channel.WaitForConfirmsOrDieAsync(TimeSpan.FromSeconds(5));
-}
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L57-L68
 ```
 
 In the previous example we publish a message as usual and wait for its
-confirmation with the `IChannel#WaitForConfirmsOrDieAsync(TimeSpan)` method.
-The method returns as soon as the message has been confirmed. If the message is
-not confirmed within the timeout or if it is nack-ed (meaning the broker could
-not take care of it for some reason), the method will throw an exception. The
-handling of the exception usually consists in logging an error message and/or
-retrying to send the message.
-
-Different client libraries have different ways to synchronously deal with
-publisher confirms, so make sure to read carefully the documentation of the
-client you are using.
-
-In version 7 of the `RabbitMQ.Client` library, `WaitForConfirmsOrDieAsync` uses
-`async`/`await` so this method is about as fast as asynchronously handling
-confirmations yourself. Note, however, that every published message creates a
-task completion source that is only awaited when `WaitForConfirmsOrDieAsync` is
-called, so ensure that you call this method at appropriate times.
+confirmation by `await`-ing the task returned by `BasicPublishAsync`. The
+`await` returns as soon as the message has been confirmed. If the message is is
+nack-ed or returned (meaning the broker could not take care of it for some
+reason), the method will throw an exception. The handling of the exception
+usually consists in logging an error message and/or retrying to send the
+message.
 
 
 ### Strategy #2: Publishing Messages in Batches
 
 To improve upon our previous example, we can publish a batch of messages and
 wait for this whole batch to be confirmed. The following example uses a batch
-of 100:
+size equal to one-half of the allowed count of outstanding confirmations:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L67-L91
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L92-L132
 ```
 
 
@@ -104,22 +86,13 @@ https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirm
 The broker confirms published messages asynchronously, one just needs to
 register a callback on the client to be notified of these confirms:
 
-```csharp
-var channel = await connection.CreateModelAsync();
-await channel.ConfirmSelectAsync();
-channel.BasicAcks += (sender, ea) =>
-{
-  // code when message is confirmed
-};
-channel.BasicNacks += (sender, ea) =>
-{
-  //code when message is nack-ed
-};
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L204-L227
 ```
 
-There are 2 callbacks: one for confirmed messages and one for nack-ed messages
-(messages that can be considered lost by the broker). Both callbacks have a
-corresponding `EventArgs` parameter (`ea`) containing a:
+There are 3 callbacks: one for confirmed messages, one for nack-ed messages,
+and one for returned messages. All callbacks have a corresponding `EventArgs`
+parameter (`ea`). For ack and nack, this contains:
 
  * delivery tag: the sequence number identifying the confirmed or nack-ed
  message. We will see shortly how to correlate it with the published message.
@@ -127,11 +100,11 @@ corresponding `EventArgs` parameter (`ea`) containing a:
  confirmed/nack-ed, if true, all messages with a lower or equal sequence number
  are confirmed/nack-ed.
 
-The sequence number can be obtained with `IChannel#NextPublishSeqNo` before
+The sequence number can be obtained with `IChannel#GetNextPublishSequenceNumberAsync` before
 publishing:
 
 ```csharp
-var sequenceNumber = channel.NextPublishSeqNo;
+var sequenceNumber = await channel.GetNextPublishSequenceNumberAsync();
 await channel.BasicPublishAsync(exchange, queue, properties, body);
 ```
 
@@ -144,14 +117,14 @@ clean this list when confirms arrive and do something like logging a warning
 when messages are nack-ed:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L118-L156
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L155-L202
 ```
 
 The previous sample contains a callback that cleans the linked list when
-confirms arrive. Note this callback handles both single and multiple confirms.
-This callback is used when confirms arrive (`IChannel#BasicAcks`). The callback
-for nack-ed messages issues a warning. It then re-uses the previous callback to
-clean the linked list of outstanding confirms.
+confirms, nacks or returns arrive. Note this callback handles both single and
+multiple confirms. The callback for nack-ed or returns messages issues a
+warning. It then re-uses the previous callback to clean the linked list of
+outstanding confirms.
 
 To sum up, handling publisher confirms asynchronously usually requires the
 following steps:
@@ -183,7 +156,7 @@ publisher confirms, this usually comes down to the constraints in the
 application and in the overall system. Typical techniques are:
 
 * publishing messages individually, waiting for the confirmation via
-`WaitForConfirmsOrDieAsync`: simple.
+`await`: simple.
 * publishing messages in batch, waiting for the confirmation for
 a batch: simple, reasonable throughput, but hard to reason about when something
 goes wrong.
@@ -196,14 +169,21 @@ The [`PublisherConfirms.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob
 class contains code for the techniques we covered. We can compile it, execute it as-is and
 see how they each perform:
 
-```PowerShell
-> dotnet run .\PublisherConfirms.csproj
-9/9/2024 11:07:11 AM [INFO] publishing 50,000 messages individually and handling confirms all at once
-9/9/2024 11:07:12 AM [INFO] published 50,000 messages individually in 796 ms
-9/9/2024 11:07:12 AM [INFO] publishing 50,000 messages and handling confirms in batches
-9/9/2024 11:07:13 AM [INFO] published 50,000 messages in batch in 1,034 ms
-9/9/2024 11:07:13 AM [INFO] publishing 50,000 messages and handling confirms asynchronously
-9/9/2024 11:07:14 AM [INFO] published 50,000 messages and handled confirm asynchronously 763 ms
+```shell
+$ dotnet run
+11/6/2024 10:36:22 AM [INFO] publishing 50,000 messages and handling confirms per-message
+11/6/2024 10:36:28 AM [INFO] published 50,000 messages individually in 5,699 ms
+11/6/2024 10:36:28 AM [INFO] publishing 50,000 messages and handling confirms in batches
+11/6/2024 10:36:29 AM [INFO] published 50,000 messages in batch in 1,085 ms
+11/6/2024 10:36:29 AM [INFO] publishing 50,000 messages and handling confirms asynchronously
+11/6/2024 10:36:29 AM [WARNING] message sequence number 50000 has been basic.return-ed
+11/6/2024 10:36:29 AM [WARNING] message sequence number 50000 has been basic.return-ed
+11/6/2024 10:36:29 AM [WARNING] message sequence number 50000 has been basic.return-ed
+...
+...
+...
+11/6/2024 10:36:30 AM [WARNING] message sequence number 50000 has been basic.return-ed
+11/6/2024 10:36:30 AM [INFO] published 50,000 messages and handled confirm asynchronously 878 ms
 ```
 
 The output on your computer should look similar if the client and the server
