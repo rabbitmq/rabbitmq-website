@@ -105,6 +105,11 @@
             },
             {
               "type": "doc",
+              "id": "deprecated-features/index",
+              "label": "Deprecated Features"
+            },
+            {
+              "type": "doc",
               "id": "blue-green-upgrade",
               "label": "Blue-Green Upgrade"
             }

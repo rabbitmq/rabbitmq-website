@@ -127,6 +127,11 @@ const sidebars = {
               id: 'feature-flags/index',
               label: 'Feature Flags',
             },
+            {
+              type: 'doc',
+              id: 'deprecated-features/index',
+              label: 'Deprecated Features',
+            },
           ],
         },
         {

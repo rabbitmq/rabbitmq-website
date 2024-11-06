@@ -19,6 +19,11 @@ const sidebars = {
       id: 'index',
       label: 'Release Information',
     },
+    {
+      type: 'doc',
+      id: 'deprecated-features-list',
+      label: 'Deprecated Features',
+    },
   ],
 };
 
