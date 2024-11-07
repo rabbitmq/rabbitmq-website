@@ -170,20 +170,20 @@ class contains code for the techniques we covered. We can compile it, execute it
 see how they each perform:
 
 ```shell
-$ dotnet run
-11/6/2024 10:36:22 AM [INFO] publishing 50,000 messages and handling confirms per-message
-11/6/2024 10:36:28 AM [INFO] published 50,000 messages individually in 5,699 ms
-11/6/2024 10:36:28 AM [INFO] publishing 50,000 messages and handling confirms in batches
-11/6/2024 10:36:29 AM [INFO] published 50,000 messages in batch in 1,085 ms
-11/6/2024 10:36:29 AM [INFO] publishing 50,000 messages and handling confirms asynchronously
-11/6/2024 10:36:29 AM [WARNING] message sequence number 50000 has been basic.return-ed
-11/6/2024 10:36:29 AM [WARNING] message sequence number 50000 has been basic.return-ed
-11/6/2024 10:36:29 AM [WARNING] message sequence number 50000 has been basic.return-ed
-...
-...
-...
-11/6/2024 10:36:30 AM [WARNING] message sequence number 50000 has been basic.return-ed
-11/6/2024 10:36:30 AM [INFO] published 50,000 messages and handled confirm asynchronously 878 ms
+dotnet run
+# => 11/6/2024 10:36:22 AM [INFO] publishing 50,000 messages and handling confirms per-message
+# => 11/6/2024 10:36:28 AM [INFO] published 50,000 messages individually in 5,699 ms
+# => 11/6/2024 10:36:28 AM [INFO] publishing 50,000 messages and handling confirms in batches
+# => 11/6/2024 10:36:29 AM [INFO] published 50,000 messages in batch in 1,085 ms
+# => 11/6/2024 10:36:29 AM [INFO] publishing 50,000 messages and handling confirms asynchronously
+# => 11/6/2024 10:36:29 AM [WARNING] message sequence number 50000 has been basic.return-ed
+# => 11/6/2024 10:36:29 AM [WARNING] message sequence number 50000 has been basic.return-ed
+# => 11/6/2024 10:36:29 AM [WARNING] message sequence number 50000 has been basic.return-ed
+# => ...
+# => ...
+# => ...
+# => 11/6/2024 10:36:30 AM [WARNING] message sequence number 50000 has been basic.return-ed
+# => 11/6/2024 10:36:30 AM [INFO] published 50,000 messages and handled confirm asynchronously 878 ms
 ```
 
 The output on your computer should look similar if the client and the server
