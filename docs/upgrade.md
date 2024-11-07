@@ -23,12 +23,6 @@ import TabItem from '@theme/TabItem';
 
 # Upgrading RabbitMQ
 
-:::important
-You can only upgrade to RabbitMQ 4.0 from RabbitMQ 3.13.
-
-Moreover, [feature flags have to be enabled](./feature-flags#how-to-enable-feature-flags) **before** the upgrade. The upgrade will fail if you miss this step.
-:::
-
 ## Upgrade Strategies {#strategies}
 
 There are three major upgrade strategies that can be used with RabbitMQ. Below you'll find a brief overview
@@ -47,7 +41,7 @@ Refer to the [rolling upgrade guide](./rolling-upgrade) page for more details, b
   * check [version upgradability](#rabbitmq-version-upgradability)
   * check [Erlang version requirements](#rabbitmq-erlang-version-requirement)
   * check [the release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.0)
-  * verify that all stable [feature flags are enabled](./feature-flags#how-to-enable-feature-flags)
+  * verify that all [stable feature flags are enabled](./feature-flags#how-to-enable-feature-flags)
 * Check that the node or cluster is in a good state in order to be upgraded
   * no [alarms](./alarms) are in effect
   * no ongoing queue or stream replica sync operations
@@ -57,7 +51,7 @@ Refer to the [rolling upgrade guide](./rolling-upgrade) page for more details, b
   * upgrade RabbitMQ and, if applicable, Erlang
   * start the node
   * watch [monitoring and health check](./monitoring) data to assess the health and recovery of the upgraded node and cluster
-* Once all nodes are upgraded, [enable feature flags](./feature-flags#how-to-enable-feature-flags) introduced in the new version
+* Once all nodes are upgraded, [enable stable feature flags](./feature-flags#how-to-enable-feature-flags) introduced in the new version
 
 ### Blue-Green Deployment
 
@@ -117,7 +111,7 @@ following steps. Consider a three node cluster with nodes A, B, and C:
   * the system is otherwise under a reasonable load
  * Remove node A from the cluster using `rabbitmqctl forget_cluster_node`
 * Repeat the steps above for the other nodes; in a 3-node cluster example, the cluster should now consist of nodes D, E and F
-* [Enable feature flags](./feature-flags#how-to-enable-feature-flags) introduced in the new version
+* [Enable stable feature flags](./feature-flags#how-to-enable-feature-flags) introduced in the new version
 
 Multiple nodes can be added and removed at a time.
 
@@ -138,7 +132,7 @@ The following shows the supported upgrade paths.
 
 | From     | To     | Notes                                                         |
 |----------|--------|---------------------------------------------------------------|
-| 3.13.x   | 4.0.x  | All feature flags **must** be enabled **before** the upgrade  |
+| 3.13.x   | 4.0.x  | All stable feature flags **must** be enabled **before** the upgrade  |
 | 3.12.x   | 3.13.x |                                                               |
 | 3.11.18  | 3.12.x | All feature flags **must** be enabled **before** the upgrade  |
 | 3.10.x   | 3.11.x | All feature flags **must** be enabled **before** the upgrade  |
