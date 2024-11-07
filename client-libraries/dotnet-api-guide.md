@@ -24,13 +24,13 @@ limitations under the License.
 
 ## Overview {#overview}
 
-This guide covers [RabbitMQ .NET/C# client](./dotnet) and its public API.
+This guide covers [RabbitMQ .NET/C# client](./dotnet) version 7.0 and its public API.
 It assumes that the [most recent major version of the client](https://www.nuget.org/packages/RabbitMQ.Client) is used
 and the reader is familiar with [the basics](/tutorials).
 
 Key sections of the guide are:
 
-* [Dependencies](#dependencies)
+* [.NET version requirements](#dotnet-versions)
 * [Important interfaces and classes](#major-api-elements) in the public API
 * [Limitations](#limitations)
 * [Connecting to RabbitMQ](#connecting)
@@ -39,7 +39,6 @@ Key sections of the guide are:
 * [Using Exchanges and Queues](#exchanges-and-queues)
 * [Publishing Messages](#publishing)
 * [Consuming Using a Subscription](#consuming) and [Consumer Memory Safety](#consuming-memory-safety)
-* [Async Consumer Implementations](#consuming-async)
 * [Concurrency Considerations and Safety](#concurrency)
 * [Automatic Recovery From Network Failures](#recovery)
 * [OAuth 2 Support](#oauth2-support)
@@ -49,8 +48,7 @@ An [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitM
 
 ## .NET Version Requirements {#dotnet-versions}
 
-6.x release series of this library [require .NET 4.6.1+ or a .NET Standard 2.0+ implementation](./dotnet#overview).
-For 5.x releases, the requirements are [.NET 4.5.1+ or a .NET Standard 1.5+ implementation](./dotnet#overview).
+7.0.x and 6.8.x release series of this library [require .NET 4.6.1+ or a .NET Standard 2.0+ implementation](./dotnet#overview).
 
 
 ## License {#license}
