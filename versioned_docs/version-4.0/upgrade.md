@@ -26,7 +26,14 @@ import TabItem from '@theme/TabItem';
 :::important
 You can only upgrade to RabbitMQ 4.0 from RabbitMQ 3.13.
 
-Moreover, [feature flags have to be enabled](./feature-flags#how-to-enable-feature-flags) **before** the upgrade. The upgrade will fail if you miss this step.
+Moreover, [stable feature flags have to be
+enabled](./feature-flags#how-to-enable-feature-flags) **before** the upgrade.
+The upgrade will fail if you miss this step.
+
+Note that the `khepri_db` feature flag must not be enabled in 3.13.x because it
+was experimental and unsupported. If a 3.13.x node or cluster has `khepri_db`
+enabled, upgrading to 4.x is not possible. In this case, the solution is to use
+a [blue-green deployment](./blue-green-upgrade) to migrate to RabbitMQ 4.x.
 :::
 
 ## Upgrade Strategies {#strategies}
@@ -47,7 +54,7 @@ Refer to the [rolling upgrade guide](./rolling-upgrade) page for more details, b
   * check [version upgradability](#rabbitmq-version-upgradability)
   * check [Erlang version requirements](#rabbitmq-erlang-version-requirement)
   * check [the release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.0)
-  * verify that all stable [feature flags are enabled](./feature-flags#how-to-enable-feature-flags)
+  * verify that all [stable feature flags are enabled](./feature-flags#how-to-enable-feature-flags)
 * Check that the node or cluster is in a good state in order to be upgraded
   * no [alarms](./alarms) are in effect
   * no ongoing queue or stream replica sync operations
@@ -57,7 +64,7 @@ Refer to the [rolling upgrade guide](./rolling-upgrade) page for more details, b
   * upgrade RabbitMQ and, if applicable, Erlang
   * start the node
   * watch [monitoring and health check](./monitoring) data to assess the health and recovery of the upgraded node and cluster
-* Once all nodes are upgraded, [enable feature flags](./feature-flags#how-to-enable-feature-flags) introduced in the new version
+* Once all nodes are upgraded, [enable stable feature flags](./feature-flags#how-to-enable-feature-flags) introduced in the new version
 
 ### Blue-Green Deployment
 
@@ -108,7 +115,7 @@ following steps. Consider a three node cluster with nodes A, B, and C:
     that also means that these two versions cannot coexist in a single cluster
   * check [Erlang version requirements](#rabbitmq-erlang-version-requirement)
   * check [the release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.0)
- * Add a new node, node D, to the cluster (note, you may need to [disable new feature flags](feature-flags#how-to-start-new-node-disabled-feature-flags)
+ * Add a new node, node D, to the cluster (note, you may need to [start the node with feature flags disabled](feature-flags#how-to-start-new-node-disabled-feature-flags)
    for node D to be able to join the cluster)
  * Place a new replica of every quorum queue and every stream on the new node
 * Check that the node or cluster is in a good state
@@ -117,7 +124,7 @@ following steps. Consider a three node cluster with nodes A, B, and C:
   * the system is otherwise under a reasonable load
  * Remove node A from the cluster using `rabbitmqctl forget_cluster_node`
 * Repeat the steps above for the other nodes; in a 3-node cluster example, the cluster should now consist of nodes D, E and F
-* [Enable feature flags](./feature-flags#how-to-enable-feature-flags) introduced in the new version
+* [Enable stable feature flags](./feature-flags#how-to-enable-feature-flags) introduced in the new version
 
 Multiple nodes can be added and removed at a time.
 
@@ -138,7 +145,7 @@ The following shows the supported upgrade paths.
 
 | From     | To     | Notes                                                         |
 |----------|--------|---------------------------------------------------------------|
-| 3.13.x   | 4.0.x  | All feature flags **must** be enabled **before** the upgrade  |
+| 3.13.x   | 4.0.x  | All stable feature flags **must** be enabled **before** the upgrade  |
 | 3.12.x   | 3.13.x |                                                               |
 | 3.11.18  | 3.12.x | All feature flags **must** be enabled **before** the upgrade  |
 | 3.10.x   | 3.11.x | All feature flags **must** be enabled **before** the upgrade  |
