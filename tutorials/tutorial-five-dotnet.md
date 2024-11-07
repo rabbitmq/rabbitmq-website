@@ -127,78 +127,14 @@ The code is almost the same as in the
 
 The code for `EmitLogTopic.cs`:
 
-```csharp
-using System.Text;
-using RabbitMQ.Client;
-
-var factory = new ConnectionFactory { HostName = "localhost" };
-
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-
-channel.ExchangeDeclare(exchange: "topic_logs", type: ExchangeType.Topic);
-
-var routingKey = (args.Length > 0) ? args[0] : "anonymous.info";
-var message = (args.Length > 1)
-              ? string.Join(" ", args.Skip(1).ToArray())
-              : "Hello World!";
-var body = Encoding.UTF8.GetBytes(message);
-channel.BasicPublish(exchange: "topic_logs",
-                     routingKey: routingKey,
-                     basicProperties: null,
-                     body: body);
-Console.WriteLine($" [x] Sent '{routingKey}':'{message}'");
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLogTopic/EmitLogTopic.cs
 ```
 
 The code for `ReceiveLogsTopic.cs`:
 
-```csharp
-using System.Text;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-
-var factory = new ConnectionFactory { HostName = "localhost" };
-
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-
-channel.ExchangeDeclare(exchange: "topic_logs", type: ExchangeType.Topic);
-// declare a server-named queue
-var queueName = channel.QueueDeclare().QueueName;
-
-if (args.Length < 1)
-{
-    Console.Error.WriteLine("Usage: {0} [binding_key...]",
-                            Environment.GetCommandLineArgs()[0]);
-    Console.WriteLine(" Press [enter] to exit.");
-    Console.ReadLine();
-    Environment.ExitCode = 1;
-    return;
-}
-
-foreach (var bindingKey in args)
-{
-    channel.QueueBind(queue: queueName,
-                      exchange: "topic_logs",
-                      routingKey: bindingKey);
-}
-
-Console.WriteLine(" [*] Waiting for messages. To exit press CTRL+C");
-
-var consumer = new EventingBasicConsumer(channel);
-consumer.Received += (model, ea) =>
-{
-    var body = ea.Body.ToArray();
-    var message = Encoding.UTF8.GetString(body);
-    var routingKey = ea.RoutingKey;
-    Console.WriteLine($" [x] Received '{routingKey}':'{message}'");
-};
-channel.BasicConsume(queue: queueName,
-                     autoAck: true,
-                     consumer: consumer);
-
-Console.WriteLine(" Press [enter] to exit.");
-Console.ReadLine();
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogsTopic/ReceiveLogsTopic.cs
 ```
 
 Run the following examples:
@@ -241,8 +177,5 @@ dotnet run "kern.critical" "A critical kernel error"
 Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
-
-(Full source code for [EmitLogTopic.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLogTopic/EmitLogTopic.cs)
-and [ReceiveLogsTopic.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogsTopic/ReceiveLogsTopic.cs))
 
 Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](./tutorial-six-dotnet).

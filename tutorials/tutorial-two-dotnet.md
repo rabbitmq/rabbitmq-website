@@ -54,9 +54,9 @@ In the previous part of this tutorial we sent a message containing
 "Hello World!". Now we'll be sending strings that stand for complex
 tasks. We don't have a real-world task, like images to be resized or
 pdf files to be rendered, so let's fake it by just pretending we're
-busy - by using the `Thread.Sleep()` function (you will need to add
- `using System.Threading;` near the top of the file to get access to
-the threading APIs).
+busy - by using the `Task.Delay()` function (you will need to add
+ `using System.Threading.Tasks;` near the top of the file to get access to
+the `Task` APIs).
 We'll take the number of dots in the string as its complexity; every
 dot will account for one second
 of "work".  For example, a fake task described by `Hello...`
@@ -83,16 +83,13 @@ dotnet add package RabbitMQ.Client
 Copy the code from our old _Send.cs_ to _NewTask.cs_ and make the following modifications.
 
 Update the initialization of the _message_ variable:
-```csharp
-var message = GetMessage(args);
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/NewTask/NewTask.cs#L11
 ```
 
 Add the _GetMessage_ method to the end of the _NewTask_ class:
-```csharp
-static string GetMessage(string[] args)
-{
-    return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
-}
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/NewTask/NewTask.cs#L23-L26
 ```
 
 Our old _Receive.cs_ script also requires some changes to
@@ -100,14 +97,21 @@ fake a second of work for every dot in the message body. It will
 handle messages delivered by RabbitMQ and perform the task, so let's copy it to
 _Worker.cs_ and modify it as follows.
 
-After our existing _WriteLine_ for receiving the message, add the fake task to simulate execution time:
+First, modify the event handler lambda to be `async`, then, after our existing
+_WriteLine_ for receiving the message, add the fake task to simulate execution
+time:
+
 ```csharp
-Console.WriteLine($" [x] Received {message}");
+var consumer = new AsyncEventingBasicConsumer(channel);
+consumer.Received += async (model, ea) =>
+{
+  Console.WriteLine($" [x] Received {message}");
 
-int dots = message.Split('.').Length - 1;
-Thread.Sleep(dots * 1000);
+  int dots = message.Split('.').Length - 1;
+  await Task.Delay(dots * 1000);
 
-Console.WriteLine(" [x] Done");
+  Console.WriteLine(" [x] Done");
+}
 ```
 
 Round-robin dispatching
@@ -216,15 +220,8 @@ remove this flag and manually send a proper acknowledgment from the
 worker, once we're done with a task.
 
 After the existing _WriteLine_, add a call to _BasicAck_ and update _BasicConsume_ with _autoAck:false_:
-```csharp
-    Console.WriteLine(" [x] Done");
-
-    // here channel could also be accessed as ((EventingBasicConsumer)sender).Model
-    channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
-};
-channel.BasicConsume(queue: "hello",
-                     autoAck: false,
-                     consumer: consumer);
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Worker/Worker.cs#L26-L32
 ```
 
 Using this code, you can  ensure that even if you terminate a worker node using
@@ -272,11 +269,9 @@ First, we need to make sure that the queue will survive a RabbitMQ node restart.
 In order to do so, we need to declare it as _durable_:
 
 ```csharp
-channel.QueueDeclare(queue: "hello",
-                     durable: true,
-                     exclusive: false,
-                     autoDelete: false,
-                     arguments: null);
+await channel.QueueDeclareAsync(queue: "hello",
+    durable: true, exclusive: false,
+    autoDelete: false, arguments: null);
 ```
 
 Although this command is correct by itself, it won't work in our present
@@ -286,26 +281,19 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-```csharp
-channel.QueueDeclare(queue: "task_queue",
-                     durable: true,
-                     exclusive: false,
-                     autoDelete: false,
-                     arguments: null);
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/NewTask/NewTask.cs#L8-L9
 ```
 
-This `QueueDeclare` change needs to be applied to both the producer
-and consumer code. You also need to change the name of the queue for `BasicConsume` and `BasicPublish`.
+This `QueueDeclareAsync` change needs to be applied to both the producer
+and consumer code. You also need to change the name of the queue for `BasicConsumeAsync` and `BasicPublishAsync`.
 
 At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent.
 
 After the existing _GetBytes_, set `IBasicProperties.Persistent` to `true`:
-```csharp
-var body = Encoding.UTF8.GetBytes(message);
-
-var properties = channel.CreateBasicProperties();
-properties.Persistent = true;
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/NewTask/NewTask.cs#L14-L17
 ```
 
 > #### Note on Message Persistence
@@ -342,15 +330,9 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-After the existing _QueueDeclare_ in _Worker.cs_ add the call to `BasicQos`:
-```csharp
-channel.QueueDeclare(queue: "task_queue",
-                     durable: true,
-                     exclusive: false,
-                     autoDelete: false,
-                     arguments: null);
-
-channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+After the existing _QueueDeclareAsync_ in _Worker.cs_ add the call to `BasicQos`:
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Worker/Worker.cs#L9-L12
 ```
 
 > #### Note about queue size
@@ -365,93 +347,21 @@ Open two terminals.
 Run the consumer (worker) first so that the topology (primarily the queue) is in place.
 Here is its complete code:
 
-```csharp
-using System.Text;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-
-var factory = new ConnectionFactory { HostName = "localhost" };
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-
-channel.QueueDeclare(queue: "task_queue",
-                     durable: true,
-                     exclusive: false,
-                     autoDelete: false,
-                     arguments: null);
-
-channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
-
-Console.WriteLine(" [*] Waiting for messages.");
-
-var consumer = new EventingBasicConsumer(channel);
-consumer.Received += (model, ea) =>
-{
-    byte[] body = ea.Body.ToArray();
-    var message = Encoding.UTF8.GetString(body);
-    Console.WriteLine($" [x] Received {message}");
-
-    int dots = message.Split('.').Length - 1;
-    Thread.Sleep(dots * 1000);
-
-    Console.WriteLine(" [x] Done");
-
-    // here channel could also be accessed as ((EventingBasicConsumer)sender).Model
-    channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
-};
-channel.BasicConsume(queue: "task_queue",
-                     autoAck: false,
-                     consumer: consumer);
-
-Console.WriteLine(" Press [enter] to exit.");
-Console.ReadLine();
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Worker/Worker.cs
 ```
 
 Now run the task publisher (NewTask). Its final code is:
 
-```csharp
-using System.Text;
-using RabbitMQ.Client;
-
-var factory = new ConnectionFactory { HostName = "localhost" };
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-
-channel.QueueDeclare(queue: "task_queue",
-                     durable: true,
-                     exclusive: false,
-                     autoDelete: false,
-                     arguments: null);
-
-var message = GetMessage(args);
-var body = Encoding.UTF8.GetBytes(message);
-
-var properties = channel.CreateBasicProperties();
-properties.Persistent = true;
-
-channel.BasicPublish(exchange: string.Empty,
-                     routingKey: "task_queue",
-                     basicProperties: properties,
-                     body: body);
-Console.WriteLine($" [x] Sent {message}");
-
-Console.WriteLine(" Press [enter] to exit.");
-Console.ReadLine();
-
-static string GetMessage(string[] args)
-{
-    return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
-}
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/NewTask/NewTask.cs
 ```
 
-[(NewTask.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/NewTask/NewTask.cs)
-
-
-Using message acknowledgments and `BasicQos` you can set up a
+Using message acknowledgments and `BasicQosAsync` you can set up a
 work queue. The durability options let the tasks survive even if
 RabbitMQ is restarted.
 
-For more information on `IModel` methods and `IBasicProperties`, you can browse the
+For more information on `IChannel` methods and `IBasicProperties`, you can browse the
 [RabbitMQ .NET client API reference online](https://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitMQ.Client.html).
 
 Now we can move on to [tutorial 3](./tutorial-three-dotnet) and learn how

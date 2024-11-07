@@ -24,13 +24,13 @@ limitations under the License.
 
 ## Overview {#overview}
 
-This guide covers [RabbitMQ .NET/C# client](./dotnet) and its public API.
+This guide covers [RabbitMQ .NET/C# client](./dotnet) version 7.0 and its public API.
 It assumes that the [most recent major version of the client](https://www.nuget.org/packages/RabbitMQ.Client) is used
 and the reader is familiar with [the basics](/tutorials).
 
 Key sections of the guide are:
 
-* [Dependencies](#dependencies)
+* [.NET version requirements](#dotnet-versions)
 * [Important interfaces and classes](#major-api-elements) in the public API
 * [Limitations](#limitations)
 * [Connecting to RabbitMQ](#connecting)
@@ -39,7 +39,6 @@ Key sections of the guide are:
 * [Using Exchanges and Queues](#exchanges-and-queues)
 * [Publishing Messages](#publishing)
 * [Consuming Using a Subscription](#consuming) and [Consumer Memory Safety](#consuming-memory-safety)
-* [Async Consumer Implementations](#consuming-async)
 * [Concurrency Considerations and Safety](#concurrency)
 * [Automatic Recovery From Network Failures](#recovery)
 * [OAuth 2 Support](#oauth2-support)
@@ -49,8 +48,7 @@ An [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitM
 
 ## .NET Version Requirements {#dotnet-versions}
 
-6.x release series of this library [require .NET 4.6.1+ or a .NET Standard 2.0+ implementation](./dotnet#overview).
-For 5.x releases, the requirements are [.NET 4.5.1+ or a .NET Standard 1.5+ implementation](./dotnet#overview).
+7.0.x and 6.8.x release series of this library [require .NET 4.6.1+ or a .NET Standard 2.0+ implementation](./dotnet#overview).
 
 
 ## License {#license}
@@ -63,19 +61,6 @@ The library is open source, developed [on GitHub](https://github.com/rabbitmq/ra
 This means that the user can consider the library to be licensed under any of the licenses from the list above.
 For example, the user may choose the Apache Public License 2.0 and include this client into
 a commercial product.
-
-
-## Dependencies {#dependencies}
-
-The client has a couple of dependencies:
-
- * [`System.Memory`](https://www.nuget.org/packages/System.Memory/) 4.5.x
- * [`System.Threading.Channels`](https://www.nuget.org/packages/System.Threading.Channels/) 4.7.x
-
-Applications that use different versions of the same dependencies
-should use [assembly version redirection](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/redirect-assembly-versions),
-[automatic](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/how-to-enable-and-disable-automatic-binding-redirection) or
-explicit.
 
 
 ## Major namespaces, interfaces and classes {#major-api-elements}
@@ -93,19 +78,19 @@ using RabbitMQ.Client;
 
 The core API interfaces and classes are
 
-* `IModel`: represents an AMQP 0-9-1 channel, and provides most of the operations (protocol methods)
+* `IChannel`: represents an AMQP 0-9-1 channel, and provides most of the operations (protocol methods)
 * `IConnection`: represents an AMQP 0-9-1 connection
 * `ConnectionFactory`: constructs `IConnection` instances
-* `IBasicConsumer`: represents a message consumer
+* `IAsyncBasicConsumer`: represents a message consumer
 
 Other useful interfaces and classes include:
 
-* `DefaultBasicConsumer`: commonly used base class for consumers
+* `AsyncDefaultBasicConsumer`: commonly used base class for consumers
 
 Public namespaces other than `RabbitMQ.Client` include:
 
 * `RabbitMQ.Client.Events`: various events and event handlers
-  that are part of the client library, including `EventingBasicConsumer`,
+  that are part of the client library, including `AsyncEventingBasicConsumer`,
   a consumer implementation built around C# event handlers.
 * `RabbitMQ.Client.Exceptions`: exceptions visible to the user.
 
@@ -140,7 +125,7 @@ To open a connection with the .NET client, first instantiate a `ConnectionFactor
 and configure it to use desired hostname, virtual host, credentials, [TLS settings](/docs/ssl),
 and any other parameters as needed.
 
-Then call the `ConnectionFactory.CreateConnection()` method to open a connection.
+Then await the `ConnectionFactory.CreateConnectionAsync()` method to open a connection.
 Successful and unsuccessful client connection events can be [observed in server logs](/docs/networking#logging).
 
 The following two code snippets connect to a RabbitMQ node using a hostname configured
@@ -154,14 +139,14 @@ factory.Password = pass;
 factory.VirtualHost = vhost;
 factory.HostName = hostName;
 
-IConnection conn = factory.CreateConnection();
+IConnection conn = await factory.CreateConnectionAsync();
 ```
 
 ```csharp
 ConnectionFactory factory = new ConnectionFactory();
 factory.Uri = new Uri("amqp://user:pass@hostName:port/vhost");
 
-IConnection conn = factory.CreateConnection();
+IConnection conn = await factory.CreateConnectionAsync();
 ```
 
 
@@ -184,7 +169,7 @@ var endpoints = new System.Collections.Generic.List<AmqpTcpEndpoint> {
   new AmqpTcpEndpoint("hostname"),
   new AmqpTcpEndpoint("localhost")
 };
-IConnection conn = factory.CreateConnection(endpoints);
+IConnection conn = await factory.CreateConnectionAsync(endpoints);
 ```
 
 
@@ -242,7 +227,7 @@ This is to limit well-known credential use in production systems.
 The `IConnection` interface can then be used to open a [channel](/docs/channels):
 
 ```csharp
-IModel channel = conn.CreateModel();
+IChannel channel = await conn.CreateChannelAsync();
 ```
 
 The channel can now be used to send and receive messages,
@@ -263,15 +248,14 @@ guides such as [Consumer Acknowledgements](/docs/confirms).
 To disconnect, simply close the channel and the connection:
 
 ```csharp
-channel.Close();
-conn.Close();
+await channel.CloseAsync();
+await conn.CloseAsync();
+await channel.DisposeAsync();
+await conn.DisposeAsync();
 ```
 
-Disposing channel and connection objects is not enough, they must be explicitly closed
-with the API methods from the example above.
-
-Note that closing the channel may be considered good practice, but isn&#8217;t strictly necessary here - it will be done
-automatically anyway when the underlying connection is closed.
+While disposing channel and connection objects is sufficient, the best practice
+is that they be explicitly closed first.
 
 Client disconnection events can be [observed in server node logs](/docs/networking#logging).
 
@@ -331,7 +315,7 @@ factory.HostName = hostName;
 // this factory
 factory.ClientProvidedName = "app:audit component:event-consumer";
 
-IConnection conn = factory.CreateConnection();
+IConnection conn = await factory.CreateConnectionAsync();
 ```
 
 
@@ -347,9 +331,9 @@ Continuing the previous example, the following code declares an
 exchange and a queue, then binds them together.
 
 ```csharp
-channel.ExchangeDeclare(exchangeName, ExchangeType.Direct);
-channel.QueueDeclare(queueName, false, false, false, null);
-channel.QueueBind(queueName, exchangeName, routingKey, null);
+await channel.ExchangeDeclareAsync(exchangeName, ExchangeType.Direct);
+await channel.QueueDeclareAsync(queueName, false, false, false, null);
+await channel.QueueBindAsync(queueName, exchangeName, routingKey, null);
 ```
 
 This will actively declare the following objects:
@@ -361,7 +345,7 @@ The exchange can be customised by using additional parameters.
 The above code then binds the queue to the exchange with the given
 routing key.
 
-Many channel API (`IModel`) methods are overloaded. The convenient
+Many channel API (`IChannel`) methods are overloaded. The convenient
 short form of `ExchangeDeclare` uses sensible defaults. There are
 also longer forms with more parameters, to let you override these
 defaults as necessary, giving full control where needed.
@@ -380,18 +364,18 @@ If the entity does not exist, the operation fails with a channel level exception
 cannot be used after that. A new channel should be opened. It is common to use one-off (temporary)
 channels for passive declarations.
 
-`IModel#QueueDeclarePassive` and `IModel#ExchangeDeclarePassive` are the
-methods used for passive declaration. The following example demonstrates `IModel#QueueDeclarePassive`:
+`IChannel#QueueDeclarePassiveAsync` and `IChannel#ExchangeDeclarePassiveAsync` are the
+methods used for passive declaration. The following example demonstrates `IChannel#QueueDeclarePassive`:
 
 ```csharp
-var response = channel.QueueDeclarePassive("queue-name");
+var response = await channel.QueueDeclarePassiveAsync("queue-name");
 // returns the number of messages in Ready state in the queue
 response.MessageCount;
 // returns the number of consumers the queue has
 response.ConsumerCount;
 ```
 
-`IModel#ExchangeDeclarePassive`'s return value contains no useful information. Therefore
+`IChannel#ExchangeDeclarePassiveAsync`'s return value contains no useful information. Therefore
 if the method returns and no channel exceptions occurs, it means that the exchange does exist.
 
 
@@ -402,7 +386,7 @@ response. For example, to declare a queue and instruct the server to not send an
 response, use
 
 ```csharp
-channel.QueueDeclareNoWait(queueName, true, false, false, null);
+await channel.QueueDeclareAsync(queueName, true, false, false, null, noWait: true);
 ```
 
 The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
@@ -416,36 +400,36 @@ with high topology (queue, binding) churn.
 A queue or exchange can be explicitly deleted:
 
 ```csharp
-channel.QueueDelete("queue-name", false, false);
+await channel.QueueDeleteAsync("queue-name", false, false);
 ```
 
 It is possible to delete a queue only if it is empty:
 
 ```csharp
-channel.QueueDelete("queue-name", false, true);
+await channel.QueueDeleteAsync("queue-name", false, true);
 ```
 
 or if it is not used (does not have any consumers):
 
 ```csharp
-channel.QueueDelete("queue-name", true, false);
+await channel.QueueDeleteAsync("queue-name", true, false);
 ```
 
 A queue can be purged (all of its messages deleted):
 
 ```csharp
-channel.QueuePurge("queue-name");
+await channel.QueuePurgeAsync("queue-name");
 ```
 
 
 ## Publishing Messages {#publishing}
 
-To publish a message to an exchange, use <code>IModel.BasicPublish</code> as
+To publish a message to an exchange, use <code>IChannel.BasicPublishAsync</code> as
 follows:
 
 ```csharp
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
-channel.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
+await channel.BasicPublishAsync(exchangeName, routingKey, false, null, messageBodyBytes);
 ```
 
 For fine control, you can use overloaded variants to specify the
@@ -453,13 +437,14 @@ mandatory flag, or specify messages properties:
 
 ```csharp
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
-IBasicProperties props = channel.CreateBasicProperties();
+var props = new BasicProperties();
 props.ContentType = "text/plain";
 props.DeliveryMode = 2;
-channel.BasicPublish(exchangeName, routingKey, props, messageBodyBytes);
+await channel.BasicPublishAsync(exchangeName, routingKey,
+    mandatory: true, basicProperties: props, body: messageBodyBytes);
 ```
 
-This sends a message with delivery mode 2 (persistent) and
+This sends a mandatory:true message with delivery mode 2 (persistent) and
 content-type "text/plain". See the definition of the `IBasicProperties`
 interface for more information about the available message properties.
 
@@ -468,14 +453,14 @@ In the following example, we publish a message with custom headers:
 ```csharp
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
 
-IBasicProperties props = channel.CreateBasicProperties();
+var props = new BasicProperties();
 props.ContentType = "text/plain";
 props.DeliveryMode = 2;
 props.Headers = new Dictionary<string, object>();
 props.Headers.Add("latitude",  51.5252949);
 props.Headers.Add("longitude", -0.0905493);
 
-channel.BasicPublish(exchangeName, routingKey, props, messageBodyBytes);
+await channel.BasicPublishAsync(exchangeName, routingKey, true, props, messageBodyBytes);
 ```
 
 Code sample below sets a message expiration:
@@ -483,58 +468,58 @@ Code sample below sets a message expiration:
 ```csharp
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
 
-IBasicProperties props = channel.CreateBasicProperties();
+var props = new BasicProperties();
 props.ContentType = "text/plain";
 props.DeliveryMode = 2;
 props.Expiration = "36000000";
 
-channel.BasicPublish(exchangeName, routingKey, props, messageBodyBytes);
+await channel.BasicPublishAsync(exchangeName, routingKey, true, props, messageBodyBytes);
 ```
 
 
 ## Retrieving Messages By Subscription ("push API") {#consuming}
 
-The recommended and most convenient way to receive messages is to set up a subscription using the
-`IBasicConsumer` interface. The messages will then be delivered
-automatically as they arrive, rather than having to be requested
+The recommended and most convenient way to receive messages is to set up a
+subscription using the `IAsyncBasicConsumer` interface. The messages will then
+be delivered automatically as they arrive, rather than having to be requested
 proactively.
 
-One way to implement a consumer is to use the
-convenience class `EventingBasicConsumer`, which dispatches
-deliveries and other consumer lifecycle events as C# events:
+One way to implement a consumer is to use the convenience class
+`AsyncEventingBasicConsumer`, which dispatches deliveries and other consumer
+lifecycle events as C# events:
 
 ```csharp
 var consumer = new EventingBasicConsumer(channel);
-consumer.Received += (ch, ea) =>
+consumer.Received += async (ch, ea) =>
                 {
                     var body = ea.Body.ToArray();
                     // copy or deserialise the payload
                     // and process the message
                     // ...
-                    channel.BasicAck(ea.DeliveryTag, false);
+                    await channel.BasicAckAsync(ea.DeliveryTag, false);
                 };
 // this consumer tag identifies the subscription
 // when it has to be cancelled
-string consumerTag = channel.BasicConsume(queueName, false, consumer);
+string consumerTag = await channel.BasicConsumeAsync(queueName, false, consumer);
 ```
 
-Another option is to subclass `DefaultBasicConsumer`,
-overriding methods as necessary, or implement `IBasicConsumer`
-directly. You will generally want to implement the core method <code>IBasicConsumer.HandleBasicDeliver</code>.
+Another option is to subclass `AsyncDefaultBasicConsumer`, overriding methods
+as necessary, or implement `IAsyncBasicConsumer` directly. You will generally
+want to implement the core method
+<code>IAsyncBasicConsumer.HandleBasicDeliverAsync</code>.
 
-More sophisticated consumers will need to implement further
-methods. In particular, `HandleModelShutdown` traps
-channel/connection closure. Consumers can also implement
-` HandleBasicCancelOk` to be notified of cancellations.
+More sophisticated consumers will need to implement further methods. In
+particular, `HandleChannelShutdown` traps channel/connection closure. Consumers
+can also implement ` HandleBasicCancelOk` to be notified of cancellations.
 
-The `ConsumerTag` property of `DefaultBasicConsumer` can be
-used to retrieve the server-generated consumer tag, in cases where
-none was supplied to the original <code>IModel.BasicConsume</code> call.
+The `ConsumerTag` property of `AsyncDefaultBasicConsumer` can be used to
+retrieve the server-generated consumer tag, in cases where none was supplied to
+the original <code>IChannel.BasicConsumeAsync</code> call.
 
-You can cancel an active consumer with <code>IModel.BasicCancel</code>:
+You can cancel an active consumer with <code>IChannel.BasicCancelAsync</code>:
 
 ```csharp
-channel.BasicCancel(consumerTag);
+await channel.BasicCancelAsync(consumerTag);
 ```
 
 When calling the API methods, you always refer to consumers by their
@@ -544,53 +529,18 @@ explained in the [AMQP 0-9-1 specification](/docs/specification) document.
 
 ## Consumer Memory Safety Requirements {#consuming-memory-safety}
 
-As of [version 6.0](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/main/CHANGELOG.md) of
-the .NET client, message payloads are represented using the [`System.ReadOnlyMemory<byte>`](https://docs.microsoft.com/en-us/dotnet/api/system.readonlymemory-1?view=netcore-3.1)
+As of [version 7.0](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/main/CHANGELOG.md)
+of the .NET client, message payloads are represented using the
+[`System.ReadOnlyMemory<byte>`](https://learn.microsoft.com/en-us/dotnet/api/system.readonlymemory-1?view=netstandard-2.0)
 type from the [`System.Memory` library](https://www.nuget.org/packages/System.Memory/).
 
-This library places certain restrictions on when a read only memory span can be
-accessed by applications.
+The `RabbitMQ.Client` library places certain restrictions on when a read only
+memory span can be accessed by applications.
 
-**Important**: consumer interface implementations **must deserialize or copy delivery payload before delivery handler method returns**.
-Retaining a reference to the payload is not safe: the memory allocated for it can be deallocated at any moment
-after the handler returns.
-
-
-## Async Consumer Implementations {#consuming-async}
-
-The client provides an async-oriented consumer dispatch implementation. This dispatcher can only
-be used with async consumers, that is, `IAsyncBasicConsumer` implementations.
-
-In order to use this dispatcher, set the `ConnectionFactory.DispatchConsumersAsync` property to `true`:
-
-```csharp
-ConnectionFactory factory = new ConnectionFactory();
-// ...
-// use async-oriented consumer dispatcher. Only compatible with IAsyncBasicConsumer implementations
-factory.DispatchConsumersAsync = true;
-```
-
-then register a consumer that implements `IAsyncBasicConsumer`, such as `AsyncEventingBasicConsumer` or `AsyncDefaultBasicConsumer`:
-
-```csharp
-var consumer = new AsyncEventingBasicConsumer(channel);
-consumer.Received += async (ch, ea) =>
-    {
-        var body = ea.Body.ToArray();
-        // copy or deserialise the payload
-        // and process the message
-        // ...
-
-        channel.BasicAck(ea.DeliveryTag, false);
-        await Task.Yield();
-
-    };
-// this consumer tag identifies the subscription
-// when it has to be cancelled
-string consumerTag = channel.BasicConsume(queueName, false, consumer);
-// ensure we get a delivery
-bool waitRes = latch.WaitOne(2000);
-```
+**Important**: consumer interface implementations **must deserialize or copy
+delivery payload before delivery handler method returns**. Retaining a
+reference to the payload is not safe: the memory allocated for it can be
+deallocated at any moment after the handler returns.
 
 
 ## Fetching Individual Messages (Polling or "pull API") {#basic-get}
@@ -600,28 +550,28 @@ This approach to consumption is **very inefficient** as it is effectively pollin
 and applications repeatedly have to ask for results even if the vast majority of the requests
 yield no results. Therefore using this approach **is highly discouraged**.
 
-To "pull" a message, use the `IModel.BasicGet` method.
+To "pull" a message, use the `IChannel.BasicGetAsync` method.
 The returned value is an instance of `BasicGetResult`, from which the header
 information (properties) and message body can be extracted:
 
 ```csharp
 bool autoAck = false;
-BasicGetResult result = channel.BasicGet(queueName, autoAck);
+BasicGetResult result = await channel.BasicGetAsync(queueName, autoAck);
 if (result == null) {
     // No message available at this time.
 } else {
-    IBasicProperties props = result.BasicProperties;
+    var props = result.BasicProperties;
     ReadOnlyMemory<byte> body = result.Body;
     ...
 ```
 
 The above example uses [manual acknowledgements](/docs/confirms) (`autoAck = false`), so the application must also call
-`IModel.BasicAck` to acknowledge the delivery after processing:
+`IChannel.BasicAckAsync` to acknowledge the delivery after processing:
 
 ```csharp
     ...
     // acknowledge receipt of the message
-    channel.BasicAck(result.DeliveryTag, false);
+    await channel.BasicAckAsync(result.DeliveryTag, false);
 }
 ```
 
@@ -636,28 +586,34 @@ There is a number of concurrency-related topics for a library user to consider.
 
 ### Sharing Channels Between Threads {#concurrency-channel-sharing}
 
-`IModel` instance usage by more than
-one thread simultaneously should be avoided. Application code
-should maintain a clear notion of thread ownership for `IModel` instances.
+`IChannel` instance usage by more than one thread simultaneously should be
+avoided. Application code should maintain a clear notion of thread ownership
+for `IChannel` instances.
 
-This is a **hard requirement for publishers**: sharing a channel (an `IModel` instance)
-for concurrent publishing will lead to incorrect frame interleaving at the protocol level.
-Channel instances **must not be shared** by threads that publish on them.
+This is a **hard requirement for publishers**: sharing a channel (an `IChannel`
+instance) for concurrent publishing will lead to incorrect frame interleaving
+at the protocol level. Channel instances **must not be shared** by threads that
+publish on them.
 
-If more than one thread needs to access a particular `IModel`
-instances, the application should enforce mutual exclusion. One
-way of achieving this is for all users of an `IModel` to
-`lock` the instance itself:
+If more than one thread needs to access a particular `IChannel` instances, the
+application should enforce mutual exclusion. One way of achieving this is for
+all users of an `IChannel` to `lock` the instance itself:
 
 ```csharp
-IModel ch = RetrieveSomeSharedIModelInstance();
-lock (ch) {
-  ch.BasicPublish(...);
+IChannel ch = RetrieveSomeSharedIChannelInstance();
+await _channelSemaphore.WaitAsync();
+try
+{
+  ch.BasicPublishAsync(...);
+}
+finally
+{
+  _channelSemaphore.Release();
 }
 ```
 
-Symptoms of incorrect serialisation of `IModel` operations
-include, but are not limited to,
+Symptoms of incorrect serialisation of `IChannel` operations include, but are
+not limited to:
 
  * [connection-level exceptions](/docs/connections#error-handling) due to invalid frame
    interleaving on the wire. RabbitMQ [server logs](/docs/logging) will
@@ -672,24 +628,24 @@ consumers, must use mutual exclusion of [acknowledgements](/docs/confirms) opera
 on a shared channel.
 
 
-### Per-Connection Thread Use {#concurrency-thread-usage}
+### Per-Connection Task Use {#concurrency-thread-usage}
 
-Each `IConnection` instance is, in the current implementation,
-backed by a single background thread that reads from the socket and
-dispatches the resulting events to the application.
-If heartbeats are enabled, they will use a pair of .NET timers per connection.
+Each `IConnection` instance is, in the current implementation, backed by a
+single `Task` that reads from the socket and dispatches the resulting events to
+the application. If heartbeats are enabled, they will use a pair of .NET timers
+per connection.
 
-Usually, therefore, there will be at least two threads active in an application
-using this library:
+Usually, therefore, there will be at least two `Task` instances active in an
+application using this library:
 
 <dl>
-  <dt>the application thread</dt>
+  <dt>the application thread ("main" `Task`)</dt>
   <dd>
     contains the application logic, and makes
-    calls on <code>IModel</code> methods to perform protocol operations.
+    calls on <code>IChannel</code> methods to perform protocol operations.
   </dd>
 
-  <dt>the I/O activity thread</dt>
+  <dt>the I/O activity `Task` instances</dt>
   <dd>
     hidden away and completely managed by the
     <code>IConnection</code> instance.
@@ -700,46 +656,55 @@ The one place where the nature of the threading model is visible to
 the application is in any callback the application registers with the
 library. Such callbacks include:
 
-* any `IBasicConsumer` method
-* the `BasicReturn` event on `IModel`
-* any of the various shutdown events on `IConnection`, `IModel` etc.
+* any `IAsyncBasicConsumer` method
+* the `BasicReturn` event on `IChannel`
+* any of the various shutdown events on `IConnection`, `IChannel` etc.
 
 
 ### Consumer Callbacks, Concurrency and Operation Ordering {#consumer-callbacks-and-ordering}
 
 #### Is Consumer Operation Dispatch Concurrent?
 
-`IBasicConsumer` callbacks are invoked sequantially (with a concurrency degree of one) by default.
+`IAsyncBasicConsumer` callbacks are invoked sequantially (with a concurrency
+degree of one) by default.
 
-For concurrent dispatch of inbound consumer deliveries, set [`ConnectionFactory.ConsumerDispatchConcurrency`](https://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitMQ.Client.ConnectionFactory.html#RabbitMQ_Client_ConnectionFactory_ConsumerDispatchConcurrency) to a value
-greater than one.
+For concurrent dispatch of inbound consumer deliveries, set [`ConnectionFactory.ConsumerDispatchConcurrency`](https://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitMQ.Client.ConnectionFactory.html#RabbitMQ_Client_ConnectionFactory_ConsumerDispatchConcurrency)
+to a value greater than one.
 
 #### Message Ordering Guarantee
 
-Consumer events on the same channel are guaranteed to be dispatched in the same order they were received in.
+Consumer events on the same channel are guaranteed to be dispatched in the same
+order they were received in.
 
-For example, if messages A and B were delivered in this order on the same channel, they will be dispatched to
-a consumer (a specific `IBasicConsumer` instance) in this order.
+For example, if messages A and B were delivered in this order on the same
+channel, they will be dispatched to a consumer (a specific `IAsyncBasicConsumer`
+instance) in this order.
 
-If messages A and B were delivered on different channels, they can be dispatched to consumers in any order (or in parallel).
+If messages A and B were delivered on different channels, they can be
+dispatched to consumers in any order (or in parallel).
 
-With the concurrency degree of one, deliveries on the same channel will be handled sequentially. With a higher
-concurrency degree, their dispatch will happen in the same order but actual processing can happen in parallel (depending
-on the number of available cores and application runtime), which can result in concurrency hazards.
+With the concurrency degree of one, deliveries on the same channel will be
+handled sequentially. With a higher concurrency degree, their dispatch will
+happen in the same order but actual processing can happen in parallel
+(depending on the number of available cores and application runtime), which can
+result in concurrency hazards.
 
 #### Acknowledgement of Multiple Deliveries at Once
 
-Consumers can [acknowledge](/docs/confirms) multiple deliveries at a time. When consumer dispatch concurrency degree is higher than one,
-this can result in a [double acknowledgement](/docs/confirms#consumer-acks-double-acking), which is considered to be [an error in the protocol](/docs/channels#error-handling).
+Consumers can [acknowledge](/docs/confirms) multiple deliveries at a time. When
+consumer dispatch concurrency degree is higher than one, this can result in a
+[double acknowledgement](/docs/confirms#consumer-acks-double-acking), which is
+considered to be [an error in the protocol](/docs/channels#error-handling).
 
-Therefore, with concurrent consumer dispatch, consumers should acknowledge only one delivery at a time.
+Therefore, with concurrent consumer dispatch, consumers should acknowledge only
+one delivery at a time.
 
 
-#### Consumers and Blocking Operations on the Same Channel
+#### Consumers and Operations on the Same Channel
 
-Consumer event handlers can invoke blocking
-operations on the same channel (such as `IModel.QueueDeclare` or `IModel.BasicCancel`)
-without deadlocking.
+Consumer event handlers can invoke operations on the same channel (such as
+`IChannel.QueueDeclareAsync` or `IChannel.BasicCancelAsync`) without
+deadlocking.
 
 
 ## Handling Unroutable Messages {#basic-return}
@@ -749,7 +714,7 @@ set, but cannot be delivered, the broker will return it to the sending
 client (via a <code>basic.return</code> AMQP 0-9-1 command).
 
 To be notified of such returns, clients can subscribe to the
-<code>IModel.BasicReturn</code> event. If there are no listeners attached to the
+<code>IChannel.BasicReturn</code> event. If there are no listeners attached to the
 event, then returned messages will be silently dropped.
 
 ```csharp
@@ -781,8 +746,9 @@ The automatic recovery process performs the following steps:
 * Restore channel listeners
 * Restore channel <code>basic.qos</code> setting, publisher confirms and transaction settings
 
-Topology recovery starts after the above actions are completed. The following steps are
-performed for every channel known to being open at the time of connection failure:
+Topology recovery starts after the above actions are completed. The following
+steps are performed for every channel known to being open at the time of
+connection failure:
 
   * Re-declare exchanges (except for predefined ones)
   * Re-declare queues
@@ -796,12 +762,12 @@ To enable automatic connection recovery, set
 ConnectionFactory factory = new ConnectionFactory();
 factory.AutomaticRecoveryEnabled = true;
 // connection that will recover automatically
-IConnection conn = factory.CreateConnection();
+IConnection conn = await factory.CreateConnectionAsync();
 ```
 
-If recovery fails due to an exception (e.g. RabbitMQ node is
-still not reachable), it will be retried after a fixed time interval (default
-is 5 seconds). The interval can be configured:
+If recovery fails due to an exception (e.g. RabbitMQ node is still not
+reachable), it will be retried after a fixed time interval (default is 5
+seconds). The interval can be configured:
 
 ```csharp
 ConnectionFactory factory = new ConnectionFactory();
@@ -831,14 +797,14 @@ ConnectionFactory factory = new ConnectionFactory();
 // configure various connection settings
 
 try {
-  IConnection conn = factory.CreateConnection();
+  IConnection conn = await factory.CreateConnectionAsync();
 } catch (RabbitMQ.Client.Exceptions.BrokerUnreachableException e) {
-  Thread.Sleep(5000);
+  await Task.Delay(5000);
   // apply retry logic
 }
 ```
 
-When a connection is closed by the application via the <code>Connection.Close</code> method,
+When a connection is closed by the application via the <code>Connection.CloseAsync</code> method,
 connection recovery will not be initiated.
 
 Channel-level exceptions will not trigger any kind of recovery as they usually
@@ -848,7 +814,7 @@ non-existent queue).
 
 ### Effects on Publishing {#publishers}
 
-Messages that are published using <code>IModel.BasicPublish</code> when connection is down
+Messages that are published using <code>IChannel.BasicPublishAsync</code> when connection is down
 will be lost. The client does not enqueue them for delivery after connection has recovered.
 To ensure that published messages reach RabbitMQ applications need to use [Publisher Confirms](/docs/confirms)
 and account for connection failures.
@@ -861,10 +827,10 @@ and consumers. It is enabled by default but can be disabled:
 
 ```csharp
 ConnectionFactory factory = new ConnectionFactory();
-
-IConnection conn = factory.CreateConnection();
 factory.AutomaticRecoveryEnabled = true;
 factory.TopologyRecoveryEnabled  = false;
+
+IConnection conn = await factory.CreateConnectionAsync();
 ```
 
 
@@ -874,36 +840,31 @@ Automatic connection recovery has a number of limitations and intentional
 design decisions that applications developers need to be aware of.
 
 When a connection is down or lost, it [takes time to detect](/docs/heartbeats).
-Therefore there is a window of time in which both the
-library and the application are unaware of effective
-connection failure.  Any messages published during this
-time frame are serialised and written to the TCP socket
-as usual. Their delivery to the broker can only be
-guaranteed via [publisher confirms](/docs/confirms): publishing in AMQP 0-9-1 is entirely
-asynchronous by design.
+Therefore there is a window of time in which both the library and the
+application are unaware of effective connection failure. Any messages
+published during this time frame are serialised and written to the TCP socket
+as usual. Their delivery to the broker can only be guaranteed via [publisher
+confirms](/docs/confirms): publishing in AMQP 0-9-1 is entirely asynchronous by
+design.
 
-When a socket or I/O operation error is detected by a
-connection with automatic recovery enabled, recovery
-begins after a configurable delay, 5 seconds by
-default. This design assumes that even though a lot of
-network failures are transient and generally short
-lived, they do not go away in an instant. Connection recovery
-attempts will continue at identical time intervals until
-a new connection is successfully opened.
+When a socket or I/O operation error is detected by a connection with automatic
+recovery enabled, recovery begins after a configurable delay, 5 seconds by
+default. This design assumes that even though a lot of network failures are
+transient and generally short lived, they do not go away in an instant.
+Connection recovery attempts will continue at identical time intervals until a
+new connection is successfully opened.
 
-When a connection is in the recovering state, any
-publishes attempted on its channels will be rejected
-with an exception. The client currently does not perform
-any internal buffering of such outgoing messages. It is
-an application developer's responsibility to keep track of such
-messages and republish them when recovery succeeds.
-[Publisher confirms](/docs/confirms) is a protocol extension
-that should be used by publishers that cannot afford message loss.
+When a connection is in the recovering state, any publishes attempted on its
+channels will be rejected with an exception. The client currently does not
+perform any internal buffering of such outgoing messages. It is an application
+developer's responsibility to keep track of such messages and republish them
+when recovery succeeds. [Publisher confirms](/docs/confirms) is a protocol
+extension that should be used by publishers that cannot afford message loss.
 
 Connection recovery will not kick in when a channel is closed due to a
 channel-level exception. Such exceptions often indicate application-level
-issues. The library cannot make an informed decision about when that's
-the case.
+issues. The library cannot make an informed decision about when that's the
+case.
 
 Closed channels won't be recovered even after connection recovery kicks in.
 This includes both explicitly closed channels and the channel-level exception
@@ -912,22 +873,22 @@ case above.
 
 ### Manual Acknowledgements and Automatic Recovery {#basic-ack-and-recovery}
 
-When manual acknowledgements are used, it is possible that
-network connection to RabbitMQ node fails between message
-delivery and acknowledgement. After connection recovery,
-RabbitMQ will reset delivery tags on all channels.
+When manual acknowledgements are used, it is possible that network connection
+to RabbitMQ node fails between message delivery and acknowledgement. After
+connection recovery, RabbitMQ will reset delivery tags on all channels.
 
-This means that <code>basic.ack</code>, <code>basic.nack</code>, and <code>basic.reject</code>
-with old delivery tags will cause a channel exception. To avoid this,
-RabbitMQ .NET client keeps track of and updates delivery tags to make them monotonically
-growing between recoveries.
+This means that <code>basic.ack</code>, <code>basic.nack</code>, and
+<code>basic.reject</code> with old delivery tags will cause a channel
+exception. To avoid this, RabbitMQ .NET client keeps track of and updates
+delivery tags to make them monotonically growing between recoveries.
 
-<code>IModel.BasicAck</code>, <code>IModel.BasicNack</code>, and
-<code>IModel.BasicReject</code> then translate adjusted delivery tags into those used by RabbitMQ.
+<code>IChannel.BasicAckAsync</code>, <code>IChannel.BasicNackAsync</code>, and
+<code>IChannel.BasicRejectAsync</code> then translate adjusted delivery tags
+into those used by RabbitMQ.
 
-Acknowledgements with stale delivery tags will not be
-sent. Applications that use manual acknowledgements and automatic
-recovery must be capable of handling redeliveries.
+Acknowledgements with stale delivery tags will not be sent. Applications that
+use manual acknowledgements and automatic recovery must be capable of handling
+redeliveries.
 
 
 ## OAuth 2 Support {#oauth2-support}
@@ -939,12 +900,12 @@ server as the client. This section assumes that the [most recent major version o
 
 ### Getting the OAuth 2 Token {#oauth2-getting-token}
 
-The .Net client provides the `OAuth2ClientCredentialsProvider` class to get a
-JWT token using the [OAuth 2 Client Credentials flow](https://tools.ietf.org/html/rfc6749#section-4.4).
-The client sends the access token in the password field when opening a
-connection. The broker then verifies the access token signature, validity, and
-permissions before authorising the connection and granting access to the
-requested virtual host.
+The .NET client provides the `OAuth2ClientCredentialsProvider` class to get a
+JWT token using the [OAuth 2 Client Credentials
+flow](https://tools.ietf.org/html/rfc6749#section-4.4). The client sends the
+access token in the password field when opening a connection. The broker then
+verifies the access token signature, validity, and permissions before
+authorising the connection and granting access to the requested virtual host.
 
 ```csharp
 using RabbitMQ.Client.OAuth2;
@@ -953,10 +914,11 @@ var tokenEndpointUri = new Uri("http://somedomain.com/token");
 var oAuth2Client = new OAuth2ClientBuilder("client_id", "client_secret", tokenEndpointUri).Build();
 ICredentialsProvider credentialProvider = new OAuth2ClientCredentialsProvider("prod-uaa-1", oAuth2Client);
 
-var connectionFactory = new ConnectionFactory {
-        CredentialsProvider = credentialsProvider
+var connectionFactory = new ConnectionFactory
+{
+  CredentialsProvider = credentialsProvider
 };
-var connection = connectionFactory.CreateConnection();
+var connection = await connectionFactory.CreateConnectionAsync();
 ```
 
 In production, ensure you use HTTPS for the token endpoint URI and configure
@@ -969,14 +931,15 @@ var tokenEndpointUri = new Uri("https://somedomain.com/token");
 
 var oAuth2ClientBuilder = new OAuth2ClientBuilder("client_id", "client_secret", tokenEndpointUri)
 oAuth2ClientBuilder.SetHttpClientHandler(httpClientHandler);
-var oAuth2Client = oAuth2ClientBuilder.Build();
+var oAuth2Client = await oAuth2ClientBuilder.BuildAsync();
 
 ICredentialsProvider credentialsProvider = new OAuth2ClientCredentialsProvider("prod-uaa-1", oAuth2Client);
 
-var connectionFactory = new ConnectionFactory {
-        CredentialsProvider = credentialsProvider
+var connectionFactory = new ConnectionFactory
+{
+  CredentialsProvider = credentialsProvider
 };
-var connection = connectionFactory.CreateConnection();
+var connection = await connectionFactory.CreateConnectionAsync();
 ```
 
 Note: In case your Authorization server requires extra request parameters
@@ -988,28 +951,13 @@ constructor rather than an `EMPTY` one as shown above.
 ### Refreshing the Token {#oauth2-refreshing-token}
 
 When tokens expire, the broker refuses further operations over the connection.
-It is possible to call `ICredentialsProvider#Refresh()` before expiring and
+It is possible to call `ICredentialsProvider#GetCredentialsAsync()` before expiring and
 send the new token to the server. This is not convenient for applications so,
-the .Net client provides help with the `TimerBasedCredentialRefresher`. This
-utility schedules a timer for every token received. When the timer expires, it
-raises an event in which the connection calls `ICredentialsProvider#Refresh()`.
+the .NET client provides help with the `CredentialsRefresher`.
 
-The following snippet shows how to create a `TimerBasedCredentialRefresher`
-instance and set it up on the `ConnectionFactory`:
+See the [`TestOAuth2` class](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/main/projects/Test/OAuth2/TestOAuth2.cs)
+for how to use the `CredentialsRefresher` class.
 
-```csharp
-using RabbitMQ.Client.OAuth2;
-...
-
-ICredentialsRefresher credentialsRefresher = new TimerBasedCredentialRefresher();
-
-var connectionFactory = new ConnectionFactory {
-        CredentialsProvider = credentialsProvider,
-        CredentialsRefresher = credentialsRefresher
-};
-var connection = connectionFactory.CreateConnection();
-```
-
-The `TimerBasedCredentialRefresher` schedules a refresh after 2/3 of the token
-validity time. For example, if the token expires in 60 minutes, it is refreshed
-after 40 minutes.
+The `CredentialsRefresher` schedules a refresh after 2/3 of the token validity
+time. For example, if the token expires in 60 minutes, it is refreshed after 40
+minutes.

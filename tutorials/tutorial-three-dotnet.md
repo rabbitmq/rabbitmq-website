@@ -81,8 +81,8 @@ and `fanout`. We'll focus on the last one -- the fanout. Let's create
 an exchange of this type, and call it `logs`:
 
 
-```csharp
-channel.ExchangeDeclare("logs", ExchangeType.Fanout);
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLog/EmitLog.cs#L8
 ```
 
 The fanout exchange is very simple. As you can probably guess from the
@@ -111,13 +111,8 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > Recall how we published a message before:
 >
-> ```csharp
->     var message = GetMessage(args);
->     var body = Encoding.UTF8.GetBytes(message);
->     channel.BasicPublish(exchange: string.Empty,
->                          routingKey: "hello",
->                          basicProperties: null,
->                          body: body);
+> ```csharp reference
+> https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs#L12-L14
 > ```
 >
 > The first parameter is the name of the exchange.
@@ -126,13 +121,8 @@ queues it knows. And that's exactly what we need for our logger.
 
 Now, we can publish to our named exchange instead:
 
-```csharp
-var message = GetMessage(args);
-var body = Encoding.UTF8.GetBytes(message);
-channel.BasicPublish(exchange: "logs",
-                     routingKey: string.Empty,
-                     basicProperties: null,
-                     body: body);
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLog/EmitLog.cs#L10-L12
 ```
 
 Temporary queues
@@ -156,11 +146,11 @@ even better - let the server choose a random queue name for us.
 Secondly, once we disconnect the consumer the queue should be
 automatically deleted.
 
-In the .NET client, when we supply no parameters to `QueueDeclare()`
+In the .NET client, when we supply no parameters to `QueueDeclareAsync()`
 we create a non-durable, exclusive, autodelete queue with a generated name:
 
-```csharp
-var queueName = channel.QueueDeclare().QueueName;
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogs/ReceiveLogs.cs#L13-L14
 ```
 
 You can learn more about the `exclusive` flag and other queue
@@ -180,10 +170,8 @@ We've already created a fanout exchange and a queue. Now we need to
 tell the exchange to send messages to our queue. That relationship
 between exchange and a queue is called a _binding_.
 
-```csharp
-channel.QueueBind(queue: queueName,
-                  exchange: "logs",
-                  routingKey: string.Empty);
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogs/ReceiveLogs.cs#L15
 ```
 
 From now on the `logs` exchange will append messages to our queue.
@@ -194,7 +182,6 @@ From now on the `logs` exchange will append messages to our queue.
 > ```bash
 > rabbitmqctl list_bindings
 > ```
-
 
 
 Putting it all together
@@ -209,35 +196,9 @@ nameless one. We need to supply a `routingKey` when sending, but its
 value is ignored for `fanout` exchanges. Here goes the code for
 `EmitLog.cs` file:
 
-```csharp
-using System.Text;
-using RabbitMQ.Client;
-
-var factory = new ConnectionFactory { HostName = "localhost" };
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-
-channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
-
-var message = GetMessage(args);
-var body = Encoding.UTF8.GetBytes(message);
-channel.BasicPublish(exchange: "logs",
-                     routingKey: string.Empty,
-                     basicProperties: null,
-                     body: body);
-Console.WriteLine($" [x] Sent {message}");
-
-Console.WriteLine(" Press [enter] to exit.");
-Console.ReadLine();
-
-static string GetMessage(string[] args)
-{
-    return ((args.Length > 0) ? string.Join(" ", args) : "info: Hello World!");
-}
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLog/EmitLog.cs
 ```
-
-
-[(EmitLog.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLog/EmitLog.cs)
 
 As you see, after establishing the connection we declared the
 exchange. This step is necessary as publishing to a non-existing
@@ -248,41 +209,9 @@ but that's okay for us; if no consumer is listening yet we can safely discard th
 
 The code for `ReceiveLogs.cs`:
 
-```csharp
-using System.Text;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-
-var factory = new ConnectionFactory { HostName = "localhost" };
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-
-channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
-
-// declare a server-named queue
-var queueName = channel.QueueDeclare().QueueName;
-channel.QueueBind(queue: queueName,
-                  exchange: "logs",
-                  routingKey: string.Empty);
-
-Console.WriteLine(" [*] Waiting for logs.");
-
-var consumer = new EventingBasicConsumer(channel);
-consumer.Received += (model, ea) =>
-{
-    byte[] body = ea.Body.ToArray();
-    var message = Encoding.UTF8.GetString(body);
-    Console.WriteLine($" [x] {message}");
-};
-channel.BasicConsume(queue: queueName,
-                     autoAck: true,
-                     consumer: consumer);
-
-Console.WriteLine(" Press [enter] to exit.");
-Console.ReadLine();
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogs/ReceiveLogs.cs
 ```
-
-[(ReceiveLogs.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogs/ReceiveLogs.cs)
 
 Follow the setup instructions from [tutorial one](./tutorial-one-dotnet) to
 generate the `EmitLogs` and `ReceiveLogs` projects.

@@ -55,14 +55,14 @@ on behalf of the consumer.
 > use the .NET client provided by RabbitMQ.
 >
 > The client supports [.NET Core](https://www.microsoft.com/net/core) as
-> well as .NET Framework 4.5.1+. This tutorial will use RabbitMQ .NET client 5.0 and
-> .NET Core so you will ensure
+> well as .NET Framework 4.6.2+. This tutorial will use RabbitMQ .NET client 7.0 and
+> .NET Core so please ensure that
 > you have it [installed](https://www.microsoft.com/net/core) and in your PATH.
 >
 > You can also use the .NET Framework to complete this tutorial however the
 > setup steps will be different.
 >
-> RabbitMQ .NET client 5.0 and later versions are distributed via [nuget](https://www.nuget.org/packages/RabbitMQ.Client).
+> RabbitMQ .NET Client version 7 is distributed via [nuget](https://www.nuget.org/packages/RabbitMQ.Client).
 >
 > This tutorial assumes you are using PowerShell on Windows. On MacOS and Linux nearly
 > any shell will work.
@@ -111,18 +111,14 @@ In
 [`Send.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs),
 we need to use some namespaces:
 
-```csharp
-using System.Text;
-using RabbitMQ.Client;
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs#L1-L2
 ```
 
 then we can create a connection to the server:
 
-```csharp
-var factory = new ConnectionFactory { HostName = "localhost" };
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-...
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs#L1-L6
 ```
 
 The connection abstracts the socket connection, and takes care of
@@ -137,31 +133,8 @@ things done resides.
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
-```csharp
-using System.Text;
-using RabbitMQ.Client;
-
-var factory = new ConnectionFactory { HostName = "localhost" };
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-
-channel.QueueDeclare(queue: "hello",
-                     durable: false,
-                     exclusive: false,
-                     autoDelete: false,
-                     arguments: null);
-
-const string message = "Hello World!";
-var body = Encoding.UTF8.GetBytes(message);
-
-channel.BasicPublish(exchange: string.Empty,
-                     routingKey: "hello",
-                     basicProperties: null,
-                     body: body);
-Console.WriteLine($" [x] Sent {message}");
-
-Console.WriteLine(" Press [enter] to exit.");
-Console.ReadLine();
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs
 ```
 
 Declaring a queue is idempotent - it will only be created if it doesn't
@@ -170,9 +143,6 @@ whatever you like there.
 
 When the code above finishes running, the channel and the connection
 will be disposed. That's it for our publisher.
-
-[Here's the whole Send.cs
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs).
 
 > #### Sending doesn't work!
 >
@@ -197,27 +167,16 @@ keep the consumer running continuously to listen for messages and print them out
 
 The code (in [`Receive.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs)) has almost the same `using` statements as `Send`:
 
-```csharp
-using System.Text;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs#L1-L3
 ```
 
 Setting up is the same as the publisher; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `Send` publishes to.
 
-```csharp
-var factory = new ConnectionFactory { HostName = "localhost" };
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-
-channel.QueueDeclare(queue: "hello",
-                     durable: false,
-                     exclusive: false,
-                     autoDelete: false,
-                     arguments: null);
-...
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs#L5-L10
 ```
 
 Note that we declare the queue here as well. Because we might start
@@ -226,49 +185,20 @@ before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
 queue. Since it will push us messages asynchronously, we provide a
-callback. That is what `EventingBasicConsumer.Received` event handler
+callback. That is what `AsyncEventingBasicConsumer.Received` event handler
 does.
 
-```csharp
-using System.Text;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-
-var factory = new ConnectionFactory { HostName = "localhost" };
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-
-channel.QueueDeclare(queue: "hello",
-                     durable: false,
-                     exclusive: false,
-                     autoDelete: false,
-                     arguments: null);
-
-Console.WriteLine(" [*] Waiting for messages.");
-
-var consumer = new EventingBasicConsumer(channel);
-consumer.Received += (model, ea) =>
-{
-    var body = ea.Body.ToArray();
-    var message = Encoding.UTF8.GetString(body);
-    Console.WriteLine($" [x] Received {message}");
-};
-channel.BasicConsume(queue: "hello",
-                     autoAck: true,
-                     consumer: consumer);
-
-Console.WriteLine(" Press [enter] to exit.");
-Console.ReadLine();
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs
 ```
-
-[Here's the whole Receive.cs
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs).
 
 ### Putting It All Together
 
 Open two terminals.
 
-You can run the clients in any order, as both declares the queue. We will run the consumer first so you can see it waiting for and then receiving the message:
+You can run the clients in any order, as both declares the queue. We will run
+the consumer first so you can see it waiting for and then receiving the
+message:
 
 ```PowerShell
 cd Receive

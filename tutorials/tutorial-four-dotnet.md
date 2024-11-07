@@ -47,10 +47,8 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-```csharp
-channel.QueueBind(queue: queueName,
-                  exchange: "logs",
-                  routingKey: string.Empty);
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogs/ReceiveLogs.cs#L15
 ```
 
 A binding is a relationship between an exchange and a queue. This can
@@ -58,13 +56,11 @@ be simply read as: the queue is interested in messages from this
 exchange.
 
 Bindings can take an extra `routingKey` parameter. To avoid the
-confusion with a `BasicPublish` parameter we're going to call it a
+confusion with a `BasicPublishAsync` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
 ```csharp
-channel.QueueBind(queue: queueName,
-                  exchange: "direct_logs",
-                  routingKey: "black");
+await channel.QueueBindAsync(queue: queueName, exchange: "direct_logs", routingKey: "black");
 ```
 
 The meaning of a binding key depends on the exchange type. The
@@ -124,18 +120,14 @@ first.
 
 As always, we need to create an exchange first:
 
-```csharp
-channel.ExchangeDeclare(exchange: "direct_logs", type: ExchangeType.Direct);
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLogDirect/EmitLogDirect.cs#L8
 ```
 
 And we're ready to send a message:
 
-```csharp
-var body = Encoding.UTF8.GetBytes(message);
-channel.BasicPublish(exchange: "direct_logs",
-                     routingKey: severity,
-                     basicProperties: null,
-                     body: body);
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLogDirect/EmitLogDirect.cs#L12-L13
 ```
 
 To simplify things we will assume that 'severity' can be one of
@@ -150,15 +142,8 @@ one exception - we're going to create a new binding for each severity
 we're interested in.
 
 
-```csharp
-var queueName = channel.QueueDeclare().QueueName;
-
-foreach(var severity in args)
-{
-    channel.QueueBind(queue: queueName,
-                      exchange: "direct_logs",
-                      routingKey: severity);
-}
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogsDirect/ReceiveLogsDirect.cs#L23-L29
 ```
 
 Putting it all together
@@ -171,80 +156,14 @@ Putting it all together
 
 The code for `EmitLogDirect.cs` class:
 
-```csharp
-using System.Text;
-using RabbitMQ.Client;
-
-var factory = new ConnectionFactory { HostName = "localhost" };
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-
-channel.ExchangeDeclare(exchange: "direct_logs", type: ExchangeType.Direct);
-
-var severity = (args.Length > 0) ? args[0] : "info";
-var message = (args.Length > 1)
-              ? string.Join(" ", args.Skip(1).ToArray())
-              : "Hello World!";
-var body = Encoding.UTF8.GetBytes(message);
-channel.BasicPublish(exchange: "direct_logs",
-                     routingKey: severity,
-                     basicProperties: null,
-                     body: body);
-Console.WriteLine($" [x] Sent '{severity}':'{message}'");
-
-Console.WriteLine(" Press [enter] to exit.");
-Console.ReadLine();
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLogDirect/EmitLogDirect.cs
 ```
 
 The code for `ReceiveLogsDirect.cs`:
 
-```csharp
-using System.Text;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-
-var factory = new ConnectionFactory { HostName = "localhost" };
-
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-
-channel.ExchangeDeclare(exchange: "direct_logs", type: ExchangeType.Direct);
-// declare a server-named queue
-var queueName = channel.QueueDeclare().QueueName;
-
-if (args.Length < 1)
-{
-    Console.Error.WriteLine("Usage: {0} [info] [warning] [error]",
-                            Environment.GetCommandLineArgs()[0]);
-    Console.WriteLine(" Press [enter] to exit.");
-    Console.ReadLine();
-    Environment.ExitCode = 1;
-    return;
-}
-
-foreach (var severity in args)
-{
-    channel.QueueBind(queue: queueName,
-                      exchange: "direct_logs",
-                      routingKey: severity);
-}
-
-Console.WriteLine(" [*] Waiting for messages.");
-
-var consumer = new EventingBasicConsumer(channel);
-consumer.Received += (model, ea) =>
-{
-    var body = ea.Body.ToArray();
-    var message = Encoding.UTF8.GetString(body);
-    var routingKey = ea.RoutingKey;
-    Console.WriteLine($" [x] Received '{routingKey}':'{message}'");
-};
-channel.BasicConsume(queue: queueName,
-                     autoAck: true,
-                     consumer: consumer);
-
-Console.WriteLine(" Press [enter] to exit.");
-Console.ReadLine();
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogsDirect/ReceiveLogsDirect.cs
 ```
 
 Create projects as usual (see [tutorial one](./tutorial-one-dotnet) for
@@ -274,9 +193,6 @@ cd EmitLogDirect
 dotnet run error "Run. Run. Or it will explode."
 # => [x] Sent 'error':'Run. Run. Or it will explode.'
 ```
-
-(Full source code for [(EmitLogDirect.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLogDirect/EmitLogDirect.cs)
-and [(ReceiveLogsDirect.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogsDirect/ReceiveLogsDirect.cs))
 
 Move on to [tutorial 5](./tutorial-five-dotnet) to find out how to listen
 for messages based on a pattern.
