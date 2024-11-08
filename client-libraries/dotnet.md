@@ -39,12 +39,12 @@ targets what .NET standard (or .NET framework) version.
 
   <tr>
     <td>
-      7.x (in development)
+      7.x
     </td>
     <td>
-      .NET Framework 4.6.1+ or a .NET 5 through 7
+      <a href="https://www.nuget.org/packages/RabbitMQ.Client/#supportedframeworks-body-tab">Supported Frameworks</a>
     </td>
-    <td>in development</td>
+    <td>supported</td>
   </tr>
 
   <tr>
@@ -52,7 +52,7 @@ targets what .NET standard (or .NET framework) version.
       6.x
     </td>
     <td>
-      .NET Framework 4.6.1+ or a .NET 5 through 7
+      <a href="https://www.nuget.org/packages/RabbitMQ.Client/6.8.1#supportedframeworks-body-tab">Supported Frameworks</a>
     </td>
     <td>supported</td>
   </tr>
