@@ -45,7 +45,8 @@ core RabbitMQ features and do not require or rely on this plugin.
 
 This guide covers:
 
- * [Basic usage](#usage) of management UI and [HTTP API](#http-api)
+ * [Basic usage](#usage) of management UI
+ * The [HTTP API](#http-api) provided by the management plugin
  * General plugin [configuration](#configuration)
  * [Reverse proxy (Nginx or Apache)](#http-api-proxy) in front of the HTTP API
  * How to [enable HTTPS for management UI](#single-listener-https) and its underlying API
@@ -411,7 +412,7 @@ Given above configuration, when a user visits the management UI, the following t
     :::
 
     :::warning
-    `management.oauth_metadata_url` and `management.oauth_resource_servers.$id.oauth_metadata_url` are deprecated. You should configure the OpenId Discovery endpoint's path as it is explained [here](./oauth2#discovery-endpoint-params). 
+    `management.oauth_metadata_url` and `management.oauth_resource_servers.$id.oauth_metadata_url` are deprecated. You should configure the OpenId Discovery endpoint's path as it is explained [here](./oauth2#discovery-endpoint-params).
     These two settings will no longer exist in RabbitMQ 4.2.0. In the meantime, RabbitMQ will support them until you update your configuration.
     :::
 
@@ -697,6 +698,22 @@ see [Developer Tools](/client-libraries/devtools).
 Some API endpoints return a lot of information. The volume can be reduced
 by filtering what columns are returned by `HTTP GET` requests. See
 <a href={`https://rawcdn.githack.com/rabbitmq/rabbitmq-server/${RabbitMQServerGitTag()}/deps/rabbitmq_management/priv/www/api/index.html`}>latest HTTP API documentation</a> for details.
+
+### Maximum HTTP Request Body Limit {#http-body-size-limit}
+
+A few RabbitMQ HTTP API endpoints can potentially receive large payloads,
+most notably the endpoint used for [definition import](./definitions/).
+
+The default HTTP request body limit is 20 MiB. If such large definition
+files are not used in a cluster, the limit can be reduced:
+
+``` ini
+# lowers the maximum HTTP request body size that will be accepted
+# to 1 MiB
+management.http.max_body_size = 1000000
+```
+
+When a client issues requests with a body that exceeds the limit, a `400 Bad Request` response will be returned.
 
 ### Using a Reverse Proxy in front of the HTTP API {#http-api-proxy}
 
