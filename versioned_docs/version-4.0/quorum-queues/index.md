@@ -1167,7 +1167,7 @@ footprint can reach 512 MiB. You can expect your memory usage to look like this:
 
 :::important
 
-Because memory is not guaranteed to be deadllocated instaltly by the [runtime](./runtime/),
+Because memory is not guaranteed to be deallocated instantly by the [runtime](./runtime/),
 we recommend that the RabbitMQ node is allocated at least 3 times the memory of the effective WAL file size limit.
 More will be required in high-throughput systems.
 4 times is a good starting point for those.
