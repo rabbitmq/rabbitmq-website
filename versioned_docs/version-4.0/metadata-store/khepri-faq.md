@@ -46,5 +46,5 @@ nodes.
 ### Is it possible to take definitions from a Mnesia-based node and import them in a Khepri-based one?
 
 Yes. The definitions are metadata-store-agnostic and can be imported in a
-RabbitMQ node regarless of the metadata store backend used by the node used to
+RabbitMQ node regardless of the metadata store backend used by the node used to
 export the definitions of the one where they are imported.
