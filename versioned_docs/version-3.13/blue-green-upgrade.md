@@ -23,13 +23,19 @@ limitations under the License.
 
 ## Overview {#overview}
 
-Blue-green deployment is an [upgrade strategy](./upgrade) that is based on the idea of setting up
-a second RabbitMQ cluster (the "green" one) next to the current production
-cluster (the "blue" one). Applications are then switched to the "green"
-cluster. When that migration is done, the "blue" cluster is decommissioned (shut down).
+Blue-green deployment is a migration technique that can also be used as an [upgrade strategy](./upgrade).
+The main idea is to set up a new environment (the "green" one) and switch to it
+when it is ready. The "upgrade" is not performed "in place", the application just switch
+to a different environment, which might be using a different version, but can
+also differ in other aspects.
+
+The same approach can be used to migrate to a new operating system or new hardware, while keeping the same version of RabbitMQ,
+or to upgrade from a version that cannot be upgraded to the target series directly,
+for example, from 3.12.x to 4.0.x or from a 3.13.x cluster with Khepri enabled to 4.0.x.
+
+When that migration is done, the old ("blue") cluster is decommissioned (shut down, deleted).
 To simplify the switch, [federated queues](./federated-queues)
 can be used to transfer enqueued messages from the "blue" to the "green" cluster.
-
 ## Preparing the "green" Cluster {#preparation}
 
 After deploying a brand new "green" cluster, there are two steps to follow:
