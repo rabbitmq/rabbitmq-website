@@ -78,22 +78,6 @@ For example, MQTT publishers can send messages to AMQP 0.9.1 or AMQP 1.0 consume
 that is bound to the MQTT [topic exchange](/tutorials/amqp-concepts#exchange-topic) (configured via `mqtt.exchange` and defaulting to `amq.topic`).
 Likewise an AMQP 0.9.1, AMQP 1.0, or STOMP publisher can send messages to an MQTT subscriber if the publisher publishes to the MQTT topic exchange.
 
-## Limitations {#limitations}
-
-The following MQTT features are unsupported:
-
-* [QoS 2 (exactly once)](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901237)
-* [Shared subscriptions](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901250)
-* A [Will Message](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901040) that is both [delayed](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901062) and [retained](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901042) is not retained.
-
-The following MQTT features are supported with limitations:
-
-* Retained messages are stored and queried only node local. See [Retained Messages and Stores](#retained).
-* Overlapping subscriptions with different QoS levels can result in duplicate messages being delivered.
-Applications need to account for this.
-For example when the same MQTT client creates a QoS 0 subscription for topic filter `/sports/football/epl/#` and a QoS 1 subscription for topic filter `/sports/football/#`,
-it will be delivered duplicate messages.
-
 ## How the MQTT plugin works {#implementation}
 
 RabbitMQ MQTT plugin targets MQTT 3.1, 3.1.1, and 5.0 supporting a broad range
@@ -769,22 +753,39 @@ When the Sparkplug support is enabled, the MQTT plugin will not translate the
 
 ## Limitations {#limitations}
 
-### QoS 2 is Not Supported
+The RabbitMQ MQTT plugin has currently the following limitations.
 
-QoS 2 subscriptions will be treated as if they were QoS 1 subscriptions.
+### QoS 2
+
+[QoS 2: Exactly once delivery](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901237) is unsupported.
+
+If an MQTT 3.0 or 3.1.1 client publishes a message with QoS 2, RabbitMQ will downgrade the QoS level to 1.
+If an MQTT 5.0 client publishes a message with QoS 2, RabbitMQ will disconnect the client with reason code `155: QoS not supported`.
+
+### Re-authentication
+
+RabbitMQ does not support the MQTT 5.0 [AUTH](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901217) packet,
+and therefore does not support [re-authentication](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901257).
+
+While RabbitMQ supports OAuth 2.0 token renewal for AMQP 1.0, AMQP 0.9.1, and the RabbitMQ stream protocol, RabbitMQ does not support OAuth 2.0 token renewal for MQTT.
+If a token expires, RabbitMQ will disconnect the MQTT client with reason code `160: Maximum connect time`.
+
+### Shared Subscriptions
+[Shared subscriptions](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901250) are unsupported.
 
 ### Overlapping Subscriptions
 
-Overlapping subscriptions from the same client
-(e.g. `/sports/football/epl/#` and `/sports/football/#`) can result in
-duplicate messages being delivered. Applications
-need to account for this.
+Overlapping subscriptions with different QoS levels can result in duplicate messages being delivered.
+Applications need to account for this.
+For example when the same MQTT client creates a QoS 0 subscription for topic filter `/sports/football/#` and a QoS 1 subscription for topic filter `/sports/#`, it will be delivered duplicate messages.
 
 ### Retained Message Stores
 
-See Retained Messages above. Different retained message stores have
-different benefits, trade-offs, and limitations.
+As described in [Retained Messages and Stores](#retained), retained messages are stored and queried only node local.
+Furthermore, if the topic filter contains wildcards (the multi-level wildcard character “#” or the single-level wildcard character “+”), no retained messages are sent.
 
+### Delayed and Retained Will Mesage
+A [Will Message](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901040) that is both [delayed](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901062) and [retained](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901042) is not retained.
 
 ## Disabling the Plugin {#disabling-plugin}
 
