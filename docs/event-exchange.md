@@ -22,35 +22,13 @@ limitations under the License.
 
 ## Overview
 
-Client connection, channels, queues, consumers, and other parts of the
-system [naturally generate events](./logging#internal-events). For example, when a connection is
-accepted, authenticated and access to the target virtual host is
-authorised, it will emit an event of type `connection_created`. When a
-connection is closed or fails for any reason, a `connection_closed`
-event is emitted.
+Client connections, queues, consumers, and other parts of the system generate [events](./logging#internal-events).
+For example, when a connection is created, a `connection.created` event is emitted.
+When a connection is closed or fails, a `connection.closed` event is emitted.
 
-[Monitoring](./monitoring) and auditing services can be interested in observing those
+[Monitoring](./monitoring) and auditing services can be interested in observing these
 events. RabbitMQ has a minimalistic mechanism for event notifications
-that can be exposed to RabbitMQ clients with a plugin.
-
-
-## Consuming Internal Events with rabbitmq-event-exchange Plugin
-
-[rabbitmq-event-exchange](https://github.com/rabbitmq/rabbitmq-event-exchange)
-is a plugin that consumes internal events and re-publishes them to a
-topic exchange, thus exposing the events to clients (applications).
-
-To consume the events, an application needs to declare a queue, bind
-it to a special system exchange and consume messages.
-
-It declares a topic exchange called `amq.rabbitmq.event` in the default
-virtual host. All events are published to this exchange with routing
-keys like 'exchange.created', 'binding.deleted' etc, so you can
-subscribe to only the events you're interested in.
-
-The exchange behaves similarly to `amq.rabbitmq.log`: everything gets
-published there; if you don't trust a user with the information that
-gets published, don't allow them access.
+that can be exposed to RabbitMQ clients with the `rabbitmq_event_exchange` plugin.
 
 The plugin requires no configuration, just activate it:
 
@@ -58,80 +36,44 @@ The plugin requires no configuration, just activate it:
 rabbitmq-plugins enable rabbitmq_event_exchange
 ```
 
-Each event has various properties associated with it. These are
-translated into AMQP 0-9-1 data encoding and inserted in the message headers. The
-**message body is always blank**.
+## Consuming Internal Events
 
+[rabbitmq_event_exchange](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_event_exchange)
+is a plugin that consumes RabbitMQ internal events and re-publishes them to a
+[topic exchange](/tutorials/amqp-concepts#exchange-topic) called `amq.rabbitmq.event`, thus exposing these events to clients applications.
+To consume the events, an application needs to declare a queue and bind it to the `amq.rabbitmq.event` exchange.
+
+By default, the plugin declares the topic exchange `amq.rabbitmq.event` in the default virtual host (`/`).
+All events are published to this exchange with routing keys (topics) like `exchange.created`, `binding.deleted`. etc.
+You can subscribe to only the events you're interested in.
+For example, to subscribe to all user events (such as `user.created`, `user.authentication.failure`, etc.) create a binding with binding key `user.#`.
+
+The exchange behaves similarly to `amq.rabbitmq.log`: everything gets published there.
+If you don't trust a user with the events that get published, don't allow them `read` access to the `amq.rabbitmq.event` exchange.
+
+Each event has various event properties associated with it.
+By default, the plugin internally publishes AMQP 0.9.1 messages with event properties translated to AMQP 0.9.1 message headers.
+The plugin can optionally be configured to internally publish AMQP 1.0 messages with event properties translated to AMQP 1.0 [message-annotations](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-message-annotations)
+by setting the following in [rabbitmq.conf](configure#config-file):
+```
+event_exchange.protocol = amqp_1_0
+```
+The message body is always blank.
+
+Because the plugin sets event properties as AMQP 0.9.1 headers or AMQP 1.0 message-annotations, client applications can optionally subscribe to only specific event properties (for example all events emitted for a specific user). This can be achieved by binding a queue to a [headers exchange](/tutorials/amqp-concepts#exchange-headers), and the headers exchange to the `amq.rabbitmq.event` topic exchange.
 
 ## Events
 
-RabbitMQ and related plugins produce events with the following routing keys:
-
-### RabbitMQ Broker
-
-Queue, Exchange and Binding events:
-
-- `queue.created`
-- `queue.deleted`
-- `exchange.created`
-- `exchange.deleted`
-- `binding.created`
-- `binding.deleted`
-
-Connection and Channel events:
-
-- `connection.created`
-- `connection.closed`
-- `channel.created`
-- `channel.closed`
-
-Consumer events:
-
-- `consumer.created`
-- `consumer.deleted`
-
-Policy and Parameter events:
-
-- `policy.set`
-- `policy.cleared`
-- `parameter.set`
-- `parameter.cleared`
-
-Virtual host events:
-
-- `vhost.created`
-- `vhost.deleted`
-
-User related events:
-
-- `user.authentication.success`
-- `user.authentication.failure`
-- `user.created`
-- `user.deleted`
-- `user.password.changed`
-- `user.password.cleared`
-- `user.tags.set`
-
-Permission events:
-
-- `permission.created`
-- `permission.deleted`
-
-### Shovel Plugin
-
-Worker events:
-
-- `shovel.worker.status`
-- `shovel.worker.removed`
-
-### Federation Plugin
-
-Link events:
-
-- `federation.link.status`
-- `federation.link.removed`
-
+Events including their routing keys (topics) that this plugin publishes are documented [here](./logging#internal-events).
 
 ## Example
 
-There is a usage example using the Java client [in the rabbitmq-event-exchange repository](https://github.com/rabbitmq/rabbitmq-event-exchange/tree/master/examples/java).
+You can find a usage example using the Java client [here](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_event_exchange/examples/java).
+
+## Plugin Configuration
+
+By default, the `rabbitmq_event_exchange` plugin uses the following configuration:
+```
+event_exchange.vhost = /
+event_exchange.protocol = amqp_0_9_1
+```
