@@ -937,7 +937,7 @@ The events can also be exposed to applications for [consumption](./consumers)
 with [a plugin](./event-exchange).
 
 Events are published as messages with blank bodies. All event metadata is stored in
-message metadata (properties, headers).
+message annotations (properties, headers).
 
 Below is a list of published events.
 
@@ -952,7 +952,7 @@ Below is a list of published events.
  * `binding.created`
  * `binding.deleted`
 
-[Connection](./connections) and [Channel](./channels) events:
+[Connection](./connections) and AMQP 0.9.1 [Channel](./channels) events:
 
  * `connection.created`
  * `connection.closed`
@@ -968,6 +968,8 @@ Below is a list of published events.
 
  * `policy.set`
  * `policy.cleared`
+ * `queue.policy.updated`
+ * `queue.policy.cleared`
  * `parameter.set`
  * `parameter.cleared`
 
@@ -980,10 +982,10 @@ Below is a list of published events.
 
 User management events:
 
- * `user.authentication.success`
- * `user.authentication.failure`
  * `user.created`
  * `user.deleted`
+ * `user.authentication.success`
+ * `user.authentication.failure`
  * `user.password.changed`
  * `user.password.cleared`
  * `user.tags.set`
