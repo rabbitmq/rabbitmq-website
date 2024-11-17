@@ -105,7 +105,7 @@ Traced message headers containing metadata about the original message:
   <tr>
     <td>properties</td>
     <td>table</td>
-    <td><a href="/amqp-0-9-1-reference#class.basic">content properties</a></td>
+    <td>content properties (message metadata)</td>
   </tr>
   <tr>
     <td>node</td>

@@ -36,8 +36,7 @@ will be routed to all destinations matching the routing key
 supplied as a parameter to the `basic.publish`
 method, as well as the routes supplied in the "CC" and "BCC"
 headers. The type of "CC" and "BCC" values must be an array
-of [longstr](/amqp-0-9-1-reference#domain.longstr)
-and these keys are case-sensitive. If the header does not
+of strings (`longstr` values) and these keys are case-sensitive. If the header does not
 contain "CC" or "BCC" keys then this extension has no effect.
 
 The "BCC" key and value will be removed from the message

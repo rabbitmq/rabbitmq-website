@@ -173,7 +173,7 @@ Some client libraries may use blocking operations that wait for
 a response. In this case they may communicate channel exceptions differently, e.g. using
 runtime exceptions, an error type, or other means appropriate for the language.
 
-See the [AMQP 0-9-1 Reference](/amqp-0-9-1-reference) for a more complete list of
+See the [AMQP 0-9-1 Reference](https://github.com/rabbitmq/amqp-0.9.1-spec/) for a more complete list of
 error codes.
 
 

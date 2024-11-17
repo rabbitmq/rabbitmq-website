@@ -42,7 +42,7 @@ These "CC" routing keys are used in addition to the routing key provided in the 
 
 To use multiple routing keys in AMQP 0.9.1, the publisher sets the "CC" and "BCC" header keys.
 This is similar to specifying multiple recipients in the "CC" or "BCC" fields of an email.
-The value for "CC" and "BCC" must be an array of [longstr](/amqp-0-9-1-reference#domain.longstr).
+The value for "CC" and "BCC" must be an array of strings (`longstr` values).
 
 The message will be routed using both the routing key supplied as a parameter to the `basic.publish` method and the routing keys provided in the "CC" and "BCC" headers.
 The "BCC" key and value will be removed from the message prior to delivery, ensuring some level of confidentiality among consumers.

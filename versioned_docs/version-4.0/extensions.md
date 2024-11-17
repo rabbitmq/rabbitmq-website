@@ -69,7 +69,7 @@ extension points such as [optional queue arguments](./queues#optional-arguments)
  * The [User-ID](./validated-user-id) message property is validated by the server.
  * Clients that advertise the appropriate capability may receive
    explicit [authentication failure notifications](./auth-notification) from the broker.
- * [`update-secret`](/amqp-0-9-1-reference#connection.update-secret)
+ * `update-secret`
    to be able to renew credentials for an active connection, when those credentials can expire.
 
 

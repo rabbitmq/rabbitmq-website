@@ -488,8 +488,8 @@ AMQP 0-9-1 is structured as a number of
 _methods_. Methods are operations (like HTTP methods)
 and have nothing in common with methods in object-oriented
 programming languages. Protocol methods in AMQP 0-9-1 are grouped into
-_classes_. Classes are just logical groupings of AMQP
-methods. The [AMQP 0-9-1 reference](/amqp-0-9-1-reference) has full details of all the AMQP methods.
+_classes_. Classes are just logical groupings of AMQP 0-9-1
+methods. The [AMQP 0-9-1 reference](https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/docs/amqp-0-9-1-reference.md) has full details of all the AMQP 0-9-1 methods (protocol operations).
 
 Let us take a look at the _exchange_ class, a group
 of methods related to operations on exchanges. It includes
