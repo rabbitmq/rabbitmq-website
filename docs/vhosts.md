@@ -193,13 +193,13 @@ The default is only effective for new queue declarations; updating the default w
 queue type of any existing queues or streams because queue type is immutable and cannot
 be changed after declaration.
 
-Starting with RabbitMQ `3.13.4`, for queues that were declared without an explicitly set
+For queues that were declared without an explicitly set
 queue type, the effective virtual host default will be injected into the queue properties
 at [definition export time](./definitions).
 
 ### Node-wide Default Queue Type (Node-wide DQT)
 
-Starting with RabbitMQ `3.13.4`, instead of configuring the same default queue type for every virtual host
+Instead of configuring the same default queue type for every virtual host
 in the cluster, a node-wide default can be set using `rabbitmq.conf`:
 
 ```ini
