@@ -23,8 +23,8 @@ limitations under the License.
 ## Overview
 
 RabbitMQ implements a number of extensions of the
-[AMQP 0-9-1 specification](./specification), which we
-document here.
+[AMQP 0-9-1 specification](https://github.com/rabbitmq/amqp-0.9.1-spec/),
+which are listed on this page.
 
 Some extensions introduce new protocol methods (operations); others rely on existing
 extension points such as [optional queue arguments](./queues#optional-arguments).
@@ -69,8 +69,7 @@ extension points such as [optional queue arguments](./queues#optional-arguments)
  * The [User-ID](./validated-user-id) message property is validated by the server.
  * Clients that advertise the appropriate capability may receive
    explicit [authentication failure notifications](./auth-notification) from the broker.
- * [`update-secret`](/amqp-0-9-1-reference#connection.update-secret)
-   to be able to renew credentials for an active connection, when those credentials can expire.
+ * `update-secret` to be able to renew credentials for an active connection, when those credentials can expire.
 
 
 ## AMQP 0-9-1 Spec Differences

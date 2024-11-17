@@ -383,7 +383,7 @@ RabbitMQ’s AMQP 1.0 clients support token refresh in
 For AMQP 0.9.1, when a token expires on an existing connection, the broker refuses further
 operations after a limited time, but does not disconnect the client. To refresh the token, the
 client can use the AMQP 0.9.1
-[update-secret](/amqp-0-9-1-reference#connection.update-secret) method if supported by the
+[`update-secret`](./extensions) protocol method if supported by the
 client. For an example, see the
 [Java client documentation](/client-libraries/java-api-guide#oauth2-refreshing-token). If the
 client does not support `update-secret`, it must disconnect and reconnect with a new token.

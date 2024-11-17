@@ -66,35 +66,35 @@ title: AMQP 0-9-1 Quick Reference
         <div class="method-box" id="basic.consume">
             <h4 class="method">
                 <span title="start a queue consumer"><span class="class-name">basic.</span><span class="method-name">consume</span></span>(
-                <a href="./amqp-0-9-1-reference#basic.consume.reserved-1">
+                <a href="./amqp-0-9-1-reference.reserved-1">
                     <span class="parameter"><span class="data-type" title="short">short</span>&nbsp;<span class="param-name" title="">reserved-1</span></span>
                 </a>
                 ,
-                <a href="./amqp-0-9-1-reference#basic.consume.queue">
+                <a href="./amqp-0-9-1-reference.queue">
                     <span class="parameter"><span class="data-type" title="shortstr">queue-name</span>&nbsp;<span class="param-name" title="">queue</span></span>
                 </a>
                 ,
-                <a href="./amqp-0-9-1-reference#basic.consume.consumer-tag">
+                <a href="./amqp-0-9-1-reference.consumer-tag">
                     <span class="parameter"><span class="data-type" title="shortstr">consumer-tag</span>&nbsp;<span class="param-name" title="">consumer-tag</span></span>
                 </a>
                 ,
-                <a href="./amqp-0-9-1-reference#basic.consume.no-local">
+                <a href="./amqp-0-9-1-reference.no-local">
                     <span class="parameter"><span class="data-type" title="bit">no-local</span>&nbsp;<span class="param-name" title="">no-local</span></span>
                 </a>
                 ,
-                <a href="./amqp-0-9-1-reference#basic.consume.no-ack">
+                <a href="./amqp-0-9-1-reference.no-ack">
                     <span class="parameter"><span class="data-type" title="bit">no-ack</span>&nbsp;<span class="param-name" title="">no-ack</span></span>
                 </a>
                 ,
-                <a href="./amqp-0-9-1-reference#basic.consume.exclusive">
+                <a href="./amqp-0-9-1-reference.exclusive">
                     <span class="parameter"><span class="data-type" title="bit">bit</span>&nbsp;<span class="param-name" title="request exclusive access">exclusive</span></span>
                 </a>
                 ,
-                <a href="./amqp-0-9-1-reference#basic.consume.no-wait">
+                <a href="./amqp-0-9-1-reference.no-wait">
                     <span class="parameter"><span class="data-type" title="bit">no-wait</span>&nbsp;<span class="param-name" title="">no-wait</span></span>
                 </a>
                 ,
-                <a href="./amqp-0-9-1-reference#basic.consume.arguments">
+                <a href="./amqp-0-9-1-reference.arguments">
                     <span class="parameter"><span class="data-type" title="table">table</span>&nbsp;<span class="param-name" title="arguments for declaration">arguments</span></span>
                 </a>
                 )<span class="method-retval">&nbsp;➔&nbsp;consume-ok</span>
@@ -116,7 +116,7 @@ title: AMQP 0-9-1 Quick Reference
             >
                 [dotnetdoc]
             </a>
-            <a href="./amqp-0-9-1-reference#basic.consume" class="amqp-doc">[amqpdoc]</a><a href="#top" class="back">(back to top)</a>
+            <a href="./amqp-0-9-1-reference" class="amqp-doc">[amqpdoc]</a><a href="#top" class="back">(back to top)</a>
         </div>
         <div class="method-box" id="basic.deliver">
             <h4 class="method">
