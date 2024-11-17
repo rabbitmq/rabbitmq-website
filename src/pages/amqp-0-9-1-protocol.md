@@ -26,7 +26,7 @@ title: AMQP 0-9-1 Protocol Specification
                 <th>Machine-Readable Spec (XML)</th>
             </tr>
             <tr>
-                <td>AMQP 0-9-1 (incl. extensions)</td>
+                <td>AMQP 0-9-1 plus RabbitMQ extensions</td>
                 <td></td>
                 <td>
                     <a href="/resources/specs/amqp0-9-1.extended.xml">Full</a> |
