@@ -263,8 +263,8 @@ curl -u userename:pa$sw0rD -X DELETE http://rabbitmq.local:15672/api/vhosts/vh1
 ## Limits {#limits}
 
 In some cases it is desirable to limit the maximum allowed number of queues
-or concurrent client connections in a vhost. As of RabbitMQ 3.7.0,
-this is possible via **per-vhost limits**.
+or concurrent client connections in a vhost.
+Per-virtual host limits exist exactly for such cases.
 
 These limits can be configured using `rabbitmqctl` or [HTTP API](./management).
 
