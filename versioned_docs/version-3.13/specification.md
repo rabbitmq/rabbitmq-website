@@ -5,10 +5,12 @@ displayed_sidebar: docsSidebar
 <div id="left-content">
     <div class="docSection">
         <a name="spec" class="anchor" id="spec"></a>
-        <p>RabbitMQ implements version 0-9-1 of the AMQP specification in the core, with a number of [extensions](./extensions) to the specification.</p>
         <p>
-            RabbitMQ implements AMQP 1.0 via a [plugin](./plugins). However, AMQP 1.0 is a completely different protocol than AMQP 0-9-1 and hence not a suitable replacement for the latter. RabbitMQ will therefore continue to
-            support AMQP 0-9-1 indefinitely.
+            RabbitMQ implements version 0-9-1 of the AMQP specification in the core, with a number of [extensions](./extensions) to the specification. RabbitMQ 3.13.x and earlier versions implement AMQP 1.0 via a [plugin](./plugins) that needs to be enabled.
+        </p>
+        <p>
+            AMQP 1.0 is a completely different protocol from AMQP 0-9-1 and the two use different sets of client libraries. RabbitMQ will continue to support AMQP 0-9-1 indefinitely while the work on RabbitMQ's AMQP 1.0 implementation continues
+            in parallel.
         </p>
         <p>
             The 0-9-1 (with and without extensions) specifications are linked to below for your convenience. We recommend reading them if you want to learn more about AMQP 0-9-1. Please see our
