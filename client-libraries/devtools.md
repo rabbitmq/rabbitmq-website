@@ -194,6 +194,7 @@ Miscellaneous projects:
  * [SimpleAmqpClient](https://github.com/alanxz/SimpleAmqpClient), a C++ wrapper around rabbitmq-c
  * [amqpcpp](https://github.com/akalend/amqpcpp), a C++ message library for RabbitMQ
  * [AMQP-CPP](https://github.com/CopernicaMarketingSoftware/AMQP-CPP), a C++ RabbitMQ client
+ * [Hareflow](https://github.com/coveooss/hareflow), a RabbitMQ stream client for C++
  * [RabbitMQ C stream client](https://github.com/GianfrancoGGL/rabbitmq-stream-c-client)
  * [rmqcpp](https://github.com/bloomberg/rmqcpp), reliable message delivery ON by default, easy to use, testable, async-capable C++ API
 
