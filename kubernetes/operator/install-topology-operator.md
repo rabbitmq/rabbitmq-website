@@ -221,8 +221,8 @@ The following table listes the Topology Operator environment variables that are 
     </td>
     <td>
       Configure the operator to reconcile all owned objects periodically. It accepts string values with a time suffix e.g. "15m". It accepts any value
-      parseable by <a href="https://pkg.go.dev/time#ParseDuration" target="_blank">time.ParseDuration</a> function. By default, sync period is disabled,
-      and reconciliation happens only when owned resources are updated.
+      parseable by <a href="https://pkg.go.dev/time#ParseDuration" target="_blank">time.ParseDuration</a> function. By default, sync period uses the library
+      default of 10 hours. To disable periodic reconciliation, set the value to `"0"`.
     </td>
     <td>
       Reconciliation will only happen when a resource is updated.
