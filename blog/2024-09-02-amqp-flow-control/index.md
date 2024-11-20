@@ -118,7 +118,7 @@ The receiver is allowed to dynamically increase or decrease the amount of link c
 **A consuming client application can dynamically adjust how many messages it wants to receive from a specific queue.**
 
 This is a great advantage of link flow control in AMQP 1.0 over [consumer prefetch](/docs/consumer-prefetch) in AMQP 0.9.1.
-In AMQP 0.9.1, the [basic.qos](/amqp-0-9-1-quickref#class.basic) method applies to **all** consumers on the given [AMQP 0.9.1 channel](/docs/channels).
+In AMQP 0.9.1, the [basic.qos](https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/pdf/amqp-xml-doc0-9-1.pdf) method applies to **all** consumers on the given [AMQP 0.9.1 channel](/docs/channels).
 Furthermore, dynamically updating the consumer prefetch is not possible or convenient, as discussed in [#10174](https://github.com/rabbitmq/rabbitmq-server/discussions/10174) and [#11955](https://github.com/rabbitmq/rabbitmq-server/discussions/11955).
 
 :::
@@ -139,7 +139,7 @@ Instead of implementing fancy algorithms, I would recommend starting simple:
 for example, the client could initially grant 200 link credits and send a flow with `link-credit = 200` whenever the remaining link credit falls below 100.
 
 In fact, this is what RabbitMQ does the other way around:
-The RabbitMQ AMQP 1.0 [session process](https://github.com/rabbitmq/rabbitmq-server/blob/v4.0.0-beta.6/deps/rabbit/src/rabbit_amqp_session.erl) grants initially [170 link credits](https://github.com/rabbitmq/rabbitmq-server/blob/v4.0.0-beta.6/deps/rabbit/src/rabbit_amqp_session.erl#L52) to the publisher, and grants again 170 link credits when the remaining link credit falls below half (i.e. 85) **and** the number of unconfirmed messages is less than 170.
+The RabbitMQ AMQP 1.0 [session process](https://github.com/rabbitmq/rabbitmq-server/blob/v4.0.x/deps/rabbit/src/rabbit_amqp_session.erl) grants initially [170 link credits](https://github.com/rabbitmq/rabbitmq-server/blob/v4.0.x/deps/rabbit/src/rabbit_amqp_session.erl#L52) to the publisher, and grants again 170 link credits when the remaining link credit falls below half (i.e. 85) **and** the number of unconfirmed messages is less than 170.
 (Internally on the broker, publisher confirms are always enabled between AMQP 1.0 session process and target queues, even when no confirms are sent to the publishing client.
 This means that if the target queue does not confirm fast enough, RabbitMQ stops granting link credit to the sending application.)
 Please note that these RabbitMQ implementation details can change at any time.

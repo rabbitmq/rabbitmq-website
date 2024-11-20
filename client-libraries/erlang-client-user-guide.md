@@ -76,7 +76,7 @@ The basic usage of the client follows these broad steps:
 1. Make sure the `amqp_client` Erlang application is started
 2. Establish a [connection](/docs/connections) to a RabbitMQ node
 3. Open a new channel on the connection
-4. Execute [AMQP 0-9-1 commands](/amqp-0-9-1-quickref) with a channel such as
+4. Execute [AMQP 0-9-1 commands](https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/pdf/amqp-xml-doc0-9-1.pdf) with a channel such as
    declaring exchanges and queues, defining bindings between them, publishing messages,
    registering consumers (subscribing), and so on
 5. Register optional event handlers such as [returned message handler](#returns)

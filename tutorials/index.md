@@ -201,13 +201,14 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
   </tr>
 </table>
 
-## AMQP 0-9-1 Overview and Quick Reference
+## AMQP 0-9-1 Overview
 
 Once you have been through the tutorials (or if you want to
 skip ahead), you may wish to read an
 [Introduction to RabbitMQ Concepts](/tutorials/amqp-concepts)
-and browse our
-[AMQP 0-9-1 Quick Reference Guide](/amqp-0-9-1-quickref).
+and take a look at the [Compatibility and Conformance page](/docs/specification)
+to find relevant resources to learn more about AMQP 1.0 and AMQP 0-9-1,
+the two core protocols implemented by RabbitMQ.
 
 
 ## Stream tutorials
@@ -267,8 +268,8 @@ and browse our
 ## Getting Help
 
 If you have any questions or comments regarding RabbitMQ, feel free to
-ask them on [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users),
-[RabbitMQ community Discord server](https://www.rabbitmq.com/discord), or the public [RabbitMQ community Slack](https://www.rabbitmq.com/slack).
+ask them on [GitHub Discussion](https://github.com/rabbitmq/rabbitmq-server/discussions) or
+[RabbitMQ community Discord server](https://www.rabbitmq.com/discord).
 
 
 
@@ -289,4 +290,4 @@ many more languages and client libraries, for example:
  * [Scala](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/scala) (using [RabbitMQ Java client](/client-libraries/java-api-guide))
 
 We also maintain a list of community-developed [clients and developer tools](/client-libraries/devtools)
-for a range of platforms.
+for various protocols RabbitMQ supports.

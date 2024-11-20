@@ -8,8 +8,8 @@ displayed_sidebar: docsSidebar
         In addition to extensions beyond the specification, RabbitMQ also undeprecates some features that were removed from AMQP 0-9-1.
     </p>
     <ul>
-        <li><a href="/amqp-0-9-1-reference#exchange.declare.auto-delete">Auto-delete exchanges</a></li>
-        <li><a href="/amqp-0-9-1-reference#exchange.declare.internal">Internal exchanges</a></li>
+        <li>Auto-delete exchanges</li>
+        <li>Internal exchanges</li>
     </ul>
     <p>
         The access class was deprecated from AMQP 0-9-1. RabbitMQ implements the

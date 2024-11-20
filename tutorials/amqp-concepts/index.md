@@ -489,7 +489,7 @@ _methods_. Methods are operations (like HTTP methods)
 and have nothing in common with methods in object-oriented
 programming languages. Protocol methods in AMQP 0-9-1 are grouped into
 _classes_. Classes are just logical groupings of AMQP 0-9-1
-methods. The [AMQP 0-9-1 reference](https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/docs/amqp-0-9-1-reference.md) has full details of all the AMQP 0-9-1 methods (protocol operations).
+methods. The [AMQP 0-9-1 reference](https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/pdf/amqp-xml-doc0-9-1.pdf) has full details of all the AMQP 0-9-1 methods (protocol operations).
 
 Let us take a look at the _exchange_ class, a group
 of methods related to operations on exchanges. It includes
@@ -600,7 +600,8 @@ AMQP 0-9-1 has several extension points:
    can use. For example, [per-queue message TTL](/docs/ttl) in RabbitMQ is implemented this way.
  * Broker-specific extensions to the protocol. See, for example,
    [extensions that RabbitMQ implements](/docs/extensions).
- * [New AMQP 0-9-1 method classes](/amqp-0-9-1-quickref#class.confirm) can be introduced.
+ * Every now and then, new AMQP 0-9-1 method classes can be introduced for specific cases such
+   as [OAuth 2](/docs/oauth2/) (JWT) token refresh.
  * Brokers can be extended with [additional plugins](/docs/plugins),
    for example, the [RabbitMQ management](/docs/management)
    frontend and HTTP API are implemented as a plugin.

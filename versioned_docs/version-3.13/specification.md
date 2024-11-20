@@ -6,15 +6,17 @@ displayed_sidebar: docsSidebar
     <div class="docSection">
         <a name="spec" class="anchor" id="spec"></a>
         <p>
-            RabbitMQ implements version 0-9-1 of the AMQP specification in the core, with a number of [extensions](./extensions) to the specification. RabbitMQ 3.13.x and earlier versions implement AMQP 1.0 via a [plugin](./plugins) that needs to be enabled.
+            RabbitMQ core broker implements the AMQP 1.0 specification and AMQP 0-9-1 specification with a number of [AMQP 0-9-1 extensions](./extensions).
         </p>
         <p>
-            AMQP 1.0 is a completely different protocol from AMQP 0-9-1 and the two use different sets of client libraries. RabbitMQ will continue to support AMQP 0-9-1 indefinitely while the work on RabbitMQ's AMQP 1.0 implementation continues
+            AMQP 1.0 is a completely different protocol from AMQP 0-9-1 and the two use different sets of client libraries.
+            RabbitMQ will continue to support AMQP 0-9-1 indefinitely while the work on the AMQP 1.0 implementation continues
             in parallel.
         </p>
         <p>
-            The 0-9-1 (with and without extensions) specifications are linked to below for your convenience. We recommend reading them if you want to learn more about AMQP 0-9-1. Please see our
-            [AMQP 0-9-1 Overview guide](/tutorials/amqp-concepts), [AMQP 0-9-1 Reference guide](/amqp-0-9-1-reference), and the rest of [documentation](./index.md) for more information.
+            The 0-9-1 (with and without extensions) specifications are linked to below for your convenience. To learn more about AMQP 0-9-1, please see
+            [AMQP 0-9-1 Overview guide](/tutorials/amqp-concepts), [AMQP 0-9-1 specification PDF](https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/pdf/amqp0-9-1.pdf),
+            [AMQP 0-9-1 Reference PDF](https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/pdf/amqp-xml-doc0-9-1.pdf), and the rest of [documentation](./index.md) for more information.
         </p>
     </div>
 
@@ -29,92 +31,28 @@ displayed_sidebar: docsSidebar
                     <th>Machine-Readable Spec (XML)</th>
                 </tr>
                 <tr>
+                    <td>AMQP 1.0</td>
+                    <td>
+                        <a href="https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-complete-v1.0-os.pdf">Specification</a>
+                    </td>
+                    <td>
+                        <a href="https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-overview-v1.0-os.xml">Full</a>
+                    </td>
+                </tr>
+                <tr>
                     <td>AMQP 0-9-1 plus RabbitMQ extensions</td>
-                    <td></td>
                     <td>
-                        <a href="/resources/specs/amqp0-9-1.extended.xml">Full</a> |
-                        <a href="/resources/specs/amqp0-9-1.stripped.extended.xml">BSD-licensed</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>AMQP 0-9-1</td>
-                    <td>
-                        <a href="/resources/specs/amqp0-9-1.pdf">Specification</a> |
+                        <a href="https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/pdf/amqp0-9-1.pdf">Specification</a> |
                         <a href="./amqp-0-9-1-errata">Errata document</a>
-                        <a href="/resources/specs/amqp-xml-doc0-9-1.pdf">Generated Doc</a>
+                        <a href="https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/pdf/amqp-xml-doc0-9-1.pdf">Generated Reference</a>
                     </td>
                     <td>
-                        <a href="/resources/specs/amqp0-9-1.xml">Full</a> |
-                        <a href="/resources/specs/amqp0-9-1.stripped.xml">BSD-licensed</a>
+                        <a href="https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/xml/amqp0-9-1.extended.xml">Full Reference</a> |
+                        <a href="https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/xml/amqp0-9-1.stripped.extended.xml">BSD-licensed XML</a>
                     </td>
                 </tr>
             </tbody>
         </table>
-
-        <h2 class="docHeading"><a class="anchor" href="#release-version-mapping">Specification Versions Supported</a></h2>
-        <p>
-            The following table describes the version of the AMQP protocol specification implemented by RabbitMQ release 2.0.0 and later:
-        </p>
-
-        <table class="styled-table">
-            <tbody>
-                <tr>
-                    <th>Component</th>
-                    <th>Implements AMQP protocol version</th>
-                </tr>
-                <tr>
-                    <td>Server</td>
-                    <td>0-9-1</td>
-                </tr>
-                <tr>
-                    <td>Java client</td>
-                    <td>0-9-1</td>
-                </tr>
-                <tr>
-                    <td>.NET/C# client</td>
-                    <td>0-9-1</td>
-                </tr>
-                <tr>
-                    <td>Erlang client</td>
-                    <td>0-9-1</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="docSection">
-        <a name="ver-diffs" class="anchor" id="ver-diffs"></a>
-        <h2 class="docHeading"><a class="anchor" href="#ver-diffs">Differences between versions</a></h2>
-        <p>Please see the <a href="/amqp-0-8-to-0-9-1">0-8 to 0-9-1 page</a>.</p>
-        <p>
-            AMQP 1.0 introduced significant changes to the spec compared to 0-9-1, and at least in RabbitMQ, considered to be a separate protocol, support for which is provided using a plugin.
-        </p>
-    </div>
-
-    <div class="docSection">
-        <a name="interop" class="anchor" id="interop"></a>
-        <h2 class="docHeading"><a class="anchor" href="#interop">Interoperability</a></h2>
-        <p>Please see the <a href="/client-libraries/interoperability">interoperability page</a>.</p>
-    </div>
-
-    <div class="docSection">
-        <a name="deprecated-classes" class="anchor" id="deprecated-classes"></a>
-        <h2 class="docHeading"><a class="anchor" href="#deprecated-classes">Deprecated classes</a></h2>
-        <p>
-            The following classes were deprecated in version 0-9-1. RabbitMQ does not implement these classes at all, including when the broker is connected to a version 0-8 client, or when the .NET client is configured to use 0-8.
-        </p>
-        <ul>
-            <li>access</li>
-            <li>dtx</li>
-            <li>file</li>
-            <li>stream</li>
-            <li>test</li>
-            <li>tunnel</li>
-        </ul>
-        <p></p>
-        <p>
-            See also the detailed specification compatibility tables below.
-        </p>
     </div>
 
     <div class="docSection">
@@ -2592,64 +2530,25 @@ displayed_sidebar: docsSidebar
     </div>
 
     <div class="docSection">
-        <a name="rules-08" class="anchor" id="rules-08"></a>
-        <h2 class="docHeading"><a class="anchor" href="#rules-08">Rules from the AMQP specification, version 0-8</a></h2>
+        <a name="deprecated-classes" class="anchor" id="deprecated-classes"></a>
+        <h2 class="docHeading"><a class="anchor" href="#deprecated-classes">Deprecated classes</a></h2>
         <p>
-            The rules listed below relate to features supported by RabbitMQ that have been deprecated.
+            The following classes were deprecated in version 0-9-1. RabbitMQ does not implement these classes at all, including when the broker is connected to a version 0-8 client, or when the .NET client is configured to use 0-8.
         </p>
-        <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
-            <tbody>
-                <tr>
-                    <th>Current Status</th>
-                    <th>Type</th>
-                    <th>Actor</th>
-                    <th>Reference</th>
-                    <th>Text</th>
-                </tr>
-                <tr>
-                    <td class="statusCell status_ok">doesn't</td>
-                    <td>
-                        SHOULD
-                    </td>
-                    <td>
-                        client
-                    </td>
-                    <td></td>
-                    <td>
-                        <div>
-                            method/connection/redirect: When getting the Connection.Redirect method, the client SHOULD reconnect to the host specified, and if that host is not present, to any of the hosts specified in the known-hosts list.
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="statusCell status_ok">doesn't</td>
-                    <td>
-                        SHOULD
-                    </td>
-                    <td>
-                        client
-                    </td>
-                    <td></td>
-                    <td>
-                        <div>
-                            method/connection/redirect: When getting the Connection.Redirect method, the client SHOULD reconnect to the host specified, and if that host is not present, to any of the hosts specified in the known-hosts list.
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="statusCell status_ok">does</td>
-                    <td>
-                        MAY
-                    </td>
-                    <td>
-                        server
-                    </td>
-                    <td></td>
-                    <td><div>domain/known hosts: The server MAY leave this field empty if it knows of no other hosts than itself.</div></td>
-                </tr>
-            </tbody>
-        </table>
+        <ul>
+            <li>access</li>
+            <li>dtx</li>
+            <li>file</li>
+            <li>stream</li>
+            <li>test</li>
+            <li>tunnel</li>
+        </ul>
+        <p></p>
+        <p>
+            See also the detailed specification compatibility tables below.
+        </p>
     </div>
+
     <div id="help-and-feedback">
         <h2>Getting Help and Providing Feedback</h2>
         <p>
