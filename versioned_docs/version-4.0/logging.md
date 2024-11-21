@@ -853,7 +853,7 @@ The output of <code>journalctl --system</code> will look similar to this:
 
 ```
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 4.0.3. Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 4.0.4. Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log

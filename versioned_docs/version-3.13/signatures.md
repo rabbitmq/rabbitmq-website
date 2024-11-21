@@ -129,7 +129,7 @@ rpm --import https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabb
 
 To check signatures for the packages, download the RabbitMQ signing key
 and a signature file. Signature files use the `.asc` extension that follows their artifact filename,
-e.g. the signature file of `rabbitmq-server-generic-unix-3.9.3.tar.xz` would be `rabbitmq-server-generic-unix-3.9.3.tar.xz.asc`.
+e.g. the signature file of `rabbitmq-server-generic-unix-3.9.3.tar.xz` would be `rabbitmq-server-generic-unix-4.0.4.tar.xz.asc`.
 
 Then use `gpg --verify`:
 
