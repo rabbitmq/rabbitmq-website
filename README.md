@@ -28,7 +28,7 @@ following directories:
 * `docs` contains the docs of the future version of RabbitMQ, thus it is the
   work in progress. It is served at https://www.rabbitmq.com/docs/next.
 * `versioned_docs` contains one directory per version; for example,
-  `versioned_docs/version-3.13`. The latest version is served at
+  `versioned_docs/version-4.0`. The latest version is served at
   https://www.rabbitmq.com/docs. Older versions are served at
   `…/docs/$version`.
 
