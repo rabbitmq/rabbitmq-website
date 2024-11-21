@@ -42,8 +42,8 @@ $EDITOR docs/configure.md
 # Test the change in a browser.
 npm start
 
-# Once happy, apply to any version you see fit.
-cd versioned_docs/version-3.13
+# Once happy, apply to the relevant older release series
+cd versioned_docs/version-4.0
 git diff ../../docs | patch -p2
 
 # Test again in a browser.
@@ -54,8 +54,7 @@ git add docs versioned_docs
 git commit
 ```
 
-Please read the [documentation of Versioning in
-Docusaurus](https://docusaurus.io/docs/versioning) to learn more.
+Please read the [documentation of Versioning in Docusaurus](https://docusaurus.io/docs/versioning) to learn more.
 
 Older versions of the docs that we don’t want to host in Docusaurus to limit
 the number of versions are put in branches of the form `v3.13.x`, `v4.0.x`,
@@ -75,9 +74,11 @@ static website generator.
 
 #### Installation
 
-You need to install JS components used by Docusaurus first:
+You need to install JS components used by Docusaurus first with `yarn` or `npm`.
+The examples below use `npm`.
 
 ``` shell
+# for NPM users
 npm install
 ```
 

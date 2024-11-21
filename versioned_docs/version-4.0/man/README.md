@@ -2,8 +2,18 @@
 
 ## Source Files
 
-These pages contain source files that reside in the [server repository](https://github.com/rabbitmq/rabbitmq-server/tree/master/docs).
+These pages contain source files that reside in the [server repository](https://github.com/rabbitmq/rabbitmq-server/tree/v4.0.x/docs).
 They are converted to HTML using `mandoc`:
+
+### With Make
+
+``` shell
+# from rabbitmq/rabbitmq-server
+gmake web-manpages
+ls -l deps/rabbit/docs/*
+```
+
+### With Bazel
 
 ``` shell
 # from rabbitmq/rabbitmq-server
