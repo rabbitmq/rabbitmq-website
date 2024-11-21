@@ -24,3 +24,5 @@ yarn-error.log*
 docs/man/*.html
 docs/man/*.8
 docs/man/*.sh
+
+yarn.lock
