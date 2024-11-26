@@ -52,6 +52,7 @@ Client libraries for the stream protocol are available on several platforms.
 * [RabbitMQ Erlang Stream Client (lake)](https://gitlab.com/evnu/lake)
 * [RabbitMQ Elixir Stream Client ](https://github.com/VictorGaiva/rabbitmq-stream)
 * [RabbitMQ C Stream Client ](https://github.com/GianfrancoGGL/rabbitmq-stream-c-client)
+* [RabbitMQ C++ Stream Client](https://github.com/coveooss/hareflow)
 
 Use [Stream PerfTest](https://github.com/rabbitmq/rabbitmq-stream-perf-test) to simulate workloads and measure the performance of your RabbitMQ stream system.
 
