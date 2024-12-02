@@ -434,14 +434,6 @@ compared to their previous values and historical mean/percentile values.
       <td><code>io_file_handle_open_attempt_count</code></td>
     </tr>
     <tr>
-      <td>Sockets available</td>
-      <td><code>sockets_total</code></td>
-    </tr>
-    <tr>
-      <td>Sockets used</td>
-      <td><code>sockets_used</code></td>
-    </tr>
-    <tr>
       <td>Inter-node communication links</td>
       <td>cluster_links</td>
     </tr>
