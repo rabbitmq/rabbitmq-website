@@ -55,7 +55,7 @@ Packet Details then indicate all arguments of the frame. It
 also includes dynamically calculated values enclosed in square
 brackets. This is explained in next section.
 
-<img src="wireshark-main-window.png" alt="Main window" title="Main window" />
+<img src="/img/wireshark-main-window.png" alt="Main window" title="Main window" />
 
 
 ## Links Between Related Frames {#linking}
@@ -82,7 +82,7 @@ You may display summary of significant frames in a dedicated
 dialog. Go to Analyze > Expert Information and possibly apply
 the display filter:
 
-<img src="wireshark-expert-info.png" alt="More Metrics" title="Metrics" />
+<img src="/img/wireshark-expert-info.png" alt="More Metrics" title="Metrics" />
 
 ## Inspecting Traffic on TLS-enabled Connections {#inspecting-tls-connections}
 
