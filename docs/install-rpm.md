@@ -128,7 +128,6 @@ However, when installing a local RPM file via `yum` dependencies must be install
 manually. The dependencies are:
 
  * `erlang`: a [supported version of Erlang](./which-erlang) can be installed from a number of [repositories](#install-erlang)
- * `socat`
  * `logrotate`
 
 
@@ -435,7 +434,7 @@ Next install dependencies from the standard repositories:
 
 ```bash
 ## install these dependencies from standard OS repositories
-dnf install -y socat logrotate
+dnf install -y logrotate
 ```
 
 Finally, install modern Erlang and RabbitMQ:
@@ -463,7 +462,7 @@ After [downloading](#downloads) the server package, issue the following command 
 {`rpm --import https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc
 
 ## install these dependencies from standard OS repositories
-dnf install -y socat logrotate
+dnf install -y logrotate
 
 # The RabbitMQ RPM package is suitable for both RHEL 9 (modern) and RHEL 8-based (older) distributions
 dnf install -y ${RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}`}
@@ -475,7 +474,7 @@ dnf install -y ${RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}`}
 {`rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
 
 ## install these dependencies from standard OS repositories
-dnf install -y socat logrotate
+dnf install -y logrotate
 
 # The RabbitMQ RPM package is suitable for both RHEL 9 (modern) and RHEL 8-based (older) distributions
 dnf install -y ${RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}`}

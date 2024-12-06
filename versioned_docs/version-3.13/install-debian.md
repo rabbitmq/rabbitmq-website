@@ -703,7 +703,7 @@ Here's an example that does that, installs `wget`, downloads the RabbitMQ packag
 {`# sync package metadata
 sudo apt-get update
 # install dependencies manually
-sudo apt-get -y install socat logrotate init-system-helpers adduser
+sudo apt-get -y install logrotate init-system-helpers adduser
 
 # download the package
 sudo apt-get -y install wget
