@@ -39,8 +39,8 @@ of exchanges and queues:
 
 ## Overview {#overview}
 
-The high-level goal of the Federation plugin is to transmit messages between brokers without
-requiring clustering. This is useful for a number of reasons.
+The high-level goal of the Federation plugin is to replicate or move messages between brokers that have
+the plugin enabled but do not belong to the same cluster. This is useful for a number of reasons.
 
 ### Loose Coupling of Nodes or Clusters
 

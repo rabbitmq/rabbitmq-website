@@ -43,9 +43,21 @@ that focuses on peer discovery and cluster formation automation-related topics. 
 
 [VMware Tanzu RabbitMQ](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/index.html) provides an [Intra-cluster Compression](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/3.13/tanzu-rabbitmq-kubernetes/clustering-compression-rabbitmq.html) feature.
 
-A RabbitMQ cluster is a logical grouping of one or
-several nodes, each  sharing users, virtual hosts,
-queues, exchanges, bindings, runtime parameters and other distributed state.
+
+## What is a Cluster?
+
+A RabbitMQ cluster is a logical grouping of one or more (three, five, seven, or more) nodes,
+each sharing users, virtual hosts, queues, streams, exchanges, bindings, runtime parameters and other distributed state.
+
+For a cluster to be formed, nodes must be configured in a certain way and satisfy
+a number of [requirements](#cluster-formation-requirements) such as open port access.
+
+After cluster formation, all nodes in a cluster are aware of other cluster members.
+
+Client applications can be aware or not be aware of the fact that there are multiple cluster nodes,
+and connect to any of them, or, depending on the protocol used, a subset of them. For example,
+RabbitMQ Stream Protocol clients [can connect to multiple nodes at once](https://www.rabbitmq.com/blog/2021/07/23/connecting-to-streams).
+This is covered in more details [later in this guide](#clustering-and-clients).
 
 
 ## Cluster Formation {#cluster-formation}
@@ -61,7 +73,7 @@ A RabbitMQ cluster can be formed in a number of ways:
  * Declaratively using [etcd-based discovery](https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd) (via a plugin)
  * Manually with `rabbitmqctl`
 
-Please refer to the [Cluster Formation guide](./cluster-formation) for details.
+These mechanisms are covered in more details in the [Cluster Formation guide](./cluster-formation).
 
 The composition of a cluster can be altered dynamically.
 All RabbitMQ brokers start out as running on a single
@@ -133,7 +145,7 @@ To use FQDNs, see `RABBITMQ_USE_LONGNAME` in the [Configuration guide](./configu
 See [Node Names](#node-names) above.
 
 
-## Port Access {#ports}
+## Ports That Must Be Opened for Clustering and Replication {#ports}
 
 RabbitMQ nodes [bind to ports](./networking#ports) (open server TCP sockets) in order to accept client and CLI tool connections.
 Other processes and tools such as SELinux may prevent RabbitMQ from binding to a port. When that happens,
