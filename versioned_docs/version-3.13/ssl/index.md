@@ -1300,6 +1300,20 @@ SSL-Session:
 
 ### TLSv1.3 {#tls1.3}
 
+:::important
+
+TLS 1.3 is a major revision of the suite of standards collectively known as "TLS".
+It intentionally breaks backwards compatibility with all earlier versions.
+
+While modern versions of most popular programming languages and runtimes have supports TLS 1.3 for a few years now, adopting of this
+version requires planning and should be treated as a change that will affect
+applications that use TLS.
+
+If some applications or their runtimes cannot be easily upgraded to use this new version,
+TLS 1.3 adoption on the RabbitMQ side might be a non-starter.
+
+:::
+
 [TLSv1.3](https://wiki.openssl.org/index.php/TLS1.3) is a major revision to the TLS protocol. It is the most recent
 and secure option. Prior to [RabbitMQ `3.8.11`](/release-information), TLSv1.3 support was considered
 experimental and was disabled.
