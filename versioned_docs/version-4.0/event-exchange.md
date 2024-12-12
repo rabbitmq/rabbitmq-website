@@ -63,6 +63,29 @@ translated into AMQP 0-9-1 data encoding and inserted in the message headers. Th
 **message body is always blank**.
 
 
+## Usage Guidelines
+
+:::important
+
+In most cases, setting a [max length limit](./maxlength) of a few thousand on the queues
+used to consume these events would prevent unnecessary resource use.
+
+:::
+
+The event exchange plugin is typically used for audit of internal events. An application
+can bind a queue, a stream, or a set of queues (or streams) to this exchange
+and store a history of generated events.
+Therefore, this special exchange can be considered a form of a structured log.
+
+A surge in the number of inbound connections, connection churn, channel churn, or queue churn
+will produce a large number of events. In environments where consumers
+on the internal event queue can be absent for long periods of time,
+the queue can accumulate a substantial backlog.
+
+In most cases, setting a [max length limit](./maxlength) of a few thousand on the queues
+used to consume these events would prevent unnecessary resource use.
+
+
 ## Events
 
 RabbitMQ and related plugins produce events with the following routing keys:
