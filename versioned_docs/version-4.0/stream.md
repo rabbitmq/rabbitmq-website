@@ -37,10 +37,13 @@ This page covers the Stream plugin, which allows to interact with streams using 
 For an overview of the concepts and the ways to operate streams, please see the
 [guide on RabbitMQ streams](./streams).
 
-Client libraries for the stream protocol are available on several platforms.
 
-*Note:* items with a check mark (&#x2713;) are officially supported by the RabbitMQ Team at VMware.
+:::info
 
+Client libraries for the RabbitMQ stream protocol are available for several popular platforms.
+Some of them are listed below. Those marked with a check mark (&#x2713;) are officially supported by the RabbitMQ Core Team
+
+:::
 
 * [&#x2713; RabbitMQ Java Stream Client](https://github.com/rabbitmq/rabbitmq-stream-java-client)
 * [&#x2713; RabbitMQ Golang Stream Client](https://github.com/rabbitmq/rabbitmq-stream-go-client)
@@ -49,9 +52,10 @@ Client libraries for the stream protocol are available on several platforms.
 * [&#x2713; RabbitMQ Python Stream Client (rstream)](https://pypi.org/project/rstream/)
 * [RabbitMQ Python Stream Client (rbfly)](https://gitlab.com/wrobell/rbfly)
 * [RabbitMQ NodeJS Stream Client](https://github.com/coders51/rabbitmq-stream-js-client)
-* [RabbitMQ Erlang Stream Client (lake)](https://gitlab.com/evnu/lake)
-* [RabbitMQ Elixir Stream Client ](https://github.com/VictorGaiva/rabbitmq-stream)
+* [RabbitMQ C++ Stream Client](https://github.com/coveooss/hareflow)
 * [RabbitMQ C Stream Client ](https://github.com/GianfrancoGGL/rabbitmq-stream-c-client)
+* [RabbitMQ Elixir Stream Client ](https://github.com/VictorGaiva/rabbitmq-stream)
+* [RabbitMQ Erlang Stream Client (lake)](https://gitlab.com/evnu/lake)
 
 Use [Stream PerfTest](https://github.com/rabbitmq/rabbitmq-stream-perf-test) to simulate workloads and measure the performance of your RabbitMQ stream system.
 
