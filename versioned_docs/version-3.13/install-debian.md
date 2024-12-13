@@ -154,6 +154,8 @@ and <a href="#apt-cloudsmith-erlang">on Cloudsmith.io</a>.
 
 Below is a shell snippet that performs those steps.
 
+Note: by default, the snippet installs the latest version of Erlang available in the apt repository. If you face vesion conflicts, note the section on [package pinning](#apt-pinning).
+
 <Tabs groupId="distribution-specific">
 <TabItem value="ubuntu-noble" label="Ubuntu 24.04" default>
 ```bash
