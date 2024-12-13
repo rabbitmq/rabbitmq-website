@@ -193,11 +193,28 @@ EOF
 sudo apt-get update -y
 
 ## Install Erlang packages
-sudo apt-get install -y erlang-base \
-                        erlang-asn1 erlang-crypto erlang-eldap erlang-ftp erlang-inets \
-                        erlang-mnesia erlang-os-mon erlang-parsetools erlang-public-key \
-                        erlang-runtime-tools erlang-snmp erlang-ssl \
-                        erlang-syntax-tools erlang-tftp erlang-tools erlang-xmerl
+##
+## For versions not compatible with the latest available Erlang series, which is the case
+## for 3.13.x, apt must be instructed to install specifically Erlang 26.
+## Alternatively this can be done via version pinning, documented further in this guide.
+supported_erlang_version="1:26.2.5.6-1"
+sudo apt-get install -y erlang-base=$supported_erlang_version \
+                        erlang-asn1=$supported_erlang_version \
+                        erlang-crypto=$supported_erlang_version \
+                        erlang-eldap=$supported_erlang_version \
+                        erlang-ftp=$supported_erlang_version \
+                        erlang-inets=$supported_erlang_version \
+                        erlang-mnesia=$supported_erlang_version \
+                        erlang-os-mon=$supported_erlang_version \
+                        erlang-parsetools=$supported_erlang_version \
+                        erlang-public-key=$supported_erlang_version \
+                        erlang-runtime-tools=$supported_erlang_version \
+                        erlang-snmp=$supported_erlang_version \
+                        erlang-ssl=$supported_erlang_version \
+                        erlang-syntax-tools=$supported_erlang_version \
+                        erlang-tftp=$supported_erlang_version \
+                        erlang-tools=$supported_erlang_version \
+                        erlang-xmerl=$supported_erlang_version
 
 ## Install rabbitmq-server and its dependencies
 sudo apt-get install rabbitmq-server -y --fix-missing
@@ -242,11 +259,28 @@ EOF
 sudo apt-get update -y
 
 ## Install Erlang packages
-sudo apt-get install -y erlang-base \
-                        erlang-asn1 erlang-crypto erlang-eldap erlang-ftp erlang-inets \
-                        erlang-mnesia erlang-os-mon erlang-parsetools erlang-public-key \
-                        erlang-runtime-tools erlang-snmp erlang-ssl \
-                        erlang-syntax-tools erlang-tftp erlang-tools erlang-xmerl
+##
+## For versions not compatible with the latest available Erlang series, which is the case
+## for 3.13.x, apt must be instructed to install specifically Erlang 26.
+## Alternatively this can be done via version pinning, documented further in this guide.
+supported_erlang_version="1:26.2.5.6-1"
+sudo apt-get install -y erlang-base=$supported_erlang_version \
+                        erlang-asn1=$supported_erlang_version \
+                        erlang-crypto=$supported_erlang_version \
+                        erlang-eldap=$supported_erlang_version \
+                        erlang-ftp=$supported_erlang_version \
+                        erlang-inets=$supported_erlang_version \
+                        erlang-mnesia=$supported_erlang_version \
+                        erlang-os-mon=$supported_erlang_version \
+                        erlang-parsetools=$supported_erlang_version \
+                        erlang-public-key=$supported_erlang_version \
+                        erlang-runtime-tools=$supported_erlang_version \
+                        erlang-snmp=$supported_erlang_version \
+                        erlang-ssl=$supported_erlang_version \
+                        erlang-syntax-tools=$supported_erlang_version \
+                        erlang-tftp=$supported_erlang_version \
+                        erlang-tools=$supported_erlang_version \
+                        erlang-xmerl=$supported_erlang_version
 
 ## Install rabbitmq-server and its dependencies
 sudo apt-get install rabbitmq-server -y --fix-missing
@@ -291,11 +325,28 @@ EOF
 sudo apt-get update -y
 
 ## Install Erlang packages
-sudo apt-get install -y erlang-base \
-                        erlang-asn1 erlang-crypto erlang-eldap erlang-ftp erlang-inets \
-                        erlang-mnesia erlang-os-mon erlang-parsetools erlang-public-key \
-                        erlang-runtime-tools erlang-snmp erlang-ssl \
-                        erlang-syntax-tools erlang-tftp erlang-tools erlang-xmerl
+##
+## For versions not compatible with the latest available Erlang series, which is the case
+## for 3.13.x, apt must be instructed to install specifically Erlang 26.
+## Alternatively this can be done via version pinning, documented further in this guide.
+supported_erlang_version="1:26.2.5.6-1"
+sudo apt-get install -y erlang-base=$supported_erlang_version \
+                        erlang-asn1=$supported_erlang_version \
+                        erlang-crypto=$supported_erlang_version \
+                        erlang-eldap=$supported_erlang_version \
+                        erlang-ftp=$supported_erlang_version \
+                        erlang-inets=$supported_erlang_version \
+                        erlang-mnesia=$supported_erlang_version \
+                        erlang-os-mon=$supported_erlang_version \
+                        erlang-parsetools=$supported_erlang_version \
+                        erlang-public-key=$supported_erlang_version \
+                        erlang-runtime-tools=$supported_erlang_version \
+                        erlang-snmp=$supported_erlang_version \
+                        erlang-ssl=$supported_erlang_version \
+                        erlang-syntax-tools=$supported_erlang_version \
+                        erlang-tftp=$supported_erlang_version \
+                        erlang-tools=$supported_erlang_version \
+                        erlang-xmerl=$supported_erlang_version
 
 ## Install rabbitmq-server and its dependencies
 sudo apt-get install rabbitmq-server -y --fix-missing
@@ -340,11 +391,28 @@ EOF
 sudo apt-get update -y
 
 ## Install Erlang packages
-sudo apt-get install -y erlang-base \
-                        erlang-asn1 erlang-crypto erlang-eldap erlang-ftp erlang-inets \
-                        erlang-mnesia erlang-os-mon erlang-parsetools erlang-public-key \
-                        erlang-runtime-tools erlang-snmp erlang-ssl \
-                        erlang-syntax-tools erlang-tftp erlang-tools erlang-xmerl
+##
+## For versions not compatible with the latest available Erlang series, which is the case
+## for 3.13.x, apt must be instructed to install specifically Erlang 26.
+## Alternatively this can be done via version pinning, documented further in this guide.
+supported_erlang_version="1:26.2.5.6-1"
+sudo apt-get install -y erlang-base=$supported_erlang_version \
+                        erlang-asn1=$supported_erlang_version \
+                        erlang-crypto=$supported_erlang_version \
+                        erlang-eldap=$supported_erlang_version \
+                        erlang-ftp=$supported_erlang_version \
+                        erlang-inets=$supported_erlang_version \
+                        erlang-mnesia=$supported_erlang_version \
+                        erlang-os-mon=$supported_erlang_version \
+                        erlang-parsetools=$supported_erlang_version \
+                        erlang-public-key=$supported_erlang_version \
+                        erlang-runtime-tools=$supported_erlang_version \
+                        erlang-snmp=$supported_erlang_version \
+                        erlang-ssl=$supported_erlang_version \
+                        erlang-syntax-tools=$supported_erlang_version \
+                        erlang-tftp=$supported_erlang_version \
+                        erlang-tools=$supported_erlang_version \
+                        erlang-xmerl=$supported_erlang_version
 
 ## Install rabbitmq-server and its dependencies
 sudo apt-get install rabbitmq-server -y --fix-missing
@@ -389,11 +457,28 @@ EOF
 sudo apt-get update -y
 
 ## Install Erlang packages
-sudo apt-get install -y erlang-base \
-                        erlang-asn1 erlang-crypto erlang-eldap erlang-ftp erlang-inets \
-                        erlang-mnesia erlang-os-mon erlang-parsetools erlang-public-key \
-                        erlang-runtime-tools erlang-snmp erlang-ssl \
-                        erlang-syntax-tools erlang-tftp erlang-tools erlang-xmerl
+##
+## For versions not compatible with the latest available Erlang series, which is the case
+## for 3.13.x, apt must be instructed to install specifically Erlang 26.
+## Alternatively this can be done via version pinning, documented further in this guide.
+supported_erlang_version="1:26.2.5.6-1"
+sudo apt-get install -y erlang-base=$supported_erlang_version \
+                        erlang-asn1=$supported_erlang_version \
+                        erlang-crypto=$supported_erlang_version \
+                        erlang-eldap=$supported_erlang_version \
+                        erlang-ftp=$supported_erlang_version \
+                        erlang-inets=$supported_erlang_version \
+                        erlang-mnesia=$supported_erlang_version \
+                        erlang-os-mon=$supported_erlang_version \
+                        erlang-parsetools=$supported_erlang_version \
+                        erlang-public-key=$supported_erlang_version \
+                        erlang-runtime-tools=$supported_erlang_version \
+                        erlang-snmp=$supported_erlang_version \
+                        erlang-ssl=$supported_erlang_version \
+                        erlang-syntax-tools=$supported_erlang_version \
+                        erlang-tftp=$supported_erlang_version \
+                        erlang-tools=$supported_erlang_version \
+                        erlang-xmerl=$supported_erlang_version
 
 ## Install rabbitmq-server and its dependencies
 sudo apt-get install rabbitmq-server -y --fix-missing
@@ -603,11 +688,28 @@ Then install the package with
 
 ```bash
 ## Install Erlang packages
-sudo apt-get install -y erlang-base \
-                        erlang-asn1 erlang-crypto erlang-eldap erlang-ftp erlang-inets \
-                        erlang-mnesia erlang-os-mon erlang-parsetools erlang-public-key \
-                        erlang-runtime-tools erlang-snmp erlang-ssl \
-                        erlang-syntax-tools erlang-tftp erlang-tools erlang-xmerl
+##
+## For versions not compatible with the latest available Erlang series, which is the case
+## for 3.13.x, apt must be instructed to install specifically Erlang 26.
+## Alternatively this can be done via version pinning, documented further in this guide.
+supported_erlang_version="1:26.2.5.6-1"
+sudo apt-get install -y erlang-base=$supported_erlang_version \
+                        erlang-asn1=$supported_erlang_version \
+                        erlang-crypto=$supported_erlang_version \
+                        erlang-eldap=$supported_erlang_version \
+                        erlang-ftp=$supported_erlang_version \
+                        erlang-inets=$supported_erlang_version \
+                        erlang-mnesia=$supported_erlang_version \
+                        erlang-os-mon=$supported_erlang_version \
+                        erlang-parsetools=$supported_erlang_version \
+                        erlang-public-key=$supported_erlang_version \
+                        erlang-runtime-tools=$supported_erlang_version \
+                        erlang-snmp=$supported_erlang_version \
+                        erlang-ssl=$supported_erlang_version \
+                        erlang-syntax-tools=$supported_erlang_version \
+                        erlang-tftp=$supported_erlang_version \
+                        erlang-tools=$supported_erlang_version \
+                        erlang-xmerl=$supported_erlang_version
 
 ## Install rabbitmq-server and its dependencies
 sudo apt-get install rabbitmq-server -y --fix-missing
@@ -666,7 +768,7 @@ The following preference file example will pin all `erlang-*` packages to 25.3
 ```ini
 # /etc/apt/preferences.d/erlang
 Package: erlang*
-Pin: version 1:26.2.5.2-1
+Pin: version 1:26.2.5.6-1
 # Note: priority of 1001 (greater than 1000) allows for downgrading.
 # To make package downgrading impossible, use a value of 999
 Pin-Priority: 1001

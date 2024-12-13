@@ -666,7 +666,7 @@ The following preference file example will pin all `erlang-*` packages to 25.3
 ```ini
 # /etc/apt/preferences.d/erlang
 Package: erlang*
-Pin: version 1:26.2.5.2-1
+Pin: version 1:26.2.5.6-1
 # Note: priority of 1001 (greater than 1000) allows for downgrading.
 # To make package downgrading impossible, use a value of 999
 Pin-Priority: 1001
