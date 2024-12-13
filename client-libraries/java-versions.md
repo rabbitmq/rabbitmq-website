@@ -43,7 +43,7 @@ maintained by the RabbitMQ team.
     <td><a href="https://github.com/rabbitmq/rabbitmq-stream-java-client" target="_blank" rel="noopener noreferrer">Stream Java Client</a> 0.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8, 11, 17, 21, 23, 24 (EA)</td>
+    <td>11, 17, 21, 23, 24 (EA)</td>
   </tr>
 
   <tr>
