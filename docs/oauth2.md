@@ -159,7 +159,7 @@ In chronological order, here is the sequence of events that occur when a client 
 | `auth_oauth2.https.fail_if_no_peer_cert`   | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`.
 | `auth_oauth2.https.hostname_verification`  | Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`.
 | `auth_oauth2.https.crl_check`              | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false.
-| `auth_oauth2.proxy`                        | Configures explicit forward proxy server used to connect to the issuer.
+| `auth_oauth2.proxy`                        | Configures explicit [forward proxy](#forward-proxy) server used to connect to the issuer.
 | `auth_oauth2.proxy.host`                   | Proxy's hostname
 | `auth_oauth2.proxy.port`                   | Proxy's port (HTTP)
 | `auth_oauth2.proxy.username`               | Username if required to authenticate with proxy server.
@@ -356,7 +356,7 @@ Each `auth_oauth2.oauth_providers.{id/index}` entry has the following sub-keys.
 | `https.fail_if_no_peer_cert` | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`.
 | `https.hostname_verification`| Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`.
 | `https.crl_check`            | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false.
-| `proxy`                      | Configures the explicit forward proxy server used to connect to the issuer.
+| `proxy`                      | Configures the explicit [forward proxy ](#forward-proxy) server used to connect to the issuer.
 | `proxy.host`                 | Proxy's Hostname  
 | `proxy.port`                 | Proxy's Port (HTTP)
 | `proxy.username`             | Username if required to authenticate with proxy server.
