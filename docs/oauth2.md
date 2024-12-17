@@ -159,9 +159,11 @@ In chronological order, here is the sequence of events that occur when a client 
 | `auth_oauth2.https.fail_if_no_peer_cert`   | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`.
 | `auth_oauth2.https.hostname_verification`  | Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`.
 | `auth_oauth2.https.crl_check`              | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false.
-| `auth_oauth2.proxy`                        | URL of explicit forward proxy server used to connect to the issuer.
-| `auth_oauth2.proxy_username`               | Username used to authenticate with proxy server.
-| `auth_oauth2.proxy_password`               | Password used to authenticate with proxy server.
+| `auth_oauth2.proxy`                        | Configures explicit forward proxy server used to connect to the issuer.
+| `auth_oauth2.proxy.host`                   | Proxy's hostname
+| `auth_oauth2.proxy.port`                   | Proxy's port (HTTP)
+| `auth_oauth2.proxy.username`               | Username if required to authenticate with proxy server.
+| `auth_oauth2.proxy.password`               | Password if required to authenticate with proxy server.
 | `auth_oauth2.algorithms`                   | Restrict [the usable algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support).
 | `auth_oauth2.verify_aud`                   | Whether to verify the [token's `aud`](#token-validation) field or not. The default value is `true`.
 | `auth_oauth2.resource_servers`             | [Multiple OAuth 2.0 resources configuration](#multiple-resource-servers-configuration).
@@ -280,6 +282,33 @@ auth_oauth2.algorithms.1 = HS256
 auth_oauth2.algorithms.2 = RS256
 ```
 
+## Forward Proxy {#forward-proxy}
+
+This configuration is required when RabbitMQ has to go via an explicit forward proxy 
+in order to connect to the Authorization Server's endpoints. RabbitMQ uses the [HTTP Connect](https://en.wikipedia.org/wiki/HTTP_tunnel#HTTP_CONNECT_method) method to establish a 
+HTTP Tunnel with the forward proxy. 
+
+This table below summarizes the variables that configures the forward proxy. 
+
+| Key                                        | Documentation
+|--------------------------------------------|-----------
+| `auth_oauth2.proxy.host`                   | Proxy's hostname
+| `auth_oauth2.proxy.port`                   | Proxy's port (HTTP)
+| `auth_oauth2.proxy.username`               | Username if required to authenticate with proxy server.
+| `auth_oauth2.proxy.password`               | Password if required to authenticate with proxy server.
+
+
+This table below summarizes the variables that configures the forward proxy for 
+an OAuth provider declared under `auth_oauth2.oauth_providers` like `auth_oauth2.oauth_providers.{id/index}`.
+
+| Key                            | Documentation
+|--------------------------------|-----------
+| `proxy.host`                   | Proxy's hostname
+| `proxy.port`                   | Proxy's port (HTTP)
+| `proxy.username`               | Username if required to authenticate with proxy server.
+| `proxy.password`               | Password if required to authenticate with proxy server.
+
+
 
 ## Multiple Resource Servers Сonfiguration {#multiple-resource-servers-configuration}
 
@@ -325,8 +354,13 @@ Each `auth_oauth2.oauth_providers.{id/index}` entry has the following sub-keys.
 | `https.depth`                | The maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid [certification path](ssl#peer-verification-depth). The default value is 10.
 | `https.verify`               | Configures [peer verification](ssl#peer-verification). Available values: `verify_none`, `verify_peer`. The default value is `verify_peer` if there are trusted CA installed in the OS or `auth_oauth2.https.cacertfile` is set.
 | `https.fail_if_no_peer_cert` | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`.
-| `https.hostname_verification` | Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`.
-| `https.crl_check`              | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false.
+| `https.hostname_verification`| Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`.
+| `https.crl_check`            | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false.
+| `proxy`                      | Configures the explicit forward proxy server used to connect to the issuer.
+| `proxy.host`                 | Proxy's Hostname  
+| `proxy.port`                 | Proxy's Port (HTTP)
+| `proxy.username`             | Username if required to authenticate with proxy server.
+| `proxy_password`             | Password if required to authenticate with proxy server.
 | `signing_keys`               | Local filesystem paths to the [signing key files](#signing-key-files). The files must exist and be readable.
 | `default_key`                | ID of the default signing key.
 | `algorithms`                 | Used to restrict [the list of enabled algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support).
