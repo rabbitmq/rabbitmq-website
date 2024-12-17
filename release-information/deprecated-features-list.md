@@ -30,5 +30,5 @@ See the [Deprecated Features subsystem documentation](/docs/deprecated-features)
 | `global_qos` | [August&nbsp;2021](/blog/2021/08/21/4.0-deprecation-announcements) | | Use [per-consumer QoS](/docs/consumer-prefetch). |
 | `management_metrics_collection` | [August&nbsp;2021](/blog/2021/08/21/4.0-deprecation-announcements) | | Use the [Prometheus plugin](/docs/prometheus). |
 | `ram_node_type` | [August&nbsp;2021](/blog/2021/08/21/4.0-deprecation-announcements) | | Use disk nodes only. |
-| `transient_nonexcl_queues` | [August&nbsp;2021](/blog/2021/08/21/4.0-deprecation-announcements) | | Covers queues that are both non-durable and non-exclusive, this combination should be avoided. Use [durable queues or non-durable exclusive queues](https://www.rabbitmq.com/docs/queues). [Queue TTL](/docs/ttl#queue-ttl) can be used for cleanup of unused durable queues. |
+| `transient_nonexcl_queues` | [August&nbsp;2021](/blog/2021/08/21/4.0-deprecation-announcements) | | Covers queues that are both non-durable and non-exclusive, this combination should be avoided. Use [durable queues or non-durable exclusive queues](/docs/queues). [Queue TTL](/docs/ttl#queue-ttl) can be used for cleanup of unused durable queues. |
 
