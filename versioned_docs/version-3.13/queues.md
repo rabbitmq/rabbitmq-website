@@ -231,19 +231,13 @@ Only consumers on channels that have not exceeded their [prefetch value](./consu
 
 ## Durability {#durability}
 
-:::tip
-
-
-
-:::
-
 Queues can be durable or transient (non-durable). Metadata of a durable queue is stored on disk,
 while metadata of a transient queue is stored in memory when possible.
 The same distinction is made for [messages at publishing time](./publishers#message-properties)
 in some protocols, e.g. AMQP 0-9-1 and MQTT.
 
 In environments and use cases where durability is important, applications
-must use durable queues *and* make sure that publishers mark published messages as persisted.
+must use durable queues *and* make sure that [publishers](/docs/publishers) mark published messages as persisted.
 
 Transient queues will be deleted on node boot. They therefore will not survive a node restart,
 by design. Messages in transient queues will also be discarded.
