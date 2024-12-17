@@ -21,7 +21,9 @@ limitations under the License.
 
 # List of Deprecated Features
 
-| Deprecated&nbsp;feature | Deprecated&nbsp;since | Removed&nbsp;in | Notes |
+See the [Deprecated Features subsystem documentation](/docs/deprecated-features) to learn more about deprecated features.
+
+| [Deprecated&nbsp;feature](/docs/deprecated-features) | Deprecated&nbsp;since | Removed&nbsp;in | Notes |
 |--------------------|---------------|------------|-------|
 | [`amqp_address_v1`](/docs/amqp#address-v1) | RabbitMQ 4.0 | | Use [AMQP address v2](/docs/amqp#address-v2). |
 | [`classic_queue_mirroring`](/docs/3.13/ha) | [August&nbsp;2021](/blog/2021/08/21/4.0-deprecation-announcements) | RabbitMQ&nbsp;4.0 | Use [quorum queues](/docs/quorum-queues) and/or [streams](/docs/streams) for data that needs replication. |
@@ -30,4 +32,3 @@ limitations under the License.
 | `ram_node_type` | [August&nbsp;2021](/blog/2021/08/21/4.0-deprecation-announcements) | | Use disk nodes only. |
 | `transient_nonexcl_queues` | [August&nbsp;2021](/blog/2021/08/21/4.0-deprecation-announcements) | | Covers queues that are both non-durable and non-exclusive, this combination should be avoided. Use [durable queues or non-durable exclusive queues](https://www.rabbitmq.com/docs/queues). [Queue TTL](/docs/ttl#queue-ttl) can be used for cleanup of unused durable queues. |
 
-See the [Deprecated Features subsystem documentation](/docs/deprecated-features) to learn how deprecated features are managed.

@@ -231,7 +231,13 @@ Only consumers on channels that have not exceeded their [prefetch value](./consu
 
 ## Durability {#durability}
 
-Queues can be durable or transient. Metadata of a durable queue is stored on disk,
+:::tip
+
+
+
+:::
+
+Queues can be durable or transient (non-durable). Metadata of a durable queue is stored on disk,
 while metadata of a transient queue is stored in memory when possible.
 The same distinction is made for [messages at publishing time](./publishers#message-properties)
 in some protocols, e.g. AMQP 0-9-1 and MQTT.
@@ -274,6 +280,10 @@ delete the queues they declare before disconnection, this is not always convenie
 On top of that, client connections can fail, potentially leaving unused
 resources (queues) behind.
 
+RabbitMQ supports a number of queue properties that make sense for the data that is
+transient or client-specific in nature. Some of these settings can be applied to
+durable qeueus but not every combination makes sense.
+
 :::tip
 Consider using [server-generated names](#names) for temporary queues. Since such queues
 are not meant to be shared between N consumers, using unique names makes sense.
@@ -293,14 +303,29 @@ is cancelled (e.g. using the <code>basic.cancel</code> in AMQP 0-9-1)
 or gone (closed channel or connection, or lost TCP connection with the server).
 
 If a queue never had any consumers, for instance, when all consumption happens
-using the <code>basic.get</code> method (the "pull" API), it won't be automatically
+[using polling](/docs/consumers#polling), it won't be automatically
 deleted. For such cases, use exclusive queues or queue TTL.
 
+:::warning
 
-## Exclusive Queues {#exclusive-queues}
+Transient (non-durable) non-exclusive classic queues are [deprecated](/release-information/deprecated-features-list/).
+Use [durable queues](#durability) or [non-durable exclusive queues](#exclusive-queues) instead.
+
+[Queue TTL](/docs/ttl#queue-ttl) can be used for cleanup of unused durable queues.
+
+When RabbitMQ detects a non-durable and non-exclusive queue, it will display a deprecation
+warning in the management UI.
+
+:::
+
+
+## Exclusive (Client Connection-Specific) Queues {#exclusive-queues}
 
 An exclusive queue can only be used (consumed from, purged, deleted, etc)
-by its declaring connection.
+by its declaring connection. Such queues are by definition [temporary](#temporary-queues) in nature,
+setting the `exclusive` property on a durable queue does not make logical sense
+since such queue cannot outlive its declaring connection, and thus cannot satisfy its durability
+property in case of a node restart.
 
 :::tip
 Consider using [server-generated names](#names) for exclusive queues. Since such queues
