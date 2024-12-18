@@ -1,6 +1,6 @@
 ---
-title: "Announcing Rabbitmq Community Discord Server"
-tags: ["announcements", ]
+title: "Announcing RabbitMQ Community Discord Server"
+tags: ["announcements"]
 authors: [mklishin]
 ---
 

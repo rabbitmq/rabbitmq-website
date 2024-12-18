@@ -155,8 +155,8 @@ using [CLI tools](./cli), [HTTP API or definitions import](./management).
 to allow for remote connections with well known credentials.
 
 This practice is very strongly recommended against.
-Fedora Linux users should consider installing RabbitMQ from Team RabbitMQ's package
-repositories and avoid using the distribution-packaged version unless this serious
+Fedora Linux users should consider installing RabbitMQ from [Team RabbitMQ's package
+repositories](/docs/install-rpm/) and avoid using the distribution-packaged version unless this serious
 distribution-specific security flaw is [addressed](https://bugzilla.redhat.com/show_bug.cgi?id=2333073).
 
 :::
