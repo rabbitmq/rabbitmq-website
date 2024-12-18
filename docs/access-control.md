@@ -142,6 +142,19 @@ is to create a new user with generated credentials, or set of users, with the pe
 to access the necessary virtual hosts. This can be done
 using [CLI tools](./cli), [HTTP API or definitions import](./management).
 
+:::danger
+
+[Fedora Linux's RabbitMQ package](https://packages.fedoraproject.org/pkgs/rabbitmq-server/rabbitmq-server/) is
+[patched](https://src.fedoraproject.org/rpms/rabbitmq-server/blob/f41/f/rabbitmq-server-0001-Allow-guest-login-from-non-loopback-connections.patch)
+to allow for remote connections with well known credentials.
+
+This practice is very strongly recommended against.
+Fedora Linux users should consider installing RabbitMQ from Team RabbitMQ's package
+repositories and avoid using the distribution-packaged version unless this serious
+distribution-specific security flaw is [addressed](https://bugzilla.redhat.com/show_bug.cgi?id=2333073).
+
+:::
+
 This is configured via the <code>loopback_users</code> item
 in the [configuration file](./configure#configuration-files).
 
