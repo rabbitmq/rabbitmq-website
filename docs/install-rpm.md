@@ -34,8 +34,7 @@ import {
 
 This guide covers RabbitMQ installation on RPM-based Linux (Red Hat Enterprise Linux, CentOS Stream, Fedora).
 
-With the [exception of Fedora](https://packages.fedoraproject.org/pkgs/rabbitmq-server/rabbitmq-server/), the versions included
-into standard RPM-based distribution repositories can be
+The versions included into standard RPM-based distribution repositories can be
 many releases behind [latest RabbitMQ releases](/release-information)
 and may provide RabbitMQ versions that are already [out of support](/release-information).
 
@@ -75,7 +74,7 @@ CentOS 7 and Fedora releases older than 26 are examples of such distributions.
 
 Currently the list of supported RPM-based distributions includes
 
- * Fedora 38 through 40
+ * Fedora 39 through 41
  * [CentOS Stream](https://centos.org/centos-stream/) 9.x
  * RedHat Enterprise Linux 9.x and 8.x (versions covered by [full support](https://access.redhat.com/support/policy/updates/errata))
  * Amazon Linux 2023
