@@ -10,13 +10,14 @@ function configureSvgo() {
   return {
     name: 'configure-svgo',
     configureWebpack(config) {
+      const path = require('path');
       /** @type {object[]} */
       const rules = config.module.rules;
 
       const rule = rules.find((rule) => {
         /** @type {string|undefined} */
         const loader = rule.oneOf?.[0]?.use?.[0]?.loader;
-        return loader && loader.includes("/@svgr/");
+        return loader && loader.includes(path.sep + "@svgr" + path.sep);
       });
 
       const svgoConfig = rule.oneOf[0].use[0].options.svgoConfig;
