@@ -68,4 +68,5 @@ Refer to the previous table for end dates for this support.
 
 ## The Next Release
 
-RabbitMQ 4.0 is next, it is expected to be released in late 2024.
+RabbitMQ 4.1 is the release series currently [under active development](https://github.com/rabbitmq/rabbitmq-server).
+It is expected to be released in the first half of 2025.
