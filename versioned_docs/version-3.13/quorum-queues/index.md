@@ -793,7 +793,7 @@ Generally quorum queues favours data consistency over availability.
 
 :::important
 
-Quorum quques cannot provide any safety guarantees for messages that have not been [confirmed to the publisher](./confirms).
+Quorum queues cannot provide any safety guarantees for messages that have not been [confirmed to the publisher](./confirms).
 Such messages could be lost "in flight", in an operating
 system buffer or otherwise fail to reach the target node or the queue leader.
 
