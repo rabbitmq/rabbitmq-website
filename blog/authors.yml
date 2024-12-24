@@ -51,6 +51,13 @@ ebyford:
   url: https://github.com/edbyford
   image_url: https://github.com/edbyford.png
 
+eef:
+  name: "Erlang Ecosystem Foundation"
+  url: https://github.com/erlef
+  image_url: https://github.com/erlef.png
+  socials:
+    github: erlef
+
 emile:
   name: "Emile Joubert"
 
