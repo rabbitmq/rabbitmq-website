@@ -954,12 +954,14 @@ shortly after establishing a TCP connection.
 
 ### HTTP Request Logging {#http-logging}
 
-To create simple access logs of requests to the HTTP API,
-set the value of the `management.http_log_dir` key to
-the path of a directory in which logs can be created:
+RabbitMQ nodes do not [log](./logging/) any HTTP API requests by default.
+
+To enable HTTP API access logging, use the `management.http_log_dir` key to
+configure the path of a directory in which the access log log files can be created
+by the node:
 
 ```ini
-management.http_log_dir = /path/to/folder
+management.http_log_dir = /path/to/a/writeable/directory
 ```
 
 For the change to have an effect, restart the plugin or the node.
