@@ -8,8 +8,8 @@ flowchart LR
     C2((C₂))
 
     P --> X
-    X -- *.orange.* --> Q1
-    X -- *.*.rabbit --> Q2
+    X -- #42;.orange.#42; --> Q1
+    X -- #42;.#42;.rabbit --> Q2
     X -- lazy.# --> Q2
     Q1 --> C1
     Q2 --> C2
