@@ -64,9 +64,8 @@ best practice design, and architecture.
 ## Consulting {#consulting}
 
 [Erlang Solutions](https://www.erlang-solutions.com/products/rabbitmq.html),
-[XPlatform Consulting](http://www.xplatformconsulting.com/rabbitmq/),
 [NobleProg](https://www.nobleprog.com/consulting/rabbitmq),
-[AceMQ](https://acemq.com/rabbitmq/), [CSS Commerce](https://csscommerce.com/integration-message-queue-specialists/), [Visual Integrator](https://www.visualintegrator.com/rmq/), [Seventh State](https://seventhstate.io/), [Coders 51](https://www.coders51.com/), and others provide **professional consulting services**
+[AceMQ](https://acemq.com/rabbitmq/), [Visual Integrator](https://www.visualintegrator.com/rmq/), [Seventh State](https://seventhstate.io/), [Coders 51](https://www.coders51.com/), and others provide **professional consulting services**
 to address specific issues such as on-site troubleshooting, design review,
 deployment planning, project delivery and other value-adding services
 tailored to suit your needs.
