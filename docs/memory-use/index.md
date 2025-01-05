@@ -517,7 +517,7 @@ an indicator of runtime memory fragmentation. A different set of allocator setti
 and increase the percentage of efficiently used memory. The right set of settings depends on
 the workload and message payload size distribution.
 
-Runtime's memory allocator behavior can be tuned, please refer to
+Runtime's memory allocator behavior can be tuned, please refer to the [Runtime guide](./runtime#allocators),
 <a href="http://erlang.org/doc/man/erl.html" target="_blank" rel="noopener noreferrer">erl</a> and
 <a href="http://erlang.org/doc/man/erts_alloc.html" target="_blank" rel="noopener noreferrer">erts_alloc</a>
 documentation.
