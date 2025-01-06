@@ -2,7 +2,6 @@
 title: Logging
 ---
 
-
 <!--
 Copyright (c) 2005-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
@@ -39,6 +38,7 @@ RabbitMQ supports a number of features when it comes to logging.
 
 This guide covers topics such as:
 
+ * What [will and will not be logged](#scope) by RabbitMQ nodes
  * Supported [log outputs](#log-outputs): [file](#logging-to-a-file) and [standard streams (console)](#logging-to-console)
  * [Log file location](#log-file-location)
  * Supported [log levels](#log-levels)
@@ -55,6 +55,27 @@ This guide covers topics such as:
  * [Logging to a system topic exchange](#log-exchange), `amq.rabbitmq.log`
 
 and more.
+
+
+## What Will and Will Not Be Logged? {#scope}
+
+RabbitMQ nodes many different kinds of events, in fact, too many to name.
+However, there are several categories of events that are not logged by design.
+In most cases, these events are related to individual messages, whose high rates:
+tens or hundreds of thousands per seconds, or even millions with [streams](./streams) and superstreams:
+
+ * Message routing
+ * Message delivery to consumers
+ * Message acknowledgements by consumers
+ * Unroutable messages, both returned and dropped
+ * Consumer registration and cancelation
+
+A significant majority of errors related to these events, such as [double acknowledgements of a delivery](./confirms#consumer-acks-double-acking), will be logged.
+
+In order to reason about message routing, ingress (publishing) and egress (delivery to consumers) rates,
+consumer events, and unroutable messages, use [metrics](./monitoring), [watch internal events](#internal-events),
+adopt relevant [client library features](./publishers#unroutable), and [take and inspect a traffic capture](/amqp-wireshark).
+
 
 ## Log Outputs {#log-outputs}
 
@@ -937,7 +958,7 @@ The events can also be exposed to applications for [consumption](./consumers)
 with [a plugin](./event-exchange).
 
 Events are published as messages with blank bodies. All event metadata is stored in
-message metadata (properties, headers).
+message annotations (properties, headers).
 
 Below is a list of published events.
 
