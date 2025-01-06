@@ -43,7 +43,7 @@ such as
 
  * [Interfaces](#interfaces) the node listens on for client connections
  * IP version preferences: [dual stack](#dual-stack), [IPv6-only](#single-stack-ipv6) and [IPv4-only](#single-stack-ipv4)
- * [Ports](#ports) used by clients, [inter-node traffic](#epmd-inet-dist-port-range) in clusters and [CLI tools](./cli)
+ * [Ports](#ports) used by clients, [inter-node traffic](#distribution-port-range) in clusters and [CLI tools](./cli)
  * [IPv6 support](#distribution-ipv6) for inter-node traffic
  * [TLS](#tls-support) for client connections
  * Tuning for a [large number of concurrent connections](#tuning-for-large-number-of-connections)
@@ -182,7 +182,7 @@ Make sure the following ports are accessible:
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
    the cluster uses [federation](./federation) or CLI tools are used on machines outside the subnet),
    these ports should not be publicly exposed
- * 35672-35682: this client TCP port range is used by CLI tools for [communication with nodes](#epmd-inet-dist-port-range).
+ * 35672-35682: this client TCP port range is used by CLI tools for [communication with nodes](#distribution).
    By default, the range computed as `(server distribution port + 10000)` through `(server distribution port + 10010)`
  * 15672, 15671: [HTTP API](./management) clients, [management UI](./management) and [rabbitmqadmin](./management-cli), without and with TLS
    (only if the [management plugin](./management) is enabled)
