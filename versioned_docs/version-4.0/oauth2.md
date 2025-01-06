@@ -164,7 +164,7 @@ In chronological order, here is the sequence of events that occur when a client 
 A RabbitMQ cluster must have at least one resource server identifier configured. If it has just one resource, this is configured in the `auth_oauth2.resource_server_id` variable and it is **mandatory**.
 If the RabbitMQ cluster has more than one OAuth resource then they are configured under `auth_oauth2.resource_servers.<index>` and in this case `auth_oauth2.resource_server_id` variable is not mandatory.
 
-RabbitMQ uess the resource server identity for these two purposes:
+RabbitMQ uses the resource server identity for these two purposes:
 - To validate the token's audience (`aud`) whose value must contain the resource server identifier. This validation can be disabled though.
 - To initiate the OAuth 2.0 Authorization Code flow in the Management UI. This is the flow used to authenticate a user and to get its access token. RabbitMQ must include the resource server identifier in the request's attribute called `resource`.
 
