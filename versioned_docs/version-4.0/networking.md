@@ -32,13 +32,14 @@ of knobs that can be tweaked. Some of them are directly
 related to TCP and IP operations, others have to do with
 application-level protocols such as TLS. This guide covers
 multiple topics related to networking in the context of
-RabbitMQ. This guide is not meant to be an extensive
-reference but rather an overview. Some tuneable parameters
-discussed are OS-specific. This guide focuses on Linux when
+RabbitMQ.
+
+Some tuneable parameters discussed are OS-specific. This guide focuses on Linux when
 covering OS-specific subjects, as it is the most common
 platform RabbitMQ is deployed on.
 
-There are several areas which can be configured or tuned. Each has a section in this guide:
+Networking is a very broad topic. Therefore, this guide covers multiple topics,
+such as
 
  * [Interfaces](#interfaces) the node listens on for client connections
  * IP version preferences: [dual stack](#dual-stack), [IPv6-only](#single-stack-ipv6) and [IPv4-only](#single-stack-ipv4)
@@ -46,10 +47,11 @@ There are several areas which can be configured or tuned. Each has a section in 
  * [IPv6 support](#distribution-ipv6) for inter-node traffic
  * [TLS](#tls-support) for client connections
  * Tuning for a [large number of concurrent connections](#tuning-for-large-number-of-connections)
- * [High connection churn](#dealing-with-high-connection-churn) scenarios and resource exhaustion
+ * [High client connection churn](#dealing-with-high-connection-churn) scenarios and resource exhaustion
  * TCP buffer size (affects [throughput](#tuning-for-throughput-tcp-buffers) and [how much memory is used per connection](#tuning-for-large-number-of-connections-tcp-buffer-size))
  * [Hostname resolution](#dns)-related topics such as [reverse DNS lookups](#dns-reverse-dns-lookups)
- * The interface and port used by [epmd](#epmd)
+ * [Inter-node communication](#distribution) interface and port
+ * [epmd](#epmd) and what role it plays in inter-node communication
  * How to [suspend and resume listeners](#listener-suspension) to temporarily stop and resume new client connections
  * Other TCP socket settings
  * [Proxy protocol](#proxy-protocol) support for client connections
@@ -297,7 +299,43 @@ epmd -kill
 
 to terminate it. The service will be started by the local RabbitMQ node automatically on boot.
 
-### Inter-node Communication Port Range {#epmd-inet-dist-port-range}
+
+## Inter-node Communication {#distribution}
+
+RabbitMQ nodes will listen for inbound connections from peers and CLI tools.
+It is important to only expose these ports to the hosts and subnets that
+run other cluster nodes, or where CLI tools are used, and [not exposed to the public Internet](https://erlef.org/blog/eef/epmd-public-exposure).
+
+### Inter-node Communication Interface {#distribution-interface}
+
+In order to configure the RabbitMQ inter-node communication listener to listen only
+on a specific address, use `distribution.listener.interface` in [`rabbitmq.conf`](./configure).
+
+```ini
+# Instructs the node to only listen for inter-node communication connections on a local interface.
+# This affects both connections from cluster peers and CLI tools.
+distribution.listener.interface = 192.168.10.84
+```
+
+```ini
+# Limit inter-node communication listener to a local interface (using an IPv4 address).
+#
+# This particular configuration only makes sense for single-node clusters.
+# For multi-node clusters, nodes must listen on an "internal network-local" interface
+# that would allow cluster peers to connect but not be exposed to the public Internet
+distribution.listener.interface = 127.0.0.1
+```
+
+```
+# Limit inter-node communication listener to a local interface (using an IPv6 address).
+#
+# This particular configuration only makes sense for single-node clusters.
+# For multi-node clusters, nodes must listen on an "internal network-local" interface
+# that would allow cluster peers to connect but not be exposed to the public Internet
+distribution.listener.interface = ::1
+```
+
+### Inter-node Communication Port Range {#distribution-port-range}
 
 RabbitMQ nodes will use a port from a certain range known as the inter-node communication port range.
 The same port is used by CLI tools when they need to contact the node.
@@ -363,7 +401,7 @@ epmd: up and running on port 4369 with data:
 name rabbit at port 25672
 ```
 
-### Inter-node Communication Buffer Size Limit {#distribution-port-buffer-limit}
+### Inter-node Communication Buffer Size Limit {#distribution-buffer-limit}
 
 Inter-node connections use a buffer for data pending to be sent. Temporary
 throttling on inter-node traffic is applied when the buffer is at max allowed
@@ -432,7 +470,7 @@ Note that once instructed to use IPv6, CLI tools won't be able to connect to nod
 do not use IPv6 for inter-node communication. This involves the `epmd` service running on the same
 host as target RabbitMQ node.
 
-### epmd
+### epmd and Inter-node Communication
 
 `epmd` is a small helper daemon that runs next to a RabbitMQ node and lets its peers and CLI
 tools discover what port they should use to communicate to it. It can be configured to bind
@@ -440,11 +478,12 @@ to a specific interface, much like RabbitMQ listeners. This is done using the `E
 environment variable:
 
 ```bash
+# instructs epmd to only listen on a local interface
 export ERL_EPMD_ADDRESS="::1"
 ```
 
 By default RabbitMQ nodes will use an IPv4 interface when connecting to `epmd`.
-Nodes that are configured to use IPv6 for inter-node communication ([see above](#distribution-ipv6))
+Nodes that are [configured to use IPv6](#distribution-ipv6) for inter-node communication
 will also use IPv6 to connect to `epmd`.
 
 When `epmd` is configured to use IPv6 exclusively but RabbitMQ nodes are not,
@@ -452,6 +491,19 @@ RabbitMQ will log an error message similar to this:
 
 ```bash
 Protocol 'inet_tcp': register/listen error: econnrefused
+```
+
+In order to configure the RabbitMQ inter-node communication listener to listen only
+on a specific address, use `distribution.listener.interface` in [`rabbitmq.conf`](./configure).
+
+```ini
+# Instructs the node to only listen for inter-node communication connections on a local interface.
+# This affects both connections from cluster peers and CLI tools.
+#
+# This particular configuration only makes sense for single-node clusters.
+# For multi-node clusters, nodes must listen on an "internal network-local" interface
+# that would allow cluster peers to connect but not be exposed to the public Internet
+distribution.listener.interface = ::1
 ```
 
 #### systemd Unit File
