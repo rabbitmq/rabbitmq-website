@@ -1329,9 +1329,9 @@ queue_leader_locator = client-local
     <td>`proxy_protocol`</td>
     <td>
       If set to `true`, RabbitMQ will expect a [proxy
-      protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt) header to be sent first when an AMQP
+      protocol](http://www.haproxy.org/download/3.1/doc/proxy-protocol.txt) header to be sent first when an AMQP
       connection is opened.  This implies to set up a proxy
-      protocol-compliant reverse proxy (e.g. [HAproxy](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
+      protocol-compliant reverse proxy (e.g. [HAproxy](http://www.haproxy.org/download/3.1/doc/proxy-protocol.txt)
       or [AWS
       ELB](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-proxy-protocol.html)) in front of RabbitMQ.  Clients can't directly
       connect to RabbitMQ when proxy protocol is enabled, so
