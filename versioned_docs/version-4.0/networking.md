@@ -553,7 +553,7 @@ Values that are too low will produce false positives.
 
 ### Proxy Protocol {#proxy-protocol}
 
-RabbitMQ supports [Proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
+RabbitMQ supports [Proxy protocol](http://www.haproxy.org/download/3.1/doc/proxy-protocol.txt)
 versions 1 (text header format) and 2 (binary header format).
 
 The protocol makes servers such as RabbitMQ aware of the actual client IP address
@@ -572,7 +572,7 @@ proxy_protocol = true
 When proxy protocol is turned on, clients won't be able to connect to RabbitMQ directly unless
 they themselves support the protocol.
 Therefore, when this option is turned on, all client connections must go through
-a proxy that also supports the protocol and is configured to send a Proxy protocol header. [HAproxy](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
+a proxy that also supports the protocol and is configured to send a Proxy protocol header. [HAproxy](http://www.haproxy.org/download/3.1/doc/proxy-protocol.txt)
 and [AWS ELB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol) documentation
 explains how to do it.
 

@@ -195,7 +195,7 @@ Implicit connect is *not* enabled by default.
 
 ### Proxy Protocol {#proxy-protocol}
 
-The STOMP plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
+The STOMP plugin supports the [proxy protocol](http://www.haproxy.org/download/3.1/doc/proxy-protocol.txt).
 This feature is turned off by default. To turn it on for STOMP clients:
 
 ```ini

@@ -143,7 +143,7 @@ real client IP addresses were no longer known to the nodes and therefore
 cannot be logged, displayed in the management UI, and so on.
 
 Fortunately a solution to this problem exists and is supported by
-some of the most popular proxy tools: the [Proxy protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
+some of the most popular proxy tools: the [Proxy protocol](https://www.haproxy.org/download/3.1/doc/proxy-protocol.txt).
 Starting with 3.7.0, RabbitMQ supports Proxy protocol if the operator
 opts in. It requires a compatible proxy but no client library changes.
 Per Proxy protocol spec requirements, when the protocol is enabled,

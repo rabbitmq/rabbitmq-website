@@ -723,7 +723,7 @@ Consult the [Networking](./networking) and [Configuration](./configure) guides f
 
 ## Proxy Protocol {#proxy-protocol}
 
-The MQTT plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
+The MQTT plugin supports the [proxy protocol](http://www.haproxy.org/download/3.1/doc/proxy-protocol.txt).
 This feature is disabled by default, to enable it for MQTT clients:
 
 ```ini
