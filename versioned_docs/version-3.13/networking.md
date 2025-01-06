@@ -60,8 +60,6 @@ such as
    when [MacOS Application Firewall](#firewalls-mac-os) is enabled
  * [OS-level tuning](#os-tuning) related to networking
 
-This guide also covers a few topics closely related to networking:
-
 Except for OS kernel parameters and DNS, all RabbitMQ settings
 are [configured via RabbitMQ configuration file(s)](./configure).
 
