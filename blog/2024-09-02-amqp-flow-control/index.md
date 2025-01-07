@@ -406,8 +406,8 @@ To prevent such misalignments, a second field is needed in both the link state a
 <field name="delivery-count" type="sequence-no"/>
 ```
 
-The delivery-count is decreased by 1 each time a message is transferred.
-Specifically, the sender decreases delivery-count by 1 whenever it sends a message, and the receiver decreases delivery-count by 1 whenever it receives a message.
+The delivery-count is increased by 1 each time a message is transferred.
+Specifically, the sender increments the delivery-count whenever it sends a message, and the receiver increments the delivery-count whenever it receives a message.
 
 When the sender receives a `flow` frame (which contains both link-credit and delivery-count), the sender sets its link-credit according to this [formula](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-flow-control):
 ```
