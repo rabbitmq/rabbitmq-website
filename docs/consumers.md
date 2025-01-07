@@ -518,12 +518,16 @@ This allows to make sure only one consumer at a time consumes from the queue.
 If the exclusive consumer is cancelled or dies, this is the application
 responsibility to register a new one to keep on consuming from the queue.
 
-If exclusive consumption *and* consumption continuity are required,
-[single active consumer](#single-active-consumer) may be more appropriate.
+If exclusive consumption **and** consumption continuity are required,
+use [single active consumer](#single-active-consumer).
 
-Note: Quorum Queues will allow all `basic.consume` requests with the `exclusive` flag set, 
-but will disregard the bahabior Classic Queues provides. 
-Use [single active consumer](#single-active-consumer) instead.
+:::important
+
+[Quorum queues](./quorumq-queues) will ignore the `exclusive` flag on the `basic.consume` frame.
+With quorum queues, use [single active consumer](#single-active-consumer) instead.
+
+:::
+
   
 ## Single Active Consumer {#single-active-consumer}
 
@@ -550,12 +554,16 @@ A typical sequence of events would be the following:
 Note that without the single active consumer feature enabled, messages
 would be dispatched to all consumers using round-robin.
 
-Please note: this section covers the single active consumer that's available to AMQP 0-9-1 and AMQP 1.0 clients
-on classic and quorum queues. It is not related to [Single Active Consumer on streams](./streams#single-active-consumer).
+:::warning
+
+This section covers the single active consumer that's available to AMQP 0-9-1 and AMQP 1.0 clients
+on classic and quorum queues. It is meaningfully different from the [Single Active Consumer feature for streams](./streams#single-active-consumer).
 
 An attempt to enable SAC using an AMQP 0-9-1 client on a stream **will not work**.
 To use SAC on a stream, a [native RabbitMQ stream protocol client](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#single-active-consumer)
 must be used.
+
+:::
 
 ### Enabling Single Active Consumer on Quorum and Classic Queues
 
