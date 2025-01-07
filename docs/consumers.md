@@ -509,11 +509,11 @@ consumer_max_per_channel = 100
 
 ## Exclusivity {#exclusivity}
 
-When registering a consumer with an AMQP 0-9-1 client, the `exclusive` flag of
-the `basic.consume` method can be set to true to request the consumer to be the only one
-on the target queue. The call succeeds only if there's no consumer
-already registered to the queue at that time. This allows to make sure
-only one consumer at a time consumes from the queue.
+For [Classic Queues only](./quorum-queues/index#feature-matrix), when registering a consumer
+with an AMQP 0-9-1 client, the `exclusive` flag of the `basic.consume` method can be
+set to true to request the consumer to be the only one on the target queue. The call
+succeeds only if there's no consumer already registered to the queue at that time.
+This allows to make sure only one consumer at a time consumes from the queue.
 
 If the exclusive consumer is cancelled or dies, this is the application
 responsibility to register a new one to keep on consuming from the queue.
@@ -521,6 +521,10 @@ responsibility to register a new one to keep on consuming from the queue.
 If exclusive consumption *and* consumption continuity are required,
 [single active consumer](#single-active-consumer) may be more appropriate.
 
+Note: Quorum Queues will allow all `basic.consume` requests with the `exclusive` flag set, 
+but will disregard the bahabior Classic Queues provides. 
+Use [single active consumer](#single-active-consumer) instead.
+  
 ## Single Active Consumer {#single-active-consumer}
 
 Single active consumer allows to have only one consumer
