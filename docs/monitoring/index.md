@@ -817,8 +817,7 @@ For example, using a load balancer or [round-robin DNS](https://en.wikipedia.org
 Earlier versions of RabbitMQ provided a single opinionated and intrusive health check command (and its respective HTTP API endpoint):
 
 ```bash
-# DO NOT USE: this health check is very intrusive, resource-intensive, prone to false positives
-#             and as such, deprecated
+# DO NOT USE: this health check is long deprecated and in modern versions it is a no-op
 rabbitmq-diagnostics node_health_check
 ```
 
