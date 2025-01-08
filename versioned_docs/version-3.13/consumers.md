@@ -521,7 +521,7 @@ use [single active consumer](#single-active-consumer).
 
 :::important
 
-[Quorum queues](./quorumq-queues) will ignore the `exclusive` flag on the `basic.consume` frame.
+[Quorum queues](./quorum-queues) will ignore the `exclusive` flag on the `basic.consume` frame.
 With quorum queues, use [single active consumer](#single-active-consumer) instead.
 
 :::
