@@ -315,6 +315,7 @@ Use [durable queues](#durability) or [non-durable exclusive queues](#exclusive-q
 When RabbitMQ detects a non-durable and non-exclusive queue, it will display a deprecation
 warning in the management UI.
 
+A queue that is mirrored (a deprecated replication feature) will not be autodeleted. A queue that is exclusive cannot be mirrored.
 :::
 
 
@@ -552,3 +553,4 @@ There are two solutions to this fundamental race condition:
    use a connection recovery delay of 5 seconds by default
 2. Use server-named queues, which side steps the problem entirely since the new client connection
    will use a different queue name from its predecessor
+
