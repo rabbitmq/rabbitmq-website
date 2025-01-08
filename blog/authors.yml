@@ -5,6 +5,7 @@ acogoluegnes:
   socials:
     github: acogoluegnes
     linkedin: arnaudcogoluegnes
+    bluesky: https://bsky.app/profile/acogoluegnes.bsky.social
 
 alebedeff:
   name: "Alexey Lebedeff"
@@ -31,6 +32,7 @@ dansari:
     github: ansd
     linkedin: ansd
     mastodon: https://m.ansd.xyz/@ansd
+    bluesky: https://bsky.app/profile/ansd.xyz
 
 david:
   name: "David Wragg"
@@ -86,6 +88,7 @@ kura:
     github: mkuratczyk
     linkedin: mkuratczyk
     mastodon: https://fosstodon.org/@kura
+    bluesky: https://bsky.app/profile/mkuratczyk.bsky.social
 
 marek:
   name: "Marek Majkowski"
@@ -108,6 +111,7 @@ mklishin:
   socials:
     github: michaelklishin
     linkedin: michaelklishin
+    bluesky: https://bsky.app/profile/michaelklishin.bsky.social
 
 mrosales:
   name: "Marcial Rosales"
@@ -121,6 +125,7 @@ nkarl:
   socials:
     github: kjnilsson
     linkedin: kjnils
+    bluesky: https://bsky.app/profile/kjnilsson.bsky.social
 
 simon:
   name: "Simon MacMullen"
