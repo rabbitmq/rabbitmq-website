@@ -115,7 +115,7 @@ the website in production.
 
 ## Copyright and License
 
-© 2007-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to
+© 2007-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to
 Broadcom Inc. and/or its subsidiaries.
 
 <img align="right" width="180" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-nc-nd.eu.svg">

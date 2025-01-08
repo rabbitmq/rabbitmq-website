@@ -3,7 +3,7 @@ title: OAuth 2.0 Authentication Examples
 displayed_sidebar: docsSidebar
 ---
 <!--
-Copyright (c) 2007-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2007-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -133,9 +133,9 @@ UAA has previously been configured and seeded with two users:
 * and `rabbit_monitor:rabbit_monitor`
 
 :::tip
-First visit https://uaa:8443 so that your browser can trust the self-signed 
-certificate `uua` has. Otherwise, the management UI will fail to connect to 
-`uaa`. 
+First visit https://uaa:8443 so that your browser can trust the self-signed
+certificate `uua` has. Otherwise, the management UI will fail to connect to
+`uaa`.
 :::
 
 Now navigating to the [local node's management UI](http://localhost:15672) and login using any of those two users.

@@ -2,7 +2,7 @@
 title: Commercial Services
 ---
 <!--
-Copyright (c) 2007-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2007-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -32,7 +32,7 @@ VMware offers **a range of commercial support, enterprise releases, training, an
 The enterprise edition of RabbitMQ includes all the features of the open source version plus additional key features such as Warm Standby Replication and Intra-cluster Compression under a commercial license.
 Contact VMware to get a quote [here](https://tanzu.vmware.com/rabbitmq).
 
-The enterprise releases are listed below. For more information about them, go to the **Ways to run Tanzu RabbitMQ and open source RabbitMQ distributions** table on the [VMware Tanzu RabbitMQ product page](https://tanzu.vmware.com/rabbitmq). 
+The enterprise releases are listed below. For more information about them, go to the **Ways to run Tanzu RabbitMQ and open source RabbitMQ distributions** table on the [VMware Tanzu RabbitMQ product page](https://tanzu.vmware.com/rabbitmq).
 
 ### VMware Tanzu RabbitMQ® for Tanzu Application Service
 
@@ -44,7 +44,7 @@ running on [VMware Tanzu™ Application Service](https://tanzu.vmware.com/applic
 Tanzu RabbitMQ® for Kubernetes simplifies the operational experience to make RabbitMQ available on a Kubernetes-based platform,
 based on the [RabbitMQ Operators for Kubernetes](https://www.rabbitmq.com/kubernetes/operator/operator-overview).
 
-### VMware Tanzu RabbitMQ® 
+### VMware Tanzu RabbitMQ®
 
 Tanzu RabbitMQ is available in many packages including OVA and OCI.
 

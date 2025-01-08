@@ -3,7 +3,7 @@ title: OAuth 2.0 Authentication Examples
 displayed_sidebar: docsSidebar
 ---
 <!--
-Copyright (c) 2007-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2007-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -82,7 +82,7 @@ contains all the configuration files and scripts used on all the examples.
  ```
  127.0.0.1  localhost uaa rabbitmq
  ```
- 
+
 ## Getting started with UAA and RabbitMQ {#getting-started-with-uaa-and-rabbitmq}
 
 To demonstrate OAuth 2.0 you need, at least, an OAuth 2.0 authorization server and RabbitMQ appropriately configured for the chosen authorization server. This guide uses [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html) as authorization server to demonstrate basic and advanced configuration to access to the Management UI and various messaging protocols.
@@ -133,9 +133,9 @@ UAA has previously been configured with two users:
 * and `rabbit_monitor:rabbit_monitor`
 
 :::tip
-First visit https://uaa:8443 so that your browser can trust the self-signed 
-certificate `uua` has. Otherwise, the management UI will fail to connect to 
-`uaa`. 
+First visit https://uaa:8443 so that your browser can trust the self-signed
+certificate `uua` has. Otherwise, the management UI will fail to connect to
+`uaa`.
 :::
 
 Now navigating to the [local node's management UI](http://localhost:15672) and login using any of those two users.

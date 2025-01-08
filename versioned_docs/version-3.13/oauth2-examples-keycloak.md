@@ -3,7 +3,7 @@ title: Use Keycloak as OAuth 2.0 server
 displayed_sidebar: docsSidebar
 ---
 <!--
-Copyright (c) 2007-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2007-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -94,9 +94,9 @@ pip install requests
 python3 pika-client/producer.py producer kbOFBXI9tANgKUq8vXHLhT6YhbivgXxn
 ```
 
-:::tip 
-If `pip` is not available try instead the following two commands to installing it: 
-```bash 
+:::tip
+If `pip` is not available try instead the following two commands to installing it:
+```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
