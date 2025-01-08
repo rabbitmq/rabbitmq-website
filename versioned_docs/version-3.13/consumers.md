@@ -507,7 +507,7 @@ consumer_max_per_channel = 100
 
 ## Exclusivity {#exclusivity}
 
-For [Classic Queues only](./quorum-queues/index#feature-matrix), when registering a consumer
+For [Classic Queues only](./quorum-queues#feature-matrix), when registering a consumer
 with an AMQP 0-9-1 client, the `exclusive` flag of the `basic.consume` method can be
 set to true to request the consumer to be the only one on the target queue. The call
 succeeds only if there's no consumer already registered to the queue at that time.
