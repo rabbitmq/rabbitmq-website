@@ -3,7 +3,7 @@ title: OAuth 2.0 Authentication Examples
 displayed_sidebar: docsSidebar
 ---
 <!--
-Copyright (c) 2007-2024 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright (c) 2007-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -77,7 +77,7 @@ The guide is accompanied by [a public GitHub repository](https://github.com/rabb
  * make
  * A local clone of a [GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next) for branch `next` that contains all the configuration files and scripts used on this example.
  * The following entries must be in your `/etc/hosts` file:
- 
+
   ```
   127.0.0.1 localhost uaa rabbitmq
   ```
@@ -133,9 +133,9 @@ UAA has previously been configured with two users:
 * and `rabbit_monitor:rabbit_monitor`
 
 :::tip
-First visit https://uaa:8443 so that your browser can trust the self-signed 
-certificate `uua` has. Otherwise, the management UI will fail to connect to 
-`uaa`. 
+First visit https://uaa:8443 so that your browser can trust the self-signed
+certificate `uua` has. Otherwise, the management UI will fail to connect to
+`uaa`.
 :::
 
 Now navigating to the [local node's management UI](http://localhost:15672) and login using any of those two users.
@@ -547,7 +547,7 @@ and `consumer_with_roles`) with the following custom scopes:
   `producer_with_roles` with
     - `api://rabbitmq:producer`.
 
-  `consumer_with_roles` with  
+  `consumer_with_roles` with
     - `api://rabbitmq:Read.All`.
     - `api://rabbitmq:Write.All`.
     - `api://rabbitmq:Configure.All`.
