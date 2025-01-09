@@ -1202,6 +1202,30 @@ can be increased if really necessary.
 
 See [the Runtime guide](./runtime#atom-usage) to learn more.
 
+
+## Options to Relax Property Equivalence Checks {#relaxed-property-equivalence}
+
+When a client redeclares a queue, RabbitMQ nodes [perform a property equivalence checks](./queues/#property-equivalence).
+If some properties are not equivalent, the declaration will fail with a [channel error](./channels#error-handling).
+
+In environment where applications explicitly set the type of the queue via the `x-queue-type` argument
+and cannot be quickly updated and/or redeployed, the equivalence check for `x-queue-type` can be ignored
+with an opt-in setting:
+
+```
+quorum_queue.property_equivalence.relaxed_checks_on_redeclaration = true
+```
+
+If `quorum_queue.property_equivalence.relaxed_checks_on_redeclaration` is set to `true`,
+the 'x-queue-type' header will be ignored (not compared for equivalence)
+for queue redeclaration.
+
+This can simplify upgrades of applications that explicitly
+set 'x-queue-type' to 'classic' for historical reasons but do not set any other
+properties that may conflict or significant change queue behavior and semantics,
+such as the ['exclusive' field](./queues#exclusive-queues).
+
+
 ## Performance Tuning {#performance-tuning}
 
 This section aims to cover a couple of tunable parameters that may increase throughput of quorum queues for
