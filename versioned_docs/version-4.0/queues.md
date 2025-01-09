@@ -53,6 +53,7 @@ The information about RabbitMQ queues covered in this topic includes:
  * [Temporary](#temporary-queues) and [exclusive](#exclusive-queues) queues
  * [Runtime Resource](#runtime-characteristics) usage by queue replicas
  * [Optional Queue Arguments](#optional-arguments) ("x-arguments")
+ * Declaration and [Property Equivalence](#property-equivalence)
  * [Queue Metrics](#metrics)
  * [TTL](#ttl-and-limits) and length limits
  * [Priority Queues](#priorities)
@@ -325,6 +326,10 @@ by its declaring connection. Such queues are by definition [temporary](#temporar
 setting the `exclusive` property on a durable queue does not make logical sense
 since such queue cannot outlive its declaring connection, and thus cannot satisfy its durability
 property in case of a node restart.
+
+Queues declared as exclusive will always be declared as classic queues: exclusive [quorum queues](./quorum-queues)
+and [streams](./streams) do not make logical sense as their lifetimes would be bound to the lifetime
+of a specific client connection and thus a single node (or application instance).
 
 :::tip
 Consider using [server-generated names](#names) for exclusive queues. Since such queues
