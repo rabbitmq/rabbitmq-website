@@ -159,6 +159,8 @@ Map<String, Object> arguments = new HashMap<>();
 arguments.put("x-queue-type", "stream");
 arguments.put("x-max-length-bytes", 20_000_000_000); // maximum stream size: 20 GB
 arguments.put("x-stream-max-segment-size-bytes", 100_000_000); // size of segment files: 100 MB
+arguments.put("x-stream-filter-size-bytes", 32); // size of stream bloom filter: 32
+
 channel.queueDeclare(
   "my-stream",
   true,         // durable
