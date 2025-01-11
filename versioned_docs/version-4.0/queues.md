@@ -33,7 +33,14 @@ Many features in a messaging system are related to queues. Some RabbitMQ queue f
 
 The information in this topic includes an overview of queues in RabbitMQ and also links out to other topics so you can learn more about using queues in RabbitMQ.
 
-This information primarily covers queues in the context of the [AMQP 0-9-1](/tutorials/amqp-concepts) protocol, however, much of the content is applicable to other supported protocols.
+:::info
+
+In addition to queues, modern RabbitMQ versions support two alternative data structures
+called [streams and super streams](./streams).
+
+:::
+
+This guide primarily covers queues in the context of the [AMQP 0-9-1](/tutorials/amqp-concepts) protocol, however, much of the content is applicable to other supported protocols.
 
 Some protocols (for example: STOMP and MQTT) are based around the idea of topics.
 For these protocols, queues act as a data accumulation buffer for consumers.
