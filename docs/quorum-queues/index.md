@@ -1222,7 +1222,7 @@ for queue redeclaration.
 
 This can simplify upgrades of applications that explicitly
 set 'x-queue-type' to 'classic' for historical reasons but do not set any other
-properties that may conflict or significant change queue behavior and semantics,
+properties that may conflict or significantly change queue behavior and semantics,
 such as the ['exclusive' field](./queues#exclusive-queues).
 
 
