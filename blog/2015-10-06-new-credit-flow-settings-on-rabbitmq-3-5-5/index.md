@@ -4,6 +4,14 @@ tags: ["Performance", ]
 authors: [alvaro]
 ---
 
+:::warning
+This blog post was written for RabbitMQ 3.5, released in 2015. While some parts still
+apply, there's a lot of outdated information. For example, RabbitMQ 4.0
+doesn't support queue mirroring anymore and "paging messages to disk" is
+no longer something that RabbitMQ has to do, since messages are almost
+always persisted to disk right away.
+:::
+
 In order to prevent fast publishers from overflowing the broker with
 more messages than it can handle at any particular moment, RabbitMQ
 implements an internal mechanism called *credit flow* that will be
