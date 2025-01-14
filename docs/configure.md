@@ -1390,22 +1390,6 @@ under the `rabbit` section.
   </thead>
 
   <tr>
-    <td>`msg_store_index_module`</td>
-    <td>
-      Implementation module for queue indexing. You are
-      advised to read the [message store tuning](./persistence-conf)
-      documentation before changing this.
-      <p>
-        Default: `rabbit_msg_store_ets_index`
-```erlang
-{rabbit, [
-{msg_store_index_module, rabbit_msg_store_ets_index}
-]}
-```
-      </p>
-    </td>
-  </tr>
-  <tr>
     <td>`backing_queue_module`</td>
     <td>
       Implementation module for queue contents.
