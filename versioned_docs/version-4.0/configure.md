@@ -1439,33 +1439,6 @@ under the `rabbit` section.
       </td>
     </tr>
   <tr>
-    <td>`msg_store_credit_disc_bound`</td>
-    <td>
-      The credits that a queue process is given by the message store.
-      <p>
-        By default, a queue process is given 4000 message store credits, and then 800 for every 800 messages that it processes.
-      </p>
-      <p>
-        Messages which need to be paged out due to memory pressure will also use this credit.
-      </p>
-      <p>
-        The Message Store is the last component in the credit flow chain. [Learn about credit flow](/blog/2015/10/06/new-credit-flow-settings-on-rabbitmq-3-5-5).
-      </p>
-      <p>
-        This value only takes effect when messages are persisted to the message store.
-        If messages are embedded on the queue index, then modifying this setting has no effect because credit_flow is NOT used when writing to the queue index.
-      </p>
-      <p>
-        Default:
-```erlang
-{rabbit, [
-{msg_store_credit_disc_bound, {4000, 800}}
-]}
-```
-      </p>
-    </td>
-  </tr>
-  <tr>
     <td>`queue_index_max_journal_entries`</td>
     <td>
       After how many queue index journal entries it will be
