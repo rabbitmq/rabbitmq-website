@@ -168,7 +168,6 @@ Miscellaneous projects:
  * [RabbitMQ client for Scala](https://github.com/sstone/amqp-client)
  * [Akka-based RabbitMQ client for Scala](https://github.com/thenewmotion/akka-rabbitmq)
  * [Op-Rabbit](https://github.com/SpinGo/op-rabbit), an opinionated Akka-based RabbitMQ client for Scala
- * [Processing RabbitMQ messages using Akka Streams](http://typesafe.com/activator/template/rabbitmq-akka-stream)
  * [RabbitMQ module for Play Framework](https://www.playframework.com/modules/rabbitmq-0.0.9/home)
  * [Lift RabbitMQ module](https://github.com/liftmodules/amqp)
 
@@ -295,7 +294,6 @@ Miscellaneous projects:
 ## Miscellaneous {#miscellaneous}
 
  * [XMPP adaptor](https://github.com/ericliang/rabbitmq-xmpp)
- * [RabbitMQ Adapter for Streambase](http://streambase.com/sbx.htm#Simple%20AMQP%20using%20RabbitMQ) for complex event processing (CEP)
  * [Delphi/Free Pascal RabbitMQ Client](http://www.habarisoft.com/habari_rabbitmq.html)
  * [bevis](https://github.com/bkjones/bevis): a syslog listener that forwards messages over RabbitMQ
  * [rabbitmq-memcached](http://code.google.com/p/rabbitmq-memcached/): a memcached adapter for RabbitMQ that allows you to use the memcache protocol to
@@ -304,6 +302,5 @@ Miscellaneous projects:
    a plugin for [Flume](https://github.com/cloudera/flume/wiki) (a Hadoop data loader) that allows you to use a RabbitMQ node as a data source.
  * [Fudge Messaging Format](http://kirkwylie.blogspot.com/2009/11/announcing-release-of-fudge-messaging.html):
    fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It is messaging protocol-agnostic.
- * [QDB: Persistent Message Queues with Replay](http://qdb.io/): queue backup and replay over AMQP 0-9-1. Includes REST API
  * [AMQProxy](https://github.com/cloudamqp/amqproxy): An AMQP 0-9-1 proxy, with connection and channel pooling/reusing
  * [amqpcat](https://github.com/cloudamqp/amqpcat): A netcat-like CLI tool for producing and consuming AMQP 0-9-1 messages.
