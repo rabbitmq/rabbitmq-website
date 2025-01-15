@@ -699,6 +699,7 @@ The following aliases are available:
 
  * <code>internal</code> for <code>rabbit_auth_backend_internal</code>
  * <code>ldap</code> for <code>rabbit_auth_backend_ldap</code> (from the [LDAP plugin](./ldap))
+ * <code>oauth</code> or <code>oauth2</code> for <code>rabbit_auth_backend_oauth2</code> (from the [OAuth 2.0 plugin](./oauth2))
  * <code>http</code> for <code>rabbit_auth_backend_http</code> (from the [HTTP auth backend plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_http))
  * <code>dummy</code> for <code>rabbit_auth_backend_dummy</code>
 
@@ -708,7 +709,7 @@ be used:
 ```ini
 # note that the module name begins with a "rabbit_", not "rabbitmq_", like in the name
 # of the plugin
-auth_backends.1 = rabbit_auth_backend_oauth2
+auth_backends.1 = rabbit_auth_backend_example
 ```
 
 When using third party plugins, providing a full module name is necessary.
