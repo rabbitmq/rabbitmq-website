@@ -96,7 +96,7 @@ Since the message is transient, the guarantees are lax: the queue received the m
 There are multiple layers of I/O buffers between a user-space process such as RabbitMQ and actual hardware, including operating
 system buffers and internal disk buffers. Performing a write without performing `fsync` doesn't guarantee that the data
 will survive a sudden power loss. Unfortunately, `fsync` is a relatively slow operation, so any I/O intensive software has to
-decide if, and when, to call it. While classic queues call `fsync` in some cases (for example, when RabbitMQ stops),
+decide if, and when, to call it. While classic queues call `fsync` in some cases (for example, when RabbitMQ stops gracefully),
 fsync is not performed before publisher confirms are sent. Therefore, even durable messages that a publisher received a confirmation for,
 can technically be lost if the server crashes. If you need stronger guarantees, you can use [quorum queues](/docs/quorum-queues).
 
@@ -106,7 +106,8 @@ From the initial release in RabbitMQ 3.8 (released in 2019), quorum queues alway
 While the initial versions had an additional in-memory **cache** for messages, it was removed in RabbitMQ 3.10.
 
 The situation is therefore simple: if the publisher received a confirmation, this means the message had already been
-written to disk and `fsync`-ed, most likely on multiple nodes (quorum queues are usually used in multi-node RabbitMQ clusters).
+written to disk and `fsync`-ed on the quorum of nodes (in the most common scearnio of a 3-node cluster, that means
+it was written and `fsync`-ed on at least 2 nodes).
 
 Since RabbitMQ doesn't offer any guarantees for messages that have not been confirmed to publishers, we could pretty much stop here.
 However, for the sake of completeness, I'll mention that some messages are technically in memory:
