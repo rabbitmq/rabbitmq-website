@@ -41,9 +41,6 @@ The per-vhost message store is still there for larger messages, but version 3.13
 For backwards compatibility `queue_index_embed_msgs_below` still controls whether a message is large enough to be stored
 in the per-vhost message store and the default is still 4kB.
 
-It's worth mentioning that the per-vhost message store greatly improves support for fanout scenarios (when a single
-message is delivered to multiple classic queues), since RabbitMQ can just write the message once, rather than once per queue.
-
 ## Classic Queues Version 2 (CQv2)
 
 A few years ago, we started a journey to re-implement classic queues for better performance. A lot of things have
