@@ -33,7 +33,7 @@ RabbitMQ (the network connection could have failed for example). With that in mi
 
 ## Classic Queues
 
-Classic queues is the oldest kind of queues in RabbitMQ and the main source of "RabbitMQ stores messages in memory" misconception.
+[Classic queues](https://www.rabbitmq.com/docs/classic-queues) is the oldest kind of queues in RabbitMQ and the main source of "RabbitMQ stores messages in memory" misconception.
 RabbitMQ was first released in 2007. Disks were significantly slower back then and therefore classic queues were designed
 to try to avoid writing messages to disk. There was a whole bunch of settings to configure when RabbitMQ should
 write messages to disk (a process called "paging") so it would not keep messages in memory indefinitely but indeed,
@@ -43,8 +43,8 @@ In RabbitMQ 3.6, released in 2015, the "lazy mode" was introduced. A queue confi
 stored messages on disk and didn't keep them in memory at all. This means that "RabbitMQ stores messages in memory"
 was not true 10 years ago. It'd still do this by default, but it was completely optional.
 
-Lazy mode was removed in RabbitMQ in 3.12, released in early 2024, but the default (and the only available) behaviour
-changed and is similar to the lazy mode, although not exactly the same. Therefore, for a year now, classic queues don't store
+Lazy mode was removed in RabbitMQ in 3.12, released in 2023, but the default (and the only available) behaviour
+changed and is similar to the lazy mode, although not exactly the same. Therefore, for over a year now, classic queues don't store
 messages in memory and can't even be configured to do so. The myth is almost entirely false at this point.
 
 Almost entirely? So here's how classic queues work right now: they accumulate incoming messages in a small in-memory buffer
@@ -69,10 +69,10 @@ it doesn't get written. If it's acknowledged after it was written, it's deleted 
 will happen later, asynchronously, but it is considered deleted immediately).
 
 It's worth mentioning that classic queues have [two separate storage mechanisms](https://www.rabbitmq.com/blog/2024/01/11/3.13-release#classic-queues-storage-primer).
-Messages below 4kb (configurable through `queue_index_embed_msgs_below`) are stored in a per-queue message store and message above that threshold,
+Messages below 4kb (configurable through `queue_index_embed_msgs_below`) are stored in a per-queue message store and messages above that threshold
 are stored in a per-vhost message store. The optimisation mentioned above only works for messages that would be stored in the per-queue message store.
 
-So here it's, in modern RabbitMQ versions, classic queues store messages in memory for a very short period of time (milliseconds)
+So here it is, in modern RabbitMQ versions, classic queues store messages in memory for a very short period of time (milliseconds)
 and no more than 200ms for sure. They may not write messages to disk at all, if the messages are small,
 and consumed quickly enough, but this is just a performance optimisation. I'll leave it up to you to decide if that
 qualifies as "RabbitMQ stores messages in memory", but I think a more accurate statement would be "when a message is delivered to
@@ -102,16 +102,16 @@ can technically be lost if the server crashes. If you need stronger guarantees, 
 
 ## Quorum Queues
 
-From the initial release in RabbitMQ 3.8 (released in 2019), quorum queues always stored messages on disk.
-While the initial versions had an additional in-memory **cache** for messages, it was removed in RabbitMQ 3.10.
+From the initial release in RabbitMQ 3.8 (released in 2019), [quorum queues](https://www.rabbitmq.com/docs/quorum-queues) always stored
+messages on disk. While the initial versions had an additional in-memory **cache** for messages, it was removed in RabbitMQ 3.10.
 
 The situation is therefore simple: if the publisher received a confirmation, this means the message had already been
-written to disk and `fsync`-ed on the quorum of nodes (in the most common scearnio of a 3-node cluster, that means
+written to disk and `fsync`-ed on the quorum of nodes (in the most common scenario of a 3-node cluster, that means
 it was written and `fsync`-ed on at least 2 nodes).
 
 Since RabbitMQ doesn't offer any guarantees for messages that have not been confirmed to publishers, we could pretty much stop here.
 However, for the sake of completeness, I'll mention that some messages are technically in memory:
-1. The queue process has a mailbox (and Erlang/OTP concept) where requests to the queue process (such as enqueue/dequeue operations)
+1. The queue process has a mailbox (an Erlang/OTP concept) where requests to the queue process (such as enqueue/dequeue operations)
 arrive for processing. The quorum queue process receives messages from the mailbox and processes them as a batch. When there's
 a lot of requests, these operations may accumulate in the mailbox and therefore, assuming there are enqueue operations there, at this
 point, some messages are only in-memory. However, this generally means RabbitMQ is at least briefly overloaded and
@@ -122,7 +122,7 @@ at this point the message is already written to disk and `fsync`-ed or it hasn't
 
 ## Streams
 
-With Streams, the situation is even simpler than with quorum queues: Streams never supported keeping messages in memory, period.
+With [Streams](https://www.rabbitmq.com/docs/streams), the situation is even simpler than with quorum queues: Streams never supported keeping messages in memory, period.
 The main difference between queues and stream in general, is that streams can be read multiple times and therefore consuming
 a message doesn't remove that message from a stream. There's no point in storing messages only in memory, if we need to be able
 to deliver them to consumers multiple times, potentially long after they were published.
@@ -163,19 +163,21 @@ Here's how we store the metadata for different queue types:
   - for messages stored in the per-queue message store, no data is stored in memory
   - for messages stored in the per-vhost message store, there's some metadata in memory
 * Quorum queues
-  - metadata is stored in memory (at least 32 bytes per message, sometimes a bit more, for example when message TTL is used)
+  - metadata is stored in memory (at least 32 bytes per message, sometimes a bit more, for example when [message TTL](https://www.rabbitmq.com/docs/ttl) is used)
 * Streams
   - no message metadata is stored in memory
 
 This basically means that for messages under 4kb stored in classic queues, as well as for streams, regardless of how many messages
 there are in the queue/stream, the memory usage is constant. You will run out disk before you run out of memory (you should
-configure retention/size limits that, to avoid running out disk, but that's a different story).
+configure [retention](https://www.rabbitmq.com/docs/streams#retention)/[length](https://www.rabbitmq.com/docs/maxlength) limits that,
+to avoid running out disk, but that's a different story).
 
 Here's an illustration highlighting the difference between the two different classic queue storage mechanisms. In this test,
 I published 1 million messages of 4000 bytes each first, then deleted the queue and published 1 million messages of 4100 bytes
 each. As you can see, the memory usage was stable in the first phase (small fluctuations notwithstanding), but when publishing
-larger messages, we can see the memory usage grows as well. This is strictly metadata stored in memory - a million 4kb
-messages would take up 4KB of memory to store, while the actual usage still below 400MB.
+larger messages, we can see the memory usage grows as well. This is because 4100 bytes is above the threshold, so these
+messages are stored in the per-vhost message store and the per-vhost message keeps some metadata in memory. A million 4KB
+messages would have taken up 4GB of memory to store, while the actual usage still below 400MB.
 
 ![Classic Queues: memory usage when publishing small and large messages](classic-queues.png)
 
