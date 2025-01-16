@@ -20,6 +20,12 @@ for example to improve performance (again, true for virtually all software that 
 However, I keep hearing this phrase used to express concerns about message durability - if you power off the server,
 your messages will be lost! In this context, modern RabbitMQ versions almost never store messages in memory.
 
+:::important
+There is no configuration in which publishing 1GB of messages to RabbitMQ with no connected consumers,
+would lead to 1GB of memory being used to store these messages. Some subset of messages can be cached in memory,
+but messages are stored on disk.
+:::
+
 We'll go through different queue types and discuss how the messages are processed, stored and when they are confirmed
 to the publishers. Publisher confirmations are critical here - RabbitMQ doesn't offer guarantees for messages that
 were not confirmed. If you haven't received the confirmation, you can't even know whether the message reached
