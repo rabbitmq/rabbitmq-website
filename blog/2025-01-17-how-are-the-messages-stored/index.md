@@ -167,17 +167,17 @@ Here's how we store the metadata for different queue types:
 * Streams
   - no message metadata is stored in memory
 
-This basically means that for messages under 4kb stored in classic queues, as well as for streams, regardless of how many messages
+This basically means that for messages under 4KB stored in classic queues, as well as for streams, regardless of how many messages
 there are in the queue/stream, the memory usage is constant. You will run out disk before you run out of memory (you should
-configure [retention](https://www.rabbitmq.com/docs/streams#retention)/[length](https://www.rabbitmq.com/docs/maxlength) limits that,
+configure [retention](https://www.rabbitmq.com/docs/streams#retention)/[length](https://www.rabbitmq.com/docs/maxlength) limits
 to avoid running out disk, but that's a different story).
 
-Here's an illustration highlighting the difference between the two different classic queue storage mechanisms. In this test,
-I published 1 million messages of 4000 bytes each first, then deleted the queue and published 1 million messages of 4100 bytes
+Here's an illustration highlighting the difference between the two classic queue storage mechanisms. In this test,
+I first published 1 million messages of 4000 bytes each, then deleted the queue and published 1 million messages of 4100 bytes
 each. As you can see, the memory usage was stable in the first phase (small fluctuations notwithstanding), but when publishing
 larger messages, we can see the memory usage grows as well. This is because 4100 bytes is above the threshold, so these
-messages are stored in the per-vhost message store and the per-vhost message keeps some metadata in memory. A million 4KB
-messages would have taken up 4GB of memory to store, while the actual usage still below 400MB.
+messages are stored in the per-vhost message store and the per-vhost message store keeps some metadata in memory. A million 4KB
+messages would have taken up 4GB of memory to store, while the actual usage is still below 400MB.
 
 ![Classic Queues: memory usage when publishing small and large messages](classic-queues.png)
 
