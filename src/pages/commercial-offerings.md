@@ -52,11 +52,10 @@ Tanzu RabbitMQ is available in many packages including OVA and OCI.
 
 The following companies provide free, virtual, or instructor-led courses for RabbitMQ:
 
- - [VMware](https://tanzu.academy/courses/rabbitmq-icm)
- - [Erlang Solutions](https://www.erlang-solutions.com/products/rabbitmq.html)
- - [LearnQuest](http://www.learnquest.com/course-detail.aspx?cnum=rabbitmq-e1xc)
- - [Seventh State](https://seventhstate.io/)
- - [Coders 51](https://www.coders51.com/)
+ * [VMware](https://tanzu.academy/courses/rabbitmq-icm)
+ * [Erlang Solutions](https://www.erlang-solutions.com/products/rabbitmq.html)
+ * [Seventh State](https://seventhstate.io/)
+ * [Coders 51](https://www.coders51.com/)
 
 These <strong>training courses</strong> cover learning messaging with RabbitMQ, use cases, patterns,
 best practice design, and architecture.
