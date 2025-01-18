@@ -703,13 +703,13 @@ The following aliases are available:
  * <code>http</code> for <code>rabbit_auth_backend_http</code> (from the [HTTP auth backend plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_http))
  * <code>dummy</code> for <code>rabbit_auth_backend_dummy</code>
 
-Some plugins do not currently have a shortcut. In this case, a full module (not the name of the plugin!) must
+For plugins that do not have a shortcut, a full module (not the name of the plugin!) must
 be used:
 
 ```ini
-# note that the module name begins with a "rabbit_", not "rabbitmq_", like in the name
-# of the plugin
-auth_backends.1 = rabbit_auth_backend_example
+# note that the module name begins with a "rabbit_", not "rabbitmq_", like plugin
+# names usually do
+auth_backends.1 = rabbit_auth_backend_ip_range
 ```
 
 When using third party plugins, providing a full module name is necessary.
