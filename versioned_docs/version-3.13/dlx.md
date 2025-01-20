@@ -147,7 +147,7 @@ dropped <em>if there was no rejection in the entire cycle</em>.
 
 ## Safety {#safety}
 
-Deadl-lettering is a form of message publishing, and as any form of publishing,
+Dead-lettering is a form of message publishing, and as any form of publishing,
 it can fail in certain scenarios. For example, if dead lettering is
 configured to use a quorum queue that does not have an online quorum,
 the publishing will fail, and the node perfoming dead lettering will log
