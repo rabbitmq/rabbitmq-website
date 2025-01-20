@@ -467,7 +467,7 @@ number of messages in RAM vs. on disk, and so on.
 
 Runtime metrics such as VM scheduler usage, queue (Erlang) process GC activity, amount of
 RAM used by the queue process, queue process mailbox length can be accessed
-using the [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top) plugin and
+using the [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_top) plugin and
 individual queue pages in the management UI.
 
 

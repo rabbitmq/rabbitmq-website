@@ -316,7 +316,7 @@ and only use DNS or a pre-configured set of hostname-to-IP address mappings.
 
 ### AWS Peer Discovery Overview
 
-An [AWS (EC2)-specific](https://github.com/rabbitmq/rabbitmq-peer-discovery-aws) discovery mechanism
+An [AWS (EC2)-specific](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_peer_discovery_aws) discovery mechanism
 is available via a plugin.
 
 As with any [plugin](./plugins), it must be enabled before it
@@ -456,7 +456,7 @@ cluster_formation.aws.use_private_ip = true
 ### Kubernetes Peer Discovery Overview
 
 A [Kubernetes](https://kubernetes.io/)-based discovery mechanism
-is available via [a plugin](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s).
+is available via [a plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_peer_discovery_k8s).
 
 As with any [plugin](./plugins), it must be enabled before it
 can be used. For peer discovery plugins it means they must be [enabled](./plugins#basics)
@@ -721,7 +721,7 @@ cluster_formation.k8s.service_name = rmq-qa
 ### Consul Peer Discovery Overview
 
 A [Consul](https://www.consul.io)-based discovery mechanism
-is available via [a plugin](https://github.com/rabbitmq/rabbitmq-peer-discovery-consul).
+is available via [a plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_peer_discovery_consul).
 
 As with any [plugin](./plugins), it must be enabled before it
 can be used. For peer discovery plugins it means they must be [enabled](./plugins#basics)
@@ -1035,7 +1035,7 @@ cluster_formation.consul.lock_prefix = environments-qa
 ### Etcd Peer Discovery Overview
 
 An [etcd](https://etcd.io/)-based discovery mechanism
-is available via [a plugin](https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd).
+is available via [a plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_peer_discovery_etcd).
 
 As of RabbitMQ `3.8.4`, the plugin uses a v3 API, gRPC-based etcd client and
 **requires etcd 3.4 or a later version**.

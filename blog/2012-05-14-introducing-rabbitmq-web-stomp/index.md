@@ -28,7 +28,7 @@ in the browser: exposing STOMP through Websockets.
 
 We're delighted to introduce a new plugin for RabbitMQ:
 
-* [RabbitMQ-Web-Stomp](https://github.com/rabbitmq/rabbitmq-web-stomp)
+* [RabbitMQ-Web-Stomp](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_web_stomp)
 
 It is basically a bridge between [RabbitMQ-STOMP](https://github.com/rabbitmq/rabbitmq-stomp)
 plugin and a Websockets server ([SockJS](http://sockjs.org)). Hopefully, it is a decent solution
@@ -76,7 +76,7 @@ We use this code in the examples:
 
 ## Installation
 
-[Rabbitmq-Web-Stomp](https://github.com/rabbitmq/rabbitmq-web-stomp) is an experimental plugin.
+[Rabbitmq-Web-Stomp](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_web_stomp) is an experimental plugin.
 It's not distributed with vanilla RabbitMQ releases; you need to install it manually.
 
 1. You need at least Erlang R14 ([more info](/docs/which-erlang)).
@@ -112,10 +112,10 @@ sudo /etc/init.d/rabbitmq-server restart
 
 As you may have noticed, we enabled two plugins:
 
-* First, [RabbitMQ-web-stomp](https://github.com/rabbitmq/rabbitmq-web-stomp), which is the main
+* First, [RabbitMQ-web-stomp](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_web_stomp), which is the main
 plugin. It exposes SockJS endpoint on port 55674, like: [http://127.0.0.1:55674/stomp](http://127.0.0.1:55674/stomp).
 * Second,
-[RabbitMQ-web-stomp-examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples), which
+[RabbitMQ-web-stomp-examples](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_web_stomp_examples), which
 only hosts a few javascript and html files with examples. This is accessible under:
 [http://127.0.0.1:55670/](http://127.0.0.1:55670/).
 
@@ -128,12 +128,12 @@ to instantly run two examples prepared by us. Just open a web
 browser at [http://127.0.0.1:55670/](http://127.0.0.1:55670/).
 
 * ["echo"](http://127.0.0.1:55670/web-stomp-examples/echo.html) - shows how to use STOMP to do
-simple message broadcasting ([source](https://github.com/rabbitmq/rabbitmq-web-stomp-examples/blob/master/priv/echo.html))
+simple message broadcasting ([source](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_web_stomp_examples/blob/master/priv/echo.html))
 
 ![](web-stomp-echo.png)
 
 * ["bunny"](http://127.0.0.1:55670/web-stomp-examples/bunny.html) - example of a simple
-collaboration canvas painting app ([source](https://github.com/rabbitmq/rabbitmq-web-stomp-examples/blob/master/priv/bunny.html))
+collaboration canvas painting app ([source](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_web_stomp_examples/blob/master/priv/bunny.html))
 
 ![](web-stomp-bunny1.png)
 

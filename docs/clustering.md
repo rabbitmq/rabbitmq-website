@@ -67,10 +67,10 @@ A RabbitMQ cluster can be formed in a number of ways:
 
  * Declaratively by listing cluster nodes in [config file](./configure)
  * Declaratively using DNS-based discovery
- * Declaratively using [AWS (EC2) instance discovery](https://github.com/rabbitmq/rabbitmq-peer-discovery-aws) (via a plugin)
- * Declaratively using [Kubernetes discovery](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s) (via a plugin)
- * Declaratively using [Consul-based discovery](https://github.com/rabbitmq/rabbitmq-peer-discovery-consul) (via a plugin)
- * Declaratively using [etcd-based discovery](https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd) (via a plugin)
+ * Declaratively using [AWS (EC2) instance discovery](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_peer_discovery_aws) (via a plugin)
+ * Declaratively using [Kubernetes discovery](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_peer_discovery_k8s) (via a plugin)
+ * Declaratively using [Consul-based discovery](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_peer_discovery_consul) (via a plugin)
+ * Declaratively using [etcd-based discovery](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_peer_discovery_etcd) (via a plugin)
  * Manually with `rabbitmqctl`
 
 These mechanisms are covered in more details in the [Cluster Formation guide](./cluster-formation).

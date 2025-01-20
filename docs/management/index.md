@@ -62,7 +62,7 @@ This guide covers:
  * How to [reset statistics database](#reset-stats) used by this plugin
 
 The plugin also provides extension points that other plugins, such as
-[rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top) or
+[rabbitmq-top](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_top) or
 [rabbitmq-shovel-management](https://github.com/rabbitmq/rabbitmq-shovel-management),
 use to extend the UI.
 

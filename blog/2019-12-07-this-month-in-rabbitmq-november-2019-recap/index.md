@@ -14,7 +14,7 @@ by RabbitMQ core team member Gerhard Lazu. Tune in on December 12th!
 ## Project Updates
 
 * [RabbitMQ 3.7.22](https://groups.google.com/forum/#!msg/rabbitmq-users/9ztCUW7RaMU/JkQQXXOEBgAJ) and [3.8.2](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.2) were released, both include a patch for [CVE-2019-11287](https://pivotal.io/security/cve-2019-11287)
-* [Kubernetes peer discovery example](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s/tree/master/examples/minikube) was updated
+* [Kubernetes peer discovery example](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_peer_discovery_k8s/tree/master/examples/minikube) was updated
 and is now a more complete. Speaking for Kubernetes, you can sign up to beta test Pivotal's [RabbitMQ for Kubernetes](https://pivotal.io/pivotal-rabbitmq-on-kubernetes)!
 * [Reactor RabbitMQ 1.4.0](https://groups.google.com/d/msg/rabbitmq-users/aY4aOtUPneg/p9GDDsSDBgAJ) is released as part of the [Reactor Dysprosium-SR2 release train](https://projectreactor.io/docs). This release comes with a new feature, a usability improvement, and a dependency upgrade.
 * There were several new Erlang releases, already available via our [Debian](https://github.com/rabbitmq/erlang-debian-package/) and [RPM packages](https://github.com/rabbitmq/erlang-rpm) on [PackageCloud](https://packagecloud.io/rabbitmq/erlang/), [GitHub](https://github.com/rabbitmq/erlang-rpm/releases), and other places. There's now an RPM package produced for CentOS/RHEL 8.

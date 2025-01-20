@@ -117,7 +117,7 @@ Connections that fail to authenticate will be closed with an error message in th
 ### Authentication using Client TLS (x.509) Certificate Data {#certificate-authentication}
 
 To authenticate client connections using X.509 certificate a built-in plugin,
-[rabbitmq-auth-mechanism-ssl](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl),
+[rabbitmq-auth-mechanism-ssl](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_mechanism_ssl),
 must be enabled and clients must be [configured to use the EXTERNAL mechanism](#mechanisms).
 With this mechanism, any client-provided password will be ignored.
 
@@ -790,7 +790,7 @@ RabbitMQ supports multiple SASL authentication
 mechanisms. There are four such mechanisms built into the
 server: <code>PLAIN</code>, <code>AMQPLAIN</code>, <code>ANONYMOUS</code>,
 and <code>RABBIT-CR-DEMO</code>, and one — <code>EXTERNAL</code> —
-available as a [plugin](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl).
+available as a [plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_mechanism_ssl).
 
 More authentication mechanisms can be provided by plugins. See
 the [plugin development guide](/plugin-development) for more information on general plugin
@@ -839,7 +839,7 @@ The built-in mechanisms are:
     <td>EXTERNAL</td>
     <td>
       Authentication happens using an out-of-band mechanism
-      such as <a href="https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl">x509 certificate peer verification</a>,
+      such as <a href="https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_mechanism_ssl">x509 certificate peer verification</a>,
       client IP address range, or similar. Such mechanisms are usually provided by RabbitMQ plugins.
     </td>
   </tr>

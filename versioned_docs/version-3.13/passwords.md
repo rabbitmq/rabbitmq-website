@@ -131,7 +131,7 @@ Credential validators can also validate usernames or apply any other logic
 
 [Internal authentication backend](./access-control) allows for users without a password
 or with a blank one (assuming credential validator also allows it). Such users are only meant to be used
-with passwordless [authentication mechanisms](./authentication) such as [authentication using x509 certificates](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl).
+with passwordless [authentication mechanisms](./authentication) such as [authentication using x509 certificates](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_mechanism_ssl).
 
 In order to create a passwordless user, create one with any password that passes validation and clear
 the password using [rabbitmqctl](./cli)'s `clear_password` command:
@@ -151,13 +151,13 @@ for authentication (e.g. [LDAP](./ldap)) can use blank passwords.
 
 ## Authentication Using TLS (x509) Certificates {#x509-certificate-authentication}
 
-It is possible to [authenticate connections using x509 certificates](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl) and avoid
+It is possible to [authenticate connections using x509 certificates](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_mechanism_ssl) and avoid
 using passwords entirely. The authentication process then will rely on TLS [peer certificate chain validation](https://tools.ietf.org/html/rfc5280#section-6).
 
 To do so:
 
  * Create a passwordless user (see above)
- * Enable the [rabbitmq-auth-mechanism-ssl](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl) plugin
+ * Enable the [rabbitmq-auth-mechanism-ssl](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_mechanism_ssl) plugin
  * Follow the plugin's configuration instructions
  * Configure client connections to use TLS and the `EXTERNAL` authentication mechanism
  * Configure client connections to provide a certificate/key pair and a CA certificate (or chain of certificates).

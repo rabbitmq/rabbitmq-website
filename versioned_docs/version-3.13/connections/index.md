@@ -140,7 +140,7 @@ After successfully opening a connection and authenticating, applications open on
 to perform protocol operations, e.g. define topology, consume and publish messages.
 
 AMQP 0-9-1 supports different authentication mechanisms. While it's most common for applications
-to provide a pair of credentials, x509 certificates and PKI [can be used](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl)
+to provide a pair of credentials, x509 certificates and PKI [can be used](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_mechanism_ssl)
 instead.
 
 #### AMQP 1.0

@@ -39,7 +39,7 @@ RabbitMQ provides tools that report and help analyse node memory use:
  * [Prometheus and Grafana](./prometheus)-based monitoring makes it possible to observe memory breakdown over time
  * [Management UI](./management) provides the same breakdown on the node page as `rabbitmq-diagnostics status`
  * [HTTP API](./management#http-api) provides the same information as the management UI, useful [for monitoring](./monitoring)
- * [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top) and `rabbitmq-diagnostics observer` provide a more fine-grained [top](https://en.wikipedia.org/wiki/Top_(software))-like per Erlang process view
+ * [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_top) and `rabbitmq-diagnostics observer` provide a more fine-grained [top](https://en.wikipedia.org/wiki/Top_(software))-like per Erlang process view
 
 Obtaining a node memory breakdown should be the first step when reasoning about node memory use.
 
@@ -481,7 +481,7 @@ Memory used by atoms. Should be fairly constant.
 
 ### Per-process Analysis with rabbitmq-top {#breakdown-top}
 
-[rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top) is a plugin that helps
+[rabbitmq-top](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_top) is a plugin that helps
 identify runtime processes ("lightweight threads") that consume most memory or scheduler (CPU)
 time.
 

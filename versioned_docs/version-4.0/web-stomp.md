@@ -100,7 +100,7 @@ client.connect('guest', 'guest', on_connect, on_error, '/');
 ## Web STOMP Examples {#examples}
 
 A few simple Web STOMP examples are provided as a
-[RabbitMQ Web STOMP examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples)
+[RabbitMQ Web STOMP examples](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_web_stomp_examples)
 plugin. To get it running follow the installation instructions for that plugin
 and enable the plugin:
 
