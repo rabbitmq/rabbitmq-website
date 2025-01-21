@@ -50,7 +50,7 @@ The AMQP 0-9-1 Model has the following view of the world:
 messages are published to _exchanges_,
 which are often compared to post offices or mailboxes. Exchanges then
 distribute message copies to _queues_ using rules called
-_bindings_. Then the broker either deliver messages to
+_bindings_. Then the broker either delivers messages to
 consumers subscribed to queues, or consumers
 fetch/pull messages from queues on demand.
 
