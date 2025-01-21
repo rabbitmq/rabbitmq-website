@@ -64,11 +64,11 @@ Topics covered in this document include:
  * [Replication](#replication)-related topics: [replica management](#replica-management), [replica leader rebalancing](#replica-rebalancing), optimal number of replicas, etc
  * What guarantees quorum queues offer in terms of [leader failure handling](#leader-election), [data safety](#data-safety) and [availability](#availability)
  * Continuous [Membership Reconciliation](#replica-reconciliation)
+ * [Memory and disk footprint](#resource-use) of quorum queues
  * [Performance](#performance) characteristics of quorum queues and [performance tuning](#performance-tuning) relevant to them
  * [Poison message handling](#poison-message-handling) (failure-redelivery loop protection)
  * Options to Relax [Property Equivalence](#relaxed-property-equivalence)
  * [Configurable settings](#configuration) of quorum queues
- * Resource use of quorum queues, most importantly their [memory footprint](#resource-use)
 
 and more.
 
@@ -1134,6 +1134,28 @@ The following `advanced.config` example modifies all values listed above:
 ].
 ```
 
+## Options to Relax Property Equivalence Checks {#relaxed-property-equivalence}
+
+When a client redeclares a queue, RabbitMQ nodes [perform a property equivalence checks](./queues/#property-equivalence).
+If some properties are not equivalent, the declaration will fail with a [channel error](./channels#error-handling).
+
+In environment where applications explicitly set the type of the queue via the `x-queue-type` argument
+and cannot be quickly updated and/or redeployed, the equivalence check for `x-queue-type` can be ignored
+with an opt-in setting:
+
+```
+quorum_queue.property_equivalence.relaxed_checks_on_redeclaration = true
+```
+
+If `quorum_queue.property_equivalence.relaxed_checks_on_redeclaration` is set to `true`,
+the 'x-queue-type' header will be ignored (not compared for equivalence)
+for queue redeclaration.
+
+This can simplify upgrades of applications that explicitly
+set 'x-queue-type' to 'classic' for historical reasons but do not set any other
+properties that may conflict or significantly change queue behavior and semantics,
+such as the ['exclusive' field](./queues#exclusive-queues).
+
 
 ## Resource Use {#resource-use}
 
@@ -1144,11 +1166,15 @@ You can perform back-of-the-envelope calculations based on the number of queues 
 Keeping the queues short is the best way to maintain low memory usage. [Setting the maximum queue length](./maxlength)
 for all queues is a good way to limit the total memory usage if the queues become long for any reason.
 
-Additionally, quorum queues on a given node share a write-ahead-log (WAL) for all operations.
+### How Memory, WAL and Segments Files Interact
+
+Quorum queues on a given node share a write-ahead-log (WAL) for all operations.
+The WAL contains a limited number of recent operations on the queue.
 WAL entries are stored both in memory and written to disk.
 When the current WAL file reaches a predefined limit, it is flushed to segment files on disk
 for each quorum queue member on a node
 and the system will begin to release the memory used by that batch of log entries.
+
 The segment files are then compacted over time as consumers [acknowledge deliveries](./confirms).
 Compaction is the process that reclaims disk space.
 
@@ -1160,11 +1186,7 @@ raft.wal_max_size_bytes = 64000000
 ```
 
 The value defaults to 512 MiB. This means that during steady load, the WAL table memory
-footprint can reach 512 MiB. You can expect your memory usage to look like this:
-
-<figure>
-![Quorum Queues memory usage pattern](./quorum-queue-memory-usage-pattern.png)
-</figure>
+footprint can reach 512 MiB.
 
 :::important
 
@@ -1174,6 +1196,36 @@ More will be required in high-throughput systems.
 4 times is a good starting point for those.
 
 :::
+
+The memory footprint pattern of quorum queues will typically look like this:
+
+<figure>
+![Quorum Queues memory usage pattern](./quorum-queue-memory-usage-pattern.png)
+</figure>
+
+### Disk Space
+
+:::important
+
+In environments with heavy quorum queue usage and/or large messages flowing through them,
+it is very important to overprovision disk space, that is, have the extra spare capacity.
+This follows the [general recommendation for storage](./production-checklist#storage) for modern release series.
+
+:::
+
+With large messages (say, 1 MiB and higher), quorum queue disk footprint can be large.
+Depending on the workload — and in particular, the number of messages pending [consumer acknowledgement](./consumers) —
+the removal of segment files can progress slowly, resulting in a growing disk footprint.
+
+This leads to several recommendations:
+
+1. In environments with heavy quorum queue usage and/or large messages flowing through them,
+   it is very important to overprovision disk space, that is, have the extra spare capacity
+2. Quorum queues depend heavily on consumers acknowledging messages in a timely manner,
+   so a [reasonably low delivery acknowledgement timeout](./consumers#acknowledgement-timeout) must be used
+3. With larger messages, [decreasing the number of entries per segment file](#segment-entry-count) can be beneficial
+4. Larger messages can be stored in a blob store as an alternative, with relevant metadata being passed around
+   in messages flowing through quorum qeueues
 
 ### Repeatedly Requeued Deliveries (Deliver-Requeue Loops) {#repeated-requeues}
 
@@ -1208,29 +1260,6 @@ While quorum queues were not designed to be used in high churn environments
 can be increased if really necessary.
 
 See [the Runtime guide](./runtime#atom-usage) to learn more.
-
-
-## Options to Relax Property Equivalence Checks {#relaxed-property-equivalence}
-
-When a client redeclares a queue, RabbitMQ nodes [perform a property equivalence checks](./queues/#property-equivalence).
-If some properties are not equivalent, the declaration will fail with a [channel error](./channels#error-handling).
-
-In environment where applications explicitly set the type of the queue via the `x-queue-type` argument
-and cannot be quickly updated and/or redeployed, the equivalence check for `x-queue-type` can be ignored
-with an opt-in setting:
-
-```
-quorum_queue.property_equivalence.relaxed_checks_on_redeclaration = true
-```
-
-If `quorum_queue.property_equivalence.relaxed_checks_on_redeclaration` is set to `true`,
-the 'x-queue-type' header will be ignored (not compared for equivalence)
-for queue redeclaration.
-
-This can simplify upgrades of applications that explicitly
-set 'x-queue-type' to 'classic' for historical reasons but do not set any other
-properties that may conflict or significantly change queue behavior and semantics,
-such as the ['exclusive' field](./queues#exclusive-queues).
 
 
 ## Performance Tuning {#performance-tuning}

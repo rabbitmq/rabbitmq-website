@@ -56,7 +56,11 @@ and more.
 
 ### Use Durable Storage {#storage-durability}
 
-Modern RabbitMQ 3.x features, most notably quorum queues and streams, are not designed with transient storage in mind.
+:::important
+
+Modern RabbitMQ features, most notably quorum queues and streams, are designed for durable storage only.
+
+:::
 
 Data safety features of [quorum queues](./quorum-queues) and [streams](./streams) expect
 node data storage to be durable. Both data structures also assume reasonably stable latency of I/O
@@ -71,7 +75,23 @@ about their cluster peers. When this is not the case, restarted nodes may be abl
 as new nodes but a [special peer clean up mechanism](./cluster-formation#node-health-checks-and-cleanup)
 would have to be enabled to remove their prior identities.
 
-Transient entities (such as queues) and RAM node support will be removed in RabbitMQ 4.0.
+Transient entities (such as queues) and RAM node support will be removed in RabbitMQ 4.x.
+
+### Overprovision Disk Space
+
+:::important
+
+The rule of thumb is: when in doubt, overprovision the disks that RabbitMQ nodes will use.
+Quorum queues and streams can have substantial on-disk footprint.
+
+:::
+
+Quorum queues and streams can have substantial on-disk footprint. Depending on the workload
+and settings, they may or may not reclaim disk space of consumed and confirmed or expired
+messages quickly.
+
+[Disk space to RAM ratio recommendations](#resource-limits-disk-space) are listed below.
+The rule of thumb is: when in doubt, overprovision the disks that RabbitMQ nodes will use.
 
 ### Network-attached Storage (NAS) {#storage-nas}
 
