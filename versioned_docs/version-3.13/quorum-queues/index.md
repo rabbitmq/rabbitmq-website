@@ -1120,7 +1120,7 @@ This leads to several recommendations:
 4. Larger messages can be stored in a blob store as an alternative, with relevant metadata being passed around
    in messages flowing through quorum qeueues
 
-### Whe Does Segment File Truncation Happen?
+### When Does Segment File Truncation Happen? {#segment-file-truncation}
 
 Segment file truncation happens periodically in response to client operations,
 when it is safe to do so. Quorum queues periodically take checkpoints and snapshots,
