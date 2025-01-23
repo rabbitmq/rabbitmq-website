@@ -1226,6 +1226,27 @@ This leads to several recommendations:
 4. Larger messages can be stored in a blob store as an alternative, with relevant metadata being passed around
    in messages flowing through quorum qeueues
 
+### Whe Does Segment File Truncation Happen?
+
+Segment file truncation happens periodically in response to client operations,
+when it is safe to do so. Quorum queues periodically take checkpoints and snapshots,
+and truncate the segment files that are know to not contain any more "live" (ready for delivery
+or pending consumer acknowledgement) messages.
+
+When there is no client activity, these events won't happen, and neither will segment
+file truncation. If a queue is completely idle and empty but has a large number of
+on disk segment files from an earlier period of peak activity, making sure the queue is
+empty then **purging it** may help force a segment file truncation.
+
+To purge a queue, use
+
+ * Using the `Purge Messages` button one the queue's page in the management UI
+ * When using AMQP 0-9-1, the `queue.purge` operation, exposed via similarly named functions or methods in most AMQP 0-9-1 client libraries
+ * When using AMQP 1.0, similarly named functions or methods in the AMQP 1.0 client libraries maintained by Team RabbitMQ
+
+Note that purging a queue with unacknowedged deliveries won't have the desired effect
+on all the segment files, and possibly no effects at all.
+
 ### Repeatedly Requeued Deliveries (Deliver-Requeue Loops) {#repeated-requeues}
 
 Internally quorum queues are implemented using a log where all operations including
