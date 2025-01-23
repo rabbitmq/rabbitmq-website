@@ -391,17 +391,16 @@ read semantics.
 | [Non-durable queues](./queues) | yes | no |
 | [Exclusivity](./queues) | yes | no |
 | Per message persistence | per message | always |
-| Membership changes | automatic | manual  |
+| Membership changes | no | manual  |
 | [TTL](./ttl) | yes | no (but see [Retention](#retention)) |
 | [Queue length limits](./maxlength) | yes | no (but see [Retention](#retention))|
 | Keeps messages in memory | see [Classic Queues](./classic-queues#memory) | never |
 | [Message priority](./priority) | yes | no |
 | [Consumer priority](./consumer-priority) | yes | no |
 | [Dead letter exchanges](./dlx) | yes | no |
-| Adheres to [policies](./parameters#policies) | yes | (see [Retention](#retention)) |
+| Adheres to [policies](./parameters#policies) | yes | yes (see [Retention](#retention)) |
 | Reacts to [memory alarms](./alarms) | yes | no (uses minimal RAM) |
 | Poison message handling | no | no |
-| Global [QoS Prefetch](#global-qos) | yes | no |
 
 #### Non-durable Queues
 

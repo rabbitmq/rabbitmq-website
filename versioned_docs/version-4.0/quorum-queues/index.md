@@ -168,7 +168,6 @@ With some queue operations there are minor differences:
 | [Dead letter exchanges](./dlx) | yes | yes |
 | Adheres to [policies](./parameters#policies) | yes | yes (see [Policy support](#policy-support)) |
 | Poison message handling | no | yes |
-| Global [QoS Prefetch](#global-qos) | yes | no |
 | [Server-named queues](./queues#server-named-queues) | yes | no |
 
 Modern quorum queues also offer [higher throughput and less latency variability](/blog/2022/05/16/rabbitmq-3.10-performance-improvements)
