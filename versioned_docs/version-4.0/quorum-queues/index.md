@@ -65,7 +65,8 @@ Topics covered in this document include:
  * What guarantees quorum queues offer in terms of [leader failure handling](#leader-election), [data safety](#data-safety) and [availability](#availability)
  * Continuous [Membership Reconciliation](#replica-reconciliation)
  * [Memory and disk footprint](#resource-use) of quorum queues
- * [Performance](#performance) characteristics of quorum queues and [performance tuning](#performance-tuning) relevant to them
+ * [Performance](#performance) characteristics of quorum queues
+ * [Performance tuning](#performance-tuning), both for workloads with [small messages](#performance-tuning-small-messages) and [large messages](#performance-tuning-large-messages)
  * [Poison message handling](#poison-message-handling) (failure-redelivery loop protection)
  * Options to Relax [Property Equivalence](#relaxed-property-equivalence)
  * [Configurable settings](#configuration) of quorum queues
@@ -1222,7 +1223,8 @@ This leads to several recommendations:
    it is very important to overprovision disk space, that is, have the extra spare capacity
 2. Quorum queues depend heavily on consumers acknowledging messages in a timely manner,
    so a [reasonably low delivery acknowledgement timeout](./consumers#acknowledgement-timeout) must be used
-3. With larger messages, [decreasing the number of entries per segment file](#segment-entry-count) can be beneficial
+3. With larger messages, [decreasing the number of entries per segment file](#performance-tuning-large-messages) can be beneficial
+   to reduce the size of segment files and allow for more frequent truncation (removal) of those files
 4. Larger messages can be stored in a blob store as an alternative, with relevant metadata being passed around
    in messages flowing through quorum qeueues
 
@@ -1290,21 +1292,49 @@ This section aims to cover a couple of tunable parameters that may increase thro
 Use the values and recommendations here as a **starting point** and conduct your own benchmark (for example,
 [using PerfTest](https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/)) to conclude what combination of values works best for a particular workloads.
 
-### Tuning: Raft Segment File Entry Count {#segment-entry-count}
+### Tuning: Raft Segment File Entry Count
+
+#### For Small Messages {#performance-tuning-small-messages}
 
 Workloads with small messages and higher message rates can benefit from the following
 configuration change that increases the number of Raft log entries (such as enqueued messages)
-that are allowed in a segment file. Having fewer segment files can be beneficial when
-consuming from a queue with a long backlog:
+that are allowed in a segment file.
+
+Having fewer segment files can be beneficial when consuming from a queue with a long backlog:
 
 ```bash
 # Positive values up to 65535 are allowed, the default is 4096.
+# This value is reasonable for workloads with small (say, smaller than 8 kiB) messages
 raft.segment_max_entries = 32768
 ```
 
 Values greater than `65535` are **not supported**.
 
-### Tuning: Linux Readahead {#linux-readahead}
+#### For Large Messages {#performance-tuning-large-messages}
+
+Workloads with large (100s of kilobytes or even a few MiB) messages will benefit from the following
+configuration change that **significantly reduces** the number of Raft log entries (such as enqueued messages)
+that are allowed in a segment file.
+
+Having significantly fewer entries per segment file
+will keep the size of each segment reasonable and allow nodes truncate them
+at a higher rate because each segment file will have a lower probability to have
+a very small number of live messages that keep the entire file around.
+
+As a back-of-the-envelope calculation, consider a workload that enqueues 4096 messages
+of 1 MiB each. That would result in a segment file of over 4 GiB in size, and the entire
+file won't be ready for deletion as long as at least one of those messages is alive
+(was not delivered and confirmed).
+
+For example, to allow only 64 entries per segment file:
+
+```bash
+# The default is 4096.
+# This value is only reasonable for workloads with messages of 1 MiB or even larger
+raft.segment_max_entries = 128
+```
+
+### Tuning: Linux Readahead {#performance-tuning-linux-readahead}
 
 In addition, the aforementioned workloads with a higher rate of small messages can benefit from
 a higher `readahead`, a configurable block device parameter of storage devices on Linux.
