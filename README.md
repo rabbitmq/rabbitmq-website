@@ -89,7 +89,7 @@ The examples below use `npm`.
 npm install
 ```
 
-You need to de this once only.
+You need to do this once only.
 
 ### Local Development
 

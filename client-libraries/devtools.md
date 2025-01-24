@@ -40,11 +40,12 @@ would like to see added to this list.
 ## Java and Spring {#java-dev}
 
 ### Java
- * &#x2713; [RabbitMQ Java client](./java-client) and its [developer guide](/client-libraries/java-api-guide)
+ * &#x2713; [RabbitMQ AMQP 1.0 Java client](https://github.com/rabbitmq/rabbitmq-amqp-java-client) and the [AMQP 1.0 client library guide](./amqp-client-libraries)
  * &#x2713; [RabbitMQ Stream Java client](https://github.com/rabbitmq/rabbitmq-stream-java-client)
  * &#x2713; [RabbitMQ JMS client](./jms-client)
+ * &#x2713; [RabbitMQ AMQP 0.9.1 Java client](./java-client) and its [developer guide](./java-api-guide)
  * [Reactor RabbitMQ](https://github.com/reactor/reactor-rabbitmq), a reactive API for RabbitMQ based on
-   [Reactor](https://projectreactor.io/) and [RabbitMQ Java Client](./java-client)
+   [Reactor](https://projectreactor.io/) and [RabbitMQ Java client](./java-client)
 
 ### Spring Framework
 
@@ -57,8 +58,9 @@ would like to see added to this list.
 
 Client libraries:
 
- * &#x2713; [RabbitMQ .NET Client](./dotnet) (supports .NET Core and .NET 4.6.1+)
+ * &#x2713; [RabbitMQ AMQP 1.0 .NET client](https://github.com/rabbitmq/rabbitmq-amqp-dotnet-client) and the [AMQP 1.0 client library guide](./amqp-client-libraries)
  * &#x2713; [RabbitMQ Stream .NET client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client)
+ * &#x2713; [RabbitMQ AMQP 0.9.1 .NET client](./dotnet) (supports .NET Core and .NET 4.6.1+)
 
 Higher level frameworks:
 
@@ -87,6 +89,7 @@ Miscellaneous projects:
 
 ## Python {#python-dev}
 
+ * &#x2713; [RabbitMQ AMQP 1.0 Python client](https://github.com/rabbitmq/rabbitmq-amqp-python-client/) and the [AMQP 1.0 client library guide](./amqp-client-libraries),
  * &#x2713; [pika](http://pypi.python.org/pypi/pika), a pure-Python AMQP 0-9-1 client ([source code](https://github.com/pika/pika),
    [API reference](http://readthedocs.org/docs/pika/en/latest/index.html))
  * &#x2713; [rstream](https://github.com/qweeze/rstream): RabbitMQ Stream Python client
@@ -129,8 +132,9 @@ Miscellaneous projects:
 
 ## Go {#go-dev}
 
- * &#x2713; [RabbitMQ Go client](https://github.com/rabbitmq/amqp091-go)
+ * &#x2713; [RabbitMQ AMQP 1.0 Go client](https://github.com/rabbitmq/rabbitmq-amqp-go-client) and the [AMQP 1.0 client library guide](./amqp-client-libraries)
  * &#x2713; [RabbitMQ Stream Go client](https://github.com/rabbitmq/rabbitmq-stream-go-client)
+ * &#x2713; [RabbitMQ AMQP 0.9.1 Go client](https://github.com/rabbitmq/amqp091-go)
  * Rabbit Hole, [RabbitMQ HTTP API client for Go](https://github.com/michaelklishin/rabbit-hole)
  * [amqpc](https://github.com/gocardless/amqpc), a load testing tool for RabbitMQ clusters
 
