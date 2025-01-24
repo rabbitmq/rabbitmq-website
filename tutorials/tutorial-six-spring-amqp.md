@@ -107,7 +107,7 @@ Spring AMQP allows you to focus on the message style you're working
 with and hide the details of message plumbing required to support
 this style. For example, typically the native client would
 create a callback queue for every RPC request. That's pretty
-inefficient so an alternative is to create a single callback
+inefficient, so an alternative is to create a single callback
 queue per client.
 
 That raises a new issue, having received a response in that queue it's

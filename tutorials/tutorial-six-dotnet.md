@@ -103,9 +103,8 @@ https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCClient/RPCCli
 
 ### Correlation Id
 
-In the method presented above we suggest creating a callback queue for
-every RPC request. That's pretty inefficient, but fortunately there is
-a better way - let's create a single callback queue per client.
+Creating a callback queue for every RPC request is inefficient.
+A better way is creating a single callback queue per client.
 
 That raises a new issue, having received a response in that queue it's
 not clear to which request the response belongs. That's when the
@@ -131,7 +130,7 @@ gracefully, and the RPC should ideally be idempotent.
 
 Our RPC will work like this:
 
-  * When the Client starts up, it creates an anonymous exclusive
+  * When the Client starts up, it creates an exclusive
     callback queue.
   * For an RPC request, the Client sends a message with two properties:
     `ReplyTo`, which is set to the callback queue and `CorrelationId`,
