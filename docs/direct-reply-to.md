@@ -23,10 +23,19 @@ limitations under the License.
 ## Overview {#overview}
 
 Direct reply-to is a feature that allows RPC (request/reply) clients with a design
-similar to that demonstrated in [tutorial 6](/tutorials) to avoid
-declaring a response queue per request.
+similar to that demonstrated in [tutorial 6](/tutorials) without requiring the creation
+of a reply queue.
 
-### Motivation {#motivation}
+:::important
+
+Request-reply implementations where clients use explicitly declared queues, both
+long-lived client named and connection-specific exclusive queues, are
+just as valid as Direct Reply-to, and have their benefits, in particular
+for workloads with long-running tasks
+
+:::
+
+## Motivation {#motivation}
 
 RPC (request/reply) is a popular pattern to implement with a messaging broker
 like RabbitMQ. [Tutorial 6](/tutorials) demonstrates its implementation
@@ -38,22 +47,26 @@ header.
 
 Where does the client's queue come from? The client can
 declare a single-use queue for each request-response pair. But
-this is inefficient; even a transient unreplicated queue can be
+this is inefficient; even an unreplicated queue can be
 expensive to create and then delete (compared with the cost of
 sending a message). This is especially true in a cluster as all
 cluster nodes need to agree that the queue has been created,
 agree on its type, replication parameters, and other metadata.
 
-So alternatively the client can create a long-lived queue for
-its replies. But this can be fiddly to manage, especially if the
-client itself is not long-lived.
+Therefore, the client should create a single reply queue for multiple RPC requests.
 
-The direct reply-to feature allows RPC clients to receive
-replies directly from their RPC server, without going through a
-reply queue. "Directly" here still means going through the same connection
-and a RabbitMQ node; there is no direct network connection
-between RPC client and RPC server processes.
+The [properties](queues#properties) of this reply queue depend on the use case:
 
+* **[Exclusive](queues#exclusive-queues) queues** are commonly used when replies are consumed by a single client and deleted upon disconnection
+* **Non-exclusive long-lived queues** are better suited for long-running tasks, ensuring replies persist even if the client disconnects temporarily
+
+Direct reply-to eliminates the need for a reply queue. This benefits the request-reply
+implementations with short-lived queues and transient responses at the cost
+of giving up all control over how the responses are stored.
+
+With Direct Reply-to, RPC clients will receive replies directly from their RPC server,
+without going through a reply queue. "Directly" here still means going through the same channel
+and a RabbitMQ node; there is no direct network connection between RPC client and RPC server processes.
 
 ## How to Use Direct Reply-to {#usage}
 
@@ -123,3 +136,16 @@ or fail.
     was set.
   </li>
 </ul>
+
+## When to Use Direct Reply-to
+
+While clients should use long lived connections, direct reply-to is ideal for workloads with
+[high connection churn](connections#high-connection-churn), where clients establish a connection
+for a single RPC and disconnect immediately after.
+By avoiding the creation of queue metadata in the [metadata store](metadata-store), direct
+reply-to can reduce overhead and latency.
+
+For workloads with long-lived connections where clients perform multiple RPCs, the performance
+benefits of direct reply-to are not significant compared to [classic queues](classic-queues).
+Modern RabbitMQ versions have optimized classic queues for low latency and minimal resource usage,
+making them similarly efficient in such scenarios.

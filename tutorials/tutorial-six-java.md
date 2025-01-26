@@ -119,9 +119,8 @@ import com.rabbitmq.client.AMQP.BasicProperties;
 
 ### Correlation Id
 
-In the method presented above we suggest creating a callback queue for
-every RPC request. That's pretty inefficient, but fortunately there is
-a better way - let's create a single callback queue per client.
+Creating a callback queue for every RPC request is inefficient.
+A better way is creating a single callback queue per client.
 
 That raises a new issue, having received a response in that queue it's
 not clear to which request the response belongs. That's when the
@@ -147,9 +146,10 @@ gracefully, and the RPC should ideally be idempotent.
 
 Our RPC will work like this:
 
+  * When the Client starts up, it creates an exclusive
+    callback queue.
   * For an RPC request, the Client sends a message with two properties:
-    `replyTo`, which is set to an anonymous exclusive queue created
-    just for the request, and `correlationId`,
+    `reply_to`, which is set to the callback queue and `correlation_id`,
     which is set to a unique value for every request.
   * The request is sent to an `rpc_queue` queue.
   * The RPC worker (aka: server) is waiting for requests on that queue.
