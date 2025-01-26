@@ -26,6 +26,15 @@ Direct reply-to is a feature that allows RPC (request/reply) clients with a desi
 similar to that demonstrated in [tutorial 6](/tutorials) without requiring the creation
 of a reply queue.
 
+:::important
+
+Request-reply implementations where clients use explicitly declared queues, both
+long-lived client named and connection-specific exclusive queues, are
+just as valid as Direct Reply-to, and have their benefits, in particular
+for workloads with long-running tasks
+
+:::
+
 ## Motivation {#motivation}
 
 RPC (request/reply) is a popular pattern to implement with a messaging broker
@@ -43,15 +52,20 @@ expensive to create and then delete (compared with the cost of
 sending a message). This is especially true in a cluster as all
 cluster nodes need to agree that the queue has been created,
 agree on its type, replication parameters, and other metadata.
+
 Therefore, the client should create a single reply queue for multiple RPC requests.
 
-The [properties](queues#properties) of this reply queue depend on the use case. For example:
-* **[Exclusive](queues#exclusive-queues) queues** are commonly used when replies are consumed by a single client and deleted upon disconnection.
-* **Non-exclusive queues** might be better suited for long-running tasks, ensuring replies persist even if the client disconnects temporarily.
+The [properties](queues#properties) of this reply queue depend on the use case:
 
-Direct reply-to eliminates the need for a reply queue entirely.
-It allows RPC clients to receive replies directly from their RPC server,
-without going through a reply queue. "Directly" here still means going through the same connection
+* **[Exclusive](queues#exclusive-queues) queues** are commonly used when replies are consumed by a single client and deleted upon disconnection
+* **Non-exclusive long-lived queues** are better suited for long-running tasks, ensuring replies persist even if the client disconnects temporarily
+
+Direct reply-to eliminates the need for a reply queue. This benefits the request-reply
+implementations with short-lived queues and transient responses at the cost
+of giving up all control over how the responses are stored.
+
+With Direct Reply-to, RPC clients will receive replies directly from their RPC server,
+without going through a reply queue. "Directly" here still means going through the same channel
 and a RabbitMQ node; there is no direct network connection between RPC client and RPC server processes.
 
 ## How to Use Direct Reply-to {#usage}
