@@ -103,6 +103,16 @@ The Operator's Helm chart requires
 * Helm chart 3.1.0
 * PV provisioner support in the underlying infrastructure
 
+### Installation with Terraform and OpenTofu
+
+Terraform and OpenTofu users need to [override the repository](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) and set it
+to
+
+```
+oci://registry-1.docker.io/bitnamicharts
+```
+
+on the `helm_release` resource.
 
 -----
 
