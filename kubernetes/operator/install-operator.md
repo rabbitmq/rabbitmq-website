@@ -103,6 +103,7 @@ The Operator's Helm chart requires
 * Helm chart 3.1.0
 * PV provisioner support in the underlying infrastructure
 
+If installing from OpenTofu/Terraform use the repository "oci://registry-1.docker.io/bitnamicharts".
 
 -----
 
