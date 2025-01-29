@@ -194,6 +194,16 @@
             <code class="Li">rabbitmq-queues check_if_node_is_quorum_critical</code>
           </div>
         </dd>
+        <dt >
+#### <code class="Cm">force_checkpoint</code> <code class="Fl">--vhost-pattern</code> <var class="Ar">pattern</var> <code class="Fl">--queue-pattern</code> <var class="Ar">pattern</var> {#force_checkpoint}
+        </dt>
+        <dd>
+          <p class="Pp">Forces checkpoints for all matching quorum queues.</p>
+          <p class="Pp">Example:</p>
+          <div class="Bd Bd-indent lang-bash">
+            <code class="Li">rabbitmq-queues force_checkpoint --vhost-pattern "a-vhost" --queue-pattern ".*"</code>
+          </div>
+        </dd>
       </dl>
     </section>
   </section>
