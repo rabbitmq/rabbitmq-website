@@ -480,6 +480,26 @@ dnf install -y ${RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}`}
 </CodeBlock>
 
 
+## How to Clearn Local dnf Cache {#clear-cache}
+
+In some rare cases new versions available in RPM repositories will not be visible
+to `dnf install` even after running `dnf update`.
+
+In this case, clearing the local cache may be necessary:
+
+```bash
+dnf clean metadata
+
+dnf clean dbcache
+
+dnf clean all
+```
+
+After clearing the cache, `dnf` will have to re-download all metadata from all
+repositories, including the standard ones for the distribution. This can take
+some time.
+
+
 ## Direct Downloads {#downloads}
 
 In some cases it may be easier to download the package and install it manually. The package can be downloaded
