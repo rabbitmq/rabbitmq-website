@@ -19,177 +19,486 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Management Command Line Tool
+# rabbitmqadmin v2, a Command Line Tool for the HTTP API
 
-The [management plugin](./management) ships with a command line
-tool **rabbitmqadmin** which can perform some of the same actions as the
-Web-based UI, and which may be more convenient for automation tasks.
-Note that rabbitmqadmin is just a specialised HTTP client;
-if you are contemplating invoking rabbitmqadmin from your own program
-you may want to consider using an HTTP API client library instead.
+[`rabbitmqadmin` v2](https://github.com/rabbitmq/rabbitmqadmin-ng) is a command line tool that uses the HTTP API.
+
+It supports many of the operations available in the management UI:
+
+ * Listing objects (virtual hosts, users, queues, streams, permissions, policies, and so on)
+ * Creating objects
+ * Deleting objects
+ * Access to cluster and node metrics
+ * Run [health checks](./monitoring#health-checks)
+ * Listing [feature flag](./feature-flags) state
+ * Listing [deprecated features](./deprecated-features) in use across the cluster
+ * [Definition](./definitions) export and import
+ * Closing connections
+ * Rebalancing of queue leaders across cluster nodes
 
 Note that `rabbitmqadmin` is not a replacement for [rabbitmqctl](./man/rabbitmqctl.8) or
-[rabbitmq-plugins](./man/rabbitmq-plugins.8).
-HTTP API intentionally doesn't expose certain operations.
+[rabbitmq-plugins](./man/rabbitmq-plugins.8) as the HTTP API intentionally doesn't expose certain operations.
 
 
-## Obtaining `rabbitmqadmin`
+## `rabbitmqadmin` v2
 
-`rabbitmqadmin` can be downloaded from any RabbitMQ node that has
-the management plugin enabled. Navigate to `http://{hostname}:15672/cli/rabbitmqadmin` to download it.
-The tool requires a supported version of Python to be installed.
+[This generation of `rabbitmqadmin`](https://github.com/rabbitmq/rabbitmqadmin-ng) is a standalone project that
+has its own development cycle that's independent from that of RabbitMQ.
 
-Alternatively, `rabbitmqadmin` can be downloaded [from GitHub](https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/v3.12.x/deps/rabbitmq_management/bin/rabbitmqadmin).
+It is distributed as a native binary.
 
+### Downloads
 
-## Getting Started
-
-UNIX-like operating system users need to copy `rabbitmqadmin` to a directory in `PATH`, e.g. `/usr/local/bin`.
-
-Windows users will need to ensure Python is on their `PATH`, and invoke
-`rabbitmqadmin` as `python.exe rabbitmqadmin`.
-
-Invoke `rabbitmqadmin --help` for usage instructions. You can:
-
-* list exchanges, queues, bindings, vhosts, users, permissions, connections and channels
-* show overview information
-* declare and delete exchanges, queues, bindings, vhosts, users and permissions
-* publish and get messages
-* close connections and purge queues
-* import and export configuration
-
-For other tasks, see [rabbitmqctl](./man/rabbitmqctl.8) and
-[rabbitmq-plugins](./man/rabbitmq-plugins.8).
+Binaries for x86-64 Linux, aarch64 Linux, aarch64 macOS and x86-64 Windows
+are distributed via [GitHub releases](https://github.com/rabbitmq/rabbitmqadmin-ng/releases).
 
 
-## rabbitmqadmin and RabbitMQ HTTP API Compatibility
+## Usage
 
-`rabbitmqadmin` is developed in lock step with the management plugin and thus
-targets a specific version of the HTTP API. For most operations, `rabbitmqadmin` can used
-against any reasonably recent RabbitMQ version. However, there are exceptions to this rule.
+### Exploring Available Command Groups and Sub-commands
 
-`rabbitmqadmin` therefore requires the same version series as its target RabbitMQ nodes.
-For example, `rabbitmqadmin` 3.7.x can only be used against RabbitMQ 3.7.x nodes, 3.6.x against RabbitMQ 3.6.x nodes,
-and so on.
+To explore what command groups are available, use
 
-
-## bash completion
-
-rabbitmqadmin supports tab completion in `bash`. To print a bash
-completion script, invoke `rabbitmqadmin --bash-completion`.  This
-should be redirected to a file and `source`d.
-
-On Debian-derived
-systems, copy the file to `/etc/bash_completion.d` to make it
-available system-wide:
-
-```bash
-sudo sh -c 'rabbitmqadmin --bash-completion > /etc/bash_completion.d/rabbitmqadmin'
+```shell
+rabbitmqadmin help
 ```
 
-## Examples
+which will output a list of command groups:
 
-### Get a list of exchanges
+```
+Usage: rabbitmqadmin [OPTIONS] <command>
 
-```bash
-rabbitmqadmin -V test list exchanges
-# => +-------------+---------+-------+---------+-------------+
-# => |    name     | durable | vhost |  type   | auto_delete |
-# => +-------------+---------+-------+---------+-------------+
-# => |             | True    | test  | direct  | False       |
-# => | amq.direct  | True    | test  | direct  | False       |
-# => | amq.fanout  | True    | test  | fanout  | False       |
-# => | amq.headers | True    | test  | headers | False       |
-# => | amq.match   | True    | test  | headers | False       |
-# => | amq.topic   | True    | test  | topic   | False       |
-# => +-------------+---------+-------+---------+-------------+
+Commands:
+  show                 overview
+  list                 lists objects by type
+  declare              creates or declares things
+  delete               deletes objects
+  purge                purges queues
+  health_check         runs health checks
+  close                closes connections
+  rebalance            rebalances queue leaders
+  definitions          operations on definitions
+  export               see 'definitions export'
+  import               see 'definitions import'
+  feature_flags        operations on feature flags
+  deprecated_features  operations on deprecated features
+  publish              publishes (inefficiently) message(s) to a queue or a stream. Only suitable for development and test environments.
+  get                  fetches message(s) from a queue or stream via polling. Only suitable for development and test environments.
+  tanzu                Tanzu RabbitMQ-specific commands
+  help                 Print this message or the help of the given subcommand(s)
 ```
 
-### Get a list of queues, with some columns specified
+To explore commands in a specific group, use
 
-```bash
-rabbitmqadmin list queues vhost name node messages message_stats.publish_details.rate
-# => +-------+----------------------------------+-------------------+----------+------------------------------------+
-# => | vhost |               name               |       node        | messages | message_stats.publish_details.rate |
-# => +-------+----------------------------------+-------------------+----------+------------------------------------+
-# => | /     | amq.gen-UELtxwb8OGJ9XHlHJq0Jug== | rabbit@smacmullen | 0        | 100.985821591                      |
-# => | /     | test                             | rabbit@misstiny   | 5052     | 100.985821591                      |
-# => +-------+----------------------------------+-------------------+----------+------------------------------------+
+```shell
+rabbitmqadmin {group name} help
 ```
 
-### Get a list of queues, with all the detail we can take
+### Exploring the CLI with `help`, `--help`
 
-```bash
-rabbitmqadmin -f long -d 3 list queues
-# =>     --------------------------------------------------------------------------------
+To learn about what command groups and specific commands are available, run
+
+``` shell
+rabbitmqadmin help
+```
+
+This flag can be appended to a command or subcommand to get command-specific documentation:
+
+```shell
+rabbitmqadmin declare queue --help
+# => creates or declares things
 # =>
-# =>                                            vhost: /
-# =>                                             name: amq.gen-UELtxwb8OGJ9XHlHJq0Jug==
-# =>                                      auto_delete: False
-# =>         backing_queue_status.avg_ack_egress_rate: 100.944672225
-# =>        backing_queue_status.avg_ack_ingress_rate: 100.944672225
+# => Usage: rabbitmqadmin declare [object]
 # => ...
 ```
 
+Alternatively, the `help` subcommand can be given a command name. It's the equivalent
+of tagging on `--help` at the end of command name:
 
-### Connect to another host as another user
-
-```bash
-rabbitmqadmin -H myserver -u simon -p simon list vhosts
-# => +------+
-# => | name |
-# => +------+
-# => | /    |
-# => +------+
+```shell
+rabbitmqadmin declare help queue
+# => creates or declares things
+# =>
+# => Usage: rabbitmqadmin declare [object]
+# => ...
 ```
 
-### Declare an exchange
+More specific examples are covered in the Examples section below.
 
-```bash
-rabbitmqadmin declare exchange name=my-new-exchange type=fanout
-# => exchange declared
+
+### Interactive vs. Use in Scripts
+
+Like the original version, `rabbitmqadmin` v2 is first and foremost built for interactive use
+by humans. Many commands will output formatted tables, for example:
+
+```shell
+rabbitmqadmin show overview
 ```
 
-### Declare a queue, with optional parameters
+will output a table that looks like this:
 
-```bash
-rabbitmqadmin declare queue name=my-new-queue durable=false
-# => queue declared
+```
+┌──────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Overview                                                                                                             │
+├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ key              │ value                                                                                             │
+├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Product name     │ RabbitMQ                                                                                          │
+├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Product version  │ 3.13.7                                                                                             │
+├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ RabbitMQ version │ 3.13.7                                                                                             │
+├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Erlang version   │ 26.2.5.6                                                                                          │
+├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Erlang details   │ Erlang/OTP 26 [erts-14.2.5.5] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit] │
+└──────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Publish a message
+As it is easy to observe, parsing such output in a script will be challenging.
 
-```bash
-rabbitmqadmin publish exchange=amq.default routing_key=test payload="hello, world"
-# => Message published
+For this reason, `rabbitmqadmin` v2 can render results in a way that would be much more friendly
+for scripting if the `--non-interactive` flag is passed. It is a global flag so it must be
+passed before the command and subcommand name:
+
+```shell
+rabbitmqadmin --non-interactive show overview
 ```
 
-### And get it back
+The output of the above command will not include any table borders and will is much easier to parse
+as a result:
 
-```bash
-rabbitmqadmin get queue=test ackmode=ack_requeue_false
-# => +-------------+----------+---------------+--------------+------------------+-------------+
-# => | routing_key | exchange | message_count |   payload    | payload_encoding | redelivered |
-# => +-------------+----------+---------------+--------------+------------------+-------------+
-# => | test        |          | 0             | hello, world | string           | False       |
-# => +-------------+----------+---------------+--------------+------------------+-------------+
+```
+ key
+ Product name      RabbitMQ
+ Product version   3.13.7
+ RabbitMQ version  3.13.7
+ Erlang version    26.2.5.6
+ Erlang details    Erlang/OTP 26 [erts-14.2.5.5] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit]
 ```
 
-### Export Configuration (Definitions)
+### Retrieving Basic Node Information
 
-```bash
-rabbitmqadmin export rabbit.definitions.json
-# => Exported configuration for localhost to "rabbit.config"
+``` shell
+rabbitmqadmin show overview
 ```
 
-### Import Configuration (Definitions), quietly
+will display essential node information in tabular form.
 
-```bash
-rabbitmqadmin -q import rabbit.definitions.json
+### Retrieving Connection, Queue/Stream, Channel Churn Information
+
+Helps assess connection, queue/stream, channel [churn metrics](./connections#high-connection-churn) in the cluster.
+
+``` shell
+rabbitmqadmin show churn
 ```
 
-### Close all connections
+### Listing cluster nodes
 
-```bash
-rabbitmqadmin -f tsv -q list connections name | while read conn ; do rabbitmqadmin -q close connection name="${conn}" ; done
+``` shell
+rabbitmqadmin list nodes
 ```
+
+### Listing virtual hosts
+
+``` shell
+rabbitmqadmin list vhosts
+```
+
+### Listing users
+
+``` shell
+rabbitmqadmin list users
+```
+
+### Listing queues
+
+``` shell
+rabbitmqadmin list queues
+```
+
+``` shell
+rabbitmqadmin --vhost "monitoring" list queues
+```
+
+### Listing exchanges
+
+``` shell
+rabbitmqadmin list exchanges
+```
+
+``` shell
+rabbitmqadmin --vhost "events" list exchanges
+```
+
+### Listing bindings
+
+``` shell
+rabbitmqadmin list bindings
+```
+
+``` shell
+rabbitmqadmin --vhost "events" list bindings
+```
+
+### Create a Virtual Host
+
+```shell
+rabbitmqadmin declare vhost --name "vh-789" --default-queue-type "quorum" --description "Used to reproduce issue #789"
+```
+
+### Delete a Virtual Host
+
+```shell
+rabbitmqadmin delete vhost --name "vh-789"
+```
+
+```shell
+# --idempotently means that 404 Not Found responses will not be  considered errors
+rabbitmqadmin delete vhost --name "vh-789" --idempotently
+```
+
+
+### Declare a Queue
+
+```shell
+rabbitmqadmin --vhost "events" declare queue --name "target.quorum.queue.name" --type "quorum" --durable true
+```
+
+```shell
+rabbitmqadmin --vhost "events" declare queue --name "target.stream.name" --type "stream" --durable true
+```
+
+```shell
+rabbitmqadmin --vhost "events" declare queue --name "target.classic.queue.name" --type "classic" --durable true --auto-delete false
+```
+
+### Purge a queue
+
+```
+rabbitmqadmin --vhost "events" purge queue --name "target.queue.name"
+```
+
+### Delete a queue
+
+``` shell
+rabbitmqadmin --vhost "events" delete queue --name "target.queue.name"
+```
+
+``` shell
+# --idempotently means that 404 Not Found responses will not be considered errors
+rabbitmqadmin --vhost "events" delete queue --name "target.queue.name" --idempotently
+```
+
+### Declare an Exchange
+
+```shell
+rabbitmqadmin --vhost "events" declare exchange --name "events.all_types.topic" --type "topic" --durable true
+```
+
+```shell
+rabbitmqadmin --vhost "events" declare exchange --name "events.all_type.uncategorized" --type "fanout" --durable true --auto-delete false
+```
+
+```shell
+rabbitmqadmin --vhost "events" declare exchange --name "local.random.c60bda92" --type "x-local-random" --durable true
+```
+
+### Delete an exchange
+
+``` shell
+rabbitmqadmin --vhost "events" delete exchange --name "target.exchange.name"
+```
+
+``` shell
+# --idempotently means that 404 Not Found responses will not be  considered errors
+rabbitmqadmin --vhost "events" delete exchange --name "target.exchange.name" --idempotently
+```
+
+### List feature flags and their state
+
+```shell
+rabbitmqadmin feature_flags list
+```
+
+```shell
+# same command as above
+rabbitmqadmin list feature_flags
+```
+
+### Enable a feature flag
+
+```shell
+rabbitmqadmin feature_flags enable rabbitmq_4.0.0
+```
+
+### Enable all stable feature flags
+
+```shell
+rabbitmqadmin feature_flags enable_all
+```
+
+### List deprecated features in use in the cluster
+
+```shell
+rabbitmqadmin deprecated_features list_used
+```
+
+### List all deprecated features
+
+```shell
+rabbitmqadmin deprecated_features list
+```
+
+```shell
+# same command as above
+rabbitmqadmin list deprecated_features
+```
+
+
+## Configuration Files
+
+`rabbitmqadmin` v2 supports [TOML](https://toml.io/en/)-based configuration files
+stores groups of HTTP API connection settings under aliases ("node names" in original `rabbitmqadmin` speak).
+
+Here is an example `rabbitmqadmin` v2 configuration file:
+
+```toml
+[local]
+hostname = "localhost"
+port = 15672
+username = "lolz"
+password = "lolz"
+vhost = '/'
+
+[staging]
+hostname = "192.168.20.31"
+port = 15672
+username = "staging-2387a72329"
+password = "staging-1d20cfbd9d"
+
+[production]
+hostname = "(redacted)"
+port = 15671
+username = "user-2ca6bae15ff6b79e92"
+password = "user-92ee4c479ae604cc72"
+```
+
+Instead of specifying `--hostname` or `--username` on the command line to connect to
+a cluster (or specific node) called `staging`, a `--node` alias can be specified instead:
+
+```shell
+# will use the settings from the section called [staging]
+rabbitmqadmin --node staging show churn
+```
+
+Default configuration file path is at `$HOME/.rabbitmqadmin.conf`, as it was in
+the original version of `rabbitmqadmin`. It can be overridden on the command line:
+
+```shell
+# will use the settings from the section called [staging]
+rabbitmqadmin --config $HOME/.configuration/rabbitmqadmin.conf --node staging show churn
+```
+
+## Breaking or Potentially Breaking Changes Compared to v1
+
+### Some Non-Essential Features Were Dropped
+
+`rabbitmqadmin` v2 does not support
+
+ * Sorting of results. Instead, use `--non-interactive` and parse the spaces-separated
+   output. Many modern tools for working with data parse it into a table, sort the data set,
+   filter the results, and son. In fact, these features for data processing are ready available [in some shells](https://www.nushell.sh/)
+ * Column selection. This feature may be reintroduced
+ * JSON output for arbitrary commands (with the exception of `definitions` commands).
+   Use the [HTTP API directly](./management#http-api) if you need to work with JSON
+ * CSV output for arbitrary commands. This format may be reintroduced
+
+### --snake-case for Command Options
+
+`rabbitmqadmin` v1 used `lower_case` for named command arguments, for example:
+
+```shell
+# Note: auto_delete
+rabbitmqadmin-v1 --vhost "vh-2" declare queue name="qq.1" type="quorum" durable=true auto_delete=false
+```
+
+`rabbitmqadmin` v2 uses a more typical `--snake-case` format for the same arguments:
+
+```shell
+# Note: --auto-delete
+rabbitmqadmin --vhost "vh-2" declare queue --name "qq.1" --type "quorum" --durable true --auto-delete false
+```
+
+### Global Arguments Come First
+
+Global flags in `rabbitmqadmin` v2 must precede the command category (e.g. `list`) and the command itself,
+namely various HTTP API endpoint options and `--vhost`:
+
+```shell
+rabbitmqadmin --vhost "events" declare queue --name "target.quorum.queue.name" --type "quorum" --durable true
+```
+
+### --prefix Overrides API Path Prefix
+
+In `rabbitmqadmin` v1, `--path-prefix` appended to the default [API path prefix](https://rabbitmq.com/docs/management#path-prefix).
+In this version, the value passed to `--path-prefix` will be used as given, in other words,
+it replaces the default prefix, `/api`.
+
+### Configuration File Format Moved to TOML
+
+`rabbitmqadmin` v1 supported ini configuration files that allowed
+the user to group a number of command line values under a name, e.g. a cluster or node nickname.
+
+Due to the "no dependencies other than Python" design goal of `rabbitmqadmin` v1, this feature was not really tested,
+and the specific syntax (that of ini files, supported by Python's [`ConfigParser`](https://docs.python.org/3/library/configparser.html)) linting, parsing or generation tools were not really available.
+
+`rabbitmqadmin` v2 replaces this format with [TOML](https://toml.io/en/), a popular configuration standard
+with [verification and linting tools](https://www.toml-lint.com/), as well as very mature parser
+that is not at all specific to `rabbitmqadmin` v2.
+
+Here is an example `rabbitmqadmin` v2 configuration file:
+
+```toml
+[local]
+hostname = "localhost"
+port = 15672
+username = "lolz"
+password = "lolz"
+vhost = '/'
+
+[staging]
+hostname = "192.168.20.31"
+port = 15672
+username = "staging-2387a72329"
+password = "staging-1d20cfbd9d"
+
+[production]
+hostname = "(redacted)"
+port = 15671
+username = "user-efe1f4d763f6"
+password = "(redacted)"
+```
+
+
+## `rabbitmqadmin` v1
+
+`rabbitmqadmin` v1 is the original CLI tool for the HTTP API, historically developed
+as part of the [management plugin](./management/) and distributed with it.
+
+It is no longer under active development.
+
+### Obtaining `rabbitmqadmin` v1
+
+:::important
+
+Consider switching to `rabbitmqadmin` v2. The original `rabbitmqadmin` is no longer under
+active development.
+
+:::
+
+`rabbitmqadmin` v1 can be downloaded from any RabbitMQ node that has
+the management plugin enabled. Navigate to `http://{hostname}:15672/cli/rabbitmqadmin` to download it.
+The tool requires a supported version of Python to be installed.
+
+Alternatively, `rabbitmqadmin` v1 can be downloaded [from GitHub](https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/v3.13.x/deps/rabbitmq_management/bin/rabbitmqadmin).
