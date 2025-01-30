@@ -872,6 +872,14 @@ Grouped under `exchange_bindings`:
 |------------------------------------|-----------------------------------------------------------------|
 | rabbitmq_cluster_exchange_bindings | Number of bindings for an exchange. This value is cluster-wide. |
 
+#### Stream consumer metrics
+
+Grouped under `stream_consumer_metrics`:
+
+| Metric                                           | Description                                    |
+|--------------------------------------------------|------------------------------------------------|
+| rabbitmq_detailed_stream_consumer_max_offset_lag | Highest consumer offset lag for a given stream |
+
 
 ### Scraping Endpoint Timeouts {#timeout-configuration}
 
