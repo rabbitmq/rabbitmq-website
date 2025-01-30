@@ -56,7 +56,7 @@ be named `rabbitmqctl.bat`.
 
 Additional tools are optional and can be obtained from GitHub:
 
- * [`rabbitmqadmin`](./management-cli) for operator tasks over [HTTP API](./management)
+ * [`rabbitmqadmin` v2](./management-cli) for operator tasks over the [HTTP API](./management#http-api)
  * [`rabbitmq-collect-env`](https://github.com/rabbitmq/support-tools) which collects relevant cluster and environment information
     as well as server logs. This tool is specific to Linux and UNIX-like operating systems.
 
@@ -66,7 +66,7 @@ including virtual host, user and permission management, destructive operations
 on node's data and so on.
 
 `rabbitmqadmin` is built on top of the HTTP API and uses a different mechanism, and only
-requires that the [HTTP API](./management) port is open for outside connections.
+requires that the [HTTP API](./management#http-api) port is open for outside connections.
 
 Even though CLI tools ship with the server, most commands [can be used to operate on remote nodes](#remote-nodes).
 Plugins can [provide CLI commands](#command-discovery) that will be discovered by CLI tools for explicitly enabled plugins.
@@ -92,8 +92,8 @@ that has RabbitMQ installed.
 root is added to `PATH` for simpler interactive use. Non-interactive use cases can use full or relative paths without
 modifications to the `PATH` environment variable.
 
-[`rabbitmqadmin`](./management-cli) is a standalone tool (no dependencies other than Python 3)
-that can be downloaded from a running node or [directly from GitHub](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_management/bin/rabbitmqadmin).
+[`rabbitmqadmin`](./management-cli) is a standalone tool
+that is [distributed via GitHub releases](https://github.com/rabbitmq/rabbitmqadmin-ng/releases).
 
 If interaction from a remote node is required, download and extract the [generic UNIX package](./install-generic-unix)
 or use the [Windows installer](./install-windows).
@@ -737,10 +737,10 @@ rabbitmqctl.bat shutdown --node rabbit@target-hostname.local
 It is not a replacement for `rabbitmqctl` and provides access to a subset of most commonly
 performed operations provided by the [management UI](./management).
 
-The tool requires Python 2.7.9 or a more recent version.
+`rabbitmqadmin` uses HTTP API authentication mechanism (basic HTTP authentication).
 
-`rabbitmqadmin` uses HTTP API authentication mechanism (basic HTTP authentication). It has to be
-downloaded separately from a running node or [GitHub](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_management/bin/rabbitmqadmin).
+It is a native binary and must be [downloaded separately](https://github.com/rabbitmq/rabbitmqadmin-ng/releases) from the RabbitMQ
+distribution.
 
 
 ## "Node-local" and "Clusterwide" Commands {#cli-and-clustering}

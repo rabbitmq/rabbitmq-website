@@ -315,6 +315,87 @@ rabbitmqadmin --vhost "events" delete exchange --name "target.exchange.name"
 rabbitmqadmin --vhost "events" delete exchange --name "target.exchange.name" --idempotently
 ```
 
+### Inspecting Node Memory Breakdown
+
+There are two commands for reasoning about target [node's memory footprint](./memory-use):
+
+```shell
+# displays a breakdown in bytes
+rabbitmqadmin show memory_breakdown_in_bytes --node 'rabbit@hostname'
+```
+
+```shell
+# displays a breakdown in percent
+rabbitmqadmin show memory_breakdown_in_percent --node 'rabbit@hostname'
+```
+
+Example output of `show memory_breakdown_in_percent`:
+
+```
+┌────────────────────────────────────────┬────────────┐
+│ key                                    │ percentage │
+├────────────────────────────────────────┼────────────┤
+│ total                                  │ 100%       │
+├────────────────────────────────────────┼────────────┤
+│ Binary heap                            │ 45.10%     │
+├────────────────────────────────────────┼────────────┤
+│ Allocated but unused                   │ 23.45%     │
+├────────────────────────────────────────┼────────────┤
+│ Quorum queue ETS tables                │ 23.05%     │
+├────────────────────────────────────────┼────────────┤
+│ Other processes                        │ 5.32%      │
+├────────────────────────────────────────┼────────────┤
+│ Other (used by the runtime)            │ 4.98%      │
+├────────────────────────────────────────┼────────────┤
+│ Code                                   │ 4.54%      │
+├────────────────────────────────────────┼────────────┤
+│ Client connections: others processes   │ 3.64%      │
+├────────────────────────────────────────┼────────────┤
+│ Management stats database              │ 3.48%      │
+├────────────────────────────────────────┼────────────┤
+│ Client connections: reader processes   │ 3.22%      │
+├────────────────────────────────────────┼────────────┤
+│ Plugins and their data                 │ 3.12%      │
+├────────────────────────────────────────┼────────────┤
+│ Other (ETS tables)                     │ 1.55%      │
+├────────────────────────────────────────┼────────────┤
+│ Metrics data                           │ 0.66%      │
+├────────────────────────────────────────┼────────────┤
+│ AMQP 0-9-1 channels                    │ 0.40%      │
+├────────────────────────────────────────┼────────────┤
+│ Message store indices                  │ 0.27%      │
+├────────────────────────────────────────┼────────────┤
+│ Atom table                             │ 0.24%      │
+├────────────────────────────────────────┼────────────┤
+│ Client connections: writer processes   │ 0.19%      │
+├────────────────────────────────────────┼────────────┤
+│ Quorum queue replica processes         │ 0.10%      │
+├────────────────────────────────────────┼────────────┤
+│ Stream replica processes               │ 0.07%      │
+├────────────────────────────────────────┼────────────┤
+│ Mnesia                                 │ 0.02%      │
+├────────────────────────────────────────┼────────────┤
+│ Metadata store                         │ 0.02%      │
+├────────────────────────────────────────┼────────────┤
+│ Stream coordinator processes           │ 0.02%      │
+├────────────────────────────────────────┼────────────┤
+│ Classic queue processes                │ 0.00%      │
+├────────────────────────────────────────┼────────────┤
+│ Metadata store ETS tables              │ 0.00%      │
+├────────────────────────────────────────┼────────────┤
+│ Stream replica reader processes        │ 0.00%      │
+├────────────────────────────────────────┼────────────┤
+│ Reserved by the kernel but unallocated │ 0.00%      │
+└────────────────────────────────────────┴────────────┘
+```
+
+Note that there are [two different supported strategies](./memory-use#strategies)
+for computing memory footprint of a node. `rabbitmqadmin` will use the greater value
+for 100% when computing the relative share in percent for each category.
+
+Other factors that can affect the precision of percentage values reported  are [runtime allocator](./memory-use#preallocated-memory)
+behavior nuances and the [kernel page cache](./memory-use#page-cache).
+
 ### List feature flags and their state
 
 ```shell
