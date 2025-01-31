@@ -244,7 +244,7 @@ These modernizations include:
 * **Native AMQP 1.0:** Upgrading RabbitMQ's core protocol to the latest AMQP standard (as covered in this blog post).
 
 We encourage you to try and test AMQP 1.0 in RabbitMQ 4.0 and provide [feedback](/contact).
-You can use the latest [`rabbitmq:4.0-rc`](https://hub.docker.com/layers/library/rabbitmq/4.0-rc/images/sha256-87a732a851771a283bb2d650e919fe57aae88d3dffbff7d490e2ff978b9e7747) docker image.
+You can use the latest [`rabbitmq:4.0`](https://hub.docker.com/layers/library/rabbitmq/4.0/images/sha256-a1fb6ba3eff9a226074940f27beccfd2e4de989d3d4ebb0b1272e9f78aa44dd4) docker image.
 While we encourage you to build new applications with AMQP 1.0, we will continue to support and maintain AMQP 0.9.1 in RabbitMQ 4.x.
 
-Stay tuned for more technical [blog posts on AMQP 1.0](/blog/tags/amqp-1-0) features and performance benchmarks.
+Watch our [RabbitMQ Summit 2024 talk on Native AMQP 1.0](https://youtu.be/LFu-kOOTLvs?feature=shared) and read more technical [blog posts on AMQP 1.0](/blog/tags/amqp-1-0) features and performance benchmarks.
