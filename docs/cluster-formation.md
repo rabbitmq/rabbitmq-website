@@ -124,7 +124,10 @@ so nodes don't have to (or cannot) explicitly register. However, the list of clu
 is not predefined. Such backends usually include a no-op registration step
 and apply one of the [race condition mitigation mechanisms](#initial-formation-race-condition) described below.
 
-When the configured backend supports registration, nodes unregister when they stop.
+When the configured backend supports registration, nodes unregister when they stop. It is
+possible to opt-out of registration with the config option `cluster_formation.registration = false`.
+In such cases, the node has to be registered manually or using another mechanism, e.g. with container
+orchestrators like Nomad or Kubernetes.
 
 If peer discovery isn't configured, or it [repeatedly fails](#discovery-retries),
 or no peers are reachable, a node that wasn't a cluster member in the past
