@@ -406,8 +406,7 @@ The [Quorum Queues guide](./quorum-queues) covers this topic in more detail.
 Assuming all cluster members
 are available, a messaging (AMQP 0-9-1, AMQP 1.0, MQTT, STOMP) client can connect to any node and
 perform any operation. Nodes will route operations to the
-[quorum queue leader](./quorum-queues) or [queue leader replica](./ha#leader-migration-data-locality)
-transparently to clients.
+[quorum queue leader](./quorum-queues) transparently to clients.
 
 With all supported messaging protocols a client is only connected to one node
 at a time.
@@ -421,10 +420,6 @@ for individual clients to learn more.
 
 With [quorum queues](./quorum-queues) and [streams](./streams), clients will only be able to perform
 operations on queues that have a quorum of replicas online.
-
-With classic mirrored queues, there are scenarios where it may not be possible for a client to transparently continue
-operations after connecting to a different node. They usually involve
-[non-mirrored queues hosted on a failed node](./ha#non-mirrored-queue-behavior-on-node-failure).
 
 ### Stream Clients
 
@@ -442,29 +437,39 @@ to learn more.
 
 ### Queue and Stream Leader Replica Placement {#replica-placement}
 
-Every queue and stream in RabbitMQ has a primary replica. That replica is called
+Every queue and stream in RabbitMQ has a primary replica (in case of classic queues,
+it is the only replica). That replica is called
 _the leader_. All publishing operations on queues and streams go through the leader
-replica first and then are replicated to followers (secondary replicas). This is necessary to
+replica first and then are replicated to the followers (secondary replicas). This is necessary to
 guarantee FIFO ordering of messages.
 
 To avoid some nodes in a cluster hosting a significant majority of queue leader
 replicas and thus handling most of the load, queue leaders should
 be reasonably evenly distributed across cluster nodes.
 
-Queue leaders can be distributed between nodes using several
-strategies. Which strategy is used is controlled in three ways,
-namely, using the `x-queue-master-locator` [optional queue argument](./queues#optional-arguments), setting the `queue-master-locator`
-policy key or by defining the `queue_master_locator`
-key in [`the configuration file`](./configure#configuration-files).
+Queue leader distribution can be controlled in three ways:
+1. a policy, by setting `queue-leader-locator`
+1. [the configuration file](./configure#configuration-files), by setting `queue_leader_locator`
+1. [optional queue argument](./queues#optional-arguments), by setting the `x-queue-leader-locator` ([not recommended](./parameters))
 
 There are two options available:
 
- * `client-local`, the default strategy, will always pick the node the client is connected to
+ * `client-local`, the default, will always pick the node the client is connected to
  * `balanced`, which takes into account the number of queues/leaders already running
    on each node in the cluster; when there are relatively few
    queues in the cluster, it picks the node with the least number of them; when there
    are many (more than 1000 by default), it just picks a random node (calculating the
    exact number can be slow with many queues, and a random choice is generally just as good)
+
+:::tip
+Using `client-local` strategy is usually a good choice if the connections that declare queues
+are evenly distributed between nodes. In such case, even though the queue/leaders are placed locally
+(where the connection is), they are well balanced within the cluster. Otherwise, prefer the `balanced` strategy.
+The disadvantage of the `balanced` strategy is that the connection that declared the queue may not have
+the best possible performance when using this queues,
+if a different node is picked. For example, [for short-lived queues](./queues#temporary-queues), `client-local` is probably
+a better choice. [Exclusive queues](./queues#exclusive-queues) are always declared locally.
+:::
 
 The following example sets the `queue_leader_locator` setting in `rabbitmq.conf` to ensure a balanced queue distribution:
 
@@ -478,6 +483,14 @@ Note that all Raft-based features, namely quorum queues and streams, use this va
 Raft leader election algorithm involves a degree of randomness, therefore the selected recommended
 node will have a replica placed on it but it will not always be the leader replica.
 
+:::note
+For backwards compatibility, `queue-master-locator` (policy argument), `x-queue-master-locator`
+(queue argument) and `queue_master_locator` (configuration option) are still supported by classic queues.
+However, these are deprecated in favour of the options listed above.
+
+These options allow different values: `client-local`, `random` and `min-masters`. The latter two
+are now mapped to `balanced` internally.
+:::
 
 ## Clustering and Observability {#clustering-and-observability}
 
@@ -522,7 +535,7 @@ known at the time of shutdown.
 across multiple cluster nodes with parallel replication and a predictable [leader election](./quorum-queues#leader-election)
 and [data safety](./quorum-queues#data-safety) behavior as long as a majority of replicas are online.
 
-Non-replicated classic queues can also be used in clusters. Non-mirrored queue [behaviour in case of node failure](./ha#non-mirrored-queue-behavior-on-node-failure)
+Non-replicated classic queues can also be used in clusters. Their behaviour in case of node failure
 depends on [queue durability](./queues#durability).
 
 RabbitMQ clustering has several modes of dealing with [network partitions](./partitions),
@@ -962,51 +975,52 @@ rabbitmqctl cluster_status
 # => ...done.
 ```
 
-## Forcing Node Boot in Case of Unavailable Peers {#forced-boot}
 
-In some cases the last node to go
-offline cannot be brought back up. It can be removed from the
-cluster using the `forget_cluster_node` [rabbitmqctl](./cli) command.
+## How to Remove a Node from the Cluster {#removing-nodes}
 
-Alternatively `force_boot` [rabbitmqctl](./cli) command can be used
-on a node to make it boot without trying to sync with any
-peers (as if they were last to shut down). This is
-usually only necessary if the last node to shut down or a
-set of nodes will never be brought back online.
+Sometimes it is necessary to remove a node from the cluster.
 
-## Breaking Up a Cluster {#removing-nodes}
+The sequence of actions will be slightly different for the following
+most common scenarios:
 
-Sometimes it is necessary to remove a node from a
-cluster. The operator has to do this explicitly using a
-`rabbitmqctl` command.
+ * The node is online and reachable
+ * The node is offline and cannot be recovered
 
-Some [peer discovery mechanisms](./cluster-formation)
-support node health checks and forced
-removal of nodes not known to the discovery backend. That feature is
-opt-in (deactivated by default).
+In addition, if the cluster [peer discovery mechanisms](./cluster-formation)
+support node health checks and [forced removal of nodes](./cluster-formation#node-health-checks-and-cleanup) not known to the discovery backend.
 
-We first remove `rabbit@rabbit3` from the cluster, returning it to
-independent operation. To do that, on `rabbit@rabbit3` we
-stop the RabbitMQ application, reset the node, and restart the
-RabbitMQ application.
+That feature is opt-in (deactivated by default).
+
+Continuing with the three node cluster example used in this guide,
+let's demonstrate how to remove `rabbit@rabbit3` from the cluster, returning it to
+independent operation.
+
+### Removal of a Reachable Node
+
+First step before removing a node from the cluster is to stop it:
 
 ```bash
 # on rabbit3
 rabbitmqctl stop_app
 # => Stopping node rabbit@rabbit3 ...done.
-
-rabbitmqctl reset
-# => Resetting node rabbit@rabbit3 ...done.
-rabbitmqctl start_app
-# => Starting node rabbit@rabbit3 ...done.
 ```
 
-Note that it would have been equally valid to list
-`rabbit@rabbit3` as a node.
+Then use `rabbitmqctl forget_cluster_node` on another node
+and specify the node to remove as **the first positional argument**:
 
+```bash
+# on rabbit2
+rabbitmqctl forget_cluster_node rabbit@rabbit3
+# => Removing node rabbit@rabbit3 from cluster ...
+```
 
-Running the <i>cluster_status</i> command on the nodes confirms
-that `rabbit@rabbit3` now is no longer part of
+Running the
+
+```shell
+rabbitmq-diagnostics cluster_status
+```
+
+command on the nodes confirms that `rabbit@rabbit3` now is no longer part of
 the cluster and operates independently:
 
 ```bash
@@ -1023,17 +1037,32 @@ rabbitmqctl cluster_status
 # => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
 # =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
 # => ...done.
+```
 
+Now node `rabbit@rabbit3` can be decomissioned to reset and started as
+a standalone node:
+
+
+```shell
 # on rabbit3
+rabbitmqctl reset
+
+rabbitmqctl start_app
+# => Starting node rabbit@rabbit3 ...
+
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit3 ...
 # => [{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
 # => ...done.
 ```
 
-We can also remove nodes remotely. This is useful, for example, when
-having to deal with an unresponsive node. We can for example remove
-`rabbit@rabbit1` from `rabbit@rabbit2`.
+Nodes can be removed remotely, that is, from a different host, as long as CLI tools
+on said host can [connect and authenticate](./cli) to the target node.
+
+This can useful, for example, when having to deal with a host that cannot be accessed.
+
+In the rest of this example, `rabbit@rabbit1` will be removed from its remaining
+two node cluster with `rabbit@rabbit2`:
 
 ```bash
 # on rabbit1
@@ -1046,16 +1075,32 @@ rabbitmqctl forget_cluster_node rabbit@rabbit1
 # => ...done.
 ```
 
-Note that `rabbit1` still thinks it's clustered with
+### Removal of Stopped Nodes and Their Revival
+
+:::important
+
+A node that was removed from the cluster when stopped with `rabbitmqctl stop_app`
+must be either reset or decomissioned. If started without a reset,
+it won't be able to rejoin its original cluster.
+
+:::
+
+At this point `rabbit1` still thinks it is clustered with
 `rabbit2`, and trying to start it will result in an
-error. We will need to reset it to be able to start it again.
+error because the rest of the cluster no longer considers it to be a known member:
 
 ```bash
 # on rabbit1
 rabbitmqctl start_app
 # => Starting node rabbit@rabbit1 ...
 # => Error: inconsistent_cluster: Node rabbit@rabbit1 thinks it's clustered with node rabbit@rabbit2, but rabbit@rabbit2 disagrees
+```
 
+In order to completely detach it from the cluster, such
+stopped node must be reset:
+
+
+```shell
 rabbitmqctl reset
 # => Resetting node rabbit@rabbit1 ...done.
 
@@ -1065,7 +1110,7 @@ rabbitmqctl start_app
 ```
 
 The `cluster_status` command now shows all three nodes
-operating as independent RabbitMQ brokers:
+operating as independent RabbitMQ nodes (single node clusters):
 
 ```bash
 # on rabbit1
@@ -1104,18 +1149,48 @@ rabbitmqctl start_app
 # => Starting node rabbit@rabbit2 ...done.
 ```
 
+### Removal of Unresponsive Queues
+
+When target node is not running, it can still be removed from the cluster using
+using `rabbitmqctl forget_cluster_node`:
+
+```bash
+# Tell rabbit@rabbit1 to permanently remove rabbit@rabbit2
+rabbitmqctl forget_cluster_node -n rabbit@rabbit1 rabbit@rabbit2
+# => Removing node rabbit@rabbit1 from cluster ...
+# => ...done.
+```
+
+### What Happens to Quorum Queue and Stream Replicas?
+
+When a node is removed from the cluster using CLI tools, all [quorum queue](./quorum-queues#replica-management)
+and [stream replicas](./streams#replica-management) on the node will be removed,
+even if that means that queues and streams would temporarily have an even (e.g. two) replicas.
+
+### Node Removal is Explicit (Manual) or Opt-in
+
 Besides `rabbitmqctl forget_cluster_node` and the automatic cleanup of unknown nodes
 by some [peer discovery](./cluster-formation) plugins, there are no scenarios
 in which a RabbitMQ node will permanently remove its peer node from a cluster.
 
-### How to Reset a Node {#resetting-nodes}
 
-Sometimes it may be necessary to reset a node (wipe all of its data) and later make it rejoin the cluster.
-Generally speaking, there are two possible scenarios: when the node is running, and when the node cannot start
-or won't respond to CLI tool commands e.g. due to an issue such as [ERL-430](https://bugs.erlang.org/browse/ERL-430).
+
+## How to Reset a Node {#resetting-nodes}
+
+:::danger
 
 Resetting a node will delete all of its data, cluster membership information, configured [runtime parameters](./parameters),
-users, virtual hosts and any other node data. It will also permanently remove the node from its cluster.
+users, virtual hosts and any other node data. It will also alter its internal identity.
+
+:::
+
+Sometimes it may be necessary to reset a node (what specifically this means, see below),
+and later make it rejoin the cluster as a new node.
+
+Generally speaking, there are two possible scenarios: when the node is running, and when the node cannot start
+or won't respond to CLI tool commands for any reason.
+
+### Reset a Running and Responsive Node
 
 To reset a running and responsive node, first stop RabbitMQ on it using `rabbitmqctl stop_app`
 and then reset it using `rabbitmqctl reset`:
@@ -1128,20 +1203,51 @@ rabbitmqctl reset
 # => Resetting node rabbit@rabbit1 ...done.
 ```
 
+:::info
+
+If the reset node is online and its cluster peers are reachable, the node
+will first try to permanently remove itself from its cluster.
+
+:::
+
+### Reset an Unresponsive Node
+
 In case of a non-responsive node, it must be stopped first using any means necessary.
 For nodes that fail to start this is already the case. Then [override](./relocate)
-the node's data directory location or [re]move the existing data store. This will make the node
+the node's data directory location or remove the existing data store. This will make the node
 start as a blank one. It will have to be instructed to [rejoin its original cluster](#cluster-formation), if any.
 
-A node that's been reset and rejoined its original cluster will sync all virtual hosts, users, permissions
-and topology (queues, exchanges, bindings), runtime parameters and policies. [Quorum queue](./quorum-queues)
-contents will be replicated if the node will be selected to host a replica.
+### Resetting a Node to Re-add It as a Brand New Node to Its Original Cluster
+
+A reset node that was [removed from the cluster](#removing-nodes) can be re-added to its original
+cluster as a brand new node.
+
+In that case it will sync all virtual hosts, users, permissions and topology (queues, exchanges, bindings),
+runtime parameters and policies.
+
+For [quorum queue](./quorum-queues) and [stream](./streams) contents to be replicated to the new [re]added node,
+the node must be added to the list of nodes to place replicas on using `rabbitmq-queues grow`.
+
 Non-replicated queue contents on a reset node will be lost.
 
-## Upgrading clusters {#upgrading}
-You can find instructions for upgrading a cluster in
-[the upgrade guide](./upgrade#clusters).
 
+## Forcing Node Boot in Case of Unavailable Peers {#forced-boot}
+
+In some cases the last node to go
+offline cannot be brought back up. It can be removed from the
+cluster using the `forget_cluster_node` [rabbitmqctl](./cli) command.
+
+Alternatively `force_boot` [rabbitmqctl](./cli) command can be used
+on a node to make it boot without trying to sync with any
+peers (as if they were last to shut down). This is
+usually only necessary if the last node to shut down or a
+set of nodes will never be brought back online.
+
+
+## Upgrading clusters {#upgrading}
+
+You can find instructions for upgrading a cluster in [the upgrade
+guide](./upgrade).
 
 ## A Cluster on a Single Machine {#single-machine}
 
