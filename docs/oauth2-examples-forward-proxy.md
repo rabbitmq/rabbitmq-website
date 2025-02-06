@@ -38,12 +38,11 @@ This guide explains how to set up OAuth 2.0 for RabbitMQ to access the Authoriza
             
 ```
 
-RabbitMQ establishes a http connection with Keycloak via the forward-proxy in any of 
+RabbitMQ establishes an HTTP connection with Keycloak via the forward-proxy in any of 
 these situations:
 
 - You have configured `auth_oauth2.issuer` so that RabbitMQ downloads the OpenID configuration via the OpenID discovery endpoint.
-- You have configured `auth_oauth2.issuer` or `auth_oauth2.jwks_url` so that RabbitMQ 
-downloads the tokens' signing keys. 
+- You have configured `auth_oauth2.issuer` or `auth_oauth2.jwks_url` so that RabbitMQ downloads the tokens' signing keys. 
 
 ## Prerequisites for Using OAuth 2 vith a forward proxy
 
@@ -57,42 +56,42 @@ localhost keycloak rabbitmq forward-proxy
 
 :::info
 `make start-keycloak` will
-generate the TLS certificate and private keys necessary. These certificates have an expiration date.
+generate the TLS certificate and private keys as necessary. These certificates have an expiration date.
 
-In case of any error messages that hint at expired or invalid certificates, stop Keycloak and run `make clean-certs` to regenerate the certificates and private keys,
-then restart Keycloak and the proxy
+In you see any error messages that hint at expired or invalid certificates, stop Keycloak, run `make clean-certs` to regenerate the certificates and private keys,
+and then restart Keycloak and the proxy.
 :::
 
 ## Deploy Keycloak
 
-Deploy Keycloak by running the following command which deploys keycloak on its own network called `keycloak_net`:
+Deploy keycloak on its own network called `keycloak_net` by running:
+
 ```bash
 PROVIDER_NETWORK=keycloak_net make start-keycloak
 ```
  
-To access Keycloak Management UI, go to https://keycloak:8443/ and enter `admin` as username and password.
+To access Keycloak Management UI, go to https://keycloak:8443/ and enter `admin` as the username and password.
 
 There is a dedicated **Keycloak realm** called `Test` configured as follows:
 
-* [rsa](https://keycloak:8443/admin/master/console/#/realms/test/keys) signing key
+* [rsa](https://keycloak:8443/admin/master/console/#/realms/test/keys) signing-key
 * [rsa provider]https://keycloak:8443/admin/master/console/#/realms/test/keys/providers)
 * `rabbitmq-proxy-client` client
 
 ## Start Forward Proxy
 
-To start the forward proxy, run the following command which deploys forward-proxy in 
-two networks, `keycloak_net` and `rabbitmq_net`:
+Deploy and start the forward-proxy in two networks, `keycloak_net` and `rabbitmq_net`, by running:
 
 ```bash
 PROVIDER_NETWORK=keycloak_net make start-forward-proxy
 ```
 
-The forward proxy is configured using [httpd.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next/conf/forward-proxy/httpd/httpd.conf). This type of configuration inserts the access token into the HTTP **Authorization** header.
+The forward proxy is configured by using [httpd.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next/conf/forward-proxy/httpd/httpd.conf). This type of configuration inserts the access token into the HTTP **Authorization** header.
 
 
 ## Start RabbitMQ
 
-To start RabbitMQ run the following command which deploys rabbitmq in its own network `rabbitmq_net`:
+Deploy RabbitMQ in its own network `rabbitmq_net` and start it by running:
 
 ```
 export IMAGE=<Tanzu RabbitMQ OCI image name>
@@ -103,19 +102,19 @@ MODE=forward-proxy OAUTH_PROVIDER=keycloak make start-rabbitmq
 ## Access [management UI](./management/)
 
 Go to https://rabbitmq:15671/, proceed to login, and enter the credentials
-`rabbit_admin` as username and `rabbit_admin` as password when Keycloak prompts you. 
-You should be redirected back to RabbitMQ management UI.
+`rabbit_admin` as the username and `rabbit_admin` as the password when Keycloak prompts you. 
+You will be redirected back to RabbitMQ management UI.
 
-Take into account that the management UI running in the browser goes straight to keycloak. 
-In other words, it does not go via the forward-proxy. If you really want the management UI to
-go via the forward-proxy you would have to configure the browser. That is beyond 
+The management UI running in the browser goes straight to keycloak. 
+In other words, it does not go via the forward-proxy. If you want the management UI to
+go via the forward-proxy, you must configure the browser. That is beyond 
 the scope of this example.
 
 However, in order to validate the token the management UI received from keycloak, RabbitMQ has to connect to keycloak via the forward-proxy. This is necessary in order to download the signing keys and to download the OpenID configuration if you only configured the `issuer` URL.
 
-## Access Management api
+## Access Management API
 
-To access the management api run the following command. It uses the client [mgt_api_client](https://keycloak:8443/admin/master/console/#/test/clients/c5be3c24-0c88-4672-a77a-79002fcc9a9d/settings) which has the scope [rabbitmq.tag:administrator](https://keycloak:8443/admin/master/console/#/test/client-scopes/f6e6dd62-22bf-4421-910e-e6070908764c/settings).
+To access the management API run the following command. It uses the client [mgt_api_client](https://keycloak:8443/admin/master/console/#/test/clients/c5be3c24-0c88-4672-a77a-79002fcc9a9d/settings), which has the scope [rabbitmq.tag:administrator](https://keycloak:8443/admin/master/console/#/test/client-scopes/f6e6dd62-22bf-4421-910e-e6070908764c/settings).
 
 ```bash
 make curl-keycloak url=https://localhost:15671/api/overview client_id=mgt_api_client secret=LWOuYqJ8gjKg3D2U8CJZDuID3KiRZVDa realm=test
