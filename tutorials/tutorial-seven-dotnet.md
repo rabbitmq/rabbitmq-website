@@ -46,7 +46,7 @@ are not enabled by default. Publisher confirms are enabled at the channel level
 via the `CreateChannelOptions` class:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L9-L15
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L11-L15
 ```
 
 These options must be passed to every channel that you expect to use publisher
@@ -77,7 +77,13 @@ wait for this whole batch to be confirmed. The following example uses a batch
 size equal to one-half of the allowed count of outstanding confirmations:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L92-L132
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L90-L102
+```
+
+This method is responsible for awaiting the publisher confirmations for  a given batch of messages:
+
+```csharp reference
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L108-L125
 ```
 
 
@@ -87,7 +93,7 @@ The broker confirms published messages asynchronously, one just needs to
 register a callback on the client to be notified of these confirms:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L204-L227
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L193-L216
 ```
 
 There are 3 callbacks: one for confirmed messages, one for nack-ed messages,
@@ -117,7 +123,7 @@ clean this list when confirms arrive and do something like logging a warning
 when messages are nack-ed:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L155-L202
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L144-L191
 ```
 
 The previous sample contains a callback that cleans the linked list when
