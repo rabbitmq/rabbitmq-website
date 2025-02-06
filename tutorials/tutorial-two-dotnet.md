@@ -103,8 +103,10 @@ time:
 
 ```csharp
 var consumer = new AsyncEventingBasicConsumer(channel);
-consumer.Received += async (model, ea) =>
+consumer.ReceivedAsync += async (model, ea) =>
 {
+  var body = ea.Body.ToArray();
+  var message = Encoding.UTF8.GetString(body);
   Console.WriteLine($" [x] Received {message}");
 
   int dots = message.Split('.').Length - 1;
