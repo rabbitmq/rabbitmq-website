@@ -70,6 +70,10 @@ The guide is accompanied by [a public GitHub repository](https://github.com/rabb
  * [Google](./oauth2-examples-google)  **NOT SUPPORTED**
  * [Multiple OAuth 2.0 servers and/or audiences](./oauth2-examples-multiresource)
 
+### Examples for Tanzu RabbitMQ (commercial-only feature)
+
+ * [Forward proxy](./oauth2-examples-forward-proxy)
+
 ## Prerequisites Used by the Examples in This Guide {#prerequisites}
 
  * Docker must be installed

@@ -159,6 +159,7 @@ In chronological order, here is the sequence of events that occur when a client 
 | `auth_oauth2.https.fail_if_no_peer_cert`   | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`.
 | `auth_oauth2.https.hostname_verification`  | Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`.
 | `auth_oauth2.https.crl_check`              | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false.
+| `auth_oauth2.proxy`                        | Configures explicit [forward proxy](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-0/tanzu-rabbitmq-oci-image/overview.html) used to connect to the `auth_oauth2.issuer` URL. **This is a commercial-only feature**. More information on how to use it can be found on [this example](./oauth2-examples-forward-proxy).
 | `auth_oauth2.algorithms`                   | Restrict [the usable algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support).
 | `auth_oauth2.verify_aud`                   | Whether to verify the [token's `aud`](#token-validation) field or not. The default value is `true`.
 | `auth_oauth2.resource_servers`             | [Multiple OAuth 2.0 resources configuration](#multiple-resource-servers-configuration).
@@ -277,7 +278,6 @@ auth_oauth2.algorithms.1 = HS256
 auth_oauth2.algorithms.2 = RS256
 ```
 
-
 ## Multiple Resource Servers Сonfiguration {#multiple-resource-servers-configuration}
 
 Each `auth_oauth2.resource_servers.<id/index>.` entry has the following variables shown in the table below. Except for the variables `id` and `oauth_provider_id`, if a resource does not configure a variable, RabbitMQ uses the variable configured at the root level. For instance, if the resource `auth_oauth2.resource_servers.prod` does not configure `preferred_username_claims` variable, RabbitMQ uses the value configured in `auth_oauth2.preferred_username_claims` for the resource `prod`.
@@ -322,8 +322,9 @@ Each `auth_oauth2.oauth_providers.{id/index}` entry has the following sub-keys.
 | `https.depth`                | The maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid [certification path](ssl#peer-verification-depth). The default value is 10.
 | `https.verify`               | Configures [peer verification](ssl#peer-verification). Available values: `verify_none`, `verify_peer`. The default value is `verify_peer` if there are trusted CA installed in the OS or `auth_oauth2.https.cacertfile` is set.
 | `https.fail_if_no_peer_cert` | Used together with `auth_oauth2.https.peer_verification = verify_peer`. When set to `true`, TLS connection will be rejected if the client fails to provide a certificate. The default value is `false`.
-| `https.hostname_verification` | Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`.
-| `https.crl_check`              | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false.
+| `https.hostname_verification`| Enable wildcard-aware hostname verification for key server. Available values: `wildcard`, `none`. The default value is `none`.
+| `https.crl_check`            | [Perform CRL verification](https://www.erlang.org/doc/man/ssl#type-crl_check) (Certificate Revocation List) verification. Default value is false.
+| `auth_oauth2.proxy`          | Configures explicit [forward proxy](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-0/tanzu-rabbitmq-oci-image/overview.html) used to connect to the `issuer` URL. **This is a commercial-only feature**. More information on how to use it can be found on [this example](./oauth2-examples-forward-proxy).
 | `signing_keys`               | Local filesystem paths to the [signing key files](#signing-key-files). The files must exist and be readable.
 | `default_key`                | ID of the default signing key.
 | `algorithms`                 | Used to restrict [the list of enabled algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support).
