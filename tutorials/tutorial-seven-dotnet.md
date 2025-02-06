@@ -46,7 +46,7 @@ are not enabled by default. Publisher confirms are enabled at the channel level
 via the `CreateChannelOptions` class:
 
 ```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L9-L15
+https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L11-L15
 ```
 
 These options must be passed to every channel that you expect to use publisher
@@ -80,7 +80,7 @@ size equal to one-half of the allowed count of outstanding confirmations:
 https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L90-L102
 ```
 
-The `MaybeAwaitPublishes()` method is responsible for publishing a given batch of messages:
+This method is responsible for awaiting the publisher confirmations for  a given batch of messages:
 
 ```csharp reference
 https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L108-L125
