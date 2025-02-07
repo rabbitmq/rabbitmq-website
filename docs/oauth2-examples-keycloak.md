@@ -69,6 +69,14 @@ make start-rabbitmq
 RabbitMQ is deployed with TLS enabled and Keycloak is configured with the corresponding `redirect_url` which uses https.
 :::
 
+:::important 
+RabbitMQ is configured to read the scopes from the custom claim [extra_scope](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/next/conf/keycloak/rabbitmq.conf#L11) and 
+by default from the standard claim `scope`. 
+However, if your scopes are deep in a map/list structure like `authorization.permissions.scopes`
+or under `realm_access.roles` or `resource_access.account.roles`, you can configure
+RabbitMQ to use those locations instead. See the section [Use a different token field for the scope](./oauth2#use-different-token-field) for more information.
+:::
+
 ## Access Management api
 
 To access the management api run the following command. It uses the client [mgt_api_client](https://keycloak:8443/admin/master/console/#/test/clients/c5be3c24-0c88-4672-a77a-79002fcc9a9d/settings) which has the scope [rabbitmq.tag:administrator](https://keycloak:8443/admin/master/console/#/test/client-scopes/f6e6dd62-22bf-4421-910e-e6070908764c/settings).
