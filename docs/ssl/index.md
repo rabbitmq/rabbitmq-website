@@ -838,7 +838,7 @@ public class Example2 {
       ks.load(new FileInputStream(&quot;/path/to/client_key.p12&quot;), keyPassphrase);
 
       KeyManagerFactory kmf = KeyManagerFactory.getInstance(&quot;SunX509&quot;);
-      kmf.init(ks, passphrase);
+      kmf.init(ks, keyPassphrase);
 
       char[] trustPassphrase = &quot;rabbitstore&quot;.toCharArray();
       KeyStore tks = KeyStore.getInstance(&quot;JKS&quot;);
