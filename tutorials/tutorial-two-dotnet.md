@@ -103,8 +103,10 @@ time:
 
 ```csharp
 var consumer = new AsyncEventingBasicConsumer(channel);
-consumer.Received += async (model, ea) =>
+consumer.ReceivedAsync += async (model, ea) =>
 {
+  var body = ea.Body.ToArray();
+  var message = Encoding.UTF8.GetString(body);
   Console.WriteLine($" [x] Received {message}");
 
   int dots = message.Split('.').Length - 1;
@@ -219,9 +221,15 @@ examples we explicitly turned them off by setting the autoAck
 remove this flag and manually send a proper acknowledgment from the
 worker, once we're done with a task.
 
-After the existing _WriteLine_, add a call to _BasicAck_ and update _BasicConsume_ with _autoAck:false_:
-```csharp reference
-https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Worker/Worker.cs#L26-L32
+After the existing _WriteLine_, add a call to _BasicAckAsync_ and update _BasicConsumeAsync_ with _autoAck:false_:
+```csharp
+    Console.WriteLine(" [x] Done");
+
+    // here channel could also be accessed as ((AsyncEventingBasicConsumer)sender).Channel
+    await channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false);
+};
+
+await channel.BasicConsumeAsync("hello", autoAck: false, consumer: consumer);
 ```
 
 Using this code, you can  ensure that even if you terminate a worker node using
