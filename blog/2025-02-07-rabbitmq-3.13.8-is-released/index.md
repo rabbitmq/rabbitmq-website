@@ -1,6 +1,6 @@
 ---
 title: "RabbitMQ 3.13.8 is released"
-tags: ["Releases", "RabbitMQ 3.13"]
+tags: ["Releases", "Tanzu RabbitMQ", "RabbitMQ 3.13"]
 authors: [mklishin]
 ---
 
