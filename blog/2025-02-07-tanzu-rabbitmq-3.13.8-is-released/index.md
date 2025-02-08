@@ -16,7 +16,7 @@ Tanzu RabbitMQ is available [on Kubernetes](https://techdocs.broadcom.com/us/en/
 and an [OVA image](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-ova/3-13/tanzu-rabbitmq-ova-virtual-machine/overview.html).
 
 This release is based on open source RabbitMQ `3.13.x` and includes all the latest backports
-in [open source RabbitMQ `3.13.8`](./2025/02/07/rabbitmq-3.13.8-is-released).
+in [open source RabbitMQ `3.13.8`](https://www.rabbitmq.com/blog/2025/02/07/rabbitmq-3.13.8-is-released).
 
 # Release Artifacts
 
