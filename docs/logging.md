@@ -726,7 +726,7 @@ The following values are valid:
 :::warning
 
 This setting should only be used as a last
-resort measure when overriding log format us a hard requirement
+resort measure when overriding log format is a hard requirement
 of log collection tooling
 
 :::
@@ -836,7 +836,7 @@ is omitted compared to the default example above:
 :::warning
 
 This setting can lead to incomplete log messages and should only be used as a last
-resort measure when overriding log format us a hard requirement
+resort measure when overriding log format is a hard requirement
 of log collection tooling
 
 :::
