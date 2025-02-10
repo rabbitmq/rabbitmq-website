@@ -36,9 +36,7 @@ One type of payload is found in a [Requesting Party Token](./oauth2#requesting-p
 RabbitMQ supports this type of token and it extracts the scopes from it. 
 You do not need to configure anything.
 
-A second type of payload is the following. The claim `roles` is not strictily 
-speaking part of Keycloak official claims. Instead, it is a custom claim configured
-by the user via the Keycloak administration console.
+A second type of payload is the following. 
 
 ```json 
 {
@@ -64,15 +62,21 @@ by the user via the Keycloak administration console.
 }
 ```
 
+:::info
+The claim `roles` is not strictily 
+speaking part of Keycloak official claims. Instead, it is a custom claim configured
+by the user via the Keycloak administration console.
+:::
+
 RabbitMQ does not read the scopes from this token unless you configure it to do so.
-For instance, to configure RabbitMQ to extract the scopes from "roles" under "realm_access",
+For instance, to configure RabbitMQ to extract the scopes from `roles` under `realm_access` claim,
 you add the following configuration variable:
 
 ```json
 auth_oauth2.additional_scopes_key = realm_access.roles
 ```
 
-To configure RabbitMQ to also read from "resource_access", you modify the previous 
+To configure RabbitMQ to also read from `resource_access` claim, you modify the previous 
 configuration as follows:
 
 ```json

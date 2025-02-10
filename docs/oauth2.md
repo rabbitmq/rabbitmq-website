@@ -46,8 +46,8 @@ There's also a companion [troubleshooting guide for OAuth 2-specific problems](.
 * [Use a different token field for the scope](#use-different-token-field)
 * [Preferred username claims](#preferred-username-claims)
 * [Discovery Endpoint params](#discovery-endpoint-params)
-* [Rich Authorization Request](#rich-authorization-request)
 * [Requesting Party Token](#requesting-party-token)
+* [Rich Authorization Request](#rich-authorization-request)
 
 ### [Advanced usage](#advanced-usage)
 
