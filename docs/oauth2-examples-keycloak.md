@@ -28,6 +28,66 @@ and Keycloak as Authorization Server using the following flows:
 * Access management HTTP API
 * Application authentication and authorization
 
+## Keycloak JWT payloads
+
+Keycloak may issue two types of JWT payloads. 
+
+One type of payload is found in a [Requesting Party Token](./oauth2#requesting-party-token). 
+RabbitMQ supports this type of token and it extracts the scopes from it. 
+You do not need to configure anything.
+
+A second type of payload is the following. The claim `roles` is not strictily 
+speaking part of Keycloak official claims. Instead, it is a custom claim configured
+by the user via the Keycloak administration console.
+
+```json 
+{
+  "realm_access": {
+    "roles": [
+      "offline_access",
+      "uma_authorization",
+      "rabbitmq.tag:management",
+    ]
+  },
+  "resource_access": {
+    "account": {
+      "roles": [
+        "manage-account",
+        "manage-account-links",
+        "view-profile",
+        "rabbitmq.write:*/*"
+      ]
+    }
+  },
+  "roles": "rabbitmq.read:*/*",
+  "scope": "profile email"
+}
+```
+
+RabbitMQ does not read the scopes from this token unless you configure it to do so.
+For instance, to configure RabbitMQ to extract the scopes from "roles" under "realm_access",
+you add the following configuration variable:
+
+```json
+auth_oauth2.additional_scopes_key = realm_access.roles
+```
+
+To configure RabbitMQ to also read from "resource_access", you modify the previous 
+configuration as follows:
+
+```json
+auth_oauth2.additional_scopes_key = realm_access.roles resource_access.account.roles 
+```
+
+And finally, if you also want to use the scopes in the claim `roles`, you modify
+the previous configuration:
+
+```json
+auth_oauth2.additional_scopes_key = roles realm_access.roles resource_access.account.roles 
+```
+
+RabbitMQ reads the scopes from all those sources. 
+
 ## Prerequisites to follow this guide
 
 * Docker

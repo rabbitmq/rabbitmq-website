@@ -47,6 +47,7 @@ There's also a companion [troubleshooting guide for OAuth 2-specific problems](.
 * [Preferred username claims](#preferred-username-claims)
 * [Discovery Endpoint params](#discovery-endpoint-params)
 * [Rich Authorization Request](#rich-authorization-request)
+* [Requesting Party Token](#requesting-party-token)
 
 ### [Advanced usage](#advanced-usage)
 
@@ -718,6 +719,54 @@ This is the URL built to access the OpenId Discovery endpoint:
 ```
 https://myissuer.com/v2/.well-known/authorization-server?param1=value1&param2=value2
 ```
+
+### Requesting Party Token {#requesting-party-token}
+
+A **Requesting Party Token (RPT)** is a special OAuth 2.0 **access token** 
+issued by an **Authorization Server** in the [User-Managed Access (UMA) 2.0](https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-grant-2.0.html) framework. 
+It is used by a **Requesting Party** (such as an application or user) to access 
+a protected resource on a Resource Server like RabbitMQ, after being authorized
+based on a resource owner policies.
+
+[Keycloak](./oauth2-examples-keycloak) is one of the Authorization Servers that issues this type of tokens. 
+An RPT is typically a JWT with permissions claims under a claim called `authorization`.
+See the example below. The rest of the claims have been removed from the token for 
+brevity:
+
+```json
+{
+  "authorization": {
+    "permissions": [
+      {
+        "scopes": [
+          "rabbitmq-resource.read:*/*"
+        ],
+        "rsid": "2c390fe4-02ad-41c7-98a2-cebb8c60ccf1",
+        "rsname": "allvhost"
+      },
+      {
+        "scopes": [
+          "rabbitmq-resource:vhost1/*"
+        ],
+        "rsid": "e7f12e94-4c34-43d8-b2b1-c516af644cee",
+        "rsname": "vhost1"
+      },
+      {
+        "rsid": "12ac3d1c-28c2-4521-8e33-0952eff10bd9",        
+        "scopes": [
+          "rabbitmq-resource.tag:administrator"
+        ]
+      }
+    ]
+  },
+  "scope": "email profile",
+}
+```
+
+RabbitMQ supports this token format. It reads all the scopes in all the `permissions`
+claims. If the token also contains the standard `scope` claim, RabbitMQ adds it to the
+list of scopes presented by the token.
+
 
 ### Rich Authorization Request {#rich-authorization-request}
 
