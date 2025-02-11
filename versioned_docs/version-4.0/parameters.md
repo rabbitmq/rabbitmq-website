@@ -360,7 +360,7 @@ effect.
 :::danger
 When multiple policies match an entity and they all have equal priorities, the effective one
 will be chosen undeterministically. **Such cases should be avoided** by paying attention
-to what priorities various policies use.
+to what priorities various policies use. Higher values indicate higher priority (e.g. a policy with priority 10 will overrule a policy with priority 8). 
 :::
 
 Matching policies are then sorted by priority and the one with the highest priority will take
