@@ -36,11 +36,11 @@ would like to see added to this list.
 
 ### Built-in
 
- * [Core CLI tools](./docs/cli/): `rabbitmqctl`, `rabbitmq-diagnostics`, `rabbitmq-upgrade`, `rabbitmq-queues`, and so on
+ * [Core CLI tools](/docs/cli/): `rabbitmqctl`, `rabbitmq-diagnostics`, `rabbitmq-upgrade`, `rabbitmq-queues`, and so on
 
 ### HTTP API
 
- * [`rabbitmqadmin` v2](./docs/management-cli/): an HTTP API-based management tool developed by the Team RabbitMQ
+ * [`rabbitmqadmin` v2](/docs/management-cli/): an HTTP API-based management tool developed by the Team RabbitMQ
 
 ## Load Testing and Workload Simulation {#workload-simulation}
 
