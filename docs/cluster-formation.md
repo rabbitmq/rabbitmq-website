@@ -124,10 +124,16 @@ so nodes don't have to (or cannot) explicitly register. However, the list of clu
 is not predefined. Such backends usually include a no-op registration step
 and apply one of the [race condition mitigation mechanisms](#initial-formation-race-condition) described below.
 
-When the configured backend supports registration, nodes unregister when they stop. It is
-possible to opt-out of registration with the config option `cluster_formation.registration = false`.
-In such cases, the node has to be registered manually or using another mechanism, e.g. with container
-orchestrators like Nomad or Kubernetes.
+If the configured backend supports registration, nodes unregister when they are instructed to stop.
+
+It is possible to opt-out of registration completely with the config option `cluster_formation.registration.enabled`:
+
+```ini
+cluster_formation.registration.enabled = false
+```
+
+When configured this way, the node has to be registered manually or using another mechanism,
+e.g. by a container orchestrator such as [Nomad](https://developer.hashicorp.com/nomad/integrations/hashicorp/rabbitmq) or [Kubernetes](https://www.rabbitmq.com/kubernetes/operator/operator-overview).
 
 If peer discovery isn't configured, or it [repeatedly fails](#discovery-retries),
 or no peers are reachable, a node that wasn't a cluster member in the past
@@ -976,6 +982,22 @@ cluster_formation.consul.svc_ttl = 30
 # include node in the warning state into discovery result set
 cluster_formation.consul.include_nodes_with_warnings = true
 ```
+
+#### Opting Out of Regisration
+
+If the configured backend supports registration,
+nodes unregister when they are instructed to stop.
+
+It is possible to opt-out of registration completely with the config option
+`cluster_formation.registration.enabled`:
+
+```ini
+cluster_formation.registration.enabled = false
+```
+
+When configured this way, the node has to be registered manually or using another mechanism,
+e.g. by a container orchestrator such as [Nomad](https://developer.hashicorp.com/nomad/integrations/hashicorp/rabbitmq).
+
 
 #### Node Name Suffixes
 
