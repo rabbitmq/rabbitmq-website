@@ -259,6 +259,145 @@ a node at `rabbitmq.local:15672`:
 curl -u userename:pa$sw0rD -X DELETE http://rabbitmq.local:15672/api/vhosts/vh1
 ```
 
+## Deletion Protection {#deletion-protection}
+
+A virtual host can be protected from deletion. Protected virtual hosts cannot be deleted
+until the protection is removed.
+
+### Using CLI Tools
+
+`rabbitmqctl enable_vhost_protection_from_deletion` is the command that marks a virtual host
+as protected from deletion:
+
+```bash
+rabbitmqctl enable_vhost_protection_from_deletion "vhost-name"
+```
+
+An attempt to delete the virtual host then will fail with a specific message:
+
+```bash
+rabbitmqctl delete_vhost "vhost-name"
+# ...
+# => Error:
+# => Cannot delete this virtual host: it is protected from deletion. To lift the protection, inspect and update its metadata
+```
+
+To remove the protection, use `rabbitmqctl disable_vhost_protection_from_deletion`:
+
+```bash
+## removes virtual host deletion protection
+rabbitmqctl disable_vhost_protection_from_deletion "vhost-name"
+```
+
+with the protection removed, the virtual host can be deleted again:
+
+```bash
+rabbitmqctl delete_vhost "vhost-name"
+# => Deleting vhost "vhost-name" ...
+```
+
+To see whether a virtual host is protected from deletion, use `list_vhosts` command with
+an extra column, `protected_from_deletion`:
+
+```shell
+rabbitmqctl list_vhosts name tags default_queue_type metadata protected_from_deletion --formatter=pretty_table
+# => Listing vhosts ...
+# => ┌───────────────────────────┬─────────────────────────┐
+# => │ name                      │ protected_from_deletion │
+# => ├───────────────────────────┼─────────────────────────┤
+# => │ /                         │ false                   │
+# => ├───────────────────────────┼─────────────────────────┤
+# => │ vh1                       │ true                    │
+# => ├───────────────────────────┼─────────────────────────┤
+# => │ vh2                       │ false                   │
+# => └───────────────────────────┴─────────────────────────┘
+```
+
+### Using HTTP API
+
+A virtual host can be protected from deletion using the `POST /api/vhosts/{name}/deletion/protection` [HTTP API](./management) endpoint
+where `{name}` is the name of the virtual host.
+
+Here's an example that uses [curl](https://curl.haxx.se/) to delete a virtual host `vh1` by contacting
+a node at `rabbitmq.local:15672`:
+
+```bash
+curl -u userename:pa$sw0rD -X POST http://rabbitmq.local:15672/api/vhosts/vh1/deletion/protection
+```
+
+An attempt to delete the virtual host then will fail with a `412 Precondition Failed` status:
+
+```bash
+curl -sL -u guest:guest -X DELETE http://localhost:15672/api/vhosts/vh1/
+# => < HTTP/1.1 412 Precondition Failed
+```
+
+The body will include a specific error, similar to what CLI tools output:
+
+```json
+{
+  "error": "precondition_failed",
+  "reason": "Refusing to delete virtual host 'vh1' because it is protected from deletion"
+}
+```
+
+To remove the protection, use `DELETE /api/vhosts/{name}/deletion/protection`:
+
+```bash
+curl -u userename:pa$sw0rD -X POST http://rabbitmq.local:15672/api/vhosts/vh1/deletion/protection
+```
+
+with the protection removed, the virtual host can be deleted again:
+
+```bash
+curl -vv -sL -u guest:guest -X DELETE http://localhost:15672/api/vhosts/
+# ...
+# => < HTTP/1.1 204 No Content
+```
+
+To see whether a virtual host is protected from deletion, use the `GET /api/vhosts` or `GET /api/vhosts/{vhost}`
+endpoints and then inspec the `metadata.protected_from_deletion` response body field:
+
+```bash
+curl -sL -u guest:guest -X GET http://localhost:15672/api/vhosts/vh1
+# => {
+# =>   "name": "vh1",
+# =>   "description": "",
+# =>   "tags": [],
+# =>   "default_queue_type": "classic",
+# =>   "protected_from_deletion": true,
+# =>   "metadata": {
+# =>     "description": "",
+# =>     "tags": [],
+# =>     "default_queue_type": "classic",
+# =>     "protected_from_deletion": true
+# =>   },
+# =>   "tracing": false,
+# =>   "cluster_state": {
+# =>     "rabbit@sunnyside": "running"
+# =>   }
+# => }
+```
+
+### Definition Imports
+
+If a virtual host is created via a [definition file](./definitions/), adding a new metadata key, `"protected_from_deletion"`,
+that is set to `true`, will mark the virtual host as protected when it is created:
+
+```json
+{
+  "name": "protected",
+  "description": "",
+  "metadata": {
+    "description": "This virtual host is protected from deletion with a special metadata key",
+    "tags": [],
+    "default_queue_type": "classic",
+    "protected_from_deletion": true
+  },
+  "tags": [],
+  "default_queue_type": "classic"
+}
+```
 
 ## Limits {#limits}
 
