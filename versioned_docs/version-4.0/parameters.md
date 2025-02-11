@@ -354,7 +354,7 @@ a policy. If not explicitly provided, the priority of 0 will be used.
 :::important
 **At most one policy matches** a queue or exchange. Matching policies are then sorted by priority
 and the one with the highest priority will take
-effect.
+effect. Higher values indicate higher priority (e.g. a policy with priority 10 will overrule a policy with priority 8).
 :::
 
 :::danger
