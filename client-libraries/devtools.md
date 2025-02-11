@@ -32,6 +32,16 @@ would like to see added to this list.
 
 *Note:* items with a check mark (&#x2713;) are officially supported by Team RabbitMQ and VMware.
 
+## Management Tools
+
+### Built-in
+
+ * [Core CLI tools](./docs/cli/): `rabbitmqctl`, `rabbitmq-diagnostics`, `rabbitmq-upgrade`, `rabbitmq-queues`, and so on
+
+### HTTP API
+
+ * [`rabbitmqadmin` v2](./docs/management-cli/): an HTTP API-based management tool developed by the Team RabbitMQ
+
 ## Load Testing and Workload Simulation {#workload-simulation}
 
  * &#x2713; [PerfTest](https://perftest.rabbitmq.com/) for [quorum](/docs/quorum-queues) and classic queues
