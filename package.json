@@ -35,7 +35,8 @@
   "overrides": {
     "send": "^0.19.0",
     "katex": "^0.16.21",
-    "undici": "^5.28.5"
+    "undici": "^5.28.5",
+    "esbuild": "^0.25.0"
   },
   "browserslist": {
     "production": [
