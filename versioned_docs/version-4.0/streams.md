@@ -139,24 +139,20 @@ Sets the maximum age of the stream. See [retention](#retention). Default: not se
 
 * `x-stream-max-segment-size-bytes`
 
-Unit: bytes.
-
 A stream is divided up into fixed size segment files on disk.
-This setting controls the size of these.
-Default: (500000000 bytes).
+This setting controls the size in bytes of these.
+Default: 500000000 bytes.
 
-While this argument can be configured via a policy, it will _only_ be applied
-to the stream if the policy is set (exists) at stream declaration time. If this argument
-is changed for a matching but pre-existing stream it **will not be changed** even
-if the effective policy of the queue record may indicate it is.
+* `x-stream-filter-size-bytes`
 
-Hence it is best to only configure this via an option queue argument,
-`x-stream-filter-size-bytes`.
+The size in bytes of the Bloom filter used for [filtering](#filtering).
+The value must be between 16 and 255.
+Default: 16 bytes.
 
-:::note
-While `x-stream-filter-size-bytes` can be configured via a policy, it will _only_ be applied
-to the stream if the policy exists at stream declaration time
-:::
+While the `x-stream-max-segment-size-bytes` and `x-stream-filter-size-bytes` arguments can be configured via a policy, they will _only_ be applied to the stream if the policy is set (exists) at stream declaration time.
+If these arguments are changed for a matching but pre-existing stream they **will not be changed** even if the effective policy of the queue record may indicate it is.
+
+Hence it is best to only configure these via queue arguments.
 
 The following example in Java demonstrates how the argument can be set
 at stream declaration time in application code:
@@ -178,13 +174,6 @@ channel.queueDeclare(
   arguments
 );
 ```
-
-The value is set in bytes.
-
-The size of the Bloom filter used for [filtering](#filtering).
-The value must be between 16 and 255.
-Default: 16.
-
 
 ### Client Operations
 
