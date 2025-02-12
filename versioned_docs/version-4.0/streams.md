@@ -419,9 +419,10 @@ the log will grow indefinitely until the disk runs out. To avoid this undesirabl
 scenario it is possible to set a retention configuration per stream which will
 discard the oldest data in the log based on total log data size and/or age.
 
-There are two parameters that control the retention of a stream. These can be combined.
-These are either set at declaration time using a queue argument or as a policy which
-can be dynamically updated.
+There are two parameters that control the retention of a stream.
+These can be combined.
+These are either set at declaration time using a queue argument or as a policy which can be dynamically updated.
+The policy takes precedence over queue arguments.
 
  * `max-age`:
 
