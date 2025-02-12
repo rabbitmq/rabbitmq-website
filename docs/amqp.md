@@ -304,7 +304,6 @@ RabbitMQ does not support the following AMQP 1.0 features:
     * [resuming deliveries](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-resuming-deliveries)
     * [Terminus Expiry Policy](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-terminus-expiry-policy)
 * `aborted` field in [transfer](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-transfer) frame
-* `dynamic` field in [source](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-source) and [target](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-target): clients can instead dynamically create server topologies (exchanges, queues, bindings) via HTTP over AMQP **prior** to attaching a link.
 * [Transactions](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transactions-v1.0-os.html)
 * Protocol Header for TLS Security Layer ([Figure 5.1](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-security-v1.0-os.html#section-tls)) including a protocol id of two. Instead, RabbitMQ runs a pure TLS server and therefore implements [section 5.2.1](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-security-v1.0-os.html#doc-tls-alternative-establishment).
 
