@@ -57,6 +57,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li><a href="https://www.rabbitmq.com/blog/2025/02/07/rabbitmq-3.13.8-is-released">3.13.8</a></li>
         <li>3.13.7</li>
         <li>3.13.6</li>
         <li>3.13.5</li>

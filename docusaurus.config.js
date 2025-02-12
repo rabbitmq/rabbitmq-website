@@ -51,6 +51,7 @@ const config = {
         },
         '4.0': {
           releases: [
+            {version: '4.0.6', release_date: "2025-02-11", },
             {version: '4.0.5', release_date: "2024-12-15", },
             {version: '4.0.4', release_date: "2024-11-21", },
             {version: '4.0.3', release_date: "2024-10-28", },
@@ -307,7 +308,7 @@ const config = {
       },
       announcementBar: {
         id: 'latest-announcement',
-        content: '<strong style="font-size: var(--ifm-h4-font-size);"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.5">RabbitMQ 4.0.5 is out</a></strong>',
+        content: '<strong style="font-size: var(--ifm-h4-font-size);"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.6">RabbitMQ 4.0.6 is out</a></strong>',
         backgroundColor: 'var(--ifm-color-primary-contrast-background)',
         textColor: 'var(--ifm-font-color-base)',
         isCloseable: true,
