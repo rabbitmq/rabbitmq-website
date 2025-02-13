@@ -61,7 +61,7 @@ For example, to connect to a virtual host called `tenant-1`, the client sets the
 
 An AMQP 1.0 [address](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-address-string) determines where a message is sent to or consumed from.
 What internal object an AMQP address refers to and how an AMQP address is resolved is not defined by the AMQP 1.0 specification.
-Different AMQP 1.0 brokers can choose to interprete the provided address differently.
+Different AMQP 1.0 brokers can choose to interpret the provided address differently.
 
 RabbitMQ implements the powerful and flexible [AMQ 0.9.1 model](/tutorials/amqp-concepts) comprising [exchanges](/tutorials/amqp-concepts#exchanges), [queues](/tutorials/amqp-concepts#queues), and [bindings](/tutorials/amqp-concepts#bindings).
 Therefore, AMQP clients talking to RabbitMQ send messages to exchanges and consume messages from queues.
@@ -218,6 +218,23 @@ The 5th format `:queue` is redundant to the 4th format.
 As explained previously, RabbitMQ 4.0 allows AMQP clients to create RabbitMQ topologies including queues with client defined queue types, properties, and arguments.
 Hence, there is no need for RabbitMQ itself to auto declare a specific queue for a given queue source address format.
 In v2, clients should first declare their own queues and bindings, and then attach with source address `/queues/:queue` which causes the client to consume from that queue.
+
+## Message Annotations
+
+When a message is delivered to a consumer, RabbitMQ sets at least the following two [message annotations](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-message-annotations):
+* `x-exchange` set to the [exchange](/tutorials/amqp-concepts#exchanges) this message was originally published to.
+* `x-routing-key` set to the routing key this message was originally published with.
+
+These message annotations are derived in different ways depending on how the message was originally sent to RabbitMQ. For example, they could be derived from:
+* The `address` field of the [target](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-target) an AMQP 1.0 publisher attached to.
+* The `to` field of the AMQP 1.0 message [properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-properties) section.
+* The `exchange` and `routing_key` fields of the AMQP 0.9.1 `basic.publish` frame, if the message was originally published with AMQP 0.9.1.
+* The [topic name](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901107) of an MQTT PUBLISH packet, if the message was originally published with MQTT.
+* The name of the [stream](./streams), if the message was originally published with the [RabbitMQ stream protocol](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_stream/docs/PROTOCOL.adoc).
+
+However, AMQP 1.0 clients should not publish messages with message annotations `x-exchange` or `x-routing-key` to RabbitMQ.
+RabbitMQ will not interpret them.
+Instead, if an AMQP 1.0 client wants to re-publish a message to the original exchange with the original routing key, the [address](#addresses) should be set accordingly.
 
 ## Outcomes
 
