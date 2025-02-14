@@ -531,7 +531,7 @@ server-generated names and the default exchange.  The empty
 string, <code>''</code> is a synonym for <code>'^$'</code>
 and restricts permissions in the exact same way.
 
-RabbitMQ may cache the results of access control checks on a
+RabbitMQ may [cache](./auth-cache-backend) the results of access control checks on a
 per-connection or per-channel basis. Hence changes to user
 permissions may only take effect when the user reconnects.
 
@@ -665,7 +665,7 @@ also only provide an authorisation backend.
 
 Authentication is supposed to be handled by the internal database, LDAP, etc.
 
-A special [cache backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.13.x/deps/rabbitmq_auth_backend_cache)
+A special [cache backend](./auth-cache-backend) 
 can be used in [combination](#combined-backends) with other backends to significantly
 reduce the load they generate on external services, such as LDAP or HTTP servers.
 
