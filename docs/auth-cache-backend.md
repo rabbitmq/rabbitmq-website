@@ -23,7 +23,7 @@ limitations under the License.
 ## Overview {#overview}
 
 This plugin provides a way to cache authentication and authorization backend 
-results for a configurable amount of time. It's not an independent auth backend
+results for a configurable amount of time. It's not an independent auth backend,
  but a caching layer for existing backends such as the built-in, [LDAP](./ldap),
  or [HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_http) ones.
 Although It is not very useful with the 
