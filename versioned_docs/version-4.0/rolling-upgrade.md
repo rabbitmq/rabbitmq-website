@@ -180,7 +180,7 @@ Let's assume the cluster has three nodes, which means the nodes are called `serv
 (there would be a prefix with the name of your cluster, but that's irrelevant for this example).
 
 1. Make sure the existing cluster is running RabbitMQ 3.13 and has all stable feature flags enabled
-1. Update the `RabbitmqCluster` object with the new image (eg. change from `rabbitmq:3.13.7-management` to `rabbitmq:4.0.5-management`)
+1. Update the `RabbitmqCluster` object with the new image (eg. change from `rabbitmq:3.13.7-management` to `rabbitmq:4.0.6-management`)
 1. The Cluster Operator will update the `StatefulSet` object with the new image, triggering the rolling upgrade mechanism built-in to Kubernetes
 1. Kubernetes will stop `server-2` (it always goes from the highest index to the lowest)
    - The pod will check if it can safely stop, by calling `rabbitmq-upgrade await_online_quorum_plus_one`
