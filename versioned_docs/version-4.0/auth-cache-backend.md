@@ -63,7 +63,6 @@ auth_backends.1 = cache
 auth_cache.cached_backend = http
 
 auth_http.http_method = post
-....
 ```
 
 It is possible to use different backends for authorization and authentication.
