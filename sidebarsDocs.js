@@ -459,6 +459,11 @@ const sidebars = {
             },
             {
               type: 'doc',
+              id: 'auth-cache-backend',
+              label: 'Cache',
+            },
+            {
+              type: 'doc',
               id: 'auth-notification',
               label: 'Authentication Failure Notifications',
             },
