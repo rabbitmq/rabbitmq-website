@@ -24,7 +24,7 @@ limitations under the License.
 ## Overview {#overview}
 
 This section covers the differences between [stream core](./streams) and the [stream plugin](./stream).
-Stream core designates stream features in the broker with only default plugins activated and through protocols like AMQP 0.9.1, MQTT, and STOMP.
+Stream core designates stream features in the broker with only default plugins activated and through protocols like AMQP 0.9.1, AMQP 1.0, MQTT, and STOMP.
 
 
 ### Feature Matrix
@@ -32,8 +32,8 @@ Stream core designates stream features in the broker with only default plugins a
 |Feature | Stream Core              | Stream Plugin    |
 |-| ------------------------ | -------------    |
 |Activation| Built-in                 | [Must be activated](./stream#enabling-plugin)  |
-|Protocol| AMQP 0.9.1               | [RabbitMQ Stream](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)  |
-|Clients| AMQP 0.9.1 clients ([documentation](./streams#usage)) |[RabbitMQ stream clients](./stream#overview)   |
+|Protocol| AMQP 0.9.1 and AMQP 1.0    | [RabbitMQ Stream](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)  |
+|Clients| AMQP 0.9.1 clients ([documentation](./streams#usage)). AMQP 1.0 clients ([documentation](../client-libraries/amqp-client-libraries#support-for-streams))|[RabbitMQ stream clients](./stream#overview)   |
 |Port| 5672                     | 5552             |
 |Format| Server-side AMQP 1.0 message format encoding and decoding  | Client-side AMQP 1.0 message format encoding and decoding |
 |Sub-entry batching|  Not supported    | Supported ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression))      |
