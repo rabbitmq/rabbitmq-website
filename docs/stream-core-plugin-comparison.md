@@ -33,7 +33,7 @@ Stream core designates stream features in the broker with only default plugins a
 |-| ------------------------ | -------------    |
 |Activation| Built-in                 | [Must be activated](./stream#enabling-plugin)  |
 |Protocol| AMQP 0.9.1 and AMQP 1.0   | [RabbitMQ Stream](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)  |
-|Clients| AMQP 0.9.1 clients ([documentation](./streams#usage)). AMQP 1.0 clients ([documentation](../client-libraries/amqp-client-libraries#support-for-streams)) |[RabbitMQ stream clients](./stream#overview)   |
+|Clients| AMQP 0.9.1 clients ([documentation](./streams#usage)). AMQP 1.0 clients ([documentation](/client-libraries/amqp-client-libraries#support-for-streams)) |[RabbitMQ stream clients](./stream#overview)   |
 |Port| 5672                     | 5552             |
 |Format| Server-side AMQP 1.0 message format encoding and decoding  | Client-side AMQP 1.0 message format encoding and decoding |
 |Sub-entry batching|  Not supported    | Supported ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression))      |
