@@ -29,18 +29,17 @@ export default function Support() {
                 <Heading as="h2">Community</Heading>
                   <p>Open source RabbitMQ is supported by the community. Follow the links below for your channel of preference to engage:</p>
                   <p>
-                    <Link to="https://github.com/rabbitmq/rabbitmq-server/discussions">Github</Link> |&nbsp;
+                    <Link to="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</Link> |&nbsp;
                     <Link to="https://www.rabbitmq.com/discord">Discord</Link> |&nbsp;
                     <Link to="https://groups.google.com/forum/#!forum/rabbitmq-users">Mailing List</Link> |&nbsp;
-                    <Link to="https://web.libera.chat/">IRC</Link> |&nbsp;
-                    <Link to="https://twitter.com/rabbitmq">X</Link>
+                    <Link to="https://web.libera.chat/">IRC</Link>
                   </p>
               </section>
               <section>
                 <Heading as="h2">Commercial</Heading>
                 <p>Tanzu RabbitMQ is developed by VMware Tanzu, which provides exclusive enterprise features and commercial support. This includes 24/7  experts with defined SLAs and longer term support for the latest versions.</p>
                 <p>
-                  <Link to="#tanzu-rabbitmq" class="anchor">Learn More</Link> |&nbsp;
+                  <Link to="pathname://#tanzu-rabbitmq" class="anchor">Learn More</Link> |&nbsp;
                   <Link to="mailto:contact-tanzu-data.pdl@broadcom.com">Contact VMware Tanzu</Link>
                 </p>
               </section>
@@ -48,7 +47,7 @@ export default function Support() {
                 <Heading as="h2">Consulting & Training</Heading>
                 <p>Engage with our partners who have localized expertise and specialize in tailoring RabbitMQ solutions to the specific needs of your organization.</p>
                 <p>
-                  <Link to="#consulting">Learn More</Link>
+                  <Link to="pathname://#consulting">Learn More</Link>
                 </p>
               </section>
             </div>

@@ -50,11 +50,11 @@ From June 1st, 2024 and onwards, the [RabbitMQ Core Team at Broadcom](https://gi
 and [regularly contributing users](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md).
 :::
 
-As a result of feedback from the [community](/contact#community-resources) and
+As a result of feedback from the [community](/contact) and
 those with a commercial license, RabbitMQ patch releases are produced regularly.
 
 Community support for [regularly contributing users](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md)
-is provided via [community resources](/contact#community-resources). Refer to the previous table for end dates for this support.
+is provided via [community resources](/contact). Refer to the previous table for end dates for this support.
 
 [Users who do not contribute](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md) or hold a valid commercial license
 can use community resources for questions but are not entitled to any support from the RabbitMQ Team at Broadcom.
@@ -63,7 +63,7 @@ can use community resources for questions but are not entitled to any support fr
 
 Extended Commercial Support is included in [VMware’s Commercial Open Source RabbitMQ Support](https://tanzu.vmware.com/rabbitmq/oss).
 RabbitMQ patches are produced for security and high severity issues that are reported by users with
-a commercial license. If you already have a license, go to [paid commercial support enquiries](/contact#paid-support).
+a commercial license. If you already have a license, go to [paid commercial support enquiries](/contact).
 Refer to the previous table for end dates for this support.
 
 ## The Next Release
