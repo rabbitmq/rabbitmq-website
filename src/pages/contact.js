@@ -70,11 +70,11 @@ export default function Support() {
                   </section>
                   <section>
                     <Heading as="h4">Longer support timelines</Heading>
-                    <p>Get patches and support for the latest versions for far longer than what is provided to open source users. Enterprises can take their time to upgrade at their own pace.</p>                   
+                    <p>Get patches and support for the latest versions for far longer than what is provided to open source users. Enterprises can take their time to upgrade at their own pace.</p>
                   </section>
                   <section>
                     <Heading as="h4">Access to RabbitMQ developers</Heading>
-                    <p>Being the stewards of RabbitMQ, our support staff have direct access to the developers of RabbitMQ for expert advice and expedient patches where necessary.</p>                   
+                    <p>Being the stewards of RabbitMQ, our support staff have direct access to the developers of RabbitMQ for expert advice and expedient patches where necessary.</p>
                   </section>
                 </div>
               </TabItem>
@@ -87,11 +87,11 @@ export default function Support() {
                   </section>
                   <section>
                     <Heading as="h4">Enterprise security</Heading>
-                    <p>Enhanced encryption, delegated authentication using OAuth, and TLS certificates from Hashicorp Vault</p>                   
+                    <p>Enhanced encryption, delegated authentication using OAuth, and TLS certificates from Hashicorp Vault</p>
                   </section>
                   <section>
                     <Heading as="h4">Kubernetes deployments</Heading>
-                    <p>Fully automated Kubernetes (K8s) operator and Helmchart that allows for seamless deployment into your K8s ecosystem.</p>                   
+                    <p>Fully automated Kubernetes (K8s) operator and Helmchart that allows for seamless deployment into your K8s ecosystem.</p>
                   </section>
                 </div>
               </TabItem>
@@ -99,7 +99,7 @@ export default function Support() {
             <Heading as="h4">Learn more by talking to an expert at Tanzu <Link to="mailto:contact-tanzu-data.pdl@broadcom.com">contact-tanzu-data.pdl@broadcom.com</Link>
 </Heading>
             <Link className="button button--primary" to="mailto:contact-tanzu-data.pdl@broadcom.com">Email Us</Link>
-          </div>          
+          </div>
         </div>
         <div id="consulting" className={styles.partners}>
           <div className={styles.container}>
