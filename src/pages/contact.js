@@ -93,6 +93,13 @@ export default function Support() {
                     <Heading as="h4">Kubernetes deployments</Heading>
                     <p>Fully automated Kubernetes (K8s) operator and Helmchart that allows for seamless deployment into your K8s ecosystem.</p>
                   </section>
+                  <section>
+                    <Heading as="h4">Audit Features</Heading>
+                    <p>
+                    Collection and storage of internal cluster events as structured data (JSON) or in human readable form.
+                    Cluster events relevant for audit, for example, what user deleted a queue or stream, are collected separately from the rest.
+                    </p>
+                  </section>
                 </div>
               </TabItem>
             </Tabs>
