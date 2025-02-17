@@ -1326,7 +1326,7 @@ of 1 MiB each. That would result in a segment file of over 4 GiB in size, and th
 file won't be ready for deletion as long as at least one of those messages is alive
 (was not delivered and confirmed).
 
-For example, to allow only 64 entries per segment file:
+For example, to allow only 128 entries per segment file:
 
 ```bash
 # The default is 4096.
