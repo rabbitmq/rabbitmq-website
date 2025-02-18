@@ -2,7 +2,7 @@
 
 ## Source Files
 
-These pages contain source files that reside in the [server repository](https://github.com/rabbitmq/rabbitmq-server/tree/master/docs).
+These pages contain source files that reside in the [server repository](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbit/docs).
 
 After cloning that repository in addition to this one, you can regenerate the
 HTML manpages using the `update-manpages.sh` script:
