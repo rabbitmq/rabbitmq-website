@@ -39,7 +39,7 @@ The guide is accompanied by [a public GitHub repository](https://github.com/rabb
 
 ### Management UI Access
 
-* [Access [management UI](./management/) using OAuth 2.0 tokens](#access-management-ui)
+* [Access management UI using OAuth 2.0 tokens](#access-management-ui)
 * [Service-Provider initiated logon](#service-provider-initiated-logon)
 * [Identity-Provider initiated logon](#identity-provider-initiated-logon)
 

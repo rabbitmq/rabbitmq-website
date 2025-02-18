@@ -40,7 +40,7 @@ which hosts all the scripts required to deploy the examples demonstrated on the 
 
 ### Management UI Access
 
-* [Access [management UI](./management/) using OAuth 2.0 tokens](#access-management-ui)
+* [Access management UI using OAuth 2.0 tokens](#access-management-ui)
 * [Service-Provider initiated logon](#service-provider-initiated-logon)
 * [Identity-Provider initiated logon](#identity-provider-initiated-logon)
 
