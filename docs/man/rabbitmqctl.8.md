@@ -268,11 +268,12 @@ returns a non-zero exit code if the RabbitMQ node is not running
           </div>
         </dd>
         <dt >
-#### <code class="Cm">force_reset</code> {#force_reset}
+#### <code class="Cm">force_reset</code> <a class="permalink" href="#(deprecated)"><i class="Em" id="(deprecated)">(deprecated)</i></a> {#force_reset}
         </dt>
         <dd>
           <p class="Pp">Forcefully returns a RabbitMQ node to its virgin state.</p>
           <p class="Pp">The <code class="Cm">force_reset</code> command differs from <code class="Cm">reset</code> in that it resets the node unconditionally, regardless of the current management database state and cluster configuration. It should only be used as a last resort if the database or cluster configuration has been corrupted.</p>
+####           <p class="Pp" id="deprecated">The <code class="Cm">force_reset</code> command is<b class="Sy">deprecated</b>. It remains available when the Mnesia metadata store is used. It is unsupported with the Khepri metadata store.</p> {#force_reset}
           <p class="Pp">For <code class="Cm">reset</code> and <code class="Cm">force_reset</code> to succeed the RabbitMQ application must have been stopped, e.g. with <code class="Cm">stop_app</code>.</p>
           <p class="Pp">For example, to reset the RabbitMQ node:</p>
           <p class="Pp"></p>
@@ -773,10 +774,6 @@ returns a non-zero exit code if the RabbitMQ node is not running
 #### <code class="Cm">prefetch_count</code> {#prefetch_count}
             </dt>
             <dd>QoS prefetch limit for new consumers, 0 if unlimited.</dd>
-            <dt >
-#### <code class="Cm">global_prefetch_count</code> {#global_prefetch_count}
-            </dt>
-            <dd>QoS prefetch limit for the entire channel, 0 if unlimited.</dd>
           </dl>
           <p class="Pp">If no <var class="Ar">channelinfoitem s</var> are specified then pid, user, consumer_count, and messages_unacknowledged are assumed.</p>
           <p class="Pp">For example, this command displays the connection process and count of unacknowledged messages for each channel:</p>

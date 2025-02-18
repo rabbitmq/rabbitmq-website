@@ -112,21 +112,6 @@
       </dl>
     </section>
     <section class="Ss">
-### Policies {#Policies}
-      <dl class="Bl-tag">
-        <dt >
-#### <code class="Cm">set_stream_retention_policy</code> <var class="Ar">stream</var> <var class="Ar">policy</var> <code class="Fl">--vhost</code> <var class="Ar">virtual-host</var> {#set_stream_retention_policy}
-        </dt>
-        <dd>
-          <p class="Pp">Set the retention policy of a stream.</p>
-          <p class="Pp">Example:</p>
-          <div class="Bd Bd-indent lang-bash">
-            <code class="Li">rabbitmq-streams set_stream_retention_policy --vhost "a-vhost" "a-stream" "a-policy"</code>
-          </div>
-        </dd>
-      </dl>
-    </section>
-    <section class="Ss">
 ### Stream plugin {#Stream_plugin}
       <dl class="Bl-tag">
         <dt >
