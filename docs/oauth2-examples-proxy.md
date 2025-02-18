@@ -79,7 +79,7 @@ To start OAuth2 Proxy, run the following command:
 make start-oauth2-proxy
 ```
 
-Oauth2 Proxy is configured using [Alpha configuration](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next/conf/oauth2-proxy/config.yaml). This type of configuration inserts the access token into the HTTP **Authorization** header.
+Oauth2 Proxy is configured using [Alpha configuration](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/next/conf/oauth2-proxy/alpha-config.yaml). This type of configuration inserts the access token into the HTTP **Authorization** header.
 
 
 ## Start RabbitMQ
