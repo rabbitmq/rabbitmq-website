@@ -2,24 +2,16 @@
 
 ## Source Files
 
-These pages contain source files that reside in the [server repository](https://github.com/rabbitmq/rabbitmq-server/tree/v4.0.x/docs).
-They are converted to HTML using `mandoc`:
+These pages contain source files that reside in the [server repository](https://github.com/rabbitmq/rabbitmq-server/tree/v4.0.x/deps/rabbit/docs).
 
-### With Make
+After cloning that repository in addition to this one and check out the appropriate branch, you can regenerate the
+HTML manpages using the `update-manpages.sh` script:
 
-``` shell
-# from rabbitmq/rabbitmq-server
-gmake web-manpages
-ls -l deps/rabbit/docs/*
+```sh
+./website/versioned_docs/version-4.0/man/update-manpages.sh /path/to/rabbitmq-server
 ```
 
-### With Bazel
-
-``` shell
-# from rabbitmq/rabbitmq-server
-bazel build //deps/rabbit:web-manpages
-tar xf bazel-bin/deps/rabbit/web-manpages.tar
-```
+The script takes care of calling make(1) to generate the files.
 
 ## Contributions
 
