@@ -112,6 +112,20 @@ await environment.CloseAsync();
 
 </TabItem>
 
+<TabItem value="python" label="Python">
+
+```python title="Creating the environment"
+from rabbitmq_amqp_python_client import Environment
+
+# ...
+
+# create the environment instance
+environment = Environment()
+# ...
+# close the environment when the application stops
+environment.close()
+```
+</TabItem>
 </Tabs>
 
 There is usually one environment instance for an application process.
@@ -148,6 +162,18 @@ IConnection connection = await environment.CreateConnectionAsync(otherSettingBui
 // ...
 // close the connection when it is no longer necessary
 await connection.CloseAsync();
+```
+
+</TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Opening a connection"
+# open a connection from the environment setting   
+connection = environment.connection("amqp://guest:guest@localhost:5672/")
+
+# close the connection when it is no longer necessary
+connection.close()
 ```
 
 </TabItem>
@@ -189,6 +215,19 @@ IPublisher publisher = await connection.PublisherBuilder().Exchange("foo").Key("
 // close the publisher when it is no longer necessary 
 await publisher.CloseAsync();
 publisher.Dispose();
+```
+
+</TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Creating a publisher"
+# The publisher can use exchange (optionally with a key) or queue to publish messages. 
+# You can use the AddressHelper utility class to get the addr from the exchange name and the key
+exchange_address = AddressHelper.exchange_address("foo", "bar")
+publisher = connection.publisher(addr)
+# close the publisher when it is no longer necessary 
+publisher.close()
 ```
 
 </TabItem>
@@ -257,6 +296,25 @@ PublishResult pr = await publisher.PublishAsync(message);
 
 </TabItem>
 
+<TabItem value="python" label="Python">
+
+```python title="Publishing a message"
+# create the message
+message = Message(body="Hello")
+# publish the message and deal with broker feedback
+# The result is synchronous
+status = publisher.publish(Message(message)
+match status.remote_state:
+    case OutcomeState.ACCEPTED:
+        # the broker accepted (confirmed) the message
+    case OutcomeState.RELEASED:
+        # the broker could not route the message anywhere 
+    case OutcomeState.REJECTED:
+        # at least one queue rejected the message
+```
+
+</TabItem>
+
 </Tabs>
 
 The publisher example above send messages to a given exchange with a given routing key, but this is not the only supported target for a publisher.
@@ -307,6 +365,27 @@ Publisher publisher = await connection.PublisherBuilder()
 ```
 
 </TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Creating publishers with different targets"
+# publish to an exchange with a routing key
+# You can use the AddressHelper utility class to get the addr from the exchange name and the key
+exchange_address = AddressHelper.exchange_address("foo", "bar")
+publisher = connection.publisher(addr)
+
+
+# publish to an exchange without a routing key
+exchange_address = AddressHelper.exchange_address("foo")
+publisher = connection.publisher(addr)
+
+# publish to a queue
+queue_address = AddressHelper.queue_address("some_queue")
+publisher = connection.publisher(queue_address)
+```
+
+</TabItem>
+
 </Tabs>
 
 :::info
@@ -370,6 +449,31 @@ await aPublisher.PublishAsync(message);
 ```
 
 </TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Setting the target in messages"
+
+# no target defined on publisher creation
+publisher = connection.publisher()
+
+# publish to an exchange with a routing key
+# You can use the AddressHelper.message_to_address_helper 
+# utility class to set the destination in the message
+message = Message(body="Hello!")
+exchange_address = AddressHelper.exchange_address("foo", "bar")
+message = AddressHelper.message_to_address_helper(message, exchange_address)
+publisher.publish(message)
+
+# publish to a queue
+message = Message(body="Hello!")
+queue_address = AddressHelper.queue_address("some_queue")
+message = AddressHelper.message_to_address_helper(message, queue_address)
+publisher = publisher.publish(message)
+```
+
+</TabItem>
+
 </Tabs>
 
 ### Consuming
@@ -406,6 +510,27 @@ IConsumer consumer = await connection.ConsumerBuilder()
         await context.AcceptAsync();// settle the message
     }
 ).BuildAndStartAsync();
+```
+
+</TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Creating a consumer"
+
+class MyMessageHandler(AMQPMessagingHandler):
+
+    def __init__(self):
+        super().__init__()
+
+    def on_message(self, event: Event):
+        # accepting
+        self.delivery_context.accept(event)
+        # deal with the message
+
+queue_address = AddressHelper.queue_address("some_queue")
+consumer = connection.consumer(queue_address, message_handler=MyMessageHandler())
+consumer.run()
 ```
 
 </TabItem>
@@ -482,6 +607,12 @@ consumer.close();
 
 </TabItem>
 
+<TabItem value="python" label="Python">
+```python title="Closing a consumer gracefully"
+# CURRENTLY NOT IMPLEMENTED
+```
+</TabItem>
+
 </Tabs>
 
 An application can still close a consumer without pausing it, at the risk of processing the same messages several times.
@@ -524,6 +655,34 @@ IConsumer consumer = await connection.ConsumerBuilder()
 
 </TabItem>
 
+<TabItem value="python" label="Python">
+
+```python title="Attaching to the beginning of a stream"
+class MyMessageHandler(AMQPMessagingHandler):
+
+    def __init__(self):
+        super().__init__()
+
+    def on_message(self, event: Event):
+        # accepting
+        self.delivery_context.accept(event)
+        # deal with the message
+
+stream_filter_options = StreamOptions()
+# can be first, last, next or an offset long
+# you can also specify stream filters with methods: apply_filters and filter_match_unfiltered
+stream_filter_options.offset(OffsetSpecification.first)
+
+stream_address = AddressHelper.queue_address("some_stream")
+consumer = consumer_connection.consumer(
+    stream_address,
+    message_handler=MyMessageHandler(),
+    stream_filter_options=stream_filter_options,
+)
+```
+
+</TabItem>
+
 </Tabs>
 
 There is also support for [stream filtering](/docs/streams#filtering) configuration:
@@ -562,6 +721,34 @@ IConsumer consumer = await connection.ConsumerBuilder()
 ```
 
 </TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Configuring stream filtering
+class MyMessageHandler(AMQPMessagingHandler):
+
+    def __init__(self):
+        super().__init__()
+
+    def on_message(self, event: Event):
+        # accepting
+        self.delivery_context.accept(event)
+        # deal with the message
+
+
+stream_filter_options = StreamOptions()
+stream_filter_options.filter_values(["invoices", "order"])
+stream_filter_options.filter_match_unfiltered(True)
+stream_address = AddressHelper.queue_address("some_stream")
+consumer = consumer_connection.consumer(
+    stream_address,
+    message_handler=MyMessageHandler(),
+    stream_filter_options=stream_filter_options,
+)
+```
+
+</TabItem>
+
 </Tabs>
 
 Consider also using the [native stream protocol](/docs/stream) with the stream client library for your preferred programming language when working with streams.
@@ -594,6 +781,18 @@ await management.CloseAsync()
 ```
 
 </TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Getting the management object from the environment"
+management = connection.management()
+// ...
+// close the management instance when it is no longer needed
+management.close()
+```
+
+</TabItem>
+
 </Tabs>
 
 The management API should be closed as soon as it is no longer needed.
@@ -626,6 +825,15 @@ await exchangeSpec.DeclareAsync();
 ```
 
 </TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Creating an exchange of a built-in type"
+exchange_name = "my-exchange"
+management.declare_exchange(ExchangeSpecification(name=exchange_name, exchange_type=ExchangeType.topic))
+```
+
+</TabItem>
 </Tabs>
 
 It is also possible to specify the exchange type as a string (for non-built-in type exchanges):
@@ -655,6 +863,15 @@ await _management.Exchange("myExchange")
 ```
 
 </TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Creating an exchange of a non-built-in type"
+# CURRENTLY NOT IMPLEMENTED
+```
+
+</TabItem>
+
 </Tabs>
 
 Here is how to delete an exchange:
@@ -675,6 +892,16 @@ await management.Exchange("my-exchange").DeleteAsync();
 ```
 
 </TabItem>
+
+<TabItem value="python" label="Python">
+
+```csharp title="Deleting an exchange"
+exchange_name = "my-exchange"
+management.delete_exchange(exchange_name)
+```
+
+</TabItem>
+
 </Tabs>
 
 ### Queues
@@ -706,6 +933,16 @@ await queueSpec.DeclareAsync();
 ```
 
 </TabItem>
+
+<TabItem value="python" label="Python">
+
+```csharp title="Creating a classic queue"
+queue_name = "myqueue"
+management.declare_queue(QueueSpecification(ClassicQueueSpecification(name=queue_name)))
+```
+
+</TabItem>
+
 </Tabs>
 
 The management API supports [queue arguments](/docs/queues#optional-arguments) explicitly:
@@ -735,6 +972,15 @@ await queueSpec.DeclareAsync();
 ```
 
 </TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Creating a queue with arguments"
+management.declare_queue(QueueSpecification(ClassicQueueSpecification(name=queue_name, message_ttl=timedelta(minutes=10), max_len_bytes=100000000)))
+```
+
+</TabItem>
+
 </Tabs>
 
 The management API makes also the distinction between arguments shared by all queue types and arguments valid only for a given type.
@@ -770,6 +1016,16 @@ await queueSpec.DeclareAsync();
 
 </TabItem>
 
+<TabItem value="python" label="Python">
+
+```python title="Creating a quorum queue"
+queue_name = "my-quorum-queue"
+management.declare_queue(QueueSpecification(QuorumQueueSpecification(name=queue_name, quorum_initial_group_size=3, deliver_limit=3)))
+
+```
+
+</TabItem>
+
 </Tabs>
 
 It is possible to query information about a queue:
@@ -795,6 +1051,19 @@ string leader = queueInfo.Leader();
 ```
 
 </TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Getting queue information"
+queue_name = "my-queue"
+queue_info = management.queue_info(name=queue_name)
+message_count = queue_info.message_count
+consumer_count = queue_info.consumer_count
+leader = queue_info.leader
+```
+
+</TabItem>
+
 </Tabs>
 
 This API can also be used to check whether a queue exists or not.
@@ -813,6 +1082,14 @@ management.queueDeletion().delete("my-queue");
 
 ```csharp title="Deleting a queue"
 await management.Queue("myqueue").DeleteAsync();
+```
+
+</TabItem>
+
+<TabItem value="python" label="Python">
+
+```csharp title="Deleting a queue"
+management.delete_queue(name="myqueue")
 ```
 
 </TabItem>
@@ -838,7 +1115,7 @@ management.binding()
 
 <TabItem value="csharp" label="C#">
 
-```csharp title="Binding an exchange to another exchange"
+```csharp title="Binding a queue to an exchange"
 IBindingSpecification bindingSpec = management.Binding()
     .SourceExchange("my-exchange")
     .DestinationQueue("my-queue")
@@ -847,6 +1124,21 @@ await bindingSpec.BindAsync();
 ```
 
 </TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Binding a queue to an exchange"
+bind_name = management.bind(
+    BindingSpecification(
+        source_exchange="my-exchange",
+        destination_queue="my-queue",
+        binding_key="foo",
+    )
+)
+```
+
+</TabItem>
+
 </Tabs>
 
 There is also support for [exchange-to-exchange binding](/docs/e2e):
@@ -876,6 +1168,20 @@ await bindingSpec.BindAsync();
 
 </TabItem>
 
+<TabItem value="python" label="Python">
+
+```python title="Binding an exchange to another exchange"
+    
+binding_exchange_queue_path = management.bind(
+    ExchangeToExchangeBindingSpecification(
+        source_exchange="my-exchange",
+        destination_exchange="my-other-exchange",
+     )
+)
+```
+
+</TabItem>
+
 </Tabs>
 
 It is also possible to unbind entities:
@@ -900,6 +1206,17 @@ IBindingSpecification bindingSpec = management.Binding()
     .DestinationQueue("my-queue")
     .Key("foo");
 await bindingSpec.UnbindAsync();
+```
+
+</TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Deleting the binding between an exchange and a queue"
+management.unbind(BindingSpecification(
+    source_exchange="my-exchange",
+    destination_queue="my-queue",
+))
 ```
 
 </TabItem>
@@ -945,6 +1262,15 @@ connection.ChangeState += (
 ```
 
 </TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Attach an event to the ChangeState"
+# CURRENTLY NOT IMPLEMENTED FOR PYTHON
+```
+
+</TabItem>
+
 </Tabs>
 
 It is also possible to set listeners on publisher instances:
@@ -974,6 +1300,15 @@ publisher.ChangeState += (sender, fromState, toState, e) =>
 
 </TabItem>
 
+<TabItem value="python" label="Python">
+
+```python title="Attach an event to the ChangeState"
+
+# CURRENTLY NOT IMPLEMENTED FOR PYTHON
+```
+
+</TabItem>
+
 </Tabs>
 
 And on consumer instances as well:
@@ -998,6 +1333,14 @@ Consumer consumer = connection.consumerBuilder()
 consumer.ChangeState += (sender, fromState, toState, e) =>
 {
 }
+```
+
+</TabItem>
+
+<TabItem value="python" label="Python">
+
+```python title="Attach an event to the ChangeState"
+# CURRENTLY NOT IMPLEMENTED FOR PYTHON
 ```
 
 </TabItem>
@@ -1105,3 +1448,6 @@ await AmqpConnection.CreateAsync(
 </TabItem>
 
 </Tabs>
+
+In Python automatic reconnection is not supported at the moment, but the client notify when a disconnection happens so that the user can reconnect.
+Follow this example: [Python-disconnection](https://github.com/rabbitmq/rabbitmq-amqp-python-client/blob/main/examples/reconnection/reconnection_example.py)
