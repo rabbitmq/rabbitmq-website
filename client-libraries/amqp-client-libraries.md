@@ -880,7 +880,7 @@ Here is how to delete an exchange:
 <TabItem value="java" label="Java">
 
 ```java title="Deleting an exchange"
-management.exchangeDeletion().delete("my-exchange");
+management.exchangeDelete("my-exchange");
 ```
 
 </TabItem>
@@ -1074,7 +1074,7 @@ And here is how to delete a queue:
 <TabItem value="java" label="Java">
 
 ```java title="Deleting a queue"
-management.queueDeletion().delete("my-queue");
+management.queueDelete("my-queue");
 ```
 
 </TabItem>
