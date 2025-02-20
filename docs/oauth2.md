@@ -58,8 +58,7 @@ There's also a companion [troubleshooting guide for OAuth 2-specific problems](.
 
 ### Examples for Specific Identity Providers
 
- * How to [set up RabbitMQ with OAuth 2: examples](#examples)
-
+* How to [set up RabbitMQ with OAuth 2: examples](#examples)
 
 ## How it works {#how-it-works}
 
@@ -569,19 +568,20 @@ If a symmetric key is used, the configuration looks like this:
 
 ### Use a different token field for the scope {#use-different-token-field}
 
-The plugin always extracts the scopes from the `scope` claim. However,
-you can also configure the plugin to look in other claims using the `auth_oauth2.additional_scopes_key` variable. 
+The plugin always extracts the scopes from the `scope` claim. However, you can also configure the
+plugin to look in other claims using the `auth_oauth2.additional_scopes_key` variable.
 
 The scopes found in the `scope` claim must be of these two value types:
+
 - **string separated by spaces** like `my_id.configure:*/* my_id.read:*/* my_id.write:*/*`
 - **list** like `["my_id.configure:*/*", "my_id.read:*/*", "my_id.write:*/*"]`
 
-The scopes found in any claim listed in the `auth_oauth2.additional_scopes_key` variable can be 
+The scopes found in any claim listed in the `auth_oauth2.additional_scopes_key` variable can be
 of several types in addition to the two value types supported by the `scope` claim mentioned earlier.
 
 #### Map of scopes indexed by resource_server_id {#map-of-scopes-indexed-by-resource-id}
 
-This is an example of a token where scopes are not yet prefixed with the `resource_server_id`
+This is an example of a token where scopes are not yet prefixed with the `resource_server_id`,
 but are indexed by the `resource_server_id`:
 
 ```ini
@@ -594,16 +594,15 @@ but are indexed by the `resource_server_id`:
     "rabbitmq": ["configure:*/* read:*/* write:*/*"]
  },
  "complex_claim_as_list": {
-    "rabbitmq": ["configure:vhost1/*", "read:vhost1/*", "write:vhost1/*"] 
+    "rabbitmq": ["configure:vhost1/*", "read:vhost1/*", "write:vhost1/*"]
  }
  ...
 }
 ```
 
-With the following plugin configuration, the plugin reads the scopes from two
-additional claims: `complex_claim_as_string` and `complex_claim_as_list`. 
-The plugin reads the scopes and adds the key value as prefix, for instance, 
-given the scope `configure:*/*` it produces `rabbitmq.configure:*/*`.
+With the following plugin configuration, the plugin reads the scopes from two additional claims:
+`complex_claim_as_string` and `complex_claim_as_list`. The plugin reads the scopes and adds the key
+value as prefix. For example, given the scope `configure:*/*` it produces `rabbitmq.configure:*/*`.
 
 ```ini
 auth_oauth2.resource_server_id = my_rabbit_server
@@ -612,10 +611,11 @@ auth_oauth2.additional_scopes_key = complex_claim_as_string complex_claim_as_lis
 
 #### Scopes nested deep in Maps and Lists
 
-This is the case for tokens issued by **Keycloak** Identity Provider but can be
-applied to any token from any provider.
+This is the case for tokens issued by the Keycloak Identity Provider, but can be applied to any
+token from any provider.
 
 This first token format stores scopes deep in maps and lists.
+
 ```json
 {
   "authorization": {
@@ -638,7 +638,7 @@ This first token format stores scopes deep in maps and lists.
         "scopes": [
           "rabbitmq-resource.tag:administrator"
         ],
-        "rsid": "12ac3d1c-28c2-4521-8e33-0952eff10bd9"        
+        "rsid": "12ac3d1c-28c2-4521-8e33-0952eff10bd9"
       }
     ]
   },
@@ -647,41 +647,45 @@ This first token format stores scopes deep in maps and lists.
 ```
 
 Given the following configuration:
+
 ```ini
 auth_oauth2.resource_server_id = my_rabbit_server
-auth_oauth2.additional_scopes_key = authorization.permissions.scopes 
+auth_oauth2.additional_scopes_key = authorization.permissions.scopes
 ```
 
 The plugin navigates the token structure following this logic:
+
 1. It looks up the claim `authorization`.
 2. It finds a map, it then looks for the next claim `permissions`.
 3. This time, it finds a list of maps. It goes over all the items in the list.
 4. For each map in the list, it looks up the next claim `scopes`.
-5. The value can be a list of scopes or a comma-separated string of scopes or 
-a [map of scopes indexed by resource_server_id](#map-of-scopes-indexed-by-resource-id).
+5. The value can be a list of scopes or a comma-separated string of scopes or a
+   [map of scopes indexed by resource_server_id](#map-of-scopes-indexed-by-resource-id).
 
 Additionally, the plugin always reads the scopes from the official `scope` claim.
 
 With the above token and plugin's configuration, the list of scopes are following:
+
 - `rabbitmq-resource.tag:monitoring`
 - `rabbitmq-resource.read:*/*`
 - `rabbitmq-resource.write:vhost1/*`
 - `rabbitmq-resource.tag:administrator`
 
-In summary, the plugin is able to navigate the token to find the scopes 
-using the appropriate path. Each intermediary stage, for instance, after 
-finding `authorization` and/or `permissions` keys, the value can be another Map or 
-a List of Maps. The last stage, after finding the last `scopes` key, the value 
-can be any of any of the value types explained in the previous section. 
+In summary, the plugin is able to navigate the token to find the scopes using the appropriate path.
+
+For example, in each intermediary stage after finding `authorization` and/or `permissions` keys, the
+value can be another Map or a List of Maps. In the last stage, after finding the last `scopes` key,
+the value can be any of any of the value types explained in the previous section.
 
 These are:
-- **string separated by spaces** like `my_id.configure:*/* my_id.read:*/* my_id.write:*/*`
-- **list** like `["my_id.configure:*/*", "my_id.read:*/*", "my_id.write:*/*"]`
+
+- **string separated by spaces** such as `my_id.configure:*/* my_id.read:*/* my_id.write:*/*`
+- **list** such as `["my_id.configure:*/*", "my_id.read:*/*", "my_id.write:*/*"]`
 - [Map of scopes indexed by resource server id](#map-of-scopes-indexed-by-resource-id)
 
 ### Preferred username claims {#preferred-username-claims}
 
-The username associated with the token must be available to RabbitMQ so that this username is displayed in the RabbitMQ Management UI.
+The user name associated with the token must be available to RabbitMQ so that this username is displayed in the RabbitMQ Management UI.
 By default, RabbitMQ searches for the `sub` claim first, and if it is not found, RabbitMQ uses the `client_id`.
 
 Most authorization servers return the user's GUID in the `sub` claim instead of the user's username or email address, anything the user can relate to. When the `sub` claim does not carry a *user-friendly username*, you can configure one or several claims to extract the username from the token.
@@ -697,7 +701,6 @@ auth_oauth2.preferred_username_claims.2 = email
 ```
 
 In the example configuration, RabbitMQ searches for the `user_name` claim first and if it is not found, RabbitMQ searches for the `email`. If these are not found, RabbitMQ uses its default lookup mechanism which first looks for `sub` and then `client_id`.
-
 
 ### Discovery endpoint parameters {#discovery-endpoint-params}
 
@@ -716,22 +719,23 @@ auth_oauth2.discovery_endpoint_params.param2 = value2
 ```
 
 This is the URL built to access the OpenId Discovery endpoint:
-```
+
+```console
 https://myissuer.com/v2/.well-known/authorization-server?param1=value1&param2=value2
 ```
 
 ### Requesting Party Token {#requesting-party-token}
 
-A **Requesting Party Token (RPT)** is a special OAuth 2.0 **access token** 
-issued by an **Authorization Server** in the [User-Managed Access (UMA) 2.0](https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-grant-2.0.html) framework. 
-It is used by a **Requesting Party** (such as an application or user) to access 
-a protected resource on a Resource Server like RabbitMQ, after being authorized
-based on a resource owner policies.
+A **Requesting Party Token (RPT)** is a special OAuth 2.0 **access token** issued by an
+**Authorization Server** in the
+[User-Managed Access (UMA) 2.0](https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-grant-2.0.html)
+framework. It is used by a **Requesting Party** (such as an application or user) to access a
+protected resource on a Resource Server such as RabbitMQ, after being authorized based on
+resource-owner policies.
 
-[Keycloak](./oauth2-examples-keycloak) is one of the Authorization Servers that issues this type of tokens. 
-An RPT is typically a JWT with permissions claims under a claim called `authorization`.
-See the example below. The rest of the claims have been removed from the token for 
-brevity:
+[Keycloak](./oauth2-examples-keycloak) is one of the Authorization Servers that issues this type of
+token. An RPT is typically a JWT with permissions claims under a claim called `authorization`. See
+the example below. The rest of the claims have been removed from the token for brevity:
 
 ```json
 {
@@ -752,7 +756,7 @@ brevity:
         "rsname": "vhost1"
       },
       {
-        "rsid": "12ac3d1c-28c2-4521-8e33-0952eff10bd9",        
+        "rsid": "12ac3d1c-28c2-4521-8e33-0952eff10bd9",
         "scopes": [
           "rabbitmq-resource.tag:administrator"
         ]
@@ -763,10 +767,9 @@ brevity:
 }
 ```
 
-RabbitMQ supports this token format. It reads all the scopes in all the `permissions`
-claims. If the token also contains the standard `scope` claim, RabbitMQ adds it to the
-list of scopes presented by the token.
-
+RabbitMQ supports this token format. It reads all the scopes in all the `permissions` claims. If the
+token also contains the standard `scope` claim, RabbitMQ adds it to the list of scopes presented by
+the token.
 
 ### Rich Authorization Request {#rich-authorization-request}
 
@@ -807,7 +810,6 @@ string `finance`, use `^finance$`.
 The second permission grants the `administrator` user tag in two clusters, `finance`
 and `inventory`. Other supported user tags as `management`, `policymaker` and `monitoring`.
 
-
 #### Type field
 
 In order for a RabbitMQ node to accept a permission, its value must match that
@@ -820,6 +822,7 @@ The `locations` field can be either a string containing a single location or a J
 zero or many locations.
 
 A location consists of a list of key-value pairs separated by forward slash `/` character. Here is the format:
+
 ```bash
 cluster:<resource_server_id_pattern>[/vhost:<vhost_pattern>][/queue:<queue_name_pattern>|/exchange:<exchange_name_pattern>][/routing-key:<routing_key_pattern>]
 ```
