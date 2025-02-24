@@ -97,7 +97,7 @@ to them (as demonstrated in [tutorial six](/tutorials)).
 Otherwise, the names of server-named queues should be known and used only by the
 declaring application instance. The instance should also set up appropriate
 bindings (routing) for the queue, so that publishers can use well-known
-exchanges instead of the server-generated queue name directly.
+[exchanges](./exchanges) instead of the server-generated queue name directly.
 
 
 ## Queue Properties {#properties}

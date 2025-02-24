@@ -60,11 +60,14 @@ RabbitMQ is a messaging broker. It accepts messages from publishers, routes them
 and, if there were queues to route to, stores them for consumption or immediately
 delivers to consumers, if any.
 
-Publishers publish to a destination that varies from protocol to protocol. In AMQP 0-9-1,
-publishers publish to exchanges. In AMQP 1.0, publishing happens on a link.
-In [MQTT](./mqtt), publishers publish to topics. Finally, [STOMP](./stomp) supports
-a variety of destination types: topics, queues, AMQP 0-9-1 exchanges. This is covered
-in more details in the [protocol-specific differences](#protocols) section.
+Publishers publish to a destination that varies from protocol to protocol.
+
+In AMQP 0-9-1, publishers publish to [exchanges](./exchanges).
+In AMQP 1.0, publishing happens on a link.
+In [MQTT](./mqtt), publishers publish to topics.
+Finally, [STOMP](./stomp) supports a variety of destination types: topics, queues, AMQP 0-9-1 exchanges.
+
+This is covered in more details in the [protocol-specific differences](#protocols) section.
 
 A publish message has to be routed to a queue (topic, etc). The queue (topic) may have online
 [consumers](./consumers). When the message is successfully routed to a queue and there is

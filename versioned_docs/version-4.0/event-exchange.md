@@ -38,7 +38,7 @@ that can be exposed to RabbitMQ clients with a plugin.
 
 [rabbitmq-event-exchange](https://github.com/rabbitmq/rabbitmq-event-exchange)
 is a plugin that consumes internal events and re-publishes them to a
-topic exchange, thus exposing the events to clients (applications).
+[topic exchange](./exchanges), thus exposing the events to clients (applications).
 
 To consume the events, an application needs to declare a queue, bind
 it to a special system exchange and consume messages.

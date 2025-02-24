@@ -40,7 +40,7 @@ rabbitmq-plugins enable rabbitmq_event_exchange
 
 [rabbitmq_event_exchange](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_event_exchange)
 is a plugin that consumes RabbitMQ internal events and re-publishes them to a
-[topic exchange](/tutorials/amqp-concepts#exchange-topic) called `amq.rabbitmq.event`, thus exposing these events to clients applications.
+[topic exchange](./exchanges) called `amq.rabbitmq.event`, thus exposing these events to clients applications.
 To consume the events, an application needs to declare a queue and bind it to the `amq.rabbitmq.event` exchange.
 
 By default, the plugin declares the topic exchange `amq.rabbitmq.event` in the default virtual host (`/`).
