@@ -180,7 +180,7 @@ routing behavior.
 
 :::
 
-To avoid the aforementioned problem, using only durable ([replicated](./quorum-queues/) or not) queues, optionally with a reasonably short [TTL](./ttl), and streams,
+To avoid the aforementioned problem, only using durable ([replicated](./quorum-queues/) or not) queues, optionally with a reasonably short [TTL](./ttl), and streams,
 and limit the use of transient queues, for example, to publishing using the default exchange.
 
 
@@ -189,7 +189,10 @@ and limit the use of transient queues, for example, to publishing using the defa
 
 ### Per AMQP 0-9-1 Spec
 
-Per AMQP 0-9-1 spec, every virtual host contains a number of pre-declared
+Per AMQP 0-9-1 spec, every virtual host contains a number of pre-declared exchanges:
+
+ * The default exchange
+ * A number of `amq.*` exchanges, one per type, e.g. `amq.fanout` or `amq.topic`
 
 ### System Exchanges
 
@@ -211,7 +214,7 @@ As a rule of thumb, consider using durable exchanges for the following reasons:
  * Applications with transient or client-specific state rarely need (or use) custom exchanges and instead rely on the pre-declared ones (such as `amq.topic`)
  * Further in the 4.x series, support for transient (non-durable) entities will be removed when [Khepri](./metadata-store/) becomes the only supported metadata store
 
-### Autol-Deletion
+### Auto-Deletion
 
 Auto-deleted queues are deleted when their last binding is removed.
 
@@ -224,7 +227,7 @@ Optional exchange arguments, also known as "x-arguments" because of their
 field name in the AMQP 0-9-1 protocol, is a map (dictionary) of arbitrary key/value
 pairs that can be provided by clients when a queue is declared.
 
-The map is used by certainly features and exchange types, such as [alternate exchanges](#ae)
+The map is used by certain features and exchange types, such as [alternate exchanges](#ae)
 and the headers exchanges.
 
 These optional arguments usually can be dynamically changed after queue declaration via [policies](./parameters#policies).
@@ -304,11 +307,11 @@ or collecting [unroutable messages](./publishers#unroutable).
 
 ## System Exchanges {#system}
 
-RabbitMQ uses provides built-in exchanges for logging and audit purposes:
+RabbitMQ provides a number of built-in exchanges for logging and audit purposes:
 
  * `amq.rabbitmq.log` is a system topic exchange used by an [opt-in logging feature](./logging#log-exchange)
  * `amq.rabbitmq.event` is a system topic exchanged provided by a built-in plugin and used by the [internal events mechanism](./logging#internal-events)
  * `amq.rabbitmq.trace` is used by the [message tracing mechanism](./firehose)
 
 Both exchanges make it possible to develop custom log collection and auditing applications
-that only need to have a feasonably feature complete AMQP 0-9-1 client library.
+that only need an AMQP 0-9-1 client library.
