@@ -126,6 +126,23 @@ environment = Environment()
 environment.close()
 ```
 </TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```go title="Creating the environment"
+import (
+    rmq "github.com/rabbitmq/rabbitmq-amqp-go-client/pkg/rabbitmqamqp"
+)
+// ...
+// create the environment instance
+env := rmq.NewEnvironment([]string{"amqp://"}, nil)
+// ...
+// close the connections
+env.CloseConnections(context.Background())
+```
+</TabItem>
+
 </Tabs>
 
 There is usually one environment instance for an application process.
@@ -177,6 +194,20 @@ connection.close()
 ```
 
 </TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```Go title="Opening a connection"
+// open a connection from the environment setting   
+connection, err := env.NewConnection(context.Background())
+
+// close the connection when it is no longer necessary
+connection.close()
+```
+
+</TabItem>
+
 </Tabs>
 
 Libraries use the `ANONYMOUS` [SASL authentication mechanism](/docs/access-control#mechanisms) by default.
@@ -230,6 +261,21 @@ publisher = connection.publisher(addr)
 publisher.close()
 ```
 
+</TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```Go title="Creating a publisher"
+// you can use ExchangeAddress and QueueAddress to publish directly to the queue
+publisher, err := amqpConnection.NewPublisher(context.Background(), &rmq.ExchangeAddress{
+        Exchange: "foo",
+        Key:      "bar",
+    }, "getting-started-publisher")
+
+// close the publisher when it is no longer necessary 
+publisher.close()
+```
 </TabItem>
 </Tabs>
 
@@ -315,6 +361,39 @@ match status.remote_state:
 
 </TabItem>
 
+
+<TabItem value="Go" label="Go">
+
+```Go title="Publishing a message"
+// create the message
+message =  rmq.NewMessage([]byte("Hello")
+// publish the message and deal with broker feedback
+publishResult, err := publisher.Publish(context.Background(),message)
+if err != nil {
+    // there is an error 
+}
+    switch publishResult.Outcome.(type) {
+        case *rmq.StateAccepted:
+            // the broker accepted (confirmed) the message
+            break
+        case *rmq.StateReleased:
+           // the broker could not route the message anywhere 
+            break
+        case *rmq.StateRejected:
+            // at least one queue rejected the message
+            stateType := publishResult.Outcome.(*rmq.StateRejected)
+            if stateType.Error != nil {
+                // in case there is error 
+            }
+            break
+        default:
+            // these status are not supported. Leave it for AMQP 1.0 compatibility
+            // see: https://www.rabbitmq.com/docs/next/amqp#outcomes
+        }
+```
+
+</TabItem>
+
 </Tabs>
 
 The publisher example above send messages to a given exchange with a given routing key, but this is not the only supported target for a publisher.
@@ -380,8 +459,33 @@ exchange_address = AddressHelper.exchange_address("foo")
 publisher = connection.publisher(addr)
 
 # publish to a queue
-queue_address = AddressHelper.queue_address("some_queue")
+queue_address = AddressHelper.queue_address("some-queue")
 publisher = connection.publisher(queue_address)
+```
+
+</TabItem>
+
+<TabItem value="Go" label="Go">
+
+```Go title="Creating publishers with different targets"
+// publish to an exchange with a routing key
+publisher, err := connection.NewPublisher(context.Background(), &ExchangeAddress{
+            Exchange: "foo",
+            Key:      "bar",
+        }, "publisher-exchange-key")
+
+
+// publish to an exchange without a routing key
+publisher, err := connection.NewPublisher(context.Background(), &ExchangeAddress{
+            Exchange: "foo",
+        }, "publisher-exchange")
+    
+
+// publish to a queue
+publisher, err := connection.NewPublisher(context.Background(), &QueueAddress{
+    Queue: "some-queue"}, 
+    "publisher-queue")
+        
 ```
 
 </TabItem>
@@ -467,9 +571,36 @@ publisher.publish(message)
 
 # publish to a queue
 message = Message(body="Hello!")
-queue_address = AddressHelper.queue_address("some_queue")
+queue_address = AddressHelper.queue_address("some-queue")
 message = AddressHelper.message_to_address_helper(message, queue_address)
 publisher = publisher.publish(message)
+```
+
+</TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```Go title="Setting the target in messages"
+// // no target defined on publisher creation (nil)
+publisher, err := connection.NewPublisher(context.Background(), nil,
+                 "target-in-message")
+
+// create message with an exchange with a routing key
+msg, err = NewMessageWithAddress([]byte("hello"), &ExchangeAddress{
+            Exchange: "foo",
+            Key:      "bar",
+        })
+
+// create a message with a queue 
+msg, err = NewMessageWithAddress([]byte("hello"), &QueueAddress{
+    Queue: "some-queue"})
+
+
+// use the publish
+publishResult, err = publisher.Publish(context.Background(), msg)
+// ...
+        
 ```
 
 </TabItem>
@@ -524,15 +655,27 @@ class MyMessageHandler(AMQPMessagingHandler):
         super().__init__()
 
     def on_message(self, event: Event):
-        # accepting
-        self.delivery_context.accept(event)
-        # deal with the message
-
-queue_address = AddressHelper.queue_address("some_queue")
+        # ...
+        
+        self.delivery_context.accept(event)# settle the message
+        
+queue_address = AddressHelper.queue_address("some-queue")
 consumer = connection.consumer(queue_address, message_handler=MyMessageHandler())
 consumer.run()
 ```
+</TabItem>
 
+
+<TabItem value="Go" label="Go">
+
+```Go title="Creating a consumer"
+// create the consumer
+consumer, err := connection.NewConsumer(context.Background(), "some-queue", nil)
+// receive the message
+deliveryContext, err := consumer.Receive(context.Background())
+// ....
+deliveryContext.Accept(context.Background()) // settle the message
+```
 </TabItem>
 
 </Tabs>
@@ -613,6 +756,12 @@ consumer.close();
 ```
 </TabItem>
 
+<TabItem value="Go" label="Go">
+```Go title="Closing a consumer gracefully"
+// CURRENTLY NOT IMPLEMENTED
+```
+</TabItem>
+
 </Tabs>
 
 An application can still close a consumer without pausing it, at the risk of processing the same messages several times.
@@ -668,12 +817,12 @@ class MyMessageHandler(AMQPMessagingHandler):
         self.delivery_context.accept(event)
         # deal with the message
 
-stream_filter_options = StreamOptions()
+stream_options = StreamOptions()
 # can be first, last, next or an offset long
 # you can also specify stream filters with methods: apply_filters and filter_match_unfiltered
-stream_filter_options.offset(OffsetSpecification.first)
+stream_options.offset(OffsetSpecification.first)
 
-stream_address = AddressHelper.queue_address("some_stream")
+stream_address = AddressHelper.queue_address("some-stream")
 consumer = consumer_connection.consumer(
     stream_address,
     message_handler=MyMessageHandler(),
@@ -681,6 +830,15 @@ consumer = consumer_connection.consumer(
 )
 ```
 
+</TabItem>
+
+<TabItem value="Go" label="Go">
+```Go title="Attaching to the beginning of a stream"
+consumer, err := connection.NewConsumer(context.Background(), qName, 
+    &StreamConsumerOptions{
+            Offset: &OffsetFirst{},
+        })
+```
 </TabItem>
 
 </Tabs>
@@ -739,7 +897,7 @@ class MyMessageHandler(AMQPMessagingHandler):
 stream_filter_options = StreamOptions()
 stream_filter_options.filter_values(["invoices", "order"])
 stream_filter_options.filter_match_unfiltered(True)
-stream_address = AddressHelper.queue_address("some_stream")
+stream_address = AddressHelper.queue_address("some-stream")
 consumer = consumer_connection.consumer(
     stream_address,
     message_handler=MyMessageHandler(),
@@ -748,6 +906,20 @@ consumer = consumer_connection.consumer(
 ```
 
 </TabItem>
+
+<TabItem value="Go" label="Go">
+
+```Go title="Configuring stream filtering"
+consumer, err := connection.NewConsumer(context.Background(), qName, &
+        StreamConsumerOptions{
+            InitialCredits:   200,
+            Offset:           &OffsetFirst{},
+            Filters:          []string{"invoices"},
+        })
+```
+
+</TabItem>
+
 
 </Tabs>
 
@@ -938,7 +1110,7 @@ await queueSpec.DeclareAsync();
 
 ```csharp title="Creating a classic queue"
 queue_name = "myqueue"
-management.declare_queue(QueueSpecification(ClassicQueueSpecification(name=queue_name)))
+management.declare_queue(ClassicQueueSpecification(name=queue_name))
 ```
 
 </TabItem>
@@ -976,7 +1148,7 @@ await queueSpec.DeclareAsync();
 <TabItem value="python" label="Python">
 
 ```python title="Creating a queue with arguments"
-management.declare_queue(QueueSpecification(ClassicQueueSpecification(name=queue_name, message_ttl=timedelta(minutes=10), max_len_bytes=100000000)))
+management.declare_queue(ClassicQueueSpecification(name=queue_name, message_ttl=timedelta(minutes=10), max_len_bytes=100000000))
 ```
 
 </TabItem>
@@ -1020,7 +1192,7 @@ await queueSpec.DeclareAsync();
 
 ```python title="Creating a quorum queue"
 queue_name = "my-quorum-queue"
-management.declare_queue(QueueSpecification(QuorumQueueSpecification(name=queue_name, quorum_initial_group_size=3, deliver_limit=3)))
+management.declare_queue(QuorumQueueSpecification(name=queue_name, quorum_initial_group_size=3, deliver_limit=3))
 
 ```
 
