@@ -78,7 +78,7 @@ Exchange types can be provided by [plugins](./plugins/).
 ### Fanout
 
 Fanout exchanges route a copy of every message published to them to every queue, stream or exchange
-bound to ti.
+bound to it. The message's routing key is competely ignored.
 
 See [tutorial 3](https://www.rabbitmq.com/tutorials) to see how this exchange type is used.
 
@@ -175,7 +175,8 @@ bindings on it will be removed.
 
 In the case of large topologies, this can take time and when the node
 comes back online and applications reconnect, semi-durable and transient bindings can be removed
-and re-added concurrently, which can result in an inconsistent
+and re-added concurrently, which can result in an inconsistent bindings state and confusing
+routing behavior.
 
 :::
 
@@ -214,7 +215,7 @@ As a rule of thumb, consider using durable exchanges for the following reasons:
 
 Auto-deleted queues are deleted when their last binding is removed.
 
-This requires that there such a binding; exchanges that are never bound won't be deleted by this mechanism.
+This requires that at least such a binding exists (created); exchanges that are never bound won't be deleted by this mechanism.
 
 
 ### Optional Arguments {#optional-arguments}
