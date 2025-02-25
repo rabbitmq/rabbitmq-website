@@ -912,9 +912,8 @@ consumer = consumer_connection.consumer(
 ```Go title="Configuring stream filtering"
 consumer, err := connection.NewConsumer(context.Background(), qName, &
         StreamConsumerOptions{
-            InitialCredits:   200,
             Offset:           &OffsetFirst{},
-            Filters:          []string{"invoices"},
+            Filters:          []string{"invoices", "order"},
         })
 ```
 
@@ -958,12 +957,24 @@ await management.CloseAsync()
 
 ```python title="Getting the management object from the environment"
 management = connection.management()
-// ...
-// close the management instance when it is no longer needed
+ # ...
+ # close the management instance when it is no longer needed
 management.close()
 ```
 
 </TabItem>
+
+<TabItem value="Go" label="Go">
+
+```Go title="Getting the management object from the connection"
+management = connection.management()
+  // ...
+  // close the management instance when it is no longer needed
+management.close()
+```
+
+</TabItem>
+
 
 </Tabs>
 
@@ -1006,6 +1017,21 @@ management.declare_exchange(ExchangeSpecification(name=exchange_name, exchange_t
 ```
 
 </TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```Go title="Creating an exchange of a built-in type"
+// there are structs for Fanout, Direct, etc..
+exchange_name = "my-exchange"
+exchangeInfo, err := management.DeclareExchange(context.TODO(), &TopicExchangeSpecification{
+            Name: exchangeName,
+        })
+```
+
+</TabItem>
+
+
 </Tabs>
 
 It is also possible to specify the exchange type as a string (for non-built-in type exchanges):
@@ -1039,7 +1065,32 @@ await _management.Exchange("myExchange")
 <TabItem value="python" label="Python">
 
 ```python title="Creating an exchange of a non-built-in type"
-# CURRENTLY NOT IMPLEMENTED
+    exchange_arguments = {}
+    exchange_arguments["x-delayed-type"] = "direct"
+
+    exchange_info = management.declare_exchange(
+        ExchangeCustomSpecification(
+            name="myExchange",
+            exchange_type="x-delayed-message",
+            arguments=exchange_arguments,
+        )
+    )
+
+
+```
+
+</TabItem>
+
+<TabItem value="Go" label="Go">
+
+```go title="Creating an exchange of a non-built-in type"
+_, err := management.DeclareExchange(context.TODO(), &CustomExchangeSpecification{
+        Name:             "myExchange",
+        ExchangeTypeName: "x-delayed-message",
+            Arguments: map[string]any{
+                "x-delayed-type": "direct",
+            },
+        })
 ```
 
 </TabItem>
@@ -1071,8 +1122,17 @@ await management.Exchange("my-exchange").DeleteAsync();
 exchange_name = "my-exchange"
 management.delete_exchange(exchange_name)
 ```
+</TabItem>
+
+<TabItem value="Go" label="Go">
+
+```Go title="Creating an exchange of a built-in type"
+exchange_name = "my-exchange"
+management.DeleteExchange(context.TODO(),exchange_name)
+```
 
 </TabItem>
+
 
 </Tabs>
 
@@ -1115,6 +1175,17 @@ management.declare_queue(ClassicQueueSpecification(name=queue_name))
 
 </TabItem>
 
+<TabItem value="Go" label="Go">
+
+```Go title="Creating a classic queue"
+queue_name = "myqueue"
+queueInfo, err := management.DeclareQueue(context.TODO(), &ClassicQueueSpecification{
+            Name: queueName})
+```
+
+</TabItem>
+
+
 </Tabs>
 
 The management API supports [queue arguments](/docs/queues#optional-arguments) explicitly:
@@ -1148,7 +1219,20 @@ await queueSpec.DeclareAsync();
 <TabItem value="python" label="Python">
 
 ```python title="Creating a queue with arguments"
-management.declare_queue(ClassicQueueSpecification(name=queue_name, message_ttl=timedelta(minutes=10), max_len_bytes=100000000))
+management.declare_queue(ClassicQueueSpecification(name="my-queue", message_ttl=timedelta(minutes=10), max_len_bytes=100000000))
+```
+
+</TabItem>
+
+<TabItem value="Go" label="Go">
+
+```Go title="Creating a queue with arguments"
+queueInfo, err := management.DeclareQueue(context.TODO(), &ClassicQueueSpecification{
+            Name:           "my-queue",
+            MaxPriority:    32,
+            MaxLengthBytes: CapacityGB(1),
+            IsAutoDelete:   false,
+    })
 ```
 
 </TabItem>
@@ -1198,6 +1282,19 @@ management.declare_queue(QuorumQueueSpecification(name=queue_name, quorum_initia
 
 </TabItem>
 
+<TabItem value="Go" label="Go">
+
+```Go title="Creating a quorum queue"
+queueInfo, err := management.DeclareQueue(context.TODO(), &QuorumQueueSpecification{
+            Name: "my-quorum-queue",
+            QuorumInitialGroupSize = 3,
+            DeliveryLimit: 3,
+        })
+```
+
+</TabItem>
+
+
 </Tabs>
 
 It is possible to query information about a queue:
@@ -1236,6 +1333,20 @@ leader = queue_info.leader
 
 </TabItem>
 
+
+<TabItem value="Go" label="Go">
+
+```Go title="Getting queue information"
+queueInfo, err := management.QueueInfo(context.TODO(), "my-queue")
+
+messageCount := queueInfo.MessageCount();
+consumerCount := queueInfo.ConsumerCount();
+leader := queueInfo.Leader();
+```
+
+</TabItem>
+
+
 </Tabs>
 
 This API can also be used to check whether a queue exists or not.
@@ -1262,6 +1373,14 @@ await management.Queue("myqueue").DeleteAsync();
 
 ```csharp title="Deleting a queue"
 management.delete_queue(name="myqueue")
+```
+
+</TabItem>
+
+<TabItem value="Go" label="Go">
+
+```go title="Deleting a queue"
+management.DeleteExchange(context.TODO(),"myqueue")
 ```
 
 </TabItem>
@@ -1311,6 +1430,19 @@ bind_name = management.bind(
 
 </TabItem>
 
+<TabItem value="Go" label="Go">
+
+```go title="Binding a queue to an exchange"
+// ExchangeToQueueBindingSpecification implements BindingSpecification interface 
+bindingPath, err := management.Bind(context.TODO(), &rmq.ExchangeToQueueBindingSpecification{
+        SourceExchange:   "my-exchange",
+        DestinationQueue: "my-queue",
+        BindingKey:       "foo",
+    })
+```
+
+</TabItem>
+
 </Tabs>
 
 There is also support for [exchange-to-exchange binding](/docs/e2e):
@@ -1354,6 +1486,19 @@ binding_exchange_queue_path = management.bind(
 
 </TabItem>
 
+<TabItem value="Go" label="Go">
+
+```go title="Binding a exchange to an exchange"
+// ExchangeToExchangeBindingSpecification implements BindingSpecification interface 
+bindingPath, err := management.Bind(context.TODO(), &rmq.ExchangeToExchangeBindingSpecification{
+        SourceExchange:   "my-exchange",
+        DestinationExchange: "my-other-exchange",
+    })
+```
+
+</TabItem>
+
+
 </Tabs>
 
 It is also possible to unbind entities:
@@ -1389,6 +1534,17 @@ management.unbind(BindingSpecification(
     source_exchange="my-exchange",
     destination_queue="my-queue",
 ))
+```
+
+</TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```go title="Deleting the binding between an exchange and a queue"
+// bindingPath is the bind result
+err = management.Unbind(context.TODO(), bindingPath)
+
 ```
 
 </TabItem>
@@ -1438,10 +1594,31 @@ connection.ChangeState += (
 <TabItem value="python" label="Python">
 
 ```python title="Attach an event to the ChangeState"
-# CURRENTLY NOT IMPLEMENTED FOR PYTHON
+# CURRENTLY NOT IMPLEMENTED 
 ```
 
 </TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```go title="Register a channel to the StateChanged"
+stateChanged := make(chan *rmq.StateChanged, 1)
+go func(ch chan *rmq.StateChanged) {
+        for statusChanged := range ch {
+            // statusChanged.From from status
+            // statusChanged.To to status 
+            // StateClosed has the func GetError() in case of error 
+
+        }
+    }(stateChanged)
+
+connection.NotifyStatusChange(stateChanged)
+
+```
+
+</TabItem>
+
 
 </Tabs>
 
@@ -1477,6 +1654,16 @@ publisher.ChangeState += (sender, fromState, toState, e) =>
 ```python title="Attach an event to the ChangeState"
 
 # CURRENTLY NOT IMPLEMENTED FOR PYTHON
+```
+
+</TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```go title=" "
+
+# CURRENTLY NOT IMPLEMENTED Due Of https://github.com/Azure/go-amqp/issues/99
 ```
 
 </TabItem>
@@ -1517,6 +1704,16 @@ consumer.ChangeState += (sender, fromState, toState, e) =>
 
 </TabItem>
 
+<TabItem value="Go" label="Go">
+
+```go title=" "
+
+# CURRENTLY NOT IMPLEMENTED Due Of https://github.com/Azure/go-amqp/issues/99
+```
+
+</TabItem>
+
+
 </Tabs>
 
 ### Automatic Connection Recovery
@@ -1555,6 +1752,22 @@ await AmqpConnection.CreateAsync(
 
 </TabItem>
 
+<TabItem value="Go" label="Go">
+
+```go title=" "
+    // to the BackOffReconnectInterval the client adds a random 500 ms 
+    connection, err := Dial(context.Background(), []string{"amqp://"}, &AmqpConnOptions{
+           ..
+            RecoveryConfiguration: &RecoveryConfiguration{
+                BackOffReconnectInterval: 2 * time.Second,
+                MaxReconnectAttempts:     5,
+            },
+        })
+```
+
+</TabItem>
+
+
 </Tabs>
 
 It is also possible to deactivate topology recovery if it is not appropriate for a given application.
@@ -1590,6 +1803,15 @@ await AmqpConnection.CreateAsync(
 
 </TabItem>
 
+<TabItem value="Go" label="Go">
+
+```go title=" "
+     // CURRENTLY NOT IMPLEMENTED
+```
+
+</TabItem>
+
+
 </Tabs>
 
 It is also possible to deactivate recovery altogether:
@@ -1618,6 +1840,21 @@ await AmqpConnection.CreateAsync(
 ```
 
 </TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```go title="Deactivating recovery"
+    connection, err := Dial(context.Background(), []string{"amqp://"}, &AmqpConnOptions{
+           ..
+            RecoveryConfiguration: &RecoveryConfiguration{
+                ActiveRecovery: false // deactivate topology recovery
+            },
+        })
+```
+
+</TabItem>
+
 
 </Tabs>
 
