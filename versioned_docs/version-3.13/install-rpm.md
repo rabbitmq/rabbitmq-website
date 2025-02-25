@@ -38,18 +38,19 @@ The versions included into standard RPM-based distribution repositories can be
 many releases behind [latest RabbitMQ releases](/release-information)
 and may provide RabbitMQ versions that are already [out of support](/release-information).
 
-Team RabbitMQ produces our own RPM packages and distributes them [using a Cloudsmith mirror](#cloudsmith).
+Team RabbitMQ produces our own RPM packages and distributes them using a set of
+[repository mirrors at `*.rabbitmq.com`](#cloudsmith).
 
 There are two ways of installing these RPMs:
 
- * Installing the package using Yum repositories (this option is highly recommended) from a [Cloudsmith.io](#cloudsmith) mirror
+ * Installing the package using the `*.rabbitmq.com` dnf/yum repositories (this option is highly recommended)
  * [Downloading](#downloads) the package and installing it with `rpm`.
    This option will require manual installation of all [package dependencies](#package-dependencies) and makes upgrades more difficult.
 
 Some of the topics covered in this guide are:
 
  * [Supported distributions](#supported-distributions)
- * Package installation from Yum repositories on a [Cloudsmith.io](#cloudsmith) mirror
+ * Package installation from dnf/yum mirror repositories at `*.rabbitmq.com`
  * How to install a [latest supported Erlang/OTP version](#install-erlang)
  * [Package dependencies](#package-dependencies)
  * [Privilege requirements](#sudo-requirements)
@@ -130,16 +131,25 @@ manually. The dependencies are:
  * `logrotate`
 
 
-## Install Using a Cloudsmith Mirror Yum Repository {#cloudsmith}
+## Install Using a Cloudsmith Mirror dnf/yum Repository {#cloudsmith}
 
-A Yum repository with RabbitMQ packages is available from Cloudsmith and a mirror
-of the repositories there.
+:::tip
+
+Why does this section discuss mirrors? [Open source RabbitMQ release infrastructure](https://github.com/rabbitmq/server-packages/)
+publishes packages to a services called [Cloudsmith](https://cloudsmith.io).
+
+From there, the packages are distributed to two mirror repositories in the EU and North America.
+Unlike the Cloudsmith account, these mirror repositories have sifnicantly higher traffic quotas,
+and downloads from them won't be blocked due to an exceeded quota for the month.
+
+Please use these mirrors instead of installing the packages directly from Cloudsmith.
+
+:::
 
 The rest of this section will demonstrate how to set up a repository file
-that will use a mirror. Repositories on Cloudsmith are subject to traffic quotas
-but the mirror is not.
+to install RabbitMQ and Erlang from one of the `*.rabbitmq.com` mirrors.
 
-### Install RabbitMQ and Cloudsmith Signing Keys
+### Import the Signing Keys
 
 Yum will verify signatures of any packages it installs, therefore the first step
 in the process is to import the signing key
@@ -709,7 +719,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            └─2861 inet_gethost 4
 
 Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.13.7. Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 4.0.6. Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -767,7 +777,7 @@ The output will look similar to this:
 
 ```ini
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.13.7. Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 4.0.6. Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
