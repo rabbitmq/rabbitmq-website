@@ -120,12 +120,29 @@ from rabbitmq_amqp_python_client import Environment
 # ...
 
 # create the environment instance
-environment = Environment()
+environment = Environment("amqp://guest:guest@localhost:5672/")
 # ...
 # close the environment when the application stops
 environment.close()
 ```
 </TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```go title="Creating the environment"
+import (
+    rmq "github.com/rabbitmq/rabbitmq-amqp-go-client/pkg/rabbitmqamqp"
+)
+// ...
+// create the environment instance
+env := rmq.NewEnvironment([]string{"amqp://"}, nil)
+// ...
+// close the connections
+env.CloseConnections(context.Background())
+```
+</TabItem>
+
 </Tabs>
 
 There is usually one environment instance for an application process.
@@ -170,13 +187,27 @@ await connection.CloseAsync();
 
 ```python title="Opening a connection"
 # open a connection from the environment setting   
-connection = environment.connection("amqp://guest:guest@localhost:5672/")
+connection = environment.connection()
 
 # close the connection when it is no longer necessary
 connection.close()
 ```
 
 </TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```Go title="Opening a connection"
+// open a connection from the environment setting   
+connection, err := env.NewConnection(context.Background())
+
+// close the connection when it is no longer necessary
+connection.close()
+```
+
+</TabItem>
+
 </Tabs>
 
 Libraries use the `ANONYMOUS` [SASL authentication mechanism](/docs/access-control#mechanisms) by default.
@@ -230,6 +261,21 @@ publisher = connection.publisher(addr)
 publisher.close()
 ```
 
+</TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```Go title="Creating a publisher"
+// you can use ExchangeAddress and QueueAddress to publish directly to the queue
+publisher, err := amqpConnection.NewPublisher(context.Background(), &rmq.ExchangeAddress{
+        Exchange: "foo",
+        Key:      "bar",
+    }, "getting-started-publisher")
+
+// close the publisher when it is no longer necessary 
+publisher.close()
+```
 </TabItem>
 </Tabs>
 
@@ -315,6 +361,39 @@ match status.remote_state:
 
 </TabItem>
 
+
+<TabItem value="Go" label="Go">
+
+```Go title="Publishing a message"
+// create the message
+message =  rmq.NewMessage([]byte("Hello")
+// publish the message and deal with broker feedback
+publishResult, err := publisher.Publish(context.Background(),message)
+if err != nil {
+    // there is an error 
+}
+    switch publishResult.Outcome.(type) {
+        case *rmq.StateAccepted:
+            // the broker accepted (confirmed) the message
+            break
+        case *rmq.StateReleased:
+           // the broker could not route the message anywhere 
+            break
+        case *rmq.StateRejected:
+            // at least one queue rejected the message
+            stateType := publishResult.Outcome.(*rmq.StateRejected)
+            if stateType.Error != nil {
+                // in case there is error 
+            }
+            break
+        default:
+            // these status are not supported. Leave it for AMQP 1.0 compatibility
+            // see: https://www.rabbitmq.com/docs/next/amqp#outcomes
+        }
+```
+
+</TabItem>
+
 </Tabs>
 
 The publisher example above send messages to a given exchange with a given routing key, but this is not the only supported target for a publisher.
@@ -380,8 +459,33 @@ exchange_address = AddressHelper.exchange_address("foo")
 publisher = connection.publisher(addr)
 
 # publish to a queue
-queue_address = AddressHelper.queue_address("some_queue")
+queue_address = AddressHelper.queue_address("some-queue")
 publisher = connection.publisher(queue_address)
+```
+
+</TabItem>
+
+<TabItem value="Go" label="Go">
+
+```Go title="Creating publishers with different targets"
+// publish to an exchange with a routing key
+publisher, err := connection.NewPublisher(context.Background(), &ExchangeAddress{
+            Exchange: "foo",
+            Key:      "bar",
+        }, "publisher-exchange-key")
+
+
+// publish to an exchange without a routing key
+publisher, err := connection.NewPublisher(context.Background(), &ExchangeAddress{
+            Exchange: "foo",
+        }, "publisher-exchange")
+    
+
+// publish to a queue
+publisher, err := connection.NewPublisher(context.Background(), &QueueAddress{
+    Queue: "some-queue"}, 
+    "publisher-queue")
+        
 ```
 
 </TabItem>
@@ -467,9 +571,36 @@ publisher.publish(message)
 
 # publish to a queue
 message = Message(body="Hello!")
-queue_address = AddressHelper.queue_address("some_queue")
+queue_address = AddressHelper.queue_address("some-queue")
 message = AddressHelper.message_to_address_helper(message, queue_address)
 publisher = publisher.publish(message)
+```
+
+</TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```Go title="Setting the target in messages"
+// // no target defined on publisher creation (nil)
+publisher, err := connection.NewPublisher(context.Background(), nil,
+                 "target-in-message")
+
+// create message with an exchange with a routing key
+msg, err = NewMessageWithAddress([]byte("hello"), &ExchangeAddress{
+            Exchange: "foo",
+            Key:      "bar",
+        })
+
+// create a message with a queue 
+msg, err = NewMessageWithAddress([]byte("hello"), &QueueAddress{
+    Queue: "some-queue"})
+
+
+// use the publish
+publishResult, err = publisher.Publish(context.Background(), msg)
+// ...
+        
 ```
 
 </TabItem>
@@ -524,15 +655,27 @@ class MyMessageHandler(AMQPMessagingHandler):
         super().__init__()
 
     def on_message(self, event: Event):
-        # accepting
-        self.delivery_context.accept(event)
-        # deal with the message
-
-queue_address = AddressHelper.queue_address("some_queue")
+        # ...
+        
+        self.delivery_context.accept(event)# settle the message
+        
+queue_address = AddressHelper.queue_address("some-queue")
 consumer = connection.consumer(queue_address, message_handler=MyMessageHandler())
 consumer.run()
 ```
+</TabItem>
 
+
+<TabItem value="Go" label="Go">
+
+```Go title="Creating a consumer"
+// create the consumer
+consumer, err := connection.NewConsumer(context.Background(), "some-queue", nil)
+// receive the message
+deliveryContext, err := consumer.Receive(context.Background())
+// ....
+deliveryContext.Accept(context.Background()) // settle the message
+```
 </TabItem>
 
 </Tabs>
@@ -613,6 +756,12 @@ consumer.close();
 ```
 </TabItem>
 
+<TabItem value="Go" label="Go">
+```Go title="Closing a consumer gracefully"
+// CURRENTLY NOT IMPLEMENTED
+```
+</TabItem>
+
 </Tabs>
 
 An application can still close a consumer without pausing it, at the risk of processing the same messages several times.
@@ -668,12 +817,12 @@ class MyMessageHandler(AMQPMessagingHandler):
         self.delivery_context.accept(event)
         # deal with the message
 
-stream_filter_options = StreamOptions()
+stream_options = StreamOptions()
 # can be first, last, next or an offset long
 # you can also specify stream filters with methods: apply_filters and filter_match_unfiltered
-stream_filter_options.offset(OffsetSpecification.first)
+stream_options.offset(OffsetSpecification.first)
 
-stream_address = AddressHelper.queue_address("some_stream")
+stream_address = AddressHelper.queue_address("some-stream")
 consumer = consumer_connection.consumer(
     stream_address,
     message_handler=MyMessageHandler(),
@@ -681,6 +830,15 @@ consumer = consumer_connection.consumer(
 )
 ```
 
+</TabItem>
+
+<TabItem value="Go" label="Go">
+```Go title="Attaching to the beginning of a stream"
+consumer, err := connection.NewConsumer(context.Background(), qName, 
+    &StreamConsumerOptions{
+            Offset: &OffsetFirst{},
+        })
+```
 </TabItem>
 
 </Tabs>
@@ -739,7 +897,7 @@ class MyMessageHandler(AMQPMessagingHandler):
 stream_filter_options = StreamOptions()
 stream_filter_options.filter_values(["invoices", "order"])
 stream_filter_options.filter_match_unfiltered(True)
-stream_address = AddressHelper.queue_address("some_stream")
+stream_address = AddressHelper.queue_address("some-stream")
 consumer = consumer_connection.consumer(
     stream_address,
     message_handler=MyMessageHandler(),
@@ -748,6 +906,19 @@ consumer = consumer_connection.consumer(
 ```
 
 </TabItem>
+
+<TabItem value="Go" label="Go">
+
+```Go title="Configuring stream filtering"
+consumer, err := connection.NewConsumer(context.Background(), qName, &
+        StreamConsumerOptions{
+            Offset:           &OffsetFirst{},
+            Filters:          []string{"invoices", "order"},
+        })
+```
+
+</TabItem>
+
 
 </Tabs>
 
@@ -786,12 +957,24 @@ await management.CloseAsync()
 
 ```python title="Getting the management object from the environment"
 management = connection.management()
-// ...
-// close the management instance when it is no longer needed
+ # ...
+ # close the management instance when it is no longer needed
 management.close()
 ```
 
 </TabItem>
+
+<TabItem value="Go" label="Go">
+
+```Go title="Getting the management object from the connection"
+management = connection.management()
+  // ...
+  // close the management instance when it is no longer needed
+management.close()
+```
+
+</TabItem>
+
 
 </Tabs>
 
@@ -834,6 +1017,21 @@ management.declare_exchange(ExchangeSpecification(name=exchange_name, exchange_t
 ```
 
 </TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```Go title="Creating an exchange of a built-in type"
+// there are structs for Fanout, Direct, etc..
+exchange_name = "my-exchange"
+exchangeInfo, err := management.DeclareExchange(context.TODO(), &TopicExchangeSpecification{
+            Name: exchangeName,
+        })
+```
+
+</TabItem>
+
+
 </Tabs>
 
 It is also possible to specify the exchange type as a string (for non-built-in type exchanges):
@@ -867,7 +1065,32 @@ await _management.Exchange("myExchange")
 <TabItem value="python" label="Python">
 
 ```python title="Creating an exchange of a non-built-in type"
-# CURRENTLY NOT IMPLEMENTED
+    exchange_arguments = {}
+    exchange_arguments["x-delayed-type"] = "direct"
+
+    exchange_info = management.declare_exchange(
+        ExchangeCustomSpecification(
+            name="myExchange",
+            exchange_type="x-delayed-message",
+            arguments=exchange_arguments,
+        )
+    )
+
+
+```
+
+</TabItem>
+
+<TabItem value="Go" label="Go">
+
+```go title="Creating an exchange of a non-built-in type"
+_, err := management.DeclareExchange(context.TODO(), &CustomExchangeSpecification{
+        Name:             "myExchange",
+        ExchangeTypeName: "x-delayed-message",
+            Arguments: map[string]any{
+                "x-delayed-type": "direct",
+            },
+        })
 ```
 
 </TabItem>
@@ -899,8 +1122,17 @@ await management.Exchange("my-exchange").DeleteAsync();
 exchange_name = "my-exchange"
 management.delete_exchange(exchange_name)
 ```
+</TabItem>
+
+<TabItem value="Go" label="Go">
+
+```Go title="Creating an exchange of a built-in type"
+exchange_name = "my-exchange"
+management.DeleteExchange(context.TODO(),exchange_name)
+```
 
 </TabItem>
+
 
 </Tabs>
 
@@ -938,10 +1170,21 @@ await queueSpec.DeclareAsync();
 
 ```csharp title="Creating a classic queue"
 queue_name = "myqueue"
-management.declare_queue(QueueSpecification(ClassicQueueSpecification(name=queue_name)))
+management.declare_queue(ClassicQueueSpecification(name=queue_name))
 ```
 
 </TabItem>
+
+<TabItem value="Go" label="Go">
+
+```Go title="Creating a classic queue"
+queue_name = "myqueue"
+queueInfo, err := management.DeclareQueue(context.TODO(), &ClassicQueueSpecification{
+            Name: queueName})
+```
+
+</TabItem>
+
 
 </Tabs>
 
@@ -976,7 +1219,20 @@ await queueSpec.DeclareAsync();
 <TabItem value="python" label="Python">
 
 ```python title="Creating a queue with arguments"
-management.declare_queue(QueueSpecification(ClassicQueueSpecification(name=queue_name, message_ttl=timedelta(minutes=10), max_len_bytes=100000000)))
+management.declare_queue(ClassicQueueSpecification(name="my-queue", message_ttl=timedelta(minutes=10), max_len_bytes=100000000))
+```
+
+</TabItem>
+
+<TabItem value="Go" label="Go">
+
+```Go title="Creating a queue with arguments"
+queueInfo, err := management.DeclareQueue(context.TODO(), &ClassicQueueSpecification{
+            Name:           "my-queue",
+            MaxPriority:    32,
+            MaxLengthBytes: CapacityGB(1),
+            IsAutoDelete:   false,
+    })
 ```
 
 </TabItem>
@@ -1020,11 +1276,24 @@ await queueSpec.DeclareAsync();
 
 ```python title="Creating a quorum queue"
 queue_name = "my-quorum-queue"
-management.declare_queue(QueueSpecification(QuorumQueueSpecification(name=queue_name, quorum_initial_group_size=3, deliver_limit=3)))
+management.declare_queue(QuorumQueueSpecification(name=queue_name, quorum_initial_group_size=3, deliver_limit=3))
 
 ```
 
 </TabItem>
+
+<TabItem value="Go" label="Go">
+
+```Go title="Creating a quorum queue"
+queueInfo, err := management.DeclareQueue(context.TODO(), &QuorumQueueSpecification{
+            Name: "my-quorum-queue",
+            QuorumInitialGroupSize = 3,
+            DeliveryLimit: 3,
+        })
+```
+
+</TabItem>
+
 
 </Tabs>
 
@@ -1064,6 +1333,20 @@ leader = queue_info.leader
 
 </TabItem>
 
+
+<TabItem value="Go" label="Go">
+
+```Go title="Getting queue information"
+queueInfo, err := management.QueueInfo(context.TODO(), "my-queue")
+
+messageCount := queueInfo.MessageCount();
+consumerCount := queueInfo.ConsumerCount();
+leader := queueInfo.Leader();
+```
+
+</TabItem>
+
+
 </Tabs>
 
 This API can also be used to check whether a queue exists or not.
@@ -1090,6 +1373,14 @@ await management.Queue("myqueue").DeleteAsync();
 
 ```csharp title="Deleting a queue"
 management.delete_queue(name="myqueue")
+```
+
+</TabItem>
+
+<TabItem value="Go" label="Go">
+
+```go title="Deleting a queue"
+management.DeleteExchange(context.TODO(),"myqueue")
 ```
 
 </TabItem>
@@ -1139,6 +1430,19 @@ bind_name = management.bind(
 
 </TabItem>
 
+<TabItem value="Go" label="Go">
+
+```go title="Binding a queue to an exchange"
+// ExchangeToQueueBindingSpecification implements BindingSpecification interface 
+bindingPath, err := management.Bind(context.TODO(), &rmq.ExchangeToQueueBindingSpecification{
+        SourceExchange:   "my-exchange",
+        DestinationQueue: "my-queue",
+        BindingKey:       "foo",
+    })
+```
+
+</TabItem>
+
 </Tabs>
 
 There is also support for [exchange-to-exchange binding](/docs/e2e):
@@ -1182,6 +1486,19 @@ binding_exchange_queue_path = management.bind(
 
 </TabItem>
 
+<TabItem value="Go" label="Go">
+
+```go title="Binding a exchange to an exchange"
+// ExchangeToExchangeBindingSpecification implements BindingSpecification interface 
+bindingPath, err := management.Bind(context.TODO(), &rmq.ExchangeToExchangeBindingSpecification{
+        SourceExchange:   "my-exchange",
+        DestinationExchange: "my-other-exchange",
+    })
+```
+
+</TabItem>
+
+
 </Tabs>
 
 It is also possible to unbind entities:
@@ -1217,6 +1534,17 @@ management.unbind(BindingSpecification(
     source_exchange="my-exchange",
     destination_queue="my-queue",
 ))
+```
+
+</TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```go title="Deleting the binding between an exchange and a queue"
+// bindingPath is the bind result
+err = management.Unbind(context.TODO(), bindingPath)
+
 ```
 
 </TabItem>
@@ -1266,10 +1594,31 @@ connection.ChangeState += (
 <TabItem value="python" label="Python">
 
 ```python title="Attach an event to the ChangeState"
-# CURRENTLY NOT IMPLEMENTED FOR PYTHON
+# CURRENTLY NOT IMPLEMENTED 
 ```
 
 </TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```go title="Register a channel to the StateChanged"
+stateChanged := make(chan *rmq.StateChanged, 1)
+go func(ch chan *rmq.StateChanged) {
+        for statusChanged := range ch {
+            // statusChanged.From from status
+            // statusChanged.To to status 
+            // StateClosed has the func GetError() in case of error 
+
+        }
+    }(stateChanged)
+
+connection.NotifyStatusChange(stateChanged)
+
+```
+
+</TabItem>
+
 
 </Tabs>
 
@@ -1305,6 +1654,16 @@ publisher.ChangeState += (sender, fromState, toState, e) =>
 ```python title="Attach an event to the ChangeState"
 
 # CURRENTLY NOT IMPLEMENTED FOR PYTHON
+```
+
+</TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```go title=" "
+
+# CURRENTLY NOT IMPLEMENTED Due Of https://github.com/Azure/go-amqp/issues/99
 ```
 
 </TabItem>
@@ -1345,6 +1704,16 @@ consumer.ChangeState += (sender, fromState, toState, e) =>
 
 </TabItem>
 
+<TabItem value="Go" label="Go">
+
+```go title=" "
+
+# CURRENTLY NOT IMPLEMENTED Due Of https://github.com/Azure/go-amqp/issues/99
+```
+
+</TabItem>
+
+
 </Tabs>
 
 ### Automatic Connection Recovery
@@ -1383,6 +1752,22 @@ await AmqpConnection.CreateAsync(
 
 </TabItem>
 
+<TabItem value="Go" label="Go">
+
+```go title=" "
+    // to the BackOffReconnectInterval the client adds a random 500 ms 
+    connection, err := Dial(context.Background(), []string{"amqp://"}, &AmqpConnOptions{
+           ..
+            RecoveryConfiguration: &RecoveryConfiguration{
+                BackOffReconnectInterval: 2 * time.Second,
+                MaxReconnectAttempts:     5,
+            },
+        })
+```
+
+</TabItem>
+
+
 </Tabs>
 
 It is also possible to deactivate topology recovery if it is not appropriate for a given application.
@@ -1418,6 +1803,15 @@ await AmqpConnection.CreateAsync(
 
 </TabItem>
 
+<TabItem value="Go" label="Go">
+
+```go title=" "
+     // CURRENTLY NOT IMPLEMENTED
+```
+
+</TabItem>
+
+
 </Tabs>
 
 It is also possible to deactivate recovery altogether:
@@ -1446,6 +1840,21 @@ await AmqpConnection.CreateAsync(
 ```
 
 </TabItem>
+
+
+<TabItem value="Go" label="Go">
+
+```go title="Deactivating recovery"
+    connection, err := Dial(context.Background(), []string{"amqp://"}, &AmqpConnOptions{
+           ..
+            RecoveryConfiguration: &RecoveryConfiguration{
+                ActiveRecovery: false // deactivate topology recovery
+            },
+        })
+```
+
+</TabItem>
+
 
 </Tabs>
 
