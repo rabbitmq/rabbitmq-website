@@ -120,7 +120,7 @@ from rabbitmq_amqp_python_client import Environment
 # ...
 
 # create the environment instance
-environment = Environment()
+environment = Environment("amqp://guest:guest@localhost:5672/")
 # ...
 # close the environment when the application stops
 environment.close()
@@ -187,7 +187,7 @@ await connection.CloseAsync();
 
 ```python title="Opening a connection"
 # open a connection from the environment setting   
-connection = environment.connection("amqp://guest:guest@localhost:5672/")
+connection = environment.connection()
 
 # close the connection when it is no longer necessary
 connection.close()
