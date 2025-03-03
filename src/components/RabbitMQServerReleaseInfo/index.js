@@ -279,32 +279,17 @@ export function RabbitMQServerReleaseInfoTable() {
             "release-info-header",
             "release-eos",
             "release-eos-community"
-          ].join(' ')}>End of Community Support</div>
+          ].join(' ')}>Community Support End</div>
 
           <div className={[
             "release-info-header",
             "release-eos",
             "release-eos-commercial"
-          ].join(' ')}><a href="https://knowledge.broadcom.com/external/article/103829/clarification-on-what-eos-end-of-support.html">Commercial End of Service</a></div>
+          ].join(' ')}><a href="/contact?utm_source=rmq_release-information_tableheader&utm_medium=rmq_website&utm_campaign=tanzu#tanzu-rabbitmq">Enterprise Support End</a></div>
 
           {rows}
         </div>
       </div>
 
-      <strong>Legend:</strong>
-      <dl className="release-legend">
-        <dt className="supported-releaase latest-release"></dt>
-        <dd>Latest release, fully supported</dd>
-        <dt className="unsupported-release"></dt>
-        <dd>Old release, unsupported</dd>
-        {(typeof releaseBranches['current'].releases !== 'undefined' &&
-          releaseBranches['current'].releases.length > 0) ?
-          <>
-            <dt className="unsupported-release future-release"></dt>
-            <dd>Future version, unsupported</dd>
-          </> :
-          <></>
-        }
-      </dl>
     </div>);
 }

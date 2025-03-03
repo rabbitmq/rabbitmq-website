@@ -7,7 +7,7 @@
   margin: 0 auto;
   max-width: 1100px;
   padding: 0 20px;
-  scroll-padding-top: 60px;
+  scroll-padding-top: 87px;
 }
 
 /*.container h1:after {
@@ -119,14 +119,19 @@ html[data-theme='dark'] .heroCta .release_notes_link {
   }
 }
 
-.why, .license, .usecases_heading, .usecases, .testimonies, .supporttypes, .partners {
+.license {
+  padding: 16px 24px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.why, .usecases_heading, .usecases, .testimonies, .supporttypes, .partners, .commercial {
   padding: 2em 0px;
   scroll-margin-top: 60px;
 }
 
-.usecases_heading, .license {
+.usecases_heading, .testimonies, .commercial, .license {
   background-color: var(--ifm-color-primary-contrast-background);
-
 }
 
 .usecases .flex_columns {
@@ -139,12 +144,6 @@ html[data-theme='dark'] .heroCta .release_notes_link {
 
 .usecases svg {
   display: block;
-}
-
-.license section svg {
-  display: block;
-  margin-top: var(--ifm-heading-margin-top);
-  margin-bottom: var(--ifm-heading-margin-bottom);
 }
 
 .testimonies .flex_columns {
@@ -173,7 +172,7 @@ html[data-theme='dark'] .heroCta .release_notes_link {
   content:"";
   position: absolute;
   width: 80px;
-  border: 3px solid var(--ifm-color-white);
+  border: 3px solid var(--ifm-color-primary-contrast-background);
   bottom: 32px;
   left: 50px;
   z-index: 2;
@@ -194,15 +193,15 @@ html[data-theme='dark'] .heroCta .release_notes_link {
 }
 
 html[data-theme='dark'] .blockquote blockquote {
-  border-color: var(--ifm-color-primary-contrast-background);
+  border-color: var(--ifm-font-color-base);
 }
 
 html[data-theme='dark'] .blockquote blockquote:before {
-  border-color: var(--ifm-background-color);
+  border-color: var(--ifm-color-primary-contrast-background);
 }
 
 html[data-theme='dark'] .blockquote blockquote:after {
-  border-color: var(--ifm-color-primary-contrast-background);
+  border-color: var(--ifm-font-color-base);
 }
 
 .blockquote .attribution {

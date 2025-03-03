@@ -7,8 +7,6 @@ import TabItem from '@theme/TabItem';
 import Mermaid from '@theme/Mermaid';
 
 import styles from './index.module.css';
-import OSIKeyholeIcon from './assets/OSI_Keyhole.min.svg';
-import CommercialSupportIcon from './assets/commercial-support-icon.svg';
 
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
@@ -22,9 +20,25 @@ export default function Home() {
               <Heading as="h1">RabbitMQ</Heading>
               <p className={styles.tagline}>{siteConfig.tagline}</p>
             </div>
-            <div class={styles.heroCta}>
-              <Link className="button button--primary" to="/tutorials">Getting Started</Link>
-              <Link className={styles.release_notes_link} to="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.6">RabbitMQ 4.0.6</Link>
+          </div>
+        </div>
+        <div className={styles.why}>
+          <div className={styles.container}>
+            <Heading as="h1">Licensing</Heading>
+            <p>Since its original release in 2007, RabbitMQ is free and Open Source Software. In addition, Broadcom offers enterprise support and features.</p>
+            <div className={styles.flex_columns}>
+              <section className={styles.license}>
+                <Heading as="h2">Commercial License</Heading>
+                <p>Broadcom’s VMware Tanzu, offers enterprise-grade 24/7 support where you have exclusive access to the engineers making the product.</p>
+                <p>On top of the features of RabbitMQ open source, there are additional management and advanced features like <strong>warm standby replication</strong> and <strong>intra-cluster data compression</strong>. These features are a must for heavy workloads.</p>
+                <Link className="button button--primary" to="/contact?utm_source=rmq_home_license&utm_medium=rmq_website&utm_campaign=tanzu#tanzu-rabbitmq">Get Started with Tanzu RabbitMQ</Link>
+              </section>
+              <section className={styles.license}>
+                <Heading as="h2">Open Source License</Heading>
+                <p>RabbitMQ is dual-licensed under the Apache License 2.0 and the Mozilla Public License 2. You have the freedom to use and modify RabbitMQ however you want.</p>
+                <p>Of course, contributions welcome! Whether it is through bug reports, patches, documentation or any form of advocacy. In fact contributing gives you access to community support. Take a look at our <Link to="/github">Contributors page</Link></p>
+                <Link className="button button--primary" to="/tutorials">Get Started with OSS RabbitMQ</Link>
+              </section>
             </div>
           </div>
         </div>
@@ -288,55 +302,36 @@ flowchart TD
                   </section>
                 </div>
               </TabItem>
+              <TabItem value="feature-2" label="Enterprise">
+                <Heading as="h2">Advanced enterprise features exclusive to Tanzu RabbitMQ</Heading>
+                <div className={styles.flex_columns}>
+                  <section>
+                    <Heading as="h4">Multi-data center disaster recovery</Heading>
+                    <p>Seamless schema and data replication to a second data center that enables promotion of a second site in the event of a disaster.</p>
+                  </section>
+                  <section>
+                    <Heading as="h4">Enterprise security</Heading>
+                    <p>Enhanced encryption, delegated authentication using OAuth, and TLS certificates from Hashicorp Vault</p>
+                  </section>
+                  <section>
+                    <Heading as="h4">Kubernetes deployments</Heading>
+                    <p>Fully automated Kubernetes (K8s) operator and Helmchart that allows for seamless deployment into your K8s ecosystem.</p>
+                  </section>
+                  <section>
+                    <Heading as="h4">Audit Features</Heading>
+                    <p>
+                    Collection and storage of internal cluster events as structured data (JSON) or in human readable form.
+                    Cluster events relevant for audit, for example, what user deleted a queue or stream, are collected separately from the rest.
+                    </p>
+                  </section>
+                </div>
+                <Heading as="h4">Enterprise features come with support and are only available for Tanzu RabbitMQ license holders: <Link to="mailto:contact-tanzu-data.pdl@broadcom.com">contact-tanzu-data.pdl@broadcom.com</Link>
+</Heading>
+            <Link className="button button--primary" to="mailto:contact-tanzu-data.pdl@broadcom.com">Email a Tanzu Expert to learn more</Link>
+              </TabItem>
             </Tabs>
           </div>
         </div>
-
-        <div className={styles.license}>
-          <div className={styles.container}>
-            <Heading as="h1">What about the license?</Heading>
-            <p>Since its original release in 2007, RabbitMQ is Free and Open
-              Source Software. In addition, Broadcom offer a range of
-              commercial offerings.</p>
-            <div className={styles.flex_columns}>
-              <section>
-                <OSIKeyholeIcon/>
-                <Heading as="h2">Free and Open Source</Heading>
-                <p>RabbitMQ is dual-licensed under the Apache License 2.0 and
-                  the Mozilla Public License 2. You have the freedom to use and
-                  modify RabbitMQ however you want.</p>
-                <p>Of course, contributions are more than welcome! Whether it
-                  is through bug reports, patches, helping someone,
-                  documentation or any form of advocacy. In fact contributing
-                  is the best way to support the project!
-                  Take a look at our <Link
-                  to="/github">Contributors page</Link>.</p>
-              </section>
-              <section>
-                <CommercialSupportIcon/>
-                <Heading as="h2">Commercial offerings</Heading>
-                <p>Broadcom offers <Link
-                  to="https://tanzu.vmware.com/rabbitmq/oss">enterprise-grade
-                  24/7 support</Link> where you have access to the engineers
-                  making the product.</p>
-                <p>In addition, a range of commercial offerings for RabbitMQ
-                  are available. These commercial offerings include all of the
-                  features of RabbitMQ, with some additional management and
-                  advanced features like <Link
-                  to="https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/3.13/tanzu-rabbitmq-kubernetes/standby-replication.html">warm
-                  standby replication</Link> and <Link
-                  to="https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/3.13/tanzu-rabbitmq-kubernetes/clustering-compression-rabbitmq.html">intra-cluster
-                  data compression</Link>. These features are a must for
-                  heavy workloads.</p>
-                <p>For a list of the commercial offerings, take a look at
-                  the <Link to="https://tanzu.vmware.com/rabbitmq">Ways to run
-                  Tanzu RabbitMQ and Free and Open Source RabbitMQ
-                  distributions table</Link>.</p>
-              </section>
-            </div>
-          </div>
-        </div>
-
         <div className={styles.testimonies}>
           <div className={styles.container}>
             <Heading as="h1">What are users saying?</Heading>
@@ -358,6 +353,7 @@ flowchart TD
             </div>
           </div>
         </div>
+        <br></br>
       </main>
     </Layout>
   );

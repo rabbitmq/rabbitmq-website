@@ -51,6 +51,7 @@ const config = {
         },
         '4.0': {
           releases: [
+            {version: '4.0.7', release_date: "2025-02-26", },
             {version: '4.0.6', release_date: "2025-02-11", },
             {version: '4.0.5', release_date: "2024-12-15", },
             {version: '4.0.4', release_date: "2024-11-21", },
@@ -308,7 +309,7 @@ const config = {
       },
       announcementBar: {
         id: 'latest-announcement',
-        content: '<strong style="font-size: var(--ifm-h4-font-size);"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.6">RabbitMQ 4.0.6 is out</a></strong>',
+        content: '<div style="font-size: var(--ifm-h4-font-size);"><a href="/contact?utm_source=rmq_topbar&utm_medium=rmq_website&utm_campaign=tanzu#tanzu-rabbitmq">Get <strong>long term support</strong> and <strong>advanced enterprise features</strong></a></div>',
         backgroundColor: 'var(--ifm-color-primary-contrast-background)',
         textColor: 'var(--ifm-font-color-base)',
         isCloseable: true,
@@ -316,6 +317,23 @@ const config = {
       footer: {
         style: 'dark',
         links: [
+          {
+            title: 'Need Help?',
+            items: [
+              {
+                label: 'Community Support',
+                href: '/contact',
+              },
+              {
+                label: 'Long Term Support & Advanced Features',
+                href: '/contact?utm_source=rmq_footer&utm_medium=rmq_website&utm_campaign=tanzu#tanzu-rabbitmq',
+              },
+              {
+                label: 'Consulting & Training Partners',
+                href: '/contact#consulting',
+              },
+            ],
+          },
           {
             title: 'Learn about RabbitMQ',
             items: [
@@ -330,31 +348,6 @@ const config = {
               {
                 label: 'Blog',
                 to: '/blog',
-              },
-            ],
-          },
-          {
-            title: 'Reach out to the RabbitMQ team',
-            items: [
-              {
-                label: 'GitHub',
-                href: 'https://github.com/rabbitmq',
-              },
-              {
-                label: 'Mailing list',
-                href: 'https://groups.google.com/forum/#!forum/rabbitmq-users',
-              },
-              {
-                label: 'Discord',
-                href: 'https://www.rabbitmq.com/discord',
-              },
-              {
-                label: 'Slack',
-                href: 'https://www.rabbitmq.com/slack',
-              },
-              {
-                label: 'Contact us',
-                to: '/contact',
               },
             ],
           },
