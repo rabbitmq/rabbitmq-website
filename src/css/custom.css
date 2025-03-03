@@ -249,8 +249,8 @@ html[data-theme='dark'] .release-information {
     [version] var(--ri-version-col-width)
     [links] auto
     [reldate] 120px
-    [eos-community] 120px
-    [eos-commercial] 120px
+    [eos-community] 124px
+    [eos-commercial] 124px
     [end];
   grid-template-rows: auto;
 

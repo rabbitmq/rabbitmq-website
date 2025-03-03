@@ -350,12 +350,8 @@ const config = {
                 href: 'https://www.rabbitmq.com/discord',
               },
               {
-                label: 'Slack',
-                href: 'https://www.rabbitmq.com/slack',
-              },
-              {
-                label: 'Contact us',
-                to: '/contact',
+                label: 'Long Term Commercial Support',
+                href: '/contact?utm_source=rmq_footer&utm_medium=rmq_website&utm_campaign=tanzu#tanzu-rabbitmq',
               },
             ],
           },
