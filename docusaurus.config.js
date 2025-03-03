@@ -307,13 +307,22 @@ const config = {
           },
         ],
       },
+      // announcementBar: {
+      //   id: 'latest-announcement',
+      //   content: '<strong style="font-size: var(--ifm-h4-font-size);"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.7">RabbitMQ 4.0.7 is out</a></strong>',
+      //   backgroundColor: 'var(--ifm-color-primary-contrast-background)',
+      //   textColor: 'var(--ifm-font-color-base)',
+      //   isCloseable: true,
+      // },
+
       announcementBar: {
         id: 'latest-announcement',
-        content: '<strong style="font-size: var(--ifm-h4-font-size);"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.7">RabbitMQ 4.0.7 is out</a></strong>',
+        content: '<div style="font-size: var(--ifm-h4-font-size);"><a href="/contact?utm_source=rmq_topbar&utm_medium=rmq_website&utm_campaign=tanzu#tanzu-rabbitmq">Get <strong>long term support</strong> and <strong>advanced enterprise features</strong></a></div>',
         backgroundColor: 'var(--ifm-color-primary-contrast-background)',
         textColor: 'var(--ifm-font-color-base)',
         isCloseable: true,
       },
+
       footer: {
         style: 'dark',
         links: [
@@ -342,16 +351,20 @@ const config = {
                 href: 'https://github.com/rabbitmq',
               },
               {
-                label: 'Mailing list',
-                href: 'https://groups.google.com/forum/#!forum/rabbitmq-users',
+                label: 'GitHub Discussions',
+                href: 'https://github.com/rabbitmq/rabbitmq-server/discussions',
+              },
+              {
+                label: 'Long Term Commercial Support',
+                href: './contact?utm_source=rmq_footer&utm_medium=rmq_website&utm_campaign=tanzu#tanzu-rabbitmq',
+              },
+              {
+                label: 'Contact Us',
+                href: './contact',
               },
               {
                 label: 'Discord',
                 href: 'https://www.rabbitmq.com/discord',
-              },
-              {
-                label: 'Long Term Commercial Support',
-                href: '/contact?utm_source=rmq_footer&utm_medium=rmq_website&utm_campaign=tanzu#tanzu-rabbitmq',
               },
             ],
           },

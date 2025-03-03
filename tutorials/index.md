@@ -46,10 +46,8 @@ There are two groups of tutorials:
  * [RabbitMQ queues](#queue-tutorials)
  * [RabbitMQ streams](#stream-tutorials)
 
-:::note
-You can use these tutorials with any versions of RabbitMQ. That said, we
-recommend to familiarize yourself with the latest version!
-For the stream tutorials, you need to use RabbitMQ 3.9.0 or later.
+:::info
+This tutorials target RabbitMQ 4.x.
 :::
 
 
