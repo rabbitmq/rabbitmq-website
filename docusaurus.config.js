@@ -356,11 +356,11 @@ const config = {
               },
               {
                 label: 'Long Term Commercial Support',
-                href: './contact?utm_source=rmq_footer&utm_medium=rmq_website&utm_campaign=tanzu',
+                href: '/contact',
               },
               {
                 label: 'Contact Us',
-                href: './contact',
+                href: '/contact',
               },
               {
                 label: 'Discord',
