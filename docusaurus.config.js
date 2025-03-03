@@ -356,7 +356,7 @@ const config = {
               },
               {
                 label: 'Long Term Commercial Support',
-                href: '/contact',
+                href: '/contact?utm_source=rmq_release-information_tableheader&utm_medium=rmq_website&utm_campaign=tanzu',
               },
               {
                 label: 'Contact Us',
