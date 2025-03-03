@@ -107,6 +107,7 @@ export default function Support() {
             <Link className="button button--primary" to="mailto:contact-tanzu-data.pdl@broadcom.com">Email Us</Link>
           </div>
         </div>
+
         <div id="consulting" className={styles.partners}>
           <div className={styles.container}>
             <Heading as="h1">Consulting & Training Partners</Heading>
@@ -123,13 +124,12 @@ export default function Support() {
               <li>Training & Mentorship &mdash; Hands-on coaching and expert guidance</li>
             </ul>
             <p>
-              <Link to="https://acemq.com/mq-services/">Learn More</Link> |&nbsp;
+              <Link to="https://acemq.com/rabbitmq/">Learn More</Link> |&nbsp;
               <Link to="https://acemq.com/contact-us/">Get In Touch</Link>
             </p>
             <hr></hr>
             <Heading as="h2">coders51</Heading>
-            <p>At coders51, we provide end-to-end RabbitMQ solutions. As members and founding sponsors of the Erlang Ecosystem Foundation, our deep expertise in Erlang gives us thorough understanding of RabbitMQ's internals - a technology we consider essential for distributed systems. We support companies across the complete RabbitMQ lifecycle: from queue architecture design and resilient client implementation to cluster maintenance and incident management, ensuring optimal system reliability and performance.
-</p>
+            <p>At coders51, we provide end-to-end RabbitMQ solutions. As members and founding sponsors of the Erlang Ecosystem Foundation, our deep expertise in Erlang gives us thorough understanding of RabbitMQ's internals - a technology we consider essential for distributed systems. We support companies across the complete RabbitMQ lifecycle: from queue architecture design and resilient client implementation to cluster maintenance and incident management, ensuring optimal system reliability and performance.</p>
             <ul>
               <li>Based in Italy</li>
               <li>Design, develop and scale software platforms</li>
@@ -140,6 +140,34 @@ export default function Support() {
             <p>
               <Link to="https://www.coders51.com/">Learn More</Link> |&nbsp;
               <Link to="https://www.coders51.com/#contact-cta">Get In Touch</Link>
+            </p>
+            <hr></hr>
+            <Heading as="h2">Databorn</Heading>
+            <p>Databorn is a trusted Tanzu IT consulting partner and reseller, offering data-driven solutions for businesses across the banking, insurance, telco and retail sectors in the Middle East & Africa, Eastern Europe, and Central Asia. Our expertise extends to RabbitMQ, helping enterprises build reliable, scalable, and high-performance messaging architectures.</p>
+            <ul>
+              <li>Based in Dubai</li>
+              <li>Expert consulting on RabbitMQ design, deployment, and best practices</li>
+              <li>Seamless integration and support for optimized messaging workflows</li>
+              <li>Performance optimization to enhance throughput, reliability, and scalability</li>
+            </ul>
+            <p>
+              <Link to="https://databorn.ai/data">Learn More</Link> |&nbsp;
+              <Link to="https://databorn.ai/contact">Get In Touch</Link>
+            </p>
+            <hr></hr>
+            <Heading as="h2">evoila</Heading>
+            <p>Evoila is a leading consultancy specializing in RabbitMQ, both Open Source and Tanzu. With deep expertise in architecture, deployment, and operations, we help organizations design scalable, resilient, and high-performing messaging solutions. Our team provides hands-on support for complex integrations, performance tuning, and best practices for event-driven architectures. From initial setup to 24/7 managed services, we ensure your RabbitMQ environment runs efficiently and reliably. Our Services:</p>
+            <ul>
+              <li>Based in Germany</li>
+              <li>Architecture & Assessments</li>
+              <li>24/7 Managed Services</li>
+              <li>Deployments & Operations</li>
+              <li>Migrations & Upgrades</li>
+              <li>Performance Optimization</li>
+            </ul>
+            <p>
+              <Link to="https://evoila.com/de/loesungen/big-data/rabbitmq/">Learn More</Link> |&nbsp;
+              <Link to="https://evoila.com/de/loesungen/big-data/rabbitmq/#contact">Get In Touch</Link>
             </p>
             <hr></hr>
             <Heading as="h2">VLDB</Heading>
@@ -158,6 +186,7 @@ export default function Support() {
             </p>
           </div>
         </div>
+
       </main>
     </Layout>
   );
