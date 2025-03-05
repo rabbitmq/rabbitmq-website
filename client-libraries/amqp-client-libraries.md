@@ -135,8 +135,14 @@ import (
     rmq "github.com/rabbitmq/rabbitmq-amqp-go-client/pkg/rabbitmqamqp"
 )
 // ...
-// create the environment instance
-env := rmq.NewEnvironment([]string{"amqp://"}, nil)
+// create the environment instance for a single node
+env := rmq.NewEnvironment("amqp://guest:guest@localhost:5672/", nil)
+// in case you have multiple endpoints you can use the following:
+// clusterEnv := rmq.NewClusterEnvironment([]rmq.Endpoint{
+//      {Address: "amqp://server1", Options: &rmq.AmqpConnOptions{}},
+//      {Address: "amqp://server2", Options: &rmq.AmqpConnOptions{}},
+//     })
+
 // ...
 // close the connections
 env.CloseConnections(context.Background())
@@ -267,11 +273,11 @@ publisher.close()
 <TabItem value="Go" label="Go">
 
 ```Go title="Creating a publisher"
-// you can use ExchangeAddress and QueueAddress to publish directly to the queue
+// you can use ExchangeAddress and QueueAddress to publish to the queue
 publisher, err := amqpConnection.NewPublisher(context.Background(), &rmq.ExchangeAddress{
         Exchange: "foo",
         Key:      "bar",
-    }, "getting-started-publisher")
+    }, nil)
 
 // close the publisher when it is no longer necessary 
 publisher.close()
@@ -467,24 +473,24 @@ publisher = connection.publisher(queue_address)
 
 <TabItem value="Go" label="Go">
 
-```Go title="Creating publishers with different targets"
+```go title="Creating publishers with different targets"
 // publish to an exchange with a routing key
 publisher, err := connection.NewPublisher(context.Background(), &ExchangeAddress{
             Exchange: "foo",
             Key:      "bar",
-        }, "publisher-exchange-key")
+        }, nil)
 
 
 // publish to an exchange without a routing key
 publisher, err := connection.NewPublisher(context.Background(), &ExchangeAddress{
             Exchange: "foo",
-        }, "publisher-exchange")
+        }, nil)
     
 
 // publish to a queue
 publisher, err := connection.NewPublisher(context.Background(), &QueueAddress{
     Queue: "some-queue"}, 
-    "publisher-queue")
+    nil)
         
 ```
 
@@ -584,7 +590,7 @@ publisher = publisher.publish(message)
 ```Go title="Setting the target in messages"
 // // no target defined on publisher creation (nil)
 publisher, err := connection.NewPublisher(context.Background(), nil,
-                 "target-in-message")
+                 nil)
 
 // create message with an exchange with a routing key
 msg, err = NewMessageWithAddress([]byte("hello"), &ExchangeAddress{
@@ -1756,10 +1762,10 @@ await AmqpConnection.CreateAsync(
 
 ```go title=" "
     // to the BackOffReconnectInterval the client adds a random 500 ms 
-    connection, err := Dial(context.Background(), []string{"amqp://"}, &AmqpConnOptions{
-           ..
+    env := NewEnvironment("amqp://", &AmqpConnOptions{
             RecoveryConfiguration: &RecoveryConfiguration{
-                BackOffReconnectInterval: 2 * time.Second,
+                ActiveRecovery:           true,
+                BackOffReconnectInterval: 5 * time.Second,
                 MaxReconnectAttempts:     5,
             },
         })
@@ -1845,10 +1851,9 @@ await AmqpConnection.CreateAsync(
 <TabItem value="Go" label="Go">
 
 ```go title="Deactivating recovery"
-    connection, err := Dial(context.Background(), []string{"amqp://"}, &AmqpConnOptions{
-           ..
+     env := NewEnvironment("amqp://", &AmqpConnOptions{
             RecoveryConfiguration: &RecoveryConfiguration{
-                ActiveRecovery: false // deactivate topology recovery
+                ActiveRecovery:           false,
             },
         })
 ```
