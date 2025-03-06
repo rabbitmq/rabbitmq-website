@@ -33,7 +33,7 @@ the release notes of the target release.
 ## RabbitMQ Releases {#currently-supported}
 
 :::info[Long term support]
-Long term support is available to the users who [hold a valid commercial support license](/contact?utm_source=rmq_release-information_banner&utm_medium=rmq_website&utm_campaign=tanzu#tanzu-rabbitmq)
+Long term support is available to the users who [hold a valid commercial support license](/contact?utm_source=rmq_release-information_banner&utm_medium=rmq_website&utm_campaign=tanzu#tanzu-rabbitmq). Commercial  support lifecycle information can be found on the [Broadcom support portal](https://support.broadcom.com/web/ecx/productlifecycle).
 :::
 
 <RabbitMQServerReleaseInfoTable/>
