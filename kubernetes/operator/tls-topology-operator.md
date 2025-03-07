@@ -56,6 +56,4 @@ Any  communication the Pod performs with the RabbitmqCluster will be done over H
 
 * Messaging Topology Operator will not be able to manage RabbitmqClusters that have not mounted their CA as described above:
   such nodes won't accept client connections over HTTPS
-* Messaging Topology Operator will not attempt to connect to the RabbitmqCluster over HTTP if HTTPS is available (even if the
-certificate is not trusted)
 * RabbitmqClusters with TLS deactivated (that is nothing is configured under .spec.tls) will always be managed over HTTP
