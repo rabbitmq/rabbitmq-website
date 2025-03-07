@@ -7,12 +7,10 @@ authors: [alvaro]
 For a while people have looked for ways of implementing delayed
 messaging with RabbitMQ. So far the accepted solution was to use a mix
 of [message TTL](/docs/ttl#per-message-ttl-in-publishers) and
-[Dead Letter Exchanges](/docs/dlx) as proposed
-by James Carr
-[here](http://blog.james-carr.org/2012/03/30/rabbitmq-sending-a-message-to-be-consumed-later/). Since
-a while we have thought to offer an out-of-the-box solution for this,
-and these past month we had the time to implement it as a
-plugin. Enter
+[Dead Letter Exchanges](/docs/dlx) as implemented
+by NServiceBus
+[here](https://docs.particular.net/transports/rabbitmq/delayed-delivery). After considering an
+out-of-the-box solution for some time, we had the opportunity to implement it as a plugin. Enter
 [RabbitMQ Delayed Message Plugin](https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/).
 <!-- truncate -->
 
