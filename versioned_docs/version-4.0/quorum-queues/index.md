@@ -369,6 +369,12 @@ using an [optional queue argument](./queues#optional-arguments) at declaration t
 
 See [repeated requeues](#repeated-requeues) for more details.
 
+:::important
+
+Note that with `prefetch_count` > 1, if a consumer crashes due to a single "poison message" while other prefetched messages are not yet acknowledged, those other messages will also be redelivered and have their delivery counts incremented. This may force messages that could otherwise be processed normally (i.e. not "poison") to be dropped or dead-lettered.
+
+:::
+
 ### Configuring the Limit {#position-message-handling-configuring-limit}
 
 It is possible to set a delivery limit for a queue using a [policy](./parameters#policies) argument, `delivery-limit`.
