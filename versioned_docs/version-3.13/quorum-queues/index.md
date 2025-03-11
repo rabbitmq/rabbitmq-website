@@ -926,6 +926,10 @@ Quorum queues keep track of the number of unsuccessful (re)delivery attempts and
 When a message has been redelivered more times than the limit the message will be dropped (removed) or
 [dead-lettered](./dlx) (if a DLX is configured).
 
+For consumers with a [prefetch](./confirms#channel-qos-prefetch) greater than 1, all outstanding
+unacknowledged deliveries can be discarded by this mechanism if they all were requeued as a group multiple times,
+due to, say, consumer application instance failures.
+
 :::
 
 ### Configuring the Limit {#position-message-handling-configuring-limit}
