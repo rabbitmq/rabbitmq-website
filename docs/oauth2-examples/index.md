@@ -160,6 +160,11 @@ auth_oauth2.issuer = https://uaa:8443
 # ...
 ```
 
+:::tip 
+You only need to set `management.oauth_provider_url` when you have not configured
+`auth_oauth2.issuer` and/or they have different urls. 
+:::
+
 
 ### Identity-Provider initiated logon {#identity-provider-initiated-logon}
 
@@ -179,12 +184,15 @@ by submitting a form with their OAuth token in the `access_token` form field as 
 
 ```plain
     [ Idp | WebPortal ] ----> 2. /login [access_token: TOKEN]----   [ RabbitMQ Cluster ]
-              /|\                                                        |       /|\
-               |                                                         +--------+
-      1. rabbit_admin from a browser                                   3. validate token
+              /|\                                                               |
+               |                                                                |
+     1. rabbit_admin from a browser <-----3. 302 redirect to RabbitMQ w/cookie--+
+                                  
 ```
 
-If the access token is valid, RabbitMQ redirects the user to the **Overview** page.
+If the access token is valid, RabbitMQ redirects the user to the **Overview** page with 
+a cookie which carries the validated token. When RabbitMQ delivers the **Overview** page, 
+it clears the cookie.  
 
 By default, the RabbitMQ Management UI is configured with **service-provider initiated logon**, to configure **Identity-Provider initiated logon**, the following configuration entries are required in `rabbitmq.conf`:
 
@@ -196,10 +204,17 @@ management.oauth_provider_url = http://localhost:8080
 # ...
 ```
 
+:::tip 
+You only need to set `management.oauth_provider_url` when you have not configured
+`auth_oauth2.issuer` and/or they have different urls. 
+:::
+
 **Important**: when the user logs out, or its RabbitMQ session expires, or the token expires, the user is directed to the
 RabbitMQ Management landing page which has a **Click here to login** button.
 The user is never automatically redirected back to the url configured in the `auth_oauth2.issuer`.
 It is only when the user clicks **Click here to login** , the user is redirected to the configured url in `auth_oauth2.issuer`.
+
+This scenario is demonstrated [here](./oauth2-examples-idp-initiated).
 
 ## Using JWT tokens in several protocols to access RabbitMQ {#access-other-protocols}
 
