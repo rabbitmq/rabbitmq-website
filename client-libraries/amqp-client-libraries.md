@@ -823,16 +823,13 @@ class MyMessageHandler(AMQPMessagingHandler):
         self.delivery_context.accept(event)
         # deal with the message
 
-stream_options = StreamOptions()
-# can be first, last, next or an offset long
-# you can also specify stream filters with methods: apply_filters and filter_match_unfiltered
-stream_options.offset(OffsetSpecification.first)
-
 stream_address = AddressHelper.queue_address("some-stream")
 consumer = consumer_connection.consumer(
     stream_address,
     message_handler=MyMessageHandler(),
-    stream_filter_options=stream_filter_options,
+    # can be first, last, next or an offset long
+    # you can also specify stream filters with methods: apply_filters and filter_match_unfiltered
+    stream_filter_options=StreamOptions(offset_specification=OffsetSpecification.first),
 )
 ```
 
@@ -899,15 +896,11 @@ class MyMessageHandler(AMQPMessagingHandler):
         self.delivery_context.accept(event)
         # deal with the message
 
-
-stream_filter_options = StreamOptions()
-stream_filter_options.filter_values(["invoices", "order"])
-stream_filter_options.filter_match_unfiltered(True)
 stream_address = AddressHelper.queue_address("some-stream")
 consumer = consumer_connection.consumer(
     stream_address,
     message_handler=MyMessageHandler(),
-    stream_filter_options=stream_filter_options,
+    stream_filter_options=StreamOptions(stream_filters=["invoices", "order"], match_unfiltered=True),
 )
 ```
 
@@ -1758,6 +1751,16 @@ await AmqpConnection.CreateAsync(
 
 </TabItem>
 
+<TabItem value="Python" label="Python">
+
+```python title=" "
+    environment = Environment(
+        "amqp://guest:guest@localhost:5672/",
+        recovery_configuration=RecoveryConfiguration(back_off_reconnect_interval=timedelta(seconds=2)),
+    )
+```
+</TabItem>
+
 <TabItem value="Go" label="Go">
 
 ```go title=" "
@@ -1809,6 +1812,14 @@ await AmqpConnection.CreateAsync(
 
 </TabItem>
 
+<TabItem value="Python" label="Python">
+
+```python title=" "
+     # CURRENTLY NOT IMPLEMENTED
+```
+
+</TabItem>
+
 <TabItem value="Go" label="Go">
 
 ```go title=" "
@@ -1847,6 +1858,16 @@ await AmqpConnection.CreateAsync(
 
 </TabItem>
 
+<TabItem value="Python" label="Python">
+
+```python title=" "
+    environment = Environment(
+        "amqp://guest:guest@localhost:5672/",
+        recovery_configuration=RecoveryConfiguration(active_recovery=False),
+    )
+```
+</TabItem>
+
 
 <TabItem value="Go" label="Go">
 
@@ -1862,6 +1883,3 @@ await AmqpConnection.CreateAsync(
 
 
 </Tabs>
-
-In Python automatic reconnection is not supported at the moment, but the client notify when a disconnection happens so that the user can reconnect.
-Follow this example: [Python-disconnection](https://github.com/rabbitmq/rabbitmq-amqp-python-client/blob/main/examples/reconnection/reconnection_example.py)
