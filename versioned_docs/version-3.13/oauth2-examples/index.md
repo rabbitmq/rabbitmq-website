@@ -156,9 +156,9 @@ management.oauth_provider_url = https://uaa:8443
 # ...
 ```
 
-:::tip 
+:::tip
 You only need to set `management.oauth_provider_url` when you have not configured
-`auth_oauth2.issuer` and/or they have different urls. 
+`auth_oauth2.issuer` and/or they have different URLs.
 :::
 
 ### Identity-Provider initiated logon {#identity-provider-initiated-logon}
@@ -182,12 +182,12 @@ by submitting a form with their OAuth token in the `access_token` form field as 
               /|\                                                               |
                |                                                                |
      1. rabbit_admin from a browser <-----3. 302 redirect to RabbitMQ w/cookie--+
-                                  
+
 ```
 
-If the access token is valid, RabbitMQ redirects the user to the **Overview** page with 
-a cookie which carries the validated token. When RabbitMQ delivers the **Overview** page, 
-it clears the cookie.  
+If the access token is valid, RabbitMQ redirects the user to the **Overview** page with
+a cookie that carries the validated token. When RabbitMQ delivers the **Overview** page,
+it clears the cookie.
 
 By default, the RabbitMQ Management UI is configured with **service-provider initiated logon**, to configure **Identity-Provider initiated logon**, the following configuration entries are required in `rabbitmq.conf`:
 
@@ -199,9 +199,9 @@ management.oauth_provider_url = http://localhost:8080
 # ...
 ```
 
-:::tip 
+:::tip
 You only need to set `management.oauth_provider_url` when you have not configured
-`auth_oauth2.issuer` and/or they have different urls. 
+`auth_oauth2.issuer` and/or they have different URLs.
 :::
 
 **Important**: when the user logs out, or its RabbitMQ session expires, or the token expires, the user is directed to the
