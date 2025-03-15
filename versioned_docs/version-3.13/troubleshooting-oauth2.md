@@ -25,6 +25,40 @@ limitations under the License.
 
 This guide covers the most common errors encountered using [OAuth 2.0](./oauth2) and the [management plugin](./management) and how to diagnose them.
 
+## Troubleshooting Client Connections
+
+### Maximum JWT Token Length Limit
+
+#### Steps to reproduce
+
+A client can run into a maximum messaging protocol frame limit when connecting
+a node that is configured to use JWT tokens for authentication and authorization.
+
+#### Troubleshooting
+
+Depending on the encoded content, JWT tokens can vary greatly in length.
+Messaging protocols supported by RabbitMQ have practical limits on the length of
+the password (secret) field.
+
+If a longer token is provided by a client, the connection will be refused with
+a "frame length exceeded", "frame is too large" and similar error messages
+in [server logs](./logging).
+
+For example, in the case of AMQP 0-9-1 it would look like this:
+
+```
+2025-03-15 05:55:21.689185+00:00 [info] <0.2771.0> accepting AMQP connection <0.2771.0> (10.8.121.164:45024 -> 10.8.121.141:5672)
+2025-03-15 05:55:24.745906+00:00 [error] <0.2771.0> closing AMQP connection <0.2771.0> (10.8.121.164:45024 -> 10.8.121.141:5672):
+2025-03-15 05:55:24.745906+00:00 [error] <0.2771.0> {handshake_error,starting,0,
+2025-03-15 05:55:24.745906+00:00 [error] <0.2771.0>                  {amqp_error,frame_error,
+2025-03-15 05:55:24.745906+00:00 [error] <0.2771.0>                              "type 1, all octets = <<>>: {frame_too_large,6307,4088}",
+2025-03-15 05:55:24.745906+00:00 [error] <0.2771.0>                              none}}
+```
+
+The solution is to reduce the token content size, for example, by dropping certain scopes
+that are not used by RabbitMQ or optimizing (simplifying) them.
+
+
 ## Troubleshooting OAuth 2 in the management UI {#management-ui}
 
 ### OpenId Discovery endpoint not reachable {#openid-discovery-endpoint-not-reachable-error}
