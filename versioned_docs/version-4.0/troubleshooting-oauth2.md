@@ -31,7 +31,7 @@ This guide covers the most common errors encountered using [OAuth 2.0](./oauth2)
 
 #### Steps to reproduce
 
-A client can run into a maximum messaging protocol frame limit when connecting
+A client can run into a maximum messaging protocol frame limit exception when connecting
 a node that is configured to use JWT tokens for authentication and authorization.
 
 #### Troubleshooting
