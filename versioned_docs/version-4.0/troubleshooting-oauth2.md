@@ -37,10 +37,14 @@ a node that is configured to use JWT tokens for authentication and authorization
 #### Troubleshooting
 
 Depending on the encoded content, JWT tokens can vary greatly in length.
-Messaging protocols supported by RabbitMQ have practical limits on the length of
-the password (secret) field.
+Messaging protocols supported by RabbitMQ have practical limits on the maximum
+frame length.
 
-If a longer token is provided by a client, the connection will be refused with
+The default is usually much higher than a practically possible JWT token length,
+for example, for AMQP 0-9-1 and the [RabbitMQ Stream Protocol](./stream) the default
+is 128 kB. However, the maximum frame limit can be overriden [via `rabbitmq.conf`](./configure) and via client library configuration.
+
+If a long token is provided by a client and a lower limit is configured, the connection will be refused with
 a "frame length exceeded", "frame is too large" and similar error messages
 in [server logs](./logging).
 
