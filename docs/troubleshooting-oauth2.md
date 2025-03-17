@@ -59,8 +59,34 @@ For example, in the case of AMQP 0-9-1 it would look like this:
 2025-03-15 05:55:24.745906+00:00 [error] <0.2771.0>                              none}}
 ```
 
-The solution is to reduce the token content size, for example, by dropping certain scopes
-that are not used by RabbitMQ or optimizing (simplifying) them.
+There are two solutions available:
+
+1. Increase the `initial_frame_max` value in `rabbitmq.conf`, or `rabbit.initial_frame_max` in `advanced.config`
+2. Reduce the token content size, for example, by dropping certain scopes that are not used by RabbitMQ or optimizing (simplifying) them
+
+#### Increase the Initial Frame Size Limit
+
+The following `rabbitmq.conf` example increases the initial frame size limit to 8192 bytes (from the default of 4096 bytes):
+
+```ini
+initial_frame_max = 8192
+```
+
+the same example using `advanced.config`:
+
+```erl
+[
+  {rabbit, [
+    {initial_frame_max, 8192}
+  ]}
+].
+```
+
+#### Reduce the JWT Token Payload Size
+
+JWT token size can often be reduced by dropping certain scopes that are not used by RabbitMQ.
+Alternatively, a new JWT token can be generated with a more narrow set of scopes
+and thus a smaller size.
 
 
 ## Troubleshooting OAuth 2 in the management UI {#management-ui}

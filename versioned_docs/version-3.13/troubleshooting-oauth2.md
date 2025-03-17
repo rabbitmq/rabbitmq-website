@@ -59,8 +59,12 @@ For example, in the case of AMQP 0-9-1 it would look like this:
 2025-03-15 05:55:24.745906+00:00 [error] <0.2771.0>                              none}}
 ```
 
-The solution is to reduce the token content size, for example, by dropping certain scopes
-that are not used by RabbitMQ or optimizing (simplifying) them.
+The only solution available in the 3.13.x series is to reduce size of JWT token,
+or [upgrade](./upgrade) to a newer version.
+
+JWT token size can often be reduced by dropping certain scopes that are not used by RabbitMQ.
+Alternatively, a new JWT token can be generated with a more narrow set of scopes
+and thus a smaller size.
 
 
 ## Troubleshooting OAuth 2 in the management UI {#management-ui}
