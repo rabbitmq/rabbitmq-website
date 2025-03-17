@@ -319,11 +319,11 @@ allows the RabbitMQ server and plugins to be configured.
 The file uses the [sysctl format](https://github.com/basho/cuttlefish/wiki/Cuttlefish-for-Application-Users),
 unlike `advanced.config` and the original `rabbitmq.config` (both use the Erlang terms format).
 
-The syntax can be briefly explained in 3 lines:
+The syntax can be briefly explained like so:
 
  * One setting uses one line
  * Lines are structured `Key = Value`
- * Any line starting with a `#` character is a comment
+ * Any content starting with a `#` character is a comment
  * Values that contain the `#` character, such as generated strings, generated passwords, encrypted values,
    and so on, can be escaped with single quotes like so: `'efd3!53a9@92#a08_d_6d'`
 
@@ -348,6 +348,27 @@ The above example is equivalent to the following [classic config format](#config
 
 This example will alter the [port RabbitMQ listens on](./networking#ports) for
 AMQP 0-9-1 and AMQP 1.0 client connections from 5672 to 5673.
+
+A minimalistic example that uses value escaping:
+
+```ini
+# this is a comment
+default_user = '40696e180b610ed9'
+default_pass = 'efd3!53a9@_2#a08'
+```
+
+which is equivalent to the following [classic config format](#config-file-formats):
+
+```erlang
+%% this is a comment
+[
+  {rabbit, [
+      {default_user, <<"40696e180b610ed9">>},
+      {default_pass, <<"efd3!53a9@_2#a08">>}
+    ]
+  }
+].
+```
 
 The RabbitMQ server source repository contains [an example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v4.0.x/deps/rabbit/docs/rabbitmq.conf.example)
 named `rabbitmq.conf.example`. It contains examples of
