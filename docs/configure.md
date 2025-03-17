@@ -319,7 +319,7 @@ allows the RabbitMQ server and plugins to be configured.
 The file uses the [sysctl format](https://github.com/basho/cuttlefish/wiki/Cuttlefish-for-Application-Users),
 unlike `advanced.config` and the original `rabbitmq.config` (both use the Erlang terms format).
 
-The syntax can be briefly explained in 3 lines:
+The syntax can be briefly explained in 4 lines:
 
  * One setting uses one line
  * Lines are structured `Key = Value`
