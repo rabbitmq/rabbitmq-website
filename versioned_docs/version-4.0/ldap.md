@@ -918,7 +918,7 @@ about. Example:
 ```erlang
 [
   {group_lookup_base, "ou=groups,dc=example,dc=com"},
-  {vhost_access_query, {in_group_nested, "cn=${vhost}-groups,ou=groups,dc=example,dc=com"}, "member", single_level}
+  {vhost_access_query, {in_group_nested, "cn=${vhost}-groups,ou=groups,dc=example,dc=com", "member", single_level}}
 ]
 ```
 
