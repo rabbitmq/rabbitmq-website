@@ -280,6 +280,10 @@ Here are the essential configuration settings related to TLS:
     <td>Server private key file path</td>
   </tr>
   <tr>
+    <td><code>ssl_options.password</code></td>
+    <td>Password for private key file</td>
+  </tr>
+  <tr>
     <td><code>ssl_options.verify</code></td>
     <td>Should <a href="#peer-verification">peer verification</a> be enabled?</td>
   </tr>
@@ -305,6 +309,9 @@ ssl_options.certfile   = /path/to/server_certificate.pem
 ssl_options.keyfile    = /path/to/server_key.pem
 ssl_options.verify     = verify_peer
 ssl_options.fail_if_no_peer_cert = true
+
+# If the private key file is password protected, set this value:
+# ssl_options.password = PASSWORD
 ```
 
 This configuration will also perform [peer certificate chain verification](#peer-verification)
