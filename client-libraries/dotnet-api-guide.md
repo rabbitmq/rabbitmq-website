@@ -429,7 +429,8 @@ follows:
 
 ```csharp
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
-await channel.BasicPublishAsync(exchangeName, routingKey, false, null, messageBodyBytes);
+var props = new BasicProperties();
+await channel.BasicPublishAsync(exchangeName, routingKey, false, props, messageBodyBytes);
 ```
 
 For fine control, you can use overloaded variants to specify the
