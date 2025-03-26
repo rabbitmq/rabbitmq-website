@@ -88,7 +88,7 @@ Topic exchanges use pattern matching of the [message's routing key](./publishers
 to the routing (binding) key pattern used at binding time.
 
 For the purpose of routing, the keys are separated into segments by `.`. Some segments are populated by specific values,
-while others are populated by wildcards: `*` for exactly one segment and `#` for zero or more (including multiple) srgments
+while others are populated by wildcards: `*` for exactly one segment and `#` for zero or more (including multiple) segments
 
 For example,
 
