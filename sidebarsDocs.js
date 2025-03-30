@@ -154,7 +154,7 @@ const sidebars = {
             {
               type: 'doc',
               id: 'exchanges',
-              label: 'Exchange and Exchange Types',
+              label: 'Exchanges',
             },
             {
               type: 'doc',
