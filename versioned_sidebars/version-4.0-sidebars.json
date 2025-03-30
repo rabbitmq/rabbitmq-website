@@ -150,6 +150,11 @@
           "items": [
             {
               "type": "doc",
+              "id": "exchanges",
+              "label": "Exchange"
+            },
+            {
+              "type": "doc",
               "id": "direct-reply-to",
               "label": "Direct reply-to"
             },
@@ -171,7 +176,7 @@
             {
               "type": "doc",
               "id": "ae",
-              "label": "Alternative Exchanges"
+              "label": "Alternate Exchanges"
             },
             {
               "type": "doc",
@@ -184,6 +189,11 @@
               "label": "Validated User ID"
             }
           ]
+        },
+        {
+          "type": "doc",
+          "id": "exchanges",
+          "label": "Exchanges"
         },
         {
           "type": "category",
