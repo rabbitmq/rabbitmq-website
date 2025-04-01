@@ -189,6 +189,18 @@ outside of the shovel as the protocol does not include topology
 creation.
 
 
+## Shovel Connection Endpoints
+
+Shovels use URIs to connect to both source and destination.
+
+For AMQP 0-9-1, the URI format follows the [RabbitMQ URI specification](./uri-spec).
+
+For AMQP 1.0, the format is slightly different, specifically the part that specifies
+what virtual host to connect to (assuming the target AMQP 1.0 broker is RabbitMQ, and thus has such a concept).
+
+See the [dynamic AMQP 1.0 Shovel reference](./shovel-dynamic#amqp10-reference) to learn more.
+
+
 ## Authentication and authorisation for Shovels {#authn-authz-for-shovels}
 
 The plugin uses [Erlang AMQP 0-9-1](/client-libraries/erlang-client-user-guide) and [Erlang AMQP 1.0](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_amqp_client)

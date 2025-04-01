@@ -577,9 +577,15 @@ counterparts.
           <dd>heartbeat interval</dd>
           <dt><code>hostname</code></dt>
           <dd>
-            The name of the target host. Certain vendors (such as Azure ServiceBus)
-            require this to be set even if it is the same as the host segment
-            in the uri.
+            This field indicates the  connection target. What exactly that means depends on the target AMQP 1.0 broker.
+            <p>
+              For example, Azure ServiceBus requires this to be set even if it is the same as the host segment
+              in the URI.
+            </p>
+            <p>
+              In the case of RabbitMQ, this field can be used to specify the target [virtual host](./vhosts) in case it is different from the default one.
+              To do so, set this query parameter to `vhost:{name}`, e.g. `vhost:example-vhost`.
+            </p>
           </dd>
           <dt><code>sasl</code></dt>
           <dd>
