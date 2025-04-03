@@ -54,10 +54,10 @@ on behalf of the consumer.
 > languages](/client-libraries/devtools). We'll
 > use the [Bunny](http://rubybunny.info), the most popular Ruby client, in this tutorial.
 >
-> First, install Bunny using [Rubygems](http://rubygems.org):
+> First, install Bunny using [Rubygems](http://rubygems.org). Note that Bunny 3.1.0 requires Ruby 3.1.0 or later:
 >
 > ```bash
-> gem install bunny --version ">= 2.13.0"
+> gem install bunny --version ">= 3.1.0"
 > ```
 
 Now we have Bunny installed, we can write some
