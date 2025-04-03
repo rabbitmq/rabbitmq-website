@@ -129,31 +129,7 @@ There's also [an online API reference](https://rabbitmq.github.io/rabbitmq-dotne
 
 ## Binary Downloads {#binary-builds}
 
-Modern versions of this library (e.g. `6.x`) are distributed as a [NuGet package](https://www.nuget.org/packages/RabbitMQ.Client).
-
-<table>
-  <thead>
-    <td><strong>Description</strong></td>
-    <td><strong>Download</strong></td>
-  </thead>
-
-  <tr>
-    <td class="desc">6.x NuGet package</td>
-    <td><a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ.Client NuGet package</a></td>
-  </tr>
-  <tr>
-    <td class="desc">5.x NuGet package</td>
-    <td><a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ.Client NuGet package</a></td>
-  </tr>
-  <tr>
-    <td class="desc">4.x NuGet package</td>
-    <td><a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ.Client NuGet package</a></td>
-  </tr>
-  <tr>
-    <td class="desc">3.x NuGet package</td>
-    <td><a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ.Client NuGet package</a></td>
-  </tr>
-</table>
+Modern versions of this library (e.g. `7.x`) are distributed as a [NuGet package](https://www.nuget.org/packages/RabbitMQ.Client).
 
 
 ## Source Repository on GitHub {#source-repository}
