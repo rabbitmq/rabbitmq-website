@@ -137,8 +137,9 @@ In this case the messages with a pending acknowledgement on the channel will be 
 following the channel closure.
 
 This scenario usually applies to workloads with short lived channels. Using long lived channels and
-designing consumers in a way that they can handle redeliveries potential surprises may be
-associated with this edge case behavior. Note that redelivered messages will be [explicitly marked as such](./consumers#message-properties).
+designing consumers in a way that they can handle redeliveries will mitigate the above behavior.
+Long lived channels are usually associated with better performance, as well. Note that redelivered
+messages will be [explicitly marked as such](./consumers#message-properties).
 
 
 ### Channels and Error Handling {#error-handling}
