@@ -18,6 +18,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Dead Letter Exchanges
 
 ## What is a Dead Letter Exchange {#overview}
@@ -35,48 +38,161 @@ If an entire [queue expires](./ttl#queue-ttl), the messages in the queue are **n
 Dead letter exchanges (DLXs) are normal exchanges. They can be
 any of the usual types and are declared as normal.
 
-For any given queue, a DLX can be defined by clients using the
-[queue's arguments](./queues#optional-arguments), or in the server
-using [policies](./parameters#policies). In the
-case where both policy and arguments specify a DLX, the one
+## How Dead Lettering is Configured
+
+For any given queue, a DLX can be defined by clients using [policies](./parameters#policies). There
+are several DLX-related policy keys, including some [only supported by quorum queues](./quorum-queues#d) but the two key ones are
+
+ * `dead-letter-exchange`: The name of the DLX to use
+ * `dead-letter-routing-key`: The routing key to use when dead-lettering messages
+
+:::important
+
+Policy keys also can be set by applications at queue declaration time via the [optional arguments](./queues#optional-arguments).
+
+Hardcoded `x-arguments` are strongly recommended against since they
+[cannot be updated without redeploying applications](./queues#optional-arguments),
+while policies can be updated at any moment.
+
+:::
+
+In the case where both policy and arguments specify a DLX, the one
 specified in arguments overrules the one specified in policy.
 
-Configuration using policies is recommended as it allows for DLX
-reconfiguration that does not involve application redeployment.
+In addition to the target DLX name, a routing key to use when the messages are being
+dead-lettered.  If the routing key is not set, the
+message's own routing keys are used.
 
-## Configuring a Dead Letter Exchange using a Policy {#using-policies}
+When a dead letter exchange is specified, in addition to
+the usual configure permissions on the declared queue, the user
+must have read permissions on that queue and write
+permissions on the dead letter exchange. Permissions are
+verified at the time the queue is declared.
+
+
+### Configuring a Dead Letter Exchange using a Policy {#using-policies}
 
 To specify a DLX using policy, add the key "dead-letter-exchange"
-to a policy definition. For example:
+to a policy definition:
 
-<table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
 ```bash
-rabbitmqctl set_policy DLX ".*" '{"dead-letter-exchange":"my-dlx"}' --apply-to queues
+rabbitmqctl set_policy DLX ".*" '{"dead-letter-exchange":"my-dlx"}' --apply-to queues --priority 7
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>rabbitmqctl (Windows)</th>
-    <td>
-```PowerShell
-rabbitmqctl set_policy DLX ".*" "{""dead-letter-exchange"":""my-dlx""}" --apply-to queues
-```
-    </td>
-  </tr>
-</table>
+</TabItem>
 
-The previous policy applies the DLX "my-dlx" to all queues. This is an example only, in practice, different sets of queues usually use different dead lettering settings (or none at all).
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl set_policy DLX ".*" "{""dead-letter-exchange"":""my-dlx""}" --apply-to queues --priority 7
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+```bash
+rabbitmqadmin policies declare --name=DLX --pattern=".*" --definition='{"dead-letter-exchange":"my-dlx"}' --apply-to=queues --priority=7
+```
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
+PUT /api/policies/%2f/DLX
+    {"pattern": ".*",
+     "definition": {"dead-letter-exchange":"my-dlx"},
+     "priority": 7,
+     "apply-to": "queues"}
+```
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+<ol>
+  <li>
+    Navigate to `Admin` > `Policies` > `Add / update a
+    policy`.
+  </li>
+  <li>
+    Enter a policy name (such as "DLX") next to Name, a pattern (in this example, ".*") next to
+    Pattern, and select what kind of entities (all queues in this example) the policy should apply to using the `Apply to`
+    drop down.
+  </li>
+  <li>
+    Enter "dead-letter-exchange" for the key and "my-dlx" for its value in the first line next to
+    `Policy`.
+  </li>
+  <li>
+    Click `Add policy`.
+  </li>
+</ol>
+</TabItem>
+</Tabs>
+
+The previous example declares a policy called "DLX" that applies to all queues (regardless of the type) and configures
+an exchange named "my-dlx" as the dead lettering targets. This is just an example, in practice
+it is common to see multiple policies that apply to a subset of queues each.
 
 Similarly, an explicit routing key can be specified by adding
-the key "dead-letter-routing-key" to the policy.
+the key "dead-letter-routing-key" to the policy:
 
-Policies can also be defined using the management plugin, see
-the [policy documentation](./parameters#policies) for more details.
+<Tabs groupId="shell-specific">
+<TabItem value="bash" label="bash" default>
+```bash
+rabbitmqctl set_policy DLX ".*" '{"dead-letter-exchange":"my-dlx", "dead-letter-routing-key":"my-routing-key"}' --apply-to queues --priority 7
+```
+</TabItem>
 
-## Configuring a Dead Letter Exchange using Optional Queue Arguments {#using-optional-queue-arguments}
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl set_policy DLX ".*" "{""dead-letter-exchange"":""my-dlx"", ""dead-letter-routing-key"":""my-routing-key""}" --apply-to queues --priority 7
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+```bash
+rabbitmqadmin policies declare --name=DLX --pattern=".*" --definition='{"dead-letter-exchange":"my-dlx", "dead-letter-routing-key":"my-routing-key"}' --apply-to=queues --priority=7
+```
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
+PUT /api/policies/%2f/DLX
+    {"pattern": ".*",
+     "definition": {"dead-letter-exchange":"my-dlx"},
+     "priority": 7,
+     "apply-to": "queues"}
+```
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+<ol>
+  <li>
+    Navigate to `Admin` > `Policies` > `Add / update a
+    policy`.
+  </li>
+  <li>
+    Enter a policy name (such as "DLX") next to Name, a pattern (in this example, ".*") next to
+    Pattern, and select what kind of entities (all queues in this example) the policy should apply to using the `Apply to`
+    drop down.
+  </li>
+  <li>
+    Enter "dead-letter-exchange" for the key and "my-dlx" for its value in the first line next to
+    `Policy`.
+  </li>
+  <li>
+    Click `Add policy`.
+  </li>
+</ol>
+</TabItem>
+</Tabs>
+
+### Configuring a Dead Letter Exchange using Optional Queue Arguments {#using-optional-queue-arguments}
+
+:::warning
+
+Hardcoded `x-arguments` are strongly recommended against since they
+[cannot be updated without redeploying applications and deleting the queue before it can be redeclared](./queues#optional-arguments),
+while policies can be updated at any moment.
+
+:::
 
 To set the DLX for a queue, specify
 the optional `x-dead-letter-exchange` argument when
@@ -86,12 +202,13 @@ the same virtual host:
 ```java
 channel.exchangeDeclare("some.exchange.name", "direct");
 
+// Important: prefer using policies over hardcoded x-arguments
 Map<String, Object> args = new HashMap<String, Object>();
 args.put("x-dead-letter-exchange", "some.exchange.name");
 channel.queueDeclare("myqueue", false, false, false, args);
 ```
 
-The previous code declares a new exchange called
+The above code declares a new exchange called
 `some.exchange.name` and sets this new exchange
 as the dead letter exchange for a newly created queue.
 Note, the exchange does not have to be declared when
@@ -99,13 +216,17 @@ the queue is declared but it should exist by the time
 messages need to be dead-lettered. If it is missing then,
 the messages are silently dropped.
 
-You may also specify a routing key to use when the messages are being
-dead-lettered.  If the routing key is not set, the
+In addition to the target DLX name, a routing key to use when the messages are being
+dead-lettered. If the routing key is not set, the
 message's own routing keys are used.
 
 ```java
+// Important: prefer using policies over hardcoded x-arguments.
+Map<String, Object> args = new HashMap<String, Object>();
+args.put("x-dead-letter-exchange", "some.exchange.name");
 args.put("x-dead-letter-routing-key", "some-routing-key");
 ```
+
 
 When a dead letter exchange is specified, in addition to
 the usual configure permissions on the declared queue, the user

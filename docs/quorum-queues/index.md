@@ -64,6 +64,7 @@ Topics covered in this document include:
  * [Replication](#replication)-related topics: [replica management](#replica-management), [replica leader rebalancing](#replica-rebalancing), optimal number of replicas, etc
  * What guarantees quorum queues offer in terms of [leader failure handling](#leader-election), [data safety](#data-safety) and [availability](#availability)
  * Continuous [Membership Reconciliation](#replica-reconciliation)
+ * The additional [dead lettering](#dead-lettering) features supported by quorum queues
  * [Memory and disk footprint](#resource-use) of quorum queues
  * [Performance](#performance) characteristics of quorum queues
  * [Performance tuning](#performance-tuning), both for workloads with [small messages](#performance-tuning-small-messages) and [large messages](#performance-tuning-large-messages)
@@ -201,13 +202,13 @@ of messages as there may be messages in flight whilst the channels are notified.
 The number of additional messages that are accepted by the queue will vary depending
 on how many messages are in flight at the time.
 
-### Dead Lettering {#dead-lettering}
+#### Dead Lettering {#dead-lettering}
 
-Quorum queues support [dead letter exchanges](./dlx) (DLXs).
+Quorum queues support [dead lettering via dead letter exchanges](./dlx) (DLXs).
 
 Traditionally, using DLXs in a clustered environment has not been [safe](./dlx#safety).
 
-Since RabbitMQ 3.10 quorum queues support a safer form of dead-lettering that uses
+Quorum queues support a safer form of dead-lettering that uses
 `at-least-once` guarantees for the message transfer between queues
 (with the limitations and caveats outlined below).
 
@@ -226,16 +227,15 @@ where the dead lettered messages are more of an informational nature and where i
 if they are lost in transit between queues or when the overflow
 configuration restriction outlined below is not suitable.
 
-#### Activating at-least-once dead-lettering
+##### Activating at-least-once Dead-Lettering
 
-To activate or turn on `at-least-once` dead-lettering for a source quorum queue, apply all of the following policies
-(or the equivalent queue arguments starting with `x-`):
+To activate or turn on `at-least-once` dead-lettering for a source quorum queue, adapt the [policy
+that enables dead lettering](./dlx/) like so:
 
 * Set `dead-letter-strategy` to `at-least-once` (default is `at-most-once`).
 * Set `overflow` to `reject-publish` (default is `drop-head`).
-* Configure a `dead-letter-exchange`.
-* Turn on [feature flag](./feature-flags) `stream_queue` (turned on by default
-for RabbitMQ clusters created in 3.9 or later).
+* Configure a `dead-letter-exchange`
+* Enable the `stream_queue` [feature flag](./feature-flags) in case it is not enabled
 
 It is recommended to additionally configure `max-length` or `max-length-bytes`
 to prevent excessive message buildup in the source quorum queue (see caveats below).
