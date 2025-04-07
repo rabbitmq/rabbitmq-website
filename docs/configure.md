@@ -833,7 +833,7 @@ vm_memory_high_watermark.relative = 0.6
       <p>
         Default:
 ```ini
-vm_memory_calculation_strategy = allocated
+vm_memory_calculation_strategy = rss
 ```
       </p>
     </td>
