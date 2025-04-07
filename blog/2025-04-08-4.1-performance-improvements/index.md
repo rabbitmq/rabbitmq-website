@@ -37,7 +37,7 @@ for many different workloads, but for completeness, here they are:
 - all messages were 1kb in size
 - each queue received 500 messages per second from a single publisher (so 5000 messages per second total for all queues)
 - each queue had a single consumer (a vast majority of messages was consumed within 10 milliseconds since being published)
-- the queues were effectively empty, since all messages were prompts consumed
+- the queues were effectively empty, since all messages were promptly consumed
 
 It's worth remembering that such a low and stable memory usage cannot be expected
 in all conditions. For example, [quorum queues keep metadata about messages in the queue in memory](https://www.rabbitmq.com/blog/2025/01/17/how-are-the-messages-stored#message-metadata)
