@@ -32,7 +32,7 @@ version-specific notes and [ways of provisioning](#erlang-repositories) recent E
 
 RabbitMQ supports up to [two most recent Erlang release series](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ).
 
-At the moment they are Erlang `26.x` and `25.x`.
+At the moment they are Erlang `27.x` and `26.x`.
 
 ### Erlang 27 Support
 
@@ -57,6 +57,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>4.0.8</li>
         <li>4.0.7</li>
         <li>4.0.6</li>
         <li>4.0.5</li>
@@ -70,7 +71,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>27.x</li>
+        <li>27.3.x</li>
       </ul>
     </td>
         <td>

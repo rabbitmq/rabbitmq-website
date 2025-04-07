@@ -51,6 +51,7 @@ const config = {
         },
         '4.0': {
           releases: [
+            {version: '4.0.8', release_date: "2025-04-03", },
             {version: '4.0.7', release_date: "2025-02-26", },
             {version: '4.0.6', release_date: "2025-02-11", },
             {version: '4.0.5', release_date: "2024-12-15", },
@@ -307,21 +308,21 @@ const config = {
           },
         ],
       },
-      // announcementBar: {
-      //   id: 'latest-announcement',
-      //   content: '<strong style="font-size: var(--ifm-h4-font-size);"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.7">RabbitMQ 4.0.7 is out</a></strong>',
-      //   backgroundColor: 'var(--ifm-color-primary-contrast-background)',
-      //   textColor: 'var(--ifm-font-color-base)',
-      //   isCloseable: true,
-      // },
-
       announcementBar: {
         id: 'latest-announcement',
-        content: '<div style="font-size: var(--ifm-h4-font-size);"><a href="/contact?utm_source=rmq_topbar&utm_medium=rmq_website&utm_campaign=tanzu#tanzu-rabbitmq">Get <strong>long term support</strong> and <strong>advanced enterprise features</strong></a></div>',
+        content: '<strong style="font-size: var(--ifm-h4-font-size);"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.8">RabbitMQ 4.0.8 is out</a></strong>',
         backgroundColor: 'var(--ifm-color-primary-contrast-background)',
         textColor: 'var(--ifm-font-color-base)',
         isCloseable: true,
       },
+
+      // announcementBar: {
+      //   id: 'latest-announcement',
+      //   content: '<div style="font-size: var(--ifm-h4-font-size);"><a href="/contact?utm_source=rmq_topbar&utm_medium=rmq_website&utm_campaign=tanzu#tanzu-rabbitmq">Get <strong>long term support</strong> and <strong>advanced enterprise features</strong></a></div>',
+      //   backgroundColor: 'var(--ifm-color-primary-contrast-background)',
+      //   textColor: 'var(--ifm-font-color-base)',
+      //   isCloseable: true,
+      // },
 
       footer: {
         style: 'dark',

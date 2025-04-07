@@ -145,13 +145,13 @@ will output a table that looks like this:
 ├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
 │ Product name     │ RabbitMQ                                                                                          │
 ├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ Product version  │ 4.0.7                                                                                             │
+│ Product version  │ 4.0.8                                                                                             │
 ├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ RabbitMQ version │ 4.0.7                                                                                             │
+│ RabbitMQ version │ 4.0.8                                                                                             │
 ├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ Erlang version   │ 26.2.5.8                                                                                          │
+│ Erlang version   │ 26.2.5.10                                                                                         │
 ├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ Erlang details   │ Erlang/OTP 26 [erts-14.2.5.7] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit] │
+│ Erlang details   │ Erlang/OTP 26 [erts-14.2.5.9] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit] │
 └──────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -171,10 +171,10 @@ as a result:
 ```
  key
  Product name      RabbitMQ
- Product version   4.0.7
- RabbitMQ version  4.0.7
- Erlang version    26.2.5.8
- Erlang details    Erlang/OTP 26 [erts-14.2.5.7] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit]
+ Product version   4.0.8
+ RabbitMQ version  4.0.8
+ Erlang version    26.2.5.10
+ Erlang details    Erlang/OTP 26 [erts-14.2.5.9] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit]
 ```
 
 ### Retrieving Basic Node Information
