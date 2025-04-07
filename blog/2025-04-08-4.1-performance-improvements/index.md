@@ -82,7 +82,7 @@ Not only are the publishers not throttled, but the consumers are also able to co
 To serve HTTP connections, RabbitMQ uses a popular Erlang HTTP server called [Cowboy](https://github.com/ninenines/cowboy)
 (developed by [Loïc Hoguin](https://github.com/essen) long before he joined the RabbitMQ team).
 RabbitMQ 4.1 upgrades Cowboy to version 2.13.0, which [significantly improves WebSocket
-performance](https://ninenines.eu/articles/cowboy-2.13.0-performance/) for all systems that relies on Cowboy,
+performance](https://ninenines.eu/articles/cowboy-2.13.0-performance/) for all systems that rely on Cowboy,
 including RabbitMQ. Upgrading to RabbitMQ 4.1 should therefore be particularly beneficial to anyone using
 AMQP, [MQTT](https://www.rabbitmq.com/docs/web-mqtt) or [STOMP](https://www.rabbitmq.com/docs/web-stomp) over WebSockets.
 
