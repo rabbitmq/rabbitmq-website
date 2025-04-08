@@ -691,7 +691,7 @@ in the payload:
 ```
 
 `password_hash` must be generated using the algorithm described
-[in the Passwords guide](./passwords.html#computing-password-hash).
+[in the Passwords guide](./passwords.html).
 
 The `tags` key takes a comma-separated list of tags.
 
@@ -873,19 +873,19 @@ Clears a global runtime parameter.
 
 ### GET /api/policies
 
-Lists [policies](/parameters#policies) across all virtual hosts in the cluster.
+Lists [policies](./parameters#policies) across all virtual hosts in the cluster.
 
 ### GET /api/policies/\{_vhost_\}
 
-Lists [policies](/parameters#policies) in the given virtual host.
+Lists [policies](./parameters#policies) in the given virtual host.
 
 ### GET /api/policies/\{_vhost_\}/\{_name_\}
 
-Returns a [policy](/parameters#policies) definition.
+Returns a [policy](./parameters#policies) definition.
 
 ### PUT /api/policies/\{_vhost_\}/\{_name_\}
 
-Declares or updates a [policy](/parameters#policies).
+Declares or updates a [policy](./parameters#policies).
 
 Example payload:
 
@@ -900,7 +900,7 @@ All the keys in the example are mandatory.
 Only one policy applies or a queue, stream or exchange at a time.
 
 When multiple policies have conflicting priorities, a random one will be applied.
-This scenario therefore [must be avoided](/parameters#how-policies-work).
+This scenario therefore [must be avoided](./parameters#how-policies-work).
 
 :::
 
@@ -910,15 +910,15 @@ Deletes a policy.
 
 ### GET /api/operator-policies
 
-Lists [operator policies](/parameters#operator-policies) across all virtual hosts in the cluster.
+Lists [operator policies](./parameters#operator-policies) across all virtual hosts in the cluster.
 
 ### GET /api/operator-policies/\{_vhost_\}
 
-Returns an operator [policy](/parameters#operator-policies) definition.
+Returns an operator [policy](./parameters#operator-policies) definition.
 
 ### GET /api/operator-policies/\{_vhost_\}/\{_name_\}
 
-Returns an operator [policy](/parameters#operator-policies) definition.
+Returns an operator [policy](./parameters#operator-policies) definition.
 
 ### PUT /api/operator-policies/\{_vhost_\}/\{_name_\}
 
@@ -936,7 +936,7 @@ All the keys in the example are mandatory.
 Only one policy applies or a queue, stream or exchange at a time.
 
 When multiple policies have conflicting priorities, a random one will be applied.
-This scenario therefore [must be avoided](/parameters#how-policies-work).
+This scenario therefore [must be avoided](./parameters#how-policies-work).
 
 :::
 
