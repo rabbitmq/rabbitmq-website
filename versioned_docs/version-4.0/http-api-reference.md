@@ -133,7 +133,7 @@ that:
   <li>
     Cluster-wide definitions use a different format from the virtual host-specific ones.
     Virtual host-specific definitions cannot be imported using this endpoint.
-    Use the `POST /api/definitions/\{_vhost_\}` endpoint instead.
+    Use the `POST /api/definitions/{vhost}` endpoint instead.
   </li>
   <li>
     The definitions are merged. Anything already existing on
