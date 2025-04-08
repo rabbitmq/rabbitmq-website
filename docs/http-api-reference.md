@@ -691,7 +691,7 @@ in the payload:
 ```
 
 `password_hash` must be generated using the algorithm described
-[in the Passwords guide](./passwords.html).
+[in the Passwords guide](./passwords/).
 
 The `tags` key takes a comma-separated list of tags.
 
