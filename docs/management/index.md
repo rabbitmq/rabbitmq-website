@@ -667,10 +667,7 @@ dedicated to common OAuth 2-specific issues.
 
 ### API Endpoints {#http-api-endpoints}
 
-When activated, the management plugin provides an HTTP API at
-<code>http://<i>server-name</i>:15672/api/</code> by default. Browse to that
-location for more information on the API. For convenience the same API reference is
-<a href={`https://rawcdn.githack.com/rabbitmq/rabbitmq-server/${RabbitMQServerGitTag()}/deps/rabbitmq_management/priv/www/api/index.html`}>available on GitHub</a>.
+See [HTTP API reference](./http-api-reference/).
 
 ### HTTP API and Monitoring {#http-api-monitoring}
 
