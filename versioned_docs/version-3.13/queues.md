@@ -446,13 +446,17 @@ Currently using more priorities will consume more resources (Erlang processes).
 
 Currently a single queue replica (whether leader or follower) is limited to a single CPU core
 on its hot code path. This design therefore assumes that most systems
-use multiple queues in practice. A single queue is generally
-considered to be an anti-pattern (and not just for resource utilisation
-reasons).
+use multiple queues in practice.
 
-In case when it is desirable to trade off message ordering for parallelism
-(better CPU core utilisation), [rabbitmq-sharding](https://github.com/rabbitmq/rabbitmq-sharding/)
-provides an opinionated way of doing so transparently to the clients.
+:::danger
+
+A single queue is generally considered to be an anti-pattern, and not just for resource utilisation
+reasons.
+
+:::
+
+For workloads that push queue throughput to the limits, consider using [streams or partitioned streams](./streams)
+with a [RabbitMQ Stream Protocol client](/client-libraries/devtools).
 
 
 ## Metrics and Monitoring {#metrics}
