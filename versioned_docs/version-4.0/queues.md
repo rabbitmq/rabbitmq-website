@@ -217,7 +217,7 @@ to resource use (e.g. peak disk space usage).
 Queues in RabbitMQ are ordered collections of messages.
 Messages are enqueued and dequeued (delivered to consumers) in the [FIFO manner](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)).
 
-FIFO ordering is not guaranteed for [priority](./priority) and [sharded queues](https://github.com/rabbitmq/rabbitmq-sharding/).
+FIFO ordering is not guaranteed for [priority](./priority) queues by definition.
 
 Ordering also can be affected by the presence of multiple competing [consumers](./consumers),
 [consumer priorities](./consumers#priority), message redeliveries.
