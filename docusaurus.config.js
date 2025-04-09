@@ -224,6 +224,9 @@ const config = {
         path: 'tutorials',
         routeBasePath: 'tutorials',
         sidebarPath: './sidebarsTutorials.js',
+        // Remove this to remove the "edit this page" links.
+        editUrl:
+          'https://github.com/rabbitmq/rabbitmq-website/tree/main/',
       },
     ],
     [
@@ -242,6 +245,9 @@ const config = {
         path: 'kubernetes',
         routeBasePath: 'kubernetes',
         sidebarPath: './sidebarsKubernetes.js',
+        // Remove this to remove the "edit this page" links.
+        editUrl:
+          'https://github.com/rabbitmq/rabbitmq-website/tree/main/',
       },
     ],
     [
@@ -251,6 +257,9 @@ const config = {
         path: 'client-libraries',
         routeBasePath: 'client-libraries',
         sidebarPath: './sidebarsClientLibs.js',
+        // Remove this to remove the "edit this page" links.
+        editUrl:
+          'https://github.com/rabbitmq/rabbitmq-website/tree/main/',
       },
     ],
     "./src/plugins/configure-svgo.js",
