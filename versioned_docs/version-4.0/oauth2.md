@@ -218,7 +218,7 @@ auth_oauth2.scope_aliases.developer = rabbitmq.tag:management rabbitmq.read:*/* 
 ```
 
 :::info
-For more information mapping scopes check out [Scope Aliases](#scope-aliases).
+For more information mapping scopes check out [Scope Aliases](oauth2-examples#using-scope-aliases).
 :::
 
 #### 7) OAuth 2.0 authentication completed for messaging protocols {#step7}
@@ -243,7 +243,7 @@ basic authentation is disabled unless you add the following configuration.
 management.oauth_disable_basic_auth = false
 ```
 
-For more information, checkout [Allow Basic and OAuth 2 authentication for management UI](#allow-basic-auth-for-mgt-ui)
+For more information, checkout [Allow Basic and OAuth 2 authentication for management UI](management#allow-basic-auth-for-mgt-ui)
 :::
 
 #### 9) Configure OAuth client_id {#step9}

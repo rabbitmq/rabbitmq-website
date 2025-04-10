@@ -164,7 +164,7 @@ auth_oauth2.additional_scopes_key = extra_scope
 
 :::info
 If you need to specify more than one attribute or the scopes are under 
-a nested structure like shown below, you need to upgrade to [RabbitMQ 4.1](next/oauth2#step4).
+a nested structure like shown below, you need to upgrade to [RabbitMQ 4.1](../next/oauth2#step4).
 
 ```json
 { ...
@@ -206,27 +206,14 @@ In the above example, you are saying that your scopes are like `api://tag:admini
 More information about scope prefix, check out [Scope Prefix](#scope-prefix).
 :::
 
-#### 6) Map custom permissions/scopes onto RabbitMQ scopes {#step6}
 
-This step is mandatory if the scopes in the token are not recognized RabbitMQ scopes. In the previous step you saw what recognized RabbitMQ scopes look like.
-
-Here you are configuring two custom scopes, `admin` and `developer`, onto RabbitMQ scopes:
-```ini 
-auth_oauth2.scope_aliases.admin = rabbitmq.tag:administrator rabbitmq.read:*/
-auth_oauth2.scope_aliases.developer = rabbitmq.tag:management rabbitmq.read:*/* rabbitmq.write:*/* rabbitmq.configure:*/*
-```
-
-:::info
-For more information mapping scopes check out [Scope Aliases](#scope-aliases).
-:::
-
-#### 7) OAuth 2.0 authentication completed for messaging protocols {#step7}
+#### 6) OAuth 2.0 authentication completed for messaging protocols {#step7}
 
 RabbitMQ is ready to authenticate applications connecting via one of the supported
 messaging protocols. If you additionally want to enable OAuth 2.0 in 
 the management UI carry on with following steps.
 
-#### 8) Enable OAuth 2.0 on the management UI {#step8}
+#### 7) Enable OAuth 2.0 on the management UI {#step8}
 
 The following steps configure RabbitMQ to use OAuth 2.0 to authenticate 
 users with their identity provider and get a token. This is known as [Service provider initiated logon](oauth2-examples#service-provider-initiated-logon).
@@ -242,10 +229,10 @@ basic authentation is disabled unless you add the following configuration.
 management.oauth_disable_basic_auth = false
 ```
 
-For more information, checkout [Allow Basic and OAuth 2 authentication for management UI](#allow-basic-auth-for-mgt-ui)
+For more information, checkout [Allow Basic and OAuth 2 authentication for management UI](management#allow-basic-auth-for-mgt-ui)
 :::
 
-#### 9) Configure OAuth client_id {#step9}
+#### 8) Configure OAuth client_id {#step9}
 
 ```ini
 management.oauth_client_id = <Your_Client_Id_from_your_identity_provider>
@@ -258,7 +245,7 @@ for RabbitMQ in your identity provider should be of type `public web application
 not `confidential`. The latter requires `client_secret`.
 :::
 
-#### 10) Configure which scopes the management UI requests from your identity provider {#step10}
+#### 9) Configure which scopes the management UI requests from your identity provider {#step10}
 
 When RabbitMQ requests a token from the identity provider, it has to specify which
 scopes should contain the token. Through the configuration variable 
