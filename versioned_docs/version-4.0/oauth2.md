@@ -28,9 +28,13 @@ There's also a companion [troubleshooting guide for OAuth 2-specific problems](.
 
 ## Table of Contents
 
-### [How it works](#how-it-works)
+### [How to configure it](#how-to-configure-it)
 
 * [Prerequisites](#prerequisites)
+* [Configure OAuth 2.0 for identity providers compliant with OpenId Connect](#configure-for-openid-connect)
+
+### [How it works](#how-it-works)
+
 * [Authorization Flow](#authorization-flow)
 * [Variables configurable in rabbitmq.conf](#variables-configurable)
 * [Token validation](#token-validation)
@@ -59,24 +63,221 @@ There's also a companion [troubleshooting guide for OAuth 2-specific problems](.
  * How to [set up RabbitMQ with OAuth 2: examples](#examples)
 
 
-## How it works {#how-it-works}
+## How to configure it {#how-to-configure-it}
 
-The OAuth 2 plugin must be activated (or [pre-configured](./plugins#enabled-plugins-file)) before it can be used,
-like all other plugins:
+This is a step-by-step guide on how to configure OAuth 2.0 authentication 
+for the majority of use-cases, i.e.
+- you are using an identity provider which is compliant with OpenId Connect
+- you want RabbitMQ to trigger OAuth 2.0 authentication in the management UI. This 
+is known as *Service Provider initiated logon*. As opposed to, users must come to RabbitMQ already with a token obtained by other means.
 
+### Prerequisites {#prerequisites}
+
+#### 1) Enable the plugin 
+
+The OAuth 2 plugin must be activated (or [pre-configured](./plugins#enabled-plugins-file)) before it can be used, like all other plugins. There is a file commonly found at
+`/etc/rabbitmq/enabled_plugins`. Add oauth2 plugin as follows:
 ```bash
-rabbitmq-plugins enable rabbitmq_auth_backend_oauth2
+[rabbitmq_management,rabbitmq_shovel,rabbitmq_auth_backend_oauth2].
 ```
 
-Then it must be specified as one of the [authN and/or authZ backends](./access-control#backends). The following example enables OAuth 2.0 authentication and authorization backends:
+#### 2) Configure OAuth 2.0 as one of the authentication backends
 
+Edit your `rabbitmq.conf` file, commonly found at `/etc/rabbitmq` and add OAuth 2.0
+backend. For instance, the following configuration adds OAuth 2.0 as the only authentication backend.
 ```ini
-# note that the module name begins with a "rabbit_", not "rabbitmq_", like in the name
-# of the plugin
 auth_backends.1 = rabbit_auth_backend_oauth2
 ```
 
-Next, let's take a look at the workflows the OAuth 2 plugin supports.
+### Configure OAuth 2.0 for identity providers compliant with OpenId Connect{#configure-for-openid-connect}
+
+Nowadays, the majority of the identity providers are compliant with OpenId Connect.
+At bare minimum, this means that they expose an HTTP endpoint called *Discovery endpoint*
+mounted at `/.well-known/openid-configuration`. Through this endpoint, RabbitMQ 
+discovers all the necessary endpoints for a successful OAuth 2.0 authentication. 
+The following identity providers are compliant with OpenId Connect:
+- UAA
+- Keycloak
+- Auth0
+- Entra ID (a.k.a Azure)
+- Okta 
+
+#### 1) Configure the OAuth 2.0 resource name associated to RabbitMQ {#step1}
+
+```ìni 
+auth_oauth2.resource_server_id = rabbitmq
+```
+
+:::warning
+OAuth 2.0 tokens have an attribute called `audience`. This attribute lists all 
+the OAuth 2.0 resources the token is meant for. RabbitMQ expects to find its 
+`resource_server_id` in one of the `audience` values. If it is not found, the 
+token is rejected and the authentication fails. 
+
+Although it is not recommeded, you can disable audience validation by adding
+the following configuration.
+
+```ini 
+auth_oauth2.verify_aud = false
+```
+:::
+
+#### 2) Configure root URL of the Identity Provider {#step2}
+
+```ini 
+auth_oauth2.issuer = https://keycloak:8443/realms/test
+```
+
+:::info
+It must be a HTTPS url. If your identity provider uses a certificate signed
+by a self-signed CA certificate, you can configure the CA certifcate by adding 
+the following line to your configuration:
+```ini
+auth_oauth2.https.cacertfile = <path_to_your_ca_cert>
+```
+:::
+
+#### 3) Configure which token's attributes contain the username {#step3}
+
+RabbitMQ needs to know the username for logging purposes and also to display it in the management UI. By default, RabbitMQ looks up the username in the token's attribute `sub`, and if not found it uses `client_id`. 
+
+Here you are configuring RabbitMQ to use `user_name` first and if not found, 
+`preferred_username` instead.
+
+```ini 
+auth_oauth2.preferred_username_claims.1 = user_name
+auth_oauth2.preferred_username_claims.2 = preferred_username
+```
+
+#### 4) Configure which token's attribute contains the scopes (a.k.a. permissions) {#step4}
+
+By default, RabbitMQ will always look for scopes in the token's attribute 
+`scope`. If your scopes are in a different attribute you can configure the 
+name of that attribute. 
+
+Given the following configuration, RabbitMQ would
+look for scopes in the attributes `scope` and `extra_scope`. The attribute's value
+can be a string of space-separated scopes, or a JSON list of scopes. 
+
+```ini 
+auth_oauth2.additional_scopes_key = extra_scope
+```
+
+:::info
+If you need to specify more than one attribute or the scopes are under 
+a nested structure like shown below, you need to upgrade to [RabbitMQ 4.1](next/oauth2#step4).
+
+```json
+{ ...
+ "resource_access": {   
+    "account": {
+      "roles": [
+        "manage-account",
+        "manage-account-links",
+        "view-profile"
+      ]
+    }
+  }
+  ...
+}
+```
+:::
+
+#### 5) Ensure your scopes are recognized RabbitMQ scopes {#step5}
+
+Ensure that the scopes contained in the token are recognized RabbitMQ scopes.
+
+Here are examples of recognized RabbitMQ scopes:
+* `rabbitmq.tag:administrator` Here `rabbitmq` is the name of the resource_server_id you 
+configured in the first step. `tag:administrator` grants administrator role to the management ui
+* `rabbitmq.configure:*/*` This scope grants `configure` permission. The first wildcard corresponds to the vhost and the second wildcard to the queue/exchange. 
+
+They all start with a prefix which, by default, must match the name of the resource you configured in [step 1)](#step1). 
+
+If your scopes are recognized RabbitMQ scopes however they 
+start with a different prefix, you can configure your custom prefix as follows:
+
+```ini 
+auth_oauth2.scope_prefix = api://
+```
+
+In the above example, you are saying that your scopes are like `api://tag:administrator`.
+
+:::info 
+More information about scope prefix, check out [Scope Prefix](#scope-prefix).
+:::
+
+#### 6) Map custom permissions/scopes onto RabbitMQ scopes {#step6}
+
+This step is mandatory if the scopes in the token are not recognized RabbitMQ scopes. In the previous step you saw what recognized RabbitMQ scopes look like.
+
+Here you are configuring two custom scopes, `admin` and `developer`, onto RabbitMQ scopes:
+```ini 
+auth_oauth2.scope_aliases.admin = rabbitmq.tag:administrator rabbitmq.read:*/
+auth_oauth2.scope_aliases.developer = rabbitmq.tag:management rabbitmq.read:*/* rabbitmq.write:*/* rabbitmq.configure:*/*
+```
+
+:::info
+For more information mapping scopes check out [Scope Aliases](oauth2-examples#using-scope-aliases).
+:::
+
+#### 7) OAuth 2.0 authentication completed for messaging protocols {#step7}
+
+RabbitMQ is ready to authenticate applications connecting via one of the supported
+messaging protocols. If you additionally want to enable OAuth 2.0 in 
+the management UI carry on with following steps.
+
+#### 8) Enable OAuth 2.0 on the management UI {#step8}
+
+The following steps configure RabbitMQ to use OAuth 2.0 to authenticate 
+users with their identity provider and get a token. This is known as [Service provider initiated logon](oauth2-examples#service-provider-initiated-logon).
+
+```ini 
+management.oauth_enabled = true
+```
+
+:::info
+Once you enable OAuth 2.0 in the management UI, 
+basic authentation is disabled unless you add the following configuration.  
+```ini
+management.oauth_disable_basic_auth = false
+```
+
+For more information, checkout [Allow Basic and OAuth 2 authentication for management UI](management#allow-basic-auth-for-mgt-ui)
+:::
+
+#### 9) Configure OAuth client_id {#step9}
+
+```ini
+management.oauth_client_id = <Your_Client_Id_from_your_identity_provider>
+```
+
+:::warning
+The identity provider `UAA` requires a `client_secret` in addition to a `client_id`. 
+This is not necessary in the rest of the identity providers. The OAuth Client configured
+for RabbitMQ in your identity provider should be of type `public web application` and 
+not `confidential`. The latter requires `client_secret`.
+:::
+
+#### 10) Configure which scopes the management UI requests from your identity provider {#step10}
+
+When RabbitMQ requests a token from the identity provider, it has to specify which
+scopes should contain the token. Through the configuration variable 
+`management.oauth_scopes` you provide a space-separated list of scopes.
+
+You will always include the first two scopes `openid` and `profile` followed by 
+any RabbitMQ scope.
+
+```ini 
+management.oauth_scopes = openid profile rabbitmq.tag:management
+```
+
+:::info
+Some identity providers may include more scopes than the requested scopes. It will all
+depend on the actual identity provider implementation.
+:::
+
+## How it works {#how-it-works}
 
 ## Prerequisites {#prerequisites}
 
