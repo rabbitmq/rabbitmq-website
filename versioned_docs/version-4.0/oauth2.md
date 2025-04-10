@@ -84,7 +84,7 @@ The OAuth 2 plugin must be activated (or [pre-configured](./plugins#enabled-plug
 #### 2) Configure OAuth 2.0 as one of the authentication backends
 
 Edit your `rabbitmq.conf` file, commonly found at `/etc/rabbitmq` and add OAuth 2.0
-backend. For instance, the following configuring adds OAuth 2.0 as the only authentication backend.
+backend. For instance, the following configuration adds OAuth 2.0 as the only authentication backend.
 ```ini
 auth_backends.1 = rabbit_auth_backend_oauth2
 ```
