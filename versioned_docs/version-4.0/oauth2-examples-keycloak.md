@@ -68,7 +68,7 @@ make start-rabbitmq
 To access the management api run the following command. It uses the client [mgt_api_client](https://keycloak:8443/admin/master/console/#/test/clients/c5be3c24-0c88-4672-a77a-79002fcc9a9d/settings) which has the scope [rabbitmq.tag:administrator](https://keycloak:8443/admin/master/console/#/test/client-scopes/f6e6dd62-22bf-4421-910e-e6070908764c/settings).
 
 ```bash
-make curl-keycloak url=http://localhost:15672/api/overview client_id=mgt_api_client secret=LWOuYqJ8gjKg3D2U8CJZDuID3KiRZVDa
+make curl-keycloak url=http://localhost:15672/api/overview client_id=mgt_api_client secret=LWOuYqJ8gjKg3D2U8CJZDuID3KiRZVDa realm=test
 ```
 
 ## Application authentication and authorization with PerfTest
