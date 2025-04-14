@@ -1055,6 +1055,13 @@ will therefore remain consistent.
 
 ### Performance Characteristics {#performance}
 
+:::important
+
+Quorum queues have been optimized further in RabbitMQ 4.1.x
+and now [feature lower memory footprints and improved consumer delivery rates](https://www.rabbitmq.com/blog/2025/04/08/4.1-performance-improvements), parallelism under peak load.
+
+:::
+
 Quorum queues are designed to trade latency for throughput and have been tested
 in 3, 5 and 7 node configurations with several different message sizes.
 
@@ -1161,6 +1168,13 @@ properties that may conflict or significantly change queue behavior and semantic
 such as the ['exclusive' field](./queues#exclusive-queues).
 
 ## Resource Use {#resource-use}
+
+:::important
+
+Quorum queues have been optimized further in RabbitMQ 4.1.x
+and now [feature lower memory footprints and improved consumer delivery rates](https://www.rabbitmq.com/blog/2025/04/08/4.1-performance-improvements), parallelism under peak load.
+
+:::
 
 Quorum queues are optimised for data safety and performance. Each quorum queue process maintains an in-memory index of
 the messages in the queue, which requires at least 32 bytes of metadata for each message (more, if the message was returned or has a TTL set).
@@ -1288,6 +1302,13 @@ See [the Runtime guide](./runtime#atom-usage) to learn more.
 
 
 ## Performance Tuning {#performance-tuning}
+
+:::important
+
+Quorum queues have been optimized further in RabbitMQ 4.1.x
+and now [feature lower memory footprints and improved consumer delivery rates](https://www.rabbitmq.com/blog/2025/04/08/4.1-performance-improvements), parallelism under peak load.
+
+:::
 
 This section aims to cover a couple of tunable parameters that may increase throughput of quorum queues for
 **some workloads**. Other workloads may not see any increases, or observe decreases in throughput, with these settings.
