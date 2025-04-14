@@ -302,15 +302,14 @@ flowchart TD
               <section>
                 <OSIKeyholeIcon/>
                 <Heading as="h2">Free and Open Source</Heading>
-                <p>RabbitMQ is dual-licensed under the Apache License 2.0 and
-                  the Mozilla Public License 2. You have the freedom to use and
-                  modify RabbitMQ however you want.</p>
+                <p>RabbitMQ is licensed under the <Link to="https://www.tldrlegal.com/license/mozilla-public-license-2-0-mpl-2">Mozilla Public License 2.0</Link>,
+                   while most client libraries are dual-licensed under the Apache Software License 2.0 and the Mozilla Public License 2.0. You have the freedom to use and
+                  modify RabbitMQ in a very broad range of contexts.</p>
                 <p>Of course, contributions are more than welcome! Whether it
-                  is through bug reports, patches, helping someone,
+                  is through detailed bug reports, patches, helping someone,
                   documentation or any form of advocacy. In fact contributing
                   is the best way to support the project!
-                  Take a look at our <Link
-                  to="/github">Contributors page</Link>.</p>
+                  Take a look at our <Link to="/github">Contributors page</Link>.</p>
               </section>
               <section>
                 <CommercialSupportIcon/>
