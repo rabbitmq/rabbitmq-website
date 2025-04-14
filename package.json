@@ -30,8 +30,8 @@
     "@docusaurus/module-type-aliases": "^3.7.0",
     "@docusaurus/types": "^3.7.0",
     "cookie": ">=0.7.0",
-    "path-to-regexp": ">=8.0.0",
-    "estree-util-value-to-estree": ">=3.3.3"
+    "estree-util-value-to-estree": ">=3.3.3",
+    "path-to-regexp": ">=8.0.0"
   },
   "overrides": {
     "send": "^0.19.0",
