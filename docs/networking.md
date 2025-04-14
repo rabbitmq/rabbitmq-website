@@ -599,9 +599,16 @@ for more information.
 
 Tuning for throughput is a common goal. Improvements can be achieved by
 
-* Increasing TCP buffer sizes
+:::important
+
+Starting with RabbitMQ 4.1, [connections automatically adjust their TCP buffer size](https://www.rabbitmq.com/blog/2025/04/08/4.1-performance-improvements)
+based on message rates and sizes.
+
+:::
+
 * Ensuring Nagle's algorithm is turned off
 * Turning on optional TCP features and extensions
+* Increase the (initial) connection TCP buffer size
 
 For the latter two, see the OS-level tuning section below.
 
@@ -610,6 +617,17 @@ sizes will increase the amount of RAM used by every connection, which can be a s
 total server RAM use increase.
 
 ### TCP Buffer Size {#tuning-for-throughput-tcp-buffers}
+
+:::important
+
+Starting with RabbitMQ 4.1, [connections automatically adjust their TCP buffer size](https://www.rabbitmq.com/blog/2025/04/08/4.1-performance-improvements)
+based on message rates and sizes.
+
+Manually adjusted TCP buffer size is therefore
+only has an effect very early on in the connection's lifetime,
+and has become significantly less relevant than in earlier series.
+
+:::
 
 This is one of the key tunable parameters. Every TCP connection has buffers
 allocated for it. Generally speaking, the larger these buffers are, the more RAM
@@ -632,6 +650,13 @@ tcp_listen_options.backlog = 128
 tcp_listen_options.nodelay = true
 tcp_listen_options.linger.on      = true
 tcp_listen_options.linger.timeout = 0
+
+# Starting with RabbitMQ 4.1, connections automatically adjust their TCP buffer size
+# based on message rates and sizes.
+#
+# Manually adjusted TCP buffer size is therefore
+# only has an effect very early on in the connection's lifetime,
+# and has become significantly less relevant than in earlier series.
 tcp_listen_options.sndbuf = 196608
 tcp_listen_options.recbuf = 196608
 ```
@@ -643,6 +668,13 @@ mqtt.tcp_listen_options.backlog = 128
 mqtt.tcp_listen_options.nodelay = true
 mqtt.tcp_listen_options.linger.on      = true
 mqtt.tcp_listen_options.linger.timeout = 0
+
+# Starting with RabbitMQ 4.1, connections automatically adjust their TCP buffer size
+# based on message rates and sizes.
+#
+# Manually adjusted TCP buffer size is therefore
+# only has an effect very early on in the connection's lifetime,
+# and has become significantly less relevant than in earlier series.
 mqtt.tcp_listen_options.sndbuf = 196608
 mqtt.tcp_listen_options.recbuf = 196608
 ```
@@ -654,6 +686,13 @@ stomp.tcp_listen_options.backlog = 128
 stomp.tcp_listen_options.nodelay = true
 stomp.tcp_listen_options.linger.on      = true
 stomp.tcp_listen_options.linger.timeout = 0
+
+# Starting with RabbitMQ 4.1, connections automatically adjust their TCP buffer size
+# based on message rates and sizes.
+#
+# Manually adjusted TCP buffer size is therefore
+# only has an effect very early on in the connection's lifetime,
+# and has become significantly less relevant than in earlier series.
 stomp.tcp_listen_options.sndbuf = 196608
 stomp.tcp_listen_options.recbuf = 196608
 ```
@@ -664,6 +703,17 @@ can be dangerous and **not recommended**.
 ## Tuning for a Large Number of Connections {#tuning-for-large-number-of-connections}
 
 <a id="tuning-for-large-number-of-connections-intro"></a>
+
+:::important
+
+Starting with RabbitMQ 4.1, [connections automatically adjust their TCP buffer size](https://www.rabbitmq.com/blog/2025/04/08/4.1-performance-improvements)
+based on message rates and sizes.
+
+Manually adjusted TCP buffer size is therefore
+only has an effect very early on in the connection's lifetime,
+and has become significantly less relevant than in earlier series.
+
+:::
 
 Some workloads, often referred to as "the Internet of
 Things", assume a large number of client connections per
