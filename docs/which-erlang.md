@@ -57,6 +57,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>4.0.9</li>
         <li>4.0.8</li>
         <li>4.0.7</li>
         <li>4.0.6</li>
