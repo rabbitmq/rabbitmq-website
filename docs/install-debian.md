@@ -116,30 +116,29 @@ apt repositories:
  </thead>
  <tbody>
   <tr>
-     <td>26.x</td>
+     <td>27.x</td>
      <td>
        <ul>
-        <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad</li>
-        <li><a href="#apt-cloudsmith">Debian packages of Erlang</a> from Team RabbitMQ on Cloudsmith.io</li>
+        <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad. Only `amd64` packages are available for Erlang 27 at the moment.</li>
+        <li><a href="#apt-cloudsmith">Debian packages of Erlang</a> from Team RabbitMQ. Provides `amd64` packages only.</li>
        </ul>
      </td>
      <td>
-       <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0">starting with 3.12.0</a></strong>, and is required starting with <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.0">3.13.0</a>.
+       <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.1">starting with 4.0.0</a></strong>.
        See <a href="./which-erlang">Erlang compatibility guide</a>.
      </td>
   </tr>
 
   <tr>
-     <td>25.x</td>
+     <td>26.x</td>
      <td>
        <ul>
-        <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad</li>
-        <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a></li>
-        <li><a href="#apt-cloudsmith">Debian packages of Erlang</a> from Team RabbitMQ on Cloudsmith.io</li>
+        <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad. Provides `arm64` (`aarch64`) packages</li>
+        <li><a href="#apt-cloudsmith">Debian packages of Erlang</a> from Team RabbitMQ. Provides `amd64` packages only.</li>
        </ul>
      </td>
      <td>
-       <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0">starting with 3.10.0</a></strong>, required starting with <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.0">3.11.0</a>.
+       <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0">starting with 3.12.0</a></strong>, and is required starting with <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.0">3.13.0</a>.
        See <a href="./which-erlang">Erlang compatibility guide</a>.
      </td>
   </tr>
@@ -152,7 +151,15 @@ and <a href="#apt-cloudsmith-erlang">on Cloudsmith.io</a>.
 
 ## Apt with Cloudsmith Mirrors: a Quick Start Script {#apt-quick-start-cloudsmith}
 
-Below is a shell snippet that performs those steps.
+Below is a shell snippet that performs the steps explained in this guide. It provisions
+RabbitMQ and Erlang from a [Team RabbitMQ-hosted](#apt-cloudsmith) apt repository.
+
+:::important
+
+This repository only provides `amd64` (`x86-64`) Erlang packages. For `amd64` (`aarch64`),
+this script must be modified to provision Erlang 26 [from Launchpad](#apt-launchpad-erlang).
+
+:::
 
 <Tabs groupId="distribution-specific">
 <TabItem value="ubuntu-noble" label="Ubuntu 24.04" default>
@@ -946,7 +953,7 @@ The output will look similar to this:
 
 ```ini
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 4.0.8. Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 4.0.9. Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -983,15 +990,14 @@ Standard Debian and Ubuntu repositories tend to provide outdated versions of Erl
 several apt repositories that includes [packages of latest Erlang/OTP releases](https://launchpad.net/~rabbitmq/)
 on Launchpad:
 
- * For [the latest Erlang](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang) major (currently 26.x)
+ * For [the latest Erlang](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang) major (currently 27.x but also includes 26.x packages)
+ * For [Erlang 26.2.x](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang-26)
  * For [Erlang 25.3.x](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang-25)
- * For [Erlang 24.3.x](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang-24)
 
 The Erlang repositores on Launchpad currently target the following Ubuntu distributions:
 
- * Ubuntu 22.04 (Noble)
+ * Ubuntu 24.04 (Noble)
  * Ubuntu 22.04 (Jammy)
- * Ubuntu 20.04 (Focal)
 
 Alternatively, a set of Cloudsmith mirrors (see above) supports the same versions
 and also can be used on Debian distributions, not just Ubuntu.
