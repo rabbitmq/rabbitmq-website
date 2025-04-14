@@ -1135,14 +1135,12 @@ The `rabbit` application has several quorum queue related configuration items av
 
 ### Example of a Quorum Queue Configuration
 
-The following `advanced.config` example modifies all values listed above:
+The following `rabbitmq.conf` example modifies all values listed above:
 
-```erlang
-[
- %% five replicas by default, only makes sense for nine node clusters
- {rabbit, [{quorum_cluster_size, 5},
-           {quorum_commands_soft_limit, 64}]}
-].
+```ini
+quorum_queue.initial_cluster_size = 3
+
+quorum_queue.commands_soft_limit = 32
 ```
 
 ## Options to Relax Property Equivalence Checks {#relaxed-property-equivalence}
