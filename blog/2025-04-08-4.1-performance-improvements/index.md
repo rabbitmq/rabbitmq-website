@@ -1,6 +1,6 @@
 ---
 title: "RabbitMQ 4.1 Performance Improvements"
-tags: ["Announcements", "performance", "RabbitMQ 4.1.x"]
+tags: ["Announcements", "performance", "RabbitMQ 4.1"]
 authors: [kura]
 image: ./qq-memory-usage.png
 ---
@@ -84,7 +84,7 @@ To serve HTTP connections, RabbitMQ uses a popular Erlang HTTP server called [Co
 RabbitMQ 4.1 upgrades Cowboy to version 2.13.0, which [significantly improves WebSocket
 performance](https://ninenines.eu/articles/cowboy-2.13.0-performance/) for all systems that rely on Cowboy,
 including RabbitMQ. Upgrading to RabbitMQ 4.1 should therefore be particularly beneficial to anyone using
-AMQP, [MQTT](https://www.rabbitmq.com/docs/web-mqtt) or [STOMP](https://www.rabbitmq.com/docs/web-stomp) over WebSockets.
+[AMQP](/blog/2025/04/16/amqp-websocket), [MQTT](https://www.rabbitmq.com/docs/web-mqtt) or [STOMP](https://www.rabbitmq.com/docs/web-stomp) over WebSocket.
 
 ## TCP Buffer Auto-Tuning
 

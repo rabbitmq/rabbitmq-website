@@ -1,6 +1,6 @@
 ---
 title: "RabbitMQ 4.1: New Kubernetes Peer Discovery Mechanism"
-tags: ["Announcements", "kubernetes", "RabbitMQ 4.1.x"]
+tags: ["Announcements", "kubernetes", "RabbitMQ 4.1"]
 authors: [kura]
 ---
 

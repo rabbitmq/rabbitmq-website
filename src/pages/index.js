@@ -323,10 +323,12 @@ flowchart TD
                   features of RabbitMQ, with some additional management and
                   advanced features like <Link
                   to="https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/3.13/tanzu-rabbitmq-kubernetes/standby-replication.html">warm
-                  standby replication</Link> and <Link
+                  standby replication</Link>, <Link
                   to="https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/3.13/tanzu-rabbitmq-kubernetes/clustering-compression-rabbitmq.html">intra-cluster
-                  data compression</Link>. These features are a must for
-                  heavy workloads.</p>
+                  data compression</Link> and <Link
+                  to="/blog/2025/04/16/amqp-websocket">AMQP 1.0
+                  over WebSocket</Link>.
+                  </p>
                 <p>For a list of the commercial offerings, take a look at
                   the <Link to="https://tanzu.vmware.com/rabbitmq">Ways to run
                   Tanzu RabbitMQ and Free and Open Source RabbitMQ
