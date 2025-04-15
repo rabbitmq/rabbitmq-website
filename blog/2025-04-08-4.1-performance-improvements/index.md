@@ -1,6 +1,6 @@
 ---
 title: "RabbitMQ 4.1 Performance Improvements"
-tags: ["Announcements", "performance", "RabbitMQ 4.1.x"]
+tags: ["Announcements", "performance", "RabbitMQ 4.1"]
 authors: [kura]
 image: ./qq-memory-usage.png
 ---
