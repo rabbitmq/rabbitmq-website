@@ -293,6 +293,7 @@ This section lists features that RabbitMQ supports exclusively in AMQP 1.0, whic
 * **Better defined [message headers](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#section-message-format)**
 * **Enhanced Message Integrity**: Clients can set message hashes, checksums, and digital signatures not only over the message body but also over the [properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-properties) and [application-properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-application-properties) sections, as the bare message is immutable.
 * **Stream Message Fidelity**: No loss of headers fidelity when storing or retrieving a message from a [stream](./streams), since streams store messages in AMQP 1.0 encoded format.
+* **WebSocket**: [VMware Tanzu RabbitMQ](https://www.vmware.com/products/app-platform/tanzu-rabbitmq) supports [AMQP 1.0 over WebSocket](/blog/2025/04/16/amqp-websocket) allowing applications running in a browser to communicate with RabbitMQ using AMQP 1.0.
 
 ### AMQP 0.9.1 Features
 This section lists features that RabbitMQ supports exclusively in AMQP 0.9.1, which are currently not available in AMQP 1.0:

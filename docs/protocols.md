@@ -82,17 +82,14 @@ the only protocol that can be used by hand over telnet).
 RabbitMQ supports STOMP (all current versions) via
 a [plugin](./stomp) by proxying internally over AMQP 0-9-1.
 
+## WebSocket
 
-## HTTP and WebSockets {#http-and-websockets}
+Browser applications can use any of the following three application layer protocols to communicate with RabbitMQ over the [WebSocket protocol](https://datatracker.ietf.org/doc/html/rfc6455):
+1. [AMQP 1.0 over WebSocket](/blog/2025/04/16/amqp-websocket)
+2. [MQTT over WebSocket](./web-mqtt)
+3. [STOMP over WebSocket](./web-stomp)
 
-While HTTP is not really a messaging protocol,
-RabbitMQ can transmit messages over HTTP in three ways:
+## HTTP
 
- * The [Web STOMP plugin](./web-stomp) supports STOMP
-   messaging to the browser using WebSockets.
- * The [Web MQTT plugin](./web-mqtt) supports MQTT
-   messaging to the browser using WebSockets.
- * The [management plugin](./management) supports a
-   simple HTTP API to send and receive messages. This is primarily
-   intended for diagnostic purposes but can be used for low volume
-   messaging without [reliable delivery](./reliability).
+While HTTP is not really a messaging protocol, the [management plugin](./management) supports a simple HTTP API to send and receive messages.
+This is primarily intended for diagnostic purposes but can be used for low volume messaging without [reliable delivery](./reliability).
