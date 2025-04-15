@@ -173,7 +173,7 @@ auth_oauth2.additional_scopes_key = extra_scope
 
 :::info
 If you need to specify more than one attribute or the scopes are under a nested structure like shown
-below, you need to upgrade to [RabbitMQ 4.1](next/oauth2#step4).
+below, you need to upgrade to [RabbitMQ 4.1](/docs/oauth2#step4).
 
 ```json
 { ...
