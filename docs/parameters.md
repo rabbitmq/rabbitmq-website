@@ -641,7 +641,8 @@ try to not override user-provided policies where possible.
 </table>
 
 When the same key is provided by both [client-provided `x-arguments`](./queues#optional-arguments) and by a user policy,
-the former take precedence. The exception to this rule is `(x-)overflow` for quorum queues where the policy takes precedence.
+the former take precedence.
+The exception to this rule are all stream configuration settings as well as `(x-)overflow` for quorum queues where the policy takes precedence.
 
 However, if an operator policy is also used, that will take precedence over the client-provided
 arguments, too. Operator policies are a protection mechanism and override client-provided values
