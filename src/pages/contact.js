@@ -29,7 +29,7 @@ export default function Support() {
                 <Heading as="h2">Community</Heading>
                   <p>Open source RabbitMQ is supported by the community. Follow the links below for your channel of preference to engage:</p>
                   <p>
-                    <Link to="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub Discussions</Link> |&nbsp;
+                    <Link to="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub</Link> |&nbsp;
                     <Link to="https://www.rabbitmq.com/discord">Discord</Link> |&nbsp;
                     <Link to="https://groups.google.com/forum/#!forum/rabbitmq-users">Mailing List</Link> |&nbsp;
                     <Link to="https://web.libera.chat/">IRC</Link>
@@ -112,78 +112,159 @@ export default function Support() {
           <div className={styles.container}>
             <Heading as="h1">Consulting & Training Partners</Heading>
             <Heading as="h4">VMware Tanzu’s trusted partners are here to help you in your local market and provide high touch professional services.</Heading>
-            <hr></hr>
-            <Heading as="h2">AceMQ</Heading>
-            <p>AceMQ is a trusted RabbitMQ partner, providing expert training, mentoring, and support for both RabbitMQ Community Edition and RabbitMQ for Tanzu. We have extensive experience deploying RabbitMQ in the cloud and Kubernetes, ensuring scalability, resilience, and optimal performance. Our team specializes in architecture, performance tuning, scaling, and integration to help organizations optimize their messaging systems. Whether you need deployment assistance, an in-depth assessment, or long-term support, we ensure your RabbitMQ environment runs efficiently and reliably.</p>
-            <ul>
-              <li>Based in US</li>
-              <li>RabbitMQ Assessments &mdash; Architecture, security, and performance reviews</li>
-              <li>24x7 Support &mdash; Dedicated SMEs, SLAs, and critical issue resolution</li>
-              <li>Migrations & Upgrades &mdash; Seamless transitions and version upgrades</li>
-              <li>Performance Optimization &mdash; Tuning for speed, reliability, and scalability</li>
-              <li>Training & Mentorship &mdash; Hands-on coaching and expert guidance</li>
-            </ul>
-            <p>
-              <Link to="https://acemq.com/rabbitmq/">Learn More</Link> |&nbsp;
-              <Link to="https://acemq.com/contact-us/">Get In Touch</Link>
-            </p>
-            <hr></hr>
-            <Heading as="h2">coders51</Heading>
-            <p>At coders51, we provide end-to-end RabbitMQ solutions. As members and founding sponsors of the Erlang Ecosystem Foundation, our deep expertise in Erlang gives us thorough understanding of RabbitMQ's internals - a technology we consider essential for distributed systems. We support companies across the complete RabbitMQ lifecycle: from queue architecture design and resilient client implementation to cluster maintenance and incident management, ensuring optimal system reliability and performance.</p>
-            <ul>
-              <li>Based in Italy</li>
-              <li>Design, develop and scale software platforms</li>
-              <li>From legacy software to Cloud Native and Microservices</li>
-              <li>RabbitMQ consultancy, support, and maintenance</li>
-              <li>Training</li>
-            </ul>
-            <p>
-              <Link to="https://www.coders51.com/">Learn More</Link> |&nbsp;
-              <Link to="https://www.coders51.com/#contact-cta">Get In Touch</Link>
-            </p>
-            <hr></hr>
-            <Heading as="h2">Databorn</Heading>
-            <p>Databorn is a trusted Tanzu IT consulting partner and reseller, offering data-driven solutions for businesses across the banking, insurance, telco and retail sectors in the Middle East & Africa, Eastern Europe, and Central Asia. Our expertise extends to RabbitMQ, helping enterprises build reliable, scalable, and high-performance messaging architectures.</p>
-            <ul>
-              <li>Based in Dubai</li>
-              <li>Expert consulting on RabbitMQ design, deployment, and best practices</li>
-              <li>Seamless integration and support for optimized messaging workflows</li>
-              <li>Performance optimization to enhance throughput, reliability, and scalability</li>
-            </ul>
-            <p>
-              <Link to="https://databorn.ai/data">Learn More</Link> |&nbsp;
-              <Link to="https://databorn.ai/contact">Get In Touch</Link>
-            </p>
-            <hr></hr>
-            <Heading as="h2">evoila</Heading>
-            <p>Evoila is a leading consultancy specializing in RabbitMQ, both Open Source and Tanzu. With deep expertise in architecture, deployment, and operations, we help organizations design scalable, resilient, and high-performing messaging solutions. Our team provides hands-on support for complex integrations, performance tuning, and best practices for event-driven architectures. From initial setup to 24/7 managed services, we ensure your RabbitMQ environment runs efficiently and reliably. Our Services:</p>
-            <ul>
-              <li>Based in Germany</li>
-              <li>Architecture & Assessments</li>
-              <li>24/7 Managed Services</li>
-              <li>Deployments & Operations</li>
-              <li>Migrations & Upgrades</li>
-              <li>Performance Optimization</li>
-            </ul>
-            <p>
-              <Link to="https://evoila.com/de/loesungen/big-data/rabbitmq/">Learn More</Link> |&nbsp;
-              <Link to="https://evoila.com/de/loesungen/big-data/rabbitmq/#contact">Get In Touch</Link>
-            </p>
-            <hr></hr>
-            <Heading as="h2">VLDB</Heading>
-            <p>At VLDB Solutions, we specialise in comprehensive managed services for Tanzu RabbitMQ, ensuring your messaging infrastructure is optimised, secure, and scalable—wherever your business operates. From initial strategy and deployment to continuous monitoring and optimisation, we manage the complexities across multiple regions, allowing your organisation to focus on growth. With 24/7 support, deep RabbitMQ expertise, and tailored solutions, we empower businesses worldwide to maintain high-performance communication systems.</p>
-            <ul>
-              <li>Based in UK</li>
-              <li>Global Coverage & Expertise &mdash; We support businesses across multiple geographies, providing expert RabbitMQ solutions worldwide.</li>
-              <li>Performance & Scalability Optimisation &mdash; Advanced configurations to boost throughput, reduce latency, and scale messaging workloads efficiently.</li>
-              <li>Seamless Integration & Customisation &mdash; Tailored RabbitMQ deployments to fit your business needs, ensuring smooth integration with databases, cloud services, and microservices architectures.</li>
-              <li>Proactive Monitoring & Incident Prevention &mdash; Real-time analytics and predictive monitoring prevent issues before they impact operations.</li>
-              <li>Enterprise-Level Support & Security &mdash; We ensure compliance, security, and resilience for businesses in highly regulated industries.</li>
-            </ul>
-            <p>
-              <Link to="https://vldbsolutions.com/services/support/tanzu-rabbitmq/">Learn More</Link> |&nbsp;
-              <Link to="https://vldbsolutions.com/contact/">Get In Touch</Link>
-            </p>
+            <div>
+              <Link className="button button--secondary" to="#AMER">Americas</Link>&nbsp;
+              <Link className="button button--secondary" to="#APac">Asia Pacific</Link>&nbsp;
+              <Link className="button button--secondary" to="#EMEA">EMEA</Link>
+            </div>
+            <br></br>
+            <Heading id="AMER" as="h2">Americas</Heading>
+            <div className={styles.partner}>
+              <Heading as="h3">AceMQ</Heading>
+              <p className={styles.partner_region}>Offices in: 🇺🇸USA &mdash; Serving North America</p>
+              <p>AceMQ is a trusted RabbitMQ partner, providing expert training, mentoring, and support for both RabbitMQ Community Edition and RabbitMQ for Tanzu. We have extensive experience deploying RabbitMQ in the cloud and Kubernetes, ensuring scalability, resilience, and optimal performance. Our team specializes in architecture, performance tuning, scaling, and integration to help organizations optimize their messaging systems. Whether you need deployment assistance, an in-depth assessment, or long-term support, we ensure your RabbitMQ environment runs efficiently and reliably.</p>
+              <ul>
+                <li>RabbitMQ Assessments &mdash; Architecture, security, and performance reviews</li>
+                <li>24x7 Support &mdash; Dedicated SMEs, SLAs, and critical issue resolution</li>
+                <li>Migrations & Upgrades &mdash; Seamless transitions and version upgrades</li>
+                <li>Performance Optimization &mdash; Tuning for speed, reliability, and scalability</li>
+                <li>Training & Mentorship &mdash; Hands-on coaching and expert guidance</li>
+              </ul>
+              <div>
+                <Link to="https://acemq.com/rabbitmq/">Learn More</Link> |&nbsp;
+                <Link to="https://acemq.com/contact-us/">Get In Touch</Link>
+              </div>
+            </div>
+            <div className={styles.partner}>
+              <Heading as="h3">Carahsoft</Heading>
+              <p className={styles.partner_region}>Offices in: 🇺🇸USA &mdash; Serving public sector & other highly regulated industries in Canada & USA</p>
+              <p>Carahsoft Technology Corp. is The Trusted Public Sector IT Solutions Provider, supporting US Federal, State and Local Government agencies, Education institutes, Healthcare providers, as well as the Canada Public Sector. Carahsoft partners with thousands of vendors, resellers, system integrators and MSPs to proactively market, sell, and deploy a comprehensive range of IT solutions. Carahsoft can leverage these partnerships to connect your organization with the right team for RabbitMQ projects, ensuring you receive the expertise and support for your project’s success.</p>
+              <ul>
+                <li>Assist with procurement and contract management for RabbitMQ</li>
+                <li>Connect customers to RabbitMQ solution providers specializing in public sector use cases across the United States and Canada</li>
+                <li>Provide support to assist government, education, and healthcare sectors with RabbitMQ design, deployments, and implementations</li>
+                <li>Help organizations implement and scale RabbitMQ solutions effectively within required regulatory frameworks.</li>
+              </ul>
+              <div>
+                <Link to="https://www.carahsoft.com/vendors/vmware/technical-support/tanzu-rabbitmq">Learn More</Link> |&nbsp;
+                <Link to="https://www.carahsoft.com/vendors/vmware/technical-support/tanzu-rabbitmq">Get In Touch</Link>
+              </div>
+            </div>
+            <div className={styles.partner}>
+              <Heading as="h3">TeraSky</Heading>
+              <p className={styles.partner_region}>Offices in: 🇺🇸USA, 🇮🇱Israel, 🇱🇹Lithuania, 🇬🇧United Kingdom &mdash; Serving North America, South America, and Central Europe</p>
+              <p>As a trusted VMware partner, TeraSky specializes in delivering end-to-end RabbitMQ solutions, both on-premises and in the cloud. From architecture design and deployment to comprehensive training and long-term support, we ensure enterprises seamlessly integrate RabbitMQ into mission-critical environments. Our goal is to drive scalability, resilience, and optimal performance. We combine deep technical expertise and flawless execution to solve complex technology challenges with precision, merging enterprise-grade infrastructure with cloud-native agility for maximum impact.</p>
+              <ul>
+                <li>Global Presence — All Americas and EMEA - worldwide support.</li>
+                <li>Architecture & Assessments — In-depth design, security, and performance evaluations tailored to optimize RabbitMQ deployments.</li>
+                <li>Migrations & Upgrades — Smooth transitions from legacy systems to the latest RabbitMQ versions, ensuring minimal downtime.</li>
+                <li>24/7 Managed Services — Ongoing monitoring, expert support, and SLA-backed issue resolution to maintain peak performance.</li>
+                <li>Performance Optimization — Tuning RabbitMQ for high throughput, low latency, and scalability across diverse environments.</li>
+                <li>Training & Mentorship — Hands-on workshops and tailored enablement for development and operations teams, ensuring teams are fully equipped to leverage RabbitMQ’s full potential.</li>
+                <li>Cloud-Native Integration — Full-spectrum RabbitMQ solutions across on-premises, hybrid, and cloud environments, ensuring seamless operations regardless of deployment model.</li>
+              </ul>
+              <div>
+                <Link to="https://www.terasky.com/partners/vmware/">Learn More</Link> |&nbsp;
+                <Link to="https://www.terasky.com/contact/">Get In Touch</Link>
+              </div>
+            </div>
+            <Heading id="APac" as="h2">Asia Pacific</Heading>
+            <div className={styles.partner}>
+              <Heading as="h3">FiQir Holdings Sdn Bhd</Heading>
+              <p className={styles.partner_region}>Offices in: 🇲🇾Malaysia, 🇳🇿New Zealand &mdash; Serving Asia Pacific</p>
+              <p>FiQir Holdings is a trusted technology solutions provider specializing in RabbitMQ consulting, integration, and support. With deep expertise in distributed systems and cloud-native architectures, we help organizations build scalable, high-performance messaging infrastructures that drive operational efficiency and business growth. Our team of specialists ensures seamless deployment, optimization, and ongoing support to keep your RabbitMQ environment running reliably and securely.</p>
+              <ul>
+                <li>RabbitMQ Consulting & Architecture – Expert guidance on designing and optimizing messaging systems for high availability and resilience.</li>
+                <li>Deployment & Integration – Seamless RabbitMQ deployments tailored to your cloud or on-premise environment.</li>
+                <li>Performance Tuning & Optimization – Enhancing system throughput, reducing latency, and ensuring optimal scalability.</li>
+                <li>Training & Mentorship – Hands-on coaching to empower your teams with best practices in RabbitMQ management.</li>
+                <li>24/7 Support & Maintenance – Proactive monitoring, troubleshooting, and expert assistance to minimize downtime.</li>
+              </ul>
+              <div>
+                <Link to="https://fiqirs.com/integration.html">Learn More</Link> |&nbsp;
+                <Link to="https://fiqirs.com/index.html#contact">Get In Touch</Link>
+              </div>
+            </div>
+            <Heading id="EMEA" as="h2">EMEA</Heading>
+            <div className={styles.partner}>
+              <Heading as="h3">coders51</Heading>
+              <p className={styles.partner_region}>Offices in: 🇮🇹Italy</p>
+              <p>At coders51, we provide end-to-end RabbitMQ solutions. As members and founding sponsors of the Erlang Ecosystem Foundation, our deep expertise in Erlang gives us thorough understanding of RabbitMQ's internals - a technology we consider essential for distributed systems. We support companies across the complete RabbitMQ lifecycle: from queue architecture design and resilient client implementation to cluster maintenance and incident management, ensuring optimal system reliability and performance.</p>
+              <ul>
+                <li>Design, develop and scale software platforms</li>
+                <li>From legacy software to Cloud Native and Microservices</li>
+                <li>RabbitMQ consultancy, support, and maintenance</li>
+                <li>Training</li>
+              </ul>
+              <div>
+                <Link to="https://www.coders51.com/">Learn More</Link> |&nbsp;
+                <Link to="https://www.coders51.com/#contact-cta">Get In Touch</Link>
+              </div>
+            </div>
+            <div className={styles.partner}>
+              <Heading as="h3">Databorn</Heading>
+              <p className={styles.partner_region}>Offices in: 🇦🇪UAE &mdash; Serving Central Asia & Africa</p>
+              <p>Databorn is a trusted Tanzu IT consulting partner and reseller, offering data-driven solutions for businesses across the banking, insurance, telco and retail sectors in the Middle East & Africa, Eastern Europe, and Central Asia. Our expertise extends to RabbitMQ, helping enterprises build reliable, scalable, and high-performance messaging architectures.</p>
+              <ul>
+                <li>Expert consulting on RabbitMQ design, deployment, and best practices</li>
+                <li>Seamless integration and support for optimized messaging workflows</li>
+                <li>Performance optimization to enhance throughput, reliability, and scalability</li>
+              </ul>
+              <div>
+                <Link to="https://databorn.ai/data">Learn More</Link> |&nbsp;
+                <Link to="https://databorn.ai/contact">Get In Touch</Link>
+              </div>
+            </div>
+            <div className={styles.partner}>
+              <Heading as="h3">evoila</Heading>
+              <p className={styles.partner_region}>Offices in: 🇩🇪Germany, 🇮🇹Italy, 🇱🇺Luxembourg, 🇦🇹Austria, 🇨🇭Switzerland, 🇭🇷Croatia, 🇸🇰Slovakia, 🇵🇱Poland, 🇧🇦Bosnia and Herzegovina &mdash; Serving EMEA</p>
+              <p>Evoila is a leading consultancy specializing in RabbitMQ, both Open Source and Tanzu. With deep expertise in architecture, deployment, and operations, we help organizations design scalable, resilient, and high-performing messaging solutions. Our team provides hands-on support for complex integrations, performance tuning, and best practices for event-driven architectures. From initial setup to 24/7 managed services, we ensure your RabbitMQ environment runs efficiently and reliably. Our Services:</p>
+              <ul>
+                <li>Architecture & Assessments</li>
+                <li>24/7 Managed Services</li>
+                <li>Deployments & Operations</li>
+                <li>Migrations & Upgrades</li>
+                <li>Performance Optimization</li>
+              </ul>
+              <div>
+                <Link to="https://evoila.com/de/loesungen/big-data/rabbitmq/">Learn More</Link> |&nbsp;
+                <Link to="https://evoila.com/de/loesungen/big-data/rabbitmq/#contact">Get In Touch</Link>
+              </div>
+            </div>
+            <div className={styles.partner}>
+              <Heading as="h3">TeraSky</Heading>
+              <p className={styles.partner_region}>Offices in: 🇮🇱Israel, 🇱🇹Lithuania, 🇬🇧United Kingdom, 🇺🇸USA &mdash; Serving Central Europe, North America, and South America</p>
+              <p>As a trusted VMware partner, TeraSky specializes in delivering end-to-end RabbitMQ solutions, both on-premises and in the cloud. From architecture design and deployment to comprehensive training and long-term support, we ensure enterprises seamlessly integrate RabbitMQ into mission-critical environments. Our goal is to drive scalability, resilience, and optimal performance. We combine deep technical expertise and flawless execution to solve complex technology challenges with precision, merging enterprise-grade infrastructure with cloud-native agility for maximum impact.</p>
+              <ul>
+                <li>Global Presence — All Americas and EMEA - worldwide support.</li>
+                <li>Architecture & Assessments — In-depth design, security, and performance evaluations tailored to optimize RabbitMQ deployments.</li>
+                <li>Migrations & Upgrades — Smooth transitions from legacy systems to the latest RabbitMQ versions, ensuring minimal downtime.</li>
+                <li>24/7 Managed Services — Ongoing monitoring, expert support, and SLA-backed issue resolution to maintain peak performance.</li>
+                <li>Performance Optimization — Tuning RabbitMQ for high throughput, low latency, and scalability across diverse environments.</li>
+                <li>Training & Mentorship — Hands-on workshops and tailored enablement for development and operations teams, ensuring teams are fully equipped to leverage RabbitMQ’s full potential.</li>
+                <li>Cloud-Native Integration — Full-spectrum RabbitMQ solutions across on-premises, hybrid, and cloud environments, ensuring seamless operations regardless of deployment model.</li>
+              </ul>
+              <div>
+                <Link to="https://www.terasky.com/partners/vmware/">Learn More</Link> |&nbsp;
+                <Link to="https://www.terasky.com/contact/">Get In Touch</Link>
+              </div>
+            </div>
+            <div className={styles.partner}>
+              <Heading as="h3">VLDB</Heading>
+              <p className={styles.partner_region}>Offices in: 🇬🇧United Kingdom &mdash; Serving customer globally</p>
+              <p>At VLDB Solutions, we specialise in comprehensive managed services for Tanzu RabbitMQ, ensuring your messaging infrastructure is optimised, secure, and scalable—wherever your business operates. From initial strategy and deployment to continuous monitoring and optimisation, we manage the complexities across multiple regions, allowing your organisation to focus on growth. With 24/7 support, deep RabbitMQ expertise, and tailored solutions, we empower businesses worldwide to maintain high-performance communication systems.</p>
+              <ul>
+                <li>Global Coverage & Expertise &mdash; We support businesses across multiple geographies, providing expert RabbitMQ solutions worldwide.</li>
+                <li>Performance & Scalability Optimisation &mdash; Advanced configurations to boost throughput, reduce latency, and scale messaging workloads efficiently.</li>
+                <li>Seamless Integration & Customisation &mdash; Tailored RabbitMQ deployments to fit your business needs, ensuring smooth integration with databases, cloud services, and microservices architectures.</li>
+                <li>Proactive Monitoring & Incident Prevention &mdash; Real-time analytics and predictive monitoring prevent issues before they impact operations.</li>
+                <li>Enterprise-Level Support & Security &mdash; We ensure compliance, security, and resilience for businesses in highly regulated industries.</li>
+              </ul>
+              <div>
+                <Link to="https://vldbsolutions.com/services/support/tanzu-rabbitmq/">Learn More</Link> |&nbsp;
+                <Link to="https://vldbsolutions.com/contact/">Get In Touch</Link>
+              </div>
+            </div>
           </div>
         </div>
 

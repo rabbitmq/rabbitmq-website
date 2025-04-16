@@ -124,7 +124,17 @@ html[data-theme='dark'] .heroCta .release_notes_link {
   scroll-margin-top: 60px;
 }
 
-.usecases_heading, .license {
+.partner{
+  padding: 1em;
+  border-radius: .25em;
+  margin-bottom: 1em;
+}
+
+.partner_region{
+  font-style: italic;
+}
+
+.usecases_heading, .license, .partner {
   background-color: var(--ifm-color-primary-contrast-background);
 
 }
