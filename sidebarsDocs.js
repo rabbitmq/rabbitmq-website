@@ -153,6 +153,11 @@ const sidebars = {
           items: [
             {
               type: 'doc',
+              id: 'exchanges',
+              label: 'Exchanges',
+            },
+            {
+              type: 'doc',
               id: 'direct-reply-to',
               label: 'Direct reply-to',
             },
@@ -174,7 +179,7 @@ const sidebars = {
             {
               type: 'doc',
               id: 'ae',
-              label: 'Alternative Exchanges',
+              label: 'Alternate Exchanges',
             },
             {
               type: 'doc',
@@ -188,6 +193,11 @@ const sidebars = {
             },
           ],
         },
+        {
+          type: 'doc',
+          id: 'exchanges',
+          label: 'Exchanges',
+        },        
         {
           type: 'category',
           label: 'Consuming Messages',

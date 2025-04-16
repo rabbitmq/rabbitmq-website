@@ -429,7 +429,8 @@ follows:
 
 ```csharp
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
-await channel.BasicPublishAsync(exchangeName, routingKey, false, null, messageBodyBytes);
+var props = new BasicProperties();
+await channel.BasicPublishAsync(exchangeName, routingKey, false, props, messageBodyBytes);
 ```
 
 For fine control, you can use overloaded variants to specify the
@@ -862,9 +863,11 @@ when recovery succeeds. [Publisher confirms](/docs/confirms) is a protocol
 extension that should be used by publishers that cannot afford message loss.
 
 Connection recovery will not kick in when a channel is closed due to a
-channel-level exception. Such exceptions often indicate application-level
-issues. The library cannot make an informed decision about when that's the
-case.
+[channel-level exception](/docs/channels#error-handling). 
+
+Such exceptions often indicate application-level issues. The library cannot
+determine whether that's the case and make an informed decision about what can
+be done to recover.
 
 Closed channels won't be recovered even after connection recovery kicks in.
 This includes both explicitly closed channels and the channel-level exception

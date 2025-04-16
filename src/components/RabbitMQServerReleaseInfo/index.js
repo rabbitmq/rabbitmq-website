@@ -154,24 +154,22 @@ export function RabbitMQServerReleaseInfoTable() {
         releaseDate = "-";
       }
 
-      var endOfSupportDates = ["-", "-"];
+      var endOfCommunitySupportDate = "-";
       var hasOSSSupport = false;
       if (releaseBranch.end_of_support) {
         /* Release branch is supported. */
         if (previousReleaseBranch) {
           const prevReleases = previousReleaseBranch.releases;
           const initialPrevRelease = prevReleases[prevReleases.length - 1];
-          endOfSupportDates[0] = new Date(initialPrevRelease.release_date);
+          endOfCommunitySupportDate = new Date(initialPrevRelease.release_date);
         } else {
           hasOSSSupport = true;
-          endOfSupportDates[0] = <abbr title="Supported until the next major or minor release branch is published.">Next release</abbr>;
+          endOfCommunitySupportDate = <abbr title="Supported until the next major or minor release branch is published.">Next release</abbr>;
         }
-        endOfSupportDates[1] = new Date(releaseBranch.end_of_support);
       }
 
-      for (const i in endOfSupportDates) {
-        const date = endOfSupportDates[i];
-
+      {
+        const date = endOfCommunitySupportDate;
         var className;
         var content;
         if (date instanceof Date) {
@@ -183,9 +181,9 @@ export function RabbitMQServerReleaseInfoTable() {
             "supported-release" : "unsupported-release";
           content = date;
         }
-        endOfSupportDates[i] = <div className={[
+        endOfCommunitySupportDate = <div className={[
           "release-eos",
-          i == 0 ? "release-eos-community" : "release-eos-commercial",
+          "release-eos-community",
           className,
           latestReleaseBranchClassName,
           isLatestReleaseForBranch ? "" : showClassName
@@ -244,7 +242,7 @@ export function RabbitMQServerReleaseInfoTable() {
             isLatestReleaseForBranch ? "" : showClassName
           ].join(' ')}>{releaseDate}</div>
 
-          {endOfSupportDates}
+          {endOfCommunitySupportDate}
         </>
       );
 
@@ -280,12 +278,6 @@ export function RabbitMQServerReleaseInfoTable() {
             "release-eos",
             "release-eos-community"
           ].join(' ')}>End of Community Support</div>
-
-          <div className={[
-            "release-info-header",
-            "release-eos",
-            "release-eos-commercial"
-          ].join(' ')}><a href="https://knowledge.broadcom.com/external/article/103829/clarification-on-what-eos-end-of-support.html">Commercial End of Service</a></div>
 
           {rows}
         </div>

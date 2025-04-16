@@ -367,7 +367,7 @@ metadata:
 type: Opaque
 stringData:
   username: my-user
-  passwordHash: tLXSw48rCJO5gc8zu2UJRxR+RfbmNIJMWA6udRQlb6zVWwZg # SHA-512 hash of "foobarbaz"
+  passwordHash: tLXSw/gQg2QVPehN+O5wpRx6o22OKMX2OuO5nb0mrametb29utktQXy6caRkxk9QwNxxwgPC7qZ2psKy48GPI0sC6TQ= # SHA-512 hash of "foobarbaz"
 ---
 apiVersion: rabbitmq.com/v1beta1
 kind: User

@@ -64,6 +64,7 @@ Topics covered in this document include:
  * [Replication](#replication)-related topics: [replica management](#replica-management), [replica leader rebalancing](#replica-rebalancing), optimal number of replicas, etc
  * What guarantees quorum queues offer in terms of [leader failure handling](#leader-election), [data safety](#data-safety) and [availability](#availability)
  * Continuous [Membership Reconciliation](#replica-reconciliation)
+ * The additional [dead lettering](#dead-lettering) features supported by quorum queues
  * [Memory and disk footprint](#resource-use) of quorum queues
  * [Performance](#performance) characteristics of quorum queues
  * [Performance tuning](#performance-tuning), both for workloads with [small messages](#performance-tuning-small-messages) and [large messages](#performance-tuning-large-messages)
@@ -201,13 +202,13 @@ of messages as there may be messages in flight whilst the channels are notified.
 The number of additional messages that are accepted by the queue will vary depending
 on how many messages are in flight at the time.
 
-### Dead Lettering {#dead-lettering}
+#### Dead Lettering {#dead-lettering}
 
-Quorum queues support [dead letter exchanges](./dlx) (DLXs).
+Quorum queues support [dead lettering via dead letter exchanges](./dlx) (DLXs).
 
 Traditionally, using DLXs in a clustered environment has not been [safe](./dlx#safety).
 
-Since RabbitMQ 3.10 quorum queues support a safer form of dead-lettering that uses
+Quorum queues support a safer form of dead-lettering that uses
 `at-least-once` guarantees for the message transfer between queues
 (with the limitations and caveats outlined below).
 
@@ -226,16 +227,15 @@ where the dead lettered messages are more of an informational nature and where i
 if they are lost in transit between queues or when the overflow
 configuration restriction outlined below is not suitable.
 
-#### Activating at-least-once dead-lettering
+##### Activating at-least-once Dead-Lettering
 
-To activate or turn on `at-least-once` dead-lettering for a source quorum queue, apply all of the following policies
-(or the equivalent queue arguments starting with `x-`):
+To activate or turn on `at-least-once` dead-lettering for a source quorum queue, adapt the [policy
+that enables dead lettering](./dlx/) like so:
 
 * Set `dead-letter-strategy` to `at-least-once` (default is `at-most-once`).
 * Set `overflow` to `reject-publish` (default is `drop-head`).
-* Configure a `dead-letter-exchange`.
-* Turn on [feature flag](./feature-flags) `stream_queue` (turned on by default
-for RabbitMQ clusters created in 3.9 or later).
+* Configure a `dead-letter-exchange`
+* Enable the `stream_queue` [feature flag](./feature-flags) in case it is not enabled
 
 It is recommended to additionally configure `max-length` or `max-length-bytes`
 to prevent excessive message buildup in the source quorum queue (see caveats below).
@@ -349,6 +349,10 @@ Quorum queues keep track of the number of unsuccessful (re)delivery attempts and
 
 When a message has been redelivered more times than the limit the message will be dropped (removed) or
 [dead-lettered](./dlx) (if a DLX is configured).
+
+For consumers with a [prefetch](./confirms#channel-qos-prefetch) greater than 1, all outstanding
+unacknowledged deliveries can be discarded by this mechanism if they all were requeued as a group multiple times,
+due to, say, consumer application instance failures.
 
 :::
 
@@ -1051,6 +1055,13 @@ will therefore remain consistent.
 
 ### Performance Characteristics {#performance}
 
+:::important
+
+Quorum queues have been optimized further in RabbitMQ 4.1.x
+and now [feature lower memory footprints and improved consumer delivery rates](https://www.rabbitmq.com/blog/2025/04/08/4.1-performance-improvements), parallelism under peak load.
+
+:::
+
 Quorum queues are designed to trade latency for throughput and have been tested
 in 3, 5 and 7 node configurations with several different message sizes.
 
@@ -1158,6 +1169,13 @@ such as the ['exclusive' field](./queues#exclusive-queues).
 
 
 ## Resource Use {#resource-use}
+
+:::important
+
+Quorum queues have been optimized further in RabbitMQ 4.1.x
+and now [feature lower memory footprints and improved consumer delivery rates](https://www.rabbitmq.com/blog/2025/04/08/4.1-performance-improvements), parallelism under peak load.
+
+:::
 
 Quorum queues are optimised for data safety and performance. Each quorum queue process maintains an in-memory index of
 the messages in the queue, which requires at least 32 bytes of metadata for each message (more, if the message was returned or has a TTL set).
@@ -1285,6 +1303,13 @@ See [the Runtime guide](./runtime#atom-usage) to learn more.
 
 
 ## Performance Tuning {#performance-tuning}
+
+:::important
+
+Quorum queues have been optimized further in RabbitMQ 4.1.x
+and now [feature lower memory footprints and improved consumer delivery rates](https://www.rabbitmq.com/blog/2025/04/08/4.1-performance-improvements), parallelism under peak load.
+
+:::
 
 This section aims to cover a couple of tunable parameters that may increase throughput of quorum queues for
 **some workloads**. Other workloads may not see any increases, or observe decreases in throughput, with these settings.

@@ -264,6 +264,17 @@ The following table listes the Topology Operator environment variables that are 
       Default value is set to 2 seconds.
     </td>
   </tr>
+  <tr>
+    <td>
+      CONNECT_USING_PLAIN_HTTP
+    </td>
+    <td>
+      Communicate with RabbitMQ clusters using plain HTTP, even if a cluster has TLS enabled. Default is `false`.
+    </td>
+    <td>
+      Default value is set to `false` and will communicate via HTTPS.
+    </td>
+  </tr>
 </table>
 
 ### Older Operator Versions

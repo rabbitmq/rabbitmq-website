@@ -119,8 +119,8 @@ apt repositories:
      <td>26.x</td>
      <td>
        <ul>
-        <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad</li>
-        <li><a href="#apt-cloudsmith">Debian packages of Erlang</a> from Team RabbitMQ on Cloudsmith.io</li>
+        <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad. Provides `arm64` (`aarch64`) packages</li>
+        <li><a href="#apt-cloudsmith">Debian packages of Erlang</a> from Team RabbitMQ. Provides `amd64` packages only.</li>
        </ul>
      </td>
      <td>
@@ -152,7 +152,15 @@ and <a href="#apt-cloudsmith-erlang">on Cloudsmith.io</a>.
 
 ## Apt with Cloudsmith Mirrors: a Quick Start Script {#apt-quick-start-cloudsmith}
 
-Below is a shell snippet that performs those steps.
+Below is a shell snippet that performs the steps explained in this guide. It provisions
+RabbitMQ and Erlang from a [Team RabbitMQ-hosted](#apt-cloudsmith) apt repository.
+
+:::important
+
+This repository only provides `amd64` (`x86-64`) Erlang packages. For `amd64` (`aarch64`),
+this script must be modified to provision Erlang 26 [from Launchpad](#apt-launchpad-erlang).
+
+:::
 
 <Tabs groupId="distribution-specific">
 <TabItem value="ubuntu-noble" label="Ubuntu 24.04" default>
@@ -197,7 +205,7 @@ sudo apt-get update -y
 ## For versions not compatible with the latest available Erlang series, which is the case
 ## for 3.13.x, apt must be instructed to install specifically Erlang 26.
 ## Alternatively this can be done via version pinning, documented further in this guide.
-supported_erlang_version="1:26.2.5.6-1"
+supported_erlang_version="1:26.2.5.10-1"
 sudo apt-get install -y erlang-base=$supported_erlang_version \
                         erlang-asn1=$supported_erlang_version \
                         erlang-crypto=$supported_erlang_version \
@@ -263,7 +271,7 @@ sudo apt-get update -y
 ## For versions not compatible with the latest available Erlang series, which is the case
 ## for 3.13.x, apt must be instructed to install specifically Erlang 26.
 ## Alternatively this can be done via version pinning, documented further in this guide.
-supported_erlang_version="1:26.2.5.6-1"
+supported_erlang_version="1:26.2.5.10-1"
 sudo apt-get install -y erlang-base=$supported_erlang_version \
                         erlang-asn1=$supported_erlang_version \
                         erlang-crypto=$supported_erlang_version \
@@ -329,7 +337,7 @@ sudo apt-get update -y
 ## For versions not compatible with the latest available Erlang series, which is the case
 ## for 3.13.x, apt must be instructed to install specifically Erlang 26.
 ## Alternatively this can be done via version pinning, documented further in this guide.
-supported_erlang_version="1:26.2.5.6-1"
+supported_erlang_version="1:26.2.5.10-1"
 sudo apt-get install -y erlang-base=$supported_erlang_version \
                         erlang-asn1=$supported_erlang_version \
                         erlang-crypto=$supported_erlang_version \
@@ -395,7 +403,7 @@ sudo apt-get update -y
 ## For versions not compatible with the latest available Erlang series, which is the case
 ## for 3.13.x, apt must be instructed to install specifically Erlang 26.
 ## Alternatively this can be done via version pinning, documented further in this guide.
-supported_erlang_version="1:26.2.5.6-1"
+supported_erlang_version="1:26.2.5.10-1"
 sudo apt-get install -y erlang-base=$supported_erlang_version \
                         erlang-asn1=$supported_erlang_version \
                         erlang-crypto=$supported_erlang_version \
@@ -461,7 +469,7 @@ sudo apt-get update -y
 ## For versions not compatible with the latest available Erlang series, which is the case
 ## for 3.13.x, apt must be instructed to install specifically Erlang 26.
 ## Alternatively this can be done via version pinning, documented further in this guide.
-supported_erlang_version="1:26.2.5.6-1"
+supported_erlang_version="1:26.2.5.10-1"
 sudo apt-get install -y erlang-base=$supported_erlang_version \
                         erlang-asn1=$supported_erlang_version \
                         erlang-crypto=$supported_erlang_version \
@@ -692,7 +700,7 @@ Then install the package with
 ## For versions not compatible with the latest available Erlang series, which is the case
 ## for 3.13.x, apt must be instructed to install specifically Erlang 26.
 ## Alternatively this can be done via version pinning, documented further in this guide.
-supported_erlang_version="1:26.2.5.6-1"
+supported_erlang_version="1:26.2.5.10-1"
 sudo apt-get install -y erlang-base=$supported_erlang_version \
                         erlang-asn1=$supported_erlang_version \
                         erlang-crypto=$supported_erlang_version \
@@ -768,7 +776,7 @@ The following preference file example will pin all `erlang-*` packages to 25.3
 ```ini
 # /etc/apt/preferences.d/erlang
 Package: erlang*
-Pin: version 1:26.2.5.6-1
+Pin: version 1:26.2.5.10-1
 # Note: priority of 1001 (greater than 1000) allows for downgrading.
 # To make package downgrading impossible, use a value of 999
 Pin-Priority: 1001
@@ -1085,18 +1093,14 @@ Standard Debian and Ubuntu repositories tend to provide outdated versions of Erl
 several apt repositories that includes [packages of latest Erlang/OTP releases](https://launchpad.net/~rabbitmq/)
 on Launchpad:
 
- * For [the latest Erlang](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang) major (currently 26.x)
+ * For [the latest Erlang](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang) major (currently 27.x but also includes 26.x packages)
+ * For [Erlang 26.2.x](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang-26)
  * For [Erlang 25.3.x](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang-25)
- * For [Erlang 24.3.x](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang-24)
 
 The Erlang repositores on Launchpad currently target the following Ubuntu distributions:
 
- * Ubuntu 22.04 (Noble)
+ * Ubuntu 24.04 (Noble)
  * Ubuntu 22.04 (Jammy)
- * Ubuntu 20.04 (Focal)
-
-Alternatively, a set of Cloudsmith mirrors (see above) supports the same versions
-and also can be used on Debian distributions, not just Ubuntu.
 
 In order to use the repository, it is necessary to
 

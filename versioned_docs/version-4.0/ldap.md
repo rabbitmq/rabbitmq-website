@@ -25,11 +25,15 @@ limitations under the License.
 RabbitMQ can use LDAP to perform [authentication and authorisation](./access-control) by deferring to external LDAP
 servers. This functionality is provided by a built-in plugin that [has to be enabled](#enabling-the-plugin).
 
+:::tip
+
+The LDAP plugin is usually combined with another plugin, [`rabbitmq_auth_backend_cache`](#query-caching),
+for improved latency and significantly reducing the load on LDAP servers.
+
+:::
+
 Authentication and authorisation operations are translated into [LDAP queries](#authorisation) using
 templates configured by the RabbitMQ operator.
-
-LDAP queries can be [cached](#query-caching) for a period of time for efficiency and reduced
-load on LDAP servers.
 
 [LDAP Operation Flow](#ldap-operation-flow) section
 provides a more detailed overview of how the plugin works.
@@ -404,7 +408,7 @@ The below example uses an [`advanced.config` format](./configure#advanced-config
 
 ## LDAP Query Caching for Efficiency and Reduced Load {#query-caching}
 
-A special [cache backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.13.x/deps/rabbitmq_auth_backend_cache)
+A special [cache backend](./auth-cache-backend/)
 can be used in [combination](./access-control#combined-backends) with other backends to significantly
 reduce the load they generate on LDAP servers.
 
@@ -918,7 +922,7 @@ about. Example:
 ```erlang
 [
   {group_lookup_base, "ou=groups,dc=example,dc=com"},
-  {vhost_access_query, {in_group_nested, "cn=${vhost}-groups,ou=groups,dc=example,dc=com"}, "member", single_level}
+  {vhost_access_query, {in_group_nested, "cn=${vhost}-groups,ou=groups,dc=example,dc=com", "member", single_level}}
 ]
 ```
 

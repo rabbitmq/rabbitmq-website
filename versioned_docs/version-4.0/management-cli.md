@@ -1,5 +1,5 @@
 ---
-title: Management Command Line Tool
+title: rabbitmqadmin v2, a Command Line Tool for the HTTP API
 displayed_sidebar: docsSidebar
 ---
 <!--
@@ -32,7 +32,9 @@ It supports many of the operations available in the management UI:
  * Run [health checks](./monitoring#health-checks)
  * Listing [feature flag](./feature-flags) state
  * Listing [deprecated features](./deprecated-features) in use across the cluster
- * [Definition](./definitions) export and import
+ * [Definition](./definitions) export, transformations, and import
+ * Operations on [shovels](./shovel)
+ * Operations on [federation upstreams](./federation) and links
  * Closing connections
  * Rebalancing of queue leaders across cluster nodes
 
@@ -69,21 +71,24 @@ which will output a list of command groups:
 Usage: rabbitmqadmin [OPTIONS] <command>
 
 Commands:
-  show                 overview
-  list                 lists objects by type
-  declare              creates or declares things
-  delete               deletes objects
-  purge                purges queues
-  health_check         runs health checks
-  close                closes connections
-  rebalance            rebalances queue leaders
-  definitions          operations on definitions
-  export               see 'definitions export'
-  import               see 'definitions import'
-  feature_flags        operations on feature flags
-  deprecated_features  operations on deprecated features
-  publish              publishes (inefficiently) message(s) to a queue or a stream. Only suitable for development and test environments.
-  get                  fetches message(s) from a queue or stream via polling. Only suitable for development and test environments.
+  show                 Overview, memory footprint breakdown, and more
+  list                 Lists objects
+  declare              Creates or declares objects
+  delete               Deletes objects
+  purge                Purges queues
+  policies             Operations on policies
+  health_check         Runs health checks
+  close                Closes connections
+  rebalance            Rebalancing of leader replicas
+  definitions          Operations on definitions (everything except for messages: virtual hosts, queues, streams, exchanges, bindings, users, etc)
+  export               See 'definitions export'
+  import               See 'definitions import'
+  feature_flags        Operations on feature flags
+  deprecated_features  Operations on deprecated features
+  publish              Publishes (inefficiently) message(s) to a queue or a stream. Only suitable for development and test environments.
+  get                  Fetches message(s) from a queue or stream via polling. Only suitable for development and test environments.
+  shovels              Operations on shovels
+  federation           Operations on federation upstreams and links
   tanzu                Tanzu RabbitMQ-specific commands
   help                 Print this message or the help of the given subcommand(s)
 ```
@@ -145,9 +150,9 @@ will output a table that looks like this:
 ├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
 │ Product name     │ RabbitMQ                                                                                          │
 ├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ Product version  │ 4.0.6                                                                                             │
+│ Product version  │ 4.0.8                                                                                             │
 ├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ RabbitMQ version │ 4.0.6                                                                                             │
+│ RabbitMQ version │ 4.0.8                                                                                             │
 ├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
 │ Erlang version   │ 26.2.5.8                                                                                          │
 ├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -171,8 +176,8 @@ as a result:
 ```
  key
  Product name      RabbitMQ
- Product version   4.0.6
- RabbitMQ version  4.0.6
+ Product version   4.0.8
+ RabbitMQ version  4.0.8
  Erlang version    26.2.5.8
  Erlang details    Erlang/OTP 26 [erts-14.2.5.5] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit]
 ```

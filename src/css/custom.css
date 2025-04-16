@@ -237,21 +237,9 @@ html[data-theme='dark'] .release-information {
   --ri-color-future: #005c82;
 }
 
-.release-info-overflow {
-  overflow: scroll;
-}
-
 .release-info-grid {
   display: grid;
-  grid-template-columns:
-    [toggle] 24px
-    [branch] calc(var(--ri-version-col-width) - 24px)
-    [version] var(--ri-version-col-width)
-    [links] auto
-    [reldate] 120px
-    [eos-community] 120px
-    [eos-commercial] 120px
-    [end];
+  grid-template-columns: auto;
   grid-template-rows: auto;
 
   margin-bottom: var(--ifm-spacing-vertical);
@@ -459,10 +447,6 @@ html[data-theme='dark'] .release-info-grid .release-toggle path {
 
   .release-info-grid .release-eos-community {
     grid-column: 6 / span 1;
-  }
-
-  .release-info-grid .release-eos-commercial {
-    grid-column: 7 / span 1;
   }
 }
 

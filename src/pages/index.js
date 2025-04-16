@@ -24,7 +24,7 @@ export default function Home() {
             </div>
             <div class={styles.heroCta}>
               <Link className="button button--primary" to="/tutorials">Getting Started</Link>
-              <Link className={styles.release_notes_link} to="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.6">RabbitMQ 4.0.6</Link>
+              <Link className={styles.release_notes_link} to="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.1.0">RabbitMQ 4.1.0</Link>
             </div>
           </div>
         </div>
@@ -302,15 +302,14 @@ flowchart TD
               <section>
                 <OSIKeyholeIcon/>
                 <Heading as="h2">Free and Open Source</Heading>
-                <p>RabbitMQ is dual-licensed under the Apache License 2.0 and
-                  the Mozilla Public License 2. You have the freedom to use and
-                  modify RabbitMQ however you want.</p>
+                <p>RabbitMQ is licensed under the <Link to="https://www.tldrlegal.com/license/mozilla-public-license-2-0-mpl-2">Mozilla Public License 2.0</Link>,
+                   while most client libraries are dual-licensed under the Apache Software License 2.0 and the Mozilla Public License 2.0. You have the freedom to use and
+                  modify RabbitMQ in a very broad range of contexts.</p>
                 <p>Of course, contributions are more than welcome! Whether it
-                  is through bug reports, patches, helping someone,
+                  is through detailed bug reports, patches, helping someone,
                   documentation or any form of advocacy. In fact contributing
                   is the best way to support the project!
-                  Take a look at our <Link
-                  to="/github">Contributors page</Link>.</p>
+                  Take a look at our <Link to="/github">Contributors page</Link>.</p>
               </section>
               <section>
                 <CommercialSupportIcon/>
@@ -324,10 +323,12 @@ flowchart TD
                   features of RabbitMQ, with some additional management and
                   advanced features like <Link
                   to="https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/3.13/tanzu-rabbitmq-kubernetes/standby-replication.html">warm
-                  standby replication</Link> and <Link
+                  standby replication</Link>, <Link
                   to="https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/3.13/tanzu-rabbitmq-kubernetes/clustering-compression-rabbitmq.html">intra-cluster
-                  data compression</Link>. These features are a must for
-                  heavy workloads.</p>
+                  data compression</Link> and <Link
+                  to="/blog/2025/04/16/amqp-websocket">AMQP 1.0
+                  over WebSocket</Link>.
+                  </p>
                 <p>For a list of the commercial offerings, take a look at
                   the <Link to="https://tanzu.vmware.com/rabbitmq">Ways to run
                   Tanzu RabbitMQ and Free and Open Source RabbitMQ
