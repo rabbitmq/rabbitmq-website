@@ -40,7 +40,7 @@ maintained by the RabbitMQ team.
   </tr>
 
   <tr>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-stream-java-client" target="_blank" rel="noopener noreferrer">Stream Java Client</a> 0.x</td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-stream-java-client" target="_blank" rel="noopener noreferrer">Stream Java Client</a> 1.x</td>
     <td>Currently supported</td>
     <td></td>
     <td>11, 17, 21, 23, 24 (EA), 25 (EA)</td>
