@@ -68,7 +68,7 @@ rabbitmqadmin help
 which will output a list of command groups:
 
 ```
-Usage: rabbitmqadmin [OPTIONS] <command>
+Usage: rabbitmqadmin [OPTIONS] <COMMAND>
 
 Commands:
   show                 Overview, memory footprint breakdown, and more
@@ -441,6 +441,236 @@ rabbitmqadmin deprecated_features list
 # same command as above
 rabbitmqadmin list deprecated_features
 ```
+
+### Export Definitions
+
+To export [definitions](https://www.rabbitmq.com/docs/definitions) to standard output, use `definitions export --stdout`:
+
+```shell
+rabbitmqadmin definitions export --stdout
+```
+
+To export definitions to a file, use `definitions export --file /path/to/definitions.file.json`:
+
+```shell
+rabbitmqadmin definitions export --file /path/to/definitions.file.json
+```
+
+### Export and Transform Definitions
+
+`definitions export` can transform the exported JSON definitions file it gets from the
+target node. This is done by applying one or more transformations to the exported
+JSON file.
+
+This can be useful to remove classic queue mirroring-related keys (such as `ha-mode`) from a definitions
+set originating from a 3.13.x node, or to obfuscate usernames and passwords, or exclude certain definitions file
+sections entirely.
+
+To specify what transformations should be applied, use the `--transformations` options,
+which takes a comma-separated list of  supported operation names.
+
+The following table explains what transformations are available and what they do:
+
+| Transformation name            | Description                                                  |
+|--------------------------------|--------------------------------------------------------------|
+| `strip_cmq_keys_from_policies` | Deletes all classic queue mirroring-related keys (such as `ha-mode`) from all exported policies.<br/><br/>Must be followed by `drop_empty_policies` to strip off the policies whose definition has become empty (and thus invalid at import time) after the removal of all classic queue mirroring-related keys |
+| `drop_empty_policies`          | Should be used after `strip_cmq_keys_from_policies` to strip off the policies whose definition has become empty (and thus invalid at import time) after the removal of all classic queue mirroring-related keys |
+| `obfuscate_usernames`          | Replaces usernames and passwords with dummy values.<br/><br/>For usernames the values used are: `obfuscated-username-1`, `obfuscated-username-2`, and so on.<br/><br/>For passwords the values generated are: `password-1`, `password-2`, and so forth.<br/><br/>This transformations updates both the users and the permissions sections, consistently |
+| `exclude_users`                | Removes all users from the result. Commonly used together with `exclude_permissions` |
+| `exclude_permissions`          | Removes all permissions from the result. Commonly used together with `exclude_users` |
+| `exclude_runtime_parameters`   | Removes all runtime parameters (including federation upstreams, shovels, WSR and SDS settings in Tanzu RabbitMQ) from the result |
+| `exclude_policies`             | Removes all policies from the result                         |
+| `no_op`                        | Does nothing. Can be used as the default in dynamically computed transformation lists, e.g. in scripts |
+
+#### Examples
+
+The following command applies two transformations named `strip_cmq_keys_from_policies` and `drop_empty_policies`
+that will strip all classic queue mirroring-related policy keys that RabbitMQ 3.13 nodes supported,
+then removes the policies that did not have any keys left (ended up having an empty definition):
+
+```shell
+# strips classic mirrored queue-related policy keys from the exported definitions, then prints them
+# to the standard output stream
+rabbitmqadmin definitions export --stdout --transformations strip_cmq_keys_from_policies,drop_empty_policies
+```
+
+The following example exports definitions without users and permissions:
+
+```shell
+# removes users and user permissions from the exported definitions, then prints them
+# to the standard output stream
+rabbitmqadmin definitions export --stdout --transformations exclude_users,exclude_permissions
+```
+
+To export definitions with usernames replaced by dummy values (usernames: `obfuscated-username-1`, `obfuscated-username-2`, and so on;
+passwords: `password-1`, `password-2`, and so forth), use the `obfuscate_usernames` transformation:
+
+```shell
+rabbitmqadmin definitions export --file /path/to/definitions.file.json --transformations obfuscate_usernames
+```
+
+### Import Definition
+
+To import definitions from the standard input, use `definitions import --stdin`:
+
+```shell
+cat /path/to/definitions.file.json | rabbitmqadmin definitions import --stdin
+```
+
+To import definitions from a file, use `definitions import --file /path/to/definitions.file.json`:
+
+```shell
+rabbitmqadmin definitions import --file /path/to/definitions.file.json
+```
+
+### Declare an AMQP 0-9-1 Shovel
+
+To declare a [dynamic shovel](https://www.rabbitmq.com/docs/shovel-dynamic) that uses AMQP 0-9-1 for both source and desitnation, use
+`shovel declare_amqp091`:
+
+```shell
+rabbitmqadmin shovel declare_amqp091 --name my-amqp091-shovel \
+    --source-uri amqp://username:s3KrE7@source.hostname:5672 \
+    --destination-uri amqp://username:s3KrE7@source.hostname:5672 \
+    --ack-mode "on-confirm" \
+    --source-queue "src.queue" \
+    --destination-queue "dest.queue" \
+    --predeclared-source false \
+    --predeclared-destination false
+```
+
+### Declare an AMQP 1.0 Shovel
+
+To declare a [dynamic shovel](https://www.rabbitmq.com/docs/shovel-dynamic) that uses AMQP 1.0 for both source and desitnation, use
+`shovel declare_amqp10`.
+
+Note that
+
+1. With AMQP 1.0 shovels, credentials in the URI are mandatory (there are no defaults)
+2. With AMQP 1.0 shovels, the topology must be pre-declared (an equivalent of `--predeclared-source true` and `--predeclared-destination true` for AMQP 0-9-1 shovels)
+2. AMQP 1.0 shovels should use [AMQP 1.0 addresses v2](https://www.rabbitmq.com/docs/amqp#addresses)
+
+```shell
+rabbitmqadmin shovel declare_amqp10 --name my-amqp1.0-shovel \
+    --source-uri "amqp://username:s3KrE7@source.hostname:5672?hostname=vhost:src-vhost" \
+    --destination-uri "amqp://username:s3KrE7@source.hostname:5672?hostname=vhost:dest-vhost" \
+    --ack-mode "on-confirm" \
+    --source-address "/queues/src.queue" \
+    --destination-address "/queues/dest.queue"
+```
+
+### List Shovels
+
+To list shovels across all virtual hosts, use `shovel list_all`:
+
+```shell
+rabbitmqadmin shovel list_all
+```
+
+### Delete a Shovel
+
+To delete a shovel, use `shovel delete --name`:
+
+```shell
+rabbitmqadmin shovel delete --name my-amqp091-shovel
+```
+
+### List Federation Upstreams
+
+To list [federation upstreams](https://www.rabbitmq.com/docs/federation) across all virtual hosts, use `federation list_all_upstreams`:
+
+```shell
+rabbitmqadmin federation list_all_upstreams
+```
+
+### Create a Federation Upstream for Exchange Federation
+
+To create a [federation upstream](https://www.rabbitmq.com/docs/federated-exchanges), use `federation declare_upstream_for_exchanges`
+
+```shell
+rabbitmqadmin --vhost "local-vhost" federation declare_upstream_for_exchanges --name "pollux" \
+                --uri "amqp://pollux.eng.megacorp.local:5672/remote-vhost" \
+                --ack-mode 'on-publish' \
+                --prefetch-count 2000 \
+                --exchange-name "overridden.name" \
+                --queue-type quorum \
+                --bind-using-nowait true
+```
+
+### Create a Federation Upstream for Queue Federation
+
+To create a [federation upstream](https://www.rabbitmq.com/docs/federated-queues), use `declare_upstream_for_queues`.
+This command provides a reduced set of options, only those that are relevant
+specifically to queue federation.
+
+```shell
+rabbitmqadmin --vhost "local-vhost" federation declare_upstream_for_queues --name "clusters.sirius" \
+                --uri "amqp://sirius.eng.megacorp.local:5672/remote-vhost" \
+                --ack-mode 'on-publish' \
+                --prefetch-count 2000 \
+                --queue-name "overridden.name" \
+                --consumer-tag "overriden.ctag"
+```
+
+### Create a Universal Federation Upstream
+
+To create a [federation upstream](https://www.rabbitmq.com/docs/federation) that will be (or can be)
+used for federating both queues and exchanges, use `declare_upstream`. It combines
+[all the federation options](https://www.rabbitmq.com/docs/federation-reference), that is,
+the options of both `declare_upstream_for_queues` and `declare_upstream_for_exchanges`.
+
+```shell
+rabbitmqadmin --vhost "local-vhost" federation declare_upstream --name "pollux" \
+                --uri "amqp://pollux.eng.megacorp.local:5672/remove-vhost" \
+                --ack-mode 'on-publish' \
+                --prefetch-count 2000 \
+                --queue-name "overridden.name" \
+                --consumer-tag "overriden.ctag" \
+                --exchange-name "overridden.name" \
+                --queue-type quorum \
+                --bind-using-nowait true
+```
+
+### Delete a Federation Upstream
+
+To delete a [federation upstream](https://www.rabbitmq.com/docs/federation), use 'federation delete_upstream',
+which takes a virtual host and an upstream name:
+
+```shell
+rabbitmqadmin --vhost "local-vhost" federation delete_upstream --name "upstream.to.delete"
+```
+
+### List Federation Links
+
+To list all [federation links](https://www.rabbitmq.com/docs/federation) across all virtual hosts, use `federation list_all_links`:
+
+```shell
+rabbitmqadmin federation list_all_links
+```
+
+
+## Subcommand and Long Option Inference
+
+This feature is available only in the `main` branch
+at the moment.
+
+If the `RABBITMQADMIN_NON_INTERACTIVE_MODE` is not set to `true`, this tool
+now can infer subcommand and --long-option names.
+
+This means that a subcommand can be referenced with its unique prefix,
+that is,
+
+* 'del queue' will be inferred as 'delete queue'
+* 'del q --nam "a.queue"' will be inferred as 'delete queue --name "a.queue"'
+
+To enable each feature, set the following environment variables to
+'true':
+
+* `RABBITMQADMIN_INFER_SUBCOMMANDS`
+* `RABBITMQADMIN_INFER_LONG_OPTIONS`
+
+This feature is only meant to be used interactively. For non-interactive
+use, it can be potentially too dangerous to allow.
 
 
 ## Configuration Files
