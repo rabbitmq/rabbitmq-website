@@ -444,7 +444,7 @@ rabbitmqadmin list deprecated_features
 
 ### Export Definitions
 
-To export [definitions](./docs/definitions) to standard output, use `definitions export --stdout`:
+To export [definitions](./definitions) to standard output, use `definitions export --stdout`:
 
 ```shell
 rabbitmqadmin definitions export --stdout
