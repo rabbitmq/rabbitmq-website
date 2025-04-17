@@ -523,7 +523,7 @@ rabbitmqadmin --vhost "events" declare queue --name "target.quorum.queue.name" -
 
 ### --prefix Overrides API Path Prefix
 
-In `rabbitmqadmin` v1, `--path-prefix` appended to the default [API path prefix](https://rabbitmq.com/docs/management#path-prefix).
+In `rabbitmqadmin` v1, `--path-prefix` appended to the default [API path prefix](./management#path-prefix).
 In this version, the value passed to `--path-prefix` will be used as given, in other words,
 it replaces the default prefix, `/api`.
 

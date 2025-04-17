@@ -444,7 +444,7 @@ rabbitmqadmin list deprecated_features
 
 ### Export Definitions
 
-To export [definitions](https://www.rabbitmq.com/docs/definitions) to standard output, use `definitions export --stdout`:
+To export [definitions](./docs/definitions) to standard output, use `definitions export --stdout`:
 
 ```shell
 rabbitmqadmin definitions export --stdout
@@ -525,7 +525,7 @@ rabbitmqadmin definitions import --file /path/to/definitions.file.json
 
 ### Declare an AMQP 0-9-1 Shovel
 
-To declare a [dynamic shovel](https://www.rabbitmq.com/docs/shovel-dynamic) that uses AMQP 0-9-1 for both source and desitnation, use
+To declare a [dynamic shovel](./shovel-dynamic) that uses AMQP 0-9-1 for both source and desitnation, use
 `shovel declare_amqp091`:
 
 ```shell
@@ -541,14 +541,14 @@ rabbitmqadmin shovel declare_amqp091 --name my-amqp091-shovel \
 
 ### Declare an AMQP 1.0 Shovel
 
-To declare a [dynamic shovel](https://www.rabbitmq.com/docs/shovel-dynamic) that uses AMQP 1.0 for both source and desitnation, use
+To declare a [dynamic shovel](./shovel-dynamic) that uses AMQP 1.0 for both source and desitnation, use
 `shovel declare_amqp10`.
 
 Note that
 
 1. With AMQP 1.0 shovels, credentials in the URI are mandatory (there are no defaults)
 2. With AMQP 1.0 shovels, the topology must be pre-declared (an equivalent of `--predeclared-source true` and `--predeclared-destination true` for AMQP 0-9-1 shovels)
-2. AMQP 1.0 shovels should use [AMQP 1.0 addresses v2](https://www.rabbitmq.com/docs/amqp#addresses)
+2. AMQP 1.0 shovels should use [AMQP 1.0 addresses v2](./amqp#addresses)
 
 ```shell
 rabbitmqadmin shovel declare_amqp10 --name my-amqp1.0-shovel \
@@ -577,7 +577,7 @@ rabbitmqadmin shovel delete --name my-amqp091-shovel
 
 ### List Federation Upstreams
 
-To list [federation upstreams](https://www.rabbitmq.com/docs/federation) across all virtual hosts, use `federation list_all_upstreams`:
+To list [federation upstreams](./federation) across all virtual hosts, use `federation list_all_upstreams`:
 
 ```shell
 rabbitmqadmin federation list_all_upstreams
@@ -585,7 +585,9 @@ rabbitmqadmin federation list_all_upstreams
 
 ### Create a Federation Upstream for Exchange Federation
 
-To create a [federation upstream](https://www.rabbitmq.com/docs/federated-exchanges), use `federation declare_upstream_for_exchanges`
+To create a [federation upstream](./federated-exchanges), use `federation declare_upstream_for_exchanges`.
+This command provides a reduced set of options, only those that are relevant
+specifically to exchange federation.
 
 ```shell
 rabbitmqadmin --vhost "local-vhost" federation declare_upstream_for_exchanges --name "pollux" \
@@ -599,7 +601,7 @@ rabbitmqadmin --vhost "local-vhost" federation declare_upstream_for_exchanges --
 
 ### Create a Federation Upstream for Queue Federation
 
-To create a [federation upstream](https://www.rabbitmq.com/docs/federated-queues), use `declare_upstream_for_queues`.
+To create a [federation upstream](./federated-queues), use `declare_upstream_for_queues`.
 This command provides a reduced set of options, only those that are relevant
 specifically to queue federation.
 
@@ -614,9 +616,9 @@ rabbitmqadmin --vhost "local-vhost" federation declare_upstream_for_queues --nam
 
 ### Create a Universal Federation Upstream
 
-To create a [federation upstream](https://www.rabbitmq.com/docs/federation) that will be (or can be)
+To create a [federation upstream](./federation) that will be (or can be)
 used for federating both queues and exchanges, use `declare_upstream`. It combines
-[all the federation options](https://www.rabbitmq.com/docs/federation-reference), that is,
+[all the federation options](./federation-reference), that is,
 the options of both `declare_upstream_for_queues` and `declare_upstream_for_exchanges`.
 
 ```shell
@@ -633,7 +635,7 @@ rabbitmqadmin --vhost "local-vhost" federation declare_upstream --name "pollux" 
 
 ### Delete a Federation Upstream
 
-To delete a [federation upstream](https://www.rabbitmq.com/docs/federation), use 'federation delete_upstream',
+To delete a [federation upstream](./federation), use 'federation delete_upstream',
 which takes a virtual host and an upstream name:
 
 ```shell
@@ -642,7 +644,7 @@ rabbitmqadmin --vhost "local-vhost" federation delete_upstream --name "upstream.
 
 ### List Federation Links
 
-To list all [federation links](https://www.rabbitmq.com/docs/federation) across all virtual hosts, use `federation list_all_links`:
+To list all [federation links](./federation) across all virtual hosts, use `federation list_all_links`:
 
 ```shell
 rabbitmqadmin federation list_all_links
@@ -758,7 +760,7 @@ rabbitmqadmin --vhost "events" declare queue --name "target.quorum.queue.name" -
 
 ### --prefix Overrides API Path Prefix
 
-In `rabbitmqadmin` v1, `--path-prefix` appended to the default [API path prefix](https://rabbitmq.com/docs/management#path-prefix).
+In `rabbitmqadmin` v1, `--path-prefix` appended to the default [API path prefix](./management#path-prefix).
 In this version, the value passed to `--path-prefix` will be used as given, in other words,
 it replaces the default prefix, `/api`.
 
