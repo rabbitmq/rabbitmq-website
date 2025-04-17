@@ -651,9 +651,8 @@ of the cluster.
 
 ### HTTP API Clients and Tooling {#http-api-clients}
 
-[rabbitmqadmin](./management-cli) is a Python command  line tool
-that interacts with the HTTP API. It can be downloaded from any RabbitMQ node that
-has the management plugin enabled at <code>http://<i>node-hostname</i>:15672/cli/</code>.
+[`rabbitmqadmin` v2](./management-cli) is a command line tool
+that interacts with the HTTP API.
 
 For HTTP API clients in several languages,
 see [Developer Tools](/client-libraries/devtools).
