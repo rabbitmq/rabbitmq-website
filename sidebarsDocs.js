@@ -406,6 +406,11 @@ const sidebars = {
           ]
         },
         {
+          type: 'doc',
+          id: 'message-interceptors',
+          label: 'Intercepting Messages',
+        },
+        {
           type: 'link',
           label: 'Client Libraries',
           href: '/client-libraries'
