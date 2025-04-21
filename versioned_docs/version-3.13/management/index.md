@@ -634,9 +634,7 @@ dedicated to common OAuth 2-specific issues.
 ### API Endpoints {#http-api-endpoints}
 
 When activated, the management plugin provides an HTTP API at
-<code>http://<i>server-name</i>:15672/api/</code> by default. Browse to that
-location for more information on the API. For convenience the same API reference is
-<a href={`https://rawcdn.githack.com/rabbitmq/rabbitmq-server/${RabbitMQServerGitTag()}/deps/rabbitmq_management/priv/www/api/index.html`}>available on GitHub</a>.
+<code>http://<i>hostname</i>:15672/api/</code> by default.
 
 ### HTTP API and Monitoring {#http-api-monitoring}
 
@@ -659,10 +657,6 @@ that interacts with the HTTP API.
 
 For HTTP API clients in several languages,
 see [Developer Tools](/client-libraries/devtools).
-
-Some API endpoints return a lot of information. The volume can be reduced
-by filtering what columns are returned by `HTTP GET` requests. See
-<a href={`https://rawcdn.githack.com/rabbitmq/rabbitmq-server/${RabbitMQServerGitTag()}/deps/rabbitmq_management/priv/www/api/index.html`}>latest HTTP API documentation</a> for details.
 
 ### Maximum HTTP Request Body Limit {#http-body-size-limit}
 
