@@ -255,7 +255,7 @@ More TLS-related things can be configured. Those are covered in the rest of this
 
 Here are the essential configuration settings related to TLS:
 
-<table class="plain">
+<table className="plain">
   <thead>
     <td>Configuration Key</td>
     <td>Description</td>
@@ -1021,7 +1021,7 @@ To make things
 easier, there is a new Field Parameters.Ssl that acts like a namespace
 for all the other fields that we need to set. The fields are:
 
-<table class="plain">
+<table className="plain">
 <thead>
   <td>Property</td>
   <td>Description</td>

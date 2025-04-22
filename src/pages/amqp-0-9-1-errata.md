@@ -2,23 +2,23 @@
 title: AMQP 0-9-1 Errata
 ---
 <div id="left-content">
-    <p class="intro">
+    <p className="intro">
         Here we list errors and ambiguities in the 0-9-1 specification and provide our interpretations and corrections.
     </p>
-    <div class="docSection">
+    <div className="docSection">
 
 ## 1 Use of "consumer" {#section_1}
 
     </div>
     <p>
         The word "consumer" is used fairly indiscriminately. In general, we've interpreted it to mean "client", except in situations in which it clearly refers specifically to a triple
-        <span class="code">&lcub;connection, channel, consumer-tag}</span>.
+        <span className="code">&lcub;connection, channel, consumer-tag}</span>.
     </p>
     <p>An example of the first, generic meaning is in channel.flow: "This method asks the peer to pause or restart the flow of content data sent by a consumer."</p>
     <p>An example of the second, specific use is in basic.consume: "Request exclusive consumer access, meaning only this consumer can access the queue."</p>
     <p>(This should really be cleaned up in subsequent revisions of the specification.)</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 2 basic.recover with requeue=false {#section_2}
 
@@ -28,14 +28,14 @@ title: AMQP 0-9-1 Errata
     <p>and</p>
     <p>"If [requeue] is zero, the message will be redelivered to the original recipient. If this bit is 1, the server will attempt to requeue the message, potentially then delivering it to an alternative subscriber."</p>
     <p>These don't account for</p>
-    <ul class="plain">
+    <ul className="plain">
         <li>Messages that were handed over as a result of basic.get; or,</li>
         <li>Consumers that have since since cancelled.</li>
     </ul>
     <p>RabbitMQ doesn't try to redeliver messages that were sent as a response to basic.get, and doesn't attempt to find out if a consumer has been cancelled.</p>
     <p>(Probably the best solution to this under-specification is to remove the requeue flag and just always requeue things.)</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 3 Field types {#section_3}
 
@@ -100,26 +100,26 @@ Remarks:
 </pre>
     <p>RabbitMQ continues to use the tags in the third column.</p>
     <p>Other notes:</p>
-    <ul class="plain">
+    <ul className="plain">
         <li>
             Decimals encoding: "They are encoded as an octet representing the number of places followed by a long signed integer", but the grammar contradicts that and says: "decimal-value = scale long-uint". We treat the decimal value as
             <b>signed</b> integer.
         </li>
     </ul>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 4 field-array {#section_4}
 
     </div>
-    <p>The protocol grammar has a production for <span class="code">field-array</span>, and it appears on the right-hand-side of a production for <span class="code">field-value</span>.</p>
+    <p>The protocol grammar has a production for <span className="code">field-array</span>, and it appears on the right-hand-side of a production for <span className="code">field-value</span>.</p>
     <pre>field-array = long-int *field-value</pre>
     <p>
-        There is no explanation elsewhere for this, as there is for <span class="code">field-table</span>. In particular, there is nothing explaining what the long-int value represents. RabbitMQ uses the total length in bytes of the encoded
+        There is no explanation elsewhere for this, as there is for <span className="code">field-table</span>. In particular, there is nothing explaining what the long-int value represents. RabbitMQ uses the total length in bytes of the encoded
         field-values, similarly to field-table; it also treats it as a long-uint, since that is what field-table uses (on the supposition that "long-int" is a typo).
     </p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 5 Exclusive and auto-delete deletion {#section_5}
 
@@ -128,12 +128,12 @@ Remarks:
     <p>(Actually 0-8 said that the server should wait a "polite amount of time").</p>
     <p>RabbitMQ now deletes auto-delete and queues synchronously with basic.cancel, channel close, and connection close, and exclusive queues synchronously with the latter two.</p>
     <p>An auto-delete queue will not be deleted if:</p>
-    <ul class="plain">
-        <li>it didn't have a consumer - consuming with <span class="code">basic.get</span> does not count as having a consumer</li>
-        <li>the consumer failed to send <span class="code">basic.cancel</span> (e.g. consumer crashed)</li>
+    <ul className="plain">
+        <li>it didn't have a consumer - consuming with <span className="code">basic.get</span> does not count as having a consumer</li>
+        <li>the consumer failed to send <span className="code">basic.cancel</span> (e.g. consumer crashed)</li>
     </ul>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 6 Queue and exchange "equivalent" and "pre-existence" rules {#section_6}
 
@@ -149,7 +149,7 @@ Remarks:
         <b>connection</b> error of 'not-allowed'. The rule should be removed.
     </p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 7 Exclusive rule (amqp0-9-1.xml:1503) {#section_7}
 
@@ -160,14 +160,14 @@ Remarks:
         queue.delete, basic.consume, and basic.get.
     </p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 8 Exclusive and other errors {#section_8}
 
     </div>
     <p>In general, RabbitMQ privileges exclusivity ahead of other things; i.e., it checks that first, and will send a resource-locked even if there are other problems, like non-equivalence.</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 9 Passive and no-wait (amqp0-9-1.xml:1214,1423) {#section_9}
 
@@ -178,7 +178,7 @@ Remarks:
         a channel exception. RabbitMQ ignores the sentence quoted above; i.e., it will send a channel exception if a queue exclusive to another connection, or a non-existent queue or exchange, is passively declared even with no-wait.
     </p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 10 Special case value for channel-max and frame-max {#section_10}
 
@@ -190,7 +190,7 @@ Remarks:
     <p>This is ambiguous if the server sends zero in tune: if the rule is taken literally, the client is not allowed to send any value other than zero in tune-ok, so it can't negotiate down the limit.</p>
     <p>RabbitMQ doesn't put a limit on channel-max, and treats any number in tune-ok as valid. It does put a limit on frame-max, and checks that the value sent in tune-ok is less than or equal.</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 11 frame-max, method and content header frames {#section_11}
 
@@ -200,7 +200,7 @@ Remarks:
         methods or content headers across multiple frames. RabbitMQ currently ignores the frame-max for methods and content headers.
     </p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 12 Heartbeat format {#section_12}
 
@@ -210,7 +210,7 @@ Remarks:
     <p>which doesn't fit the frame format. RabbitMQ, Qpid and OpenAMQ all send eight bytes, following the frame format:</p>
     <p>frame-type (octet) = %d8 channel (short) = %d0 %d0 payload (long) = %d0 %d0 %d0 %d0 frame-end (octet) = %xCE</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 13 Heartbeat monitoring {#section_13}
 
@@ -220,9 +220,9 @@ Remarks:
 The client should start sending heartbeats after receiving a Connection.Tune
 method, and start monitoring heartbeats after receiving Connection.Open.
     </pre>
-    <p>but of course, the client <b class="">sends</b> Connection.Open.</p>
+    <p>but of course, the client <b className="">sends</b> Connection.Open.</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 14 Default exchange {#section_14}
 
@@ -245,17 +245,17 @@ bind, unbind, delete, or make any other reference to this exchange.
         permitted to be the default exchange.
     </p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 15 EBNF Grammar {#section_15}
 
     </div>
     <p>
-        The EBNF grammar (p. 32) is broken: <tt class="">8\*OCTET</tt> should be <tt class="">8 OCTET</tt>, according to the syntax description <tt class="">8\*OCTET</tt> means <b class="">AT LEAST</b> 8 octets (see bullet point 'The Operator
+        The EBNF grammar (p. 32) is broken: <tt className="">8\*OCTET</tt> should be <tt className="">8 OCTET</tt>, according to the syntax description <tt className="">8\*OCTET</tt> means <b className="">AT LEAST</b> 8 octets (see bullet point 'The Operator
         "\*" ...').
     </p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 16 Strings vs bytes {#section_16}
 
@@ -265,28 +265,28 @@ bind, unbind, delete, or make any other reference to this exchange.
         suggests strings are just raw bytes (i.e. can contain invalid utf-8), but other parts of the spec seem to contradict that (e.g. 4.2.5.3, p. 35)
     </p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 17 Missing 312 ("No route") channel exception {#section_17}
 
     </div>
     <p>Section 1.2 ought to define an exception 312 "No route", which used to exist in 0-9 and is what RabbitMQ sends back with 'basic.return' when a 'mandatory' message cannot be delivered to any queue.</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 18 502 channel exception {#section_18}
 
     </div>
     <p>Section 1.1 under queue-name says "If the client did not declare a queue, and the method needs a queue name, this will result in a 502 (syntax error) channel exception". This is in fact a connection exception.</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 19 auto-delete vs exclusive {#section_19}
 
     </div>
     <p>Section 4.5 says "When the server closes a connection, it deletes any auto-delete owned by that connection." That's not what auto-delete means - this should presumably say "...deletes any exclusive queues owned...".</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 20 Durability of amq.* exchanges {#section_20}
 
@@ -296,14 +296,14 @@ bind, unbind, delete, or make any other reference to this exchange.
         interoperability almost completely.
     </p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 21 Rejecting messages with an unknown delivery tag {#section_21}
 
     </div>
     <p>The spec doesn't say what should happen when a client sends a basic.reject with an unknown delivery tag. The server should probably handle this in the same way as for basic.ack, namely a raise a precondition_failed error.</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 22 Heartbeat errors {#section_22}
 
@@ -313,7 +313,7 @@ bind, unbind, delete, or make any other reference to this exchange.
         simultaneously.
     </p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 23 Required server-properties {#section_23}
 
@@ -326,7 +326,7 @@ bind, unbind, delete, or make any other reference to this exchange.
     </p>
     <p>Therefore this field should not be required. RabbitMQ does not supply it.</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 24 'nowait' on all synchronous commands {#section_24}
 
@@ -336,9 +336,9 @@ bind, unbind, delete, or make any other reference to this exchange.
         'basic.recover' (which instead has a sync and async variant), 'tx.select', 'tx.commit', 'tx.rollback'. Of these, 'queue.unbind' is the most glaring departure from the established pattern.
     </p>
 
-    <div class="docSection">
-        <a name="section_25" class="anchor" id=""></a>
-        <h2 class="docHeading"><a class="anchor" href="#section_25"></a></h2>
+    <div className="docSection">
+        <a name="section_25" className="anchor" id=""></a>
+        <h2 className="docHeading"><a className="anchor" href="#section_25"></a></h2>
 
 ## 25 Deprecation of auto-delete exchanges {#section_25}
 
@@ -347,7 +347,7 @@ bind, unbind, delete, or make any other reference to this exchange.
     <p>Also note that the spec still refers to auto-delete exchanges: "Exchanges may be durable, temporary, or auto-deleted." (p. 26).</p>
     <p>RabbitMQ supports auto-delete exchanges.</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 26 Deprecation of internal exchanges {#section_26}
 
@@ -358,7 +358,7 @@ bind, unbind, delete, or make any other reference to this exchange.
     </p>
     <p>Also note that the basic publish rule (02) still makes reference to internal exchanges: "If the exchange was declared as an internal exchange..."</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 27 Basic content field explanation references queues {#section_27}
 
@@ -370,21 +370,21 @@ bind, unbind, delete, or make any other reference to this exchange.
     <p>Similarly, the comments state that "priority" is "for queues that implement priorities". Priorities can be taken into account by a broker in all stages of message processing, not just when enqueuing.</p>
     <p>And on a cosmetic note, the vertical alignment of the basic content definitions is slightly off.</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 28 basic.recover synchronicity {#section_28}
 
     </div>
     <p>Although basic.recover is introduced as a synchronous version of basic.recover-async, it is not marked as synchronous in the XML spec.</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 29 Heartbeat frametype inconsistency {#section_29}
 
     </div>
     <p>The PDF specifies the heartbeat frametype as 4. The XML specifies it as 8.</p>
 
-    <div class="docSection">
+    <div className="docSection">
 
 ## 30 durable vs exclusive {#section_30}
 

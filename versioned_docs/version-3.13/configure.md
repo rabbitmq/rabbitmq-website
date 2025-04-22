@@ -782,7 +782,7 @@ vm_memory_high_watermark.relative = 0.4
     <td>`vm_memory_calculation_strategy`</td>
     <td>
       Strategy for memory usage reporting. Can be one of the following:
-      <ul class="plain">
+      <ul className="plain">
         <li>`allocated`: uses Erlang memory allocator statistics</li>
         <li>`rss`: uses operating system RSS memory reporting. This uses OS-specific means and may start short lived child processes.</li>
         <li>`legacy`: uses legacy memory reporting (how much memory is considered to be used by the runtime). This strategy is fairly inaccurate.</li>

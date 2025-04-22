@@ -224,7 +224,7 @@ default ensures that RabbitMQ works out of the box for
 everyone. As for production deployments, we recommend the
 following:
 
-<ul class="plain">
+<ul className="plain">
   <li>
     <p>
       The minimum recommended free disk space low watermark value is about the same

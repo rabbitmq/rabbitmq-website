@@ -1,8 +1,7 @@
-import React from 'react';
-import { useState } from 'react';
+import React, {useState} from 'react';
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { useVersions } from '@docusaurus/plugin-content-docs/client';
+import {useVersions} from '@docusaurus/plugin-content-docs/client';
 
 import UnfoldIcon from './unfold-toggle.svg';
 
@@ -36,8 +35,7 @@ export function getReleaseBranches() {
 
 export function getReleaseBranch(branch) {
   const releaseBranches = getReleaseBranches();
-  const releaseBranch = releaseBranches[branch] || {};
-  return releaseBranch;
+  return releaseBranches[branch] || {};
 }
 
 export function getLatestRelease(branch) {
@@ -59,8 +57,7 @@ export function getLatestVersion(branch) {
 }
 
 export function getReleaseNotesURL(release) {
-  const url = `https://github.com/rabbitmq/rabbitmq-server/releases/tag/v${release.version}`;
-  return url;
+  return `https://github.com/rabbitmq/rabbitmq-server/releases/tag/v${release.version}`;
 }
 
 export function RabbitMQServerReleaseInfoTable() {
@@ -77,7 +74,7 @@ export function RabbitMQServerReleaseInfoTable() {
 
   var rows = [];
   for (const branch in releaseBranches) {
-    const docusaurusVersion = docusaurusVersions.find((v) => v.name == branch);
+    const docusaurusVersion = docusaurusVersions.find((v) => v.name === branch);
 
     const releaseBranch = releaseBranches[branch];
     const releases = releaseBranch.releases || [];
@@ -91,7 +88,7 @@ export function RabbitMQServerReleaseInfoTable() {
 
     for (const releaseIndex in releases) {
       const release = releases[releaseIndex];
-      const showClassName = (whichShown == branch) ?
+      const showClassName = (whichShown === branch) ?
         "show-release" : "hide-release";
 
       var latestReleaseBranchClassName = "";
@@ -209,7 +206,7 @@ export function RabbitMQServerReleaseInfoTable() {
               showClassName
             ].join(' ')}
               onClick={(e) => {
-                setWhichShown(whichShown == branch ? undefined : branch);
+                setWhichShown(whichShown === branch ? undefined : branch);
               }}>
               <UnfoldIcon/>
             </div>

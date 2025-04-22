@@ -90,7 +90,7 @@ displayed_sidebar: clientLibsSidebar
             <p>
                 The following table details the results of running the 0-8 and 0-9 tests against the RabbitMQ broker.
             </p>
-            <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
+            <table class="amqpRules" border="0" cellPadding="0" cellSpacing="0">
                 <tbody>
                     <tr>
                         <th>Current Status</th>

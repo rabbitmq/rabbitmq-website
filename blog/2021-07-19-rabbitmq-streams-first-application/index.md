@@ -238,7 +238,7 @@ This concludes the writing of our first RabbitMQ Streams application. Here are t
 
 As a bonus, here is a video that covers RabbitMQ Streams and the [stream Go client](https://github.com/rabbitmq/rabbitmq-stream-go-client):
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/m47E3XUzdAM?si=02yJM-rBGpMThrNa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/m47E3XUzdAM?si=02yJM-rBGpMThrNa" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
 
 The RabbitMQ team is looking forward to hearing your feedback on streams and on the stream client libraries ([Java](https://github.com/rabbitmq/rabbitmq-stream-java-client), [Go](https://github.com/rabbitmq/rabbitmq-stream-go-client)).
 We are planning to write a [.NET client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client) for the [stream protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.9.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc), so if you have .NET skills, you can come up with design suggestions or even a prototype.

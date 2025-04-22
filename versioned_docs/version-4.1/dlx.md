@@ -41,7 +41,7 @@ any of the usual types and are declared as normal.
 ## How Dead Lettering is Configured
 
 For any given queue, a DLX can be defined by clients using [policies](./parameters#policies). There
-are several DLX-related policy keys, including some [only supported by quorum queues](./quorum-queues#d) but the two key ones are
+are several DLX-related policy keys, including some [only supported by quorum queues](./quorum-queues) but the two key ones are
 
  * `dead-letter-exchange`: The name of the DLX to use
  * `dead-letter-routing-key`: The routing key to use when dead-lettering messages

@@ -43,7 +43,7 @@ here, [get in touch](/contact)!
 
 ## Routing {#routing}
 
-<table class="plugins">
+<table  className="plugins">
   <tr>
     <th>rabbitmq_lvc_exchange</th>
   </tr>
@@ -141,7 +141,7 @@ here, [get in touch](/contact)!
 
 ## Management {#mgmt}
 
-<table class="plugins">
+<table  className="plugins">
   <tr>
     <th>rabbitmq_management_exchange</th>
   </tr>
@@ -191,7 +191,7 @@ here, [get in touch](/contact)!
 
 ## Protocols {#protocols}
 
-<table class="plugins">
+<table  className="plugins">
   <tr>
     <th>rabbitmq_email</th>
   </tr>

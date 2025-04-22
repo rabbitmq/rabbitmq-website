@@ -46,7 +46,7 @@ retention policies, based on size or age.
 You can have a look at the streams overview presentation from RabbitMQ Summit 2021 below if you want to learn more.
 If you are in a hurry, you can skip it and go directly to the quick start with Docker in the next section.
 
-<iframe class="speakerdeck-iframe" style={{border: '0px', background: 'rgba(0, 0, 0, 0.1) padding-box', margin: '0px', padding: '0px', borderRadius: '6px', boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 40px', width: '100%', height: 'auto', aspectRatio: '560 / 315',}} frameborder="0" src="https://speakerdeck.com/player/24ed5ae0d4544c19ac714f6f7dede00a" title="RabbitMQ Streams Overview at RabbitMQ Summit 2021" allowfullscreen="true" data-ratio="1.7777777777777777"></iframe>
+<iframe className="speakerdeck-iframe" style={{border: '0px', background: 'rgba(0, 0, 0, 0.1) padding-box', margin: '0px', padding: '0px', borderRadius: '6px', boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 40px', width: '100%', height: 'auto', aspectRatio: '560 / 315',}} frameBorder="0" src="https://speakerdeck.com/player/24ed5ae0d4544c19ac714f6f7dede00a" title="RabbitMQ Streams Overview at RabbitMQ Summit 2021" allowFullScreen data-ratio="1.7777777777777777"></iframe>
 
 Without further ado, let's make this thing run.
 

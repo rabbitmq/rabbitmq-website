@@ -18,7 +18,7 @@ title: AMQP 0-9-1 Protocol Specification
         All AMQP 0-9-1 specifications and protocol definitions are published under the [AMQP license](http://www.amqp.org/legal/amqp-license)
         unless stated otherwise.
     </p>
-    <table class="styled-table">
+    <table className="styled-table">
         <tbody>
             <tr>
                 <th>Protocol Version</th>

@@ -61,7 +61,7 @@ displayed_sidebar: docsSidebar
         <p>
             The following table describes the current implementation status of the various AMQP protocol message classes.
         </p>
-        <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
+        <table class="amqpRules" border="0" cellPadding="0" cellSpacing="0">
             <tbody>
                 <tr>
                     <th>Current Status</th>
@@ -108,7 +108,7 @@ displayed_sidebar: docsSidebar
         <p>
             The following table describes the current implementation status of the various AMQP protocol methods in each class.
         </p>
-        <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
+        <table class="amqpRules" border="0" cellPadding="0" cellSpacing="0">
             <tbody>
                 <tr>
                     <th>Current Status</th>
@@ -392,7 +392,7 @@ displayed_sidebar: docsSidebar
         <p>
             The Reference column contains the class or domain, method, field and rule name where present.
         </p>
-        <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
+        <table class="amqpRules" border="0" cellPadding="0" cellSpacing="0">
             <tbody>
                 <tr>
                     <th>Current Status</th>
@@ -1842,7 +1842,7 @@ displayed_sidebar: docsSidebar
         <p>
             The rules listed below are from the PDF version of the 0-9-1 specification, wherever MUST, SHOULD or MAY appear in the text.
         </p>
-        <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
+        <table class="amqpRules" border="0" cellPadding="0" cellSpacing="0">
             <tbody>
                 <tr>
                     <th>Current Status</th>
