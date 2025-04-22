@@ -18,6 +18,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # HTTP API Reference
 
 ## Introduction {#intro}
@@ -85,14 +88,57 @@ list of subfields separated by dots. See the example below.</p>
 
 ## Endpoint Reference
 
+:::tip
+
+The examples below use [`rabbitmqadmin` v2](./management-cli/) or [`curl`](https://curl.se/).
+
+However, the API can be used with any HTTP client. Team RabbitMQ strongly recommends a number of
+[dedicated HTTP API client libraries](/client-libraries/devtools/).
+
+:::
+
+:::tip
+
+The examples that produce JSON output also format the output with [`jq`](https://jqlang.org/).
+The use of `jq` is entirely optional.
+
+:::
+
 ### GET /api/overview
 
 Various random bits of information that describe the whole
 system.
 
+#### Examples
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin show overview
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# jq is used for pretty-printing the result. It is entirely optional.
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/overview | jq
+```
+</TabItem>
+</Tabs>
+
 ### GET /api/cluster-name
 
 Returns the name identifying this RabbitMQ cluster.
+
+#### Examples
+
+<Tabs groupId="examples">
+<TabItem value="curl" label="curl" default>
+```bash
+# jq is used for pretty-printing the result. It is entirely optional.
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/cluster-name | jq
+```
+</TabItem>
+</Tabs>
 
 ### PUT /api/cluster-name
 
@@ -102,23 +148,91 @@ Updates the name identifying this RabbitMQ cluster.
 
 Lists all nodes in the cluster together with their metrics.
 
+#### Examples
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list nodes
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# jq is used for pretty-printing the result. It is entirely optional.
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/nodes | jq
+```
+</TabItem>
+</Tabs>
+
 ### GET /api/nodes/\{_name_\}
 
 Returns metrics of an individual cluster node.
+
+#### Examples
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list nodes
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/nodes/rabbit@hostname | jq
+```
+</TabItem>
+</Tabs>
 
 ### GET /api/nodes/\{_name_\}/memory
 
 Returns a <a href="./memory-use">memory usage breakdown</a> of a specific cluster node.
 
-### GET /api/extensions
+#### Examples
 
-A list of registered extensions to the management plugin.
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+# in percent
+rabbitmqadmin show memory_breakdown_in_percent --node rabbit@hostname
+
+# in bytes
+rabbitmqadmin show memory_breakdown_in_bytes --node rabbit@hostname
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# jq is used for pretty-printing the result. It is entirely optional.
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/nodes/rabbit@hostname/memory | jq
+```
+</TabItem>
+</Tabs>
 
 ### GET /api/definitions
 
 Exports cluster-wide definitions: all exchanges, queues, bindings, users,
 virtual hosts, permissions, topic permissions, and parameters.
 That is, everything apart from messages.
+
+#### Examples
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+# Prints the result to the standard output stream.
+# jq is used for pretty-printing the result. It is entirely optional.
+rabbitmqadmin definitions export --stdout | jq
+
+# stores the result to a file
+rabbitmqadmin definitions export --file /path/to/exported.cluster.definitions.json
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# jq is used for pretty-printing the result. It is entirely optional.
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/definitions | jq
+```
+</TabItem>
+</Tabs>
 
 Relevant documentation guide: <a href="./definitions">Definition Export and Import</a>.
 
@@ -173,6 +287,28 @@ when the definitions are imported.
 
 Relevant documentation guide: <a href="./definitions">Definition Export and Import</a>.
 
+#### Examples
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+# Prints the result to the standard output stream.
+# jq is used for pretty-printing the result. It is entirely optional.
+rabbitmqadmin --vhost "/" definitions export_from_vhost --stdout | jq
+
+# stores the result to a file
+rabbitmqadmin --vhost "/" definitions export_from_vhost --file /path/to/exported.single-vhost.definitions.json
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# jq is used for pretty-printing the result. It is entirely optional.
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/definitions/%2F | jq
+```
+</TabItem>
+</Tabs>
+
+
 ### POST /api/definitions/\{_vhost_\}
 
 Imports (uploads) definitions from a single virtual host: exchanges, queues, bindings, users,
@@ -224,11 +360,41 @@ Lists all feature flags and their state.
 
 Relevant documentation guide: [Feature Flags](./feature-flags).
 
+#### Examples
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin feature_flags list
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/feature-flags | jq
+```
+</TabItem>
+</Tabs>
+
 ### GET /api/deprecated-features
 
 Lists all deprecated features and their state.
 
 Relevant documentation guide: [Deprecated Features](./deprecated-features)
+
+#### Examples
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin deprecated_features list
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/feature-flags | jq
+```
+</TabItem>
+</Tabs>
 
 ### GET /api/deprecated-features/used
 
@@ -236,16 +402,46 @@ Lists the deprecated features that are used in this cluster.
 
 Relevant documentation guide: [Deprecated Features](./deprecated-features)
 
+#### Examples
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin deprecated_features list_used
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/deprecated_features/used | jq
+```
+</TabItem>
+</Tabs>
+
 ### GET /api/connections
 
-<p>
-  A list of all open connections.
-</p>
-<p>
-  Use <a href="#pagination">pagination parameters</a> to list connections,
-  otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
-  Default page size is 100, maximum supported page size is 500.
-</p>
+A list of all open connections.
+
+Use <a href="#pagination">pagination parameters</a> to list connections,
+otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
+Default page size is 100, maximum supported page size is 500.
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list connections
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# This request can result in a very large JSON document
+# and unnecessarily wasted CPU resources.
+#
+# Never use it to fetch information about a single connection.
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/connections | jq
+```
+</TabItem>
+</Tabs>
+
 
 ### GET /api/vhosts/\{_vhost_\}/connections
 
@@ -262,20 +458,76 @@ Relevant documentation guide: [Deprecated Features](./deprecated-features)
 
 Returns metrics of an individual connection.
 
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin deprecated_features list_used
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# the connection name must be percent-encoded
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/connections/127.0.0.1%3A54594%20-%3E%20127.0.0.1%3A5672 | jq
+```
+</TabItem>
+</Tabs>
+
 ### DELETE /api/connections/\{_name_\}
 
 Closes the connection. Optionally set the "X-Reason" header
 to provide a reason.
 
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin close connection --name "127.0.0.1:51740 -> 127.0.0.1:5672"
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# the connection name must be percent-encoded
+curl -sL -u guest:guest -X DELETE -H "Accept: application/json" http://127.0.0.1:15672/api/connections/127.0.0.1%3A62965%20-%3E%20127.0.0.1%3A5672
+```
+</TabItem>
+</Tabs>
+
 ### GET /api/connections/username/\{_username_\}
 
 A list of all open connections that authenticated using a specific username.
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list user_connections --username "guest"
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# the connection name must be percent-encoded
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/connections/username/guest
+```
+</TabItem>
+</Tabs>
 
 ### DELETE /api/connections/username/\{_username_\}
 
 Close all the connections of a user.
 
 Optionally set the "X-Reason" header to provide a reason.
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin close user_connections --username "guest"
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# the connection name must be percent-encoded
+curl -sL -u guest:guest -X DELETE -H "Accept: application/json" http://127.0.0.1:15672/api/connections/127.0.0.1%3A62965%20-%3E%20127.0.0.1%3A5672
+```
+</TabItem>
+</Tabs>
 
 ### GET /api/connections/\{_name_\}/channels
 
@@ -285,6 +537,15 @@ Use <a href="#pagination">pagination parameters</a> to list channels,
 otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
 Default page size is 100, maximum supported page size is 500.
 
+<Tabs groupId="examples">
+<TabItem value="curl" label="curl" default>
+```bash
+# the connection name must be percent-encoded
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/connections/127.0.0.1%3A52066%20-%3E%20127.0.0.1%3A5672/channels | jq
+```
+</TabItem>
+</Tabs>
+
 ### GET /api/channels
 
 A list of all open channels.
@@ -292,6 +553,23 @@ A list of all open channels.
 Use <a href="#pagination">pagination parameters</a> to list channels,
 otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
 Default page size is 100, maximum supported page size is 500.
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list channels
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# This request can result in a very large JSON document
+# and unnecessarily wasted CPU resources.
+#
+# Never use it to fetch information about a single channel.
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/channels
+```
+</TabItem>
+</Tabs>
 
 ### GET /api/vhosts/\{_vhost_\}/channels
 
@@ -313,6 +591,24 @@ Use <a href="#pagination">pagination parameters</a> to list consumers,
 otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
 Default page size is 100, maximum supported page size is 500.
 
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list consumers
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# This request can result in a very large JSON document
+# and unnecessarily wasted CPU resources.
+#
+# Never use it to fetch information about a single consumers.
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/consumers
+```
+</TabItem>
+</Tabs>
+
+
 ### GET /api/consumers/\{_vhost_\}
 
 A list of all consumers in a given virtual host.
@@ -320,6 +616,24 @@ A list of all consumers in a given virtual host.
 ### GET /api/exchanges
 
 A list of all exchanges. Use <a href="#pagination">pagination parameters</a> to list exchanges.
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list exchanges
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# This request can result in a very large JSON document
+# and unnecessarily wasted CPU resources.
+#
+# Never use it to fetch information about a single exchange.
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/exchanges
+```
+</TabItem>
+</Tabs>
+
 
 ### GET /api/exchanges/\{_name_\}
 
@@ -410,6 +724,24 @@ The parameter <code>enable_queue_totals=true</code> can be used in combination w
 reduce the amount of data returned by this endpoint. That in turn can significantly reduce
 CPU and bandwidth footprint of such requests.
 
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list queues
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# This request can result in a very large JSON document
+# and unnecessarily wasted CPU resources.
+#
+# Never use it to fetch information about a single queue.
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/queues
+```
+</TabItem>
+</Tabs>
+
+
 ### GET /api/queues/detailed
 
 <p>
@@ -428,6 +760,23 @@ A list of all queues in the given virtual host containing all available informat
 Use <a href="#pagination">pagination parameters</a> to list queues,
 otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
 Default page size is 100, maximum supported page size is 500.
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin --vhost "/" list queues
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# This request can result in a very large JSON document
+# and unnecessarily wasted CPU resources.
+#
+# Never use it to fetch information about a single queue.
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/queues/%2F
+```
+</TabItem>
+</Tabs>
 
 ### GET /api/queues/\{_vhost_\}/\{_name_\}
 
@@ -510,11 +859,39 @@ Use <a href="#pagination">pagination parameters</a> to list bindings,
 otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
 Default page size is 100, maximum supported page size is 500.
 
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list bindings
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# This request can result in a very large JSON document
+# and unnecessarily wasted CPU resources.
+#
+# Never use it to fetch information about a single queue.
+#
+# The virtual host name must be percent-encoded
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/queues/%2F
+```
+</TabItem>
+</Tabs>
+
 ### GET /api/bindings/\{_vhost_\}
 
 Use <a href="#pagination">pagination parameters</a> to list bindings,
 otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
 Default page size is 100, maximum supported page size is 500.
+
+<Tabs groupId="examples">
+<TabItem value="curl" label="curl" default>
+```bash
+# the virtual host name must be percent-encoded
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/bindings/%2F
+```
+</TabItem>
+</Tabs>
 
 ### GET /api/bindings/\{_vhost_\}/e/\{_exchange_\}/q/\{_queue_\}
 
@@ -597,6 +974,19 @@ Returns a list of all virtual hosts in the cluster.
 
 Pagination: default page size is 100, maximum supported page size is 500.
 
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list vhosts
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/vhosts
+```
+</TabItem>
+</Tabs>
+
 ### GET /api/vhosts/\{_name_\}
 
 Returns metrics of a specific virtual host.
@@ -659,6 +1049,19 @@ few minutes after cluster formation (more specifically after each cluster member
 
 Lists all users in the cluster. This only includes the [users in the internal data store](./access-control/).
 For example, if the [LDAP backend](./ldap/) is used, this command will not include any LDAP users.
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list users
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/users
+```
+</TabItem>
+</Tabs>
 
 ### GET /api/users/without-permissions
 
@@ -747,13 +1150,22 @@ curl -4u 'guest:guest' -H 'content-type:application/json' -X PUT localhost:15672
 
 Clears a per-user limit.
 
-### GET /api/whoami
-
-Returns the username of the authenticated user.
-
 ### GET /api/permissions
 
 A list of all user permissions in the cluster.
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list permissions
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/permissions
+```
+</TabItem>
+</Tabs>
 
 ### GET /api/permissions/\{_vhost_\}/\{_user_\}
 
@@ -806,6 +1218,19 @@ Revokes [topic exchange permissions](./access-control#topic-authorisation) of a 
 
 Returns a list of [runtime parameters](./parameters) across all virtual hosts in the cluster.
 
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list parameters
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/parameters
+```
+</TabItem>
+</Tabs>
+
 ### GET /api/parameters/\{_component_\}
 
 ### GET /api/parameters/\{_component_\}/\{_vhost_\}
@@ -839,9 +1264,25 @@ Deletes a [runtime parameter](./parameters).
 
 Lists all [global runtime parameters](./parameters) in the cluster.
 
+<Tabs groupId="examples">
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/global-parameters
+```
+</TabItem>
+</Tabs>
+
 ### GET /api/global-parameters/\{_name_\}
 
 Returns the value (definition) of the given global runtime parameter.
+
+<Tabs groupId="examples">
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/global-parameters/cluster_name
+```
+</TabItem>
+</Tabs>
 
 ### PUT /api/global-parameters/\{_name_\}
 
@@ -871,13 +1312,43 @@ Example payloads:
 
 Clears a global runtime parameter.
 
+<Tabs groupId="examples">
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -X DELETE -H "Accept: application/json" http://127.0.0.1:15672/api/global-parameters/cluster_name
+```
+</TabItem>
+</Tabs>
+
 ### GET /api/policies
 
 Lists [policies](./parameters#policies) across all virtual hosts in the cluster.
 
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list policies
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/policies
+```
+</TabItem>
+</Tabs>
+
 ### GET /api/policies/\{_vhost_\}
 
 Lists [policies](./parameters#policies) in the given virtual host.
+
+<Tabs groupId="examples">
+<TabItem value="curl" label="curl" default>
+```bash
+# The virtual host name must be percent-encoded
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/policies/%2F
+```
+</TabItem>
+</Tabs>
 
 ### GET /api/policies/\{_vhost_\}/\{_name_\}
 
@@ -912,9 +1383,31 @@ Deletes a policy.
 
 Lists [operator policies](./parameters#operator-policies) across all virtual hosts in the cluster.
 
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin list operator_policies
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/operator-policies
+```
+</TabItem>
+</Tabs>
+
 ### GET /api/operator-policies/\{_vhost_\}
 
 Returns an operator [policy](./parameters#operator-policies) definition.
+
+<Tabs groupId="examples">
+<TabItem value="curl" label="curl" default>
+```bash
+# The virtual host name must be percent-encoded
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/operator-policies/%2F
+```
+</TabItem>
+</Tabs>
 
 ### GET /api/operator-policies/\{_vhost_\}/\{_name_\}
 
@@ -948,6 +1441,32 @@ Deletes an operator policy.
 ### GET /api/vhost-limits
 
 Lists all [virtual host limits](./vhosts#limits) configured across the cluster.
+
+<Tabs groupId="examples">
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/vhost-limits
+```
+</TabItem>
+</Tabs>
+
+### GET /api/vhost-limits/\{_vhost_\}
+
+Lists [virtual host limits](./vhosts#limits) configured for the target virtual host.
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin --vhost "/" list vhost_limits
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+# The virtual host name must be percent-encoded
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/vhost-limits/%2F
+```
+</TabItem>
+</Tabs>
 
 ### PUT /api/vhost-limits/\{_vhost_\}/\{_name_\}
 
@@ -1163,6 +1682,10 @@ for messages regarding the success or failure of the operation.
 curl -4u 'guest:guest' -XPOST localhost:15672/api/rebalance/queues/
 ```
 
+### GET /api/whoami
+
+Returns the username of the authenticated user.
+
 ### GET /api/auth
 
 Details about the [OAuth 2](./oauth2/) configuration. It will return HTTP
@@ -1171,6 +1694,10 @@ status 200 with a body in the following format:
 ```json
 {"oauth_enabled":"boolean", "oauth_client_id":"string", "oauth_provider_url":"string"}
 ```
+
+### GET /api/extensions
+
+A list of registered extensions to the management plugin.
 
 
 ## Metrics Returned by the HTTP API
