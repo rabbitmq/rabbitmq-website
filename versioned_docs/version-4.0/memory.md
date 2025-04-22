@@ -134,8 +134,8 @@ The memory threshold at which the flow control is triggered
 can be adjusted by editing the [configuration file](./configure#configuration-files).
 
 The example below sets the threshold to the default value of 0.6:
+
 ```ini
-# new style config format, recommended
 vm_memory_high_watermark.relative = 0.6
 ```
 
