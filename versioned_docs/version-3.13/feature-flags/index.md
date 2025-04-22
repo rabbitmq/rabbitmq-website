@@ -154,7 +154,7 @@ for the following reasons:
    clustering with older nodes. Remember their purpose is to allow upgrades,
    they are not a configuration mechanism.
 
-Their is no policy defining the life cycle of a feature flag in general. E.g.
+There is no policy defining the life cycle of a feature flag in general. E.g.
 there is no guaranty that a feature flag will go from "stable" to "required"
 after N minor releasees. Because new code builds on top of existing code,
 feature flags are marked as required and the compatibility code is removed
