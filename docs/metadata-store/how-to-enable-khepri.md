@@ -10,21 +10,13 @@ import EnableInUI from './enable-khepri_db-in_management-ui.svg';
 
 # How to Enable Khepri
 
-As of RabbitMQ 4.0, Mnesia is still the default metadata store backend. Khepri
-has to be explicitly enabled using the `khepri_db` [feature
+As of RabbitMQ 4.2.0, Khepri became the default metadata store backend for all
+new deployments. For existing deployments that used RabbitMQ 4.1.x or older
+initially, Khepri has to be explicitly enabled using the `khepri_db` [feature
 flag](../feature-flags).
 
 This page demonstrates how to enable Khepri in various situations and what the
 user should be aware of.
-
-:::important
-While Khepri is fully supported in RabbitMQ 4.0.x, it does not have the 17
-years of extensive use that Mnesia has. We encourage all RabbitMQ users to
-test Khepri thoroughly before adopting it in production.
-
-It will be **possible to upgrade from 4.0.x to future releases** with Khepri
-enabled.
-:::
 
 ## Terminology
 
@@ -122,16 +114,10 @@ nodes with Khepri are clustered together.
 
 ### Using an Environment Variable
 
-`$RABBITMQ_FEATURE_FLAGS` environment varable to set the list of feature flags
-to enable at boot time on a new node. The variable must be set to the
-exhaustive list of feature flags to enable on this node. This variable is
-considered on the very first boot only; it is ignored afterwards.
-
-:::warning
-The use of this variable requires caution: because the variable takes an
-exhaustive list, all feature flags that must be enabled in a given cluster
-must be listed.
-:::
+`$RABBITMQ_FEATURE_FLAGS` environment variable can be set to the absolute list
+of feature flags to enable at boot time on a new node, or to a relative list
+compared to the feature flags enabled by default. This variable is considered
+on the very first boot only; it is ignored afterwards.
 
 Start the new RabbitMQ node using a method of your choice, setting the
 `$RABBITMQ_FEATURE_FLAGS` variable in the process. The example below executes
@@ -140,19 +126,16 @@ the [`rabbitmq-server(8)` command](../man/rabbitmq-server.8) directly:
 <Tabs groupId="shell-specific">
 <TabItem value="bash" label="bash" default>
 ```bash
-env RABBITMQ_FEATURE_FLAGS="khepri_db,..." rabbitmq-server
+env RABBITMQ_FEATURE_FLAGS="+khepri_db" rabbitmq-server
 ```
 </TabItem>
 <TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
-$Env:RABBITMQ_FEATURE_FLAGS = 'khepri_db,...'
+$Env:RABBITMQ_FEATURE_FLAGS = '+khepri_db'
 rabbitmq-server.bat
 ```
 </TabItem>
 </Tabs>
-
-Note that this example does not list other feature flags to keep it short: you
-need to fill that list.
 
 The RabbitMQ node will use Khepri right from the beginning.
 

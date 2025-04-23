@@ -10,7 +10,7 @@ import EnableInUI from './enable-khepri_db-in_management-ui.svg';
 
 # How to Enable Khepri
 
-As of RabbitMQ 4.0, Mnesia is still the default metadata store backend. Khepri
+In RabbitMQ 4.0.x, Mnesia is still the default metadata store backend. Khepri
 has to be explicitly enabled using the `khepri_db` [feature
 flag](../feature-flags).
 
@@ -122,8 +122,8 @@ nodes with Khepri are clustered together.
 
 ### Using an Environment Variable
 
-`$RABBITMQ_FEATURE_FLAGS` environment varable to set the list of feature flags
-to enable at boot time on a new node. The variable must be set to the
+`$RABBITMQ_FEATURE_FLAGS` environment varable can be set to the list of feature
+flags to enable at boot time on a new node. The variable must be set to the
 exhaustive list of feature flags to enable on this node. This variable is
 considered on the very first boot only; it is ignored afterwards.
 

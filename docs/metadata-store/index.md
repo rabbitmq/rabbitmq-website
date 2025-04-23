@@ -96,16 +96,16 @@ Europe 2023 confenence. You can watch the [recording of "Khepri: Replacing
 Mnesia in RabbitMQ"](https://www.youtube.com/watch?v=whVqpgvep90) on YouTube.
 
 :::tip
-Khepri will become the default backend in RabbitMQ 4.1.0.
+Khepri became the default backend as of RabbitMQ 4.2.0.
 
 Mnesia will still be supported. An existing RabbitMQ deployment will continue
-to use it once upgraded to RabbitMQ 4.1.x until Khepri is explicitly enabled
+to use it once upgraded to RabbitMQ 4.2.x until Khepri is explicitly enabled
 by the administrator.
 
-Mnesia support will be removed in a future version, likely RabbitMQ 4.2.0. That
-is why **the RabbitMQ team encourages users to test their workload and
-applications with Khepri** to truely mature it to become the future default
-(and only) metadata store in RabbitMQ.
+Mnesia support will be removed in a future version. That is why **the RabbitMQ
+team encourages users to test their workload and applications with Khepri** to
+truely mature it to become the future default (and only) metadata store in
+RabbitMQ.
 :::
 
 The few next pages will explain how to enable Khepri and will cover these
