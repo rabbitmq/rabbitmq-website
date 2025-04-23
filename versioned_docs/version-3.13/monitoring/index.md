@@ -180,7 +180,7 @@ The built-in [management plugin](./management) can also collect metrics and disp
 This is a convenient option for development environments.
 
 The plugin can also serve metrics to monitoring tools.
-It has, however, has a number of significant limitations compared to [monitoring with Prometheus](#with-prometheus):
+It has, however, a number of significant limitations compared to [monitoring with Prometheus](#with-prometheus):
 
  * The monitoring system is intertwined with the system being monitored
  * Monitoring using management plugin tends to have more overhead, in partiicular to node RAM footprint
