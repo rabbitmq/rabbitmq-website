@@ -6,7 +6,7 @@ authors: [mklishin]
 
 # RabbitMQ 4.0.9
 
-[RabbitMQ `4.0.9`](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.7) is
+[RabbitMQ `4.0.9`](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.9) is
 a new patch release in the `4.0.x` series.
 
 
