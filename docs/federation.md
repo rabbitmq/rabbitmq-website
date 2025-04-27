@@ -341,7 +341,7 @@ and Federation to use TLS.
 
 To configure Federation to use TLS, one needs to
 
- * In upstream URI, use the `amqps` for scheme instead of `amqp` and port `5671 instead of `5672` (assuming the default port is used but the port specified explicitly)
+ * In upstream URI, use the `amqps` for scheme instead of `amqp` and port `5671` instead of `5672` (assuming the default port is used but the port specified explicitly)
  * In the same upstream URI, specify CA certificate and client certificate/key pair, as well as other parameters (namely [enable or disable peer verification](./ssl#peer-verification), [peer verification depth](./ssl#peer-verification-depth)) via [URI query parameters](./uri-query-parameters)
  * Optionally, configure [TLS-related](./ssl/) settings or defaults common for all links (plus, optionally, [Shovel](./shovel)) via the Erlang client settings
 
