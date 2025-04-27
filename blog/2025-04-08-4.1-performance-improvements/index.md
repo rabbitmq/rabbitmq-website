@@ -5,8 +5,8 @@ authors: [kura]
 image: ./qq-memory-usage.png
 ---
 
-RabbitMQ 4.1 is just around the corner and, as usual, apart from new features,
-we have made some internal changes that should provide better performance.
+RabbitMQ 4.1 [is around the corner](/blog/2025/04/15/rabbitmq-4.1.0-is-released) (update: has been released)
+and, as usual, apart from new features, we have made some internal changes that should provide better performance.
 
 There are at least 4 notable changes:
 
@@ -20,7 +20,7 @@ There are at least 4 notable changes:
 ## Quorum Queues: Lower Memory Usage
 
 Quorum queues in RabbitMQ 4.1 should use less memory in many situations. As you may be aware,
-[in the past quorum queues had a sawtooth-like memory usage pattern](https://www.rabbitmq.com/docs/4.0/quorum-queues#how-memory-wal-and-segments-files-interact).
+[in the past quorum queues had a sawtooth-like memory usage pattern](/docs/4.0/quorum-queues#how-memory-wal-and-segments-files-interact).
 They would fill up an in-memory buffer (cache) for recent [Raft](https://raft.github.io/) operations and once full,
 the buffer was emptied and then filled up again.
 

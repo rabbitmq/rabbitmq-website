@@ -7,7 +7,8 @@ authors: [mklishin]
 # RabbitMQ 4.1.0
 
 [RabbitMQ `4.1.0`](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.1.0) is
-a minor release.
+a new minor release that includes [multiple performance improvements](/blog/2025/04/08/4.1-performance-improvements),
+and a number of features such as thew [new peer discovery mechanism for Kubernetes](/blog/2025/04/04/new-k8s-peer-discovery).
 
 See Compatibility Notes below to learn about **breaking or potentially breaking changes** in this release.
 
@@ -41,7 +42,7 @@ for the complete list of related changes.
 
 ### rabbitmqadmin v2
 
-[`rabbitmqadmin` v2](https://github.com/rabbitmq/rabbitmqadmin-ng) is a major revision of the
+[`rabbitmqadmin` v2](/docs/management-cli) is a major revision of the
 original CLI client for the RabbitMQ HTTP API.
 
 It supports a much broader set of operations, including health checks, operations
@@ -87,9 +88,9 @@ The following `rabbitmq.conf` settings are unsupported:
 
 ## Erlang/OTP Compatibility Notes
 
-This release [requires Erlang 26.2](https://www.rabbitmq.com/docs/which-erlang) and supports Erlang 27.x.
+This release [requires Erlang 26.2](/docs/which-erlang) and supports Erlang 27.x.
 
-[Provisioning Latest Erlang Releases](https://www.rabbitmq.com/docs/which-erlang#erlang-repositories) explains
+[Provisioning Latest Erlang Releases](/docs/which-erlang#erlang-repositories) explains
 what package repositories and tools can be used to provision latest patch versions of Erlang 26.x and 27.x.
 
 
@@ -145,9 +146,9 @@ as well as [RPM](https://www.rabbitmq.com/docs/install-rpm), [Debian](https://ww
 ## Community Support Now Only Covers the 4.1.x Series
 
 With the release of [RabbitMQ `4.1.0`](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.1.0), this series is
-no longer covered by [community support](https://www.rabbitmq.com/release-information).
+no longer covered by [community support](/release-information).
 
-Future `4.0.x` releases will only be available to [paying](https://www.rabbitmq.com/contact) customers
+Future `4.0.x` releases will only be available to [paying customers](/contact)
 via the Broadcom customer portal.
 
 All non-paying users must [upgrade to `4.1.0`](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.1.0)
