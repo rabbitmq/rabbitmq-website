@@ -42,6 +42,7 @@ The guide also covers a few post-installation topics in the context of Windows:
  * [RabbitMQ Windows Service](#service)
  * [Managing the node](#managing)
  * [Firewall and security tools](#firewall) effects
+ * File and socket handle monitoring dependency: [`handle.exe`](#handle-exe)
  * [Log file location](#server-logs)
  * [Default user limitations](#default-user-access)
 
@@ -231,6 +232,17 @@ Firewalls and security tools can prevent RabbitMQ Windows service and CLI tools 
 correctly.
 
 Such tools should be configured to whitelist access to [ports used by RabbitMQ](#ports).
+
+
+## Optional: Install handle.exe for File Handle Monitoring {#handle-exe}
+
+One of the [metrics](./monitoring) RabbitMQ nodes collect and provide is the number of
+file and socket handles used by the node.
+
+On Windows, these metrics are collected from an external command line tool,
+[`handle.exe`](https://learn.microsoft.com/en-us/sysinternals/downloads/handle).
+
+Version 5 is required on Windows Server 2025, and is highly recommended in most cases.
 
 
 ## Default User Access {#default-user-access}
