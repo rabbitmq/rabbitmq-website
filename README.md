@@ -19,8 +19,9 @@ branch and directory:
 
 | Version of RabbitMQ | Branch | Sub-directory | Served at |
 |---------------------|--------|---------------|-----------|
-| Development version (4.1) | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `docs` | [`www.rabbitmq.com/docs/next`](https://www.rabbitmq.com/docs/next) |
-| 4.0 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.0` | [`www.rabbitmq.com/docs`](https://www.rabbitmq.com/docs) |
+| Development version (4.2) | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `docs` | [`www.rabbitmq.com/docs/next`](https://www.rabbitmq.com/docs/next) |
+| 4.1 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.1` | [`www.rabbitmq.com/docs`](https://www.rabbitmq.com/docs) |
+| 4.0 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.0` | [`www.rabbitmq.com/docs`](https://www.rabbitmq.com/docs/4.0) |
 | 3.13 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-3.13` | [`www.rabbitmq.com/docs/3.13`](https://www.rabbitmq.com/docs/3.13) |
 | 3.12 | [`v3.12.x`](https://github.com/rabbitmq/rabbitmq-website/tree/v3.12.x) | root | [`v3-12.rabbitmq.com`](https://v3-12.rabbitmq.com/documentation.html) |
 
@@ -113,12 +114,23 @@ The following command generates static content into the `build` directory and
 can be served using any static contents hosting service.
 
 ``` shell
-npm run build
+npm run docusaurus '--' build '--dev'
 ```
 
 This is important to run this command before pushing changes to GitHub to make
 sure the build is successful. This is the command that will be used to deploy
 the website in production.
+
+## How to Add a New Version Series
+
+When a new version series comes out, a separate edition of the docs must
+be explicitly added using
+
+```shell
+# adds a series for 4.2.x
+npm run docusaurus docs:version 4.2
+```
+
 
 ## Copyright and License
 

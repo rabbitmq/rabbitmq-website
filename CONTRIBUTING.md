@@ -9,7 +9,7 @@ The process is fairly standard:
 
  * Fork the repository
  * Create a branch with a descriptive name based on the `main` branch
- * Make your changes, run tests, commit with a [descriptive
+ * Make your changes, run `npm start` and review the results, commit with a [descriptive
    message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html),
    push to your fork
  * Submit pull requests with an explanation what has been changed and **why**
