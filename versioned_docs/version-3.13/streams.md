@@ -98,7 +98,7 @@ Just like queues, streams have to be declared first.
 
 To declare a stream, set the `x-queue-type` queue argument to `stream`
 (the default is `classic`). This argument must be provided by a client
-at declaration time; it cannot be set or changed using a [policy](./parameters#policies).
+at declaration time; it cannot be set or changed using a [policy](./policies).
 This is because policy definition or applicable policy can be changed dynamically but
 queue type cannot. It must be specified at the time of declaration.
 
@@ -127,7 +127,7 @@ If declaring using [management UI](./management), the `stream` type must be spec
 the queue type drop down menu.
 
 Streams support additional [queue arguments](./queues#optional-arguments)
-that also can be configured using a [policy](./parameters#policies)
+that also can be configured using a [policy](./policies)
 
 * `x-max-length-bytes`
 
@@ -382,7 +382,7 @@ read semantics.
 | [Message priority](./priority) | yes | no |
 | [Consumer priority](./consumer-priority) | yes | no |
 | [Dead letter exchanges](./dlx) | yes | no |
-| Adheres to [policies](./parameters#policies) | yes | (see [Retention](#retention)) |
+| Adheres to [policies](./policies) | yes | (see [Retention](#retention)) |
 | Reacts to [memory alarms](./alarms) | yes | no (uses minimal RAM) |
 | Poison message handling | no | no |
 | Global [QoS Prefetch](#global-qos) | yes | no |

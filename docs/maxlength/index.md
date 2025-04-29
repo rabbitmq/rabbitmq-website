@@ -26,11 +26,11 @@ You can set a maximum length on a [queue](./queues). The maximum length limit ca
 messages, or set to a number of bytes (the total of all message body lengths, ignoring message properties and any overheads), or both.
 
 To set the maximum length (of either type), you can
-define it using a [policy](./parameters#policies) (this option is highly recommended)
+define it using a [policy](./policies) (this option is highly recommended)
 or by clients using the [queue's optional arguments](./queues#optional-arguments).
 In a scenario where the maximum length is defined using both ways, that is, using a policy and using the arguments, then the minimum of the two values specified is used.
 
-Queue length settings configured using [operator policies](./parameters#operator-policies).
+Queue length settings configured using [operator policies](./policies#operator-policies).
 
 In all cases, the number of messages in the **ready** state are used. [Messages unacknowledged by consumers](./confirms)
 do not count towards the limit.
@@ -131,7 +131,7 @@ are sent `basic.nack` responses as long as the queue
 contains 2 messages and publisher confirms are enabled.
 
 Policies can also be defined using the management plugin, see
-the [policy documentation](./parameters#policies) for more details.
+the [policy documentation](./policies) for more details.
 
 
 ## Define Max Queue Length Using x-arguments During Declaration {#definition-using-x-args}
@@ -165,7 +165,7 @@ channel.queueDeclare("myqueue", false, false, false, args);
 ## Inspecting Queue Length Limits {#inspecting}
 
 To inspect effective limits for a queue, inspect its [optional arguments](./queues#optional-arguments) and
-[effective policy](./parameters#policies).
+[effective policy](./policies).
 
 This can be done using CLI tools or the management UI.
 

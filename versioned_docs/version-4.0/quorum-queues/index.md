@@ -168,7 +168,7 @@ With some queue operations there are minor differences:
 | [Consumer exclusivity](./consumers#exclusivity) | yes | no (use [Single Active Consumer](./consumers#single-active-consumer)) |
 | [Consumer priority](./consumer-priority) | yes | yes |
 | [Dead letter exchanges](./dlx) | yes | yes |
-| Adheres to [policies](./parameters#policies) | yes | yes (see [Policy support](#policy-support)) |
+| Adheres to [policies](./policies) | yes | yes (see [Policy support](#policy-support)) |
 | Poison message handling | no | yes |
 | [Server-named queues](./queues#server-named-queues) | yes | no |
 
@@ -375,7 +375,7 @@ See [repeated requeues](#repeated-requeues) for more details.
 
 ### Configuring the Limit {#position-message-handling-configuring-limit}
 
-It is possible to set a delivery limit for a queue using a [policy](./parameters#policies) argument, `delivery-limit`.
+It is possible to set a delivery limit for a queue using a [policy](./policies) argument, `delivery-limit`.
 
 #### Overriding the Limit
 
@@ -606,7 +606,7 @@ First we will cover how to declare a quorum queue using AMQP 0.9.1.
 
 To declare a quorum queue set the `x-queue-type` queue argument to `quorum`
 (the default is `classic`). This argument must be provided by a client
-at queue declaration time; it cannot be set or changed using a [policy](./parameters#policies).
+at queue declaration time; it cannot be set or changed using a [policy](./policies).
 This is because policy definition or applicable policy can be changed dynamically but
 queue type cannot. It must be specified at the time of declaration.
 
@@ -736,7 +736,7 @@ declares the queue is connected to.
 
 Which replica becomes the initial leader can controlled using three options:
 
-1. Setting the `queue-leader-locator` [policy](./parameters#policies) key (recommended)
+1. Setting the `queue-leader-locator` [policy](./policies) key (recommended)
 2. By defining the `queue_leader_locator` key in [the configuration file](./configure#configuration-files) (recommended)
 3. Using the `x-queue-leader-locator` [optional queue argument](./queues#optional-arguments)
 
@@ -905,7 +905,7 @@ are expected to come back and only a minority (often just one) node is stopped f
 <table class="name-description">
   <caption>Policy-driven CMR Settings</caption>
   <thead>
-    <td><a href="./parameters#policies">Policy key</a></td>
+    <td><a href="/policies">Policy key</a></td>
     <td>Description</td>
   </thead>
 

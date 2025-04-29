@@ -58,7 +58,7 @@ rabbitmqctl set_policy federate-me '^federated\.' '{"federation-upstream":"up-1"
 
 Note that you cannot use the <code>federation-upstream</code>
 and <code>federation-upstream-set</code> keys together in a
-policy. For more detail on policies, see the <a href="./parameters#policies">policy</a> documentation.
+policy. For more detail on policies, see the <a href="/policies">policy</a> documentation.
 
 ### Upstreams {#upstreams}
 

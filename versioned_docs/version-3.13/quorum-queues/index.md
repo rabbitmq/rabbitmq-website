@@ -143,7 +143,7 @@ Some features are not currently supported by quorum queues.
 | [Consumer exclusivity](./consumers#exclusivity) | yes | no (use [Single Active Consumer](./consumers#single-active-consumer)) |
 | [Consumer priority](./consumer-priority) | yes | yes |
 | [Dead letter exchanges](./dlx) | yes | yes |
-| Adheres to [policies](./parameters#policies) | yes | yes (see [Policy support](#policy-support)) |
+| Adheres to [policies](./policies) | yes | yes (see [Policy support](#policy-support)) |
 | Poison message handling | no | yes |
 | Global [QoS Prefetch](#global-qos) | yes | no |
 | [Server-named queues](./queues#server-named-queues) | yes | no |
@@ -384,7 +384,7 @@ First we will cover how to declare a quorum queue.
 
 To declare a quorum queue set the `x-queue-type` queue argument to `quorum`
 (the default is `classic`). This argument must be provided by a client
-at queue declaration time; it cannot be set or changed using a [policy](./parameters#policies).
+at queue declaration time; it cannot be set or changed using a [policy](./policies).
 This is because policy definition or applicable policy can be changed dynamically but
 queue type cannot. It must be specified at the time of declaration.
 
@@ -471,7 +471,7 @@ replicas is randomly picked, but will always include the node the client that de
 
 Which replica becomes the initial leader can controlled using three options:
 
-1. Setting the `queue-leader-locator` [policy](./parameters#policies) key (recommended)
+1. Setting the `queue-leader-locator` [policy](./policies) key (recommended)
 2. By defining the `queue_leader_locator` key in [the configuration file](./configure#configuration-files) (recommended)
 3. Using the `x-queue-leader-locator` [optional queue argument](./queues#optional-arguments)
 
@@ -676,7 +676,7 @@ The following configuration parameters control the behavior of continuous member
 <table class="name-description">
   <caption>Policy-driven CMR Settings</caption>
   <thead>
-    <td><a href="./parameters#policies">Policy key</a></td>
+    <td><a href="/policies">Policy key</a></td>
     <td>Description</td>
   </thead>
 
@@ -934,7 +934,7 @@ due to, say, consumer application instance failures.
 
 ### Configuring the Limit {#position-message-handling-configuring-limit}
 
-It is possible to set a delivery limit for a queue using a [policy](./parameters#policies) argument, `delivery-limit`.
+It is possible to set a delivery limit for a queue using a [policy](./policies) argument, `delivery-limit`.
 
 The following example sets the limit to 50 for queues whose names begin with
 `qq`.

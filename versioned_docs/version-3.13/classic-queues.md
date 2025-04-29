@@ -43,7 +43,7 @@ Classic queues fully support [queue exclusivity](./queues),
 [queue length limits](./maxlength),
 [message priority](./priority),
 [consumer priority](./consumer-priority)
-and adhere to settings [controlled using policies](./parameters#policies).
+and adhere to settings [controlled using policies](./policies).
 
 Classic queues support [dead letter exchanges](./dlx) with
 the exception of [at-least-once dead-lettering](./quorum-queues#dead-lettering).

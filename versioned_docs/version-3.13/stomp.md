@@ -496,7 +496,7 @@ Please consult the rest of the documentation for details.
 
 ## Using Policies with STOMP {#policies}
 
-RabbitMQ [policies](./parameters#policies) allow for flexible,
+RabbitMQ [policies](./policies) allow for flexible,
 centralised attribute configuration of queues and exchanges. Policies can
 be used with queues used by the STOMP plugin.
 

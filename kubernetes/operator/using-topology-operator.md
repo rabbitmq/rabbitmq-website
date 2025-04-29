@@ -215,7 +215,7 @@ kubectl annotate rmq RMQ-NAME rabbitmq.com/operator-connection-uri=https://test:
 ## Queues and Policies {#queues-policies}
 
 Messaging Topology Operator can declare [queues](/docs/queues) and
-[policies](/docs/parameters#how-policies-work) in a RabbitMQ cluster.
+[policies](/docs/policies) in a RabbitMQ cluster.
 
 The following manifest will create a queue named 'test' in the default vhost:
 

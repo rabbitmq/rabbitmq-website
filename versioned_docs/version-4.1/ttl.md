@@ -44,13 +44,13 @@ Queues will expire after a period of time only when they are not used (a queue i
 
 TTL behavior is controlled by [optional queue arguments](./queues) and the best way to configure it is using a [policy](./parameters).
 
-TTL settings also can be enforced by [operator policies](./parameters#operator-policies).
+TTL settings also can be enforced by [operator policies](./policies#operator-policies).
 
 
 ## Per-Queue Message TTL in Queues {#per-queue-message-ttl}
 
 Message TTL can be set for a given queue by setting the
-`message-ttl` argument with a [policy](./parameters#policies)
+`message-ttl` argument with a [policy](./policies)
 or by specifying the same argument at the time of queue declaration.
 
 A message that has been in the queue for longer than the configured TTL is said to
@@ -238,7 +238,7 @@ are not used (a queue is used if it has online consumers).
 
 Expiry time can be set for a given queue by setting the
 `x-expires` argument to `queue.declare`,
-or by setting the `expires` [policy](./parameters#policies). This controls for
+or by setting the `expires` [policy](./policies). This controls for
 how long a queue can be unused before it is automatically
 deleted. Unused means the queue has no consumers, the
 queue has not been recently redeclared (redeclaring renews the lease),

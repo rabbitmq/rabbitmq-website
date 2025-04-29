@@ -617,7 +617,7 @@ the delivery is returned to the queue.
 
 ### SAC Cannot Be Enabled with a Policy
 
-The Single Active Consumer feature cannot be enabled with a [policy](./parameters#policies).
+The Single Active Consumer feature cannot be enabled with a [policy](./policies).
 Since policies in RabbitMQ are dynamic by nature, they can
 come and go, enabling and disabling the features they declare. Imagine suddenly
 disabling single active consumer on a queue: the broker would start sending messages to

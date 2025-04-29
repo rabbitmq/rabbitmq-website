@@ -230,18 +230,18 @@ pairs that can be provided by clients when a queue is declared.
 The map is used by certain features and exchange types, such as [alternate exchanges](#ae)
 and the headers exchanges.
 
-These optional arguments usually can be dynamically changed after queue declaration via [policies](./parameters#policies).
+These optional arguments usually can be dynamically changed after queue declaration via [policies](./policies).
 
 :::tip
 
-For keys that can be set via [policies](./parameters#policies), always first
+For keys that can be set via [policies](./policies), always first
 consider using a policy instead of setting these values in application code
 
 :::
 
 Optional exchange arguments can be set differently:
 
- * To groups of queues using [policies](./parameters#policies) (recommended)
+ * To groups of queues using [policies](./policies) (recommended)
  * On a per-exchange basis when a queue is declared by a client
 
 The former option is more flexible, non-intrusive, does not require application
@@ -257,10 +257,10 @@ declares queues.
 
 ### Optional Arguments and Policy-Defined Key Precedence {#optional-arguments-precedence}
 
-When the same key is provided by both client-provided `x-arguments` and by a [policy](./parameters#policies),
+When the same key is provided by both client-provided `x-arguments` and by a [policy](./policies),
 the former take precedence.
 
-However, if an [operator policy](./parameters#operator-policies) is also used, that will take precedence over the client-provided
+However, if an [operator policy](./policies#operator-policies) is also used, that will take precedence over the client-provided
 arguments, too. Operator policies are a protection mechanism and override client-provided values
 and user policy values.
 

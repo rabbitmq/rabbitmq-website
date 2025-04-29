@@ -114,7 +114,7 @@ under high memory pressure.
 In **RabbitMQ 3.10.0** version 1 remains the default. It is possible
 to switch back and forth between version 1 and version 2.
 
-The version can be changed using the `queue-version` [policy](./parameters#policies) key.
+The version can be changed using the `queue-version` [policy](./policies) key.
 When setting a new version via policy the queue will immediately
 convert its data on disk. It is possible to upgrade to version 2
 or downgrade to version 1. Note that for large queues the conversion

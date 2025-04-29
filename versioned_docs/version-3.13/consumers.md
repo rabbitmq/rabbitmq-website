@@ -602,7 +602,7 @@ Please note the following about single active consumer:
  unacknowledged messages it requested with `basic.qos`.
  In this case, the other consumers are ignored and
  messages are enqueued.
- * It is not possible to enable single active consumer with a [policy](./parameters#policies).
+ * It is not possible to enable single active consumer with a [policy](./policies).
  Here is the reason why. Policies in RabbitMQ are dynamic by nature, they can
  come and go, enabling and disabling the features they declare. Imagine suddenly
  disabling single active consumer on a queue: the broker would start sending messages to

@@ -36,7 +36,7 @@ any of the usual types and are declared as normal.
 
 For any given queue, a DLX can be defined by clients using the
 [queue's arguments](./queues#optional-arguments), or in the server
-using [policies](./parameters#policies). In the
+using [policies](./policies). In the
 case where both policy and arguments specify a DLX, the one
 specified in arguments overrules the one specified in policy.
 
@@ -73,7 +73,7 @@ Similarly, an explicit routing key can be specified by adding
 the key "dead-letter-routing-key" to the policy.
 
 Policies can also be defined using the management plugin, see
-the [policy documentation](./parameters#policies) for more details.
+the [policy documentation](./policies) for more details.
 
 ## Configuring a Dead Letter Exchange using Optional Queue Arguments {#using-optional-queue-arguments}
 

@@ -138,12 +138,12 @@ and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pul
 **Non-replicated** classic queues continue being supported and developed.
 :::
 
-Mirroring parameters are configured using [policies](./parameters#policies). A policy matches
+Mirroring parameters are configured using [policies](./policies). A policy matches
 one or more queues by name (using a regular expression pattern) and
 contains a definition (a map of optional arguments) that are added to the total set of
 properties of the matching queues.
 
-Please see [Runtime Parameters and Policies](./parameters#policies) for more information on policies.
+Please see [Runtime Parameters and Policies](./policies) for more information on policies.
 
 
 ## Queue Arguments that Control Mirroring {#mirroring-arguments}
@@ -159,7 +159,7 @@ and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pul
 :::
 
 As we've covered above, queues have mirroring enabled
-via [policy](./parameters#policies). Policies
+via [policy](./policies). Policies
 can change at any time; it is valid to create a non-mirrored
 queue, and then make it mirrored at some later point (and
 vice versa). There is a difference between a non-mirrored
@@ -328,7 +328,7 @@ rem => two.replicas ha-two <hare@host-2.1.2223.0> [<rabbit@hostname-1.3.1360.0>]
 If a queue that's expected to be mirroring is not, this usually means that its name
 doesn't match that specified in the policy that controls mirroring or that another
 policy takes priority (and does not enable mirroring).
-See [Runtime Parameters and Policies](./parameters#policies) to learn more.
+See [Runtime Parameters and Policies](./policies) to learn more.
 
 
 ## How to Detect Policies that Enable Classic Queue Mirroring {#detect-usage}

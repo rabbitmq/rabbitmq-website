@@ -134,7 +134,7 @@ rabbitmqctl.bat set_parameter federation-upstream origin '"{""uri"":""amqp://rem
 More upstream definition parameters are covered in the [Federation Reference guide](./federation-reference).
 
 Once an upstream has been specified, a policy that controls federation can be added. It is added just like
-any other [policy](./parameters#policies), using:
+any other [policy](./policies), using:
 
 <Tabs groupId="shell-specific">
 <TabItem value="bash" label="bash" default>
@@ -166,7 +166,7 @@ the one with the highest priority will be used. Multiple policy definitions will
 priorities are equal.
 
 Once configured, a federation link (connection) will be opened for every matching exchange and upstream pair.
-By "matching exchange" here we mean an exchange that is matched by the [federation policy pattern](./parameters#policies).
+By "matching exchange" here we mean an exchange that is matched by the [federation policy pattern](./policies).
 If no exchanges matched, no links will be started.
 
 To deactivate federation for the matching exchanges, delete the policy using its name:

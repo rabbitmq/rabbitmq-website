@@ -163,18 +163,18 @@ registering a consumer:
  * [Consumer priorities](./consumer-priority)
 
 Some optional arguments are set at queue declaration time and remain immutable over the entire
-lifetime of the queue. Others can be dynamically changed after queue declaration via [policies](./parameters#policies).
+lifetime of the queue. Others can be dynamically changed after queue declaration via [policies](./policies).
 
 :::tip
 
-For keys that can be set via [policies](./parameters#policies), always first
+For keys that can be set via [policies](./policies), always first
 consider using a policy instead of setting these values in application code
 
 :::
 
 Optional queue arguments can be set differently:
 
- * To groups of queues using [policies](./parameters#policies) (recommended)
+ * To groups of queues using [policies](./policies) (recommended)
  * On a per-queue basis when a queue is declared by a client
  * For the `x-queue-type` argument, [using a default queue type](./vhosts#default-queue-type)
 
@@ -191,10 +191,10 @@ declares queues.
 
 ### Optional Arguments and Policy-Defined Key Precedence {#optional-arguments-precedence}
 
-When the same key is provided by both client-provided `x-arguments` and by a [policy](./parameters#policies),
+When the same key is provided by both client-provided `x-arguments` and by a [policy](./policies),
 the former take precedence.
 
-However, if an [operator policy](./parameters#operator-policies) is also used, that will take precedence over the client-provided
+However, if an [operator policy](./policies#operator-policies) is also used, that will take precedence over the client-provided
 arguments, too. Operator policies are a protection mechanism and override client-provided values
 and user policy values.
 

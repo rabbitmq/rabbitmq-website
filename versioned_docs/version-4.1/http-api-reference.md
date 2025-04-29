@@ -1322,7 +1322,7 @@ curl -sL -u guest:guest -X DELETE -H "Accept: application/json" http://127.0.0.1
 
 ### GET /api/policies
 
-Lists [policies](./parameters#policies) across all virtual hosts in the cluster.
+Lists [policies](./policies) across all virtual hosts in the cluster.
 
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
@@ -1339,7 +1339,7 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 
 ### GET /api/policies/\{_vhost_\}
 
-Lists [policies](./parameters#policies) in the given virtual host.
+Lists [policies](./policies) in the given virtual host.
 
 <Tabs groupId="examples">
 <TabItem value="curl" label="curl" default>
@@ -1352,11 +1352,11 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 
 ### GET /api/policies/\{_vhost_\}/\{_name_\}
 
-Returns a [policy](./parameters#policies) definition.
+Returns a [policy](./policies) definition.
 
 ### PUT /api/policies/\{_vhost_\}/\{_name_\}
 
-Declares or updates a [policy](./parameters#policies).
+Declares or updates a [policy](./policies).
 
 Example payload:
 
@@ -1371,7 +1371,7 @@ All the keys in the example are mandatory.
 Only one policy applies or a queue, stream or exchange at a time.
 
 When multiple policies have conflicting priorities, a random one will be applied.
-This scenario therefore [must be avoided](./parameters#how-policies-work).
+This scenario therefore [must be avoided](./policies#priorities).
 
 :::
 
@@ -1381,7 +1381,7 @@ Deletes a policy.
 
 ### GET /api/operator-policies
 
-Lists [operator policies](./parameters#operator-policies) across all virtual hosts in the cluster.
+Lists [operator policies](./policies#operator-policies) across all virtual hosts in the cluster.
 
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
@@ -1398,7 +1398,7 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 
 ### GET /api/operator-policies/\{_vhost_\}
 
-Returns an operator [policy](./parameters#operator-policies) definition.
+Returns an operator [policy](./policies#operator-policies) definition.
 
 <Tabs groupId="examples">
 <TabItem value="curl" label="curl" default>
@@ -1411,7 +1411,7 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 
 ### GET /api/operator-policies/\{_vhost_\}/\{_name_\}
 
-Returns an operator [policy](./parameters#operator-policies) definition.
+Returns an operator [policy](./policies#operator-policies) definition.
 
 ### PUT /api/operator-policies/\{_vhost_\}/\{_name_\}
 
@@ -1429,7 +1429,7 @@ All the keys in the example are mandatory.
 Only one policy applies or a queue, stream or exchange at a time.
 
 When multiple policies have conflicting priorities, a random one will be applied.
-This scenario therefore [must be avoided](./parameters#how-policies-work).
+This scenario therefore [must be avoided](./policies#priorities).
 
 :::
 

@@ -102,7 +102,7 @@ Two steps are involved in setting up federation:
   to other nodes. This can be done via [runtime parameters](./parameters)
   or the [federation management plugin](https://github.com/rabbitmq/rabbitmq-federation-management) which
   adds a federation management tab to the [management UI](./management).
-* To enable federation, one or more [policies](./parameters#policies) that match exchanges or queues must be declared.
+* To enable federation, one or more [policies](./policies) that match exchanges or queues must be declared.
   The policy will make the matched objects (e.g. exchanges) federated, and one federation link
   (connection to other nodes) will be started for every match
 
@@ -132,7 +132,7 @@ are three levels of configuration involved in federation:
 
 * **Upstreams**: each [upstream](./federation-reference#upstreams) defines a remote connection endpoint.
 * **Upstream sets**: each [upstream set groups](./federation-reference#upstream-sets) together a set of upstreams to use for federation.
-* **Policies**: each [policy](./parameters#policies) selects a set of exchanges,
+* **Policies**: each [policy](./policies) selects a set of exchanges,
   queues or both, and applies a single upstream or an upstream
   set to those objects.
 
@@ -240,7 +240,7 @@ for the default one) with (implicit) low priority, and
 to federate them using the implicitly created upstream set
 "all", which includes our newly-created upstream.
 
-Any other [matching policy](./parameters#policies) with a priority greater than 0 will take
+Any other [matching policy](./policies) with a priority greater than 0 will take
 precedence over this policy. Keep in mind that `federate-me`
 is just a name we used for this example, you can use any
 string you want there.
@@ -517,7 +517,7 @@ Federation links are started when
 Therefore, in order to narrow down the problem, the recommended steps are:
 
  * Inspect federation upstreams
- * Inspect [policies](./parameters#policies), in particular looking for policies with conflicting [priorities](./parameters#policy-priorities)
+ * Inspect [policies](./policies), in particular looking for policies with conflicting [priorities](./policies#priorities)
  * Inspect [node logs](./logging)
 
 #### Inspect Federation Upstreams
