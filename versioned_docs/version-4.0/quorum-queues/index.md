@@ -787,9 +787,9 @@ nodes can be configured to automatically try to grow the quorum queue replica me
 to a configured target group size by enabling the continuous membership reconciliation feature.
 
 When activated, every quorum queue leader replica will periodically check its current membership group size
-(the number of replicas online), and compare it with the target value.
+(the number of configured replicas), and compare it with the target value.
 
-If a queue is below the target value, RabbitMQ will attempt to grow the queue onto the availible nodes that
+If a queue is below the target value, RabbitMQ will attempt to grow the queue onto the available nodes that
 do not currently host replicas of said queue, if any, up to the target value.
 
 #### When is Continuous Membership Reconciliation Triggered?
