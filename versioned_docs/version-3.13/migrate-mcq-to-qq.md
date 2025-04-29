@@ -52,7 +52,7 @@ There are two `rabbitmq-diagnostics` commands that help with this:
  * `rabbitmq-diagnostics check_if_cluster_has_classic_queue_mirroring_policy`, a [health check](./monitoring#health-checks)
  * `rabbitmq-diagnostics list_policies_with_classic_queue_mirroring` that lists the problematic policies
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # exits with a non-zero code if any policies in the cluster
@@ -95,7 +95,7 @@ To find the mirrored classic queues that must be migrated, run the following scr
 
 Note, the following command uses `effective_policy_definition` parameters, which are only available since RabbitMQ version 3.10.13/3.11.5. If it's not available, you can use `rabbitmqctl` from any RabbitMQ version later than 3.10.13/3.11.5, or manually match the policy name to it's definition.
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 #!/bin/sh
@@ -111,7 +111,7 @@ done
 
 All mirrored classic queues that include `ha-mode` in their effective policy definition must be migrated to a different type of queue. All these queues are listed as mirrored classic queues in the Management UI and CLI. Find the policies that apply it by running the following script:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 #!/bin/sh
@@ -149,7 +149,7 @@ Global [QoS prefetch](./quorum-queues#global-qos) where a channel sets a single 
 
 To find out if this feature is used, run the following command on a running system and check for non-empty output:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl list_channels pid name global_prefetch_count | sed -n '/\t0$/!p'
@@ -159,7 +159,7 @@ rabbitmqctl list_channels pid name global_prefetch_count | sed -n '/\t0$/!p'
 
 A list of channel PIDs that have global QoS turned on are returned. Then, run the following command to map the channel PID to a queue name to verify if it is a mirrored classic queue.
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl list_consumers queue_name channel_pid
@@ -235,7 +235,7 @@ host with quorum queues. The only change you need to make is to update the virtu
 Alternatively, it can also be created using the CLI interface by specifying the default queue type and adding the permissions.
 Ensure all required users have access and can connect to the new virtual host by following the steps in the [Access Control guide](./access-control#user-management).
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl add_vhost NEW_VHOST --default-queue-type quorum
@@ -258,7 +258,7 @@ default vhost URI is `amqp:///%2f`).
 
 The federation upstream can be created using the management UI or the CLI:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_parameter federation-upstream quorum-migration-upstream \
@@ -287,7 +287,7 @@ preserved as shown in the previous CLI example.
 Export the [definitions](./definitions) from the source virtual host to a file
 using the following CLI command:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # exports definitions of a specific virtual host
@@ -332,7 +332,7 @@ Make the following changes to this file before loading it back into the NEW_VHOS
 Now the modified schema can be loaded into the new virtual host from the Management
 UI or by running the following command from the CLI:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # imports definitions of a specific virtual host
@@ -366,7 +366,7 @@ virtual host, and start consumers on the new virtual host.
 
 For every non-empty queue in the old virtual host, a shovel needs to be configured. For example:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_parameter shovel migrate-QUEUE_TO_MIGRATE \
@@ -385,7 +385,7 @@ rabbitmqctl.bat set_parameter shovel migrate-QUEUE_TO_MIGRATE ^
 
 After the queue is drained, the shovel can be deleted:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl delete_shovel migrate-QUEUE_TO_MIGRATE

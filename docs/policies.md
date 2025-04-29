@@ -140,7 +140,7 @@ Those values intentionally cannot be configured by policies: their values are fi
 
 An example of defining a policy looks like:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy federate-me \
@@ -270,7 +270,7 @@ keys combined in the same policy definition.
 
 Here's an example:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy ttl-fed \
@@ -539,7 +539,7 @@ When `rabbitmqctl` is used, the command name is `set_operator_policy`
 instead of `set_policy`. In the HTTP API, `/api/policies/` in request path
 becomes `/api/operator-policies/`:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_operator_policy transient-queue-ttl \
@@ -605,3 +605,116 @@ HTTP API and Web UI.
 ```ini
 management.restrictions.operator_policy_changes.disabled = true
 ```
+
+## Troubleshooting
+
+### Multiple Policies Have Conflicting Priorities
+
+To verify this hypothesis, list the policies in the virtual host
+and see if any policies have a priority equal to the one you are troubleshooting.
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash" default>
+```bash
+rabbitmqctl --vhost "target.vhost" list_policies --formatter=pretty_table
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat --vhost "target.vhost" list_policies --formatter=pretty_table
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+```bash
+rabbitmqadmin --vhost "target.vhost" policies list_in
+```
+</TabItem>
+</Tabs>
+
+If the results are empty, this means that no policies in the target virtual host
+have matched the target object (queue, stream, exchange).
+
+[`rabbitmqadmin` v2](./management-cli) additionally can list the policies
+that match a specific object (if any):
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+```bash
+# lists all policies that match a queue named "a.queue" in a virtual host named "target.vhost"
+rabbitmqadmin --vhost "target.vhost" policies list_matching_object --name "a.queue" --type "queues"
+```
+</TabItem>
+</Tabs>
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+```bash
+# lists all policies that match an exchanged named "an.exchange" in a virtual host named "target.vhost"
+rabbitmqadmin --vhost "target.vhost" policies list_matching_object --name "an.exchange" --type "exchanges"
+```
+</TabItem>
+</Tabs>
+
+Look for any and all policies that have equal priorities. Only one of them will apply
+to a matching object (queue, stream, exchange), and the selection should be
+considered non-deterministic (random).
+
+
+### Policy Pattern or Target Type Does Not Match Object's Name or Type
+
+To verify this hypothesis, list the policies that
+match the object (e.g. queue) in question using [`rabbitmqadmin` v2](./management-cli).
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+```bash
+# lists all policies that match a queue named "a.queue" in a virtual host named "target.vhost"
+rabbitmqadmin --vhost "target.vhost" policies list_matching_object --name "a.queue" --type "queues"
+```
+</TabItem>
+</Tabs>
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+```bash
+# lists all policies that match an exchanged named "an.exchange" in a virtual host named "target.vhost"
+rabbitmqadmin --vhost "target.vhost" policies list_matching_object --name "an.exchange" --type "exchanges"
+```
+</TabItem>
+</Tabs>
+
+If the results are empty, this means that no policies in the target virtual host
+have matched the target object (queue, stream, exchange).
+
+
+### Policy Declared in the Wrong Virtual Host
+
+Policies are virtual host-scoped, that is, belong to a particular virtual host and only
+apply to the objects (queues, streams, exchanges) in that virtual host.
+
+A policy can be declared in the default virtual host by mistake.
+To verify this hypothesis, list only the policies in that virtual host.
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash" default>
+```bash
+rabbitmqctl --vhost "target.vhost" list_policies --formatter=pretty_table
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat --vhost "target.vhost" list_policies --formatter=pretty_table
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+```bash
+rabbitmqadmin --vhost "/" policies list_in
+```
+</TabItem>
+</Tabs>
+
+If the results are empty, this means that there are no policies defined in the target virtual host.

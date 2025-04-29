@@ -230,7 +230,7 @@ case of a 3-node cluster, this means that 2 nodes should always be available dur
 RabbitMQ provides a [health check](./monitoring#health-checks) command that would fail
 should any quorum queues, stream queues or other internal components on the target node lose their quorum, if that node was to be shut down:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # exits with a non-zero code if any of the internal components, quorum queues or stream queues
@@ -265,7 +265,7 @@ between the nodes after the upgrade. Rebalancing of queue and stream leaders hel
 
 To rebalance all queue and stream leader replicas, run:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-queues rebalance all
@@ -314,7 +314,7 @@ for long periods of time.
 
 To put a node into maintenance, use `rabbitmq-upgrade drain`:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-upgrade drain
@@ -336,7 +336,7 @@ A restart takes the node out of maintenance mode automatically.
 A node in maintenance mode can be *revived*, that is, **brought back into its regular operational state**,
 using `rabbitmq-upgrade revive`:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-upgrade revive

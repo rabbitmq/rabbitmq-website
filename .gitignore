@@ -19,6 +19,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+.fleet/
 .idea/
 # these can be copied from rabbitmq-server/deps/rabbit/docs by accident
 docs/man/*.html

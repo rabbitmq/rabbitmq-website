@@ -127,7 +127,7 @@ To add an upstream, use the `rabbitmqctl set_parameter` command. It accepts thre
 
 The following example configures an upstream named "origin" which can be contacted at `remote-host.local:5672`:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # Adds a federation upstream named "origin"
@@ -145,7 +145,7 @@ rabbitmqctl.bat set_parameter federation-upstream origin '"{""uri"":""amqp://rem
 Once an upstream has been specified, a policy that controls federation can be added.
 It is added just like any other [policy](./policies), using `rabbitmqctl set_policy`:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # Adds a policy named "queue-federation"

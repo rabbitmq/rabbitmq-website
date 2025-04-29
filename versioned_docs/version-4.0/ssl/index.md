@@ -2062,7 +2062,7 @@ bundle files with their new versions.
 
 ### Clearing the Certificate and Private Key Store Cache
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl eval -n [target-node@hostname] 'ssl:clear_pem_cache().'

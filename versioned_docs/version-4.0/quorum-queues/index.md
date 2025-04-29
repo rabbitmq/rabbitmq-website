@@ -382,7 +382,7 @@ It is possible to set a delivery limit for a queue using a [policy](./policies) 
 The following example sets the limit to 50 for queues whose names begin with
 `qq`.
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy qq-overrides \
@@ -438,7 +438,7 @@ PUT /api/policies/%2f/qq-overrides
 The following example disables the limit for queues whose names begin with
 `qq.unlimited`.
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy qq-overrides \
@@ -497,7 +497,7 @@ The following example configures both the limit and an exchange to dead-letter (
 messages. The target exchange in this example is called "redeliveries.limit.dlx". Declaring it and setting up its topology
 (binding queues and/or streams to it) is not covered in this example.
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy qq-overrides \

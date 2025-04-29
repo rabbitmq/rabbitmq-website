@@ -75,7 +75,7 @@ verified at the time the queue is declared.
 To specify a DLX using policy, add the key "dead-letter-exchange"
 to a policy definition:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy DLX ".*" '{"dead-letter-exchange":"my-dlx"}' --apply-to queues --priority 7
@@ -133,7 +133,7 @@ it is common to see multiple policies that apply to a subset of queues each.
 Similarly, an explicit routing key can be specified by adding
 the key "dead-letter-routing-key" to the policy:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy DLX ".*" '{"dead-letter-exchange":"my-dlx", "dead-letter-routing-key":"my-routing-key"}' --apply-to queues --priority 7

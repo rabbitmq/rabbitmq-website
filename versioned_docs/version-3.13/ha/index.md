@@ -293,7 +293,7 @@ When a new queue mirror is added, the event is logged:
 It is possible to list queue leader and mirrors using `rabbitmqctl list_queues`. In this
 example we also display queue policy since it's highly relevant:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # mirror_pids is a new field alias introduced in RabbitMQ 3.11.4
@@ -341,7 +341,7 @@ There are two `rabbitmq-diagnostics` commands that help with this:
  * `rabbitmq-diagnostics check_if_cluster_has_classic_queue_mirroring_policy`, a [health check](./monitoring#health-checks)
  * `rabbitmq-diagnostics list_policies_with_classic_queue_mirroring` that lists the problematic policies
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # exits with a non-zero code if any policies in the cluster
@@ -458,7 +458,7 @@ Below is a policy where queues whose names begin with
 "`two.`" are mirrored to any two nodes in the
 cluster, with [automatic synchronisation](#configuring-synchronisation):
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy ha-two "^two\." \
@@ -510,7 +510,7 @@ PUT /api/policies/%2f/ha-two
 The following example uses the `"all"` mode, which is excessive
 and usually unnecessary in clusters of five nodes or larger:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 :::warning
 Mirroring to all nodes is unnecessary and will result
@@ -577,7 +577,7 @@ A policy where queues whose names begin with
 "`nodes.`" are mirrored to specific nodes in the
 cluster:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy ha-nodes "^nodes\." \
@@ -792,7 +792,7 @@ a common scenario with lazy queues, for example.
 
 To see mirror status (whether they are synchronised), use:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl list_queues name mirror_pids synchronised_mirror_pids
@@ -812,7 +812,7 @@ rabbitmqctl.bat list_queues name mirror_pids synchronised_mirror_pids
 
 It is possible to manually synchronise a queue:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl sync_queue "{name}"
@@ -832,7 +832,7 @@ rabbitmqctl.bat sync_queue "{name}"
 
 Or cancel an in-progress synchronisation:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl cancel_sync_queue "{name}"

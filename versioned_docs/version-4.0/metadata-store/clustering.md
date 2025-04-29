@@ -100,7 +100,7 @@ met.
 
 Here is an example of a node joining a 4-node cluster with 3 stopped nodes:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl -n rabbit@host-5 join_cluster rabbit@host-4

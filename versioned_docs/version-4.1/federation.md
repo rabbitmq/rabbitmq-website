@@ -165,7 +165,7 @@ to one hour (3600000ms).
 To define an upstream, use one of the following examples,
 one per tab:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # target.hostname is just an example, replace it with a URI
@@ -203,7 +203,7 @@ PUT /api/parameters/federation-upstream/%2f/my-upstream
 
 Then define a policy that will match built-in exchanges and use this upstream:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy --apply-to exchanges federate-me "^amq\." \
@@ -348,7 +348,7 @@ To configure Federation to use TLS, one needs to
 In the following example the upstream URI is modified to use TLS with a client certificate (public key)
 and private key pair but with peer verification disabled (for simplicity, it is encouraged for production use):
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # Note the TLS-related settings in the upstream URI field
@@ -522,7 +522,7 @@ Therefore, in order to narrow down the problem, the recommended steps are:
 
 #### Inspect Federation Upstreams
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-diagnostics list_parameters --formatter=pretty_table

@@ -402,7 +402,7 @@ and all replicas can be transferred away and replaced over duration of a single 
 
 To determine if a node is quorum critical, use the following [health check](./monitoring#health-checks):
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # exits with a non-zero status if shutting down target node would leave some quorum queues
@@ -422,7 +422,7 @@ rabbitmq-diagnostics.bat check_if_node_is_quorum_critical
 The following [health check](./monitoring#health-checks) must be used to determine if there may be
 any remaining initial quorum queue replica log transfers:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # exits with a non-zero status if there are any ongoing initial quorum queue
@@ -458,7 +458,7 @@ The mode is explicitly turned on and off by the operator using a bunch of new CL
 For mixed-version cluster compatibility, this feature must be [enabled using a feature flag](./feature-flags)
 once all cluster members have been upgraded to a version that supports it:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl enable_feature_flag maintenance_mode_status
@@ -476,7 +476,7 @@ rabbitmqctl.bat enable_feature_flag maintenance_mode_status
 
 To put a node under maintenance, use `rabbitmq-upgrade drain`:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-upgrade drain
@@ -492,7 +492,7 @@ rabbitmq-upgrade.bat drain
 As all other CLI commands, this command can be invoked against an arbitrary node (including remote ones)
 using the `-n` switch:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # puts node rabbit@node2.cluster.rabbitmq.svc into maintenance mode
@@ -543,7 +543,7 @@ maintenance mode state.
 A node in maintenance mode can be *revived*, that is, **brought back into its regular operational state**,
 using `rabbitmq-upgrade revive`:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-upgrade revive
@@ -564,7 +564,7 @@ maintenance mode state.
 As all other CLI commands, this command can be invoked against an arbitrary node (including remote ones)
 using the `-n` switch:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # revives node rabbit@node2.cluster.rabbitmq.svc from maintenance
@@ -667,7 +667,7 @@ to be enabled **before** the upgrade. If all feature flags were enabled after th
 previous upgrade, this should already be the case. However, it's better to verify
 the state of feature flags with
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl list_feature_flags --formatter=pretty_table
@@ -683,7 +683,7 @@ rabbitmqctl.bat list_feature_flags --formatter=pretty_table
 
 and enable all feature flags with
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl enable_feature_flag all
@@ -863,7 +863,7 @@ able to satisfy their data safety guarantees.
 Latest RabbitMQ releases provide a [health check](./monitoring#health-checks) command that would fail
 should any quorum queues on the target node lose their quorum in case the node was to be shut down:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # Exits with a non-zero code if one or more quorum queues will lose online quorum
@@ -887,7 +887,7 @@ the quorum queues with leader on node A would have a quorum of replicas online.
 
 Quorum queue quorum state can be verified by listing queues in the management UI or using `rabbitmq-queues`:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-queues -n rabbit@to-be-stopped quorum_status <queue name>
@@ -925,7 +925,7 @@ with replicas on a node before shutting the node down.
 RabbitMQ 3.13.x series provides a [health check](./monitoring#health-checks) command that would fail
 should any classic mirrored queues on the target node have no synchronised mirrors:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 ## IMPORTANT: classic queue mirroring, together with this health checks, were REMOVED for RabbitMQ 4.0.
@@ -953,7 +953,7 @@ there would be at least one replica suitable for promotion.
 
 Classic mirrored queue replica state can be verified by listing queues in the management UI or using `rabbitmqctl`:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # For queues with non-empty `mirror_pids`, you must have at least one
@@ -992,7 +992,7 @@ You can move a queue leader for a queue using a temporary [policy](./parameters)
 `ha-mode: nodes` and `ha-params: [<node>]`
 The policy can be created via management UI or rabbitmqctl command:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl set_policy --apply-to queues --priority 100 move-my-queue '^<queue>$;' '{"ha-mode":"nodes", "ha-params":["<new-leader-node>"]}'

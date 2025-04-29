@@ -43,7 +43,7 @@ supported.
     below executes the [`rabbitmq-server(8)`
     command](../man/rabbitmq-server.8) directly:
 
-    <Tabs groupId="shell-specific">
+    <Tabs groupId="examples">
     <TabItem value="bash" label="bash" default>
     ```bash
     rabbitmq-server
@@ -60,7 +60,7 @@ supported.
 
 2.  Enable the `khepri_db` feature flag:
 
-    <Tabs groupId="shell-specific">
+    <Tabs groupId="examples">
     <TabItem value="bash" label="bash" default>
     ```bash
     # Opt-in to enable Khepri.
@@ -87,7 +87,7 @@ nodes with Khepri are clustered together.
 
 2.  Enable the [management plugin](../management):
 
-    <Tabs groupId="shell-specific">
+    <Tabs groupId="examples">
     <TabItem value="bash" label="bash" default>
     ```bash
     rabbitmq-plugins enable rabbitmq_management
@@ -123,7 +123,7 @@ Start the new RabbitMQ node using a method of your choice, setting the
 `$RABBITMQ_FEATURE_FLAGS` variable in the process. The example below executes
 the [`rabbitmq-server(8)` command](../man/rabbitmq-server.8) directly:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 env RABBITMQ_FEATURE_FLAGS="+khepri_db" rabbitmq-server

@@ -208,7 +208,7 @@ depending on the programming language used.
 
 To add a user, use `rabbitmqctl add_user`. It has multiple ways of specifying a [password](./passwords):
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # will prompt for password, only use this option interactively
@@ -252,7 +252,7 @@ otherwise its connections will be refused.
 
 To list users in a cluster, use `rabbitmqctl list_users`:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl list_users
@@ -267,7 +267,7 @@ rabbitmqctl.bat list_users
 
 The output can be changed to be JSON:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl list_users --formatter=json
@@ -284,7 +284,7 @@ rabbitmqctl.bat list_users --formatter=json
 
 To delete a user, use `rabbitmqctl delete_user`:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl delete_user 'username'
@@ -301,7 +301,7 @@ rabbitmqctl.bat delete_user 'username'
 
 To grant [permissions](#authorisation) to a user in a [virtual host](./vhosts), use `rabbitmqctl set_permissions`:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # First ".*" for configure permission on every entity
@@ -324,7 +324,7 @@ rabbitmqctl.bat set_permissions -p 'custom-vhost' 'username' '.*' '.*' '.*'
 
 To revoke [permissions](#authorisation) from a user in a [virtual host](./vhosts), use `rabbitmqctl clear_permissions`:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # Revokes permissions in a virtual host
@@ -344,7 +344,7 @@ rabbitmqctl.bat clear_permissions -p 'custom-vhost' 'username'
 Every `rabbitmqctl` permission management operation is scoped to a single virtual host.
 Bulk operations have to be scripted, with the list of virtual hosts coming from `rabbitmqctl list_vhosts --silent`:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # Assumes a Linux shell.
@@ -941,7 +941,7 @@ will be logged differently. See [TLS Troubleshooting guide](./troubleshooting-ss
 [rabbitmqctl authenticate_user](./cli) can be used to test authentication
 for a username and password pair:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl authenticate_user "a-username" "a/password"
@@ -1026,7 +1026,7 @@ In this case the connection will be accepted
 [rabbitmqctl list_permissions](./cli) can be used to inspect a user's
 permission in a given virtual host:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmqctl list_permissions --vhost /

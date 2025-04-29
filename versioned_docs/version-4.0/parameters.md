@@ -65,7 +65,7 @@ parameters to an upstream broker.
 
 Virtual host-scoped parameters can be set, cleared and listed:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # sets a runtime parameter in a virtual host
@@ -108,7 +108,7 @@ Global parameters is the other kind of parameters.
 An example of a global parameter is the name of the cluster.
 Global parameters can be set, cleared and listed:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # sets a global (virtual-host-independent) runtime parameter

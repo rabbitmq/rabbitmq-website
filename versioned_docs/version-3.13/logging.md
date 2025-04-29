@@ -114,7 +114,7 @@ See the [File and Directory Location](./relocate) guide to find default log file
 Log file location can be found in the [RabbitMQ management UI](./management) on the node page
 as well as using [`rabbitmq-diagnostics`](./cli):
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 rabbitmq-diagnostics -q log_location

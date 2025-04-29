@@ -1323,7 +1323,7 @@ using a file known as the [inetrc file](http://erlang.org/doc/apps/erts/inet_cfg
 
 The path to the file can be specified by adding an extra runtime argument using the [`RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment variable](./configure):
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-kernel inetrc '/path/to/inetrc.file'"

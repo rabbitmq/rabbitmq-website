@@ -82,7 +82,7 @@ and all replicas can be transferred away and replaced over duration of a single 
 
 To determine if a node is quorum critical, use the following [health check](./monitoring#health-checks):
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # exits with a non-zero code if any of the internal components, quorum queues or stream queues
@@ -104,7 +104,7 @@ rabbitmq-diagnostics.bat check_if_node_is_quorum_critical
 The following [health check](./monitoring#health-checks) must be used to determine if there may be
 any remaining initial quorum queue replica log transfers:
 
-<Tabs groupId="shell-specific">
+<Tabs groupId="examples">
 <TabItem value="bash" label="bash" default>
 ```bash
 # exits with a non-zero status if there are any ongoing initial quorum queue
