@@ -405,6 +405,18 @@ service remains available and a clear majority of nodes can be identified.
 For most environments, configuring queue replication to more than half — but not all —
 cluster nodes is sufficient.
 
+#### Minimum recommended system requirements for production (per node)
+
+* 4 dedicated CPUs 
+* 4 GB of RAM
+* [SSD storage](.#storage) for optimal disk I/O performance.
+
+:::important
+
+Lower-spec environments (e.g. low-throughput workloads or specific lightweight use cases) may operate acceptably with reduced resources. However, such configurations are not recommended for general-purpose production use.
+
+:::
+
 #### Uneven Numbers of Nodes and Cluster Majority
 
 It is important to pick a [partition handling strategy](./partitions) before going into production.
