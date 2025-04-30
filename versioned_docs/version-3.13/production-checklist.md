@@ -1,5 +1,5 @@
 ---
-title: Deployment Guidelines
+title: Production Deployment Guidelines
 ---
 <!--
 Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Deployment Guidelines
+# Production Deployment Guidelines
 
 ## Overview {#overview}
 
@@ -41,6 +41,7 @@ to size and configure both RabbitMQ nodes and applications.
 
 This guide provides recommendations in a few areas:
 
+ *
  * [Storage](#storage) considerations for node data directories
  * [Networking](#networking)-related recommendations
  * Recommendations related to [virtual hosts, users and permissions](#users-and-permissions)
@@ -52,13 +53,45 @@ This guide provides recommendations in a few areas:
 
 and more.
 
+
+## Minimum Hardware Requirements {#minimum-hardware}
+
+RabbitMQ can used with a broad range of workloads. Some may be very I/O heavy
+(streams), others can require more CPU resources (large number of concurrent connections and queues).
+Those workloads may require a different mix of CPU, storage and network resources.
+
+:::tip
+
+This section describes a recommended minimum of resources for production systems.
+
+:::
+
+Below is a minimum system requirements for production deployments, per node:
+
+ * No colocation with other data services (e.g. data stores) or disk, network I/O heavy applications
+ * 4 CPU cores
+ * 4 GiB of RAM
+ * See [Storage](#storage) below for storage
+
+Lower-spec environments can be acceptable for certain less loaded environments, for quality assurance and development
+environments.
+
+:::danger
+
+RabbitMQ was not designed to run in environments with a single CPU core, or being colocated with
+other disk and network I/O-heavy tools.
+
+:::
+
+
 ## Storage Considerations {#storage}
 
 ### Use Durable Storage {#storage-durability}
 
 :::important
 
-Modern RabbitMQ features, most notably quorum queues and streams, are designed for durable storage only.
+Modern RabbitMQ features, such as [Khepri](./metadata-store), [quorum queues](./quorum-queues) and [streams](./streams),
+are designed for durable storage only.
 
 :::
 
@@ -163,6 +196,21 @@ For IoT applications that involve many clients performing the same or similar
 function and having fixed IP addresses, it may make sense to [authenticate using x509 certificates](./ssl) or
 [source IP address ranges](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range).
 
+### Anonymous Login
+
+For production environments, it is almost always a good idea to disable anonymous logins.
+
+You can disable the `ANONYMOUS` [SASL mechansim](access-control#mechanisms) in [rabbitmq.conf](configure#config-file) as follows:
+
+``` ini
+auth_mechanisms.1 = PLAIN
+auth_mechanisms.2 = AMQPLAIN
+# note: the ANONYMOUS mechanism is not listed
+
+# Value none has a special meaning that no user is configured for anonymous logins.
+anonymous_login_user = none
+```
+
 ## Monitoring and Resource Limits {#monitoring-and-resource-usage}
 
 RabbitMQ nodes are limited by various resources, both physical
@@ -183,8 +231,8 @@ RabbitMQ uses [Resource-driven alarms](./alarms)
 to throttle publishers when consumers do not keep up.
 
 By default, RabbitMQ will not accept any new messages when it detects
-that it's using more than 40% of the available memory (as reported by the OS):
-`vm_memory_high_watermark.relative = 0.4`. This is a safe default
+that it's using more than 60% of the available memory (as reported by the OS):
+`vm_memory_high_watermark.relative = 0.6`. This is a safe default
 and care should be taken when modifying this value, even when the
 host is a dedicated RabbitMQ node.
 
@@ -197,7 +245,8 @@ A few recommendations when adjusting the default
 `vm_memory_high_watermark`:
 
  * Nodes hosting RabbitMQ should have at least <strong>256 MiB</strong> of
-   memory available at all times. Deployments that use [quorum queues](./quorum-queues), [Shovel](./shovel) and [Federation](./federation) may need more.
+   memory available at all times. Deployments that use [quorum queues](./quorum-queues) require more,
+   see [how quorum queue use resources](./quorum-queues#resource-use) for more informatio.
  * The recommended `vm_memory_high_watermark.relative` range is `0.4 to 0.7`
  * Values above `0.7` should be used with care and with solid [memory usage](./memory-use) and infrastructure-level [monitoring](./monitoring) in place.
    The OS and file system must be left with at least 30% of the memory, otherwise performance may degrade severely due to paging.
@@ -224,48 +273,16 @@ default ensures that RabbitMQ works out of the box for
 everyone. As for production deployments, we recommend the
 following:
 
-<ul className="plain">
-  <li>
-    <p>
-      The minimum recommended free disk space low watermark value is about the same
-      as the high memory watermark. For example, on a node configured to have its memory watermark of 4GB,
-      <code>disk_free_limit.absolute = 4G</code> would be a recommended minimum.
-    </p>
+The minimum recommended free disk space low watermark value is about the same
+as the high memory watermark. For example, on a node configured to have its memory watermark of 4GB,
+<code>disk_free_limit.absolute = 4G</code> would be a recommended minimum.
 
-    <p>
-      In the example above, if available disk space drops
-      below 4GB, all publishers will be blocked and no new messages
-      will be accepted. Queues will need to be drained by
-      consumers before publishing will be allowed to resume.
-    </p>
-  </li>
-  <li>
-    <p>
-      Continuing with the example above, <code>disk_free_limit.absolute = 6G</code>
-      is a safer value.
-    </p>
+:::warning
+Nodes running out of disk space should be considered a very serious operational problem,
+commonly leading to outages and possibly data loss for the affected node.
 
-    <p>
-      If RabbitMQ needs to
-      flush to disk up to its high memory watermark worth of data, as can sometimes be the case during
-      shutdown, there will be sufficient disk space available for RabbitMQ
-      to start again in all but the most pessimistic scenarios.
-      6GB
-    </p>
-  </li>
-  <li>
-    <p>
-      Continuing with the example above, <code>disk_free_limit.absolute = 8G</code>
-      is the safest value to use.
-    </p>
-
-    <p>
-      It should be enough disk space for the most pessimistic scenario where a node first has to move
-      up its high memory watermark worth of data (so, about 4 GiB) to disk, and then perform an on disk
-      data operation that could temporarily nearly double the amount of disk space used.
-    </p>
-  </li>
-</ul>
+When in doubt, overprovision the disk space and/or use a high `disk_free_limit`.
+:::
 
 ### Open File Handles Limit {#resource-limits-file-handle-limit}
 
@@ -273,7 +290,7 @@ Operating systems limit maximum number of concurrently open file handles, which
 includes network sockets. Make sure that you have limits set high enough to allow
 for expected number of concurrent connections and queues.
 
-Make sure your environment allows for at least 50K open file descriptors for effective RabbitMQ
+Make sure production environments allow for at least 50K open file descriptors for effective RabbitMQ
 user, including in development environments.
 
 As a guideline, multiply the 95th percentile number of concurrent connections

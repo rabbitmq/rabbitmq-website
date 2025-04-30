@@ -1,5 +1,5 @@
 ---
-title: Deployment Guidelines
+title: Production Deployment Guidelines
 ---
 <!--
 Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Deployment Guidelines
+# Production Deployment Guidelines
 
 ## Overview {#overview}
 
@@ -41,6 +41,7 @@ to size and configure both RabbitMQ nodes and applications.
 
 This guide provides recommendations in a few areas:
 
+ *
  * [Storage](#storage) considerations for node data directories
  * [Networking](#networking)-related recommendations
  * Recommendations related to [virtual hosts, users and permissions](#users-and-permissions)
@@ -51,6 +52,37 @@ This guide provides recommendations in a few areas:
  * [Application-level](#apps) practices and considerations
 
 and more.
+
+
+## Minimum Hardware Requirements {#minimum-hardware}
+
+RabbitMQ can used with a broad range of workloads. Some may be very I/O heavy
+(streams), others can require more CPU resources (large number of concurrent connections and queues).
+Those workloads may require a different mix of CPU, storage and network resources.
+
+:::tip
+
+This section describes a recommended minimum of resources for production systems.
+
+:::
+
+Below is a minimum system requirements for production deployments, per node:
+
+ * No colocation with other data services (e.g. data stores) or disk, network I/O heavy applications
+ * 4 CPU cores
+ * 4 GiB of RAM
+ * See [Storage](#storage) below for storage
+
+Lower-spec environments can be acceptable for certain less loaded environments, for quality assurance and development
+environments.
+
+:::danger
+
+RabbitMQ was not designed to run in environments with a single CPU core, or being colocated with
+other disk and network I/O-heavy tools.
+
+:::
+
 
 ## Storage Considerations {#storage}
 
