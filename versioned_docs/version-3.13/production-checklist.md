@@ -90,7 +90,7 @@ other disk and network I/O-heavy tools.
 
 :::important
 
-Modern RabbitMQ features, such as [Khepri](./metadata-store), [quorum queues](./quorum-queues) and [streams](./streams),
+Modern RabbitMQ features, such [quorum queues](./quorum-queues) and [streams](./streams),
 are designed for durable storage only.
 
 :::
