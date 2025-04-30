@@ -61,7 +61,7 @@ Topics covered in this document include:
  * [How are they different](#feature-comparison) from classic queues
  * Primary [use cases](#use-cases) of quorum queues and when not to use them
  * How to [declare a quorum queue](#usage)
- * [Replication](#replication)-related topics: [replica management](#replica-management), [replica leader rebalancing](#replica-rebalancing), optimal number of replicas, etc
+ * [Replication](#replication)-related topics: [replica management](#member-management), [replica leader rebalancing](#replica-rebalancing), optimal number of replicas, etc
  * What guarantees quorum queues offer in terms of [leader failure handling](#leader-election), [data safety](#data-safety) and [availability](#availability)
  * Continuous [Membership Reconciliation](#replica-reconciliation)
  * The additional [dead lettering](#dead-lettering) features supported by quorum queues
@@ -676,9 +676,9 @@ launched to run on a random subset of RabbitMQ nodes present in the cluster at d
 In case a quorum queue is declared before all cluster nodes have joined the cluster, and the initial replica
 count is greater than the total number of cluster members, the effective value used will
 be equal to the total number of cluster nodes. When more nodes join the cluster, the replica count
-will not be automatically increased but it can be [increased by the operator](#replica-management).
+will not be automatically increased but it can be [increased by the operator](#member-management).
 
-### Managing Replicas {#replica-management}
+### Managing Replicas {#member-management}
 
 Replicas of a quorum queue are explicitly managed by the operator. When a new node is added
 to the cluster, it will host no quorum queue replicas unless the operator explicitly adds it
@@ -753,7 +753,7 @@ Once declared, the RabbitMQ quorum queue leaders may be unevenly
 distributed across the RabbitMQ cluster.
 To re-balance use the `rabbitmq-queues rebalance` command.
 It is important to know that this does not change the nodes which the quorum queues span.
-To modify the membership instead see [managing replicas](#replica-management).
+To modify the membership instead see [managing replicas](#member-management).
 
 ```bash
 # rebalances all quorum queues
@@ -778,18 +778,18 @@ rabbitmq-queues rebalance quorum --vhost-pattern "production.*"
 
 :::important
 The continuous membership reconciliation (CMR) feature exists in addition to, and not as a replacement for,
-[explicit replica management](#replica-management). In certain cases where nodes are permanently removed
+[explicit replica management](#member-management). In certain cases where nodes are permanently removed
 from the cluster, explicitly removing quorum queue replicas may still be necessary.
 :::
 
-In addition to controlling quorum queue replica membership by using the initial target size and [explicit replica management](#replica-management),
+In addition to controlling quorum queue replica membership by using the initial target size and [explicit replica management](#member-management),
 nodes can be configured to automatically try to grow the quorum queue replica membership
 to a configured target group size by enabling the continuous membership reconciliation feature.
 
 When activated, every quorum queue leader replica will periodically check its current membership group size
-(the number of replicas online), and compare it with the target value.
+(the number of configured replicas), and compare it with the target value.
 
-If a queue is below the target value, RabbitMQ will attempt to grow the queue onto the availible nodes that
+If a queue is below the target value, RabbitMQ will attempt to grow the queue onto the available nodes that
 do not currently host replicas of said queue, if any, up to the target value.
 
 #### When is Continuous Membership Reconciliation Triggered?
@@ -810,7 +810,7 @@ are expected to come back and only a minority (often just one) node is stopped f
 
 #### CMR Configuration
 
-##### `rabbitmq.conf`
+##### Via `rabbitmq.conf`
 
 <table class="name-description">
   <caption>Continuous Membership Reconciliation (CMR) Settings</caption>
@@ -973,7 +973,7 @@ does not require a full re-synchronization from the currently elected leader. On
 will be transferred if a re-joining replica is behind the leader. This "catching up" process
 does not affect leader availability.
 
-When a new replica is [added](#replica-management), it will synchronise the entire queue state
+When a new replica is [added](#member-management), it will synchronise the entire queue state
 from the leader.
 
 ### Fault Tolerance and Minimum Number of Replicas Online {#quorum-requirements}

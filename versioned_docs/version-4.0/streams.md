@@ -459,7 +459,7 @@ be since more work has to be done to replicate data and achieve consensus.
 The `x-initial-cluster-size` queue argument controls how many rabbit nodes the initial
 stream cluster should span.
 
-### Managing Stream Replicas {#replica-management}
+### Managing Stream Replicas {#member-management}
 
 Replicas of a stream are explicitly managed by the operator. When a new node is added
 to the cluster, it will host no stream replicas unless the operator explicitly adds it
@@ -537,7 +537,7 @@ will be transferred if a re-joining replica is behind the leader. This "catching
 does not affect leader availability.
 
 Replicas must be explicitly added.
-When a new replica is [added](#replica-management), it will synchronise the entire stream state
+When a new replica is [added](#member-management), it will synchronise the entire stream state
 from the leader, similarly to newly added quorum queue replicas.
 
 ### Fault Tolerance and Minimum Number of Replicas Online {#quorum-requirements}

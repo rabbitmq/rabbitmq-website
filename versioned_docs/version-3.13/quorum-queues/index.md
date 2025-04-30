@@ -57,7 +57,7 @@ Topics covered in this information include:
  * [How are they different](#feature-comparison) from classic queues
  * Primary [use cases](#use-cases) of quorum queues and when not to use them
  * How to [declare a quorum queue](#usage)
- * [Replication](#replication)-related topics: [replica management](#replica-management), [replica leader rebalancing](#replica-rebalancing), optimal number of replicas, etc
+ * [Replication](#replication)-related topics: [replica management](#member-management), [replica leader rebalancing](#replica-rebalancing), optimal number of replicas, etc
  * What guarantees quorum queues offer in terms of [leader failure handling](#leader-election), [data safety](#data-safety) and [availability](#availability)
  * Continuous [Membership Reconciliation](#replica-reconciliation)
  * The additional [dead lettering](#dead-lettering) features supported by quorum queues
@@ -453,7 +453,7 @@ launched to run on a random subset of RabbitMQ nodes present in the cluster at d
 In case a quorum queue is declared before all cluster nodes have joined the cluster, and the initial replica
 count is greater than the total number of cluster members, the effective value used will
 be equal to the total number of cluster nodes. When more nodes join the cluster, the replica count
-will not be automatically increased but it can be [increased by the operator](#replica-management).
+will not be automatically increased but it can be [increased by the operator](#member-management).
 
 ### Queue Leader Location {#leader-placement}
 
@@ -482,7 +482,7 @@ Supported queue leader locator values are
    pick the node hosting the minimum number of quorum queue leaders.
    If there are overall more than 1000 queues, pick a random node.
 
-### Managing Replicas {#replica-management}
+### Managing Replicas {#member-management}
 
 Replicas of a quorum queue are explicitly managed by the operator. When a new node is added
 to the cluster, it will host no quorum queue replicas unless the operator explicitly adds it
@@ -522,7 +522,7 @@ it replaces.
 
 Once declared, the RabbitMQ quorum queue leaders may be unevenly distributed across the RabbitMQ cluster.
 To re-balance use the `rabbitmq-queues rebalance`
-command. It is important to know that this does not change the nodes which the quorum queues span. To modify the membership instead see [managing replicas](#replica-management).
+command. It is important to know that this does not change the nodes which the quorum queues span. To modify the membership instead see [managing replicas](#member-management).
 
 ```bash
 # rebalances all quorum queues
@@ -547,11 +547,11 @@ rabbitmq-queues rebalance quorum --vhost-pattern "production.*"
 
 :::important
 The continuous membership reconciliation (CMR) feature exists in addition to, and not as a replacement for,
-[explicit replica management](#replica-management). In certain cases where nodes are permanently removed
+[explicit replica management](#member-management). In certain cases where nodes are permanently removed
 from the cluster, explicitly removing quorum queue replicas may still be necessary.
 :::
 
-In addition to controlling quorum queue replica membership by using the initial target size and [explicit replica management](#replica-management),
+In addition to controlling quorum queue replica membership by using the initial target size and [explicit replica management](#member-management),
 nodes can be configured to automatically try to grow the quorum queue replica membership
 to a configured target replica number (group size) by enabling the continuous membership reconciliation feature.
 
@@ -745,7 +745,7 @@ will be transferred if a re-joining replica is behind the leader. This "catching
 does not affect leader availability.
 
 Except for the initial replica set selection, replicas must be explicitly added to a quorum queue.
-When a new replica is [added](#replica-management), it will synchronise the entire queue state
+When a new replica is [added](#member-management), it will synchronise the entire queue state
 from the leader, similarly to classic mirrored queues.
 
 ### Fault Tolerance and Minimum Number of Replicas Online {#quorum-requirements}
