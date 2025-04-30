@@ -38,6 +38,17 @@ Experimenting with RabbitMQ on your workstation? Try the [community Docker image
 # latest RabbitMQ 4.x
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management
 ```
+## Minimum recommended system requirements for production (per node)
+
+* 4 dedicated CPUs 
+* 4 GB of RAM
+* SSD storage for optimal disk I/O performance
+
+:::info
+
+Lower-spec environments (e.g. low-throughput workloads or specific lightweight use cases) may operate acceptably with reduced resources. However, such configurations are not recommended for general-purpose production use.
+
+:::
 
 ## Open Source RabbitMQ Server
 
