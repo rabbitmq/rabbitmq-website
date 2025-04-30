@@ -810,7 +810,7 @@ are expected to come back and only a minority (often just one) node is stopped f
 
 #### CMR Configuration
 
-##### `rabbitmq.conf`
+##### Via `rabbitmq.conf`
 
 <table class="name-description">
   <caption>Continuous Membership Reconciliation (CMR) Settings</caption>
