@@ -1163,8 +1163,8 @@ rabbitmqctl forget_cluster_node -n rabbit@rabbit1 rabbit@rabbit2
 
 ### What Happens to Quorum Queue and Stream Replicas?
 
-When a node is removed from the cluster using CLI tools, all [quorum queue](./quorum-queues#replica-management)
-and [stream replicas](./streams#replica-management) on the node will be removed,
+When a node is removed from the cluster using CLI tools, all [quorum queue](./quorum-queues#member-management)
+and [stream replicas](./streams#member-management) on the node will be removed,
 even if that means that queues and streams would temporarily have an even (e.g. two) replicas.
 
 ### Node Removal is Explicit (Manual) or Opt-in
