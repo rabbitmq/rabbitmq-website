@@ -121,14 +121,18 @@ export default function Support() {
             <Heading id="AMER" as="h2">Americas</Heading>
             <div className={styles.partner}>
               <Heading as="h3">AceMQ</Heading>
-              <p className={styles.partner_region}>Offices in: 🇺🇸USA &mdash; Serving North America</p>
-              <p>AceMQ is a trusted RabbitMQ partner, providing expert training, mentoring, and support for both RabbitMQ Community Edition and RabbitMQ for Tanzu. We have extensive experience deploying RabbitMQ in the cloud and Kubernetes, ensuring scalability, resilience, and optimal performance. Our team specializes in architecture, performance tuning, scaling, and integration to help organizations optimize their messaging systems. Whether you need deployment assistance, an in-depth assessment, or long-term support, we ensure your RabbitMQ environment runs efficiently and reliably.</p>
+              <p className={styles.partner_region}>Offices in: 🇺🇸USA &mdash; Supporting organizations worldwide</p>
+              <p>AceMQ is a premier Global RabbitMQ partner offering comprehensive support, training, and consulting services for both RabbitMQ Community Edition and RabbitMQ for Tanzu. As Broadcom’s authorized licensing partner for RabbitMQ, we enable organizations to secure annual or subscription-based licenses under a flexible model, tailored for long-term scalability and compliance.</p>
+              <p>With deep experience in deploying and managing RabbitMQ across cloud, on-premises, hybrid, and Kubernetes environments, AceMQ delivers unmatched expertise in architecture design, high-availability clustering, security hardening, and performance optimization. Our team of RabbitMQ specialists empowers businesses across industries—including finance, healthcare, defense, logistics, and SaaS—to build reliable, scalable messaging infrastructure aligned to mission-critical demands.</p>
+              <p>Whether you're seeking deployment support, upgrade planning, incident resolution, or help transitioning to licensed RabbitMQ, AceMQ ensures your systems operate with maximum resilience and efficiency. From initial assessments to long-term partnerships, we offer flexible engagement models and global coverage.</p>
+              <Heading as="h4">Our services include:</Heading>
               <ul>
-                <li>RabbitMQ Assessments &mdash; Architecture, security, and performance reviews</li>
-                <li>24x7 Support &mdash; Dedicated SMEs, SLAs, and critical issue resolution</li>
-                <li>Migrations & Upgrades &mdash; Seamless transitions and version upgrades</li>
-                <li>Performance Optimization &mdash; Tuning for speed, reliability, and scalability</li>
-                <li>Training & Mentorship &mdash; Hands-on coaching and expert guidance</li>
+                <li>RabbitMQ Licensing &mdash; Official RabbitMQ for Tanzu and Community Edition licensing partner with tailored MSA terms</li>
+                <li>Architecture & Performance Assessments &mdash; In-depth reviews for security, scalability, and reliability</li>
+                <li>24x7 Global Support &mdash; SLA-driven emergency response from senior RabbitMQ experts, with up to guaranteed 15-minute response for critical issueseed, reliability, and scalability</li>
+                <li>Migrations & Upgrades &mdash; Seamless transitions across versions and environments, including high-availability clustering</li>
+                <li>Training & Mentorship &mdash; Hands-on coaching, workshops, and personalized enablement for technical teams</li>
+                <li>Optimization & Scaling &mdash; Advanced tuning for throughput, message durability, and resource efficiency</li>
               </ul>
               <div>
                 <Link to="https://acemq.com/rabbitmq/">Learn More</Link> |&nbsp;
@@ -154,6 +158,7 @@ export default function Support() {
               <Heading as="h3">TeraSky</Heading>
               <p className={styles.partner_region}>Offices in: 🇺🇸USA, 🇮🇱Israel, 🇱🇹Lithuania, 🇬🇧United Kingdom &mdash; Serving North America, South America, and Central Europe</p>
               <p>As a trusted VMware partner, TeraSky specializes in delivering end-to-end RabbitMQ solutions, both on-premises and in the cloud. From architecture design and deployment to comprehensive training and long-term support, we ensure enterprises seamlessly integrate RabbitMQ into mission-critical environments. Our goal is to drive scalability, resilience, and optimal performance. We combine deep technical expertise and flawless execution to solve complex technology challenges with precision, merging enterprise-grade infrastructure with cloud-native agility for maximum impact.</p>
+              <Heading as="h4">TeraSky RabbitMQ Services:</Heading>
               <ul>
                 <li>Global Presence — All Americas and EMEA - worldwide support.</li>
                 <li>Architecture & Assessments — In-depth design, security, and performance evaluations tailored to optimize RabbitMQ deployments.</li>
@@ -235,6 +240,7 @@ export default function Support() {
               <Heading as="h3">TeraSky</Heading>
               <p className={styles.partner_region}>Offices in: 🇮🇱Israel, 🇱🇹Lithuania, 🇬🇧United Kingdom, 🇺🇸USA &mdash; Serving Central Europe, North America, and South America</p>
               <p>As a trusted VMware partner, TeraSky specializes in delivering end-to-end RabbitMQ solutions, both on-premises and in the cloud. From architecture design and deployment to comprehensive training and long-term support, we ensure enterprises seamlessly integrate RabbitMQ into mission-critical environments. Our goal is to drive scalability, resilience, and optimal performance. We combine deep technical expertise and flawless execution to solve complex technology challenges with precision, merging enterprise-grade infrastructure with cloud-native agility for maximum impact.</p>
+              <Heading as="h4">TeraSky RabbitMQ Services:</Heading>
               <ul>
                 <li>Global Presence — All Americas and EMEA - worldwide support.</li>
                 <li>Architecture & Assessments — In-depth design, security, and performance evaluations tailored to optimize RabbitMQ deployments.</li>
@@ -251,8 +257,9 @@ export default function Support() {
             </div>
             <div className={styles.partner}>
               <Heading as="h3">VLDB</Heading>
-              <p className={styles.partner_region}>Offices in: 🇬🇧United Kingdom &mdash; Serving customer globally</p>
+              <p className={styles.partner_region}>Offices in: 🇬🇧United Kingdom &mdash; Serving organizations worldwide</p>
               <p>At VLDB Solutions, we specialise in comprehensive managed services for Tanzu RabbitMQ, ensuring your messaging infrastructure is optimised, secure, and scalable—wherever your business operates. From initial strategy and deployment to continuous monitoring and optimisation, we manage the complexities across multiple regions, allowing your organisation to focus on growth. With 24/7 support, deep RabbitMQ expertise, and tailored solutions, we empower businesses worldwide to maintain high-performance communication systems.</p>
+              <Heading as="h4">What Sets VLDB Solutions Apart?</Heading>
               <ul>
                 <li>Global Coverage & Expertise &mdash; We support businesses across multiple geographies, providing expert RabbitMQ solutions worldwide.</li>
                 <li>Performance & Scalability Optimisation &mdash; Advanced configurations to boost throughput, reduce latency, and scale messaging workloads efficiently.</li>
