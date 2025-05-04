@@ -193,7 +193,7 @@ Cluster tags are stored in a global parameter named `cluster_tags`.
 They can also be preconfigured using `rabbitmq.conf`:
 
 ```ini
-node_tags.series = 4.1.x
+cluster_tags.series = 4.1.x
 
 cluster_tags.purpose = iot_ingress
 cluster_tags.region = ca-central-1

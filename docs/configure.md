@@ -1517,7 +1517,7 @@ operators to attach deployment-specific information.
 Cluster tags can be configured using `rabbitmq.conf`:
 
 ```ini
-node_tags.series = 4.1.x
+cluster_tags.series = 4.1.x
 
 cluster_tags.purpose = iot_ingress
 cluster_tags.region = ca-central-1
