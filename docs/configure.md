@@ -18,6 +18,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 import {
   RabbitMQServerVersion,
 } from '@site/src/components/RabbitMQServer';
@@ -1487,6 +1490,115 @@ dedicated documentation guides that cover plugin configuration:
  * [rabbitmq_federation](./federation)
  * [rabbitmq_auth_backend_ldap](./ldap)
  * [rabbitmq_auth_backend_oauth](./oauth2#variables-configurable)
+
+
+## Cluster and Node Metadata
+
+### Cluster Name
+
+By default, cluster name is set to the name of the first node in the cluster.
+
+It can be overridden via `rabbitmq.conf`:
+
+```ini
+cluster_name = americas.ca.1
+```
+
+RabbitMQ displays this value in the [management UI](./management).
+
+It can also be inspected by [listing global runtime parameters](./parameters)
+and the `GET /api/global-parameters/cluster_name` [HTTP API endpoint](./http-api-reference).
+
+### Cluster Tags
+
+Cluster tags are arbitrary key-value pairs that describe a cluster. They can be used by
+operators to attach deployment-specific information.
+
+Cluster tags can be configured using `rabbitmq.conf`:
+
+```ini
+node_tags.series = 4.1.x
+
+cluster_tags.purpose = iot_ingress
+cluster_tags.region = ca-central-1
+cluster_tags.environment = production
+```
+
+To retrieve a list of tags, list [global runtime parameters](./parameters) or fetch a global runtime parameter
+named `cluster_tags`, or use [`rabbitmqadmin` v2](./management-cli)'s `snow overview`command.
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+```bash
+rabbitmqadmin show overview
+```
+</TabItem>
+
+<TabItem value="bash" label="bash">
+```bash
+# lists global (virtual-host-independent) runtime parameters
+rabbitmqctl list_global_parameters
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# lists global (virtual-host-independent) runtime parameters
+rabbitmqctl.bat list_global_parameters
+```
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
+GET /api/global-parameters
+
+GET /api/global-parameters/cluster_tags
+```
+</TabItem>
+</Tabs>
+
+
+### Node Tags
+
+Node tags
+
+Similarly to cluster tags, node tags can be preconfigured via `rabbitmq.conf`:
+
+```ini
+node_tags.series = 4.1.x
+
+node_tags.purpose = iot_ingress
+node_tags.region = ca-central-1
+node_tags.environment = production
+```
+
+Node tags can be inspected using CLI tools and the [HTTP API](./http-api-reference).
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+```bash
+rabbitmqadmin show overview
+```
+</TabItem>
+
+<TabItem value="bash" label="bash">
+```bash
+rabbitmq-diagnostics status
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmq-diagnostics.bat status
+```
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
+GET /api/overview
+```
+</TabItem>
+</Tabs>
 
 
 ## Configuration Value Encryption {#configuration-encryption}

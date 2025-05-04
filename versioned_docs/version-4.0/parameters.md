@@ -160,7 +160,79 @@ definitions by the management plugin's export feature.
 Virtual-scoped parameters are used by the federation and shovel plugins.
 
 Global parameters are used to store various cluster-level metadata,
-for example
+for example, cluster name, cluster tags, as well as internal
+node metada such as imported [definitions](./definitions) hash.
+
+
+### Cluster Name
+
+Cluster name stored using global runtime parameters. It can be
+updated using a dedicated CLI command.
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash" default>
+```bash
+rabbitmqctl set_cluster_name rabbit@id-3942837
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqctl.bat set_cluster_name rabbit@id-3942837
+```
+</TabItem>
+</Tabs>
+
+
+### Cluster Tags
+
+Cluster tags are arbitrary key-value pairs that describe a cluster. They can be used by
+operators to attach deployment-specific information.
+
+Cluster tags are stored in a global parameter named `cluster_tags`.
+They can also be preconfigured using `rabbitmq.conf`:
+
+```ini
+node_tags.series = 4.1.x
+
+cluster_tags.purpose = iot_ingress
+cluster_tags.region = ca-central-1
+cluster_tags.environment = production
+```
+
+To retrieve a list of tags, list global runtime parametersor fetch a global runtime parameter
+named `cluster_tags`, or use [`rabbitmqadmin` v2](./management-cli)'s `snow overview`command.
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+```bash
+rabbitmqadmin show overview
+```
+</TabItem>
+
+<TabItem value="bash" label="bash">
+```bash
+# lists global (virtual-host-independent) runtime parameters
+rabbitmqctl list_global_parameters
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# lists global (virtual-host-independent) runtime parameters
+rabbitmqctl.bat list_global_parameters
+```
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
+GET /api/global-parameters
+
+GET /api/global-parameters/cluster_tags
+```
+</TabItem>
+</Tabs>
+
 
 ## Policies
 
