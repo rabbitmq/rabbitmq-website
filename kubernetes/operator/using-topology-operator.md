@@ -519,7 +519,34 @@ Properties that cannot be updated is documented in the [Messaging Topology Opera
 
 Deleting custom resources will delete the corresponding resources in the RabbitMQ cluster. Messaging Topology Operator sets kubernetes
 [finalizers](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#finalizers) on all custom
-resources. If the object has already been deleted in the RabbitMQ cluster, or the RabbitMQ cluster has been deleted, Messaging Topology
+resources.
+
+Starting from Messaging Topology Operator version `1.17`, the deletion behavior for `Federation`, `Queue`, `Shovel`, and `Vhost` resources
+can be controlled using the `deletionPolicy` property.
+
+This property determines what happens to the corresponding resources in the cluster
+when the custom resource is deleted.
+
+The `deletionPolicy` supports the following values:
+
+ * `delete`: the resource will be removed from the cluster when the custom resource is deleted (this is the default)
+ * `retain`: the resource will remain in RabbitMQ cluster when the custom resource is deleted
+
+The following uses a `Queue` resource:
+
+```yaml
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: example-queue
+spec:
+  name: example-queue
+  rabbitmqClusterReference:
+    name: example-rabbitmq
+  deletionPolicy: retain  # Queue will remain in RabbitMQ cluster when this k8s resource is deleted
+```
+
+If the object has already been deleted in the RabbitMQ cluster, or the RabbitMQ cluster has been deleted, Messaging Topology
 Operator will delete the custom resource without trying to delete the RabbitMQ object.
 
 ## Limitations {#limitations}
