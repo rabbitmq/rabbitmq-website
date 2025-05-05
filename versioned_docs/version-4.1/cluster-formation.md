@@ -133,7 +133,7 @@ cluster_formation.registration.enabled = false
 ```
 
 When configured this way, the node has to be registered manually or using another mechanism,
-e.g. by a container orchestrator such as [Nomad](https://developer.hashicorp.com/nomad/integrations/hashicorp/rabbitmq) or [Kubernetes](https://www.rabbitmq.com/kubernetes/operator/operator-overview).
+e.g. by a container orchestrator such as [Nomad](https://developer.hashicorp.com/nomad/integrations/hashicorp/rabbitmq).
 
 If peer discovery isn't configured, or it [repeatedly fails](#discovery-retries),
 or no peers are reachable, a node that wasn't a cluster member in the past
@@ -462,268 +462,51 @@ cluster_formation.aws.use_private_ip = true
 
 ## Peer Discovery on Kubernetes {#peer-discovery-k8s}
 
+:::tip
+
+In most cases you don't need to worry about peer discovery, when deploying to Kubernetes.
+
+[Cluster Operator](/kubernetes/operator/operator-overview) (the recommended way of deploying to Kubernetes)
+as well as popular Helm charts, pre-configure peer discovery for you.
+:::
+
 ### Kubernetes Peer Discovery Overview
 
 A [Kubernetes](https://kubernetes.io/)-based discovery mechanism
 is available via [a plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_peer_discovery_k8s).
 
-As with any [plugin](./plugins), it must be enabled before it
-can be used. For peer discovery plugins it means they must be [enabled](./plugins#basics)
-or [preconfigured](./plugins#enabled-plugins-file) before first node boot:
+Since peer discovery happens early during node boot, you should add `rabbitmq_peer_discovery_k8s` to the
+[`enabled_plugins` file](https://www.rabbitmq.com/docs/plugins#enabled-plugins-file).
+In case of a Kubernetes deployment, it is usually a `ConfigMap`.
 
-```bash
-rabbitmq-plugins --offline enable rabbitmq_peer_discovery_k8s
-```
+Since RabbitMQ 4.1, this plugin only allows the node with the lowest ordinal index (almost always the pod with the `-0` suffix)
+to form a new cluster. This node is referred to as the seed node.
 
-### Important: Prerequisites and Deployment Considerations
+All other nodes will join the seed node, or will forever keep trying to join it, if they can't.
 
-:::important
-The recommended option for deploying RabbitMQ to Kubernetes is the [RabbitMQ Kubernetes Cluster Operator](/kubernetes/operator/operator-overview).
-
-It follows the recommendations listed below.
-:::
-
-With this mechanism, nodes fetch a list of their peers from
-a Kubernetes API endpoint using a set of configured values:
-a URI scheme, host, port, as well as the token and certificate paths.
-
-If the recommended option of the [RabbitMQ Kubernetes Cluster Operator](/kubernetes/operator/operator-overview) cannot be used,
-there are several prerequisites and deployment choices that must be taken into
-account when deploying RabbitMQ to Kubernetes, with this peer discovery mechanism
-and in general.
-
-#### Use a Stateful Set
-
-A RabbitMQ cluster deployed to Kubernetes will use a set of pods. The set must be a [stateful set](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#statefulset).
-A [headless service](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#limitations) must be used to
-control [network identity of the pods](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
-(their hostnames), which in turn affect RabbitMQ node names.
-On the headless service `spec`, field `publishNotReadyAddresses` must be set to `true` to propagate SRV DNS records for its Pods for the purpose of peer discovery.
-
-In addition, since RabbitMQ nodes [resolve their own and peer hostnames during boot](./clustering#hostname-resolution-requirement),
-CoreDNS [caching timeout may need to be decreased](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#stable-network-id) from default 30 seconds
-to a value in the 5-10 second range.
-
-:::important
-
-CoreDNS [caching timeout may need to be decreased](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#stable-network-id)
-from default 30 seconds to a value in the 5-10 second range
-
-:::
-
-If a stateless set is used recreated nodes will not have their persisted data and will start as blank nodes.
-This can lead to data loss and higher network traffic volume due to more frequent
-data synchronisation of both [quorum queues](./quorum-queues)
-and [streams](./streams) on newly joining nodes.
-
-#### Use Persistent Volumes
-
-How [storage is configured](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
-is generally orthogonal to peer discovery. However, it does not make sense to run a stateful
-data service such as RabbitMQ with [node data directory](./relocate) stored on a transient volume.
-Use of transient volumes can lead nodes to not have their persisted data after a restart.
-This has the same consequences as with stateless sets covered above.
-
-#### Make Sure `/etc/rabbitmq` is Mounted as Writeable
-
-RabbitMQ nodes and images may need to update a file under `/etc/rabbitmq`, the default [configuration file location](./configure#config-location) on Linux. This may involve configuration file generation
-performed by the image used, [enabled plugins file](./plugins#enabled-plugins-file) updates,
-and so on.
-
-It is therefore highly recommended that `/etc/rabbitmq` is mounted as writeable and owned by
-RabbitMQ's effective user (typically `rabbitmq`).
-
-#### Use Parallel podManagementPolicy
-
-`podManagementPolicy: "Parallel"` is the recommended option for RabbitMQ clusters.
-
-Because of [how nodes rejoin their cluster](./clustering#restarting), `podManagementPolicy` set to `OrderedReady`
-can lead to a deployment deadlock with certain readiness probes:
-
- * Kubernetes will expect the first node to pass a readiness probe
- * The readiness probe may require a fully booted node
- * The node will fully boot after it detects that its peers have come online
- * Kubernetes will not start any more pods until the first one boots
- * The deployment therefore is deadlocked
-
-`podManagementPolicy: "Parallel"` avoids this problem, and the Kubernetes peer discovery plugin
-then deals with the [natural race condition present during parallel cluster formation](#initial-formation-race-condition).
-
-
-#### Use Most Basic Health Checks for RabbitMQ Pod Readiness Probes
-
-A readiness probe that expects the node to be fully booted and have rejoined its cluster peers
-can deadlock a deployment that restarts all RabbitMQ pods and relies on the `OrderedReady` pod management policy.
-Deployments that use the `Parallel` pod management policy
-will not be affected.
-
-One health check that does not expect a node to be fully booted and have schema tables synced is
-
-```bash
-# a very basic check that will succeed for the nodes that are currently waiting for
-# a peer to sync schema from
-rabbitmq-diagnostics ping
-```
-
-This basic check would allow the deployment to proceed and the nodes to eventually rejoin each other,
-assuming they are [compatible](./upgrade).
-
-See [Schema Syncing from Online Peers](./clustering#restarting-schema-sync) in the [Clustering guide](./clustering).
-
-
-### Examples
-
-A minimalistic [runnable example of Kubernetes peer discovery](https://github.com/rabbitmq/diy-kubernetes-examples)
-mechanism can be found on GitHub.
-
-The example can be run using either MiniKube or Kind.
-
+In the most common scenario, this means that:
+* the pod with `-0` suffix will start immediately, effectively forming a new single-node cluster
+* any other pod will join the pod with `-0` suffix and synchronize the cluster metadata with it
 
 ### Configuration
 
-To use Kubernetes for peer discovery, set the `cluster_formation.peer_discovery_backend`
-to `k8s` or `kubernetes` or its module name, `rabbit_peer_discovery_k8s`
-(note: the name of the module is slightly different from plugin name):
+**In most cases, no configuration should be necessary beyond enabling this plugin.**
 
-```ini
-cluster_formation.peer_discovery_backend = k8s
+If you use [a different ordinal start value in your StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#ordinal-index),
+you have to configure this plugin to use it:
+```
+cluster_formation.k8s.ordinal_start = N
+```
+where `N` matches the `.spec.ordinals.start` value of the StatefulSet.
 
-# the backend can also be specified using its module name
-# cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
-
-# Kubernetes API hostname (or IP address). Default value is kubernetes.default.svc.cluster.local
-cluster_formation.k8s.host = kubernetes.default.example.local
+If the plugin doesn't work for any reason (a very unusual Kubernetes configuration or issues with hostname resolution)
+and you have to force RabbitMQ to use a different seed node than it would automatically, you can do this:
+```
+cluster_formation.k8s.seed_node = rabbit@seed-node-hostname
 ```
 
-#### Kubernetes API Endpoint
-
-It is possible to configure Kubernetes API port and URI scheme:
-
-```ini
-cluster_formation.peer_discovery_backend = k8s
-
-cluster_formation.k8s.host = kubernetes.default.example.local
-# 443 is used by default
-cluster_formation.k8s.port = 443
-# https is used by default
-cluster_formation.k8s.scheme = https
-```
-
-#### Kubernetes API Access Token
-
-Kubernetes token file path is configurable via `cluster_formation.k8s.token_path`:
-
-```ini
-cluster_formation.peer_discovery_backend = k8s
-
-cluster_formation.k8s.host = kubernetes.default.example.local
-# default value is /var/run/secrets/kubernetes.io/serviceaccount/token
-cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount/token
-```
-
-It must point to a local file that exists and is readable by RabbitMQ.
-
-#### Kubernetes Namespace
-
-`cluster_formation.k8s.namespace_path` controls when the K8S namespace is loaded from:
-
-```ini
-cluster_formation.peer_discovery_backend = k8s
-
-cluster_formation.k8s.host = kubernetes.default.example.local
-
-# ...
-
-# Default value: /var/run/secrets/kubernetes.io/serviceaccount/namespace
-cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceaccount/namespace
-```
-
-Just like with the token path key, `cluster_formation.k8s.namespace_path` must point to a local
-file that exists and is readable by RabbitMQ.
-
-#### Kubernetes API CA Certificate Bundle
-
-Kubernetes API [CA certificate bundle](./ssl#certificates-and-keys) file path is
-configured using `cluster_formation.k8s.cert_path`:
-
-```ini
-cluster_formation.peer_discovery_backend = k8s
-
-cluster_formation.k8s.host = kubernetes.default.example.local
-
-# Where to load the K8S API access token from.
-# Default value: /var/run/secrets/kubernetes.io/serviceaccount/token
-cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount/token
-
-# Where to load K8S API CA bundle file from. It will be used when issuing requests
-# to the K8S API using HTTPS.
-#
-# Default value: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-cluster_formation.k8s.cert_path = /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-```
-
-Just like with the token path key, `cluster_formation.k8s.cert_path` must point to a local
-file that exists and is readable by RabbitMQ.
-
-#### Peer Node Pods Can Use Hostnames or IP Addresses
-
-When a list of peer nodes is computed from a list of pod containers returned by Kubernetes,
-either hostnames or IP addresses can be used. This is configurable using the
-`cluster_formation.k8s.address_type` key:
-
-```ini
-cluster_formation.peer_discovery_backend = k8s
-
-cluster_formation.k8s.host = kubernetes.default.example.local
-
-cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount/token
-cluster_formation.k8s.cert_path = /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceaccount/namespace
-
-# should result set use hostnames or IP addresses
-# of Kubernetes API-reported containers?
-# supported values are "hostname" and "ip"
-cluster_formation.k8s.address_type = hostname
-```
-
-Supported values are `ip` or `hostname`. `hostname` is
-the recommended option but has limitations: it can only be used with [stateful sets](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#statefulset) (also highly recommended)
-and [headless services](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services).
-`ip` is used by default for better compatibility.
-
-##### Peer Node Pod Name Suffix
-
-It is possible to append a suffix to peer hostnames returned by Kubernetes using
-`cluster_formation.k8s.hostname_suffix`:
-
-```ini
-cluster_formation.peer_discovery_backend = k8s
-
-cluster_formation.k8s.host = kubernetes.default.example.local
-
-cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount/token
-cluster_formation.k8s.cert_path = /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceaccount/namespace
-
-# no suffix is appended by default
-cluster_formation.k8s.hostname_suffix = rmq.eng.example.local
-```
-
-Service name is `rabbitmq` by default but can be overridden using the
-`cluster_formation.k8s.service_name` key if needed:
-
-```ini
-cluster_formation.peer_discovery_backend = k8s
-
-cluster_formation.k8s.host = kubernetes.default.example.local
-
-cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount/token
-cluster_formation.k8s.cert_path = /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceaccount/namespace
-
-# overrides Kubernetes service name. Default value is "rabbitmq".
-cluster_formation.k8s.service_name = rmq-qa
-```
+If `cluster_formation.k8s.seed_node` is configured, this plugin will just use this value as the seed node.
+If you do this, please open a GitHub issue and explain why the plugin didn't work for you, so we can improve it.
 
 ## Peer Discovery Using Consul {#peer-discovery-consul}
 

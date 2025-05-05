@@ -103,6 +103,11 @@ const sidebars = {
           href: '/kubernetes/operator/install-operator',
         },
         {
+          type: 'doc',
+          label: 'Kubernetes (Do It Yourself)',
+          id: 'install-kubernetes-diy',
+        },
+        {
           type: 'category',
           label: 'Upgrade',
           link: {type: 'doc', id: 'upgrade'},
@@ -197,7 +202,7 @@ const sidebars = {
           type: 'doc',
           id: 'exchanges',
           label: 'Exchanges',
-        },        
+        },
         {
           type: 'category',
           label: 'Consuming Messages',
@@ -466,7 +471,7 @@ const sidebars = {
               type: 'doc',
               id: 'oauth2',
               label: 'OAuth 2',
-            },            
+            },
             {
               type: 'doc',
               id: 'ldap',
