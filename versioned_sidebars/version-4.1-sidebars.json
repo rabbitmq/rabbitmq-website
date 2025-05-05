@@ -91,6 +91,11 @@
           "href": "/kubernetes/operator/install-operator"
         },
         {
+          "type": "doc",
+          "label": "Kubernetes (Do It Yourself)",
+          "id": "install-kubernetes-diy"
+        },
+        {
           "type": "category",
           "label": "Upgrade",
           "link": {
