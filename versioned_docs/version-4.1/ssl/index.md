@@ -1626,6 +1626,15 @@ Or, in the classic config format:
 ].
 ```
 
+### Recommended Cipher Suites (TLS 1.3)
+
+See the section on [TLS 1.3](#tls1.3) and [Evaluating TLS Setup Security](#tls-evaluation-tools).
+
+### Recommended Cipher Suites (TLS 1.2)
+
+See [Server-side TLS Security](https://wiki.mozilla.org/Security/Server_Side_TLS) recommendations from Mozilla
+and [Evaluating TLS Setup Security](#tls-evaluation-tools).
+
 
 ## Known TLS Vulnerabilities and Their Mitigation {#major-vulnerabilities}
 
