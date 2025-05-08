@@ -352,7 +352,8 @@ PublishResult pr = await publisher.PublishAsync(message);
 
 ```python title="Publishing a message"
 # create the message
-message = Message(body="Hello")
+# body is a byte array. You can use the Converter utility class
+message = Message(body=Converter.string_to_bytes("Hello"))
 # publish the message and deal with broker feedback
 # The result is synchronous
 status = publisher.publish(Message(message)
@@ -662,6 +663,9 @@ class MyMessageHandler(AMQPMessagingHandler):
 
     def on_message(self, event: Event):
         # ...
+        # event.message.body is a byte array. If you have string
+        # you can use Converter utility class, like:
+        # my_body_string=Converter.bytes_to_string(event.message.body)
         
         self.delivery_context.accept(event)# settle the message
         
