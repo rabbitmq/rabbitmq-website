@@ -1265,6 +1265,11 @@ Deletes a [runtime parameter](./parameters).
 Lists all [global runtime parameters](./parameters) in the cluster.
 
 <Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin global_parameters list
+```
+</TabItem>
 <TabItem value="curl" label="curl" default>
 ```bash
 curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/global-parameters
@@ -1302,20 +1307,38 @@ Example payloads:
   "name": "cluster_tags",
   "value": {
     "environment": "production",
-    "az": "us-east-3",
-    "region": "us-east"
+    "az": "ca-central-1"
   }
 }
 ```
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin global_parameters set --name "cluster_tags" --value '{"az": "ca-central-1", "environment": "production"}'
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -X PUT -H "Accept: application/json" -H "Content-Type: application/json" http://127.0.0.1:15672/api/global-parameters/cluster_tags \
+     --data '{"value": {"region": "ca-central-1", "environment": "production"}, "name": "cluster_tags"}'
+```
+</TabItem>
+</Tabs>
 
 ### DELETE /api/global-parameters/\{_name_\}
 
 Clears a global runtime parameter.
 
 <Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+rabbitmqadmin global_parameters clear --name "cluster_tags"
+```
+</TabItem>
 <TabItem value="curl" label="curl" default>
 ```bash
-curl -sL -u guest:guest -X DELETE -H "Accept: application/json" http://127.0.0.1:15672/api/global-parameters/cluster_name
+curl -sL -u guest:guest -X DELETE -H "Accept: application/json" http://127.0.0.1:15672/api/global-parameters/cluster_tags
 ```
 </TabItem>
 </Tabs>
