@@ -547,7 +547,7 @@ can lead to a deployment deadlock with certain readiness probes:
  * The deployment therefore is deadlocked
 
 `podManagementPolicy: "Parallel"` avoids this problem, and the Kubernetes peer discovery plugin
-then deals with the [natural race condition present during parallel cluster formation](#initial-formation-race-condition).
+then deals with the [natural race condition present during parallel cluster formation](./cluster-formation#initial-formation-race-condition).
 
 
 #### Use Most Basic Health Checks for RabbitMQ Pod Readiness Probes
