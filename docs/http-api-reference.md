@@ -1673,10 +1673,11 @@ otherwise responds with a 503 Service Unavailable.
 
 Relevant documentation guides: <a href="./networking">Networking</a>.
 
-### GET /api/health/checks/protocol-listener/\{_protocol_\}
+### GET /api/health/checks/protocol-listener/\{_protocols_\}
 
-Responds a 200 OK if there is an active listener for the given protocol,
-otherwise responds with a 503 Service Unavailable.
+Responds a 200 OK if if all given protocols have active listeners,
+otherwise responds with a 503 Service Unavailable. Multiple protocols
+may be provided by separating the names with commas.
 
 Valid protocol names are: `amqp091`, `amqp10`, `mqtt`, `stomp`, `web-mqtt`, `web-stomp`.
 
