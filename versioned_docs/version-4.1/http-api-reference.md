@@ -1695,6 +1695,13 @@ otherwise responds with a 503 Service Unavailable.
 
 Relevant documentation guide: <a href="./quorum-queues">Quorum Queues</a>.
 
+### GET /api/health/checks/is-in-service
+
+Responds a 200 OK if the target node is booted, running, and ready to
+serve clients, otherwise responds with a 503 Service Unavailable. If the
+target node is being drained for maintenance then this check returns 503
+Service Unavailable.
+
 ### GET /api/rebalance/queues
 
 Rebalances all queues in all vhosts.
