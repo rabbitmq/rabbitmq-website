@@ -1702,6 +1702,12 @@ serve clients, otherwise responds with a 503 Service Unavailable. If the
 target node is being drained for maintenance then this check returns 503
 Service Unavailable.
 
+### GET /api/health/checks/below-node-connection-limit
+
+Responds a 200 OK if the target node has fewer connections to the AMQP
+and AMQPS ports than the configured maximum, otherwise responds with a
+503 Service Unavailable.
+
 ### GET /api/rebalance/queues
 
 Rebalances all queues in all vhosts.
