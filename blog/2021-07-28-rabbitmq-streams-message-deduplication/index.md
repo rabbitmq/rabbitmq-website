@@ -154,7 +154,7 @@ We need 2 things to enable deduplication on publishing:
 * a _name_ for the producer
 * a strictly increasing sequence value for each record, the _publishing ID_
 
-The [stream Java client documentation](https://rabbitmq.github.io/rabbitmq-stream-java-client/stable/htmlsingle/#outbound-message-de-deduplication) provides more details about the producer name and the publishing ID.
+The [stream Java client documentation](https://rabbitmq.github.io/rabbitmq-stream-java-client/stable/htmlsingle/#outbound-message-deduplication) provides more details about the producer name and the publishing ID.
 Note message deduplication is not specific to the stream Java client, it can be implemented by any client as long as it complies to the semantics.
 
 We just have to pick a name for our publishing application and keep this name along the different runs.
