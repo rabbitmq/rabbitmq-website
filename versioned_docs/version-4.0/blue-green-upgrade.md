@@ -20,7 +20,7 @@ limitations under the License.
 
 Blue-green deployment is a migration technique that can also be used as an [upgrade strategy](./upgrade).
 The main idea is to set up a new environment (the "green" one) and switch to it
-when it is ready. The "upgrade" is not performed "in place", the application just switch
+when it is ready. The "upgrade" is not performed "in place", the application just switches
 to a different environment, which might be using a different version, but can
 also differ in other aspects.
 
