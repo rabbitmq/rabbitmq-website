@@ -623,6 +623,98 @@ when using the [Stream plugin](./stream)) offsets are persisted in the stream
 itself as non-message data. This means that as offset persistence is requested the
 stream will grow on disk by some small amount per offset persistence request.
 
+## Deduplication of Published Messages {#deduplication-published-messages}
+
+RabbitMQ Stream can detect and filter out duplicated published messages, based on 2 client-side elements: the _producer name_ and the _message publishing ID_.
+
+A client application chooses to activate deduplication for a given producer.
+Usage of deduplication depends on the client library used, this section covers the basics.
+See the documentation of the client library you are using for the API specifics.
+Deduplication is not activated by default in the stream client libraries the RabbitMQ team maintains.
+
+### Producer Name
+
+The producer name must be unique for a given stream.
+There should be only one producer with a given name on a given stream at a time, as deduplication does not support concurrent publishing (publishing IDs can intertwine with concurrent producer instances).
+A producer name should be stable between application restarts and clear to a human reader.
+Names like `online-shop-order` or `online-shop-invoice` are better names than a random sequence like `3d235e79-047a-46a6-8c80-9d159d3e1b05`.
+
+### Publishing ID
+
+The publishing ID is a strictly increasing sequence.
+The publishing application must increment it for each outbound message.
+Here are rules for the publishing ID sequence: it must be strictly increasing, it can have gaps in the sequence (e.g. 0, 1, 2, 3, 6, 7, 9, 10, etc), it does not have to start at 0.
+
+### How Deduplication Works
+
+The broker keeps track of the highest publishing ID sent for a given named producer on a given stream (the "limit").
+The broker will filter out any outbound message with a publishing ID less than or equal to this limit.
+It will send a confirmation though, telling the producer the message has been taking into account and should not be sent again.
+
+A message with a greater value than the current limit will be stored, confirmed, and will establish the new limit.
+
+When creating a named producer, a client application can query the broker for the last publishing ID for it.
+The application can then resume the publishing where it left off.
+
+A good mental model of the way a named producer with deduplication activated should work is seeing the producer going through the lines of a file.
+Each line is a message and the publishing ID is the line number.
+
+### Examples
+
+Let's see some examples to understand the way deduplication works.
+In the examples, publishing e.g. "message 2" means publishing a message with an arbitrary content and using 2 for the publishing ID.
+
+#### Publishing and Restarting
+
+A client application does the following:
+ * declares a producer with a name to activate deduplication
+ * publishes message 1, message 2, message 3
+ * receives asynchronous confirmations from the broker for each message
+ * publishes message 4
+ * crashes
+
+We assume the broker received message 4 and sent a confirmation, but the application crashed before receiving the confirmation.
+
+The application restarts:
+ * declares the publisher with the same name
+ * queries the broker for the last publishing ID
+ * receives publishing ID 4 from the broker
+ * "scrolls" to message 4 (see the file analogy above)
+ * publishes message 4 again
+ * gets a confirmation for message 4 (the broker filtered out the message, but sent the confirmation)
+ * publishes message 5, etc
+
+The application could have published message 5 right away, as the broker returned 4 as the last publishing ID it received.
+But the application chose to republish message 4, as it had never received a confirmation for it.
+The broker filtered out message 4 anyway and sent a confirmation, telling the application message 4 is safely stored and it can move on to the next message.
+
+#### Misusing Deduplication
+
+A client application does the following:
+ * declares a producer with a name to activate deduplication
+ * publishes message 1, message 2, message 3
+ * receives asynchronous confirmations from the broker for each message
+ * publishes message 10
+ * receives asynchronous confirmation for message 10
+ * publishes message 4
+ * receives asynchronous confirmation for message 4
+
+The application receives a confirmation for message 4, but the broker filtered out this message, because the limit was 10 at this time.
+The broker keeps only track of the highest publishing ID, not of each individual publishing ID.
+Message 4 has a smaller publishing ID than the current limit, which is 10, set by message 10, so message 4 is filtered out, even if it has not been published or stored before.
+
+One can think the broker is misleading the application, but the application is misusing the deduplication feature.
+It used 10, then 4 for publishing ID, violating the requirement of a strictly-increasing sequence.
+If we use the file analogy from above, the application scrolled down to line 10 and then back to 4.
+Deduplication does not cover this case.
+
+### Going Further
+
+See your favorite [stream client library](./stream) documentation for more information on deduplication.
+
+See also the [deduplication blog post](/blog/2021/07/28/rabbitmq-streams-message-deduplication) for a step-by-step example.
+
+
 ## Limitations {#limitations}
 
 ### Message Encoding {#limitations-message-encoding}
