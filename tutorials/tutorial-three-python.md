@@ -268,6 +268,14 @@ We're done. If you want to save logs to a file, just open a console and type:
 python receive_logs.py > logs_from_rabbit.log
 ```
 
+> 🚨 Warning:
+> 
+> The above command will not update the log file immediately; rather, it will update each message after closing the execution by interruption.
+> To see the result immediately in the *.log file, use the command `-u`, which stands for `unbuffered`
+> ```bash
+> python -u receive_logs.py > logs_from_rabbit.log
+> ```
+
 If you wish to see the logs on your screen, spawn a new terminal and run:
 
 ```bash

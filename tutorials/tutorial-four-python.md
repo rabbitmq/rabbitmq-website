@@ -236,6 +236,14 @@ messages to a file, just open a console and type:
 python receive_logs_direct.py warning error > logs_from_rabbit.log
 ```
 
+> 🚨 Warning:
+> 
+> The above command will not update the log file immediately; rather, it will update each message after closing the execution by interruption.
+> To see the result immediately in the *.log file, use the command `-u`, which stands for `unbuffered`
+> ```bash
+> python -u receive_logs_direct.py warning error > logs_from_rabbit.log
+> ```
+
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
