@@ -93,7 +93,11 @@
       <dt >
 ### <code class="Ev">RABBITMQ_CONSOLE_LOG</code> {#RABBITMQ_CONSOLE_LOG}
       </dt>
-      <dd>Set this variable to <b class="Sy">new or</b> <b class="Sy">reuse</b> to have the console output from the server redirected to a file named <span class="Pa">SERVICENAME.debug</span> in the application data directory of the user that installed the service. Under Vista this will be <span class="Pa">C:\Users\AppData\username\SERVICENAME</span>. Under previous versions of Windows this will be <span class="Pa">C:\Documents and Settings\username\Application Data\SERVICENAME</span>. If <code class="Ev">RABBITMQ_CONSOLE_LOG</code> is set to <b class="Sy">new</b> then a new file will be created each time the service starts. If <code class="Ev">RABBITMQ_CONSOLE_LOG</code> is set to <b class="Sy">reuse</b> then the file will be overwritten each time the service starts. The default behaviour when <code class="Ev">RABBITMQ_CONSOLE_LOG</code> is not set or set to a value other than <b class="Sy">new</b> or <b class="Sy">reuse</b> is to discard the server output.</dd>
+      <dd>Set this variable to <b class="Sy">new</b> or <b class="Sy">reuse</b> to have the console output from the server redirected to a file named <span class="Pa">SERVICENAME.debug</span> in the application data directory of the user that installed the service. Under Vista this will be <span class="Pa">C:\Users\AppData\username\SERVICENAME</span>. Under previous versions of Windows this will be <span class="Pa">C:\Documents and Settings\username\Application Data\SERVICENAME</span>. If <code class="Ev">RABBITMQ_CONSOLE_LOG</code> is set to <b class="Sy">new</b> then a new file will be created each time the service starts. If <code class="Ev">RABBITMQ_CONSOLE_LOG</code> is set to <b class="Sy">reuse</b> then the file will be overwritten each time the service starts. The default behaviour when <code class="Ev">RABBITMQ_CONSOLE_LOG</code> is not set or set to a value other than <b class="Sy">new</b> or <b class="Sy">reuse</b> is to discard the server output.</dd>
+      <dt >
+### <code class="Ev">RABBITMQ_SERVICE_PRIORITY</code> {#RABBITMQ_SERVICE_PRIORITY}
+      </dt>
+      <dd>Set this variable to <b class="Sy">low</b>, <b class="Sy">high</b> or <b class="Sy">realtime</b> to set the process priority class of the Erlang emulator.</dd>
     </dl>
   </section>
   <section class="Sh">
