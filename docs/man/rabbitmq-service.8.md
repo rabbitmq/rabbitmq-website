@@ -97,7 +97,7 @@
       <dt >
 ### <code class="Ev">RABBITMQ_SERVICE_PRIORITY</code> {#RABBITMQ_SERVICE_PRIORITY}
       </dt>
-      <dd>Set this variable to <b class="Sy">low</b>, <b class="Sy">high</b> or <b class="Sy">realtime</b> to set the process priority class of the Erlang emulator.</dd>
+      <dd>Set this variable to <b class="Sy">low</b>, <b class="Sy">high</b> or <b class="Sy">realtime</b> to override default (normal) process priority class of the Erlang emulator.</dd>
     </dl>
   </section>
   <section class="Sh">
