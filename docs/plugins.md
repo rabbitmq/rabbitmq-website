@@ -503,6 +503,20 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
   </tr>
 
   <tr>
+    <th>rabbitmq_sharding</th>
+    <td>
+       A plug-in for RabbitMQ that provides sharded queues. Sharding is
+       performed by exchanges, that is, messages will be partitioned
+       across "shard" queues by one exchange that we define as sharded.
+      <ul>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_sharding/README.md">README for this plugin</a>
+        </li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
     <th>rabbitmq_shovel</th>
     <td>
       A plug-in for RabbitMQ that shovels messages from a queue on
