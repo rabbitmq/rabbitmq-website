@@ -136,10 +136,11 @@ provide the basics of how your would build your very own RabbitMQ plugin.
 
 The following example details how you might build a simple plugin that acts like a metronome.
 
-Every second, it fires a message that has a routing key in the form `yyyy.MM.dd.dow.hh.mm.ss` to a topic exchange called &quot;metronome&quot; by default.
-Applications can attach queues to this exchange with various routing keys in order to be invoked at regular intervals.
-For example, to receive a message every second, a binding of &quot;*.*.*.*.*.*.*&quot; could be applied. To receive
-a message every minute, a binding of &quot;*.*.*.*.*.*.00&quot; could be applied instead.
+Every second, it fires a message that has a routing key in the form `yyyy.MM.dd.dow.hh.mm.ss` to a
+topic exchange called `metronome` by default. Applications can attach queues to this exchange with
+various routing keys in order to be invoked at regular intervals. For example, to receive a message
+every second, a binding of `*.*.*.*.*.*.*` could be applied. To receive a message every minute, a
+binding of `*.*.*.*.*.*.00` could be applied instead.
 
 The [rabbitmq-metronome](https://github.com/rabbitmq/rabbitmq-metronome) repository on GitHub
 contains a copy of the code for this plugin.
@@ -246,16 +247,24 @@ The following table should explain the purpose of the various files in the repos
 
 ## Development Process
 
+Clone your plugin into the `deps` directory of your `rabbitmq-server` repository:
+
+```bash
+git clone https://github.com/rabbitmq/rabbitmq-server.git
+cd rabbitmq-server
+git clone https://github.com/user/my-rabbitmq-plugin.git deps/my_rabbitmq_plugin
+```
+
 Run make to build the plugin:
 
 ```bash
-make
+make -C deps/my_rabbitmq_plugin
 ```
 
-To start a node with the plugin built and enabled on:
+To start a node with your `my_rabbitmq_plugin` and the management plugin enabled:
 
 ```bash
-make run-broker
+make RABBITMQ_ENABLED_PLUGINS='rabbitmq_management my_rabbitmq_plugin' run-broker
 ```
 
 To ensure that the new plugin is up and running, run the following command:
@@ -274,18 +283,19 @@ If your plugin has loaded successfully, you should see it in the enabled plugin 
 # =>
 # =>  * rabbitmq_metronome
 # =>  * amqp_client
+# =>  * my_rabbitmq_plugin
 ```
 
 To run Common Test test suites, use
 
 ```bash
-make tests
+make -C deps/my_rabbitmq_plugin tests
 ```
 
 Finally, you can produce an <code>.ez</code> file, suitable for distribution with:
 
 ```bash
-DIST_AS_EZS=yes make dist
+make -C deps/my_rabbitmq_plugin DIST_AS_EZS=yes dist
 ```
 
 The file appears in the <tt>plugins</tt> directory under repository root.
