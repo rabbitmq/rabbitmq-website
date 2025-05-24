@@ -236,6 +236,7 @@ The code for `receive_logs.php`:
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
 $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
 $channel = $connection->channel();
@@ -248,7 +249,7 @@ $channel->queue_bind($queue_name, 'logs');
 
 echo " [*] Waiting for logs. To exit press CTRL+C\n";
 
-$callback = function ($msg) {
+$callback = function (AMQPMessage $msg) {
     echo ' [x] ', $msg->getBody(), "\n";
 };
 

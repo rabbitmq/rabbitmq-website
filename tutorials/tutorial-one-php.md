@@ -168,6 +168,7 @@ The code (in [`receive.php`](https://github.com/rabbitmq/rabbitmq-tutorials/blob
 ```php
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 ```
 
 Setting up is the same as the publisher; we open a connection and a
@@ -193,7 +194,7 @@ that will receive the messages sent by the server. Keep in mind
 that messages are sent asynchronously from the server to the clients.
 
 ```php
-$callback = function ($msg) {
+$callback = function (AMQPMessage $msg) {
   echo ' [x] Received ', $msg->body, "\n";
 };
 

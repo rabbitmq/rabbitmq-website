@@ -87,7 +87,7 @@ list($queue_name, ,) = $channel->queue_declare("", false, false, true, false);
 
 $msg = new AMQPMessage(
     $payload,
-    array('reply_to' => $queue_name)
+    ['reply_to' => $queue_name]
 );
 
 $channel->basic_publish($msg, '', 'rpc_queue');
@@ -159,14 +159,15 @@ Putting it all together
 The Fibonacci task:
 
 ```php
-function fib($n)
+function fib(int $n)
 {
-    if ($n == 0) {
+    if ($n === 0) {
         return 0;
     }
-    if ($n == 1) {
+    if ($n === 1) {
         return 1;
     }
+
     return fib($n-1) + fib($n-2);
 }
 ```
@@ -189,25 +190,26 @@ $channel = $connection->channel();
 
 $channel->queue_declare('rpc_queue', false, false, false, false);
 
-function fib($n)
+function fib(int $n)
 {
-    if ($n == 0) {
+    if ($n === 0) {
         return 0;
     }
-    if ($n == 1) {
+    if ($n === 1) {
         return 1;
     }
+
     return fib($n-1) + fib($n-2);
 }
 
 echo " [x] Awaiting RPC requests\n";
-$callback = function ($req) {
+$callback = function (AMQPMessage $req) {
     $n = intval($req->getBody());
     echo ' [.] fib(', $n, ")\n";
 
     $msg = new AMQPMessage(
         (string) fib($n),
-        array('correlation_id' => $req->get('correlation_id'))
+        ['correlation_id' => $req->get('correlation_id')]
     );
 
     $req->getChannel()->basic_publish(
@@ -218,7 +220,7 @@ $callback = function ($req) {
     $req->ack();
 };
 
-$channel->basic_qos(null, 1, false);
+$channel->basic_qos(0, 1, false);
 $channel->basic_consume('rpc_queue', '', false, false, false, false, $callback);
 
 try {
@@ -250,12 +252,13 @@ The code for our RPC client [rpc_client.php](https://github.com/rabbitmq/rabbitm
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
 
 class FibonacciRpcClient
 {
-    private $connection;
-    private $channel;
+    private AMQPStreamConnection $connection;
+    private AMQPChannel $channel;
     private $callback_queue;
     private $response;
     private $corr_id;
@@ -283,36 +286,37 @@ class FibonacciRpcClient
             true,
             false,
             false,
-            array(
+            [
                 $this,
                 'onResponse'
-            )
+            ]
         );
     }
 
-    public function onResponse($rep)
+    public function onResponse(AMQPMessage $rep)
     {
-        if ($rep->get('correlation_id') == $this->corr_id) {
-            $this->response = $rep->body;
+        if ($rep->get('correlation_id') === $this->corr_id) {
+            $this->response = $rep->body();
         }
     }
 
-    public function call($n)
+    public function call(int $n)
     {
         $this->response = null;
         $this->corr_id = uniqid();
 
         $msg = new AMQPMessage(
             (string) $n,
-            array(
+            [
                 'correlation_id' => $this->corr_id,
-                'reply_to' => $this->callback_queue
-            )
+                'reply_to' => $this->callback_queue,
+            ]
         );
         $this->channel->basic_publish($msg, '', 'rpc_queue');
         while (!$this->response) {
             $this->channel->wait();
         }
+
         return intval($this->response);
     }
 }

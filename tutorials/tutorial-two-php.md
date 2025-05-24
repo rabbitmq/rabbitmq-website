@@ -81,7 +81,7 @@ fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.php`:
 
 ```php
-$callback = function ($msg) {
+$callback = function (AMQPMessage $msg) {
   echo ' [x] Received ', $msg->getBody(), "\n";
   sleep(substr_count($msg->getBody(), '.'));
   echo " [x] Done\n";
@@ -92,7 +92,7 @@ $channel->basic_consume('hello', '', false, true, false, false, $callback);
 
 Note that our fake task simulates execution time.
 
-Run them as in tutorial one:
+Run them as in the tutorial one:
 
 ```bash
 # shell 1
@@ -202,7 +202,7 @@ It's time to turn them on by setting the fourth parameter to `basic_consume` to 
 from the worker, once we're done with a task.
 
 ```php
-$callback = function ($msg) {
+$callback = function (AMQPMessage $msg) {
   echo ' [x] Received ', $msg->getBody(), "\n";
   sleep(substr_count($msg->getBody(), '.'));
   echo " [x] Done\n";
@@ -281,10 +281,9 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 as part of the property array.
 
 ```php
-$msg = new AMQPMessage(
-    $data,
-    array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
-);
+$msg = new AMQPMessage($data, [
+    'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
+]);
 ```
 
 > #### Note on message persistence
@@ -323,7 +322,7 @@ a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
 ```php
-$channel->basic_qos(null, 1, false);
+$channel->basic_qos(0, 1, false);
 ```
 
 > #### Note about queue size
@@ -352,10 +351,9 @@ $data = implode(' ', array_slice($argv, 1));
 if (empty($data)) {
     $data = "Hello World!";
 }
-$msg = new AMQPMessage(
-    $data,
-    array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
-);
+$msg = new AMQPMessage($data, [
+    'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,
+]);
 
 $channel->basic_publish($msg, '', 'task_queue');
 
@@ -375,6 +373,7 @@ And our `worker.php`:
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
 $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
 $channel = $connection->channel();
@@ -383,7 +382,7 @@ $channel->queue_declare('task_queue', false, true, false, false);
 
 echo " [*] Waiting for messages. To exit press CTRL+C\n";
 
-$callback = function ($msg) {
+$callback = function (AMQPMessage $msg) {
     echo ' [x] Received ', $msg->getBody(), "\n";
     sleep(substr_count($msg->getBody(), '.'));
     echo " [x] Done\n";
