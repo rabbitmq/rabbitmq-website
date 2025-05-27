@@ -246,7 +246,7 @@ A few recommendations when adjusting the default
 
  * Nodes hosting RabbitMQ should have at least <strong>256 MiB</strong> of
    memory available at all times. Deployments that use [quorum queues](./quorum-queues) require more,
-   see [how quorum queue use resources](./quorum-queues#resource-use) for more informatio.
+   see [how quorum queue use resources](./quorum-queues#resource-use) for more information.
  * The recommended `vm_memory_high_watermark.relative` range is `0.4 to 0.7`
  * Values above `0.7` should be used with care and with solid [memory usage](./memory-use) and infrastructure-level [monitoring](./monitoring) in place.
    The OS and file system must be left with at least 30% of the memory, otherwise performance may degrade severely due to paging.
