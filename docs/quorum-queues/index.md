@@ -1249,7 +1249,7 @@ This leads to several recommendations:
 
 Segment file truncation happens periodically in response to client operations,
 when it is safe to do so. Quorum queues periodically take checkpoints and snapshots,
-and truncate the segment files that are know to not contain any more "live" (ready for delivery
+and truncate the segment files that are known to not contain any more "live" (ready for delivery
 or pending consumer acknowledgement) messages.
 
 When there is no client activity, these events won't happen, and neither will segment
