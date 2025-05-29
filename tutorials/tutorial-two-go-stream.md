@@ -115,7 +115,7 @@ func handlePublishConfirm(confirms stream.ChannelPublishConfirm, messageCount in
     go func() {
         confirmedCount := 0
         for confirmed := range confirms {
-            for _, _ = range confirmed {
+            for _, msg := range confirmed {
                 if msg.IsConfirmed() {
                     confirmedCount++
                     if confirmedCount == messageCount {
