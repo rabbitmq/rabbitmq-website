@@ -359,11 +359,6 @@ auth_ldap.ssl_options.verify = verify_peer
 auth_ldap.ssl_options.verify = verify_none
 ```
 
-```ini
-# if target LDAP server does not present a certificate, should the connection be aborted?
-auth_ldap.ssl_options.fail_if_no_peer_cert = true
-```
-
 #### Peer Chain Verification Depth
 
 [Certificate chain verification depth](./ssl#peer-verification-depth) can be increased
@@ -393,8 +388,7 @@ The below example uses an [`advanced.config` format](./configure#advanced-config
      {ssl_options, [{cacertfile, "/path/to/ca_certificate.pem"},
                     {certfile,   "/path/to/server_certificate.pem"},
                     {keyfile,    "/path/to/server_key.pem"},
-                    {verify,               verify_peer},
-                    {fail_if_no_peer_cert, true}]},
+                    {verify, verify_peer},
                     {server_name_indication, "ldap.identity.eng.megacorp.local"},
                     {ssl_hostname_verification, wildcard}
    ]}
