@@ -195,7 +195,7 @@ below, you need to upgrade to [RabbitMQ 4.1](/docs/oauth2#step4).
 #### Step 5: Ensure your scopes are recognized RabbitMQ scopes {#step5}
 
 Ensure that the scopes contained in the token are recognized RabbitMQ scopes. Here are examples of
-recognized RabbitMQ scopes:
+[recognized RabbitMQ scopes](#scope-translation):
 
 * `rabbitmq.tag:administrator` Here `rabbitmq` is the name of the `resource_server_id` you configured
   in the first step. `tag:administrator` grants the administrator role to the management UI.

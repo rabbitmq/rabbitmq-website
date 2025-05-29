@@ -237,7 +237,7 @@ and [6)](#step6).
 
 #### Step 5: Ensure your scopes are recognized RabbitMQ scopes {#step5}
 
-Ensure that the scopes contained in the token are recognized RabbitMQ scopes.
+Ensure that the scopes contained in the token are [recognized RabbitMQ scopes](#scope-translation).
 
 Here are examples of recognized RabbitMQ scopes:
 
