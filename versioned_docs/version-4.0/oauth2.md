@@ -32,7 +32,7 @@ There's also a companion [troubleshooting guide for OAuth 2-specific problems](.
 ### [How to configure it](#how-to-configure-it)
 
 * [Prerequisites](#prerequisites)
-* [Configure OAuth 2.0 for identity providers compliant with OpenId Connect](#configure-for-openid-connect)
+* [Configure OAuth 2.0 step by step](#configure-for-openid-connect)
 
 ### [How it works](#how-it-works)
 
@@ -94,7 +94,7 @@ example, the following configuration adds OAuth 2.0 as the only authentication b
 auth_backends.1 = rabbit_auth_backend_oauth2
 ```
 
-### Configure OAuth 2.0 for identity providers compliant with OpenId Connect{#configure-for-openid-connect}
+### Configure OAuth 2.0 step by step{#configure-for-openid-connect}
 
 Nowadays, the majority of the identity providers are compliant with OpenId Connect. At minimum, this
 means that they expose an HTTP endpoint called *Discovery endpoint* mounted at
