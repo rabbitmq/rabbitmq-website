@@ -1609,7 +1609,7 @@ GET /api/overview
 
 ## Configuration Value Encryption {#configuration-encryption}
 
-Sensitive `advanced.config` entries (e.g. password, URL containing
+Sensitive `advanced.config` and select `rabbitmq.conf` entries (e.g. password, URL containing
 credentials) can be encrypted. RabbitMQ nodes then decrypt encrypted entries on boot.
 
 Note that encrypted configuration entries don't make the
@@ -1749,6 +1749,34 @@ Or, on Windows:
 rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
                      "<<""guest"">>" mypassphrase
 ```
+
+### Using Encrypted Values in `rabbitmq.conf` and `advanced.config`
+
+Encrypted values must be used as pairs, for example, if the encrypted value
+was returned as `<<"T9rCCHjY0ewlCWll8ux8vdynuAdA0/ji4koKh3eaziLfgigeW3K21VFzQZnvUxF0">>`, the value in `advanced.config` will look like this:
+
+```erl
+{encrypted, <<"T9rCCHjY0ewlCWll8ux8vdynuAdA0/ji4koKh3eaziLfgigeW3K21VFzQZnvUxF0">>}
+```
+
+In, `rabbitmq.conf`, an encrypted value from the example above should be
+prefixed with `encrypted:`, that is:
+
+```ini
+default_passowrd = encrypted:T9rCCHjY0ewlCWll8ux8vdynuAdA0/ji4koKh3eaziLfgigeW3K21VFzQZnvUxF0
+```
+
+When the `rabbitmq.conf` file is translated during node boot, the above
+value will be translated to `{encrypted, <<"T9rCCHjY0ewlCWll8ux8vdynuAdA0/ji4koKh3eaziLfgigeW3K21VFzQZnvUxF0">>}`, that is, the same value
+as used in `advanced.config`.
+
+Value encryption is supposed for the following `rabbitmq.conf` keys:
+
+ * `ssl_options.password`
+ * `default_password`
+ * `default_user.$username.password`
+ * `definitions.tls.password`
+ * `anonymous_login_pass`
 
 
 ## Configuration Using Environment Variables {#customise-environment}
