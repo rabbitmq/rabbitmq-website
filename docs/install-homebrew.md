@@ -195,6 +195,13 @@ rm -rf /opt/homebrew/var/lib/rabbitmq/
 # the launch agent file
 rm -f $HOME/Library/LaunchAgents/homebrew.mxcl.rabbitmq.plist
 
+# If the above steps fail with
+# Error: No such file or directory - /opt/homebrew/var/homebrew/linked/rabbitmq
+#
+# consider trying
+brew doctor
+brew cleanup
+
 # re-install
 brew install rabbitmq
 
