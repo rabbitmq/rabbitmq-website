@@ -317,7 +317,7 @@ The following changes needs to be made to this file before loading it back into 
    new virtual host.
 2. Other changes that need to be applied to queue definitions:
    - Remove `x-max-priority` argument
-   - Change `x-overlow` argument when it is set to `reject-publish-dlx`
+   - Change `x-overflow` argument when it is set to `reject-publish-dlx`
    - Remove `x-queue-mode` argument
    - Change `durable` attribute to `true`
 3. Change the following keys in policies:
