@@ -313,7 +313,7 @@ Make the following changes to this file before loading it back into the NEW_VHOS
    new virtual host.
 2. Other changes that must be applied to queue definitions:
    - Remove the `x-max-priority` argument.
-   - Change the `x-overlow` argument when it is set to `reject-publish-dlx`. Change it to `reject-publish`.
+   - Change the `x-overflow` argument when it is set to `reject-publish-dlx`. Change it to `reject-publish`.
    - Remove the `x-queue-mode` argument.
    - Change the `durable` attribute to `true`.
 3. Change the following keys in the policies:
