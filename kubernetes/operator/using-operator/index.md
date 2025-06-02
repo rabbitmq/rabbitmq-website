@@ -376,7 +376,7 @@ The `RabbitMQCluster` does not deploy if these configurations are provided but n
   * Memory request: 2 Gi
   * CPU request: 1000 millicores
 
-The RabbitMQ high-water mark is set to 0.4 times the memory limit.
+The RabbitMQ high-water mark is set to 0.6 times the memory limit (0.4 in older RabbitMQ versions).
 It is recommended to keep the memory requests and limits as the same value.
 
 **Example:**
