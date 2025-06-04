@@ -116,7 +116,7 @@ By default, the plugin creates a classic queue.
 The plugin can be configured to create quorum queues (instead of classic queues) for subscribers whose MQTT session lasts longer than their MQTT network connection.
 This is explained in section [Quorum Queues](#quorum-queues).
 
-If [feature flag](./feature-flags) `rabbit_mqtt_qos0_queue` is enabled, the plugin creates an MQTT QoS 0 queue for QoS 0 subscribers whose MQTT session last as long as their MQTT network connection.
+The plugin creates an MQTT QoS 0 queue for QoS 0 subscribers whose MQTT session last as long as their MQTT network connection.
 This is explained in section [MQTT QoS 0 queue type](#qos0-queue-type).
 
 ### [Queue Properties](./queues#properties) and [Arguments](./queues#optional-arguments)
@@ -195,13 +195,12 @@ Quorum queues are a great fit for a few (hundreds) longer lived clients that act
 
 ## MQTT QoS 0 queue type {#qos0-queue-type}
 
-The MQTT plugin creates an MQTT QoS 0 queue if the following three conditions are met:
+The MQTT plugin creates an MQTT QoS 0 queue if the following two conditions are met:
 
-1. [Feature flag](./feature-flags) `rabbit_mqtt_qos0_queue` is enabled.
-2. The MQTT client subscribes with QoS 0.
-3. The MQTT 5.0 client connects with a [Session Expiry Interval](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901048) of 0, or the MQTT 3.1.1 client connects with CleanSession set to 1.
+1. The MQTT client subscribes with QoS 0.
+2. The MQTT 5.0 client connects with a [Session Expiry Interval](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901048) of 0, or the MQTT 3.1.1 client connects with CleanSession set to 1.
 
-The third condition means that the MQTT session lasts only as long as the network connection.
+The second condition means that the MQTT session lasts only as long as the network connection.
 
 The MQTT QoS 0 queue type can be thought of as a “pseudo” or “virtual” queue:
 It is very different from the other queue types (classic queues, quorum queues, and streams) in the sense that this new queue type is neither a separate Erlang process nor does it store messages on disk.
