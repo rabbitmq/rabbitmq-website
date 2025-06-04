@@ -118,10 +118,10 @@ Multiple nodes can be added and removed at a time.
 
 ## RabbitMQ Version Upgradability {#rabbitmq-version-upgradability}
 
-You can only upgrade to RabbitMQ 4.0 from RabbitMQ 3.13.x.
+Upgrades from RabbitMQ 3.13.x are supported to both RabbitMQ 4.0.x and RabbitMQ 4.1.x.
 
-Don't forget to [enable all stable feature flags](./feature-flags#how-to-enable-feature-flags) while still on 3.13,
-**before** attempting an upgrade to RabbitMQ 4.0, or the upgrade will fail.
+All [stable feature flags must be enabled](./feature-flags#how-to-enable-feature-flags),
+**before** an upgrade, or the upgrade may fail.
 
 If you are not on RabbitMQ 3.13 yet, refer to the table below to understand your upgrade path.
 
@@ -130,22 +130,24 @@ If you are not on RabbitMQ 3.13 yet, refer to the table below to understand your
 
 The following shows the supported upgrade paths.
 
-| From     | To     | Notes                                                         |
-|----------|--------|---------------------------------------------------------------|
-| 3.13.x   | 4.0.x  | All stable feature flags **must** be enabled **before** the upgrade  |
-| 3.12.x   | 3.13.x |                                                               |
-| 3.11.18  | 3.12.x | All feature flags **must** be enabled **before** the upgrade  |
-| 3.10.x   | 3.11.x | All feature flags **must** be enabled **before** the upgrade  |
-| 3.9.x    | 3.10.x |                                                               |
-| 3.8.x    | 3.9.x  |                                                               |
-| 3.7.18   | 3.8.x  |                                                               |
+| From     | To     |
+|----------|--------|
+| 4.0.x    | 4.1.x  |
+| 3.13.x   | 4.1.x  |
+| 3.13.x   | 4.0.x  |
+| 3.12.x   | 3.13.x |
+| 3.11.18  | 3.12.x |
+| 3.10.x   | 3.11.x |
+| 3.9.x    | 3.10.x |
+| 3.8.x    | 3.9.x  |
+| 3.7.18   | 3.8.x  |
 </details>
 
 :::note
 RabbitMQ 3.13 included experimental support for Khepri. However, major changes
 had to be introduced since then, leading to incompatibilities between Khepri support
-in 3.13 and 4.0. Therefore, RabbitMQ 3.13 with Khepri enabled **cannot** be upgraded
-to 4.0. [Blue-Green Deployment](./blue-green-upgrade) can still be used in this situation,
+in 3.13 and 4.x. Therefore, RabbitMQ 3.13 with Khepri enabled **cannot** be upgraded
+to 4.x. [Blue-Green Deployment](./blue-green-upgrade) can still be used in this situation,
 since technically it is not an upgrade, but rather a migration to a fresh cluster.
 :::
 
