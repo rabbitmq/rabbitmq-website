@@ -9,3 +9,8 @@ site/img/.DS_Store
 .DS_Store
 *env*/
 .vscode
+
+node_modules/*
+.fleet/*
+.docusaurus/*
+build/*
