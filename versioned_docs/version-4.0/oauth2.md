@@ -32,7 +32,7 @@ There's also a companion [troubleshooting guide for OAuth 2-specific problems](.
 ### [How to configure it](#how-to-configure-it)
 
 * [Prerequisites](#prerequisites)
-* [Configure OAuth 2.0 for identity providers compliant with OpenId Connect](#configure-for-openid-connect)
+* [Configure OAuth 2.0 step by step](#configure-for-openid-connect)
 
 ### [How it works](#how-it-works)
 
@@ -94,7 +94,7 @@ example, the following configuration adds OAuth 2.0 as the only authentication b
 auth_backends.1 = rabbit_auth_backend_oauth2
 ```
 
-### Configure OAuth 2.0 for identity providers compliant with OpenId Connect{#configure-for-openid-connect}
+### Configure OAuth 2.0 step by step{#configure-for-openid-connect}
 
 Nowadays, the majority of the identity providers are compliant with OpenId Connect. At minimum, this
 means that they expose an HTTP endpoint called *Discovery endpoint* mounted at
@@ -195,7 +195,7 @@ below, you need to upgrade to [RabbitMQ 4.1](/docs/oauth2#step4).
 #### Step 5: Ensure your scopes are recognized RabbitMQ scopes {#step5}
 
 Ensure that the scopes contained in the token are recognized RabbitMQ scopes. Here are examples of
-recognized RabbitMQ scopes:
+[recognized RabbitMQ scopes](#scope-translation):
 
 * `rabbitmq.tag:administrator` Here `rabbitmq` is the name of the `resource_server_id` you configured
   in the first step. `tag:administrator` grants the administrator role to the management UI.

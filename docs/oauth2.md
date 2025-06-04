@@ -34,7 +34,7 @@ There's also a companion [troubleshooting guide for OAuth 2-specific problems](.
 ### [How to configure it](#how-to-configure-it)
 
 * [Prerequisites](#prerequisites)
-* [Configure OAuth 2.0 for identity providers compliant with OpenId Connect](#configure-for-openid-connect)
+* [Configure OAuth 2.0 step by step](#configure-for-openid-connect)
 
 ### [How it works](#how-it-works)
 
@@ -98,7 +98,7 @@ example, the following configuration adds OAuth 2.0 as the only authentication b
 auth_backends.1 = rabbit_auth_backend_oauth2
 ```
 
-### Configure OAuth 2.0 for identity providers compliant with OpenId Connect{#configure-for-openid-connect}
+### Configure OAuth 2.0 step by step {#configure-for-openid-connect}
 
 Nowadays, the majority of the identity providers are compliant with OpenId Connect. At minimum,
 this means that they expose an HTTP endpoint called *Discovery endpoint* mounted at
@@ -237,7 +237,7 @@ and [6)](#step6).
 
 #### Step 5: Ensure your scopes are recognized RabbitMQ scopes {#step5}
 
-Ensure that the scopes contained in the token are recognized RabbitMQ scopes.
+Ensure that the scopes contained in the token are [recognized RabbitMQ scopes](#scope-translation).
 
 Here are examples of recognized RabbitMQ scopes:
 
@@ -760,6 +760,23 @@ If `scope_prefix` is configured then scopes are prefixed as follows: `<scope_pre
 For example, if `scope_prefix` is `api://` and the permission is `read:*/*` the scope would be
 `api://read:*/*`
 
+#### Variable expansion 
+
+OAuth 2.0 authorisation backend supports variable expansion when checking permission on vhosts and resources 
+such as queues and exchanges.
+Variabbles can be any JWT claims whose value is a plain string and/or the `vhost` variable.
+
+For example, a user connected with the token below to the vhost `prod` should have a write
+permission on all exchanges starting with `x-prod-`, and any routing key starting with `u-bob-`, 
+where `bob` comes from the `sub` JWT claim:
+
+```json
+{
+  "sub" : "bob",
+  "scope" : [ "rabbitmq.write:*/x-{vhost}-*/u-{sub}-*" ]
+}
+```
+
 ### Topic Exchange scopes {#topic-exchange-scopes}
 
 The [previous](#scope-translation) section explained, in detail, how permissions are mapped to
@@ -781,6 +798,8 @@ To publish to a **Topic Exchange**, you need to have the following scope:
 - **write** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
 
 > for example `rabbitmq.write:*/*/*`
+
+#### Variable expansion 
 
 OAuth 2.0 authorisation backend supports variable expansion when checking permission on topics.
 It supports JWT claims whose value is a plain string, plus the `vhost` variable.
