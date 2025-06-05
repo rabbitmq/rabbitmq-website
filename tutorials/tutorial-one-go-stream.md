@@ -143,7 +143,7 @@ The stream declaration operation is idempotent: the stream will only be created 
 
 A stream is an append-only log abstraction that allows for repeated consumption of messages until they expire.
 It is a good practice to always define the retention policy.
-In the example above, the stream is limited to be 5 GiB in size.
+In the example above, the stream is limited to be 2 GiB in size.
 
 The message content is a byte array.
 Applications can encode the data they need to transfer using any appropriate format such as JSON, MessagePack, and so on.
