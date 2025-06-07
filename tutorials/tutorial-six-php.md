@@ -296,7 +296,7 @@ class FibonacciRpcClient
     public function onResponse(AMQPMessage $rep)
     {
         if ($rep->get('correlation_id') === $this->corr_id) {
-            $this->response = $rep->body();
+            $this->response = $rep->getBody();
         }
     }
 
