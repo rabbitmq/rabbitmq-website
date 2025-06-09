@@ -195,7 +195,7 @@ that messages are sent asynchronously from the server to the clients.
 
 ```php
 $callback = function (AMQPMessage $msg) {
-  echo ' [x] Received ', $msg->body, "\n";
+  echo ' [x] Received ', $msg->getBody(), "\n";
 };
 
 $channel->basic_consume('hello', '', false, true, false, false, $callback);
