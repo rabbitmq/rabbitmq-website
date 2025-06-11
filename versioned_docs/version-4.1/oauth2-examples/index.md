@@ -709,12 +709,11 @@ are accessing, or any single value claim in the token such as `user_name`.
 
 To demonstrate this feature, follow these steps:
 
-1. Follow the steps explained to demonstrate [Keycloak](./oauth2-examples-keycloak)
-Oauth provider. 
-2. Keycloak is configured to issue tokens with the scope `rabbitmq.configure:*/q-{user_name}`
-3. Log in with the username `rabbit_admin`
+1. Start Keycloak Oauth provider and RabbitMQ following the steps explained in [Keycloak](./oauth2-examples-keycloak) 
+2. Keycloak is already configured to issue tokens with the scope `rabbitmq.configure:*/q-{user_name}`
+3. Log in with the username `rabbit_admin` to the management ui at http://localhost:15672
 4. Try to create a queue with the name `test`. It should fail with an authorization error
-5. Try to create a queue with the name `q-rabbit_admin`. It should allow you. 
+5. Create a queue with the name `q-rabbit_admin`. It should allow you. 
 
 There is no configuration required in RabbitMQ. But at least it requires RabbitMQ 4.1.1.
 
