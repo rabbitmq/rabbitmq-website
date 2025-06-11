@@ -57,6 +57,7 @@ The guide is accompanied by [a public GitHub repository](https://github.com/rabb
 * [Using a custom scope field](#using-custom-scope-field)
 * [Using multiple asymmetrical signing keys](#using-multiple-asymmetrical-signing-keys)
 * [Using scope aliases](#using-scope-aliases)
+* [Using variable expansion in scopes](#using-var-expansion)
 * [Preferred username claims](#preferred-username-claims)
 * [Using Rich Authorization Requests tokens](#use-rar-tokens)
 
@@ -698,6 +699,27 @@ To stop the `perf-test` applications, run:
 make stop-perftest-producer PRODUCER=producer_with_roles
 make stop-perftest-consumer CONSUMER=consumer_with_roles
 ```
+
+### Using variable expansion in scopes {#using-var-expansion}
+
+There are times when it is convenient to define a scope that uses a variable in either:
+
+* The vhost part of the scope
+* The resource and/or in the routing key part
+
+The variable name can be `vhost`, whose value matches the vhost you are accessing, or any single
+value claim in the token, such as `user_name`.
+
+To demonstrate this feature:
+
+1. Start Keycloak Oauth provider and RabbitMQ by following the steps in
+   [Keycloak](./oauth2-examples-keycloak). Keycloak is already configured to issue tokens with the
+   scope `rabbitmq.configure:*/q-{user_name}`.
+2. Log in to the management UI at `http://localhost:15672` with the user name `rabbit_admin`.
+3. Try to create a queue with the name `test`. Expect the effort to fail with an authorization error.
+4. Create a queue with the name `q-rabbit_admin`. Expect to be allowed to do this.
+
+There is no configuration required in RabbitMQ, but RabbitMQ 4.1.1 is required.
 
 ### Preferred username claims {#preferred-username-claims}
 
