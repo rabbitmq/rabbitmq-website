@@ -702,20 +702,24 @@ make stop-perftest-consumer CONSUMER=consumer_with_roles
 
 ### Using variable expansion in scopes {#using-var-expansion}
 
-There are times when it is convenient to define a scope which uses a variable 
-in either the vhost part of the scope, or in the resource and/or in the routing 
-key part. The variable name can be `vhost`, whose value matches the vhost you 
-are accessing, or any single value claim in the token such as `user_name`. 
+There are times when it is convenient to define a scope that uses a variable in either:
 
-To demonstrate this feature, follow these steps:
+* The vhost part of the scope
+* The resource and/or in the routing key part
 
-1. Start Keycloak Oauth provider and RabbitMQ following the steps explained in [Keycloak](./oauth2-examples-keycloak) 
-2. Keycloak is already configured to issue tokens with the scope `rabbitmq.configure:*/q-{user_name}`
-3. Log in with the username `rabbit_admin` to the management ui at http://localhost:15672
-4. Try to create a queue with the name `test`. It should fail with an authorization error
-5. Create a queue with the name `q-rabbit_admin`. It should allow you. 
+The variable name can be `vhost`, whose value matches the vhost you are accessing, or any single
+value claim in the token, such as `user_name`.
 
-There is no configuration required in RabbitMQ. But at least it requires RabbitMQ 4.1.1.
+To demonstrate this feature:
+
+1. Start Keycloak Oauth provider and RabbitMQ by following the steps in
+   [Keycloak](./oauth2-examples-keycloak). Keycloak is already configured to issue tokens with the
+   scope `rabbitmq.configure:*/q-{user_name}`.
+2. Log in to the management UI at `http://localhost:15672` with the user name `rabbit_admin`.
+3. Try to create a queue with the name `test`. Expect the effort to fail with an authorization error.
+4. Create a queue with the name `q-rabbit_admin`. Expect to be allowed to do this.
+
+There is no configuration required in RabbitMQ, but RabbitMQ 4.1.1 is required.
 
 ### Preferred username claims {#preferred-username-claims}
 
