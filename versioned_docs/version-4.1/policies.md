@@ -136,12 +136,12 @@ that cannot be changed at runtime. Two key examples are:
 Those values intentionally cannot be configured by policies: their values are fixed at queue declaration time.
 
 
-## How to Define a Policy
+## How to Define a Policy {#defining}
 
 An example of defining a policy looks like:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_policy federate-me \
     "^federated\." '{"federation-upstream-set":"all"}' \
@@ -150,12 +150,34 @@ rabbitmqctl set_policy federate-me \
 ```
 </TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin-bash" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin policies declare \
+    --name "federate-me" \
+    --pattern "^federated\." \
+    --definition '{"federation-upstream-set":"all"}' \
+    --priority 1 \
+    --apply-to "exchanges"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl.bat set_policy federate-me ^
     "^federated\." "{""federation-upstream-set"":""all""}" ^
     --priority 1 ^
     --apply-to exchanges
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin policies declare ^
+    --name "federate-me" ^
+    --pattern "^federated\." ^
+    --definition "{""federation-upstream-set"":""all""}" ^
+    --priority 1 ^
+    --apply-to "exchanges"
 ```
 </TabItem>
 
@@ -261,6 +283,12 @@ be federated and has message TTL. At most one policy will apply to a
 resource at any given time, but we can apply multiple
 definitions in that policy.
 
+:::tip
+
+See [Updating Policies](#updating) below as well.
+
+:::
+
 A federation policy definition would require an <em>upstream set</em>
 to be specified, so we would need the `federation-upstream-set`
 key in our definition. On the other hand to define some queues as TTL-enabled,
@@ -271,7 +299,7 @@ keys combined in the same policy definition.
 Here's an example:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_policy ttl-fed \
     "^tf\." '{"federation-upstream-set":"all", "message-ttl":60000}' \
@@ -280,12 +308,34 @@ rabbitmqctl set_policy ttl-fed \
 ```
 </TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin policies declare \
+    --name 'ttl-fed' \
+    --definition '{"federation-upstream-set":"all", "message-ttl":60000}' \
+    --pattern '^tf\.' \
+    --priority 1 \
+    --apply-to 'queues'
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl.bat with PowerShell">
 ```PowerShell
 rabbitmqctl set_policy ttl-fed ^
     "^tf\." "{""federation-upstream-set"":""all"", ""message-ttl"":60000}" ^
     --priority 1 ^
     --apply-to queues
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin policies declare ^
+    --name "ttl-fed" ^
+    --definition "{""federation-upstream-set"":""all"", ""message-ttl"":60000}" ^
+    --pattern "^tf\." ^
+    --priority 1 ^
+    --apply-to "queues"
 ```
 </TabItem>
 
@@ -540,7 +590,7 @@ instead of `set_policy`. In the HTTP API, `/api/policies/` in request path
 becomes `/api/operator-policies/`:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_operator_policy transient-queue-ttl \
     "^amq\." '{"expires":1800000}' \
@@ -549,12 +599,32 @@ rabbitmqctl set_operator_policy transient-queue-ttl \
 ```
 </TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin operator_policies declare --name 'transient-queue-ttl' \
+                                        --apply-to 'queues' \
+                                        --definition '{"expires":1800000}' \
+                                        --pattern '^amq\.' \
+                                        --priority 1
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl.bat with PowerShell">
 ```PowerShell
 rabbitmqctl.bat set_operator_policy transient-queue-ttl ^
     "^amq\." "{""expires"": 1800000}" ^
     --priority 1 ^
     --apply-to queues
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin operator_policies declare --name "transient-queue-ttl" ^
+                                        --apply-to "queues" ^
+                                        --definition "{""expires"": 1800000}" ^
+                                        --pattern "^amq\." ^
+                                        --priority 1
 ```
 </TabItem>
 
@@ -605,6 +675,83 @@ HTTP API and Web UI.
 ```ini
 management.restrictions.operator_policy_changes.disabled = true
 ```
+
+## Updating Policies {#updating}
+
+A policy can be updated by re-declaring it with a different definition, priority, and so on.
+This requires the operator to have a full policy definition.
+
+Alternatively, [`rabbitmqadmin` v2](./management-cli) provides commands that can modify
+policy definitions, declare override policies and blanket policies.
+
+### Policy Redefinition {#redefining}
+
+If a full policy definition is known, [redefining](#defining) a policy with an updated definition
+and (optionally) a new priority but the same original name will update it.
+
+:::important
+
+The effects of new settings on queues, streams and exchanges will take a moment to become effective,
+in particular for clusters with a large number of entites (say, thousands).
+
+:::
+
+### Deleting Policy Definition Keys {#deleting-keys}
+
+To delete one or multiple keys from a policy definition, use [`rabbitmqadmin policies delete_definition_keys`](./management-cli):
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash" default>
+```bash
+# removes all keys related to classic queue mirroring (that feature was removed in RabbitMQ 4.x)
+# from the definition of a policy named "cq.policies.1" in virtual host vh-1
+rabbitmqadmin --vhost "vh-1" policies delete_definition_keys --name "cq.policies.1" --definition-keys "ha-mode,ha-params,ha-promote-on-shutdown,ha-promote-on-failure,ha-sync-mode,ha-sync-batch-size"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# removes all keys related to classic queue mirroring (that feature was removed in RabbitMQ 4.x)
+# from the definition of a policy named "cq.policies.1" in virtual host vh-1
+rabbitmqadmin --vhost "vh-1" policies delete_definition_keys --name "cq.policies.1" --definition-keys "ha-mode,ha-params,ha-promote-on-shutdown,ha-promote-on-failure,ha-sync-mode,ha-sync-batch-size"
+```
+</TabItem>
+</Tabs>
+
+
+The `--definitions-keys` parameter accepts a single definition key or a command-separated list of keys.
+
+To perform the same operation across all policies in a virtual host, use [`rabbitmqadmin policies delete_definition_keys_from_all_in`](./management-cli):
+
+```bash
+# removes all keys related to classic queue mirroring (that feature was removed in RabbitMQ 4.x)
+# from all policy definitions in virtual host vh-1
+rabbitmqadmin --vhost "vh-1" policies delete_definition_keys_from_all_in --definition-keys "ha-mode,ha-params,ha-promote-on-shutdown,ha-promote-on-failure,ha-sync-mode,ha-sync-batch-size"
+```
+
+
+### Partially Updating Policy Definition {#patching}
+
+[`rabbitmqadmin policies patch`](./management-cli) is a command that can update a policy
+using a partial definition, for example, to add a [`max-length` key](./maxlength/) to an existing
+policy:
+
+```bash
+rabbitmqadmin policies patch --name "cq.pol.1" --definition '{"max-length": 1000000}'
+```
+
+The new `--definition` object will be merged into the existing policy definition.
+
+In the following example, an existing policy named `queues.pol.1` in the default virtual host (`/`)
+is updated to enable [queue federation](./federated-queues) to all the configured upstreams for the matched queues,
+without affecting the rest of the policy definitions:
+
+```bash
+rabbitmqadmin policies patch --name "queues.pol.1" --definition '{"federation-upstream-set":"all"}'
+```
+
+
+
 
 ## Troubleshooting
 
