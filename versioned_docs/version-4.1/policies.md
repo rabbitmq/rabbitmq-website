@@ -150,7 +150,7 @@ rabbitmqctl set_policy federate-me \
 ```
 </TabItem>
 
-<TabItem value="rabbitmqadmin-bash" label="rabbitmqadmin with bash">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
 ```bash
 rabbitmqadmin policies declare \
     --name "federate-me" \
@@ -601,11 +601,12 @@ rabbitmqctl set_operator_policy transient-queue-ttl \
 
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
 ```bash
-rabbitmqadmin operator_policies declare --name 'transient-queue-ttl' \
-                                        --apply-to 'queues' \
-                                        --definition '{"expires":1800000}' \
-                                        --pattern '^amq\.' \
-                                        --priority 1
+rabbitmqadmin operator_policies declare \
+    --name 'transient-queue-ttl' \
+    --apply-to 'queues' \
+    --definition '{"expires":1800000}' \
+    --pattern '^amq\.' \
+    --priority 1
 ```
 </TabItem>
 
@@ -620,11 +621,12 @@ rabbitmqctl.bat set_operator_policy transient-queue-ttl ^
 
 <TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
 ```PowerShell
-rabbitmqadmin operator_policies declare --name "transient-queue-ttl" ^
-                                        --apply-to "queues" ^
-                                        --definition "{""expires"": 1800000}" ^
-                                        --pattern "^amq\." ^
-                                        --priority 1
+rabbitmqadmin operator_policies declare ^
+    --name "transient-queue-ttl" ^
+    --apply-to "queues" ^
+    --definition "{""expires"": 1800000}" ^
+    --pattern "^amq\." ^
+    --priority 1
 ```
 </TabItem>
 
