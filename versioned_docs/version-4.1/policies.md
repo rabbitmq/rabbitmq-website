@@ -374,6 +374,56 @@ PUT /api/policies/%2f/ttl-fed
 By doing that all the queues matched by the pattern "^tf\\." will have the `"federation-upstream-set"`
 and the policy definitions applied to them.
 
+## Declaring an Override (a Temporary Overriding Policy) {#override}
+
+[`rabbitmqadmin`](./management-cli) can be used to declare an override, or an overriding policy.
+
+This is a policy that applies to the same set of objects (e.g. queues) as an existing policy
+but contains a different definition and a higher priority (by 100, to be exact).
+
+Overriding policies are meant to be short-lived, for example, to enable queue federation
+during the final stage of a [Blue/Green cluster migration](./blue-green-upgrade/).
+
+The following example uses `rabbitmqadmin policies declare_override` to override a policy
+named "pol.1" and injects a [queue federation](./federated-queues)-related key.
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash" default>
+```bash
+rabbitmqadmin --vhost 'vh.1' policies declare_override --name 'pol.1' --definition '{"federation-upstream-set": "all"}'
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqadmin --vhost "vh.1" policies declare_override --name "pol.1" --definition "{""federation-upstream-set"": ""all""}"
+```
+</TabItem>
+</Tabs>
+
+Overrides prefix original policy names with `"overrides."` and truncate the result
+at 255 bytes, the policy name length limit.
+
+Deleting an overriding policy is no different from deleting any other policy.
+Use `rabbitmqadmin policies delete --name [override policy name]`
+
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash" default>
+```bash
+rabbitmqadmin --vhost 'vh.1' policies delete --name 'overrides.pol.1'
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqadmin --vhost "vh.1" policies delete --name "overrides.pol.1"
+```
+</TabItem>
+</Tabs>
+
+
+
 ## Operator Policies {#operator-policies}
 
 ### Difference From Regular Policies {#why-operator-policies-exist}
