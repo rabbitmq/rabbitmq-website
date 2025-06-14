@@ -374,6 +374,58 @@ PUT /api/policies/%2f/ttl-fed
 By doing that all the queues matched by the pattern "^tf\\." will have the `"federation-upstream-set"`
 and the policy definitions applied to them.
 
+
+## Deleting a Policy
+
+A policy can be deleted using `rabbitmqctl clear_policy` or `rabbitmqadmin policies delete`.
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
+```bash
+rabbitmqctl clear_policy --vhost "vh.1" "policy.name"
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin --vhost "vh.1" policies delete --name "policy.name"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat clear_policy --vhost "vh.1" "policy.name"
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin --vhost "vh.1" policies delete --name "policy.name"
+```
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
+DELETE /api/policies/vh.1/policy.name
+```
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+<ol>
+  <li>
+    Navigate to `Admin` > `Policies` > Click on the policy to delete.
+  </li>
+  <li>
+    Click "Delete this policy"
+  </li>
+  <li>
+    Confirm the operation.
+  </li>
+</ol>
+</TabItem>
+</Tabs>
+
+
 ## Declaring an Override (a Temporary Overriding Policy) {#override}
 
 [`rabbitmqadmin`](./management-cli) can be used to declare an override, or an overriding policy.
@@ -421,6 +473,82 @@ rabbitmqadmin --vhost "vh.1" policies delete --name "overrides.pol.1"
 ```
 </TabItem>
 </Tabs>
+
+
+
+## Updating Policies {#updating}
+
+A policy can be updated by re-declaring it with a different definition, priority, and so on.
+This requires the operator to have a full policy definition.
+
+Alternatively, [`rabbitmqadmin` v2](./management-cli) provides commands that can modify
+policy definitions, declare override policies and blanket policies.
+
+### Policy Redefinition {#redefining}
+
+If a full policy definition is known, [redefining](#defining) a policy with an updated definition
+and (optionally) a new priority but the same original name will update it.
+
+:::important
+
+The effects of new settings on queues, streams and exchanges will take a moment to become effective,
+in particular for clusters with a large number of entites (say, thousands).
+
+:::
+
+### Deleting Policy Definition Keys {#deleting-keys}
+
+To delete one or multiple keys from a policy definition, use [`rabbitmqadmin policies delete_definition_keys`](./management-cli):
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash" default>
+```bash
+# removes all keys related to classic queue mirroring (that feature was removed in RabbitMQ 4.x)
+# from the definition of a policy named "cq.policies.1" in virtual host vh-1
+rabbitmqadmin --vhost "vh-1" policies delete_definition_keys --name "cq.policies.1" --definition-keys "ha-mode,ha-params,ha-promote-on-shutdown,ha-promote-on-failure,ha-sync-mode,ha-sync-batch-size"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# removes all keys related to classic queue mirroring (that feature was removed in RabbitMQ 4.x)
+# from the definition of a policy named "cq.policies.1" in virtual host vh-1
+rabbitmqadmin --vhost "vh-1" policies delete_definition_keys --name "cq.policies.1" --definition-keys "ha-mode,ha-params,ha-promote-on-shutdown,ha-promote-on-failure,ha-sync-mode,ha-sync-batch-size"
+```
+</TabItem>
+</Tabs>
+
+
+The `--definitions-keys` parameter accepts a single definition key or a command-separated list of keys.
+
+To perform the same operation across all policies in a virtual host, use [`rabbitmqadmin policies delete_definition_keys_from_all_in`](./management-cli):
+
+```bash
+# removes all keys related to classic queue mirroring (that feature was removed in RabbitMQ 4.x)
+# from all policy definitions in virtual host vh-1
+rabbitmqadmin --vhost "vh-1" policies delete_definition_keys_from_all_in --definition-keys "ha-mode,ha-params,ha-promote-on-shutdown,ha-promote-on-failure,ha-sync-mode,ha-sync-batch-size"
+```
+
+
+### Partially Updating Policy Definition {#patching}
+
+[`rabbitmqadmin policies patch`](./management-cli) is a command that can update a policy
+using a partial definition, for example, to add a [`max-length` key](./maxlength/) to an existing
+policy:
+
+```bash
+rabbitmqadmin policies patch --name "cq.pol.1" --definition '{"max-length": 1000000}'
+```
+
+The new `--definition` object will be merged into the existing policy definition.
+
+In the following example, an existing policy named `queues.pol.1` in the default virtual host (`/`)
+is updated to enable [queue federation](./federated-queues) to all the configured upstreams for the matched queues,
+without affecting the rest of the policy definitions:
+
+```bash
+rabbitmqadmin policies patch --name "queues.pol.1" --definition '{"federation-upstream-set":"all"}'
+```
 
 
 
@@ -727,82 +855,6 @@ HTTP API and Web UI.
 ```ini
 management.restrictions.operator_policy_changes.disabled = true
 ```
-
-## Updating Policies {#updating}
-
-A policy can be updated by re-declaring it with a different definition, priority, and so on.
-This requires the operator to have a full policy definition.
-
-Alternatively, [`rabbitmqadmin` v2](./management-cli) provides commands that can modify
-policy definitions, declare override policies and blanket policies.
-
-### Policy Redefinition {#redefining}
-
-If a full policy definition is known, [redefining](#defining) a policy with an updated definition
-and (optionally) a new priority but the same original name will update it.
-
-:::important
-
-The effects of new settings on queues, streams and exchanges will take a moment to become effective,
-in particular for clusters with a large number of entites (say, thousands).
-
-:::
-
-### Deleting Policy Definition Keys {#deleting-keys}
-
-To delete one or multiple keys from a policy definition, use [`rabbitmqadmin policies delete_definition_keys`](./management-cli):
-
-<Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
-```bash
-# removes all keys related to classic queue mirroring (that feature was removed in RabbitMQ 4.x)
-# from the definition of a policy named "cq.policies.1" in virtual host vh-1
-rabbitmqadmin --vhost "vh-1" policies delete_definition_keys --name "cq.policies.1" --definition-keys "ha-mode,ha-params,ha-promote-on-shutdown,ha-promote-on-failure,ha-sync-mode,ha-sync-batch-size"
-```
-</TabItem>
-
-<TabItem value="PowerShell" label="PowerShell">
-```PowerShell
-# removes all keys related to classic queue mirroring (that feature was removed in RabbitMQ 4.x)
-# from the definition of a policy named "cq.policies.1" in virtual host vh-1
-rabbitmqadmin --vhost "vh-1" policies delete_definition_keys --name "cq.policies.1" --definition-keys "ha-mode,ha-params,ha-promote-on-shutdown,ha-promote-on-failure,ha-sync-mode,ha-sync-batch-size"
-```
-</TabItem>
-</Tabs>
-
-
-The `--definitions-keys` parameter accepts a single definition key or a command-separated list of keys.
-
-To perform the same operation across all policies in a virtual host, use [`rabbitmqadmin policies delete_definition_keys_from_all_in`](./management-cli):
-
-```bash
-# removes all keys related to classic queue mirroring (that feature was removed in RabbitMQ 4.x)
-# from all policy definitions in virtual host vh-1
-rabbitmqadmin --vhost "vh-1" policies delete_definition_keys_from_all_in --definition-keys "ha-mode,ha-params,ha-promote-on-shutdown,ha-promote-on-failure,ha-sync-mode,ha-sync-batch-size"
-```
-
-
-### Partially Updating Policy Definition {#patching}
-
-[`rabbitmqadmin policies patch`](./management-cli) is a command that can update a policy
-using a partial definition, for example, to add a [`max-length` key](./maxlength/) to an existing
-policy:
-
-```bash
-rabbitmqadmin policies patch --name "cq.pol.1" --definition '{"max-length": 1000000}'
-```
-
-The new `--definition` object will be merged into the existing policy definition.
-
-In the following example, an existing policy named `queues.pol.1` in the default virtual host (`/`)
-is updated to enable [queue federation](./federated-queues) to all the configured upstreams for the matched queues,
-without affecting the rest of the policy definitions:
-
-```bash
-rabbitmqadmin policies patch --name "queues.pol.1" --definition '{"federation-upstream-set":"all"}'
-```
-
-
 
 
 ## Troubleshooting
