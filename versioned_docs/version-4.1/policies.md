@@ -375,7 +375,7 @@ By doing that all the queues matched by the pattern "^tf\\." will have the `"fed
 and the policy definitions applied to them.
 
 
-## Deleting a Policy
+## Deleting a Policy {#deleting}
 
 A policy can be deleted using `rabbitmqctl clear_policy` or `rabbitmqadmin policies delete`.
 
@@ -475,6 +475,45 @@ rabbitmqadmin --vhost "vh.1" policies delete --name "overrides.pol.1"
 </Tabs>
 
 
+## Declaring a Blanket Policy {#blanket}
+
+A blanket policy is a policy that covers all queues not covered by other
+policies. By definition, such policies match all names.
+
+To make sure it does not affect other policies, blanket policies use negative priorities.
+
+While such a blanket queue can be declared using `rabbitmqctl` with the pattern of `.*` and a negative priority,
+[`rabbitmqadmin` v2](./management-cli) provides a dedicated command for declaring
+such specialized policies:
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash" default>
+```bash
+# This queue will match all objects in the vh.1 virtual host, that are not matched by another policy.
+# To that end, it uses a negative priority and '.*' for the pattern.
+rabbitmqadmin --vhost 'vh.1' policies declare_blanket \
+    --name 'blanket.queues' \
+    --apply-to 'queues' \
+    --definition '{"federation-upstream-set": "all"}'
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# This queue will match all objects in the vh.1 virtual host, that are not matched by another policy.
+# To that end, it uses a negative priority and '.*' for the pattern.
+rabbitmqadmin --vhost "vh.1" policies declare_blanket ^
+    --name "blanket.queues" ^
+    --apply-to "queues" ^
+    --definition "{""federation-upstream-set"": ""all""}"
+```
+</TabItem>
+</Tabs>
+
+Blanket policies are often temporary in nature and used for specific purposes,
+such as enabling [queue federation](./federated-queues) during a [Blue-Green Deployment-style](./blue-green-upgrade) migration
+from one cluster to another.
+
 
 ## Updating Policies {#updating}
 
@@ -536,9 +575,23 @@ rabbitmqadmin --vhost "vh-1" policies delete_definition_keys_from_all_in --defin
 using a partial definition, for example, to add a [`max-length` key](./maxlength/) to an existing
 policy:
 
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash" default>
 ```bash
-rabbitmqadmin policies patch --name "cq.pol.1" --definition '{"max-length": 1000000}'
+rabbitmqadmin policies patch \
+    --name "cq.pol.1" \
+    --definition '{"max-length": 1000000}'
 ```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqadmin policies patch ^
+    --name "cq.pol.1" ^
+    --definition "{""max-length"": 1000000}"
+```
+</TabItem>
+</Tabs>
 
 The new `--definition` object will be merged into the existing policy definition.
 
@@ -546,9 +599,25 @@ In the following example, an existing policy named `queues.pol.1` in the default
 is updated to enable [queue federation](./federated-queues) to all the configured upstreams for the matched queues,
 without affecting the rest of the policy definitions:
 
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash" default>
 ```bash
-rabbitmqadmin policies patch --name "queues.pol.1" --definition '{"federation-upstream-set":"all"}'
+```bash
+rabbitmqadmin policies patch \
+    --name "queues.pol.1" \
+    --definition '{"federation-upstream-set":"all"}'
 ```
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+rabbitmqadmin policies patch ^
+    --name "cq.pol.1" ^
+    --definition '{"federation-upstream-set":"all""}"
+```
+</TabItem>
+</Tabs>
 
 
 
@@ -857,6 +926,139 @@ management.restrictions.operator_policy_changes.disabled = true
 ```
 
 
+## Updating Operator Policies {#operator-policy-updating}
+
+:::tip
+
+Operator policies can be modified in a number of ways, very similarly
+to [regular policies](#updating).
+
+:::
+
+Anoperator policy can be updated by re-declaring it with a different definition, priority, and so on.
+This requires the operator to have a full policy definition.
+
+Alternatively, [`rabbitmqadmin` v2](./management-cli) provides commands that can modify
+operator policy definitions.
+
+### Operator Policy Redefinition {#operator-policy-redefining}
+
+If a full policy definition is known, [redefining](#operator-policy-definition) a policy with an updated definition
+and (optionally) a new priority but the same original name will update it.
+
+:::important
+
+The effects of new settings on queues, streams and exchanges will take a moment to become effective,
+in particular for clusters with a large number of entites (say, thousands).
+
+:::
+
+### Deleting Operator Policy Definition Keys {#operator-policy-deleting-keys}
+
+To delete one or multiple keys from a policy definition, use [`rabbitmqadmin policies delete_definition_keys`](./management-cli):
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash" default>
+```bash
+# removes all keys related to classic queue mirroring (that feature was removed in RabbitMQ 4.x)
+# from the definition of an operator policy named "cq.policies.1" in virtual host vh-1
+rabbitmqadmin --vhost "vh-1" operator_policies delete_definition_keys \
+    --name "cq.op-policies.1" \
+    --definition-keys "ha-mode,ha-params,ha-promote-on-shutdown,ha-promote-on-failure,ha-sync-mode,ha-sync-batch-size"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# removes all keys related to classic queue mirroring (that feature was removed in RabbitMQ 4.x)
+# from the definition of an operator policy named "cq.policies.1" in virtual host vh-1
+rabbitmqadmin --vhost "vh-1" operator_policies delete_definition_keys ^
+    --name "cq.op-policies.1" ^
+    --definition-keys "ha-mode,ha-params,ha-promote-on-shutdown,ha-promote-on-failure,ha-sync-mode,ha-sync-batch-size"
+```
+</TabItem>
+</Tabs>
+
+
+The `--definitions-keys` parameter accepts a single definition key or a command-separated list of keys.
+
+To perform the same operation across all policies in a virtual host, use [`rabbitmqadmin operator_policies delete_definition_keys_from_all_in`](./management-cli):
+
+```bash
+# removes all keys related to classic queue mirroring (that feature was removed in RabbitMQ 4.x)
+# from all operator policy definitions in virtual host vh-1
+rabbitmqadmin --vhost "vh-1" operator_policies delete_definition_keys_from_all_in --definition-keys "ha-mode,ha-params,ha-promote-on-shutdown,ha-promote-on-failure,ha-sync-mode,ha-sync-batch-size"
+```
+
+
+### Partially Updating Operator Policy Definition {#operator-policy-patching}
+
+[`rabbitmqadmin operator_policies patch`](./management-cli) is a command that can update a policy
+using a partial definition, for example, to add a [`max-length` key](./maxlength/) to an existing
+policy:
+
+```bash
+rabbitmqadmin operator_policies patch --name "cq.op-pol.1" --definition '{"max-length": 1000000}'
+```
+
+The new `--definition` object will be merged into the existing policy definition.
+
+In the following example, an existing operator policy named `queues.op-pol.1` in the default virtual host (`/`)
+is updated to enable [queue federation](./federated-queues) to all the configured upstreams for the matched queues,
+without affecting the rest of the policy definitions:
+
+```bash
+rabbitmqadmin operator_policies patch --name "queues.op-pol.1" --definition '{"federation-upstream-set":"all"}'
+```
+
+## Deleting an Operator Policy {#operator-policy-deleting}
+
+An operator policy can be deleted using `rabbitmqctl clear_operator_policy` or `rabbitmqadmin operator_policies delete`.
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
+```bash
+rabbitmqctl clear_operator_policy --vhost "vh.1" "policy.name"
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin --vhost "vh.1" operator_policies delete --name "policy.name"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat clear_operator_policy --vhost "vh.1" "policy.name"
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin --vhost "vh.1" operator_policies delete --name "policy.name"
+```
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
+DELETE /api/operator-policies/vh.1/policy.name
+```
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+<ol>
+  <li>
+    Navigate to `Admin` > `Policies` > Locate the operator policy to delete
+  </li>
+  <li>
+    Click "Clear" next to the operator policy to delete it
+  </li>
+</ol>
+</TabItem>
+</Tabs>
+
+
 ## Troubleshooting
 
 ### Multiple Policies Have Conflicting Priorities
@@ -865,20 +1067,25 @@ To verify this hypothesis, list the policies in the virtual host
 and see if any policies have a priority equal to the one you are troubleshooting.
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl --vhost "target.vhost" list_policies --formatter=pretty_table
 ```
 </TabItem>
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin --vhost "target.vhost" policies list_in
+```
+</TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl.bat --vhost "target.vhost" list_policies --formatter=pretty_table
 ```
 </TabItem>
 
-<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
-```bash
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
 rabbitmqadmin --vhost "target.vhost" policies list_in
 ```
 </TabItem>
@@ -891,22 +1098,24 @@ have matched the target object (queue, stream, exchange).
 that match a specific object (if any):
 
 <Tabs groupId="examples">
-<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+<TabItem value="bash" label="rabbitmqadmin with bash" default>
 ```bash
 # lists all policies that match a queue named "a.queue" in a virtual host named "target.vhost"
-rabbitmqadmin --vhost "target.vhost" policies list_matching_object --name "a.queue" --type "queues"
+rabbitmqadmin --vhost "target.vhost" policies list_matching_object \
+    --name "a.queue" \
+    --type "queues"
+```
+</TabItem>
+<TabItem value="PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# lists all policies that match a queue named "a.queue" in a virtual host named "target.vhost"
+rabbitmqadmin --vhost "target.vhost" policies list_matching_object ^
+    --name "a.queue" ^
+    --type "queues"
 ```
 </TabItem>
 </Tabs>
 
-<Tabs groupId="examples">
-<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
-```bash
-# lists all policies that match an exchanged named "an.exchange" in a virtual host named "target.vhost"
-rabbitmqadmin --vhost "target.vhost" policies list_matching_object --name "an.exchange" --type "exchanges"
-```
-</TabItem>
-</Tabs>
 
 Look for any and all policies that have equal priorities. Only one of them will apply
 to a matching object (queue, stream, exchange), and the selection should be
@@ -919,19 +1128,39 @@ To verify this hypothesis, list the policies that
 match the object (e.g. queue) in question using [`rabbitmqadmin` v2](./management-cli).
 
 <Tabs groupId="examples">
-<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+<TabItem value="bash" label="rabbitmqadmin with bash" default>
 ```bash
 # lists all policies that match a queue named "a.queue" in a virtual host named "target.vhost"
-rabbitmqadmin --vhost "target.vhost" policies list_matching_object --name "a.queue" --type "queues"
+rabbitmqadmin --vhost "target.vhost" policies list_matching_object \
+    --name "a.queue" \
+    --type "queues"
+```
+</TabItem>
+<TabItem value="PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# lists all policies that match a queue named "a.queue" in a virtual host named "target.vhost"
+rabbitmqadmin --vhost "target.vhost" policies list_matching_object ^
+    --name "a.queue" ^
+    --type "queues"
 ```
 </TabItem>
 </Tabs>
 
 <Tabs groupId="examples">
-<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+<TabItem value="bash" label="rabbitmqadmin with bash" default>
 ```bash
 # lists all policies that match an exchanged named "an.exchange" in a virtual host named "target.vhost"
-rabbitmqadmin --vhost "target.vhost" policies list_matching_object --name "an.exchange" --type "exchanges"
+rabbitmqadmin --vhost "target.vhost" policies list_matching_object \
+    --name "an.exchange" \
+    --type "exchanges"
+```
+</TabItem>
+<TabItem value="PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# lists all policies that match an exchanged named "an.exchange" in a virtual host named "target.vhost"
+rabbitmqadmin --vhost "target.vhost" policies list_matching_object ^
+    --name "an.exchange" ^
+    --type "exchanges"
 ```
 </TabItem>
 </Tabs>
@@ -949,23 +1178,29 @@ A policy can be declared in the default virtual host by mistake.
 To verify this hypothesis, list only the policies in that virtual host.
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl --vhost "target.vhost" list_policies --formatter=pretty_table
 ```
 </TabItem>
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin --vhost "target.vhost" policies list_in
+```
+</TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl.bat --vhost "target.vhost" list_policies --formatter=pretty_table
 ```
 </TabItem>
 
-<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
-```bash
-rabbitmqadmin --vhost "/" policies list_in
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin --vhost "target.vhost" policies list_in
 ```
 </TabItem>
 </Tabs>
+
 
 If the results are empty, this means that there are no policies defined in the target virtual host.
