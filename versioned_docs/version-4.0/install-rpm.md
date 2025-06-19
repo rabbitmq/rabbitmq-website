@@ -139,7 +139,7 @@ Why does this section discuss mirrors? [Open source RabbitMQ release infrastruct
 publishes packages to a services called [Cloudsmith](https://cloudsmith.io).
 
 From there, the packages are distributed to two mirror repositories in the EU and North America.
-Unlike the Cloudsmith account, these mirror repositories have sifnicantly higher traffic quotas,
+Unlike the Cloudsmith account, these mirror repositories have significantly higher traffic quotas,
 and downloads from them won't be blocked due to an exceeded quota for the month.
 
 Please use these mirrors instead of installing the packages directly from Cloudsmith.
