@@ -63,15 +63,38 @@ rabbitmqctl set_parameter federation-upstream blue \
   '{"uri":"amqp://node-in-blue-cluster"}'
 ```
 
-Then define a policy matching all queues which configure `blue` as the upstream:
+Then define a [policy](./policies) or a number of policies, collectively matching all queues
+which configure `blue` as the upstream:
 
 ```bash
 rabbitmqctl set_policy --apply-to queues blue-green-migration ".*" \
   '{"federation-upstream":"blue"}'
 ```
 
-Please read the guides linked above and the
-[federation reference](./federation-reference) for further details.
+:::tip
+
+The above example is a great oversimplification.
+
+In practice, some queues will be already matched by a policy,
+and some might not be.
+
+[`rabbitmqadmin v2`](./management-cli) provides a set of commands
+that allow the operator to
+
+1. [Patch (partially update)](./policies#patching) policies
+2. Temporarily [override existing policies](./policies#override)
+to include a key that enabled queue federation
+3. [Declare a blanket policy](./policies#blanket) to match all other queues
+to enable federation for them
+
+Use a combination of these features to enable queue federation
+between the clusters for all queues, whether they already have
+a policy that applies to them or not.
+
+:::
+
+Please refer to the [policies](./policies) and
+[federation reference](./federation-reference) guides to learn more.
 
 ## Migrate Consumers Over {#migrate-consumers}
 
