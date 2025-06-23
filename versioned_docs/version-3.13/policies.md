@@ -136,12 +136,12 @@ that cannot be changed at runtime. Two key examples are:
 Those values intentionally cannot be configured by policies: their values are fixed at queue declaration time.
 
 
-## How to Define a Policy
+## How to Define a Policy {#defining}
 
 An example of defining a policy looks like:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_policy federate-me \
     "^federated\." '{"federation-upstream-set":"all"}' \
@@ -150,12 +150,34 @@ rabbitmqctl set_policy federate-me \
 ```
 </TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin policies declare \
+    --name "federate-me" \
+    --pattern "^federated\." \
+    --definition '{"federation-upstream-set":"all"}' \
+    --priority 1 \
+    --apply-to "exchanges"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl.bat set_policy federate-me ^
     "^federated\." "{""federation-upstream-set"":""all""}" ^
     --priority 1 ^
     --apply-to exchanges
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin policies declare ^
+    --name "federate-me" ^
+    --pattern "^federated\." ^
+    --definition "{""federation-upstream-set"":""all""}" ^
+    --priority 1 ^
+    --apply-to "exchanges"
 ```
 </TabItem>
 
