@@ -189,10 +189,7 @@ export function RabbitMQServerReleaseInfoTable() {
 
       if (isLatestReleaseForBranch) {
         var releaseBranchLink;
-        if (docusaurusVersion && isReleased) {
-          const url = `${docusaurusVersion.path}/whats-new`;
-          releaseBranchLink = <a href={url}>{docusaurusVersion.label}</a>;
-        } else if (docusaurusVersion) {
+        if (docusaurusVersion) {
           releaseBranchLink = docusaurusVersion.label;
         } else {
           releaseBranchLink = branch;
