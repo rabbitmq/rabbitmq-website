@@ -541,13 +541,15 @@ This is particularly [common in Kubernetes-based](https://github.com/kubernetes/
 [that do not use cgroup v2](https://kubernetes.io/blog/2022/08/31/cgroupv2-ga-1-25/)) and run RabbitMQ
 using container images based on [older distributions](https://kubernetes.io/blog/2022/08/31/cgroupv2-ga-1-25/#how-do-you-use-cgroup-v2) that use cgroups v1.
 
-Kubernetes 1.25.0 and the following distributions are highly recommended as they
+Kubernetes 1.25.0 (or later) and the following distributions are highly recommended as they
 use a more reasonable approach to kernel page cache memory accounting:
 
  * CentOS Stream 9 or later
  * Fedora 31 or later
  * Ubuntu 21.10 or later
  * Debian 11 Bullseye or later
+
+Red Hat OpenShift versions starting with 4.12 are based on Kubernetes 1.25 (or later versions).
 
 
 ### What Does a Large Page Cache Size Tell Us About a Workload?
