@@ -121,15 +121,19 @@ This can be compared to a factory with multiple conveyor belts. When one belt ru
 it can be stopped. However, once more work is there for it to do, restarting it will take time.
 Alternatively the conveyor can be speculatively kept running for a period of time.
 
-By default, RabbitMQ nodes configure runtime schedulers to speculatively wait for a short period
-of time before going to sleep. Workloads where there can be prolonged periods of inactivity
-can choose to turn off this speculative busy waiting using the [`+sbwt` and related runtime flags](https://erlang.org/doc/man/erl.html):
+By default, RabbitMQ nodes configure runtime schedulers to disable the speculatively waiting.
+This benefits the workloads where there can be periods of inactivity on a given connection,
+channel, session, queue or stream replica.
+
+Speculative busy waiting is controlled using the [`+sbwt` and related runtime flags](https://erlang.org/doc/man/erl.html):
 
 ```bash
+# This is the default used by modern RabbitMQ versions: it disables speculative
+# busy waiting.
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+sbwt none +sbwtdcpu none +sbwtdio none"
 ```
 
-This can also reduce CPU usage on systems with limited or burstable CPU resources.
+Disabled speculative waiting reduces CPU usage on systems with limited or burstable CPU resources.
 
 In order to determine how much time schedulers spend in busy wait, consult [thread activity metrics](#thread-stats).
 Busy waiting will usually be accounted as system time in the output of tools such as `top` and `pidstat`.
@@ -189,13 +193,15 @@ is spent. This is a critically important step for making informed decisions.
 
 #### Turn off Speculative Scheduler Busy Waiting
 
-Turn off speculative [scheduler busy waiting](#busy-waiting) using the [`+sbwt` and related runtime flags](https://erlang.org/doc/man/erl.html):
+If speculative [scheduler busy waiting](#busy-waiting) is customized,
+disable it using the [`+sbwt` and related runtime flags](https://erlang.org/doc/man/erl.html):
 
 ```bash
+# This is the default used by modern RabbitMQ versions: it disables speculative
+# busy waiting.
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+sbwt none +sbwtdcpu none +sbwtdio none"
 ```
 
-Speculative busy waiting is usually not productive on moderately loaded systems.
 
 #### Reduce Statistics Emission Frequency (Increase the Statistics Emission Interval)
 
