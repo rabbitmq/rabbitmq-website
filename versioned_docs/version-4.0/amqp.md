@@ -33,6 +33,15 @@ After establishing a TCP or TLS connection and before sending any AMQP frames, t
 For AMQP 1.0 connections, RabbitMQ requires the use of Simple Authentication and Security Layer ([SASL](https://datatracker.ietf.org/doc/html/rfc4422)), as described in [Section 5.3 SASL](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-security-v1.0-os.html#section-sasl).
 If the client does not use SASL, RabbitMQ will reject the connection, as illustrated in [Figure 2.13: Protocol ID Rejection Example](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#section-version-negotiation).
 
+## Authentication Options
+
+RabbitMQ's AMQP 1.0 implementation supports a number of authentication
+methods:
+
+ * A username and password pair, with any supported [authentication backend](./access-control) combination (best used in combination with [TLS](./ssl) for encryption on the wire)
+ * A [JWT token](./oauth2) (OAuth 2)
+ * [x.509 certificates](./access-control#certificate-authentication) via the [`EXTERNAL` authentication mechanism ](./access-control#available-mechanisms) and the `rabbitmq_auth_mechanism_ssl` plugin
+
 ## Protocol Interoperability
 
 RabbitMQ supports publishing and consuming messages across different protocols, which requires [protocol conversions](./conversions).
