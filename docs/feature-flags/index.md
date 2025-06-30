@@ -204,7 +204,7 @@ a list of columns to display. The available columns are:
 
 ## How to Enable Feature Flags {#how-to-enable-feature-flags}
 
-After upgrading one node or the entire cluster, it will be possible
+After upgrading all nodes in the cluster, it will be possible
 to enable new feature flags. Note that it will be impossible to roll
 back the version or add a cluster member using the old version once new
 feature flags are enabled.
