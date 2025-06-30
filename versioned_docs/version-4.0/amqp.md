@@ -38,7 +38,7 @@ If the client does not use SASL, RabbitMQ will reject the connection, as illustr
 RabbitMQ's AMQP 1.0 implementation supports a number of authentication
 methods:
 
- * A username and password pair (best used in combination with [TLS](./ssl) for encryption on the wire)
+ * A username and password pair, with any supported [authentication backend](./access-control) combination (best used in combination with [TLS](./ssl) for encryption on the wire)
  * A [JWT token](./oauth2) (OAuth 2)
  * [x.509 certificates](./access-control#certificate-authentication) via the `rabbitmq_auth_mechanism_ssl` plugin
 
