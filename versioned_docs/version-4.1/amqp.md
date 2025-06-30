@@ -40,7 +40,7 @@ methods:
 
  * A username and password pair, with any supported [authentication backend](./access-control) combination (best used in combination with [TLS](./ssl) for encryption on the wire)
  * A [JWT token](./oauth2) (OAuth 2)
- * [x.509 certificates](./access-control#certificate-authentication) via the `rabbitmq_auth_mechanism_ssl` plugin
+ * [x.509 certificates](./access-control#certificate-authentication) via the [`EXTERNAL` authentication mechanism ](./access-control#available-mechanisms) and the `rabbitmq_auth_mechanism_ssl` plugin
 
 ## Protocol Interoperability
 
