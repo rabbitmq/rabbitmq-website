@@ -614,6 +614,24 @@ publishResult, err = publisher.Publish(context.Background(), msg)
 
 </Tabs>
 
+#### Support for Streams
+
+If a message is meant to go to a [stream](/docs/streams), it is possible to set its [filter value](/docs/streams#filtering) with the `x-stream-filter-value` message annotation:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Setting the stream filter value in a message annotation"
+Message message = publisher.message(body)
+    .annotation("x-stream-filter-value", "invoices"); // set filter value
+publisher.publish(message, context -> {
+  // confirm callback
+});
+```
+
+</TabItem>
+</Tabs>
+
 ### Consuming
 
 #### Consumer Creation
@@ -862,8 +880,13 @@ Consumer consumer = connection.consumerBuilder()
         .filterValues("invoices", "orders") 
         .filterMatchUnfiltered(true) 
     .builder() 
-    .messageHandler((context, message) -> {
-        // message processing
+    .messageHandler((ctx, msg) -> {
+        String filterValue = (String) msg.annotation("x-stream-filter-value");
+        // there must be some client-side filter logic
+        if ("invoices".equals(filterValue) || "orders".equals(filterValue)) {
+            // message processing
+        }
+        ctx.accept();
     })
     .build();
 ```
