@@ -642,6 +642,26 @@ spec:
     disableNonTLSListeners: true
 ```
 
+### Automatically Enabling Feature Flags (added in version 2.15.0) {#autoEnableAllFeatureFlags}
+
+**Description:** When set to true, operator will run `rabbitmqctl enable_feature_flag all` whenever the cluster is updated.
+This will automatically enable all [feature flags](/docs/feature-flags). Keep in mind that once enabled, feature flags cannot
+be disabled. Leaving this option as `false` gives more control of when the feature flags get enabled,
+but requires a [manual step after the upgrade](https://www.rabbitmq.com/docs/feature-flags#how-to-enable-feature-flags).
+
+**Default Value:** false
+
+**Example:**
+
+```yaml
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmqcluster-sample
+spec:
+  autoEnableAllFeatureFlags: true
+```
+
 ### Skip Post Deploy {#SkipPostDeploySteps}
 
 **Description:** If unset, or set to false, operator will run `rabbitmq-queues rebalance all` whenever the cluster is updated.
