@@ -348,14 +348,12 @@ The default is <code class="Cm">balanced</code>
 #### <code class="Cm">delete_super_stream</code> <var class="Ar">super-stream</var> [<code class="Fl">--vhost</code> <var class="Ar">vhost</var>] {#delete_super_stream}
         </dt>
         <dd>
+          <p class="Pp">Delete a super stream.</p>
           <dl class="Bl-tag">
             <dt><var class="Ar">super-stream</var></dt>
             <dd>The name of the super stream to delete.</dd>
             <dt><var class="Ar">vhost</var></dt>
-            <dd>
-              The virtual host of the super stream.
-              <p class="Pp">Delete a super stream.</p>
-            </dd>
+            <dd>The virtual host of the super stream.</dd>
           </dl>
           <p class="Pp"></p>
         </dd>
@@ -388,40 +386,72 @@ The default is <code class="Cm">balanced</code>
         </dt>
         <dd>
           <p class="Pp">Lists consumers of a stream consumer group in a vhost.</p>
-        </dd>
-        <dt><var class="Ar">stream</var></dt>
-        <dd>The stream the consumers are attached to.</dd>
-        <dt><var class="Ar">reference</var></dt>
-        <dd>The group reference (name).</dd>
-        <dt><var class="Ar">vhost</var></dt>
-        <dd>The virtual host of the stream.</dd>
-      </dl>
-      <p class="Pp">The <var class="Ar">consumerinfoitem</var> parameter is used to indicate which consumer information items to include in the results. The column order in the results will match the order of the parameters. <var class="Ar">consumerinfoitem</var> can take any value from the list that follows:</p>
-      <dl class="Bl-tag">
-        <dt><var class="Ar">connection_name</var></dt>
-        <dd>Readable name of the consumer connection.</dd>
-        <dt><var class="Ar">state</var></dt>
-        <dd>
-          Consumer state; one of:
-          <ul class="Bl-bullet Bl-compact">
-            <li>
+          <dl class="Bl-tag">
+            <dt><var class="Ar">stream</var></dt>
+            <dd>The stream the consumers are attached to.</dd>
+            <dt><var class="Ar">reference</var></dt>
+            <dd>The group reference (name).</dd>
+            <dt><var class="Ar">vhost</var></dt>
+            <dd>The virtual host of the stream.</dd>
+          </dl>
+          <p class="Pp">The <var class="Ar">consumerinfoitem</var> parameter is used to indicate which consumer information items to include in the results. The column order in the results will match the order of the parameters. <var class="Ar">consumerinfoitem</var> can take any value from the list that follows:</p>
+          <dl class="Bl-tag">
+            <dt><var class="Ar">connection_name</var></dt>
+            <dd>Readable name of the consumer connection.</dd>
+            <dt><var class="Ar">state</var></dt>
+            <dd>
+              Consumer state; one of:
+              <ul class="Bl-bullet Bl-compact">
+                <li>
 active
 </li>
-            <li>
+                <li>
 inactive
 </li>
-          </ul>
+              </ul>
 
+            </dd>
+            <dt><var class="Ar">subscription_id</var></dt>
+            <dd>The connection-scoped ID of the consumer.</dd>
+          </dl>
+          <p class="Pp">If no <var class="Ar">consumerinfoitem</var> are specified then subscription_id, connection_name, and state are displayed.</p>
+          <p class="Pp">For example, this command displays the connection name and state for each consumer attached to the stream-1 stream and belonging to the stream-1 group:</p>
+          <p class="Pp"></p>
+          <div class="Bd Bd-indent lang-bash">
+            <code class="Li">rabbitmq-streams list_stream_group_consumers --stream stream-1 --reference stream-1 connection_name state</code>
+          </div>
+          <p class="Pp"></p>
         </dd>
-        <dt><var class="Ar">subscription_id</var></dt>
-        <dd>The connection-scoped ID of the consumer.</dd>
+        <dt >
+#### <code class="Cm">list_stream_tracking</code> <var class="Ar">stream</var> [<code class="Fl">--all</code> | <code class="Fl">--offset</code> | <code class="Fl">--writer</code>] [<code class="Fl">--vhost</code> <var class="Ar">vhost</var>] {#list_stream_tracking}
+        </dt>
+        <dd>
+          <p class="Pp">Lists tracking information for a stream.</p>
+          <dl class="Bl-tag">
+            <dt><var class="Ar">stream</var></dt>
+            <dd>The name of the stream.</dd>
+          </dl>
+          <p class="Pp">Tracking information can be filtered by their type using one of the following mutually exclusive options:</p>
+          <dl class="Bl-tag">
+            <dt >
+#### <code class="Fl">--all</code> {#all}
+            </dt>
+            <dd>List offset tracking and writer deduplication information.</dd>
+            <dt >
+#### <code class="Fl">--offset</code> {#offset}
+            </dt>
+            <dd>List only offset tracking information.</dd>
+            <dt >
+#### <code class="Fl">--writer</code> {#writer}
+            </dt>
+            <dd>List only writer deduplication tracking information.</dd>
+          </dl>
+          <p class="Pp">Example:</p>
+          <div class="Bd Bd-indent lang-bash">
+            <code class="Li">rabbitmq-streams list_stream_tracking stream-1 --offset</code>
+          </div>
+        </dd>
       </dl>
-      <p class="Pp">If no <var class="Ar">consumerinfoitem</var> are specified then subscription_id, connection_name, and state are displayed.</p>
-      <p class="Pp">For example, this command displays the connection name and state for each consumer attached to the stream-1 stream and belonging to the stream-1 group:</p>
-      <p class="Pp"></p>
-      <div class="Bd Bd-indent lang-bash">
-        <code class="Li">rabbitmq-streams list_stream_group_consumers --stream stream-1 --reference stream-1 connection_name state</code>
-      </div>
     </section>
   </section>
   <section class="Sh">
