@@ -640,7 +640,6 @@ PublishResult pr = await publisher.PublishAsync(message);
 </TabItem>
 
 <TabItem value="Python" label="Python">
-    
 ```python title="Setting the stream filter value in a message annotation"
 publisher.publish(
             Message(
@@ -652,7 +651,6 @@ publisher.publish(
 </TabItem>
 
 <TabItem value="Go" label="Go">
-    
 ```go title="Setting the stream filter value in a message annotation"
     message := amqp.NewMessage(body)
     message.Annotations = amqp.Annotations{
@@ -975,7 +973,6 @@ consumer = consumer_connection.consumer(
 </TabItem>
 
 <TabItem value="Go" label="Go">
-
 ```Go title="Configuring stream filtering"
 consumer, err := connection.NewConsumer(context.Background(), qName, &
         StreamConsumerOptions{
