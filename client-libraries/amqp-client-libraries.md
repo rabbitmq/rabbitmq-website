@@ -628,7 +628,15 @@ publisher.publish(message, context -> {
   // confirm callback
 });
 ```
+</TabItem>
+<TabItem value="csharp" label="C#">
+    
+```csharp title="Setting the stream filter value in a message annotation"
+var message = new AmqpMessage(body);
+message.Annotation("x-stream-filter-value", "invoices");// set filter value
+PublishResult pr = await publisher.PublishAsync(message);
 
+```
 </TabItem>
 </Tabs>
 
@@ -899,11 +907,17 @@ Consumer consumer = connection.consumerBuilder()
 IConsumer consumer = await connection.ConsumerBuilder()
     .Queue("some-stream")
     .Stream()
-    .FilterValues(["invoices", "order"]) 
+    .FilterValues(["invoices", "orders"]) 
     .FilterMatchUnfiltered(true) 
     .Builder()
     .MessageHandler(async (context, message) => {
+        string filterValue = (string)message.Annotation("x-stream-filter-value");
+        if (filterValue.Equals("invoices")|| filterValue.Equals("orders"))
+        {
             // message processing
+        }
+        context.Accept();
+            
         }
 ).BuildAndStartAsync();
 ```
