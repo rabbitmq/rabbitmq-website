@@ -614,6 +614,57 @@ publishResult, err = publisher.Publish(context.Background(), msg)
 
 </Tabs>
 
+#### Support for Streams
+
+If a message is meant to go to a [stream](/docs/streams), it is possible to set its [filter value](/docs/streams#filtering) with the `x-stream-filter-value` message annotation:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Setting the stream filter value in a message annotation"
+Message message = publisher.message(body)
+    .annotation("x-stream-filter-value", "invoices"); // set filter value
+publisher.publish(message, context -> {
+  // confirm callback
+});
+```
+</TabItem>
+<TabItem value="csharp" label="C#">
+    
+```csharp title="Setting the stream filter value in a message annotation"
+var message = new AmqpMessage(body);
+message.Annotation("x-stream-filter-value", "invoices");// set filter value
+PublishResult pr = await publisher.PublishAsync(message);
+
+```
+</TabItem>
+
+<TabItem value="Python" label="Python">
+    
+```python title="Setting the stream filter value in a message annotation"
+publisher.publish(
+            Message(
+                Converter.string_to_bytes(body="myBody"),
+                annotations={"x-stream-filter-value": "invoices"},# set filter value
+            )
+
+```
+</TabItem>
+
+<TabItem value="Go" label="Go">
+    
+```go title="Setting the stream filter value in a message annotation"
+    message := amqp.NewMessage(body)
+    message.Annotations = amqp.Annotations{
+        "x-stream-filter-value": "invoices",// set filter value
+    }
+    publishResult, err := publisher.Publish(context.Background(), message)
+
+```
+</TabItem>
+
+</Tabs>
+
 ### Consuming
 
 #### Consumer Creation
@@ -862,8 +913,13 @@ Consumer consumer = connection.consumerBuilder()
         .filterValues("invoices", "orders") 
         .filterMatchUnfiltered(true) 
     .builder() 
-    .messageHandler((context, message) -> {
-        // message processing
+    .messageHandler((ctx, msg) -> {
+        String filterValue = (String) msg.annotation("x-stream-filter-value");
+        // there must be some client-side filter logic
+        if ("invoices".equals(filterValue) || "orders".equals(filterValue)) {
+            // message processing
+        }
+        ctx.accept();
     })
     .build();
 ```
@@ -876,11 +932,17 @@ Consumer consumer = connection.consumerBuilder()
 IConsumer consumer = await connection.ConsumerBuilder()
     .Queue("some-stream")
     .Stream()
-    .FilterValues(["invoices", "order"]) 
+    .FilterValues(["invoices", "orders"]) 
     .FilterMatchUnfiltered(true) 
     .Builder()
     .MessageHandler(async (context, message) => {
+        string filterValue = (string)message.Annotation("x-stream-filter-value");
+        if (filterValue.Equals("invoices")|| filterValue.Equals("orders"))
+        {
             // message processing
+        }
+        context.Accept();
+            
         }
 ).BuildAndStartAsync();
 ```
@@ -896,15 +958,17 @@ class MyMessageHandler(AMQPMessagingHandler):
         super().__init__()
 
     def on_message(self, event: Event):
-        # accepting
-        self.delivery_context.accept(event)
-        # deal with the message
+        filterValue = event.message.annotations["x-stream-filter-value"]
+        if filterValue == "invoices" or filterValue == "orders":
+            ### message processing
 
+        self.delivery_context.accept(event)
+        
 stream_address = AddressHelper.queue_address("some-stream")
 consumer = consumer_connection.consumer(
     stream_address,
     message_handler=MyMessageHandler(),
-    stream_filter_options=StreamOptions(stream_filters=["invoices", "order"], match_unfiltered=True),
+    stream_filter_options=StreamOptions(stream_filters=["invoices", "orders"], match_unfiltered=True),
 )
 ```
 
@@ -916,8 +980,16 @@ consumer = consumer_connection.consumer(
 consumer, err := connection.NewConsumer(context.Background(), qName, &
         StreamConsumerOptions{
             Offset:           &OffsetFirst{},
-            Filters:          []string{"invoices", "order"},
+            Filters:          []string{"invoices", "orders"},
         })
+deliveryContext, err := consumer.Receive(context.Background())
+// ..
+var filterValue string
+filterValue = deliveryContext.Message().Annotations["x-stream-filter-value"].(string)
+if filterValue == "orders" || filterValue == "invoices"  {
+ // 
+}
+err = deliveryContext.Accept(context.Background())
 ```
 
 </TabItem>
