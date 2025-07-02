@@ -115,6 +115,16 @@
 ### Stream plugin {#Stream_plugin}
       <dl class="Bl-tag">
         <dt >
+#### <code class="Cm">activate_stream_consumer</code> <code class="Fl">--stream</code> <var class="Ar">stream</var> <code class="Fl">--reference</code> <var class="Ar">reference</var> [<code class="Fl">--vhost</code> <var class="Ar">vhost</var>] {#activate_stream_consumer}
+        </dt>
+        <dd>
+          <p class="Pp">Trigger a rebalancing to activate a consumer in a single active consumer group.</p>
+          <p class="Pp">Example:</p>
+          <div class="Bd Bd-indent lang-bash">
+            <code class="Li">rabbitmq-streams activate_stream_consumer --stream stream --reference app-1</code>
+          </div>
+        </dd>
+        <dt >
 #### <code class="Cm">list_stream_connections</code> [<var class="Ar">connectioninfoitem ...</var>] {#list_stream_connections}
         </dt>
         <dd>
