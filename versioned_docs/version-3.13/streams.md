@@ -618,6 +618,8 @@ Streams usually will have lower CPU and memory footprint than quorum queues.
 
 All data is stored on disk with only unwritten data stored in memory.
 
+Since streams are disk I/O heavy, they will heavily use the [kernel page cache](./memory-use#page-cache), which has important implications for [memory monitoring in containerized deployments](./memory-use#containers).
+
 ## Offset Tracking when using Streams {#offset-tracking}
 
 When using the broker provided offset tracking features (currently only available

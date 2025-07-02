@@ -26,7 +26,10 @@ Operators need to be able to reason about node's memory use,
 both absolute and relative ("what uses most memory"). This is an
 important aspect of [system monitoring](./monitoring).
 
-This guide focusses on reasoning about node's reported (monitored) memory footprint.
+This guide focusses on reasoning about node's reported (monitored) memory footprint
+of a RabbitMQ node, including the [kernel page cache](#page-cache) part, which is very
+important to understand in the context of [streams and partitioned streams](./streams).
+
 It is accompanied by a few closely related guides:
 
  * [Memory Alarm Threshold](./memory)
@@ -36,6 +39,7 @@ RabbitMQ provides tools that report and help analyse node memory use:
 
  * [`rabbitmq-diagnostics memory_breakdown`](./cli)
  * [`rabbitmq-diagnostics status`](./cli) includes the above breakdown as a section
+ * [`rabbitmq-diagnostics observer`](./cli) provides a very fine-grained, an Erlang process-level view of memory consumption
  * [Prometheus and Grafana](./prometheus)-based monitoring makes it possible to observe memory breakdown over time
  * [Management UI](./management) provides the same breakdown on the node page as `rabbitmq-diagnostics status`
  * [HTTP API](./management#http-api) provides the same information as the management UI, useful [for monitoring](./monitoring)
@@ -532,10 +536,14 @@ evicted (cleared) when the OS detects that a high percentage of available memory
 Workloads that use [RabbitMQ streams](./streams) often lead to large kernel page cache size,
 in particular when consumers access messages that span days or weeks.
 
+:::important
+
 Some monitoring tools do not include the size of page cache into process monitoring metrics. Others
 add it to the residential set size (RSS)
 footprint of the process. This can lead to confusion: the **page cache is not maintained or controlled
 by RabbitMQ nodes. It is maintained, controlled and evicted (cleared) by the operating system kernel**.
+
+:::
 
 This is particularly [common in Kubernetes-based](https://github.com/kubernetes/kubernetes/issues/43916) deployments
 [that do not use cgroup v2](https://kubernetes.io/blog/2022/08/31/cgroupv2-ga-1-25/)) and run RabbitMQ
