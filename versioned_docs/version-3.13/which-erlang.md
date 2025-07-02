@@ -27,12 +27,26 @@ This guide covers Erlang/OTP version requirements, [Erlang version support polic
 a RabbitMQ/Erlang [compatibility matrix](#compatibility-matrix),
 version-specific notes and [ways of provisioning](#erlang-repositories) recent Erlang/OTP releases.
 
+:::warning
+
+Erlang 28 is not currently supported by RabbitMQ.
+
+:::
 
 ## Supported Erlang Version Policy {#supported-version-policy}
 
-RabbitMQ supports up to [two most recent Erlang release series](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ).
+RabbitMQ generally supports up to [two most recent Erlang release series](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ).
 
-At the moment they are Erlang `26.x` and `25.x`.
+During a transition period of a few months after a new major Erlang/OTP release comes out, usually May to August every calendar year, the newest series won't be immediately supported
+and the previous oldest series can be supported for a few months in addition
+to the two most recent series.
+
+At the moment the supported series are Erlang `27.x` and `26.x`.
+
+### Erlang 28 Support
+
+Erlang 28 has significant changes around TLS and PKI implementations,
+and is not currently supported by RabbitMQ.
 
 ### Erlang 27 Support
 
