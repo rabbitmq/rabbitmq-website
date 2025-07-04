@@ -104,7 +104,13 @@ There's also a simplfied version of the blue-green strategy, if some downtime is
 This upgrade strategy changes replica identities, can result in massive
 unnecessary data transfers between nodes, and is only safe with important
 precautions. Therefore, it is [highly recommended
-against](./grow-then-shrink-upgrade).
+against](./grow-then-shrink-upgrade) for cluster-wide upgrades.
+:::
+
+:::tip
+
+This strategy, however, can be a reasonable choice for replacing a single cluster node.
+
 :::
 
 A [grow-and-shrink upgrade](./grow-then-shrink-upgrade) usually involves the
