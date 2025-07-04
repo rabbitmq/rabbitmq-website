@@ -90,8 +90,7 @@ There's also a simplfied version of the blue-green strategy, if some downtime is
 :::danger
 This upgrade strategy changes replica identities, can result in massive
 unnecessary data transfers between nodes, and is only safe with important
-precautions. Therefore, it is [highly recommended
-against](./grow-then-shrink-upgrade) for cluster-wide upgrades.
+precautions. Therefore, it is **highly recommended against** for cluster-wide upgrades.
 :::
 
 :::tip
@@ -100,7 +99,7 @@ This strategy, however, can be a reasonable choice for replacing a single cluste
 
 :::
 
-A [grow-and-shrink upgrade](./grow-then-shrink-upgrade) usually involves the
+A grow-and-shrink upgrade usually involves the
 following steps. Consider a three node cluster with nodes A, B, and C:
 
 * Investigate if the current and target versions can be clustered together
@@ -119,7 +118,7 @@ following steps. Consider a three node cluster with nodes A, B, and C:
 * Repeat the steps above for the other nodes; in a 3-node cluster example, the cluster should now consist of nodes D, E and F
 * [Enable stable feature flags](./feature-flags#how-to-enable-feature-flags) introduced in the new version
 
-Multiple nodes can be added and removed at a time.
+This strategy is only recommended for replacing one node that must be decomissioned, not upgrading multiple nodes.
 
 
 ## RabbitMQ Version Upgradability {#rabbitmq-version-upgradability}

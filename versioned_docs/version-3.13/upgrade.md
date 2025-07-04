@@ -102,8 +102,7 @@ can abort an upgrade by switching applications back to the existing cluster.
 :::danger
 This upgrade strategy changes replica identities, can result in massive
 unnecessary data transfers between nodes, and is only safe with important
-precautions. Therefore, it is [highly recommended
-against](./grow-then-shrink-upgrade) for cluster-wide upgrades.
+precautions. Therefore, it is **highly recommended against** for cluster-wide upgrades.
 :::
 
 :::tip
@@ -126,7 +125,7 @@ A, B, and C:
  * Remove node B from the cluster using `rabbitmqctl forget_cluster_node`
  * and so on
 
-Multiple nodes can be added and removed at a time.
+This strategy is only recommended for replacing one node that must be decomissioned, not upgrading multiple nodes.
 
 Similarly to [rolling upgrades](#rolling-upgrades), grow-and-shrink upgrades between certain versions are not supported.
 [Full Stop Upgrades](#full-stop-upgrades) and the [Blue/Green deployment](./blue-green-upgrade) upgrade strategy cover the two options available for those cases.
