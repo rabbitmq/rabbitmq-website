@@ -4,14 +4,13 @@ tags: ["Releases", "RabbitMQ 4.1"]
 authors: [mklishin]
 ---
 
-# RabbitMQ 4.1.0
-
 [RabbitMQ `4.1.0`](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.1.0) is
 a new minor release that includes [multiple performance improvements](/blog/2025/04/08/4.1-performance-improvements),
 and a number of features such as thew [new peer discovery mechanism for Kubernetes](/blog/2025/04/04/new-k8s-peer-discovery).
 
 See Compatibility Notes below to learn about **breaking or potentially breaking changes** in this release.
 
+<!-- truncate -->
 
 ## Highlights
 
