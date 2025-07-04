@@ -24,7 +24,7 @@ import TabItem from '@theme/TabItem';
 # Classic Queue Mirroring (Deprecated)
 
 :::danger
-This guide covers a feature that had been [**deprecated since 2021**](/blog/2021/08/21/4.0-deprecation-announcements) and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) from RabbitMQ 4.0.x.
+This guide covers a feature that had been [**deprecated since 2021**](/blog/2021/08/21/4.0-deprecation-announcements) and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) starting with RabbitMQ 4.0.
 :::
 
 :::important
@@ -76,7 +76,7 @@ This guide assumes general familiarity with [RabbitMQ clustering](./clustering),
 
 :::danger
 This guide covers a feature that had been [**deprecated since 2021**](/blog/2021/08/21/4.0-deprecation-announcements)
-and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) for the next major series, RabbitMQ 4.x.
+and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) starting with RabbitMQ 4.0.
 :::
 
 :::important
@@ -130,7 +130,7 @@ replaced or removed in a future version.
 
 :::danger
 This guide covers a feature that had been [**deprecated since 2021**](/blog/2021/08/21/4.0-deprecation-announcements)
-and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) for the next major series, RabbitMQ 4.x.
+and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) starting with RabbitMQ 4.0.
 :::
 
 :::important
@@ -150,7 +150,7 @@ Please see [Runtime Parameters and Policies](./policies) for more information on
 
 :::danger
 This guide covers a feature that had been [**deprecated since 2021**](/blog/2021/08/21/4.0-deprecation-announcements)
-and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) for the next major series, RabbitMQ 4.x.
+and [**was removed completely**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) starting with RabbitMQ 4.0.
 :::
 
 :::important
