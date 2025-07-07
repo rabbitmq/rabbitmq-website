@@ -719,7 +719,7 @@ To demonstrate this feature:
 3. Try to create a queue with the name `test`. Expect the effort to fail with an authorization error.
 4. Create a queue with the name `q-rabbit_admin`. Expect to be allowed to do this.
 
-There is no configuration required in RabbitMQ, but RabbitMQ 4.1.1 is required.
+There is no configuration required in RabbitMQ, but the version must be RabbitMQ 4.1.1 or later.
 
 ### Preferred username claims {#preferred-username-claims}
 
