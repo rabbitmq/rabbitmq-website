@@ -161,9 +161,29 @@ Now that some roles have been created for your application, you still need to as
 
 ## Configure Custom Signing Keys
 
-It is optional to create a signing key for your application. If you create one though, you must append an `appid` query parameter containing the *app ID* to the `jwks_uri`. Otherwise, the standard jwks_uri endpoint will not include the custom signing key and RabbitMQ will not find the signing key to validate the token's signature.
+There is one last configuration step required. Without this step, the `access_token` returned
+by **Entra ID** won't be useable with RabbitMQ. More specifically, RabbitMQ will not be able to validate its signature because the `access_token` is meant for Microsoft resources
 
-For example, given your application id, `{my-app-id}` and your tenant `{tenant}`, the OIDC discovery endpoint uri would be `https://login.microsoftonline.com/{tenant}/.well-known/openid-configuration?appid={my-app-id}`. The returned payload contains the `jwks_uri` attribute whose value is something like `https://login.microsoftonline.com/{tenant}/discovery/keys?appid=<my-app-idp>`. RabbitMQ should be configured with that `jwks_uri` value.
+Therefore, create a new scope associated with the application registered above to be used for RabbitMQ management UI.
+To do so:
+
+1. Go to **App registrations**
+2. Click on your application
+3. Go to **Manage** option on the left menu and choose the option **Expose an API**
+4. Click on **Add a scope**
+5. Enter a name, eg. `management-ui`. Enter the same name for **Admin consent display name** and a description and save it
+7. The scope is named `api://{Application (client) ID}/{scope_name}`
+
+This scope will be used further below in this guide.
+
+While creating a signing key for the application is optional, if a custom key is created, RabbitMQ must be configured accordingly.
+In the following example, replace `{Application(client) ID}` with the actual *Application(client) ID*.
+
+```ini
+auth_oauth2.discovery_endpoint_params.appid = {Application(client) ID}
+```
+
+For more information, check out Microsoft Entra documentation about [configuring custom signing keys](https://learn.microsoft.com/en-us/entra/identity-platform/jwt-claims-customization#validate-token-signing-key).
 
 
 ## Configure RabbitMQ to Use Entra ID as OAuth 2.0 Authentication Backend

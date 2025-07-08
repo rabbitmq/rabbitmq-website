@@ -178,17 +178,8 @@ To do so:
 
 This scope will be used further below in this guide.
 
-
-## Configure Custom Signing Keys
-
-Creating a signing key for the application is optional. If a custom key is created, RabbitMQ must be configured accordingly.
+While creating a signing key for the application is optional, if a custom key is created, RabbitMQ must be configured accordingly.
 In the following example, replace `{Application(client) ID}` with the actual *Application(client) ID*.
-
-```ini
-auth_oauth2.discovery_endpoint_params.appid = {Application(client) ID}
-```
-
-It is optional to create a signing key for your application. If you create one though, you must add the following RabbitMQ configuration. You need to replace `{Application(client) ID}` with your *Application(client) ID*. Without this configuration, the standard jwks_uri endpoint will not include the custom signing key and RabbitMQ will not find the signing key to validate the token's signature.
 
 ```ini
 auth_oauth2.discovery_endpoint_params.appid = {Application(client) ID}
