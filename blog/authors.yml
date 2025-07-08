@@ -7,6 +7,14 @@ acogoluegnes:
     linkedin: arnaudcogoluegnes
     bluesky: https://bsky.app/profile/acogoluegnes.bsky.social
 
+gsantomaggio:
+  name: "Gabriele gsantomaggio"
+  url: https://github.com/gsantomaggio
+  image_url: https://github.com/gsantomaggio.png
+  socials:
+    github: gsantomaggio
+    linkedin: santomaggio
+
 alebedeff:
   name: "Alexey Lebedeff"
   url: https://github.com/binarin
