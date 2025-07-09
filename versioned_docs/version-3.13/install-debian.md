@@ -157,8 +157,8 @@ RabbitMQ and Erlang from a [Team RabbitMQ-hosted](#apt-cloudsmith) apt repositor
 
 :::important
 
-This repository only provides `amd64` (`x86-64`) Erlang packages. For `amd64` (`aarch64`),
-this script must be modified to provision Erlang 26 [from Launchpad](#apt-launchpad-erlang).
+This repository only provides `amd64` (`x86-64`) Erlang packages. For `arm64` (`aarch64`),
+this script must be modified to provision a supported Erlang series [from Launchpad](#apt-launchpad-erlang).
 
 :::
 
