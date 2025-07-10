@@ -107,26 +107,27 @@ A conversion from AMQP to AMQP 0.9.1 takes place if the message is consumed with
 
 ### Type Conversions {#amqp-amqpl-types}
 
-| AMQP 1.0 type | Condition    | AMQP 0.9.1 type      | Comment                                             |
-| ------------- | ------------ | -------------------- | --------------------------------------------------- |
-| utf8 (string) |              | longstr              | RabbitMQ does not support shortstr header values so all utf8 inputs are converted to longstr unless it is a field in the basic properties |
-| binary        |              | binary               |                                                     |
-| long          |              | long                 |                                                     |
-| ulong         |              | long                 | risk of overflow                                    |
-| ubyte         |              | unsignedbyte         |                                                     |
-| short         |              | short                |                                                     |
-| ushort        |              | usignedshort         |                                                     |
-| uint          |              | unsignedint          |                                                     |
-| int           |              | signedint            |                                                     |
-| double        |              | double               |                                                     |
-| float         |              | float                |                                                     |
-| boolean       |              | bool                 |                                                     |
-| timestamp     |              | timestamp (seconds)  | value divided by 1000                               |
-| byte          |              | byte                 |                                                     |
-| null          |              | void                 |                                                     |
-| list          |              | array                |                                                     |
-| map           |              | table                |                                                     |
-| symbol        |              | longstr              |
+| AMQP 1.0 type | Condition           | AMQP 0.9.1 type      | Comment                                             |
+| ------------- | ------------------- | -------------------- | --------------------------------------------------- |
+| utf8 (string) |                     | longstr              | RabbitMQ does not support shortstr header values so all utf8 inputs are converted to longstr unless it is a field in the basic properties |
+| binary        |                     | binary               |                                                     |
+| long          |                     | long                 |                                                     |
+| ulong         |                     | long                 | risk of overflow                                    |
+| ubyte         |                     | unsignedbyte         |                                                     |
+| short         |                     | short                |                                                     |
+| ushort        |                     | usignedshort         |                                                     |
+| uint          |                     | unsignedint          |                                                     |
+| int           |                     | signedint            |                                                     |
+| double        | neither NaN nor Inf | double               |                                                     |
+| float         | neither NaN nor Inf | float                |                                                     |
+| decimal       |                     |                      | Message annotations or application properties whose values are of type decimal32, decimal64 or decimal128 are not converted |
+| boolean       |                     | bool                 |                                                     |
+| timestamp     |                     | timestamp (seconds)  | value divided by 1000                               |
+| byte          |                     | byte                 |                                                     |
+| null          |                     | void                 |                                                     |
+| list          |                     | array                |                                                     |
+| map           |                     | table                |                                                     |
+| symbol        |                     | longstr              |
 
 
 ## AMQP 0.9.1 -> AMQP 1.0 {#amqpl-amqp}
