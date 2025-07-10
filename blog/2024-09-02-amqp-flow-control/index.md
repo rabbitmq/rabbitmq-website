@@ -119,7 +119,7 @@ The receiver is allowed to dynamically increase or decrease the amount of link c
 
 This is a great advantage of link flow control in AMQP 1.0 over [consumer prefetch](/docs/consumer-prefetch) in AMQP 0.9.1.
 In AMQP 0.9.1, the [basic.qos](https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/pdf/amqp-xml-doc0-9-1.pdf) method applies to **all** consumers on the given [AMQP 0.9.1 channel](/docs/channels).
-Furthermore, dynamically updating the consumer prefetch is not possible or convenient, as discussed in [#10174](https://github.com/rabbitmq/rabbitmq-server/discussions/10174) and [#11955](https://github.com/rabbitmq/rabbitmq-server/discussions/11955).
+Furthermore, dynamically updating the consumer prefetch is not possible or convenient, as discussed in [#10174](https://github.com/rabbitmq/rabbitmq-server/discussions/10174).
 
 :::
 
