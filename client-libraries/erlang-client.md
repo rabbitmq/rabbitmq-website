@@ -1,5 +1,5 @@
 ---
-title: Erlang RabbitMQ client Library
+title: RabbitMQ AMQP 0.9.1 Erlang Client Library
 ---
 <!--
 Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Erlang RabbitMQ client Library
+# RabbitMQ AMQP 0.9.1 Erlang Client Library
 
 The RabbitMQ Erlang client library allows Erlang and Elixir applications
 to connect to and interact with RabbitMQ nodes.

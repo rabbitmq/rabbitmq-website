@@ -229,7 +229,8 @@ Miscellaneous projects:
 
 ## Erlang {#erlang-dev}
 
- * &#x2713; [RabbitMQ Erlang client](./erlang-client-user-guide)
+ * &#x2713; [RabbitMQ AMQP 1.0 Erlang client](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_amqp_client#readme)
+ * &#x2713; [RabbitMQ AMQP 0.9.1 Erlang client](./erlang-client-user-guide)
  * [RabbitMQ Stream Erlang client](https://gitlab.com/evnu/lake)
  * [bunny_farm](https://github.com/muxspace/bunny_farm), a simplifying wrapper for the Erlang client
  * [RabbitMQ Messaging Patterns](https://github.com/videlalvaro/rmq_patterns), a library of messaging patterns implemented in Erlang
