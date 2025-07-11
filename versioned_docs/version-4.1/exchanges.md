@@ -216,7 +216,7 @@ As a rule of thumb, consider using durable exchanges for the following reasons:
 
 ### Auto-Deletion
 
-Auto-deleted queues are deleted when their last binding is removed.
+Auto-deleted exchanges are deleted when their last binding is removed.
 
 This requires that at least such a binding exists (created); exchanges that are never bound won't be deleted by this mechanism.
 
@@ -225,35 +225,35 @@ This requires that at least such a binding exists (created); exchanges that are 
 
 Optional exchange arguments, also known as "x-arguments" because of their
 field name in the AMQP 0-9-1 protocol, is a map (dictionary) of arbitrary key/value
-pairs that can be provided by clients when a queue is declared.
+pairs that can be provided by clients when an exchange is declared.
 
 The map is used by certain features and exchange types, such as [alternate exchanges](#ae)
 and the headers exchanges.
 
-These optional arguments usually can be dynamically changed after queue declaration via [policies](./policies).
+These optional arguments can also be set via [policies](./policies).
 
 :::tip
 
-For keys that can be set via [policies](./policies), always first
-consider using a policy instead of setting these values in application code
+If an optional argument can be set via [policies](./policies), always first
+consider using a policy instead of hardcoding these values in application code
 
 :::
 
 Optional exchange arguments can be set differently:
 
- * To groups of queues using [policies](./policies) (recommended)
- * On a per-exchange basis when a queue is declared by a client
+ * To groups of exchanges using [policies](./policies) (recommended)
+ * On a per-exchange basis at declaration time
 
 The former option is more flexible, non-intrusive, does not require application
 modifications and redeployments. Therefore it is highly recommended for most users.
-Note that some optional arguments such as queue type or max number of priorities can
-only be provided by clients because they cannot be dynamically changed and must be known
-at declaration time.
+Note that some optional arguments can only be provided by clients because
+they cannot be dynamically changed and must be known at declaration time.
+However, such restrictions primarily apply to queues and streams, not exchanges.
 
 The way optional arguments are provided by clients varies from client library
 to client library but is usually an argument next to the <code>durable</code>,
 <code>auto_delete</code> and other arguments of the function (method) that
-declares queues.
+declares exchanges.
 
 ### Optional Arguments and Policy-Defined Key Precedence {#optional-arguments-precedence}
 
