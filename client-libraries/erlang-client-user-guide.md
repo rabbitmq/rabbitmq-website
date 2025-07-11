@@ -1,5 +1,5 @@
 ---
-title: Erlang RabbitMQ Client library
+title: RabbitMQ AMQP 0.9.1 Erlang Client Library
 ---
 <!--
 Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Erlang RabbitMQ Client library
+# RabbitMQ AMQP 0.9.1 Erlang Client Library
 
 ## Overview {#overview}
 
