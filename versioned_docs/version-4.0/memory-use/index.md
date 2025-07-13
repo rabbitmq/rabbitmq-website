@@ -38,7 +38,7 @@ It is accompanied by a few closely related guides:
 RabbitMQ provides tools that report and help analyse node memory use:
 
  * [`rabbitmq-diagnostics memory_breakdown`](./cli)
- * [`rabbitmq-diagnostics status`](./cli) includes the above breakdown as a section
+ * [`rabbitmqadmin show memory_breakdown_in_percent`](./management-cli) and [`rabbitmqadmin show memory_breakdown_in_bytes`](./management-cli)
  * [`rabbitmq-diagnostics observer`](./cli) provides a very fine-grained, an Erlang process-level view of memory consumption
  * [Prometheus and Grafana](./prometheus)-based monitoring makes it possible to observe memory breakdown over time
  * [Management UI](./management) provides the same breakdown on the node page as `rabbitmq-diagnostics status`

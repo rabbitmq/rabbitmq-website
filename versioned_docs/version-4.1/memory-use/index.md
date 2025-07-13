@@ -38,7 +38,7 @@ It is accompanied by a few closely related guides:
 RabbitMQ provides tools that report and help analyse node memory use:
 
  * [`rabbitmq-diagnostics memory_breakdown`](./cli)
- * [`rabbitmq-diagnostics status`](./cli) includes the above breakdown as a section
+ * [`rabbitmqadmin show memory_breakdown_in_percent`](./management-cli) and [`rabbitmqadmin show memory_breakdown_in_bytes`](./management-cli)
  * [`rabbitmq-diagnostics observer`](./cli) provides a very fine-grained, an Erlang process-level view of memory consumption
  * [Prometheus and Grafana](./prometheus)-based monitoring makes it possible to observe memory breakdown over time
  * [Management UI](./management) provides the same breakdown on the node page as `rabbitmq-diagnostics status`
@@ -557,7 +557,7 @@ use a more reasonable approach to kernel page cache memory accounting:
  * Ubuntu 21.10 or later
  * Debian 11 Bullseye or later
 
-Red Hat OpenShift versions starting with 4.12 are based on Kubernetes 1.25 (or later versions). 
+Red Hat OpenShift versions starting with 4.12 are based on Kubernetes 1.25 (or later versions).
 
 
 ### What Does a Large Page Cache Size Tell Us About a Workload?
