@@ -71,25 +71,38 @@ which will output a list of command groups:
 Usage: rabbitmqadmin [OPTIONS] <COMMAND>
 
 Commands:
-  show                 Overview, memory footprint breakdown, and more
-  list                 Lists objects
-  declare              Creates or declares objects
-  delete               Deletes objects
-  purge                Purges queues
-  policies             Operations on policies
-  health_check         Runs health checks
+  bindings             Operations on bindings
+  channels             Operations on channels
   close                Closes connections
-  rebalance            Rebalancing of leader replicas
+  connections          Operations on connections
+  declare              Creates or declares objects
   definitions          Operations on definitions (everything except for messages: virtual hosts, queues, streams, exchanges, bindings, users, etc)
-  export               See 'definitions export'
-  import               See 'definitions import'
-  feature_flags        Operations on feature flags
+  delete               Deletes objects
   deprecated_features  Operations on deprecated features
-  publish              Publishes (inefficiently) message(s) to a queue or a stream. Only suitable for development and test environments.
-  get                  Fetches message(s) from a queue or stream via polling. Only suitable for development and test environments.
-  shovels              Operations on shovels
+  exchanges            Operations on exchanges
+  export               See 'definitions export'
+  feature_flags        Operations on feature flags
   federation           Operations on federation upstreams and links
+  get                  Fetches message(s) from a queue or stream via polling. Only suitable for development and test environments.
+  global_parameters    Operations on global runtime parameters
+  health_check         Runs health checks
+  import               See 'definitions import'
+  list                 Lists objects
+  nodes                Node operations
+  operator_policies    Operations on operator policies
+  parameters           Operations on runtime parameters
+  passwords            Operations on passwords
+  policies             Operations on policies
+  publish              Publishes (inefficiently) message(s) to a queue or a stream. Only suitable for development and test environments.
+  purge                Purges queues
+  queues               Operations on queues
+  rebalance            Rebalancing of leader replicas
+  show                 Overview, memory footprint breakdown, and more
+  shovels              Operations on shovels
+  streams              Operations on streams
   tanzu                Tanzu RabbitMQ-specific commands
+  users                Operations on users
+  vhosts               Virtual host operations
   help                 Print this message or the help of the given subcommand(s)
 ```
 
@@ -110,7 +123,7 @@ rabbitmqadmin help
 This flag can be appended to a command or subcommand to get command-specific documentation:
 
 ```shell
-rabbitmqadmin declare queue --help
+rabbitmqadmin queues declare --help
 # => creates or declares things
 # =>
 # => Usage: rabbitmqadmin declare [object]
@@ -121,7 +134,7 @@ Alternatively, the `help` subcommand can be given a command name. It's the equiv
 of tagging on `--help` at the end of command name:
 
 ```shell
-rabbitmqadmin declare help queue
+rabbitmqadmin queues help declare
 # => creates or declares things
 # =>
 # => Usage: rabbitmqadmin declare [object]
@@ -143,21 +156,60 @@ rabbitmqadmin show overview
 will output a table that looks like this:
 
 ```
-┌──────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Overview                                                                                                             │
-├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ key              │ value                                                                                             │
-├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ Product name     │ RabbitMQ                                                                                          │
-├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ Product version  │ 4.0.8                                                                                             │
-├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ RabbitMQ version │ 4.0.8                                                                                             │
-├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ Erlang version   │ 26.2.5.8                                                                                          │
-├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ Erlang details   │ Erlang/OTP 26 [erts-14.2.5.7] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit] │
-└──────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Overview                                                                                                                                                            │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ key                                                               │ value                                                                                           │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Product name                                                      │ RabbitMQ                                                                                        │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Product version                                                   │ 4.1.2                                                                                           │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ RabbitMQ version                                                  │ 4.1.2                                                                                           │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Erlang version                                                    │ 27.3.4                                                                                          │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Erlang details                                                    │ Erlang/OTP 27 [erts-15.2.7] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit] │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Connections (total)                                               │ 0                                                                                               │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ AMQP 0-9-1 channels (total)                                       │ 0                                                                                               │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Queues and streams (total)                                        │ 1                                                                                               │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Consumers (total)                                                 │ 0                                                                                               │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Messages (total)                                                  │ 0                                                                                               │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Messages ready for delivery (total)                               │ 0                                                                                               │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Messages delivered but unacknowledged by consumers (total)        │ 0                                                                                               │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Publishing (ingress) rate (global)                                │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Publishing confirm rate (global)                                  │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Consumer delivery (egress) rate (global)                          │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Consumer delivery in automatic acknowledgement mode rate (global) │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Consumer acknowledgement rate (global)                            │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Unroutable messages: returned-to-publisher rate (global)          │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Unroutable messages: dropped rate (global)                        │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Cluster tags                                                      │ "core": "8"                                                                                     │
+│                                                                   │ "env": "development"                                                                            │
+│                                                                   │ "machine": "X8Y33L97DQ"                                                                         │
+│                                                                   │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Node tags                                                         │ "environment": "production"                                                                     │
+│                                                                   │ "purpose": "iot_ingress"                                                                        │
+│                                                                   │ "region": "ca-central-1"                                                                        │
+│                                                                   │ "series": "4.1.x"                                                                               │
+│                                                                   │                                                                                                 │
+└───────────────────────────────────────────────────────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 As it is easy to observe, parsing such output in a script will be challenging.
@@ -174,12 +226,12 @@ The output of the above command will not include any table borders and will is m
 as a result:
 
 ```
- key
- Product name      RabbitMQ
- Product version   4.0.8
- RabbitMQ version  4.0.8
- Erlang version    26.2.5.8
- Erlang details    Erlang/OTP 26 [erts-14.2.5.5] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit]
+key
+Product name                                                      RabbitMQ
+Product version                                                   4.1.2
+RabbitMQ version                                                  4.1.2
+Erlang version                                                    27.3.4
+Erlang details                                                    Erlang/OTP 27 [erts-15.2.7] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit]
 ```
 
 ### Retrieving Basic Node Information
@@ -249,75 +301,75 @@ rabbitmqadmin --vhost "events" list bindings
 ### Create a Virtual Host
 
 ```shell
-rabbitmqadmin declare vhost --name "vh-789" --default-queue-type "quorum" --description "Used to reproduce issue #789"
+rabbitmqadmin vhosts declare --name "vh-789" --default-queue-type "quorum" --description "Used to reproduce issue #789"
 ```
 
 ### Delete a Virtual Host
 
 ```shell
-rabbitmqadmin delete vhost --name "vh-789"
+rabbitmqadmin vhosts delete --name "vh-789"
 ```
 
 ```shell
 # --idempotently means that 404 Not Found responses will not be  considered errors
-rabbitmqadmin delete vhost --name "vh-789" --idempotently
+rabbitmqadmin vhosts delete --name "vh-789" --idempotently
 ```
 
 
 ### Declare a Queue
 
 ```shell
-rabbitmqadmin --vhost "events" declare queue --name "target.quorum.queue.name" --type "quorum" --durable true
+rabbitmqadmin --vhost "events" queues declare --name "target.quorum.queue.name" --type "quorum" --durable true
 ```
 
 ```shell
-rabbitmqadmin --vhost "events" declare queue --name "target.stream.name" --type "stream" --durable true
+rabbitmqadmin --vhost "events" queues declare --name "target.stream.name" --type "stream" --durable true
 ```
 
 ```shell
-rabbitmqadmin --vhost "events" declare queue --name "target.classic.queue.name" --type "classic" --durable true --auto-delete false
+rabbitmqadmin --vhost "events" queues declare --name "target.classic.queue.name" --type "classic" --durable true --auto-delete false
 ```
 
 ### Purge a queue
 
 ```
-rabbitmqadmin --vhost "events" purge queue --name "target.queue.name"
+rabbitmqadmin --vhost "events" queues purge --name "target.queue.name"
 ```
 
 ### Delete a queue
 
 ``` shell
-rabbitmqadmin --vhost "events" delete queue --name "target.queue.name"
+rabbitmqadmin --vhost "events" queues delete --name "target.queue.name"
 ```
 
 ``` shell
 # --idempotently means that 404 Not Found responses will not be considered errors
-rabbitmqadmin --vhost "events" delete queue --name "target.queue.name" --idempotently
+rabbitmqadmin --vhost "events" queues delete --name "target.queue.name" --idempotently
 ```
 
 ### Declare an Exchange
 
 ```shell
-rabbitmqadmin --vhost "events" declare exchange --name "events.all_types.topic" --type "topic" --durable true
+rabbitmqadmin --vhost "events" exchanges declare --name "events.all_types.topic" --type "topic" --durable true
 ```
 
 ```shell
-rabbitmqadmin --vhost "events" declare exchange --name "events.all_type.uncategorized" --type "fanout" --durable true --auto-delete false
+rabbitmqadmin --vhost "events" exchanges declare --name "events.all_type.uncategorized" --type "fanout" --durable true --auto-delete false
 ```
 
 ```shell
-rabbitmqadmin --vhost "events" declare exchange --name "local.random.c60bda92" --type "x-local-random" --durable true
+rabbitmqadmin --vhost "events" exchanges declare --name "local.random.c60bda92" --type "x-local-random" --durable true
 ```
 
 ### Delete an exchange
 
 ``` shell
-rabbitmqadmin --vhost "events" delete exchange --name "target.exchange.name"
+rabbitmqadmin --vhost "events" exchanges delete --name "target.exchange.name"
 ```
 
 ``` shell
 # --idempotently means that 404 Not Found responses will not be  considered errors
-rabbitmqadmin --vhost "events" delete exchange --name "target.exchange.name" --idempotently
+rabbitmqadmin --vhost "events" exchanges delete --name "target.exchange.name" --idempotently
 ```
 
 ### Inspecting Node Memory Breakdown
@@ -526,10 +578,10 @@ rabbitmqadmin definitions import --file /path/to/definitions.file.json
 ### Declare an AMQP 0-9-1 Shovel
 
 To declare a [dynamic shovel](./shovel-dynamic) that uses AMQP 0-9-1 for both source and desitnation, use
-`shovel declare_amqp091`:
+`shovels declare_amqp091`:
 
 ```shell
-rabbitmqadmin shovel declare_amqp091 --name my-amqp091-shovel \
+rabbitmqadmin shovels declare_amqp091 --name my-amqp091-shovel \
     --source-uri amqp://username:s3KrE7@source.hostname:5672 \
     --destination-uri amqp://username:s3KrE7@source.hostname:5672 \
     --ack-mode "on-confirm" \
@@ -548,10 +600,10 @@ Note that
 
 1. With AMQP 1.0 shovels, credentials in the URI are mandatory (there are no defaults)
 2. With AMQP 1.0 shovels, the topology must be pre-declared (an equivalent of `--predeclared-source true` and `--predeclared-destination true` for AMQP 0-9-1 shovels)
-2. AMQP 1.0 shovels should use [AMQP 1.0 addresses v2](./amqp#addresses)
+3. AMQP 1.0 shovels should use [AMQP 1.0 addresses v2](./amqp#addresses)
 
 ```shell
-rabbitmqadmin shovel declare_amqp10 --name my-amqp1.0-shovel \
+rabbitmqadmin shovels declare_amqp10 --name my-amqp1.0-shovel \
     --source-uri "amqp://username:s3KrE7@source.hostname:5672?hostname=vhost:src-vhost" \
     --destination-uri "amqp://username:s3KrE7@source.hostname:5672?hostname=vhost:dest-vhost" \
     --ack-mode "on-confirm" \
@@ -561,18 +613,18 @@ rabbitmqadmin shovel declare_amqp10 --name my-amqp1.0-shovel \
 
 ### List Shovels
 
-To list shovels across all virtual hosts, use `shovel list_all`:
+To list shovels across all virtual hosts, use `shovels list_all`:
 
 ```shell
-rabbitmqadmin shovel list_all
+rabbitmqadmin shovels list_all
 ```
 
 ### Delete a Shovel
 
-To delete a shovel, use `shovel delete --name`:
+To delete a shovel, use `shovels delete --name`:
 
 ```shell
-rabbitmqadmin shovel delete --name my-amqp091-shovel
+rabbitmqadmin shovels delete --name my-amqp091-shovel
 ```
 
 ### List Federation Upstreams
@@ -662,8 +714,8 @@ now can infer subcommand and --long-option names.
 This means that a subcommand can be referenced with its unique prefix,
 that is,
 
-* 'del queue' will be inferred as 'delete queue'
-* 'del q --nam "a.queue"' will be inferred as 'delete queue --name "a.queue"'
+* 'queues del' will be inferred as 'queues delete'
+* 'q del --nam "a.queue"' will be inferred as 'queues delete --name "a.queue"'
 
 To enable each feature, set the following environment variables to
 'true':
@@ -739,14 +791,14 @@ rabbitmqadmin --config $HOME/.configuration/rabbitmqadmin.conf --node staging sh
 
 ```shell
 # Note: auto_delete
-rabbitmqadmin-v1 --vhost "vh-2" declare queue name="qq.1" type="quorum" durable=true auto_delete=false
+rabbitmqadmin-v1 --vhost "vh-2" queues declare name="qq.1" type="quorum" durable=true auto_delete=false
 ```
 
 `rabbitmqadmin` v2 uses a more typical `--snake-case` format for the same arguments:
 
 ```shell
 # Note: --auto-delete
-rabbitmqadmin --vhost "vh-2" declare queue --name "qq.1" --type "quorum" --durable true --auto-delete false
+rabbitmqadmin --vhost "vh-2" queues declare --name "qq.1" --type "quorum" --durable true --auto-delete false
 ```
 
 ### Global Arguments Come First
@@ -755,7 +807,7 @@ Global flags in `rabbitmqadmin` v2 must precede the command category (e.g. `list
 namely various HTTP API endpoint options and `--vhost`:
 
 ```shell
-rabbitmqadmin --vhost "events" declare queue --name "target.quorum.queue.name" --type "quorum" --durable true
+rabbitmqadmin --vhost "events" queues declare --name "target.quorum.queue.name" --type "quorum" --durable true
 ```
 
 ### --prefix Overrides API Path Prefix

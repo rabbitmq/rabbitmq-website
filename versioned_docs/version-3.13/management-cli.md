@@ -1,5 +1,5 @@
 ---
-title: Management Command Line Tool
+title: rabbitmqadmin v2, a Command Line Tool for the HTTP API
 displayed_sidebar: docsSidebar
 ---
 <!--
@@ -32,7 +32,9 @@ It supports many of the operations available in the management UI:
  * Run [health checks](./monitoring#health-checks)
  * Listing [feature flag](./feature-flags) state
  * Listing [deprecated features](./deprecated-features) in use across the cluster
- * [Definition](./definitions) export and import
+ * [Definition](./definitions) export, transformations, and import
+ * Operations on [shovels](./shovel)
+ * Operations on [federation upstreams](./federation) and links
  * Closing connections
  * Rebalancing of queue leaders across cluster nodes
 
@@ -66,25 +68,41 @@ rabbitmqadmin help
 which will output a list of command groups:
 
 ```
-Usage: rabbitmqadmin [OPTIONS] <command>
+Usage: rabbitmqadmin [OPTIONS] <COMMAND>
 
 Commands:
-  show                 overview
-  list                 lists objects by type
-  declare              creates or declares things
-  delete               deletes objects
-  purge                purges queues
-  health_check         runs health checks
-  close                closes connections
-  rebalance            rebalances queue leaders
-  definitions          operations on definitions
-  export               see 'definitions export'
-  import               see 'definitions import'
-  feature_flags        operations on feature flags
-  deprecated_features  operations on deprecated features
-  publish              publishes (inefficiently) message(s) to a queue or a stream. Only suitable for development and test environments.
-  get                  fetches message(s) from a queue or stream via polling. Only suitable for development and test environments.
+  bindings             Operations on bindings
+  channels             Operations on channels
+  close                Closes connections
+  connections          Operations on connections
+  declare              Creates or declares objects
+  definitions          Operations on definitions (everything except for messages: virtual hosts, queues, streams, exchanges, bindings, users, etc)
+  delete               Deletes objects
+  deprecated_features  Operations on deprecated features
+  exchanges            Operations on exchanges
+  export               See 'definitions export'
+  feature_flags        Operations on feature flags
+  federation           Operations on federation upstreams and links
+  get                  Fetches message(s) from a queue or stream via polling. Only suitable for development and test environments.
+  global_parameters    Operations on global runtime parameters
+  health_check         Runs health checks
+  import               See 'definitions import'
+  list                 Lists objects
+  nodes                Node operations
+  operator_policies    Operations on operator policies
+  parameters           Operations on runtime parameters
+  passwords            Operations on passwords
+  policies             Operations on policies
+  publish              Publishes (inefficiently) message(s) to a queue or a stream. Only suitable for development and test environments.
+  purge                Purges queues
+  queues               Operations on queues
+  rebalance            Rebalancing of leader replicas
+  show                 Overview, memory footprint breakdown, and more
+  shovels              Operations on shovels
+  streams              Operations on streams
   tanzu                Tanzu RabbitMQ-specific commands
+  users                Operations on users
+  vhosts               Virtual host operations
   help                 Print this message or the help of the given subcommand(s)
 ```
 
@@ -105,7 +123,7 @@ rabbitmqadmin help
 This flag can be appended to a command or subcommand to get command-specific documentation:
 
 ```shell
-rabbitmqadmin declare queue --help
+rabbitmqadmin queues declare --help
 # => creates or declares things
 # =>
 # => Usage: rabbitmqadmin declare [object]
@@ -116,7 +134,7 @@ Alternatively, the `help` subcommand can be given a command name. It's the equiv
 of tagging on `--help` at the end of command name:
 
 ```shell
-rabbitmqadmin declare help queue
+rabbitmqadmin queues help declare
 # => creates or declares things
 # =>
 # => Usage: rabbitmqadmin declare [object]
@@ -138,21 +156,60 @@ rabbitmqadmin show overview
 will output a table that looks like this:
 
 ```
-┌──────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Overview                                                                                                             │
-├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ key              │ value                                                                                             │
-├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ Product name     │ RabbitMQ                                                                                          │
-├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ Product version  │ 3.13.7                                                                                            │
-├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ RabbitMQ version │ 3.13.7                                                                                            │
-├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ Erlang version   │ 26.2.5.6                                                                                          │
-├──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ Erlang details   │ Erlang/OTP 26 [erts-14.2.5.5] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit] │
-└──────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Overview                                                                                                                                                            │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ key                                                               │ value                                                                                           │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Product name                                                      │ RabbitMQ                                                                                        │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Product version                                                   │ 4.1.2                                                                                           │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ RabbitMQ version                                                  │ 4.1.2                                                                                           │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Erlang version                                                    │ 27.3.4                                                                                          │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Erlang details                                                    │ Erlang/OTP 27 [erts-15.2.7] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit] │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Connections (total)                                               │ 0                                                                                               │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ AMQP 0-9-1 channels (total)                                       │ 0                                                                                               │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Queues and streams (total)                                        │ 1                                                                                               │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Consumers (total)                                                 │ 0                                                                                               │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Messages (total)                                                  │ 0                                                                                               │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Messages ready for delivery (total)                               │ 0                                                                                               │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Messages delivered but unacknowledged by consumers (total)        │ 0                                                                                               │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Publishing (ingress) rate (global)                                │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Publishing confirm rate (global)                                  │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Consumer delivery (egress) rate (global)                          │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Consumer delivery in automatic acknowledgement mode rate (global) │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Consumer acknowledgement rate (global)                            │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Unroutable messages: returned-to-publisher rate (global)          │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Unroutable messages: dropped rate (global)                        │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Cluster tags                                                      │ "core": "8"                                                                                     │
+│                                                                   │ "env": "development"                                                                            │
+│                                                                   │ "machine": "X8Y33L97DQ"                                                                         │
+│                                                                   │                                                                                                 │
+├───────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Node tags                                                         │ "environment": "production"                                                                     │
+│                                                                   │ "purpose": "iot_ingress"                                                                        │
+│                                                                   │ "region": "ca-central-1"                                                                        │
+│                                                                   │ "series": "4.1.x"                                                                               │
+│                                                                   │                                                                                                 │
+└───────────────────────────────────────────────────────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 As it is easy to observe, parsing such output in a script will be challenging.
@@ -169,12 +226,12 @@ The output of the above command will not include any table borders and will is m
 as a result:
 
 ```
- key
- Product name      RabbitMQ
- Product version   3.13.7
- RabbitMQ version  3.13.7
- Erlang version    26.2.5.6
- Erlang details    Erlang/OTP 26 [erts-14.2.5.5] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit]
+key
+Product name                                                      RabbitMQ
+Product version                                                   4.1.2
+RabbitMQ version                                                  4.1.2
+Erlang version                                                    27.3.4
+Erlang details                                                    Erlang/OTP 27 [erts-15.2.7] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit]
 ```
 
 ### Retrieving Basic Node Information
@@ -244,75 +301,75 @@ rabbitmqadmin --vhost "events" list bindings
 ### Create a Virtual Host
 
 ```shell
-rabbitmqadmin declare vhost --name "vh-789" --default-queue-type "quorum" --description "Used to reproduce issue #789"
+rabbitmqadmin vhosts declare --name "vh-789" --default-queue-type "quorum" --description "Used to reproduce issue #789"
 ```
 
 ### Delete a Virtual Host
 
 ```shell
-rabbitmqadmin delete vhost --name "vh-789"
+rabbitmqadmin vhosts delete --name "vh-789"
 ```
 
 ```shell
 # --idempotently means that 404 Not Found responses will not be  considered errors
-rabbitmqadmin delete vhost --name "vh-789" --idempotently
+rabbitmqadmin vhosts delete --name "vh-789" --idempotently
 ```
 
 
 ### Declare a Queue
 
 ```shell
-rabbitmqadmin --vhost "events" declare queue --name "target.quorum.queue.name" --type "quorum" --durable true
+rabbitmqadmin --vhost "events" queues declare --name "target.quorum.queue.name" --type "quorum" --durable true
 ```
 
 ```shell
-rabbitmqadmin --vhost "events" declare queue --name "target.stream.name" --type "stream" --durable true
+rabbitmqadmin --vhost "events" queues declare --name "target.stream.name" --type "stream" --durable true
 ```
 
 ```shell
-rabbitmqadmin --vhost "events" declare queue --name "target.classic.queue.name" --type "classic" --durable true --auto-delete false
+rabbitmqadmin --vhost "events" queues declare --name "target.classic.queue.name" --type "classic" --durable true --auto-delete false
 ```
 
 ### Purge a queue
 
 ```
-rabbitmqadmin --vhost "events" purge queue --name "target.queue.name"
+rabbitmqadmin --vhost "events" queues purge --name "target.queue.name"
 ```
 
 ### Delete a queue
 
 ``` shell
-rabbitmqadmin --vhost "events" delete queue --name "target.queue.name"
+rabbitmqadmin --vhost "events" queues delete --name "target.queue.name"
 ```
 
 ``` shell
 # --idempotently means that 404 Not Found responses will not be considered errors
-rabbitmqadmin --vhost "events" delete queue --name "target.queue.name" --idempotently
+rabbitmqadmin --vhost "events" queues delete --name "target.queue.name" --idempotently
 ```
 
 ### Declare an Exchange
 
 ```shell
-rabbitmqadmin --vhost "events" declare exchange --name "events.all_types.topic" --type "topic" --durable true
+rabbitmqadmin --vhost "events" exchanges declare --name "events.all_types.topic" --type "topic" --durable true
 ```
 
 ```shell
-rabbitmqadmin --vhost "events" declare exchange --name "events.all_type.uncategorized" --type "fanout" --durable true --auto-delete false
+rabbitmqadmin --vhost "events" exchanges declare --name "events.all_type.uncategorized" --type "fanout" --durable true --auto-delete false
 ```
 
 ```shell
-rabbitmqadmin --vhost "events" declare exchange --name "local.random.c60bda92" --type "x-local-random" --durable true
+rabbitmqadmin --vhost "events" exchanges declare --name "local.random.c60bda92" --type "x-local-random" --durable true
 ```
 
 ### Delete an exchange
 
 ``` shell
-rabbitmqadmin --vhost "events" delete exchange --name "target.exchange.name"
+rabbitmqadmin --vhost "events" exchanges delete --name "target.exchange.name"
 ```
 
 ``` shell
 # --idempotently means that 404 Not Found responses will not be  considered errors
-rabbitmqadmin --vhost "events" delete exchange --name "target.exchange.name" --idempotently
+rabbitmqadmin --vhost "events" exchanges delete --name "target.exchange.name" --idempotently
 ```
 
 ### Inspecting Node Memory Breakdown
@@ -437,6 +494,237 @@ rabbitmqadmin deprecated_features list
 rabbitmqadmin list deprecated_features
 ```
 
+### Export Definitions
+
+To export [definitions](./definitions) to standard output, use `definitions export --stdout`:
+
+```shell
+rabbitmqadmin definitions export --stdout
+```
+
+To export definitions to a file, use `definitions export --file /path/to/definitions.file.json`:
+
+```shell
+rabbitmqadmin definitions export --file /path/to/definitions.file.json
+```
+
+### Export and Transform Definitions
+
+`definitions export` can transform the exported JSON definitions file it gets from the
+target node. This is done by applying one or more transformations to the exported
+JSON file.
+
+This can be useful to remove classic queue mirroring-related keys (such as `ha-mode`) from a definitions
+set originating from a 3.13.x node, or to obfuscate usernames and passwords, or exclude certain definitions file
+sections entirely.
+
+To specify what transformations should be applied, use the `--transformations` options,
+which takes a comma-separated list of  supported operation names.
+
+The following table explains what transformations are available and what they do:
+
+| Transformation name            | Description                                                  |
+|--------------------------------|--------------------------------------------------------------|
+| `strip_cmq_keys_from_policies` | Deletes all classic queue mirroring-related keys (such as `ha-mode`) from all exported policies.<br/><br/>Must be followed by `drop_empty_policies` to strip off the policies whose definition has become empty (and thus invalid at import time) after the removal of all classic queue mirroring-related keys |
+| `drop_empty_policies`          | Should be used after `strip_cmq_keys_from_policies` to strip off the policies whose definition has become empty (and thus invalid at import time) after the removal of all classic queue mirroring-related keys |
+| `obfuscate_usernames`          | Replaces usernames and passwords with dummy values.<br/><br/>For usernames the values used are: `obfuscated-username-1`, `obfuscated-username-2`, and so on.<br/><br/>For passwords the values generated are: `password-1`, `password-2`, and so forth.<br/><br/>This transformations updates both the users and the permissions sections, consistently |
+| `exclude_users`                | Removes all users from the result. Commonly used together with `exclude_permissions` |
+| `exclude_permissions`          | Removes all permissions from the result. Commonly used together with `exclude_users` |
+| `exclude_runtime_parameters`   | Removes all runtime parameters (including federation upstreams, shovels, WSR and SDS settings in Tanzu RabbitMQ) from the result |
+| `exclude_policies`             | Removes all policies from the result                         |
+| `no_op`                        | Does nothing. Can be used as the default in dynamically computed transformation lists, e.g. in scripts |
+
+#### Examples
+
+The following command applies two transformations named `strip_cmq_keys_from_policies` and `drop_empty_policies`
+that will strip all classic queue mirroring-related policy keys that RabbitMQ 3.13 nodes supported,
+then removes the policies that did not have any keys left (ended up having an empty definition):
+
+```shell
+# strips classic mirrored queue-related policy keys from the exported definitions, then prints them
+# to the standard output stream
+rabbitmqadmin definitions export --stdout --transformations strip_cmq_keys_from_policies,drop_empty_policies
+```
+
+The following example exports definitions without users and permissions:
+
+```shell
+# removes users and user permissions from the exported definitions, then prints them
+# to the standard output stream
+rabbitmqadmin definitions export --stdout --transformations exclude_users,exclude_permissions
+```
+
+To export definitions with usernames replaced by dummy values (usernames: `obfuscated-username-1`, `obfuscated-username-2`, and so on;
+passwords: `password-1`, `password-2`, and so forth), use the `obfuscate_usernames` transformation:
+
+```shell
+rabbitmqadmin definitions export --file /path/to/definitions.file.json --transformations obfuscate_usernames
+```
+
+### Import Definition
+
+To import definitions from the standard input, use `definitions import --stdin`:
+
+```shell
+cat /path/to/definitions.file.json | rabbitmqadmin definitions import --stdin
+```
+
+To import definitions from a file, use `definitions import --file /path/to/definitions.file.json`:
+
+```shell
+rabbitmqadmin definitions import --file /path/to/definitions.file.json
+```
+
+### Declare an AMQP 0-9-1 Shovel
+
+To declare a [dynamic shovel](./shovel-dynamic) that uses AMQP 0-9-1 for both source and desitnation, use
+`shovels declare_amqp091`:
+
+```shell
+rabbitmqadmin shovels declare_amqp091 --name my-amqp091-shovel \
+    --source-uri amqp://username:s3KrE7@source.hostname:5672 \
+    --destination-uri amqp://username:s3KrE7@source.hostname:5672 \
+    --ack-mode "on-confirm" \
+    --source-queue "src.queue" \
+    --destination-queue "dest.queue" \
+    --predeclared-source false \
+    --predeclared-destination false
+```
+
+### Declare an AMQP 1.0 Shovel
+
+To declare a [dynamic shovel](./shovel-dynamic) that uses AMQP 1.0 for both source and desitnation, use
+`shovel declare_amqp10`.
+
+Note that
+
+1. With AMQP 1.0 shovels, credentials in the URI are mandatory (there are no defaults)
+2. With AMQP 1.0 shovels, the topology must be pre-declared (an equivalent of `--predeclared-source true` and `--predeclared-destination true` for AMQP 0-9-1 shovels)
+
+```shell
+rabbitmqadmin shovels declare_amqp10 --name my-amqp1.0-shovel \
+    --source-uri "amqp://username:s3KrE7@source.hostname:5672?hostname=vhost:src-vhost" \
+    --destination-uri "amqp://username:s3KrE7@source.hostname:5672?hostname=vhost:dest-vhost" \
+    --ack-mode "on-confirm" \
+    --source-address "/queues/src.queue" \
+    --destination-address "/queues/dest.queue"
+```
+
+### List Shovels
+
+To list shovels across all virtual hosts, use `shovels list_all`:
+
+```shell
+rabbitmqadmin shovels list_all
+```
+
+### Delete a Shovel
+
+To delete a shovel, use `shovels delete --name`:
+
+```shell
+rabbitmqadmin shovels delete --name my-amqp091-shovel
+```
+
+### List Federation Upstreams
+
+To list [federation upstreams](./federation) across all virtual hosts, use `federation list_all_upstreams`:
+
+```shell
+rabbitmqadmin federation list_all_upstreams
+```
+
+### Create a Federation Upstream for Exchange Federation
+
+To create a [federation upstream](./federated-exchanges), use `federation declare_upstream_for_exchanges`.
+This command provides a reduced set of options, only those that are relevant
+specifically to exchange federation.
+
+```shell
+rabbitmqadmin --vhost "local-vhost" federation declare_upstream_for_exchanges --name "pollux" \
+                --uri "amqp://pollux.eng.megacorp.local:5672/remote-vhost" \
+                --ack-mode 'on-publish' \
+                --prefetch-count 2000 \
+                --exchange-name "overridden.name" \
+                --queue-type quorum \
+                --bind-using-nowait true
+```
+
+### Create a Federation Upstream for Queue Federation
+
+To create a [federation upstream](./federated-queues), use `declare_upstream_for_queues`.
+This command provides a reduced set of options, only those that are relevant
+specifically to queue federation.
+
+```shell
+rabbitmqadmin --vhost "local-vhost" federation declare_upstream_for_queues --name "clusters.sirius" \
+                --uri "amqp://sirius.eng.megacorp.local:5672/remote-vhost" \
+                --ack-mode 'on-publish' \
+                --prefetch-count 2000 \
+                --queue-name "overridden.name" \
+                --consumer-tag "overriden.ctag"
+```
+
+### Create a Universal Federation Upstream
+
+To create a [federation upstream](./federation) that will be (or can be)
+used for federating both queues and exchanges, use `declare_upstream`. It combines
+[all the federation options](./federation-reference), that is,
+the options of both `declare_upstream_for_queues` and `declare_upstream_for_exchanges`.
+
+```shell
+rabbitmqadmin --vhost "local-vhost" federation declare_upstream --name "pollux" \
+                --uri "amqp://pollux.eng.megacorp.local:5672/remove-vhost" \
+                --ack-mode 'on-publish' \
+                --prefetch-count 2000 \
+                --queue-name "overridden.name" \
+                --consumer-tag "overriden.ctag" \
+                --exchange-name "overridden.name" \
+                --queue-type quorum \
+                --bind-using-nowait true
+```
+
+### Delete a Federation Upstream
+
+To delete a [federation upstream](./federation), use 'federation delete_upstream',
+which takes a virtual host and an upstream name:
+
+```shell
+rabbitmqadmin --vhost "local-vhost" federation delete_upstream --name "upstream.to.delete"
+```
+
+### List Federation Links
+
+To list all [federation links](./federation) across all virtual hosts, use `federation list_all_links`:
+
+```shell
+rabbitmqadmin federation list_all_links
+```
+
+
+## Subcommand and Long Option Inference
+
+This feature is available only in the `main` branch
+at the moment.
+
+If the `RABBITMQADMIN_NON_INTERACTIVE_MODE` is not set to `true`, this tool
+now can infer subcommand and --long-option names.
+
+This means that a subcommand can be referenced with its unique prefix,
+that is,
+
+* 'queues del' will be inferred as 'queues delete'
+* 'q del --nam "a.queue"' will be inferred as 'queues delete --name "a.queue"'
+
+To enable each feature, set the following environment variables to
+'true':
+
+* `RABBITMQADMIN_INFER_SUBCOMMANDS`
+* `RABBITMQADMIN_INFER_LONG_OPTIONS`
+
+This feature is only meant to be used interactively. For non-interactive
+use, it can be potentially too dangerous to allow.
+
 
 ## Configuration Files
 
@@ -502,14 +790,14 @@ rabbitmqadmin --config $HOME/.configuration/rabbitmqadmin.conf --node staging sh
 
 ```shell
 # Note: auto_delete
-rabbitmqadmin-v1 --vhost "vh-2" declare queue name="qq.1" type="quorum" durable=true auto_delete=false
+rabbitmqadmin-v1 --vhost "vh-2" queues declare name="qq.1" type="quorum" durable=true auto_delete=false
 ```
 
 `rabbitmqadmin` v2 uses a more typical `--snake-case` format for the same arguments:
 
 ```shell
 # Note: --auto-delete
-rabbitmqadmin --vhost "vh-2" declare queue --name "qq.1" --type "quorum" --durable true --auto-delete false
+rabbitmqadmin --vhost "vh-2" queues declare --name "qq.1" --type "quorum" --durable true --auto-delete false
 ```
 
 ### Global Arguments Come First
@@ -518,7 +806,7 @@ Global flags in `rabbitmqadmin` v2 must precede the command category (e.g. `list
 namely various HTTP API endpoint options and `--vhost`:
 
 ```shell
-rabbitmqadmin --vhost "events" declare queue --name "target.quorum.queue.name" --type "quorum" --durable true
+rabbitmqadmin --vhost "events" queues declare --name "target.quorum.queue.name" --type "quorum" --durable true
 ```
 
 ### --prefix Overrides API Path Prefix
@@ -583,4 +871,4 @@ active development.
 the management plugin enabled. Navigate to `http://{hostname}:15672/cli/rabbitmqadmin` to download it.
 The tool requires a supported version of Python to be installed.
 
-Alternatively, `rabbitmqadmin` v1 can be downloaded [from GitHub](https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/v3.13.x/deps/rabbitmq_management/bin/rabbitmqadmin).
+Alternatively, `rabbitmqadmin` v1 can be downloaded [from GitHub](https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/v4.1.x/deps/rabbitmq_management/bin/rabbitmqadmin).
