@@ -25,7 +25,7 @@ import TabItem from '@theme/TabItem';
 
 ## Overview {#overview}
 
-Nodes and clusters store information that can be thought of schema, metadata or topology.
+Nodes and clusters store information that can be thought of as schema, metadata or topology.
 Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into this category.
 This metadata is called **definitions** in RabbitMQ parlance.
 

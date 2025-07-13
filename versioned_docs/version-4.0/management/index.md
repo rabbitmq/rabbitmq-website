@@ -1239,11 +1239,11 @@ management.sample_retention_policies.detailed.10 = 5
 
 ## Loading Definitions (Schema) at Startup {#load-definitions}
 
-Nodes and clusters store information that can be thought of schema, metadata or topology.
+Nodes and clusters store information that can be thought of as schema, metadata or topology.
 Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into this category.
 
-Definitions can be exported and imported via the [`rabbitmqctl`](./cli) or the HTTP API
-provided by this plugin, including `rabbitmqadmin`.
+Definitions can be exported and imported via [`rabbitmqctl`](./cli), [`rabbitmqadmin`](./management-cli) or the HTTP API
+provided by this plugin.
 
 Please refer to the [Definitions guide](./definitions).
 

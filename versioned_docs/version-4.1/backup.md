@@ -47,7 +47,7 @@ messages.
 
 ### Definitions (Topology) {#rabbitmq-definitions}
 
-Nodes and clusters store information that can be thought of schema, metadata or topology.
+Nodes and clusters store information that can be thought of as schema, metadata or topology.
 Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into this category.
 
 Definitions can be [exported and imported](./definitions) as JSON files.
