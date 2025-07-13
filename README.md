@@ -8,10 +8,10 @@ This repository contains the source code of the RabbitMQ website, rabbitmq.com.
 ### TL;DR
 
 This repository contains documentation guides for multiple RabbitMQ release series.
-At the moment they are `4.1.x` (in development), `4.0.x`, and `3.13.x`.
+At the moment they are `4.2.x` (in development), `4.1.x`, `4.0.x`, and `3.13.x`.
 
 Therefore, the very first question to consder before making any changes is:
-what versions does my change apply to? Should I update just the `4.1.x` version,
+what versions does my change apply to? Should I update just the `4.2.x` version,
 all `4.x` ones or even `3.13.x`?
 
 Here is a summary of which version of the documentation corresponds to which
