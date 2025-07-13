@@ -66,37 +66,73 @@ parameters to an upstream broker.
 Virtual host-scoped parameters can be set, cleared and listed:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # sets a runtime parameter in a virtual host
 rabbitmqctl set_parameter [-p vhost] <component_name> <name> <value>
 
-# clears (unsets) a runtime parameter in a virtual host
-rabbitmqctl clear_parameter [-p vhost] <component_name> <name>
-
 # lists runtime parameters in a virtual host
 rabbitmqctl list_parameters [-p vhost]
+
+# clears (unsets) a runtime parameter in a virtual host
+rabbitmqctl clear_parameter [-p vhost] <component_name> <name>
 ```
 </TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# sets a runtime parameter in a virtual host
+rabbitmqadmin --vhost "vhost-1" parameters set \
+        --component "federation-upstream" \
+        --name "upstream-1" \
+        --value '{"uri": "amqp://target.hostname/vhost"}'
+
+# lists runtime parameters in a virtual host
+rabbitmqadmin --vhost "vhost-1"  parameters list
+
+# clears (unsets) a runtime parameter in a virtual host
+rabbitmqadmin --vhost "vhost-1"  parameters clear \
+    --component "federation-upstream" \
+    --name "upstream-1"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 # sets a runtime parameter in a virtual host
 rabbitmqctl.bat set_parameter [-p vhost] <component_name> <name> <value>
 
-# clears (unsets) a runtime parameter in a virtual host
-rabbitmqctl.bat clear_parameter [-p vhost] <component_name> <name>
-
 # lists runtime parameters in a virtual host
 rabbitmqctl.bat list_parameters [-p vhost]
+
+# clears (unsets) a runtime parameter in a virtual host
+rabbitmqctl.bat clear_parameter [-p vhost] <component_name> <name>
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# sets a runtime parameter in a virtual host
+rabbitmqadmin.exe parameters set ^
+        --component "federation-upstream" ^
+        --name "upstream-1" ^
+        --value "{""uri"": ""amqp://target.hostname/vhost""}"
+
+# lists runtime parameters in a virtual host
+rabbitmqadmin.exe --vhost "vhost-1"  parameters list
+
+# clears (unsets) a runtime parameter in a virtual host
+rabbitmqadmin.exe --vhost "vhost-1"  parameters clear ^
+    --component "federation-upstream" ^
+    --name "upstream-1"
 ```
 </TabItem>
 
 <TabItem value="HTTP API" label="HTTP API">
 ```ini
 PUT /api/parameters/{component_name}/{vhost}/{name}
-DELETE /api/parameters/{component_name}/{vhost}/{name}
 GET /api/parameters
+DELETE /api/parameters/{component_name}/{vhost}/{name}
 ```
 </TabItem>
 </Tabs>
@@ -109,37 +145,63 @@ An example of a global parameter is the name of the cluster.
 Global parameters can be set, cleared and listed:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # sets a global (virtual-host-independent) runtime parameter
 rabbitmqctl set_global_parameter <name> <value>
 
-# clears (unsets) a global (virtual-host-independent) runtime parameter
-rabbitmqctl clear_global_parameter <name>
-
 # lists global (virtual-host-independent) runtime parameters
 rabbitmqctl list_global_parameters
+
+# clears (unsets) a global (virtual-host-independent) runtime parameter
+rabbitmqctl clear_global_parameter <name>
 ```
 </TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# sets a global (virtual-host-independent) runtime parameter
+rabbitmqadmin global_parameters set --name "cluster_tags" --value '{"region": "ca-central-1"}'
+
+# lists global (virtual-host-independent) runtime parameters
+rabbitmqadmin global_parameters list
+
+# clears (unsets) a global (virtual-host-independent) runtime parameter
+rabbitmqadmin global_parameters clear --name "cluster_tags"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 # sets a global (virtual-host-independent) runtime parameter
 rabbitmqctl.bat set_global_parameter <name> <value>
 
-# clears (unsets) a global (virtual-host-independent) runtime parameter
-rabbitmqctl.bat clear_global_parameter <name>
-
 # lists global (virtual-host-independent) runtime parameters
 rabbitmqctl.bat list_global_parameters
+
+# clears (unsets) a global (virtual-host-independent) runtime parameter
+rabbitmqctl.bat clear_global_parameter <name>
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# sets a global (virtual-host-independent) runtime parameter
+rabbitmqadmin.exe global_parameters set --name "cluster_tags" --value "{""region"": ""ca-central-1""}"
+
+# lists global (virtual-host-independent) runtime parameters
+rabbitmqadmin.exe global_parameters list
+
+# clears (unsets) a global (virtual-host-independent) runtime parameter
+rabbitmqadmin.exe global_parameters clear --name "cluster_tags"
 ```
 </TabItem>
 
 <TabItem value="HTTP API" label="HTTP API">
 ```ini
 PUT /api/global-parameters/name
-DELETE /api/global-parameters/name
 GET /api/global-parameters
+DELETE /api/global-parameters/name
 ```
 </TabItem>
 </Tabs>
@@ -170,13 +232,13 @@ Cluster name stored using global runtime parameters. It can be
 updated using a dedicated CLI command.
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_cluster_name rabbit@id-3942837
 ```
 </TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl.bat set_cluster_name rabbit@id-3942837
 ```
@@ -201,19 +263,24 @@ cluster_tags.environment = production
 ```
 
 To retrieve a list of tags, list global runtime parametersor fetch a global runtime parameter
-named `cluster_tags`, or use [`rabbitmqadmin` v2](./management-cli)'s `snow overview`command.
+named `cluster_tags`, or use [`rabbitmqadmin` v2](./management-cli)'s `snow overview` command.
 
 <Tabs groupId="examples">
-<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
-```bash
-rabbitmqadmin show overview
-```
-</TabItem>
-
-<TabItem value="bash" label="bash">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # lists global (virtual-host-independent) runtime parameters
 rabbitmqctl list_global_parameters
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# lists global (virtual-host-independent) runtime parameters
+rabbitmqadmin global_parameters list
+
+# another command that includes certain global parameters in its
+# output, namely node and cluster tags
+rabbitmqadmin show overview
 ```
 </TabItem>
 
@@ -221,6 +288,17 @@ rabbitmqctl list_global_parameters
 ```PowerShell
 # lists global (virtual-host-independent) runtime parameters
 rabbitmqctl.bat list_global_parameters
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```bash
+# lists global (virtual-host-independent) runtime parameters
+rabbitmqadmin.exe global_parameters list
+
+# another command that includes certain global parameters in its
+# output, namely node and cluster tags
+rabbitmqadmin.exe show overview
 ```
 </TabItem>
 
