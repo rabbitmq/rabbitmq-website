@@ -18,6 +18,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Schema Definition Export and Import
 
 ## Overview {#overview}
@@ -44,8 +47,8 @@ Definition import on node boot is the recommended way of [pre-configuring nodes 
 Definitions are exported as a JSON file in a number of ways.
 
  * [`rabbitmqctl export_definitions`](./cli) is the only option that does not require [management plugin](./management) to be enabled
+ * [`rabbitmqadmin definitions export`](./management-cli) which uses the [HTTP API](./management#http-api)
  * The `GET /api/definitions` API endpoint
- * [`rabbitmqadmin export`](./management-cli) which uses the above HTTP API endpoint
  * There's a definitions pane on the Overview page
 
 Definitions can be exported for a specific [virtual host](./vhosts) or the entire cluster (all virtual host).
@@ -58,18 +61,40 @@ user records should be **considered sensitive information**.
 
 To export definitions using [`rabbitmqctl`](./cli), use `rabbitmqctl export_definitions`:
 
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # Does not require management plugin to be enabled
 rabbitmqctl export_definitions /path/to/definitions.file.json
 ```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+# Does not require management plugin to be enabled
+rabbitmqctl.bat export_definitions /path/to/definitions.file.json
+```
+</TabItem>
+</Tabs>
 
 `rabbitmqadmin export` is very similar but uses the HTTP API and is compatible
 with older versions:
 
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
 ```bash
 # Requires management plugin to be enabled
-rabbitmqadmin export /path/to/definitions.file.json
+rabbitmqadmin definitions export /path/to/definitions.file.json
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```bash
+# Requires management plugin to be enabled
+rabbitmqadmin.exe definitions export /path/to/definitions.file.json
+```
+</TabItem>
+</Tabs>
 
 In this example, the `GET /api/definitions` endpoint is used directly to export
 definitions of all virtual hosts in a cluster:
@@ -93,22 +118,96 @@ for more human-friendly formatting:
 curl -u {username}:{password} -X GET http://{hostname}:15672/api/definitions | jq
 ```
 
+## Export and Transform Definitions
+
+[`rabbitmqadmin` v2](./management-cli/) provides a way to export definitions
+and apply one or more standard transformation functions to the result.
+
+This can be useful to remove classic queue mirroring-related keys (such as `ha-mode`) from a definitions
+set originating from a 3.13.x node, or to obfuscate usernames and passwords, or exclude certain definitions file
+sections entirely.
+
+To specify what transformations should be applied, use the `--transformations` options,
+which takes a comma-separated list of  supported operation names.
+
+The following table explains what transformations are available and what they do:
+
+| Transformation name            | Description                                                  |
+|--------------------------------|--------------------------------------------------------------|
+| `strip_cmq_keys_from_policies` | Deletes all classic queue mirroring-related keys (such as `ha-mode`) from all exported policies.<br/><br/>Must be followed by `drop_empty_policies` to strip off the policies whose definition has become empty (and thus invalid at import time) after the removal of all classic queue mirroring-related keys |
+| `drop_empty_policies`          | Should be used after `strip_cmq_keys_from_policies` to strip off the policies whose definition has become empty (and thus invalid at import time) after the removal of all classic queue mirroring-related keys |
+| `obfuscate_usernames`          | Replaces usernames and passwords with dummy values.<br/><br/>For usernames the values used are: `obfuscated-username-1`, `obfuscated-username-2`, and so on.<br/><br/>For passwords the values generated are: `password-1`, `password-2`, and so forth.<br/><br/>This transformations updates both the users and the permissions sections, consistently |
+| `exclude_users`                | Removes all users from the result. Commonly used together with `exclude_permissions` |
+| `exclude_permissions`          | Removes all permissions from the result. Commonly used together with `exclude_users` |
+| `exclude_runtime_parameters`   | Removes all runtime parameters (including federation upstreams, shovels, WSR and SDS settings in Tanzu RabbitMQ) from the result |
+| `exclude_policies`             | Removes all policies from the result                         |
+| `no_op`                        | Does nothing. Can be used as the default in dynamically computed transformation lists, e.g. in scripts |
+
+### Examples
+
+The following command applies two transformations named `strip_cmq_keys_from_policies` and `drop_empty_policies`
+that will strip all classic queue mirroring-related policy keys that RabbitMQ 3.13 nodes supported,
+then removes the policies that did not have any keys left (ended up having an empty definition):
+
+```shell
+# strips classic mirrored queue-related policy keys from the exported definitions, then prints them
+# to the standard output stream
+rabbitmqadmin definitions export --stdout --transformations strip_cmq_keys_from_policies,drop_empty_policies
+```
+
+The following example exports definitions without users and permissions:
+
+```shell
+# removes users and user permissions from the exported definitions, then prints them
+# to the standard output stream
+rabbitmqadmin definitions export --stdout --transformations exclude_users,exclude_permissions
+```
+
+To export definitions with usernames replaced by dummy values (usernames: `obfuscated-username-1`, `obfuscated-username-2`, and so on;
+passwords: `password-1`, `password-2`, and so forth), use the `obfuscate_usernames` transformation:
+
+```shell
+rabbitmqadmin definitions export --file /path/to/definitions.file.json --transformations obfuscate_usernames
+```
+
 
 ## Definition Import {#import}
 
 To import definitions using [`rabbitmqctl`](./cli), use `rabbitmqctl import_definitions`:
 
-```ini
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
+```bash
 # Does not require management plugin to be enabled
 rabbitmqctl import_definitions /path/to/definitions.file.json
 ```
+</TabItem>
 
-`rabbitmqadmin import` is its HTTP API equivalent:
-
-```ini
-# Requires management plugin to be enabled
-rabbitmqadmin import /path/to/definitions.file.json
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+# Does not require management plugin to be enabled
+rabbitmqctl.bat import_definitions /path/to/definitions.file.json
 ```
+</TabItem>
+</Tabs>
+
+`rabbitmqadmin definitions import` is its HTTP API equivalent:
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Requires management plugin to be enabled
+rabbitmqadmin definitions import /path/to/definitions.file.json
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```bash
+# Requires management plugin to be enabled
+rabbitmqadmin.exe definitions import /path/to/definitions.file.json
+```
+</TabItem>
+</Tabs>
 
 It is also possible to use the `POST /api/definitions` API endpoint directly:
 
@@ -246,5 +345,5 @@ rabbitmqctl import_definitions /path/to/definitions.file.json
 
 # OR, import using rabbitmqadmin
 # Requires management plugin to be enabled
-rabbitmqadmin import /path/to/definitions.file.json
+rabbitmqadmin definitions import /path/to/definitions.file.json
 ```
