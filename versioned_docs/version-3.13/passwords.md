@@ -60,19 +60,6 @@ Updated hashing algorithm will be applied to newly created users
 or when password is changed using [rabbitmqctl](./man/rabbitmqctl.8).
 
 
-## Upgrading from pre-3.6.0 Versions {#upgrading-to-3-6-x}
-
-When upgrading from a pre-3.6 version to RabbitMQ 3.6.1 or later,
-all existing users are marked as using the legacy password hashing function,
-therefore they will be able to authenticate. No upgrade steps are required.
-
-When importing definitions exported from versions earlier than
-3.6.0 into a 3.6.1 or later release, existing user records will use
-MD5 for password hashing. In order to migrate them to a more secure algorithm,
-use [rabbitmqctl](./man/rabbitmqctl.8) or [definition import](./definitions)
-with an updated hash to update their passwords.
-
-
 ## Credential Validation {#credential-validation}
 
 RabbitMQ supports credential validators. The validator only has an effect on the internal
@@ -143,7 +130,7 @@ rabbitmqctl clear_password passwordless-user
 # ...
 ```
 
-Starting with versions `3.6.15` and `3.7.3`, authentication attempts that use a blank password
+Authentication attempts that use a blank password
 will be unconditionally rejected by the [internal authentication backend](./access-control) with a distinctive error
 message in the [server log](./logging). Connections that authenticate using x509 certificates or use an external service
 for authentication (e.g. [LDAP](./ldap)) can use blank passwords.
@@ -169,14 +156,28 @@ To do so:
 Sometimes it is necessary to compute a user's password hash for updating via the [HTTP API](./management)
 or to generate a [definitions file](./definitions) to import.
 
-### Hash via `rabbitmqctl`
+### Hash via [`rabbitmqctl`](./cli)
 
 ```bash
 rabbitmqctl hash_password foobarbaz
 
-# Output:
+# Outputs
 # Will hash password foobarbaz
 # 27cx5+wEi8R8uwTeTr3hk5azuV3yYxxAtwPPhCyrbdsxVhqq
+```
+
+### Hash via [`rabbitmqadmin`](./management-cli)
+
+```bash
+rabbitmqadmin passwords salt_and_hash foobarbaz
+# Outputs
+# ┌───────────────┬──────────────────────────────────────────────────┐
+# │ Result                                                           │
+# ├───────────────┼──────────────────────────────────────────────────┤
+# │ key           │ value                                            │
+# ├───────────────┼──────────────────────────────────────────────────┤
+# │ password hash │ 5ZbXJB3OWQlCzUNybwJ/XcL6ZqJA9zNQvXlwYnWQikQSP3lz │
+# └───────────────┴──────────────────────────────────────────────────┘
 ```
 
 ### Hash via HTTP API

@@ -156,14 +156,28 @@ To do so:
 Sometimes it is necessary to compute a user's password hash for updating via the [HTTP API](./management)
 or to generate a [definitions file](./definitions) to import.
 
-### Hash via `rabbitmqctl`
+### Hash via [`rabbitmqctl`](./cli)
 
 ```bash
 rabbitmqctl hash_password foobarbaz
 
-# Output:
+# Outputs
 # Will hash password foobarbaz
 # 27cx5+wEi8R8uwTeTr3hk5azuV3yYxxAtwPPhCyrbdsxVhqq
+```
+
+### Hash via [`rabbitmqadmin`](./management-cli)
+
+```bash
+rabbitmqadmin passwords salt_and_hash foobarbaz
+# Outputs
+# ┌───────────────┬──────────────────────────────────────────────────┐
+# │ Result                                                           │
+# ├───────────────┼──────────────────────────────────────────────────┤
+# │ key           │ value                                            │
+# ├───────────────┼──────────────────────────────────────────────────┤
+# │ password hash │ 5ZbXJB3OWQlCzUNybwJ/XcL6ZqJA9zNQvXlwYnWQikQSP3lz │
+# └───────────────┴──────────────────────────────────────────────────┘
 ```
 
 ### Hash via HTTP API
