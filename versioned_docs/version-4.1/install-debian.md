@@ -119,7 +119,7 @@ apt repositories:
      <td>27.x</td>
      <td>
        <ul>
-        <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad. Only `amd64` packages are available for Erlang 27 at the moment.</li>
+        <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad.</li>
         <li><a href="#apt-cloudsmith">Debian packages of Erlang</a> from Team RabbitMQ. Provides `amd64` packages only.</li>
        </ul>
      </td>
