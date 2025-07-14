@@ -41,24 +41,24 @@ However, the [versions included](https://packages.ubuntu.com/search?keywords=rab
 many releases behind [latest RabbitMQ releases](/release-information)
 and may provide RabbitMQ versions that are already [out of support](/release-information).
 
-Team RabbitMQ produces our own Debian packages and distributes them [using Cloudsmith](#apt-cloudsmith).
+Team RabbitMQ produces our own Debian packages and distributes them [using Team RabbitMQ's apt repositories](#apt-quick-start).
 
 Key sections of this guide are
 
  * [Ways of installing](#installation-methods) the latest RabbitMQ version on Debian and Ubuntu
  * [Supported Ubuntu and Debian distributions](#supported-distributions)
  * [Privilege requirements](#sudo-requirements)
- * Quick start installation snippet that [uses a Cloudsmith mirror](#apt-quick-start-cloudsmith) repositories
+ * Quick start installation snippet that [uses Team RabbitMQ's apt repositories](#apt-quick-start) repositories
  * [Manage the service](#managing-service) (start it, stop it, and get its status)
  * How to [inspect node and service logs](#server-logs)
 
 [Supported Erlang versions](./which-erlang) will be provisioned from one of the [modern Erlang apt repositories](#erlang-repositories)
-on [Launchpad](https://launchpad.net/~rabbitmq) or a [Cloudsmith.io](#apt-cloudsmith) mirror.
+on [Launchpad](https://launchpad.net/~rabbitmq) or [Team RabbitMQ's apt repositories](#apt-repositories).
 
 Those looking for a more detailed description of the installation steps performed
 should refer to
 
-* Manual installation using [apt and the Cloudsmith](#apt-cloudsmith) repository
+* Manual installation using [apt and the Team RabbitMQ's apt repositories](#apt-repositories) repository
 
 More advanced topics include
 
@@ -69,7 +69,7 @@ More advanced topics include
 ### With Apt
 
 Currently, the recommended option for installing modern RabbitMQ on Debian and Ubuntu
-is using apt repositories [on a Cloudsmith mirror](#apt-cloudsmith) ([quick start script](#apt-quick-start-cloudsmith)).
+is using Team RabbitMQ's apt repositories ([quick start script](#apt-quick-start), more detailed [step-by-step instructions](#apt-repositories)).
 
 The repositories provide a [modern version of Erlang](./which-erlang). Alternatively, the latest
 version of Erlang is available [via a Launchpad PPA and other repositories](#erlang-repositories).
@@ -120,7 +120,7 @@ apt repositories:
      <td>
        <ul>
         <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad. Provides `arm64` (`aarch64`) packages</li>
-        <li><a href="#apt-cloudsmith">Debian packages of Erlang</a> from Team RabbitMQ. Provides `amd64` packages only.</li>
+        <li><a href="#apt-repositories">Debian packages of Erlang</a> from Team RabbitMQ. Provides `amd64` packages only.</li>
        </ul>
      </td>
      <td>
@@ -135,7 +135,7 @@ apt repositories:
        <ul>
         <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad</li>
         <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a></li>
-        <li><a href="#apt-cloudsmith">Debian packages of Erlang</a> from Team RabbitMQ on Cloudsmith.io</li>
+        <li><a href="#apt-repositories">Debian packages of Erlang</a> from Team RabbitMQ on Cloudsmith.io</li>
        </ul>
      </td>
      <td>
@@ -147,13 +147,13 @@ apt repositories:
 </table>
 
 This guide will focus on the Debian repositories maintained by Team RabbitMQ <a href="#apt-launchpad-erlang">on Launchpad</a>
-and <a href="#apt-cloudsmith-erlang">on Cloudsmith.io</a>.
+and <a href="#apt-repositories-erlang">on Cloudsmith.io</a>.
 
 
-## Apt with Cloudsmith Mirrors: a Quick Start Script {#apt-quick-start-cloudsmith}
+## Apt with Team RabbitMQ's Repositories: a Quick Start Script {#apt-quick-start}
 
 Below is a shell snippet that performs the steps explained in this guide. It provisions
-RabbitMQ and Erlang from a [Team RabbitMQ-hosted](#apt-cloudsmith) apt repository.
+RabbitMQ and Erlang from a [Team RabbitMQ-hosted](#apt-repositories) apt repository.
 
 :::important
 
@@ -403,7 +403,7 @@ sudo apt-get update -y
 ## For versions not compatible with the latest available Erlang series, which is the case
 ## for 3.13.x, apt must be instructed to install specifically Erlang 26.
 ## Alternatively this can be done via version pinning, documented further in this guide.
-supported_erlang_version="1:26.2.5.10-1"
+supported_erlang_version="1:26.2.5.13-1"
 sudo apt-get install -y erlang-base=$supported_erlang_version \
                         erlang-asn1=$supported_erlang_version \
                         erlang-crypto=$supported_erlang_version \
@@ -495,7 +495,7 @@ sudo apt-get install rabbitmq-server -y --fix-missing
 </Tabs>
 
 
-## Using Apt with Cloudsmith Mirrors {#apt-cloudsmith}
+## Using Apt with Cloudsmith Mirrors {#apt-repositories}
 
 Team RabbitMQ maintains two [apt repositories on Cloudsmith](https://cloudsmith.io/~rabbitmq/repos/),
 a package hosting service. They provide packages for most recent RabbitMQ and modern Erlang releases.
@@ -519,14 +519,14 @@ sudo apt-get install curl gnupg -y
 
 ### Enable apt HTTPS Transport
 
-In order for apt to be able to download RabbitMQ and Erlang packages from the Cloudsmith.io mirror or Launchpad,
+In order for apt to be able to download RabbitMQ and Erlang packages from the Team RabbitMQ apt repositories or Launchpad,
 the `apt-transport-https` package must be installed:
 
 ```bash
 sudo apt-get install apt-transport-https
 ```
 
-### Add Repository Signing Keys {#cloudsmith-signing-keys}
+### Add Repository Signing Keys {#signing-keys}
 
 Cloudsmith signs distributed packages using their own GPG keys, one per repository.
 Team RabbitMQ's mirrors have the same contents, therefore, the packages
@@ -565,7 +565,7 @@ The contents of the file will vary slightly based on the distribution used.
 <TabItem value="ubuntu-noble" label="Ubuntu 24.04" default>
 ```bash
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Provides modern Erlang/OTP releases from a Cloudsmith mirror
+## Provides modern Erlang/OTP releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/ubuntu noble main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/ubuntu noble main
@@ -574,7 +574,7 @@ deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://pp
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa2.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/ubuntu noble main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa2.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/ubuntu noble main
 
-## Provides RabbitMQ from a Cloudsmith mirror
+## Provides modern RabbitMQ releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.9F4587F226208342.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-server/deb/ubuntu noble main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.9F4587F226208342.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-server/deb/ubuntu noble main
@@ -589,7 +589,7 @@ EOF
 <TabItem value="ubuntu-jammy" label="Ubuntu 22.04">
 ```bash
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Provides modern Erlang/OTP releases from a Cloudsmith mirror
+## Provides modern Erlang/OTP releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/ubuntu jammy main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/ubuntu jammy main
@@ -598,7 +598,7 @@ deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://pp
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa2.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/ubuntu jammy main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa2.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/ubuntu jammy main
 
-## Provides RabbitMQ from a Cloudsmith mirror
+## Provides modern RabbitMQ releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.9F4587F226208342.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-server/deb/ubuntu jammy main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.9F4587F226208342.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-server/deb/ubuntu jammy main
@@ -613,7 +613,7 @@ EOF
 <TabItem value="ubuntu-focal" label="Ubuntu 20.04">
 ```bash
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Provides modern Erlang/OTP releases from a Cloudsmith mirror
+## Provides modern Erlang/OTP releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/ubuntu focal main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/ubuntu focal main
@@ -622,7 +622,7 @@ deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://pp
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa2.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/ubuntu focal main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa2.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/ubuntu focal main
 
-## Provides RabbitMQ from a Cloudsmith mirror
+## Provides modern RabbitMQ releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.9F4587F226208342.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-server/deb/ubuntu focal main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.9F4587F226208342.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-server/deb/ubuntu focal main
@@ -637,7 +637,7 @@ EOF
 <TabItem value="debian-bookworm" label="Debian Bookworm">
 ```bash
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Provides modern Erlang/OTP releases from a Cloudsmith mirror
+## Provides modern Erlang/OTP releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/debian bookworm main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/debian bookworm main
@@ -646,7 +646,7 @@ deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://pp
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa2.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/debian bookworm main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa2.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/debian bookworm main
 
-## Provides RabbitMQ from a Cloudsmith mirror
+## Provides modern RabbitMQ releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.9F4587F226208342.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-server/deb/debian bookworm main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.9F4587F226208342.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-server/deb/debian bookworm main
@@ -661,7 +661,7 @@ EOF
 <TabItem value="debian-bullseye" label="Debian Bullseye">
 ```bash
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Provides modern Erlang/OTP releases from a Cloudsmith mirror
+## Provides modern Erlang/OTP releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/debian bullseye main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/debian bullseye main
@@ -670,7 +670,7 @@ deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://pp
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa2.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/debian bullseye main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa2.rabbitmq.com/rabbitmq/rabbitmq-erlang/deb/debian bullseye main
 
-## Provides RabbitMQ from a Cloudsmith mirror
+## Provides modern RabbitMQ releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/rabbitmq.9F4587F226208342.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-server/deb/debian bullseye main
 deb-src [signed-by=/usr/share/keyrings/rabbitmq.9F4587F226208342.gpg] https://ppa1.rabbitmq.com/rabbitmq/rabbitmq-server/deb/debian bullseye main
@@ -825,7 +825,7 @@ sudo dpkg -i ${RabbitMQServerPackageFilename({packageType: 'debian'})}
 rm ${RabbitMQServerPackageFilename({packageType: 'debian'})}`}
 </CodeBlock>
 
-Installation via [apt repositories](#apt-cloudsmith) is recommended
+Installation via [apt repositories](#apt-repositories) is recommended
 over downloading the package directly and installing via `dpkg -i`. When the RabbitMQ
 package is installed manually with `dpkg -i` the operator is responsible for making sure
 that all package dependencies are met.
@@ -1080,7 +1080,7 @@ By default, the package will set up `logrotate` to run weekly on files located i
 ## Install Erlang from an Apt Repository (PPA) on Launchpad {#apt-launchpad-erlang}
 
 This additional section covers installation of modern Erlang packages from Launchpad. To install
-modern Erlang and RabbitMQ, please refer to [Install RabbitMQ from a Cloudsmith mirror](#apt-cloudsmith).
+modern Erlang and RabbitMQ, please refer to [Install RabbitMQ from Team RabbitMQ's apt repositories](#apt-repositories).
 
 ### Modern Erlang on Ubuntu
 
@@ -1093,9 +1093,10 @@ Standard Debian and Ubuntu repositories tend to provide outdated versions of Erl
 several apt repositories that includes [packages of latest Erlang/OTP releases](https://launchpad.net/~rabbitmq/)
 on Launchpad:
 
- * For [the latest Erlang](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang) major (currently 27.x but also includes 26.x packages)
- * For [Erlang 26.2.x](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang-26)
- * For [Erlang 25.3.x](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang-25)
+ * For [the latest Erlang](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang) major supported by RabbitMQ
+ * For [Erlang 27.x](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang-27)
+ * For [Erlang 26.x](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang-26)
+ * For [Erlang 25.x](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang-25)
 
 The Erlang repositores on Launchpad currently target the following Ubuntu distributions:
 
@@ -1135,7 +1136,7 @@ See the [guide on signatures](./signatures) to learn more.
 
 ### Enable apt HTTPS Transport {#erlang-apt-https-transport}
 
-In order for apt to be able to download RabbitMQ and Erlang packages from the Cloudsmith.io mirror or Launchpad,
+In order for apt to be able to download RabbitMQ and Erlang packages from the Team RabbitMQ apt repositories or Launchpad,
 the `apt-transport-https` package must be installed:
 
 ```bash

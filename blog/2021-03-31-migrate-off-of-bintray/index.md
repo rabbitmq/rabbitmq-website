@@ -77,7 +77,7 @@ a new home in a [Launchpad PPA](https://launchpad.net/~rabbitmq/+archive/ubuntu/
 While Launchpad is an Ubuntu-oriented service, it can also be [used as a regular apt repository](/docs/install-debian#apt-launchpad-erlang)
 by Debian users.
 
-These packages are also [available from Cloudsmith.io](/docs/install-debian#apt-cloudsmith).
+These packages are also [available from Cloudsmith.io](/docs/install-debian#apt-repositories).
 
 In order to migrate, remove the existing `.list` file under `/etc/apt/sources.list.d` and install a new one
 as explained in the [Debian installation doc guide](/docs/install-debian).
@@ -97,7 +97,7 @@ and re-install the packages.
 
 The options available for RabbitMQ Debian packages are as follows:
 
- * Using an [apt repository on PackageCloud](/docs/install-debian#apt-cloudsmith), including a [quick start example](/docs/install-debian#apt-quick-start-cloudsmith)
+ * Using an [apt repository on PackageCloud](/docs/install-debian#apt-repositories), including a [quick start example](/docs/install-debian#apt-quick-start)
  * Using a [direct download](/docs/install-debian#manual-installation) from GitHub and installing its [dependencies](/docs/install-debian#manual-installation) the local package using `dpkg`
 
 Our team plans to also distribute this package via [Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/) in the near future.
