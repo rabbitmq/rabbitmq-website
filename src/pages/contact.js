@@ -135,8 +135,8 @@ export default function Support() {
                 <li>Optimization & Scaling &mdash; Advanced tuning for throughput, message durability, and resource efficiency</li>
               </ul>
               <div>
-                <Link to="https://acemq.com/rabbitmq/">Learn More</Link> |&nbsp;
-                <Link to="https://acemq.com/contact-us/">Get In Touch</Link>
+                <Link to="https://acemq.com/rabbitmq/" rel="noopener">Learn More</Link> |&nbsp;
+                <Link to="https://acemq.com/contact-us/" rel="noopener">Get In Touch</Link>
               </div>
             </div>
             <div className={styles.partner}>
