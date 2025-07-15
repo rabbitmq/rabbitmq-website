@@ -39,7 +39,7 @@ many releases behind [latest RabbitMQ releases](/release-information)
 and may provide RabbitMQ versions that are already [out of support](/release-information).
 
 Team RabbitMQ produces our own RPM packages and distributes them using a set of
-[repository mirrors at `*.rabbitmq.com`](#cloudsmith).
+[repositores at `*.rabbitmq.com`](#dnf-repositories).
 
 There are two ways of installing these RPMs:
 
@@ -75,7 +75,7 @@ CentOS 7 and Fedora releases older than 26 are examples of such distributions.
 
 Currently the list of supported RPM-based distributions includes
 
- * Fedora 39 through 41
+ * Fedora 39 through 42
  * [CentOS Stream](https://centos.org/centos-stream/) 9.x
  * RedHat Enterprise Linux 9.x and 8.x (versions covered by [full support](https://access.redhat.com/support/policy/updates/errata))
  * Amazon Linux 2023
@@ -131,23 +131,10 @@ manually. The dependencies are:
  * `logrotate`
 
 
-## Install Using a Cloudsmith Mirror dnf/yum Repository {#cloudsmith}
+## Install Using dnf/yum Repositories from Team RabbitMQ {#dnf-repositories}
 
-:::tip
-
-Why does this section discuss mirrors? [Open source RabbitMQ release infrastructure](https://github.com/rabbitmq/server-packages/)
-publishes packages to a services called [Cloudsmith](https://cloudsmith.io).
-
-From there, the packages are distributed to two mirror repositories in the EU and North America.
-Unlike the Cloudsmith account, these mirror repositories have significantly higher traffic quotas,
-and downloads from them won't be blocked due to an exceeded quota for the month.
-
-Please use these mirrors instead of installing the packages directly from Cloudsmith.
-
-:::
-
-The rest of this section will demonstrate how to set up a repository file
-to install RabbitMQ and Erlang from one of the `*.rabbitmq.com` mirrors.
+This section will demonstrate how to set up a repository file
+to install RabbitMQ and Erlang from one of the `*.rabbitmq.com` dnf/yum repositories.
 
 ### Import the Signing Keys
 
@@ -719,7 +706,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            └─2861 inet_gethost 4
 
 Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 4.0.9. Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 4.1.2. Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -777,7 +764,7 @@ The output will look similar to this:
 
 ```ini
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 4.0.9. Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 4.1.2. Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log

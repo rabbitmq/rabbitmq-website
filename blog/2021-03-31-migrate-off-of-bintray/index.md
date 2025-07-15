@@ -141,7 +141,7 @@ and re-install the packages.
 
 The options for RabbitMQ RPM packages match to those listed above for our zero-dependency Erlang RPM:
 
- * Using a [Yum repository on PackageCloud](/docs/install-rpm#cloudsmith). This would cover RHEL, CentOS, modern Fedora and openSUSE
+ * Using a [Yum repository on PackageCloud](/docs/install-rpm#dnf-repositories). This would cover RHEL, CentOS, modern Fedora and openSUSE
  * Using a [direct download](/docs/install-rpm#downloads) from GitHub and installing its [dependencies](/docs/install-rpm#package-dependencies) the local package using `rpm install`
 
 Our team plans to also distribute this package via [Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/) in the near future.
