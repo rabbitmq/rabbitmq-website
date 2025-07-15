@@ -110,7 +110,7 @@ Other guides related to Kubernetes:
 ## Debian (Apt) and RPM (Yum) Repositories
 
  * [Debian](./install-debian#apt-quick-start)
- * [RPM](./install-rpm#cloudsmith)
+ * [RPM](./install-rpm#dnf-repositories)
 
 ## Provisioning Tools (Chef, Puppet, etc)
 

@@ -36,8 +36,8 @@ also verify repository signatures.
 RabbitMQ release artifacts, both binary and source,
 are signed using [GnuPG](http://www.gnupg.org/) and [our release signing key](https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc).
 
-In addition, Debian and RPM package repository content is signed by their
-upstream repository's key. Currently this means Cloudsmith repository keys.
+In addition, the contents of the [Debian](./install-debian/) repositories maintained by Team RabbitMQ
+are signed using the same key.
 
 ## Importing Signing Keys {#importing-gpg-keys}
 
@@ -107,7 +107,7 @@ When using the [Team RabbitMQ modern Erlang PPA](https://launchpad.net/~rabbitmq
 one more key needs to be added:
 
 ```bash
-## Team RabbitMQ's main signing key
+## Team RabbitMQ's signing key
 curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor > /usr/share/keyrings/com.rabbitmq.team.gpg
 ```
 
@@ -129,7 +129,7 @@ rpm --import https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabb
 
 To check signatures for the packages, download the RabbitMQ signing key
 and a signature file. Signature files use the `.asc` extension that follows their artifact filename,
-e.g. the signature file of `rabbitmq-server-generic-unix-3.9.3.tar.xz` would be `rabbitmq-server-generic-unix-4.0.4.tar.xz.asc`.
+e.g. the signature file of `rabbitmq-server-generic-unix-4.0.4.tar.xz` would be `rabbitmq-server-generic-unix-4.0.4.tar.xz.asc`.
 
 Then use `gpg --verify`:
 
@@ -142,8 +142,8 @@ source archive and its associated detached signature from
 the download area:
 
 ```bash
-gpg --verify rabbitmq-server_4.0.4-1_all.deb.asc rabbitmq-server_4.0.4-1_all.deb
-# => gpg: Signature made Mon Aug 26 00:22:55 2024 EDT
+gpg --verify rabbitmq-server_4.1.2-1_all.deb.asc rabbitmq-server_4.1.2-1_all.deb
+# => gpg: Signature made (date elided)
 # => gpg:                using RSA key 0A9AF2115F4687BD29803A206B73A36E6026DFCA
 # => gpg: Good signature from "RabbitMQ Release Signing Key <info@rabbitmq.com>" [unknown]
 # (elided)
@@ -166,23 +166,3 @@ GnuPG by signing it using your own key (to create your private key run `gpg --ge
 ```bash
 gpg --sign-key 0x0A9AF2115F4687BD29803A206B73A36E6026DFCA
 ```
-
-
-## Cloudsmith {#cloudsmith}
-
-[Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/) is a hosted package distribution
-service that uses their own signing keys to sign the artifacts uploaded to it. The key(s) then
-must be added to the system.
-
-Cloudsmith provides repository setup script that include signing key import. However,
-note that the script **does not** currently follow Debian best practices in terms of GPG key handling.
-
-To import the key:
-
-```bash
-# import the Cloudsmith key
-curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key -o cloudsmith-rabbitmq-key.asc
-gpg --import cloudsmith-rabbitmq-key.asc
-```
-
-After importing the key please follow the installation instructions in the [Debian](./install-debian) or [RPM-based Linux](./install-rpm) guides.
