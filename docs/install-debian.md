@@ -247,12 +247,12 @@ curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803
 
 ## Add apt repositories maintained by Team RabbitMQ
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Provides modern Erlang/OTP releases
+## Modern Erlang/OTP releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-erlang/ubuntu/focal focal main
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-erlang/ubuntu/focal focal main
 
-## Provides RabbitMQ
+## Latest RabbitMQ releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-server/ubuntu/focal focal main
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-server/ubuntu/focal focal main
@@ -284,12 +284,12 @@ curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803
 
 ## Add apt repositories maintained by Team RabbitMQ
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Provides modern Erlang/OTP releases
+## Modern Erlang/OTP releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-erlang/debian/bookworm bookworm main
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-erlang/debian/bookworm bookworm main
 
-## Provides RabbitMQ
+## Latest RabbitMQ releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-server/debian/bookworm bookworm main
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-server/debian/bookworm bookworm main
@@ -321,12 +321,12 @@ curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803
 
 ## Add apt repositories maintained by Team RabbitMQ
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Provides modern Erlang/OTP releases
+## Modern Erlang/OTP releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-erlang/debian/bullseye bullseye main
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-erlang/debian/bullseye bullseye main
 
-## Provides RabbitMQ
+## Latest RabbitMQ releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-server/debian/bullseye bullseye main
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-server/debian/bullseye bullseye main
@@ -408,7 +408,7 @@ The contents of the file will vary slightly based on the distribution used.
 <TabItem value="ubuntu-noble" label="Ubuntu 24.04" default>
 ```bash
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Provides modern Erlang/OTP releases
+## Modern Erlang/OTP releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-erlang/ubuntu/noble noble main
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-erlang/ubuntu/noble noble main
@@ -424,7 +424,7 @@ EOF
 <TabItem value="ubuntu-jammy" label="Ubuntu 22.04">
 ```bash
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Provides modern Erlang/OTP releases
+## Modern Erlang/OTP releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-erlang/ubuntu/jammy jammy main
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-erlang/ubuntu/jammy jammy main
@@ -441,7 +441,7 @@ EOF
 <TabItem value="ubuntu-focal" label="Ubuntu 20.04">
 ```bash
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Provides modern Erlang/OTP releases
+## Modern Erlang/OTP releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-erlang/ubuntu/focal focal main
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-erlang/ubuntu/focal focal main
@@ -457,7 +457,7 @@ EOF
 <TabItem value="debian-bookworm" label="Debian Bookworm">
 ```bash
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Provides modern Erlang/OTP releases
+## Modern Erlang/OTP releases
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-erlang/debian/bookworm bookworm main
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-erlang/debian/bookworm bookworm main
@@ -473,12 +473,12 @@ deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb
 ```bash
 ## Add apt repositories maintained by Team RabbitMQ
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Provides modern Erlang/OTP releases
+## Modern Erlang/OTP releases
 ##
 deb [signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-erlang/debian/bullseye bullseye main
 deb [signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-erlang/debian/bullseye bullseye main
 
-## Provides RabbitMQ
+## Latest RabbitMQ releases
 ##
 deb [signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-server/debian/bullseye bullseye main
 deb [signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-server/debian/bullseye bullseye main
