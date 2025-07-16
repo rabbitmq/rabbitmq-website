@@ -221,6 +221,7 @@ instead of of the keys used by their upstream Cloudsmith repositories.
 For the distributions that are sufficiently old, the new repositories provide packages going back to RabbitMQ 3.10.x
 and Erlang versions going back to 24 or 25. Newer distributions, such as Ubuntu 24.04, start with RabbitMQ 3.12.x
 and Erlang 26. Note that even the 3.12.x series are [entirely out of support by now](/release-information).
+We **strongly encourage** everyone to move to the latest RabbitMQ 4.x series.
 
 If you use [apt pinning](/docs/install-debian#apt-pinning), note that the Origin field of the new repo has changed to `RabbitMQ`.
 
