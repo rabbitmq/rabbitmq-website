@@ -4,12 +4,14 @@ tags: ["Resiliency", ]
 authors: [jvanlightly]
 ---
 
-| Be aware this post has out of date information |
-| :--- |
-| RabbitMQ now has Disaster Recovery capabilities in the commercial editions via the [Warm Standby Replication feature](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html) |
+:::warning
 
-___ 
+This post was written in 2020. Since then, [Tanzu RabbitMQ](https://www.vmware.com/products/app-platform/tanzu-rabbitmq) has added
+a number of disaster recovery features such as [Warm Standby Replication](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-1/tanzu-rabbitmq-oci-image/standby-replication-without-k8s.html).
 
+:::
+
+___
 
 In this post I am going to cover perhaps the most commonly asked question I have received regarding RabbitMQ in the enterprise.
 
