@@ -57,52 +57,67 @@ export default function Support() {
         <div id="tanzu-rabbitmq" className={styles.license}>
           <div className={styles.container}>
             <Heading as="h1">VMware Tanzu RabbitMQ</Heading>
-            <Heading as="h4">Commercial RabbitMQ includes both 24/7 support and enterprise features not included in the open source version</Heading>
+            <Heading as="h4">Commercial RabbitMQ includes both 24/7 support and features not available in the open source version.</Heading>
 
             <Tabs>
               <TabItem value="feature-1" label="Enterprise Support" default>
                 <Heading as="h2">Around the clock, around the globe support</Heading>
                 <div className={styles.flex_columns}>
                   <section>
+                    <Heading as="h4">Support from Core Engineers</Heading>
+                    <p>As the owner of RabbitMQ, VMware Tanzu employs the core engineering team. You get support from the people who build and maintain RabbitMQ — ensuring expert guidance and faster resolution of critical issues.</p>
+                  </section>
+                  <section>
                     <Heading as="h4">Severity driven SLAs</Heading>
-                    <p>Our SLAs ensure that each issue or help request raised is given priority attention. Highest severity issues will receive attention within 30 minutes.</p>
+                    <p>Highest severity issues receive attention within 30 minutes, 24/7/365.</p>
                   </section>
                   <section>
-                    <Heading as="h4">Longer support timelines</Heading>
-                    <p>Get patches and support for the latest versions for far longer than what is provided to open source users. Enterprises can take their time to upgrade at their own pace.</p>
+                    <Heading as="h4">Longer Support Timelines</Heading>
+                    <p>Extended support lifecycle with critical patches and CVE fixes for multiple versions. While open source users must stay current, enterprise customers can upgrade on their own schedule.</p>
                   </section>
                   <section>
-                    <Heading as="h4">Access to RabbitMQ developers</Heading>
-                    <p>Being the stewards of RabbitMQ, our support staff have direct access to the developers of RabbitMQ for expert advice and expedient patches where necessary.</p>
+                    <Heading as="h4">Contribute to the Product Roadmap</Heading>
+                    <p>As an enterprise user, you have direct access to the RabbitMQ product team. You can contribute to the roadmap of RabbitMQ.</p>
+                  </section>
+                  <section>
+                    <Heading as="h4">VMware vSphere</Heading>
+                    <p>
+                     We provide commercial support for running RabbitMQ on a variety of platforms. In addition, VMware Tanzu RabbitMQ provides an OVA battle-tested for enterprises running <a href="https://www.vmware.com/docs/vmw-tanzu-rabbitmq-ova-and-vsphere-vmotion">RabbitMQ on vSphere</a>.
+                    </p>
                   </section>
                 </div>
               </TabItem>
-              <TabItem value="feature-2" label="Advanced Enterprise Features">
+              <TabItem value="feature-2" label="Enterprise Features">
                 <Heading as="h2">Exclusive capabilities supporting your mission-critical apps</Heading>
                 <div className={styles.flex_columns}>
                   <section>
-                    <Heading as="h4">Multi-data center disaster recovery</Heading>
-                    <p>Seamless schema and data replication to a second data center that enables promotion of a second site in the event of a disaster.</p>
+                    <Heading as="h4">Multi-Data Center Disaster Recovery</Heading>
+                    <p>Efficient schema and data replication to a second data center supporting promotion of that second site in the event of a disaster.</p>
                   </section>
                   <section>
-                    <Heading as="h4">Enterprise security</Heading>
-                    <p>Enhanced encryption, delegated authentication using OAuth, and TLS certificates from Hashicorp Vault</p>
+                    <Heading as="h4">Enterprise Security</Heading>
+                    <p>Advanced security including FIPS 140-2 compliance leveraging OpenSSL3, forward proxy support through OAuth 2.0, and scanning of RabbitMQ and its dependencies for CVEs.</p>
                   </section>
                   <section>
-                    <Heading as="h4">Kubernetes deployments</Heading>
-                    <p>Fully automated Kubernetes (K8s) operator and Helmchart that allows for seamless deployment into your K8s ecosystem.</p>
+                    <Heading as="h4">Intra-Cluster Compression</Heading>
+                    <p>In a heavily loaded system with high traffic between RabbitMQ nodes, compression can reduce the network load by up to 96%, depending on the nature of the workload.</p>
                   </section>
                   <section>
-                    <Heading as="h4">Audit Features</Heading>
+                    <Heading as="h4">AMQP 1.0 over WebSocket</Heading>
                     <p>
-                    Collection and storage of internal cluster events as structured data (JSON) or in human readable form.
-                    Cluster events relevant for audit, for example, what user deleted a queue or stream, are collected separately from the rest.
+                     Browser-based applications can communicate with RabbitMQ using AMQP 1.0, making it a practical choice for web-based business applications.
+                    </p>
+                  </section>
+                  <section>
+                    <Heading as="h4">Audit Logging</Heading>
+                    <p>
+                     VMware Tanzu RabbitMQ on Kubernetes supports audit-logging. Relevant audit events, for example, which user deleted a queue, are collected and logged separately.
                     </p>
                   </section>
                 </div>
               </TabItem>
             </Tabs>
-            <Heading as="h4">Learn more by talking to an expert at Tanzu <Link to="mailto:contact-tanzu-data.pdl@broadcom.com">contact-tanzu-data.pdl@broadcom.com</Link>
+            <Heading as="h4">Talk to our RabbitMQ experts: <Link to="mailto:contact-tanzu-data.pdl@broadcom.com">contact-tanzu-data.pdl@broadcom.com</Link>
 </Heading>
             <Link className="button button--primary" to="mailto:contact-tanzu-data.pdl@broadcom.com">Email Us</Link>
           </div>
