@@ -108,6 +108,18 @@ export default function Support() {
           </div>
         </div>
 
+        <div className={styles.featured_partner}>
+          <div className={styles.container}>
+            <Heading as="h1"><span className={styles.highlight_text}>Partner Spotlight: Announcing our newest RMQ MSP Partner</span></Heading>
+            <Heading as="h1"><span className={styles.highlight_text}>AceMQ <small>is a featured authorized partner providing white glove support and expert services for VMware Tanzu RabbitMQ. </small></span></Heading>
+            <p><strong className={styles.highlight_text}>To learn more about how AceMQ can offer RabbitMQ support, managed services for RabbitMQ, and consulting and training needs, get in touch with AceMQ here:</strong></p>
+            <div>
+              <Link className="button button--primary" to="https://acemq.com/rabbitmq/licensing/" rel="noopener">Learn More</Link>&nbsp;
+              <Link className="button button--primary" to="https://acemq.com/contact-us/" rel="noopener">Contact</Link>
+            </div>
+          </div>
+        </div>
+
         <div id="consulting" className={styles.partners}>
           <div className={styles.container}>
             <Heading as="h1">Consulting & Training Partners</Heading>
