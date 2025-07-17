@@ -396,6 +396,16 @@ erlang_mnesia_held_locks{node="rabbit@65f1a10aaffa",cluster="rabbit@65f1a10aaffa
 Notice that RabbitMQ exposes the metrics on a dedicated TCP port, `15692` by
 default.
 
+### Enable Authentication (Optional)
+
+Optionally, you can enable HTTP authentication for the metrics endpoint.
+If you want to do this, add:
+
+```
+prometheus.authentication.enabled = true
+```
+
+to the RabbitMQ configuration file.
 
 ### Prometheus Configuration {#prometheus-configuration}
 
