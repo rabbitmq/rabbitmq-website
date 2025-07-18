@@ -41,7 +41,6 @@ to size and configure both RabbitMQ nodes and applications.
 
 This guide provides recommendations in a few areas:
 
- *
  * [Storage](#storage) considerations for node data directories
  * [Networking](#networking)-related recommendations
  * Recommendations related to [virtual hosts, users and permissions](#users-and-permissions)
