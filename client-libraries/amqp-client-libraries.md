@@ -1490,6 +1490,17 @@ queueInfo, err := management.DeclareQueue(context.TODO(), &ClassicQueueSpecifica
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Creating a classic queue"
+const queue = await management.declareQueue("myqueue", {
+  exclusive: true,
+  autoDelete: false,
+});
+```
+
+</TabItem>
+
 </Tabs>
 
 The management API supports [queue arguments](/docs/queues#optional-arguments) explicitly:
@@ -1537,6 +1548,19 @@ queueInfo, err := management.DeclareQueue(context.TODO(), &ClassicQueueSpecifica
             MaxLengthBytes: CapacityGB(1),
             IsAutoDelete:   false,
     })
+```
+
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Creating a queue with arguments"
+const queue = await management.declareQueue("myqueue", {
+  type: "classic",
+  arguments: {
+    // FIXME
+  },
+});
 ```
 
 </TabItem>
@@ -1598,6 +1622,18 @@ queueInfo, err := management.DeclareQueue(context.TODO(), &QuorumQueueSpecificat
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Creating a quorum queue"
+const queue = await management.declareQueue("myqueue", {
+  type: "quorum",
+  deliveryLimit: 3,
+  initialGroupSize: 3,
+});
+```
+
+</TabItem>
+
 </Tabs>
 
 It is possible to query information about a queue:
@@ -1648,6 +1684,18 @@ leader := queueInfo.Leader();
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Getting queue information"
+const result = await management.getQueueInfo("my-queue");
+
+const messages = result.getInfo.messageCount;
+const consumers = result.getInfo.consumerCount;
+const leader = result.getInfo.leader;
+```
+
+</TabItem>
+
 </Tabs>
 
 This API can also be used to check whether a queue exists or not.
@@ -1682,6 +1730,14 @@ management.delete_queue(name="myqueue")
 
 ```go title="Deleting a queue"
 management.DeleteExchange(context.TODO(),"myqueue")
+```
+
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Deleting a queue"
+const result = await management.deleteQueue(queueName);
 ```
 
 </TabItem>
@@ -1917,6 +1973,14 @@ connection.NotifyStatusChange(stateChanged)
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Attach an event to the ChangeState"
+// CURRENTLY NOT IMPLEMENTED
+```
+
+</TabItem>
+
 </Tabs>
 
 It is also possible to set listeners on publisher instances:
@@ -1963,6 +2027,14 @@ publisher.ChangeState += (sender, fromState, toState, e) =>
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Attach an event to the ChangeState"
+// CURRENTLY NOT IMPLEMENTED
+```
+
+</TabItem>
+
 </Tabs>
 
 And on consumer instances as well:
@@ -2004,6 +2076,14 @@ consumer.ChangeState += (sender, fromState, toState, e) =>
 ```go title=" "
 
 # CURRENTLY NOT IMPLEMENTED Due Of https://github.com/Azure/go-amqp/issues/99
+```
+
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Attach an event to the ChangeState"
+// CURRENTLY NOT IMPLEMENTED
 ```
 
 </TabItem>
@@ -2071,6 +2151,22 @@ await AmqpConnection.CreateAsync(
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Setting a back-off policy for connection recovery"
+// arguments are passed directly to RHEA library
+// https://github.com/amqp/rhea?tab=readme-ov-file#container
+//
+// TOPOLOGY RECOVERY IS NOT TESTED
+await environment.createConnection({
+  reconnect: 2000,
+  initialReconnectDelay: 2000,
+  reconnectLimit: 10,
+});
+```
+
+</TabItem>
+
 </Tabs>
 
 It is also possible to deactivate topology recovery if it is not appropriate for a given application.
@@ -2117,6 +2213,14 @@ await AmqpConnection.CreateAsync(
 
 ```go title=" "
      // CURRENTLY NOT IMPLEMENTED
+```
+
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Deactivating topology recovery"
+// CURRENTLY NOT IMPLEMENTED
 ```
 
 </TabItem>
@@ -2168,6 +2272,14 @@ await AmqpConnection.CreateAsync(
                 ActiveRecovery:           false,
             },
         })
+```
+
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Deactivating recovery"
+await environment.createConnection({ reconnect: false });
 ```
 
 </TabItem>
