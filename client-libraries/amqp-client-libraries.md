@@ -1,7 +1,6 @@
 ---
 title: AMQP 1.0 Client Libraries
 ---
-
 <!--
 Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
@@ -28,11 +27,11 @@ This page documents the usage of [AMQP 1.0](/docs/amqp) client libraries for **R
 
 The RabbitMQ team supports the following libraries:
 
-- [RabbitMQ AMQP 1.0 **Java** client](https://github.com/rabbitmq/rabbitmq-amqp-java-client)
-- [RabbitMQ AMQP 1.0 **.NET** client](https://github.com/rabbitmq/rabbitmq-amqp-dotnet-client)
-- [RabbitMQ AMQP 1.0 **Go** client](https://github.com/rabbitmq/rabbitmq-amqp-go-client)
-- [RabbitMQ AMQP 1.0 **Python** client](https://github.com/rabbitmq/rabbitmq-amqp-python-client)
-- [RabbitMQ AMQP 1.0 **JavaScript** client](https://github.com/coders51/rabbitmq-amqp-js-client)
+* [RabbitMQ AMQP 1.0 **Java** client](https://github.com/rabbitmq/rabbitmq-amqp-java-client)
+* [RabbitMQ AMQP 1.0 **.NET** client](https://github.com/rabbitmq/rabbitmq-amqp-dotnet-client)
+* [RabbitMQ AMQP 1.0 **Go** client](https://github.com/rabbitmq/rabbitmq-amqp-go-client)
+* [RabbitMQ AMQP 1.0 **Python** client](https://github.com/rabbitmq/rabbitmq-amqp-python-client)
+* [RabbitMQ AMQP 1.0 **JavaScript** client](https://github.com/coders51/rabbitmq-amqp-js-client)
 
 Application developers will find here how to use the libraries for the most common use cases.
 For other information like licensing, downloading, dependency management, advanced and specific usage and configuration, please see the README page in the repository of the respective libraries.
@@ -64,6 +63,7 @@ Publishers achieve this by using the `unsettled` [sender settle mode](https://do
 
 Consumers must always [signal](#message-processing-result-outcome) the result of message processing to the broker.
 Consumers use the same settings as publishers when they get created (`first` [receiver settle mode](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-receiver-settle-mode) and `unsettled` [sender settle mode](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-sender-settle-mode)).
+
 
 ## Client API
 
@@ -126,8 +126,8 @@ environment = Environment("amqp://guest:guest@localhost:5672/")
 # close the environment when the application stops
 environment.close()
 ```
-
 </TabItem>
+
 
 <TabItem value="Go" label="Go">
 
@@ -195,7 +195,7 @@ connection.close();
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Opening a connection"
-// open a connection from the environment setting
+// open a connection from the environment setting   
 IConnection connection = await environment.CreateConnectionAsync();
 
 //open a connection from the environment with different settings
@@ -213,7 +213,7 @@ await connection.CloseAsync();
 <TabItem value="python" label="Python">
 
 ```python title="Opening a connection"
-# open a connection from the environment setting
+# open a connection from the environment setting   
 connection = environment.connection()
 
 # close the connection when it is no longer necessary
@@ -222,10 +222,11 @@ connection.close()
 
 </TabItem>
 
+
 <TabItem value="Go" label="Go">
 
 ```Go title="Opening a connection"
-// open a connection from the environment setting
+// open a connection from the environment setting   
 connection, err := env.NewConnection(context.Background())
 
 // close the connection when it is no longer necessary
@@ -267,7 +268,7 @@ Publisher publisher = connection.publisherBuilder()
     .exchange("foo").key("bar")
     .build();
 // ...
-// close the publisher when it is no longer necessary
+// close the publisher when it is no longer necessary 
 publisher.close();
 ```
 
@@ -276,12 +277,12 @@ publisher.close();
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Creating a publisher"
-// The publisher can use exchange (optionally with a key) or queue to publish messages.
+// The publisher can use exchange (optionally with a key) or queue to publish messages. 
 IPublisher publisher = await connection.PublisherBuilder().Exchange("foo").Key("bar")
     .BuildAsync();
 
 // ...
-// close the publisher when it is no longer necessary
+// close the publisher when it is no longer necessary 
 await publisher.CloseAsync();
 publisher.Dispose();
 ```
@@ -291,15 +292,16 @@ publisher.Dispose();
 <TabItem value="python" label="Python">
 
 ```python title="Creating a publisher"
-# The publisher can use exchange (optionally with a key) or queue to publish messages.
+# The publisher can use exchange (optionally with a key) or queue to publish messages. 
 # You can use the AddressHelper utility class to get the addr from the exchange name and the key
 exchange_address = AddressHelper.exchange_address("foo", "bar")
 publisher = connection.publisher(addr)
-# close the publisher when it is no longer necessary
+# close the publisher when it is no longer necessary 
 publisher.close()
 ```
 
 </TabItem>
+
 
 <TabItem value="Go" label="Go">
 
@@ -310,7 +312,7 @@ publisher, err := amqpConnection.NewPublisher(context.Background(), &rmq.Exchang
         Key:      "bar",
     }, nil)
 
-// close the publisher when it is no longer necessary
+// close the publisher when it is no longer necessary 
 publisher.close()
 ```
 
@@ -376,7 +378,7 @@ publisher.publish(message, context -> {
 // create the message
 var message = new AmqpMessage("Hello");
 // publish the message and deal with broker feedback
-// The result is synchronous, use a `List<Task<PublishResult>>` to increase the performances
+// The result is synchronous, use a `List<Task<PublishResult>>` to increase the performances 
 PublishResult pr = await publisher.PublishAsync(message);
   switch (pr.Outcome.State)
     {
@@ -384,7 +386,7 @@ PublishResult pr = await publisher.PublishAsync(message);
             // the broker accepted (confirmed) the message
             break;
         case OutcomeState.Released:
-            // the broker could not route the message anywhere
+            // the broker could not route the message anywhere 
             break;
         case OutcomeState.Rejected:
             // at least one queue rejected the message
@@ -407,12 +409,13 @@ match status.remote_state:
     case OutcomeState.ACCEPTED:
         # the broker accepted (confirmed) the message
     case OutcomeState.RELEASED:
-        # the broker could not route the message anywhere
+        # the broker could not route the message anywhere 
     case OutcomeState.REJECTED:
         # at least one queue rejected the message
 ```
 
 </TabItem>
+
 
 <TabItem value="Go" label="Go">
 
@@ -422,20 +425,20 @@ message =  rmq.NewMessage([]byte("Hello")
 // publish the message and deal with broker feedback
 publishResult, err := publisher.Publish(context.Background(),message)
 if err != nil {
-    // there is an error
+    // there is an error 
 }
     switch publishResult.Outcome.(type) {
         case *rmq.StateAccepted:
             // the broker accepted (confirmed) the message
             break
         case *rmq.StateReleased:
-           // the broker could not route the message anywhere
+           // the broker could not route the message anywhere 
             break
         case *rmq.StateRejected:
             // at least one queue rejected the message
             stateType := publishResult.Outcome.(*rmq.StateRejected)
             if stateType.Error != nil {
-                // in case there is error
+                // in case there is error 
             }
             break
         default:
@@ -499,6 +502,7 @@ Publisher publisher3 = connection.publisherBuilder()
 
 </TabItem>
 
+
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Creating publishers with different targets"
@@ -556,13 +560,13 @@ publisher, err := connection.NewPublisher(context.Background(), &ExchangeAddress
 publisher, err := connection.NewPublisher(context.Background(), &ExchangeAddress{
             Exchange: "foo",
         }, nil)
-
+    
 
 // publish to a queue
 publisher, err := connection.NewPublisher(context.Background(), &QueueAddress{
-    Queue: "some-queue"},
+    Queue: "some-queue"}, 
     nil)
-
+        
 ```
 
 </TabItem>
@@ -598,7 +602,7 @@ Libraries translate the API calls into the [address format v2](/docs/amqp#addres
 
 It is also possible to define the target on a per-message basis.
 The publisher must be defined without any target and each message define its target in the `to` field of the properties section.
-Libraries provide helpers in the message creation API to define the message target, which avoids dealing with the [address format](/docs/amqp#address-v2).
+Libraries provide helpers in the message creation API to define the message target, which avoids dealing with the  [address format](/docs/amqp#address-v2).
 
 The following snippet shows how to create a publisher without a target and define messages with different target types:
 
@@ -660,7 +664,7 @@ await aPublisher.PublishAsync(message);
 publisher = connection.publisher()
 
 # publish to an exchange with a routing key
-# You can use the AddressHelper.message_to_address_helper
+# You can use the AddressHelper.message_to_address_helper 
 # utility class to set the destination in the message
 message = Message(body="Hello!")
 exchange_address = AddressHelper.exchange_address("foo", "bar")
@@ -676,6 +680,7 @@ publisher = publisher.publish(message)
 
 </TabItem>
 
+
 <TabItem value="Go" label="Go">
 
 ```Go title="Setting the target in messages"
@@ -689,7 +694,7 @@ msg, err = NewMessageWithAddress([]byte("hello"), &ExchangeAddress{
             Key:      "bar",
         })
 
-// create a message with a queue
+// create a message with a queue 
 msg, err = NewMessageWithAddress([]byte("hello"), &QueueAddress{
     Queue: "some-queue"})
 
@@ -697,7 +702,7 @@ msg, err = NewMessageWithAddress([]byte("hello"), &QueueAddress{
 // use the publish
 publishResult, err = publisher.Publish(context.Background(), msg)
 // ...
-
+        
 ```
 
 </TabItem>
@@ -743,7 +748,6 @@ publisher.publish(message, context -> {
   // confirm callback
 });
 ```
-
 </TabItem>
 <TabItem value="csharp" label="C#">
     
@@ -752,7 +756,7 @@ var message = new AmqpMessage(body);
 message.Annotation("x-stream-filter-value", "invoices");// set filter value
 PublishResult pr = await publisher.PublishAsync(message);
 
-````
+```
 </TabItem>
 
 <TabItem value="Python" label="Python">
@@ -763,8 +767,7 @@ publisher.publish(
                 annotations={"x-stream-filter-value": "invoices"},# set filter value
             )
 
-````
-
+```
 </TabItem>
 
 <TabItem value="Go" label="Go">
@@ -812,9 +815,10 @@ Consumer consumer = connection.consumerBuilder()
         context.accept(); // settle the message
     })
     .build(); // do not forget to build the instance!
-````
+```
 
 </TabItem>
+
 
 <TabItem value="csharp" label="C#">
 
@@ -845,15 +849,15 @@ class MyMessageHandler(AMQPMessagingHandler):
         # event.message.body is a byte array. If you have string
         # you can use Converter utility class, like:
         # my_body_string=Converter.bytes_to_string(event.message.body)
-
+        
         self.delivery_context.accept(event)# settle the message
-
+        
 queue_address = AddressHelper.queue_address("some-queue")
 consumer = connection.consumer(queue_address, message_handler=MyMessageHandler())
 consumer.run()
 ```
-
 </TabItem>
+
 
 <TabItem value="Go" label="Go">
 
@@ -898,16 +902,16 @@ Libraries allows applications to settle messages in different ways.
 They use terms as explicit as possible in the context of messaging applications.
 Each term maps to a [given _outcome_](/docs/amqp#outcomes) in the AMQP specification.
 
-- `accept`: the application successfully processed the message and it can be deleted from the queue (`accepted` outcome)
-- `discard`: the application cannot process the message because it is invalid, the broker can drop it or [dead-letter](/docs/dlx) it if it is configured (`rejected` outcome)
-- `requeue`: the application did not process the message, the broker can requeue it and deliver it to the same or a different consumer (`released` outcome)
+* `accept`: the application successfully processed the message and it can be deleted from the queue (`accepted` outcome)
+* `discard`: the application cannot process the message because it is invalid, the broker can drop it or [dead-letter](/docs/dlx) it if it is configured (`rejected` outcome)
+* `requeue`: the application did not process the message, the broker can requeue it and deliver it to the same or a different consumer (`released` outcome)
 
 `discard` and `requeue` have an optional message annotation argument to combine with the existing ones held in the message header section.
 Such message annotations can be used to provide details on the `discard` or `requeue` reason.
 Application-specific annotation keys must start with the `x-opt-` prefix whereas annotation keys the broker understands start only with `x-`.
 Both `discard` and `requeue` use the `modified` outcome with the message annotation parameter.
 
-**Only quorum queues** support the [modification of message annotations](/docs/amqp#modified-outcome) with the `modified` outcome.
+__Only quorum queues__ support the [modification of message annotations](/docs/amqp#modified-outcome) with the `modified` outcome.
 
 #### Consumer Graceful Shutdown
 
@@ -918,10 +922,10 @@ This can lead to duplicate processing of messages.
 
 Here is an example:
 
-- A consumer executes a database operation for a given message.
-- The consumer gets closed before it accepts (settles) the message.
-- The message is requeued.
-- Another consumer gets the message and executes the database operation again.
+* A consumer executes a database operation for a given message.
+* The consumer gets closed before it accepts (settles) the message.
+* The message is requeued.
+* Another consumer gets the message and executes the database operation again.
 
 It is difficult to completely avoid duplicate messages, this is why processing should be idempotent.
 The consumer API provides a way to avoid duplicate messages when a consumer gets closed.
@@ -996,7 +1000,7 @@ Consumer consumer = connection.consumerBuilder()
     .messageHandler((context, message) -> {
         // message processing
     })
-    .build();
+    .build(); 
 ```
 
 </TabItem>
@@ -1076,10 +1080,10 @@ There is also support for [stream filtering](/docs/streams#filtering) configurat
 ```java title="Configuring stream filtering"
 Consumer consumer = connection.consumerBuilder()
     .queue("some-stream")
-    .stream()
-        .filterValues("invoices", "orders")
-        .filterMatchUnfiltered(true)
-    .builder()
+    .stream() 
+        .filterValues("invoices", "orders") 
+        .filterMatchUnfiltered(true) 
+    .builder() 
     .messageHandler((ctx, msg) -> {
         String filterValue = (String) msg.annotation("x-stream-filter-value");
         // there must be some client-side filter logic
@@ -1099,8 +1103,8 @@ Consumer consumer = connection.consumerBuilder()
 IConsumer consumer = await connection.ConsumerBuilder()
     .Queue("some-stream")
     .Stream()
-    .FilterValues(["invoices", "orders"])
-    .FilterMatchUnfiltered(true)
+    .FilterValues(["invoices", "orders"]) 
+    .FilterMatchUnfiltered(true) 
     .Builder()
     .MessageHandler(async (context, message) => {
         string filterValue = (string)message.Annotation("x-stream-filter-value");
@@ -1109,7 +1113,7 @@ IConsumer consumer = await connection.ConsumerBuilder()
             // message processing
         }
         context.Accept();
-
+            
         }
 ).BuildAndStartAsync();
 ```
@@ -1130,7 +1134,7 @@ class MyMessageHandler(AMQPMessagingHandler):
             ### message processing
 
         self.delivery_context.accept(event)
-
+        
 stream_address = AddressHelper.queue_address("some-stream")
 consumer = consumer_connection.consumer(
     stream_address,
@@ -1273,6 +1277,7 @@ management.exchange()
 
 </TabItem>
 
+
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Creating an exchange of a built-in type"
@@ -1292,6 +1297,7 @@ management.declare_exchange(ExchangeSpecification(name=exchange_name, exchange_t
 ```
 
 </TabItem>
+
 
 <TabItem value="Go" label="Go">
 
@@ -1420,7 +1426,6 @@ await management.Exchange("my-exchange").DeleteAsync();
 exchange_name = "my-exchange"
 management.delete_exchange(exchange_name)
 ```
-
 </TabItem>
 
 <TabItem value="Go" label="Go">
@@ -1458,6 +1463,7 @@ management.queue()
 ```
 
 </TabItem>
+
 
 <TabItem value="csharp" label="C#">
 
@@ -1674,6 +1680,7 @@ leader = queue_info.leader
 
 </TabItem>
 
+
 <TabItem value="Go" label="Go">
 
 ```Go title="Getting queue information"
@@ -1792,7 +1799,7 @@ bind_name = management.bind(
 <TabItem value="Go" label="Go">
 
 ```go title="Binding a queue to an exchange"
-// ExchangeToQueueBindingSpecification implements BindingSpecification interface
+// ExchangeToQueueBindingSpecification implements BindingSpecification interface 
 bindingPath, err := management.Bind(context.TODO(), &rmq.ExchangeToQueueBindingSpecification{
         SourceExchange:   "my-exchange",
         DestinationQueue: "my-queue",
@@ -1845,7 +1852,7 @@ await bindingSpec.BindAsync();
 <TabItem value="python" label="Python">
 
 ```python title="Binding an exchange to another exchange"
-
+    
 binding_exchange_queue_path = management.bind(
     ExchangeToExchangeBindingSpecification(
         source_exchange="my-exchange",
@@ -1859,7 +1866,7 @@ binding_exchange_queue_path = management.bind(
 <TabItem value="Go" label="Go">
 
 ```go title="Binding a exchange to an exchange"
-// ExchangeToExchangeBindingSpecification implements BindingSpecification interface
+// ExchangeToExchangeBindingSpecification implements BindingSpecification interface 
 bindingPath, err := management.Bind(context.TODO(), &rmq.ExchangeToExchangeBindingSpecification{
         SourceExchange:   "my-exchange",
         DestinationExchange: "my-other-exchange",
@@ -1921,6 +1928,7 @@ management.unbind(BindingSpecification(
 
 </TabItem>
 
+
 <TabItem value="Go" label="Go">
 
 ```go title="Deleting the binding between an exchange and a queue"
@@ -1969,14 +1977,14 @@ Connection connection = environment.connectionBuilder()
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Attach an event to the ChangeState"
-connection.ChangeState += (
+connection.ChangeState += ( 
      sender, // the sender instance ( in this case the connection)
      fromState, // the previous state
      toState, // the current (new) state
      e // the cause of the failure (in case of failure)
      ) =>
 {
-
+  
 };
 ```
 
@@ -1985,10 +1993,11 @@ connection.ChangeState += (
 <TabItem value="python" label="Python">
 
 ```python title="Attach an event to the ChangeState"
-# CURRENTLY NOT IMPLEMENTED
+# CURRENTLY NOT IMPLEMENTED 
 ```
 
 </TabItem>
+
 
 <TabItem value="Go" label="Go">
 
@@ -1997,8 +2006,8 @@ stateChanged := make(chan *rmq.StateChanged, 1)
 go func(ch chan *rmq.StateChanged) {
         for statusChanged := range ch {
             // statusChanged.From from status
-            // statusChanged.To to status
-            // StateClosed has the func GetError() in case of error
+            // statusChanged.To to status 
+            // StateClosed has the func GetError() in case of error 
 
         }
     }(stateChanged)
@@ -2035,6 +2044,7 @@ Publisher publisher = connection.publisherBuilder()
 
 </TabItem>
 
+
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Attach an event to the ChangeState"
@@ -2053,6 +2063,7 @@ publisher.ChangeState += (sender, fromState, toState, e) =>
 ```
 
 </TabItem>
+
 
 <TabItem value="Go" label="Go">
 
@@ -2146,6 +2157,7 @@ Connection connection = environment.connectionBuilder()
 
 </TabItem>
 
+
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Setting a back-off policy for connection recovery"
@@ -2169,13 +2181,12 @@ await AmqpConnection.CreateAsync(
         recovery_configuration=RecoveryConfiguration(back_off_reconnect_interval=timedelta(seconds=2)),
     )
 ```
-
 </TabItem>
 
 <TabItem value="Go" label="Go">
 
 ```go title=" "
-    // to the BackOffReconnectInterval the client adds a random 500 ms
+    // to the BackOffReconnectInterval the client adds a random 500 ms 
     env := NewEnvironment("amqp://", &AmqpConnOptions{
             RecoveryConfiguration: &RecoveryConfiguration{
                 ActiveRecovery:           true,
@@ -2223,6 +2234,7 @@ Connection connection = environment.connectionBuilder()
 ```
 
 </TabItem>
+
 
 <TabItem value="csharp" label="C#">
 
@@ -2277,6 +2289,7 @@ Connection connection = environment.connectionBuilder()
 
 </TabItem>
 
+
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Deactivating recovery"
@@ -2297,8 +2310,8 @@ await AmqpConnection.CreateAsync(
         recovery_configuration=RecoveryConfiguration(active_recovery=False),
     )
 ```
-
 </TabItem>
+
 
 <TabItem value="Go" label="Go">
 
