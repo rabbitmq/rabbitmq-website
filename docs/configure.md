@@ -1399,6 +1399,12 @@ proxy_protocol = false
       </p>
     </td>
   </tr>
+  <tr>
+    <td>`node_tags`</td>
+    <td>
+      A map of optional node tags (key-value pairs).
+    </td>
+  </tr>
 </table>
 
 The following configuration settings can be set in
@@ -1603,18 +1609,105 @@ GET /api/overview
 
 ## Configuration Value Encryption {#configuration-encryption}
 
-Sensitive `advanced.config` entries (e.g. password, URL containing
+Sensitive `advanced.config` and select `rabbitmq.conf` entries (e.g. password, URL containing
 credentials) can be encrypted. RabbitMQ nodes then decrypt encrypted entries on boot.
 
-Note that encrypted configuration entries don't make the
+:::tip
+
+Encrypted configuration entries don't make the
 system meaningfully more secure. Nevertheless, they
 allow deployments of RabbitMQ to conform to
 regulations in various countries requiring
 that no sensitive data should appear in plain text
 in configuration files.
 
-Encrypted values must be inside an Erlang `encrypted`
-tuple: `{encrypted, ...}`.
+:::
+
+To use encrypted values, a few steps must be taken:
+
+1. Generate a unique passphrase
+2. Encrypt a value using `rabbitmqctl`
+3. Use the produced value in `advanced.config` or `rabbitmq.conf`
+4. Specify a config entry decode passphrase in `advanced.config`
+
+### Encrypting Values Using CLI Tools {#configuration-encryption-encode-value}
+
+Use [rabbitmqctl](./cli) and the `encode` command to encrypt values:
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash">
+```bash
+# <<"guest">> here is a value to encode, as an Erlang binary,
+# as it would have appeared in advanced.config
+rabbitmqctl encode '<<"guest">>' mypassphrase
+{encrypted,<<"... long encrypted value...">>}
+# "amqp://fred:secret@host1.domain/my_vhost" here is a value to encode, provided as an Erlang string,
+# as it would have appeared in advanced.config
+rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' "mypassphrase"
+{encrypted,<<"... long encrypted value...">>}
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+# <<"guest">> here is a value to encode, as an Erlang binary,
+# as it would have appeared in advanced.config
+rabbitmqctl.bat encode "<<""guest"">>" mypassphrase
+{encrypted,<<"... long encrypted value...">>}
+# "amqp://fred:secret@host1.domain/my_vhost" here is a value to encode, provided as an Erlang string,
+# as it would have appeared in advanced.config
+rabbitmqctl.bat encode '"amqp://fred:secret@host1.domain/my_vhost"' "mypassphrase"
+{encrypted,<<"... long encrypted value...">>}
+```
+</TabItem>
+</Tabs>
+
+
+### Encrypted Values in `rabbitmq.conf`
+
+In `rabbitmq.conf`, values of certain keys can be prefixed with `encrypted`. They are:
+
+ * `ssl_options.password`
+ * `default_password`
+ * `default_user.$username.password`
+ * `definitions.tls.password`
+ * `anonymous_login_pass`
+
+Other keys will not support `encrypted:{value}` values.
+
+CLI tools will produce `{encrypted, Value}` pairs for `advanced.config`. They must be
+translated to a simpler format to be used in `rabbitmq.conf`.
+
+For example, if `rabbitmqctl encode` produces the following output:
+
+```erl
+{encrypted, <<"P1Vbf81vsU3QogIxSDlllHcsj+23Wy9vp9/Eyl14NRROqHjJRKdwsShyWqMSESMF">>}
+```
+
+this value must be specified like so in `rabbitmq.conf`:
+
+```ini
+default_user     = guest
+# An equivalent of {encrypted, <<"P1Vbf81vsU3QogIxSDlllHcsj+23Wy9vp9/Eyl14NRROqHjJRKdwsShyWqMSESMF">>}
+# in advanced.config
+default_password = encrypted:P1Vbf81vsU3QogIxSDlllHcsj+23Wy9vp9/Eyl14NRROqHjJRKdwsShyWqMSESMF
+```
+
+
+The passphrase is configured using `advanced.config`:
+
+```erlang
+[
+  {rabbit, [
+      {config_entry_decoder, [
+             {passphrase, <<"mypassphrase">>}
+         ]}
+    ]}
+].
+```
+
+### Encrypted Values in `advanced.config`
+
 Here is an example of a configuration file with an encrypted password
 for the default user:
 
@@ -1634,8 +1727,8 @@ for the default user:
 ].
 ```
 
-Note the `config_entry_decoder` key with the passphrase
-that RabbitMQ will use to decrypt encrypted values.
+The `config_entry_decoder.passphrase` key controls the passphrase
+that RabbitMQ will use to decrypt the encrypted values.
 
 The passphrase doesn't have to be hardcoded in the configuration file,
 it can be in a separate file:
@@ -1654,57 +1747,33 @@ it can be in a separate file:
 RabbitMQ can also request an operator to enter the passphrase
 when it starts by using `{passphrase, prompt}`.
 
-### Encrypting advanced.config Values Using CLI Tools {#configuration-encryption-encode-value}
-
-Use [rabbitmqctl](./cli) and the `encode`
-command to encrypt values:
-
-```bash
-# <<"guest">> here is a value to encode, as an Erlang binary,
-# as it would have appeared in advanced.config
-rabbitmqctl encode '<<"guest">>' mypassphrase
-{encrypted,<<"... long encrypted value...">>}
-# "amqp://fred:secret@host1.domain/my_vhost" here is a value to encode, provided as an Erlang string,
-# as it would have appeared in advanced.config
-rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
-{encrypted,<<"... long encrypted value...">>}
-```
-
-Or, on Windows:
-
-```PowerShell
-# <<"guest">> here is a value to encode, as an Erlang binary,
-# as it would have appeared in advanced.config
-rabbitmqctl encode "<<""guest"">>" mypassphrase
-{encrypted,<<"... long encrypted value...">>}
-# "amqp://fred:secret@host1.domain/my_vhost" here is a value to encode, provided as an Erlang string,
-# as it would have appeared in advanced.config
-rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
-{encrypted,<<"... long encrypted value...">>}
-```
-
-### Decrypting advanced.config Values Using CLI Tools {#configuration-encryption-decode-value}
+### Decrypting Values Using CLI Tools {#configuration-encryption-decode-value}
 
 Use the `decode` command to decrypt values:
 
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash">
 ```bash
 rabbitmqctl decode '{encrypted, <<"...">>}' mypassphrase
 # => <<"guest">>
 rabbitmqctl decode '{encrypted, <<"...">>}' mypassphrase
 # => "amqp://fred:secret@host1.domain/my_vhost"
 ```
+</TabItem>
 
-Or, on Windows:
-
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
-rabbitmqctl decode "{encrypted, <<""..."">>}" mypassphrase
+rabbitmqctl.bat decode "{encrypted, <<""..."">>}" "mypassphrase"
 # => <<"guest">>
-rabbitmqctl decode "{encrypted, <<""..."">>}" mypassphrase
+rabbitmqctl.bat decode "{encrypted, <<""..."">>}" "mypassphrase"
 # => "amqp://fred:secret@host1.domain/my_vhost"
 ```
+</TabItem>
+</Tabs>
 
-Values of different types can be encoded. The example above encodes
-both binaries (`<<"guest">>`) and strings
+Values of different types can be encoded.
+
+The example above encodes both binaries (`<<"guest">>`) and strings
 (`"amqp://fred:secret@host1.domain/my_vhost"`).
 
 ### Encryption Settings: Cipher, Hashing Function, Number of Iterations {#configuration-encryption-settings}
@@ -1732,45 +1801,21 @@ These defaults can be changed in the configuration file:
 
 Or, using [CLI tools](./cli):
 
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash">
 ```bash
 rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
                      '<<"guest">>' mypassphrase
 ```
+</TabItem>
 
-Or, on Windows:
-
+<TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
-rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
-                     "<<""guest"">>" mypassphrase
+rabbitmqctl.bat encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
+                       "<<""guest"">>" mypassphrase
 ```
-
-### Using Encrypted Values in `rabbitmq.conf` and `advanced.config`
-
-Encrypted values must be used as pairs, for example, if the encrypted value
-was returned as `<<"T9rCCHjY0ewlCWll8ux8vdynuAdA0/ji4koKh3eaziLfgigeW3K21VFzQZnvUxF0">>`, the value in `advanced.config` will look like this:
-
-```erl
-{encrypted, <<"T9rCCHjY0ewlCWll8ux8vdynuAdA0/ji4koKh3eaziLfgigeW3K21VFzQZnvUxF0">>}
-```
-
-In, `rabbitmq.conf`, an encrypted value from the example above should be
-prefixed with `encrypted:`, that is:
-
-```ini
-default_passowrd = encrypted:T9rCCHjY0ewlCWll8ux8vdynuAdA0/ji4koKh3eaziLfgigeW3K21VFzQZnvUxF0
-```
-
-When the `rabbitmq.conf` file is translated during node boot, the above
-value will be translated to `{encrypted, <<"T9rCCHjY0ewlCWll8ux8vdynuAdA0/ji4koKh3eaziLfgigeW3K21VFzQZnvUxF0">>}`, that is, the same value
-as used in `advanced.config`.
-
-Value encryption is supposed for the following `rabbitmq.conf` keys:
-
- * `ssl_options.password`
- * `default_password`
- * `default_user.$username.password`
- * `definitions.tls.password`
- * `anonymous_login_pass`
+</TabItem>
+</Tabs>
 
 
 ## Configuration Using Environment Variables {#customise-environment}
