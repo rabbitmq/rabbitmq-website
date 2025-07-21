@@ -26,16 +26,6 @@ export default function Support() {
           <div className={styles.container}>
             <div className={styles.flex_columns}>
               <section>
-                <Heading as="h2">Community</Heading>
-                  <p>Open source RabbitMQ is supported by the community. Follow the links below for your channel of preference to engage:</p>
-                  <p>
-                    <Link to="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub</Link> |&nbsp;
-                    <Link to="https://www.rabbitmq.com/discord">Discord</Link> |&nbsp;
-                    <Link to="https://groups.google.com/forum/#!forum/rabbitmq-users">Mailing List</Link> |&nbsp;
-                    <Link to="https://web.libera.chat/">IRC</Link>
-                  </p>
-              </section>
-              <section>
                 <Heading as="h2">Commercial</Heading>
                 <p>Tanzu RabbitMQ is developed by VMware Tanzu, which provides exclusive enterprise features and commercial support. This includes 24/7  experts with defined SLAs and longer term support for the latest versions.</p>
                 <p>
@@ -48,6 +38,16 @@ export default function Support() {
                 <p>Engage with our partners who have localized expertise and specialize in tailoring RabbitMQ solutions to the specific needs of your organization.</p>
                 <p>
                   <a href="#consulting">Learn More</a>
+                </p>
+              </section>
+              <section>
+                <Heading as="h2">Community</Heading>
+                <p>RabbitMQ is an open-source project with an active community of fellow users and contributors. Community support is available on a best-effort basis through the following channels:</p>
+                <p>
+                  <Link to="https://github.com/rabbitmq/rabbitmq-server/discussions">GitHub</Link> |&nbsp;
+                  <Link to="https://www.rabbitmq.com/discord">Discord</Link> |&nbsp;
+                  <Link to="https://groups.google.com/forum/#!forum/rabbitmq-users">Mailing List</Link> |&nbsp;
+                  <Link to="https://web.libera.chat/">IRC</Link>
                 </p>
               </section>
             </div>
@@ -125,12 +125,12 @@ export default function Support() {
 
         <div className={styles.featured_partner}>
           <div className={styles.container}>
-            <Heading as="h1"><span className={styles.highlight_text}>Partner Spotlight: Announcing our newest RMQ MSP Partner</span></Heading>
-            <Heading as="h1"><span className={styles.highlight_text}>AceMQ <small>is a featured authorized partner providing white glove support and expert services for VMware Tanzu RabbitMQ. </small></span></Heading>
-            <p><strong className={styles.highlight_text}>To learn more about how AceMQ can offer RabbitMQ support, managed services for RabbitMQ, and consulting and training needs, get in touch with AceMQ here:</strong></p>
+            <Heading as="h1"><span className={styles.highlight_text}>Partner Spotlight: Announcing our newest RabbitMQ MSP Partner</span></Heading>
+            <Heading as="h1"><span className={styles.highlight_text}>AceMQ <small>is our featured authorized partner providing End-to-End RabbitMQ solutions, including: white-glove commercial support and expert services for Tanzu RabbitMQ & RabbitMQ Community Edition. </small></span></Heading>
+            <p><strong className={styles.highlight_text}>To learn more about AceMQ’s RabbitMQ support, managed services, and RabbitMQ consulting & training offerings, please get in touch below: </strong></p>
             <div>
-              <Link className="button button--primary" to="https://acemq.com/rabbitmq/licensing/" rel="noopener">Learn More</Link>&nbsp;
-              <Link className="button button--primary" to="https://acemq.com/contact-us/" rel="noopener">Contact</Link>
+              <Link className="button button--primary" to="https://acemq.com/rabbitmq/" rel="noopener">Consulting</Link>&nbsp;
+              <Link className="button button--primary" to="https://acemq.com/rabbitmq/licensing/" rel="noopener">Commercial Support</Link>
             </div>
           </div>
         </div>
