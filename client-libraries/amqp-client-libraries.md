@@ -1802,6 +1802,17 @@ bindingPath, err := management.Bind(context.TODO(), &rmq.ExchangeToQueueBindingS
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Binding a queue to an exchange"
+const queue = await management.declareQueue("my-queue");
+const exchange = await management.declareExchange("my-exchange");
+
+await management.bind(routingKey, { source: exchange, destination: queue });
+```
+
+</TabItem>
+
 </Tabs>
 
 There is also support for [exchange-to-exchange binding](/docs/e2e):
@@ -1857,6 +1868,20 @@ bindingPath, err := management.Bind(context.TODO(), &rmq.ExchangeToExchangeBindi
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Binding a exchange to an exchange"
+const exchange1 = await management.declareExchange("my-exchange");
+const exchange2 = await management.declareExchange("my-other-exchange");
+
+await management.bind(bindingKey, {
+  source: exchange1,
+  destination: exchange2,
+});
+```
+
+</TabItem>
+
 </Tabs>
 
 It is also possible to unbind entities:
@@ -1905,6 +1930,15 @@ err = management.Unbind(context.TODO(), bindingPath)
 ```
 
 </TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Deleting the binding between an exchange and a queue"
+await management.unbind(bindingKey, { source: exchange, destination: queue });
+```
+
+</TabItem>
+
 </Tabs>
 
 ## Advanced Usage
