@@ -1558,7 +1558,9 @@ queueInfo, err := management.DeclareQueue(context.TODO(), &ClassicQueueSpecifica
 const queue = await management.declareQueue("myqueue", {
   type: "classic",
   arguments: {
-    // FIXME
+    // for a list, see: https://www.rabbitmq.com/docs/queues#optional-arguments
+    "x-max-priority": 10,
+    "message-ttl": 60 * 1000,
   },
 });
 ```
