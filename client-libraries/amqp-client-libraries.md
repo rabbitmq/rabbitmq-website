@@ -460,13 +460,13 @@ const publishResult = await publisher.publish(message);
 
 switch (publishResult.outcome) {
   case rabbit.OutcomeState.ACCEPTED:
-    console.log("Message Accepted");
+    // the broker accepted (confirmed) the message
     break;
   case rabbit.OutcomeState.RELEASED:
-    console.log("Message Released");
+    // the broker could not route the message anywhere
     break;
   case rabbit.OutcomeState.REJECTED:
-    console.log("Message Rejected");
+    // at least one queue rejected the message
     break;
   default:
     break;
