@@ -652,14 +652,68 @@ Grouped under `node_persister_metrics`:
 
 Grouped under `ra_metrics`:
 
-| Metric                                              | Description                                |
-|-----------------------------------------------------|--------------------------------------------|
-| rabbitmq_detailed_raft_term_total                   | Current Raft term number                   |
-| rabbitmq_detailed_raft_log_snapshot_index           | Raft log snapshot index                    |
-| rabbitmq_detailed_raft_log_last_applied_index       | Raft log last applied index                |
-| rabbitmq_detailed_raft_log_commit_index             | Raft log commit index                      |
-| rabbitmq_detailed_raft_log_last_written_index       | Raft log last written index                |
-| rabbitmq_detailed_raft_entry_commit_latency_seconds | Time taken for a log entry to be committed |
+| Metric                                                      | Description                                                                          |
+|-------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| rabbitmq_detailed_raft_bytes_written                        | Number of bytes written                                                              |
+| rabbitmq_detailed_raft_entries                              | Number of entries written                                                            |
+| rabbitmq_detailed_raft_mem_tables                           | Number of in-memory tables handled                                                   |
+| rabbitmq_detailed_raft_segments                             | Number of segments written                                                           |
+| rabbitmq_detailed_raft_wal_files                            | Number of write-ahead log files created                                              |
+| rabbitmq_detailed_raft_segments                             | Number of segments written                                                           |
+| rabbitmq_detailed_raft_forced_gcs                           | Number of forced garbage collection runs                                             |
+| rabbitmq_detailed_raft_commit_index                         | The current commit index.                                                            |
+| rabbitmq_detailed_raft_wal_files                            | Number of write-ahead log files created                                              |
+| rabbitmq_detailed_raft_commands                             | Total number of commands received by a leader                                        |
+| rabbitmq_detailed_raft_term_and_voted_for_updates           | Total number of updates of term and voted for                                        |
+| rabbitmq_detailed_raft_aux_commands                         | Total number of aux commands received                                                |
+| rabbitmq_detailed_raft_num_segments                         | The number of non-empty segment files.                                               |
+| rabbitmq_detailed_raft_read_segment                         | Total number of read segments                                                        |
+| rabbitmq_detailed_raft_last_written_index                   | The last fully written and fsynced index of the log.                                 |
+| rabbitmq_detailed_raft_read_ops                             | Total number of read ops                                                             |
+| rabbitmq_detailed_raft_term                                 | The current term.                                                                    |
+| rabbitmq_detailed_raft_snapshot_bytes_written               | Number of snapshot bytes written (not installed)                                     |
+| rabbitmq_detailed_raft_command_flushes                      | Total number of low priority command batches written                                 |
+| rabbitmq_detailed_raft_commit_latency_seconds               | Approximate time taken from an entry being written to the log until it is committed. |
+| rabbitmq_detailed_raft_local_queries                        | Total number of local queries                                                        |
+| rabbitmq_detailed_raft_aer_received_follower_empty          | Total number of empty append entries received by a follower                          |
+| rabbitmq_detailed_raft_msgs_sent                            | All messages sent (except messages sent to wal)                                      |
+| rabbitmq_detailed_raft_aer_replies_success                  | Total number of successful append entries received                                   |
+| rabbitmq_detailed_raft_write_ops                            | Total number of write ops                                                            |
+| rabbitmq_detailed_raft_checkpoint_bytes_written             | Number of checkpoint bytes written                                                   |
+| rabbitmq_detailed_raft_read_mem_table                       | Total number of reads from mem tables                                                |
+| rabbitmq_detailed_raft_read_cache                           | Unused. Total number of cache reads                                                  |
+| rabbitmq_detailed_raft_bytes_written                        | Number of bytes written                                                              |
+| rabbitmq_detailed_raft_open_segments                        | Number of open segments                                                              |
+| rabbitmq_detailed_raft_snapshots_written                    | Total number of snapshots written                                                    |
+| rabbitmq_detailed_raft_last_applied                         | The last applied index. Can go backwards if a ra server is restarted.                |
+| rabbitmq_detailed_raft_invalid_reply_mode_commands          | Total number of commands received with an invalid reply-mode                         |
+| rabbitmq_detailed_raft_snapshots_sent                       | Total number of snapshots sent                                                       |
+| rabbitmq_detailed_raft_checkpoints_written                  | Total number of checkpoints written                                                  |
+| rabbitmq_detailed_raft_send_msg_effects_sent                | Total number of send_msg effects executed                                            |
+| rabbitmq_detailed_raft_write_resends                        | Total number of write resends                                                        |
+| rabbitmq_detailed_raft_last_index                           | The last index of the log.                                                           |
+| rabbitmq_detailed_raft_entries                              | Number of entries written                                                            |
+| rabbitmq_detailed_raft_checkpoint_index                     | The current checkpoint index.                                                        |
+| rabbitmq_detailed_raft_read_closed_mem_tbl                  | Unused. Total number of closed memory tables                                         |
+| rabbitmq_detailed_raft_rpcs_sent                            | Total number of rpcs, incl append_entries_rpcs                                       |
+| rabbitmq_detailed_raft_dropped_sends                        | Total number of message sends that return noconnect or nosuspend are dropped         |
+| rabbitmq_detailed_raft_effective_machine_version            | The current effective version number of the machine.                                 |
+| rabbitmq_detailed_raft_batches                              | Number of batches written                                                            |
+| rabbitmq_detailed_raft_release_cursors                      | Total number of updates of the release cursor                                        |
+| rabbitmq_detailed_raft_checkpoints                          | The number of checkpoint effects executed                                            |
+| rabbitmq_detailed_raft_snapshot_installed                   | Total number of snapshots installed                                                  |
+| rabbitmq_detailed_raft_pre_vote_elections                   | Total number of pre-vote elections                                                   |
+| rabbitmq_detailed_raft_aer_replies_fail                     | Total number of failed append entries                                                |
+| rabbitmq_detailed_raft_snapshot_index                       | The current snapshot index.                                                          |
+| rabbitmq_detailed_raft_mem_tables                           | Number of in-memory tables handled                                                   |
+| rabbitmq_detailed_raft_fetch_term                           | Total number of terms fetched                                                        |
+| rabbitmq_detailed_raft_reserved_2                           | Reserved counter                                                                     |
+| rabbitmq_detailed_raft_reserved_1                           | Reserved counter                                                                     |
+| rabbitmq_detailed_raft_consistent_queries                   | Total number of consistent query requests                                            |
+| rabbitmq_detailed_raft_checkpoints_promoted                 | Number of checkpoints promoted to snapshots                                          |
+| rabbitmq_detailed_raft_writes                               | Number of entries written                                                            |
+| rabbitmq_detailed_raft_aer_received_follower                | Total number of append entries received by a follower                                |
+| rabbitmq_detailed_raft_elections                            | Total number of elections                                                            |
 
 ##### Auth metrics
 
