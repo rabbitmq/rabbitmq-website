@@ -200,6 +200,9 @@ Miscellaneous projects:
 
  * [March Hare, a JRuby RabbitMQ client](http://rubymarchhare.info)
 
+### Kotlin
+
+ * [Kourier, a Kotlin AMQP client](https://kourier.dev)
 
 ## C and C++ {#c-dev}
 
