@@ -36,7 +36,7 @@ Stream core designates stream features in the broker with only default plugins a
 |Clients| AMQP 0.9.1 clients ([documentation](./streams#usage)) |[RabbitMQ stream clients](./stream#overview)   |
 |Port| 5672                     | 5552             |
 |Format| Server-side AMQP 1.0 message format encoding and decoding  | Client-side AMQP 1.0 message format encoding and decoding |
-|Sub-entry batching|  Supported (uncompressed)    | Supported ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression)) . [Clients implementations](#stream-clients-sub-entry-batching-compressions)     |
+|Sub-entry batching|  Supported (uncompressed)    | Supported ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression)). [Clients Compression Options](#stream-clients-sub-entry-batching-compression-options)     |
 |Offset tracking| Use external store      |  Built-in server-side support ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#consumer-offset-tracking)) or external store      |
 |Publishing deduplication|Not supported       |  Supported ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#outbound-message-deduplication))        |
 |[Super stream](/blog/2022/07/13/rabbitmq-3-11-feature-preview-super-streams) |Not supported       |  Supported         |
@@ -57,16 +57,16 @@ Streams store messages using the AMQP 1.0 message format.
      * application data
      * message annotations
 
-### Stream clients sub-entry batching compressions
+### Stream Clients Sub-entry Batching Compression Options
 
-The compression happens client-side. The available compressions are:
+The compression happens client-side. The available compression implementations:
 - No compression
 - Gzip 
 - Snappy
 - LZ4
 - Zstd
 
-See the table below for the clients implementations: 
+The table below explains what options are supported by a number of RabbitMQ Stream Protocol clients: 
 
 |Client | Supported        | No Compression|Gzip| Snappy | LZ4 | Zstd |
 |-| ------------------------ | ------------- |--- | --- | --- |--- |
