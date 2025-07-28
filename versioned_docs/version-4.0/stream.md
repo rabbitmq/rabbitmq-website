@@ -30,7 +30,7 @@ This feature is available in all [currently maintained release series](/release-
 Streams can be used as a regular AMQP 0.9.1 queue or through a
 [dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
 plugin and associated client(s).
-Please see the [stream core and stream plugin comparison page](./stream-core-plugin-comparison) for the feature matrix.
+Please see the [RabbitMQ core and stream plugin comparison page](./stream-core-plugin-comparison) for the feature matrix.
 
 This page covers the Stream plugin, which allows to interact with streams using this
 [new binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc).

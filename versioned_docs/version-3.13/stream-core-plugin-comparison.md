@@ -19,17 +19,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Stream Core vs Stream Plugin
+# RabbitMQ Core vs Stream Plugin
 
 ## Overview {#overview}
 
-This section covers the differences between [stream core](./streams) and the [stream plugin](./stream).
+This section covers the differences between [RabbitMQ core](./streams) and the [stream plugin](./stream).
 Stream core designates stream features in the broker with only default plugins activated and through protocols like AMQP 0.9.1, MQTT, and STOMP.
 
 
 ### Feature Matrix
 
-|Feature | Stream Core              | Stream Plugin    |
+|Feature | RabbitMQ Core              | Stream Plugin    |
 |-| ------------------------ | -------------    |
 |Activation| Built-in                 | [Must be activated](./stream#enabling-plugin)  |
 |Protocol| AMQP 0.9.1               | [RabbitMQ Stream](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)  |

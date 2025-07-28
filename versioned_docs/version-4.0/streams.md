@@ -50,7 +50,7 @@ To answer these questions, streams were not introduced to replace queues but to 
 
 The following information details streams usage, and the administration and maintenance operations for streams.
 
-You should also review the [stream plugin](./stream) information to learn more about the usage of streams with the binary RabbitMQ Stream protocol and the [stream core and stream plugin comparison page](./stream-core-plugin-comparison) for the feature matrix.
+You should also review the [stream plugin](./stream) information to learn more about the usage of streams with the binary RabbitMQ Stream protocol and the [RabbitMQ core and stream plugin comparison page](./stream-core-plugin-comparison) for the feature matrix.
 
 ### Use Cases for Using Streams {#use-cases}
 
