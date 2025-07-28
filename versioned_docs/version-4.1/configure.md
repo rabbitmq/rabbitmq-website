@@ -1143,9 +1143,11 @@ collect_statistics_interval = 5000
     <td>
       Affects the amount of time the [management plugin](./management#statistics-interval)
       will cache expensive management queries such as
-      queue listings. The cache will multiply the elapsed time of
+      queue listings.
+
+      The cache will multiply the elapsed time of
       the last query by this value and cache the result for
-      this amount of time.
+      the computed amount of time.
       <p>
         Default:
 ```ini
