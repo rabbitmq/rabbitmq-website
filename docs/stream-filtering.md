@@ -455,6 +455,21 @@ The following example causes RabbitMQ to deliver only messages for which **all**
 * the application property key `region` is `emea`
 
 <Tabs groupId="languages">
+<TabItem value="java" label="Java">
+```java
+Consumer consumer = connection.consumerBuilder()
+    .stream().filter()
+        .userId("John".getBytes(UTF_8))
+        .subject("&p:Order")
+        .property("region", "emea")
+    .stream().builder()
+    .queue("my-queue")
+    .messageHandler((ctx, msg ) -> {
+        // message processing
+    })
+    .build();
+```
+</TabItem>
 
 <TabItem value="Erlang" label="Erlang">
 ```erlang
@@ -694,6 +709,22 @@ The following example causes RabbitMQ to deliver only messages for which **all**
 * the application provided key `region` is `emea`
 
 <Tabs groupId="languages">
+<TabItem value="Java" label="Java">
+```java
+Consumer consumer = connection.consumerBuilder()
+    .stream().filter()
+        .sql("properties.user_id = 'John' AND " +
+             "properties.subject LIKE 'Order%' AND " +
+             "region = 'emea'")
+    .stream().builder()
+    .queue("my-queue")
+    .messageHandler((ctx, msg ) -> {
+        // message processing
+    })
+    .build();
+```
+</TabItem>
+
 
 <TabItem value="Erlang" label="Erlang">
 ```erlang
@@ -776,6 +807,27 @@ The following example provides a complex SQL filter expression that queries even
 * the order must be of high priority or high price or be submitted by a premium customer
 
 <Tabs groupId="languages">
+<TabItem value="Java" label="Java">
+```java
+Consumer consumer = connection.consumerBuilder()
+    .stream()
+        // This Bloom filter will be evaluated server-side per chunk (Stage 1).
+        .filterValues("order.created")
+        .filter()
+            // This complex SQL filter expression will be evaluted server-side
+            // per message at stage 2.
+            .sql("p.subject = 'order.created' AND " +
+                 "p.creation_time > UTC() - 3600000 AND " +
+                 "region IN ('AMER', 'EMEA', 'APJ') AND " +
+                 "(h.priority > 4 OR price >= 99.99 OR premium_customer = TRUE)")
+    .stream().builder()
+    .queue("my-queue")
+    .messageHandler((ctx, msg ) -> {
+        // message processing
+    })
+    .build();
+```
+</TabItem>
 
 <TabItem value="Erlang" label="Erlang">
 ```erlang
