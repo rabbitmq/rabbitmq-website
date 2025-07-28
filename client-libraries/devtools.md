@@ -202,7 +202,7 @@ Miscellaneous projects:
 
 ### Kotlin
 
- * [Kourier, a Kotlin AMQP client](https://kourier.dev)
+ * [Kourier, a Kotlin AMQP 0.9.1 client](https://kourier.dev)
 
 ## C and C++ {#c-dev}
 
