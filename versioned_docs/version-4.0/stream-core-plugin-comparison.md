@@ -68,14 +68,14 @@ The compression happens client-side. The available compressions are:
 
 See the table below for the clients implementations: 
 
-|Client | Implemented        | No Compression|Gzip| Snappy | LZ4 | Zstd |
+|Client | Supported        | No Compression|Gzip| Snappy | LZ4 | Zstd |
 |-| ------------------------ | ------------- |--- | --- | --- |--- |
-|[Java](https://github.com/rabbitmq/rabbitmq-stream-java-client)| yes| yes built-in   |yes built-in    |yes built-in   |yes built-in    | yes built-in |
-|[.NET](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client)| yes| yes built-in   | yes built-in   |[no built-in](https://rabbitmq.github.io/rabbitmq-stream-dotnet-client/stable/htmlsingle/index.html#sub-entry-batching-and-compression)    |[no built-in](https://rabbitmq.github.io/rabbitmq-stream-dotnet-client/stable/htmlsingle/index.html#sub-entry-batching-and-compression)    | [no built-in](https://rabbitmq.github.io/rabbitmq-stream-dotnet-client/stable/htmlsingle/index.html#sub-entry-batching-and-compression) |
-|[Go](https://github.com/rabbitmq/rabbitmq-stream-go-client)| yes| yes built-in   |yes built-in    |yes built-in   |yes built-in    | yes built-in |
-|[Python](https://github.com/rabbitmq-community/rstream)| yes| yes built-in   | yes built-in   |[no built-in](https://github.com/rabbitmq-community/rstream?tab=readme-ov-file#sub-entry-batching-and-compression)    |[no built-in](https://github.com/rabbitmq-community/rstream?tab=readme-ov-file#sub-entry-batching-and-compression)    | [no built-in](https://github.com/rabbitmq-community/rstream?tab=readme-ov-file#sub-entry-batching-and-compression) |
-|[NodeJS](https://github.com/coders51/rabbitmq-stream-js-client)| yes| yes built-in   |yes built-in    |no   |no    | no |
-|[Rust](https://github.com/rabbitmq/rabbitmq-stream-rust-client)| no| no   |no    |no    | no |
+|[Java](https://github.com/rabbitmq/rabbitmq-stream-java-client)| ✅| ✅  |✅     |✅    |✅     | ✅  |
+|[.NET](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client)| ✅| ✅   | ✅   |✅ [via interface](https://rabbitmq.github.io/rabbitmq-stream-dotnet-client/stable/htmlsingle/index.html#sub-entry-batching-and-compression)    |✅ [via interface](https://rabbitmq.github.io/rabbitmq-stream-dotnet-client/stable/htmlsingle/index.html#sub-entry-batching-and-compression)    | ✅ [via interface](https://rabbitmq.github.io/rabbitmq-stream-dotnet-client/stable/htmlsingle/index.html#sub-entry-batching-and-compression) |
+|[Go](https://github.com/rabbitmq/rabbitmq-stream-go-client)| ✅| ✅   |✅    |✅   |✅    | ✅ |
+|[Python](https://github.com/rabbitmq-community/rstream)| ✅| ✅   | ✅   |✅ [via interface](https://github.com/rabbitmq-community/rstream?tab=readme-ov-file#sub-entry-batching-and-compression)    |✅ [via interface](https://github.com/rabbitmq-community/rstream?tab=readme-ov-file#sub-entry-batching-and-compression)    | ✅ [via interface](https://github.com/rabbitmq-community/rstream?tab=readme-ov-file#sub-entry-batching-and-compression) |
+|[NodeJS](https://github.com/coders51/rabbitmq-stream-js-client)| ✅| ✅   |✅    | ❌   |❌    | ❌ |
+|[Rust](https://github.com/rabbitmq/rabbitmq-stream-rust-client)| ❌| ❌   |❌    |❌    | ❌ |
 
 
 Gzip is the common algorithm for all clients that implement sub-entry batching.
