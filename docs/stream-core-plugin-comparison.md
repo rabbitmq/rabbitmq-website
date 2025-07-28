@@ -36,7 +36,7 @@ Stream core designates stream features in the broker with only default plugins a
 |Clients| AMQP 0.9.1 clients ([documentation](./streams#usage)). AMQP 1.0 clients ([documentation](/client-libraries/amqp-client-libraries#support-for-streams)) |[RabbitMQ stream clients](./stream#overview)   |
 |Port| 5672                     | 5552             |
 |Format| Server-side AMQP 1.0 message format encoding and decoding  | Client-side AMQP 1.0 message format encoding and decoding |
-|Sub-entry batching|  Not supported    | Supported ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression))      |
+|Sub-entry batching|  Supported (uncompressed)  | Supported ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression)). [Clients implementations](#stream-clients-sub-entry-batching-compressions)      |
 |Offset tracking| Use external store      |  Built-in server-side support ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#consumer-offset-tracking)) or external store      |
 |Publishing deduplication|Not supported       |  Supported ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#outbound-message-deduplication))        |
 |[Super stream](/blog/2022/07/13/rabbitmq-3-11-feature-preview-super-streams) |Not supported       |  Supported         |
@@ -50,9 +50,32 @@ Streams store messages using the AMQP 1.0 message format.
 
 * RabbitMQ Stream client libraries are expected to support the AMQP 1.0 message format
 * The broker handles the [conversion](./conversions) between AMQP 1.0 and AMQP 0.9.1 for AMQP 0.9.1 clients
-* AMQP 0.9.1 and stream clients can write to and read from the same stream, but [Sub-Entry Batching](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression) is not supported.
+* AMQP 0.9.1,AMQP 1.0 and stream clients can write to and read from the same stream. [Sub-Entry Batching](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression) is supported without compression.
 * RabbitMQ Stream supports the following section of the AMQP 1.0 message format:
      * properties
      * application properties
      * application data
      * message annotations
+
+### Stream clients sub-entry batching compressions
+
+The compression happens client-side. The available compressions are:
+- No compression
+- Gzip 
+- Snappy
+- LZ4
+- Zstd
+
+See the table below for the clients implementations: 
+
+|Client | Supported        | No Compression|Gzip| Snappy | LZ4 | Zstd |
+|-| ------------------------ | ------------- |--- | --- | --- |--- |
+|[Java](https://github.com/rabbitmq/rabbitmq-stream-java-client)| ✅| ✅  |✅     |✅    |✅     | ✅  |
+|[.NET](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client)| ✅| ✅   | ✅   |✅ [via interface](https://rabbitmq.github.io/rabbitmq-stream-dotnet-client/stable/htmlsingle/index.html#sub-entry-batching-and-compression)    |✅ [via interface](https://rabbitmq.github.io/rabbitmq-stream-dotnet-client/stable/htmlsingle/index.html#sub-entry-batching-and-compression)    | ✅ [via interface](https://rabbitmq.github.io/rabbitmq-stream-dotnet-client/stable/htmlsingle/index.html#sub-entry-batching-and-compression) |
+|[Go](https://github.com/rabbitmq/rabbitmq-stream-go-client)| ✅| ✅   |✅    |✅   |✅    | ✅ |
+|[Python](https://github.com/rabbitmq-community/rstream)| ✅| ✅   | ✅   |✅ [via interface](https://github.com/rabbitmq-community/rstream?tab=readme-ov-file#sub-entry-batching-and-compression)    |✅ [via interface](https://github.com/rabbitmq-community/rstream?tab=readme-ov-file#sub-entry-batching-and-compression)    | ✅ [via interface](https://github.com/rabbitmq-community/rstream?tab=readme-ov-file#sub-entry-batching-and-compression) |
+|[NodeJS](https://github.com/coders51/rabbitmq-stream-js-client)| ✅| ✅   |✅    | ❌   |❌    | ❌ |
+|[Rust](https://github.com/rabbitmq/rabbitmq-stream-rust-client)| ❌| ❌   |❌    |❌    | ❌ |
+
+
+Gzip is the common algorithm for all clients that implement sub-entry batching.
