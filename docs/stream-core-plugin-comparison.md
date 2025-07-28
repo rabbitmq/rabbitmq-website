@@ -76,6 +76,3 @@ See the table below for the clients implementations:
 |[Python](https://github.com/rabbitmq-community/rstream)| ✅| ✅   | ✅   |✅ [via interface](https://github.com/rabbitmq-community/rstream?tab=readme-ov-file#sub-entry-batching-and-compression)    |✅ [via interface](https://github.com/rabbitmq-community/rstream?tab=readme-ov-file#sub-entry-batching-and-compression)    | ✅ [via interface](https://github.com/rabbitmq-community/rstream?tab=readme-ov-file#sub-entry-batching-and-compression) |
 |[NodeJS](https://github.com/coders51/rabbitmq-stream-js-client)| ✅| ✅   |✅    | ❌   |❌    | ❌ |
 |[Rust](https://github.com/rabbitmq/rabbitmq-stream-rust-client)| ❌| ❌   |❌    |❌    | ❌ |
-
-
-Gzip is the common algorithm for all clients that implement sub-entry batching.
