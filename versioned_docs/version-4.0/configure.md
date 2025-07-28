@@ -1799,11 +1799,14 @@ These defaults can be changed in the configuration file:
 ].
 ```
 
-Or, using [CLI tools](./cli):
+If any of the values are overrideen, their equivalents must be used when ecnrypting
+values using [CLI tools](./cli):
 
 <Tabs groupId="examples">
 <TabItem value="bash" label="bash">
 ```bash
+# --cipher, --hash and --iterations must match their counterparts un `config_entry_decoder`
+# in `advanced.config`
 rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
                      '<<"guest">>' mypassphrase
 ```
@@ -1811,6 +1814,8 @@ rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
 
 <TabItem value="PowerShell" label="PowerShell">
 ```PowerShell
+# --cipher, --hash and --iterations must match their counterparts un `config_entry_decoder`
+# in `advanced.config`
 rabbitmqctl.bat encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
                        "<<""guest"">>" mypassphrase
 ```
