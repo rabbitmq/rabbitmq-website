@@ -31,6 +31,7 @@ The RabbitMQ team supports the following libraries:
 * [RabbitMQ AMQP 1.0 **.NET** client](https://github.com/rabbitmq/rabbitmq-amqp-dotnet-client)
 * [RabbitMQ AMQP 1.0 **Go** client](https://github.com/rabbitmq/rabbitmq-amqp-go-client)
 * [RabbitMQ AMQP 1.0 **Python** client](https://github.com/rabbitmq/rabbitmq-amqp-python-client)
+* [RabbitMQ AMQP 1.0 **JavaScript** client](https://github.com/coders51/rabbitmq-amqp-js-client)
 
 Application developers will find here how to use the libraries for the most common use cases.
 For other information like licensing, downloading, dependency management, advanced and specific usage and configuration, please see the README page in the repository of the respective libraries.
@@ -147,6 +148,26 @@ env := rmq.NewEnvironment("amqp://guest:guest@localhost:5672/", nil)
 // close the connections
 env.CloseConnections(context.Background())
 ```
+
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Creating the environment"
+const rabbit = require("rabbitmq-amqp-js-client");
+
+// create the environment instance for a single node
+const environment = rabbit.createEnvironment({
+  host: "localhost",
+  port: 5672,
+  username: rabbitUser,
+  password: rabbitPassword,
+});
+
+// close the environment when the application stops
+await environment.close();
+```
+
 </TabItem>
 
 </Tabs>
@@ -210,6 +231,18 @@ connection, err := env.NewConnection(context.Background())
 
 // close the connection when it is no longer necessary
 connection.close()
+```
+
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Opening a connection"
+// open a connection from the environment setting
+const connection = await environment.createConnection();
+
+// close the connection when it is no longer necessary
+await connection.close();
 ```
 
 </TabItem>
@@ -282,6 +315,21 @@ publisher, err := amqpConnection.NewPublisher(context.Background(), &rmq.Exchang
 // close the publisher when it is no longer necessary 
 publisher.close()
 ```
+
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Creating a publisher"
+// The publisher can use exchange (optionally with a key) or queue to publish messages.
+const publisher = await connection.createPublisher({
+  exchange: { name: "exchange", routingKey: "key" },
+});
+
+// close the publisher when it is no longer necessary
+publisher.close();
+```
+
 </TabItem>
 </Tabs>
 
@@ -401,6 +449,32 @@ if err != nil {
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Publishing a message"
+// create the message
+const message = rabbit.createAmqpMessage({ body: "Hello" });
+
+// publish the message and deal with broker feedback
+const publishResult = await publisher.publish(message);
+
+switch (publishResult.outcome) {
+  case rabbit.OutcomeState.ACCEPTED:
+    // the broker accepted (confirmed) the message
+    break;
+  case rabbit.OutcomeState.RELEASED:
+    // the broker could not route the message anywhere
+    break;
+  case rabbit.OutcomeState.REJECTED:
+    // at least one queue rejected the message
+    break;
+  default:
+    break;
+}
+```
+
+</TabItem>
+
 </Tabs>
 
 The publisher example above send messages to a given exchange with a given routing key, but this is not the only supported target for a publisher.
@@ -493,6 +567,27 @@ publisher, err := connection.NewPublisher(context.Background(), &QueueAddress{
     Queue: "some-queue"}, 
     nil)
         
+```
+
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Publishing a message"
+// publish to an exchange with a routing key
+const publisher = await connection.createPublisher({
+  exchange: { name: "foo", routingKey: "bar" },
+});
+
+// publish to an exchange without a routing key
+const publisher = await connection.createPublisher({
+  exchange: { name: "foo" },
+});
+
+// publish to a queue
+const publisher = await connection.createPublisher({
+  queue: { name: "some-queue" },
+});
 ```
 
 </TabItem>
@@ -612,6 +707,31 @@ publishResult, err = publisher.Publish(context.Background(), msg)
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Setting the target in messages"
+// no target defined on publisher creation
+const publisher = await connection.createPublisher();
+
+// create message with an exchange with a routing key
+const message = rabbit.createAmqpMessage({
+  body: "Hello",
+  destination: { exchange: { name: "exchange", routingKey: "key" } },
+});
+
+// create a message with a queue
+const message = rabbit.createAmqpMessage({
+  body: "Hello",
+  destination: { queue: { name: "queue" } },
+});
+
+// use the publish
+const publishResult = await publisher.publish(message);
+//...
+```
+
+</TabItem>
+
 </Tabs>
 
 #### Support for Streams
@@ -658,7 +778,21 @@ publisher.publish(
     }
     publishResult, err := publisher.Publish(context.Background(), message)
 
+````
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Setting the stream filter value in a message annotation"
+const message = rabbit.createAmqpMessage({
+  body: "Hello",
+  annotations: { "x-stream-filter-value": "invoices" },
+})
+
+const publishResult = await publisher.publish(message);
+//...
 ```
+
 </TabItem>
 
 </Tabs>
@@ -735,6 +869,23 @@ deliveryContext, err := consumer.Receive(context.Background())
 // ....
 deliveryContext.Accept(context.Background()) // settle the message
 ```
+
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Creating a consumer"
+// create the consumer
+const consumer = await connection.createConsumer({
+  queue: { name: "some-queue" },
+  messageHandler: (context, msg) => {
+    console.log(`MessageId: ${msg.message_id}; Payload: ${msg.body}`);
+    context.accept(); // settle the message
+  },
+});
+consumer.start();
+```
+
 </TabItem>
 
 </Tabs>
@@ -821,6 +972,12 @@ consumer.close();
 ```
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+```javascript title="Closing a consumer gracefully"
+// CURRENTLY NOT IMPLEMENTED
+```
+</TabItem>
+
 </Tabs>
 
 An application can still close a consumer without pausing it, at the risk of processing the same messages several times.
@@ -895,6 +1052,22 @@ consumer, err := connection.NewConsumer(context.Background(), qName,
             Offset: &OffsetFirst{},
         })
 ```
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Attaching to the beginning of a stream"
+const consumer = await connection.createConsumer({
+  stream: {
+    name: "some-stream",
+    offset: Offset.first(),
+  },
+  messageHandler: (context, message) => {
+    // message processing
+  },
+});
+```
+
 </TabItem>
 
 </Tabs>
@@ -991,6 +1164,31 @@ err = deliveryContext.Accept(context.Background())
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Configuring stream filtering"
+const consumer = await connection.createConsumer({
+  stream: {
+    name: "some-stream",
+    offset: Offset.first(),
+    matchUnfiltered: true,
+    filterValues: ["invoices", "orders"],
+  },
+  messageHandler: (context, message) => {
+    const annotations = message.message_annotations;
+    if (
+      annotations &&
+      ["invoices", "orders"].includes(annotations["x-stream-filter-value"])
+    ) {
+      // message processing
+    }
+    context.accept();
+  },
+});
+consumer.start();
+```
+
+</TabItem>
 
 </Tabs>
 
@@ -1047,6 +1245,16 @@ management.close()
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Getting the management object from the connection"
+const management = connection.management();
+// ...
+// close the management instance when it is no longer needed
+management.close();
+```
+
+</TabItem>
 
 </Tabs>
 
@@ -1103,6 +1311,15 @@ exchangeInfo, err := management.DeclareExchange(context.TODO(), &TopicExchangeSp
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Creating an exchange of a built-in type"
+const exchange = await management.declareExchange("my-exchange", {
+  type: "topic",
+});
+```
+
+</TabItem>
 
 </Tabs>
 
@@ -1167,6 +1384,21 @@ _, err := management.DeclareExchange(context.TODO(), &CustomExchangeSpecificatio
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Creating an exchange of a non-built-in type"
+const exchange = await management.declareExchange("my-exchange", {
+  type: "x-delayed-message",
+  auto_delete: true,
+  durable: false,
+  arguments: {
+    "x-delayed-type": "direct",
+  },
+});
+```
+
+</TabItem>
+
 </Tabs>
 
 Here is how to delete an exchange:
@@ -1198,13 +1430,20 @@ management.delete_exchange(exchange_name)
 
 <TabItem value="Go" label="Go">
 
-```Go title="Creating an exchange of a built-in type"
+```Go title="Deleting an exchange"
 exchange_name = "my-exchange"
 management.DeleteExchange(context.TODO(),exchange_name)
 ```
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Deleting an exchange"
+const result = await management.deleteExchange("my-exchange");
+```
+
+</TabItem>
 
 </Tabs>
 
@@ -1257,6 +1496,16 @@ queueInfo, err := management.DeclareQueue(context.TODO(), &ClassicQueueSpecifica
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Creating a classic queue"
+const queue = await management.declareQueue("myqueue", {
+  exclusive: true,
+  autoDelete: false,
+});
+```
+
+</TabItem>
 
 </Tabs>
 
@@ -1305,6 +1554,21 @@ queueInfo, err := management.DeclareQueue(context.TODO(), &ClassicQueueSpecifica
             MaxLengthBytes: CapacityGB(1),
             IsAutoDelete:   false,
     })
+```
+
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Creating a queue with arguments"
+const queue = await management.declareQueue("myqueue", {
+  type: "classic",
+  arguments: {
+    // for a list, see: https://www.rabbitmq.com/docs/queues#optional-arguments
+    "x-max-priority": 10,
+    "message-ttl": 60 * 1000,
+  },
+});
 ```
 
 </TabItem>
@@ -1366,6 +1630,17 @@ queueInfo, err := management.DeclareQueue(context.TODO(), &QuorumQueueSpecificat
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Creating a quorum queue"
+const queue = await management.declareQueue("myqueue", {
+  type: "quorum",
+  deliveryLimit: 3,
+  initialGroupSize: 3,
+});
+```
+
+</TabItem>
 
 </Tabs>
 
@@ -1418,6 +1693,17 @@ leader := queueInfo.Leader();
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Getting queue information"
+const result = await management.getQueueInfo("my-queue");
+
+const messages = result.getInfo.messageCount;
+const consumers = result.getInfo.consumerCount;
+const leader = result.getInfo.leader;
+```
+
+</TabItem>
 
 </Tabs>
 
@@ -1453,6 +1739,14 @@ management.delete_queue(name="myqueue")
 
 ```go title="Deleting a queue"
 management.DeleteExchange(context.TODO(),"myqueue")
+```
+
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Deleting a queue"
+const result = await management.deleteQueue(queueName);
 ```
 
 </TabItem>
@@ -1515,6 +1809,17 @@ bindingPath, err := management.Bind(context.TODO(), &rmq.ExchangeToQueueBindingS
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Binding a queue to an exchange"
+const queue = await management.declareQueue("my-queue");
+const exchange = await management.declareExchange("my-exchange");
+
+await management.bind(routingKey, { source: exchange, destination: queue });
+```
+
+</TabItem>
+
 </Tabs>
 
 There is also support for [exchange-to-exchange binding](/docs/e2e):
@@ -1570,6 +1875,19 @@ bindingPath, err := management.Bind(context.TODO(), &rmq.ExchangeToExchangeBindi
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Binding a exchange to an exchange"
+const exchange1 = await management.declareExchange("my-exchange");
+const exchange2 = await management.declareExchange("my-other-exchange");
+
+await management.bind(bindingKey, {
+  source: exchange1,
+  destination: exchange2,
+});
+```
+
+</TabItem>
 
 </Tabs>
 
@@ -1620,6 +1938,15 @@ err = management.Unbind(context.TODO(), bindingPath)
 ```
 
 </TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Deleting the binding between an exchange and a queue"
+await management.unbind(bindingKey, { source: exchange, destination: queue });
+```
+
+</TabItem>
+
 </Tabs>
 
 ## Advanced Usage
@@ -1691,6 +2018,13 @@ connection.NotifyStatusChange(stateChanged)
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Attach an event to the ChangeState"
+// CURRENTLY NOT IMPLEMENTED
+```
+
+</TabItem>
 
 </Tabs>
 
@@ -1740,6 +2074,14 @@ publisher.ChangeState += (sender, fromState, toState, e) =>
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Attach an event to the ChangeState"
+// CURRENTLY NOT IMPLEMENTED
+```
+
+</TabItem>
+
 </Tabs>
 
 And on consumer instances as well:
@@ -1785,6 +2127,13 @@ consumer.ChangeState += (sender, fromState, toState, e) =>
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Attach an event to the ChangeState"
+// CURRENTLY NOT IMPLEMENTED
+```
+
+</TabItem>
 
 </Tabs>
 
@@ -1849,6 +2198,21 @@ await AmqpConnection.CreateAsync(
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Setting a back-off policy for connection recovery"
+// arguments are passed directly to RHEA library
+// https://github.com/amqp/rhea?tab=readme-ov-file#container
+//
+// TOPOLOGY RECOVERY IS NOT TESTED
+await environment.createConnection({
+  reconnect: 2000,
+  initialReconnectDelay: 2000,
+  reconnectLimit: 10,
+});
+```
+
+</TabItem>
 
 </Tabs>
 
@@ -1901,6 +2265,13 @@ await AmqpConnection.CreateAsync(
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Deactivating topology recovery"
+// CURRENTLY NOT IMPLEMENTED
+```
+
+</TabItem>
 
 </Tabs>
 
@@ -1954,5 +2325,12 @@ await AmqpConnection.CreateAsync(
 
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+
+```javascript title="Deactivating recovery"
+await environment.createConnection({ reconnect: false });
+```
+
+</TabItem>
 
 </Tabs>
