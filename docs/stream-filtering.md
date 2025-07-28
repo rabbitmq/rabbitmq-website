@@ -138,7 +138,7 @@ For a detailed description of Bloom filters and the RabbitMQ Stream protocol, re
 
 For the Bloom filtering feature to work, a message must be published with an associated Bloom filter value, specified by the `x-stream-filter-value` message annotation:
 
-<Tabs groupId="bloom-fiter-publish-amqp-10">
+<Tabs groupId="languages">
 <TabItem value="java" label="Java">
 ```java
 Message message = publisher.message(body)
@@ -191,12 +191,13 @@ amqp10_client:send_msg(Sender, Msg),
 </Tabs>
 
 A receiver must use a filter with descriptor `rabbitmq:stream-filter`.
-This filter accepts a string, or a list of strings to receive messages for different filter values (logical "OR" semantic).
+This filter accepts a string or a list of strings.
+If a list of strings is provided, they are logically concatenated with an `OR` operator, that is, it's enough for one or some of the strings to apply.
 
 Most language examples that follow combine a Bloom filter (Stage 1) with client-side filtering (Stage 3).
 The Erlang example shows how to combine a Bloom filter (Stage 1) with an AMQP Filter Expression (Stage 2), such that there is no need for client-side filtering (Stage 3).
 
-<Tabs groupId="bloom-fiter-consume-amqp-10">
+<Tabs groupId="languages">
 
 <TabItem value="java" label="Java">
 ```java
@@ -323,7 +324,7 @@ end,
 
 For the Bloom filtering feature to work, a message must be published with an associated Bloom filter value, specified by the `x-stream-filter-value` header:
 
-<Tabs groupId="bloom-fiter-publish-amqp-091">
+<Tabs groupId="languages">
 
 <TabItem value="Java" label="Java">
 ```java
@@ -344,9 +345,10 @@ channel.basicPublish(
 </Tabs>
 
 A consumer must use the `x-stream-filter` consumer argument if it wants to receive only messages for the given filter value(s).
-This argument accepts a string, or an array of strings to receive messages for different filter values (logical "OR" semantic).
+This argument accepts a string or an array of strings.
+If an array of strings is provided, they are logically concatenated with an `OR` operator, that is, it's enough for one or some of the strings to apply.
 
-<Tabs groupId="bloom-fiter-consume-amqp-091">
+<Tabs groupId="languages">
 
 <TabItem value="Java" label="Java">
 ```java
@@ -377,7 +379,7 @@ As shown in the snippet above, there should be some client-side filtering logic 
 
 #### Example: Bloom Filter Stream Protocol {#example-bloom-stream}
 
-<Tabs groupId="bloom-fiter-publish-stream">
+<Tabs groupId="languages">
 
 <TabItem value="Java" label="Java">
 ```java
@@ -392,7 +394,7 @@ Producer producer = environment.producerBuilder()
 
 </Tabs>
 
-<Tabs groupId="bloom-fiter-consume-stream">
+<Tabs groupId="languages">
 
 <TabItem value="Java" label="Java">
 ```java
@@ -418,7 +420,7 @@ Consumer consumer = environment.consumerBuilder()
 ## Stage 2: AMQP Filter Expressions
 
 AMQP filter expressions are logical statements that consumers provide when attaching to a stream.
-RabbitMQ evaluates these expressions server-side against message metadata.
+RabbitMQ nodes evaluate these expressions against message metadata.
 If the message matches, RabbitMQ delivers the message to the client.
 
 The filter syntax is defined in the AMQP 1.0 extension specification [AMQP Filter Expressions Version 1.0 Committee Specification Draft 01](https://docs.oasis-open.org/amqp/filtex/v1.0/csd01/filtex-v1.0-csd01.html).
@@ -452,7 +454,7 @@ The following example causes RabbitMQ to deliver only messages for which **all**
 * field `subject` starts with the prefix `Order`
 * the application property key `region` is `emea`
 
-<Tabs groupId="amqp-property-filter">
+<Tabs groupId="languages">
 
 <TabItem value="Erlang" label="Erlang">
 ```erlang
@@ -691,7 +693,7 @@ The following example causes RabbitMQ to deliver only messages for which **all**
 * field `subject` starts with the prefix `Order`
 * the application provided key `region` is `emea`
 
-<Tabs groupId="amqp-sql-filter">
+<Tabs groupId="languages">
 
 <TabItem value="Erlang" label="Erlang">
 ```erlang
@@ -726,7 +728,7 @@ Examples of such evaluation errors include:
 * arithmetic division by zero: e.g. `3 / 0`
 * integer division remained with floating points: e.g. `3 % 1.2`
 
-Evaluation errors result in `false` or `unknown` (depending on the exact error).
+Filters that run into evaluation errors are treated as if they returned `false` or `unknown` depending on the error.
 RabbitMQ will deliver only messages to the client for which the SQL conditional expression evaluates to `true`.
 
 ### Bloom Filter vs. AMQP Filter Expressions
@@ -773,7 +775,7 @@ The following example provides a complex SQL filter expression that queries even
 * in one of the regions `AMER`, `EMEA`, or `AJP`
 * the order must be of high priority or high price or be submitted by a premium customer
 
-<Tabs groupId="bloom-sql-filter">
+<Tabs groupId="languages">
 
 <TabItem value="Erlang" label="Erlang">
 ```erlang
