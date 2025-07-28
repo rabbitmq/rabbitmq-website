@@ -273,9 +273,16 @@ const sidebars = {
           ],
         },
         {
-          type: 'doc',
-          id: 'streams',
+          type: 'category',
           label: 'Streams',
+          link: {type: 'doc', id: 'streams'},
+          items: [
+            {
+              type: 'doc',
+              id: 'stream-filtering',
+              label: 'Stream Filtering',
+            },
+          ],
         },
         {
           type: 'doc',

@@ -289,20 +289,21 @@ This section lists features that RabbitMQ supports exclusively in AMQP 1.0, whic
   * Consumers can be stopped or paused and later resumed.
   * Graceful handoff from one [single active consumer](./consumers#single-active-consumer) to the next, while maintaining message order.
   * The source queue can efficiently inform the consumer about an approximate number of available messages.
+* **AMQP Filter Expressions**: RabbitMQ implements [AMQP Filter Expressions](./stream-filtering#stage-2-amqp-filter-expressions) when consuming from streams via AMQP 1.0.
+  * Server-side evaluation of complex SQL expressions.
+  * When combining Bloom filters with AMQP filter expressions, RabbitMQ allows for efficient chunk-level filtering followed by precise message-level filtering for complex business logic — all server-side.
+  * Reduces network traffic between RabbitMQ and clients by only dispatching those messages that the clients are actually interested in.
+  * Allows multiple concurrent clients each consuming only a subset of messages while maintaining message order.
 * **Queue Locality**: RabbitMQ can provide up-to-date queue topology and leader information to clients.
   * For example, the [RabbitMQ AMQP 1.0 Java client](https://github.com/rabbitmq/rabbitmq-amqp-java-client) can leverage this information by trying to consume "locally" from a RabbitMQ node that hosts a queue replica and trying to publish "locally" to a node that hosts the queue leader.
   * This can result in lower intra-cluster traffic, reducing latency and increasing throughput.
-* **[Sender Settle Mode](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-sender-settle-mode) `mixed`**: Allows a publisher to decide on a per-message basis whether to receive [confirmations](./confirms#publisher-confirms) from the broker.
+* **WebSocket**: [VMware Tanzu RabbitMQ](https://www.vmware.com/products/app-platform/tanzu-rabbitmq) supports [AMQP 1.0 over WebSocket](/blog/2025/04/16/amqp-websocket) allowing applications running in a browser to communicate with RabbitMQ using AMQP 1.0.
 * **[Modified Outcome](#modified-outcome)**: Allows a quorum queue consumer to add and modify [message annotations](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-message-annotations) when requeueing or dead lettering a message.
-* **AMQP Filter Expressions**: RabbitMQ [implements](https://github.com/rabbitmq/rabbitmq-server/pull/12415) `properties` and `appliation-properties` filters of [AMQP Filter Expressions Version 1.0 Working Draft 09](https://groups.oasis-open.org/higherlogic/ws/public/document?document_id=66227) when consuming from a stream via AMQP 1.0 as described in the [AMQP 1.0 Filter Expressions](/blog/2024/12/13/amqp-filter-expressions) blog post.
-  * String prefix and suffix matching is also supported.
-  * This feature allows multiple concurrent clients each consuming only a subset of messages while maintaining message order.
-  * This feature reduces network traffic between RabbitMQ and clients by only dispatching those messages that the clients are actually interested in.
+* **[Sender Settle Mode](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-sender-settle-mode) `mixed`**: Allows a publisher to decide on a per-message basis whether to receive [confirmations](./confirms#publisher-confirms) from the broker.
 * **Well defined [types](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html)**
 * **Better defined [message headers](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#section-message-format)**
 * **Enhanced Message Integrity**: Clients can set message hashes, checksums, and digital signatures not only over the message body but also over the [properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-properties) and [application-properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-application-properties) sections, as the bare message is immutable.
 * **Stream Message Fidelity**: No loss of headers fidelity when storing or retrieving a message from a [stream](./streams), since streams store messages in AMQP 1.0 encoded format.
-* **WebSocket**: [VMware Tanzu RabbitMQ](https://www.vmware.com/products/app-platform/tanzu-rabbitmq) supports [AMQP 1.0 over WebSocket](/blog/2025/04/16/amqp-websocket) allowing applications running in a browser to communicate with RabbitMQ using AMQP 1.0.
 
 ### AMQP 0.9.1 Features
 This section lists features that RabbitMQ supports exclusively in AMQP 0.9.1, which are currently not available in AMQP 1.0:

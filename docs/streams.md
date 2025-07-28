@@ -304,63 +304,6 @@ Consider using super streams only if you are sure you reached the limits of indi
 
 A [blog post](/blog/2022/07/13/rabbitmq-3-11-feature-preview-super-streams) provides an overview of super streams.
 
-### Filtering {#filtering}
-
-RabbitMQ Stream provides a server-side filtering feature that avoids reading all the messages of a stream and filtering only on the client side.
-This helps to save network bandwidth when a consuming application needs only a subset of messages, e.g. the messages from a given geographical region.
-
-Stream filtering is supported with the [stream protocol](./stream), AMQP 0.9.1, and [STOMP](./stomp#stream-support).
-Examples will be using AMQP 0.9.1.
-
-A message must be published with an associated filter value for the filtering feature to work.
-This value is specified with the `x-stream-filter-value` header:
-
-```java
-channel.basicPublish(
-  "", // default exchange
-  "my-stream",
-  new AMQP.BasicProperties.Builder()
-    .headers(Collections.singletonMap(
-      "x-stream-filter-value", "california" // set filter value
-    ))
-    .build(),
-  body
-);
-```
-
-A consumer must use the `x-stream-filter` argument if it wants to receive only messages for a given filter value:
-
-```java
-channel.basicQos(100); // QoS must be specified
-channel.basicConsume(
-  "my-stream",
-  false,
-  Collections.singletonMap("x-stream-filter", "california"), // set filter
-  (consumerTag, message) -> {
-    Map<String, Object> headers = message.getProperties().getHeaders();
-    // there must be some client-side filter logic
-    if ("california".equals(headers.get("x-stream-filter-value"))) {
-      // message processing
-      // ...
-    }
-    channel.basicAck(message.getEnvelope().getDeliveryTag(), false); // ack is required
-  },
-  consumerTag -> { });
-```
-
-As shown in the snippet above, there must be some client-side filtering logic as well because server-side filtering is _probabilistic_: messages that do not match the filter value can still be sent to the consumer.
-The server uses a [Bloom filter](https://en.wikipedia.org/wiki/Bloom_filter), a space-efficient probabilistic data structure, where false positives are possible.
-Despite this, the filtering saves some bandwidth, which is its primary goal.
-
-Additional notes on filtering:
-
-* It is possible to publish messages with and without a filter value in the same stream.
-* Messages without a filter value are not sent when a filter is set by a consumer.
-Set the `x-stream-match-unfiltered` argument to `true` to change this behavior and receive _unfiltered_ messages as well.
-* The `x-stream-filter` consumer argument accepts a string but also an array of strings to receive messages for different filter values.
-
-A [first blog post](/blog/2023/10/16/stream-filtering) provides an overview of stream filtering and a [second blog post](/blog/2023/10/24/stream-filtering-internals) covers internals.
-
 ## Feature Comparison: Regular Queues versus Streams {#feature-comparison}
 
 Streams are not really queues in the traditional sense and thus do not
