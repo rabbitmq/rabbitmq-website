@@ -380,6 +380,7 @@ To configure OAuth 2.0 in the management UI you need a [minimum configuration](#
     * [Special attention to CSP header `connect-src`](#csp-header)
     * [Identity-Provider initiated logon](#idp-initiated-logon)
     * [Support multiple OAuth 2.0 resources](#support-multiple-resources)
+    * [Support Opaque tokens](#support-opaque-tokens)
 
 ### Minimum configuration {#minimum-configuration}
 
@@ -661,6 +662,11 @@ And this is the management UI with Basic Authentication activated (`management.o
 
 [Troubleshooting management UI access in OAuth 2-enabled clusters](./troubleshooting-oauth2#management-ui) is a companion guide
 dedicated to common OAuth 2-specific issues.
+
+### Support Opaque tokens {#support-opaque-tokens}
+
+Check out section [Support Opaque tokens](./oauth2#support-opaque-token) in order to 
+support opaque tokens and more specifically, in the management UI.
 
 
 ## HTTP API {#http-api}
