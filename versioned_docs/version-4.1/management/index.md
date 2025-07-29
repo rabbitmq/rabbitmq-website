@@ -665,7 +665,7 @@ dedicated to common OAuth 2-specific issues.
 
 ### Support Opaque tokens {#support-opaque-tokens}
 
-Check out section [Support Opaque tokens](./oauth2#support-opaque-token) in order to 
+Check out section [Support Opaque tokens](./oauth2#support-opaque-tokens) in order to 
 support opaque tokens and more specifically, in the management UI.
 
 
