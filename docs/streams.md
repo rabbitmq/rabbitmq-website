@@ -145,7 +145,7 @@ Default: 500000000 bytes.
 
 * `x-stream-filter-size-bytes`
 
-The size in bytes of the Bloom filter used for [filtering](#filtering).
+The size in bytes of the Bloom filter used for [filtering](./stream-filtering).
 The value must be between 16 and 255.
 Default: 16 bytes.
 
