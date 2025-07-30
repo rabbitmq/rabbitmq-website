@@ -29,6 +29,12 @@ alexis:
 alvaro:
   name: "Álvaro Videla"
 
+aperez:
+  name: "Aitor Perez"
+  socials:
+    github: Zerpet
+    mastodon: https://fosstodon.org/@zerpet
+
 botanicus:
   name: "Jakub Stastny"
 

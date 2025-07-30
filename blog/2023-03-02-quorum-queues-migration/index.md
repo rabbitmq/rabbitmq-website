@@ -4,6 +4,13 @@ tags: ["HowTo", ]
 authors: [alebedeff]
 ---
 
+:::important
+
+There is a [newer blog post](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way) on this topic that
+uses more modern tooling and automates most of the process.
+
+:::
+
 Quorum Queues are a superior replacement for Classic Mirrored Queues
 that were introduced in RabbitMQ version 3.8. And there are two
 complementary reasons why you would need to migrate. 
@@ -249,6 +256,13 @@ an explicit `x-queue-type: quorum` argument.
 
 ## Migrate the Queues One Virtual Host at a Time {#new-vhost-migration}
 
+:::important
+
+There is a [newer blog post](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way) on this topic that
+uses more modern tooling and automates most of the process.
+
+:::
+
 The procedure to migrate from classic mirrored queues to quorum queues
 is similar to a [blue-green cluster upgrade](/docs/blue-green-upgrade),
 except that migration can happen to a new virtual host on the same
@@ -282,6 +296,13 @@ rabbitmqctl set_permissions -p NEW_VHOST USERNAME '.*' '.*' '.*'
 
 ### Create federation upstream
 
+:::important
+
+There is a [newer blog post](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way) on this topic that
+uses more modern tooling and automates most of the process.
+
+:::
+
 A new federation upstream should be created for the NEW\_VHOST, with
 URI pointing to the OLD\_VHOST: `amqp:///OLD_VHOST`. (Note that
 default vhost URI is `amqp:///%2f`).
@@ -301,6 +322,13 @@ If `user-id` in messages is being used for any purpose, it can also be
 preserved as shown in the CLI example above.
 
 ### Moving definitions
+
+:::important
+
+There is a [newer blog post](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way) on this topic that
+uses more modern tooling and automates most of the process.
+
+:::
 
 Export definitions of the source virtual host to a file. This is
 available on the "Overview" page of the management UI (don't forget to
@@ -350,10 +378,24 @@ rabbitmqadmin import -V NEW_VHOST NEW_VHOST.json
 
 ### Point consumers to the new vhost
 
+:::important
+
+There is a [newer blog post](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way) on this topic that
+uses more modern tooling and automates most of the process.
+
+:::
+
 At this point it should be possible to point consumers to the new
 virtual host by only updating the connection parameters.
 
 ### Point producers to the new vhost
+
+:::important
+
+There is a [newer blog post](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way) on this topic that
+uses more modern tooling and automates most of the process.
+
+:::
 
 Producers can now be also pointed to the new virtual host.
 
@@ -382,6 +424,13 @@ rabbitmqctl clear_parameter shovel migrate-QUEUE_TO_MIGRATE
 ```
 
 ### Ensure future queue declarations succeed
+
+:::important
+
+There is a [newer blog post](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way) on this topic that
+uses more modern tooling and automates most of the process.
+
+:::
 
 Many applications declare queues before they use them, in multiple places. When it comes to
 migrating away from classic mirrored queues, this presents a channel: if clients declare queues
@@ -417,6 +466,13 @@ in every place where queues are being declared, it'd be nice to make
 `x-queue-type` argument configurable without changing application code.
 
 ### Migration steps
+
+:::important
+
+There is a [newer blog post](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way) on this topic that
+uses more modern tooling and automates most of the process.
+
+:::
 
 1. First, the consumers and producers will need to be stopped.
 2. The messages should be shoveled to a new, temporary queue.
