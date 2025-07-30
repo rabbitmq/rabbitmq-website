@@ -1340,8 +1340,7 @@ If the authorization server expects credentials in request parameters, use `requ
 #### Optional - Configure symmetrical signing key for opaque tokens
 
 If you want to support opaque tokens to authenticate via the [management UI](./management), you must
-configure a symmetrical signing key. In the contrary, if management UI will never receive an opaque 
-token, you do not need to configure a symmetrical signing key for opaque tokens. 
+configure a symmetrical signing key (HS256). In the contrary, you do not need to configure a symmetrical signing key for opaque tokens. 
 
 When a management user tries to authenticate with an opaque token, RabbitMQ must first 
 validate it and get its coresponding JWT's payload by contacting the Introspection endpoint.
@@ -1356,7 +1355,7 @@ auth_oauth2.opaque_token_signing_key.key = "hello-world-symmetrical-key"
 ```
 
 :::info
-RabbitMQ only supports symmetrical signing key to sign introspected 
+RabbitMQ only supports symmetrical signing key (HS256) to sign introspected 
 opaque tokens. In future versions, it may add support for asymmetrical signing key.
 :::
 
