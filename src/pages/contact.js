@@ -125,7 +125,7 @@ export default function Support() {
 
         <div className={styles.featured_partner}>
           <div className={styles.container}>
-            <Heading as="h1"><span className={styles.highlight_text}>Partner Spotlight: Announcing our newest RabbitMQ MSP Partner</span></Heading>
+            <Heading as="h1"><span className={styles.highlight_text}>Partner Spotlight: Announcing AceMQ, our RabbitMQ MSP Partner</span></Heading>
             <Heading as="h1"><span className={styles.highlight_text}>AceMQ <small>is our featured authorized partner providing End-to-End RabbitMQ solutions, including: white-glove commercial support and expert services for Tanzu RabbitMQ & RabbitMQ Community Edition. </small></span></Heading>
             <p><strong className={styles.highlight_text}>To learn more about AceMQ’s RabbitMQ support, managed services, and RabbitMQ consulting & training offerings, please get in touch below: </strong></p>
             <div>
