@@ -665,8 +665,18 @@ dedicated to common OAuth 2-specific issues.
 
 ### Support Opaque tokens {#support-opaque-tokens}
 
+RabbitMQ management UI supports the use of opaque tokens to authenticate. RabbitMQ 
+will only introspect the token once for the duration of the user's session in the 
+management ui. In order words, it will not check with the introspection endpoint 
+if the token is still valid. 
+
+Furthermore, after RabbitMQ backend instropects the opaque token, and confirms 
+that it is valid, it converts the opaque's token payload into a JWT token, i.e,
+it digitally signs the payload using a symmetrical key previously configured.
+
 Check out section [Support Opaque tokens](./oauth2#support-opaque-tokens) in order to 
-support opaque tokens and more specifically, in the management UI.
+support opaque tokens and more specifically, configure the signing key used by the management UI
+to convert an opaque token into a JWT token. 
 
 
 ## HTTP API {#http-api}
