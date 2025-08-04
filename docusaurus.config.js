@@ -301,7 +301,7 @@ const config = {
         // title: 'RabbitMQ',
         logo: {
           alt: 'RabbitMQ',
-          src: 'img/rabbitmq-logo-with-name.svg',
+          src: 'img/rabbitmq-logo-by-tanzu.svg',
         },
         items: [
           {to: '/tutorials', label: 'Getting Started', position: 'left'},
