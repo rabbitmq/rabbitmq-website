@@ -191,15 +191,12 @@ How consumer credit flow is exposed to applications depends on the client librar
 
 ### Advertised Host and Port {#advertised-host-port}
 
-The stream protocol allows to discover the topology of streams, that is where the leader and replicas for a given
-set of streams are located in the cluster. This way the client can choose to connect to the appropriate node
-to interact with the streams: the leader node to publish, a replica to consume. By default, nodes return their
-hostname and listener port, which may be fine for most situations, but not always (proxy sitting between the cluster
-nodes and the clients, cluster nodes and/or clients running in containers, etc).
+The stream protocol allows to discover the topology of streams, that is where the leader and replicas for a given set of streams are located in the cluster.
+This way the client can choose to connect to the appropriate node to interact with the streams: the leader node to publish, a replica to consume.
+By default, nodes return their hostname and listener port, which may be fine for most situations, but not always (proxy sitting between the cluster nodes and the clients, cluster nodes and/or clients running in containers, etc).
 
-The `advertised_host` and `advertised_port` keys allow to specify which information a broker node returns when asked
-the topology of streams. One can set those settings according to their infrastructure, so that clients can connect
-to cluster nodes:
+The `advertised_host` and `advertised_port` keys allow to specify which information a broker node returns when asked the topology of streams.
+One can set those settings according to their infrastructure, so that clients can connect to cluster nodes:
 
 ```ini
 stream.advertised_host = rabbitmq-1
@@ -208,6 +205,7 @@ stream.advertised_port = 12345
 
 The [Connecting to Streams](/blog/2021/07/23/connecting-to-streams) blog post covers why the `advertised_host` and `advertised_port` settings are necessary in some deployments.
 
+The configuration entries have [TLS counterparts](#tls) (`advertised_tls_host` and `advertised_tls_port`).
 
 ### Maximum Frame Size {#frame-size}
 
