@@ -216,6 +216,10 @@ spec:
   replicas: 3
 ```
 
+**Since v2.16.0**, it is possible to scale to zero. It is **not possible to down scale**. Only scaling to
+zero is allowed, and then scaling back to the original number. A potential use case is to save resources
+over a period of expected inactivity (e.g. weekends). All data is preserved when scaling to zero.
+
 ### Image {#images}
 
 **Description:** Specify the RabbitMQ image reference.
