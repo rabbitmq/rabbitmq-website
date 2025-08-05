@@ -605,7 +605,16 @@ Tuning for throughput is a common goal. Improvements can be achieved by
 
 For the latter two, see the OS-level tuning section below.
 
-Note that tuning for throughput will involve trade-offs. For example, increasing TCP buffer
+:::tip
+
+[Networking stack tuning](https://fasterdata.es.net/host-tuning/linux/) can be useful for environments with multi-gigabit links and workloads that extensively use [streams](./streams).
+
+However, higher values won't necessarily produce better results, and kernel network
+tuning is [a science, not an art](https://fasterdata.es.net/host-tuning/background/#t2).
+
+:::
+
+TCP setting tuning for throughput will involve trade-offs. For example, increasing TCP buffer
 sizes will increase the amount of RAM used by every connection, which can be a significant
 total server RAM use increase.
 
@@ -1003,6 +1012,15 @@ net.ipv4.tcp_tw_reuse = 1
 ```
 
 ## OS Level Tuning {#os-tuning}
+
+:::tip
+
+[Networking stack tuning](https://fasterdata.es.net/host-tuning/linux/) can be useful for environments with multi-gigabit links and workloads that extensively use [streams](./streams).
+
+However, higher values won't necessarily produce better results, and kernel network
+tuning is [a science, not an art](https://fasterdata.es.net/host-tuning/background/#t2).
+
+:::
 
 Operating system settings can affect operation of RabbitMQ.
 Some are directly related to networking (e.g. TCP settings), others

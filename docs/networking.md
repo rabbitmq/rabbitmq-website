@@ -593,7 +593,7 @@ using peer certificates is also possible. Please refer to the [TLS/SSL guide](./
 for more information.
 
 
-## Tuning for Throughput {#tuning-for-throughput}
+## Tuning for Throughput and Multi-Gigabit Links {#tuning-for-throughput}
 
 <a id="tuning-for-throughput-intro"></a>
 
@@ -612,7 +612,16 @@ based on message rates and sizes.
 
 For the latter two, see the OS-level tuning section below.
 
-Note that tuning for throughput will involve trade-offs. For example, increasing TCP buffer
+:::tip
+
+[Networking stack tuning](https://fasterdata.es.net/host-tuning/linux/) can be useful for environments with multi-gigabit links and workloads that extensively use [streams](./streams).
+
+However, higher values won't necessarily produce better results, and kernel network
+tuning is [a science, not an art](https://fasterdata.es.net/host-tuning/background/#t2).
+
+:::
+
+TCP setting tuning for throughput will involve trade-offs. For example, increasing TCP buffer
 sizes will increase the amount of RAM used by every connection, which can be a significant
 total server RAM use increase.
 
@@ -884,10 +893,7 @@ Finding an optimal value is usually a matter of trial and error.
 
 ### Nagle's Algorithm ("nodelay") {#tuning-for-large-number-of-connections-nodelay}
 
-Turning off <a
-href="http://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's
-algorithm</a> is primarily useful for reducing latency but
-can also improve throughput.
+Turning off <a href="http://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's algorithm</a> is primarily useful for reducing latency but can also improve throughput.
 
 `kernel.inet_default_connect_options` and `kernel.inet_default_listen_options` must
 include `{nodelay, true}` to turn off Nagle's algorithm for inter-node connections.
@@ -1053,6 +1059,15 @@ net.ipv4.tcp_tw_reuse = 1
 ```
 
 ## OS Level Tuning {#os-tuning}
+
+:::tip
+
+[Networking stack tuning](https://fasterdata.es.net/host-tuning/linux/) can be useful for environments with multi-gigabit links and workloads that extensively use [streams](./streams).
+
+However, higher values won't necessarily produce better results, and kernel network
+tuning is [a science, not an art](https://fasterdata.es.net/host-tuning/background/#t2).
+
+:::
 
 Operating system settings can affect operation of RabbitMQ.
 Some are directly related to networking (e.g. TCP settings), others
