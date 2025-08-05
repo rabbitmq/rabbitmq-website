@@ -75,7 +75,7 @@ CentOS 7 and Fedora releases older than 26 are examples of such distributions.
 
 Currently the list of supported RPM-based distributions includes
 
- * Fedora 39 through 42
+ * Fedora 40 through 42
  * [CentOS Stream](https://centos.org/centos-stream/) 9.x
  * RedHat Enterprise Linux 9.x and 8.x (versions covered by [full support](https://access.redhat.com/support/policy/updates/errata))
  * Amazon Linux 2023
@@ -222,23 +222,6 @@ pkg_gpgcheck=1
 autorefresh=1
 type=rpm-md
 
-[modern-erlang-source]
-name=modern-erlang-el9-source
-# Use a set of mirrors maintained by the RabbitMQ core team.
-# The mirrors have significantly higher bandwidth quotas.
-baseurl=https://yum1.rabbitmq.com/erlang/el/9/SRPMS
-        https://yum2.rabbitmq.com/erlang/el/9/SRPMS
-repo_gpgcheck=1
-enabled=1
-gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-erlang.E495BB49CC4BBE5B.key
-       https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc
-gpgcheck=1
-sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-metadata_expire=300
-pkg_gpgcheck=1
-autorefresh=1
-
 
 ##
 ## RabbitMQ Server
@@ -271,21 +254,6 @@ enabled=1
 gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key
        https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc
 gpgcheck=1
-sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-metadata_expire=300
-pkg_gpgcheck=1
-autorefresh=1
-type=rpm-md
-
-[rabbitmq-el9-source]
-name=rabbitmq-el9-source
-baseurl=https://yum2.rabbitmq.com/rabbitmq/el/9/SRPMS
-        https://yum1.rabbitmq.com/rabbitmq/el/9/SRPMS
-repo_gpgcheck=1
-enabled=1
-gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key
-gpgcheck=0
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300
@@ -343,23 +311,6 @@ pkg_gpgcheck=1
 autorefresh=1
 type=rpm-md
 
-[modern-erlang-source]
-name=modern-erlang-el8-source
-# Use a set of mirrors maintained by the RabbitMQ core team.
-# The mirrors have significantly higher bandwidth quotas.
-baseurl=https://yum1.rabbitmq.com/erlang/el/8/SRPMS
-        https://yum2.rabbitmq.com/erlang/el/8/SRPMS
-repo_gpgcheck=1
-enabled=1
-gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-erlang.E495BB49CC4BBE5B.key
-       https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc
-gpgcheck=1
-sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-metadata_expire=300
-pkg_gpgcheck=1
-autorefresh=1
-
 
 ##
 ## RabbitMQ Server
@@ -392,21 +343,6 @@ enabled=1
 gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key
        https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc
 gpgcheck=1
-sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-metadata_expire=300
-pkg_gpgcheck=1
-autorefresh=1
-type=rpm-md
-
-[rabbitmq-el8-source]
-name=rabbitmq-el8-source
-baseurl=https://yum2.rabbitmq.com/rabbitmq/el/8/SRPMS
-        https://yum1.rabbitmq.com/rabbitmq/el/8/SRPMS
-repo_gpgcheck=1
-enabled=1
-gpgkey=https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key
-gpgcheck=0
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300
