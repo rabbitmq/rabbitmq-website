@@ -65,6 +65,7 @@ Topics covered in this information include:
  * [Performance](#performance) characteristics of quorum queues
  * [Performance tuning](#performance-tuning), both for workloads with [small messages](#performance-tuning-small-messages) and [large messages](#performance-tuning-large-messages)
  * [Poison message handling](#poison-message-handling) (failure-redelivery loop protection)
+ * [Migrating from Mirrored Classic Queues](#migrate-from-cmqs)
  * [Configurable settings](#configuration) of quorum queues
 
 and more.
@@ -825,7 +826,7 @@ log entries it does not have from the leader, including the dropped ones. Quorum
 will therefore remain consistent.
 
 
-## Quorum Queue Performance Characteristics {#performance}
+### Quorum Queue Performance Characteristics {#performance}
 
 Quorum queues are designed to trade latency for throughput and have been tested
 and compared against durable [classic mirrored queues](./ha) in 3, 5 and 7 node configurations at several
@@ -850,6 +851,14 @@ as message sizes increase.
 Quorum queue throughput is also affected by the number of replicas.
 The more replicas a quorum queue has, the lower its throughput generally will
 be since more work has to be done to replicate data and achieve consensus.
+
+
+## Migrating from RabbitMQ 3.13.x with Mirrored Classic Queues to Quorum Queues Using Blue-Green Deployment {#migrate-from-cmqs}
+
+[`rabbitmqadmin` v2](./management-cli) provides commands for automating migration from 3.13.x clusters
+that use classic mirrored queues to quorum queues using the [Blue-Green Deployment strategy](./blue-green-upgrade).
+
+See [Using Blue-Green Upgrade Strategy to Migrate from Classic Mirrored Queues to Quorum Queues](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way).
 
 
 ## Configurable Settings {#configuration}

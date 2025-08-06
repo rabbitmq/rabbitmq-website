@@ -24,6 +24,13 @@ import TabItem from '@theme/TabItem';
 
 # Migrate your RabbitMQ Mirrored Classic Queues to Quorum Queues
 
+:::important
+
+`rabbitmqadmin` v2 offers [modern tooling for migrating from 3.13.x clusters](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way) with Mirrored Classic Queues to 4.x clusters with Quorum Queues
+using the [Blue-Green Deployment strategy](./blue-green-upgrade)
+
+:::
+
 Which is better: mirrored classic queues or quorum queues? [Quorum queues](./quorum-queues) are the much better choice and they will be [the only option starting with RabbitMQ version 4.0](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/).
 This information explains why, the reasons why you should migrate from mirrored classic queues to quorum queues, the ways to handle features during the migration, and includes procedures for some of the migration routes you can take.
 

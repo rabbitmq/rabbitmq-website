@@ -32,12 +32,18 @@ This guide covers a feature that had been [**deprecated since 2021**](/blog/2021
 **Non-replicated** classic queues continue being supported and developed.
 :::
 
+:::tip
+
+`rabbitmqadmin` v2 provides [modern tooling for migrating away from Classic Mirrored Queues to Quorum Queues](https://www.rabbitmq.com/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way)
+
+:::
+
 ## Wait, There's a Better Way: Modern Replicated Queue Type and Streams {#interstitial}
 
 This guide covers a [**long time deprecated**](/blog/2021/08/21/4.0-deprecation-announcements) and [**in 4.x, removed**](https://github.com/rabbitmq/rabbitmq-server/pull/9815) legacy feature: mirroring (queue contents replication) of classic queues.
 [Quorum queues](./quorum-queues) and/or [streams](./streams) should be used instead of mirrored classic queues.
 
-Quorum queues are a more advanced queue type, which offers high availability using  replication and focuses on data safety. Quorum queues [support message TTL](/blog/2022/05/05/rabbitmq-3.10-release-overview) and provide [higher throughput and more stable latency](/blog/2022/05/16/rabbitmq-3.10-performance-improvements) compared to mirrored classic queues. Please [migrate from Mirrored Classic Queues to Quorum Queues](./migrate-mcq-to-qq) now.
+Quorum queues are a more advanced queue type, which offers high availability using  replication and focuses on data safety. Quorum queues [support message TTL](/blog/2022/05/05/rabbitmq-3.10-release-overview) and provide [higher throughput and more stable latency](/blog/2022/05/16/rabbitmq-3.10-performance-improvements) compared to mirrored classic queues. Please migrate from Mirrored Classic Queues to Quorum Queues, either [using the Blue-Green Deployment strategy](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way) or [within the same virtual host](./migrate-mcq-to-qq).
 
 [Streams](./streams) is an [alternative messaging data structure](/blog/2021/07/13/rabbitmq-streams-overview) supported by RabbitMQ.
 Just like quorum queues, streams are replicated.
