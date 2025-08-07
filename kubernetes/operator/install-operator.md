@@ -87,22 +87,6 @@ kubectl rabbitmq install-cluster-operator
 # deployment.apps/rabbitmq-cluster-operator created
 ```
 
-### Installation using Helm chart {#helm-chart}
-
-To install the Operator using [Bitnami Helm chart](https://github.com/bitnami/charts/tree/main/bitnami/rabbitmq-cluster-operator), run the following command:
-
-```bash
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install my-release bitnami/rabbitmq-cluster-operator
-```
-
-The last command deploys the RabbitMQ Cluster Kubernetes Operator on the Kubernetes cluster in the default configuration. The [Parameters](https://github.com/bitnami/charts/tree/main/bitnami/rabbitmq-cluster-operator#parameters) section lists the parameters that can be configured during installation.
-
-The Operator's Helm chart requires
-
-* Helm chart 3.1.0
-* PV provisioner support in the underlying infrastructure
-
 ### Installation with Terraform and OpenTofu
 
 Terraform and OpenTofu users need to [override the repository](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) and set it
