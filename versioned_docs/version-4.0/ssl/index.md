@@ -708,7 +708,7 @@ public class Example1 {
 
     public static void main(String[] args) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost(&quot;localhost&quot;);
+        factory.setHost("localhost");
         factory.setPort(5671);
 
         factory.useSslProtocol();
@@ -719,15 +719,15 @@ public class Example1 {
         Channel channel = conn.createChannel();
 
         // non-durable, exclusive, auto-delete queue
-        channel.queueDeclare(&quot;rabbitmq-java-test&quot;, false, true, true, null);
-        channel.basicPublish(&quot;&quot;, &quot;rabbitmq-java-test&quot;, null, &quot;Hello, World&quot;.getBytes());
+        channel.queueDeclare("rabbitmq-java-test", false, true, true, null);
+        channel.basicPublish("", "rabbitmq-java-test", null, "Hello, World".getBytes());
 
-        GetResponse chResponse = channel.basicGet(&quot;rabbitmq-java-test&quot;, false);
+        GetResponse chResponse = channel.basicGet("rabbitmq-java-test", false);
         if (chResponse == null) {
-            System.out.println(&quot;No message retrieved&quot;);
+            System.out.println("No message retrieved");
         } else {
             byte[] body = chResponse.getBody();
-            System.out.println(&quot;Received: &quot; + new String(body));
+            System.out.println("Received: " + new String(body));
         }
 
         channel.close();
@@ -777,25 +777,25 @@ import com.rabbitmq.client.*;
 public class Example2 {
 
     public static void main(String[] args) throws Exception {
-      char[] keyPassphrase = &quot;MySecretPassword&quot;.toCharArray();
-      KeyStore ks = KeyStore.getInstance(&quot;PKCS12&quot;);
-      ks.load(new FileInputStream(&quot;/path/to/client_key.p12&quot;), keyPassphrase);
+      char[] keyPassphrase = "MySecretPassword".toCharArray();
+      KeyStore ks = KeyStore.getInstance("PKCS12");
+      ks.load(new FileInputStream("/path/to/client_key.p12"), keyPassphrase);
 
-      KeyManagerFactory kmf = KeyManagerFactory.getInstance(&quot;SunX509&quot;);
+      KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
       kmf.init(ks, keyPassphrase);
 
-      char[] trustPassphrase = &quot;rabbitstore&quot;.toCharArray();
-      KeyStore tks = KeyStore.getInstance(&quot;JKS&quot;);
-      tks.load(new FileInputStream(&quot;/path/to/trustStore&quot;), trustPassphrase);
+      char[] trustPassphrase = "rabbitstore".toCharArray();
+      KeyStore tks = KeyStore.getInstance("JKS");
+      tks.load(new FileInputStream("/path/to/trustStore"), trustPassphrase);
 
-      TrustManagerFactory tmf = TrustManagerFactory.getInstance(&quot;SunX509&quot;);
+      TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
       tmf.init(tks);
 
-      SSLContext c = SSLContext.getInstance(&quot;TLSv1.2&quot;);
+      SSLContext c = SSLContext.getInstance("TLSv1.2");
       c.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 
       ConnectionFactory factory = new ConnectionFactory();
-      factory.setHost(&quot;localhost&quot;);
+      factory.setHost("localhost");
       factory.setPort(5671);
       factory.useSslProtocol(c);
       factory.enableHostnameVerification();
@@ -803,15 +803,15 @@ public class Example2 {
       Connection conn = factory.newConnection();
       Channel channel = conn.createChannel();
 
-      channel.queueDeclare(&quot;rabbitmq-java-test&quot;, false, true, true, null);
-      channel.basicPublish(&quot;&quot;, &quot;rabbitmq-java-test&quot;, null, &quot;Hello, World&quot;.getBytes());
+      channel.queueDeclare("rabbitmq-java-test", false, true, true, null);
+      channel.basicPublish("", "rabbitmq-java-test", null, "Hello, World".getBytes());
 
-      GetResponse chResponse = channel.basicGet(&quot;rabbitmq-java-test&quot;, false);
+      GetResponse chResponse = channel.basicGet("rabbitmq-java-test", false);
       if (chResponse == null) {
-          System.out.println(&quot;No message retrieved&quot;);
+          System.out.println("No message retrieved");
       } else {
           byte[] body = chResponse.getBody();
-          System.out.println(&quot;Received: &quot; + new String(body));
+          System.out.println("Received: " + new String(body));
       }
 
       channel.close();
@@ -840,25 +840,25 @@ import com.rabbitmq.client.*;
 public class Example2 {
 
     public static void main(String[] args) throws Exception {
-      char[] keyPassphrase = &quot;MySecretPassword&quot;.toCharArray();
-      KeyStore ks = KeyStore.getInstance(&quot;PKCS12&quot;);
-      ks.load(new FileInputStream(&quot;/path/to/client_key.p12&quot;), keyPassphrase);
+      char[] keyPassphrase = "MySecretPassword".toCharArray();
+      KeyStore ks = KeyStore.getInstance("PKCS12");
+      ks.load(new FileInputStream("/path/to/client_key.p12"), keyPassphrase);
 
-      KeyManagerFactory kmf = KeyManagerFactory.getInstance(&quot;SunX509&quot;);
+      KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
       kmf.init(ks, keyPassphrase);
 
-      char[] trustPassphrase = &quot;rabbitstore&quot;.toCharArray();
-      KeyStore tks = KeyStore.getInstance(&quot;JKS&quot;);
-      tks.load(new FileInputStream(&quot;/path/to/trustStore&quot;), trustPassphrase);
+      char[] trustPassphrase = "rabbitstore".toCharArray();
+      KeyStore tks = KeyStore.getInstance("JKS");
+      tks.load(new FileInputStream("/path/to/trustStore"), trustPassphrase);
 
-      TrustManagerFactory tmf = TrustManagerFactory.getInstance(&quot;SunX509&quot;);
+      TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
       tmf.init(tks);
 
-      SSLContext c = SSLContext.getInstance(&quot;TLSv1.2&quot;);
+      SSLContext c = SSLContext.getInstance("TLSv1.2");
       c.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 
       ConnectionFactory factory = new ConnectionFactory();
-      factory.setHost(&quot;localhost&quot;);
+      factory.setHost("localhost");
       factory.setPort(5671);
       factory.useSslProtocol(c);
       factory.enableHostnameVerification();
@@ -887,7 +887,7 @@ or a `SSLContext`:
 
 ```java
 ConnectionFactory factory = new ConnectionFactory();
-factory.setHost(&quot;localhost&quot;);
+factory.setHost("localhost");
 factory.setPort(5671);
 
 factory.useSslProtocol("TLSv1.2");
@@ -2139,9 +2139,9 @@ will change in a future RabbitMQ Erlang client release.
 ### Code Example {#erlang-code-example}
 
 ```erlang
-SslOpts = [{cacertfile, &quot;/path/to/ca_certificate.pem&quot;},
-           {certfile, &quot;/path/to/client/certificate.pem&quot;},
-           {keyfile, &quot;/path/to/client/private_key.pem&quot;},
+SslOpts = [{cacertfile, "/path/to/ca_certificate.pem"},
+           {certfile, "/path/to/client/certificate.pem"},
+           {keyfile, "/path/to/client/private_key.pem"},
 
            %% only necessary with intermediate CAs
            %% {depth, 2},
