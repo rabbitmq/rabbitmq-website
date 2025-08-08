@@ -119,7 +119,7 @@ html[data-theme='dark'] .heroCta .release_notes_link {
   }
 }
 
-.why, .license, .tanzu_license, .usecases_heading, .usecases, .testimonies, .supporttypes, .partners, .featured_partner {
+.why, .license, .tanzu_license, .usecases_heading, .usecases, .testimonies, .supporttypes, .partners, .featured_partner, .services {
   padding: 2em 0px;
   scroll-margin-top: 60px;
 }
@@ -236,4 +236,47 @@ html[data-theme='dark'] .blockquote blockquote:after {
   z-index: 1;
   margin-left:130px;
   padding-left:12px;
+}
+
+.licensing_hero .heroInner {
+  align-items: flex-end;
+}
+
+.licensing_cta {
+  --ifm-button-size-multiplier: 1;
+}
+
+html[data-theme='dark'] .licensing_cta a {
+  background-color: var(--ifm-font-color-base);
+}
+
+.services h1 {
+  text-align: center;
+}
+
+.services_row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 0;
+}
+
+.services_col {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding: 24px 36px 0 36px;
+}
+
+@media (max-width: 768px) {
+  .services_col {
+      flex: 0 0 100%;
+      max-width: 100%;
+  }
+
+  .licensing_hero .heroInner {
+    align-items: center;
+  }
+}
+
+.services_col img {
+  width: 100%;
 }

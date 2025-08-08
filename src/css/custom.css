@@ -488,3 +488,15 @@ html[data-theme='dark'] .release-info-grid .release-toggle path {
     height: 50px;
   }
 }
+
+@media (max-width: 1200px) {
+  .navbar__toggle {
+    display: inherit;
+  }
+}
+
+@media (max-width: 1200px) {
+  .navbar__item {
+    display: none;
+  }
+}
