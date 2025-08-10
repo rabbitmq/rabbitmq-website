@@ -329,6 +329,7 @@ The syntax can be briefly explained like so:
  * Any content starting with a `#` character is a comment
  * Values that contain the `#` character, such as generated strings, generated passwords, encrypted values,
    and so on, can be escaped with single quotes like so: `'efd3!53a9@92#a08_d_6d'`
+ * Values containing a colon are treated as [encrypted values](#configuration-encryption)
 
 A minimalistic example configuration file follows:
 
