@@ -31,6 +31,7 @@ alvaro:
 
 aperez:
   name: "Aitor Perez"
+  image_url: https://github.com/Zerpet.png
   socials:
     github: Zerpet
     mastodon: https://fosstodon.org/@zerpet
