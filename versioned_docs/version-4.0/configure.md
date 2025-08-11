@@ -1635,7 +1635,7 @@ To use encrypted values, a few steps must be taken:
 
 ### Encrypting Values Using CLI Tools {#configuration-encryption-encode-value}
 
-#### With `rabbitmqctl encode_conf_value` for `rabbitmq.conf`
+#### With `rabbitmqctl encrypt_conf_value` for `rabbitmq.conf`
 
 Use [rabbitmqctl](./cli) and the `encrypt_conf_value` command to encrypt values that will be
 used in `rabbitmq.conf`:
