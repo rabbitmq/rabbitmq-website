@@ -1,5 +1,5 @@
 ---
-title: "Using Blue-Green Upgrade Strategy to Migrate from Classic Mirrored Queues to Quorum Queues"
+title: "Migrating from Classic Mirrored Queues to Quorum Queues in 2025"
 tags: ["Classic Queues", "Quorum Queues", "RabbitMQ 4.1", "Upgrade"]
 authors: [aperez, mklishin]
 ---
