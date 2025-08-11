@@ -49,7 +49,7 @@ export default function Licensing() {
               <div className={styles.services_col}>
                 <Heading as="h3">Support from Core Engineers</Heading>
                 <p>
-                  24×7 support from the people who build and maintain RabbitMQ
+                  24×7 support from the people who build and maintain RabbitMQ.
                 </p>
               </div>
               <div className={styles.services_col}>
