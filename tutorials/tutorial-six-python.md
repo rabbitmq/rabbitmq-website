@@ -83,10 +83,15 @@ print(f"fib(4) is {result}")
 
 ### Callback queue
 
-In general doing RPC over RabbitMQ is easy. A client sends a request
-message and a server replies with a response message. In order to
-receive a response the client needs to send a 'callback' queue address with the
-request. Let's try it:
+The request-reply pattern in RabbitMQ involves a straightforward interaction between the server and the client.
+
+A client sends a request message and a server replies with a response message.
+
+In order to receive a response we need to send a 'callback' queue name with the
+request. Such a queue is often [server-named](/docs/queues#server-named-queues) but can also have
+a well-known name (be client-named).
+
+The server will then use that name to respond using [the default exchange](/docs/exchanges#default-exchange).
 
 ```python
 result = channel.queue_declare(queue='', exclusive=True)

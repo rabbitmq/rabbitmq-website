@@ -78,7 +78,7 @@ System.out.println(" [.] Got '" + response + "'");
 
 ### Callback queue
 
-In general doing RPC over RabbitMQ is easy. A client sends a request
+The request-reply pattern in RabbitMQ involves a straightforward interaction between the server and the client. A client sends a request
 message and a server replies with a response message. In order to
 receive a response we need to send a 'callback' queue address with the
 request. Spring AMQP's `RabbitTemplate` handles the callback queue for
