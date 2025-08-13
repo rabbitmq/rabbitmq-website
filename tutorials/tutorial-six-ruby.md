@@ -83,7 +83,7 @@ puts " [.] Got #{response}"
 In general doing RPC over RabbitMQ is easy. A client sends a request
 message and a server replies with a response message. In order to
 receive a response we need to send a 'callback' queue address with the
-request. We can use the default queue.
+request. We can use the default exchange.
 Let's try it:
 
 ```ruby
