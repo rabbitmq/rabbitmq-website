@@ -25,6 +25,16 @@ limitations under the License.
 This guide focuses on dynamically configured shovels. It assumes
 familiarity with the key concepts behind the [Shovel plugin](./shovel).
 
+:::tip
+
+[Dynamic shovels](./shovel-dynamic) is the modern shovel type. When in doubt,
+prefer dynamic shovels.
+
+To make sure that some shovels start after cluster formation, combine
+dynamic shovels with [definition import on boot](./definitions#import-on-boot).
+
+:::
+
 Unlike with static shovels, dynamic shovels are configured using [runtime parameters](./parameters).
 They can be started and stopped at any time, including programmatically. Dynamic shovels
 can be used for both transient (one-off) and permanently running workloads.
@@ -484,8 +494,7 @@ the declaration process.
         <p>
           If set to <code>on-publish</code>, messages are <a href="./confirms">acknowledged</a> to
           the source broker after they have been published at the
-          destination (but not yet confirmed). This handles network errors without losing messages,
-          but may lose messages in the event of broker failures.
+          destination (but not yet confirmed). Messages may be lost in the event of network or broker failures.
         </p>
         <p>
           If set to <code>no-ack</code>, <a href="./confirms">automatic message acknowledgements</a> will be used.
@@ -749,8 +758,7 @@ counterparts.
         <p>
           If set to <code>on-publish</code>, messages are <a href="./confirms">acknowledged</a> to
           the source broker after they have been published at the
-          destination (but not yet confirmed). This handles network errors without losing messages,
-          but may lose messages in the event of broker failures.
+          destination (but not yet confirmed). Messages may be lost in the event of network or broker failures.
         </p>
         <p>
           If set to <code>no-ack</code>, <a href="./confirms">automatic message acknowledgements</a> will be used.

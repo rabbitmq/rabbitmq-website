@@ -25,6 +25,16 @@ limitations under the License.
 This guide focuses on dynamically configured shovels. It assumes
 familiarity with the key concepts behind the [Shovel plugin](./shovel).
 
+:::tip
+
+[Dynamic shovels](./shovel-dynamic) is the modern shovel type. When in doubt,
+prefer dynamic shovels.
+
+To make sure that some shovels start after cluster formation, combine
+dynamic shovels with [definition import on boot](./definitions#import-on-boot).
+
+:::
+
 Unlike with static shovels, dynamic shovels are configured using [runtime parameters](./parameters).
 They can be started and stopped at any time, including programmatically. Dynamic shovels
 can be used for both transient (one-off) and permanently running workloads.

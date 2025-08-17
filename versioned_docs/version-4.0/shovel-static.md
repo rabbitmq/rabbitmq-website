@@ -25,6 +25,16 @@ limitations under the License.
 This guide focuses on statically configured shovels. It assumes
 familiarity with the key concepts behind the [Shovel plugin](./shovel).
 
+:::tip
+
+[Dynamic shovels](./shovel-dynamic) is the modern shovel type. When in doubt,
+prefer dynamic shovels.
+
+To make sure that some shovels start after cluster formation, combine
+dynamic shovels with [definition import on boot](./definitions#import-on-boot).
+
+:::
+
 Unlike with [dynamic shovels](./shovel-dynamic), static shovels are configured using the [advanced configuration file](./configure).
 They are started on node boot and are primarily useful for permanently
 running workloads. Any changes to static shovel configuration would require
@@ -166,8 +176,7 @@ They are described in the table below.
         <p>
           If set to <code>on-publish</code>, messages are <a href="./confirms">acknowledged</a> to
           the source broker after they have been published at the
-          destination (but not yet confirmed). This handles network errors without losing messages,
-          but may lose messages in the event of broker failures.
+          destination (but not yet confirmed). Messages may be lost in the event of network or broker failures.
         </p>
         <p>
           If set to <code>no-ack</code>, <a href="./confirms">automatic message acknowledgements</a> will be used.

@@ -28,6 +28,13 @@ cover the two flavors of Shovels, [dynamic shovels](./shovel-dynamic) and [stati
 respectively. This one focuses on explaining the concept, how do shovels work
 and what they can do.
 
+:::tip
+
+[Dynamic shovels](./shovel-dynamic) is the modern shovel type. When in doubt,
+prefer dynamic shovels.
+
+:::
+
 Sometimes it is necessary to reliably and continually move messages from a source (typically a queue)
 in one cluster to a destination (an exchange, topic, etc) in another cluster.
 

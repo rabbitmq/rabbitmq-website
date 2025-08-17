@@ -25,6 +25,16 @@ limitations under the License.
 This guide focuses on statically configured shovels. It assumes
 familiarity with the key concepts behind the [Shovel plugin](./shovel).
 
+:::tip
+
+[Dynamic shovels](./shovel-dynamic) is the modern shovel type. When in doubt,
+prefer dynamic shovels.
+
+To make sure that some shovels start after cluster formation, combine
+dynamic shovels with [definition import on boot](./definitions#import-on-boot).
+
+:::
+
 Unlike with [dynamic shovels](./shovel-dynamic), static shovels are configured using the [advanced configuration file](./configure).
 They are started on node boot and are primarily useful for permanently
 running workloads. Any changes to static shovel configuration would require
