@@ -1149,7 +1149,7 @@ rabbitmqctl start_app
 # => Starting node rabbit@rabbit2 ...done.
 ```
 
-### Removal of Unresponsive Queues
+### Removal of Unresponsive and Unrecoverable Nodes
 
 When target node is not running, it can still be removed from the cluster using
 using `rabbitmqctl forget_cluster_node`:
