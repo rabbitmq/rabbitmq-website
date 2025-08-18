@@ -54,7 +54,7 @@ export default function Support() {
           </div>
         </div>
 
-        <div id="tanzu-rabbitmq" className={styles.tanzu_license}>
+        <div id="tanzu-rabbitmq" className={styles.license}>
           <div className={styles.container}>
             <Heading as="h1">VMware Tanzu RabbitMQ</Heading>
             <Heading as="h4">Commercial RabbitMQ includes both 24/7 support and features not available in the open source version.</Heading>
