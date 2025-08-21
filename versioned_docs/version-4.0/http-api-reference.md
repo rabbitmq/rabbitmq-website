@@ -1678,7 +1678,9 @@ Relevant documentation guides: <a href="./networking">Networking</a>.
 Responds a 200 OK if there is an active listener for the given protocol,
 otherwise responds with a 503 Service Unavailable.
 
-Valid protocol names are: `amqp091`, `amqp10`, `mqtt`, `stomp`, `web-mqtt`, `web-stomp`.
+Valid protocol names are: `amqp`, `mqtt`, `stomp`, `web-mqtt`, `web-stomp`.
+To check for the encrypted listeners, add an `s` to the protocol name, for
+example `amqps` or `mqtts`.
 
 ### GET /api/health/checks/virtual-hosts
 
