@@ -29,6 +29,39 @@ export default function Home() {
           </div>
         </div>
 
+        <div className={styles.license}>
+          <div className={styles.container}>
+            <p>RabbitMQ is a Free and Open Source Software. In addition, Broadcom offers an enterprise grade commercial offering with 24/7 expert support.</p>
+            <div className={styles.flex_columns}>
+              <section>
+                <OSIKeyholeIcon/>
+                <Heading as="h2">Free and Open Source</Heading>
+                <p>RabbitMQ is licensed under the <Link to="https://www.tldrlegal.com/license/mozilla-public-license-2-0-mpl-2">Mozilla Public License 2.0</Link>,
+                   while most client libraries are dual-licensed under the Apache Software License 2.0 and the Mozilla Public License 2.0. You have the freedom to use and
+                  modify RabbitMQ in a very broad range of contexts.</p>
+                <p>Of course, contributions are more than welcome! Whether it
+                  is through detailed bug reports, patches, helping someone,
+                  documentation or any form of advocacy. In fact contributing
+                  is the best way to support the project!
+                  Take a look at our <Link to="/github">Contributors page</Link>.</p>
+              </section>
+              <section>
+                <CommercialSupportIcon/>
+                <Heading as="h2">Commercial offering</Heading>
+                <p>
+                  If you’re running mission-critical apps, <Link to="https://www.vmware.com/products/app-platform/tanzu-rabbitmq">Tanzu RabbitMQ’s enterprise-grade version</Link> is essential.
+                  It ensures your apps stay reliable and secure with <Link to="/contact#tanzu-rabbitmq">24/7 expert support from the engineers who make the product</Link>,
+                  longer lifecycle, disaster recovery, cloud cost savings, and industry compliance.
+                </p>
+                <div>
+                  <Link className="button button--primary" to="mailto:contact-tanzu-data.pdl@broadcom.com">Contact Us</Link>&nbsp;
+                  <Link className="button button--primary" to="/contact#consulting">Find a Partner</Link>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+
         <div className={styles.why}>
           <div className={styles.container}>
             <Heading as="h1">Why RabbitMQ?</Heading>
@@ -289,52 +322,6 @@ flowchart TD
                 </div>
               </TabItem>
             </Tabs>
-          </div>
-        </div>
-
-        <div className={styles.license}>
-          <div className={styles.container}>
-            <Heading as="h1">What about the license?</Heading>
-            <p>Since its original release in 2007, RabbitMQ is Free and Open
-              Source Software. In addition, Broadcom offer a range of
-              commercial offerings.</p>
-            <div className={styles.flex_columns}>
-              <section>
-                <OSIKeyholeIcon/>
-                <Heading as="h2">Free and Open Source</Heading>
-                <p>RabbitMQ is licensed under the <Link to="https://www.tldrlegal.com/license/mozilla-public-license-2-0-mpl-2">Mozilla Public License 2.0</Link>,
-                   while most client libraries are dual-licensed under the Apache Software License 2.0 and the Mozilla Public License 2.0. You have the freedom to use and
-                  modify RabbitMQ in a very broad range of contexts.</p>
-                <p>Of course, contributions are more than welcome! Whether it
-                  is through detailed bug reports, patches, helping someone,
-                  documentation or any form of advocacy. In fact contributing
-                  is the best way to support the project!
-                  Take a look at our <Link to="/github">Contributors page</Link>.</p>
-              </section>
-              <section>
-                <CommercialSupportIcon/>
-                <Heading as="h2">Commercial offerings</Heading>
-                <p>Broadcom offers <Link
-                  to="https://tanzu.vmware.com/rabbitmq/oss">enterprise-grade
-                  24/7 support</Link> where you have access to the engineers
-                  making the product.</p>
-                <p>In addition, a range of commercial offerings for RabbitMQ
-                  are available. These commercial offerings include all of the
-                  features of RabbitMQ, with some additional management and
-                  advanced features like <Link
-                  to="https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/3.13/tanzu-rabbitmq-kubernetes/standby-replication.html">warm
-                  standby replication</Link>, <Link
-                  to="https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/3.13/tanzu-rabbitmq-kubernetes/clustering-compression-rabbitmq.html">intra-cluster
-                  data compression</Link> and <Link
-                  to="/blog/2025/04/16/amqp-websocket">AMQP 1.0
-                  over WebSocket</Link>.
-                  </p>
-                <p>For a list of the commercial offerings, take a look at
-                  the <Link to="https://tanzu.vmware.com/rabbitmq">Ways to run
-                  Tanzu RabbitMQ and Free and Open Source RabbitMQ
-                  distributions table</Link>.</p>
-              </section>
-            </div>
           </div>
         </div>
 
