@@ -1679,7 +1679,9 @@ Responds a 200 OK if if all given protocols have active listeners,
 otherwise responds with a 503 Service Unavailable. Multiple protocols
 may be provided by separating the names with commas.
 
-Valid protocol names are: `amqp091`, `amqp10`, `mqtt`, `stomp`, `web-mqtt`, `web-stomp`.
+Valid protocol names are: `amqp`, `mqtt`, `stomp`, `web-mqtt`, `web-stomp`.
+To check for the encrypted listeners, add an `s` to the protocol name, for
+example `amqps` or `mqtts`.
 
 ### GET /api/health/checks/virtual-hosts
 
