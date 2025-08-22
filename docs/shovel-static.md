@@ -107,8 +107,8 @@ All the other properties are optional.
 `source` is a mandatory key and has different keys properties
 for different protocols. Two properties are common across all
 protocols: `protocol` and `uris`.
-`protocol` supports two values: `amqp091` and `amqp10`,
-for AMQP 0-9-1 and AMQP 1.0, respectively:
+`protocol` supports three values: `amqp091`, `amqp10` and `local`,
+for AMQP 0-9-1, AMQP 1.0 and local shovels respectively:
 
 ```erlang
 %% for AMQP 0-9-1
@@ -131,7 +131,7 @@ are available to static shovels, such as TLS certificate and private key.
 
 ### General Source Keys
 
-Some keys are supported by both AMQP 0-9-1 and AMQP 1.0 sources.
+Some keys are supported by AMQP 0-9-1, AMQP 1.0 and local sources.
 They are described in the table below.
 
 <table>
@@ -363,13 +363,146 @@ AMQP 1.0 source settings are different from those of AMQP 0-9-1 sources.
   </tbody>
 </table>
 
+### Local Shovel Source Keys
+
+Local shovel's specific source keys are covered in a separate table:
+
+<table>
+  <caption>Local Shovel Source Keys (Properties)</caption>
+
+  <thead>
+    <tr>
+      <td><strong>Key</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>declarations</td>
+      <td>
+        <p>
+          An optional list of AMQP 0-9-1 operations to be executed by the Shovel
+          before it starts transferring messages. They are typically used to set
+          up the topology.
+        </p>
+```erlang
+  {declarations, [
+    %% declaration list
+  ]}
+```
+        <p>
+          The declarations follow method and property names used by the <a href="/client-libraries/erlang-client-user-guide">RabbitMQ Erlang Client</a>.
+        </p>
+        <p>
+          A minimalistic declaration example:
+        </p>
+```erlang
+  {declarations, [
+                   'queue.declare',
+                   {'queue.bind', [
+                                    {exchange, <<"my_exchange">>},
+                                    {queue,    <<>>}
+                                  ]}
+                 ]}
+```
+        <p>
+          will first declare an anonymous queue, and then bind it
+          to the exchange called <code>"my_exchange"</code>. The
+          queue name of <code>&lt;&lt;>></code> on method <code>queue.bind</code>
+          means "use the queue last declared on this channel".
+        </p>
+        <p>
+          Each element of the declaration list is either an AMQP 0-9-1 method
+          given as single quoted atom such as <code>'queue.declare'</code>,
+          or a tuple with first element the method atom, and second element
+          a property list of parameters.
+        </p>
+        <p>
+          If just the method name is used all the
+          parameters take their defaults (as illustrated with
+          <code>'queue.declare'</code> above).
+        </p>
+        <p>
+          If a tuple and property-list is supplied, then the
+          properties in the list specify some or all of the
+          parameters explicitly.
+        </p>
+        <p>
+          Here is another example:
+        </p>
+```erlang
+{'exchange.declare', [
+                      {exchange, <<"my_exchange">>},
+                      {type, <<"direct">>},
+                      durable
+                     ]}
+```
+        <p>
+          will declare a durable, direct exchange called
+          "<code>my_exchange</code>".
+        </p>
+      </td>
+    </tr>
+
+    <tr>
+      <td>queue</td>
+      <td>
+          <p>
+            The name of the source queue as an Erlang binary value. This property is mandatory:
+
+```erlang
+{queue, <<"queue.1">>}
+```
+          </p>
+          <p>
+            <code>queue.1</code> is the name of the queue
+            to shovel messages from, as a binary string.
+          </p>
+          <p>
+            This queue must exist. Use the resource <code>declarations</code>
+            covered above to declare the queue or ensure it exists. If
+            the value is <code>&lt;&lt;>></code> (the empty binary string) then the
+            <em>most recently declared queue</em> in <code>declarations</code> is used.
+            This allows anonymous queues to be declared and used.
+
+            See also [Predeclared topology section](#predeclared-topology) below.
+          </p>
+      </td>
+    </tr>
+
+    <tr>
+      <td>prefetch-count</td>
+      <td>
+        The maximum number of unacknowledged messages copied over a shovel at
+        any one time. Default is <code>1000</code>:
+
+```erlang
+{prefetch_count, 1000}
+```
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### Predeclared topology {#predeclared-topology}
+
+The `declarations` attribute is typically used to set up the topology. At the very least, it must set up the source queue.
+
+There are deployment scenarios where the topology is automatically [imported from a definitions file at boot time](./definitions#import-on-boot). In these scenarios, we can configure the plugin to wait until the queue is available by adding the following line to the `rabbitmq.conf` file:
+```ini
+shovel.topology.predeclared = true
+```
+
+With the above configuration, if a static shovel has no `declarations` attribute or it is empty, the piugin will wait until the source's `queue` is eventually declared.
+
 ## Destination
 
 `destination` is a mandatory key and has different keys properties
 for different protocols. Two properties are common across all
 protocols: `protocol` and `uris`.
-`protocol` supports two values: `amqp091` and `amqp10`,
-for AMQP 0-9-1 and AMQP 1.0, respectively:
+`protocol` supports three values: `amqp091`, `amqp10` and `local`
+for AMQP 0-9-1, AMQP 1.0 and local shovels, respectively:
 
 ```erlang
 %% for AMQP 0-9-1
@@ -639,6 +772,47 @@ are available to static shovels, such as TLS certificate and private key.
   </tbody>
 </table>
 
+### Local Shovel Destination Keys
+
+<table>
+  <caption>Local Shovel Destination Keys (Properties)</caption>
+
+  <thead>
+    <tr>
+      <td><strong>Key</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>add_timestamp_header</td>
+      <td>
+        This boolean key controls whether a custom header, <code>x-opt-shovelled-timestamp</code>,
+        will be added to the message before it is re-published:
+
+```erlang
+{add_timestamp_header, true}
+```
+
+        This header value is timestamp (in seconds since epoch) when message had been shovelled.
+        By default the header is not added.
+      </td>
+    </tr>
+
+    <tr>
+      <td>add_forward_headers</td>
+      <td>
+        When set to true the shovel will add a number of custom message headers: <code>x-opt-shovelled-by</code>, <code>x-opt-shovel-type</code>, <code>x-opt-shovel-name</code>,
+        to provide some additional metadata about the transfer.
+
+```erlang
+{add_forward_headers, true}
+```
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## Example Configuration {#example-config}
 
