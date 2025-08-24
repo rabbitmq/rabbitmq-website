@@ -56,6 +56,12 @@ and uses [acknowledgements](./confirms) on both ends to cope with failures.
 A Shovel uses [Erlang AMQP 0-9-1](/client-libraries/erlang-client-user-guide)
 and [Erlang AMQP 1.0](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_amqp_client) clients under the hood.
 
+RabbitMQ 4.2 introduced a new protocol type, the `local` shovels. Local shovels do not
+use any of the existing protocols to connect to the source or destination, but
+use an internal API to consume and/or publish directly from the queues in the local
+cluster. They can only be used on the cluster the shovel is being declared. 
+A local shovel shares most features and configuration with AMQP 0-9-1 shovels. 
+
 ## Why Use Shovel {#benefits}
 
 Shovel is a minimalistic yet flexible tool in the distributed messaging toolkit
@@ -207,7 +213,6 @@ what virtual host to connect to (assuming the target AMQP 1.0 broker is RabbitMQ
 
 See the [dynamic AMQP 1.0 Shovel reference](./shovel-dynamic#amqp10-reference) to learn more.
 
-
 ## Authentication and authorisation for Shovels {#authn-authz-for-shovels}
 
 The plugin uses [Erlang AMQP 0-9-1](/client-libraries/erlang-client-user-guide) and [Erlang AMQP 1.0](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_amqp_client)
@@ -219,6 +224,7 @@ This is true for both sources and destinations.
 Authentication and authorisation failures of shovel connections will be
 [logged](./logging) by the node that's running the shovel.
 
+Local shovels are also subject to the same authentication checks.
 
 ## Shovel Failure Handling in Clusters {#clustering}
 
@@ -296,6 +302,7 @@ These examples use a URI with four additional [URI query parameters](./uri-query
 Just like with "regular" client connections, if TLS-enabled shovels need to perform peer verification then server's CA must be
 trusted on the node where shovels runs, and vice versa.
 
+Local shovels do not use any connection, so no TLS is used.
 
 ## Monitoring Shovels {#status}
 

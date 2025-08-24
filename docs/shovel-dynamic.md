@@ -151,7 +151,7 @@ The body in this example includes a few keys:
       <td>src-protocol</td>
       <td>
         Protocol to use when connecting to the source.
-        Either <code>amqp091</code> or <code>amqp10</code>. If omitted it will default to <code>amqp091</code>.
+        Either <code>amqp091</code>, <code>amqp10</code> or <code>local</code>. If omitted it will default to <code>amqp091</code>.
         See protocol specific properties below.
       </td>
     </tr>
@@ -793,6 +793,158 @@ counterparts.
     </tr>
   </tbody>
 </table>
+
+
+## Local Shovel Definition Reference {#local-reference}
+
+There are several Shovel properties that haven't been covered in the above example.
+They don't change how dynamic shovels work fundamentally, and do not change
+the declaration process.
+
+<table>
+  <caption>Optional Dynamic Shovel Definition Settings (Local)</caption>
+
+  <thead>
+    <tr>
+      <td><strong>Key</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>reconnect-delay</td>
+      <td>
+        The duration (in seconds) to wait before reconnecting to the
+        brokers after being disconnected at either end. Default is 1.
+      </td>
+    </tr>
+    <tr>
+      <td>ack-mode</td>
+      <td>
+        <p>
+          Determines how the shovel should <a href="./confirms">acknowledge</a> consumed messages.
+          Valid values are <code>on-confirm</code>, <code>on-publish</code>, and <code>no-ack</code>.
+          <code>on-confirm</code> is used by default.
+        </p>
+        <p>
+          If set to <code>on-confirm</code> (the default), messages are
+          <a href="./confirms">acknowledged</a> to the source broker after they have been confirmed
+          by the destination. This handles network errors and broker
+          failures without losing messages, and is the slowest option.
+        </p>
+        <p>
+          If set to <code>on-publish</code>, messages are <a href="./confirms">acknowledged</a> to
+          the source broker after they have been published at the
+          destination (but not yet confirmed). Messages may be lost in the event of network or broker failures.
+        </p>
+        <p>
+          If set to <code>no-ack</code>, <a href="./confirms">automatic message acknowledgements</a> will be used.
+          This option will offer the highest throughput but is not safe (will lose messages in the event of network or broker failures).
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>src-delete-after</td>
+      <td>
+        <p>
+          Determines when (if ever) the shovel should delete
+          itself. This can be useful if the shovel is being treated
+          as more of a move operation - i.e. being used to move
+          messages from one queue to another on an ad hoc basis.
+        </p>
+        <p>
+          The default is <code>never</code>, meaning the
+          shovel should never delete itself.
+        </p>
+        <p>
+          If set to <code>queue-length</code> then the shovel will
+          measure the length of the source queue when starting up,
+          and delete itself after it has transferred that many
+          messages.
+        </p>
+        <p>
+          If set to an integer, then the shovel will transfer that
+          number of messages before deleting itself.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>src-prefetch-count</td>
+      <td>
+        The maximum number of unacknowledged messages copied over a shovel at
+        any one time. Default is <code>1000</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>src-exchange</td>
+      <td>
+        <p>
+          The exchange from which to consume. Either this
+          or <code>src-queue</code> (but not both) must be set.
+        </p>
+        <p>
+          The shovel will declare an exclusive queue and bind it to the
+          named exchange with <code>src-exchange-key</code> before consuming
+          from the queue.
+        </p>
+        <p>
+          If the source exchange does not exist on the source broker, it
+          will be not declared; the shovel will fail to start.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>src-exchange-key</td>
+      <td>
+        Routing key when using <code>src-exchange</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>src-consumer-args</td>
+      <td>
+        Consumer arguments, such as `x-single-active-consumer` or `x-stream-offset`.
+      </td>
+    </tr>
+    <tr>
+      <td>dest-exchange</td>
+      <td>
+        <p>
+          The exchange to which messages should be published. Either this
+          or <code>dest-queue</code> (but not both) may be set.
+        </p>
+        <p>
+          If the destination exchange does not exist on the destination broker,
+          it will be not declared; the shovel will fail to start.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>dest-exchange-key</td>
+      <td>
+        Routing key when using <code>dest-exchange</code>. If this is not
+        set, the original message's routing key will be used.
+      </td>
+    </tr>
+    <tr>
+      <td>dest-add-forward-headers</td>
+      <td>
+        Whether to add <code>x-opt-shovelled</code> headers to the
+        shovelled messages indicating where they have been shovelled
+        from and to. Default is false.
+      </td>
+    </tr>
+    <tr>
+      <td>dest-add-timestamp-header</td>
+      <td>
+        Whether to add <code>x-opt-shovelled-timestamp</code> headers to the
+        shovelled messages  containing timestamp (in seconds since epoch)
+        when message had been shovelled. Default is false.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 
 ## Monitoring Shovels {#status}
 
