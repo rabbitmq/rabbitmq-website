@@ -71,6 +71,10 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>4.1.3</li>
+        <li>4.1.2</li>
+        <li>4.1.1</li>
+        <li>4.1.0</li>
         <li>4.0.9</li>
         <li>4.0.8</li>
         <li>4.0.7</li>
@@ -86,11 +90,14 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>27.3.x</li>
+        <li>27.x</li>
       </ul>
     </td>
         <td>
       <ul class="notes">
+        <li>
+          Erlang 28 is not currently supported by RabbitMQ.
+        </li>
         <li>
           The starting with the 4.0.4 release, the 4.0.x release series is compatible with Erlang 27.
         </li>
@@ -356,11 +363,10 @@ are recommended.
 
 Most recent versions can be obtained from a number of sources:
 
- * Debian Erlang packages from Team RabbitMQ on [Cloudsmith and its mirror](install-debian#apt-repositories) or [Launchpad](install-debian#apt-launchpad-erlang)
- * [Zero dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from Team RabbitMQ, also available [from a Cloudsmith mirror](install-rpm#dnf-repositories)
+ * [Team RabbitMQ Debian repositories](install-debian#apt-repositories) or [Launchpad](install-debian#apt-launchpad-erlang)
+ * [Zero dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from Team RabbitMQ, also available [from a `dnf`/`yum` repository](install-rpm#dnf-repositories)
  * As part of [RabbitMQ Docker image](https://github.com/docker-library/rabbitmq/)
- * [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree) provides binary builds of patch releases for Windows
- * [Erlang Solutions](https://packages.erlang-solutions.com/erlang/) package repositories
+ * [erlang.org](https://www.erlang.org/downloads#prebuilt) provides binary builds of patch releases for Windows
  * Building from source with [kerl](https://github.com/kerl/kerl)
 
 ## Installing Erlang/OTP on Debian or Ubuntu {#debian}
