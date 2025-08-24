@@ -290,7 +290,7 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
             <em>most recently declared queue</em> in <code>declarations</code> is used.
             This allows anonymous queues to be declared and used.
 
-            See also [Predeclared topology section](#predeclared-topology) below.
+            See also [Predeclared Topology section](#predeclared-topology) below.
           </p>
       </td>
     </tr>
@@ -309,7 +309,7 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
   </tbody>
 </table>
 
-#### Predeclared topology {#predeclared-topology}
+#### Predeclared Topology {#predeclared-topology}
 
 The `declarations` attribute is typically used to set up the topology. At the very least, it must set up the source queue.
 
