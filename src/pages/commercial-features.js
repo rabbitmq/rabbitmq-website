@@ -5,16 +5,16 @@ import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
 
-export default function Licensing() {
+export default function CommercialFeatures() {
   const { siteConfig } = useDocusaurusContext();
 
   return (
     <Layout title={`RabbitMQ: ${siteConfig.tagline}`}>
       <main>
-        <div className={[styles.hero, styles.licensing_hero].join(" ")}>
+        <div className={[styles.hero, styles.commercial_features_hero].join(" ")}>
           <div className={[styles.container, styles.heroInner].join(" ")}>
-            <Heading as="h1">Licensing</Heading>
-            <div className={styles.licensing_cta}>
+            <Heading as="h1">Commerial Features</Heading>
+            <div className={styles.commercial_features_cta}>
               <Link
                 className="button button--primary"
                 to="mailto:contact-tanzu-data.pdl@broadcom.com"
@@ -32,8 +32,8 @@ export default function Licensing() {
           <div className={styles.container}>
             <Heading as="h1">VMware Tanzu RabbitMQ</Heading>
             <p>
-              With a commercial license, Tanzu RabbitMQ includes features and
-              support beyond the open-source edition - see what’s included:
+              VMware Tanzu RabbitMQ, a commercial edition of RabbitMQ, includes features and
+              support beyond the open source edition:
             </p>
             <div className={styles.services_row}>
               <div className={styles.services_col}>
@@ -61,9 +61,9 @@ export default function Licensing() {
               <div className={styles.services_col}>
                 <Heading as="h3">Enterprise Security</Heading>
                 <p>
-                  Advanced security including FIPS 140-2 compliance leveraging
-                  OpenSSL3, forward proxy support through OAuth 2.0, and
-                  scanning of RabbitMQ and its dependencies for CVEs.
+                  Advanced security including FIPS 140-2 compliance for TLS,
+                  forward proxy support for OAuth 2.0, and
+                  continuous CVE scanning of both RabbitMQ and its dependencies.
                 </p>
               </div>
               <div className={styles.services_col}>

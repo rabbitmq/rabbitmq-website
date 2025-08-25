@@ -238,11 +238,11 @@ html[data-theme='dark'] .blockquote blockquote:after {
   padding-left:12px;
 }
 
-.licensing_hero .heroInner {
+.commercial_features_hero .heroInner {
   align-items: flex-end;
 }
 
-.licensing_cta {
+.commercial_features_cta {
   --ifm-button-size-multiplier: 1;
 }
 

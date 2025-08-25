@@ -330,8 +330,8 @@ const config = {
             to: '/contact',
           },
           {
-            label: 'Licensing',
-            to: '/licensing',
+            label: 'Commercial Features',
+            to: '/commercial-features',
           },
           {
             label: 'GitHub',
