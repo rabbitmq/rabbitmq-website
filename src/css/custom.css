@@ -488,3 +488,13 @@ html[data-theme='dark'] .release-info-grid .release-toggle path {
     height: 50px;
   }
 }
+
+.navbar__link {
+  white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+  .DocSearch-Button-Keys, .DocSearch-Button-Placeholder {
+      display: none !important;
+  }
+}
