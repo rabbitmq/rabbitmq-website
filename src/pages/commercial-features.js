@@ -43,13 +43,13 @@ export default function CommercialFeatures() {
                 <Heading as="h3">Longer Support Timelines</Heading>
                 <p>
                   Extended support lifecycle with critical patches and CVE fixes
-                  for multiple versions.
+                  for more release series.
                 </p>
               </div>
               <div className={styles.services_col}>
                 <Heading as="h3">Support from Core Engineers</Heading>
                 <p>
-                  24×7 support from the people who build and maintain RabbitMQ
+                  24×7 support from the team that builds and maintains RabbitMQ
                 </p>
               </div>
               <div className={styles.services_col}>
@@ -67,11 +67,10 @@ export default function CommercialFeatures() {
                 </p>
               </div>
               <div className={styles.services_col}>
-                <Heading as="h3">Multi-Data Center Disaster Recovery</Heading>
+                <Heading as="h3">Disaster Recovery Features</Heading>
                 <p>
-                  Efficient schema and data replication to a second data center
-                  supporting promotion of that second site in the event of a
-                  disaster.
+                  Continuous efficient schema and data replication to standby clusters in external data centers.
+                  In case of a disaster event, a standby cluster can be quickly promoted to a primary one.
                 </p>
               </div>
               <div className={styles.services_col}>
@@ -81,15 +80,14 @@ export default function CommercialFeatures() {
                 <img src="/img/bc-vmw-illu-dev-cost-of-migration-drkbg.webp" />
               </div>
               <div className={styles.services_col}>
-                <Heading as="h3">AMQP 1.0 over WebSocket</Heading>
+                <Heading as="h3">AMQP 1.0 Over WebSockets</Heading>
                 <p>
                   Browser-based applications can communicate with RabbitMQ using
-                  AMQP 1.0, making it a practical choice for web-based business
-                  applications.
+                  AMQP 1.0 over WebSocket connections.
                 </p>
               </div>
               <div className={styles.services_col}>
-                <Heading as="h3">Intra-Cluster Compression</Heading>
+                <Heading as="h3">Intra-Cluster Traffic Compression</Heading>
                 <p>
                   In a heavily loaded system with high traffic between RabbitMQ
                   nodes, compression can reduce the network load by up to 96%,
@@ -103,8 +101,8 @@ export default function CommercialFeatures() {
               <div className={styles.services_col}>
                 <Heading as="h3">Audit Logging</Heading>
                 <p>
-                  VMware Tanzu RabbitMQ on Kubernetes supports audit-logging.
-                  Relevant audit events, for example, which user deleted a
+                  VMware Tanzu RabbitMQ on Kubernetes supports audit logging.
+                  Internal events, for example, which user deleted a
                   queue, are collected and logged separately.
                 </p>
               </div>
