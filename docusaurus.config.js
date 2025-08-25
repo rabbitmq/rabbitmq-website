@@ -330,6 +330,10 @@ const config = {
             to: '/contact',
           },
           {
+            label: 'Commercial Features',
+            to: '/commercial-features',
+          },
+          {
             label: 'GitHub',
             href: 'https://github.com/rabbitmq/rabbitmq-website',
             position: 'right',
