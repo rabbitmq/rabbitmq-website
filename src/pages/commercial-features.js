@@ -2,8 +2,48 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
+import SupportTimelines from '@site/src/components/SupportTimelines';
 
 import styles from './index.module.css';
+
+const features = [
+  {
+    feature: <>Dependencies validated, <strong>security scanned</strong>, and included, as well as security fixes for base OS supplied</>,
+    benefit: 'Reduced cost of installing, upgrading, and testing dependencies. Reduced risk profile as OS security vulnerabilities are also supplied.'
+  },
+  {
+    feature: <><strong>Multi-site replication</strong>: assisted deployment and configuration of passive sites</>,
+    benefit: 'Reduced cost of deploying and configuring RabbitMQ clusters.'
+  },
+  {
+    feature: <>Multi-site replication with dynamic adaptation to wide area network latency and semi-automated <strong>promotion on failover</strong></>,
+    benefit: 'Reduced costs of designing and configuring disaster recovery topology; reduced recovery point objective, recovery time objective, and overall risk.'
+  },
+  {
+    feature: <>Lightweight, efficient & universal <strong>web app development</strong> & deployment</>,
+    benefit: 'AMQP 1.0 over websockets simplifies the use of the more flexible & feature rich protocol.'
+  },
+  {
+    feature: <>Reduced <strong>network utilization</strong> between RabbitMQ nodes</>,
+    benefit: 'Reduced cost of data ingress/egress between availability zones(especially, when running in a public cloud). Reduced risk of network saturation.'
+  },
+  {
+    feature: <>Delegated <strong>authentication</strong> and <strong>TLS certificates</strong> from <strong>Hashicorp Vault</strong></>,
+    benefit: 'Reduced cost of configuring integration and maintenance. Reduced security risks by using a single source of truth.'
+  },
+  {
+    feature: <><strong>Enhanced encryption</strong>: non-safe variants of TLS disabled by default</>,
+    benefit: 'Reduced security risk out of the box, as well as cost of disabling manually for every deployment.'
+  },
+  {
+    feature: <>Enhanced encryption: <strong>automated mutual TLS</strong> setup between RabbitMQ nodes</>,
+    benefit: 'Reduced cost of manually configuring each deployment. Reduced risk of man-in-the-middle attacks.'
+  },
+  {
+    feature: <>Easy Federal Information Processing Standards (<strong>FIPS</strong>) compliance</>,
+    benefit: 'Specific FIPS builds of Tanzu RabbitMQ'
+  }
+]
 
 export default function CommercialFeatures() {
   const { siteConfig } = useDocusaurusContext();
@@ -28,7 +68,7 @@ export default function CommercialFeatures() {
             </div>
           </div>
         </div>
-        <div className={styles.services}>
+        <div className={styles.section}>
           <div className={styles.container}>
             <Heading as="h1">VMware Tanzu RabbitMQ</Heading>
             <p>
@@ -106,6 +146,52 @@ export default function CommercialFeatures() {
                   queue, are collected and logged separately.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.section} id="comparison">
+          <div className={styles.container}>
+            <Heading as="h1">Tanzu RabbitMQ vs Open Source</Heading>
+            <table className={styles.comparison_table}>
+              <thead>
+                <tr>
+                  <th className={styles.text_left}>Features</th>
+                  <th>Open Source RabbitMQ</th>
+                  <th>Tanzu RabbitMQ</th>
+                  <th className={styles.text_left}>Benefits</th>
+                </tr>
+              </thead>
+              <tbody>
+                {features.map(({feature, benefit}) => (
+                  <tr key={feature}>
+                    <td>{feature}</td>
+                    <td className={styles.unsupported}>❌</td>
+                    <td className={styles.supported}>✅</td>
+                    <td>{benefit}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className={styles.section}>
+          <div className={styles.container}>
+            <Heading as="h1">Support Timelines</Heading>
+            <SupportTimelines />
+            <br />
+            <div>
+              <Link
+                className="button button--primary"
+                to="mailto:contact-tanzu-data.pdl@broadcom.com"
+              >
+                Contact Us
+              </Link>
+              &nbsp;
+              <Link className="button button--primary" to="/contact#consulting">
+                Find a Partner
+              </Link>
             </div>
           </div>
         </div>

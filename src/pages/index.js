@@ -36,14 +36,14 @@ export default function Home() {
               <section>
                 <OSIKeyholeIcon/>
                 <Heading as="h2">Free and Open Source</Heading>
-                <p>RabbitMQ is licensed under the <Link to="https://www.tldrlegal.com/license/mozilla-public-license-2-0-mpl-2">Mozilla Public License 2.0</Link>,
-                   while most client libraries are dual-licensed under the Apache Software License 2.0 and the Mozilla Public License 2.0. You have the freedom to use and
-                  modify RabbitMQ in a very broad range of contexts.</p>
-                <p>Of course, contributions are more than welcome! Whether it
-                  is through detailed bug reports, patches, helping someone,
-                  documentation or any form of advocacy. In fact contributing
-                  is the best way to support the project!
-                  Take a look at our <Link to="/github">Contributors page</Link>.</p>
+                <p>
+                  RabbitMQ is a powerful, enterprise grade open-source messaging and streaming broker 
+                  that enables fast, reliable and versatile communication for applications—perfect for distributed microservices, real-time data, and scalable systems.
+                </p>
+                <p>
+                  Free under the <Link to="https://www.tldrlegal.com/license/mozilla-public-license-2-0-mpl-2">Mozilla Public License 2.0</Link>
+                  , it’s backed by a vibrant global community. Dive in with our easy-to-use <Link to="/docs">docs</Link> or <Link to="/github">contribute</Link> to shape its future!
+                </p>
               </section>
               <section>
                 <CommercialSupportIcon/>
@@ -53,6 +53,9 @@ export default function Home() {
                   It ensures your apps stay reliable and secure with <Link to="/contact#tanzu-rabbitmq">24/7 expert support from the engineers who make the product</Link>,
                   longer lifecycle, disaster recovery, cloud cost savings, and industry compliance.
                 </p>
+                <div className={styles.comparison_link}>
+                  <Link to="/commercial-features#comparison">See how Tanzu RabbitMQ compares to Open Source</Link>
+                </div>
                 <div>
                   <Link className="button button--primary" to="mailto:contact-tanzu-data.pdl@broadcom.com">Contact Us</Link>&nbsp;
                   <Link className="button button--primary" to="/contact#consulting">Find a Partner</Link>

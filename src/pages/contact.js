@@ -4,7 +4,7 @@ import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import Mermaid from '@theme/Mermaid';
+import SupportTimelines from '@site/src/components/SupportTimelines';
 
 import styles from './index.module.css';
 
@@ -60,7 +60,7 @@ export default function Support() {
             <Heading as="h4">Commercial RabbitMQ includes both 24/7 support and features not available in the open source version.</Heading>
 
             <Tabs>
-              <TabItem value="feature-1" label="Enterprise Support" default>
+              <TabItem value="feature-1" label="Commercial Support">
                 <Heading as="h2">Around the clock, around the globe support</Heading>
                 <div className={styles.flex_columns}>
                   <section>
@@ -87,7 +87,11 @@ export default function Support() {
                   </section>
                 </div>
               </TabItem>
-              <TabItem value="feature-2" label="Enterprise Features">
+              <TabItem value="feature-2" label="Support Timelines" default>
+                <SupportTimelines />
+                <br />
+              </TabItem>
+              <TabItem value="feature-3" label="Enterprise Features">
                 <Heading as="h2">Exclusive capabilities supporting your mission-critical apps</Heading>
                 <div className={styles.flex_columns}>
                   <section>
@@ -125,9 +129,9 @@ export default function Support() {
 
         <div className={styles.featured_partner}>
           <div className={styles.container}>
-            <Heading as="h1"><span className={styles.highlight_text}>Partner Spotlight: Announcing AceMQ, our RabbitMQ MSP Partner</span></Heading>
-            <Heading as="h1"><span className={styles.highlight_text}>AceMQ <small>is our featured authorized partner providing End-to-End RabbitMQ solutions, including: white-glove commercial support and expert services for Tanzu RabbitMQ & RabbitMQ Community Edition. </small></span></Heading>
-            <p><strong className={styles.highlight_text}>To learn more about AceMQ’s RabbitMQ support, managed services, and RabbitMQ consulting & training offerings, please get in touch below: </strong></p>
+            <Heading as="h1">Partner Spotlight: Announcing AceMQ, our RabbitMQ MSP Partner</Heading>
+            <Heading as="h1">AceMQ <small>is our featured authorized partner providing End-to-End RabbitMQ solutions, including: white-glove commercial support and expert services for Tanzu RabbitMQ & RabbitMQ Community Edition. </small></Heading>
+            <p><strong>To learn more about AceMQ’s RabbitMQ support, managed services, and RabbitMQ consulting & training offerings, please get in touch below: </strong></p>
             <div>
               <Link className="button button--primary" to="https://acemq.com/rabbitmq/" rel="noopener">Consulting</Link>&nbsp;
               <Link className="button button--primary" to="https://acemq.com/rabbitmq/licensing/" rel="noopener">Commercial Support</Link>

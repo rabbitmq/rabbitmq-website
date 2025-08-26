@@ -1,0 +1,29 @@
+.timelines_table {
+  display: table;
+  width: 100%;
+}
+  
+.timelines_table th, .timelines_table td {
+  text-align: center;
+}
+
+.supported, .supported_legend {
+  background-color: var(--ifm-color-success-contrast-background);
+}
+
+.unsupported, .unsupported_legend {
+  background-color: var(--ifm-color-danger-contrast-background);
+}
+
+.legend_item {
+  padding-left: 1em;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.supported_legend, .unsupported_legend {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
