@@ -40,6 +40,21 @@ const config = {
     locales: ['en'],
   },
 
+  future: {
+    v4: true,
+    // https://github.com/facebook/docusaurus/blob/main/website/docusaurus.config.ts#L174-L193
+    experimental_faster: {
+      swcJsLoader: true,
+      swcJsMinimizer: true,
+      swcHtmlMinimizer: true,
+      lightningCssMinimizer: true,
+      mdxCrossCompilerCache: true,
+      rspackBundler: true,
+      rspackPersistentCache: true,
+      ssgWorkerThreads: true,
+    },
+  },
+
   customFields: {
     releaseBranches: {
       rabbitmq: {
