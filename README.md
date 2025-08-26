@@ -23,7 +23,7 @@ branch and directory:
 | 4.1 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.1` | [`www.rabbitmq.com/docs`](https://www.rabbitmq.com/docs) |
 | 4.0 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.0` | [`www.rabbitmq.com/docs`](https://www.rabbitmq.com/docs/4.0) |
 | 3.13 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-3.13` | [`www.rabbitmq.com/docs/3.13`](https://www.rabbitmq.com/docs/3.13) |
-| 3.12 | [`v3.12.x`](https://github.com/rabbitmq/rabbitmq-website/tree/v3.12.x) | root | [`v3-12.rabbitmq.com`](https://v3-12.rabbitmq.com/documentation.html) |
+| 3.12 | [`v3.12.x`](https://github.com/rabbitmq/rabbitmq-website/tree/v3.12.x) | root | (no longer available) |
 
 ### Branches and versioning
 
@@ -70,10 +70,6 @@ etc. These branches are deployed automatically too and they use domain names of
 the form `v3-13.rabbitmq.com`, `v4-0.rabbitmq.com`, etc. respectively. Note
 that these branches used as examples may not exist yet if the corresponding
 docs are still maintained in the `main` branch.
-
-`v3.12.x` is a bit special in the sense that it is using the old static website
-generator. This one is deployed by GitHub Actions to a Cloudflare worker. It is
-available at https://v3-12.rabbitmq.com.
 
 ### How to build
 
