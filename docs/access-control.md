@@ -491,11 +491,22 @@ perform permission checks.
 | attach (receiver)             |                   |           |                        | queue             |
 
 </TabItem>
-<TabItem value="stomp" label="STOMP">
-TODO
-</TabItem>
 <TabItem value="mqtt" label="MQTT">
-TODO
+MQTT protocol does not have the concept of exchanges, queues and bindings. Our MQTT plugin builds on top of AMQP
+protocol and uses the same permission system. You can read more about it in the [MQTT plugin guide](./mqtt).
+
+The following table shows what permissions on what type of
+resource are required for all the MQTT commands which
+perform permission checks.
+
+| MQTT Operation |                      | configure | write     | read     |
+|----------------|----------------------|-----------|-----------|----------|
+| SUBSCRIBE      |                      | queue     | queue     | exchange |
+| PUBLISH        |                      |           | amq.topic |          |
+| PUBLISH        | non-default exchange |           | exchange  |          |
+
+`PUBLISH` operation also requires passing [topic authorisation](#topic-authorisation).
+
 </TabItem>
 </Tabs>
 
