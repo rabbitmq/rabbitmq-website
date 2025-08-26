@@ -2534,7 +2534,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       <p>
         :::important
 
-        This variable **is not** the primary way of configuring the [max open file handle limit](./networking.html#open-file-handle-limit).
+        This variable **is not** the primary way of configuring the [max open file handle limit](./networking#open-file-handle-limit).
 
         :::
       </p>
