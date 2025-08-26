@@ -2527,6 +2527,29 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       </p>
     </td>
   </tr>
+
+  <tr>
+    <td>RABBITMQ_MAX_OPEN_FILES</td>
+    <td>
+      <p>
+        :::important
+
+        This variable **is not** the primary way of configuring the [max open file handle limit](./networking.html#open-file-handle-limit).
+
+        :::
+      </p>
+      <p>
+        If set, startup scripts will set the limit of file descriptors available to RabbitMQ (they will execute `ulimit -n` with the provided value). This can be useful if the soft limit is set too low, but the hard limit is higher.
+      </p>
+
+      <p>
+        If `ulimit` fails (most likely because the value exceeds the hard limit), RabbitMQ won't start.
+      </p>
+      <p>
+        <strong>Default</strong>: (none)
+      </p>
+    </td>
+  </tr>
 </table>
 
 Besides the variables listed above, there are several environment variables which
