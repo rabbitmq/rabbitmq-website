@@ -161,7 +161,7 @@ A binding has the following properties:
 Bindings inherit durability from their source and destination. As such, bindings can be
 
  * Fully durable: both their exchange and destination/queue/stream are durable
- * Semi-durable: in practice this means that their their exchange is durable and their destination/queue/stream is transient
+ * Semi-durable: in practice this means that their exchange is durable and their destination/queue/stream is transient
  * Fully transient: both their exchange and destination/queue/stream are transient
 
 Support for semi-durable and fully transient bindings will be dropped in the future.
