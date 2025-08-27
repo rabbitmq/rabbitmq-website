@@ -437,68 +437,78 @@ resource. And the `read` operations retrieve messages
 from a resource.
 
 In order to perform an operation on a resource the user must
-have been granted the appropriate permissions for it. The
-following table shows what permissions on what type of
+have been granted the appropriate permissions for it.
+
+<Tabs groupId="protocol">
+<TabItem value="amqp-091" label="AMQP 0-9-1">
+
+The following table shows what permissions on what type of
 resource are required for all the AMQP 0-9-1 commands which
 perform permission checks.
 
-<table>
-  <tr>
-    <th>AMQP 0-9-1 Operation</th>
-    <th></th>
-    <th>configure</th>
-    <th>write</th>
-    <th>read</th>
-  </tr>
-  <tr>
-    <td>exchange.declare</td><td>(passive=false)</td><td>exchange</td><td/><td/>
-  </tr>
-  <tr>
-    <td>exchange.declare</td><td>(passive=true)</td><td></td><td/><td/>
-  </tr>
-  <tr>
-    <td>exchange.declare</td><td>(with <a href="./ae">AE</a>)</td><td>exchange</td><td>exchange (AE)</td><td>exchange</td>
-  </tr>
-  <tr>
-    <td>exchange.delete</td><td/><td>exchange</td><td/><td/>
-  </tr>
-  <tr>
-    <td>queue.declare</td><td>(passive=false)</td><td>queue</td><td/><td/>
-  </tr>
-  <tr>
-    <td>queue.declare</td><td>(passive=true)</td><td></td><td/><td/>
-  </tr>
-  <tr>
-    <td>queue.declare</td><td>(with <a href="./dlx">DLX</a>)</td><td>queue</td><td>exchange (DLX)</td><td>queue</td>
-  </tr>
-  <tr>
-    <td>queue.delete</td><td/><td>queue</td><td/><td/>
-  </tr>
-  <tr>
-    <td>exchange.bind</td><td/><td/><td>exchange (destination)</td><td>exchange (source)</td>
-  </tr>
-  <tr>
-    <td>exchange.unbind</td><td/><td/><td>exchange (destination)</td><td>exchange (source)</td>
-  </tr>
-  <tr>
-    <td>queue.bind</td><td/><td/><td>queue</td><td>exchange</td>
-  </tr>
-  <tr>
-    <td>queue.unbind</td><td/><td/><td>queue</td><td>exchange</td>
-  </tr>
-  <tr>
-    <td>basic.publish</td><td/><td/><td>exchange</td><td/>
-  </tr>
-  <tr>
-    <td>basic.get</td><td/><td/><td/><td>queue</td>
-  </tr>
-  <tr>
-    <td>basic.consume</td><td/><td/><td/><td>queue</td>
-  </tr>
-  <tr>
-    <td>queue.purge</td><td/><td/><td/><td>queue</td>
-  </tr>
-</table>
+| AMQP 0-9-1 Operation    |                             | configure              | write                    | read                    |
+|-------------------------|-----------------------------|------------------------|--------------------------|-------------------------|
+| exchange.declare        | (passive=false)             | exchange               |                          |                         |
+| exchange.declare        | (passive=true)              |                        |                          |                         |
+| exchange.declare        | (with [AE](./ae))           | exchange               | exchange (AE)            | exchange                |
+| exchange.delete         |                             | exchange               |                          |                         |
+| queue.declare           | (passive=false)             | queue                  |                          |                         |
+| queue.declare           | (passive=true)              |                        |                          |                         |
+| queue.declare           | (with [DLX](./dlx))         | queue                  | exchange (DLX)           | queue                   |
+| queue.delete            |                             | queue                  |                          |                         |
+| exchange.bind           |                             |                        | exchange (destination)   | exchange (source)       |
+| exchange.unbind         |                             |                        | exchange (destination)   | exchange (source)       |
+| queue.bind              |                             |                        | queue                    | exchange                |
+| queue.unbind            |                             |                        | queue                    | exchange                |
+| basic.publish           |                             |                        | exchange                 |                         |
+| basic.get               |                             |                        |                          | queue                   |
+| basic.consume           |                             |                        |                          | queue                   |
+| queue.purge             |                             |                        |                          | queue                   |
+</TabItem>
+
+<TabItem value="amqp-10" label="AMQP 1.0">
+
+The following table shows what permissions on what type of
+resource are required for all the AMQP 1.0 commands which
+perform permission checks.
+
+| AMQP Operation                |                   | configure | write                  | read              |
+|-------------------------------|-------------------|-----------|------------------------|-------------------|
+| declare exchange              |                   | exchange  |                        |                   |
+| declare exchange              | with [AE](./ae)   | exchange  | exchange (AE)          | exchange          |
+| delete exchange               |                   | exchange  |                        |                   |
+| bind exchange to exchange     |                   |           | exchange (destination) | exchange (source) |
+| unbind exchange from exchange |                   |           | exchange (destination) | exchange (source) |
+| declare queue                 |                   | queue     |                        |                   |
+| declare queue                 | with [DLX](./dlx) | queue     | exchange (DLX)         | queue             |
+| delete queue                  |                   | queue     |                        |                   |
+| purge queue                   |                   |           |                        | queue             |
+| bind queue to exchange        |                   |           | queue                  | exchange          |
+| unbind queue from exchange    |                   |           | queue                  | exchange          |
+| get queue                     |                   |           |                        |                   |
+| attach (sender)               | exchange addresss |           | exchange               |                   |
+| attach (sender)               | queue address     |           | exchange (amq.default) |                   |
+| attach (receiver)             |                   |           |                        | queue             |
+
+</TabItem>
+<TabItem value="mqtt" label="MQTT">
+MQTT protocol does not have the concept of exchanges, queues and bindings. Our MQTT plugin builds on top of AMQP
+protocol and uses the same permission system. You can read more about it in the [MQTT plugin guide](./mqtt).
+
+The following table shows what permissions on what type of
+resource are required for all the MQTT commands which
+perform permission checks.
+
+| MQTT Operation |                      | configure | write     | read     |
+|----------------|----------------------|-----------|-----------|----------|
+| SUBSCRIBE      |                      | queue     | queue     | exchange |
+| PUBLISH        |                      |           | amq.topic |          |
+| PUBLISH        | non-default exchange |           | exchange  |          |
+
+`PUBLISH` operation also requires passing [topic authorisation](#topic-authorisation).
+
+</TabItem>
+</Tabs>
 
 Permissions are expressed as a triple of regular expressions
 — one each for configure, write and read — on a per-vhost
