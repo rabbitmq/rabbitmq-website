@@ -257,8 +257,10 @@ Here are the essential configuration settings related to TLS:
 
 <table className="plain">
   <thead>
-    <th>Configuration Key</th>
-    <th>Description</th>
+    <tr>
+      <th>Configuration Key</th>
+      <th>Description</th>
+    </tr>
   </thead>
   <tr>
     <td><code>listeners.ssl</code></td>

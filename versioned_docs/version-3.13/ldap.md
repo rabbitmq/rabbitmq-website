@@ -414,8 +414,10 @@ refer to [this overview](https://www.digitalocean.com/community/tutorials/unders
 
 <table>
   <thead>
-    <th>Term</th>
-    <th>Description</th>
+    <tr>
+      <th>Term</th>
+      <th>Description</th>
+    </tr>
   </thead>
   <tr>
     <td>Bind</td>
