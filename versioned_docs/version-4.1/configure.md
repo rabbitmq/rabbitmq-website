@@ -45,7 +45,7 @@ This guide covers a number of topics related to configuration:
  * [Operating system (kernel) limits](#kernel-limits)
  * Available [core server settings](#config-items)
  * Available [environment variables](#supported-environment-variables)
- * How to [encrypt sensitive configuration values](#configuration-encryption)
+ * How to [encrypt sensitive configuration values](#configuration-encryption) in `rabbitmq.conf` and `advanced.config`
 
 and more.
 
@@ -329,7 +329,7 @@ The syntax can be briefly explained like so:
  * Any content starting with a `#` character is a comment
  * Values that contain the `#` character, such as generated strings, generated passwords, encrypted values,
    and so on, can be escaped with single quotes like so: `'efd3!53a9@92#a08_d_6d'`
- * Values containing a colon are treated as [encrypted values](#configuration-encryption)
+ * Values prefixed with `encrypted:` are treated as [encrypted values](#configuration-encryption)
 
 A minimalistic example configuration file follows:
 
@@ -900,10 +900,10 @@ disk_free_limit.absolute = 50MB
       of log event category and log level pairs.
 
       <p>
-				The level can be one of `error` (only errors are
-				logged), `warning` (only errors and warning are
-				logged), `info` (errors, warnings and informational
-				messages are logged), or `debug` (errors, warnings,
+        The level can be one of `error` (only errors are
+        logged), `warning` (only errors and warning are
+        logged), `info` (errors, warnings and informational
+        messages are logged), or `debug` (errors, warnings,
         informational messages and debugging messages are
         logged).
       </p>
@@ -2522,6 +2522,29 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       priority. This option may be more convenient in cases where providing a config file is impossible,
       and environment variables is the only way to <a href="./access-control#seeding">seed users</a> and virtual hosts.
 
+      <p>
+        <strong>Default</strong>: (none)
+      </p>
+    </td>
+  </tr>
+
+  <tr>
+    <td>RABBITMQ_MAX_OPEN_FILES</td>
+    <td>
+      <p>
+        :::important
+
+        This variable **is not** the primary way of configuring the [max open file handle limit](./networking#open-file-handle-limit).
+
+        :::
+      </p>
+      <p>
+        If set, startup scripts will set the limit of file descriptors available to RabbitMQ (they will execute `ulimit -n` with the provided value). This can be useful if the soft limit is set too low, but the hard limit is higher.
+      </p>
+
+      <p>
+        If `ulimit` fails (most likely because the value exceeds the hard limit), RabbitMQ won't start.
+      </p>
       <p>
         <strong>Default</strong>: (none)
       </p>

@@ -408,9 +408,8 @@ default_pass = 768a852ed69ce916fa7faa278c962de3e4275e5f
 As with all values in [`rabbitmq.conf`](./configure#config-file), the `#` character
 starts a comment so this character must be avoided in generated credentials.
 
-Default user credentials can also be encrypted.
-That requires the use of the [advanced configuration file](./configure#advanced-config-file), `advanced.config`.
-This topic is covered in more detail in [Configuration Value Encryption](./configure#configuration-encryption).
+Default user credentials can also be encrypted. This topic is covered
+in more detail in [Configuration Value Encryption](./configure#configuration-encryption).
 
 
 ## Authorisation: How Permissions Work {#authorisation}

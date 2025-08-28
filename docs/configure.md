@@ -45,7 +45,7 @@ This guide covers a number of topics related to configuration:
  * [Operating system (kernel) limits](#kernel-limits)
  * Available [core server settings](#config-items)
  * Available [environment variables](#supported-environment-variables)
- * How to [encrypt sensitive configuration values](#configuration-encryption)
+ * How to [encrypt sensitive configuration values](#configuration-encryption) in `rabbitmq.conf` and `advanced.config`
 
 and more.
 
@@ -329,7 +329,7 @@ The syntax can be briefly explained like so:
  * Any content starting with a `#` character is a comment
  * Values that contain the `#` character, such as generated strings, generated passwords, encrypted values,
    and so on, can be escaped with single quotes like so: `'efd3!53a9@92#a08_d_6d'`
- * Values containing a colon are treated as [encrypted values](#configuration-encryption)
+ * Values prefixed with `encrypted:` are treated as [encrypted values](#configuration-encryption)
 
 A minimalistic example configuration file follows:
 
