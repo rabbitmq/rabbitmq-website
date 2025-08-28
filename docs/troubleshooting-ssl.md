@@ -389,8 +389,10 @@ of TLS-related errors. What follows is a list of the most common error entries:
 
 <table>
   <thead>
-    <td><strong>Logged Errors</strong></td>
-    <td><strong>Explanation</strong></td>
+    <tr>
+      <td><strong>Logged Errors</strong></td>
+      <td><strong>Explanation</strong></td>
+    </tr>
   </thead>
 
   <tr>

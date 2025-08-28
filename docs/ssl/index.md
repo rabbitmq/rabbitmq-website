@@ -1362,9 +1362,11 @@ explains what TLS versions are supported by what JDK and .NET releases.
 
 <table>
   <thead>
-    <td>TLS version</td>
-    <td>Minimum JDK version</td>
-    <td>Minimum .NET version</td>
+    <tr>
+      <td>TLS version</td>
+      <td>Minimum JDK version</td>
+      <td>Minimum .NET version</td>
+    </tr>
   </thead>
   <tr>
     <td>TLS 1.3</td>

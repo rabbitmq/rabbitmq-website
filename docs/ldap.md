@@ -418,8 +418,10 @@ refer to [this overview](https://www.digitalocean.com/community/tutorials/unders
 
 <table>
   <thead>
-    <th>Term</th>
-    <th>Description</th>
+    <tr>
+      <th>Term</th>
+      <th>Description</th>
+    </tr>
   </thead>
   <tr>
     <td>Bind</td>
@@ -709,9 +711,11 @@ The default values (expressions) can be found in the table below:
 
 <table>
   <thead>
-    <td>Query</td>
-    <td>Purpose</td>
-    <td>Default Expression</td>
+    <tr>
+      <td>Query</td>
+      <td>Purpose</td>
+      <td>Default Expression</td>
+    </tr>
   </thead>
   <tr>
     <td>`rabbitmq_auth_backend_ldap.vhost_access_query`</td>
