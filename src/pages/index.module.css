@@ -134,10 +134,6 @@ html[data-theme='dark'] .heroCta .release_notes_link {
   background-color: var(--ifm-color-emphasis-100);
 }
 
-.highlight_text {
-  background-color: var(--ifm-color-primary-contrast-background);
-}
-
 .featured_partner h1 small {
   font-size: 1rem;
 }
