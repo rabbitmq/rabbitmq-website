@@ -257,8 +257,8 @@ Here are the essential configuration settings related to TLS:
 
 <table className="plain">
   <thead>
-    <td>Configuration Key</td>
-    <td>Description</td>
+    <th>Configuration Key</th>
+    <th>Description</th>
   </thead>
   <tr>
     <td><code>listeners.ssl</code></td>
@@ -1022,38 +1022,44 @@ easier, there is a new Field Parameters.Ssl that acts like a namespace
 for all the other fields that we need to set. The fields are:
 
 <table className="plain">
-<thead>
-  <td>Property</td>
-  <td>Description</td>
-</thead>
-<tr>
-  <td><code>Ssl.CertPath</code></td>
-  <td>
-    This is the path to the client's certificate in
-    PKCS#12 format if your server expects client side verification. This
-    is optional.
-  </td>
-</tr>
-<tr>
-  <td><code>Ssl.CertPassphrase</code></td>
-  <td>
-    If you are using a client certificate in PKCS#12
-    format then it'll probably have a password, which you specify in
-    this field.
-  </td>
-</tr>
-<tr>
-  <td><code>Ssl.Enabled</code></td>
-  <td>This is a boolean field that turns TLS support on or
-  off. It is off by default.</td>
-</tr>
-<tr>
-  <td><code>Ssl.ServerName</code></td>
-  <td>
-    .NET expects this to match the Subject Alternative Name (SAN) or Common Name (CN) on
-    the certificate that the server sends over.
-  </td>
-</tr>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Ssl.CertPath</code></td>
+      <td>
+        This is the path to the client's certificate in
+        PKCS#12 format if your server expects client side verification. This
+        is optional.
+      </td>
+    </tr>
+    <tr>
+      <td><code>Ssl.CertPassphrase</code></td>
+      <td>
+        If you are using a client certificate in PKCS#12
+        format then it'll probably have a password, which you specify in
+        this field.
+      </td>
+    </tr>
+    <tr>
+      <td><code>Ssl.Enabled</code></td>
+      <td>
+        This is a boolean field that turns TLS support on or
+        off. It is off by default.
+      </td>
+    </tr>
+    <tr>
+      <td><code>Ssl.ServerName</code></td>
+      <td>
+        .NET expects this to match the Subject Alternative Name (SAN) or Common Name (CN) on
+        the certificate that the server sends over.
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 ### TLS Versions {#dotnet-tls-versions-dotnet-client}
@@ -1368,23 +1374,25 @@ explains what TLS versions are supported by what JDK and .NET releases.
       <td>Minimum .NET version</td>
     </tr>
   </thead>
-  <tr>
-    <td>TLS 1.3</td>
-    <td>JDK 8 <a href="https://www.oracle.com/java/technologies/javase/8u261-relnotes.html">starting with JDK8u261</a>, JDK 11+</td>
-    <td><a href="https://github.com/dotnet/docs/issues/4675">.NET 4.7</a> on <a href="https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls">Windows versions that support TLSv1.3</a></td>
-  </tr>
-  <tr>
-    <td>TLS 1.2</td>
-    <td>JDK 7 (see <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
-    <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a></td>
-    <td>.NET 4.5</td>
-  </tr>
-  <tr>
-    <td>TLS 1.1</td>
-    <td>JDK 7 (see <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
-    <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a></td>
-    <td>.NET 4.5</td>
-  </tr>
+  <tbody>
+    <tr>
+      <td>TLS 1.3</td>
+      <td>JDK 8 <a href="https://www.oracle.com/java/technologies/javase/8u261-relnotes.html">starting with JDK8u261</a>, JDK 11+</td>
+      <td><a href="https://github.com/dotnet/docs/issues/4675">.NET 4.7</a> on <a href="https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls">Windows versions that support TLSv1.3</a></td>
+    </tr>
+    <tr>
+      <td>TLS 1.2</td>
+      <td>JDK 7 (see <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
+      <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a></td>
+      <td>.NET 4.5</td>
+    </tr>
+    <tr>
+      <td>TLS 1.1</td>
+      <td>JDK 7 (see <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
+      <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a></td>
+      <td>.NET 4.5</td>
+    </tr>
+  </tbody>
 </table>
 
 Oracle JDK has a [public roadmap on cryptography](https://java.com/en/jre-jdk-cryptoroadmap.html) and related standards
