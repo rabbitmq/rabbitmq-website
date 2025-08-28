@@ -443,7 +443,7 @@ resource. And the `read` operations retrieve messages
 from a resource.
 
 In order to perform an operation on a resource the user must
-have been granted the appropriate permissions for it. 
+have been granted the appropriate permissions for it.
 
 <Tabs groupId="protocol">
 <TabItem value="amqp-091" label="AMQP 0-9-1">
@@ -793,8 +793,10 @@ The built-in mechanisms are:
 
 <table>
   <thead>
-    <td>Mechanism</td>
-    <td>Description</td>
+    <tr>
+      <td>Mechanism</td>
+      <td>Description</td>
+    </tr>
   </thead>
 
   <tr>

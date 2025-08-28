@@ -607,7 +607,7 @@ connected user, the permission `^{username}-.*` is expanded to
 `^tonyg-.*`
 
 If a different authorisation backend (e.g. [LDAP](./ldap),
-[HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/v4.0.x/deps/rabbitmq_auth_backend_http),
+[HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/v4.1.x/deps/rabbitmq_auth_backend_http),
 [OAuth 2](./oauth2)) is used, please refer
 to the documentation of those backends.
 
@@ -811,8 +811,10 @@ The built-in mechanisms are:
 
 <table>
   <thead>
-    <td>Mechanism</td>
-    <td>Description</td>
+    <tr>
+      <td>Mechanism</td>
+      <td>Description</td>
+    </tr>
   </thead>
 
   <tr>

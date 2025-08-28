@@ -811,8 +811,10 @@ The built-in mechanisms are:
 
 <table>
   <thead>
-    <td>Mechanism</td>
-    <td>Description</td>
+    <tr>
+      <td>Mechanism</td>
+      <td>Description</td>
+    </tr>
   </thead>
 
   <tr>
