@@ -246,7 +246,7 @@ html[data-theme='dark'] .blockquote blockquote:after {
   --ifm-button-size-multiplier: 1;
 }
 
-html[data-theme='dark'] .licensing_cta a {
+html[data-theme='dark'] .commercial_features_cta a {
   background-color: var(--ifm-font-color-base);
 }
 
@@ -272,7 +272,7 @@ html[data-theme='dark'] .licensing_cta a {
       max-width: 100%;
   }
 
-  .licensing_hero .heroInner {
+  .commercial_features_hero .heroInner {
     align-items: center;
   }
 }
