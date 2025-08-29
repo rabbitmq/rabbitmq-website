@@ -38,7 +38,11 @@ html[data-theme='dark'] {
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
-article h2,
+article h2 {
+  clear: both;
+  font-size: 2.0rem !important;
+}
+
 article h3 {
   clear: both;
 }
