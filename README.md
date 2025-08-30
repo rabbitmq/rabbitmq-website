@@ -72,7 +72,7 @@ git add docs versioned_docs
 git commit
 ```
 
-Please read the [documentation of Versioning in Docusaurus](https://docusaurus.io/docs/versioning) to learn more.
+Please read the [documentation on versioning in Docusaurus](https://docusaurus.io/docs/versioning) to learn more.
 
 Older versions of the docs that we don’t want to host in Docusaurus to limit
 the number of versions are put in branches of the form `v3.13.x`, `v4.0.x`,
@@ -86,7 +86,7 @@ docs are still maintained in the `main` branch.
 This website is built using [Docusaurus 3](https://docusaurus.io/), a modern
 static website generator.
 
-#### Installation
+#### Dependency Installation
 
 You need to install JS components used by Docusaurus first with `yarn` or `npm`.
 The examples below use `npm`.
