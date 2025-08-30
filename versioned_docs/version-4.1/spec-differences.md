@@ -30,4 +30,4 @@ If you have questions about the contents of this guide or any other topic relate
 
 If you'd like to contribute an improvement to the site, its source is [available on GitHub](https://github.com/rabbitmq/rabbitmq-website).
 
-[Sign the CLA](https://github.com/rabbitmq/cla), then simply fork the repository and submit a pull request. Thank you!
+[Sign contributor CLA](https://github.com/rabbitmq/cla), then simply fork the repository and submit a pull request. Thank you!
