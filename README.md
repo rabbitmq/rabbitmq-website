@@ -3,7 +3,16 @@
 This repository contains the source code of the RabbitMQ website, rabbitmq.com.
 **Please make sure to read the Workflow section before contributing**.
 
-## Workflow
+### Before You Start: Please Sign Our Contributor CLA
+
+If this is your first contribution to RabbitMQ and it involves more than a typo fix,
+please [sign our contributor CLA](https://github.com/rabbitmq/cla).
+
+The process involves one email and one online signature using a legally binding digital signature service.
+
+Sorry about this annoyance and thank you!
+
+## ContributionWorkflow
 
 ### TL;DR
 
@@ -11,7 +20,7 @@ This repository contains documentation guides for multiple RabbitMQ release seri
 At the moment they are `4.2.x` (in development), `4.1.x`, `4.0.x`, and `3.13.x`.
 
 Therefore, the very first question to consder before making any changes is:
-what versions does my change apply to? Should I update just the `4.2.x` version,
+what editions (versions) does my change apply to? Should I update just the next release edition,
 all `4.x` ones or even `3.13.x`?
 
 Here is a summary of which version of the documentation corresponds to which
@@ -25,20 +34,21 @@ branch and directory:
 | 3.13 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-3.13` | [`www.rabbitmq.com/docs/3.13`](https://www.rabbitmq.com/docs/3.13) |
 | 3.12 | [`v3.12.x`](https://github.com/rabbitmq/rabbitmq-website/tree/v3.12.x) | root | (no longer available) |
 
-### Branches and versioning
+### Branches and Versioning
 
 The `main` branch is the production branch. Commits to it are deployed
-automatically to www.rabbitmq.com by a Cloudflare worker.
+automatically to www.rabbitmq.com.
 
-We keep several versions of the docs in the `main` branch. Docusaurus uses the
-following directories:
+All editions (versions) of the docs live side by side in the `main` branch.
+
+Docusaurus uses the following directories:
 
 * `docs` contains the docs of the future version of RabbitMQ, thus it is the
-  work in progress. It is served at https://www.rabbitmq.com/docs/next.
+  work in progress. It is served at [rabbitmq.com/docs/next](https://www.rabbitmq.com/docs/next)
 * `versioned_docs` contains one directory per version; for example,
-  `versioned_docs/version-4.0`. The latest version is served at
-  https://www.rabbitmq.com/docs. Older versions are served at
-  `…/docs/$version`.
+  `versioned_docs/version-4.1`. The latest version is served at
+  [rabbitmq.com/docs](https://www.rabbitmq.com/docs). Older versions are served at
+  `…/docs/$version`, for example [rabbitmq.com/docs/3.13](https://www.rabbitmq.com/docs/3.13).
 
 Changes should be made to `docs` and to any version they apply. Here is an
 example:
@@ -71,7 +81,7 @@ the form `v3-13.rabbitmq.com`, `v4-0.rabbitmq.com`, etc. respectively. Note
 that these branches used as examples may not exist yet if the corresponding
 docs are still maintained in the `main` branch.
 
-### How to build
+### How to Build the Site
 
 This website is built using [Docusaurus 3](https://docusaurus.io/), a modern
 static website generator.
@@ -140,5 +150,7 @@ the Mozilla Public License 2.0. Users can choose any of these licenses
 according to their needs. However, **the blog is excluded from this license and
 remains the intellectual property of Broadcom Inc.** Blog posts may not be
 restributed.
+
+### SPDX
 
 SPDX-License-Identifier: Apache-2.0 OR MPL-2.0
