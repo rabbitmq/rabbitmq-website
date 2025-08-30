@@ -321,13 +321,13 @@ const sidebars = {
               items: [
                 {
                   type: 'doc',
-                  id: 'federated-exchanges/index',
-                  label: 'Federated Exchanges',
+                  id: 'federated-queues/index',
+                  label: 'Federated Queues',
                 },
                 {
                   type: 'doc',
-                  id: 'federated-queues/index',
-                  label: 'Federated Queues',
+                  id: 'federated-exchanges/index',
+                  label: 'Federated Exchanges',
                 },
                 {
                   type: 'doc',
@@ -343,14 +343,14 @@ const sidebars = {
               items: [
                 {
                   type: 'doc',
-                  id: 'shovel-static',
-                  label: 'Static Shovels',
-                },
-                {
-                  type: 'doc',
                   id: 'shovel-dynamic',
                   label: 'Dynamic Shovels',
                 },
+                {
+                  type: 'doc',
+                  id: 'shovel-static',
+                  label: 'Static Shovels',
+                }
               ],
             },
             {
