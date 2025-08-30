@@ -99,7 +99,7 @@ removed.
 deprecated_features.permit.some_deprecated_feature = false
 ```
 
-Another user may decied to turn a *denied by default* deprecated feature back
+Another user may decide to turn a *denied by default* deprecated feature back
 on to buy more time to adapt their applications while still upgrading
 RabbitMQ:
 
