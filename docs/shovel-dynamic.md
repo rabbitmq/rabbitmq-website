@@ -106,7 +106,7 @@ The body in this example includes a few keys:
     <tr>
       <td>src-uri</td>
       <td>
-        <p>
+        <div>
           Source connection URI. Mandatory. See
           the <a href="./uri-spec">AMQP URI reference</a> for
           information on how RabbitMQ treats AMQP URIs in general.
@@ -128,23 +128,23 @@ The body in this example includes a few keys:
               See <a href="./shovel#tls">Securing Shovel Connections with TLS</a> and the general <a href="./ssl#peer-verification">TLS guide</a> to learn more.
               Only of use when URI scheme is <code>amqps</code>.
 
-              <p>
+              <div>
                 :::important
 
                 Note that starting with Erlang 26, peer verification for TLS clients (such as shovels)
                 is enabled by default.
 
                 :::
-              </p>
+              </div>
             </dd>
           </dl>
-        </p>
-        <p>
+        </div>
+        <div>
           The value of this parameter can either be a string, or a list of
           strings. If more than one string is provided, the shovel will
           randomly pick <strong>one</strong> URI from the list until
           one of the endpoints succeeds.
-        </p>
+        </div>
       </td>
     </tr>
     <tr>
@@ -158,27 +158,27 @@ The body in this example includes a few keys:
     <tr>
       <td>src-queue</td>
       <td>
-        <p>
+        <div>
           Source queue that the shovel will consume from.
           The queue from which to consume. Either this
           or <code>src-exchange</code> (but not both) must be set.
-        </p>
-        <p>
+        </div>
+        <div>
           If the source queue does not exist on the target virtual host, and <code>src-queue-args</code>
           parameter was not provided, shovel will declare a classic durable queue with no optional arguments.
-        </p>
-        <p>
+        </div>
+        <div>
           Shovels can use a pre-declared topology instead of declaring the source.
           See the [Predeclared topology](#predeclared-topology) section below.
-        </p>
+        </div>
       </td>
     </tr>
     <tr>
       <td>src-queue-args</td>
       <td>
-        <p>
+        <div>
             Optional arguments for <code>src-queue</code> declaration, eg. the queue type.
-        </p>
+        </div>
       </td>
     </tr>
     <tr>
@@ -199,29 +199,29 @@ The body in this example includes a few keys:
     <tr>
       <td>dest-queue</td>
       <td>
-        <p>
+        <div>
             The queue to which messages should be published. Either this
             or <code>dest-exchange</code> (but not both) may be set. If
             neither is set then messages are republished with their original
             exchange and routing key.
-          </p>
-          <p>
+          </div>
+          <div>
             If the destination queue does not exist in the destination virtual host,
             and <code>dest-queue-args</code> parameter was not provided,
             shovel will declare a classic durable queue with no optional arguments.
-          </p>
-          <p>
+          </div>
+          <div>
             Shovels can use a pre-declared topology instead of declaring the destination.
             See the [Predeclared topology](#predeclared-topology) section below.
-          </p>
+          </div>
       </td>
     </tr>
     <tr>
       <td>dest-queue-args</td>
       <td>
-        <p>
+        <div>
             Optional arguments for <code>dest-queue</code> declaration, eg. the queue type.
-        </p>
+        </div>
       </td>
     </tr>
   </tbody>
@@ -480,51 +480,51 @@ the declaration process.
     <tr>
       <td>ack-mode</td>
       <td>
-        <p>
+        <div>
           Determines how the shovel should <a href="./confirms">acknowledge</a> consumed messages.
           Valid values are <code>on-confirm</code>, <code>on-publish</code>, and <code>no-ack</code>.
           <code>on-confirm</code> is used by default.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to <code>on-confirm</code> (the default), messages are
           <a href="./confirms">acknowledged</a> to the source broker after they have been confirmed
           by the destination. This handles network errors and broker
           failures without losing messages, and is the slowest option.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to <code>on-publish</code>, messages are <a href="./confirms">acknowledged</a> to
           the source broker after they have been published at the
           destination (but not yet confirmed). Messages may be lost in the event of network or broker failures.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to <code>no-ack</code>, <a href="./confirms">automatic message acknowledgements</a> will be used.
           This option will offer the highest throughput but is not safe (will lose messages in the event of network or broker failures).
-        </p>
+        </div>
       </td>
     </tr>
     <tr>
       <td>src-delete-after</td>
       <td>
-        <p>
+        <div>
           Determines when (if ever) the shovel should delete
           itself. This can be useful if the shovel is being treated
           as more of a move operation - i.e. being used to move
           messages from one queue to another on an ad hoc basis.
-        </p>
-        <p>
+        </div>
+        <div>
           The default is <code>never</code>, meaning the
           shovel should never delete itself.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to <code>queue-length</code> then the shovel will
           measure the length of the source queue when starting up,
           and delete itself after it has transferred that many
           messages.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to an integer, then the shovel will transfer that
           number of messages before deleting itself.
-        </p>
+        </div>
       </td>
     </tr>
     <tr>
@@ -537,19 +537,19 @@ the declaration process.
     <tr>
       <td>src-exchange</td>
       <td>
-        <p>
+        <div>
           The exchange from which to consume. Either this
           or <code>src-queue</code> (but not both) must be set.
-        </p>
-        <p>
+        </div>
+        <div>
           The shovel will declare an exclusive queue and bind it to the
           named exchange with <code>src-exchange-key</code> before consuming
           from the queue.
-        </p>
-        <p>
+        </div>
+        <div>
           If the source exchange does not exist on the source broker, it
           will be not declared; the shovel will fail to start.
-        </p>
+        </div>
       </td>
     </tr>
     <tr>
@@ -567,14 +567,14 @@ the declaration process.
     <tr>
       <td>dest-exchange</td>
       <td>
-        <p>
+        <div>
           The exchange to which messages should be published. Either this
           or <code>dest-queue</code> (but not both) may be set.
-        </p>
-        <p>
+        </div>
+        <div>
           If the destination exchange does not exist on the destination broker,
           it will be not declared; the shovel will fail to start.
-        </p>
+        </div>
       </td>
     </tr>
     <tr>
@@ -642,14 +642,14 @@ counterparts.
           <dt><code>hostname</code></dt>
           <dd>
             This field indicates the  connection target. What exactly that means depends on the target AMQP 1.0 broker.
-            <p>
+            <div>
               For example, Azure ServiceBus requires this to be set even if it is the same as the host segment
               in the URI.
-            </p>
-            <p>
+            </div>
+            <div>
               In the case of RabbitMQ, this field can be used to specify the target [virtual host](./vhosts) in case it is different from the default one.
               To do so, set this query parameter to `vhost:{name}`, e.g. `vhost:example-vhost`.
-            </p>
+            </div>
           </dd>
           <dt><code>sasl</code></dt>
           <dd>
@@ -673,14 +673,14 @@ counterparts.
             See the <a href="./ssl#peer-verification">TLS guide</a> for details.
             Only of use when URI scheme is <code>amqps</code>.
 
-            <p>
+            <div>
               :::important
 
               Note that starting with Erlang 26, peer verification for TLS clients (such as shovels)
               is enabled by default.
 
               :::
-            </p>
+            </div>
           </dd>
         </dl>
       </td>
@@ -744,51 +744,51 @@ counterparts.
     <tr>
       <td>ack-mode</td>
       <td>
-        <p>
+        <div>
           Determines how the shovel should <a href="./confirms">acknowledge</a> consumed messages.
           Valid values are <code>on-confirm</code>, <code>on-publish</code>, and <code>no-ack</code>.
           <code>on-confirm</code> is used by default.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to <code>on-confirm</code> (the default), messages are
           <a href="./confirms">acknowledged</a> to the source broker after they have been confirmed
           by the destination. This handles network errors and broker
           failures without losing messages, and is the slowest option.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to <code>on-publish</code>, messages are <a href="./confirms">acknowledged</a> to
           the source broker after they have been published at the
           destination (but not yet confirmed). Messages may be lost in the event of network or broker failures.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to <code>no-ack</code>, <a href="./confirms">automatic message acknowledgements</a> will be used.
           This option will offer the highest throughput but is not safe (will lose messages in the event of network or broker failures).
-        </p>
+        </div>
       </td>
     </tr>
     <tr>
       <td>src-delete-after</td>
       <td>
-        <p>
+        <div>
           Determines when (if ever) the shovel should delete
           itself. This can be useful if the shovel is being treated
           as more of a move operation - i.e. being used to move
           messages from one queue to another on an ad hoc basis.
-        </p>
-        <p>
+        </div>
+        <div>
           The default is <code>never</code>, meaning the
           shovel should never delete itself.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to <code>queue-length</code> then the shovel will
           measure the length of the source queue when starting up,
           and delete itself after it has transferred that many
           messages.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to an integer, then the shovel will transfer that
           number of messages before deleting itself.
-        </p>
+        </div>
       </td>
     </tr>
   </tbody>
@@ -822,51 +822,51 @@ the declaration process.
     <tr>
       <td>ack-mode</td>
       <td>
-        <p>
+        <div>
           Determines how the shovel should <a href="./confirms">acknowledge</a> consumed messages.
           Valid values are <code>on-confirm</code>, <code>on-publish</code>, and <code>no-ack</code>.
           <code>on-confirm</code> is used by default.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to <code>on-confirm</code> (the default), messages are
           <a href="./confirms">acknowledged</a> to the source broker after they have been confirmed
           by the destination. This handles network errors and broker
           failures without losing messages, and is the slowest option.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to <code>on-publish</code>, messages are <a href="./confirms">acknowledged</a> to
           the source broker after they have been published at the
           destination (but not yet confirmed). Messages may be lost in the event of network or broker failures.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to <code>no-ack</code>, <a href="./confirms">automatic message acknowledgements</a> will be used.
           This option will offer the highest throughput but is not safe (will lose messages in the event of network or broker failures).
-        </p>
+        </div>
       </td>
     </tr>
     <tr>
       <td>src-delete-after</td>
       <td>
-        <p>
+        <div>
           Determines when (if ever) the shovel should delete
           itself. This can be useful if the shovel is being treated
           as more of a move operation - i.e. being used to move
           messages from one queue to another on an ad hoc basis.
-        </p>
-        <p>
+        </div>
+        <div>
           The default is <code>never</code>, meaning the
           shovel should never delete itself.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to <code>queue-length</code> then the shovel will
           measure the length of the source queue when starting up,
           and delete itself after it has transferred that many
           messages.
-        </p>
-        <p>
+        </div>
+        <div>
           If set to an integer, then the shovel will transfer that
           number of messages before deleting itself.
-        </p>
+        </div>
       </td>
     </tr>
     <tr>
@@ -879,19 +879,19 @@ the declaration process.
     <tr>
       <td>src-exchange</td>
       <td>
-        <p>
+        <div>
           The exchange from which to consume. Either this
           or <code>src-queue</code> (but not both) must be set.
-        </p>
-        <p>
+        </div>
+        <div>
           The shovel will declare an exclusive queue and bind it to the
           named exchange with <code>src-exchange-key</code> before consuming
           from the queue.
-        </p>
-        <p>
+        </div>
+        <div>
           If the source exchange does not exist on the source broker, it
           will be not declared; the shovel will fail to start.
-        </p>
+        </div>
       </td>
     </tr>
     <tr>
@@ -909,14 +909,14 @@ the declaration process.
     <tr>
       <td>dest-exchange</td>
       <td>
-        <p>
+        <div>
           The exchange to which messages should be published. Either this
           or <code>dest-queue</code> (but not both) may be set.
-        </p>
-        <p>
+        </div>
+        <div>
           If the destination exchange does not exist on the destination broker,
           it will be not declared; the shovel will fail to start.
-        </p>
+        </div>
       </td>
     </tr>
     <tr>

@@ -29,10 +29,11 @@ This information includes the following sections:
 * [Configure Log Level for the Operator](#operator-log)
 * [Time based Reconciliation](#sync-period)
 
-<p class="note">
-  <strong>Note:</strong> Additional information about using the operator on Openshift can be found at
-  [Using the RabbitMQ Kubernetes Operators on Openshift](./using-on-openshift).
-</p>
+:::tip
+
+Additional information about using the operator on Openshift can be found in [Using the RabbitMQ Kubernetes Operators on Openshift](./using-on-openshift).
+
+:::
 
 ## RabbitMQ Cluster Operator Requirements {#requirements}
 

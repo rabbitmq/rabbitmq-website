@@ -25,34 +25,38 @@ This information describes how to debug a running instance of the RabbitMQ Kuber
 
 ## Retrieve Information about CPU/Memory Usage for the Kubernetes Operator Pods {#operator-resource-usage-profiling}
 
-<p class="box-warning">
-<b>Important:</b> Do not complete the following steps on a production system.
-</p>
+:::warning
 
-By using the [pprof tool](https://github.com/google/pprof/blob/main/doc/README.md), you can expose CPU and memory profiling data for the Kubernetes Operator Pods. Profiling is a debugging technique used to generate data about how a piece of software is running by exposing information about the software's consumption of memory, CPU, and asynchronicity.
+The steps below are only necessary for debugging the Operator in a particular deployment.
+
+Think twice before running them on a production system.
+
+:::
+
+By using the [`pprof` tool](https://github.com/google/pprof/blob/main/doc/README.md), you can expose CPU and memory profiling data for the Kubernetes Operator Pods. Profiling is a debugging technique used to generate data about how a piece of software is running by exposing information about the software's consumption of memory, CPU, and asynchronicity.
 
 You might want to do this if you are seeing high resource consumption on one of your Operator Pods for example. To use the `pprof` tool, enable it by completing the following steps:
 
 1. Enable the `ENABLE_DEBUG_PPROF` variable on the operator that you want to retrieve debugging information from by running the following command. For example, for the Cluster Operator, run:
 ```bash
-$ kubectl -n rabbitmq-system set env deployment/rabbitmq-cluster-operator ENABLE_DEBUG_PPROF=True
-deployment.apps/rabbitmq-cluster-operator env updated
+kubectl -n rabbitmq-system set env deployment/rabbitmq-cluster-operator ENABLE_DEBUG_PPROF=True
+# => deployment.apps/rabbitmq-cluster-operator env updated
 ```
 
 2. Using kubectl, complete a `port-forward` operation so that metrics can be collected on your machine from the correct port on the Operator Pod. For the RabbitMQ Cluster Operator, the default port is <code>9782</code> and for all other operators, the port is <code>8080</code>. For example, to complete the `port-forward` operation on the RabbitMQ Cluster Operator Pod, run:
 ```bash
-$ kubectl -n rabbitmq-system port-forward deployment/rabbitmq-cluster-operator 9782
-Forwarding from 127.0.0.1:9782 -> 9782
-Forwarding from [::1]:9782 -> 9782
+kubectl -n rabbitmq-system port-forward deployment/rabbitmq-cluster-operator 9782
+# => Forwarding from 127.0.0.1:9782 -> 9782
+# => Forwarding from [::1]:9782 -> 9782
 ```
 
 3. In a separate terminal, you can now use the <code>go tool pprof</code> to profile the Operator Pod. For example, to analyse
 memory allocations in the Pod, run:
 
 ```bash
-$ go tool pprof "localhost:9782/debug/pprof/heap"
-Fetching profile over HTTP from http://localhost:9782/debug/pprof/heap
-Saved profile in /home/pprof/pprof.manager.alloc_objects.alloc_space.inuse_objects.inuse_space.001.pb.gz
+go tool pprof "localhost:9782/debug/pprof/heap"
+# => Fetching profile over HTTP from http://localhost:9782/debug/pprof/heap
+# => Saved profile in /home/pprof/pprof.manager.alloc_objects.alloc_space.inuse_objects.inuse_space.001.pb.gz
 ```
 
 This opens a browser window to visualise the memory allocations in the profile.

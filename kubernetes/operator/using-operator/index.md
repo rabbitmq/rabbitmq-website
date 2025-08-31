@@ -95,10 +95,11 @@ in which the `RabbitmqCluster` was defined.
 
 First, create a YAML file to define a `RabbitmqCluster` resource named `definition.yaml`.
 
-<p class="note">
-  <strong>Note:</strong> The YAML file can have any name, but the steps that follow assume it is named
-  <code>definition</code>.
-</p>
+:::tip
+
+The YAML file can have any name, but the steps that follow assume it is named <code>definition</code>.
+
+:::
 
 Then copy and paste the below snippet into the file and save it:
 
@@ -109,10 +110,12 @@ metadata:
   name: definition
 ```
 
-<p class="note">
-<strong>Note:</strong> when creating RabbitmqClusters on Openshift, there are extra parameters that must be added to
+:::important
+
+When creating RabbitmqClusters on Openshift, there are extra parameters that must be added to
 all RabbitmqCluster manifests. See <a href="./using-on-openshift#arbitrary-user-ids">Support for Arbitrary User IDs</a> for details.
-</p>
+
+:::
 
 Next, apply the definition by running:
 
@@ -311,14 +314,19 @@ spec:
 ### Persistence {#persistence}
 
 **Description:** Specify the persistence settings for the RabbitmqCluster Service.
+
+:::important
+
+If your cluster does not have a default `StorageClass`, this property
+must be set, otherwise RabbitMQ Pods will not be scheduled because they require a Persistent Volume.
+
+:::
+
 The available settings are:
 
-* `storageClassName`: The name of the Kubernetes StorageClass to use.
-    <p class="note">
-      <strong>Note:</strong> If your cluster does not have a default StorageClass, this property
-      must be set, otherwise RabbitMQ Pods will not be scheduled because they require a Persistent Volume.
-    </p>
-* `storage`: The capacity of the persistent volume, expressed as a Kubernetes resource quantity. Set to `0` to deactivate persistence altogether (this may be convenient in CI/CD and test deloyments that should always start fresh).
+* `storageClassName`: The name of the Kubernetes StorageClass to use. If your cluster does not have a default `StorageClass`, this property
+must be set, otherwise RabbitMQ Pods will not be scheduled because they require a Persistent Volume
+* `storage`: The capacity of the persistent volume, expressed as a Kubernetes resource quantity. Set to `0` to deactivate persistence altogether (this may be convenient in CI/CD and test deloyments that should always start fresh)
 
 **Default Values:**
 
@@ -343,27 +351,37 @@ spec:
 For more information about concepts mentioned above, see:
 
 <table class="nice">
-	<th>Concept</th>
-	<th>More information in…</th>
-	<tr>
-		<td>StorageClass</td>
-		<td>The <a href="https://kubernetes.io/docs/concepts/storage/storage-classes/#the-storageclass-resource">Kubernetes documentation</a></td>
-	</tr>
-	<tr>
-		<td>Persistent volume capacity</td>
-		<td>The <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#capacity">Kubernetes documentation</a></td>
-	</tr>
-	<tr>
-		<td>Kubernetes Resource Quantity</td>
-		<td>The <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/">Kubernetes Resource Model documentation</a> in GitHub</td>
-	</tr>
+	<thead>
+    <tr>
+      <th>Concept</th>
+      <th>More information in…</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>StorageClass</td>
+      <td>The <a href="https://kubernetes.io/docs/concepts/storage/storage-classes/#the-storageclass-resource">Kubernetes documentation</a></td>
+    </tr>
+    <tr>
+      <td>Persistent volume capacity</td>
+      <td>The <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#capacity">Kubernetes documentation</a></td>
+    </tr>
+    <tr>
+      <td>Kubernetes Resource Quantity</td>
+      <td>The <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/">Kubernetes Resource Model documentation</a> in GitHub</td>
+    </tr>
+  </tbody>
  </table>
 
- <p class="note">
-   <strong>Note:</strong> using <a href="https://github.com/rancher/local-path-provisioner" target="_blank">local-path provisioner</a> does not enforce a disk size.
-   This means that RabbitMQ will report more disk available than the configured in <code>.spec.peristence.storage</code>. This happens because the
-   Persistent Disk is created as a local folder in the Kubernetes node hosting the Pod.
- </p>
+:::tip
+
+Using <a href="https://github.com/rancher/local-path-provisioner" target="_blank">local-path provisioner</a> does not enforce a disk size.
+
+This means that RabbitMQ will report more disk available than the configured in `.spec.peristence.storage`. This happens because the
+Persistent Disk is created as a local folder in the Kubernetes node hosting the Pod.
+
+:::
 
 ### Resource Requirements {#resource-reqs}
 
@@ -400,9 +418,14 @@ spec:
       memory: 2Gi
 ```
 
-**Note:** It's possible for RabbitMQ and Erlang to temporarily exceed the total available memory, which could cause an immediate OOM kill.
+:::tip
+
+It's possible for RabbitMQ and Erlang to temporarily exceed the total available memory, which could cause an immediate OOM kill.
+
 To prevent this from happening, the cluster operator sets memory headroom of 20% (with a max value of 2GB) by configuring `total_memory_available_override_value`.
 This means the actual memory limit set in RabbitMQ is 20% less than the specified resource requirement.
+
+:::
 
 For more information about concepts mentioned above, see:
 
@@ -569,8 +592,11 @@ spec:
       - rabbitmq_shovel
 ```
 
-If community plugins need to be provisioned, they should be included into a custom image or [downloaded on node startup](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/community-plugins). The latter option is generally
-**not recommended** as it goes against the philosophy of immutable images and repeatable builds.
+:::tip
+
+If community plugins need to be provisioned, they should be included into a custom image or [downloaded on node startup](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/community-plugins). The latter option is generally **not recommended** as it goes against the philosophy of immutable images and repeatable builds.
+
+:::
 
 ### Erlang INET configuration {#erlang-inet}
 
@@ -1213,10 +1239,12 @@ The RabbitMQ server private key will never be stored in Vault.
 Deploy the RabbitMQ throughput testing tool PerfTest to quickly verify that your instance is running correctly.
 For more information, see [PerfTest](https://github.com/rabbitmq/rabbitmq-perf-test) in GitHub.
 
-<p>
-  <strong>Note:</strong> if the below commands are executed from outside the namespace where <code>RabbitmqCluster</code>
-  object was created, add <code>-n NAMESPACE</code> to the kubectl commands below.
-</p>
+:::tip
+
+If the below commands are executed from outside the namespace where <code>RabbitmqCluster</code>
+object was created, add <code>-n NAMESPACE</code> to the kubectl commands below.
+
+:::
 
 To install and run PerfTest, run these commands:
 
