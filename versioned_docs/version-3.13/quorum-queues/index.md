@@ -57,7 +57,7 @@ Topics covered in this information include:
  * [How are they different](#feature-comparison) from classic queues
  * Primary [use cases](#use-cases) of quorum queues and when not to use them
  * How to [declare a quorum queue](#usage)
- * [Replication](#replication)-related topics: [replica management](#member-management), [replica leader rebalancing](#replica-rebalancing), optimal number of replicas, etc
+ * [Replication](#replication)-related topics: [member management](#member-management), [replica leader rebalancing](#replica-rebalancing), optimal number of replicas, etc
  * What guarantees quorum queues offer in terms of [leader failure handling](#leader-election), [data safety](#data-safety) and [availability](#availability)
  * Continuous [Membership Reconciliation](#replica-reconciliation)
  * The additional [dead lettering](#dead-lettering) features supported by quorum queues
