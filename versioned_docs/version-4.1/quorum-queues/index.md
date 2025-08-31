@@ -61,9 +61,9 @@ Topics covered in this document include:
  * [How are they different](#feature-comparison) from classic queues
  * Primary [use cases](#use-cases) of quorum queues and when not to use them
  * How to [declare a quorum queue](#usage)
- * [Replication](#replication)-related topics: [replica management](#member-management), [replica leader rebalancing](#replica-rebalancing), optimal number of replicas, etc
+ * [Replication](#replication)-related topics: [replica management](#member-management), [replica leader rebalancing](#member-rebalancing), optimal number of members, etc
  * What guarantees quorum queues offer in terms of [leader failure handling](#leader-election), [data safety](#data-safety) and [availability](#availability)
- * Continuous [Membership Reconciliation](#replica-reconciliation)
+ * Continuous [Membership Reconciliation](#member-reconciliation)
  * The additional [dead lettering](#dead-lettering) features supported by quorum queues
  * [Memory and disk footprint](#resource-use) of quorum queues
  * [Performance](#performance) characteristics of quorum queues
@@ -94,7 +94,7 @@ be defined as an agreement between the majority of nodes (`(N/2)+1` where `N` is
 system participants).
 
 When applied to queue mirroring in RabbitMQ [clusters](./clustering)
-this means that the majority of replicas (including the currently elected queue leader)
+this means that the majority of members (including the currently elected queue leader)
 agree on the state of the queue and its contents.
 
 
@@ -113,7 +113,7 @@ not at all from use of quorum queues.
 
 Publishers should [use publisher confirms](./publishers#data-safety) as this is how clients can interact with
 the quorum queue consensus system. Publisher confirms will [only be issued](./confirms#when-publishes-are-confirmed) once
-a published message has been successfully replicated to a quorum of replicas
+a published message has been successfully replicated to a quorum of members
 and is considered "safe" within the context of the queue.
 
 Consumers should use [manual acknowledgements](./confirms) to ensure messages that aren't
@@ -159,7 +159,7 @@ With some queue operations there are minor differences:
 | Message replication | no | yes |
 | [Exclusivity](./queues) | yes | no |
 | Per message persistence | per message | always |
-| Membership changes | no | [semi-automatic](#replica-reconciliation)   |
+| Membership changes | no | [semi-automatic](#member-reconciliation)   |
 | [Message TTL (Time-To-Live)](./ttl) | yes | yes |
 | [Queue TTL](./ttl#queue-ttl) | yes | partially (lease is not renewed on queue re-declaration) |
 | [Queue length limits](./maxlength) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
@@ -612,11 +612,11 @@ This is because policy definition or applicable policy can be changed dynamicall
 queue type cannot. It must be specified at the time of declaration.
 
 Declaring a queue with an `x-queue-type` argument set to `quorum` will declare a quorum queue with
-up to three replicas (default [replication factor](#replication-factor)),
+up to three members (default [replication factor](#replication-factor)),
 one per each [cluster node](./clustering).
 
-For example, a cluster of three nodes will have three replicas, one on each node.
-In a cluster of five nodes, three nodes will have one replica each but two nodes won't host any replicas.
+For example, a cluster of three nodes will have three members, one on each node.
+In a cluster of five nodes, three nodes will have one replica each but two nodes won't host any members.
 
 After declaration a quorum queue can be bound to any exchange just as any other
 RabbitMQ queue.
@@ -642,29 +642,29 @@ With some queue operations there are minor differences:
 
 ## Replication Factor and Membership Management {#replication}
 
-When a quorum queue is declared, an initial number of replicas for it must be started in the cluster.
-By default the number of replicas to be started is up to three, one per RabbitMQ node in the cluster.
+When a quorum queue is declared, an initial number of members for it must be started in the cluster.
+By default the number of members to be started is up to three, one per RabbitMQ node in the cluster.
 
-Three nodes is the **practical minimum** of replicas for a quorum queue. In RabbitMQ clusters with a larger
-number of nodes, adding more replicas than a [quorum](#what-is-quorum) (majority) will not provide
+Three nodes is the **practical minimum** of members for a quorum queue. In RabbitMQ clusters with a larger
+number of nodes, adding more members than a [quorum](#what-is-quorum) (majority) will not provide
 any improvements in terms of [quorum queue availability](#quorum-requirements) but it will consume
 more cluster resources.
 
-Therefore the **recommended number of replicas** for a quorum queue is the quorum of cluster nodes
+Therefore the **recommended number of members** for a quorum queue is the quorum of cluster nodes
 (but no fewer than three). This assumes a [fully formed](./cluster-formation) cluster of at least three nodes.
 
 ### Controlling the Initial Replication Factor {#replication-factor}
 
-For example, a cluster of three nodes will have three replicas, one on each node.
-In a cluster of seven nodes, three nodes will have one replica each but four more nodes won't host any replicas
+For example, a cluster of three nodes will have three members, one on each node.
+In a cluster of seven nodes, three nodes will have one replica each but four more nodes won't host any members
 of the newly declared queue.
 
-The replication factor (number of replicas a queue has) can be configured for quorum queues.
+The replication factor (number of members a queue has) can be configured for quorum queues.
 
 The minimum factor value that makes practical sense is three.
 It is highly recommended for the factor to be an odd number.
 This way a clear quorum (majority) of nodes can be computed. For example, there is no "majority" of
-nodes in a two node cluster. This is covered with more examples below in the [Fault Tolerance and Minimum Number of Replicas Online](#quorum-requirements)
+nodes in a two node cluster. This is covered with more examples below in the [Fault Tolerance and Minimum Number of Members Online](#quorum-requirements)
 section.
 
 This may not be desirable for larger clusters or for cluster with an even number of
@@ -679,18 +679,18 @@ count is greater than the total number of cluster members, the effective value u
 be equal to the total number of cluster nodes. When more nodes join the cluster, the replica count
 will not be automatically increased but it can be [increased by the operator](#member-management).
 
-### Managing Replicas {#member-management}
+### Managing Members {#member-management}
 
 Replicas of a quorum queue are explicitly managed by the operator. When a new node is added
-to the cluster, it will host no quorum queue replicas unless the operator explicitly adds it
+to the cluster, it will host no quorum queue members unless the operator explicitly adds it
 to a member (replica) list of a quorum queue or a set of quorum queues.
 
 When a node has to be decommissioned (permanently removed from the cluster), the
 [`forget_cluster_node`](./cli) command will automatically attempt to remove all quorum queue
 members on the decommissioned node. Alternatively the `shrink` command below can be used ahead of
-node removal to move any replicas to a new node.
+node removal to move any members to a new node.
 
-Also see [Continuous Membership Reconciliation](#replica-reconciliation) for a
+Also see [Continuous Membership Reconciliation](#member-reconciliation) for a
 more automated way to grow quorum queues.
 
 Several [CLI commands](./cli) are provided to perform the above operations:
@@ -711,7 +711,7 @@ rabbitmq-queues grow <node> <all | even> [--vhost-pattern <pattern>] [--queue-pa
 rabbitmq-queues shrink <node> [--errors-only]
 ```
 
-To successfully add and remove members a quorum of replicas in the queue must be available
+To successfully add and remove members a quorum of members in the queue must be available
 because membership changes are treated as queue state changes.
 
 Care needs to be taken not to accidentally make a queue unavailable by losing
@@ -728,11 +728,11 @@ first and then are replicated to followers. This is necessary to
 guarantee FIFO ordering of messages.
 
 To avoid some nodes in a cluster hosting the majority of queue leader
-replicas and thus handling most of the load, queue leaders should
+members and thus handling most of the load, queue leaders should
 be reasonably evenly distributed across cluster nodes.
 
 When a new quorum queue is declared, the set of nodes that will host its
-replicas is randomly picked, but will always include the node the client that
+members is randomly picked, but will always include the node the client that
 declares the queue is connected to.
 
 Which replica becomes the initial leader can controlled using three options:
@@ -748,13 +748,13 @@ Supported queue leader locator values are
    pick the node hosting the minimum number of quorum queue leaders.
    If there are overall more than 1000 queues, pick a random node.
 
-### Rebalancing Replicas {#replica-rebalancing}
+### Rebalancing Replicas {#member-rebalancing}
 
 Once declared, the RabbitMQ quorum queue leaders may be unevenly
 distributed across the RabbitMQ cluster.
 To re-balance use the `rabbitmq-queues rebalance` command.
 It is important to know that this does not change the nodes which the quorum queues span.
-To modify the membership instead see [managing replicas](#member-management).
+To modify the membership instead see [managing members](#member-management).
 
 ```bash
 # rebalances all quorum queues
@@ -775,12 +775,12 @@ or quorum queues in a particular set of virtual hosts:
 rabbitmq-queues rebalance quorum --vhost-pattern "production.*"
 ```
 
-### Continuous Membership Reconciliation (CMR) {#replica-reconciliation}
+### Continuous Membership Reconciliation (CMR) {#member-reconciliation}
 
 :::important
 The continuous membership reconciliation (CMR) feature exists in addition to, and not as a replacement for,
 [explicit replica management](#member-management). In certain cases where nodes are permanently removed
-from the cluster, explicitly removing quorum queue replicas may still be necessary.
+from the cluster, explicitly removing quorum queue members may still be necessary.
 :::
 
 In addition to controlling quorum queue replica membership by using the initial target size and [explicit replica management](#member-management),
@@ -788,10 +788,10 @@ nodes can be configured to automatically try to grow the quorum queue replica me
 to a configured target group size by enabling the continuous membership reconciliation feature.
 
 When activated, every quorum queue leader replica will periodically check its current membership group size
-(the number of configured replicas), and compare it with the target value.
+(the number of configured members), and compare it with the target value.
 
 If a queue is below the target value, RabbitMQ will attempt to grow the queue onto the available nodes that
-do not currently host replicas of said queue, if any, up to the target value.
+do not currently host members of said queue, if any, up to the target value.
 
 #### When is Continuous Membership Reconciliation Triggered?
 
@@ -816,89 +816,93 @@ are expected to come back and only a minority (often just one) node is stopped f
 <table class="name-description">
   <caption>Continuous Membership Reconciliation (CMR) Settings</caption>
   <thead>
-    <td>`rabbitmq.conf` <a href="./configure">configuration key</a></td>
-    <td>Description</td>
+    <tr>
+      <th>`rabbitmq.conf` <a href="./configure">configuration key</a></th>
+      <th>Description</th>
+    </tr>
   </thead>
 
-  <tr>
-    <td>
-    `quorum_queue.continuous_membership_reconciliation.enabled`
-    </td>
-    <td>
-      Enables or disables continuous membership reconciliation.
-      <p>
-        <ul>
-          <li>Data type: boolean</li>
-          <li>Default: `false`</li>
-        </ul>
-      </p>
-    </td>
-  </tr>
+  <tbody>
+    <tr>
+      <td>
+      `quorum_queue.continuous_membership_reconciliation.enabled`
+      </td>
+      <td>
+        Enables or disables continuous membership reconciliation.
+        <div>
+          <ul>
+            <li>Data type: boolean</li>
+            <li>Default: `false`</li>
+          </ul>
+        </div>
+      </td>
+    </tr>
 
-  <tr>
-    <td>
-    `quorum_queue.continuous_membership_reconciliation.target_group_size`
-    </td>
-    <td>
-      The target replica count (group size) for queue members.
+    <tr>
+      <td>
+      `quorum_queue.continuous_membership_reconciliation.target_group_size`
+      </td>
+      <td>
+        The target replica count (group size) for queue members.
 
-      <p>
-        <ul>
-          <li>Data type: positive integer</li>
-          <li>Default: none</li>
-        </ul>
-      </p>
-    </td>
-  </tr>
+        <div>
+          <ul>
+            <li>Data type: positive integer</li>
+            <li>Default: none</li>
+          </ul>
+        </div>
+      </td>
+    </tr>
 
-  <tr>
-    <td>
-    `quorum_queue.continuous_membership_reconciliation.auto_remove`
-    </td>
-    <td>
-      Enables or disables automatic removal of member nodes that are no longer part of the cluster, but still a member of the quorum queue.
+    <tr>
+      <td>
+      `quorum_queue.continuous_membership_reconciliation.auto_remove`
+      </td>
+      <td>
+        Enables or disables automatic removal of member nodes that are no longer part of the cluster, but still a member of the quorum queue.
 
-      <p>
-        <ul>
-          <li>Data type: boolean</li>
-          <li>Default: `false`</li>
-        </ul>
-      </p>
-    </td>
-  </tr>
+        <div>
+          <ul>
+            <li>Data type: boolean</li>
+            <li>Default: `false`</li>
+          </ul>
+        </div>
+      </td>
+    </tr>
 
-  <tr>
-    <td>
-    `quorum_queue.continuous_membership_reconciliation.interval`
-    </td>
-    <td>
-      The default evaluation interval in milliseconds.
+    <tr>
+      <td>
+      `quorum_queue.continuous_membership_reconciliation.interval`
+      </td>
+      <td>
+        The default evaluation interval in milliseconds.
 
-      <p>
-        <ul>
-          <li>Data type: positive integer</li>
-          <li>Default: `3600000` (60 minutes)</li>
-        </ul>
-      </p>
-    </td>
-  </tr>
+        <div>
+          <ul>
+            <li>Data type: positive integer</li>
+            <li>Default: `3600000` (60 minutes)</li>
+          </ul>
+        </div>
+      </td>
+    </tr>
 
-  <tr>
-    <td>
-    `quorum_queue.continuous_membership_reconciliation.trigger_interval`
-    </td>
-    <td>
-      The reconciliation delay in milliseconds, used when a trigger event occurs, for example, a node is added or removed from the cluster or an applicable policy changes.
-      This delay will be applied only once, then the regular interval will be used again.
+    <tr>
+      <td>
+      `quorum_queue.continuous_membership_reconciliation.trigger_interval`
+      </td>
+      <td>
+        The reconciliation delay in milliseconds, used when a trigger event occurs, for example, a node is added or removed from the cluster or an applicable policy changes.
+        This delay will be applied only once, then the regular interval will be used again.
 
-      <p>
-        <ul>
-          <li>Data type: positive integer</li>
-          <li>Default: `10000` (10 seconds)</li>
-        </ul>
-      </p>
-    </td>
-  </tr>
+        <div>
+          <ul>
+            <li>Data type: positive integer</li>
+            <li>Default: `10000` (10 seconds)</li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 ##### Policy Keys
@@ -906,47 +910,55 @@ are expected to come back and only a minority (often just one) node is stopped f
 <table class="name-description">
   <caption>Policy-driven CMR Settings</caption>
   <thead>
-    <td><a href="/policies">Policy key</a></td>
-    <td>Description</td>
+    <tr>
+      <th><a href="/policies">Policy key</a></th>
+      <th>Description</th>
+    </tr>
   </thead>
 
-  <tr>
-    <td>
-    `target-group-size`
-    </td>
-    <td>
-      Defines the target replica count (group size) for matching queues. This policy can be set by users and operators.
-      <p>
-        <ul>
-          <li>Data type: positive integer</li>
-          <li>Default: none</li>
-        </ul>
-      </p>
-    </td>
-  </tr>
+  <tbody>
+    <tr>
+      <td>
+      `target-group-size`
+      </td>
+      <td>
+        Defines the target replica count (group size) for matching queues. This policy can be set by users and operators.
+        <div>
+          <ul>
+            <li>Data type: positive integer</li>
+            <li>Default: none</li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <table class="name-description">
   <caption>Optional Arguments-driven CMR Settings</caption>
   <thead>
-    <td><a href="./queues#optional-arguments">Optional arguments key</a></td>
-    <td>Description</td>
+    <tr>
+      <th><a href="./queues#optional-arguments">Optional arguments key</a></th>
+      <th>Description</th>
+    </tr>
   </thead>
 
-  <tr>
-    <td>
-    `x-quorum-target-group-size`
-    </td>
-    <td>
-      Defines the target replica count (group size) for matching queues. This key can be overridden by operator policies.
-      <p>
-        <ul>
-          <li>Data type: positive integer</li>
-          <li>Default: none</li>
-        </ul>
-      </p>
-    </td>
-  </tr>
+  <tbody>
+    <tr>
+      <td>
+      `x-quorum-target-group-size`
+      </td>
+      <td>
+        Defines the target replica count (group size) for matching queues. This key can be overridden by operator policies.
+        <div>
+          <ul>
+            <li>Data type: positive integer</li>
+            <li>Default: none</li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 
@@ -955,7 +967,7 @@ are expected to come back and only a minority (often just one) node is stopped f
 A quorum queue relies on a consensus protocol called Raft to ensure data consistency and safety.
 
 Every quorum queue has a primary replica (a *leader* in Raft parlance) and zero or more
-secondary replicas (called *followers*).
+secondary members (called *followers*).
 
 A leader is elected when the cluster is first formed and later if the leader
 becomes unavailable.
@@ -1039,14 +1051,14 @@ Note that depending on the [partition handling strategy](./partitions)
 used RabbitMQ may restart itself during recovery and reset the node but as long as that
 does not happen, this availability guarantee should hold true.
 
-For example, a queue with three replicas can tolerate one node failure without losing availability.
-A queue with five replicas can tolerate two, and so on.
+For example, a queue with three members can tolerate one node failure without losing availability.
+A queue with five members can tolerate two, and so on.
 
 If a quorum of nodes cannot be recovered (say if 2 out of 3 RabbitMQ nodes are
 permanently lost) the queue is permanently unavailable and
 will need to be force deleted and recreated.
 
-Quorum queue follower replicas that are disconnected from the leader or participating in a leader
+Quorum queue follower members that are disconnected from the leader or participating in a leader
 election will ignore queue operations sent to it until they become aware of a newly elected leader.
 There will be warnings in the log (`received unhandled msg` and similar) about such events.
 As soon as the replica discovers a newly elected leader, it will sync the queue operation
@@ -1083,8 +1095,8 @@ to be delivered in a timely fashion.
 Due to the disk I/O-heavy nature of quorum queues, their throughput decreases
 as message sizes increase.
 
-Quorum queue throughput is also affected by the number of replicas.
-The more replicas a quorum queue has, the lower its throughput generally will
+Quorum queue throughput is also affected by the number of members.
+The more members a quorum queue has, the lower its throughput generally will
 be since more work has to be done to replicate data and achieve consensus.
 
 
@@ -1112,9 +1124,9 @@ The `rabbit` application has several quorum queue related configuration items av
 <table>
   <thead>
     <tr>
-      <td><code>advanced.config</code> <a href="./configure">configuration key</a></td>
-      <td>Description</td>
-      <td>Default value</td>
+      <th><code>advanced.config</code> <a href="./configure">configuration key</a></th>
+      <th>Description</th>
+      <th>Default value</th>
     </tr>
   </thead>
 
