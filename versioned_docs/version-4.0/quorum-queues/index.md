@@ -829,12 +829,12 @@ are expected to come back and only a minority (often just one) node is stopped f
       </td>
       <td>
         Enables or disables continuous membership reconciliation.
-        <p>
+        <div>
           <ul>
             <li>Data type: boolean</li>
             <li>Default: `false`</li>
           </ul>
-        </p>
+        </div>
       </td>
     </tr>
 
@@ -845,12 +845,12 @@ are expected to come back and only a minority (often just one) node is stopped f
       <td>
         The target replica count (group size) for queue members.
 
-        <p>
+        <div>
           <ul>
             <li>Data type: positive integer</li>
             <li>Default: none</li>
           </ul>
-        </p>
+        </div>
       </td>
     </tr>
 
@@ -861,12 +861,12 @@ are expected to come back and only a minority (often just one) node is stopped f
       <td>
         Enables or disables automatic removal of member nodes that are no longer part of the cluster, but still a member of the quorum queue.
 
-        <p>
+        <div>
           <ul>
             <li>Data type: positive integer</li>
             <li>Default: `false`</li>
           </ul>
-        </p>
+        </div>
       </td>
     </tr>
 
@@ -877,12 +877,12 @@ are expected to come back and only a minority (often just one) node is stopped f
       <td>
         The default evaluation interval in milliseconds.
 
-        <p>
+        <div>
           <ul>
             <li>Data type: positive integer</li>
             <li>Default: `3600000` (60 minutes)</li>
           </ul>
-        </p>
+        </div>
       </td>
     </tr>
 
@@ -894,12 +894,12 @@ are expected to come back and only a minority (often just one) node is stopped f
         The reconciliation delay in milliseconds, used when a trigger event occurs, for example, a node is added or removed from the cluster or an applicable policy changes.
         This delay will be applied only once, then the regular interval will be used again.
 
-        <p>
+        <div>
           <ul>
             <li>Data type: positive integer</li>
             <li>Default: `10000` (10 seconds)</li>
           </ul>
-        </p>
+        </div>
       </td>
     </tr>
   </tbody>
@@ -923,12 +923,12 @@ are expected to come back and only a minority (often just one) node is stopped f
       </td>
       <td>
         Defines the target replica count (group size) for matching queues. This policy can be set by users and operators.
-        <p>
+        <div>
           <ul>
             <li>Data type: positive integer</li>
             <li>Default: none</li>
           </ul>
-        </p>
+        </div>
       </td>
     </tr>
   </tbody>
@@ -950,12 +950,12 @@ are expected to come back and only a minority (often just one) node is stopped f
       </td>
       <td>
         Defines the target replica count (group size) for matching queues. This key can be overridden by operator policies.
-        <p>
+        <div>
           <ul>
             <li>Data type: positive integer</li>
             <li>Default: none</li>
           </ul>
-        </p>
+        </div>
       </td>
     </tr>
   </tbody>
