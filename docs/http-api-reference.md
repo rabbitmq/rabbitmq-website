@@ -96,9 +96,9 @@ or can be removed entirely.
 
 :::
 
-### GET /api/aliveness-check
+### GET /api/aliveness-test
 
-`GET /api/aliveness-check` is an HTTP API equivalent of `rabbitmqctl node_health_check`:
+`GET /api/aliveness-test` is an HTTP API equivalent of `rabbitmqctl node_health_check`:
 a long deprecated intrusive, opinionated health check command that has been a no-op
 since `4.0`.
 
