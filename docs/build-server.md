@@ -101,7 +101,6 @@ Other interesting `Makefile` targets include
       <th>Description</th>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>all</td>

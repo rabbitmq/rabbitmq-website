@@ -245,86 +245,86 @@ height="15"/> it can be a cluster of nodes or a standalone node.
     <tr>
       <td>Pair of federated exchanges</td>
       <td>
-        <p>
-          Each exchange links to the other in this symmetric arrangement. A
-          publisher and consumer connected to each broker are illustrated.
-          Both consumers can receive messages published by either publisher.
-        </p>
+      <p>
+      Each exchange links to the other in this symmetric arrangement. A
+      publisher and consumer connected to each broker are illustrated.
+      Both consumers can receive messages published by either publisher.
+      </p>
 
-        <figure className={"without-borders"}>
-        ![Symmetric pair](./federation02.png)
-        </figure>
+      <figure className={"without-borders"}>
+      ![Symmetric pair](./federation02.png)
+      </figure>
 
-        <p>
-          Both links are declared with `max-hops=1` so that
-          messages are copied only once, otherwise the consumers will see
-          multiple copies of the same message (up to the `max-hops` limit).
-        </p>
+      <p>
+      Both links are declared with `max-hops=1` so that
+      messages are copied only once, otherwise the consumers will see
+      multiple copies of the same message (up to the `max-hops` limit).
+      </p>
       </td>
     </tr>
 
     <tr>
       <td>Complete Graph</td>
       <td>
-        <p>
-          This arrangement is the analogue of the pair of federated exchanges
-          but for three exchanges. Each exchange links to both the others.
-        </p>
+      <p>
+      This arrangement is the analogue of the pair of federated exchanges
+      but for three exchanges. Each exchange links to both the others.
+      </p>
 
-        <figure className={"without-borders"}>
-        ![Three-way federation](./federation03.png)
-        </figure>
+      <figure className={"without-borders"}>
+      ![Three-way federation](./federation03.png)
+      </figure>
 
-        <p>
-          Again `max-hops=1` because the "hop distance" to any
-          other exchange is exactly one. This will be the case in any complete
-          graph of federated exchanges.
-        </p>
+      <p>
+      Again `max-hops=1` because the "hop distance" to any
+      other exchange is exactly one. This will be the case in any complete
+      graph of federated exchanges.
+      </p>
       </td>
     </tr>
 
     <tr>
       <td>Fan-out</td>
       <td>
-        <p>
-          One source exchange (which it is not necessary to federate)
-          is linked to by a tree of exchanges, which can extend to any depth.
-          In this case messages published to the source exchange can be
-          received by any consumer connected to any broker in the tree.
-        </p>
+      <p>
+      One source exchange (which it is not necessary to federate)
+      is linked to by a tree of exchanges, which can extend to any depth.
+      In this case messages published to the source exchange can be
+      received by any consumer connected to any broker in the tree.
+      </p>
 
-        <figure className={"without-borders"}>
-        ![Fan-out](./federation04.png)
-        </figure>
+      <figure className={"without-borders"}>
+      ![Fan-out](./federation04.png)
+      </figure>
 
-        <p>
-          Because there are no loops it is not as crucial to get the
-          `max-hops` value right, but it must be at least
-          as large as the longest connecting path. For a tree this is
-          the number of levels minus one.
-        </p>
+      <p>
+      Because there are no loops it is not as crucial to get the
+      `max-hops` value right, but it must be at least
+      as large as the longest connecting path. For a tree this is
+      the number of levels minus one.
+      </p>
       </td>
     </tr>
 
     <tr>
       <td>Ring</td>
       <td>
-        <p>
-          In this ring of six brokers each federated exchange links to just
-          one other in the ring. The `"max-hops"` property is set
-          to 5 so that every exchange in the ring sees the message exactly
-          once.
-        </p>
+      <p>
+      In this ring of six brokers each federated exchange links to just
+      one other in the ring. The `"max-hops"` property is set
+      to 5 so that every exchange in the ring sees the message exactly
+      once.
+      </p>
 
-        <figure className={"without-borders"}>
-        ![Ring](./federation05.png)
-        </figure>
+      <figure className={"without-borders"}>
+      ![Ring](./federation05.png)
+      </figure>
 
-        <p>
-          This topology, though relatively cheap in queues and connections, is
-          rather fragile compared to a completely connected graph. One broker
-          (or connection) failure breaks the ring.
-        </p>
+      <p>
+      This topology, though relatively cheap in queues and connections, is
+      rather fragile compared to a completely connected graph. One broker
+      (or connection) failure breaks the ring.
+      </p>
       </td>
     </tr>
   </tbody>

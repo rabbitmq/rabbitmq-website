@@ -11,98 +11,100 @@ displayed_sidebar: docsSidebar
         <h2 class="docHeading"><a class="anchor" href="#tx">Semantics of tx</a></h2>
         <p>The semantics of AMQP's <span class="code">tx</span> class, as defined in AMQP 0-9-1, and its implementation in different versions of the RabbitMQ server, is often misunderstood. Here is a summary of the behaviour:</p>
         <table>
-            <tbody>
-                <tr>
-                    <th>Feature</th>
-                    <th>
-                        AMQP<br />
-                        0-9-1
-                    </th>
-                    <th>
-                        RabbitMQ<br />
-                        &lt; 2.6.0
-                    </th>
-                    <th>
-                        RabbitMQ<br />
-                        2.6.0-2.7.1
-                    </th>
-                    <th>
-                        RabbitMQ<br />
-                        &gt;= 2.8.0
-                    </th>
-                </tr>
-                <tr>
-                    <td>transactional <span class="code">basic.publish</span></td>
-                    <td>yes</td>
-                    <td>yes</td>
-                    <td>yes</td>
-                    <td>yes</td>
-                </tr>
-                <tr>
-                    <td>transactional <span class="code">basic.ack</span></td>
-                    <td>yes</td>
-                    <td>yes</td>
-                    <td>yes</td>
-                    <td>yes</td>
-                </tr>
-                <tr>
-                    <td>transactional <span class="code">basic.reject</span></td>
-                    <td>no</td>
-                    <td>no</td>
-                    <td>no</td>
-                    <td>yes</td>
-                </tr>
-                <tr>
-                    <td>transactional exchange/queue/binding creation/deletion</td>
-                    <td>no</td>
-                    <td>no</td>
-                    <td>no</td>
-                    <td>no</td>
-                </tr>
-                <tr>
-                    <td>transactional consuming/getting of messages</td>
-                    <td>no</td>
-                    <td>no</td>
-                    <td>no</td>
-                    <td>no</td>
-                </tr>
-                <tr>
-                    <td>atomicity in single queue</td>
-                    <td>yes</td>
-                    <td>no</td>
-                    <td>no</td>
-                    <td>no</td>
-                </tr>
-                <tr>
-                    <td>atomicity across multiple queues</td>
-                    <td>no</td>
-                    <td>no</td>
-                    <td>no</td>
-                    <td>no</td>
-                </tr>
-                <tr>
-                    <td>error detection (e.g. invalid exchange)</td>
-                    <td>undefined</td>
-                    <td>immediate</td>
-                    <td>immediate</td>
-                    <td>immediate</td>
-                </tr>
-                <tr>
-                    <td>sending of 'no_route' <span class="code">basic.return</span></td>
-                    <td>undefined</td>
-                    <td>immediate</td>
-                    <td>on commit</td>
-                    <td>on commit</td>
-                </tr>
-                <tr>
-                    <td>effect visibility / responsibility transfer / durability</td>
-                    <td>undefined</td>
-                    <td>on commit</td>
-                    <td>on commit</td>
-                    <td>on commit</td>
-                </tr>
-            </tbody>
-        </table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>
+      AMQP<br />
+      0-9-1
+      </th>
+      <th>
+      RabbitMQ<br />
+      &lt; 2.6.0
+      </th>
+      <th>
+      RabbitMQ<br />
+      2.6.0-2.7.1
+      </th>
+      <th>
+      RabbitMQ<br />
+      &gt;= 2.8.0
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>transactional <span class="code">basic.publish</span></td>
+      <td>yes</td>
+      <td>yes</td>
+      <td>yes</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>transactional <span class="code">basic.ack</span></td>
+      <td>yes</td>
+      <td>yes</td>
+      <td>yes</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>transactional <span class="code">basic.reject</span></td>
+      <td>no</td>
+      <td>no</td>
+      <td>no</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>transactional exchange/queue/binding creation/deletion</td>
+      <td>no</td>
+      <td>no</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>transactional consuming/getting of messages</td>
+      <td>no</td>
+      <td>no</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>atomicity in single queue</td>
+      <td>yes</td>
+      <td>no</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>atomicity across multiple queues</td>
+      <td>no</td>
+      <td>no</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>error detection (e.g. invalid exchange)</td>
+      <td>undefined</td>
+      <td>immediate</td>
+      <td>immediate</td>
+      <td>immediate</td>
+    </tr>
+    <tr>
+      <td>sending of 'no_route' <span class="code">basic.return</span></td>
+      <td>undefined</td>
+      <td>immediate</td>
+      <td>on commit</td>
+      <td>on commit</td>
+    </tr>
+    <tr>
+      <td>effect visibility / responsibility transfer / durability</td>
+      <td>undefined</td>
+      <td>on commit</td>
+      <td>on commit</td>
+      <td>on commit</td>
+    </tr>
+  </tbody>
+</table>
         <p>Overall the behaviour of the AMQP <span class="code">tx</span> class, and more so its implementation on RabbitMQ, is closer to providing a 'batching' feature than ACID capabilities known from the database world.</p>
         <p>
             AMQP transactions only apply to publishes and acks. We have additionally made rejection transactional. Other operations such as resource creation/deletion are not transactional. Consequently

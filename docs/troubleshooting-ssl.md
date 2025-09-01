@@ -394,7 +394,6 @@ of TLS-related errors. What follows is a list of the most common error entries:
       <td><strong>Explanation</strong></td>
     </tr>
   </thead>
-
   <tr>
     <td>
       Entries containing `{undef, [{crypto,hash,...`

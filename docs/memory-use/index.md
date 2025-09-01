@@ -127,14 +127,12 @@ reserved_unallocated: 0.0 gb (0.0%)
       <td>Details</td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>total</td>
       <td></td>
       <td>Total amount as reported by the effective memory calculation strategy (see above)</td>
     </tr>
-
     <tr>
       <td>connection_readers</td>
       <td>Connections</td>
@@ -144,7 +142,6 @@ reserved_unallocated: 0.0 gb (0.0%)
         See <a href="./networking">Networking guide</a> for more information.
       </td>
     </tr>
-
     <tr>
       <td>connection_writers</td>
       <td>Connections</td>
@@ -154,19 +151,16 @@ reserved_unallocated: 0.0 gb (0.0%)
         See <a href="./networking">Networking guide</a> for more information.
       </td>
     </tr>
-
     <tr>
       <td>connection_channels</td>
       <td>Channels</td>
       <td>The more channels client connections use, the more memory will be used by this category.</td>
     </tr>
-
     <tr>
       <td>connection_other</td>
       <td>Connections</td>
       <td>Other memory related to client connections</td>
     </tr>
-
     <tr>
       <td>quorum_queue_procs</td>
       <td>Queues</td>
@@ -176,7 +170,6 @@ reserved_unallocated: 0.0 gb (0.0%)
         See the <a href="./quorum-queues">Quorum Queues</a> guide for more information.
       </td>
     </tr>
-
     <tr>
       <td>queue_procs</td>
       <td>Queues</td>
@@ -187,7 +180,6 @@ reserved_unallocated: 0.0 gb (0.0%)
         See <a href="./memory">Memory</a>, <a href="./classic-queues">Classic Queues</a> for more information.
       </td>
     </tr>
-
     <tr>
       <td>metrics</td>
       <td><a href="./management">Stats DB</a></td>
@@ -196,7 +188,6 @@ reserved_unallocated: 0.0 gb (0.0%)
         See <a href="./management">management plugin guide</a> for more information.
       </td>
     </tr>
-
     <tr>
       <td>stats_db</td>
       <td>Stats DB</td>
@@ -205,13 +196,11 @@ reserved_unallocated: 0.0 gb (0.0%)
         See <a href="./management">management plugin guide</a> for more information.
       </td>
     </tr>
-
     <tr>
       <td>binaries</td>
       <td>Binaries</td>
       <td>Runtime binary heap. Most of this section is usually message bodies and properties (metadata).</td>
     </tr>
-
     <tr>
       <td>plugins</td>
       <td>Plugins</td>
@@ -220,37 +209,31 @@ reserved_unallocated: 0.0 gb (0.0%)
         can accumulate messages in memory.
       </td>
     </tr>
-
     <tr>
       <td>allocated_unused</td>
       <td>Preallocated Memory</td>
       <td>Allocated by the runtime but not yet used.</td>
     </tr>
-
     <tr>
       <td>reserved_unallocated</td>
       <td>Preallocated Memory</td>
       <td>Allocated/reserved by the kernel but not the runtime</td>
     </tr>
-
     <tr>
       <td>mnesia</td>
       <td>Internal Database</td>
       <td>Virtual hosts, users, permissions, queue metadata and state, exchanges, bindings, runtime parameters and so on.</td>
     </tr>
-
     <tr>
       <td>quorum_ets</td>
       <td>Internal Database</td>
       <td>Raft implementation's WAL and other memory tables. Most of these are periodically moved to disk.</td>
     </tr>
-
     <tr>
       <td>other_ets</td>
       <td>Internal Database</td>
       <td>Some plugins can use ETS tables to store their state</td>
     </tr>
-
     <tr>
       <td>code</td>
       <td>Code</td>
@@ -259,7 +242,6 @@ reserved_unallocated: 0.0 gb (0.0%)
         memory on blank/empty nodes.
       </td>
     </tr>
-
     <tr>
       <td>other</td>
       <td>Other</td>

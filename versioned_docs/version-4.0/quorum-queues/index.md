@@ -814,7 +814,7 @@ are expected to come back and only a minority (often just one) node is stopped f
 ##### Via `rabbitmq.conf`
 
 <table class="name-description">
-  <caption>Continuous Membership Reconciliation (CMR) Settings</caption>
+      <caption>Continuous Membership Reconciliation (CMR) Settings</caption>
   <thead>
     <tr>
       <th>`rabbitmq.conf` <a href="./configure">configuration key</a></th>
@@ -825,81 +825,81 @@ are expected to come back and only a minority (often just one) node is stopped f
   <tbody>
     <tr>
       <td>
-        `quorum_queue.continuous_membership_reconciliation.enabled`
+      `quorum_queue.continuous_membership_reconciliation.enabled`
       </td>
       <td>
-        Enables or disables continuous membership reconciliation.
-        <div>
-          <ul>
-            <li>Data type: boolean</li>
-            <li>Default: `false`</li>
-          </ul>
-        </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        `quorum_queue.continuous_membership_reconciliation.target_group_size`
-      </td>
-      <td>
-        The target replica count (group size) for queue members.
-
-        <div>
-          <ul>
-            <li>Data type: positive integer</li>
-            <li>Default: none</li>
-          </ul>
-        </div>
+      Enables or disables continuous membership reconciliation.
+      <div>
+      <ul>
+      <li>Data type: boolean</li>
+      <li>Default: `false`</li>
+      </ul>
+      </div>
       </td>
     </tr>
 
     <tr>
       <td>
-        `quorum_queue.continuous_membership_reconciliation.auto_remove`
+      `quorum_queue.continuous_membership_reconciliation.target_group_size`
       </td>
       <td>
-        Enables or disables automatic removal of member nodes that are no longer part of the cluster, but still a member of the quorum queue.
+      The target replica count (group size) for queue members.
 
-        <div>
-          <ul>
-            <li>Data type: positive integer</li>
-            <li>Default: `false`</li>
-          </ul>
-        </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        `quorum_queue.continuous_membership_reconciliation.interval`
-      </td>
-      <td>
-        The default evaluation interval in milliseconds.
-
-        <div>
-          <ul>
-            <li>Data type: positive integer</li>
-            <li>Default: `3600000` (60 minutes)</li>
-          </ul>
-        </div>
+      <div>
+      <ul>
+      <li>Data type: positive integer</li>
+      <li>Default: none</li>
+      </ul>
+      </div>
       </td>
     </tr>
 
     <tr>
       <td>
-        `quorum_queue.continuous_membership_reconciliation.trigger_interval`
+      `quorum_queue.continuous_membership_reconciliation.auto_remove`
       </td>
       <td>
-        The reconciliation delay in milliseconds, used when a trigger event occurs, for example, a node is added or removed from the cluster or an applicable policy changes.
-        This delay will be applied only once, then the regular interval will be used again.
+      Enables or disables automatic removal of member nodes that are no longer part of the cluster, but still a member of the quorum queue.
 
-        <div>
-          <ul>
-            <li>Data type: positive integer</li>
-            <li>Default: `10000` (10 seconds)</li>
-          </ul>
-        </div>
+      <div>
+      <ul>
+      <li>Data type: positive integer</li>
+      <li>Default: `false`</li>
+      </ul>
+      </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+      `quorum_queue.continuous_membership_reconciliation.interval`
+      </td>
+      <td>
+      The default evaluation interval in milliseconds.
+
+      <div>
+      <ul>
+      <li>Data type: positive integer</li>
+      <li>Default: `3600000` (60 minutes)</li>
+      </ul>
+      </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+      `quorum_queue.continuous_membership_reconciliation.trigger_interval`
+      </td>
+      <td>
+      The reconciliation delay in milliseconds, used when a trigger event occurs, for example, a node is added or removed from the cluster or an applicable policy changes.
+      This delay will be applied only once, then the regular interval will be used again.
+
+      <div>
+      <ul>
+      <li>Data type: positive integer</li>
+      <li>Default: `10000` (10 seconds)</li>
+      </ul>
+      </div>
       </td>
     </tr>
   </tbody>
@@ -908,7 +908,7 @@ are expected to come back and only a minority (often just one) node is stopped f
 ##### Policy Keys
 
 <table class="name-description">
-  <caption>Policy-driven CMR Settings</caption>
+      <caption>Policy-driven CMR Settings</caption>
   <thead>
     <tr>
       <th><a href="/policies">Policy key</a></th>
@@ -919,23 +919,23 @@ are expected to come back and only a minority (often just one) node is stopped f
   <tbody>
     <tr>
       <td>
-        `target-group-size`
+      `target-group-size`
       </td>
       <td>
-        Defines the target replica count (group size) for matching queues. This policy can be set by users and operators.
-        <div>
-          <ul>
-            <li>Data type: positive integer</li>
-            <li>Default: none</li>
-          </ul>
-        </div>
+      Defines the target replica count (group size) for matching queues. This policy can be set by users and operators.
+      <div>
+      <ul>
+      <li>Data type: positive integer</li>
+      <li>Default: none</li>
+      </ul>
+      </div>
       </td>
     </tr>
   </tbody>
 </table>
 
 <table class="name-description">
-  <caption>Optional Arguments-driven CMR Settings</caption>
+      <caption>Optional Arguments-driven CMR Settings</caption>
   <thead>
     <tr>
       <th><a href="./queues#optional-arguments">Optional arguments key</a></th>
@@ -946,16 +946,16 @@ are expected to come back and only a minority (often just one) node is stopped f
   <tbody>
     <tr>
       <td>
-        `x-quorum-target-group-size`
+      `x-quorum-target-group-size`
       </td>
       <td>
-        Defines the target replica count (group size) for matching queues. This key can be overridden by operator policies.
-        <div>
-          <ul>
-            <li>Data type: positive integer</li>
-            <li>Default: none</li>
-          </ul>
-        </div>
+      Defines the target replica count (group size) for matching queues. This key can be overridden by operator policies.
+      <div>
+      <ul>
+      <li>Data type: positive integer</li>
+      <li>Default: none</li>
+      </ul>
+      </div>
       </td>
     </tr>
   </tbody>
@@ -1134,20 +1134,20 @@ The `rabbit` application has several quorum queue related configuration items av
     <tr>
       <td>rabbit.quorum_cluster_size</td>
       <td>
-        Sets the default quorum queue cluster size (can be over-ridden by the <code>x-quorum-initial-group-size</code>
-        queue argument at declaration time.
+      Sets the default quorum queue cluster size (can be over-ridden by the <code>x-quorum-initial-group-size</code>
+      queue argument at declaration time.
       </td>
       <td>3</td>
     </tr>
     <tr>
       <td>rabbit.quorum_commands_soft_limit</td>
       <td>
-        This is a flow control related parameter defining
-        the maximum number of unconfirmed messages a channel accepts before entering flow.
-        The current default is configured to provide good performance and stability
-        when there are multiple publishers sending to the same quorum queue. If the applications
-        typically only have a single publisher per queue this limit could be increased to provide
-        somewhat better ingress rates.
+      This is a flow control related parameter defining
+      the maximum number of unconfirmed messages a channel accepts before entering flow.
+      The current default is configured to provide good performance and stability
+      when there are multiple publishers sending to the same quorum queue. If the applications
+      typically only have a single publisher per queue this limit could be increased to provide
+      somewhat better ingress rates.
       </td>
       <td>32</td>
     </tr>

@@ -434,7 +434,7 @@ with appropriate the scopes because that protocol's routing is entirely topics-b
 To bind and/or unbind a queue to/from a topic exchange, you need to have the following scopes:
 
 <table>
-  <caption>For consumers</caption>
+      <caption>For consumers</caption>
   <thead>
     <tr>
       <td>Permission</td>
@@ -455,7 +455,7 @@ To bind and/or unbind a queue to/from a topic exchange, you need to have the fol
 </table>
 
 <table>
-  <caption>For publishers</caption>
+      <caption>For publishers</caption>
   <thead>
     <tr>
       <td>Permission</td>

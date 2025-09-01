@@ -83,7 +83,6 @@ The upstream definition object can contain the following keys:
       <td>Description</td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td><code>uri</code></td>
@@ -169,7 +168,6 @@ The following upstream parameters are only applicable to <a href="./federated-ex
       <td>Description</td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td><code>exchange</code></td>
@@ -260,7 +258,6 @@ The following upstream parameters are only applicable to <a href="./federated-ex
       <td>Description</td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td><code>queue</code></td>
@@ -299,7 +296,6 @@ Supported keys of the JSON objects are
       <td>Description</td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td><code>upstream</code></td>

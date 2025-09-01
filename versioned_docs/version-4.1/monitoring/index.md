@@ -374,7 +374,7 @@ be one example. Both types are complimentary to infrastructure and node metrics.
     <tr>
       <td>Other message stats</td>
       <td>
-        <code>message_stats.*</code> (see <a href={`https://rawcdn.githack.com/rabbitmq/rabbitmq-server/${RabbitMQServerGitTag()}/deps/rabbitmq_management/priv/www/api/index.html`}>HTTP API reference</a>)
+      <code>message_stats.*</code> (see <a href={`https://rawcdn.githack.com/rabbitmq/rabbitmq-server/${RabbitMQServerGitTag()}/deps/rabbitmq_management/priv/www/api/index.html`}>HTTP API reference</a>)
       </td>
     </tr>
   </tbody>
@@ -509,7 +509,7 @@ used by RabbitMQ contributors.
     <tr>
       <td>Other message stats</td>
       <td>
-        <code>message_stats.*</code> (see <a href={`https://rawcdn.githack.com/rabbitmq/rabbitmq-server/${RabbitMQServerGitTag()}/deps/rabbitmq_management/priv/www/api/index.html`}>HTTP API reference</a>)
+      <code>message_stats.*</code> (see <a href={`https://rawcdn.githack.com/rabbitmq/rabbitmq-server/${RabbitMQServerGitTag()}/deps/rabbitmq_management/priv/www/api/index.html`}>HTTP API reference</a>)
       </td>
     </tr>
   </tbody>
@@ -847,14 +847,14 @@ Note that this list is by no means complete.
     <tr>
       <td>AppDynamics</td>
       <td>
-        <a href="https://www.appdynamics.com/community/exchange/extension/rabbitmq-monitoring-extension/">AppDynamics</a>,
-        <a href="https://github.com/Appdynamics/rabbitmq-monitoring-extension">GitHub</a>
+      <a href="https://www.appdynamics.com/community/exchange/extension/rabbitmq-monitoring-extension/">AppDynamics</a>,
+      <a href="https://github.com/Appdynamics/rabbitmq-monitoring-extension">GitHub</a>
       </td>
     </tr>
     <tr>
       <td>AWS CloudWatch</td>
       <td>
-        <a href="https://github.com/noxdafox/rabbitmq-cloudwatch-exporter">GitHub</a>
+      <a href="https://github.com/noxdafox/rabbitmq-cloudwatch-exporter">GitHub</a>
       </td>
     </tr>
     <tr>
@@ -864,14 +864,14 @@ Note that this list is by no means complete.
     <tr>
       <td>DataDog</td>
       <td>
-        <a href="https://docs.datadoghq.com/integrations/rabbitmq/">DataDog RabbitMQ integration</a>,
-        <a href="https://github.com/DataDog/integrations-core/tree/master/rabbitmq">GitHub</a>
+      <a href="https://docs.datadoghq.com/integrations/rabbitmq/">DataDog RabbitMQ integration</a>,
+      <a href="https://github.com/DataDog/integrations-core/tree/master/rabbitmq">GitHub</a>
       </td>
     </tr>
     <tr>
       <td>Dynatrace</td>
       <td>
-        <a href="https://www.dynatrace.com/technologies/rabbitmq-monitoring/">Dynatrace RabbitMQ monitoring</a>
+      <a href="https://www.dynatrace.com/technologies/rabbitmq-monitoring/">Dynatrace RabbitMQ monitoring</a>
       </td>
     </tr>
     <tr>
@@ -885,8 +885,8 @@ Note that this list is by no means complete.
     <tr>
       <td>Munin</td>
       <td>
-        <a href="http://munin-monitoring.org/">Munin docs</a>,
-        <a href="https://github.com/ask/rabbitmq-munin">GitHub</a>
+      <a href="http://munin-monitoring.org/">Munin docs</a>,
+      <a href="https://github.com/ask/rabbitmq-munin">GitHub</a>
       </td>
     </tr>
     <tr>
@@ -900,21 +900,21 @@ Note that this list is by no means complete.
     <tr>
       <td>New Relic</td>
       <td>
-       <a href="https://newrelic.com/instant-observability/rabbitmq">New Relic RabbitMQ monitoring</a>
-        </td>
+      <a href="https://newrelic.com/instant-observability/rabbitmq">New Relic RabbitMQ monitoring</a>
+      </td>
     </tr>
     <tr>
       <td>Prometheus</td>
       <td>
-        <a href="./prometheus">Prometheus guide</a>,
-        <a href="https://github.com/rabbitmq/rabbitmq-prometheus">GitHub</a>
+      <a href="./prometheus">Prometheus guide</a>,
+      <a href="https://github.com/rabbitmq/rabbitmq-prometheus">GitHub</a>
       </td>
     </tr>
     <tr>
       <td>Sematext</td>
       <td>
-        <a href="https://sematext.com/docs/integration/rabbitmq/">Sematext RabbitMQ monitoring integration</a>,
-        <a href="https://sematext.com/docs/integration/rabbitmq-logs/">Sematext RabbitMQ logs integration</a>
+      <a href="https://sematext.com/docs/integration/rabbitmq/">Sematext RabbitMQ monitoring integration</a>,
+      <a href="https://sematext.com/docs/integration/rabbitmq-logs/">Sematext RabbitMQ logs integration</a>
       </td>
     </tr>
     <tr>
@@ -926,9 +926,9 @@ Note that this list is by no means complete.
     <tr>
       <td>Zenoss</td>
       <td>
-        <a href="https://www.zenoss.com/product/zenpacks/rabbitmq">RabbitMQ ZenPack</a>,
-        <a href="http://www.youtube.com/watch?v=CAak2ayFcV0">Instructional Video</a>
-        </td>
+      <a href="https://www.zenoss.com/product/zenpacks/rabbitmq">RabbitMQ ZenPack</a>,
+      <a href="http://www.youtube.com/watch?v=CAak2ayFcV0">Instructional Video</a>
+      </td>
     </tr>
   </tbody>
 </table>

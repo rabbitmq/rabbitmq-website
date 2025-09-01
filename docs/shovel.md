@@ -341,7 +341,6 @@ Each element of the list is a map with several properties:
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>Name</td>
@@ -378,7 +377,6 @@ Key states of a shovel are
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>starting</td>

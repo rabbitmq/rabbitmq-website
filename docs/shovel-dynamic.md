@@ -94,14 +94,12 @@ The body in this example includes a few keys:
 
 <table>
   <caption>Essential Dynamic Shovel Definition Settings</caption>
-
   <thead>
     <tr>
       <td><strong>Key</strong></td>
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>src-uri</td>
@@ -110,7 +108,6 @@ The body in this example includes a few keys:
           Source connection URI. Mandatory. See
           the <a href="./uri-spec">AMQP URI reference</a> for
           information on how RabbitMQ treats AMQP URIs in general.
-
           <dl>
             <dt>
               <code>cacertfile</code>, <code>certfile</code>, <code>keyfile</code>
@@ -127,13 +124,10 @@ The body in this example includes a few keys:
               Use to enable or disable peer verification of the server's TLS certificate.
               See <a href="./shovel#tls">Securing Shovel Connections with TLS</a> and the general <a href="./ssl#peer-verification">TLS guide</a> to learn more.
               Only of use when URI scheme is <code>amqps</code>.
-
               <div>
                 :::important
-
                 Note that starting with Erlang 26, peer verification for TLS clients (such as shovels)
                 is enabled by default.
-
                 :::
               </div>
             </dd>
@@ -177,7 +171,7 @@ The body in this example includes a few keys:
       <td>src-queue-args</td>
       <td>
         <div>
-            Optional arguments for <code>src-queue</code> declaration, eg. the queue type.
+          Optional arguments for <code>src-queue</code> declaration, eg. the queue type.
         </div>
       </td>
     </tr>
@@ -200,27 +194,27 @@ The body in this example includes a few keys:
       <td>dest-queue</td>
       <td>
         <div>
-            The queue to which messages should be published. Either this
-            or <code>dest-exchange</code> (but not both) may be set. If
-            neither is set then messages are republished with their original
-            exchange and routing key.
-          </div>
-          <div>
-            If the destination queue does not exist in the destination virtual host,
-            and <code>dest-queue-args</code> parameter was not provided,
-            shovel will declare a classic durable queue with no optional arguments.
-          </div>
-          <div>
-            Shovels can use a pre-declared topology instead of declaring the destination.
-            See the [Predeclared topology](#predeclared-topology) section below.
-          </div>
+          The queue to which messages should be published. Either this
+          or <code>dest-exchange</code> (but not both) may be set. If
+          neither is set then messages are republished with their original
+          exchange and routing key.
+        </div>
+        <div>
+          If the destination queue does not exist in the destination virtual host,
+          and <code>dest-queue-args</code> parameter was not provided,
+          shovel will declare a classic durable queue with no optional arguments.
+        </div>
+        <div>
+          Shovels can use a pre-declared topology instead of declaring the destination.
+          See the [Predeclared topology](#predeclared-topology) section below.
+        </div>
       </td>
     </tr>
     <tr>
       <td>dest-queue-args</td>
       <td>
         <div>
-            Optional arguments for <code>dest-queue</code> declaration, eg. the queue type.
+          Optional arguments for <code>dest-queue</code> declaration, eg. the queue type.
         </div>
       </td>
     </tr>
@@ -249,14 +243,12 @@ for specific shovels using the following shovel properties:
 
 <table class="name-description">
   <caption>Additional Dynamic Shovel Definition Settings</caption>
-
   <thead>
     <tr>
       <td><strong>Key</strong></td>
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>src-predeclared</td>
@@ -461,14 +453,12 @@ the declaration process.
 
 <table>
   <caption>Optional Dynamic Shovel Definition Settings (AMQP 0-9-1)</caption>
-
   <thead>
     <tr>
       <td><strong>Key</strong></td>
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>reconnect-delay</td>
@@ -618,14 +608,12 @@ counterparts.
 
 <table>
   <caption>Optional Dynamic Shovel Definition Settings (AMQP 1.0)</caption>
-
   <thead>
     <tr>
       <td><strong>Key</strong></td>
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>src-uri</td>
@@ -635,7 +623,6 @@ counterparts.
         There is no <a href="./vhosts">virtual host</a> concept in AMQP 1.0, so URI path
         segments are not supported. The set of query parameters it supports are different from AMQP 0.9.1
         URI(s):
-
         <dl>
           <dt><code>idle_time_out</code></dt>
           <dd>heartbeat interval</dd>
@@ -672,13 +659,10 @@ counterparts.
             Use to enable or disable peer verification of the server's TLS certificate.
             See the <a href="./ssl#peer-verification">TLS guide</a> for details.
             Only of use when URI scheme is <code>amqps</code>.
-
             <div>
               :::important
-
               Note that starting with Erlang 26, peer verification for TLS clients (such as shovels)
               is enabled by default.
-
               :::
             </div>
           </dd>
@@ -803,14 +787,12 @@ the declaration process.
 
 <table>
   <caption>Optional Dynamic Shovel Definition Settings (Local)</caption>
-
   <thead>
     <tr>
       <td><strong>Key</strong></td>
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>reconnect-delay</td>

@@ -446,7 +446,6 @@ To bind and/or unbind a queue to/from a topic exchange, you need to have the fol
       <td>Example</td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>**write** permission on the queue and routing key -> `rabbitmq.write:<vhost>/<queue>/<routingkey>`</td>
@@ -467,7 +466,6 @@ To bind and/or unbind a queue to/from a topic exchange, you need to have the fol
       <td>Example</td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>**write** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`</td>

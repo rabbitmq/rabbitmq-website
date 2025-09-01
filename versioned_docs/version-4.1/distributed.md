@@ -110,71 +110,75 @@ single broker.
 ## Summary {#summary}
 
 <table>
-  <tr>
-    <th>Federation and/or Shovel</th>
-    <th>Clustering</th>
-  </tr>
-  <tr>
-    <td>
+  <thead>
+    <tr>
+      <th>Federation and/or Shovel</th>
+      <th>Clustering</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
       Brokers are logically separate and may have different owners.
-    </td>
-    <td>
+      </td>
+      <td>
       A cluster forms a single logical broker.
-    </td>
-  </tr>
-  <tr>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
       Brokers can run different (and incompatible in certain ways) versions of RabbitMQ and Erlang.
-    </td>
-    <td>
+      </td>
+      <td>
       Nodes must run compatible versions of RabbitMQ and Erlang.
-    </td>
-  </tr>
-  <tr>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
       Brokers can be connected via unreliable WAN
       links. Communication is via AMQP 0-9-1 (optionally secured by
       <a href="./ssl">TLS</a>), requiring appropriate users and permissions to be set up.
-    </td>
-    <td>
+      </td>
+      <td>
       Brokers must be connected via reasonably reliable LAN
       links. Nodes will authenticate to each other using a shared secret
       and optionally <a href="./clustering-ssl">use TLS-enabled links</a>.
-    </td>
-  </tr>
-  <tr>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
       Brokers can be connected in whatever topology you
       arrange. Links can be one- or two-way.
-    </td>
-    <td>
+      </td>
+      <td>
       All nodes connect to all other nodes in both directions.
-    </td>
-  </tr>
-  <tr>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
       Emphasizes Availability and Partition Tolerance (AP) from
       the <a href="http://en.wikipedia.org/wiki/CAP_theorem">CAP theorem</a>.
-    </td>
-    <td>
+      </td>
+      <td>
       Emphasizes Consistency and Partition Tolerance (CP)
       from the <a href="http://en.wikipedia.org/wiki/CAP_theorem">CAP theorem</a>.
-    </td>
-  </tr>
-  <tr>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
       Some exchanges in a broker may be federated while some may be local.
-    </td>
-    <td>
+      </td>
+      <td>
       Clustering is all-or-nothing.
-    </td>
-  </tr>
-  <tr>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
       A client connecting to any broker can only use non-exclusive queues in that broker.
-    </td>
-    <td>
+      </td>
+      <td>
       A client connecting to any node can use non-exclusive queues on all nodes.
-    </td>
-  </tr>
+      </td>
+    </tr>
+  </tbody>
 </table>

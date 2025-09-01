@@ -181,15 +181,18 @@ policy which matches them and sets policy keys `ha-mode` and (optionally) `ha-pa
 The following table explains the options for these keys:
 
 <table>
-  <tr>
-    <th><code>ha-mode</code></th>
-    <th><code>ha-params</code></th>
-    <th>Result</th>
-  </tr>
-  <tr>
-    <td><code>exactly</code></td>
-    <td><i>count</i></td>
-    <td>
+  <thead>
+    <tr>
+      <th><code>ha-mode</code></th>
+      <th><code>ha-params</code></th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>exactly</code></td>
+      <td><i>count</i></td>
+      <td>
       Number of queue replicas (leader plus mirrors) in the cluster.
 
       A <i>count</i> value of 1 means a single replica: just the queue leader.
@@ -210,12 +213,12 @@ The following table explains the options for these keys:
       `"ha-promote-on-shutdown": "always"`</a> can be
       dangerous since queues can migrate across a cluster and become
       unsynced as it is brought down.
-    </td>
-  </tr>
-  <tr>
-    <td><code>all</code></td>
-    <td>(none)</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>all</code></td>
+      <td>(none)</td>
+      <td>
       Queue is mirrored across all nodes in the
       cluster. When a new node is added to the cluster, the
       queue will be mirrored to that node.
@@ -226,12 +229,12 @@ The following table explains the options for these keys:
       Mirroring to all nodes will put additional
       strain on all cluster nodes, including network I/O, disk I/O and
       disk space usage.
-    </td>
-  </tr>
-  <tr>
-    <td><code>nodes</code></td>
-    <td><i>node names</i></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>nodes</code></td>
+      <td><i>node names</i></td>
+      <td>
       Queue is mirrored to the nodes listed in <i>node names</i>.
       Node names are the Erlang node names as they
       appear in <code>rabbitmqctl cluster_status</code>; they
@@ -242,8 +245,9 @@ The following table explains the options for these keys:
       in the list are online at the time when the queue is
       declared then the queue will be created on the node that
       the declaring client is connected to.
-    </td>
-  </tr>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 Whenever the HA policy for a queue changes it will endeavour

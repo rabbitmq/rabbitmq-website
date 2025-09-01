@@ -65,52 +65,52 @@ For more information on how to use pprof, see [here](https://github.com/google/p
 The following tables lists the profiles that are exposed by the Operators.
 
 <table>
-<thead>
-  <tr>
-    <th>Path</th>
-    <th>Profile Description</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>/debug/pprof</td>
-    <td>A list of all the profiles that are available on the system.</td>
-  </tr>
-  <tr>
-    <td>/debug/pprof/allocs</td>
-    <td>A sample of all past memory allocations.</td>
-  </tr>
-  <tr>
-    <td>/debug/pprof/block</td>
-    <td>Stack traces that led to blocking on synchronization primitives.</td>
-  </tr>
-  <tr>
-    <td>/debug/pprof/cmdline</td>
-    <td>The command line invocation of the current program.</td>
-  </tr>
-  <tr>
-    <td>/debug/pprof/goroutine</td>
-    <td>Stack traces of all current goroutines.</td>
-  </tr>
-  <tr>
-    <td>/debug/pprof/heap</td>
-    <td>A sample of memory allocations of live objects. You can specify the `gc`GET parameter to run GC before taking the heap sample. For example:  /debug/pprof/heap?gc=1</td>
-  </tr>
-  <tr>
-    <td>/debug/pprof/mutex</td>
-    <td>Stack traces of holders of contended mutexes.</td>
-  </tr>
-  <tr>
-    <td>/debug/pprof/profile</td>
-    <td>CPU profile. You can specify the duration in the `seconds` GET parameter. For example: /debug/pprof/profile?seconds=5</td>
-  </tr>
-  <tr>
-    <td>/debug/pprof/threadcreate</td>
-    <td>Stack traces that lead to new OS threads being created.</td>
-  </tr>
-  <tr>
-    <td>/debug/pprof/trace</td>
-    <td>A trace of the execution of the current program. You can specify the duration in the `seconds` GET parameter. For example: /debug/pprof/trace?seconds=5</td>
-  </tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Path</th>
+      <th>Profile Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>/debug/pprof</td>
+      <td>A list of all the profiles that are available on the system.</td>
+    </tr>
+    <tr>
+      <td>/debug/pprof/allocs</td>
+      <td>A sample of all past memory allocations.</td>
+    </tr>
+    <tr>
+      <td>/debug/pprof/block</td>
+      <td>Stack traces that led to blocking on synchronization primitives.</td>
+    </tr>
+    <tr>
+      <td>/debug/pprof/cmdline</td>
+      <td>The command line invocation of the current program.</td>
+    </tr>
+    <tr>
+      <td>/debug/pprof/goroutine</td>
+      <td>Stack traces of all current goroutines.</td>
+    </tr>
+    <tr>
+      <td>/debug/pprof/heap</td>
+      <td>A sample of memory allocations of live objects. You can specify the `gc`GET parameter to run GC before taking the heap sample. For example:  /debug/pprof/heap?gc=1</td>
+    </tr>
+    <tr>
+      <td>/debug/pprof/mutex</td>
+      <td>Stack traces of holders of contended mutexes.</td>
+    </tr>
+    <tr>
+      <td>/debug/pprof/profile</td>
+      <td>CPU profile. You can specify the duration in the `seconds` GET parameter. For example: /debug/pprof/profile?seconds=5</td>
+    </tr>
+    <tr>
+      <td>/debug/pprof/threadcreate</td>
+      <td>Stack traces that lead to new OS threads being created.</td>
+    </tr>
+    <tr>
+      <td>/debug/pprof/trace</td>
+      <td>A trace of the execution of the current program. You can specify the duration in the `seconds` GET parameter. For example: /debug/pprof/trace?seconds=5</td>
+    </tr>
+  </tbody>
 </table>

@@ -139,9 +139,9 @@ reserved_unallocated: 0.0 gb (0.0%)
       <td>connection_readers</td>
       <td>Connections</td>
       <td>
-        Processes responsible for connection parser and most of connection state. Most of their memory attributes
-        to TCP buffers. The more client connections a node has, the more memory will be used by this category.
-        See <a href="./networking">Networking guide</a> for more information.
+      Processes responsible for connection parser and most of connection state. Most of their memory attributes
+      to TCP buffers. The more client connections a node has, the more memory will be used by this category.
+      See <a href="./networking">Networking guide</a> for more information.
       </td>
     </tr>
 
@@ -149,9 +149,9 @@ reserved_unallocated: 0.0 gb (0.0%)
       <td>connection_writers</td>
       <td>Connections</td>
       <td>
-        Processes responsible for serialisation of outgoing protocol frames and writing to client connection sockets.
-        The more client connections a node has, the more memory will be used by this category.
-        See <a href="./networking">Networking guide</a> for more information.
+      Processes responsible for serialisation of outgoing protocol frames and writing to client connection sockets.
+      The more client connections a node has, the more memory will be used by this category.
+      See <a href="./networking">Networking guide</a> for more information.
       </td>
     </tr>
 
@@ -171,9 +171,9 @@ reserved_unallocated: 0.0 gb (0.0%)
       <td>quorum_queue_procs</td>
       <td>Queues</td>
       <td>
-        <a href="./quorum-queues">Quorum queue</a> processes, both currently elected leaders and followers.
-        Memory footprint can be capped on a per-queue basis.
-        See the <a href="./quorum-queues">Quorum Queues</a> guide for more information.
+      <a href="./quorum-queues">Quorum queue</a> processes, both currently elected leaders and followers.
+      Memory footprint can be capped on a per-queue basis.
+      See the <a href="./quorum-queues">Quorum Queues</a> guide for more information.
       </td>
     </tr>
 
@@ -181,10 +181,10 @@ reserved_unallocated: 0.0 gb (0.0%)
       <td>queue_procs</td>
       <td>Queues</td>
       <td>
-        Classic queue leaders, indices and messages kept in memory. The greater the number of messages enqueued,
-        the more memory will generally be attributed to this section. However, this greatly depends on
-        queue type and properties.
-        See <a href="./memory">Memory</a>, <a href="./classic-queues">Classic Queues</a> for more information.
+      Classic queue leaders, indices and messages kept in memory. The greater the number of messages enqueued,
+      the more memory will generally be attributed to this section. However, this greatly depends on
+      queue type and properties.
+      See <a href="./memory">Memory</a>, <a href="./classic-queues">Classic Queues</a> for more information.
       </td>
     </tr>
 
@@ -192,8 +192,8 @@ reserved_unallocated: 0.0 gb (0.0%)
       <td>metrics</td>
       <td><a href="./management">Stats DB</a></td>
       <td>
-        Node-local metrics. The more connections, channels, queues are node hosts, the more stats there are to collect and keep.
-        See <a href="./management">management plugin guide</a> for more information.
+      Node-local metrics. The more connections, channels, queues are node hosts, the more stats there are to collect and keep.
+      See <a href="./management">management plugin guide</a> for more information.
       </td>
     </tr>
 
@@ -201,8 +201,8 @@ reserved_unallocated: 0.0 gb (0.0%)
       <td>stats_db</td>
       <td>Stats DB</td>
       <td>
-        Aggregated and pre-computed metrics, inter-node HTTP API request cache and everything else related to the stats DB.
-        See <a href="./management">management plugin guide</a> for more information.
+      Aggregated and pre-computed metrics, inter-node HTTP API request cache and everything else related to the stats DB.
+      See <a href="./management">management plugin guide</a> for more information.
       </td>
     </tr>
 
@@ -216,8 +216,8 @@ reserved_unallocated: 0.0 gb (0.0%)
       <td>plugins</td>
       <td>Plugins</td>
       <td>
-        Plugins such as <a href="./shovel">Shovel</a>, <a href="./federation">Federation</a>, or protocol implementations such as <a href="./stomp">STOMP</a>
-        can accumulate messages in memory.
+      Plugins such as <a href="./shovel">Shovel</a>, <a href="./federation">Federation</a>, or protocol implementations such as <a href="./stomp">STOMP</a>
+      can accumulate messages in memory.
       </td>
     </tr>
 
@@ -255,8 +255,8 @@ reserved_unallocated: 0.0 gb (0.0%)
       <td>code</td>
       <td>Code</td>
       <td>
-        Bytecode and module metadata. This should only consume double digit % of
-        memory on blank/empty nodes.
+      Bytecode and module metadata. This should only consume double digit % of
+      memory on blank/empty nodes.
       </td>
     </tr>
 
@@ -264,7 +264,7 @@ reserved_unallocated: 0.0 gb (0.0%)
       <td>other</td>
       <td>Other</td>
       <td>
-        All other processes that RabbitMQ cannot categorise
+      All other processes that RabbitMQ cannot categorise
       </td>
     </tr>
   </tbody>

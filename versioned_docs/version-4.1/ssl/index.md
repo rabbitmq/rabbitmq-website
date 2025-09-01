@@ -262,40 +262,42 @@ Here are the essential configuration settings related to TLS:
       <th>Description</th>
     </tr>
   </thead>
-  <tr>
-    <td><code>listeners.ssl</code></td>
-    <td>
+  <tbody>
+    <tr>
+      <td><code>listeners.ssl</code></td>
+      <td>
       A list of ports to listen on for TLS
       connections. RabbitMQ can listen on a <a href="./networking">single interface or multiple ones</a>.
-    </td>
-  </tr>
-  <tr>
-    <td><code>ssl_options.cacertfile</code></td>
-    <td>Certificate Authority (CA) bundle file path</td>
-  </tr>
-  <tr>
-    <td><code>ssl_options.certfile</code></td>
-    <td>Server certificate file path</td>
-  </tr>
-  <tr>
-    <td><code>ssl_options.keyfile</code></td>
-    <td>Server private key file path</td>
-  </tr>
-  <tr>
-    <td><code>ssl_options.password</code></td>
-    <td>Password for private key file</td>
-  </tr>
-  <tr>
-    <td><code>ssl_options.verify</code></td>
-    <td>Should <a href="#peer-verification">peer verification</a> be enabled?</td>
-  </tr>
-  <tr>
-    <td><code>ssl_options.fail_if_no_peer_cert</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>ssl_options.cacertfile</code></td>
+      <td>Certificate Authority (CA) bundle file path</td>
+    </tr>
+    <tr>
+      <td><code>ssl_options.certfile</code></td>
+      <td>Server certificate file path</td>
+    </tr>
+    <tr>
+      <td><code>ssl_options.keyfile</code></td>
+      <td>Server private key file path</td>
+    </tr>
+    <tr>
+      <td><code>ssl_options.password</code></td>
+      <td>Password for private key file</td>
+    </tr>
+    <tr>
+      <td><code>ssl_options.verify</code></td>
+      <td>Should <a href="#peer-verification">peer verification</a> be enabled?</td>
+    </tr>
+    <tr>
+      <td><code>ssl_options.fail_if_no_peer_cert</code></td>
+      <td>
       When set to <code>true</code>, TLS connection
       will be rejected if client fails to provide a certificate
-    </td>
-  </tr>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 The options are provided in the <a href="./configure#configuration-files">configuration
@@ -1034,31 +1036,31 @@ for all the other fields that we need to set. The fields are:
     <tr>
       <td><code>Ssl.CertPath</code></td>
       <td>
-        This is the path to the client's certificate in
-        PKCS#12 format if your server expects client side verification. This
-        is optional.
+      This is the path to the client's certificate in
+      PKCS#12 format if your server expects client side verification. This
+      is optional.
       </td>
     </tr>
     <tr>
       <td><code>Ssl.CertPassphrase</code></td>
       <td>
-        If you are using a client certificate in PKCS#12
-        format then it'll probably have a password, which you specify in
-        this field.
+      If you are using a client certificate in PKCS#12
+      format then it'll probably have a password, which you specify in
+      this field.
       </td>
     </tr>
     <tr>
       <td><code>Ssl.Enabled</code></td>
       <td>
-        This is a boolean field that turns TLS support on or
-        off. It is off by default.
+      This is a boolean field that turns TLS support on or
+      off. It is off by default.
       </td>
     </tr>
     <tr>
       <td><code>Ssl.ServerName</code></td>
       <td>
-        .NET expects this to match the Subject Alternative Name (SAN) or Common Name (CN) on
-        the certificate that the server sends over.
+      .NET expects this to match the Subject Alternative Name (SAN) or Common Name (CN) on
+      the certificate that the server sends over.
       </td>
     </tr>
   </tbody>

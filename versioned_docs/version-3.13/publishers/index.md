@@ -263,7 +263,7 @@ and set by RabbitMQ at routing and delivery time:
       <td>Delivery tag</td>
       <td>Positive integer</td>
       <td>
-        Delivery identifier, see <a href="./confirms">Confirms</a>.
+      Delivery identifier, see <a href="./confirms">Confirms</a>.
       </td>
     </tr>
     <tr>
@@ -306,8 +306,8 @@ at the time of publishing:
       <td>Delivery mode</td>
       <td>Enum (1 or 2)</td>
       <td>
-        2 for "persistent", 1 for "transient". Some client libraries expose this property
-        as a boolean or enum.
+      2 for "persistent", 1 for "transient". Some client libraries expose this property
+      as a boolean or enum.
       </td>
       <td>Yes</td>
     </tr>

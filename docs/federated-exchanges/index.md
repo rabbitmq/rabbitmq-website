@@ -240,7 +240,6 @@ height="15"/> it can be a cluster of nodes or a standalone node.
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>Pair of federated exchanges</td>

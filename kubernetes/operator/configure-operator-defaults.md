@@ -104,121 +104,65 @@ ytt -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/clu
 The following table listes the Cluster Operator environment variables that are available to set in the deployment manifest.
 
 <table>
-  <tr>
-    <th>
-    Variable Name
-    </th>
-    <th>
-    Effect when Set
-    </th>
-    <th>
-    Effect when not Set
-    </th>
-  </tr>
-  <tr>
-    <td>
-    OPERATOR_SCOPE_NAMESPACE
-    </td>
-    <td>
-    Namespace, or list of namespaces, which the operator will reconcile and watch RabbitmqClusters (independent of installation namespace).
-    Use a comma separator, without spaces e.g. "project-1,project-2,rabbitmq-testing"
-    </td>
-    <td>
-    All namespaces are watched and reconciled
-    </td>
-  </tr>
-  <tr>
-    <td>
-    DEFAULT_RABBITMQ_IMAGE
-    </td>
-    <td>
-    RabbitMQ container image used for new RabbitmqCluster Pods where not explicitly set in <code>RabbitmqCluster.Spec.Image</code>
-    </td>
-    <td>
-    Operator uses the latest RabbitMQ container image available at time of release for new Pods
-    </td>
-  </tr>
-  <tr>
-    <td>
-    DEFAULT_USER_UPDATER_IMAGE
-    </td>
-    <td>
-    Vault sidecar container image used for new RabbitmqCluster Pods where not explicitly set in <code>RabbitmqCluster.Spec.SecretBackend.Vault.DefaultUserUpdaterImage</code>
-    </td>
-    <td>
-    Operator uses the latest sidecar container image available at time of release for new Pods
-    </td>
-  </tr>
-  <tr>
-    <td>
-    DEFAULT_IMAGE_PULL_SECRETS
-    </td>
-    <td>
-    Comma-separated list of imagePullSecrets to set by default on all RabbitmqCluster Pods where not explicitly set in <code>RabbitmqCluster.Spec.ImagePullSecrets</code>
-    </td>
-    <td>
-    New RabbitmqCluster Pods have no imagePullSecrets by default
-    </td>
-  </tr>
-  <tr>
-    <td>
-    ENABLE_DEBUG_PPROF
-    </td>
-    <td>
-    The default value is false because this variable should NOT be used in production. When it is set to true, it exposes a set of debug endpoints
-    on the Operator Pod's metrics port for CPU and [memory profiling of the Operator with pprof](./debug-operator.md#operator-resource-usage-profiling).
-    </td>
-    <td>
-    The pprof debug endpoint will not be exposed on the Operator Pod.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      CONTROL_RABBITMQ_IMAGE
-    </td>
-    <td>
-      <b>EXPERIMENTAL!</b> When this is set to <code>true</code>, the operator will <b>always</b> automatically set the default image tags.
-      This can be used to automate the upgrade of RabbitMQ clusters, when the Operator is upgraded. Note there are no safety checks
-      performed, nor any compatibility checks between RabbitMQ versions.
-    </td>
-    <td>
-      The Operator does not control the image. The user is responsible for updating RabbitmqCluster image.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      LEASE_DURATION
-    </td>
-    <td>
-      Time, in seconds, that non-leader candidates will wait to force acquire leadership. This is measured against time of last observed ack.
-      Default is 15 seconds. The value must be a string e.g. `"30"`.
-    </td>
-    <td>
-      Default value is set to 15 seconds.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      RENEW_DEADLINE
-    </td>
-    <td>
-      Renew deadline is the duration that the acting controlplane will retry refreshing leadership before giving up. Default is 10 seconds.
-      The value must be a string e.g. `"10"`.
-    </td>
-    <td>
-      Default value is set to 10 seconds.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      RETRY_PERIOD
-    </td>
-    <td>
-      Retry period is the duration the LeaderElector clients should wait between tries of actions. Default is 2 seconds.
-      The value must be a string e.g. `"3"`.
-    </td>
-    <td>
-      Default value is set to 2 seconds.
-    </td>
-  </tr>
+  <thead>
+    <tr>
+      <th>Variable Name</th>
+      <th>Effect when Set</th>
+      <th>Effect when not Set</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>OPERATOR_SCOPE_NAMESPACE</td>
+      <td>Namespace, or list of namespaces, which the operator will reconcile and watch RabbitmqClusters (independent of installation namespace).
+        Use a comma separator, without spaces e.g. "project-1,project-2,rabbitmq-testing"</td>
+      <td>All namespaces are watched and reconciled</td>
+    </tr>
+    <tr>
+      <td>DEFAULT_RABBITMQ_IMAGE</td>
+      <td>RabbitMQ container image used for new RabbitmqCluster Pods where not explicitly set in <code>RabbitmqCluster.Spec.Image</code></td>
+      <td>Operator uses the latest RabbitMQ container image available at time of release for new Pods</td>
+    </tr>
+    <tr>
+      <td>DEFAULT_USER_UPDATER_IMAGE</td>
+      <td>Vault sidecar container image used for new RabbitmqCluster Pods where not explicitly set in <code>RabbitmqCluster.Spec.SecretBackend.Vault.DefaultUserUpdaterImage</code></td>
+      <td>Operator uses the latest sidecar container image available at time of release for new Pods</td>
+    </tr>
+    <tr>
+      <td>DEFAULT_IMAGE_PULL_SECRETS</td>
+      <td>Comma-separated list of imagePullSecrets to set by default on all RabbitmqCluster Pods where not explicitly set in <code>RabbitmqCluster.Spec.ImagePullSecrets</code></td>
+      <td>New RabbitmqCluster Pods have no imagePullSecrets by default</td>
+    </tr>
+    <tr>
+      <td>ENABLE_DEBUG_PPROF</td>
+      <td>The default value is false because this variable should NOT be used in production. When it is set to true, it exposes a set of debug endpoints
+        on the Operator Pod's metrics port for CPU and [memory profiling of the Operator with pprof](./debug-operator.md#operator-resource-usage-profiling).</td>
+      <td>The pprof debug endpoint will not be exposed on the Operator Pod.</td>
+    </tr>
+    <tr>
+      <td>CONTROL_RABBITMQ_IMAGE</td>
+      <td><b>EXPERIMENTAL!</b> When this is set to <code>true</code>, the operator will <b>always</b> automatically set the default image tags.
+        This can be used to automate the upgrade of RabbitMQ clusters, when the Operator is upgraded. Note there are no safety checks
+        performed, nor any compatibility checks between RabbitMQ versions.</td>
+      <td>The Operator does not control the image. The user is responsible for updating RabbitmqCluster image.</td>
+    </tr>
+    <tr>
+      <td>LEASE_DURATION</td>
+      <td>Time, in seconds, that non-leader candidates will wait to force acquire leadership. This is measured against time of last observed ack.
+        Default is 15 seconds. The value must be a string e.g. `"30"`.</td>
+      <td>Default value is set to 15 seconds.</td>
+    </tr>
+    <tr>
+      <td>RENEW_DEADLINE</td>
+      <td>Renew deadline is the duration that the acting controlplane will retry refreshing leadership before giving up. Default is 10 seconds.
+        The value must be a string e.g. `"10"`.</td>
+      <td>Default value is set to 10 seconds.</td>
+    </tr>
+    <tr>
+      <td>RETRY_PERIOD</td>
+      <td>Retry period is the duration the LeaderElector clients should wait between tries of actions. Default is 2 seconds.
+        The value must be a string e.g. `"3"`.</td>
+      <td>Default value is set to 2 seconds.</td>
+    </tr>
+  </tbody>
 </table>

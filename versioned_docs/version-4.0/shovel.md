@@ -158,36 +158,40 @@ The pros and cons with each approach are covered below. Most users should consid
 dynamic shovels first for their ease of reconfiguration and management.
 
 <table>
-  <tr>
-    <th><a href="./shovel-static">Static Shovels</a></th>
-    <th><a href="./shovel-dynamic">Dynamic Shovels</a></th>
-  </tr>
-  <tr>
-    <td>
+  <thead>
+    <tr>
+      <th><a href="./shovel-static">Static Shovels</a></th>
+      <th><a href="./shovel-dynamic">Dynamic Shovels</a></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
       Defined in the broker <a href="./configure">advanced configuration file</a>.
-    </td>
-    <td>
+      </td>
+      <td>
       Defined using <a href="./parameters">runtime parameters</a>.
-    </td>
-  </tr>
-  <tr>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
       Creation and deletion require a node restart.
-    </td>
-    <td>
+      </td>
+      <td>
       Creation and deletion do not require a node restart. Can be created and deleted at any time.
-    </td>
-  </tr>
-  <tr>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
       Less opinionated, less automation-friendly: any queues, exchanges or bindings can
       be declared manually at startup.
-    </td>
-    <td>
+      </td>
+      <td>
       More opinionated, more automation-friendly: the queues, exchanges and
       bindings used by the shovel will be declared automatically.
-    </td>
-  </tr>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 Note that when using AMQP 1.0 the "nodes" may still need to be created
@@ -351,8 +355,8 @@ Each element of the list is a map with several properties:
     <tr>
       <td>Timestamp</td>
       <td>
-        Time when the shovel has last entered this state (e.g. successfully connected,
-        lost connection, ran into an exception)
+      Time when the shovel has last entered this state (e.g. successfully connected,
+      lost connection, ran into an exception)
       </td>
     </tr>
   </tbody>
@@ -375,22 +379,22 @@ Key states of a shovel are
     <tr>
       <td>starting</td>
       <td>
-        Shovel is starting or trying to connect to its configured endpoints
+      Shovel is starting or trying to connect to its configured endpoints
       </td>
     </tr>
 
     <tr>
       <td>running</td>
       <td>
-        Shovel has successfully connected and running (consuming from the source and republishing to the destination).
-        This state will report some basic endpoint and protocol information.
+      Shovel has successfully connected and running (consuming from the source and republishing to the destination).
+      This state will report some basic endpoint and protocol information.
       </td>
     </tr>
 
     <tr>
       <td>terminated</td>
       <td>
-        Shovel has stopped or ran into an exception. A reason will be provided.
+      Shovel has stopped or ran into an exception. A reason will be provided.
       </td>
     </tr>
   </tbody>

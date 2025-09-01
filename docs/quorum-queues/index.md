@@ -821,11 +821,10 @@ are expected to come back and only a minority (often just one) node is stopped f
       <th>Description</th>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>
-      `quorum_queue.continuous_membership_reconciliation.enabled`
+        `quorum_queue.continuous_membership_reconciliation.enabled`
       </td>
       <td>
         Enables or disables continuous membership reconciliation.
@@ -837,14 +836,12 @@ are expected to come back and only a minority (often just one) node is stopped f
         </div>
       </td>
     </tr>
-
     <tr>
       <td>
-      `quorum_queue.continuous_membership_reconciliation.target_group_size`
+        `quorum_queue.continuous_membership_reconciliation.target_group_size`
       </td>
       <td>
         The target replica count (group size) for queue members.
-
         <div>
           <ul>
             <li>Data type: positive integer</li>
@@ -853,14 +850,12 @@ are expected to come back and only a minority (often just one) node is stopped f
         </div>
       </td>
     </tr>
-
     <tr>
       <td>
-      `quorum_queue.continuous_membership_reconciliation.auto_remove`
+        `quorum_queue.continuous_membership_reconciliation.auto_remove`
       </td>
       <td>
         Enables or disables automatic removal of member nodes that are no longer part of the cluster, but still a member of the quorum queue.
-
         <div>
           <ul>
             <li>Data type: boolean</li>
@@ -869,14 +864,12 @@ are expected to come back and only a minority (often just one) node is stopped f
         </div>
       </td>
     </tr>
-
     <tr>
       <td>
-      `quorum_queue.continuous_membership_reconciliation.interval`
+        `quorum_queue.continuous_membership_reconciliation.interval`
       </td>
       <td>
         The default evaluation interval in milliseconds.
-
         <div>
           <ul>
             <li>Data type: positive integer</li>
@@ -885,15 +878,13 @@ are expected to come back and only a minority (often just one) node is stopped f
         </div>
       </td>
     </tr>
-
     <tr>
       <td>
-      `quorum_queue.continuous_membership_reconciliation.trigger_interval`
+        `quorum_queue.continuous_membership_reconciliation.trigger_interval`
       </td>
       <td>
         The reconciliation delay in milliseconds, used when a trigger event occurs, for example, a node is added or removed from the cluster or an applicable policy changes.
         This delay will be applied only once, then the regular interval will be used again.
-
         <div>
           <ul>
             <li>Data type: positive integer</li>
@@ -915,11 +906,10 @@ are expected to come back and only a minority (often just one) node is stopped f
       <th>Description</th>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>
-      `target-group-size`
+        `target-group-size`
       </td>
       <td>
         Defines the target replica count (group size) for matching queues. This policy can be set by users and operators.
@@ -942,11 +932,10 @@ are expected to come back and only a minority (often just one) node is stopped f
       <th>Description</th>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>
-      `x-quorum-target-group-size`
+        `x-quorum-target-group-size`
       </td>
       <td>
         Defines the target replica count (group size) for matching queues. This key can be overridden by operator policies.
@@ -1129,7 +1118,6 @@ The `rabbit` application has several quorum queue related configuration items av
       <th>Default value</th>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>rabbit.quorum_cluster_size</td>

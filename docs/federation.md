@@ -422,7 +422,6 @@ It contains the following keys:
       <td>Description</td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>`type`</td>

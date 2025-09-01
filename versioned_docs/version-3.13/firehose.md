@@ -84,42 +84,46 @@ entering the node), or "`deliver.{queuename}`" (for messages that are delivered 
 Traced message headers containing metadata about the original message:
 
 <table>
-  <tr><th>Header</th><th>Type</th><th>Description</th></tr>
-  <tr>
-    <td>exchange_name</td>
-    <td>longstr</td>
-    <td>
+  <thead>
+    <tr><th>Header</th><th>Type</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>exchange_name</td>
+      <td>longstr</td>
+      <td>
       name of the exchange to which the message was
       published
-    </td>
-  </tr>
-  <tr>
-    <td>routing_keys</td>
-    <td>array</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>routing_keys</td>
+      <td>array</td>
+      <td>
       routing key plus contents of
       <a href="./sender-selected">`CC` and
       `BCC` headers</a>
-    </td>
-  </tr>
-  <tr>
-    <td>properties</td>
-    <td>table</td>
-    <td><a href="https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/pdf/amqp-xml-doc0-9-1.pdf">content properties</a> (message metadata map)</td>
-  </tr>
-  <tr>
-    <td>node</td>
-    <td>longstr</td>
-    <td>Erlang node on which the trace message was generated</td>
-  </tr>
-  <tr>
-    <td>redelivered</td>
-    <td>signedint</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>properties</td>
+      <td>table</td>
+      <td><a href="https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/pdf/amqp-xml-doc0-9-1.pdf">content properties</a> (message metadata map)</td>
+    </tr>
+    <tr>
+      <td>node</td>
+      <td>longstr</td>
+      <td>Erlang node on which the trace message was generated</td>
+    </tr>
+    <tr>
+      <td>redelivered</td>
+      <td>signedint</td>
+      <td>
       whether the message has its redelivered flag set
       (messages leaving the broker only)
-    </td>
-  </tr>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 Traced message body corresponding to the body of the original message.

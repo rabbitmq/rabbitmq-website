@@ -427,55 +427,55 @@ It contains the following keys:
     <tr>
       <td>`type`</td>
       <td>
-        `exchange` or `queue` depending on
-        what type of federated resource this link relates to
+      `exchange` or `queue` depending on
+      what type of federated resource this link relates to
       </td>
     </tr>
 
     <tr>
       <td>`name`</td>
       <td>
-        the name of the federated exchange or queue
+      the name of the federated exchange or queue
       </td>
     </tr>
 
     <tr>
       <td>`vhost`</td>
       <td>
-        the virtual host containing the federated exchange or queue
+      the virtual host containing the federated exchange or queue
       </td>
     </tr>
 
     <tr>
       <td>`upstream_name`</td>
       <td>
-        the name of the upstream this link is connected to
+      the name of the upstream this link is connected to
       </td>
     </tr>
 
     <tr>
       <td>`status`</td>
       <td>
-        status of the link:
-          <ul>
-            <li>`starting`</li>
-            <li>`{running, LocalConnectionName}`</li>
-            <li>`{shutdown, Error}`</li>
-          </ul>
+      status of the link:
+      <ul>
+      <li>`starting`</li>
+      <li>`{running, LocalConnectionName}`</li>
+      <li>`{shutdown, Error}`</li>
+      </ul>
       </td>
     </tr>
 
     <tr>
       <td>`connection`</td>
       <td>
-        the name of the connection for this link (from config)
+      the name of the connection for this link (from config)
       </td>
     </tr>
 
     <tr>
       <td>`timestamp`</td>
       <td>
-        time stamp of the last status update
+      time stamp of the last status update
       </td>
     </tr>
   </tbody>

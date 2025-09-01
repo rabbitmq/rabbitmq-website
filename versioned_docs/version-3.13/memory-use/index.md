@@ -121,149 +121,149 @@ reserved_unallocated: 0.0 gb (0.0%)
 
 <table>
   <thead>
-    <td>Report Field</td>
-    <td>Category</td>
-    <td>Details</td>
+      <td>Report Field</td>
+      <td>Category</td>
+      <td>Details</td>
   </thead>
 
-  <tr>
-    <td>total</td>
-    <td></td>
-    <td>Total amount as reported by the effective memory calculation strategy (see above)</td>
-  </tr>
+    <tr>
+      <td>total</td>
+      <td></td>
+      <td>Total amount as reported by the effective memory calculation strategy (see above)</td>
+    </tr>
 
-  <tr>
-    <td>connection_readers</td>
-    <td>Connections</td>
-    <td>
+    <tr>
+      <td>connection_readers</td>
+      <td>Connections</td>
+      <td>
       Processes responsible for connection parser and most of connection state. Most of their memory attributes
       to TCP buffers. The more client connections a node has, the more memory will be used by this category.
       See <a href="./networking">Networking guide</a> for more information.
-    </td>
-  </tr>
+      </td>
+    </tr>
 
-  <tr>
-    <td>connection_writers</td>
-    <td>Connections</td>
-    <td>
+    <tr>
+      <td>connection_writers</td>
+      <td>Connections</td>
+      <td>
       Processes responsible for serialisation of outgoing protocol frames and writing to client connection sockets.
       The more client connections a node has, the more memory will be used by this category.
       See <a href="./networking">Networking guide</a> for more information.
-    </td>
-  </tr>
+      </td>
+    </tr>
 
-  <tr>
-    <td>connection_channels</td>
-    <td>Channels</td>
-    <td>The more channels client connections use, the more memory will be used by this category.</td>
-  </tr>
+    <tr>
+      <td>connection_channels</td>
+      <td>Channels</td>
+      <td>The more channels client connections use, the more memory will be used by this category.</td>
+    </tr>
 
-  <tr>
-    <td>connection_other</td>
-    <td>Connections</td>
-    <td>Other memory related to client connections</td>
-  </tr>
+    <tr>
+      <td>connection_other</td>
+      <td>Connections</td>
+      <td>Other memory related to client connections</td>
+    </tr>
 
-  <tr>
-    <td>quorum_queue_procs</td>
-    <td>Queues</td>
-    <td>
+    <tr>
+      <td>quorum_queue_procs</td>
+      <td>Queues</td>
+      <td>
       <a href="./quorum-queues">Quorum queue</a> processes, both currently elected leaders and followers.
       Memory footprint can be capped on a per-queue basis.
       See the <a href="./quorum-queues">Quorum Queues</a> guide for more information.
-    </td>
-  </tr>
+      </td>
+    </tr>
 
-  <tr>
-    <td>queue_procs</td>
-    <td>Queues</td>
-    <td>
+    <tr>
+      <td>queue_procs</td>
+      <td>Queues</td>
+      <td>
       Classic queue leaders, indices and messages kept in memory. The greater the number of messages enqueued,
       the more memory will generally be attributed to this section. However, this greatly depends on
       queue type and properties.
       See <a href="./memory">Memory</a>, <a href="./classic-queues">Classic Queues</a> for more information.
-    </td>
-  </tr>
+      </td>
+    </tr>
 
-  <tr>
-    <td>metrics</td>
-    <td><a href="./management">Stats DB</a></td>
-    <td>
+    <tr>
+      <td>metrics</td>
+      <td><a href="./management">Stats DB</a></td>
+      <td>
       Node-local metrics. The more connections, channels, queues are node hosts, the more stats there are to collect and keep.
       See <a href="./management">management plugin guide</a> for more information.
-    </td>
-  </tr>
+      </td>
+    </tr>
 
-  <tr>
-    <td>stats_db</td>
-    <td>Stats DB</td>
-    <td>
+    <tr>
+      <td>stats_db</td>
+      <td>Stats DB</td>
+      <td>
       Aggregated and pre-computed metrics, inter-node HTTP API request cache and everything else related to the stats DB.
       See <a href="./management">management plugin guide</a> for more information.
-    </td>
-  </tr>
+      </td>
+    </tr>
 
-  <tr>
-    <td>binaries</td>
-    <td>Binaries</td>
-    <td>Runtime binary heap. Most of this section is usually message bodies and properties (metadata).</td>
-  </tr>
+    <tr>
+      <td>binaries</td>
+      <td>Binaries</td>
+      <td>Runtime binary heap. Most of this section is usually message bodies and properties (metadata).</td>
+    </tr>
 
-  <tr>
-    <td>plugins</td>
-    <td>Plugins</td>
-    <td>
+    <tr>
+      <td>plugins</td>
+      <td>Plugins</td>
+      <td>
       Plugins such as <a href="./shovel">Shovel</a>, <a href="./federation">Federation</a>, or protocol implementations such as <a href="./stomp">STOMP</a>
       can accumulate messages in memory.
-    </td>
-  </tr>
+      </td>
+    </tr>
 
-  <tr>
-    <td>allocated_unused</td>
-    <td>Preallocated Memory</td>
-    <td>Allocated by the runtime but not yet used.</td>
-  </tr>
+    <tr>
+      <td>allocated_unused</td>
+      <td>Preallocated Memory</td>
+      <td>Allocated by the runtime but not yet used.</td>
+    </tr>
 
-  <tr>
-    <td>reserved_unallocated</td>
-    <td>Preallocated Memory</td>
-    <td>Allocated/reserved by the kernel but not the runtime</td>
-  </tr>
+    <tr>
+      <td>reserved_unallocated</td>
+      <td>Preallocated Memory</td>
+      <td>Allocated/reserved by the kernel but not the runtime</td>
+    </tr>
 
-  <tr>
-    <td>mnesia</td>
-    <td>Internal Database</td>
-    <td>Virtual hosts, users, permissions, queue metadata and state, exchanges, bindings, runtime parameters and so on.</td>
-  </tr>
+    <tr>
+      <td>mnesia</td>
+      <td>Internal Database</td>
+      <td>Virtual hosts, users, permissions, queue metadata and state, exchanges, bindings, runtime parameters and so on.</td>
+    </tr>
 
-  <tr>
-    <td>quorum_ets</td>
-    <td>Internal Database</td>
-    <td>Raft implementation's WAL and other memory tables. Most of these are periodically moved to disk.</td>
-  </tr>
+    <tr>
+      <td>quorum_ets</td>
+      <td>Internal Database</td>
+      <td>Raft implementation's WAL and other memory tables. Most of these are periodically moved to disk.</td>
+    </tr>
 
-  <tr>
-    <td>other_ets</td>
-    <td>Internal Database</td>
-    <td>Some plugins can use ETS tables to store their state</td>
-  </tr>
+    <tr>
+      <td>other_ets</td>
+      <td>Internal Database</td>
+      <td>Some plugins can use ETS tables to store their state</td>
+    </tr>
 
-  <tr>
-    <td>code</td>
-    <td>Code</td>
-    <td>
+    <tr>
+      <td>code</td>
+      <td>Code</td>
+      <td>
       Bytecode and module metadata. This should only consume double digit % of
       memory on blank/empty nodes.
-    </td>
-  </tr>
+      </td>
+    </tr>
 
-  <tr>
-    <td>other</td>
-    <td>Other</td>
-    <td>
+    <tr>
+      <td>other</td>
+      <td>Other</td>
+      <td>
       All other processes that RabbitMQ cannot categorise
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>
 
 

@@ -125,7 +125,7 @@ Some keys are supported by both AMQP 0-9-1 and AMQP 1.0 sources.
 They are described in the table below.
 
 <table>
-  <caption>Common (Protocol-Independent) Static Shovel Keys (Properties)</caption>
+      <caption>Common (Protocol-Independent) Static Shovel Keys (Properties)</caption>
 
   <thead>
     <tr>
@@ -138,41 +138,41 @@ They are described in the table below.
     <tr>
       <td>reconnect-delay</td>
       <td>
-        The duration (in seconds) to wait before reconnecting to the
-        brokers after being disconnected at either end. Default is 1.
+      The duration (in seconds) to wait before reconnecting to the
+      brokers after being disconnected at either end. Default is 1.
 
-```erlang
-{reconnect_delay, 5}
-```
-        would delay for five seconds before reconnecting after failure. Value of `0`
-        means no reconnection: the shovel will stop after first failure or unsuccessful
-        connection attempt.
+      ```erlang
+      {reconnect_delay, 5}
+      ```
+      would delay for five seconds before reconnecting after failure. Value of `0`
+      means no reconnection: the shovel will stop after first failure or unsuccessful
+      connection attempt.
       </td>
     </tr>
     <tr>
       <td>ack-mode</td>
       <td>
-        <div>
-          Determines how the shovel should <a href="./confirms">acknowledge</a> consumed messages.
-          Valid values are <code>on-confirm</code>, <code>on-publish</code>, and <code>no-ack</code>.
-          <code>on-confirm</code> is used by default.
-        </div>
-        <div>
-          If set to <code>on-confirm</code> (the default), messages are
-          <a href="./confirms">acknowledged</a> to the source broker after they have been confirmed
-          by the destination. This handles network errors and broker
-          failures without losing messages, and is the slowest option.
-        </div>
-        <div>
-          If set to <code>on-publish</code>, messages are <a href="./confirms">acknowledged</a> to
-          the source broker after they have been published at the
-          destination (but not yet confirmed). This handles network errors without losing messages,
-          but may lose messages in the event of broker failures.
-        </div>
-        <div>
-          If set to <code>no-ack</code>, <a href="./confirms">automatic message acknowledgements</a> will be used.
-          This option will offer the highest throughput but is not safe (will lose messages in the event of network or broker failures).
-        </div>
+      <div>
+      Determines how the shovel should <a href="./confirms">acknowledge</a> consumed messages.
+      Valid values are <code>on-confirm</code>, <code>on-publish</code>, and <code>no-ack</code>.
+      <code>on-confirm</code> is used by default.
+      </div>
+      <div>
+      If set to <code>on-confirm</code> (the default), messages are
+      <a href="./confirms">acknowledged</a> to the source broker after they have been confirmed
+      by the destination. This handles network errors and broker
+      failures without losing messages, and is the slowest option.
+      </div>
+      <div>
+      If set to <code>on-publish</code>, messages are <a href="./confirms">acknowledged</a> to
+      the source broker after they have been published at the
+      destination (but not yet confirmed). This handles network errors without losing messages,
+      but may lose messages in the event of broker failures.
+      </div>
+      <div>
+      If set to <code>no-ack</code>, <a href="./confirms">automatic message acknowledgements</a> will be used.
+      This option will offer the highest throughput but is not safe (will lose messages in the event of network or broker failures).
+      </div>
       </td>
     </tr>
   </tbody>
@@ -183,7 +183,7 @@ They are described in the table below.
 AMQP 0-9-1-specific source keys are covered in a separate table:
 
 <table>
-  <caption>AMQP 0-9-1 Source Keys (Properties)</caption>
+      <caption>AMQP 0-9-1 Source Keys (Properties)</caption>
 
   <thead>
     <tr>
@@ -196,103 +196,103 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
     <tr>
       <td>declarations</td>
       <td>
-        <div>
-          An optional list of AMQP 0-9-1 operations to be executed by the Shovel
-          before it starts transferring messages. They are typically used to set
-          up the topology.
-        </div>
-```erlang
-  {declarations, [
-    %% declaration list
-  ]}
-```
-        <div>
-          The declarations follow method and property names used by the <a href="/client-libraries/erlang-client-user-guide">RabbitMQ Erlang Client</a>.
-        </div>
-        <div>
-          A minimalistic declaration example:
-        </div>
-```erlang
-  {declarations, [
-                   'queue.declare',
-                   {'queue.bind', [
-                                    {exchange, <<"my_exchange">>},
-                                    {queue,    <<>>}
-                                  ]}
-                 ]}
-```
-        <div>
-          will first declare an anonymous queue, and then bind it
-          to the exchange called <code>"my_exchange"</code>. The
-          queue name of <code>&lt;&lt;>></code> on method <code>queue.bind</code>
-          means "use the queue last declared on this channel".
-        </div>
-        <div>
-          Each element of the declaration list is either an AMQP 0-9-1 method
-          given as single quoted atom such as <code>'queue.declare'</code>,
-          or a tuple with first element the method atom, and second element
-          a property list of parameters.
-        </div>
-        <div>
-          If just the method name is used all the
-          parameters take their defaults (as illustrated with
-          <code>'queue.declare'</code> above).
-        </div>
-        <div>
-          If a tuple and property-list is supplied, then the
-          properties in the list specify some or all of the
-          parameters explicitly.
-        </div>
-        <div>
-          Here is another example:
-        </div>
-```erlang
-{'exchange.declare', [
-                      {exchange, <<"my_exchange">>},
-                      {type, <<"direct">>},
-                      durable
-                     ]}
-```
-        <div>
-          will declare a durable, direct exchange called
-          "<code>my_exchange</code>".
-        </div>
+      <div>
+      An optional list of AMQP 0-9-1 operations to be executed by the Shovel
+      before it starts transferring messages. They are typically used to set
+      up the topology.
+      </div>
+      ```erlang
+      {declarations, [
+      %% declaration list
+      ]}
+      ```
+      <div>
+      The declarations follow method and property names used by the <a href="/client-libraries/erlang-client-user-guide">RabbitMQ Erlang Client</a>.
+      </div>
+      <div>
+      A minimalistic declaration example:
+      </div>
+      ```erlang
+      {declarations, [
+      'queue.declare',
+      {'queue.bind', [
+      {exchange, <<"my_exchange">>},
+      {queue,    <<>>}
+      ]}
+      ]}
+      ```
+      <div>
+      will first declare an anonymous queue, and then bind it
+      to the exchange called <code>"my_exchange"</code>. The
+      queue name of <code>&lt;&lt;>></code> on method <code>queue.bind</code>
+      means "use the queue last declared on this channel".
+      </div>
+      <div>
+      Each element of the declaration list is either an AMQP 0-9-1 method
+      given as single quoted atom such as <code>'queue.declare'</code>,
+      or a tuple with first element the method atom, and second element
+      a property list of parameters.
+      </div>
+      <div>
+      If just the method name is used all the
+      parameters take their defaults (as illustrated with
+      <code>'queue.declare'</code> above).
+      </div>
+      <div>
+      If a tuple and property-list is supplied, then the
+      properties in the list specify some or all of the
+      parameters explicitly.
+      </div>
+      <div>
+      Here is another example:
+      </div>
+      ```erlang
+      {'exchange.declare', [
+      {exchange, <<"my_exchange">>},
+      {type, <<"direct">>},
+      durable
+      ]}
+      ```
+      <div>
+      will declare a durable, direct exchange called
+      "<code>my_exchange</code>".
+      </div>
       </td>
     </tr>
 
     <tr>
       <td>queue</td>
       <td>
-          <div>
-            The name of the source queue as an Erlang binary value. This property is mandatory:
+      <div>
+      The name of the source queue as an Erlang binary value. This property is mandatory:
 
-```erlang
-{queue, <<"queue.1">>}
-```
-          </div>
-          <div>
-            <code>queue.1</code> is the name of the queue
-            to shovel messages from, as a binary string.
-          </div>
-          <div>
-            This queue must exist. Use the resource <code>declarations</code>
-            covered above to declare the queue or ensure it exists. If
-            the value is <code>&lt;&lt;>></code> (the empty binary string) then the
-            <em>most recently declared queue</em> in <code>declarations</code> is used.
-            This allows anonymous queues to be declared and used.
-          </div>
+      ```erlang
+      {queue, <<"queue.1">>}
+      ```
+      </div>
+      <div>
+      <code>queue.1</code> is the name of the queue
+      to shovel messages from, as a binary string.
+      </div>
+      <div>
+      This queue must exist. Use the resource <code>declarations</code>
+      covered above to declare the queue or ensure it exists. If
+      the value is <code>&lt;&lt;>></code> (the empty binary string) then the
+      <em>most recently declared queue</em> in <code>declarations</code> is used.
+      This allows anonymous queues to be declared and used.
+      </div>
       </td>
     </tr>
 
     <tr>
       <td>prefetch-count</td>
       <td>
-        The maximum number of unacknowledged messages copied over a shovel at
-        any one time. Default is <code>1000</code>:
+      The maximum number of unacknowledged messages copied over a shovel at
+      any one time. Default is <code>1000</code>:
 
-```erlang
-{prefetch_count, 1000}
-```
+      ```erlang
+      {prefetch_count, 1000}
+      ```
       </td>
     </tr>
   </tbody>
@@ -303,7 +303,7 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
 AMQP 1.0 source settings are different from those of AMQP 0-9-1 sources.
 
 <table>
-  <caption>AMQP 1.0 Source Keys (Properties)</caption>
+      <caption>AMQP 1.0 Source Keys (Properties)</caption>
 
   <thead>
     <tr>
@@ -316,26 +316,26 @@ AMQP 1.0 source settings are different from those of AMQP 0-9-1 sources.
     <tr>
       <td>source_address</td>
       <td>
-        This represents the source address of the AMQP 1.0 link.
-        This key is mandatory:
+      This represents the source address of the AMQP 1.0 link.
+      This key is mandatory:
 
-```erlang
-{source_address, <<"my-address">>}
-```
+      ```erlang
+      {source_address, <<"my-address">>}
+      ```
       </td>
     </tr>
 
     <tr>
       <td>prefetch-count</td>
       <td>
-        This optional key sets the link credit amount that will
-        be granted to the receiving link. The credit will be automatically
-        renewed when it falls below a 10th of this value. The default is 1000.
-        It takes the form
+      This optional key sets the link credit amount that will
+      be granted to the receiving link. The credit will be automatically
+      renewed when it falls below a 10th of this value. The default is 1000.
+      It takes the form
 
-```erlang
-  {prefetch_count, 10}
-```
+      ```erlang
+      {prefetch_count, 10}
+      ```
       </td>
     </tr>
   </tbody>
@@ -371,7 +371,7 @@ are available to static shovels, such as TLS certificate and private key.
 ### General Destination Keys
 
 <table>
-  <caption>General Destination Keys (Properties)</caption>
+      <caption>General Destination Keys (Properties)</caption>
 
   <thead>
     <tr>
@@ -384,15 +384,15 @@ are available to static shovels, such as TLS certificate and private key.
     <tr>
       <td>reconnect-delay</td>
       <td>
-        The duration (in seconds) to wait before reconnecting to the
-        brokers after being disconnected at either end. Default is 1.
+      The duration (in seconds) to wait before reconnecting to the
+      brokers after being disconnected at either end. Default is 1.
 
-```erlang
-{reconnect_delay, 5}
-```
-        would delay for five seconds before reconnecting after failure. Value of `0`
-        means no reconnection: the shovel will stop after first failure or unsuccessful
-        connection attempt.
+      ```erlang
+      {reconnect_delay, 5}
+      ```
+      would delay for five seconds before reconnecting after failure. Value of `0`
+      means no reconnection: the shovel will stop after first failure or unsuccessful
+      connection attempt.
       </td>
     </tr>
   </tbody>
@@ -401,7 +401,7 @@ are available to static shovels, such as TLS certificate and private key.
 ### AMQP 0-9-1 Destination Keys
 
 <table>
-  <caption>AMQP 0-9-1 Destination Keys (Properties)</caption>
+      <caption>AMQP 0-9-1 Destination Keys (Properties)</caption>
 
   <thead>
     <tr>
@@ -414,110 +414,110 @@ are available to static shovels, such as TLS certificate and private key.
     <tr>
       <td>publish_properties</td>
       <td>
-        <div>
-          This optional key controls <a href="./publishers#message-properties">message properties</a>
-          set or overridden by the shovel. It takes the following form
-        </div>
-```erlang
-{publish_properties, [
-  {delivery_mode, 2}
-]}
-```
-          <div>
-            where the properties in the list are set on the
-            basic properties of each message before it is re-published.
-          </div>
-          <div>
-            This specific example would mark all re-published messages as persistent:
-          </div>
-```erlang
-{publish_properties, [
-  {delivery_mode, 2}
-]}
-```
-          <div>
-            By default the original properties of the message are preserved, but
-            this clause can be used to change or set any known property:
+      <div>
+      This optional key controls <a href="./publishers#message-properties">message properties</a>
+      set or overridden by the shovel. It takes the following form
+      </div>
+      ```erlang
+      {publish_properties, [
+      {delivery_mode, 2}
+      ]}
+      ```
+      <div>
+      where the properties in the list are set on the
+      basic properties of each message before it is re-published.
+      </div>
+      <div>
+      This specific example would mark all re-published messages as persistent:
+      </div>
+      ```erlang
+      {publish_properties, [
+      {delivery_mode, 2}
+      ]}
+      ```
+      <div>
+      By default the original properties of the message are preserved, but
+      this clause can be used to change or set any known property:
 
-            <ul>
-              <li><code>content_type</code></li>
-              <li><code>content_encoding</code></li>
-              <li><code>headers</code></li>
-              <li><code>delivery_mode</code></li>
-              <li><code>priority</code></li>
-              <li><code>correlation_id</code></li>
-              <li><code>reply_to</code></li>
-              <li><code>expiration</code></li>
-              <li><code>message_id</code></li>
-              <li><code>timestamp</code></li>
-              <li><code>type</code></li>
-              <li><code>user_id</code></li>
-              <li><code>app_id</code></li>
-              <li><code>cluster_id</code></li>
-            </ul>
-          </div>
+      <ul>
+      <li><code>content_type</code></li>
+      <li><code>content_encoding</code></li>
+      <li><code>headers</code></li>
+      <li><code>delivery_mode</code></li>
+      <li><code>priority</code></li>
+      <li><code>correlation_id</code></li>
+      <li><code>reply_to</code></li>
+      <li><code>expiration</code></li>
+      <li><code>message_id</code></li>
+      <li><code>timestamp</code></li>
+      <li><code>type</code></li>
+      <li><code>user_id</code></li>
+      <li><code>app_id</code></li>
+      <li><code>cluster_id</code></li>
+      </ul>
+      </div>
       </td>
     </tr>
 
     <tr>
       <td>publish_fields</td>
       <td>
-          <div>
-            This optional key is similar to <code>publish_properties</code> but controls the publishing settings
-            instead of message properties that are accessible to consumers. It takes the form of
-          </div>
-```erlang
-{publish_fields, [
-                    {exchange, <<"my_exchange">>},
-                    {routing_key, <<"from_shovel">>}
-                  ]}
-```
-          <div>
-            where the properties in the list are used to set the
-            <em>fields</em> on the <code>basic.publish</code> method
-            used to re-publish messages.
-          </div>
-          <div>
-           By default the messages are re-published using the original
-           exchange name and routing key. By specifying
-         </div>
-```erlang
-{publish_fields, [
-                    {exchange, <<"my_exchange">>},
-                    {routing_key, <<"from_shovel">>}
-                  ]}
-```
-          <div>
-            messages would be re-published to an explicit exchange name
-            with an explicit, fixed routing key.
-          </div>
+      <div>
+      This optional key is similar to <code>publish_properties</code> but controls the publishing settings
+      instead of message properties that are accessible to consumers. It takes the form of
+      </div>
+      ```erlang
+      {publish_fields, [
+      {exchange, <<"my_exchange">>},
+      {routing_key, <<"from_shovel">>}
+      ]}
+      ```
+      <div>
+      where the properties in the list are used to set the
+      <em>fields</em> on the <code>basic.publish</code> method
+      used to re-publish messages.
+      </div>
+      <div>
+      By default the messages are re-published using the original
+      exchange name and routing key. By specifying
+      </div>
+      ```erlang
+      {publish_fields, [
+      {exchange, <<"my_exchange">>},
+      {routing_key, <<"from_shovel">>}
+      ]}
+      ```
+      <div>
+      messages would be re-published to an explicit exchange name
+      with an explicit, fixed routing key.
+      </div>
       </td>
     </tr>
 
     <tr>
       <td>add_timestamp_header</td>
       <td>
-        This boolean key controls whether a custom header, <code>x-shovelled-timestamp</code>,
-        will be added to the message before it is re-published:
+      This boolean key controls whether a custom header, <code>x-shovelled-timestamp</code>,
+      will be added to the message before it is re-published:
 
-```erlang
-{add_timestamp_header, true}
-```
+      ```erlang
+      {add_timestamp_header, true}
+      ```
 
-        This header value is timestamp (in seconds since epoch) when message had been shovelled.
-        By default the header is not added.
+      This header value is timestamp (in seconds since epoch) when message had been shovelled.
+      By default the header is not added.
       </td>
     </tr>
 
     <tr>
       <td>add_forward_headers</td>
       <td>
-        When set to true the shovel will add a number of custom message headers: <code>shovelled-by</code>, <code>shovel-type</code>, <code>shovel-name</code>,
-        to provide some additional metadata about the transfer.
+      When set to true the shovel will add a number of custom message headers: <code>shovelled-by</code>, <code>shovel-type</code>, <code>shovel-name</code>,
+      to provide some additional metadata about the transfer.
 
-```erlang
-{add_forward_headers, true}
-```
+      ```erlang
+      {add_forward_headers, true}
+      ```
       </td>
     </tr>
   </tbody>
@@ -526,7 +526,7 @@ are available to static shovels, such as TLS certificate and private key.
 ### AMQP 1.0 Destination Keys
 
 <table>
-  <caption>AMQP 1.0 Destination Keys (Properties)</caption>
+      <caption>AMQP 1.0 Destination Keys (Properties)</caption>
 
   <thead>
     <tr>
@@ -539,79 +539,79 @@ are available to static shovels, such as TLS certificate and private key.
     <tr>
       <td>target_address</td>
       <td>
-        <div>
-          This represents the target address of the sending AMQP 1.0 link:
+      <div>
+      This represents the target address of the sending AMQP 1.0 link:
 
-```erlang
-{target_address, <<"some-address">>}
-```
-        </div>
+      ```erlang
+      {target_address, <<"some-address">>}
+      ```
+      </div>
       </td>
     </tr>
 
     <tr>
       <td>properties</td>
       <td>
-        This optional key controls what additional properties will be added when re-publishing
-        messages. It takes the form of
+      This optional key controls what additional properties will be added when re-publishing
+      messages. It takes the form of
 
-```erlang
-{properties, [
-  {content_typle, <<"application/json">>}
-]}
-```
-        <div>
-          The available keys include
-          <code>message_id</code>, <code>user_id</code>, <code>to</code>, <code>subject</code>, <code>reply_to</code>, <code>correlation_id</code>, <code>content_type</code>, <code>content_encoding</code>, <code>absolute_expiry_time</code>, <code>creation_time</code>.
-          See the AMQP 1.0 spec (§3.2.4) for the all the available keys and values.
-        </div>
+      ```erlang
+      {properties, [
+      {content_typle, <<"application/json">>}
+      ]}
+      ```
+      <div>
+      The available keys include
+      <code>message_id</code>, <code>user_id</code>, <code>to</code>, <code>subject</code>, <code>reply_to</code>, <code>correlation_id</code>, <code>content_type</code>, <code>content_encoding</code>, <code>absolute_expiry_time</code>, <code>creation_time</code>.
+      See the AMQP 1.0 spec (§3.2.4) for the all the available keys and values.
+      </div>
       </td>
     </tr>
 
     <tr>
       <td>application_properties</td>
       <td>
-            <div>
-              This optional key declares any additional application properties
-              to be added when re-publishing a message. It takes the form of
-            </div>
-```erlang
-{application_properties, [
-  {<<"application-key-1">>, <<"value-1">>},
-  {<<"application-key-2">>, <<"value-2">>}
-]}
-```
-        <div>
-          Keys and values should be binary strings as in the example below.
-        </div>
+      <div>
+      This optional key declares any additional application properties
+      to be added when re-publishing a message. It takes the form of
+      </div>
+      ```erlang
+      {application_properties, [
+      {<<"application-key-1">>, <<"value-1">>},
+      {<<"application-key-2">>, <<"value-2">>}
+      ]}
+      ```
+      <div>
+      Keys and values should be binary strings as in the example below.
+      </div>
       </td>
     </tr>
 
     <tr>
       <td>add_timestamp_header</td>
       <td>
-        This boolean key controls whether a <code>creation_time</code> property
-        will be set on the message before it is re-published:
+      This boolean key controls whether a <code>creation_time</code> property
+      will be set on the message before it is re-published:
 
-```erlang
-{add_timestamp_header, true}
-```
+      ```erlang
+      {add_timestamp_header, true}
+      ```
 
-        This value is timestamp (in seconds since epoch) when message had been shovelled.
-        By default the property is not set.
+      This value is timestamp (in seconds since epoch) when message had been shovelled.
+      By default the property is not set.
       </td>
     </tr>
 
     <tr>
       <td>add_forward_headers</td>
       <td>
-        When set to true the shovel will add application properties for the
-        following keys: <code>shovelled-by</code>, <code>shovel-type</code>, <code>shovel-name</code>
-        to provide some additional metadata about the transfer.
+      When set to true the shovel will add application properties for the
+      following keys: <code>shovelled-by</code>, <code>shovel-type</code>, <code>shovel-name</code>
+      to provide some additional metadata about the transfer.
 
-```erlang
-{add_forward_headers, true}
-```
+      ```erlang
+      {add_forward_headers, true}
+      ```
       </td>
     </tr>
   </tbody>

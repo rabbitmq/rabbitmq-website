@@ -1047,72 +1047,72 @@ are effective for both IPv4 and IPv6 connections):
     <tr>
       <td><code>fs.file-max</code></td>
       <td>
-        Max number of files the kernel will allocate. Limits and current value
-        can be inspected using <code>/proc/sys/fs/file-nr</code>.
+      Max number of files the kernel will allocate. Limits and current value
+      can be inspected using <code>/proc/sys/fs/file-nr</code>.
       </td>
     </tr>
     <tr>
       <td><code>net.ipv4.ip_local_port_range</code></td>
       <td>
-        Local IP port range, define as a pair of values. The range must provide enough
-        entries for the peak number of concurrent connections.
+      Local IP port range, define as a pair of values. The range must provide enough
+      entries for the peak number of concurrent connections.
       </td>
     </tr>
     <tr>
       <td><code>net.ipv4.tcp_tw_reuse</code></td>
       <td>
-        When enabled, allows the kernel to reuse sockets in <code>TIME_WAIT</code>
-        state when it's safe to do so. See <a href="#dealing-with-high-connection-churn">Dealing with High Connection Churn</a>.
-        This option is dangerous when clients and peers connect using NAT.
+      When enabled, allows the kernel to reuse sockets in <code>TIME_WAIT</code>
+      state when it's safe to do so. See <a href="#dealing-with-high-connection-churn">Dealing with High Connection Churn</a>.
+      This option is dangerous when clients and peers connect using NAT.
       </td>
     </tr>
     <tr>
       <td><code>net.ipv4.tcp_fin_timeout</code></td>
       <td>
-        Lowering this timeout to a value in the 15-30 second range reduces the amount of time closed connections
-        will stay in the TIME_WAIT state. See <a href="#dealing-with-high-connection-churn">Dealing with High Connection Churn</a>.
+      Lowering this timeout to a value in the 15-30 second range reduces the amount of time closed connections
+      will stay in the TIME_WAIT state. See <a href="#dealing-with-high-connection-churn">Dealing with High Connection Churn</a>.
       </td>
     </tr>
     <tr>
       <td><code>net.core.somaxconn</code></td>
       <td>
-        Size of the listen queue (how many connections are in
-        the process of being established at the same time).
-        Default is 128. Increase to 4096 or higher to support
-        inbound connection bursts, e.g. when clients reconnect
-        en masse.
+      Size of the listen queue (how many connections are in
+      the process of being established at the same time).
+      Default is 128. Increase to 4096 or higher to support
+      inbound connection bursts, e.g. when clients reconnect
+      en masse.
       </td>
     </tr>
     <tr>
       <td><code>net.ipv4.tcp_max_syn_backlog</code></td>
       <td>
-        Maximum number of remembered connection requests which
-        did not receive an acknowledgment yet from
-        connecting client. Default is 128, max value is 65535. 4096 and 8192 are
-        recommended starting values when optimising for throughput.
+      Maximum number of remembered connection requests which
+      did not receive an acknowledgment yet from
+      connecting client. Default is 128, max value is 65535. 4096 and 8192 are
+      recommended starting values when optimising for throughput.
       </td>
     </tr>
     <tr>
       <td><code>net.ipv4.tcp_keepalive_*</code></td>
       <td>
-        <code>net.ipv4.tcp_keepalive_time</code>, <code>net.ipv4.tcp_keepalive_intvl</code>,
-        and <code>net.ipv4.tcp_keepalive_probes</code> configure TCP keepalive.
+      <code>net.ipv4.tcp_keepalive_time</code>, <code>net.ipv4.tcp_keepalive_intvl</code>,
+      and <code>net.ipv4.tcp_keepalive_probes</code> configure TCP keepalive.
 
-        AMQP 0-9-1 and STOMP have <a href="./heartbeats">Heartbeats</a> which partially
-        undo its effect, namely that it can take minutes to detect an unresponsive peer,
-        for example, in case of a hardware or power failure. MQTT also has its own keepalives
-        mechanism which is the same idea under a different name.
+      AMQP 0-9-1 and STOMP have <a href="./heartbeats">Heartbeats</a> which partially
+      undo its effect, namely that it can take minutes to detect an unresponsive peer,
+      for example, in case of a hardware or power failure. MQTT also has its own keepalives
+      mechanism which is the same idea under a different name.
 
-        When enabling TCP keepalive with default settings, we
-        recommend setting heartbeat timeout to 8-20 seconds. Also see a note on TCP keepalives
-        later in this guide.
+      When enabling TCP keepalive with default settings, we
+      recommend setting heartbeat timeout to 8-20 seconds. Also see a note on TCP keepalives
+      later in this guide.
       </td>
     </tr>
     <tr>
       <td><code>net.ipv4.conf.default.rp_filter</code></td>
       <td>
-        Activating or turning on reverse path filtering. If <a href="http://en.wikipedia.org/wiki/IP_address_spoofing">IP address spoofing</a>
-        is not a concern for your system, deactivate it.
+      Activating or turning on reverse path filtering. If <a href="http://en.wikipedia.org/wiki/IP_address_spoofing">IP address spoofing</a>
+      is not a concern for your system, deactivate it.
       </td>
     </tr>
   </tbody>
@@ -1161,45 +1161,45 @@ TCP stack tuning is a broad topic that is covered in much detail elsewhere:
     <tr>
       <td><code>tcp_listen_options.nodelay</code></td>
       <td>
-        When set to <code>true</code>, deactivates
-        <a href="http://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's algorithm</a>.
-        Default is true. Highly recommended for most users.
+      When set to <code>true</code>, deactivates
+      <a href="http://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's algorithm</a>.
+      Default is true. Highly recommended for most users.
       </td>
     </tr>
     <tr>
       <td><code>tcp_listen_options.sndbuf</code></td>
       <td>
-        See TCP buffers discussion earlier in this guide. Default value is
-        automatically tuned by the OS, typically in the 88 KiB to 128 KiB range on
-        modern Linux versions. Increasing buffer size improves consumer throughput
-        and RAM use for every connection. Decreasing has the opposite effect.
+      See TCP buffers discussion earlier in this guide. Default value is
+      automatically tuned by the OS, typically in the 88 KiB to 128 KiB range on
+      modern Linux versions. Increasing buffer size improves consumer throughput
+      and RAM use for every connection. Decreasing has the opposite effect.
       </td>
     </tr>
     <tr>
       <td><code>tcp_listen_options.recbuf</code></td>
       <td>
-        See TCP buffers discussion earlier in this guide. Default value effects
-        are similar to that of <code>tcp_listen_options.sndbuf</code> but
-        for publishers and protocol operations in general.
+      See TCP buffers discussion earlier in this guide. Default value effects
+      are similar to that of <code>tcp_listen_options.sndbuf</code> but
+      for publishers and protocol operations in general.
       </td>
     </tr>
     <tr>
       <td><code>tcp_listen_options.backlog</code></td>
       <td>
-        Maximum size of the unaccepted TCP connections queue. When this size
-        is reached, new connections will be rejected. Set to 4096 or higher for
-        environments with thousands of concurrent connections and possible bulk client
-        reconnections.
+      Maximum size of the unaccepted TCP connections queue. When this size
+      is reached, new connections will be rejected. Set to 4096 or higher for
+      environments with thousands of concurrent connections and possible bulk client
+      reconnections.
       </td>
     </tr>
     <tr>
       <td><code>tcp_listen_options.keepalive</code></td>
       <td>
-        When set to <code>true</code>, enables TCP keepalives (see above).
-        Default is <code>false</code>. Makes sense for environments where
-        connections can go idle for a long time (at least 10 minutes),
-        although using <a href="./heartbeats">heartbeats</a> is still recommended over
-        this option.
+      When set to <code>true</code>, enables TCP keepalives (see above).
+      Default is <code>false</code>. Makes sense for environments where
+      connections can go idle for a long time (at least 10 minutes),
+      although using <a href="./heartbeats">heartbeats</a> is still recommended over
+      this option.
       </td>
     </tr>
   </tbody>

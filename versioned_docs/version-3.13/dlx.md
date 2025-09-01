@@ -49,22 +49,26 @@ To specify a DLX using policy, add the key "dead-letter-exchange"
 to a policy definition. For example:
 
 <table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
-```bash
-rabbitmqctl set_policy DLX ".*" '{"dead-letter-exchange":"my-dlx"}' --apply-to queues
-```
-    </td>
-  </tr>
-  <tr>
-    <th>rabbitmqctl (Windows)</th>
-    <td>
-```PowerShell
-rabbitmqctl set_policy DLX ".*" "{""dead-letter-exchange"":""my-dlx""}" --apply-to queues
-```
-    </td>
-  </tr>
+  <thead>
+    <tr>
+      <th>rabbitmqctl</th>
+      <td>
+      ```bash
+      rabbitmqctl set_policy DLX ".*" '{"dead-letter-exchange":"my-dlx"}' --apply-to queues
+      ```
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>rabbitmqctl (Windows)</th>
+      <td>
+      ```PowerShell
+      rabbitmqctl set_policy DLX ".*" "{""dead-letter-exchange"":""my-dlx""}" --apply-to queues
+      ```
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 The previous policy applies the DLX "my-dlx" to all queues. This is an example only, in practice, different sets of queues usually use different dead lettering settings (or none at all).

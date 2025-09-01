@@ -638,59 +638,63 @@ semantics, they are limited only to a few arguments:
 
 <table>
   <thead>
-    <td></td>
-    <td><strong>Classic</strong></td>
-    <td><strong>Quorum</strong></td>
-    <td><strong>Stream</strong></td>
+    <tr>
+      <th></th>
+      <th><strong>Classic</strong></th>
+      <th><strong>Quorum</strong></th>
+      <th><strong>Stream</strong></th>
+    </tr>
   </thead>
-  <tr>
-    <th>delivery-limit</th>
-    <td> </td>
-    <td> <span>&#10003;</span> </td>
-    <td> </td>
-  </tr>
-  <tr>
-    <th>expires</th>
-    <td> <span>&#10003;</span> </td>
-    <td> <span>&#10003;</span> </td>
-    <td> </td>
-  </tr>
-  <tr>
-    <th>max-in-memory-bytes</th>
-    <td> </td>
-    <td> <span>&#10003;</span> </td>
-    <td> </td>
-  </tr>
-  <tr>
-    <th>max-in-memory-length</th>
-    <td> </td>
-    <td> <span>&#10003;</span> </td>
-    <td> </td>
-  </tr>
-  <tr>
-    <th>max-length</th>
-    <td> <span>&#10003;</span> </td>
-    <td> <span>&#10003;</span> </td>
-    <td> </td>
-  </tr>
-  <tr>
-    <th>max-length-bytes</th>
-    <td> <span>&#10003;</span> </td>
-    <td> <span>&#10003;</span> </td>
-    <td> <span>&#10003;</span> </td>
-  </tr>
-  <tr>
-    <th>message-ttl</th>
-    <td> <span>&#10003;</span> </td>
-    <td> <span>&#10003;</span> </td>
-    <td> </td>
-  </tr>
-  <tr>
-    <th>target-group-size</th>
-    <td> </td>
-    <td> <span>&#10003;</span> </td>
-    <td> </td>
-  </tr>
+  <tbody>
+    <tr>
+      <th>delivery-limit</th>
+      <td> </td>
+      <td> <span>&#10003;</span> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <th>expires</th>
+      <td> <span>&#10003;</span> </td>
+      <td> <span>&#10003;</span> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <th>max-in-memory-bytes</th>
+      <td> </td>
+      <td> <span>&#10003;</span> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <th>max-in-memory-length</th>
+      <td> </td>
+      <td> <span>&#10003;</span> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <th>max-length</th>
+      <td> <span>&#10003;</span> </td>
+      <td> <span>&#10003;</span> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <th>max-length-bytes</th>
+      <td> <span>&#10003;</span> </td>
+      <td> <span>&#10003;</span> </td>
+      <td> <span>&#10003;</span> </td>
+    </tr>
+    <tr>
+      <th>message-ttl</th>
+      <td> <span>&#10003;</span> </td>
+      <td> <span>&#10003;</span> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <th>target-group-size</th>
+      <td> </td>
+      <td> <span>&#10003;</span> </td>
+      <td> </td>
+    </tr>
+  </tbody>
 </table>
 
 ### Conflict Resolution with Regular Policies {#operator-policy-conflicts}
@@ -706,114 +710,118 @@ just overwrite regular policy values. They enforce limits but
 try to not override user-provided policies where possible.
 
 <table>
-    <thead>
-        <td></td>
-        <td><strong>Classic</strong></td>
-        <td><strong>Quorum</strong></td>
-        <td><strong>Stream</strong></td>
-    </thead>
+  <thead>
     <tr>
-        <th>delivery-limit</th>
-        <td> </td>
-        <td>
-            <ul>
-                <li>lesser value</li>
-            </ul>
-        </td>
-        <td> </td>
+      <th></th>
+      <th><strong>Classic</strong></th>
+      <th><strong>Quorum</strong></th>
+      <th><strong>Stream</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>delivery-limit</th>
+      <td> </td>
+      <td>
+      <ul>
+      <li>lesser value</li>
+      </ul>
+      </td>
+      <td> </td>
     </tr>
     <tr>
-        <th>expires</th>
-        <td>
-            <ul>
-                <li>lesser value</li>
-            </ul>
-        </td>
-        <td>
-            <ul>
-                <li>lesser value of the two policies</li>
-                <li>policy precedence over queue arguments</li>
-            </ul>
-        </td>
-        <td> </td>
+      <th>expires</th>
+      <td>
+      <ul>
+      <li>lesser value</li>
+      </ul>
+      </td>
+      <td>
+      <ul>
+      <li>lesser value of the two policies</li>
+      <li>policy precedence over queue arguments</li>
+      </ul>
+      </td>
+      <td> </td>
     </tr>
     <tr>
-        <th>max-in-memory-bytes</th>
-        <td> </td>
-        <td>
-            <ul>
-                <li>lesser value</li>
-            </ul>
-        </td>
-        <td> </td>
+      <th>max-in-memory-bytes</th>
+      <td> </td>
+      <td>
+      <ul>
+      <li>lesser value</li>
+      </ul>
+      </td>
+      <td> </td>
     </tr>
     <tr>
-        <th>max-in-memory-length</th>
-        <td> </td>
-        <td>
-            <ul>
-                <li>lesser value</li>
-            </ul>
-        </td>
-        <td> </td>
+      <th>max-in-memory-length</th>
+      <td> </td>
+      <td>
+      <ul>
+      <li>lesser value</li>
+      </ul>
+      </td>
+      <td> </td>
     </tr>
     <tr>
-        <th>max-length</th>
-        <td>
-            <ul>
-                <li>lesser value</li>
-            </ul>
-        </td>
-        <td>
-            <ul>
-                <li>lesser value</li>
-            </ul>
-        </td>
-        <td> </td>
+      <th>max-length</th>
+      <td>
+      <ul>
+      <li>lesser value</li>
+      </ul>
+      </td>
+      <td>
+      <ul>
+      <li>lesser value</li>
+      </ul>
+      </td>
+      <td> </td>
     </tr>
     <tr>
-        <th>max-length-bytes</th>
-        <td>
-            <ul>
-                <li>lesser value</li>
-            </ul>
-        </td>
-        <td>
-            <ul>
-                <li>lesser value</li>
-            </ul>
-        </td>
-        <td>
-            <ul>
-                <li>lesser value of the two policies</li>
-                <li>policy precedence over queue arguments</li>
-            </ul>
-        </td>
+      <th>max-length-bytes</th>
+      <td>
+      <ul>
+      <li>lesser value</li>
+      </ul>
+      </td>
+      <td>
+      <ul>
+      <li>lesser value</li>
+      </ul>
+      </td>
+      <td>
+      <ul>
+      <li>lesser value of the two policies</li>
+      <li>policy precedence over queue arguments</li>
+      </ul>
+      </td>
     </tr>
     <tr>
-        <th>message-ttl</th>
-        <td>
-            <ul>
-                <li>lesser value</li>
-            </ul>
-        </td>
-        <td>
-            <ul>
-                <li>lesser value</li>
-            </ul>
-        </td>
-        <td> </td>
+      <th>message-ttl</th>
+      <td>
+      <ul>
+      <li>lesser value</li>
+      </ul>
+      </td>
+      <td>
+      <ul>
+      <li>lesser value</li>
+      </ul>
+      </td>
+      <td> </td>
     </tr>
     <tr>
-        <th>target-group-size</th>
-        <td> </td>
-        <td>
-            <ul>
-                <li>greater value</li>
-            </ul>
-        </td>
-        <td> </td>
+      <th>target-group-size</th>
+      <td> </td>
+      <td>
+      <ul>
+      <li>greater value</li>
+      </ul>
+      </td>
+      <td> </td>
     </tr>
+  </tbody>
 </table>
 
 When the same key is provided by both [client-provided `x-arguments`](./queues#optional-arguments) and by a user policy,

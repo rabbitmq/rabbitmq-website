@@ -82,22 +82,26 @@ To specify a TTL using policy, add the key "message-ttl" to a
 policy definition:
 
 <table>
+  <thead>
     <tr>
-        <th>rabbitmqctl</th>
-        <td>
-            ```bash
-            rabbitmqctl set_policy TTL ".*" '{"message-ttl":60000}' --apply-to queues
-            ```
-        </td>
+      <th>rabbitmqctl</th>
+      <td>
+      ```bash
+      rabbitmqctl set_policy TTL ".*" '{"message-ttl":60000}' --apply-to queues
+      ```
+      </td>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-        <th>rabbitmqctl (Windows)</th>
-        <td>
-            ```PowerShell
-            rabbitmqctl set_policy TTL ".*" "{""message-ttl"":60000}" --apply-to queues
-            ```
-        </td>
+      <th>rabbitmqctl (Windows)</th>
+      <td>
+      ```PowerShell
+      rabbitmqctl set_policy TTL ".*" "{""message-ttl"":60000}" --apply-to queues
+      ```
+      </td>
     </tr>
+  </tbody>
 </table>
 
 This applies a TTL of 60 seconds to all queues.
@@ -264,22 +268,26 @@ is unused for 1 second will be deleted.
 The following policy makes all queues expire after 30 minutes since last use:
 
 <table>
+  <thead>
     <tr>
-        <th>rabbitmqctl</th>
-        <td>
-            ```bash
-            rabbitmqctl set_policy expiry ".*" '{"expires":1800000}' --apply-to queues
-            ```
-        </td>
+      <th>rabbitmqctl</th>
+      <td>
+      ```bash
+      rabbitmqctl set_policy expiry ".*" '{"expires":1800000}' --apply-to queues
+      ```
+      </td>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-        <th>rabbitmqctl (Windows)</th>
-        <td>
-            ```PowerShell
-            rabbitmqctl.bat set_policy expiry ".*" "{""expires"":1800000}" --apply-to queues
-            ```
-        </td>
+      <th>rabbitmqctl (Windows)</th>
+      <td>
+      ```PowerShell
+      rabbitmqctl.bat set_policy expiry ".*" "{""expires"":1800000}" --apply-to queues
+      ```
+      </td>
     </tr>
+  </tbody>
 </table>
 
 ### Define Queue TTL for Queues Using x-arguments During Declaration {#queue-ttl-using-x-args}

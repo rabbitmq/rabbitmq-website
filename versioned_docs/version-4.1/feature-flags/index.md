@@ -376,18 +376,20 @@ a behavior that must be consistent across all cluster nodes, and so on.
 :::
 
 <table>
-  <tr>
-   <th>Required</th>
-   <th>Stable</th>
-   <th>Feature flag name</th>
-   <th>Description</th>
-  </tr>
-
-  <tr>
-    <td></td>
-    <td>4.0</td>
-    <td>rabbitmq_4.0.0</td>
-    <td>
+  <thead>
+    <tr>
+      <th>Required</th>
+      <th>Stable</th>
+      <th>Feature flag name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>4.0</td>
+      <td>rabbitmq_4.0.0</td>
+      <td>
       Enables multiple features and changes introduced in RabbitMQ 4.0.
 
       RabbitMQ 4.0 uses a single flag to control multiple features and changes.
@@ -396,219 +398,212 @@ a behavior that must be consistent across all cluster nodes, and so on.
       [new quorum queue features](https://www.rabbitmq.com/blog/2024/08/28/quorum-queues-in-4.0) and
       the [new AMQP-1.0 flow control mechanism](https://www.rabbitmq.com/blog/2024/09/02/amqp-flow-control)
       will not be available.
-    </td>
-  </tr>
-
-  <tr>
-    <td></td>
-    <td>4.0</td>
-    <td>khepri_db</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>4.0</td>
+      <td>khepri_db</td>
+      <td>
       <p>
-        Enables <a href="./metadata-store">Khepri</a>, a Raft-based schema data store
-        with vastly superior (namely more predictable) node and network failure recovery characteristics
-        compared to Mnesia.
+      Enables <a href="./metadata-store">Khepri</a>, a Raft-based schema data store
+      with vastly superior (namely more predictable) node and network failure recovery characteristics
+      compared to Mnesia.
       </p>
 
       <p>
-        :::info
+      :::info
 
-        Khepri is fully supported (just like Mnesia) starting with RabbitMQ 4.0. This feature flag must be
-        explicitly enabled (opt-in) due to its scope.
+      Khepri is fully supported (just like Mnesia) starting with RabbitMQ 4.0. This feature flag must be
+      explicitly enabled (opt-in) due to its scope.
 
-        :::
+      :::
       </p>
 
       <p>
-        :::important
+      :::important
 
-        Due to extensive Khepri schema changes in RabbitMQ 4.0, 3.13.x clusters that have Khepri enabled
-        won't be upgradeable in-place to 4.0. Such clusters should use <a href="./blue-green-upgrade">Blue-Green deployment upgrade strategy</a>.
+      Due to extensive Khepri schema changes in RabbitMQ 4.0, 3.13.x clusters that have Khepri enabled
+      won't be upgradeable in-place to 4.0. Such clusters should use <a href="./blue-green-upgrade">Blue-Green deployment upgrade strategy</a>.
 
-        :::
+      :::
       </p>
 
       <p>
-        Make sure to first test Khepri with appropriate workloads in non-production environments before adopting it in production.
+      Make sure to first test Khepri with appropriate workloads in non-production environments before adopting it in production.
       </p>
-    </td>
-  </tr>
-
-  <tr>
-    <td></td>
-    <td>4.0</td>
-    <td>rabbit_exchange_type_local_random</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>4.0</td>
+      <td>rabbit_exchange_type_local_random</td>
+      <td>
       Use by the <a href="./local-random-exchange">Local Random Exchange</a>.
-    </td>
-  </tr>
-
-  <tr>
-    <td></td>
-    <td>3.13.1</td>
-    <td>quorum_queue_non_voters</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>3.13.1</td>
+      <td>quorum_queue_non_voters</td>
+      <td>
       Support for the non-voter quorum queue replica state
-    </td>
-  </tr>
-
-  <tr>
-    <td></td>
-    <td>3.13.0</td>
-    <td>message_containers</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>3.13.0</td>
+      <td>message_containers</td>
+      <td>
       Enables a new AMQP 1.0-based message format used internally
-    </td>
-  </tr>
-
-  <tr>
-    <td></td>
-    <td>3.13.0</td>
-    <td>detailed_queues_endpoint</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>3.13.0</td>
+      <td>detailed_queues_endpoint</td>
+      <td>
       Introduces the `GET /api/queues/detailed` HTTP API endpoint,
       reduces the number of metrics served by `GET /api/queues/`
-    </td>
-  </tr>
-
-  <tr>
-    <td>4.0.0</td>
-    <td>3.13.0</td>
-    <td>stream_filtering</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>4.0.0</td>
+      <td>3.13.0</td>
+      <td>stream_filtering</td>
+      <td>
       <a href="https://www.rabbitmq.com/blog/2023/10/16/stream-filtering">Stream filtering</a> support
-    </td>
-  </tr>
-
-  <tr>
-    <td>4.0.0</td>
-    <td>3.13.0</td>
-    <td>stream_update_config_command</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>4.0.0</td>
+      <td>3.13.0</td>
+      <td>stream_update_config_command</td>
+      <td>
       Removes `max_segment_size_bytes` from the list of policy keys that
       can be dynamically updated for streams. Changing `max_segment_size_bytes` for an existing
       cluster is not safe, so it is not a good fit for dynamic policy-based updates
-    </td>
-  </tr>
-
-  <tr>
-    <td>4.0.0</td>
-    <td>3.12.0</td>
-    <td>restart_streams</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>4.0.0</td>
+      <td>3.12.0</td>
+      <td>restart_streams</td>
+      <td>
       Support for restarting streams with optional preferred next leader
       argument. Used to implement stream leader rebalancing
-    </td>
-  </tr>
-  <tr>
-    <td>4.0.0</td>
-    <td>3.12.0</td>
-    <td>stream_sac_coordinator_unblock_group</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>4.0.0</td>
+      <td>3.12.0</td>
+      <td>stream_sac_coordinator_unblock_group</td>
+      <td>
       <a href="https://github.com/rabbitmq/rabbitmq-server/issues/7743">Bug
       fix</a> to unblock a group of consumers in a super stream partition
-    </td>
-  </tr>
-  <tr>
-    <td>3.12.0</td>
-    <td>3.11.0</td>
-    <td>direct_exchange_routing_v2</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>3.12.0</td>
+      <td>3.11.0</td>
+      <td>direct_exchange_routing_v2</td>
+      <td>
       v2 direct exchange routing implementation
-    </td>
-  </tr>
-  <tr>
-    <td>3.12.0</td>
-    <td>3.11.0</td>
-    <td>feature_flags_v2</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>3.12.0</td>
+      <td>3.11.0</td>
+      <td>feature_flags_v2</td>
+      <td>
       Feature flags subsystem v2
-    </td>
-  </tr>
-  <tr>
-    <td>3.12.0</td>
-    <td>3.11.0</td>
-    <td>listener_records_in_ets</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>3.12.0</td>
+      <td>3.11.0</td>
+      <td>listener_records_in_ets</td>
+      <td>
       Store listener records in ETS instead of Mnesia
-    </td>
-  </tr>
-  <tr>
-    <td>3.12.0</td>
-    <td>3.11.0</td>
-    <td>stream_single_active_consumer</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>3.12.0</td>
+      <td>3.11.0</td>
+      <td>stream_single_active_consumer</td>
+      <td>
       <a href="/blog/2022/07/05/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams">Single active consumer for streams</a>
-    </td>
-  </tr>
-  <tr>
-    <td>3.12.0</td>
-    <td>3.11.0</td>
-    <td>tracking_records_in_ets</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>3.12.0</td>
+      <td>3.11.0</td>
+      <td>tracking_records_in_ets</td>
+      <td>
       Store tracking records in ETS instead of Mnesia
-    </td>
-  </tr>
-  <tr>
-    <td>3.12.0</td>
-    <td>3.10.9</td>
-    <td>classic_queue_type_delivery_support</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>3.12.0</td>
+      <td>3.10.9</td>
+      <td>classic_queue_type_delivery_support</td>
+      <td>
       <a href="https://github.com/rabbitmq/rabbitmq-server/issues/5931">Bug
       fix</a> for classic queue deliveries using mixed versions
-    </td>
-  </tr>
-  <tr>
-    <td>3.12.0</td>
-    <td>3.9.0</td>
-    <td>stream_queue</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>3.12.0</td>
+      <td>3.9.0</td>
+      <td>stream_queue</td>
+      <td>
       Support queues of type <a
       href="./stream">stream</a>
-    </td>
-  </tr>
-  <tr>
-    <td>3.11.0</td>
-    <td>3.8.10</td>
-    <td>user_limits</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>3.11.0</td>
+      <td>3.8.10</td>
+      <td>user_limits</td>
+      <td>
       Configure connection and channel limits for a user
-    </td>
-  </tr>
-  <tr>
-    <td>3.11.0</td>
-    <td>3.8.8</td>
-    <td>maintenance_mode_status</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>3.11.0</td>
+      <td>3.8.8</td>
+      <td>maintenance_mode_status</td>
+      <td>
       Maintenance mode status
-    </td>
-  </tr>
-  <tr>
-    <td>3.11.0</td>
-    <td>3.8.0</td>
-    <td>implicit_default_bindings</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>3.11.0</td>
+      <td>3.8.0</td>
+      <td>implicit_default_bindings</td>
+      <td>
       Default bindings are now implicit, instead of being stored in the
       database
-    </td>
-  </tr>
-  <tr>
-    <td>3.11.0</td>
-    <td>3.8.0</td>
-    <td>quorum_queue</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>3.11.0</td>
+      <td>3.8.0</td>
+      <td>quorum_queue</td>
+      <td>
       Support queues of type <a
       href="./quorum-queues">quorum</a>
-    </td>
-  </tr>
-  <tr>
-    <td>3.11.0</td>
-    <td>3.8.0</td>
-    <td>virtual_host_metadata</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>3.11.0</td>
+      <td>3.8.0</td>
+      <td>virtual_host_metadata</td>
+      <td>
       Virtual host metadata (description, tags, etc.)
-    </td>
-  </tr>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 ### rabbitmq_management_agent Feature Flags {#rabbitmq_management_agent-feature-flags}
@@ -617,29 +612,32 @@ The following feature flags are provided by plugin
 [rabbimq_management_agent](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_management_agent).
 
 <table>
-  <tr>
-   <th>Required</th>
-   <th>Stable</th>
-   <th>Feature flag name</th>
-   <th>Description</th>
-  </tr>
-
-  <tr>
-    <td>3.12.0</td>
-    <td>3.8.10</td>
-    <td>drop_unroutable_metric</td>
-    <td>
+  <thead>
+    <tr>
+      <th>Required</th>
+      <th>Stable</th>
+      <th>Feature flag name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>3.12.0</td>
+      <td>3.8.10</td>
+      <td>drop_unroutable_metric</td>
+      <td>
       Count unroutable publishes to be dropped in stats
-    </td>
-  </tr>
-  <tr>
-    <td>3.12.0</td>
-    <td>3.8.10</td>
-    <td>empty_basic_get_metric</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>3.12.0</td>
+      <td>3.8.10</td>
+      <td>empty_basic_get_metric</td>
+      <td>
       Count AMQP basic.get on empty queues in stats
-    </td>
-  </tr>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 ### rabbitmq_rabbitmq_mqtt Feature Flags {#rabbitmq_mqtt-feature-flags}
@@ -648,37 +646,40 @@ The following feature flags are provided by plugin
 [rabbimq_mqtt](./mqtt).
 
 <table>
-  <tr>
-   <th>Required</th>
-   <th>Stable</th>
-   <th>Feature flag name</th>
-   <th>Description</th>
-  </tr>
-
-  <tr>
-    <td></td>
-    <td>3.13.0</td>
-    <td>mqtt_v5</td>
-	<td>
-	  Support <a href="https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html">MQTT 5.0</a>
-	</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>3.12.0</td>
-    <td>delete_ra_cluster_mqtt_node</td>
-	<td>
-	  <a href="/blog/2023/03/21/native-mqtt#what-else-improves-with-native-mqtt-in-312">Delete Ra cluster mqtt_node since MQTT client IDs are tracked locally</a>
-	</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>3.12.0</td>
-    <td>rabbit_mqtt_qos0_queue</td>
-	<td>
-	  Support <a href="/blog/2023/03/21/native-mqtt#new-mqtt-qos-0-queue-type">pseudo queue type for MQTT QoS 0 subscribers</a> omitting a queue process
-	</td>
-  </tr>
+  <thead>
+    <tr>
+      <th>Required</th>
+      <th>Stable</th>
+      <th>Feature flag name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>3.13.0</td>
+      <td>mqtt_v5</td>
+      <td>
+      Support <a href="https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html">MQTT 5.0</a>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>3.12.0</td>
+      <td>delete_ra_cluster_mqtt_node</td>
+      <td>
+      <a href="/blog/2023/03/21/native-mqtt#what-else-improves-with-native-mqtt-in-312">Delete Ra cluster mqtt_node since MQTT client IDs are tracked locally</a>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>3.12.0</td>
+      <td>rabbit_mqtt_qos0_queue</td>
+      <td>
+      Support <a href="/blog/2023/03/21/native-mqtt#new-mqtt-qos-0-queue-type">pseudo queue type for MQTT QoS 0 subscribers</a> omitting a queue process
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 ## How Do Feature Flags Work? {#implementation}

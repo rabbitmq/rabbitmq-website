@@ -794,44 +794,42 @@ The built-in mechanisms are:
 <table>
   <thead>
     <tr>
-      <td>Mechanism</td>
-      <td>Description</td>
+      <th>Mechanism</th>
+      <th>Description</th>
     </tr>
   </thead>
-
-  <tr>
-    <td>PLAIN</td>
-    <td>
+  <tbody>
+    <tr>
+      <td>PLAIN</td>
+      <td>
       SASL PLAIN authentication. This is enabled by default in
       the RabbitMQ server and clients, and is the default for most
       other clients.
-    </td>
-  </tr>
-
-  <tr>
-    <td>AMQPLAIN</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>AMQPLAIN</td>
+      <td>
       Non-standard version of PLAIN retained for backwards compatibility.
       This is enabled by default in the RabbitMQ server.
-    </td>
-  </tr>
-
-  <tr>
-    <td>EXTERNAL</td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td>EXTERNAL</td>
+      <td>
       Authentication happens using an out-of-band mechanism
       such as <a href="https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_mechanism_ssl">x509 certificate peer verification</a>,
       client IP address range, or similar. Such mechanisms are usually provided by RabbitMQ plugins.
-    </td>
-  </tr>
-
-  <tr>
-    <td>RABBIT-CR-DEMO</td>
-    <td>Non-standard mechanism which demonstrates
-    challenge-response authentication. This mechanism has
-    security equivalent to <code>PLAIN</code>, and
-    is <strong>not</strong> enabled by default in the RabbitMQ server.</td>
-  </tr>
+      </td>
+    </tr>
+    <tr>
+      <td>RABBIT-CR-DEMO</td>
+      <td>Non-standard mechanism which demonstrates
+      challenge-response authentication. This mechanism has
+      security equivalent to <code>PLAIN</code>, and
+      is <strong>not</strong> enabled by default in the RabbitMQ server.</td>
+    </tr>
+  </tbody>
 </table>
 
 ### Mechanism Configuration in the Server {#server-mechanism-configuration}

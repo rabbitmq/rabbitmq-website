@@ -71,26 +71,30 @@ To specify a maximum length using policy, add the key
 to a policy definition. For example:
 
 <table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
-```bash
-rabbitmqctl set_policy my-pol "^one-meg$" \
-  '{"max-length-bytes":1048576}' \
-  --apply-to queues
-```
-    </td>
-  </tr>
-  <tr>
-    <th>rabbitmqctl on Windows</th>
-    <td>
-```PowerShell
-rabbitmqctl.bat set_policy my-pol "^one-meg$" ^
-  "{""max-length-bytes"":1048576}" ^
-  --apply-to queues
-```
-    </td>
-  </tr>
+  <thead>
+    <tr>
+      <th>rabbitmqctl</th>
+      <td>
+      ```bash
+      rabbitmqctl set_policy my-pol "^one-meg$" \
+      '{"max-length-bytes":1048576}' \
+      --apply-to queues
+      ```
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>rabbitmqctl on Windows</th>
+      <td>
+      ```PowerShell
+      rabbitmqctl.bat set_policy my-pol "^one-meg$" ^
+      "{""max-length-bytes"":1048576}" ^
+      --apply-to queues
+      ```
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 The `my-pol` policy ensures that the `one-meg`
@@ -103,26 +107,30 @@ or to reject new publishes, add the key `overflow` to a
 policy definition. For example:
 
 <table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
-```bash
-rabbitmqctl set_policy my-pol "^two-messages$" \
-  '{"max-length":2,"overflow":"reject-publish"}' \
-  --apply-to queues
-```
-    </td>
-  </tr>
-  <tr>
-    <th>rabbitmqctl on Windows</th>
-    <td>
-```PowerShell
-rabbitmqctl.bat set_policy my-pol "^two-messages$" ^
-  "{""max-length"":2,""overflow"":""reject-publish""}" ^
-  --apply-to queues
-```
-    </td>
-  </tr>
+  <thead>
+    <tr>
+      <th>rabbitmqctl</th>
+      <td>
+      ```bash
+      rabbitmqctl set_policy my-pol "^two-messages$" \
+      '{"max-length":2,"overflow":"reject-publish"}' \
+      --apply-to queues
+      ```
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>rabbitmqctl on Windows</th>
+      <td>
+      ```PowerShell
+      rabbitmqctl.bat set_policy my-pol "^two-messages$" ^
+      "{""max-length"":2,""overflow"":""reject-publish""}" ^
+      --apply-to queues
+      ```
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 The `my-pol` policy ensures that the `two-messages`

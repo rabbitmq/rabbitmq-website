@@ -180,101 +180,57 @@ in the table in [Topology Operator Environment Variables](#parameters).
 The following table listes the Topology Operator environment variables that are available to set in the deployment manifest.
 
 <table>
-  <tr>
-    <th>
-      Variable Name
-    </th>
-    <th>
-      Effect when Set
-    </th>
-    <th>
-      Effect when not Set
-    </th>
-  </tr>
-  <tr>
-    <td>
-      OPERATOR_SCOPE_NAMESPACE
-    </td>
-    <td>
-      Namespace, or list of namespaces, which the operator will reconcile and watch RabbitmqClusters (independent of installation namespace).
-      Use a comma separator, without spaces e.g. "project-1,project-2,rabbitmq-testing"
-    </td>
-    <td>
-      All namespaces are watched and reconciled
-    </td>
-  </tr>
-  <tr>
-    <td>
-      ENABLE_DEBUG_PPROF
-    </td>
-    <td>
-      The default value is false because this variable should NOT be used in production. When it is set to true, it exposes a set of debug endpoints
-      on the Operator Pod's metrics port for CPU and [memory profiling of the Operator with pprof](./debug-operator).
-    </td>
-    <td>
-      The pprof debug endpoint will not be exposed on the Operator Pod.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      SYNC_PERIOD
-    </td>
-    <td>
-      Configure the operator to reconcile all owned objects periodically. It accepts string values with a time suffix e.g. "15m". It accepts any value
-      parseable by <a href="https://pkg.go.dev/time#ParseDuration" target="_blank">time.ParseDuration</a> function. By default, sync period uses the library
-      default of 10 hours. To disable periodic reconciliation, set the value to `"0"`.
-    </td>
-    <td>
-      Reconciliation will only happen when a resource is updated.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      LEASE_DURATION
-    </td>
-    <td>
-      Time, in seconds, that non-leader candidates will wait to force acquire leadership. This is measured against time of last observed ack.
-      Default is 15 seconds. The value must be a string e.g. `"30"`.
-    </td>
-    <td>
-      Default value is set to 15 seconds.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      RENEW_DEADLINE
-    </td>
-    <td>
-      Renew deadline is the duration that the acting controlplane will retry refreshing leadership before giving up. Default is 10 seconds.
-      The value must be a string e.g. `"10"`.
-    </td>
-    <td>
-      Default value is set to 10 seconds.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      RETRY_PERIOD
-    </td>
-    <td>
-      Retry period is the duration the LeaderElector clients should wait between tries of actions. Default is 2 seconds.
-      The value must be a string e.g. `"3"`.
-    </td>
-    <td>
-      Default value is set to 2 seconds.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      CONNECT_USING_PLAIN_HTTP
-    </td>
-    <td>
-      Communicate with RabbitMQ clusters using plain HTTP, even if a cluster has TLS enabled. Default is `false`.
-    </td>
-    <td>
-      Default value is set to `false` and will communicate via HTTPS.
-    </td>
-  </tr>
+  <thead>
+    <tr>
+      <th>Variable Name</th>
+      <th>Effect when Set</th>
+      <th>Effect when not Set</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>OPERATOR_SCOPE_NAMESPACE</td>
+      <td>Namespace, or list of namespaces, which the operator will reconcile and watch RabbitmqClusters (independent of installation namespace).
+        Use a comma separator, without spaces e.g. "project-1,project-2,rabbitmq-testing"</td>
+      <td>All namespaces are watched and reconciled</td>
+    </tr>
+    <tr>
+      <td>ENABLE_DEBUG_PPROF</td>
+      <td>The default value is false because this variable should NOT be used in production. When it is set to true, it exposes a set of debug endpoints
+        on the Operator Pod's metrics port for CPU and [memory profiling of the Operator with pprof](./debug-operator).</td>
+      <td>The pprof debug endpoint will not be exposed on the Operator Pod.</td>
+    </tr>
+    <tr>
+      <td>SYNC_PERIOD</td>
+      <td>Configure the operator to reconcile all owned objects periodically. It accepts string values with a time suffix e.g. "15m". It accepts any value
+        parseable by <a href="https://pkg.go.dev/time#ParseDuration" target="_blank">time.ParseDuration</a> function. By default, sync period uses the library
+        default of 10 hours. To disable periodic reconciliation, set the value to `"0"`.</td>
+      <td>Reconciliation will only happen when a resource is updated.</td>
+    </tr>
+    <tr>
+      <td>LEASE_DURATION</td>
+      <td>Time, in seconds, that non-leader candidates will wait to force acquire leadership. This is measured against time of last observed ack.
+        Default is 15 seconds. The value must be a string e.g. `"30"`.</td>
+      <td>Default value is set to 15 seconds.</td>
+    </tr>
+    <tr>
+      <td>RENEW_DEADLINE</td>
+      <td>Renew deadline is the duration that the acting controlplane will retry refreshing leadership before giving up. Default is 10 seconds.
+        The value must be a string e.g. `"10"`.</td>
+      <td>Default value is set to 10 seconds.</td>
+    </tr>
+    <tr>
+      <td>RETRY_PERIOD</td>
+      <td>Retry period is the duration the LeaderElector clients should wait between tries of actions. Default is 2 seconds.
+        The value must be a string e.g. `"3"`.</td>
+      <td>Default value is set to 2 seconds.</td>
+    </tr>
+    <tr>
+      <td>CONNECT_USING_PLAIN_HTTP</td>
+      <td>Communicate with RabbitMQ clusters using plain HTTP, even if a cluster has TLS enabled. Default is `false`.</td>
+      <td>Default value is set to `false` and will communicate via HTTPS.</td>
+    </tr>
+  </tbody>
 </table>
 
 ### Older Operator Versions

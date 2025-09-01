@@ -199,72 +199,76 @@ See [Deployment Guidelines](./production-checklist) for general recommendations 
 management.
 
 <table>
-  <tr>
-    <th>Tag</th>
-    <th>Capabilities</th>
-  </tr>
-  <tr>
-    <td>(None)</td>
-    <td>No access to the management plugin</td>
-  </tr>
-  <tr>
-  <td>management</td>
-  <td>
-    Anything the user could do via messaging protocols plus:
-    <ul>
+  <thead>
+    <tr>
+      <th>Tag</th>
+      <th>Capabilities</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>(None)</td>
+      <td>No access to the management plugin</td>
+    </tr>
+    <tr>
+      <td>management</td>
+      <td>
+      Anything the user could do via messaging protocols plus:
+      <ul>
       <li>List virtual hosts to which they can log in via AMQP</li>
       <li>
-        View all queues, exchanges and bindings in "their"
-        virtual hosts
+      View all queues, exchanges and bindings in "their"
+      virtual hosts
       </li>
       <li>View and close their own channels and connections</li>
       <li>
-        View "global" statistics covering all their
-        virtual hosts, including activity by other users
-        within them
+      View "global" statistics covering all their
+      virtual hosts, including activity by other users
+      within them
       </li>
-    </ul>
-  </td>
-  </tr>
-  <tr>
-  <td>policymaker</td>
-  <td>
-    Everything "management" can plus:
-    <ul>
+      </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>policymaker</td>
+      <td>
+      Everything "management" can plus:
+      <ul>
       <li>
-        View, create and delete policies and parameters for virtual
-        hosts to which they can log in via AMQP
+      View, create and delete policies and parameters for virtual
+      hosts to which they can log in via AMQP
       </li>
-    </ul>
-  </td>
-  </tr>
-  <tr>
-  <td>monitoring</td>
-  <td>
-    Everything "management" can plus:
-    <ul>
+      </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>monitoring</td>
+      <td>
+      Everything "management" can plus:
+      <ul>
       <li>
-        List all virtual hosts, including ones they could
-        not access using messaging protocols
+      List all virtual hosts, including ones they could
+      not access using messaging protocols
       </li>
       <li>View other users's connections and channels</li>
       <li>View node-level data such as memory use and clustering</li>
       <li>View truly global statistics for all virtual hosts</li>
-    </ul>
-  </td>
-  </tr>
-  <tr>
-  <td>administrator</td>
-  <td>
-    Everything "policymaker" and "monitoring" can plus:
-    <ul>
+      </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>administrator</td>
+      <td>
+      Everything "policymaker" and "monitoring" can plus:
+      <ul>
       <li>Create and delete virtual hosts</li>
       <li>View, create and delete users</li>
       <li>View, create and delete permissions</li>
       <li>Close other users's connections</li>
-    </ul>
-  </td>
-  </tr>
+      </ul>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 Note that since "administrator" does everything "monitoring"

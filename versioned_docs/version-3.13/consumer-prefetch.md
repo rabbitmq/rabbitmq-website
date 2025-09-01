@@ -40,21 +40,25 @@ Therefore RabbitMQ redefines the meaning of the
 `global` flag in the `basic.qos` method:
 
 <table class="styled-table">
-  <tr>
-    <th><code>global</code></th>
-    <th>Meaning of <code>prefetch_count</code> in AMQP 0-9-1</th>
-    <th>Meaning of <code>prefetch_count</code> in RabbitMQ</th>
-  </tr>
-  <tr>
-    <th>false</th>
-    <td>shared across all consumers on the channel</td>
-    <td>applied separately to each new consumer on the channel</td>
-  </tr>
-  <tr>
-    <th>true</th>
-    <td>shared across all consumers on the connection</td>
-    <td>shared across all consumers on the channel</td>
-  </tr>
+  <thead>
+    <tr>
+      <th><code>global</code></th>
+      <th>Meaning of <code>prefetch_count</code> in AMQP 0-9-1</th>
+      <th>Meaning of <code>prefetch_count</code> in RabbitMQ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>false</th>
+      <td>shared across all consumers on the channel</td>
+      <td>applied separately to each new consumer on the channel</td>
+    </tr>
+    <tr>
+      <th>true</th>
+      <td>shared across all consumers on the connection</td>
+      <td>shared across all consumers on the channel</td>
+    </tr>
+  </tbody>
 </table>
 
 Note that the default value for the `global` flag is

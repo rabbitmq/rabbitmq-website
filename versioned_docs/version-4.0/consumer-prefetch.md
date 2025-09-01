@@ -41,14 +41,18 @@ when it comes to how the prefetch is applied to multiple consumers
 on a channel:
 
 <table class="styled-table">
-  <tr>
-    <th>Meaning of <code>prefetch_count</code> in AMQP 0-9-1</th>
-    <th>Meaning of <code>prefetch_count</code> in RabbitMQ</th>
-  </tr>
-  <tr>
-    <td>shared across all consumers on the channel</td>
-    <td>applied separately to each new consumer on the channel</td>
-  </tr>
+  <thead>
+    <tr>
+      <th>Meaning of <code>prefetch_count</code> in AMQP 0-9-1</th>
+      <th>Meaning of <code>prefetch_count</code> in RabbitMQ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>shared across all consumers on the channel</td>
+      <td>applied separately to each new consumer on the channel</td>
+    </tr>
+  </tbody>
 </table>
 
 ## Single Consumer {#single-consumer}

@@ -1215,7 +1215,6 @@ TLS version by default, as demonstrated in the below table.
       <td><strong>TLS Versions Enabled by Default</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>27.x</td>

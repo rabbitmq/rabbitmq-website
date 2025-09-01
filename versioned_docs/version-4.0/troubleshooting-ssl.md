@@ -215,30 +215,30 @@ The example will assume you have the following [certificate and key files](./ssl
 (these filenames are used by [tls-gen](https://github.com/rabbitmq/tls-gen)):
 
 <table>
-  <tr>
-   <td>Item</td>
-   <td>Location</td>
-  </tr>
-  <tr>
-   <td>CA certificate (public key)</td>
-   <td>`ca_certificate.pem`</td>
-  </tr>
-  <tr>
-   <td>Server certificate (public key)</td>
-   <td>`server_certificate.pem`</td>
-  </tr>
-  <tr>
-   <td>Server private key</td>
-   <td>`server_key.pem`</td>
-  </tr>
-  <tr>
-   <td>Client certificate (public key)</td>
-   <td>`client_certificate.pem`</td>
-  </tr>
-  <tr>
-   <td>Client private key</td>
-   <td>`client_key.pem`</td>
-  </tr>
+    <tr>
+      <td>Item</td>
+      <td>Location</td>
+    </tr>
+    <tr>
+      <td>CA certificate (public key)</td>
+      <td>`ca_certificate.pem`</td>
+    </tr>
+    <tr>
+      <td>Server certificate (public key)</td>
+      <td>`server_certificate.pem`</td>
+    </tr>
+    <tr>
+      <td>Server private key</td>
+      <td>`server_key.pem`</td>
+    </tr>
+    <tr>
+      <td>Client certificate (public key)</td>
+      <td>`client_certificate.pem`</td>
+    </tr>
+    <tr>
+      <td>Client private key</td>
+      <td>`client_key.pem`</td>
+    </tr>
 </table>
 
 In one terminal window or tab execute the following command:
@@ -395,23 +395,23 @@ of TLS-related errors. What follows is a list of the most common error entries:
     </tr>
   </thead>
 
-  <tr>
-    <td>
+    <tr>
+      <td>
       Entries containing `{undef, [{crypto,hash,...`
-    </td>
-    <td>
+      </td>
+      <td>
       The `crypto` module is missing in the Erlang/OTP installation
       used or it is out of date. On Debian, Ubuntu, and other Debian-derived distributions
       it usually means that the [erlang-ssl](http://packages.ubuntu.com/search?keywords=erlang-ssl) package was not installed.
-    </td>
-  </tr>
+      </td>
+    </tr>
 
-  <tr>
-    <td>
+    <tr>
+      <td>
       Entries containing `{ssl_upgrade_error, ekeyfile}`
       or `{ssl_upgrade_error, ecertfile}`
-    </td>
-    <td>
+      </td>
+      <td>
       This means the broker keyfile or certificate file is invalid.
       Confirm that the keyfile matches the certificate and that both are in PEM format.
       PEM format is a printable encoding with recognisable delimiters. The certificate
@@ -419,41 +419,41 @@ of TLS-related errors. What follows is a list of the most common error entries:
       `-----END CERTIFICATE-----` respectively. The keyfile will likewise
       start and end with `-----BEGIN RSA PRIVATE KEY-----` and
       `-----END RSA PRIVATE KEY-----` respectively.
-    </td>
-  </tr>
+      </td>
+    </tr>
 
-  <tr>
-    <td>
+    <tr>
+      <td>
       Entries containing `{ssl_upgrade_failure, ... certify ...}`
-    </td>
-    <td>
+      </td>
+      <td>
       This error is related to client verification. The client is presenting an invalid
       certificate or no certificate. If the ssl_options has the `verify` option
       set to `verify_peer` then try using the value `verify_none`
       temporarily. Ensure that the client certificate has been generated correctly, and that
       the client is presenting the correct certificate.
-    </td>
-  </tr>
+      </td>
+    </tr>
 
-  <tr>
-    <td>
+    <tr>
+      <td>
       Entries containing `{ssl_upgrade_error, ...}`
-    </td>
-    <td>
+      </td>
+      <td>
       This is a generic error that could have many causes. Make sure you are
       using the recommended version of Erlang.
-    </td>
-  </tr>
+      </td>
+    </tr>
 
-  <tr>
-    <td>
+    <tr>
+      <td>
       Entries containing `{tls_alert,"bad record mac"}`
-    </td>
-    <td>
+      </td>
+      <td>
       The server has tried verifying integrity of a piece of data it received
       and the check failed. This can be due to problematic network equipment, unintentional
       socket sharing in the client (e.g. due to the use of `fork(2)`) or a bug
       in the client implementation of TLS.
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>

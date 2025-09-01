@@ -143,7 +143,6 @@ They are described in the table below.
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>reconnect-delay</td>
@@ -200,7 +199,6 @@ AMQP 0-9-1-specific source keys are covered in a separate table:
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>declarations</td>
@@ -333,7 +331,6 @@ AMQP 1.0 source settings are different from those of AMQP 0-9-1 sources.
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>source_address</td>
@@ -376,7 +373,6 @@ Local shovel's specific source keys are covered in a separate table:
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>declarations</td>
@@ -534,7 +530,6 @@ are available to static shovels, such as TLS certificate and private key.
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>reconnect-delay</td>
@@ -564,7 +559,6 @@ are available to static shovels, such as TLS certificate and private key.
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>publish_properties</td>
@@ -689,7 +683,6 @@ are available to static shovels, such as TLS certificate and private key.
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>target_address</td>
@@ -783,7 +776,6 @@ are available to static shovels, such as TLS certificate and private key.
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>add_timestamp_header</td>

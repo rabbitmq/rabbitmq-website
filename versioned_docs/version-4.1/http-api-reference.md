@@ -1842,32 +1842,32 @@ page attempts to document them.
 </p>
 
 <table>
-  <tr>
-    <td><code>avg</code></td>
-    <td>
+    <tr>
+      <td><code>avg</code></td>
+      <td>
       The average value for the requested time period (see below).
-    </td>
-  </tr>
-  <tr>
-    <td><code>avg_rate</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>avg_rate</code></td>
+      <td>
       The average rate for the requested time period.
-    </td>
-  </tr>
-  <tr>
-    <td><code>rate</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>rate</code></td>
+      <td>
       How much the count has changed per second in the most recent
       sampling interval.
-    </td>
-  </tr>
-  <tr>
-    <td><code>samples</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>samples</code></td>
+      <td>
       Snapshots showing how the value has changed over the
       requested time period.
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>
 
 <p>
@@ -1887,22 +1887,22 @@ page attempts to document them.
 </p>
 
 <table>
-  <tr>
-    <td>Messages sent and received</td>
-    <td>`msg_rates_age` / `msg_rates_incr`</td>
-  </tr>
-  <tr>
-    <td>Bytes sent and received</td>
-    <td>`data_rates_age` / `data_rates_incr`</td>
-  </tr>
-  <tr>
-    <td>Queue lengths</td>
-    <td>`lengths_age` / `lengths_incr`</td>
-  </tr>
-  <tr>
-    <td>Node statistics (e.g. file descriptors, disk space free)</td>
-    <td>`node_stats_age` / `node_stats_incr`</td>
-  </tr>
+    <tr>
+      <td>Messages sent and received</td>
+      <td>`msg_rates_age` / `msg_rates_incr`</td>
+    </tr>
+    <tr>
+      <td>Bytes sent and received</td>
+      <td>`data_rates_age` / `data_rates_incr`</td>
+    </tr>
+    <tr>
+      <td>Queue lengths</td>
+      <td>`lengths_age` / `lengths_incr`</td>
+    </tr>
+    <tr>
+      <td>Node statistics (e.g. file descriptors, disk space free)</td>
+      <td>`node_stats_age` / `node_stats_incr`</td>
+    </tr>
 </table>
 
 <p>
@@ -1925,83 +1925,83 @@ page attempts to document them.
 </p>
 
 <table>
-  <tr>
-    <td><code>publish</code></td>
-    <td>
+    <tr>
+      <td><code>publish</code></td>
+      <td>
       Count of messages published.
-    </td>
-  </tr>
-  <tr>
-    <td><code>publish_in</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>publish_in</code></td>
+      <td>
       Count of messages published "in" to an exchange, i.e. not
       taking account of routing.
-    </td>
-  </tr>
-  <tr>
-    <td><code>publish_out</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>publish_out</code></td>
+      <td>
       Count of messages published "out" of an exchange,
       i.e. taking account of routing.
-    </td>
-  </tr>
-  <tr>
-    <td><code>confirm</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>confirm</code></td>
+      <td>
       Count of messages confirmed.
-    </td>
-  </tr>
-  <tr>
-    <td><code>deliver</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>deliver</code></td>
+      <td>
       Count of messages delivered in acknowledgement mode to consumers.
-    </td>
-  </tr>
-  <tr>
-    <td><code>deliver_no_ack</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>deliver_no_ack</code></td>
+      <td>
       Count of messages delivered in no-acknowledgement mode to consumers.
-    </td>
-  </tr>
-  <tr>
-    <td><code>get</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>get</code></td>
+      <td>
       Count of messages delivered in acknowledgement mode in
       response to basic.get.
-    </td>
-  </tr>
-  <tr>
-    <td><code>get_no_ack</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>get_no_ack</code></td>
+      <td>
       Count of messages delivered in no-acknowledgement mode in
       response to basic.get.
-    </td>
-  </tr>
-  <tr>
-    <td><code>deliver_get</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>deliver_get</code></td>
+      <td>
       Sum of all four of the above.
-    </td>
-  </tr>
-  <tr>
-    <td><code>redeliver</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>redeliver</code></td>
+      <td>
       Count of subset of messages in <code>deliver_get</code>
       which had the redelivered flag set.
-    </td>
-  </tr>
-  <tr>
-    <td><code>drop_unroutable</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>drop_unroutable</code></td>
+      <td>
       Count of messages dropped as unroutable.
-    </td>
-  </tr>
-  <tr>
-    <td><code>return_unroutable</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>return_unroutable</code></td>
+      <td>
       Count of messages returned to the publisher as unroutable.
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>
 
 <p>
@@ -2076,114 +2076,114 @@ page attempts to document them.
 </p>
 
 <table>
-  <tr>
-    <td><code>cluster_name</code></td>
-    <td>
+    <tr>
+      <td><code>cluster_name</code></td>
+      <td>
       The name of the entire cluster, as set with <code>rabbitmqctl
       set_cluster_name</code>.
-    </td>
-  </tr>
-  <tr>
-    <td><code>contexts</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>contexts</code></td>
+      <td>
       A list of web application contexts in the cluster.
-    </td>
-  </tr>
-  <tr>
-    <td><code>erlang_full_version</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>erlang_full_version</code></td>
+      <td>
       A string with extended detail about the Erlang VM and how it
       was compiled, for the node connected to.
-    </td>
-  </tr>
-  <tr>
-    <td><code>erlang_version</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>erlang_version</code></td>
+      <td>
       A string with the Erlang version of the node connected
       to. As clusters should all run the same version this can be
       taken as representing the cluster.
-    </td>
-  </tr>
-  <tr>
-    <td><code>exchange_types</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>exchange_types</code></td>
+      <td>
       A list of all exchange types available.
-    </td>
-  </tr>
-  <tr>
-    <td><code>listeners</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>listeners</code></td>
+      <td>
       All (non-HTTP) network listeners for all nodes in the
       cluster. (See <code>contexts</code>
       in <code>/api/nodes</code> for HTTP).
-    </td>
-  </tr>
-  <tr>
-    <td><code>management_version</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>management_version</code></td>
+      <td>
       Version of the management plugin in use.
-    </td>
-  </tr>
-  <tr>
-    <td><code>message_stats</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>message_stats</code></td>
+      <td>
       A message_stats object for everything the user can see - for
       all vhosts regardless of permissions in the case
       of <code>monitoring</code> and <code>administrator</code>
       users, and for all vhosts the user has access to for other
       users.
-    </td>
-  </tr>
-  <tr>
-    <td><code>node</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>node</code></td>
+      <td>
       The name of the cluster node this management plugin instance
       is running on.
-    </td>
-  </tr>
-  <tr>
-    <td><code>object_totals</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>object_totals</code></td>
+      <td>
       An object containing global counts of all connections,
       channels, exchanges, queues and consumers, subject to the
       same visibility rules as for <code>message_stats</code>.
-    </td>
-  </tr>
-  <tr>
-    <td><code>queue_totals</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>queue_totals</code></td>
+      <td>
       An object containing sums of
       the <code>messages</code>, <code>messages_ready</code>
       and <code>messages_unacknowledged</code> fields for all
       queues, again subject to the same visibility rules as
       for <code>message_stats</code>.
-    </td>
-  </tr>
-  <tr>
-    <td><code>rabbitmq_version</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>rabbitmq_version</code></td>
+      <td>
       Version of RabbitMQ on the node which processed this request.
-    </td>
-  </tr>
-  <tr>
-    <td><code>rates_mode</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>rates_mode</code></td>
+      <td>
       'none', 'basic' or 'detailed'.
-    </td>
-  </tr>
-  <tr>
-    <td><code>statistics_db_event_queue</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>statistics_db_event_queue</code></td>
+      <td>
       Number of outstanding statistics events yet to be processed
       by the database.
-    </td>
-  </tr>
-  <tr>
-    <td><code>statistics_db_node</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>statistics_db_node</code></td>
+      <td>
       Name of the cluster node hosting the management statistics database.
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>
 
 <h2>/api/nodes</h2>
@@ -2193,174 +2193,174 @@ page attempts to document them.
 </p>
 
 <table>
-  <tr>
-    <td><code>applications</code></td>
-    <td>
+    <tr>
+      <td><code>applications</code></td>
+      <td>
       List of all Erlang applications running on the node.
-    </td>
-  </tr>
-  <tr>
-    <td><code>auth_mechanisms</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>auth_mechanisms</code></td>
+      <td>
       List of all SASL authentication mechanisms installed on the node.
-    </td>
-  </tr>
-  <tr>
-    <td><code>cluster_links</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>cluster_links</code></td>
+      <td>
       A list of the other nodes in the cluster. For each node,
       there are details of the TCP connection used to connect to
       it and statistics on data that has been transferred.
-    </td>
-  </tr>
-  <tr>
-    <td><code>config_files</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>config_files</code></td>
+      <td>
       List of config files read by the node.
-    </td>
-  </tr>
-  <tr>
-    <td><code>contexts</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>contexts</code></td>
+      <td>
       List of all HTTP listeners on the node.
-    </td>
-  </tr>
-  <tr>
-    <td><code>db_dir</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>db_dir</code></td>
+      <td>
       Location of the persistent storage used by the node.
-    </td>
-  </tr>
-  <tr>
-    <td><code>disk_free</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>disk_free</code></td>
+      <td>
       Disk free space in bytes.
-    </td>
-  </tr>
-  <tr>
-    <td><code>disk_free_alarm</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>disk_free_alarm</code></td>
+      <td>
       Whether the disk alarm has gone off.
-    </td>
-  </tr>
-  <tr>
-    <td><code>disk_free_limit</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>disk_free_limit</code></td>
+      <td>
       Point at which the disk alarm will go off.
-    </td>
-  </tr>
-  <tr>
-    <td><code>enabled_plugins</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>enabled_plugins</code></td>
+      <td>
       List of plugins which are both explicitly enabled and running.
-    </td>
-  </tr>
-  <tr>
-    <td><code>exchange_types</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>exchange_types</code></td>
+      <td>
       Exchange types available on the node.
-    </td>
-  </tr>
-  <tr>
-    <td><code>log_files</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>log_files</code></td>
+      <td>
       List of log files used by the node. If the node also sends
       messages to stdout, "<code>&lt;stdout&gt;</code>" is also
       reported in the list.
-    </td>
-  </tr>
-  <tr>
-    <td><code>mem_used</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>mem_used</code></td>
+      <td>
       Memory used in bytes.
-    </td>
-  </tr>
-  <tr>
-    <td><code>mem_alarm</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>mem_alarm</code></td>
+      <td>
       Whether the memory alarm has gone off.
-    </td>
-  </tr>
-  <tr>
-    <td><code>mem_limit</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>mem_limit</code></td>
+      <td>
       Point at which the memory alarm will go off.
-    </td>
-  </tr>
-  <tr>
-    <td><code>name</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>name</code></td>
+      <td>
       Node name.
-    </td>
-  </tr>
-  <tr>
-    <td><code>net_ticktime</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>net_ticktime</code></td>
+      <td>
       Current kernel net_ticktime setting for the node.
-    </td>
-  </tr>
-  <tr>
-    <td><code>os_pid</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>os_pid</code></td>
+      <td>
       Process identifier for the Operating System under which this
       node is running.
-    </td>
-  </tr>
-  <tr>
-    <td><code>partitions</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>partitions</code></td>
+      <td>
       List of network partitions this node is seeing.
-    </td>
-  </tr>
-  <tr>
-    <td><code>proc_total</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>proc_total</code></td>
+      <td>
       Maximum number of Erlang processes.
-    </td>
-  </tr>
-  <tr>
-    <td><code>proc_used</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>proc_used</code></td>
+      <td>
       Number of Erlang processes in use.
-    </td>
-  </tr>
-  <tr>
-    <td><code>rates_mode</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>rates_mode</code></td>
+      <td>
       'none', 'basic' or 'detailed'.
-    </td>
-  </tr>
-  <tr>
-    <td><code>run_queue</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>run_queue</code></td>
+      <td>
       Average number of Erlang processes waiting to run.
-    </td>
-  </tr>
-  <tr>
-    <td><code>running</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>running</code></td>
+      <td>
       Boolean for whether this node is up. Obviously if this is
       false, most other stats will be missing.
-    </td>
-  </tr>
-  <tr>
-    <td><code>type</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>type</code></td>
+      <td>
       'disc' or 'ram'.
-    </td>
-  </tr>
-  <tr>
-    <td><code>uptime</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>uptime</code></td>
+      <td>
       Time since the Erlang VM started, in milliseconds.
-    </td>
-  </tr>
-  <tr>
-    <td><code>processors</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>processors</code></td>
+      <td>
       Number of logical CPU cores used by RabbitMQ.
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>
 
 <h2>/api/nodes/(name)</h2>
@@ -2370,22 +2370,22 @@ page attempts to document them.
 </p>
 
 <table>
-  <tr>
-    <td><code>memory</code></td>
-    <td>
+    <tr>
+      <td><code>memory</code></td>
+      <td>
       Detailed memory use statistics. Only appears
       if <code>?memory=true</code> is appended to the URL.
-    </td>
-  </tr>
-  <tr>
-    <td><code>binary</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>binary</code></td>
+      <td>
       Detailed breakdown of the owners of binary memory. Only
       appears if <code>?binary=true</code> is appended to the
       URL. Note that this can be an expensive query if there are
       many small binaries in the system.
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>
 
 <h2>/api/connections</h2>
@@ -2412,18 +2412,18 @@ page attempts to document them.
 </p>
 
 <table>
-  <tr>
-    <td><code>connection_details</code></td>
-    <td>
+    <tr>
+      <td><code>connection_details</code></td>
+      <td>
       Some basic details about the owning connection.
-    </td>
-  </tr>
-  <tr>
-    <td><code>message_stats</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>message_stats</code></td>
+      <td>
       See the section on message_stats above.
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>
 
 <h2>/api/channels/(name)</h2>
@@ -2433,25 +2433,25 @@ page attempts to document them.
 </p>
 
 <table>
-  <tr>
-    <td><code>publishes</code></td>
-    <td>
+    <tr>
+      <td><code>publishes</code></td>
+      <td>
       Detailed message stats (see section above) for publishes to
       exchanges.
-    </td>
-  </tr>
-  <tr>
-    <td><code>deliveries</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>deliveries</code></td>
+      <td>
       Detailed message stats for deliveries from queues.
-    </td>
-  </tr>
-  <tr>
-    <td><code>consumer_details</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>consumer_details</code></td>
+      <td>
       List of consumers on this channel, with some details on each.
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>
 
 <h2>/api/exchanges</h2>
@@ -2462,12 +2462,12 @@ page attempts to document them.
 </p>
 
 <table>
-  <tr>
-    <td><code>message_stats</code></td>
-    <td>
+    <tr>
+      <td><code>message_stats</code></td>
+      <td>
       See the section on message_stats above.
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>
 
 <h2>/api/exchanges/(vhost)/(name)</h2>
@@ -2477,20 +2477,20 @@ page attempts to document them.
 </p>
 
 <table>
-  <tr>
-    <td><code>incoming</code></td>
-    <td>
+    <tr>
+      <td><code>incoming</code></td>
+      <td>
       Detailed message stats (see section above) for publishes
       from channels into this exchange.
-    </td>
-  </tr>
-  <tr>
-    <td><code>outgoing</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>outgoing</code></td>
+      <td>
       Detailed message stats for publishes from this exchange into
       queues.
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>
 
 <h2>/api/queues</h2>
@@ -2499,78 +2499,78 @@ When using the query parameters combination of <code>disable_stats</code> and
 <code>enable_queue_totals</code> this query returns the following fields:
 
 <table>
-  <tr>
-    <td><code>name</code></td>
-    <td>
+    <tr>
+      <td><code>name</code></td>
+      <td>
       The name of the queue.
-    </td>
-  </tr>
-  <tr>
-    <td><code>vhost</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>vhost</code></td>
+      <td>
       The name of the virtual host.
-    </td>
-  </tr>
-  <tr>
-    <td><code>type</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>type</code></td>
+      <td>
       The type of the queue.
-    </td>
-  </tr>
-  <tr>
-    <td><code>node</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>node</code></td>
+      <td>
       Depending on the type of the queue, this is the node which holds the queue or hosts the leader.
-    </td>
-  </tr>
-  <tr>
-    <td><code>state</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>state</code></td>
+      <td>
       The status of the queue.
-    </td>
-  </tr>
-  <tr>
-    <td><code>arguments</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>arguments</code></td>
+      <td>
       The arguments of the queue.
-    </td>
-  </tr>
-  <tr>
-    <td><code>auto_delete</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>auto_delete</code></td>
+      <td>
       The value of the <code>auto_delete</code> argument.
-    </td>
-  </tr>
-  <tr>
-    <td><code>durable</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>durable</code></td>
+      <td>
       The value of the <code>durable</code> argument.
-    </td>
-  </tr>
-  <tr>
-    <td><code>exclusive</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>exclusive</code></td>
+      <td>
       The value of the <code>exclusive</code> argument.
-    </td>
-  </tr>
-  <tr>
-    <td><code>messages</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>messages</code></td>
+      <td>
       The total number of messages in the queue.
-    </td>
-  </tr>
-  <tr>
-    <td><code>messages_ready</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>messages_ready</code></td>
+      <td>
       The number of messages ready to be delivered in the queue.
-    </td>
-  </tr>
-  <tr>
-    <td><code>messages_unacknowledged</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>messages_unacknowledged</code></td>
+      <td>
       The number of messages waiting for acknowledgement in the queue.
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>
 
 <h2>/api/queues/(vhost)</h2>
@@ -2582,12 +2582,12 @@ When using the query parameters combination of <code>disable_stats</code> and
 </p>
 
 <table>
-  <tr>
-    <td><code>message_stats</code></td>
-    <td>
+    <tr>
+      <td><code>message_stats</code></td>
+      <td>
       See the section on message_stats above.
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>
 
 <h2>/api/queues/(vhost)/(name)</h2>
@@ -2597,26 +2597,26 @@ When using the query parameters combination of <code>disable_stats</code> and
 </p>
 
 <table>
-  <tr>
-    <td><code>incoming</code></td>
-    <td>
+    <tr>
+      <td><code>incoming</code></td>
+      <td>
       Detailed message stats (see section above) for
       publishes from exchanges into this queue.
-    </td>
-  </tr>
-  <tr>
-    <td><code>deliveries</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>deliveries</code></td>
+      <td>
       Detailed message stats for deliveries from this queue into
       channels.
-    </td>
-  </tr>
-  <tr>
-    <td><code>consumer_details</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>consumer_details</code></td>
+      <td>
       List of consumers on this channel, with some details on each.
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>
 
 <h2>/api/vhosts/</h2>
@@ -2628,26 +2628,26 @@ When using the query parameters combination of <code>disable_stats</code> and
 </p>
 
 <table>
-  <tr>
-    <td><code>message_stats</code></td>
-    <td>
+    <tr>
+      <td><code>message_stats</code></td>
+      <td>
       Global message_stats for this vhost. Note that activity for
       other users in this vhost <b>is</b> shown, even for users
       without the <code>monitoring</code> tag.
-    </td>
-  </tr>
-  <tr>
-    <td><code>messages</code> <code>messages_ready</code> <code>messages_acknowledged</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>messages</code> <code>messages_ready</code> <code>messages_acknowledged</code></td>
+      <td>
       Sum of these fields for all queues in the vhost.
-    </td>
-  </tr>
-  <tr>
-    <td><code>recv_oct</code> <code>send_oct</code></td>
-    <td>
+      </td>
+    </tr>
+    <tr>
+      <td><code>recv_oct</code> <code>send_oct</code></td>
+      <td>
       Sum of these fields for all connections to the vhost.
-    </td>
-  </tr>
+      </td>
+    </tr>
 </table>
 
 <section id="pagination">
@@ -2674,63 +2674,63 @@ When using the query parameters combination of <code>disable_stats</code> and
     Below are the query parameters that can be used.
 
     <table>
-      <thead>
-        <tr>Parameter Name</tr>
-        <tr>Data Type</tr>
-        <tr>Description</tr>
-      </thead>
-      <tr>
-        <td><code>page</code></td>
-        <td>Positive integer</td>
-        <td>
-          Page number
-        </td>
-      </tr>
-      <tr>
-        <td><code>page_size</code></td>
-        <td>Positive integer</td>
-        <td>
-          Number of elements for page (default value: 100, maximum supported value: 500)
-        </td>
-      </tr>
-      <tr>
-        <td><code>name</code></td>
-        <td>String</td>
-        <td>
-          Filter by name, for example queue name, exchange name etc.
-        </td>
-      </tr>
-      <tr>
-        <td><code>use_regex</code></td>
-        <td>Boolean</td>
-        <td>
-          Enables regular expression for the param name
-        </td>
-      </tr>
-    </table>
+  <thead>
+    <tr>Parameter Name</tr>
+    <tr>Data Type</tr>
+    <tr>Description</tr>
+  </thead>
+    <tr>
+      <td><code>page</code></td>
+      <td>Positive integer</td>
+      <td>
+      Page number
+      </td>
+    </tr>
+    <tr>
+      <td><code>page_size</code></td>
+      <td>Positive integer</td>
+      <td>
+      Number of elements for page (default value: 100, maximum supported value: 500)
+      </td>
+    </tr>
+    <tr>
+      <td><code>name</code></td>
+      <td>String</td>
+      <td>
+      Filter by name, for example queue name, exchange name etc.
+      </td>
+    </tr>
+    <tr>
+      <td><code>use_regex</code></td>
+      <td>Boolean</td>
+      <td>
+      Enables regular expression for the param name
+      </td>
+    </tr>
+</table>
   </p>
 
   <p>
     Examples:
     <table>
-      <tr>
-        <td><code>http://localhost:15672/api/queues?page=1&page_size=50</code></td>
-        <td>
-          Fetches the first queue page with 50 elements
-        </td>
-      </tr>
-      <tr>
-        <td><code>http://localhost:15672/api/queues/my-vhost?page=1&page_size=100&name=&use_regex=false&pagination=true</code></td>
-        <td>
-          Filter the first queues page for the virtual host "my-vhost"
-        </td>
-      </tr>
-      <tr>
-        <td><code>http://localhost:15672/api/exchanges?page=1&page_size=100&name=%5Eamq&use_regex=true&pagination=true</code></td>
-        <td>
-          Filter the first exchanges page, 100 elements, with named filtered using the regular expression "^amq"
-        </td>
-      </tr>
-    </table>
+    <tr>
+      <td><code>http://localhost:15672/api/queues?page=1&page_size=50</code></td>
+      <td>
+      Fetches the first queue page with 50 elements
+      </td>
+    </tr>
+    <tr>
+      <td><code>http://localhost:15672/api/queues/my-vhost?page=1&page_size=100&name=&use_regex=false&pagination=true</code></td>
+      <td>
+      Filter the first queues page for the virtual host "my-vhost"
+      </td>
+    </tr>
+    <tr>
+      <td><code>http://localhost:15672/api/exchanges?page=1&page_size=100&name=%5Eamq&use_regex=true&pagination=true</code></td>
+      <td>
+      Filter the first exchanges page, 100 elements, with named filtered using the regular expression "^amq"
+      </td>
+    </tr>
+</table>
   </p>
 </section>

@@ -816,7 +816,6 @@ The built-in mechanisms are:
       <td>Description</td>
     </tr>
   </thead>
-
   <tr>
     <td>PLAIN</td>
     <td>

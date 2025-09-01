@@ -66,7 +66,6 @@ for different areas:
     <td><strong>Mechanism</strong></td>
     <td><strong>Description</strong></td>
   </thead>
-
   <tr>
     <td>
       [Configuration File(s)](#configuration-files)
@@ -261,7 +260,6 @@ cannot express. This is covered in more detail in the following sections.
       <td><strong>Purpose</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>`rabbitmq.conf`</td>
@@ -495,7 +493,6 @@ any configuration files. Users and deployment tool should use the following loca
       <td><strong>Example Configuration File Paths</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>

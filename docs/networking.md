@@ -1089,7 +1089,6 @@ are effective for both IPv4 and IPv6 connections):
       <th>Description</th>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td><code>fs.file-max</code></td>
@@ -1203,7 +1202,6 @@ TCP stack tuning is a broad topic that is covered in much detail elsewhere:
       <th>Description</th>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td><code>tcp_listen_options.nodelay</code></td>
