@@ -86,6 +86,27 @@ list of subfields separated by dots. See the example below.</p>
   to <code>true</code>
 </p>
 
+
+## Deprecated Endpoints
+
+:::danger
+
+Avoid relying on deprecated endpoints. They eventually become no-ops
+or can be removed entirely.
+
+:::
+
+### GET /api/aliveness-test
+
+`GET /api/aliveness-test` is an HTTP API equivalent of `rabbitmqctl node_health_check`:
+a long deprecated intrusive, opinionated health check command that has been a no-op
+since `4.0`.
+
+This endpoint has been deprecated since 2021 and is a no-op starting
+with RabbitMQ `4.1.0`.
+
+
+
 ## Endpoint Reference
 
 :::tip
