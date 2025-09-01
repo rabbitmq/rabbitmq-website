@@ -248,13 +248,13 @@ default this is `/opt/homebrew` on Apple Silicon-based Macs.
       <td>RABBITMQ_PLUGINS_DIR</td>
       <td>
       `/usr/lib/rabbitmq/plugins:$RABBITMQ_HOME/plugins`
-      <p>
+      <div>
       <small>
       Note that `/usr/lib/rabbitmq/plugins`
       is used only when RabbitMQ is <a href="./installing-plugins">installed</a>
       into the standard (default) location.
       </small>
-      </p>
+      </div>
       </td>
     </tr>
 

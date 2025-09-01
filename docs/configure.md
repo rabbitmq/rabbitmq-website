@@ -677,12 +677,12 @@ some settings are quite obscure.
       (without [TLS](./ssl)). See the [Networking guide](./networking) for more
       details and examples.
 
-      <p>
+      <div>
         Default:
 ```ini
 listeners.tcp.default = 5672
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -691,19 +691,19 @@ listeners.tcp.default = 5672
       Ports or hostname/pair on which to listen for TLS-enabled AMQP 0-9-1 and AMQP 1.0 connections.
       See the [TLS guide](./ssl) for more
       details and examples.
-      <p>Default: `none` (not set)</p>
+      <div>Default: `none` (not set)</div>
     </td>
   </tr>
   <tr>
     <td>`ssl_options`</td>
     <td>
       TLS configuration. See the [TLS guide](ssl#enabling-tls).
-      <p>
+      <div>
         Default:
 ```ini
 ssl_options = none
 ```
-        </p>
+        </div>
     </td>
   </tr>
   <tr>
@@ -711,24 +711,24 @@ ssl_options = none
     <td>
       Number of Erlang processes that will accept connections for the TCP
       listeners.
-      <p>
+      <div>
         Default:
 ```ini
 num_acceptors.tcp = 10
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
     <td>`num_acceptors.ssl`</td>
     <td>
       Number of Erlang processes that will accept TLS connections from clients.
-      <p>
+      <div>
         Default:
 ```ini
 num_acceptors.ssl = 10
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -736,12 +736,12 @@ num_acceptors.ssl = 10
     <td>
       Controls what network interface will be used for communication
       with other cluster members and CLI tools.
-      <p>
+      <div>
         Default:
 ```ini
 distribution.listener.interface = 0.0.0.0
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -749,12 +749,12 @@ distribution.listener.interface = 0.0.0.0
     <td>
       Controls the lower bound of a server port range that will be used for communication
       with other cluster members and CLI tools.
-      <p>
+      <div>
         Default:
 ```ini
 distribution.listener.port_range.min = 25672
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -762,12 +762,12 @@ distribution.listener.port_range.min = 25672
     <td>
       Controls the upper bound of a server port range that will be used for communication
       with other cluster members and CLI tools.
-      <p>
+      <div>
         Default:
 ```ini
 distribution.listener.port_range.max = 25672
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -775,24 +775,24 @@ distribution.listener.port_range.max = 25672
     <td>
       Maximum time for AMQP 0-9-1 handshake (after socket connection and TLS handshake),
       in milliseconds.
-      <p>
+      <div>
         Default:
 ```ini
 handshake_timeout = 10000
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
     <td>`ssl_handshake_timeout`</td>
     <td>
       TLS handshake timeout, in milliseconds.
-      <p>
+      <div>
         Default:
 ```ini
 ssl_handshake_timeout = 5000
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -812,13 +812,13 @@ vm_memory_high_watermark.absolute = 2GB
       See the [memory-based flow control](./memory) and
       [alarms](./alarms) documentation.
 
-      <p>
+      <div>
         Default:
 
 ```ini
 vm_memory_high_watermark.relative = 0.6
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -831,12 +831,12 @@ vm_memory_high_watermark.relative = 0.6
         <li>`legacy`: uses legacy memory reporting (how much memory is considered to be used by the runtime). This strategy is fairly inaccurate.</li>
         <li>`erlang`: same as `legacy`, preserved for backwards compatibility</li>
       </ul>
-      <p>
+      <div>
         Default:
 ```ini
 vm_memory_calculation_strategy = rss
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -852,9 +852,9 @@ vm_memory_calculation_strategy = rss
       information units (e.g `8GB`). For example,
       when the value is set to 4 GB, the node will believe it is
       running on a machine with 4 GB of RAM.
-      <p>
+      <div>
         Default: `undefined` (not set or used).
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -873,12 +873,12 @@ disk_free_limit.absolute = 2GB
 
       By default free disk space must exceed 50MB. This must be revisited for [production environments](./production-checklist). See the
       [Disk Alarms](./disk-alarms) documentation.
-      <p>
+      <div>
         Default:
 ```ini
 disk_free_limit.absolute = 50MB
 ```
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -896,39 +896,39 @@ disk_free_limit.absolute = 50MB
       Controls the granularity of logging. The value is a list
       of log event category and log level pairs.
 
-      <p>
+      <div>
 				The level can be one of `error` (only errors are
 				logged), `warning` (only errors and warning are
 				logged), `info` (errors, warnings and informational
 				messages are logged), or `debug` (errors, warnings,
         informational messages and debugging messages are
         logged).
-      </p>
+      </div>
 
-      <p>
+      <div>
         Default:
 ```ini
 log.file.level = info
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
     <td>`session_max_per_connection`</td>
     <td>
         Maximum number of AMQP 1.0 sessions that can be simultaneously active on an AMQP 1.0 connection.
-        <p>Default: `64`</p>
-        <p>Min value: `1`</p>
-        <p>Max value: `65535`</p>
+        <div>Default: `64`</div>
+        <div>Min value: `1`</div>
+        <div>Max value: `65535`</div>
     </td>
   </tr>
   <tr>
     <td>`link_max_per_session`</td>
     <td>
         Maximum number of AMQP 1.0 links that can be simultaneously active on an AMQP 1.0 session.
-        <p>Default: `256`</p>
-        <p>Min value: `1`</p>
-        <p>Max value: `4294967295`</p>
+        <div>Default: `256`</div>
+        <div>Min value: `1`</div>
+        <div>Max value: `4294967295`</div>
     </td>
   </tr>
   <tr>
@@ -938,12 +938,12 @@ log.file.level = info
       negotiate with clients, not including a special channel number 0 used in the protocol.
       Setting to 0 means "unlimited", a dangerous value since applications sometimes have channel leaks.
       Using more channels increases memory footprint of the broker.
-      <p>
+      <div>
         Default:
 ```ini
 channel_max = 2047
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -952,12 +952,12 @@ channel_max = 2047
       Channel operation timeout in milliseconds (used internally, not directly
       exposed to clients due to messaging protocol differences and limitations).
 
-      <p>
+      <div>
         Default:
 ```ini
 channel_operation_timeout = 15000
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -965,8 +965,8 @@ channel_operation_timeout = 15000
     <td>
         The largest allowed message payload size in bytes. Messages
         of larger size will be rejected with a suitable channel exception.
-        <p>Default: `16777216`</p>
-        <p>Max value: `536870912`</p>
+        <div>Default: `16777216`</div>
+        <div>Max value: `536870912`</div>
     </td>
   </tr>
   <tr>
@@ -977,12 +977,12 @@ channel_operation_timeout = 15000
       If set to 0 on both ends, heartbeats are deactivated (this is not recommended).
       See the [Heartbeats guide](./heartbeats) for details.
 
-      <p>
+      <div>
         Default:
 ```ini
 heartbeat = 60
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -992,12 +992,12 @@ heartbeat = 60
       database from scratch. The
       exchange `amq.rabbitmq.log` will exist in
       this virtual host.
-      <p>
+      <div>
         Default:
 ```ini
 default_vhost = /
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1005,36 +1005,36 @@ default_vhost = /
     <td>
       User name to create when RabbitMQ creates a new database
       from scratch.
-      <p>
+      <div>
         Default:
 ```ini
 default_user = guest
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
     <td>`default_pass`</td>
     <td>
       Password for the default user.
-      <p>
+      <div>
         Default:
 ```ini
 default_pass = guest
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
     <td>`default_user_tags`</td>
     <td>
       Tags for the default user.
-      <p>
+      <div>
         Default:
 ```ini
 default_user_tags.administrator = true
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1042,7 +1042,7 @@ default_user_tags.administrator = true
     <td>
       [Permissions](./access-control)
       to assign to the default user when creating it.
-      <p>
+      <div>
         Default:
 
 ```ini
@@ -1050,7 +1050,7 @@ default_permissions.configure = .*
 default_permissions.read = .*
 default_permissions.write = .*
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1059,7 +1059,7 @@ default_permissions.write = .*
       List of users which are only permitted to connect to the
       broker via a loopback interface (i.e. `localhost`).
 
-      <p>
+      <div>
         To allow the default `guest`
         user to connect remotely (a security practice [unsuitable for production use](./production-checklist)),
         set this to `none`:
@@ -1070,15 +1070,15 @@ default_permissions.write = .*
 # user with secure generated credentials!
 loopback_users = none
 ```
-      </p>
-      <p>
+      </div>
+      <div>
         To restrict another user to localhost-only connections,
         do it like so (`monitoring` is the name of the user):
 ```ini
 loopback_users.monitoring = true
 ```
-      </p>
-      <p>
+      </div>
+      <div>
         Default:
 ```ini
 # guest uses well known
@@ -1087,7 +1087,7 @@ loopback_users.monitoring = true
 # by default
 loopback_users.guest = true
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1101,7 +1101,7 @@ loopback_users.guest = true
 cluster_formation.classic_config.nodes.1 = rabbit@hostname1
 cluster_formation.classic_config.nodes.2 = rabbit@hostname2
 ```
-      <p>Default: `none` (not set)</p>
+      <div>Default: `none` (not set)</div>
     </td>
   </tr>
   <tr>
@@ -1114,12 +1114,12 @@ cluster_formation.classic_config.nodes.2 = rabbit@hostname2
         <li>`coarse` (emit per-queue / per-channel / per-connection statistics)</li>
         <li>`fine` (also emit per-message statistics)</li>
         </ul>
-      <p>
+      <div>
         Default:
 ```ini
 collect_statistics = none
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1128,12 +1128,12 @@ collect_statistics = none
       Statistics collection interval in
       milliseconds. Primarily relevant for
       the [management plugin](./management#statistics-interval).
-      <p>
+      <div>
         Default:
 ```ini
 collect_statistics_interval = 5000
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1146,12 +1146,12 @@ collect_statistics_interval = 5000
       The cache will multiply the elapsed time of
       the last query by this value and cache the result for
       the computed amount of time.
-      <p>
+      <div>
         Default:
 ```ini
 management.db_cache_multiplier = 5
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1159,7 +1159,7 @@ management.db_cache_multiplier = 5
     <td>
       [SASL authentication
       mechanisms](./authentication) to offer to clients.
-      <p>
+      <div>
         Default:
 ```ini
 # see the Access Control guide to learn more
@@ -1168,27 +1168,27 @@ auth_mechanisms.2 = AMQPLAIN
 # see the Access Control and Deployment Guidelines guides to learn more
 auth_mechanisms.3 = ANONYMOUS
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
     <td>`auth_backends`</td>
     <td>
-      <p>
+      <div>
         List of [authentication and authorisation backends](./access-control) to
         use. See the [access control guide](./access-control) for details and examples.
-      </p>
-      <p>
+      </div>
+      <div>
         Other databases
         than `rabbit_auth_backend_internal` are
         available through [plugins](./plugins).
-      </p>
-      <p>
+      </div>
+      <div>
       Default:
       ```ini
       auth_backends.1 = internal
       ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1198,12 +1198,12 @@ auth_mechanisms.3 = ANONYMOUS
       reverse DNS lookup on client connections, and present
       that information through `rabbitmqctl` and
       the management plugin.
-      <p>
+      <div>
       Default:
       ```ini
       reverse_dns_lookups = false
       ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1213,12 +1213,12 @@ auth_mechanisms.3 = ANONYMOUS
       communication. On a machine which has a very large
       number of cores and is also part of a cluster, you may
       wish to increase this value.
-      <p>
+      <div>
       Default:
       ```ini
       delegate_count = 16
       ```
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -1227,7 +1227,7 @@ auth_mechanisms.3 = ANONYMOUS
     <td>
       Default socket options. You may want to change these
       when you troubleshoot network issues.
-      <p>
+      <div>
         Default:
 ```ini
 tcp_listen_options.backlog = 128
@@ -1235,7 +1235,7 @@ tcp_listen_options.nodelay = true
 tcp_listen_options.linger.on = true
 tcp_listen_options.linger.timeout = 0
 ```
-      </p>
+      </div>
 
 <br/>
 ```ini
@@ -1250,10 +1250,10 @@ release by the kernel.
 ```ini
 tcp_listen_options.keepalive = false
 ```
-<p>
+<div>
   Set `tcp_listen_options.keepalive` to `true` to enable [TCP keepalives](./networking#tcp-keepalives).
   <br/>
-  </p>
+  </div>
     </td>
   </tr>
   <tr>
@@ -1275,12 +1275,12 @@ tcp_listen_options.keepalive = false
       [documentation
       on partitions](./partitions#automatic-handling) for more information.
 
-      <p>
+      <div>
       Default:
       ```ini
       cluster_partition_handling = ignore
       ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1292,12 +1292,12 @@ tcp_listen_options.keepalive = false
       missed keepalive messages will not cause nodes to be
       considered down.
 
-      <p>
+      <div>
         Default:
 ```ini
 cluster_keepalive_interval = 10000
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1307,12 +1307,12 @@ cluster_keepalive_interval = 10000
       be embedded directly in the queue index. You are advised
       to read the [persister
       tuning](./persistence-conf) documentation before changing this.
-      <p>
+      <div>
         Default:
 ```ini
 queue_index_embed_msgs_below = 4096
 ```
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -1321,12 +1321,12 @@ queue_index_embed_msgs_below = 4096
     <td>
       Timeout used when waiting for Mnesia tables in a cluster to
       become available.
-      <p>
+      <div>
         Default:
 ```ini
 mnesia_table_loading_retry_timeout = 30000
 ```
-</p>
+</div>
     </td>
   </tr>
 
@@ -1335,12 +1335,12 @@ mnesia_table_loading_retry_timeout = 30000
     <td>
       Retries when waiting for Mnesia tables in the cluster startup. Note that
       this setting is not applied to Mnesia upgrades or node deletions.
-      <p>
+      <div>
       Default:
 ```ini
 mnesia_table_loading_retry_limit = 10
 ```
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -1353,12 +1353,12 @@ mnesia_table_loading_retry_limit = 10
         <li>`client-local`</li>
       </ul>
 
-      <p>
+      <div>
         Default:
 ```ini
 queue_leader_locator = client-local
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1373,17 +1373,17 @@ queue_leader_locator = client-local
       connect to RabbitMQ when proxy protocol is enabled, so
       all connections must go through the reverse proxy.
 
-      <p>
+      <div>
         See [the
         networking guide](./networking#proxy-protocol) for more information.
-      </p>
+      </div>
 
-      <p>
+      <div>
         Default:
 ```ini
 proxy_protocol = false
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1394,9 +1394,9 @@ proxy_protocol = false
       Can be set to any arbitrary string to help identify the cluster (eg. `london`).
       This name can be inspected by AMQP 0-9-1 clients in the server properties map.
 
-      <p>
+      <div>
         Default: by default the name is derived from the first (seed) node in the cluster.
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1423,14 +1423,14 @@ under the `rabbit` section.
     <td>`backing_queue_module`</td>
     <td>
       Implementation module for queue contents.
-      <p>
+      <div>
         Default:
 ```erlang
 {rabbit, [
 {backing_queue_module, rabbit_variable_queue}
 ]}
 ```
-      </p>
+      </div>
     </td>
   </tr>
   <tr>
@@ -1439,7 +1439,7 @@ under the `rabbit` section.
       Message store segment file size. Changing this for a node
       with an existing (initialised) database is dangerous and can
       lead to data loss!
-      <p>
+      <div>
         Default: `16777216`
 ```erlang
 {rabbit, [
@@ -1449,7 +1449,7 @@ under the `rabbit` section.
 {msg_store_file_size_limit, 16777216}
 ]}
 ```
-      </p>
+      </div>
     </td>
   </tr>
     <tr>
@@ -1458,14 +1458,14 @@ under the `rabbit` section.
         Used internally by
         the [tracer](./firehose). You shouldn't
         change this.
-        <p>
+        <div>
           Default:
 ```erlang
 {rabbit, [
 {trace_vhosts, []}
 ]}
 ```
-        </p>
+        </div>
       </td>
     </tr>
   <tr>
@@ -1473,14 +1473,14 @@ under the `rabbit` section.
     <td>
       After how many queue index journal entries it will be
       flushed to disk.
-      <p>
+      <div>
         Default:
 ```erlang
 {rabbit, [
 {queue_index_max_journal_entries, 32768}
 ]}
 ```
-      </p>
+      </div>
     </td>
   </tr>
 </table>
@@ -2014,9 +2014,9 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       Change this if you only want to bind to one network interface.
       Binding to two or more interfaces can be set up in the configuration file.
 
-      <p>
+      <div>
         <strong>Default</strong>: an empty string, meaning "bind to all network interfaces".
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2026,9 +2026,9 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       See <a href="./networking">Networking guide</a> for more information on ports used by various
       parts of RabbitMQ.
 
-      <p>
+      <div>
         <strong>Default</strong>: 5672.
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2041,9 +2041,9 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       See <a href="./networking">Networking</a> for details, and
       <a href="./windows-configuration">Windows Configuration</a> for Windows-specific details.
 
-      <p>
+      <div>
         <strong>Default</strong>: `RABBITMQ_NODE_PORT + 20000`
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2053,9 +2053,9 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       This limit corresponds to the [maximum open file handle limit](./networking#open-file-handle-limit) in the kernel.
       When the latter is set to a value higher than 65536, `ERL_MAX_PORT` must be adjusted accordingly.
 
-      <p>
+      <div>
         <strong>Default</strong>: 65536
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2064,9 +2064,9 @@ More variables are covered in the [File and Directory Locations guide](./relocat
     <td>
       Interface(s) used by <a href="./networking#epmd">epmd</a>, a component in inter-node and CLI tool communication.
 
-      <p>
+      <div>
         <strong>Default</strong>: all available interfaces, both IPv6 and IPv4.
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2075,9 +2075,9 @@ More variables are covered in the [File and Directory Locations guide](./relocat
     <td>
       Port used by <a href="./networking#epmd">epmd</a>, a component in inter-node and CLI tool communication.
 
-      <p>
+      <div>
         <strong>Default</strong>: `4369`
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2088,9 +2088,9 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       to use for inter-node communication connections, in kilobytes. Values lower than
       64 MB are not recommended.
 
-      <p>
+      <div>
         <strong>Default</strong>: 128000
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2100,7 +2100,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       The node name should be unique per Erlang-node-and-machine combination.
       To run multiple nodes, see the <a href="./clustering">clustering guide</a>.
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
@@ -2113,7 +2113,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
             `rabbit@%COMPUTERNAME%`
           </li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2124,7 +2124,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       `/etc/rabbitmq/rabbitmq.conf` or `/data/configuration/rabbitmq.conf` for new style configuration format files.
       If classic config format it used, the extension must be `.config`
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
@@ -2139,7 +2139,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
           </li>
           <li>**Windows**: `%APPDATA%\RabbitMQ\rabbitmq.conf`</li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2150,7 +2150,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       The files will be loaded in alphabetical order. Prefixing each files with a number
       is a common practice.
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
@@ -2165,7 +2165,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
           </li>
           <li>**Windows**: `%APPDATA%\RabbitMQ\conf.d`</li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2175,7 +2175,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       "Advanced" (Erlang term-based) RabbitMQ config file path with a `.config` file extension.
       For example, `/data/rabbitmq/advanced.config`.
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
@@ -2190,7 +2190,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
           </li>
           <li>**Windows**: `%APPDATA%\RabbitMQ\advanced.config`</li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2200,7 +2200,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       Location of the file that contains environment variable definitions (without the `RABBITMQ_`
       prefix). Note that the file name on Windows is different from other operating systems.
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
@@ -2213,7 +2213,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
           </li>
           <li>**Windows**: `%APPDATA%\RabbitMQ\rabbitmq-env-conf.bat`</li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2222,7 +2222,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
     <td>
       Can be used to override log files directory location.
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
@@ -2235,7 +2235,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
           </li>
           <li>**Windows**: `%APPDATA%\RabbitMQ\log`</li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2250,7 +2250,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       at any time. This variable is typically not overridden.
       Usually `RABBITMQ_MNESIA_DIR` is overridden instead.
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
@@ -2263,7 +2263,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
           </li>
           <li>**Windows**: `%APPDATA%\RabbitMQ`</li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2274,7 +2274,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       a schema database, message stores, cluster member information and other
       persistent node state.
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
@@ -2287,7 +2287,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
           </li>
           <li>**Windows**: `%APPDATA%\RabbitMQ\$RABBITMQ_NODENAME`</li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2304,7 +2304,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       See <a href="./cli#rabbitmq-plugins">CLI tools guide</a> to learn about the effects of changing
       this variable on `rabbitmq-plugins`.
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
@@ -2317,7 +2317,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
           </li>
           <li>**Windows**: `%RABBITMQ_HOME%\plugins`</li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2327,7 +2327,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       The directory the node expand (unpack) <a href="./plugins">plugins</a> to and use it as a code path location.
       Must not contain any characters mentioned in the <a href="#directory-and-path-restrictions">path restriction section</a>.
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
@@ -2340,7 +2340,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
           </li>
           <li>**Windows**: `%APPDATA%\RabbitMQ\$RABBITMQ_NODENAME-plugins-expand`</li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2354,9 +2354,9 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       Note that it is not possible to switch a node from short name to long name without
       resetting it.
 
-      <p>
+      <div>
         <strong>Default</strong>: `false`
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2366,9 +2366,9 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       The name of the installed Windows service. This will appear in
       `services.msc`.
 
-      <p>
+      <div>
         <strong>Default</strong>: RabbitMQ.
-      </p>
+      </div>
   </td>
   </tr>
 
@@ -2385,23 +2385,23 @@ More variables are covered in the [File and Directory Locations guide](./relocat
         <li>`reuse`: the file will be overwritten each time the service starts.</li>
       </ul>
 
-      <p>
+      <div>
         <strong>Default</strong>: (none)
-      </p>
+      </div>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_SERVER_CODE_PATH</td>
     <td>
-      <p>
+      <div>
         Extra code path (a directory) to be specified when starting the runtime.
         Will be passed to the `erl` command when a node is started.
-      </p>
+      </div>
 
-      <p>
+      <div>
         <strong>Default</strong>: (none)
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2414,9 +2414,9 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       `-kernel inet_dist_listen_min 35672`<br/>
       `-kernel inet_dist_listen_max 35680`
 
-      <p>
+      <div>
         <strong>Default</strong>: (none)
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2439,7 +2439,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
 
       :::
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
@@ -2448,7 +2448,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
           </li>
           <li>**Windows**: (none)</li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2459,14 +2459,14 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       invoking the RabbitMQ Server. The value of this variable
       is appended to the default list of arguments (`RABBITMQ_SERVER_ERL_ARGS`).
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
           <li>**Unix**: (none)</li>
           <li>**Windows**: (none)</li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2477,9 +2477,9 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       invoking the RabbitMQ Server. This will not override
       `RABBITMQ_SERVER_ERL_ARGS`.
 
-      <p>
+      <div>
         <strong>Default</strong>: (none)
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2491,9 +2491,9 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       priority. This option may be more convenient in cases where providing a config file is impossible,
       and environment variables is the only way to <a href="./access-control#seeding">seed a user</a>.
 
-      <p>
+      <div>
         <strong>Default</strong>: (none)
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2505,9 +2505,9 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       priority. This option may be more convenient in cases where providing a config file is impossible,
       and environment variables is the only way to <a href="./access-control#seeding">seed a user</a>.
 
-      <p>
+      <div>
         <strong>Default</strong>: (none)
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2519,32 +2519,32 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       priority. This option may be more convenient in cases where providing a config file is impossible,
       and environment variables is the only way to <a href="./access-control#seeding">seed users</a> and virtual hosts.
 
-      <p>
+      <div>
         <strong>Default</strong>: (none)
-      </p>
+      </div>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_MAX_OPEN_FILES</td>
     <td>
-      <p>
+      <div>
         :::important
 
         This variable **is not** the primary way of configuring the [max open file handle limit](./networking#open-file-handle-limit).
 
         :::
-      </p>
-      <p>
+      </div>
+      <div>
         If set, startup scripts will set the limit of file descriptors available to RabbitMQ (they will execute `ulimit -n` with the provided value). This can be useful if the soft limit is set too low, but the hard limit is higher.
-      </p>
+      </div>
 
-      <p>
+      <div>
         If `ulimit` fails (most likely because the value exceeds the hard limit), RabbitMQ won't start.
-      </p>
-      <p>
+      </div>
+      <div>
         <strong>Default</strong>: (none)
-      </p>
+      </div>
     </td>
   </tr>
 </table>
@@ -2565,14 +2565,14 @@ Finally, some environment variables are operating system-specific.
     <td>
       The name of the current machine.
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
           <li>Unix, Linux: `env hostname`</li>
           <li>MacOS: `env hostname -s`</li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2581,13 +2581,13 @@ Finally, some environment variables are operating system-specific.
     <td>
       The name of the current machine.
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
           <li>Windows: `localhost`</li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 
@@ -2597,13 +2597,13 @@ Finally, some environment variables are operating system-specific.
       This path is the location of `erlsrv.exe`,
       the Erlang service wrapper script.
 
-      <p>
+      <div>
         <strong>Default</strong>:
 
         <ul>
           <li>Windows Service: `%ERLANG_HOME%\erts-<var>x.x.x</var>\bin`</li>
         </ul>
-      </p>
+      </div>
     </td>
   </tr>
 </table>

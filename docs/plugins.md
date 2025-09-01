@@ -505,19 +505,19 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
   <tr>
     <th>rabbitmq_sharding</th>
     <td>
-       <p>
+       <div>
         :::tip
 
         Consider using [streams and partitioned streams](./streams) over this plugin. They target the same
         set of use cases but are much more efficient when used with a RabbitMQ Stream Protocol client library.
 
         :::
-       </p>
-       <p>
+       </div>
+       <div>
         A plug-in for RabbitMQ that provides sharded queues. Sharding is
         performed by exchanges, that is, messages will be partitioned
         across "shard" queues by one exchange that we define as sharded.
-       </p>
+       </div>
       <ul>
         <li>
           <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_sharding/README.md">README for this plugin</a>
