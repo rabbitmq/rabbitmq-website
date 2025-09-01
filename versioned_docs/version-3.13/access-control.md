@@ -321,34 +321,6 @@ rabbitmqadmin.exe users list
 </TabItem>
 </Tabs>
 
-The output can be changed to be JSON:
-
-<Tabs groupId="examples">
-<TabItem value="bash" label="rabbitmqctl with bash" default>
-```bash
-rabbitmqctl list_users --formatter=json
-```
-</TabItem>
-
-<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
-```bash
-rabbitmqadmin users list
-```
-</TabItem>
-
-<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
-```PowerShell
-rabbitmqctl.bat list_users --formatter=json
-```
-</TabItem>
-
-<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
-```PowerShell
-rabbitmqadmin.exe users list
-```
-</TabItem>
-</Tabs>
-
 ### Deleting a User
 
 To delete a user, use `rabbitmqctl delete_user` or `rabbitmqadmin users delete`:
