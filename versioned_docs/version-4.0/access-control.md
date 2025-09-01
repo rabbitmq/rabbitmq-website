@@ -223,6 +223,11 @@ echo '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b' | rabbitmqctl add_user 'username
 # Note that certain characters such as !, &, $, #, and so on must be escaped to avoid
 # special interpretation by the shell.
 rabbitmqctl add_user 'username' '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b'
+
+# This example uses a salted password hash instead of a plaintext value.
+# To produce a salted hash of a password, use
+# 'rabbitmqctl hash_password "my-secret-password"'
+rabbitmqctl add_user --pre-hashed-password 'username' '{value produced by "rabbitmqctl hash_password"}'
 ```
 </TabItem>
 
@@ -252,6 +257,11 @@ rabbitmqctl.bat add_user 'username' '9a55f70a841f18b97c3a7db939b7adc9e34a0f1d'
 
 # passwords with special characters must be quoted correctly
 rabbitmqctl.bat add_user 'username' '"w63pnZ&LnYMO(t"'
+
+# This example uses a salted password hash instead of a plaintext value.
+# To produce a salted hash of a password, use
+# 'rabbitmqctl.bat hash_password "my-secret-password"'
+rabbitmqctl.bat add_user --pre-hashed-password 'username' '{value produced by "rabbitmqctl.bat hash_password"}'
 ```
 </TabItem>
 
