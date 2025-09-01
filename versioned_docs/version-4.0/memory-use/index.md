@@ -6,7 +6,7 @@ Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refer
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
-Version 2.0 (the "License”); you may not use this file except in compliance
+Version 2.0 (the "License"); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -17,6 +17,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Reasoning About Memory Footprint
 
@@ -94,7 +97,15 @@ Plugins and runtime versions may affect this.
 
 ### Producing Memory Use Breakdown Using CLI Tools {#breakdown-cli}
 
-A common way of producing memory breakdown is via `rabbitmq-diagnostics memory_breakdown`.
+Memory breakdown can be produced using CLI tools, both `rabbitmq-diagnostics` and `rabbitmqadmin` v2:
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmq-diagnostics with bash" default>
+```bash
+rabbitmq-diagnostics memory_breakdown
+```
+
+Example output:
 
 ```ini
 quorum_queue_procs: 0.4181 gb (28.8%)
@@ -118,6 +129,30 @@ msg_index: 0.0002 gb (0.01%)
 queue_procs: 0.0002 gb (0.01%)
 reserved_unallocated: 0.0 gb (0.0%)
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin show memory_breakdown_in_percent --node rabbit@hostname
+
+rabbitmqadmin show memory_breakdown_in_bytes --node rabbit@hostname
+```
+</TabItem>
+
+<TabItem value="powershell" label="rabbitmq-diagnostics with PowerShell">
+```PowerShell
+rabbitmq-diagnostics.exe memory_breakdown
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe show memory_breakdown_in_percent --node rabbit@hostname
+
+rabbitmqadmin.exe show memory_breakdown_in_bytes --node rabbit@hostname
+```
+</TabItem>
+</Tabs>
 
 <table>
   <thead>

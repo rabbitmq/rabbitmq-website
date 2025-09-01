@@ -6,7 +6,7 @@ Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refer
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
-Version 2.0 (the "License”); you may not use this file except in compliance
+Version 2.0 (the "License"); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -17,6 +17,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Virtual Hosts
 
@@ -74,11 +77,31 @@ e.g. using [rabbitmqctl set_permissions](./man/rabbitmqctl.8#set_permissions).
 A virtual host can be created using [rabbitmqctl](./cli)'s `add_vhost` command
 which accepts virtual host name as the only mandatory argument.
 
-Here's an example that creates a virtual host named `qa1`:
-
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl add_vhost qa1
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin vhosts declare --name qa1
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat add_vhost qa1
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe vhosts declare --name qa1
+```
+</TabItem>
+</Tabs>
 
 ### Using HTTP API
 
@@ -120,27 +143,69 @@ or updated later.
 
 ### Using CLI Tools
 
-The `rabbitmqctl add_vhost` command accepts a virtual host name as well as a number of optional flags.
+Virtual host metadata can be set at creation time or updated later:
 
-Here's an example that creates a virtual host named `qa1` with [quorum queues](./quorum-queues) for default queue type,
-a description and two tags:
-
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
+# Create a virtual host with metadata
 rabbitmqctl add_vhost qa1 --description "QA env 1" --default-queue-type quorum
-```
 
-`rabbitmqctl update_vhost_metadata` can be used to update all or some of the metadata values
-demonstrated above:
-
-```bash
+# Update virtual host metadata
 rabbitmqctl update_vhost_metadata qa1 --description "QA environment for issue 1662" --default-queue-type quorum --tags qa,project-a,qa-1662
-```
 
-To inspect virtual host metadata, use `rabbitmqctl list_vhosts` and provide the additional column(s):
-
-```bash
+# List virtual hosts with metadata
 rabbitmqctl -q --formatter=pretty_table list_vhosts name description tags default_queue_type
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Create a virtual host with metadata
+rabbitmqadmin vhosts declare --name qa1 \
+    --description "QA environment 1" \
+    --default-queue-type quorum
+
+# Create a virtual host with tracing enabled
+rabbitmqadmin vhosts declare --name qa-tracing \
+    --description "QA environment with tracing" \
+    --default-queue-type quorum \
+    --tracing
+
+rabbitmqadmin vhosts list
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+# Create a virtual host with metadata
+rabbitmqctl.bat add_vhost qa1 --description "QA env 1" --default-queue-type quorum
+
+# Update virtual host metadata
+rabbitmqctl.bat update_vhost_metadata qa1 --description "QA environment for issue 1662" --default-queue-type quorum --tags qa,project-a,qa-1662
+
+# List virtual hosts with metadata
+rabbitmqctl.bat -q --formatter=pretty_table list_vhosts name description tags default_queue_type
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# Create a virtual host with metadata
+rabbitmqadmin.exe vhosts declare --name qa1 ^
+    --description "QA environment 1" ^
+    --default-queue-type quorum
+
+# Create a virtual host with tracing enabled
+rabbitmqadmin.exe vhosts declare --name qa-tracing ^
+    --description "QA environment with tracing" ^
+    --default-queue-type quorum ^
+    --tracing
+
+rabbitmqadmin.exe vhosts list
+```
+</TabItem>
+</Tabs>
 
 
 ### Using HTTP API
@@ -241,11 +306,31 @@ Deleting a virtual host will permanently delete all entities (queues, exchanges,
 A virtual host can be deleted using [rabbitmqctl](./cli)'s `delete_vhost` command
 which accepts virtual host name as the only mandatory argument.
 
-Here's an example that deletes a virtual host named `qa1`:
-
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl delete_vhost qa1
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin vhosts delete --name qa1
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat delete_vhost qa1
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe vhosts delete --name qa1
+```
+</TabItem>
+</Tabs>
 
 ### Using HTTP API
 

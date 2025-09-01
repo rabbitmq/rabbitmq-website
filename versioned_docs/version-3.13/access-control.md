@@ -235,7 +235,7 @@ rabbitmqctl add_user 'username' '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b'
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
 ```bash
 # Password is provided as a command line argument.
-# Note that certain characters such as !, &, $, #, and so on must be escaped to avoid
+# Note that certain characters such as !, &, $, #, and so on must be escaped to avoid,
 # special interpretation by the shell.
 rabbitmqadmin users declare \
     --name 'username' \
@@ -456,7 +456,7 @@ for v in $(rabbitmqctl list_vhosts --silent); do rabbitmqctl set_permissions -p 
 # Assumes a Linux shell.
 # Grants a user permissions to all virtual hosts using rabbitmqadmin.
 # Note: this example assumes rabbitmqadmin vhosts list outputs one vhost name per line
-for v in $(rabbitmqadmin vhosts list --quiet | awk '{print $1}' | tail -n +2); do 
+for v in $(rabbitmqadmin vhosts list --quiet | awk '{print $1}' | tail -n +2); do
   rabbitmqadmin declare permissions --vhost "$v" --user "a-user" --configure ".*" --write ".*" --read ".*"
 done
 ```

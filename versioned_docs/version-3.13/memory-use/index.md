@@ -18,6 +18,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Reasoning About Memory Footprint
 
 ## Overview {#overview}
@@ -94,7 +97,16 @@ Plugins and runtime versions may affect this.
 
 ### Producing Memory Use Breakdown Using CLI Tools {#breakdown-cli}
 
-A common way of producing memory breakdown is via `rabbitmq-diagnostics memory_breakdown`.
+Memory breakdown can be produced using CLI tools, both `rabbitmq-diagnostics` and `rabbitmqadmin` v2:
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmq-diagnostics with bash" default>
+```bash
+# Produce memory breakdown
+rabbitmq-diagnostics memory_breakdown
+```
+
+Example output:
 
 ```ini
 quorum_queue_procs: 0.4181 gb (28.8%)
@@ -118,6 +130,35 @@ msg_index: 0.0002 gb (0.01%)
 queue_procs: 0.0002 gb (0.01%)
 reserved_unallocated: 0.0 gb (0.0%)
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Produce memory breakdown in percentages
+rabbitmqadmin show memory_breakdown_in_percent
+
+# Produce memory breakdown in bytes
+rabbitmqadmin show memory_breakdown_in_bytes
+```
+</TabItem>
+
+<TabItem value="powershell" label="rabbitmq-diagnostics with PowerShell">
+```PowerShell
+# Produce memory breakdown
+rabbitmq-diagnostics.exe memory_breakdown
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# Produce memory breakdown in percentages
+rabbitmqadmin.exe show memory_breakdown_in_percent
+
+# Produce memory breakdown in bytes
+rabbitmqadmin.exe show memory_breakdown_in_bytes
+```
+</TabItem>
+</Tabs>
 
 <table>
   <thead>

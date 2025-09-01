@@ -6,7 +6,7 @@ Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refer
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
-Version 2.0 (the "License”); you may not use this file except in compliance
+Version 2.0 (the "License"); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -17,6 +17,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Virtual Hosts
 
@@ -71,14 +74,37 @@ e.g. using [rabbitmqctl set_permissions](./man/rabbitmqctl.8#set_permissions).
 
 ### Using CLI Tools
 
-A virtual host can be created using [rabbitmqctl](./cli)'s `add_vhost` command
-which accepts virtual host name as the only mandatory argument.
+A virtual host can be created using CLI tools:
 
-Here's an example that creates a virtual host named `qa1`:
-
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
+# Create a virtual host
 rabbitmqctl add_vhost qa1
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Create a virtual host
+rabbitmqadmin vhosts declare --name qa1
+```
+</TabItem>
+
+<TabItem value="powershell" label="rabbitmqctl with PowerShell">
+```PowerShell
+# Create a virtual host
+rabbitmqctl.exe add_vhost qa1
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# Create a virtual host
+rabbitmqadmin.exe vhosts declare --name qa1
+```
+</TabItem>
+</Tabs>
 
 ### Using HTTP API
 
@@ -228,14 +254,37 @@ Deleting a virtual host will permanently delete all entities (queues, exchanges,
 
 ### Using CLI Tools
 
-A virtual host can be deleted using [rabbitmqctl](./cli)'s `delete_vhost` command
-which accepts virtual host name as the only mandatory argument.
+A virtual host can be deleted using CLI tools:
 
-Here's an example that deletes a virtual host named `qa1`:
-
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
+# Delete a virtual host
 rabbitmqctl delete_vhost qa1
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Delete a virtual host
+rabbitmqadmin vhosts delete --name qa1
+```
+</TabItem>
+
+<TabItem value="powershell" label="rabbitmqctl with PowerShell">
+```PowerShell
+# Delete a virtual host
+rabbitmqctl.exe delete_vhost qa1
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# Delete a virtual host
+rabbitmqadmin.exe vhosts delete --name qa1
+```
+</TabItem>
+</Tabs>
 
 ### Using HTTP API
 
