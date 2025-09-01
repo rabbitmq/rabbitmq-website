@@ -206,10 +206,10 @@ depending on the programming language used.
 
 ### Adding a User
 
-To add a user, use `rabbitmqctl add_user`. It has multiple ways of specifying a [password](./passwords):
+To add a user, use `rabbitmqctl add_user` or `rabbitmqadmin users declare`. Both have multiple ways of specifying a [password](./passwords):
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # will prompt for password, only use this option interactively
 rabbitmqctl add_user "username"
@@ -225,7 +225,26 @@ echo '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b' | rabbitmqctl add_user 'username
 rabbitmqctl add_user 'username' '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b'
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Password is provided as a command line argument.
+# Note that certain characters such as !, &, $, #, and so on must be escaped to avoid
+# special interpretation by the shell.
+rabbitmqadmin users declare \
+    --name 'username' \
+    --password '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b'
+
+# This exampel uses a salted password hash instead of a plaintext value.
+# To produce a salted hash of a password, use
+# 'rabbitmqadmin passwords salt_and_hash "my-secret-password"'
+rabbitmqadmin users declare \
+    --name 'username' \
+    --password-hash "{value producted by 'rabbitmqadmin passwords salt_and_hash'}"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 # password is provided as a command line argument
 rabbitmqctl.bat add_user 'username' '9a55f70a841f18b97c3a7db939b7adc9e34a0f1d'
@@ -234,6 +253,24 @@ rabbitmqctl.bat add_user 'username' '9a55f70a841f18b97c3a7db939b7adc9e34a0f1d'
 rabbitmqctl.bat add_user 'username' '"w63pnZ&LnYMO(t"'
 ```
 </TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# Password is provided as a command line argument.
+# Passwords with special characters must be quoted correctly.
+rabbitmqadmin.exe users declare ^
+    --name "username" ^
+    --password "9a55f70a841f18b97c3a7db939b7adc9e34a0f1d"
+
+# This exampel uses a salted password hash instead of a plaintext value.
+# To produce a salted hash of a password, use
+# 'rabbitmqadmin.exe passwords salt_and_hash "my-secret-password"'
+rabbitmqadmin.exe users declare ^
+    --name "username" ^
+    --password-hash "{value producted by 'rabbitmqadmin.exe passwords salt_and_hash'}"
+```
+</TabItem>
+
 <TabItem value="cmd" label="cmd">
 ```batch
 rem password is provided as a command line argument
@@ -250,17 +287,30 @@ otherwise its connections will be refused.
 
 ### Listing Users
 
-To list users in a cluster, use `rabbitmqctl list_users`:
+To list users in a cluster, use `rabbitmqctl list_users` or `rabbitmqadmin users list`:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl list_users
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin users list
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl.bat list_users
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe users list
 ```
 </TabItem>
 </Tabs>
@@ -268,41 +318,67 @@ rabbitmqctl.bat list_users
 The output can be changed to be JSON:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl list_users --formatter=json
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin users list
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl.bat list_users --formatter=json
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe users list
 ```
 </TabItem>
 </Tabs>
 
 ### Deleting a User
 
-To delete a user, use `rabbitmqctl delete_user`:
+To delete a user, use `rabbitmqctl delete_user` or `rabbitmqadmin users delete`:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl delete_user 'username'
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin users delete --name 'username'
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl.bat delete_user 'username'
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe users delete --name "username"
 ```
 </TabItem>
 </Tabs>
 
 ### Granting Permissions to a User {#grant-permissions}
 
-To grant [permissions](#authorisation) to a user in a [virtual host](./vhosts), use `rabbitmqctl set_permissions`:
+To grant [permissions](#authorisation) to a user in a [virtual host](./vhosts), use `rabbitmqctl set_permissions` or `rabbitmqadmin declare permissions`:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # First ".*" for configure permission on every entity
 # Second ".*" for write permission on every entity
@@ -310,7 +386,20 @@ To grant [permissions](#authorisation) to a user in a [virtual host](./vhosts), 
 rabbitmqctl set_permissions -p "custom-vhost" "username" ".*" ".*" ".*"
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Grant full permissions to a user in a virtual host
+rabbitmqadmin declare permissions \
+    --vhost "custom-vhost" \
+    --user "username" \
+    --configure ".*" \
+    --write ".*" \
+    --read ".*"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 # First ".*" for configure permission on every entity
 # Second ".*" for write permission on every entity
@@ -318,43 +407,94 @@ rabbitmqctl set_permissions -p "custom-vhost" "username" ".*" ".*" ".*"
 rabbitmqctl.bat set_permissions -p 'custom-vhost' 'username' '.*' '.*' '.*'
 ```
 </TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# Grant full permissions to a user in a virtual host
+rabbitmqadmin.exe declare permissions ^
+    --vhost "custom-vhost" ^
+    --user "username" ^
+    --configure ".*" ^
+    --write ".*" ^
+    --read ".*"
+```
+</TabItem>
 </Tabs>
 
 ### Clearing Permissions of a User in a Virtual Host
 
-To revoke [permissions](#authorisation) from a user in a [virtual host](./vhosts), use `rabbitmqctl clear_permissions`:
+To revoke [permissions](#authorisation) from a user in a [virtual host](./vhosts), use `rabbitmqctl clear_permissions` or `rabbitmqadmin delete permissions`:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # Revokes permissions in a virtual host
 rabbitmqctl clear_permissions -p "custom-vhost" "username"
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Revokes permissions from a user in a virtual host
+rabbitmqadmin delete permissions \
+    --vhost "custom-vhost" \
+    --user "username"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 # Revokes permissions in a virtual host
 rabbitmqctl.bat clear_permissions -p 'custom-vhost' 'username'
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# Revokes permissions from a user in a virtual host
+rabbitmqadmin.exe delete permissions ^
+    --vhost "custom-vhost" ^
+    --user "username"
 ```
 </TabItem>
 </Tabs>
 
 ### Operations on Multiple Virtual Hosts
 
-Every `rabbitmqctl` permission management operation is scoped to a single virtual host.
-Bulk operations have to be scripted, with the list of virtual hosts coming from `rabbitmqctl list_vhosts --silent`:
+Every `rabbitmqctl` and `rabbitmqadmin` permission management operation is scoped to a single virtual host.
+Bulk operations have to be scripted, with the list of virtual hosts coming from `rabbitmqctl list_vhosts --silent` or `rabbitmqadmin vhosts list`:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # Assumes a Linux shell.
 # Grants a user permissions to all virtual hosts.
 for v in $(rabbitmqctl list_vhosts --silent); do rabbitmqctl set_permissions -p $v "a-user" ".*" ".*" ".*"; done
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Assumes a Linux shell.
+# Grants a user permissions to all virtual hosts using rabbitmqadmin.
+# Note: this example assumes rabbitmqadmin vhosts list outputs one vhost name per line
+for v in $(rabbitmqadmin vhosts list --quiet | awk '{print $1}' | tail -n +2); do 
+  rabbitmqadmin declare permissions --vhost "$v" --user "a-user" --configure ".*" --write ".*" --read ".*"
+done
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl.bat list_vhosts --silent | %{ rabbitmqctl.bat set_permissions -p $_ 'a-user' '.*' '.*' '.*' }
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# Grants a user permissions to all virtual hosts using rabbitmqadmin
+# This approach uses rabbitmqctl for vhost listing as it's more straightforward for scripting
+rabbitmqctl.bat list_vhosts --silent | %{ rabbitmqadmin.exe declare permissions --vhost $_ --user 'a-user' --configure '.*' --write '.*' --read '.*' }
 ```
 </TabItem>
 </Tabs>
@@ -952,12 +1092,12 @@ will be logged differently. See [TLS Troubleshooting guide](./troubleshooting-ss
 for a username and password pair:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl authenticate_user "a-username" "a/password"
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 # note that double quotes are required due to the & character
 rabbitmqctl.bat authenticate_user 'a-username' '"a/p&assword"'
@@ -1033,11 +1173,11 @@ Another very common scenario is that the permissions are defined but they are
 
 In this case the connection will be accepted
 
-[rabbitmqctl list_permissions](./cli) can be used to inspect a user's
+[rabbitmqctl list_permissions](./cli) and `rabbitmqadmin users permissions` can be used to inspect a user's
 permission in a given virtual host:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl list_permissions --vhost /
 # => Listing permissions for vhost "/" ...
@@ -1053,10 +1193,31 @@ rabbitmqctl list_permissions --vhost gw1
 # => user2	^user2	^user2	^user2
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# List permissions for all users in the default virtual host
+rabbitmqadmin users permissions --vhost /
+
+# List permissions for all users in a specific virtual host
+rabbitmqadmin users permissions --vhost gw1
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl.bat list_permissions --vhost /
 rabbitmqctl.bat list_permissions --vhost gw1
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# List permissions for all users in the default virtual host
+rabbitmqadmin.exe users permissions --vhost "/"
+
+# List permissions for all users in a specific virtual host
+rabbitmqadmin.exe users permissions --vhost "gw1"
 ```
 </TabItem>
 </Tabs>
