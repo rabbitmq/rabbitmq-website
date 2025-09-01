@@ -86,6 +86,9 @@ around in order to perform load balancing.
 
 Brokers running different versions of RabbitMQ can be connected using federation.
 
+Queue federation is also an important component of [Blue Green Deployments](./blue-green-upgrade),
+such as [migrations from RabbitMQ 3.x to 4.x](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way).
+
 ## Limitations {#limitations}
 
 Federated queues include a number of limitations or differences compared to their non-federated peers
@@ -128,16 +131,30 @@ To add an upstream, use the `rabbitmqctl set_parameter` command. It accepts thre
 The following example configures an upstream named "origin" which can be contacted at `remote-host.local:5672`:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # Adds a federation upstream named "origin"
 rabbitmqctl set_parameter federation-upstream origin '{"uri":"amqp://remote-host.local:5672"}'
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Adds a federation upstream named "origin"
+rabbitmqadmin federation declare_upstream_for_queues --name origin \
+    --uri "amqp://remote-host.local:5672"
+```
+</TabItem>
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 # Adds a federation upstream named "origin"
 rabbitmqctl.bat set_parameter federation-upstream origin '"{""uri"":""amqp://remote-host.local:5672""}"'
+```
+</TabItem>
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+# Adds a federation upstream named "origin"
+rabbitmqadmin.exe federation declare_upstream_for_queues --name origin ^
+    --uri "amqp://remote-host.local:5672"
 ```
 </TabItem>
 </Tabs>
@@ -146,7 +163,7 @@ Once an upstream has been specified, a policy that controls federation can be ad
 It is added just like any other [policy](./policies), using `rabbitmqctl set_policy`:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # Adds a policy named "queue-federation"
 rabbitmqctl set_policy queue-federation "^federated\." \
@@ -155,13 +172,35 @@ rabbitmqctl set_policy queue-federation "^federated\." \
     --apply-to queues
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Adds a policy named "queue-federation"
+rabbitmqadmin policies declare \
+    --name "queue-federation" \
+    --pattern "^federated\." \
+    --definition '{"federation-upstream-set":"all"}' \
+    --priority 10 \
+    --apply-to "queues"
+```
+</TabItem>
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 # Adds a policy named "queue-federation"
 rabbitmqctl.bat set_policy queue-federation '^federated\.' `
     '"{""federation-upstream-set"":""all""}"' `
     --priority 10 `
     --apply-to queues
+```
+</TabItem>
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+# Adds a policy named "queue-federation"
+rabbitmqadmin.exe policies declare ^
+    --name "queue-federation" ^
+    --pattern "^federated\." ^
+    --definition "{""federation-upstream-set"":""all""}" ^
+    --priority 10 ^
+    --apply-to "queues"
 ```
 </TabItem>
 </Tabs>

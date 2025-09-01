@@ -166,7 +166,7 @@ To define an upstream, use one of the following examples,
 one per tab:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # target.hostname is just an example, replace it with a URI
 # of the target node (usually a member of a remote node/cluster,
@@ -176,13 +176,35 @@ rabbitmqctl set_parameter federation-upstream my-upstream \
 ```
 </TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# target.hostname is just an example, replace it with a URI
+# of the target node (usually a member of a remote node/cluster,
+# or a URI that connects to a different virtual host within the same cluster)
+rabbitmqadmin federation declare_upstream --name my-upstream \
+    --uri "amqp://target.hostname" \
+    --ttl 3600000
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 # target.hostname is just an example, replace it with a URI
 # of the target node (usually a member of a remote node/cluster,
 # or a URI that connects to a different virtual host within the same cluster)
 rabbitmqctl.bat set_parameter federation-upstream my-upstream `
     '"{""uri"":""amqp://target.hostname"",""expires"":3600000}"'
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+# target.hostname is just an example, replace it with a URI
+# of the target node (usually a member of a remote node/cluster,
+# or a URI that connects to a different virtual host within the same cluster)
+rabbitmqadmin.exe federation declare_upstream --name my-upstream ^
+    --uri "amqp://target.hostname" ^
+    --ttl 3600000
 ```
 </TabItem>
 
@@ -204,17 +226,37 @@ PUT /api/parameters/federation-upstream/%2f/my-upstream
 Then define a policy that will match built-in exchanges and use this upstream:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_policy --apply-to exchanges federate-me "^amq\." \
     '{"federation-upstream-set":"all"}'
 ```
 </TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin policies declare \
+    --name "federate-me" \
+    --pattern "^amq\." \
+    --definition '{"federation-upstream-set":"all"}' \
+    --apply-to "exchanges"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl.bat set_policy --apply-to exchanges federate-me "^amq\." `
     '"{""federation-upstream-set"":""all""}"'
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+rabbitmqadmin.exe policies declare ^
+    --name "federate-me" ^
+    --pattern "^amq\." ^
+    --definition "{""federation-upstream-set"":""all""}" ^
+    --apply-to "exchanges"
 ```
 </TabItem>
 
@@ -349,7 +391,7 @@ In the following example the upstream URI is modified to use TLS with a client c
 and private key pair but with peer verification disabled (for simplicity, it is encouraged for production use):
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # Note the TLS-related settings in the upstream URI field
 rabbitmqctl set_parameter federation-upstream my-upstream \
@@ -357,11 +399,29 @@ rabbitmqctl set_parameter federation-upstream my-upstream \
 ```
 </TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Note the TLS-related settings in the upstream URI field
+rabbitmqadmin federation declare_upstream --name my-upstream \
+    --uri "amqps://target.hostname:5671?cacertfile=/path/to/ca_bundle.pem&certfile=/path/to/client_certificate.pem&keyfile=/path/to/client_key.pem&verify=verify_none" \
+    --ttl 3600000
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 #
 rabbitmqctl.bat set_parameter federation-upstream my-upstream `
     '"{""uri"":""amqps://target.hostname:5671?cacertfile=drive:\path\to\ca_bundle.pem&certfile=drive:\path\to\client_certificate.pem&keyfile=drive:\path\to\client_key.pem&verify=verify_none"",""expires"":3600000}"'
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+# Note the TLS-related settings in the upstream URI field
+rabbitmqadmin.exe federation declare_upstream --name my-upstream ^
+    --uri "amqps://target.hostname:5671?cacertfile=drive:\path\to\ca_bundle.pem&certfile=drive:\path\to\client_certificate.pem&keyfile=drive:\path\to\client_key.pem&verify=verify_none" ^
+    --ttl 3600000
 ```
 </TabItem>
 
@@ -522,15 +582,27 @@ Therefore, in order to narrow down the problem, the recommended steps are:
 #### Inspect Federation Upstreams
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmq-diagnostics with bash" default>
 ```bash
 rabbitmq-diagnostics list_parameters --formatter=pretty_table
 ```
 </TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin federation list_all_upstreams
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmq-diagnostics with PowerShell">
 ```PowerShell
 rabbitmq-diagnostics.bat list_parameters --formatter=pretty_table
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+rabbitmqadmin.exe federation list_all_upstreams
 ```
 </TabItem>
 

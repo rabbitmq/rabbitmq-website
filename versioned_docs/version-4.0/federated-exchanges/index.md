@@ -117,16 +117,30 @@ To add an upstream, use the `rabbitmqctl set_parameter` command. It accepts thre
 The following example configures an upstream named "origin" which can be contacted at <code>remote-host.local:5672</code>:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # Adds a federation upstream named "origin"
 rabbitmqctl set_parameter federation-upstream origin '{"uri":"amqp://remote-host.local:5672"}'
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Adds a federation upstream named "origin"
+rabbitmqadmin federation declare_upstream_for_exchanges --name origin \
+    --uri "amqp://remote-host.local:5672"
+```
+</TabItem>
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 # Adds a federation upstream named "origin"
 rabbitmqctl.bat set_parameter federation-upstream origin '"{""uri"":""amqp://remote-host.local:5672""}"'
+```
+</TabItem>
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+# Adds a federation upstream named "origin"
+rabbitmqadmin.exe federation declare_upstream_for_exchanges --name origin ^
+    --uri "amqp://remote-host.local:5672"
 ```
 </TabItem>
 </Tabs>
@@ -137,7 +151,7 @@ Once an upstream has been specified, a policy that controls federation can be ad
 any other [policy](./policies), using:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # Adds a policy named "exchange-federation"
 rabbitmqctl set_policy exchange-federation \
@@ -147,7 +161,18 @@ rabbitmqctl set_policy exchange-federation \
     --apply-to exchanges
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Adds a policy named "exchange-federation"
+rabbitmqadmin policies declare \
+    --name "exchange-federation" \
+    --pattern "^federated\." \
+    --definition '{"federation-upstream-set":"all"}' \
+    --priority 10 \
+    --apply-to "exchanges"
+```
+</TabItem>
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 # Adds a policy named "exchange-federation"
 rabbitmqctl.bat set_policy exchange-federation `
@@ -155,6 +180,17 @@ rabbitmqctl.bat set_policy exchange-federation `
     '"{""federation-upstream-set"":""all""}"' `
     --priority 10 `
     --apply-to exchanges
+```
+</TabItem>
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+# Adds a policy named "exchange-federation"
+rabbitmqadmin.exe policies declare ^
+    --name "exchange-federation" ^
+    --pattern "^federated\." ^
+    --definition "{""federation-upstream-set"":""all""}" ^
+    --priority 10 ^
+    --apply-to "exchanges"
 ```
 </TabItem>
 </Tabs>
@@ -240,91 +276,90 @@ height="15"/> it can be a cluster of nodes or a standalone node.
       <td><strong>Description</strong></td>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>Pair of federated exchanges</td>
       <td>
-      <div>
-      Each exchange links to the other in this symmetric arrangement. A
-      publisher and consumer connected to each broker are illustrated.
-      Both consumers can receive messages published by either publisher.
-      </div>
+        <div>
+          Each exchange links to the other in this symmetric arrangement. A
+          publisher and consumer connected to each broker are illustrated.
+          Both consumers can receive messages published by either publisher.
+        </div>
 
-      <figure className={"without-borders"}>
-      ![Symmetric pair](./federation02.png)
-      </figure>
+        <figure className={"without-borders"}>
+        ![Symmetric pair](./federation02.png)
+        </figure>
 
-      <div>
-      Both links are declared with `max-hops=1` so that
-      messages are copied only once, otherwise the consumers will see
-      multiple copies of the same message (up to the `max-hops` limit).
-      </div>
+        <div>
+          Both links are declared with `max-hops=1` so that
+          messages are copied only once, otherwise the consumers will see
+          multiple copies of the same message (up to the `max-hops` limit).
+        </div>
       </td>
     </tr>
 
     <tr>
       <td>Complete Graph</td>
       <td>
-      <div>
-      This arrangement is the analogue of the pair of federated exchanges
-      but for three exchanges. Each exchange links to both the others.
-      </div>
+        <div>
+          This arrangement is the analogue of the pair of federated exchanges
+          but for three exchanges. Each exchange links to both the others.
+        </div>
 
-      <figure className={"without-borders"}>
-      ![Three-way federation](./federation03.png)
-      </figure>
+        <figure className={"without-borders"}>
+        ![Three-way federation](./federation03.png)
+        </figure>
 
-      <div>
-      Again `max-hops=1` because the "hop distance" to any
-      other exchange is exactly one. This will be the case in any complete
-      graph of federated exchanges.
-      </div>
+        <div>
+          Again `max-hops=1` because the "hop distance" to any
+          other exchange is exactly one. This will be the case in any complete
+          graph of federated exchanges.
+        </div>
       </td>
     </tr>
 
     <tr>
       <td>Fan-out</td>
       <td>
-      <div>
-      One source exchange (which it is not necessary to federate)
-      is linked to by a tree of exchanges, which can extend to any depth.
-      In this case messages published to the source exchange can be
-      received by any consumer connected to any broker in the tree.
-      </div>
+        <div>
+          One source exchange (which it is not necessary to federate)
+          is linked to by a tree of exchanges, which can extend to any depth.
+          In this case messages published to the source exchange can be
+          received by any consumer connected to any broker in the tree.
+        </div>
 
-      <figure className={"without-borders"}>
-      ![Fan-out](./federation04.png)
-      </figure>
+        <figure className={"without-borders"}>
+        ![Fan-out](./federation04.png)
+        </figure>
 
-      <div>
-      Because there are no loops it is not as crucial to get the
-      `max-hops` value right, but it must be at least
-      as large as the longest connecting path. For a tree this is
-      the number of levels minus one.
-      </div>
+        <div>
+          Because there are no loops it is not as crucial to get the
+          `max-hops` value right, but it must be at least
+          as large as the longest connecting path. For a tree this is
+          the number of levels minus one.
+        </div>
       </td>
     </tr>
 
     <tr>
       <td>Ring</td>
       <td>
-      <div>
-      In this ring of six brokers each federated exchange links to just
-      one other in the ring. The `"max-hops"` property is set
-      to 5 so that every exchange in the ring sees the message exactly
-      once.
-      </div>
+        <div>
+          In this ring of six brokers each federated exchange links to just
+          one other in the ring. The `"max-hops"` property is set
+          to 5 so that every exchange in the ring sees the message exactly
+          once.
+        </div>
 
-      <figure className={"without-borders"}>
-      ![Ring](./federation05.png)
-      </figure>
+        <figure className={"without-borders"}>
+        ![Ring](./federation05.png)
+        </figure>
 
-      <div>
-      This topology, though relatively cheap in queues and connections, is
-      rather fragile compared to a completely connected graph. One broker
-      (or connection) failure breaks the ring.
-      </div>
+        <div>
+          This topology, though relatively cheap in queues and connections, is
+          rather fragile compared to a completely connected graph. One broker
+          (or connection) failure breaks the ring.
+        </div>
       </td>
     </tr>
   </tbody>

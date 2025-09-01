@@ -117,16 +117,30 @@ To add an upstream, use the `rabbitmqctl set_parameter` command. It accepts thre
 The following example configures an upstream named "origin" which can be contacted at <code>remote-host.local:5672</code>:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # Adds a federation upstream named "origin"
 rabbitmqctl set_parameter federation-upstream origin '{"uri":"amqp://remote-host.local:5672"}'
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Adds a federation upstream named "origin"
+rabbitmqadmin federation declare_upstream_for_exchanges --name origin \
+    --uri "amqp://remote-host.local:5672"
+```
+</TabItem>
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 # Adds a federation upstream named "origin"
 rabbitmqctl.bat set_parameter federation-upstream origin '"{""uri"":""amqp://remote-host.local:5672""}"'
+```
+</TabItem>
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+# Adds a federation upstream named "origin"
+rabbitmqadmin.exe federation declare_upstream_for_exchanges --name origin ^
+    --uri "amqp://remote-host.local:5672"
 ```
 </TabItem>
 </Tabs>
@@ -137,7 +151,7 @@ Once an upstream has been specified, a policy that controls federation can be ad
 any other [policy](./policies), using:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # Adds a policy named "exchange-federation"
 rabbitmqctl set_policy exchange-federation \
@@ -147,7 +161,18 @@ rabbitmqctl set_policy exchange-federation \
     --apply-to exchanges
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# Adds a policy named "exchange-federation"
+rabbitmqadmin policies declare \
+    --name "exchange-federation" \
+    --pattern "^federated\." \
+    --definition '{"federation-upstream-set":"all"}' \
+    --priority 10 \
+    --apply-to "exchanges"
+```
+</TabItem>
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 # Adds a policy named "exchange-federation"
 rabbitmqctl.bat set_policy exchange-federation `
@@ -155,6 +180,17 @@ rabbitmqctl.bat set_policy exchange-federation `
     '"{""federation-upstream-set"":""all""}"' `
     --priority 10 `
     --apply-to exchanges
+```
+</TabItem>
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+# Adds a policy named "exchange-federation"
+rabbitmqadmin.exe policies declare ^
+    --name "exchange-federation" ^
+    --pattern "^federated\." ^
+    --definition "{""federation-upstream-set"":""all""}" ^
+    --priority 10 ^
+    --apply-to "exchanges"
 ```
 </TabItem>
 </Tabs>

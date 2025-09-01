@@ -86,6 +86,9 @@ around in order to perform load balancing.
 
 Brokers running different versions of RabbitMQ can be connected using federation.
 
+Queue federation is also an important component of [Blue Green Deployments](./blue-green-upgrade),
+such as [migrations from RabbitMQ 3.x to 4.x](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way).
+
 ## Limitations {#limitations}
 
 Federated queues include a number of limitations or differences compared to their non-federated peers
