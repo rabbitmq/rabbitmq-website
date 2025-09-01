@@ -19,6 +19,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Upgrading RabbitMQ Using Blue-Green Deployment Strategy
 
 ## Overview {#overview}
@@ -62,18 +65,74 @@ is the upstream and the "green" one is the downstream.
 
 First define the upstream on "green" and point it to "blue":
 
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_parameter federation-upstream blue \
   '{"uri":"amqp://node-in-blue-cluster"}'
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin federation declare_upstream_for_queues --name blue \
+  --uri "amqp://node-in-blue-cluster"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat set_parameter federation-upstream blue ^
+  '"{""uri"":""amqp://node-in-blue-cluster""}"'
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+rabbitmqadmin.exe federation declare_upstream_for_queues --name blue ^
+  --uri "amqp://node-in-blue-cluster"
+```
+</TabItem>
+</Tabs>
 
 Then define a [policy](./policies) or a number of policies, collectively matching all queues
 which configure `blue` as the upstream:
 
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
-rabbitmqctl set_policy --apply-to queues blue-green-migration ".*" \
+rabbitmqctl set_policy --apply-to queues blue ".*" \
   '{"federation-upstream":"blue"}'
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin policies declare \
+  --name "blue" \
+  --pattern ".*" \
+  --definition '{"federation-upstream":"blue"}' \
+  --apply-to "queues"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat set_policy --apply-to queues blue ".*" ^
+  '"{""federation-upstream"":""blue""}"'
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+rabbitmqadmin.exe policies declare ^
+  --name "blue" ^
+  --pattern ".*" ^
+  --definition "{""federation-upstream"":""blue""}" ^
+  --apply-to "queues"
+```
+</TabItem>
+</Tabs>
 
 :::tip
 
