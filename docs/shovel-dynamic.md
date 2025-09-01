@@ -18,6 +18,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Configuring Dynamic Shovels
 
 ## Overview {#overview}
@@ -47,7 +50,7 @@ with the [pre-declared topology mode](#predeclared-topology).
 
 ## Configuration {#configuration}
 
-Parameters can be defined using [`rabbitmqctl`](./cli), through the
+Dynamic shovels can be defined using [`rabbitmqadmin`](./management-cli), [`rabbitmqctl`](./cli), through the
 [management HTTP API](./management), or (with the `rabbitmq_shovel_management` plugin [enabled](./plugins)) through
 the management UI's administrative section.
 
@@ -71,26 +74,98 @@ local RabbitMQ cluster to the queue `"target-queue"` on a remote RabbitMQ node, 
 
 ### Using CLI Tools
 
-A shovel is declared using the `rabbitmqctl set_parameter` command with component name `shovel`, a shovel
-name and a definition body which is a JSON document:
+A shovel can be declared using CLI tools or the [HTTP API](./http-api-reference).
 
+With [`rabbitmqctl`](./cli), a shovel is declared using the `set_parameter` command that declares a [runtime parameter] (./parameters).
+[`rabbitmqadmin`](./management-cli) includes dedicated commands for declaring shovels under the
+`shovels` group, namedly `shovels declare_amqp091` and `shovels declare_amqp10`.
+
+Here are examples that declare a dynamic shovel using CLI tools:
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqctl-bash" label="rabbitmqctl with bash" default>
 ```bash
 # my-shovel here is the name of the shovel
 rabbitmqctl set_parameter shovel my-shovel \
   '{"src-protocol": "amqp091", "src-uri": "amqp://", "src-queue": "source-queue", "dest-protocol": "amqp091", "dest-uri": "amqp://remote-server", "dest-queue": "target-queue", "dest-queue-args": {"x-queue-type": "quorum"}}'
 ```
+</TabItem>
 
-On Windows `rabbitmqctl` is named `rabbitmqctl.bat` and command line value escaping will be
-different:
+<TabItem value="rabbitmqadmin-bash" label="rabbitmqadmin with bash">
+```bash
+# Declare an AMQP 0-9-1 shovel using rabbitmqadmin
+rabbitmqadmin shovels declare_amqp091 --name my-shovel \
+    --source-uri "amqp://" \
+    --destination-uri "amqp://remote-server" \
+    --source-queue "source-queue" \
+    --destination-queue "target-queue"
+```
+</TabItem>
 
+<TabItem value="rabbitmqctl-PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl.bat set_parameter shovel my-shovel ^
   "{""src-protocol"": ""amqp091"", ""src-uri"":""amqp://localhost"", ""src-queue"": ""source-queue"", ^
    ""dest-protocol"": ""amqp091"", ""dest-uri"": ""amqp://remote.rabbitmq.local"", ^
    ""dest-queue"": ""target-queue"", ""dest-queue-args"": {""x-queue-type"": ""quorum""}}"
 ```
+</TabItem>
 
-The body in this example includes a few keys:
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+# Declare an AMQP 0-9-1 shovel using rabbitmqadmin
+rabbitmqadmin.exe shovels declare_amqp091 --name my-shovel ^
+    --source-uri "amqp://" ^
+    --destination-uri "amqp://remote-server" ^
+    --source-queue "source-queue" ^
+    --destination-queue "target-queue"
+```
+</TabItem>
+</Tabs>
+
+Here are some examples that declare AMQP 1.0 shovels:
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqctl-bash" label="rabbitmqctl with bash" default>
+```bash
+# AMQP 1.0 shovel using rabbitmqctl set_parameter
+rabbitmqctl set_parameter shovel my-amqp10-shovel \
+  '{"src-protocol": "amqp10", "src-uri": "amqp://username:password@source-server", "src-address": "/queues/source-queue", "dest-protocol": "amqp10", "dest-uri": "amqp://username:password@dest-server", "dest-address": "/queues/target-queue"}'
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-bash" label="rabbitmqadmin with bash">
+```bash
+# Declare an AMQP 1.0 shovel using rabbitmqadmin
+rabbitmqadmin shovels declare_amqp10 --name my-amqp10-shovel \
+    --source-uri "amqp://username:password@source-server" \
+    --destination-uri "amqp://username:password@dest-server" \
+    --source-address "/queues/source-queue" \
+    --destination-address "/queues/target-queue"
+```
+</TabItem>
+
+<TabItem value="rabbitmqctl-PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+# AMQP 1.0 shovel using rabbitmqctl set_parameter
+rabbitmqctl.bat set_parameter shovel my-amqp10-shovel ^
+  "{""src-protocol"": ""amqp10"", ""src-uri"": ""amqp://username:password@source-server"", ""src-address"": ""/queues/source-queue"", ""dest-protocol"": ""amqp10"", ""dest-uri"": ""amqp://username:password@dest-server"", ""dest-address"": ""/queues/target-queue""}"
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+# Declare an AMQP 1.0 shovel using rabbitmqadmin
+rabbitmqadmin.exe shovels declare_amqp10 --name my-amqp10-shovel ^
+    --source-uri "amqp://username:password@source-server" ^
+    --destination-uri "amqp://username:password@dest-server" ^
+    --source-address "/queues/source-queue" ^
+    --destination-address "/queues/target-queue"
+```
+</TabItem>
+</Tabs>
+
+The [runtime parameter](./parameters) definition (body) in these examples includes a few keys:
 
 <table>
   <caption>Essential Dynamic Shovel Definition Settings</caption>
