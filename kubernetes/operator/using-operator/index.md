@@ -351,13 +351,12 @@ spec:
 For more information about concepts mentioned above, see:
 
 <table class="nice">
-	<thead>
+  <thead>
     <tr>
       <th>Concept</th>
       <th>More information in…</th>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>StorageClass</td>
@@ -372,7 +371,7 @@ For more information about concepts mentioned above, see:
       <td>The <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/">Kubernetes Resource Model documentation</a> in GitHub</td>
     </tr>
   </tbody>
- </table>
+</table>
 
 :::tip
 
@@ -430,20 +429,26 @@ This means the actual memory limit set in RabbitMQ is 20% less than the specifie
 For more information about concepts mentioned above, see:
 
 <table class="nice">
-	<th>Concept</th>
-	<th>More information in…</th>
-	<tr>
-		<td>Resource request and limit requirements</td>
-		<td>The <a href="https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/">Kubernetes documentation</a></td>
-	</tr>
-	<tr>
-		<td>CPU measurement</td>
-		<td>The <a href="https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#meaning-of-cpu">Kubernetes documentation</a></td>
-	</tr>
-	<tr>
-		<td>High-water mark</td>
-		<td>The <a href="/docs/memory#threshold">RabbitMQ documentation</a></td>
-	</tr>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>More information in…</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Resource request and limit requirements</td>
+      <td>The <a href="https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/">Kubernetes documentation</a></td>
+    </tr>
+    <tr>
+      <td>CPU measurement</td>
+      <td>The <a href="https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#meaning-of-cpu">Kubernetes documentation</a></td>
+    </tr>
+    <tr>
+      <td>High-water mark</td>
+      <td>The <a href="/docs/memory#threshold">RabbitMQ documentation</a></td>
+    </tr>
+  </tbody>
 </table>
 
 ### Affinity and Anti-affinity Rules {#affinity}
@@ -784,8 +789,13 @@ To view the default values, see [Configure a RabbitMQ Instance](#configure) abov
 The configurations are listed in the table below.
 
 <table class="nice">
-    <th>Custom Resource attribute</th>
-    <th>Description</th>
+  <thead>
+    <tr>
+      <th>Custom Resource attribute</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
     <tr>
       <td>
         <code>metadata.labels</code>
@@ -979,6 +989,7 @@ The configurations are listed in the table below.
         See the <a href='#override'>Override section</a> to learn more.
       </td>
     </tr>
+  </tbody>
 </table>
 
 For more information about CPU units, the Kubernetes scheduler, and CPU time availability, see the
@@ -1031,20 +1042,26 @@ kubectl apply -f rabbitmq-pdb.yaml
 For more information about concepts mentioned above, see:
 
 <table class="nice">
-	<th>Concept</th>
-	<th>More information in…</th>
-	<tr>
-		<td>PDBs</td>
-		<td>The <a href="https://kubernetes.io/docs/tasks/run-application/configure-pdb/">Kubernetes documentation</a></td>
-	</tr>
-	<tr>
-		<td>Voluntary and involuntary disruptions</td>
-		<td>The <a href="https://kubernetes.io/docs/concepts/workloads/pods/disruptions/#voluntary-and-involuntary-disruptions">Kubernetes documentation</a></td>
-	</tr>
-	<tr>
-		<td>pause-minority mode</td>
-		<td>The <a href="/docs/partitions#automatic-handling">RabbitMQ documentation</a></td>
-	</tr>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>More information in…</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PDBs</td>
+      <td>The <a href="https://kubernetes.io/docs/tasks/run-application/configure-pdb/">Kubernetes documentation</a></td>
+    </tr>
+    <tr>
+      <td>Voluntary and involuntary disruptions</td>
+      <td>The <a href="https://kubernetes.io/docs/concepts/workloads/pods/disruptions/#voluntary-and-involuntary-disruptions">Kubernetes documentation</a></td>
+    </tr>
+    <tr>
+      <td>pause-minority mode</td>
+      <td>The <a href="/docs/partitions#automatic-handling">RabbitMQ documentation</a></td>
+    </tr>
+  </tbody>
 </table>
 
 ## (Optional) Configure TLS {#tls}
