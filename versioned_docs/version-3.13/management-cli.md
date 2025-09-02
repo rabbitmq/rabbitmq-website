@@ -26,7 +26,7 @@ limitations under the License.
 It supports many of the operations available in the management UI:
 
  * Listing objects (virtual hosts, users, queues, streams, permissions, policies, and so on)
- * Creating queues, streams, exchanges, bindings, users, virtual hosts, permissions, and so on
+ * Creating objects
  * Deleting objects
  * Access to cluster and node metrics
  * Run [health checks](./monitoring#health-checks)
