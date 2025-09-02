@@ -701,6 +701,32 @@ To list all [federation links](./federation) across all virtual hosts, use `fede
 rabbitmqadmin federation list_all_links
 ```
 
+### Rebalance Queue Leaders
+
+This command allows [rebalancing of quorum queue](./quorum-queues#member-rebalancing) leaders across the cluster:
+
+#### Examples
+
+```shell
+# Rebalance queue leaders in the default virtual host (/)
+rabbitmqadmin rebalance queues
+
+# Rebalance queue leaders in a specific virtual host
+rabbitmqadmin --vhost "production" rebalance queues
+```
+
+### Inspect Target Endpoint (for Troubleshooting)
+
+Use `show endpoint` to display the computed HTTP API endpoint URI.
+
+#### Examples
+
+```shell
+rabbitmqadmin show endpoint
+```
+
+This command helps verify that `rabbitmqadmin` is targeting the correct RabbitMQ HTTP API endpoint, for example, when a `rabbitmqadmin.conf` file exists or environment variables may be set in the environment.
+
 
 ## Subcommand and Long Option Inference
 

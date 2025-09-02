@@ -130,6 +130,7 @@ The use of `jq` is entirely optional.
 Various random bits of information that describe the whole
 system.
 
+
 #### Examples
 
 <Tabs groupId="examples">
@@ -150,6 +151,7 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 
 Returns the name identifying this RabbitMQ cluster.
 
+
 #### Examples
 
 <Tabs groupId="examples">
@@ -168,6 +170,7 @@ Updates the name identifying this RabbitMQ cluster.
 ### GET /api/nodes
 
 Lists all nodes in the cluster together with their metrics.
+
 
 #### Examples
 
@@ -189,6 +192,7 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 
 Returns metrics of an individual cluster node.
 
+
 #### Examples
 
 <Tabs groupId="examples">
@@ -207,6 +211,7 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 ### GET /api/nodes/\{_name_\}/memory
 
 Returns a <a href="./memory-use">memory usage breakdown</a> of a specific cluster node.
+
 
 #### Examples
 
@@ -233,6 +238,7 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 Exports cluster-wide definitions: all exchanges, queues, bindings, users,
 virtual hosts, permissions, topic permissions, and parameters.
 That is, everything apart from messages.
+
 
 #### Examples
 
@@ -308,6 +314,7 @@ when the definitions are imported.
 
 Relevant documentation guide: <a href="./definitions">Definition Export and Import</a>.
 
+
 #### Examples
 
 <Tabs groupId="examples">
@@ -381,6 +388,7 @@ Lists all feature flags and their state.
 
 Relevant documentation guide: [Feature Flags](./feature-flags).
 
+
 #### Examples
 
 <Tabs groupId="examples">
@@ -402,6 +410,7 @@ Lists all deprecated features and their state.
 
 Relevant documentation guide: [Deprecated Features](./deprecated-features)
 
+
 #### Examples
 
 <Tabs groupId="examples">
@@ -422,6 +431,7 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 Lists the deprecated features that are used in this cluster.
 
 Relevant documentation guide: [Deprecated Features](./deprecated-features)
+
 
 #### Examples
 
@@ -445,6 +455,8 @@ A list of all open connections.
 Use <a href="#pagination">pagination parameters</a> to list connections,
 otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
 Default page size is 100, maximum supported page size is 500.
+
+#### Examples
 
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
@@ -479,6 +491,8 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 
 Returns metrics of an individual connection.
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
 ```bash
@@ -498,6 +512,8 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 Closes the connection. Optionally set the "X-Reason" header
 to provide a reason.
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
 ```bash
@@ -515,6 +531,8 @@ curl -sL -u guest:guest -X DELETE -H "Accept: application/json" http://127.0.0.1
 ### GET /api/connections/username/\{_username_\}
 
 A list of all open connections that authenticated using a specific username.
+
+#### Examples
 
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
@@ -535,6 +553,8 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 Close all the connections of a user.
 
 Optionally set the "X-Reason" header to provide a reason.
+
+#### Examples
 
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
@@ -558,6 +578,8 @@ Use <a href="#pagination">pagination parameters</a> to list channels,
 otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
 Default page size is 100, maximum supported page size is 500.
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="curl" label="curl" default>
 ```bash
@@ -574,6 +596,8 @@ A list of all open channels.
 Use <a href="#pagination">pagination parameters</a> to list channels,
 otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
 Default page size is 100, maximum supported page size is 500.
+
+#### Examples
 
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
@@ -612,6 +636,8 @@ Use <a href="#pagination">pagination parameters</a> to list consumers,
 otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
 Default page size is 100, maximum supported page size is 500.
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
 ```bash
@@ -637,6 +663,8 @@ A list of all consumers in a given virtual host.
 ### GET /api/exchanges
 
 A list of all exchanges. Use <a href="#pagination">pagination parameters</a> to list exchanges.
+
+#### Examples
 
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
@@ -745,6 +773,8 @@ The parameter <code>enable_queue_totals=true</code> can be used in combination w
 reduce the amount of data returned by this endpoint. That in turn can significantly reduce
 CPU and bandwidth footprint of such requests.
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
 ```bash
@@ -781,6 +811,8 @@ A list of all queues in the given virtual host containing all available informat
 Use <a href="#pagination">pagination parameters</a> to list queues,
 otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
 Default page size is 100, maximum supported page size is 500.
+
+#### Examples
 
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
@@ -880,6 +912,8 @@ Use <a href="#pagination">pagination parameters</a> to list bindings,
 otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
 Default page size is 100, maximum supported page size is 500.
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
 ```bash
@@ -904,6 +938,8 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 Use <a href="#pagination">pagination parameters</a> to list bindings,
 otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
 Default page size is 100, maximum supported page size is 500.
+
+#### Examples
 
 <Tabs groupId="examples">
 <TabItem value="curl" label="curl" default>
@@ -995,6 +1031,8 @@ Returns a list of all virtual hosts in the cluster.
 
 Pagination: default page size is 100, maximum supported page size is 500.
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
 ```bash
@@ -1070,6 +1108,8 @@ few minutes after cluster formation (more specifically after each cluster member
 
 Lists all users in the cluster. This only includes the [users in the internal data store](./access-control/).
 For example, if the [LDAP backend](./ldap/) is used, this command will not include any LDAP users.
+
+#### Examples
 
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
@@ -1175,6 +1215,8 @@ Clears a per-user limit.
 
 A list of all user permissions in the cluster.
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
 ```bash
@@ -1239,6 +1281,8 @@ Revokes [topic exchange permissions](./access-control#topic-authorisation) of a 
 
 Returns a list of [runtime parameters](./parameters) across all virtual hosts in the cluster.
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
 ```bash
@@ -1285,6 +1329,8 @@ Deletes a [runtime parameter](./parameters).
 
 Lists all [global runtime parameters](./parameters) in the cluster.
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
 ```bash
@@ -1301,6 +1347,8 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 ### GET /api/global-parameters/\{_name_\}
 
 Returns the value (definition) of the given global runtime parameter.
+
+#### Examples
 
 <Tabs groupId="examples">
 <TabItem value="curl" label="curl" default>
@@ -1333,6 +1381,8 @@ Example payloads:
 }
 ```
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
 ```bash
@@ -1351,6 +1401,8 @@ curl -sL -u guest:guest -X PUT -H "Accept: application/json" -H "Content-Type: a
 
 Clears a global runtime parameter.
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
 ```bash
@@ -1368,6 +1420,8 @@ curl -sL -u guest:guest -X DELETE -H "Accept: application/json" http://127.0.0.1
 
 Lists [policies](./policies) across all virtual hosts in the cluster.
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
 ```bash
@@ -1384,6 +1438,8 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 ### GET /api/policies/\{_vhost_\}
 
 Lists [policies](./policies) in the given virtual host.
+
+#### Examples
 
 <Tabs groupId="examples">
 <TabItem value="curl" label="curl" default>
@@ -1427,6 +1483,8 @@ Deletes a policy.
 
 Lists [operator policies](./policies#operator-policies) across all virtual hosts in the cluster.
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
 ```bash
@@ -1443,6 +1501,8 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 ### GET /api/operator-policies/\{_vhost_\}
 
 Returns an operator [policy](./policies#operator-policies) definition.
+
+#### Examples
 
 <Tabs groupId="examples">
 <TabItem value="curl" label="curl" default>
@@ -1486,6 +1546,8 @@ Deletes an operator policy.
 
 Lists all [virtual host limits](./vhosts#limits) configured across the cluster.
 
+#### Examples
+
 <Tabs groupId="examples">
 <TabItem value="curl" label="curl" default>
 ```bash
@@ -1497,6 +1559,8 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 ### GET /api/vhost-limits/\{_vhost_\}
 
 Lists [virtual host limits](./vhosts#limits) configured for the target virtual host.
+
+#### Examples
 
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
@@ -1563,6 +1627,25 @@ A list of client authentication attempts grouped by remote address and username.
 ### GET /api/auth/hash_password/\{_password_\}
 
 Hashes the provided [password](./passwords) according to the currently configured password hashing algorithm.
+
+#### Examples
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2">
+```bash
+# Hash a password using SHA256 (default)
+rabbitmqadmin passwords salt_and_hash "my-secret-password"
+
+# Hash a password using SHA512
+rabbitmqadmin passwords salt_and_hash "my-secret-password" --hashing-algorithm SHA512
+```
+</TabItem>
+<TabItem value="curl" label="curl" default>
+```bash
+curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/auth/hash_password/my-secret-password
+```
+</TabItem>
+</Tabs>
 
 ### GET /api/stream/connections
 
