@@ -26,7 +26,7 @@ limitations under the License.
 It supports many of the operations available in the management UI:
 
  * Listing objects (virtual hosts, users, queues, streams, permissions, policies, and so on)
- * Creating objects
+ * Creating queues, streams, exchanges, bindings, users, virtual hosts, permissions, and so on
  * Deleting objects
  * Access to cluster and node metrics
  * Run [health checks](./monitoring#health-checks)
@@ -57,7 +57,7 @@ are distributed via [GitHub releases](https://github.com/rabbitmq/rabbitmqadmin-
 
 ## Usage
 
-### Exploring Available Command Groups and Sub-commands
+### Exploring Available Command Groups and Sub-Commands
 
 To explore what command groups are available, use
 
@@ -250,52 +250,107 @@ Helps assess connection, queue/stream, channel [churn metrics](./connections#hig
 rabbitmqadmin show churn
 ```
 
-### Listing cluster nodes
+### Listing Cluster Nodes
 
 ``` shell
-rabbitmqadmin list nodes
+rabbitmqadmin nodes list
 ```
 
-### Listing virtual hosts
+### Listing Virtual Hosts
 
 ``` shell
-rabbitmqadmin list vhosts
+rabbitmqadmin vhosts list
 ```
 
-### Listing users
+### Listing Users
 
 ``` shell
-rabbitmqadmin list users
+rabbitmqadmin users list
 ```
 
-### Listing queues
+### Create a User
+
+```shell
+rabbitmqadmin users declare --name "a-user" --password "secure-password" --tags "monitoring,policymaker"
+```
+
+```shell
+# Create user with password hash (recommended)
+# Use 'rabbitmqadmin passwords salt_and_hash "my-password"' to generate the hash
+rabbitmqadmin users declare --name "a-user" --password-hash "$2b$12$abcdefghijklmnopqrstuvwxyz" --tags "administrator"
+```
+
+### Delete a User
+
+```shell
+rabbitmqadmin users delete --name "a-user"
+```
+
+```shell
+# Idempotent deletion (does not fail if the user doesn't exist)
+rabbitmqadmin users delete --name "a-user" --idempotently
+```
+
+### List User Permissions
+
+```shell
+# List permissions for all users
+rabbitmqadmin users permissions
+```
+
+### List User Connections
+
+```shell
+# List connections for a specific user
+rabbitmqadmin users connections --name "a-user"
+```
+
+### Listing Queues
 
 ``` shell
-rabbitmqadmin list queues
+rabbitmqadmin queues list
 ```
 
 ``` shell
-rabbitmqadmin --vhost "monitoring" list queues
+rabbitmqadmin --vhost "monitoring" queues list
 ```
 
-### Listing exchanges
+### Listing Exchanges
 
 ``` shell
-rabbitmqadmin list exchanges
-```
-
-``` shell
-rabbitmqadmin --vhost "events" list exchanges
-```
-
-### Listing bindings
-
-``` shell
-rabbitmqadmin list bindings
+rabbitmqadmin exchanges list
 ```
 
 ``` shell
-rabbitmqadmin --vhost "events" list bindings
+rabbitmqadmin --vhost "events" exchanges list
+```
+
+### Listing Bindings
+
+``` shell
+rabbitmqadmin bindings list
+```
+
+``` shell
+rabbitmqadmin --vhost "events" bindings list
+```
+
+### Bind a Queue to an Exchange
+
+```shell
+rabbitmqadmin --vhost "events" bindings declare --source "events.topic" --destination-type "queue" --destination "target.queue" --routing-key "events.order.created"
+```
+
+### Bind a Source Exchange to a Destination Exchange
+
+```shell
+rabbitmqadmin --vhost "events" bindings declare --source "events.topic" --destination-type "exchange" --destination "events.fanout" --routing-key "events.*"
+```
+
+### Delete a Binding
+
+```shell
+rabbitmqadmin --vhost "events" bindings delete --source "events.topic" --destination-type "queue" --destination "target.queue" --routing-key "events.order.created"
 ```
 
 ### Create a Virtual Host
@@ -330,13 +385,36 @@ rabbitmqadmin --vhost "events" queues declare --name "target.stream.name" --type
 rabbitmqadmin --vhost "events" queues declare --name "target.classic.queue.name" --type "classic" --durable true --auto-delete false
 ```
 
-### Purge a queue
+### Listing Streams
 
+``` shell
+rabbitmqadmin streams list
 ```
+
+``` shell
+# List streams in a specific virtual host
+rabbitmqadmin --vhost "events" streams list
+```
+
+### Declare a Stream
+
+```shell
+rabbitmqadmin --vhost "events" streams declare --name "events.stream" --max-age "3D"
+```
+
+### Delete a Stream
+
+```shell
+rabbitmqadmin --vhost "events" streams delete --name "events.stream"
+```
+
+### Purge a Queue
+
+```shell
 rabbitmqadmin --vhost "events" queues purge --name "target.queue.name"
 ```
 
-### Delete a queue
+### Delete a Queue
 
 ``` shell
 rabbitmqadmin --vhost "events" queues delete --name "target.queue.name"
@@ -361,7 +439,7 @@ rabbitmqadmin --vhost "events" exchanges declare --name "events.all_type.uncateg
 rabbitmqadmin --vhost "events" exchanges declare --name "local.random.c60bda92" --type "x-local-random" --durable true
 ```
 
-### Delete an exchange
+### Delete an Exchange
 
 ``` shell
 rabbitmqadmin --vhost "events" exchanges delete --name "target.exchange.name"
@@ -370,6 +448,40 @@ rabbitmqadmin --vhost "events" exchanges delete --name "target.exchange.name"
 ``` shell
 # --idempotently means that 404 Not Found responses will not be  considered errors
 rabbitmqadmin --vhost "events" exchanges delete --name "target.exchange.name" --idempotently
+```
+
+### Listing Connections
+
+``` shell
+rabbitmqadmin connections list
+```
+
+``` shell
+# List connections for a specific virtual host
+rabbitmqadmin --vhost "events" connections list
+```
+
+### Close a Connection
+
+``` shell
+rabbitmqadmin connections close --name "127.0.0.1:5672 -> 127.0.0.1:59876"
+```
+
+### Close All Connections for a User
+
+``` shell
+rabbitmqadmin users close_connections --name "a-user"
+```
+
+### Listing Channels
+
+``` shell
+rabbitmqadmin channels list
+```
+
+``` shell
+# List channels in a specific virtual host
+rabbitmqadmin --vhost "events" channels list
 ```
 
 ### Inspecting Node Memory Breakdown
@@ -454,44 +566,34 @@ Other factors that can affect the precision of percentage values reported  are [
 behavior nuances and the [kernel page cache](./memory-use#page-cache).
 
 
-### List feature flags and their state
+### List Feature Flags and Their State
 
 ```shell
 rabbitmqadmin feature_flags list
 ```
 
-```shell
-# same command as above
-rabbitmqadmin list feature_flags
-```
-
-### Enable a feature flag
+### Enable a Feature Flag
 
 ```shell
 rabbitmqadmin feature_flags enable rabbitmq_4.0.0
 ```
 
-### Enable all stable feature flags
+### Enable All Stable Feature Flags
 
 ```shell
 rabbitmqadmin feature_flags enable_all
 ```
 
-### List deprecated features in use in the cluster
+### List Deprecated Features in Use in the Cluster
 
 ```shell
 rabbitmqadmin deprecated_features list_used
 ```
 
-### List all deprecated features
+### List All Deprecated Features
 
 ```shell
 rabbitmqadmin deprecated_features list
-```
-
-```shell
-# same command as above
-rabbitmqadmin list deprecated_features
 ```
 
 ### Export Definitions
@@ -576,7 +678,7 @@ rabbitmqadmin definitions import --file /path/to/definitions.file.json
 
 ### Declare an AMQP 0-9-1 Shovel
 
-To declare a [dynamic shovel](./shovel-dynamic) that uses AMQP 0-9-1 for both source and desitnation, use
+To declare a [dynamic shovel](./shovel-dynamic) that uses AMQP 0-9-1 for both source and destination, use
 `shovels declare_amqp091`:
 
 ```shell
@@ -592,13 +694,14 @@ rabbitmqadmin shovels declare_amqp091 --name my-amqp091-shovel \
 
 ### Declare an AMQP 1.0 Shovel
 
-To declare a [dynamic shovel](./shovel-dynamic) that uses AMQP 1.0 for both source and desitnation, use
-`shovel declare_amqp10`.
+To declare a [dynamic shovel](./shovel-dynamic) that uses AMQP 1.0 for both source and destination, use
+`shovels declare_amqp10`.
 
 Note that
 
 1. With AMQP 1.0 shovels, credentials in the URI are mandatory (there are no defaults)
 2. With AMQP 1.0 shovels, the topology must be pre-declared (an equivalent of `--predeclared-source true` and `--predeclared-destination true` for AMQP 0-9-1 shovels)
+3. AMQP 1.0 shovels should use [AMQP 1.0 addresses v2](./amqp#addresses)
 
 ```shell
 rabbitmqadmin shovels declare_amqp10 --name my-amqp1.0-shovel \
@@ -651,7 +754,7 @@ rabbitmqadmin --vhost "local-vhost" federation declare_upstream_for_exchanges --
 
 ### Create a Federation Upstream for Queue Federation
 
-To create a [federation upstream](./federated-queues), use `declare_upstream_for_queues`.
+To create a [federation upstream](./federated-queues), use `federation declare_upstream_for_queues`.
 This command provides a reduced set of options, only those that are relevant
 specifically to queue federation.
 
@@ -667,13 +770,13 @@ rabbitmqadmin --vhost "local-vhost" federation declare_upstream_for_queues --nam
 ### Create a Universal Federation Upstream
 
 To create a [federation upstream](./federation) that will be (or can be)
-used for federating both queues and exchanges, use `declare_upstream`. It combines
+used for federating both queues and exchanges, use `federation declare_upstream`. It combines
 [all the federation options](./federation-reference), that is,
 the options of both `declare_upstream_for_queues` and `declare_upstream_for_exchanges`.
 
 ```shell
 rabbitmqadmin --vhost "local-vhost" federation declare_upstream --name "pollux" \
-                --uri "amqp://pollux.eng.megacorp.local:5672/remove-vhost" \
+                --uri "amqp://pollux.eng.megacorp.local:5672/remote-vhost" \
                 --ack-mode 'on-publish' \
                 --prefetch-count 2000 \
                 --queue-name "overridden.name" \
@@ -795,6 +898,7 @@ rabbitmqadmin --use-tls \
 rabbitmqadmin --use-tls --disable-tls-peer-verification show overview
 ```
 
+
 ### Password Hashing
 
 `rabbitmqadmin` can generate password hashes compatible with RabbitMQ's [password hashing](./passwords) system:
@@ -811,6 +915,83 @@ rabbitmqadmin passwords salt_and_hash "my-secret-password" --hashing-algorithm S
 ```
 
 This is useful for pre-computing password hashes for user management scripts or when working with RabbitMQ definitions files.
+
+### Listing Policies
+
+```shell
+rabbitmqadmin policies list
+```
+
+```shell
+# List policies in a specific virtual host
+rabbitmqadmin --vhost "events" policies list_in
+```
+
+### Create a Policy
+
+```shell
+# Create a queue policy for high availability
+rabbitmqadmin --vhost "events" policies declare --name "ha-all" --pattern ".*" --definition '{"ha-mode":"all","ha-sync-mode":"automatic"}' --priority 1
+```
+
+```shell
+# Create a TTL policy for temporary queues
+rabbitmqadmin --vhost "events" policies declare --name "temp-queues" --pattern "temp\\..*" --definition '{"message-ttl":300000,"expires":600000}' --priority 2
+```
+
+### Delete a Policy
+
+```shell
+rabbitmqadmin --vhost "events" policies delete --name "ha-all"
+```
+
+### List Policies Matching an Object
+
+```shell
+# Show which policies apply to a specific queue
+rabbitmqadmin --vhost "events" policies list_matching_object --name "my.queue" --type "queue"
+```
+
+### Listing Operator Policies
+
+```shell
+rabbitmqadmin operator_policies list
+```
+
+```shell
+# List operator policies in a specific virtual host
+rabbitmqadmin --vhost "events" operator_policies list_in
+```
+
+### Create an Operator Policy
+
+```shell
+# Create an operator policy to set max queue length
+rabbitmqadmin --vhost "events" operator_policies declare --name "queue.max-length" --pattern ".*" --definition '{"max-length":10000}' --priority 1
+```
+
+### Delete an Operator Policy
+
+```shell
+rabbitmqadmin --vhost "events" operator_policies delete --name "queue.max-length"
+```
+
+### Listing Runtime Parameters
+
+```shell
+rabbitmqadmin parameters list_all
+```
+
+```shell
+# List parameters in a specific virtual host
+rabbitmqadmin --vhost "events" parameters list
+```
+
+### Listing Global Parameters
+
+```shell
+rabbitmqadmin global_parameters list
+```
 
 
 ## Subcommand and Long Option Inference
