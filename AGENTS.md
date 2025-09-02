@@ -55,8 +55,10 @@ Other source code elements (React/Docusaurus components, stylesheets) can be fou
 ## Code Examples that Use CLI Tools
 
  * When analyzing or creating examples that use `rabbitmqctl`, consult `rabbitmqctl help`
- * When analyzing or creating examples that use `rabbitmqctl`, consult `rabbitmqctl help`
- * When analyzing or creating examples that use `rabbitmqadmin`, consult `rabbitmqadmin help`
+ * For `rabbitmq-diagnostics` examples, consult `rabbitmq-diagnostics help`
+ * For `rabbitmq-plugins` examples, consult `rabbitmq-plugins help`
+ * For `rabbitmq-queues` examples, consult `rabbitmq-queues help`
+ * For `rabbitmqadmin` examples, consult `rabbitmqadmin help`
 
 ## Dependency Updates
 
