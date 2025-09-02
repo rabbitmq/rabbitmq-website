@@ -534,7 +534,6 @@ The following table explains what transformations are available and what they do
 | `exclude_policies`             | Removes all policies from the result                         |
 | `no_op`                        | Does nothing. Can be used as the default in dynamically computed transformation lists, e.g. in scripts |
 
-#### Examples
 
 The following command applies two transformations named `strip_cmq_keys_from_policies` and `drop_empty_policies`
 that will strip all classic queue mirroring-related policy keys that RabbitMQ 3.13 nodes supported,
@@ -706,7 +705,6 @@ rabbitmqadmin federation list_all_links
 
 To [rebalance quorum queue](./quorum-queues#member-rebalancing) leaders across cluster nodes, use `rebalance queues`. This operation helps distribute queue leaders more evenly across cluster nodes, which can more evenly distribute load and improve resource utilization, depending on the workload.
 
-#### Examples
 
 ```shell
 # Rebalance queue leaders in the default virtual host (/)
@@ -725,13 +723,95 @@ This operation is asynchronous and may take time to complete depending on the nu
 
 Use `show endpoint` to display the computed HTTP API endpoint URI.
 
-#### Examples
 
 ```shell
 rabbitmqadmin show endpoint
 ```
 
 This command helps verify that `rabbitmqadmin` is targeting the correct RabbitMQ HTTP API endpoint, for example, when a `rabbitmqadmin.conf` file exists or environment variables may be set in the environment.
+
+### Health Checks
+
+`rabbitmqadmin` provides various [health check](./monitoring#health-checks) commands:
+
+
+```shell
+# Check for local resource alarms on the target node
+rabbitmqadmin health_check local_alarms
+```
+
+```shell
+# Check for resource alarms across the entire cluster
+rabbitmqadmin health_check cluster_wide_alarms
+```
+
+```shell
+# Check if node is quorum critical (queues/streams would lose quorum if node shuts down)
+rabbitmqadmin health_check node_is_quorum_critical
+```
+
+```shell
+# Check for deprecated features in use across the cluster
+rabbitmqadmin health_check deprecated_features_in_use
+```
+
+```shell
+# Verify TCP listener is reachable on specific port
+rabbitmqadmin health_check port_listener --port 5672
+```
+
+```shell
+# Verify TCP listener is reachable for specific protocol
+rabbitmqadmin health_check protocol_listener --protocol amqp091
+```
+
+These health checks are useful for monitoring scripts and automated cluster health verification.
+
+### TLS Configuration
+
+`rabbitmqadmin` supports connecting to RabbitMQ clusters that use [TLS](./ssl) for the HTTP API:
+
+
+```shell
+# Connect using TLS with default settings
+rabbitmqadmin --use-tls show overview
+```
+
+```shell
+# Connect using TLS with custom CA certificate bundle
+rabbitmqadmin --use-tls --tls-ca-cert-file /path/to/ca-bundle.pem show overview
+```
+
+```shell
+# Connect using TLS with client certificate authentication
+rabbitmqadmin --use-tls \
+  --tls-ca-cert-file /path/to/ca-bundle.pem \
+  --tls-cert-file /path/to/client-cert.pem \
+  --tls-key-file /path/to/client-key.pem \
+  show overview
+```
+
+```shell
+# Disable TLS peer verification (not recommended for production)
+rabbitmqadmin --use-tls --disable-tls-peer-verification show overview
+```
+
+### Password Hashing
+
+`rabbitmqadmin` can generate password hashes compatible with RabbitMQ's [password hashing](./passwords) system:
+
+
+```shell
+# Hash a password using SHA256 (default)
+rabbitmqadmin passwords salt_and_hash "my-secret-password"
+```
+
+```shell
+# Override --hashing-algorithm if RabbitMQ nodes are configured to use SHA512
+rabbitmqadmin passwords salt_and_hash "my-secret-password" --hashing-algorithm SHA512
+```
+
+This is useful for pre-computing password hashes for user management scripts or when working with RabbitMQ definitions files.
 
 
 ## Subcommand and Long Option Inference
