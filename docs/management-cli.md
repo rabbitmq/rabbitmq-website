@@ -268,6 +268,42 @@ rabbitmqadmin list vhosts
 rabbitmqadmin list users
 ```
 
+### Create a User
+
+```shell
+rabbitmqadmin users declare --name "app-user" --password "secure-password" --tags "monitoring,policymaker"
+```
+
+```shell
+# Create user with password hash (recommended for security)
+rabbitmqadmin users declare --name "app-user" --password-hash "$2b$12$abcdefghijklmnopqrstuvwxyz" --tags "administrator"
+```
+
+### Delete a User
+
+```shell
+rabbitmqadmin users delete --name "app-user"
+```
+
+```shell
+# Idempotent deletion (no error if user doesn't exist)
+rabbitmqadmin users delete --name "app-user" --idempotently
+```
+
+### List User Permissions
+
+```shell
+# List permissions for all users
+rabbitmqadmin users permissions
+```
+
+### List User Connections
+
+```shell
+# List connections for a specific user
+rabbitmqadmin users connections --name "app-user"
+```
+
 ### Listing queues
 
 ``` shell
@@ -298,6 +334,24 @@ rabbitmqadmin list bindings
 rabbitmqadmin --vhost "events" list bindings
 ```
 
+### Bind a queue to an exchange
+
+```shell
+rabbitmqadmin --vhost "events" bindings declare --source "events.topic" --destination-type "queue" --destination "target.queue" --routing-key "events.order.created"
+```
+
+### Bind a source exchange to a destination exchange
+
+```shell
+rabbitmqadmin --vhost "events" bindings declare --source "events.topic" --destination-type "exchange" --destination "events.fanout" --routing-key "events.*"
+```
+
+### Delete a Binding
+
+```shell
+rabbitmqadmin --vhost "events" bindings delete --source "events.topic" --destination-type "queue" --destination "target.queue" --routing-key "events.order.created"
+```
+
 ### Create a Virtual Host
 
 ```shell
@@ -324,6 +378,29 @@ rabbitmqadmin --vhost "events" queues declare --name "target.quorum.queue.name" 
 
 ```shell
 rabbitmqadmin --vhost "events" queues declare --name "target.stream.name" --type "stream" --durable true
+```
+
+### Listing streams
+
+``` shell
+rabbitmqadmin list streams
+```
+
+``` shell
+# List streams in a specific virtual host
+rabbitmqadmin --vhost "events" streams list
+```
+
+### Declare a Stream
+
+```shell
+rabbitmqadmin --vhost "events" streams declare --name "events.stream" --expiration "7D"
+```
+
+### Delete a Stream
+
+```shell
+rabbitmqadmin --vhost "events" streams delete --name "events.stream"
 ```
 
 ```shell
@@ -370,6 +447,46 @@ rabbitmqadmin --vhost "events" exchanges delete --name "target.exchange.name"
 ``` shell
 # --idempotently means that 404 Not Found responses will not be  considered errors
 rabbitmqadmin --vhost "events" exchanges delete --name "target.exchange.name" --idempotently
+```
+
+### Listing connections
+
+``` shell
+rabbitmqadmin list connections
+```
+
+``` shell
+# List connections for a specific virtual host
+rabbitmqadmin --vhost "events" connections list
+```
+
+### Listing connections for a specific user
+
+``` shell
+rabbitmqadmin connections list_of_user --name "app-user"
+```
+
+### Close a connection
+
+``` shell
+rabbitmqadmin connections close --name "127.0.0.1:5672 -> 127.0.0.1:59876"
+```
+
+### Close all connections for a user
+
+``` shell
+rabbitmqadmin connections close_of_user --name "app-user"
+```
+
+### Listing channels
+
+``` shell
+rabbitmqadmin list channels
+```
+
+``` shell
+# List channels in a specific virtual host
+rabbitmqadmin --vhost "events" channels list
 ```
 
 ### Inspecting Node Memory Breakdown
@@ -796,6 +913,7 @@ rabbitmqadmin --use-tls \
 rabbitmqadmin --use-tls --disable-tls-peer-verification show overview
 ```
 
+
 ### Password Hashing
 
 `rabbitmqadmin` can generate password hashes compatible with RabbitMQ's [password hashing](./passwords) system:
@@ -812,6 +930,83 @@ rabbitmqadmin passwords salt_and_hash "my-secret-password" --hashing-algorithm S
 ```
 
 This is useful for pre-computing password hashes for user management scripts or when working with RabbitMQ definitions files.
+
+### Listing policies
+
+```shell
+rabbitmqadmin list policies
+```
+
+```shell
+# List policies in a specific virtual host
+rabbitmqadmin --vhost "events" policies list_in
+```
+
+### Create a Policy
+
+```shell
+# Create a queue policy for high availability
+rabbitmqadmin --vhost "events" policies declare --name "ha-all" --pattern ".*" --definition '{"ha-mode":"all","ha-sync-mode":"automatic"}' --priority 1
+```
+
+```shell
+# Create a TTL policy for temporary queues
+rabbitmqadmin --vhost "events" policies declare --name "temp-queues" --pattern "temp\\..*" --definition '{"message-ttl":300000,"expires":600000}' --priority 2
+```
+
+### Delete a Policy
+
+```shell
+rabbitmqadmin --vhost "events" policies delete --name "ha-all"
+```
+
+### List policies matching an object
+
+```shell
+# Show which policies apply to a specific queue
+rabbitmqadmin --vhost "events" policies list_matching_object --name "my.queue" --type "queue"
+```
+
+### Listing operator policies
+
+```shell
+rabbitmqadmin list operator_policies
+```
+
+```shell
+# List operator policies in a specific virtual host
+rabbitmqadmin --vhost "events" operator_policies list_in
+```
+
+### Create an Operator Policy
+
+```shell
+# Create an operator policy to set max queue length
+rabbitmqadmin --vhost "events" operator_policies declare --name "queue.max-length" --pattern ".*" --definition '{"max-length":10000}' --priority 1
+```
+
+### Delete an Operator Policy
+
+```shell
+rabbitmqadmin --vhost "events" operator_policies delete --name "queue.max-length"
+```
+
+### Listing runtime parameters
+
+```shell
+rabbitmqadmin list parameters
+```
+
+```shell
+# List parameters in a specific virtual host
+rabbitmqadmin --vhost "events" parameters list
+```
+
+### Listing global parameters
+
+```shell
+rabbitmqadmin list global_parameters
+```
 
 
 ## Subcommand and Long Option Inference
