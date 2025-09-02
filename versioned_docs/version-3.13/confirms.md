@@ -437,9 +437,6 @@ channel. When the number reaches the configured count,
 RabbitMQ will stop delivering more messages on the channel
 until at least one of the outstanding ones is acknowledged.
 
-A value of `0` means "no limit", allowing any number
-of unacknowledged messages.
-
 For example, given that there are four deliveries with delivery tags 5, 6, 7, and
 8 unacknowledged on channel `Ch` and channel
 `Ch`'s prefetch count is set to 4, RabbitMQ will
@@ -458,6 +455,29 @@ asynchronous. Therefore if the prefetch value is changed while
 there already are deliveries in flight, a natural race
 condition arises and there can temporarily be more than
 prefetch count unacknowledged messages on a channel.
+
+#### "Unlimited" Prefetch
+
+In the AMQP 0-9-1 protocol, a value of `0` means "no limit", allowing any number
+of unacknowledged messages on a channel.
+
+:::important
+
+Message sources, such as [queues](./queues) and [streams](./streams), can still introduce
+finite limits that make "unlimited prefetch" on a channel obey a certain limit in the absense
+of delivery confirmation from consumers.
+
+For example, [quorum queues](./quorum-queues/) cap consumer prefetch maximum
+to 2,000 to limit a potentially runaway Raft log growth, similarly to how quorum queues
+[enforce delivery acknowledgement timeouts](./consumers#acknowledgement-timeout) on consumers.
+
+As [Consumer Acknowledgement Modes, Prefetch and Throughput](#channel-qos-prefetch-throughput) below explains,
+a prefetch of 2,000 won't be meaningfully different from that of 300 in terms of consumer throughput.
+
+In scenarios where maximum throughput is the highest priority, use [streams and partitioned streams](./streams)
+with a RabbitMQ Stream Protocol client instead of increasing channel prefetch.
+
+:::
 
 #### Per-channel, Per-consumer and Global Prefetch
 
