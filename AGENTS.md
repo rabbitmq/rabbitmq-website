@@ -33,12 +33,20 @@ Other source code elements (React/Docusaurus components, stylesheets) can be fou
  * Build: `npm run docusaurus '--' build '`
  * Build in development mode (with more details): `npm run docusaurus '--' build '--dev'`
  * Clean: `npm run clean`
+ * Start a development server: `npm start`, then consult `http://localhost:3000/docs`
+
+## Domain Expertise Sources
+
+ * Consult [RabbitMQ documentation](https://www.rabbitmq.com/docs) or this very website's source code
+   for additional information on RabbitMQ, its features, configuration settings, best deployment practices,
+   CLI tools, and more
 
 ## Conventions
 
+ * When suggesting text edits, use concise, impersonal language
  * Prefer Markdown to HTML
  * Never translate Markdown tables to HTML or vice versa
- * Run a full build in development mode (`npm run docusaurus '--' build '--dev'`) when asked to sanity check the result
+ * Run a full build in development mode (covered above under "Build System") when asked to sanity check the result
 
 ## Commit Messages
 
@@ -53,3 +61,8 @@ Other source code elements (React/Docusaurus components, stylesheets) can be fou
 ## Dependency Updates
 
  * When updating, adding or removing dependencies, make sure to update `package-lock.json`
+
+## Security and Privacy
+
+ * Never add any personal information, from PII to technical details such as current hostname, IP addresses,
+   into any suggested edits or content
