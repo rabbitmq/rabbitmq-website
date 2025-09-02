@@ -16,6 +16,7 @@ Some part of the site are not versioned (only have one edition):
  * Client library documentation under `./client-libraries`
  * Kubernetes Cluster Operators documentation under `./kubernetes`
  * Blog under `./blogs`
+ * The home page at `src/pages/index.js`
  * Other pages that are not version-specific under `src/pages`
 
 Other source code elements (React/Docusaurus components, stylesheets) can be found under `src/components`, `src/css`, `src/plugins`.
