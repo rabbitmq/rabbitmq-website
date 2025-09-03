@@ -86,31 +86,28 @@ validates the `CN` value in the server's certificate
 against the hostname `myhost`.
 
 <table>
-  <thead>
-    <tr>
-      <th>Parameter name</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
+  <tr>
+    <th>Parameter name</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>
       <code>cacertfile</code><br/>
       <code>certfile</code><br/>
       <code>keyfile</code>
-      </td>
-      <td>
+    </td>
+    <td>
       Paths to files to use in order to present a client-side SSL
       certificate to the server. Only of use for the
       <code>amqps</code> scheme.
-      </td>
-    </tr>
-    <tr>
-      <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
       <code>verify</code><br/>
       <code>server_name_indication</code>
-      </td>
-      <td>
+    </td>
+    <td>
       Only of use for the <code>amqps</code> scheme and used to
       configure verification of the server's x509 (TLS)
       certificate. <b>Note:</b> It is highly recommended to use
@@ -118,39 +115,38 @@ against the hostname `myhost`.
       learn more about TLS support in RabbitMQ in general and specifically the
       <a href="./ssl#erlang-client">Erlang client</a>
       section.
-      </td>
-    </tr>
-    <tr>
-      <td><code>auth_mechanism</code></td>
-      <td>
+    </td>
+  </tr>
+  <tr>
+    <td><code>auth_mechanism</code></td>
+    <td>
       SASL authentication mechanisms to consider when negotiating
       a mechanism with the server. This parameter can be specified
       multiple times,
       e.g. <code>?auth_mechanism=plain&auth_mechanism=amqplain</code>,
       to specify multiple mechanisms.
-      </td>
-    </tr>
-    <tr>
-      <td><code>heartbeat</code></td>
-      <td>
+    </td>
+  </tr>
+  <tr>
+    <td><code>heartbeat</code></td>
+    <td>
       <a href="./heartbeats">Heartbeat</a> timeout value in seconds (an integer)
       to negotiate with the server.
-      </td>
-    </tr>
-    <tr>
-      <td><code>connection_timeout</code></td>
-      <td>
+    </td>
+  </tr>
+  <tr>
+    <td><code>connection_timeout</code></td>
+    <td>
       Time in milliseconds (an integer) to wait while establishing a TCP connection
       to the server before giving up.
-      </td>
-    </tr>
-    <tr>
-      <td><code>channel_max</code></td>
-      <td>
+    </td>
+  </tr>
+  <tr>
+    <td><code>channel_max</code></td>
+    <td>
       Maximum number of channels to permit on this connection.
-      </td>
-    </tr>
-  </tbody>
+    </td>
+  </tr>
 </table>
 
 [TLS options](./ssl) can also be specified globally using the

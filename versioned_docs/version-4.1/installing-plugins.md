@@ -43,47 +43,43 @@ The plugins directory location is determined by the `RABBITMQ_PLUGINS_DIR`> envi
 Its [default location](./relocate) depends on how RabbitMQ was installed. Some common values are:
 
 <table>
-  <thead>
-    <tr>
-      <th>Installation method</th>
-      <th>Plugins directory</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Debian and RPM packages</th>
-      <td>
+  <tr>
+    <th>Installation method</th>
+    <th>Plugins directory</th>
+  </tr>
+  <tr>
+    <th>Debian and RPM packages</th>
+    <td>
       <code>/usr/lib/rabbitmq/plugins</code> and <code>/usr/lib/rabbitmq/lib/rabbitmq_server-{<i>version</i>}/plugins</code>.
       <p>
-      <code>/usr/lib/rabbitmq/plugins</code> is an additional
-      directory where nothing is installed by the RabbitMQ
-      package itself. But it is a fixed non-changing path
-      where external plugins can be installed from Debian/RPM
-      packages or can be put there by a provisioning tool.
+        <code>/usr/lib/rabbitmq/plugins</code> is an additional
+        directory where nothing is installed by the RabbitMQ
+        package itself. But it is a fixed non-changing path
+        where external plugins can be installed from Debian/RPM
+        packages or can be put there by a provisioning tool.
       </p>
-      </td>
-    </tr>
-    <tr>
-      <th>Windows</th>
-      <td>
+    </td>
+  </tr>
+  <tr>
+    <th>Windows</th>
+    <td>
       Typically <code>C:\Program Files\RabbitMQ\rabbitmq_server-{<i>version</i>}\plugins</code>
       (depending on RabbitMQ installation path)
-      </td>
-    </tr>
-    <tr>
-      <th>Homebrew</th>
-      <td>
+    </td>
+  </tr>
+  <tr>
+    <th>Homebrew</th>
+    <td>
       <code>/usr/local/Cellar/rabbitmq/{<i>version</i>}/plugins</code>
-      </td>
-    </tr>
-    <tr>
-      <th>Generic Binary build</th>
-      <td>
+    </td>
+  </tr>
+  <tr>
+    <th>Generic Binary build</th>
+    <td>
       <code>rabbitmq_server-{<i>version</i>}/plugins</code>
       (depending on RabbitMQ installation path)
-      </td>
-    </tr>
-  </tbody>
+    </td>
+  </tr>
 </table>
 
 

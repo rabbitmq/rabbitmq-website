@@ -101,42 +101,43 @@ Other interesting `Makefile` targets include
       <th>Description</th>
     </tr>
   </thead>
+
   <tbody>
     <tr>
       <td>all</td>
       <td>
-        The default target. Builds the server.
+      The default target. Builds the server.
       </td>
     </tr>
     <tr>
       <td>shell</td>
       <td>
-        Builds the client libraries and starts an Erlang shell with the
-        libraries loaded.
+      Builds the client libraries and starts an Erlang shell with the
+      libraries loaded.
       </td>
     </tr>
     <tr>
       <td>run-broker</td>
       <td>
-        Builds the server and starts an instance with an
-        interactive Erlang shell. This will by default put
-        data, including the node's data directory, under <code>/tmp/rabbitmq-test-instances</code>,
-        but this location can be overridden by setting the
-        Makefile variable <code>TEST_TMPDIR</code>:
+      Builds the server and starts an instance with an
+      interactive Erlang shell. This will by default put
+      data, including the node's data directory, under <code>/tmp/rabbitmq-test-instances</code>,
+      but this location can be overridden by setting the
+      Makefile variable <code>TEST_TMPDIR</code>:
 
-```bash
-make run-broker TEST_TMPDIR="/some/other/location/for/rabbitmq-test-instances"
-```
+      ```bash
+      make run-broker TEST_TMPDIR="/some/other/location/for/rabbitmq-test-instances"
+      ```
 
-        The Erlang node name can also be changed by setting
-        <code>RABBITMQ_NODENAME</code>:
+      The Erlang node name can also be changed by setting
+      <code>RABBITMQ_NODENAME</code>:
 
-```bash
-make run-broker RABBITMQ_NODENAME=rmq
-```
+      ```bash
+      make run-broker RABBITMQ_NODENAME=rmq
+      ```
 
-        See <a href="./configure">Configuration guide</a> for other
-        variables that may be useful.
+      See <a href="./configure">Configuration guide</a> for other
+      variables that may be useful.
       </td>
     </tr>
     <tr>
@@ -150,9 +151,9 @@ make run-broker RABBITMQ_NODENAME=rmq
     <tr>
       <td>tests</td>
       <td>
-        Runs multiple server test suites. This is very resource-intensive and will
-        take up to a few hours. Many nodes and clusters will be started, modified and destroyed
-        by various test suites.
+      Runs multiple server test suites. This is very resource-intensive and will
+      take up to a few hours. Many nodes and clusters will be started, modified and destroyed
+      by various test suites.
       </td>
     </tr>
   </tbody>

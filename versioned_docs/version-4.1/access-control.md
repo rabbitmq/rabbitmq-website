@@ -260,7 +260,7 @@ rabbitmqctl.bat add_user 'username' '"w63pnZ&LnYMO(t"'
 # This example uses a salted password hash instead of a plaintext value.
 # To produce a salted hash of a password, use
 # 'rabbitmqctl.bat hash_password "my-secret-password"'
-rabbitmqctl.bat add_user --pre-hashed-password 'username' '{value produced by "rabbitmqctl.bat hash_password"})'
+rabbitmqctl.bat add_user --pre-hashed-password 'username' '{value produced by "rabbitmqctl.bat hash_password"}'
 ```
 </TabItem>
 
@@ -938,52 +938,51 @@ The built-in mechanisms are:
       <td>Description</td>
     </tr>
   </thead>
-
-    <tr>
-      <td>PLAIN</td>
-      <td>
+  <tr>
+    <td>PLAIN</td>
+    <td>
       SASL PLAIN authentication. This is enabled by default in
       the RabbitMQ server and clients, and is the default for most
       other clients.
-      </td>
-    </tr>
+    </td>
+  </tr>
 
-    <tr>
-      <td>AMQPLAIN</td>
-      <td>
+  <tr>
+    <td>AMQPLAIN</td>
+    <td>
       Non-standard version of PLAIN retained for backwards compatibility.
       This is enabled by default in the RabbitMQ server.
-      </td>
-    </tr>
+    </td>
+  </tr>
 
-    <tr>
-      <td>ANONYMOUS</td>
-      <td>
+  <tr>
+    <td>ANONYMOUS</td>
+    <td>
       This mechanism is enabled by default allowing anonymous clients to connect without providing
       any credentials. RabbitMQ will internally authenticate and authorize the client using the credentials
       configured in <code>anonymous_login_user</code> and <code>anonymous_login_pass</code> (both are set to <code>guest</code> by default).
       In other words, any unauthenticated client will be able to connect and act as the configured <code>anonymous_login_user</code>.
       <strong>For production environments, remove this mechanism.</strong>
       See the <a href="./production-checklist#anonymous-login">Deployment Guidelines</a> guide.
-      </td>
-    </tr>
+    </td>
+  </tr>
 
-    <tr>
-      <td>EXTERNAL</td>
-      <td>
+  <tr>
+    <td>EXTERNAL</td>
+    <td>
       Authentication happens using an out-of-band mechanism
       such as <a href="https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_mechanism_ssl">x509 certificate peer verification</a>,
       client IP address range, or similar. Such mechanisms are usually provided by RabbitMQ plugins.
-      </td>
-    </tr>
+    </td>
+  </tr>
 
-    <tr>
-      <td>RABBIT-CR-DEMO</td>
-      <td>Non-standard mechanism which demonstrates
-      challenge-response authentication. This mechanism has
-      security equivalent to <code>PLAIN</code>, and
-      is <strong>not</strong> enabled by default in the RabbitMQ server.</td>
-    </tr>
+  <tr>
+    <td>RABBIT-CR-DEMO</td>
+    <td>Non-standard mechanism which demonstrates
+    challenge-response authentication. This mechanism has
+    security equivalent to <code>PLAIN</code>, and
+    is <strong>not</strong> enabled by default in the RabbitMQ server.</td>
+  </tr>
 </table>
 
 ### Mechanism Configuration in the Server {#server-mechanism-configuration}

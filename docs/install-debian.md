@@ -107,42 +107,42 @@ Most recent Erlang/OTP release series are available from a number of alternative
 apt repositories:
 
 <table>
- <thead>
-   <tr>
-     <td><strong>Erlang Release Series</strong></td>
-     <td><strong>Apt Repositories that provide it</strong></td>
-     <td><strong>Notes</strong></td>
-   </tr>
- </thead>
- <tbody>
-  <tr>
-     <td>27.x</td>
-     <td>
-       <ul>
-        <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad.</li>
-        <li><a href="#apt-repositories">Debian packages of Erlang</a> from Team RabbitMQ. Provides `amd64` packages only.</li>
-       </ul>
-     </td>
-     <td>
-       <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.1">starting with 4.0.0</a></strong>.
-       See <a href="./which-erlang">Erlang compatibility guide</a>.
-     </td>
-  </tr>
+  <thead>
+    <tr>
+      <td><strong>Erlang Release Series</strong></td>
+      <td><strong>Apt Repositories that provide it</strong></td>
+      <td><strong>Notes</strong></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>27.x</td>
+      <td>
+      <ul>
+      <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad.</li>
+      <li><a href="#apt-repositories">Debian packages of Erlang</a> from Team RabbitMQ. Provides `amd64` packages only.</li>
+      </ul>
+      </td>
+      <td>
+      <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.0.1">starting with 4.0.0</a></strong>.
+      See <a href="./which-erlang">Erlang compatibility guide</a>.
+      </td>
+    </tr>
 
-  <tr>
-     <td>26.x</td>
-     <td>
-       <ul>
-        <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad. Provides `arm64` (`aarch64`) packages</li>
-        <li><a href="#apt-repositories">Debian packages of Erlang</a> from Team RabbitMQ. Provides `amd64` packages only.</li>
-       </ul>
-     </td>
-     <td>
-       <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0">starting with 3.12.0</a></strong>, and is required starting with <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.0">3.13.0</a>.
-       See <a href="./which-erlang">Erlang compatibility guide</a>.
-     </td>
-  </tr>
- </tbody>
+    <tr>
+      <td>26.x</td>
+      <td>
+      <ul>
+      <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad. Provides `arm64` (`aarch64`) packages</li>
+      <li><a href="#apt-repositories">Debian packages of Erlang</a> from Team RabbitMQ. Provides `amd64` packages only.</li>
+      </ul>
+      </td>
+      <td>
+      <strong>Supported <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0">starting with 3.12.0</a></strong>, and is required starting with <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.13.0">3.13.0</a>.
+      See <a href="./which-erlang">Erlang compatibility guide</a>.
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 This guide will focus on the <a href="#apt-quick-start">apt repositories maintained by Team RabbitMQ</a>

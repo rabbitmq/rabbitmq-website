@@ -297,122 +297,131 @@ are enclosed in double quotes. Empty cells indicate absent
 components, as described in section 3.
 
 <table>
-  <thead>
     <tr>
-      <th>URI</th>
-      <th>Username</th>
-      <th>Password</th>
-      <th>Host</th>
-      <th>Port</th>
-      <th>Vhost</th>
+        <th>URI</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Host</th>
+        <th>Port</th>
+        <th>Vhost</th>
     </tr>
-  </thead>
-  <tbody>
+
     <tr>
-      <td>amqp://user:pass@host:10000/vhost</td>
-      <td>"user"</td>
-      <td>"pass"</td>
-      <td>"host"</td>
-      <td>10000</td>
-      <td>"vhost"</td>
+        <td>amqp://user:pass@host:10000/vhost</td>
+        <td>"user"</td>
+        <td>"pass"</td>
+        <td>"host"</td>
+        <td>10000</td>
+        <td>"vhost"</td>
     </tr>
+
     <tr>
-      <td>amqp://user:passw%23rd@host:10000/vhost</td>
-      <td>"user"</td>
-      <td>"passw#rd"</td>
-      <td>"host"</td>
-      <td>10000</td>
-      <td>"vhost"</td>
+        <td>amqp://user:passw%23rd@host:10000/vhost</td>
+        <td>"user"</td>
+        <td>"passw#rd"</td>
+        <td>"host"</td>
+        <td>10000</td>
+        <td>"vhost"</td>
     </tr>
+
     <tr>
-      <td>amqp://user%61:%61pass@ho%61st:10000/v%2fhost</td>
-      <td>"usera"</td>
-      <td>"apass"</td>
-      <td>"hoast"</td>
-      <td>10000</td>
-      <td>"v/host"</td>
+        <td>amqp://user%61:%61pass@ho%61st:10000/v%2fhost</td>
+        <td>"usera"</td>
+        <td>"apass"</td>
+        <td>"hoast"</td>
+        <td>10000</td>
+        <td>"v/host"</td>
     </tr>
+
     <tr>
-      <td>amqp://</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+        <td>amqp://</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
+
     <tr>
-      <td>amqp://:@/</td>
-      <td>""</td>
-      <td>""</td>
-      <td></td>
-      <td></td>
-      <td>""</td>
+        <td>amqp://:@/</td>
+        <td>""</td>
+        <td>""</td>
+        <td></td>
+        <td></td>
+        <td>""</td>
     </tr>
+
+
     <tr>
-      <td>amqp://user@</td>
-      <td>"user"</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+        <td>amqp://user@</td>
+        <td>"user"</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
+
     <tr>
-      <td>amqp://user:pass@</td>
-      <td>"user"</td>
-      <td>"pass"</td>
-      <td></td>
-      <td></td>
-      <td></td>
+        <td>amqp://user:pass@</td>
+        <td>"user"</td>
+        <td>"pass"</td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
+
     <tr>
-      <td>amqp://host</td>
-      <td></td>
-      <td></td>
-      <td>"host"</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>amqp://:10000</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>10000</td>
-      <td></td>
+        <td>amqp://host</td>
+        <td></td>
+        <td></td>
+        <td>"host"</td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
-      <td>amqp:///vhost</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>"vhost"</td>
+        <td>amqp://:10000</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>10000</td>
+        <td></td>
     </tr>
+
     <tr>
-      <td>amqp://host/</td>
-      <td></td>
-      <td></td>
-      <td>"host"</td>
-      <td></td>
-      <td>""</td>
+        <td>amqp:///vhost</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>"vhost"</td>
     </tr>
+
     <tr>
-      <td>amqp://host/%2f</td>
-      <td></td>
-      <td></td>
-      <td>"host"</td>
-      <td></td>
-      <td>"/"</td>
+        <td>amqp://host/</td>
+        <td></td>
+        <td></td>
+        <td>"host"</td>
+        <td></td>
+        <td>""</td>
     </tr>
+
     <tr>
-      <td>amqp://[::1]</td>
-      <td></td>
-      <td></td>
-      <td>"[::1]" (i.e. the IPv6 address ::1)</td>
-      <td></td>
-      <td></td>
+        <td>amqp://host/%2f</td>
+        <td></td>
+        <td></td>
+        <td>"host"</td>
+        <td></td>
+        <td>"/"</td>
     </tr>
-  </tbody>
+
+    <tr>
+        <td>amqp://[::1]</td>
+        <td></td>
+        <td></td>
+        <td>"[::1]" (i.e. the IPv6 address ::1)</td>
+        <td></td>
+        <td></td>
+    </tr>
 </table>
 
 

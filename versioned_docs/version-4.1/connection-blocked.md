@@ -26,8 +26,8 @@ It is sometimes desirable for clients to receive a notification
 when their connection gets [blocked](./alarms)
 due to the broker running low on resources (memory or disk).
 
-A protocol extension to AMQP 0-9-1 has been introduced, enabling the broker to notify the client when 
-a connection is blocked or unblocked. The broker sends a `connection.blocked` method when the 
+A protocol extension to AMQP 0-9-1 has been introduced, enabling the broker to notify the client when
+a connection is blocked or unblocked. The broker sends a `connection.blocked` method when the
 connection is blocked, and a `connection.unblocked` method when it is unblocked.
 
 To receive these notifications, the client must present a
@@ -35,7 +35,7 @@ To receive these notifications, the client must present a
 `connection.blocked` and a boolean value `true`.
 
 See the [capabilities](./connections#capabilities) section for further
-details on this. Supported clients advertise this capability by default and provide mechanisms to register handlers 
+details on this. Supported clients advertise this capability by default and provide mechanisms to register handlers
 for the `connection.blocked` and `connection.unblocked` methods.
 
 ## When Notifications are Sent {#notifications}

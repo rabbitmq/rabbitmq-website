@@ -423,45 +423,45 @@ refer to [this overview](https://www.digitalocean.com/community/tutorials/unders
       <th>Description</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <td>Bind</td>
-      <td>LDAP speak for "authentication request".</td>
-    </tr>
-    <tr>
-      <td>Distinguished Name (DN)</td>
-      <td>
+  <tr>
+    <td>Bind</td>
+    <td>LDAP speak for "authentication request".</td>
+  </tr>
+  <tr>
+    <td>Distinguished Name (DN)</td>
+    <td>
       A distinguished name is a unique key in an LDAP directory (tree) that identifies an object
       (like a user or a group). The plugin will translate a client-provided username into a
       distinguished name during the authentication stage (see below). One way to think of
       a DN is an absolute file path in a filesystem.
-      </td>
-    </tr>
-    <tr>
-      <td>Common Name (CN)</td>
-      <td>
+    </td>
+  </tr>
+  <tr>
+    <td>Common Name (CN)</td>
+    <td>
       A short identifier of an object in the tree. This identifier will vary between
       object classes (types) in the LDAP database. For example, a person's common name
       will be the full name. A group's common name would be the name of that group.
       One way to think of a CN is a file name in a filesystem.
-      </td>
-    </tr>
-    <tr>
-      <td>Attribute</td>
-      <td>
+    </td>
+  </tr>
+  <tr>
+    <td>Attribute</td>
+    <td>
       A property of an object (a key-value pair). Think of it as a field of an object in
       an object-oriented programming language.
-      </td>
-    </tr>
-    <tr>
-      <td>Object Class</td>
-      <td>
+    </td>
+  </tr>
+  <tr>
+    <td>Object Class</td>
+    <td>
       A set of predefined attributes. Think of it as a type (class) in an object-oriented language.
-      </td>
-    </tr>
-    <tr>
-      <td>Entry</td>
-      <td>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Entry</td>
+    <td>
       An LDAP database entity, for example, a person or a
       group. It has an object class associated with it and
       one or more attributes, including a common name.
@@ -473,9 +473,8 @@ refer to [this overview](https://www.digitalocean.com/community/tutorials/unders
       must have some entries (typically users, groups) in
       order to be practically useful for RabbitMQ
       authentication and authorisation.
-      </td>
-    </tr>
-  </tbody>
+    </td>
+  </tr>
 </table>
 
 ### LDAP Operation Flow {#ldap-operation-flow}
@@ -718,26 +717,26 @@ The default values (expressions) can be found in the table below:
       <td>Default Expression</td>
     </tr>
   </thead>
-    <tr>
-      <td>`rabbitmq_auth_backend_ldap.vhost_access_query`</td>
-      <td>Verifies that user is allowed to access a virtual host</td>
-      <td>`{constant, true}`</td>
-    </tr>
-    <tr>
-      <td>`rabbitmq_auth_backend_ldap.resource_access_query`</td>
-      <td>Verifies that user is allowed to access a resource (queue, exchange, etc)</td>
-      <td>`{constant, true}`</td>
-    </tr>
-    <tr>
-      <td>`rabbitmq_auth_backend_ldap.topic_access_query`</td>
-      <td>Verifies that user is allowed to publish to a topic</td>
-      <td>`{constant, true}`</td>
-    </tr>
-    <tr>
-      <td>`rabbitmq_auth_backend_ldap.tag_queries`</td>
-      <td>Checks if a well-known tag is applicable to a user</td>
-      <td>`[{administrator, {constant, false}}]`</td>
-    </tr>
+  <tr>
+    <td>`rabbitmq_auth_backend_ldap.vhost_access_query`</td>
+    <td>Verifies that user is allowed to access a virtual host</td>
+    <td>`{constant, true}`</td>
+  </tr>
+  <tr>
+    <td>`rabbitmq_auth_backend_ldap.resource_access_query`</td>
+    <td>Verifies that user is allowed to access a resource (queue, exchange, etc)</td>
+    <td>`{constant, true}`</td>
+  </tr>
+  <tr>
+    <td>`rabbitmq_auth_backend_ldap.topic_access_query`</td>
+    <td>Verifies that user is allowed to publish to a topic</td>
+    <td>`{constant, true}`</td>
+  </tr>
+  <tr>
+    <td>`rabbitmq_auth_backend_ldap.tag_queries`</td>
+    <td>Checks if a well-known tag is applicable to a user</td>
+    <td>`[{administrator, {constant, false}}]`</td>
+  </tr>
 </table>
 
 This means that all users are granted access to all objects in all
