@@ -279,7 +279,7 @@ export function RabbitMQServerReleaseInfoTable() {
 
       <strong>Legend:</strong>
       <dl className="release-legend">
-        <dt className="supported-releaase latest-release"></dt>
+        <dt className="supported-release latest-release"></dt>
         <dd>Latest release, fully supported</dd>
         <dt className="unsupported-release"></dt>
         <dd>Old release, unsupported</dd>
