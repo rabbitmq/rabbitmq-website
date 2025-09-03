@@ -204,6 +204,9 @@ This can be done using CLI tools or the management UI.
 
 ### Using CLI Tools
 
+<Tabs groupId="examples">
+<TabItem value="rabbitmqctl" label="rabbitmqctl" default>
+
 `rabbitmqctl list_queues` can be used to display optional queue arguments and the policy applied to a queue, if any:
 
 ```bash
@@ -231,6 +234,43 @@ rabbitmqctl list_policies --formatter=pretty_table --silent
 # => │ /     │ limited │ ^limited\. │ queues   │ {"max-length":11} │ 0        │
 # => └───────┴─────────┴────────────┴──────────┴───────────────────┴──────────┘
 ```
+
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin">
+
+`rabbitmqadmin queues list` can be used to display queue information:
+
+```bash
+rabbitmqadmin queues list
+# => ┌──────────────┬───────┬────────────┬─────────┬─────────┬─────────────────────────┐
+# => │ name         │ vhost │ queue_type │ durable │ policy  │ arguments               │
+# => ├──────────────┼───────┼────────────┼─────────┼─────────┼─────────────────────────┤
+# => │ limited.cq.1 │ /     │ classic    │ true    │ limited │ x-queue-type: "classic" │
+# => ├──────────────┼───────┼────────────┼─────────┼─────────┼─────────────────────────┤
+# => │ limited.qq.3 │ /     │ quorum     │ true    │ limited │ x-queue-type: "quorum"  │
+# => ├──────────────┼───────┼────────────┼─────────┼─────────┼─────────────────────────┤
+# => │ qq.1         │ /     │ quorum     │ true    │         │ x-max-length: 7         │
+# => │              │       │            │         │         │ x-queue-type: "quorum"  │
+# => ├──────────────┼───────┼────────────┼─────────┼─────────┼─────────────────────────┤
+# => │ qq.2         │ /     │ quorum     │ true    │         │ x-queue-type: "quorum"  │
+# => └──────────────┴───────┴────────────┴─────────┴─────────┴─────────────────────────┘
+```
+
+To find out what arguments are defined by policies, use `rabbitmqadmin policies list`:
+
+```bash
+rabbitmqadmin policies list
+# => ┌─────────┬───────┬────────────┬──────────┬──────────┬────────────────┐
+# => │ name    │ vhost │ pattern    │ apply_to │ priority │ definition     │
+# => ├─────────┼───────┼────────────┼──────────┼──────────┼────────────────┤
+# => │ limited │ /     │ ^limited\. │ queues   │ 0        │ max-length: 11 │
+# => │         │       │            │          │          │                │
+# => └─────────┴───────┴────────────┴──────────┴──────────┴────────────────┘
+```
+
+</TabItem>
+</Tabs>
 
 ### Using the Management UI
 
