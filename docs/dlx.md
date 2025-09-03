@@ -76,21 +76,37 @@ To specify a DLX using policy, add the key "dead-letter-exchange"
 to a policy definition:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_policy DLX ".*" '{"dead-letter-exchange":"my-dlx"}' --apply-to queues --priority 7
 ```
 </TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl set_policy DLX ".*" "{""dead-letter-exchange"":""my-dlx""}" --apply-to queues --priority 7
 ```
 </TabItem>
 
-<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
 ```bash
-rabbitmqadmin policies declare --name=DLX --pattern=".*" --definition='{"dead-letter-exchange":"my-dlx"}' --apply-to=queues --priority=7
+rabbitmqadmin policies declare \
+    --name "DLX" \
+    --pattern ".*" \
+    --definition '{"dead-letter-exchange":"my-dlx"}' \
+    --apply-to "queues" \
+    --priority 7
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe policies declare ^
+    --name "DLX" ^
+    --pattern ".*" ^
+    --definition "{""dead-letter-exchange"":""my-dlx""}" ^
+    --apply-to "queues" ^
+    --priority 7
 ```
 </TabItem>
 
@@ -134,19 +150,19 @@ Similarly, an explicit routing key can be specified by adding
 the key "dead-letter-routing-key" to the policy:
 
 <Tabs groupId="examples">
-<TabItem value="bash" label="bash" default>
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_policy DLX ".*" '{"dead-letter-exchange":"my-dlx", "dead-letter-routing-key":"my-routing-key"}' --apply-to queues --priority 7
 ```
 </TabItem>
 
-<TabItem value="PowerShell" label="PowerShell">
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl set_policy DLX ".*" "{""dead-letter-exchange"":""my-dlx"", ""dead-letter-routing-key"":""my-routing-key""}" --apply-to queues --priority 7
 ```
 </TabItem>
 
-<TabItem value="rabbitmqadmin" label="rabbitmqadmin v2" default>
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
 ```bash
 rabbitmqadmin policies declare --name=DLX --pattern=".*" --definition='{"dead-letter-exchange":"my-dlx", "dead-letter-routing-key":"my-routing-key"}' --apply-to=queues --priority=7
 ```

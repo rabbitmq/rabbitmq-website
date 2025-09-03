@@ -59,20 +59,36 @@ To specify an AE using policy, add the key 'alternate-exchange'
 to a policy definition and make sure that the policy matches the exchange(s)
 that need the AE defined. For example:
 
-<Tabs>
-<TabItem value="bash" label="bash" default>
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_policy AE "^my-direct$" '{"alternate-exchange":"my-ae"}' --apply-to exchanges
 ```
 </TabItem>
-<TabItem value="PowerShell" label="PowerShell">
-```PowerShell
-rabbitmqctl.bat set_policy AE '^my-direct$' '"{""alternate-exchange"":""my-ae""}"' --apply-to exchanges
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin policies declare \
+    --name "AE" \
+    --pattern "^my-direct$" \
+    --definition '{"alternate-exchange":"my-ae"}' \
+    --apply-to "exchanges"
 ```
 </TabItem>
-<TabItem value="cmd" label="cmd">
-```batch
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
 rabbitmqctl.bat set_policy AE "^my-direct$" "{""alternate-exchange"":""my-ae""}" --apply-to exchanges
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe policies declare ^
+    --name "AE" ^
+    --pattern "^my-direct$" ^
+    --definition "{""alternate-exchange"":""my-ae""}" ^
+    --apply-to "exchanges"
 ```
 </TabItem>
 </Tabs>

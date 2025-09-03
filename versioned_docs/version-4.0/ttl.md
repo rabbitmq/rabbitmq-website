@@ -6,7 +6,7 @@ Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refer
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
-Version 2.0 (the "License”); you may not use this file except in compliance
+Version 2.0 (the "License"); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -17,6 +17,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Time-to-Live and Expiration
 
@@ -81,28 +84,39 @@ argument can be of AMQP 0-9-1 type `short-short-int`, `short-int`,
 To specify a TTL using policy, add the key "message-ttl" to a
 policy definition:
 
-<table>
-  <thead>
-    <tr>
-      <th>rabbitmqctl</th>
-      <td>
-      ```bash
-      rabbitmqctl set_policy TTL ".*" '{"message-ttl":60000}' --apply-to queues
-      ```
-      </td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>rabbitmqctl (Windows)</th>
-      <td>
-      ```PowerShell
-      rabbitmqctl set_policy TTL ".*" "{""message-ttl"":60000}" --apply-to queues
-      ```
-      </td>
-    </tr>
-  </tbody>
-</table>
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
+```bash
+rabbitmqctl set_policy TTL ".*" '{"message-ttl":60000}' --apply-to queues
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin policies declare \
+    --name "TTL" \
+    --pattern ".*" \
+    --definition '{"message-ttl":60000}' \
+    --apply-to "queues"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat set_policy TTL ".*" "{""message-ttl"":60000}" --apply-to queues
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe policies declare ^
+    --name "TTL" ^
+    --pattern ".*" ^
+    --definition "{""message-ttl"":60000}" ^
+    --apply-to "queues"
+```
+</TabItem>
+</Tabs>
 
 This applies a TTL of 60 seconds to all queues.
 
@@ -267,28 +281,39 @@ is unused for 1 second will be deleted.
 
 The following policy makes all queues expire after 30 minutes since last use:
 
-<table>
-  <thead>
-    <tr>
-      <th>rabbitmqctl</th>
-      <td>
-      ```bash
-      rabbitmqctl set_policy expiry ".*" '{"expires":1800000}' --apply-to queues
-      ```
-      </td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>rabbitmqctl (Windows)</th>
-      <td>
-      ```PowerShell
-      rabbitmqctl.bat set_policy expiry ".*" "{""expires"":1800000}" --apply-to queues
-      ```
-      </td>
-    </tr>
-  </tbody>
-</table>
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
+```bash
+rabbitmqctl set_policy expiry ".*" '{"expires":1800000}' --apply-to queues
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin policies declare \
+    --name "expiry" \
+    --pattern ".*" \
+    --definition '{"expires":1800000}' \
+    --apply-to "queues"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat set_policy expiry ".*" "{""expires"":1800000}" --apply-to queues
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe policies declare ^
+    --name "expiry" ^
+    --pattern ".*" ^
+    --definition "{""expires"":1800000}" ^
+    --apply-to "queues"
+```
+</TabItem>
+</Tabs>
 
 ### Define Queue TTL for Queues Using x-arguments During Declaration {#queue-ttl-using-x-args}
 

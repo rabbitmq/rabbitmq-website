@@ -6,7 +6,7 @@ Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refer
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
-Version 2.0 (the "License”); you may not use this file except in compliance
+Version 2.0 (the "License"); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -17,6 +17,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Queue Length Limit
 
@@ -70,28 +73,43 @@ To specify a maximum length using policy, add the key
 `max-length` and / or `max-length-bytes`
 to a policy definition. For example:
 
-<table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_policy my-pol "^one-meg$" \
   '{"max-length-bytes":1048576}' \
   --apply-to queues
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>rabbitmqctl on Windows</th>
-    <td>
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin policies declare \
+    --name "my-pol" \
+    --pattern "^one-meg$" \
+    --definition '{"max-length-bytes":1048576}' \
+    --apply-to "queues"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl.bat set_policy my-pol "^one-meg$" ^
   "{""max-length-bytes"":1048576}" ^
   --apply-to queues
 ```
-    </td>
-  </tr>
-</table>
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe policies declare ^
+    --name "my-pol" ^
+    --pattern "^one-meg$" ^
+    --definition "{""max-length-bytes"":1048576}" ^
+    --apply-to "queues"
+```
+</TabItem>
+</Tabs>
 
 The `my-pol` policy ensures that the `one-meg`
 queue contains no more than 1MiB of message data. When the 1MiB limit
@@ -102,28 +120,43 @@ To define an overflow behaviour - whether to drop messages from head
 or to reject new publishes, add the key `overflow` to a
 policy definition. For example:
 
-<table>
-  <tr>
-    <th>rabbitmqctl</th>
-    <td>
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_policy my-pol "^two-messages$" \
   '{"max-length":2,"overflow":"reject-publish"}' \
   --apply-to queues
 ```
-    </td>
-  </tr>
-  <tr>
-    <th>rabbitmqctl on Windows</th>
-    <td>
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin policies declare \
+    --name "my-pol" \
+    --pattern "^two-messages$" \
+    --definition '{"max-length":2,"overflow":"reject-publish"}' \
+    --apply-to "queues"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
 rabbitmqctl.bat set_policy my-pol "^two-messages$" ^
   "{""max-length"":2,""overflow"":""reject-publish""}" ^
   --apply-to queues
 ```
-    </td>
-  </tr>
-</table>
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe policies declare ^
+    --name "my-pol" ^
+    --pattern "^two-messages$" ^
+    --definition "{""max-length"":2,""overflow"":""reject-publish""}" ^
+    --apply-to "queues"
+```
+</TabItem>
+</Tabs>
 
 The `my-pol` policy ensures that the `two-messages`
 queue contains no more than 2 messages and all additional publishes
