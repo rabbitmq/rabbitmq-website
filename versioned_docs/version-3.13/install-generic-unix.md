@@ -109,7 +109,7 @@ See RabbitMQ [configuration guide](./configure) to learn more.
 The generic binary build is designed to run without granted
 permissions to directories outside of its base one. The [directories and files](./relocate) used by default are
 all held under the installation directory <code><RabbitMQServerPackageGenUnixDir/></code>
-which is in the <span class="envvar">$RABBITMQ_HOME</span>
+which is in the `$RABBITMQ_HOME`
 variable in the scripts.
 
 The node can be [instructed](./relocate) to use more

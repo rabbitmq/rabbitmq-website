@@ -32,7 +32,7 @@ the list of tier 1 (core) plugins, see the [main Plugins guide](./plugins).
 Any plugins that do not ship with the server will need to be
 installed. Plugins are distributed as .ez archives (which are zip files with metadata).
 The files must be copied to one of the plugins
-directories specified by <span class="envvar">$RABBITMQ_PLUGINS_DIR</span>.
+directories specified by `$RABBITMQ_PLUGINS_DIR`.
 
 Assuming that plugins correctly specify a dependency on the core RabbitMQ server
 and their files were copied to the correct directory, they will show up in

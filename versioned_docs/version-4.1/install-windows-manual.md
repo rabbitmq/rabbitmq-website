@@ -127,8 +127,8 @@ directory.
 
 By default, the RabbitMQ logs and node's data directory
 are stored in the current user's Application Data directory
-e.g. `C:\Documents and Settings\<span class="envvar">%USERNAME%</span>\Application Data` or
-`C:\Users\<span class="envvar">%USERNAME%</span>\AppData\Roaming`.
+e.g. `C:\Documents and Settings\`%USERNAME%`\Application Data` or
+`C:\Users\`%USERNAME%`\AppData\Roaming`.
 
 Execute `echo %APPDATA%` at a Command Prompt
 to find this directory. Alternatively, Start&#xA0;>&#xA0;Run&#xA0;`%APPDATA%` will open this folder.
