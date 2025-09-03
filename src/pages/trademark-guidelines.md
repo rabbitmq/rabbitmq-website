@@ -34,7 +34,7 @@ RabbitMQ
 
 ### Logos
 
-<div class="logos-gallery">
+<div className="logos-gallery">
 <figure>
 <img src="/img/rabbitmq-logo.svg" alt="This image displays the RabbitMQ logo alone." />
 <figcaption>

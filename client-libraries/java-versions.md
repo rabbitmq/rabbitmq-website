@@ -23,7 +23,7 @@ limitations under the License.
 This page lists support and compatibility information for the Java libraries
 maintained by the RabbitMQ team.
 
-<table class="release-series">
+<table className="release-series">
   <caption>RabbitMQ Java Libraries Support Timeline</caption>
   <tr>
     <th>Library and Branch</th>
