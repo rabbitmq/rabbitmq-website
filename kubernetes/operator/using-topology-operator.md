@@ -310,6 +310,7 @@ The following manifest will create a user with generated username and password a
 accessed via a Kubernetes secret object:
 
 ```yaml
+---
 apiVersion: rabbitmq.com/v1beta1
 kind: User
 metadata:
@@ -322,10 +323,29 @@ spec:
     name: example-rabbitmq
 ```
 
-To get the name of the kubernetes secret object that contains the generated username and password, run the following command:
+The generated username and password will be stored in a secret with the name of the User object suffixed with '-user-credentials'.
 
 ```bash
-kubectl get users.rabbitmq.com user-example -o jsonpath='{.status.credentials.name}'
+$ kubectl -n rabbitmq-system get secret user-example-user-credentials -o yaml
+apiVersion: v1
+data:
+  password: <base64>
+  username: <base64>
+kind: Secret
+metadata:
+  creationTimestamp: "2025-08-29T10:31:03Z"
+  name: user-example-user-credentials
+  namespace: rabbimq-system
+  ownerReferences:
+  - apiVersion: rabbitmq.com/v1beta1
+    blockOwnerDeletion: false
+    controller: true
+    kind: User
+    name: user-example
+    uid: d9fbf25f-ddf2-4576-a4e6-7574ca6a660c
+  resourceVersion: "4806431680"
+  uid: c03013f5-b7a5-4f02-b0be-f8ab1e17971c
+type: Opaque
 ```
 
 Note that the Operator does not monitor the generated secret object and updating the secret object won't update the credentials.
@@ -339,7 +359,8 @@ object won't update the credentials. As a workaround, add a label or annotation 
 
 The following manifest will create a user with username and password provided from secret 'my-rabbit-user' :
 
-```bash
+```yaml
+---
 apiVersion: rabbitmq.com/v1beta1
 kind: User
 metadata:
