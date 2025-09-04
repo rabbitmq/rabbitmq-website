@@ -27,8 +27,16 @@ This section describes the process for obtaining a copy of the
 RabbitMQ server source code, as well as instructions for building the
 server from source.
 
+## Open Source RabbitMQ Build Infrastructure is Open Source
 
-## Build from Git {#git}
+Except for the secrets, certificates and package distribution infrastructure (such as `deb*.rabbitmq.com` or `yum*.rabbitmq.com`),
+open source RabbitMQ's build infrastructure is developed in the open on GitHub:
+
+ * [`rabbitmq/build-env-images`](https://github.com/rabbitmq/build-env-images) provides the OCI images used for producing releases
+ * [`rabbitmq/server-packages`](https://github.com/rabbitmq/server-packages) provides the GitHub Actions workflows
+
+
+## Build from Source {#git}
 
 First, get the source code from [our GitHub repositories](/github):
 
@@ -51,21 +59,19 @@ In order to build RabbitMQ, a few tools must be installed.
 
 ### Python
 
-RabbitMQ requires a recent version of [Python](http://www.python.org/download/) and [simplejson.py](http://pypi.python.org/pypi/simplejson)
-(an implementation of a [JSON](http://json.org) reader
-and writer in Python), for generating AMQP 0-9-1 framing code.
-simplejson.py is included as a standard json library in the Python
-core since 2.6 release.
+RabbitMQ requires a reasonably recent version of [Python](http://www.python.org/download/) and [simplejson](http://pypi.python.org/pypi/simplejson).
+
+simplejson.py is included as a standard json library in the Python distribution.
 
 ### Erlang/OTP Toolchain and Headers
 
 The [Erlang](http://www.erlang.org/./download) development and runtime tools
 are needed to compile RabbitMQ server, tools and [tier 1 plugins](./plugins).
 
-On a Debian-based system, install the `erlang-nox`, `erlang-dev` and
-`erlang-src` packages.
+See [Erlang Version Requirements](./which-erlang) to learn about the range of supported Erlang release series.
 
-See [Erlang compatibility guide](./which-erlang) to learn more about supported versions of Erlang/OTP.
+On a Debian-based system, the `erlang-nox`, `erlang-dev` and
+`erlang-src` packages must be installed.
 
 ### Elixir
 
@@ -79,8 +85,8 @@ used by RabbitMQ.
 
 ### xsltproc and xmlto
 
-A recent version of <i>xsltproc</i>, which is part of [libxslt](http://xmlsoft.org/XSLT/) and
-<i>xmlto</i> must be available.
+A recent version of `xsltproc`, which is part of [libxslt](http://xmlsoft.org/XSLT/) and
+`xmlto` must be available.
 
 ### zip and unzip
 
