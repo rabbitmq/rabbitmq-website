@@ -276,9 +276,29 @@
           ]
         },
         {
-          "type": "doc",
-          "id": "streams",
-          "label": "Streams"
+          "type": "category",
+          "label": "Streams",
+          "link": {
+            "type": "doc",
+            "id": "streams"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "stream",
+              "label": "Stream Plugin"
+            },
+            {
+              "type": "doc",
+              "id": "stream-connections",
+              "label": "Stream Connections"
+            },
+            {
+              "type": "doc",
+              "id": "stream-core-plugin-comparison",
+              "label": "Stream Core and Plugin"
+            }
+          ]
         },
         {
           "type": "doc",

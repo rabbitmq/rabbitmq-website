@@ -1,5 +1,6 @@
 ---
 title: Streams and Superstreams (Partitioned Streams)
+displayed_sidebar: docsSidebar
 ---
 <!--
 Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
@@ -33,6 +34,10 @@ To read messages from a stream in RabbitMQ, one or more consumers subscribe to i
 Data in a stream can be used via a RabbitMQ client library or through a
 [dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_stream/docs/PROTOCOL.adoc) plugin and associated client(s).
 The latter option is **highly recommended** as it provides access to all stream-specific features and offers best possible throughput (performance).
+
+A companion guide, [Stream Client Connections](./stream-connections), explains
+how stream protocol clients should connect to the cluster node for the best
+data locality and efficiency (throughput, latency).
 
 :::info
 

@@ -34,6 +34,10 @@ Data in a stream can be used via a RabbitMQ client library or through a
 [dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_stream/docs/PROTOCOL.adoc) plugin and associated client(s).
 The latter option is **highly recommended** as it provides access to all stream-specific features and offers best possible throughput (performance).
 
+A companion guide, [Stream Client Connections](./stream-connections), explains
+how stream protocol clients should connect to the cluster node for the best
+data locality and efficiency (throughput, latency).
+
 :::info
 
 In addition to streams, RabbitMQ supports partitioned streams called [super streams](#super-streams). They are covered

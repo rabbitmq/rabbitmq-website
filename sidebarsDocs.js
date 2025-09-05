@@ -279,6 +279,21 @@ const sidebars = {
           items: [
             {
               type: 'doc',
+              id: 'stream',
+              label: 'Stream Plugin',
+            },
+            {
+              type: 'doc',
+              id: 'stream-connections',
+              label: 'Stream Connections',
+            },
+            {
+              type: 'doc',
+              id: 'stream-core-plugin-comparison',
+              label: 'Stream Core and Plugin',
+            },
+            {
+              type: 'doc',
               id: 'stream-filtering',
               label: 'Stream Filtering',
             },

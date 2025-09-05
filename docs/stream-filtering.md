@@ -798,7 +798,7 @@ Consider a stream containing various customer-related events such as:
 * `cart.add`
 * `cart.remove`
 * `order.created`
-* `review.submited`
+* `review.submitted`
 * etc.
 
 The following example provides a complex SQL filter expression that queries events where all of the following conditions apply:

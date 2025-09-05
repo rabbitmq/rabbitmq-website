@@ -1,5 +1,6 @@
 ---
 title: Stream Plugin
+displayed_sidebar: docsSidebar
 ---
 <!--
 Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
@@ -28,14 +29,18 @@ an append-only log with non-destructive consumer semantics.
 This feature is available in all [currently maintained release series](/release-information).
 
 Streams can be used as a regular AMQP 0.9.1 queue or through a
-[dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
+[dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v4.2.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
 plugin and associated client(s).
 Please see the [RabbitMQ core and stream plugin comparison page](./stream-core-plugin-comparison) for the feature matrix.
 
-This page covers the Stream plugin, which allows to interact with streams using this
+This page covers the Stream plugin, which allows interaction with streams using this
 [new binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc).
 For an overview of the concepts and the ways to operate streams, please see the
 [guide on RabbitMQ streams](./streams).
+
+Another companion guide, [Stream Client Connections](./stream-connections), explains
+how stream protocol clients should connect to the cluster node for the best
+data locality and efficiency (throughput, latency).
 
 :::info
 
@@ -174,7 +179,7 @@ This is the storage and transportation unit used in RabbitMQ Stream, that is mes
 A chunk can be made of one to several thousands of messages, depending on the ingress.
 
 So if a consumer creates a subscription with 5 initial credits, the broker will send 5 chunks of messages.
-The broker substracts a credit every time it delivers a chunk.
+The broker subtracts a credit every time it delivers a chunk.
 When there is no credit left for a subscription, the broker stops sending messages.
 So in our example the broker will stop sending messages for this subscription after it delivers 5 chunks.
 This is not what we usually want, so the consumer can provide [credits](https://github.com/rabbitmq/rabbitmq-server/blob/v3.12.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc#credit) to its subscription to get more messages.
@@ -190,7 +195,7 @@ How consumer credit flow is exposed to applications depends on the client librar
 
 ### Advertised Host and Port {#advertised-host-port}
 
-The stream protocol allows to discover the topology of streams, that is where the leader and replicas for a given set of streams are located in the cluster.
+The stream protocol allows discovery of the topology of streams, that is where the leader and replicas for a given set of streams are located in the cluster.
 This way the client can choose to connect to the appropriate node to interact with the streams: the leader node to publish, a replica to consume.
 By default, nodes return their hostname and listener port, which may be fine for most situations, but not always (proxy sitting between the cluster nodes and the clients, cluster nodes and/or clients running in containers, etc).
 
