@@ -503,8 +503,13 @@ const sidebars = {
         },
         {
           type: 'doc',
+          id: 'policies',
+          label: 'Policies',
+        },
+        {
+          type: 'doc',
           id: 'parameters',
-          label: 'Policies and Runtime Parameters',
+          label: 'Runtime Parameters',
         },
         {
           type: 'category',
