@@ -221,7 +221,7 @@ const sidebars = {
             {
               type: 'doc',
               id: 'consumer-priority',
-              label: 'Consumer Priorites',
+              label: 'Consumer Priorities',
             },
             {
               type: 'doc',
@@ -461,7 +461,7 @@ const sidebars = {
         },
         {
           type: 'category',
-          label: ' Authentication and Authorization',
+          label: 'Authentication and Authorization',
           link: {type: 'doc', id: 'access-control'},
           items: [
             {
