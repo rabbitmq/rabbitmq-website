@@ -53,7 +53,7 @@ being exceeded. Another common reason is
 `connection_closed`, meaning that the connection
 was explicitly closed at the TCP level.
 
-[Erlang documentation](http://erlang.org/doc/man/kernel_app.html) contains more
+[Erlang documentation](https://www.erlang.org/doc/apps/kernel/net_kernel.html) contains more
 details on this subsystem.
 
 ## Tick Frequency {#frequency}
