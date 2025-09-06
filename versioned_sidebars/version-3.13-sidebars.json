@@ -436,9 +436,19 @@
       },
       "items": [
         {
-          "type": "doc",
-          "id": "cli",
-          "label": "CLI"
+          "type": "category",
+          "label": "CLI",
+          "link": {
+            "type": "doc",
+            "id": "cli"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "management-cli",
+              "label": "rabbitmqadmin v2"
+            }
+          ]
         },
         {
           "type": "doc",
@@ -482,9 +492,54 @@
               },
               "items": [
                 {
-                  "type": "doc",
-                  "id": "oauth2-examples/index",
-                  "label": "OAuth 2 Examples"
+                  "type": "category",
+                  "label": "OAuth 2 Examples",
+                  "link": {
+                    "type": "doc",
+                    "id": "oauth2-examples/index"
+                  },
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-auth0",
+                      "label": "Auth0"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-entra-id/index",
+                      "label": "Microsoft Entra ID"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-google",
+                      "label": "Google"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-keycloak",
+                      "label": "Keycloak"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-okta",
+                      "label": "Okta"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-multiresource",
+                      "label": "Multiple OAuth 2.0 Servers"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-proxy",
+                      "label": "OAuth2 Proxy with Keycloak"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-idp-initiated",
+                      "label": "Identity Provider Initiated Logon"
+                    }
+                  ]
                 },
                 {
                   "type": "doc",
