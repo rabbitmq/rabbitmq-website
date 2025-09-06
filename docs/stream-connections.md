@@ -237,7 +237,7 @@ The following diagram illustrates this process:
 ![A client can choose to ignore the metadata hints and always use the load balancer. As stream connections convey the node hostname they originate from, the client can know whether it is connected to the right node or not, and keep the connection or close it and retry.](/img/streams-connections/load-balancer-ignore-metadata.svg)
 
 As stream connections are meant to be long-lived and stream applications do not typically have significant connection churn,
-retrying to connect will not lead to a [high connection churn](./connections#high-connectionchurn) scenario and is not a concern.
+retrying to connect will not lead to a [high connection churn](./connections#high-connection-churn) scenario and is not a concern.
 
 This solution assumes that the load balancer will not always connect to the same backend server.
 Round robin is an appropriate balancing strategy for this case.

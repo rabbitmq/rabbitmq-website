@@ -805,7 +805,7 @@ rabbitmqadmin federation list_all_links
 
 ### Rebalance Queue Leaders
 
-To [rebalance quorum queue](./quorum-queues#member-rebalancing) leaders across cluster nodes, use `rebalance queues`. This operation helps distribute queue leaders more evenly across cluster nodes, which can more evenly distribute load and improve resource utilization, depending on the workload.
+To rebalance quorum queue leaders across cluster nodes, use `rebalance queues`. This operation helps distribute queue leaders more evenly across cluster nodes, which can more evenly distribute load and improve resource utilization, depending on the workload.
 
 
 ```shell
