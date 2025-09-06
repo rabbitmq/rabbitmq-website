@@ -481,18 +481,25 @@ const sidebars = {
           items: [
             {
               type: 'doc',
-              id: 'authentication',
-              label: 'AMQP 0-9-1 Authentication Mechanisms',
-            },
-            {
-              type: 'doc',
               id: 'passwords',
               label: 'Credentials and Passwords',
             },
             {
-              type: 'doc',
-              id: 'oauth2',
+              type: 'category',
               label: 'OAuth 2',
+              link: {type: 'doc', id: 'oauth2'},
+              items: [
+                {
+                  type: 'doc',
+                  id: 'oauth2-examples/index',
+                  label: 'OAuth 2 Examples',
+                },
+                {
+                  type: 'doc',
+                  id: 'troubleshooting-oauth2',
+                  label: 'Troubleshooting OAuth 2',
+                },
+              ],
             },
             {
               type: 'doc',
@@ -513,6 +520,11 @@ const sidebars = {
               type: 'doc',
               id: 'user-limits',
               label: 'Per User Resource Limits'
+            },
+            {
+              type: 'doc',
+              id: 'authentication',
+              label: 'AMQP 0-9-1 Authentication Mechanisms',
             },
           ],
         },
@@ -575,13 +587,13 @@ const sidebars = {
           items: [
             {
               type: 'doc',
-              id: 'nettick',
-              label: 'Net Tick Time',
+              id: 'ssl/index',
+              label: 'TLS Support',
             },
             {
               type: 'doc',
-              id: 'ssl/index',
-              label: 'TLS Support',
+              id: 'heartbeats',
+              label: 'Client Heartbeats',
             },
             {
               type: 'doc',
@@ -592,6 +604,11 @@ const sidebars = {
               type: 'doc',
               id: 'troubleshooting-ssl',
               label: 'Troubleshooting TLS',
+            },
+            {
+              type: 'doc',
+              id: 'nettick',
+              label: 'Inter-node Heartbeats',
             },
           ],
         },
