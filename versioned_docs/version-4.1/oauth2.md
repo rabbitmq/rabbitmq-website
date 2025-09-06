@@ -95,7 +95,7 @@ Edit your `rabbitmq.conf` file, commonly found at `/etc/rabbitmq`, and add OAuth
 example, the following configuration adds OAuth 2.0 as the only authentication backend:
 
 ```ini
-auth_backends.1 = rabbit_auth_backend_oauth2
+auth_backends.1 = oauth2
 ```
 
 ### Configure OAuth 2.0 step by step {#configure-for-openid-connect}
