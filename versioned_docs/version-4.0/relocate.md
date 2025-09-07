@@ -183,6 +183,16 @@ file and directories have sufficient permissions
     </tr>
 
     <tr>
+      <td>RABBITMQ_FEATURE_FLAGS_FILE</td>
+      <td>
+      This file contains a list of all enabled <a href="./feature-flags">feature flags</a>. When a feature flag
+      is enabled, this file will be updated. It is
+      crucially important that effective RabbitMQ user has sufficient permissions
+      to read, write and create this file at any time.
+      </td>
+    </tr>
+
+    <tr>
       <td>RABBITMQ_PID_FILE</td>
       <td>
       File in which the process id is placed for use by
@@ -273,6 +283,13 @@ default this is `/opt/homebrew` on Apple Silicon-based Macs.
     </tr>
 
     <tr>
+      <td>RABBITMQ_FEATURE_FLAGS_FILE</td>
+      <td>
+      `$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-feature_flags`
+      </td>
+    </tr>
+
+    <tr>
       <td>RABBITMQ_PID_FILE</td>
       <td>
       `$RABBITMQ_MNESIA_DIR.pid`
@@ -346,6 +363,13 @@ default this is `/opt/homebrew` on Apple Silicon-based Macs.
     </tr>
 
     <tr>
+      <td>RABBITMQ_FEATURE_FLAGS_FILE</td>
+      <td>
+      `%RABBITMQ_MNESIA_BASE%\%RABBITMQ_NODENAME%-feature_flags`
+      </td>
+    </tr>
+
+    <tr>
       <td>RABBITMQ_PID_FILE</td>
       <td>(Not currently supported)</td>
     </tr>
@@ -415,6 +439,13 @@ customize it, such as the [Homebrew formula](./install-homebrew).
       <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
       <td>
       `$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-plugins-expand`
+      </td>
+    </tr>
+
+    <tr>
+      <td>RABBITMQ_FEATURE_FLAGS_FILE</td>
+      <td>
+      `$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-feature_flags`
       </td>
     </tr>
 
