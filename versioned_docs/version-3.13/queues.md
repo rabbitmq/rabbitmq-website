@@ -372,7 +372,7 @@ for improved data locality.
 This general rule applies to all messaging data types supported by RabbitMQ except for one.
 [Streams](./streams) are an exception to this rule, and require clients, regardless of the protocol they use, to connect to a node
 that hosts a replica (a leader of rollower) of the target stream.
-Consequently, RabbitMQ Stream protocol clients will [connect to multiple nodes in parallel](https://www.rabbitmq.com/blog/2021/07/23/connecting-to-streams).
+Consequently, RabbitMQ Stream protocol clients will [connect to multiple nodes in parallel](./stream-connections).
 
 Queues can also be [federated](./federated-queues)
 across loosely coupled nodes or clusters.
@@ -400,7 +400,7 @@ for improved data locality.
 This general rule applies to all messaging data types supported by RabbitMQ except for one.
 [Streams](./streams) are an exception to this rule, and require clients, regardless of the protocol they use, to connect to a node
 that hosts a replica (a leader of rollower) of the target stream.
-Consequently, RabbitMQ Stream protocol clients will [connect to multiple nodes in parallel](https://www.rabbitmq.com/blog/2021/07/23/connecting-to-streams).
+Consequently, RabbitMQ Stream protocol clients will [connect to multiple nodes in parallel](./stream-connections).
 
 
 ## Time-to-Live and Length Limit {#ttl-and-limits}

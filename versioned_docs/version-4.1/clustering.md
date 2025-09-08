@@ -56,7 +56,7 @@ After cluster formation, all nodes in a cluster are aware of other cluster membe
 
 Client applications can be aware or not be aware of the fact that there are multiple cluster nodes,
 and connect to any of them, or, depending on the protocol used, a subset of them. For example,
-RabbitMQ Stream Protocol clients [can connect to multiple nodes at once](https://www.rabbitmq.com/blog/2021/07/23/connecting-to-streams).
+RabbitMQ Stream Protocol clients [can connect to multiple nodes at once](./stream-connections).
 This is covered in more details [later in this guide](#clustering-and-clients).
 
 
@@ -432,8 +432,7 @@ the target stream. The protocol includes a topology discovery operation, so well
 libraries will select one of the suitable nodes. This won't be the case when a load balancer is used,
 however.
 
-See [Connecting to Streams](/blog/2021/07/23/connecting-to-streams#well-behaved-clients)
-to learn more.
+See the [stream client connection guide](./stream-connections) to learn more.
 
 ### Queue and Stream Leader Replica Placement {#replica-placement}
 

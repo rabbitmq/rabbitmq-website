@@ -207,7 +207,7 @@ stream.advertised_host = rabbitmq-1
 stream.advertised_port = 12345
 ```
 
-The [Connecting to Streams](/blog/2021/07/23/connecting-to-streams) blog post covers why the `advertised_host` and `advertised_port` settings are necessary in some deployments.
+The [stream client connection guide](./stream-connections) covers why the `advertised_host` and `advertised_port` settings are necessary in some deployments.
 
 The configuration entries have [TLS counterparts](#tls) (`advertised_tls_host` and `advertised_tls_port`).
 
