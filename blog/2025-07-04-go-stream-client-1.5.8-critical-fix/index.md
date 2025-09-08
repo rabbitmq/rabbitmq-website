@@ -1,6 +1,6 @@
 ---
 title: "Go Stream client 1.5.8 is released with a critical fix"
-tags: ["Stream","Stream-clients"]
+tags: ["Streams","Stream-clients"]
 authors: [gsantomaggio]
 ---
 
