@@ -1188,7 +1188,7 @@ for more details.
 
 TCP stack tuning is a broad topic that is covered in much detail elsewhere:
 
- * [Enabling High Performance Data Transfers](https://psc.edu/index.php/services/networking/68-research/networking/641-tcp-tune)
+ * [Enabling High Performance Data Transfers](https://www.psc.edu/research/networking/tcp-tune/)
  * [Network Tuning Guide](https://fasterdata.es.net/network-tuning/)
 
 
