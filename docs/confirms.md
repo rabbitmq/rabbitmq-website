@@ -81,7 +81,7 @@ so the delivered message can be marked for future deletion.
 Sometimes publishing and consuming applications need to communicate via requests and responses
 that need an explicit acknowledgement from the peer. [RabbitMQ tutorial #6](/tutorials)
 demonstrates the basics of how that's done, and [Direct Reply-to](./direct-reply-to) provides
-a way to do it without declaring a lot of short-lived temporary response queues.
+a way to do it without creating response queues.
 
 This type of communication, however, is not covered in this guide, and is mentioned only to
 contrast it with the much more focussed messaging protocol features described in this guide.
