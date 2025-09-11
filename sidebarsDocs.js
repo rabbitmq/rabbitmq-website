@@ -164,7 +164,7 @@ const sidebars = {
             {
               type: 'doc',
               id: 'direct-reply-to',
-              label: 'Direct reply-to',
+              label: 'Direct Reply-To',
             },
             {
               type: 'doc',

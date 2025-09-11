@@ -41,8 +41,7 @@ extension points such as [optional queue arguments](./queues#optional-arguments)
  * [Consumer Cancellation Notifications](./consumer-cancel) let a consumer know if it has been cancelled by the server.
  * [`basic.nack`](./nack) extends `basic.reject` to support rejecting multiple messages at once.
  * [Consumer Priorities](./consumer-priority) allow you to send messages to higher priority consumers first.
- * [Direct reply-to](./direct-reply-to) allows RPC clients to receive replies to their queries without needing
-   to declare a temporary queue.
+ * [Direct Reply-To](./direct-reply-to) allows RPC clients to receive replies to their queries without needing to declare a queue.
 
 ## Message Routing
 
