@@ -81,7 +81,7 @@ const config = {
               ],
             },
           ],
-          end_of_support: "2026-04-15",
+          end_of_support: "2028-04-30",
         },
         '4.0': {
           releases: [
