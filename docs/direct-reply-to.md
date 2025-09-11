@@ -212,6 +212,34 @@ receive {amqp10_msg, ReceiverRequester, ReplyMsg} ->
 end.
 ```
 </TabItem>
+
+<TabItem value="Java" label="Java">
+```java
+String requestQueue = "request-queue";
+
+// create the responder
+Responder responder = connection.responderBuilder()
+    .requestQueue(requestQueue)
+    .handler((ctx, req) -> {
+      String in = new String(req.body(), UTF_8);
+      String out = "*** " + in + " ***";
+      return ctx.message(out.getBytes(UTF_8));
+    }).build();
+
+// create the requester, it uses direct reply-to by default
+Requester requester = connection.requesterBuilder()
+    .requestAddress().queue(requestQueue)
+    .requester()
+    .build();
+
+// create the request message
+Message request = requester.message("hello".getBytes(UTF_8));
+// send the request
+CompletableFuture<Message> responseFuture = requester.publish(request);
+// wait for the response
+Message response = responseFuture.get(10, TimeUnit.SECONDS);
+```
+</TabItem>
 </Tabs>
 
 
