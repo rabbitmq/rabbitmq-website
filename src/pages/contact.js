@@ -4,7 +4,7 @@ import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import Mermaid from '@theme/Mermaid';
+import { CommercialSupportTimelines } from '@site/src/components/CommercialSupportTimelines';
 
 import styles from './index.module.css';
 
@@ -60,7 +60,7 @@ export default function Support() {
             <Heading as="h4">Commercial RabbitMQ includes both 24/7 support and features not available in the open source version.</Heading>
 
             <Tabs>
-              <TabItem value="feature-1" label="Enterprise Support" default>
+              <TabItem value="feature-1" label="Commercial Support">
                 <Heading as="h2">Around the clock, around the globe support</Heading>
                 <div className={styles.flex_columns}>
                   <section>
@@ -87,7 +87,10 @@ export default function Support() {
                   </section>
                 </div>
               </TabItem>
-              <TabItem value="feature-2" label="Enterprise Features">
+              <TabItem value="feature-2" label="Support Timelines" default>
+                <CommercialSupportTimelines />
+              </TabItem>
+              <TabItem value="feature-3" label="Enterprise Features">
                 <Heading as="h2">Exclusive capabilities supporting your mission-critical apps</Heading>
                 <div className={styles.flex_columns}>
                   <section>

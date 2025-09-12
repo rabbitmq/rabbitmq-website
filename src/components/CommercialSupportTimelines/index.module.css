@@ -1,0 +1,16 @@
+.timelines_table {
+  display: table;
+  width: 100%;
+}
+
+.timelines_table td, .timelines_table th {
+  padding: calc(var(--ifm-table-cell-padding) / 2) var(--ifm-table-cell-padding);
+}
+
+.supported {
+  background-color: var(--ri-color-latest);
+}
+
+.unsupported {
+  background-color: var(--ri-color-unsupported);
+}
