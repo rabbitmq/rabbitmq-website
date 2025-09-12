@@ -247,7 +247,7 @@ end.
 <TabItem value="Go" label="Go">
 A complete example is available in the [tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/rpc_amqp10.go).
 ```go
-// RPC client creates a reciver
+// RPC client creates a receiver
 receiver, err := session.NewReceiver(ctx, "", &amqp.ReceiverOptions{
     SourceCapabilities:        []string{"rabbitmq:volatile-queue"},
     SourceExpiryPolicy:        amqp.ExpiryPolicyLinkDetach,
