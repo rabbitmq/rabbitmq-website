@@ -244,6 +244,45 @@ receive {amqp10_msg, ReceiverRequester, ReplyMsg} ->
 end.
 ```
 </TabItem>
+<TabItem value="Go" label="Go">
+A complete example is available in the [tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/rpc_amqp10.go).
+```go
+// RPC client creates a reciver
+receiver, err := session.NewReceiver(ctx, "", &amqp.ReceiverOptions{
+    SourceCapabilities:        []string{"rabbitmq:volatile-queue"},
+    SourceExpiryPolicy:        amqp.ExpiryPolicyLinkDetach,
+    DynamicAddress:            true,
+    RequestedSenderSettleMode: amqp.SenderSettleModeSettled.Ptr(),
+})
+
+// RPC client uses the generated address when sending a request
+replyAddress := receiver.Address()
+requestMsg := &amqp.Message{
+    Properties: &amqp.MessageProperties{
+        MessageID: messageID,
+        ReplyTo:   &replyAddress,
+    },
+    Data: ...,
+}
+
+// RPC server extracts the message ID and reply-to address
+
+msg, _ := receiver.Receive(ctx, nil)
+_ = receiver.AcceptMessage(ctx, msg)
+messageID := msg.Properties.MessageID.(string)
+replyTo := *msg.Properties.ReplyTo
+
+// RPC server uses the reply-to and message ID in the reply
+sender, _ := session.NewSender(ctx, replyTo, nil)
+
+replyMsg := &amqp.Message{
+    Properties: &amqp.MessageProperties{
+        CorrelationID: messageID,
+    },
+    Data: ...,
+}
+```
+</TabItem>
 </Tabs>
 
 
