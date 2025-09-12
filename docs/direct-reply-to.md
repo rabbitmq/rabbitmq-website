@@ -272,7 +272,7 @@ _ = receiver.AcceptMessage(ctx, msg)
 messageID := msg.Properties.MessageID.(string)
 replyTo := *msg.Properties.ReplyTo
 
-// RPC server uses the reply-to and message ID in the reply
+// RPC server uses the reply-to value and message ID in its response
 sender, _ := session.NewSender(ctx, replyTo, nil)
 
 replyMsg := &amqp.Message{
