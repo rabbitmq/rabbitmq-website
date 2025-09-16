@@ -31,14 +31,14 @@ export default function Home() {
 
         <div className={styles.license}>
           <div className={styles.container}>
-            <p>RabbitMQ is a Free and Open Source Software. In addition, Broadcom offers an enterprise grade commercial offering with 24/7 expert support.</p>
+            <p>RabbitMQ is Free and Open Source Software. In addition, Broadcom offers an enterprise grade commercial offering with 24/7 expert support.</p>
             <div className={styles.flex_columns}>
               <section>
                 <OSIKeyholeIcon/>
                 <Heading as="h2">Free and Open Source</Heading>
                 <p>
-                  RabbitMQ is a powerful, enterprise grade open-source messaging and streaming broker that enables fast
-                  , reliable and versatile communication for applications—perfect for distributed microservices, real-time data, and scalable systems.
+                  RabbitMQ is a powerful, enterprise grade open source messaging and streaming broker that enables efficient
+                  , reliable and versatile communication for applications — perfect for distributed microservices, real-time data, and IoT.
                 </p>
                 <p>
                   Free under the <Link to="https://www.tldrlegal.com/license/mozilla-public-license-2-0-mpl-2">Mozilla Public License 2.0</Link>
