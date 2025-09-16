@@ -4,7 +4,7 @@ tags: ["khepri"]
 authors: [mgary]
 ---
 
-Khepri, the new Raft-based RabbitMQ [metadata store](https://www.rabbitmq.com/docs/metadata-store), became fully supported with RabbitMQ 4.0.
+Khepri, the new Raft-based RabbitMQ [metadata store](/docs/metadata-store), became fully supported with RabbitMQ 4.0.
 Starting with the next release series, RabbitMQ 4.2, we consider Khepri to be mature enough to become the default metadata store,
 especially given its substantial data safety and recovery improvements over Mnesia.
 
@@ -21,11 +21,11 @@ Starting with version 4.2, all RabbitMQ clusters will be strongly recommended to
 **likely become mandatory** for upgrading from 4.2 onwards.
 
 While the final decision depends on the community feedback, we expect that starting with RabbitMQ 4.3,
-the `khepri_db` feature flag will [graduate](https://www.rabbitmq.com/docs/feature-flags#graduation) to be `Required`.
+the `khepri_db` feature flag will [graduate](/docs/feature-flags#graduation) to be `Required`.
 
 ### Feature Flag Subsystem
 
-The RabbitMQ [feature flag subsystem](https://www.rabbitmq.com/docs/feature-flags) was recently improved by introducing a new category of feature flags known as `Soft Required`.
+The RabbitMQ [feature flag subsystem](/docs/feature-flags) was recently improved by introducing a new category of feature flags known as `Soft Required`.
 If a feature flag is `Soft Required` starting from version `N`, it is automatically enabled once all RabbitMQ nodes are upgraded to version `N` of RabbitMQ.
 This is a change from the previous behavior of `Required`, where a feature flag that became required in version `N` of RabbitMQ must be enabled before upgrading to version `N`.
 
