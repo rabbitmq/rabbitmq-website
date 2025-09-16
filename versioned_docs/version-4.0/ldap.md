@@ -351,7 +351,7 @@ These settings are orthogonal and can be combined.
 
 ```ini
 # Enables peer certificate chain verification.
-# This behavior is the default starting with Erlang 26 (and thus RabbitMQ 3.13+)/
+# This behavior is the default starting with Erlang 26 (and thus RabbitMQ 3.13+)
 auth_ldap.ssl_options.verify = verify_peer
 ```
 
@@ -359,8 +359,36 @@ auth_ldap.ssl_options.verify = verify_peer
 # Disables peer certificate chain verification.
 #
 # Doing so loses one of the key benefits of TLS and make the setup less secure
-# but also simplifies node configuration.
+# but also significantly simplifies node configuration.
 auth_ldap.ssl_options.verify = verify_none
+```
+
+The same examples in the [`advanced.conf` format](./configure):
+
+```erl
+[
+  {rabbitmq_auth_backend_ldap, [
+    {ssl_options, [
+      %% Enables peer certificate chain verification.
+      %% This behavior is the default starting with Erlang 26 (and thus RabbitMQ 3.13+)
+      {verify, verify_peer}
+    ]}
+  ]}
+].
+```
+
+```erl
+[
+  {rabbitmq_auth_backend_ldap, [
+    {ssl_options, [
+      %% Disables peer certificate chain verification.
+      %%
+      %% Doing so loses one of the key benefits of TLS and make the setup less secure
+      %% but also significantly simplifies node configuration.
+      {verify, verify_none}
+    ]}
+  ]}
+].
 ```
 
 #### Peer Chain Verification Depth
@@ -392,7 +420,11 @@ The below example uses an [`advanced.config` format](./configure#advanced-config
      {ssl_options, [{cacertfile, "/path/to/ca_certificate.pem"},
                     {certfile,   "/path/to/server_certificate.pem"},
                     {keyfile,    "/path/to/server_key.pem"},
-                    {verify, verify_peer},
+                    %% Disables peer certificate chain verification.
+                    %%
+                    %% Doing so loses one of the key benefits of TLS and make the setup less secure
+                    %% but also significantly simplifies node configuration.
+                    {verify, verify_none},
                     {server_name_indication, "ldap.identity.eng.megacorp.local"},
                     {ssl_hostname_verification, wildcard}
    ]}
