@@ -8,7 +8,8 @@ Khepri, the new Raft-based RabbitMQ [metadata store](/docs/metadata-store), beca
 Starting with the next release series, RabbitMQ 4.2, we consider Khepri to be mature enough to become the default metadata store,
 especially given its substantial data safety and recovery improvements over Mnesia.
 
-We have performed [a number of benchmarks](#khepri-performance-improvements), showing significant performance improvements in many metadata operations.
+We have performed a number of benchmarks, showing significant performance improvements in many metadata operations.
+A comparison table can be found below.
 
 <!-- truncate -->
 
