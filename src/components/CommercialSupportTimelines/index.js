@@ -88,9 +88,9 @@ export function CommercialSupportTimelines() {
         <strong>Legend:</strong>
         <dl className="release-legend">
           <dt className="supported-release latest-release"></dt>
-          <dd>Latest release, fully supported</dd>
+          <dd>Latest release series, fully supported</dd>
           <dt className="unsupported-release"></dt>
-          <dd>Old release, unsupported</dd>
+          <dd>Older release series, unsupported</dd>
         </dl>
       </div>
     </div>
