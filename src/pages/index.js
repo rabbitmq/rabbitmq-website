@@ -42,7 +42,7 @@ export default function Home() {
                 </p>
                 <p>
                   Free under the <Link to="https://www.tldrlegal.com/license/mozilla-public-license-2-0-mpl-2">Mozilla Public License 2.0</Link>
-                  , it’s backed by a vibrant global community. Dive in with our easy-to-use <Link to="/docs">docs</Link> or <Link to="/github">contribute</Link> to shape its future!
+                  , it has a vibrant global community. Dive in with our easy-to-use <Link to="/docs">docs</Link> or <Link to="/github">contribute</Link> to shape its future!
                 </p>
               </section>
               <section>
