@@ -1302,7 +1302,7 @@ kubectl delete pod perf-test
 
 For information about how to start using your apps, see
 [RabbitMQ tutorials](/tutorials)
-and guides on [Connections](/docs/consumers), [Publishers](/docs/publishers), and [Consumers](/docs/consumers).
+and guides on [Connections](/docs/connections), [Publishers](/docs/publishers), and [Consumers](/docs/consumers).
 
 
 ## Monitor RabbitMQ Clusters {#monitoring}
