@@ -2,6 +2,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
+import { CommercialSupportTimelines } from '@site/src/components/CommercialSupportTimelines';
 
 import styles from './index.module.css';
 
@@ -28,7 +29,7 @@ export default function CommercialFeatures() {
             </div>
           </div>
         </div>
-        <div className={styles.services}>
+        <div className={styles.section}>
           <div className={styles.container}>
             <Heading as="h1">VMware Tanzu RabbitMQ</Heading>
             <p>
@@ -107,6 +108,12 @@ export default function CommercialFeatures() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+        <div className={styles.section}>
+          <div className={styles.container}>
+            <Heading as="h1">Support Timelines</Heading>
+            <CommercialSupportTimelines />
           </div>
         </div>
       </main>
