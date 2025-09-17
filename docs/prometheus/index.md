@@ -303,11 +303,12 @@ gmake down
 ```
 
 
-## More Dashboards: Raft and Erlang Runtime {#other-dashboards}
+## More Dashboards: Inter-Node Connections (Links), Raft and Erlang Runtime {#other-dashboards}
 
 There are two more Grafana dashboards available: **RabbitMQ-Raft** and **Erlang-Distribution**. They collect and
 visualise metrics related to the Raft consensus algorithm (used by [Quorum Queues](./quorum-queues) and other features) as well
-as more nitty-gritty [runtime metrics](./runtime) such as inter-node communication buffers.
+as more nitty-gritty [runtime metrics](./runtime) such as the state of inter-node connections (communication links),
+for example, their buffers.
 
 The dashboards have corresponding RabbitMQ clusters and PerfTest instances which are started and stopped the same
 as the Overview one. Feel free to experiment with the other workloads
