@@ -471,6 +471,22 @@ Consumer consumer = connection.consumerBuilder()
 ```
 </TabItem>
 
+<TabItem value="csharp" label="C#">
+```csharp
+IConsumer consumer = await connection.ConsumerBuilder().Queue("my-queue").
+    MessageHandler((context, message) =>
+        {
+            // process the messages
+        }
+    ).Stream().Offset(StreamOffsetSpecification.First).Filter()
+    .UserId("John"u8.ToArray())
+    .Subject("&p:Order")
+    .Property("region", "emea")
+    .Stream().Builder()
+    .BuildAndStartAsync();
+```
+</TabItem>
+
 <TabItem value="Erlang" label="Erlang">
 ```erlang
 Filter = #{<<"filter-name-1">> =>
@@ -725,6 +741,23 @@ Consumer consumer = connection.consumerBuilder()
 ```
 </TabItem>
 
+<TabItem value="csharp" label="C#">
+```csharp
+IConsumer consumer = await connection.ConsumerBuilder().Queue("my-queue").
+    MessageHandler((context, message) =>
+        {
+            // process the messages
+        }
+    ).Stream().Offset(StreamOffsetSpecification.First).Filter()
+      .Sql("properties.user_id = 'John' AND" 
+         + "properties.subject LIKE 'Order%' AND region = 'emea'")
+      .Stream().Builder()
+    .Stream().Builder()
+    .BuildAndStartAsync();
+```
+</TabItem>
+
+
 
 <TabItem value="Erlang" label="Erlang">
 ```erlang
@@ -826,6 +859,25 @@ Consumer consumer = connection.consumerBuilder()
         // message processing
     })
     .build();
+```
+</TabItem>
+
+<TabItem value="csharp" label="C#">
+```csharp
+IConsumer consumer = await connection.ConsumerBuilder().Queue("my-queue").
+    MessageHandler((context, message) =>
+    // message processing
+    }).Stream().Offset(StreamOffsetSpecification.First)
+    // This Bloom filter will be evaluated server-side per chunk (Stage 1). 
+    .FilterValues("order.created")
+    .Filter()
+     // This complex SQL filter expression will be evaluted server-side
+     // per message at stage 2.     
+    .Sql("p.subject = 'order.created' AND " +
+         "p.creation_time > UTC() - 3600000 AND " +
+         "region IN ('AMER', 'EMEA', 'APJ') AND " +
+         "(h.priority > 4 OR price >= 99.99 OR premium_customer = TRUE)").Stream().Builder()
+    .BuildAndStartAsync().ConfigureAwait(false);
 ```
 </TabItem>
 
