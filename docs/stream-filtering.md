@@ -487,6 +487,21 @@ IConsumer consumer = await connection.ConsumerBuilder().Queue("my-queue").
 ```
 </TabItem>
 
+<TabItem value="go" label="Go">
+```go
+    var subjectPrt = "&p:Order"
+    consumer, err := amqpConnection.NewConsumer(context.Background(), "my-queue",
+    &rmq.StreamConsumerOptions{
+        Offset: &rmq.OffsetFirst{},
+        StreamFilterOptions: &rmq.StreamFilterOptions{
+            Properties: &amqp.MessageProperties{Subject: &subjectPrt, UserID: []byte("John")},
+            ApplicationProperties: map[string]interface{}{"region": "emea"},
+            },
+    })
+```
+</TabItem>
+
+
 <TabItem value="Erlang" label="Erlang">
 ```erlang
 Filter = #{<<"filter-name-1">> =>
@@ -757,6 +772,19 @@ IConsumer consumer = await connection.ConsumerBuilder().Queue("my-queue").
 ```
 </TabItem>
 
+<TabItem value="go" label="Go">
+```go
+consumer, err := amqpConnection.NewConsumer(context.Background(), "my-queue",
+        &rmq.StreamConsumerOptions{
+            Offset: &rmq.OffsetFirst{},
+            StreamFilterOptions: &rmq.StreamFilterOptions{
+                SQL: "properties.user_id = 'John' AND " 
+                + "properties.subject LIKE 'Order%' AND region = 'emea'",
+            },
+        })
+```
+</TabItem>
+
 
 
 <TabItem value="Erlang" label="Erlang">
@@ -880,6 +908,26 @@ IConsumer consumer = await connection.ConsumerBuilder().Queue("my-queue").
     .BuildAndStartAsync().ConfigureAwait(false);
 ```
 </TabItem>
+
+<TabItem value="go" label="Go">
+```csharp
+consumer, err := amqpConnection.NewConsumer(context.Background(), "my-queue",
+    &rmq.StreamConsumerOptions{
+        Offset: &rmq.OffsetFirst{},
+        StreamFilterOptions: &rmq.StreamFilterOptions{
+            // This Bloom filter will be evaluated server-side per chunk (Stage 1).
+            Values: []string{"order.created"},
+            // This complex SQL filter expression will be evaluted server-side
+            // per message at stage 2.
+            SQL:"p.subject = 'order.created' AND " +
+                "p.creation_time > UTC() - 3600000 AND " +
+                "region IN ('AMER', 'EMEA', 'APJ') AND " +
+                "(h.priority > 4 OR price >= 99.99 OR premium_customer = TRUE)",
+            },
+        })
+```
+</TabItem>
+
 
 <TabItem value="Erlang" label="Erlang">
 ```erlang
