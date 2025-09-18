@@ -119,7 +119,7 @@ html[data-theme='dark'] .heroCta .release_notes_link {
   }
 }
 
-.why, .license, .tanzu_license, .usecases_heading, .usecases, .testimonies, .supporttypes, .partners, .featured_partner, .services {
+.why, .license, .tanzu_license, .usecases_heading, .usecases, .testimonies, .supporttypes, .partners, .featured_partner, .section {
   padding: 2em 0px;
   scroll-margin-top: 60px;
 }
@@ -244,10 +244,6 @@ html[data-theme='dark'] .blockquote blockquote:after {
 
 html[data-theme='dark'] .commercial_features_cta a {
   background-color: var(--ifm-font-color-base);
-}
-
-.services h1 {
-  text-align: center;
 }
 
 .services_row {
