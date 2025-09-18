@@ -258,7 +258,7 @@ class MyMessageHandler(AMQPMessagingHandler):
         self.delivery_context.accept(event)
 
 stream_address = AddressHelper.queue_address("some-stream")
-consumer = consumer_connection.consumer(
+consumer = connection.consumer(
     stream_address,
     message_handler=MyMessageHandler(),
     ### This Bloom filter will be evaluated server-side per chunk (Stage 1).
@@ -427,6 +427,7 @@ The filter syntax is defined in the AMQP 1.0 extension specification [AMQP Filte
 RabbitMQ supports a subset of this specification as described below.
 
 AMQP filter expressions are either [**Property** Filter Expressions](https://docs.oasis-open.org/amqp/filtex/v1.0/csd01/filtex-v1.0-csd01.html#_Toc67929259) or [**SQL** Filter Expressions](https://docs.oasis-open.org/amqp/filtex/v1.0/csd01/filtex-v1.0-csd01.html#_Toc67929276).
+ 
 
 :::note
 
@@ -446,6 +447,7 @@ RabbitMQ implements:
 * [§ 4.2.5 application-properties filter](https://docs.oasis-open.org/amqp/filtex/v1.0/csd01/filtex-v1.0-csd01.html#_Toc67929271): Applies to the immutable application-properties section of the message.
 
 As described in the specification, prefix and suffix matching is supported using `&p:<prefix>` and `&s:<suffix>` modifiers.
+
 
 #### Example: Property Filter Expressions
 
@@ -501,6 +503,25 @@ IConsumer consumer = await connection.ConsumerBuilder().Queue("my-queue").
 ```
 </TabItem>
 
+<TabItem value="python" label="Python">
+```python
+   consumer = connection.consumer(
+        "my-queue",
+        message_handler=MyMessageHandler(),
+        consumer_options=StreamConsumerOptions(
+            offset_specification=OffsetSpecification.first,
+            filter_options=StreamFilterOptions(
+                message_properties=MessageProperties(
+                    subject="&p:Order",
+                    user_id= "John".encode("utf-8"),
+
+                ),
+                application_properties={"region": "emea"},
+            ),
+        ),
+    )
+```
+</TabItem>
 
 <TabItem value="Erlang" label="Erlang">
 ```erlang
@@ -785,6 +806,22 @@ consumer, err := amqpConnection.NewConsumer(context.Background(), "my-queue",
 ```
 </TabItem>
 
+<TabItem value="python" label="Python">
+```python
+consumer = connection.consumer(
+        "my-queue",
+        message_handler=MyMessageHandler(),
+        consumer_options=StreamConsumerOptions(
+            offset_specification=OffsetSpecification.first,
+            filter_options=StreamFilterOptions(
+                sql="properties.user_id = 'John' AND "
+                    + "properties.subject LIKE 'Order%' AND region = 'emea'",
+            ),
+        ),
+    )
+```
+</TabItem>
+
 
 
 <TabItem value="Erlang" label="Erlang">
@@ -925,6 +962,30 @@ consumer, err := amqpConnection.NewConsumer(context.Background(), "my-queue",
                 "(h.priority > 4 OR price >= 99.99 OR premium_customer = TRUE)",
             },
         })
+```
+</TabItem>
+
+<TabItem value="python" label="Python">
+```python
+    consumer = consumer_connection.consumer(
+        "my-queue",
+        message_handler=MyMessageHandler(),
+        # the consumer will only receive messages with filter value banana and subject yellow
+        # and application property from = italy
+        consumer_options=StreamConsumerOptions(
+            offset_specification=OffsetSpecification.first,
+            filter_options=StreamFilterOptions(
+                # This Bloom filter will be evaluated server-side per chunk (Stage 1).
+                values=["order.created"],
+                # This complex SQL filter expression will be evaluted server-side
+                # per message at stage 2.
+                sql="p.subject = 'order.created' AND " +
+                "p.creation_time > UTC() - 3600000 AND " +
+                "region IN ('AMER', 'EMEA', 'APJ') AND " +
+                "(h.priority > 4 OR price >= 99.99 OR premium_customer = TRUE)",
+            ),
+        ),
+    )
 ```
 </TabItem>
 
