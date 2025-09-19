@@ -18,7 +18,6 @@ function getTimelineRows(releaseBranches) {
     }
 
     const patchRelease = releases[0];
-    const releaseDate = new Date(patchRelease.release_date);
     const endOfCommunitySupportDate = previousReleaseDate;
     const endOfCommercialSupportDate = new Date(releaseBranch.end_of_support);
 
@@ -34,7 +33,6 @@ function getTimelineRows(releaseBranches) {
     rows.push({
       release: branch,
       patch: patchRelease.version,
-      releaseDate: releaseDate.toLocaleDateString("en-GB", dateOptions),
       endOfCommunitySupport,
       endOfCommercialSupport,
       isCommunitySupported,
@@ -60,7 +58,6 @@ export function CommercialSupportTimelines() {
           <tr>
             <th>Release</th>
             <th>Patch</th>
-            <th>Date of Release</th>
             <th>End of Community Support</th>
             <th>End of Commercial Support*</th>
           </tr>
@@ -70,7 +67,6 @@ export function CommercialSupportTimelines() {
             <tr key={row.release}>
               <td>{row.release}</td>
               <td>{row.patch}</td>
-              <td>{row.releaseDate}</td>
               <td className={row.isCommunitySupported ? styles.supported : styles.unsupported}>
                 {row.endOfCommunitySupport}
               </td>
