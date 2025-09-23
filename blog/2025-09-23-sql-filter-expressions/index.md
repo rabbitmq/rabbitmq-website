@@ -75,7 +75,7 @@ Suppose you only want to process high-value orders that satisfy all of the follo
 * Order originates from regions AMER, EMEA, or APJ
 * And at least one of:
     * Priority > 4
-    * Price ≥ 99.99,
+    * Price ≥ 99.99
     * Premium customer
 
 In our demonstration, only 10 messages out of 10 million meet these criteria — a highly selective filter scenario common in real-world applications.
