@@ -40,6 +40,8 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -e ERL_AFLAGS="+S 1" rabbitmq:4
 mvn clean compile exec:java
 ```
 
+The sample application uses the [RabbitMQ AMQP 1.0 Java Client](https://github.com/rabbitmq/rabbitmq-amqp-java-client), as SQL filter expressions are a feature of AMQP 1.0.
+
 ## Publishing Events
 
 Consider a typical e-commerce platform generating a continuous stream of customer events:
