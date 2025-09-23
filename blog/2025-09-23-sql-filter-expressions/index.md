@@ -57,9 +57,11 @@ Each message includes a Bloom filter annotation set to its event type, enabling 
 publisher
     .message(body.getBytes(StandardCharsets.UTF_8))
     .priority(priority)
-    .annotation("x-stream-filter-value", eventType) // Bloom filter value
+    // set the Bloom filter value
+    .annotation("x-stream-filter-value", eventType)
     .subject(eventType)
     .creationTime(creationTime)
+    // set application properties, e.g. region, price, or premium_customer
     .property("region", region);
 ```
 
