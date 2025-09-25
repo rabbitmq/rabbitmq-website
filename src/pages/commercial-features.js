@@ -46,6 +46,7 @@ export default function CommercialFeatures() {
                   Extended support lifecycle with critical patches and CVE fixes
                   for more release series.
                 </p>
+                <Link to="/commercial-features#support-timelines">See your support timelines</Link>
               </div>
               <div className={styles.services_col}>
                 <Heading as="h3">Support from Core Engineers</Heading>
@@ -110,7 +111,7 @@ export default function CommercialFeatures() {
             </div>
           </div>
         </div>
-        <div className={styles.section}>
+        <div id="support-timelines" className={styles.section}>
           <div className={styles.container}>
             <Heading as="h1">Support Timelines</Heading>
             <CommercialSupportTimelines />
