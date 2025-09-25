@@ -37,8 +37,8 @@ export default function Home() {
                 <OSIKeyholeIcon/>
                 <Heading as="h2">Free and Open Source</Heading>
                 <p>
-                  RabbitMQ is a powerful, enterprise grade open source messaging and streaming broker that enables efficient
-                  , reliable and versatile communication for applications — perfect for distributed microservices, real-time data, and IoT.
+                  RabbitMQ is a powerful, enterprise grade open source messaging and streaming broker that enables efficient,
+                  reliable and versatile communication for applications — perfect for distributed microservices, real-time data, and IoT.
                 </p>
                 <p>
                   Free under the <Link to="https://www.tldrlegal.com/license/mozilla-public-license-2-0-mpl-2">Mozilla Public License 2.0</Link>
