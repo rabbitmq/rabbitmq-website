@@ -2,6 +2,7 @@ import Link from '@docusaurus/Link';
 import {getReleaseBranches} from '../RabbitMQServerReleaseInfo';
 import styles from "./index.module.css"
 
+const releaseDateOptions = { year: 'numeric', month: 'short' };
 const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 
 function getTimelineRows(releaseBranches) {
@@ -17,9 +18,16 @@ function getTimelineRows(releaseBranches) {
       continue;
     }
 
-    const patchRelease = releases[0];
-    const releaseDate = new Date(patchRelease.release_date);
-    const endOfCommunitySupportDate = previousReleaseDate;
+    const minorRelease = releases[releases.length - 1];
+    const releaseDate = new Date(minorRelease.release_date);
+
+    const endOfCommunitySupportDate =
+        releaseBranch.end_of_community_support
+            ? new Date(
+                  releaseBranch.end_of_community_support
+              )
+            : previousReleaseDate;
+
     const endOfCommercialSupportDate = new Date(releaseBranch.end_of_support);
 
     const isCommunitySupported = endOfCommunitySupportDate === undefined || endOfCommunitySupportDate > now;
@@ -33,15 +41,14 @@ function getTimelineRows(releaseBranches) {
 
     rows.push({
       release: branch,
-      patch: patchRelease.version,
-      releaseDate: releaseDate.toLocaleDateString("en-GB", dateOptions),
+      releaseDate: releaseDate.toLocaleDateString("en-GB", releaseDateOptions),
       endOfCommunitySupport,
       endOfCommercialSupport,
       isCommunitySupported,
       isCommercialSupported
     });
 
-    previousReleaseDate = new Date(releases[releases.length - 1].release_date);
+    previousReleaseDate = new Date(minorRelease.release_date);
   }
 
   return rows;
@@ -59,7 +66,6 @@ export function CommercialSupportTimelines() {
         <thead>
           <tr>
             <th>Release</th>
-            <th>Patch</th>
             <th>Date of Release</th>
             <th>End of Community Support</th>
             <th>End of Commercial Support*</th>
@@ -69,7 +75,6 @@ export function CommercialSupportTimelines() {
           {rows.map((row) => (
             <tr key={row.release}>
               <td>{row.release}</td>
-              <td>{row.patch}</td>
               <td>{row.releaseDate}</td>
               <td className={row.isCommunitySupported ? styles.supported : styles.unsupported}>
                 {row.endOfCommunitySupport}
