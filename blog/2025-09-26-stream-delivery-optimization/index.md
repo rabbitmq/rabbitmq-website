@@ -2,6 +2,7 @@
 title: "Delivery Optimization for RabbitMQ Streams"
 tags: ["Streams", "RabbitMQ 4.2", "performance"]
 authors: [acogoluegnes]
+image: ./amqp091-12.svg
 ---
 
 RabbitMQ Streams are designed for high-throughput scenarios, but what happens when your ingress rate is low?
