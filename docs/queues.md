@@ -212,35 +212,45 @@ Use operator policies to introduce guardrails for application-controlled paramet
 to resource use (e.g. peak disk space usage).
 
 
-## Message Ordering in RabbitMQ {#message-ordering}
+## Message ordering
 
-Queues in RabbitMQ are ordered collections of messages.
-Messages are enqueued and dequeued (delivered to consumers) in the [FIFO manner](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)).
+Message ordering matters when there are causal dependencies between messages.
+RabbitMQ tries to preserve the order of messages.
 
-FIFO ordering is not guaranteed for [priority](./priority) queues by definition.
+A queue is an ordered collection of messages providing [FIFO](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)) semantics.
+When publishing on a single [channel](./channels), messages are enqueued in publishing order in every queue they are routed to.
+When publishing happens on multiple connections or channels, their sequences of messages will be routed concurrently and interleaved.
+Delivery from a queue to consumers proceeds in enqueue order (unless below events occur).
 
-Ordering also can be affected by the presence of multiple competing [consumers](./consumers),
-[consumer priorities](./consumers#priority), message redeliveries.
-This applies to redeliveries of any kind: automatic after channel closure and
-[negative consumer acknowledgements](./confirms).
+### When messages can be reordered
 
-Applications can assume messages published on a single channel will be enqueued
-in publishing order in all the queues they get routed to.
-When publishing happens on multiple connections or channels, their sequences of messages
-will be routed concurrently and interleaved.
+Even if RabbitMQ aims to preserve order, the following will change effective delivery order:
+1. **Message [priorities](./priority)**:
+   higher-priority messages may be delivered before lower-priority messages.
+2. **Multiple active consumers on the same queue**:
+   the broker still dequeues in FIFO, but any redelivery can change order.
+   Redelivery happens when consumers [negatively acknowledge](./confirms#consumer-nacks-requeue) with requeue or a channel/session closes with unacked messages.
+   Redelivered messages are flagged (AMQP 1.0: `first-acquirer=false`, AMQP 0-9-1: `redelivered=true`).
 
-Consuming applications can assume that **initial deliveries** (those where the `redelivered` property
-is set to `false`) to a single consumer are performed in the same FIFO order as they were enqueued.
-For **repeated deliveries** (the `redelivered` property is set to `true`), original ordering
-can be affected by the timing of consumer acknowledgements and redeliveries, and thus
-not guaranteed.
+### Preserving message order
 
-In case of multiple consumers, messages will be dequeued for delivery in the FIFO order
-but actual delivery will happen to multiple consumers. If all of the consumers have
-equal priorities, they will be picked on a [round-robin basis](https://en.wikipedia.org/wiki/Round-robin_scheduling).
-Only consumers on channels that have not exceeded their [prefetch value](./consumers#prefetch)
-(the number of outstanding unacknowledged deliveries) will be considered.
+To preserve message order in RabbitMQ you have two options.
 
+#### **1.) Use a [stream](./streams)**
+
+A stream is an immutable append-only log. Each message gets its offset assigned at publish-time. This offset never changes.
+
+Multiple consumers can process messages from the same stream concurrently without affecting ordering.
+With [stream filtering](./stream-filtering), you can split work so that different consumers process disjoint subsets of the stream while preserving order within each subset.
+
+#### **2.) Use a queue with a single active consumer**
+To keep order with queues:
+* Enable [Single Active Consumer](./consumers#single-active-consumer) so only one consumer receives messages at a time.
+  (Alternatively, run one consumer per queue.)
+* If your consumers return messages to the queue, make sure they return those messages in the order they received them.
+* For quorum queues, set a [delivery limit](./quorum-queues#poison-message-handling).
+  This ensures messages are requeued at the front of the queue.
+* AMQP 0-9-1: don’t use `basic.get`.  When stopping a consumer, prefer closing the [channel](./channels) over `basic.cancel`.
 
 ## Durability {#durability}
 
