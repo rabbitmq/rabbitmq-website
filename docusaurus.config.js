@@ -28,8 +28,13 @@ const config = {
   organizationName: 'rabbitmq', // Usually your GitHub org/user name.
   projectName: 'rabbitmq-website', // Usually your repo name.
 
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'throw'
+    }
+  },
+
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'throw',
   onBrokenAnchors: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
