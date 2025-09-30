@@ -81,19 +81,21 @@ rabbitmqctl clear_parameter [-p vhost] <component_name> <name>
 
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
 ```bash
+# Note: for federation upstreams and shovels, use the dedicated 'federation' and 'shovels' command groups instead
+
 # sets a runtime parameter in a virtual host
 rabbitmqadmin --vhost "vhost-1" parameters set \
-        --component "federation-upstream" \
         --name "upstream-1" \
+        --component "federation-upstream" \
         --value '{"uri": "amqp://target.hostname/vhost"}'
 
 # lists runtime parameters in a virtual host
-rabbitmqadmin --vhost "vhost-1"  parameters list
+rabbitmqadmin --vhost "vhost-1" parameters list
 
 # clears (unsets) a runtime parameter in a virtual host
-rabbitmqadmin --vhost "vhost-1"  parameters clear \
-    --component "federation-upstream" \
-    --name "upstream-1"
+rabbitmqadmin --vhost "vhost-1" parameters clear \
+    --name "upstream-1" \
+    --component "federation-upstream"
 ```
 </TabItem>
 
@@ -112,19 +114,21 @@ rabbitmqctl.bat clear_parameter [-p vhost] <component_name> <name>
 
 <TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
 ```PowerShell
+# Note: for federation upstreams and shovels, use the dedicated 'federation' and 'shovels' command groups instead
+
 # sets a runtime parameter in a virtual host
-rabbitmqadmin.exe parameters set ^
-        --component "federation-upstream" ^
+rabbitmqadmin.exe --vhost "vhost-1" parameters set ^
         --name "upstream-1" ^
+        --component "federation-upstream" ^
         --value "{""uri"": ""amqp://target.hostname/vhost""}"
 
 # lists runtime parameters in a virtual host
-rabbitmqadmin.exe --vhost "vhost-1"  parameters list
+rabbitmqadmin.exe --vhost "vhost-1" parameters list
 
 # clears (unsets) a runtime parameter in a virtual host
-rabbitmqadmin.exe --vhost "vhost-1"  parameters clear ^
-    --component "federation-upstream" ^
-    --name "upstream-1"
+rabbitmqadmin.exe --vhost "vhost-1" parameters clear ^
+    --name "upstream-1" ^
+    --component "federation-upstream"
 ```
 </TabItem>
 

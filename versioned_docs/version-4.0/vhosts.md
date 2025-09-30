@@ -343,6 +343,60 @@ a node at `rabbitmq.local:15672`:
 curl -u userename:pa$sw0rD -X DELETE http://rabbitmq.local:15672/api/vhosts/vh1
 ```
 
+### Deleting Multiple Virtual Hosts
+
+`rabbitmqadmin` supports deleting multiple virtual hosts at once using a name matching pattern.
+
+:::danger
+
+**THIS IS AN EXTREMELY DESTRUCTIVE OPERATION AND MUST BE USED WITH EXTREME CARE.**
+
+This command will delete ALL virtual hosts matching the provided regular expression pattern.
+ALL data in those virtual hosts will be permanently lost, including:
+
+ * Queues, streams, and partitioned streams
+ * Exchanges and bindings
+ * Messages
+ * User permissions
+ * Federation upstreams and links
+ * Shovels
+ * Policies and operator policies
+ * Runtime parameters
+
+**ALWAYS use `--dry-run` first to verify what will be deleted before running the actual deletion.**
+
+:::
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqadmin with bash" default>
+```bash
+# ALWAYS run with --dry-run first to see what would be deleted
+rabbitmqadmin vhosts delete_multiple --name-pattern "^test-.*" --dry-run
+
+# After verifying with --dry-run, use --approve to perform the actual deletion
+# This will delete ALL virtual hosts whose names start with "test-"
+rabbitmqadmin vhosts delete_multiple --name-pattern "^test-.*" --approve
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# ALWAYS run with --dry-run first to see what would be deleted
+rabbitmqadmin.exe vhosts delete_multiple --name-pattern "^test-.*" --dry-run
+
+# After verifying with --dry-run, use --approve to perform the actual deletion
+# This will delete ALL virtual hosts whose names start with "test-"
+rabbitmqadmin.exe vhosts delete_multiple --name-pattern "^test-.*" --approve
+```
+</TabItem>
+</Tabs>
+
+:::note
+
+The default virtual host (`/`) is always preserved and will never be deleted by this command, even if it matches the pattern.
+
+:::
+
 ## Deletion Protection {#deletion-protection}
 
 A virtual host can be protected from deletion. Protected virtual hosts cannot be deleted

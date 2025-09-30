@@ -293,9 +293,39 @@ rabbitmqadmin users delete --name "a-user" --idempotently
 
 ### List User Permissions
 
+See the [Access Control guide](./access-control#authorisation) for more information on permissions.
+
 ```shell
 # List permissions for all users
 rabbitmqadmin users permissions
+```
+
+### Grant User Permissions
+
+See the [Access Control guide](./access-control#grant-permissions) for more information on granting permissions.
+
+```shell
+# Grant permissions to a user for a virtual host
+rabbitmqadmin --vhost "events" declare permissions --user "a-user" --configure ".*" --read ".*" --write ".*"
+```
+
+```shell
+# Grant limited permissions (read-only for specific queues)
+rabbitmqadmin --vhost "events" declare permissions --user "monitoring" --configure "" --read "^metrics\\..*" --write ""
+```
+
+### Revoke User Permissions
+
+See the [Access Control guide](./access-control#authorisation) for more information on permissions.
+
+```shell
+# Revoke all permissions for a user in a virtual host
+rabbitmqadmin --vhost "events" delete permissions --user "a-user"
+```
+
+```shell
+# Idempotent revocation (does not fail if permissions don't exist)
+rabbitmqadmin --vhost "events" delete permissions --user "a-user" --idempotently
 ```
 
 ### List User Connections
@@ -368,6 +398,126 @@ rabbitmqadmin vhosts delete --name "vh-789"
 ```shell
 # --idempotently means that 404 Not Found responses will not be  considered errors
 rabbitmqadmin vhosts delete --name "vh-789" --idempotently
+```
+
+### Delete Multiple Virtual Hosts
+
+:::danger
+
+**THIS IS AN EXTREMELY DESTRUCTIVE OPERATION AND MUST BE USED WITH EXTREME CARE.**
+
+This command will delete ALL virtual hosts matching the provided regular expression pattern.
+ALL data in those virtual hosts will be permanently lost, including:
+
+ * Queues, streams, and partitioned streams
+ * Exchanges and bindings
+ * Messages
+ * User permissions
+ * Federation upstreams and links
+ * Shovels
+ * Policies and operator policies
+ * Runtime parameters
+
+**ALWAYS use `--dry-run` first to verify what will be deleted before running the actual deletion.**
+
+:::
+
+```shell
+# ALWAYS run with --dry-run first to see what would be deleted
+rabbitmqadmin vhosts delete_multiple --name-pattern "^test-.*" --dry-run
+```
+
+```shell
+# After verifying with --dry-run, use --approve to perform the actual deletion
+# This will delete ALL virtual hosts whose names start with "test-"
+rabbitmqadmin vhosts delete_multiple --name-pattern "^test-.*" --approve
+```
+
+:::note
+
+The default virtual host (`/`) is always preserved and will never be deleted by this command, even if it matches the pattern.
+
+:::
+
+### Enable Virtual Host Deletion Protection
+
+Virtual host deletion protection prevents a virtual host from being accidentally deleted. This is useful for protecting critical production virtual hosts.
+
+See the [Virtual Hosts guide](./vhosts#deletion-protection) for more information on deletion protection.
+
+```shell
+# Enable deletion protection for a virtual host
+rabbitmqadmin vhosts enable_deletion_protection --name "production"
+```
+
+```shell
+# Enable deletion protection for multiple critical virtual hosts
+rabbitmqadmin vhosts enable_deletion_protection --name "production"
+rabbitmqadmin vhosts enable_deletion_protection --name "staging"
+```
+
+### Disable Virtual Host Deletion Protection
+
+See the [Virtual Hosts guide](./vhosts#deletion-protection) for more information on deletion protection.
+
+```shell
+# Disable deletion protection for a virtual host
+rabbitmqadmin vhosts disable_deletion_protection --name "production"
+```
+
+### List Virtual Host Limits
+
+```shell
+# List limits for all virtual hosts
+rabbitmqadmin list vhost_limits
+```
+
+```shell
+# List limits for a specific virtual host
+rabbitmqadmin --vhost "events" list vhost_limits
+```
+
+### Set a Virtual Host Limit
+
+```shell
+# Set a limit on maximum number of connections
+rabbitmqadmin --vhost "events" declare vhost_limit --name "max-connections" --value 100
+```
+
+```shell
+# Set a limit on maximum number of queues
+rabbitmqadmin --vhost "events" declare vhost_limit --name "max-queues" --value 500
+```
+
+### Delete a Virtual Host Limit
+
+```shell
+rabbitmqadmin --vhost "events" delete vhost_limit --name "max-connections"
+```
+
+### List User Limits
+
+```shell
+# List limits for a specific user
+rabbitmqadmin list user_limits --user "a-user"
+```
+
+### Set a User Limit
+
+```shell
+# Set a limit on maximum number of connections for a user
+rabbitmqadmin declare user_limit --user "a-user" --name "max-connections" --value 10
+```
+
+```shell
+# Set a limit on maximum number of channels for a user
+rabbitmqadmin declare user_limit --user "a-user" --name "max-channels" --value 50
+```
+
+### Delete a User Limit
+
+```shell
+rabbitmqadmin delete user_limit --user "a-user" --name "max-connections"
 ```
 
 
@@ -482,6 +632,17 @@ rabbitmqadmin channels list
 ``` shell
 # List channels in a specific virtual host
 rabbitmqadmin --vhost "events" channels list
+```
+
+### Listing Consumers
+
+```shell
+rabbitmqadmin consumers list
+```
+
+```shell
+# List consumers in a specific virtual host
+rabbitmqadmin --vhost "events" consumers list
 ```
 
 ### Inspecting Node Memory Breakdown
@@ -987,10 +1148,50 @@ rabbitmqadmin parameters list_all
 rabbitmqadmin --vhost "events" parameters list
 ```
 
+### Set a Runtime Parameter
+
+```shell
+# Set a runtime parameter
+# Note: for federation upstreams and shovels, use the dedicated 'federation' and 'shovels' command groups instead
+rabbitmqadmin --vhost "events" parameters set --name "my-param" --component "my-component" --value '{"key":"value"}'
+```
+
+### Clear a Runtime Parameter
+
+```shell
+# Clear (delete) a runtime parameter
+# Note: for federation upstreams and shovels, use the dedicated 'federation' and 'shovels' command groups instead
+rabbitmqadmin --vhost "events" parameters clear --name "my-param" --component "my-component"
+```
+
+```shell
+# Idempotent deletion (does not fail if the parameter doesn't exist)
+rabbitmqadmin --vhost "events" parameters clear --name "my-param" --component "my-component" --idempotently
+```
+
 ### Listing Global Parameters
 
 ```shell
 rabbitmqadmin global_parameters list
+```
+
+### Set a Global Runtime Parameter
+
+```shell
+# Set a global runtime parameter
+rabbitmqadmin global_parameters set --name "cluster_name" --value '"production-cluster"'
+```
+
+### Clear a Global Runtime Parameter
+
+```shell
+# Clear (delete) a global runtime parameter
+rabbitmqadmin global_parameters clear --name "cluster_name"
+```
+
+```shell
+# Idempotent deletion (does not fail if the parameter doesn't exist)
+rabbitmqadmin global_parameters clear --name "cluster_name" --idempotently
 ```
 
 
