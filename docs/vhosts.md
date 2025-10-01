@@ -665,48 +665,177 @@ In some cases it is desirable to limit the maximum allowed number of queues
 or concurrent client connections in a vhost.
 Per-virtual host limits exist exactly for such cases.
 
-These limits can be configured using `rabbitmqctl` or [HTTP API](./management).
+These limits can be configured using `rabbitmqctl` or [HTTP API](./http-api-reference).
 
-### Configuring Limits Using rabbitmqctl
+### Configuring Limits
 
-`rabbitmqctl set_vhost_limits` is the command used to define vhost limits.
-It requires a vhost parameter and a JSON document of limit definitions.
+Virtual host limits can be configured using `rabbitmqctl` or `rabbitmqadmin`.
 
-### Configuring Max Connection Limit
+#### Configuring Max Connection Limit
 
 To limit the total number of concurrent client connections in vhost
 `vhost_name`, use the following limit definition:
 
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_vhost_limits -p vhost_name '{"max-connections": 256}'
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin --vhost vhost_name vhost_limits declare --name max-connections --value 256
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat set_vhost_limits -p vhost_name "{""max-connections"": 256}"
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe --vhost vhost_name vhost_limits declare --name max-connections --value 256
+```
+</TabItem>
+</Tabs>
 
 To block client connections to a vhost, set the limit to a zero:
 
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_vhost_limits -p vhost_name '{"max-connections": 0}'
 ```
+</TabItem>
 
-To lift the limit, set it to a negative value:
-
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
 ```bash
-rabbitmqctl set_vhost_limits -p vhost_name '{"max-connections": -1}'
+rabbitmqadmin --vhost vhost_name vhost_limits declare --name max-connections --value 0
 ```
+</TabItem>
 
-### Configuring Max Number of Queues
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat set_vhost_limits -p vhost_name "{""max-connections"": 0}"
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe --vhost vhost_name vhost_limits declare --name max-connections --value 0
+```
+</TabItem>
+</Tabs>
+
+#### Configuring Max Number of Queues
 
 To limit the total number of queues in vhost
 `vhost_name`, use the following limit definition:
 
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl set_vhost_limits -p vhost_name '{"max-queues": 1024}'
 ```
+</TabItem>
 
-To lift the limit, set it to a negative value:
-
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
 ```bash
-rabbitmqctl set_vhost_limits -p vhost_name '{"max-queues": -1}'
+rabbitmqadmin --vhost vhost_name vhost_limits declare --name max-queues --value 1024
 ```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat set_vhost_limits -p vhost_name "{""max-queues"": 1024}"
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe --vhost vhost_name vhost_limits declare --name max-queues --value 1024
+```
+</TabItem>
+</Tabs>
+
+### Listing Virtual Host Limits
+
+To list limits for a virtual host:
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
+```bash
+# uses the default virtual host (/)
+rabbitmqctl list_vhost_limits
+
+# or for a specific virtual host
+rabbitmqctl list_vhost_limits -p vhost_name
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+# uses the default virtual host (/)
+rabbitmqadmin vhost_limits list
+
+# or for a specific virtual host
+rabbitmqadmin --vhost vhost_name vhost_limits list
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+# uses the default virtual host (/)
+rabbitmqctl.bat list_vhost_limits
+
+# or for a specific virtual host
+rabbitmqctl.bat list_vhost_limits -p vhost_name
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# uses the default virtual host (/)
+rabbitmqadmin.exe vhost_limits list
+
+# or for a specific virtual host
+rabbitmqadmin.exe --vhost vhost_name vhost_limits list
+```
+</TabItem>
+</Tabs>
+
+### Clearing Virtual Host Limits
+
+To clear a virtual host limit:
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
+```bash
+rabbitmqctl clear_vhost_limits -p vhost_name '{"max-connections": 256}'
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin --vhost vhost_name vhost_limits delete --name max-connections
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat clear_vhost_limits -p vhost_name "{""max-connections"": 256}"
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe --vhost vhost_name vhost_limits delete --name max-connections
+```
+</TabItem>
+</Tabs>
 
 
 ## Virtual Hosts and STOMP
