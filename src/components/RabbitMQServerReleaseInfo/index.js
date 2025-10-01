@@ -155,7 +155,9 @@ export function RabbitMQServerReleaseInfoTable() {
       var hasOSSSupport = false;
       if (releaseBranch.end_of_support) {
         /* Release branch is supported. */
-        if (previousReleaseBranch) {
+        if (releaseBranch.end_of_community_support) {
+          endOfCommunitySupportDate = new Date(releaseBranch.end_of_community_support);
+        } else if (previousReleaseBranch) {
           const prevReleases = previousReleaseBranch.releases;
           const initialPrevRelease = prevReleases[prevReleases.length - 1];
           endOfCommunitySupportDate = new Date(initialPrevRelease.release_date);
