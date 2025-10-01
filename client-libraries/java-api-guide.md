@@ -965,41 +965,50 @@ ConnectionFactory cf = new ConnectionFactory();
 cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
 ```
 
-### Support for Java non-blocking IO {#java-nio}
+### Use of Netty for Network I/O {#netty}
 
-Version 4.0 of the Java client brings support for Java non-blocking
-IO (a.k.a Java NIO). NIO isn't supposed to be faster than blocking IO,
-it simply allows to control resources (in this case, threads) more easily.
+Version 5.27.0 of the Java client brings support for [Netty](https://netty.io/) for network I/O.
+Netty isn't supposed to be faster than blocking I/O, it gives more control on resources (e.g. threads) and provides advanced networking options, like [TLS with OpenSSL](https://netty.io/wiki/forked-tomcat-native.html) and [native transports](https://netty.io/wiki/native-transports.html) (epoll, io_uring, kqueue).
 
-With the default blocking IO mode, each connection uses a thread to read
-from the network socket. With the NIO mode, you can control the number of
-threads that read and write from/to the network socket.
+With the default blocking I/O mode, each connection uses a thread to read from the network socket.
+With Netty, you can control the number of threads that read and write from/to the network.
 
-Use the NIO mode if your Java process uses many connections (dozens or hundreds).
-You should use fewer threads than with the default blocking mode. With the
-appropriate number of threads set, you shouldn't
-experience any decrease in performance, especially if the connections are
-not so busy.
+Use Netty if your Java process uses many connections (dozens or hundreds).
+You should use fewer threads than with the default blocking mode.
+With the appropriate number of threads set, you shouldn't experience any decrease in performance, especially if the connections are not so busy.
 
-NIO must be enabled explicitly:
+Netty is activated and configured with the `ConnectionFactory#netty()` helper.
+Netty's `EventLoopGroup` is the most important setting for an application picky about the number of threads.
+Here is an example of how to set it with 4 threads:
 
 ```java
-ConnectionFactory connectionFactory = new ConnectionFactory();
-connectionFactory.useNio();
+int nbThreads = 4;
+IoHandlerFactory ioHandlerFactory = NioIoHandler.newFactory();
+EventLoopGroup eventLoopGroup = new MultiThreadIoEventLoopGroup(
+    nbThreads, ioHandlerFactory
+);
+connectionFactory.netty().eventLoopGroup(eventLoopGroup);
+// ...
+// dispose the event loop group after closing all connections
+eventLoopGroup.shutdownGracefully();
 ```
 
-The NIO mode can be configured through the `NioParams` class:
+Note the event loop group must be disposed of after the connection closes its connections.
+If no event loop group is set, each connection will use its own, 1-thread event loop group (and will take care of closing it).
+This is far from optimal, this is why setting an `EventLoopGroup` is highly recommended when using Netty.
+
+Netty uses its own `SslContext` API for [TLS](#tls) configuration (_not_ JDK's `SSLContext`), so the `ConnectionFactory#useSslProtocol()` methods have no effect when Netty is activated.
+Use `ConnectionFactory.netty().sslContext(SslContext)` instead, along with Netty's `SslContextBuilder` class.
+Here is an example:
 
 ```java
-  connectionFactory.setNioParams(new NioParams().setNbIoThreads(4));
+X509Certificate caCertificate = ...;
+connectionFactory.netty()
+    .sslContext(SslContextBuilder
+        .forClient() // mandatory, do not forget to call
+        .trustManager(caCertificate) // pass in certificate directly
+        .build());
 ```
-
-The NIO mode uses reasonable defaults, but you may need to change them according
-to your own workload. Some of the settings are: the total number of IO
-threads used, the size of buffers, a service executor to use for the IO loops,
-parameters for the in-memory write queue (write requests are enqueued before
-being sent on the network). Please read the Javadoc for details and defaults.
-
 
 ## Automatic Recovery From Network Failures {#recovery}
 ### Connection Recovery {#connection-recovery}
@@ -1474,6 +1483,9 @@ To learn more about TLS support in RabbitMQ, see
 the [TLS guide](/docs/ssl). If you only want to configure
 the Java client (especially the peer verification and trust manager parts),
 read [the appropriate section](/docs/ssl#java-client) of the TLS guide.
+
+Note Netty requires to use its own `SslContext` API when it is used for network I/O.
+See the [Netty](#netty) section for more details.
 
 ## OAuth 2 Support {#oauth2-support}
 
