@@ -148,20 +148,25 @@ Virtual host metadata can be set at creation time or updated later:
 <Tabs groupId="examples">
 <TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
+# Create a virtual host with metadata
 rabbitmqctl add_vhost qa1 --description "QA env 1" --default-queue-type quorum
 
+# Update virtual host metadata
 rabbitmqctl update_vhost_metadata qa1 --description "QA environment for issue 1662" --default-queue-type quorum --tags qa,project-a,qa-1662
 
+# List virtual hosts with metadata
 rabbitmqctl -q --formatter=pretty_table list_vhosts name description tags default_queue_type
 ```
 </TabItem>
 
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
 ```bash
+# Create a virtual host with metadata
 rabbitmqadmin vhosts declare --name qa1 \
     --description "QA environment 1" \
     --default-queue-type quorum
 
+# Create a virtual host with tracing enabled
 rabbitmqadmin vhosts declare --name qa-tracing \
     --description "QA environment with tracing" \
     --default-queue-type quorum \
@@ -173,20 +178,25 @@ rabbitmqadmin vhosts list
 
 <TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
+# Create a virtual host with metadata
 rabbitmqctl.bat add_vhost qa1 --description "QA env 1" --default-queue-type quorum
 
+# Update virtual host metadata
 rabbitmqctl.bat update_vhost_metadata qa1 --description "QA environment for issue 1662" --default-queue-type quorum --tags qa,project-a,qa-1662
 
+# List virtual hosts with metadata
 rabbitmqctl.bat -q --formatter=pretty_table list_vhosts name description tags default_queue_type
 ```
 </TabItem>
 
 <TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
 ```PowerShell
+# Create a virtual host with metadata
 rabbitmqadmin.exe vhosts declare --name qa1 ^
     --description "QA environment 1" ^
     --default-queue-type quorum
 
+# Create a virtual host with tracing enabled
 rabbitmqadmin.exe vhosts declare --name qa-tracing ^
     --description "QA environment with tracing" ^
     --default-queue-type quorum ^
@@ -322,16 +332,28 @@ rabbitmqadmin.exe vhosts delete --name qa1
 </TabItem>
 </Tabs>
 
+### Using HTTP API
+
+A virtual host can be deleted using the `DELETE /api/vhosts/{name}` [HTTP API](./management) endpoint
+where `{name}` is the name of the virtual host.
+
+Here's an example that uses [curl](https://curl.haxx.se/) to delete a virtual host `vh1` by contacting
+a node at `rabbitmq.local:15672`:
+
+```bash
+curl -u userename:pa$sw0rD -X DELETE http://rabbitmq.local:15672/api/vhosts/vh1
+```
+
 ### Deleting Multiple Virtual Hosts
 
 `rabbitmqadmin` supports deleting multiple virtual hosts at once using a name matching pattern.
 
 :::danger
 
-**THIS IS AN EXTREMELY DESTRUCTIVE OPERATION AND MUST BE USED WITH EXTREME CARE.**
+**This is an extremely destructive operation and must be used with great care.**
 
-This command will delete ALL virtual hosts matching the provided regular expression pattern.
-ALL data in those virtual hosts will be permanently lost, including:
+This command will delete all virtual hosts matching the provided regular expression pattern.
+All data in those virtual hosts will be permanently lost, including:
 
  * Queues, streams, and partitioned streams
  * Exchanges and bindings
@@ -342,7 +364,7 @@ ALL data in those virtual hosts will be permanently lost, including:
  * Policies and operator policies
  * Runtime parameters
 
-**ALWAYS use `--dry-run` first to verify what will be deleted before running the actual deletion.**
+**Always use `--dry-run` first to verify what will be deleted before running the actual deletion.**
 
 :::
 
@@ -375,18 +397,6 @@ rabbitmqadmin.exe vhosts delete_multiple --name-pattern "^test-.*" --approve
 The default virtual host (`/`) is always preserved and will never be deleted by this command, even if it matches the pattern.
 
 :::
-
-### Using HTTP API
-
-A virtual host can be deleted using the `DELETE /api/vhosts/{name}` [HTTP API](./management) endpoint
-where `{name}` is the name of the virtual host.
-
-Here's an example that uses [curl](https://curl.haxx.se/) to delete a virtual host `vh1` by contacting
-a node at `rabbitmq.local:15672`:
-
-```bash
-curl -u userename:pa$sw0rD -X DELETE http://rabbitmq.local:15672/api/vhosts/vh1
-```
 
 ## Deletion Protection {#deletion-protection}
 
@@ -657,7 +667,6 @@ that is set to `true`, will mark the virtual host as protected when it is create
   "default_queue_type": "classic"
 }
 ```
-
 
 ## Limits {#limits}
 

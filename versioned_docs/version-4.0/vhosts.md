@@ -303,7 +303,8 @@ Deleting a virtual host will permanently delete all entities (queues, exchanges,
 
 ### Using CLI Tools
 
-A virtual host can be deleted using CLI tools:
+A virtual host can be deleted using [rabbitmqctl](./cli)'s `delete_vhost` command
+which accepts virtual host name as the only mandatory argument.
 
 <Tabs groupId="examples">
 <TabItem value="bash" label="rabbitmqctl with bash" default>
@@ -318,9 +319,9 @@ rabbitmqadmin vhosts delete --name qa1
 ```
 </TabItem>
 
-<TabItem value="powershell" label="rabbitmqctl with PowerShell">
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
 ```PowerShell
-rabbitmqctl.exe delete_vhost qa1
+rabbitmqctl.bat delete_vhost qa1
 ```
 </TabItem>
 
@@ -334,7 +335,7 @@ rabbitmqadmin.exe vhosts delete --name qa1
 ### Using HTTP API
 
 A virtual host can be deleted using the `DELETE /api/vhosts/{name}` [HTTP API](./management) endpoint
-where `{name}` is the name of the virtual host
+where `{name}` is the name of the virtual host.
 
 Here's an example that uses [curl](https://curl.haxx.se/) to delete a virtual host `vh1` by contacting
 a node at `rabbitmq.local:15672`:
@@ -349,10 +350,10 @@ curl -u userename:pa$sw0rD -X DELETE http://rabbitmq.local:15672/api/vhosts/vh1
 
 :::danger
 
-**THIS IS AN EXTREMELY DESTRUCTIVE OPERATION AND MUST BE USED WITH EXTREME CARE.**
+**This is an extremely destructive operation and must be used with great care.**
 
-This command will delete ALL virtual hosts matching the provided regular expression pattern.
-ALL data in those virtual hosts will be permanently lost, including:
+This command will delete all virtual hosts matching the provided regular expression pattern.
+All data in those virtual hosts will be permanently lost, including:
 
  * Queues, streams, and partitioned streams
  * Exchanges and bindings
@@ -363,7 +364,7 @@ ALL data in those virtual hosts will be permanently lost, including:
  * Policies and operator policies
  * Runtime parameters
 
-**ALWAYS use `--dry-run` first to verify what will be deleted before running the actual deletion.**
+**Always use `--dry-run` first to verify what will be deleted before running the actual deletion.**
 
 :::
 
@@ -404,40 +405,138 @@ until the protection is removed.
 
 ### Using CLI Tools
 
-`rabbitmqctl enable_vhost_protection_from_deletion` is the command that marks a virtual host
-as protected from deletion:
+A virtual host can be protected from deletion using `rabbitmqctl` or `rabbitmqadmin`.
 
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl enable_vhost_protection_from_deletion "vhost-name"
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin vhosts enable_deletion_protection --name "vhost-name"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat enable_vhost_protection_from_deletion "vhost-name"
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe vhosts enable_deletion_protection --name "vhost-name"
+```
+</TabItem>
+</Tabs>
 
 An attempt to delete the virtual host then will fail with a specific message:
 
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl delete_vhost "vhost-name"
 # ...
 # => Error:
 # => Cannot delete this virtual host: it is protected from deletion. To lift the protection, inspect and update its metadata
 ```
+</TabItem>
 
-To remove the protection, use `rabbitmqctl disable_vhost_protection_from_deletion`:
-
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
 ```bash
-## removes virtual host deletion protection
+rabbitmqadmin vhosts delete --name "vhost-name"
+# => Error: HTTP request failed with status 412: Precondition Failed
+# => Refusing to delete virtual host 'vhost-name' because it is protected from deletion
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat delete_vhost "vhost-name"
+# ...
+# => Error:
+# => Cannot delete this virtual host: it is protected from deletion. To lift the protection, inspect and update its metadata
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe vhosts delete --name "vhost-name"
+# => Error: HTTP request failed with status 412: Precondition Failed
+# => Refusing to delete virtual host 'vhost-name' because it is protected from deletion
+```
+</TabItem>
+</Tabs>
+
+To remove the protection:
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
+```bash
 rabbitmqctl disable_vhost_protection_from_deletion "vhost-name"
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin vhosts disable_deletion_protection --name "vhost-name"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat disable_vhost_protection_from_deletion "vhost-name"
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe vhosts disable_deletion_protection --name "vhost-name"
+```
+</TabItem>
+</Tabs>
 
 with the protection removed, the virtual host can be deleted again:
 
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 rabbitmqctl delete_vhost "vhost-name"
 # => Deleting vhost "vhost-name" ...
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin vhosts delete --name "vhost-name"
+# => (No output on success)
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat delete_vhost "vhost-name"
+# => Deleting vhost "vhost-name" ...
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe vhosts delete --name "vhost-name"
+# => (No output on success)
+```
+</TabItem>
+</Tabs>
 
 To see whether a virtual host is protected from deletion, use `list_vhosts` command with
 an extra column, `protected_from_deletion`:
 
-```shell
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
+```bash
 rabbitmqctl list_vhosts name tags default_queue_type metadata protected_from_deletion --formatter=pretty_table
 # => Listing vhosts ...
 # => ┌───────────────────────────┬─────────────────────────┐
@@ -450,6 +549,38 @@ rabbitmqctl list_vhosts name tags default_queue_type metadata protected_from_del
 # => │ vh2                       │ false                   │
 # => └───────────────────────────┴─────────────────────────┘
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin vhosts list
+# Shows all virtual hosts (protection status not displayed in list view)
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat list_vhosts name tags default_queue_type metadata protected_from_deletion --formatter=pretty_table
+# => Listing vhosts ...
+# => ┌───────────────────────────┬─────────────────────────┐
+# => │ name                      │ protected_from_deletion │
+# => ├───────────────────────────┼─────────────────────────┤
+# => │ /                         │ false                   │
+# => ├───────────────────────────┼─────────────────────────┤
+# => │ vh1                       │ true                    │
+# => ├───────────────────────────┼─────────────────────────┤
+# => │ vh2                       │ false                   │
+# => └───────────────────────────┴─────────────────────────┘
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+rabbitmqadmin.exe vhosts list
+# Shows all virtual hosts (protection status not displayed in list view)
+```
+</TabItem>
+</Tabs>
 
 ### Using HTTP API
 

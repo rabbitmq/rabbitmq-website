@@ -350,10 +350,10 @@ curl -u userename:pa$sw0rD -X DELETE http://rabbitmq.local:15672/api/vhosts/vh1
 
 :::danger
 
-**THIS IS AN EXTREMELY DESTRUCTIVE OPERATION AND MUST BE USED WITH EXTREME CARE.**
+**This is an extremely destructive operation and must be used with great care.**
 
-This command will delete ALL virtual hosts matching the provided regular expression pattern.
-ALL data in those virtual hosts will be permanently lost, including:
+This command will delete all virtual hosts matching the provided regular expression pattern.
+All data in those virtual hosts will be permanently lost, including:
 
  * Queues, streams, and partitioned streams
  * Exchanges and bindings
@@ -364,7 +364,7 @@ ALL data in those virtual hosts will be permanently lost, including:
  * Policies and operator policies
  * Runtime parameters
 
-**ALWAYS use `--dry-run` first to verify what will be deleted before running the actual deletion.**
+**Always use `--dry-run` first to verify what will be deleted before running the actual deletion.**
 
 :::
 
@@ -667,7 +667,6 @@ that is set to `true`, will mark the virtual host as protected when it is create
   "default_queue_type": "classic"
 }
 ```
-
 
 ## Limits {#limits}
 
