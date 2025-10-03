@@ -2,8 +2,15 @@ import Link from '@docusaurus/Link';
 import {getReleaseBranches} from '../RabbitMQServerReleaseInfo';
 import styles from "./index.module.css"
 
-const releaseDateOptions = { year: 'numeric', month: 'short' };
-const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+function formatDate(date, isReleaseDate) {
+  const year = date.toLocaleDateString("en-US", { year: "numeric" });
+  const month = date.toLocaleDateString("en-US", { month: "short" });
+  if (isReleaseDate) {
+    return `${month} ${year}`;
+  }
+  const day = date.toLocaleDateString("en-US", { day: "numeric" });
+  return `${day} ${month} ${year}`;
+}
 
 function getTimelineRows(releaseBranches) {
   const now = Date.now();
@@ -36,12 +43,12 @@ function getTimelineRows(releaseBranches) {
     const endOfCommunitySupport =
         endOfCommunitySupportDate === undefined
             ? 'Next Release'
-            : endOfCommunitySupportDate.toLocaleDateString('en-GB', dateOptions);
-    const endOfCommercialSupport = endOfCommercialSupportDate.toLocaleDateString("en-GB", dateOptions);
+            : formatDate(endOfCommunitySupportDate, false);
+    const endOfCommercialSupport = formatDate(endOfCommercialSupportDate, false);
 
     rows.push({
       release: branch,
-      releaseDate: releaseDate.toLocaleDateString("en-GB", releaseDateOptions),
+      releaseDate: formatDate(releaseDate, true),
       endOfCommunitySupport,
       endOfCommercialSupport,
       isCommunitySupported,
@@ -58,7 +65,6 @@ export function CommercialSupportTimelines() {
   const releaseBranches = getReleaseBranches();
 
   const rows = getTimelineRows(releaseBranches);
-  console.log(rows)
 
   return (
     <div className="release-information">
