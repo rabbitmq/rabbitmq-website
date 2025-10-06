@@ -159,17 +159,8 @@ client.on("connection_open", function (context) {
 
 ## Clients
 
-As of RabbitMQ 4.1, the following [RabbitMQ AMQP 1.0 client libraries](/client-libraries/amqp-client-libraries) are available:
-1. [RabbitMQ AMQP 1.0 **Java** client](https://github.com/rabbitmq/rabbitmq-amqp-java-client)
-2. [RabbitMQ AMQP 1.0 **.NET** client](https://github.com/rabbitmq/rabbitmq-amqp-dotnet-client)
-3. [RabbitMQ AMQP 1.0 **Go** client](https://github.com/rabbitmq/rabbitmq-amqp-go-client)
-4. [RabbitMQ AMQP 1.0 **Python** client](https://github.com/rabbitmq/rabbitmq-amqp-python-client)
-
-Some of these libraries are in the early stages of development.
-
-The full benefit of the new AMQP over WebSocket plugin will be realised with a RabbitMQ AMQP 1.0 **JavaScript** library because as explained in the [Native AMQP 1.0](/blog/2024/08/05/native-amqp#rabbitmq-amqp-10-clients) blog post, these RabbitMQ specific wrappers allow to declare [exchanges](/tutorials/amqp-concepts#exchanges), [queues](/tutorials/amqp-concepts#queues), and [bindings](/tutorials/amqp-concepts#bindings).
-
-Since as of RabbitMQ 4.1 no such RabbitMQ specific JavaScript library is available yet, for the time being, existing JavaScript AMQP 1.0 clients such as [rhea](https://github.com/amqp/rhea) can be used instead.
+As an alternative to [rhea](https://github.com/amqp/rhea), you can use the [**RabbitMQ** AMQP 1.0 JavaScript library](https://github.com/coders51/rabbitmq-amqp-js-client).
+As explained in the [Native AMQP 1.0](/blog/2024/08/05/native-amqp#rabbitmq-amqp-10-clients) blog post, RabbitMQ libraries include RabbitMQ specific features such as declaring [exchanges](/tutorials/amqp-concepts#exchanges), [queues](/tutorials/amqp-concepts#queues), and [bindings](/tutorials/amqp-concepts#bindings).
 
 ## Wrapping up
 
