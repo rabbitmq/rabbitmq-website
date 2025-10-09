@@ -216,11 +216,9 @@ rabbitmqctl set_vm_memory_high_watermark 0
 
 ## Limited Address Space {#address-space}
 
-::: danger
+:::danger
 RabbitMQ only targets 64 bit operating systems and a 64-bit [Erlang runtime](./which-erlang)
 :::
-
-RabbitMQ only targets 64 bit operating systems and a 64-bit [Erlang runtime](./which-erlang).
 
 When running RabbitMQ inside a 32 bit Erlang VM in a 64 bit
 OS (or a 32 bit OS with PAE), the addressable memory is
