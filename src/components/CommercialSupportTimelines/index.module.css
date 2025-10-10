@@ -4,7 +4,12 @@
 }
 
 .timelines_table td, .timelines_table th {
+  text-align: center;
   padding: calc(var(--ifm-table-cell-padding) / 2) var(--ifm-table-cell-padding);
+}
+
+.timelines_table td:not(:first-child) {
+  width: 28%;
 }
 
 .supported {
