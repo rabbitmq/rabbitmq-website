@@ -56,10 +56,10 @@ The principle of [federated queues](./federated-queues) is that the consumers
 now connected to "green" will get messages published to "blue" as long as there are
 no consumers in "blue" (local consumers take precedence).
 
-Here is an example to federate all queues. In this example, the "blue" cluster
-is the upstream and the "green" one is the downstream.
+Here is an example to federate all queues. In this example,
+the "green" cluster is the upstream and the "blue" one is the downstream.
 
-First define the upstream on "green" and point it to "blue":
+First define the upstream on "blue" and point it to "green":
 
 <Tabs groupId="examples">
 <TabItem value="bash" label="rabbitmqctl with bash" default>
