@@ -188,6 +188,16 @@ Msg = amqp10_msg:set_message_annotations(
 amqp10_client:send_msg(Sender, Msg),
 ```
 </TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+```javascript
+const message = createAmqpMessage({
+        body: "Hello World!",
+        annotations: { "x-stream-filter-value": "invoices" }, // set Bloom filter value
+      })
+await publisher.publish(message)
+```
+</TabItem>
 </Tabs>
 
 A receiver must use a filter with descriptor `rabbitmq:stream-filter`.
@@ -315,6 +325,30 @@ receive {amqp10_msg, Receiver, Message} ->
             ok = amqp10_client:accept_msg(Receiver, Message)
 after 5000 -> exit(missing_msg)
 end,
+```
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+```javascript
+const consumer = await connection.createConsumer({
+      stream: {
+        name: "some-stream",
+        offset: Offset.first(),
+        matchUnfiltered: true,
+        filterValues: ["invoices", "orders"], // This Bloom filter will be evaluated server-side per chunk (Stage 1).
+      },
+      messageHandler: (context, message) => {
+        // This filter will be evaluated client-side per message (Stage 3).
+        if (
+          message.message_annotations &&
+          ["invoices", "orders"].includes(message.message_annotations["x-stream-filter-value"])
+        ) {
+          // message processing
+        }
+        context.accept()
+      },
+    })
+consumer.start()
 ```
 </TabItem>
 </Tabs>
@@ -539,6 +573,28 @@ Filter = #{<<"filter-name-1">> =>
 {ok, Receiver} = amqp10_client:attach_receiver_link(
                    Session, <<"my receiver">>, Address,
                    unsettled, none, Filter),
+```
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+```javascript
+const consumer = await connection.createConsumer({
+      stream: {
+        name: "my-queue",
+        offset: Offset.first(),
+        messagePropertiesFilter: { 
+          subject: "&p:Order",
+          user_id: "John"
+        },
+        applicationPropertiesFilter: {
+          region: "emea",
+        },
+      },
+      messageHandler: (context, message) => {
+        // process the messages
+      },
+    })
+consumer.start()
 ```
 </TabItem>
 
@@ -838,6 +894,23 @@ Filter = #{<<"sql-filter">> => #filter{descriptor = <<"amqp:sql-filter">>,
 ```
 </TabItem>
 
+<TabItem value="javascript" label="JavaScript">
+```javascript
+const consumer = await connection.createConsumer({
+      stream: {
+        name: "my-queue",
+        offset: Offset.first(),
+        sqlFilter: "properties.user_id = 'John' AND"
+          + "properties.subject LIKE 'Order%' AND region = 'emea'"
+      },
+      messageHandler: (context, message) => {
+        // process the messages
+      },
+    })
+consumer.start()
+```
+</TabItem>
+
 </Tabs>
 
 ### Error Handling
@@ -1010,6 +1083,27 @@ Filter = #{%% This Bloom filter will be evaluated server-side per chunk at stage
 {ok, Receiver} = amqp10_client:attach_receiver_link(
                    Session, <<"my receiver">>, Address,
                    unsettled, none, Filter),
+```
+</TabItem>
+
+<TabItem value="javascript" label="JavaScript">
+```javascript
+const consumer = await connection.createConsumer({
+      stream: {
+        name: "my-queue",
+        offset: Offset.first(),
+        filterValues: ["order.created"], // This Bloom filter will be evaluated server-side per chunk (Stage 1).
+        sqlFilter: "p.subject = 'order.created' AND " +
+         "p.creation_time > UTC() - 3600000 AND " +
+         "region IN ('AMER', 'EMEA', 'APJ') AND " +
+         "(h.priority > 4 OR price >= 99.99 OR premium_customer = TRUE)",  // This complex SQL filter expression will be evaluted server-side
+                                                                           // per message at stage 2.     
+      },
+      messageHandler: (context, message) => {
+          // message processing
+      },
+    })
+consumer.start()
 ```
 </TabItem>
 
