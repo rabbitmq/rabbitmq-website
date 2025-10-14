@@ -470,7 +470,7 @@ be reasonably evenly distributed across cluster nodes.
 When a new quorum queue is declared, the set of nodes that will host its
 replicas is randomly picked, but will always include the node the client that declares the queue is connected to.
 
-Which replica becomes the initial leader can controlled using three options:
+Which replica becomes the initial leader can be controlled using three options:
 
 1. Setting the `queue-leader-locator` [policy](./policies) key (recommended)
 2. By defining the `queue_leader_locator` key in [the configuration file](./configure#configuration-files) (recommended)
