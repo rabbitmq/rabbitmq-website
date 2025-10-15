@@ -589,7 +589,7 @@ the declaration process.
         <div>
           If set to an integer, then the shovel will transfer that
           number of messages before deleting itself. This option cannot
-          be used in conjunction with <code>ack-mode : no-ack</code>.
+          be used together with <code>ack-mode</code> set to <code>no-ack</code>.
         </div>
       </td>
     </tr>
@@ -842,7 +842,7 @@ counterparts.
         <div>
           If set to an integer, then the shovel will transfer that
           number of messages before deleting itself. This option cannot
-          be used in conjunction with <code>ack-mode : no-ack</code>.
+          be used in conjunction with <code>ack-mode</code>: <code>no-ack</code>.
         </div>
       </td>
     </tr>

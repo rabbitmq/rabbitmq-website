@@ -534,7 +534,8 @@ the declaration process.
       </div>
       <div>
       If set to an integer, then the shovel will transfer that
-      number of messages before deleting itself.
+      number of messages before deleting itself. This option cannot
+      be used together with <code>ack-mode</code> set to <code>no-ack</code>.
       </div>
       </td>
     </tr>
@@ -792,14 +793,9 @@ counterparts.
       shovel should never delete itself.
       </div>
       <div>
-      If set to <code>queue-length</code> then the shovel will
-      measure the length of the source queue when starting up,
-      and delete itself after it has transferred that many
-      messages.
-      </div>
-      <div>
       If set to an integer, then the shovel will transfer that
-      number of messages before deleting itself.
+      number of messages before deleting itself. This option cannot
+      be used in conjunction with <code>ack-mode</code>: <code>no-ack</code>.
       </div>
       </td>
     </tr>
