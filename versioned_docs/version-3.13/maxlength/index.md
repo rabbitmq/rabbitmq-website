@@ -33,7 +33,7 @@ define it using a [policy](./policies) (this option is highly recommended)
 or by clients using the [queue's optional arguments](./queues#optional-arguments).
 In a scenario where the maximum length is defined using both ways, that is, using a policy and using the arguments, then the minimum of the two values specified is used.
 
-Queue length settings configured using [operator policies](./policies#operator-policies).
+Queue length settings can also be configured using [operator policies](./policies#operator-policies).
 
 In all cases, the number of messages in the **ready** state are used. [Messages unacknowledged by consumers](./confirms)
 do not count towards the limit.

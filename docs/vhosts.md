@@ -1,6 +1,7 @@
 ---
 title: Virtual Hosts
 ---
+
 <!--
 Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
@@ -25,7 +26,7 @@ import TabItem from '@theme/TabItem';
 
 ## Introduction
 
-RabbitMQ is multi-tenant system: connections, exchanges, queues, bindings, user permissions,
+RabbitMQ is a multi-tenant system: connections, exchanges, queues, bindings, user permissions,
 policies and some other things belong to **virtual hosts**, logical groups of
 entities. If you are familiar with [virtual hosts in Apache](https://httpd.apache.org/docs/2.4/vhosts/)
 or [server blocks in Nginx](https://www.nginx.com/resources/wiki/start/topics/examples/server_blocks/), the idea is similar.
@@ -61,7 +62,6 @@ when an application connects to two vhosts at the same time. For example, an
 application can consume from one vhost then republishes into the other. This scenario
 can involve vhosts in different clusters or the same cluster (or a single node).
 [RabbitMQ Shovel plugin](./shovel) is one example of such application.
-
 
 ## Creating a Virtual Host {#creating}
 
@@ -115,7 +115,6 @@ a node at `rabbitmq.local:15672`:
 curl -u userename:pa$sw0rD -X PUT http://rabbitmq.local:15672/api/vhosts/vh1
 ```
 
-
 ### Bulk Creation and Pre-provisioning {#preprovisioning}
 
 Virtual host creation involves a blocking cluster-wide transaction. Each node has to perform
@@ -129,14 +128,13 @@ and delays should be introduced between operations.
 [Definition export and import](./definitions) is the recommended
 way of pre-configuring many virtual hosts at deployment time.
 
-
 ## Virtual Host Metadata {#metadata}
 
 Virtual hosts can have metadata associated with them:
 
- * A description
- * A set of tags
- * Default queue type configured for the virtual host
+- A description
+- A set of tags
+- Default queue type configured for the virtual host
 
 All these settings are optional. They can be provided at virtual host creation time
 or updated later.
@@ -152,11 +150,14 @@ Virtual host metadata can be set at creation time or updated later:
 rabbitmqctl add_vhost qa1 --description "QA env 1" --default-queue-type quorum
 
 # Update virtual host metadata
+
 rabbitmqctl update_vhost_metadata qa1 --description "QA environment for issue 1662" --default-queue-type quorum --tags qa,project-a,qa-1662
 
 # List virtual hosts with metadata
+
 rabbitmqctl -q --formatter=pretty_table list_vhosts name description tags default_queue_type
-```
+
+````
 </TabItem>
 
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
@@ -173,7 +174,8 @@ rabbitmqadmin vhosts declare --name qa-tracing \
     --tracing
 
 rabbitmqadmin vhosts list
-```
+````
+
 </TabItem>
 
 <TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
@@ -182,11 +184,14 @@ rabbitmqadmin vhosts list
 rabbitmqctl.bat add_vhost qa1 --description "QA env 1" --default-queue-type quorum
 
 # Update virtual host metadata
+
 rabbitmqctl.bat update_vhost_metadata qa1 --description "QA environment for issue 1662" --default-queue-type quorum --tags qa,project-a,qa-1662
 
 # List virtual hosts with metadata
+
 rabbitmqctl.bat -q --formatter=pretty_table list_vhosts name description tags default_queue_type
-```
+
+````
 </TabItem>
 
 <TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
@@ -203,10 +208,10 @@ rabbitmqadmin.exe vhosts declare --name qa-tracing ^
     --tracing
 
 rabbitmqadmin.exe vhosts list
-```
+````
+
 </TabItem>
 </Tabs>
-
 
 ### Using HTTP API
 
@@ -223,7 +228,7 @@ curl -u userename:pa$sw0rD -X PUT http://rabbitmq.local:15672/api/vhosts/qa1 \
                            --data-raw '{"description": "QA environment 1", "tags": "qa,project-a", "default_queue_type": "quorum"}'
 ```
 
-can be used to update all or some of the metadata values
+The same endpoint can be used to update all or some of the metadata values
 demonstrated above:
 
 ```bash
@@ -238,7 +243,6 @@ Virtual host metadata is returned by the `GET /api/vhosts/{name}` endpoint:
 curl -u userename:pa$sw0rD -X GET http://rabbitmq.local:15672/api/vhosts/qa1
 ```
 
-
 ## Default Queue Type (DQT) {#default-queue-type}
 
 When a client declares a queue without explicitly specifying its type using the `x-queue-type` header,
@@ -250,9 +254,9 @@ rabbitmqctl add_vhost qa1 --description "QA environment 1" --default-queue-type 
 
 Supported queue types are:
 
- * "quorum"
- * "stream"
- * "classic"
+- "quorum"
+- "stream"
+- "classic"
 
 The default is only effective for new queue declarations; updating the default will not affect
 queue type of any existing queues or streams because queue type is immutable and cannot
@@ -293,7 +297,6 @@ period of time.
 # updated yet
 quorum_queue.property_equivalence.relaxed_checks_on_redeclaration = true
 ```
-
 
 ## Deleting a Virtual Host {#deleting}
 
@@ -355,14 +358,14 @@ curl -u userename:pa$sw0rD -X DELETE http://rabbitmq.local:15672/api/vhosts/vh1
 This command will delete all virtual hosts matching the provided regular expression pattern.
 All data in those virtual hosts will be permanently lost, including:
 
- * Queues, streams, and partitioned streams
- * Exchanges and bindings
- * Messages
- * User permissions
- * Federation upstreams and links
- * Shovels
- * Policies and operator policies
- * Runtime parameters
+- Queues, streams, and partitioned streams
+- Exchanges and bindings
+- Messages
+- User permissions
+- Federation upstreams and links
+- Shovels
+- Policies and operator policies
+- Runtime parameters
 
 **Always use `--dry-run` first to verify what will be deleted before running the actual deletion.**
 
@@ -375,9 +378,12 @@ All data in those virtual hosts will be permanently lost, including:
 rabbitmqadmin vhosts delete_multiple --name-pattern "^test-.*" --dry-run
 
 # After verifying with --dry-run, use --approve to perform the actual deletion
+
 # This will delete ALL virtual hosts whose names start with "test-"
-rabbitmqadmin vhosts delete_multiple --name-pattern "^test-.*" --approve
-```
+
+rabbitmqadmin vhosts delete_multiple --name-pattern "^test-.\*" --approve
+
+````
 </TabItem>
 
 <TabItem value="PowerShell" label="rabbitmqadmin with PowerShell">
@@ -388,7 +394,8 @@ rabbitmqadmin.exe vhosts delete_multiple --name-pattern "^test-.*" --dry-run
 # After verifying with --dry-run, use --approve to perform the actual deletion
 # This will delete ALL virtual hosts whose names start with "test-"
 rabbitmqadmin.exe vhosts delete_multiple --name-pattern "^test-.*" --approve
-```
+````
+
 </TabItem>
 </Tabs>
 
@@ -587,7 +594,7 @@ rabbitmqadmin.exe vhosts list
 A virtual host can be protected from deletion using the `POST /api/vhosts/{name}/deletion/protection` [HTTP API](./management) endpoint
 where `{name}` is the name of the virtual host.
 
-Here's an example that uses [curl](https://curl.haxx.se/) to delete a virtual host `vh1` by contacting
+Here's an example that uses [curl](https://curl.haxx.se/) to protect a virtual host `vh1` from deletion by contacting
 a node at `rabbitmq.local:15672`:
 
 ```bash
@@ -613,7 +620,7 @@ The body will include a specific error, similar to what CLI tools output:
 To remove the protection, use `DELETE /api/vhosts/{name}/deletion/protection`:
 
 ```bash
-curl -u userename:pa$sw0rD -X POST http://rabbitmq.local:15672/api/vhosts/vh1/deletion/protection
+curl -u userename:pa$sw0rD -X DELETE http://rabbitmq.local:15672/api/vhosts/vh1/deletion/protection
 ```
 
 with the protection removed, the virtual host can be deleted again:
@@ -625,7 +632,7 @@ curl -vv -sL -u guest:guest -X DELETE http://localhost:15672/api/vhosts/
 ```
 
 To see whether a virtual host is protected from deletion, use the `GET /api/vhosts` or `GET /api/vhosts/{vhost}`
-endpoints and then inspec the `metadata.protected_from_deletion` response body field:
+endpoints and then inspect the `metadata.protected_from_deletion` response body field:
 
 ```bash
 curl -sL -u guest:guest -X GET http://localhost:15672/api/vhosts/vh1
@@ -682,7 +689,7 @@ Virtual host limits can be configured using `rabbitmqctl` or `rabbitmqadmin`.
 
 #### Configuring Max Connection Limit
 
-To limit the total number of concurrent client connections in vhost
+To limit the total number of concurrent client connections in virtual host
 `vhost_name`, use the following limit definition:
 
 <Tabs groupId="examples">
@@ -781,8 +788,10 @@ To list limits for a virtual host:
 rabbitmqctl list_vhost_limits
 
 # or for a specific virtual host
+
 rabbitmqctl list_vhost_limits -p vhost_name
-```
+
+````
 </TabItem>
 
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
@@ -792,7 +801,8 @@ rabbitmqadmin vhost_limits list
 
 # or for a specific virtual host
 rabbitmqadmin --vhost vhost_name vhost_limits list
-```
+````
+
 </TabItem>
 
 <TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
@@ -801,8 +811,10 @@ rabbitmqadmin --vhost vhost_name vhost_limits list
 rabbitmqctl.bat list_vhost_limits
 
 # or for a specific virtual host
+
 rabbitmqctl.bat list_vhost_limits -p vhost_name
-```
+
+````
 </TabItem>
 
 <TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
@@ -812,7 +824,8 @@ rabbitmqadmin.exe vhost_limits list
 
 # or for a specific virtual host
 rabbitmqadmin.exe --vhost vhost_name vhost_limits list
-```
+````
+
 </TabItem>
 </Tabs>
 
@@ -846,12 +859,39 @@ rabbitmqadmin.exe --vhost vhost_name vhost_limits delete --name max-connections
 </TabItem>
 </Tabs>
 
+## Pre-configuring Virtual Host Limits
+
+Virtual host limits can be pre-configured in `rabbitmq.conf` for groups of virtual hosts.
+This is useful when virtual hosts are created dynamically by cluster users
+(for example, a RabbitMQ cluster is offered as a service) but all newly created virtual hosts
+must use a consistent set of limits.
+
+Multiple limit sets can be defined, each with a pattern that matches virtual host names
+and a set of limits to set:
+
+```ini
+# Default limits for virtual hosts starting with "pipelines"
+default_limits.vhosts.1.pattern = ^pipelines
+default_limits.vhosts.1.max_connections = 10
+default_limits.vhosts.1.max_queues = 1000
+
+# Default limits for virtual hosts starting with "telemetry"
+default_limits.vhosts.2.pattern = ^telemetry
+default_limits.vhosts.2.max_connections = 10000
+default_limits.vhosts.2.max_queues = 10000
+
+# Default limits for all other virtual hosts
+default_limits.vhosts.3.pattern = .*
+default_limits.vhosts.3.max_connections = 20
+default_limits.vhosts.3.max_queues = 20
+```
+
+Use `-1` to indicate unlimited for a specific limit.
 
 ## Virtual Hosts and STOMP
 
 Like AMQP 0-9-1, STOMP includes the [concept of virtual hosts](https://stomp.github.io/stomp-specification-1.2.html#CONNECT_or_STOMP_Frame). See
 the [STOMP guide](./stomp) for details.
-
 
 ## Virtual Hosts and MQTT
 

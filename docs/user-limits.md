@@ -37,7 +37,7 @@ The limits can be configured using CLI tools or the [HTTP API](./management#http
 
 ## Maximum Number of Connections {#connections}
 
-To limit how many connection a user can open, set the `max-connections` limit to
+To limit how many connections a user can open, set the `max-connections` limit to
 a positive integer:
 
 <Tabs groupId="examples">
@@ -138,7 +138,7 @@ EOF
 </Tabs>
 
 The limit is applied to the total number of channels across all connections opened
-by the user. Therefore, it must be equal or greater than that the aforementioned maximum
+by the user. Therefore, it must be equal to or greater than the aforementioned maximum
 connection limit.
 
 ## Listing User Limits {#listing}

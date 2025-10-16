@@ -34,7 +34,7 @@ The limits can be configured using [`rabbitmqctl set_user_limits`](./cli) or the
 
 ## Maximum Number of Connections {#connections}
 
-To limit how many connection a user can open, set the `max-connections` limit to
+To limit how many connections a user can open, set the `max-connections` limit to
 a positive integer:
 
 ```bash
@@ -102,7 +102,7 @@ EOF
 ```
 
 The limit is applied to the total number of channels across all connections opened
-by the user. Therefore, it must be equal or greater than that the aforementioned maximum
+by the user. Therefore, it must be equal to or greater than the aforementioned maximum
 connection limit.
 
 ## Clearing User Limits {#clearing}

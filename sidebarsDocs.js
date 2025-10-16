@@ -699,6 +699,11 @@ const sidebars = {
           items: [
             {
               type: 'doc',
+              id: 'limits',
+              label: 'Configurable Limits and Timeouts',
+            },
+            {
+              type: 'doc',
               id: 'memory-use/index',
               label: 'Analyzing how Memory is Used',
             },
@@ -748,9 +753,16 @@ const sidebars = {
           ],
         },
         {
-          type: 'doc',
-          id: 'production-checklist',
-          label: 'Deployment Guidelines'
+          type: 'category',
+          label: 'Deployment Guidelines',
+          link: {type: 'doc', id: 'production-checklist'},
+          items: [
+            {
+              type: 'doc',
+              id: 'limits',
+              label: 'Configurable Limits and Timeouts',
+            },
+          ],
         },
         {
           type: 'link',
