@@ -112,7 +112,7 @@ for release notes of individual releases.
 
 This release series supports upgrades from `4.0.x` and `3.13.x`.
 
-[Blue/Green Deployment](https://www.rabbitmq.com/docs/blue-green-upgrade)-style upgrades are avaialble for migrations
+[Blue/Green Deployment](https://www.rabbitmq.com/docs/blue-green-upgrade)-style upgrades are available for migrations
 from RabbitMQ `3.12.x` series.
 
 ### New Required Feature Flags

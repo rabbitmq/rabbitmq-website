@@ -219,7 +219,7 @@ too few file handles might be doing hundreds of reopens per
 second - in which case its performance is likely to increase
 notably if given more file handles.
 
-Version 2 does not try to accomodate for low numbers of file
+Version 2 does not try to accommodate for low numbers of file
 descriptors anymore. It expects servers to have a large file
 descriptor limit configured and to always be able to open a
 new file handle when necessary. The index keeps up to 4 file

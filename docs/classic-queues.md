@@ -175,7 +175,7 @@ The RabbitMQ server is limited in the [number of file handles](./networking#open
 it can open. Every running network connection requires one file handle,
 and the rest are available for queues to use.
 
-Classic queues version 2 do not try to accomodate for low numbers
+Classic queues version 2 do not try to accommodate for low numbers
 of file descriptors anymore like v1 used to do. They expect servers to
 have a large file descriptor limit configured and to always be able to open a
 new file handle when necessary. The index keeps up to 4 file
