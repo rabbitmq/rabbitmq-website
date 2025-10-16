@@ -71,6 +71,17 @@ Per connection limits apply to individual client connections.
 | `frame_max` | integer (bytes) | Maximum AMQP 1.0, AMQP 0-9-1 and [RabbitMQ Stream Protocol](./stream) frame size. **Should not be changed**; rely on server and client library defaults. | 131072 (128 KiB) |
 | `initial_frame_max` | integer (bytes) | Maximum frame size before connection tuning. **Should not be changed**; rely on server and client library defaults. | 4096 |
 
+Some protocols supported by RabbitMQ have their own specific limits.
+
+#### MQTT {#mqtt}
+
+[MQTT](./mqtt) connections have a session expiry interval limit:
+
+| [`rabbitmq.conf` Setting](./configure) | Type | Description | Default |
+|---------|------|-------------|---------|
+| `mqtt.max_session_expiry_interval_seconds` | integer (seconds) | Maximum [session expiry interval](./mqtt#queue-properties-and-arguments) that MQTT clients can request | 86400 (1 day) |
+
+
 ### Per Channel Limits {#per-channel}
 
 `consumer_max_per_channel` controls the maximum number of consumers that can be registered on a single channel.
@@ -108,7 +119,7 @@ Due to their coarse-grained nature, these limits are typically used as guardrail
 environments where RabbitMQ clusters are offered as a service and cluster operators have no
 understanding or control over what the deployed applications do.
 
-See also: [open file handles limit](./networking#open-file-handles-limit).
+See also: [open file handles limit](./networking#open-file-handle-limit).
 
 | [`rabbitmq.conf` Setting](./configure) | Type | Description | Default |
 |---------|------|-------------|---------|
@@ -143,15 +154,3 @@ When retention limits are reached, the oldest segments are discarded. These can 
 [policies](./policies) or as [optional stream arguments](./streams#declaring) at stream declaration time.
 
 Consult the [streams guide](./streams) to learn more.
-
-### Protocol-Specific Limits {#protocol-specific}
-
-Some protocols supported by RabbitMQ have their own specific limits.
-
-#### MQTT {#mqtt}
-
-[MQTT](./mqtt) connections have a session expiry interval limit:
-
-| [`rabbitmq.conf` Setting](./configure) | Type | Description | Default |
-|---------|------|-------------|---------|
-| `mqtt.max_session_expiry_interval_seconds` | integer (seconds) | Maximum [session expiry interval](./mqtt#session-expiry) that MQTT clients can request | 86400 (1 day) |
