@@ -45,7 +45,7 @@ This guide provides recommendations in a few areas:
  * [Networking](#networking)-related recommendations
  * Recommendations related to [virtual hosts, users and permissions](#users-and-permissions)
  * [Monitoring and resource usage](#monitoring-and-resource-usage)
- * [Per-virtual host and per-user limits](#limits)
+ * [Configurable limits](#limits)
  * [Security](#security)
  * [Clustering](#clustering) and multi-node deployments
  * [Application-level](#apps) practices and considerations
@@ -306,17 +306,18 @@ It is highly recommended that logs of all RabbitMQ nodes and applications (when 
 and aggregated. Logs can be crucially important in investigating unusual system behaviour.
 
 
-## Per-Virtual Host and Per-User Resource Limits {#limits}
+## Configurable Limits {#limits}
 
-It is possible to [limit the maximum number of concurrent connections and queues](./vhosts#limits) a virtual host will
-allow the users to open (declare).
+Production clusters should adopt at least some configurable limits
+that act as guard rails that prevent poorly behaved
+applications from leaking resources and affecting cluster stability.
 
-These limits can be used as guard rails in environments where applications
-cannot be trusted and monitored in detail, for example, when RabbitMQ clusters
-are offered as a service.
+RabbitMQ provides a comprehensive set of [configurable limits](./limits) at multiple levels: from cluster-wide to [per virtual host](./vhosts#limits) and [per user](./user-limits), down to individual connections, channels, queues, and streams.
 
-Similarly, it is possible to [configure concurrent connection and channel limits
-for individual users](./user-limits).
+Adopting these limits is particularly important in multi-tenant environments or when RabbitMQ is offered as a service.
+Even in single-tenant deployments, limits help prevent resource leaks and provide early detection of application issues.
+
+Consult the [Configurable Limits guide](./limits) for detailed information on available limits and how to configure them.
 
 
 ## Security Considerations {#security}
