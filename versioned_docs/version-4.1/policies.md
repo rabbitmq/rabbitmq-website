@@ -919,6 +919,22 @@ HTTP API and Web UI.
 management.restrictions.operator_policy_changes.disabled = true
 ```
 
+### Pre-configuring Default Operator Policies for New Virtual Hosts {#default-operator-policies}
+
+Operator policies can be pre-configured in `rabbitmq.conf` for groups of virtual hosts whose names match a pattern.
+This is useful when virtual hosts are created dynamically but must use consistent guardrails.
+
+```ini
+## When a new virtual host with a name matching ^prod-.* is created,
+## an operator policy named 'limits` will be added to it automatically.
+
+## In this example, "limits" is the operator policy name.
+default_policies.operator.limits.vhost_pattern = ^prod-.*
+default_policies.operator.limits.queue_pattern = .*
+default_policies.operator.limits.max_length = 10000
+default_policies.operator.limits.message_ttl = 86400000
+```
+
 
 ## Updating Operator Policies {#operator-policy-updating}
 

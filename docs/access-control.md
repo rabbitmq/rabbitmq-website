@@ -441,6 +441,24 @@ rabbitmqadmin.exe delete permissions ^
 </TabItem>
 </Tabs>
 
+### Pre-configuring Default User Permissions for New Virtual Hosts
+
+Default user permissions can be pre-configured in [`rabbitmq.conf`](./configure) to automatically grant
+permissions when new virtual hosts whose names match a pattern are created.
+
+```ini
+## Grants user 'monitoring' access to all virtual hosts
+## with certain permissions
+default_users.monitoring.vhost_pattern = .*
+default_users.monitoring.tags = monitoring
+default_users.monitoring.configure = ^$
+default_users.monitoring.read = .*
+default_users.monitoring.write = ^$
+```
+
+This feature should only be used to grant virtual host access to service accounts (such as monitoring and automation tools).
+
+
 ### Operations on Multiple Virtual Hosts
 
 Every `rabbitmqctl` and `rabbitmqadmin` permission management operation is scoped to a single virtual host.
@@ -460,7 +478,7 @@ for v in $(rabbitmqctl list_vhosts --silent); do rabbitmqctl set_permissions -p 
 # Assumes a Linux shell.
 # Grants a user permissions to all virtual hosts using rabbitmqadmin.
 # Note: this example assumes rabbitmqadmin vhosts list outputs one vhost name per line
-for v in $(rabbitmqadmin vhosts list --quiet | awk '{print $1}' | tail -n +2); do 
+for v in $(rabbitmqadmin vhosts list --quiet | awk '{print $1}' | tail -n +2); do
   rabbitmqadmin declare permissions --vhost "$v" --user "a-user" --configure ".*" --write ".*" --read ".*"
 done
 ```
@@ -796,7 +814,7 @@ also only provide an authorisation backend.
 
 Authentication is supposed to be handled by the internal database, LDAP, etc.
 
-A special [cache backend](./auth-cache-backend) 
+A special [cache backend](./auth-cache-backend)
 can be used in [combination](#combined-backends) with other backends to significantly
 reduce the load they generate on external services, such as LDAP or HTTP servers.
 

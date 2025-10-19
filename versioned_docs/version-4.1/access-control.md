@@ -441,6 +441,24 @@ rabbitmqadmin.exe delete permissions ^
 </TabItem>
 </Tabs>
 
+### Pre-configuring Default User Permissions for New Virtual Hosts
+
+Default user permissions can be pre-configured in [`rabbitmq.conf`](./configure) to automatically grant
+permissions when new virtual hosts whose names match a pattern are created.
+
+```ini
+## Grants user 'monitoring' access to all virtual hosts
+## with certain permissions
+default_users.monitoring.vhost_pattern = .*
+default_users.monitoring.tags = monitoring
+default_users.monitoring.configure = ^$
+default_users.monitoring.read = .*
+default_users.monitoring.write = ^$
+```
+
+This feature should only be used to grant virtual host access to service accounts (such as monitoring and automation tools).
+
+
 ### Operations on Multiple Virtual Hosts
 
 Every `rabbitmqctl` and `rabbitmqadmin` permission management operation is scoped to a single virtual host.
