@@ -20,6 +20,13 @@ limitations under the License.
 
 # Clustering Guide
 
+:::important
+
+This guide now primarily targets [Khepri](./metadata-store), the new metadata store
+in RabbitMQ 4.x.
+
+:::
+
 ## Overview {#overview}
 
 This guide covers fundamental topics related to RabbitMQ clustering:
@@ -38,8 +45,8 @@ This guide covers fundamental topics related to RabbitMQ clustering:
  * How to [reset a cluster node](#resetting-nodes) to a pristine (blank) state
 
 and more. [Cluster Formation and Peer Discovery](./cluster-formation) is a closely related guide
-that focuses on peer discovery and cluster formation automation-related topics. For queue contents
-(message) replication, see the [Quorum Queues](./quorum-queues) guide.
+that focuses on peer discovery and cluster formation automation-related topics. For queue and stream contents
+(message) replication, see the [Quorum Queues](./quorum-queues) and [Streams](./streams) guides.
 
 [VMware Tanzu RabbitMQ](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/index.html) provides an [Intra-cluster Compression](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/3.13/tanzu-rabbitmq-kubernetes/clustering-compression-rabbitmq.html) feature.
 
@@ -621,39 +628,49 @@ batch file is used, the short node name is upper-case (as
 in `rabbit@RABBIT1`). When you type node names,
 case matters, and these strings must match exactly.
 
-## Creating a Cluster {#creating}
+## Creating a Cluster without Peer Discovery {#creating}
+
+:::important
+
+This guide now targets Khepri, which, unlike Mnesia, does not
+require RabbitMQ to be stopped and reset before manually joining two nodes.
+
+Starting with RabbitMQ `4.1.0`, `rabbitmqctl join_cluster` performs the necessary preparations.
+
+:::
+
+:::tip
+
+Consider using one of the [peer discovery mechanisms](./cluster-formation) instead
+of manual cluster formation with CLI tools.
+
+:::
 
 In order to link up our three nodes in a cluster, we tell
 two of the nodes, say `rabbit@rabbit2` and
 `rabbit@rabbit3`, to join the cluster of the
-third, say `rabbit@rabbit1`. Prior to that both
-newly joining members must be [reset](./man/rabbitmqctl.8#reset).
+third, say `rabbit@rabbit1`.
 
-We first join `rabbit@rabbit2` in a cluster
-with `rabbit@rabbit1`. To do that, on
-`rabbit@rabbit2` we stop the RabbitMQ
-application and join the `rabbit@rabbit1`
-cluster, then restart the RabbitMQ application. Note that
-a node must be [reset](./man/rabbitmqctl.8#reset) before it can join an existing cluster.
-Resetting the node <strong>removes all resources and data that were previously
-present on that node</strong>. This means that a node cannot be made a member
-of a cluster and keep its existing data at the same time. When that's desired,
-using the [Blue/Green deployment strategy](./blue-green-upgrade) or [backup and restore](./backup)
-are the available options.
+We first join `rabbit@rabbit2` in a cluster with `rabbit@rabbit1`.
+
+:::danger
+
+Important: a node cannot be made a member of another cluster and keep its existing data at the same time.
+Therefore, joining a node to a cluster should be considered a **destructive operation**.
+
+To migrate existing data, see [Blue/Green deployment strategy](./blue-green-upgrade) or [backup and restore](./backup).
+
+:::
+
+
 
 ```bash
 # on rabbit2
-rabbitmqctl stop_app
-# => Stopping node rabbit@rabbit2 ...done.
-
-rabbitmqctl reset
-# => Resetting node rabbit@rabbit2 ...
+## Note: the original 'rabbitmqctl stop_app/reset/start_app' steps
+##       are no longer necessary with RabbitMQ 4.2 and Khepri.
 
 rabbitmqctl join_cluster rabbit@rabbit1
 # => Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
-
-rabbitmqctl start_app
-# => Starting node rabbit@rabbit2 ...done.
 ```
 
 We can see that the two nodes are joined in a cluster by
@@ -663,40 +680,37 @@ running the <i>cluster_status</i> command on either of the nodes:
 # on rabbit1
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit1 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
-# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
-# => ...done.
+# ...
+# Running Nodes
+# rabbit@rabbit1
+# rabbit@rabbit2
+# ...
 
 # on rabbit2
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit2 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
-# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
-# => ...done.
+# ...
+# => Running Nodes
+# => rabbit@rabbit1
+# => rabbit@rabbit2
+# ...
 ```
 
 Now we join `rabbit@rabbit3` to the same
 cluster. The steps are identical to the ones above, except
 this time we'll cluster to `rabbit2` to
 demonstrate that the node chosen to cluster to does not
-matter - it is enough to provide one online node and the
+matter, it is enough to provide one online node and the
 node will be clustered to the cluster that the specified
 node belongs to.
 
 ```bash
 # on rabbit3
-rabbitmqctl stop_app
-# => Stopping node rabbit@rabbit3 ...done.
-
-# on rabbit3
-rabbitmqctl reset
-# => Resetting node rabbit@rabbit3 ...
+## Note: the original 'rabbitmqctl stop_app/reset/start_app' steps
+##       are no longer necessary with RabbitMQ 4.2 and Khepri.
 
 rabbitmqctl join_cluster rabbit@rabbit2
 # => Clustering node rabbit@rabbit3 with rabbit@rabbit2 ...done.
-
-rabbitmqctl start_app
-# => Starting node rabbit@rabbit3 ...done.
 ```
 
 We can see that the three nodes are joined in a cluster by
@@ -706,23 +720,32 @@ running the `cluster_status` command on any of the nodes:
 # on rabbit1
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit1 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
-# => ...done.
+# ...
+# => Running Nodes
+# => rabbit@rabbit1
+# => rabbit@rabbit2
+# => rabbit@rabbit3
+# ...
 
 # on rabbit2
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit2 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
-# => ...done.
+# ...
+# => Running Nodes
+# => rabbit@rabbit1
+# => rabbit@rabbit2
+# => rabbit@rabbit3
+# ...
 
 # on rabbit3
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit3 ...
-# => [{nodes,[{disc,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]},
-# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
-# => ...done.
+# ...
+# => Running Nodes
+# => rabbit@rabbit1
+# => rabbit@rabbit2
+# => rabbit@rabbit3
+# ...
 ```
 
 By following the above steps we can add new nodes to the
@@ -907,16 +930,22 @@ rabbitmqctl stop
 # on rabbit2
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit2 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2]}]
-# => ...done.
+# ...
+# => Running Nodes
+# => Running Nodes
+# => rabbit@rabbit2
+# => rabbit@rabbit3
+# ...
 
 # on rabbit3
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit3 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit3]}]
-# => ...done.
+# ...
+# => Running Nodes
+# => Running Nodes
+# => rabbit@rabbit2
+# => rabbit@rabbit3
+# ...
 
 # on rabbit3
 rabbitmqctl stop
@@ -925,9 +954,10 @@ rabbitmqctl stop
 # on rabbit2
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit2 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit2]}]
-# => ...done.
+# ...
+# => Running Nodes
+# => rabbit@rabbit2
+# ...
 ```
 
 In the below example, the nodes are started back, checking on the cluster
@@ -938,16 +968,20 @@ status as we go along:
 rabbitmq-server -detached
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit1 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
-# => ...done.
+# ...
+# => Running Nodes
+# => rabbit@rabbit1
+# => rabbit@rabbit2
+# ...
 
 # on rabbit2
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit2 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
-# => ...done.
+# ...
+# => Running Nodes
+# => rabbit@rabbit1
+# => rabbit@rabbit2
+# ...
 
 # on rabbit3
 rabbitmq-server -detached
@@ -955,23 +989,28 @@ rabbitmq-server -detached
 # on rabbit1
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit1 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
-# => ...done.
+# ...
+# => Running Nodes
+# => rabbit@rabbit1
+# => rabbit@rabbit2
+# => rabbit@rabbit3
+# ...
 
 # on rabbit2
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit2 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
-# => ...done.
+# => Running Nodes
+# => rabbit@rabbit1
+# => rabbit@rabbit2
+# => rabbit@rabbit3
 
 # on rabbit3
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit3 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
-# => ...done.
+# => Running Nodes
+# => rabbit@rabbit1
+# => rabbit@rabbit2
+# => rabbit@rabbit3
 ```
 
 
@@ -1026,33 +1065,44 @@ the cluster and operates independently:
 # on rabbit1
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit1 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
-# => {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
-# => ...done.
+# => Disk Nodes
+# => rabbit@rabbit1
+# => rabbit@rabbit2
+# =>
+# => Running Nodes
+# => rabbit@rabbit1
+# => rabbit@rabbit2
 
 # on rabbit2
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit2 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
-# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
-# => ...done.
+# => Disk Nodes
+# => rabbit@rabbit1
+# => rabbit@rabbit2
+# =>
+# => Running Nodes
+# => rabbit@rabbit1
+# => rabbit@rabbit2
 ```
 
 Now node `rabbit@rabbit3` can be decomissioned to reset and started as
 a standalone node:
 
-
 ```shell
 # on rabbit3
+rabbitmqctl stop_app
 rabbitmqctl reset
 
 rabbitmqctl start_app
 # => Starting node rabbit@rabbit3 ...
 
-rabbitmqctl cluster_status
+rabbitmqctl cluster_status -n rabbit@rabbit3
 # => Cluster status of node rabbit@rabbit3 ...
-# => [{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
-# => ...done.
+# => Disk Nodes
+# => rabbit@rabbit3
+# =>
+# => Running Nodes
+# => rabbit@rabbit3
 ```
 
 Nodes can be removed remotely, that is, from a different host, as long as CLI tools
@@ -1072,80 +1122,6 @@ rabbitmqctl stop_app
 rabbitmqctl forget_cluster_node rabbit@rabbit1
 # => Removing node rabbit@rabbit1 from cluster ...
 # => ...done.
-```
-
-### Removal of Stopped Nodes and Their Revival
-
-:::important
-
-A node that was removed from the cluster when stopped with `rabbitmqctl stop_app`
-must be either reset or decomissioned. If started without a reset,
-it won't be able to rejoin its original cluster.
-
-:::
-
-At this point `rabbit1` still thinks it is clustered with
-`rabbit2`, and trying to start it will result in an
-error because the rest of the cluster no longer considers it to be a known member:
-
-```bash
-# on rabbit1
-rabbitmqctl start_app
-# => Starting node rabbit@rabbit1 ...
-# => Error: inconsistent_cluster: Node rabbit@rabbit1 thinks it's clustered with node rabbit@rabbit2, but rabbit@rabbit2 disagrees
-```
-
-In order to completely detach it from the cluster, such
-stopped node must be reset:
-
-
-```shell
-rabbitmqctl reset
-# => Resetting node rabbit@rabbit1 ...done.
-
-rabbitmqctl start_app
-# => Starting node rabbit@rabbit1 ...
-# => ...done.
-```
-
-The `cluster_status` command now shows all three nodes
-operating as independent RabbitMQ nodes (single node clusters):
-
-```bash
-# on rabbit1
-rabbitmqctl cluster_status
-# => Cluster status of node rabbit@rabbit1 ...
-# => [{nodes,[{disc,[rabbit@rabbit1]}]},{running_nodes,[rabbit@rabbit1]}]
-# => ...done.
-
-# on rabbit2
-rabbitmqctl cluster_status
-# => Cluster status of node rabbit@rabbit2 ...
-# => [{nodes,[{disc,[rabbit@rabbit2]}]},{running_nodes,[rabbit@rabbit2]}]
-# => ...done.
-
-# on rabbit3
-rabbitmqctl cluster_status
-# => Cluster status of node rabbit@rabbit3 ...
-# => [{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
-# => ...done.
-```
-
-Note that `rabbit@rabbit2` retains the residual
-state of the cluster, whereas `rabbit@rabbit1`
-and `rabbit@rabbit3` are freshly initialised
-RabbitMQ brokers. If we want to re-initialise
-`rabbit@rabbit2` we follow the same steps as
-for the other nodes:
-
-```bash
-# on rabbit2
-rabbitmqctl stop_app
-# => Stopping node rabbit@rabbit2 ...done.
-rabbitmqctl reset
-# => Resetting node rabbit@rabbit2 ...done.
-rabbitmqctl start_app
-# => Starting node rabbit@rabbit2 ...done.
 ```
 
 ### Removal of Unresponsive and Unrecoverable Nodes
@@ -1227,7 +1203,7 @@ runtime parameters and policies.
 For [quorum queue](./quorum-queues) and [stream](./streams) contents to be replicated to the new [re]added node,
 the node must be added to the list of nodes to place replicas on using `rabbitmq-queues grow`.
 
-Non-replicated queue contents on a reset node will be lost.
+Non-replicated queue and stream contents on a reset node will be lost.
 
 
 ## Forcing Node Boot in Case of Unavailable Peers {#forced-boot}
@@ -1252,9 +1228,19 @@ guide](./upgrade).
 
 Under some circumstances it can be useful to run a cluster
 of RabbitMQ nodes on a single machine. This would
-typically be useful for experimenting with clustering on a
-desktop or laptop without the overhead of starting several
-virtual machines for the cluster.
+typically be useful for experimenting with cluster formation
+and multiple nodes on a single host.
+
+:::important
+
+This guide historically covers cluster formation on a single machine
+without containers.
+
+For testing client libraries and applications against multiple
+nodes, consider using the [community OCI image](https://github.com/docker-library/rabbitmq),
+several containers and container port forwarding.
+
+:::
 
 In order to run multiple RabbitMQ nodes on a single
 machine, it is necessary to make sure the nodes have
@@ -1274,9 +1260,8 @@ repeated invocation of `rabbitmq-server` (
 ```bash
 RABBITMQ_NODE_PORT=5672 RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
 RABBITMQ_NODE_PORT=5673 RABBITMQ_NODENAME=hare rabbitmq-server -detached
-rabbitmqctl -n hare stop_app
+
 rabbitmqctl -n hare join_cluster rabbit@`hostname -s`
-rabbitmqctl -n hare start_app
 ```
 
 will set up a two node cluster, both nodes as disc nodes.
@@ -1339,30 +1324,3 @@ inter-node communication protocols. While such breaking changes are rare, they a
 
 Incompatibilities between patch releases of Erlang/OTP versions
 are very rare.
-
-
-## Connecting to Clusters from Clients {#clients}
-
-A client can connect as normal to any node within a
-cluster. If that node should fail, and the rest of the
-cluster survives, then the client should notice the closed
-connection, and should be able to reconnect to some
-surviving member of the cluster.
-
-Many clients support lists of hostnames that will be tried in order
-at connection time.
-
-Generally it is not recommended to hardcode IP addresses into
-client applications: this introduces inflexibility and will
-require client applications to be edited, recompiled and
-redeployed should the configuration of the cluster change or
-the number of nodes in the cluster change.
-
-Instead, consider a more abstracted approach: this could be a
-dynamic DNS service which has a very short TTL
-configuration, or a plain TCP load balancer, or a combination of them.
-
-In general, this aspect of managing the
-connection to nodes within a cluster is beyond the scope of
-this guide, and we recommend the use of other
-technologies designed specifically to address these problems.
