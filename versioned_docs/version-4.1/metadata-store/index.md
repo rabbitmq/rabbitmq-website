@@ -17,9 +17,10 @@ queue and stream messages:
 
 * users and permissions in the internal data store; "internal" as opposed to
   users defined externally, for instance, [LDAP](./ldap)
-* virtual hosts
-* topology: exchanges, queues, bindings
-* [runtime parameters and policies](./parameters)
+* [virtual hosts](./vhosts)
+* topology: exchanges, queues, streams, bindings
+* [runtime parameters](./parameters)
+* [policies](./policies)
 
 <figure className={diagramStyles.diagram}>
 <MetadataStoreRole/>
@@ -34,9 +35,10 @@ database, its replication algorithm and failure recovery characteristics.
 
 ## Supported Backends
 
-RabbitMQ supports two different libraries that provide this database:
-* Mnesia
-* Khepri
+RabbitMQ supports two different metadata stores:
+
+* Khepri (newer, recommended)
+* Mnesia (the original metadata store)
 
 Only one of them is used at a given time. Each one is described below.
 

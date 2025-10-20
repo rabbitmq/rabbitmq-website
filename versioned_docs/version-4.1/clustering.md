@@ -78,7 +78,7 @@ A RabbitMQ cluster can be formed in a number of ways:
  * Declaratively using [Kubernetes discovery](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_peer_discovery_k8s) (via a plugin)
  * Declaratively using [Consul-based discovery](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_peer_discovery_consul) (via a plugin)
  * Declaratively using [etcd-based discovery](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_peer_discovery_etcd) (via a plugin)
- * Manually with `rabbitmqctl`
+ * Manually with `rabbitmqctl join_cluster`
 
 These mechanisms are covered in more details in the [Cluster Formation guide](./cluster-formation).
 
@@ -628,7 +628,7 @@ batch file is used, the short node name is upper-case (as
 in `rabbit@RABBIT1`). When you type node names,
 case matters, and these strings must match exactly.
 
-## Creating a Cluster without Peer Discovery {#creating}
+## Creating a Cluster without [Peer Discovery](./cluster-formation) {#creating}
 
 :::important
 
