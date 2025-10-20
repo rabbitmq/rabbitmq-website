@@ -53,6 +53,11 @@ export default function Home() {
                   It ensures your apps stay reliable and secure with <Link to="/contact#tanzu-rabbitmq">24/7 expert support from the engineers who make the product</Link>,
                   longer lifecycle, disaster recovery, cloud cost savings, and industry compliance.
                 </p>
+                <p>
+                  <Link to="/commercial-features">See our commercial features</Link>
+                  <br />
+                  <Link to="/commercial-features#support-timelines">See our support timelines</Link>
+                </p>
                 <div>
                   <Link className="button button--primary" to="mailto:contact-tanzu-data.pdl@broadcom.com">Contact Us</Link>&nbsp;
                   <Link className="button button--primary" to="/contact#consulting">Find a Partner</Link>
