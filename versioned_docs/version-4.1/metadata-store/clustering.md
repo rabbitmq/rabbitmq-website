@@ -24,9 +24,10 @@ RabbitMQ cluster is done the same way as with Mnesia.
 level</figcaption>
 </figure>
 
-## Creating a Cluster
+## Ways of Forming a Cluster
 
-You can create a cluster using the regular methods:
+With Khepri, a cluster can be formed using the regular methods:
+
 * using [CLI tools](../cli)
 * using [peer discovery](../cluster-formation)
 
