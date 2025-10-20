@@ -667,7 +667,7 @@ To migrate existing data, see [Blue/Green deployment strategy](./blue-green-upgr
 ```bash
 # on rabbit2
 ## Note: the original 'rabbitmqctl stop_app/reset/start_app' steps
-##       are no longer necessary with RabbitMQ 4.2 and Khepri.
+##       are no longer necessary starting with RabbitMQ 4.1, with both Khepri and Mnesia.
 
 rabbitmqctl join_cluster rabbit@rabbit1
 # => Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
