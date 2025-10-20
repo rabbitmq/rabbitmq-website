@@ -632,10 +632,10 @@ case matters, and these strings must match exactly.
 
 :::important
 
-This guide now targets Khepri, which, unlike Mnesia, does not
-require RabbitMQ to be stopped and reset before manually joining two nodes.
+Starting with RabbitMQ `4.1.0`, nodes no longer need to be stopped and reset
+before joining another node.
 
-Starting with RabbitMQ `4.1.0`, `rabbitmqctl join_cluster` performs the necessary preparations.
+`rabbitmqctl join_cluster` performs the necessary preparations.
 
 :::
 
