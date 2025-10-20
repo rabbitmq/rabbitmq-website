@@ -239,7 +239,7 @@ export default function Support() {
             <div className={styles.partner}>
               <Heading as="h3">Databorn</Heading>
               <p className={styles.partner_region}>Offices in: 🇦🇪UAE &mdash; Serving Central Asia & Africa</p>
-              <p>Databorn is a trusted Tanzu IT consulting partner and reseller, offering data-driven solutions for businesses across the banking, insurance, telco and retail sectors in the Middle East & Africa, Eastern Europe, and Central Asia. Our expertise extends to RabbitMQ, helping enterprises build reliable, scalable, and high-performance messaging architectures.</p>
+              <p>Databorn is a trusted Tanzu IT consulting partner offering data-driven solutions for businesses across the banking, insurance, telco and retail sectors in the Middle East & Africa, Eastern Europe, and Central Asia. Our expertise extends to RabbitMQ, helping enterprises build reliable, scalable, and high-performance messaging architectures.</p>
               <ul>
                 <li>Expert consulting on RabbitMQ design, deployment, and best practices</li>
                 <li>Seamless integration and support for optimized messaging workflows</li>
