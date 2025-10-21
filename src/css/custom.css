@@ -263,6 +263,7 @@ html[data-theme='dark'] .release-information {
 
 .release-links ul {
   display: flex;
+  justify-content: center;
   margin: 0;
   padding-left: 0;
 }
@@ -270,7 +271,6 @@ html[data-theme='dark'] .release-information {
 .release-links ul > li {
   display: inline-block;
   list-style-type: none;
-  margin-left: var(--ifm-table-cell-padding);
 }
 
 .release-links ul > li + li {
@@ -315,6 +315,7 @@ html[data-theme='dark'] .release-information {
 
   border-top-width: var(--ifm-table-border-width);
   border-left-width: var(--ifm-table-border-width);
+  text-align: center;
 }
 
 .release-info-grid .release-links {
@@ -329,11 +330,13 @@ html[data-theme='dark'] .release-information {
 
   border-top-width: var(--ifm-table-border-width);
   border-left-width: var(--ifm-table-border-width);
+  text-align: center;
 }
 
 .release-info-grid .release-eos {
   border-top-width: var(--ifm-table-border-width);
   border-left-width: var(--ifm-table-border-width);
+  text-align: center;
 }
 
 .release-info-grid .release-eos-community {
@@ -451,6 +454,10 @@ html[data-theme='dark'] .release-info-grid .release-toggle path {
 
   .release-info-grid .release-eos-community {
     grid-column: 6 / span 1;
+  }
+
+  .release-info-grid .release-eos-commercial {
+    grid-column: 7 / span 1;
   }
 }
 

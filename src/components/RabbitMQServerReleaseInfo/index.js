@@ -152,7 +152,9 @@ export function RabbitMQServerReleaseInfoTable() {
       }
 
       var endOfCommunitySupportDate = "-";
+      let endOfCommercialSupportDate = "-";
       var hasOSSSupport = false;
+      let hasCommercialSupported = false;
       if (releaseBranch.end_of_support) {
         /* Release branch is supported. */
         if (releaseBranch.end_of_community_support) {
@@ -165,6 +167,7 @@ export function RabbitMQServerReleaseInfoTable() {
           hasOSSSupport = true;
           endOfCommunitySupportDate = <abbr title="Supported until the next major or minor release branch is published.">Next release</abbr>;
         }
+        endOfCommercialSupportDate = new Date(releaseBranch.end_of_support);
       }
 
       {
@@ -187,6 +190,11 @@ export function RabbitMQServerReleaseInfoTable() {
           latestReleaseBranchClassName,
           isLatestReleaseForBranch ? "" : showClassName
         ].join(' ')}>{content}</div>;
+      }
+
+      if (endOfCommercialSupportDate instanceof Date) {
+        hasCommercialSupported = endOfCommercialSupportDate > now;
+        endOfCommercialSupportDate = endOfCommercialSupportDate.toLocaleDateString("en-GB", dateOptions);
       }
 
       if (isLatestReleaseForBranch) {
@@ -239,6 +247,13 @@ export function RabbitMQServerReleaseInfoTable() {
           ].join(' ')}>{releaseDate}</div>
 
           {endOfCommunitySupportDate}
+
+          <div className={[
+            "release-eos",
+            "release-eos-commercial",
+            hasCommercialSupported ? 'supported-release latest-release' : 'unsupported-release',
+            isLatestReleaseForBranch ? "" : showClassName
+          ].join(' ')}>{endOfCommercialSupportDate}</div>
         </>
       );
 
@@ -274,6 +289,12 @@ export function RabbitMQServerReleaseInfoTable() {
             "release-eos",
             "release-eos-community"
           ].join(' ')}>End of Community Support</div>
+
+          <div className={[
+            "release-info-header",
+            "release-eos",
+            "release-eos-commercial"
+          ].join(' ')}>End of Commercial Support*</div>
 
           {rows}
         </div>
