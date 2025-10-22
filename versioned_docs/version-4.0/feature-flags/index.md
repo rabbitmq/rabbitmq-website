@@ -371,7 +371,7 @@ Most feature flags listed below have very brief descriptions. This is because mo
 avoid potentially unsafe operations in mixed-version clusters, correct
 a behavior that must be consistent across all cluster nodes, and so on.
 
-`khepri_db` is one exception because of [it scope](./metadata-store).
+`khepri_db` is one exception because of [its scope](./metadata-store).
 
 :::
 
