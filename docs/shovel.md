@@ -59,8 +59,8 @@ and [Erlang AMQP 1.0](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps
 RabbitMQ 4.2 introduced a new protocol type, the `local` shovels. Local shovels do not
 use any of the existing protocols to connect to the source or destination, but
 use an internal API to consume and/or publish directly from the queues in the local
-cluster. They can only be used on the cluster the shovel is being declared. 
-A local shovel shares most features and configuration with AMQP 0-9-1 shovels. 
+cluster. They can only be used on the cluster the shovel is being declared.
+A local shovel shares most features and configuration with AMQP 0-9-1 shovels.
 
 ## Why Use Shovel {#benefits}
 
@@ -141,7 +141,7 @@ The Shovel's consumer will [acknowledge](./confirms) messages
 automatically on receipt, after (re-)publication, or after
 [confirmation of its publication](./confirms) from the destination server.
 
-Messages rejected by the destination, will be requeued in the case of AMQP 0-9-1
+Messages rejected by the destination will be requeued in the case of AMQP 0-9-1
 and local shovels. For AMQP 1.0, messages rejected by the destination will be dropped.
 
 ### Re-publishing
