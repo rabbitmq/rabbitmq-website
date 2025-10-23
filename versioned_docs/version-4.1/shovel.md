@@ -135,6 +135,9 @@ The Shovel's consumer will [acknowledge](./confirms) messages
 automatically on receipt, after (re-)publication, or after
 [confirmation of its publication](./confirms) from the destination server.
 
+Messages rejected by the destination will be requeued in the case of AMQP 0-9-1.
+For AMQP 1.0, messages rejected by the destination will be dropped.
+
 ### Re-publishing
 
 Most publishing and message properties are controlled by the operator.
