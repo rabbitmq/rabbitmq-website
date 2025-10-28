@@ -490,7 +490,7 @@ One way to implement a consumer is to use the convenience class
 lifecycle events as C# events:
 
 ```csharp
-var consumer = new EventingBasicConsumer(channel);
+var consumer = new AsyncEventingBasicConsumer(channel);
 consumer.Received += async (ch, ea) =>
                 {
                     var body = ea.Body.ToArray();
