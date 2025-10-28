@@ -491,7 +491,7 @@ lifecycle events as C# events:
 
 ```csharp
 var consumer = new AsyncEventingBasicConsumer(channel);
-consumer.Received += async (ch, ea) =>
+consumer.ReceivedAsync += async (ch, ea) =>
                 {
                     var body = ea.Body.ToArray();
                     // copy or deserialise the payload
