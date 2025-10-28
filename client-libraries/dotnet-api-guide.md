@@ -490,8 +490,8 @@ One way to implement a consumer is to use the convenience class
 lifecycle events as C# events:
 
 ```csharp
-var consumer = new EventingBasicConsumer(channel);
-consumer.Received += async (ch, ea) =>
+var consumer = new AsyncEventingBasicConsumer(channel);
+consumer.ReceivedAsync += async (ch, ea) =>
                 {
                     var body = ea.Body.ToArray();
                     // copy or deserialise the payload
