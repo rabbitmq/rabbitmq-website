@@ -32,7 +32,7 @@ Please consult the above guides.
 
 ## What is a Priority Queue {#overview}
 
-Classic and [quorum queues](https://www.rabbitmq.com/docs/quorum-queues#priorities) in RabbitMQ support priorities.
+Classic and [quorum queues](./quorum-queues#priorities) in RabbitMQ support priorities.
 The standard mode of operation of queues is FIFO (First In, First Out). This means that, ignoring prefetch, [competing consumers](/tutorials/tutorial-two-python), [requeueing and redeliveries](./confirms#consumer-nacks-requeue) for a moment, RabbitMQ will deliver messages to consumers
 in the same order the messages were enqueued in.
 
