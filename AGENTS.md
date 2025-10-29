@@ -5,7 +5,8 @@
 This is a documentation website for [RabbitMQ](https://rabbitmq.com/docs). It has multiple
 editions (documented release series):
 
- * 4.2 (in development): its Markdown source files can be found under `./docs`
+ * 4.3 (in development): its Markdown source files can be found under `./docs`
+ * 4.2 with source files under `./versioned_docs/version-4.2`
  * 4.1 with source files under `./versioned_docs/version-4.1`
  * 4.0 with source files under `./versioned_docs/version-4.0`
  * 3.13 with source files under `./versioned_docs/version-3.13`
