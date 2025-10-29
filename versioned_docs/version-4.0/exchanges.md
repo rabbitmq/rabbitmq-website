@@ -94,7 +94,7 @@ For example,
 
  * A binding (routing key) pattern of `"regions.na.cities.*"` will match message routing keys `"regions.na.cities.toronto"` and `"regions.na.cities.newyork"` but **will not** match `"regions.na.cities"`
    because `*` is a wildcard that matches exactly one segment
- * A binding (routing key) pattern `"audit.events.#"` will match `"audit.events.users.signup"` and `"audit.events.orders.placed"` but not `"audit.users"` because the second segment does not match
+ * A binding (routing key) pattern `"audit.events.#"` will match `"audit.events"`, `"audit.events.users.signup"` and `"audit.events.orders.placed"`, but not `"audit.users"` because the second segment does not match
  * A binding (routing key) pattern of `"#"` will match any routing key and makes the topic exchange act like a fanout for the bindings that use such a pattern
 
 See [tutorial 5](https://www.rabbitmq.com/tutorials) to see how this exchange type is used.
