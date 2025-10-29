@@ -20,29 +20,97 @@ limitations under the License.
 
 # Classic Queues Support Priorities
 
+## Pre-requisites
+
+This guide assumes familiarity with the essentials of RabbitMQ:
+
+ * [Tutorials](/tutorials/)
+ * The main guide on [Queues](./queues)
+ * [Consumers guide](./consumers)
+
+Please consult the above guides.
+
 ## What is a Priority Queue {#overview}
 
-RabbitMQ supports adding "priorities" to classic queues. Classic queues with the "priority" feature turned on are commonly referred to as "priority queues".
-Priorities between 1 and 255 are supported, however, **values between 1 and 5 are highly recommended**. It is important to know that higher priority
-values require more CPU and memory resources, since RabbitMQ needs to internally maintain a sub-queue for each priority from 1, up to the maximum value
-configured for a given queue.
+Classic and [quorum queues](https://www.rabbitmq.com/docs/quorum-queues#priorities) in RabbitMQ support priorities.
+The standard mode of operation of queues is FIFO (First In, First Out). This means that, ignoring prefetch, [competing consumers](/tutorials/tutorial-two-python), [requeueing and redeliveries](./confirms#consumer-nacks-requeue) for a moment, RabbitMQ will deliver messages to consumers
+in the same order the messages were enqueued in.
 
-A classic queue can become a priority queue by using client-provided [optional arguments](./queues#optional-arguments).
+This standard behavior changes for the queues that are configured to use priorities. For brevity, such queues, both classic and quorum ones,
+are called "priority queues" in this guide and the rest of RabbitMQ documentation.
 
-Declaring a classic queue as a priority queue [using policies](#using-policies) is [not supported by design](#using-policies).
+Priority queues deliver messages in the order of message priorities. A message priority is a positive integer value set by [publishers](./publishers)
+at publishing time.
+
+Consider a queue with three messages, A, B and C, published with equal priorities and enqueued in that order
+into a "regular" quorum queue:
+
+| Message | Enqueueing Order | Priority |
+|---------|------------------|----------|
+| A       | 1                | 1        |
+| B       | 2                | 1        |
+| C       | 3                | 1        |
+
+These messages will be dispatched (sent) to a consumer (or multiple consumers) in the following order: A, B, C.
+
+Now, consider a priority queue with the same messages, but with different priorities:
+
+| Message | Enqueueing Order | Priority |
+|---------|------------------|----------|
+| A       | 1                | 1        |
+| B       | 2                | 3        |
+| C       | 3                | 2        |
+
+Unlike the standard FIFO delivery behavior, these messages will be dispatched to a consumer (or multiple consumers)
+in a different order: B, C, A, according to their priorities.
+
+Delivery order can slightly vary in practice when a priority queue has competing consumers, requeued deliveries, or [automatic requeueing](./confirms#automatic-requeueing) in case of consumer connection loss or consumer application failure.
+
+
+## Before Adopting Priority Queues: Consider the Alternatives {#alternatives}
+
+Priority queue behavior with respect to consumer delivery is much harder to reason about than the standard FIFO
+behavior of queues, in particular in environments where consumers can often [requeue](./confirms#consumer-nacks-requeue) deliveries.
+For this reason, it's important to consider whether a simpler alternative would be more appropriate.
+
+Priority queues are usually adopted to avoid a classic problem in queueing systems, the [head-of-line blocking problem](https://en.wikipedia.org/wiki/Head-of-line_blocking). However, there are several possible alternative solutions that
+should be considered first:
+
+1. Use multiple queues instead of one. Single Giant Queue™ is one of the most common anti-patterns around queue use
+2. For competing consumers on a single queue, use separate channels with separate [prefetch values](./confirms#channel-qos-prefetch) greater than 1 so that an exhausted prefetch does not block the flow of deliveries
+3. Using a [stream](./streams) instead of a queue. Streams offer a different consumption pattern and support repeated consumption
+4. In a limited number of scenarios, a [consumer priority](./confirms#channel-qos-prefetch) can be easier to reason about compared to a priority queue
+
+For example, a set of three queues, `priority.low`, `priority.medium`, and `priority.high` can avoid the head-of-line blocking problem
+while keeping the standard delivery behavior, and offer [better runtime parallelism](./queues#runtime-characteristics) as a positive side effect.
+
+
+## Declaration and Supported Priority Ranges {#declaration}
+
+Classic queues support priorities in the [0, 255] range. Quorum queues support a much smaller range: 1 through 4.
+
+For this reason and others, **using from 2 to 4 priorities is highly recommended** for classic queues (a single priority does not make much practical sense).
+
+Specifically in the case of classic queues, higher priority values will use more CPU and memory resources: RabbitMQ needs to internally maintain a sub-queue for each priority from 1, up to the maximum value configured for a given queue.
+
+A queue can become a priority queue by using client-provided [optional arguments](./queues#optional-arguments).
+
+Declaring a queue as a priority queue [using policies](#using-policies) is [not supported by design](#using-policies).
 For the reasons why, refer to [Why Policy Definition is not Supported for Priority Queues](#using-policies).
 
-## Using Client-provided Optional Arguments {#definition}
+### Using Client-provided Optional Arguments
 
 To declare a priority queue, use the `x-max-priority` optional queue argument.
-This argument should be a positive integer between 1 and 255,
-indicating the maximum priority the queue should support. For example,
-using the Java client:
+This argument should be a positive integer in the [1, 255] range.
+However, as explained above, using from 2 to 4 priorities is highly recommended.
+
+For example, using the Java client:
 
 ```java
 Channel ch = ...;
 Map<String, Object> args = new HashMap<String, Object>();
-args.put("x-max-priority", 10);
+// Recommendation: use values from 2 to 4 for the maximum number of priorities
+args.put("x-max-priority", 4);
 ch.queueDeclare("my-priority-queue", true, false, false, args);
 ```
 
@@ -68,8 +136,7 @@ when consuming, so you may not wish to create huge numbers of
 levels.
 
  - The message `priority` field is defined as an
-unsigned byte, so in practice priorities should be between 0
-and 255.
+unsigned byte, that is, its values cannot be outside of the [0, 255] range.
 
  - Messages without a `priority` property are treated as
 if their priority were 0. Messages with a priority which is
@@ -79,7 +146,10 @@ published with the maximum priority.
 
 ## Maximum Number of Priorities and Resource Usage {#resource-usage}
 
-If priority queues are what you want, this information previously stated **values between 1 and 5 are highly recommended**. If you must go higher than 5, values between 1 and 10 are sufficient (keep it to a single digit number) because currently using more priorities consumes more CPU resources by using more Erlang processes.
+For environments that adopt publishing with priorities and priority queues, using **from 2 to 4 priorities** is highly recommended.
+If you must go higher than 4, using up to 10 priorities is usually sufficient (keep it to a single digit number).
+
+With classic queues, using more priorities consumes more CPU resources by using more Erlang processes.
 [Runtime scheduling](./runtime) would also be affected.
 
 ## How Priority Queues Work with Consumers {#interaction-with-consumers}
