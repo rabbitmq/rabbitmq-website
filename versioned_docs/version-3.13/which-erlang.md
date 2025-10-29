@@ -29,7 +29,7 @@ version-specific notes and [ways of provisioning](#erlang-repositories) recent E
 
 :::warning
 
-Erlang 28 is not currently supported by RabbitMQ.
+Erlang 28 is not supported by RabbitMQ 3.13.x.
 
 :::
 

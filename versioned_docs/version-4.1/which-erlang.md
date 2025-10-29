@@ -29,7 +29,7 @@ version-specific notes and [ways of provisioning](#erlang-repositories) recent E
 
 :::warning
 
-Erlang 28 is not currently supported by RabbitMQ.
+Erlang 28 is not supported by RabbitMQ 4.1.x.
 
 :::
 
@@ -101,10 +101,10 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       <td>
       <ul class="notes">
       <li>
-      Erlang 28 is not currently supported by RabbitMQ.
+          Erlang 28 is not supported by RabbitMQ 4.1.x.
       </li>
       <li>
-      The starting with the 4.0.4 release, the 4.0.x release series is compatible with Erlang 27.
+          The starting with the 4.0.4 release, the 4.0.x release series is compatible with Erlang 27.
       </li>
       </ul>
       </td>

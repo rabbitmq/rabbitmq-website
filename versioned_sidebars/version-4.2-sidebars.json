@@ -1,0 +1,853 @@
+{
+  "docsSidebar": [
+    {
+      "type": "doc",
+      "id": "index",
+      "label": "Introduction"
+    },
+    {
+      "type": "link",
+      "label": "Release Information",
+      "href": "/release-information"
+    },
+    {
+      "type": "link",
+      "label": "Getting Started",
+      "href": "/tutorials"
+    },
+    {
+      "type": "category",
+      "label": "Install and Upgrade",
+      "link": {
+        "type": "doc",
+        "id": "download"
+      },
+      "items": [
+        {
+          "type": "doc",
+          "id": "which-erlang",
+          "label": "Erlang Version Requirements"
+        },
+        {
+          "type": "doc",
+          "id": "signatures",
+          "label": "Package Signatures"
+        },
+        {
+          "type": "category",
+          "label": "Supported Operating Systems",
+          "link": {
+            "type": "doc",
+            "id": "platforms"
+          },
+          "items": [
+            {
+              "type": "category",
+              "label": "Linux/Unix",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "install-debian",
+                  "label": "Debian and Ubuntu"
+                },
+                {
+                  "type": "doc",
+                  "id": "install-rpm",
+                  "label": "RedHat"
+                },
+                {
+                  "type": "doc",
+                  "id": "install-generic-unix",
+                  "label": "Generic Unix"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "install-windows",
+              "label": "Windows"
+            },
+            {
+              "type": "category",
+              "label": "MacOS",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "install-standalone-mac",
+                  "label": "MacOS using Standalone Binary Build"
+                },
+                {
+                  "type": "doc",
+                  "id": "install-homebrew",
+                  "label": "MacOs using Homebrew"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "link",
+          "label": "Kubernetes Operator",
+          "href": "/kubernetes/operator/install-operator"
+        },
+        {
+          "type": "doc",
+          "label": "Kubernetes (Do It Yourself)",
+          "id": "install-kubernetes-diy"
+        },
+        {
+          "type": "category",
+          "label": "Upgrade",
+          "link": {
+            "type": "doc",
+            "id": "upgrade"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "rolling-upgrade",
+              "label": "Rolling Upgrade"
+            },
+            {
+              "type": "doc",
+              "id": "blue-green-upgrade",
+              "label": "Blue-Green Deployment"
+            },
+            {
+              "type": "doc",
+              "id": "grow-then-shrink-upgrade",
+              "label": "Grow-Then-Shrink Upgrade"
+            },
+            {
+              "type": "doc",
+              "id": "feature-flags/index",
+              "label": "Feature Flags"
+            },
+            {
+              "type": "doc",
+              "id": "deprecated-features/index",
+              "label": "Deprecated Features"
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "snapshots",
+          "label": "Snapshots"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "How to Use RabbitMQ",
+      "link": {
+        "type": "doc",
+        "id": "use-rabbitmq"
+      },
+      "items": [
+        {
+          "type": "category",
+          "label": "Publishing Messages",
+          "link": {
+            "type": "doc",
+            "id": "publishers/index"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "exchanges",
+              "label": "Exchanges"
+            },
+            {
+              "type": "doc",
+              "id": "direct-reply-to",
+              "label": "Direct Reply-To"
+            },
+            {
+              "type": "doc",
+              "id": "local-random-exchange",
+              "label": "Local random exchange"
+            },
+            {
+              "type": "doc",
+              "id": "connection-blocked",
+              "label": "Blocked Connection Notifications"
+            },
+            {
+              "type": "doc",
+              "id": "e2e",
+              "label": "Exchange to Exchange Bindings"
+            },
+            {
+              "type": "doc",
+              "id": "ae",
+              "label": "Alternate Exchanges"
+            },
+            {
+              "type": "doc",
+              "id": "sender-selected",
+              "label": "Sender-selected Distribution"
+            },
+            {
+              "type": "doc",
+              "id": "validated-user-id",
+              "label": "Validated User ID"
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "exchanges",
+          "label": "Exchanges"
+        },
+        {
+          "type": "category",
+          "label": "Consuming Messages",
+          "link": {
+            "type": "doc",
+            "id": "consumers"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "consumer-cancel",
+              "label": "Consumer Cancellation Notifications"
+            },
+            {
+              "type": "doc",
+              "id": "consumer-prefetch",
+              "label": "Consumer Prefetch"
+            },
+            {
+              "type": "doc",
+              "id": "consumer-priority",
+              "label": "Consumer Priorities"
+            },
+            {
+              "type": "doc",
+              "id": "nack",
+              "label": "Negative Acknowledgements"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Queues",
+          "link": {
+            "type": "doc",
+            "id": "queues"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "quorum-queues/index",
+              "label": "Quorum Queues"
+            },
+            {
+              "type": "doc",
+              "id": "classic-queues",
+              "label": "Classic Queues"
+            },
+            {
+              "type": "doc",
+              "id": "ttl",
+              "label": "Time-to-Live and Expiration"
+            },
+            {
+              "type": "doc",
+              "id": "maxlength/index",
+              "label": "Queue Length"
+            },
+            {
+              "type": "doc",
+              "id": "lazy-queues",
+              "label": "Lazy Queues"
+            },
+            {
+              "type": "doc",
+              "id": "dlx",
+              "label": "Dead Lettering"
+            },
+            {
+              "type": "doc",
+              "id": "priority",
+              "label": "Priority Queues"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Streams",
+          "link": {
+            "type": "doc",
+            "id": "streams"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "stream",
+              "label": "Stream Plugin"
+            },
+            {
+              "type": "doc",
+              "id": "stream-connections",
+              "label": "Stream Connections"
+            },
+            {
+              "type": "doc",
+              "id": "stream-core-plugin-comparison",
+              "label": "Stream Core and Plugin"
+            },
+            {
+              "type": "doc",
+              "id": "stream-filtering",
+              "label": "Stream Filtering"
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "channels/index",
+          "label": "Channels"
+        },
+        {
+          "type": "doc",
+          "id": "reliability",
+          "label": "Reliability and Data Safety"
+        },
+        {
+          "type": "doc",
+          "id": "confirms",
+          "label": "Consumer Acknowledgements and Publisher Confirms"
+        },
+        {
+          "type": "doc",
+          "id": "distributed",
+          "label": "Network Distribution"
+        },
+        {
+          "type": "category",
+          "label": "Plugins",
+          "link": {
+            "type": "doc",
+            "id": "plugins"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "management/index",
+              "label": "Management Plugin"
+            },
+            {
+              "type": "category",
+              "label": "Federation Plugin",
+              "link": {
+                "type": "doc",
+                "id": "federation"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "federated-queues/index",
+                  "label": "Federated Queues"
+                },
+                {
+                  "type": "doc",
+                  "id": "federated-exchanges/index",
+                  "label": "Federated Exchanges"
+                },
+                {
+                  "type": "doc",
+                  "id": "federation-reference",
+                  "label": "Federation Reference"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Shovel Plugin",
+              "link": {
+                "type": "doc",
+                "id": "shovel"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "shovel-dynamic",
+                  "label": "Dynamic Shovels"
+                },
+                {
+                  "type": "doc",
+                  "id": "shovel-static",
+                  "label": "Static Shovels"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "stomp",
+              "label": "STOMP Plugin"
+            },
+            {
+              "type": "doc",
+              "id": "web-stomp",
+              "label": "Web STOMP Plugin"
+            },
+            {
+              "type": "doc",
+              "id": "mqtt",
+              "label": "MQTT Plugin"
+            },
+            {
+              "type": "doc",
+              "id": "web-mqtt",
+              "label": "Web MQTT Plugin"
+            },
+            {
+              "type": "doc",
+              "id": "stream",
+              "label": "Stream Plugin"
+            },
+            {
+              "type": "doc",
+              "id": "installing-plugins",
+              "label": "Installing 3rd-party Plugins"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Protocols",
+          "link": {
+            "type": "doc",
+            "id": "protocols"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "amqp",
+              "label": "AMQP 1.0"
+            },
+            {
+              "type": "doc",
+              "id": "connections/index",
+              "label": "Connections"
+            },
+            {
+              "type": "doc",
+              "id": "conversions",
+              "label": "Inter-Protocol Property Conversion"
+            },
+            {
+              "type": "doc",
+              "id": "heartbeats",
+              "label": "Heartbeats"
+            },
+            {
+              "type": "doc",
+              "id": "extensions",
+              "label": "AMQP 0-9-1 Extensions"
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "message-interceptors",
+          "label": "Intercepting Messages"
+        },
+        {
+          "type": "link",
+          "label": "Client Libraries",
+          "href": "/client-libraries"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "How to Manage RabbitMQ",
+      "link": {
+        "type": "doc",
+        "id": "manage-rabbitmq"
+      },
+      "items": [
+        {
+          "type": "category",
+          "label": "CLI",
+          "link": {
+            "type": "doc",
+            "id": "cli"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "management-cli",
+              "label": "rabbitmqadmin v2"
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "configure",
+          "label": "Configuration"
+        },
+        {
+          "type": "doc",
+          "id": "relocate",
+          "label": "File and Directory Locations"
+        },
+        {
+          "type": "doc",
+          "id": "logging",
+          "label": "Logging"
+        },
+        {
+          "type": "doc",
+          "id": "vhosts",
+          "label": "Virtual Hosts"
+        },
+        {
+          "type": "category",
+          "label": "Authentication and Authorization",
+          "link": {
+            "type": "doc",
+            "id": "access-control"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "passwords",
+              "label": "Credentials and Passwords"
+            },
+            {
+              "type": "category",
+              "label": "OAuth 2",
+              "link": {
+                "type": "doc",
+                "id": "oauth2"
+              },
+              "items": [
+                {
+                  "type": "category",
+                  "label": "OAuth 2 Examples",
+                  "link": {
+                    "type": "doc",
+                    "id": "oauth2-examples/index"
+                  },
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-auth0",
+                      "label": "Auth0"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-entra-id/index",
+                      "label": "Microsoft Entra ID"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-google",
+                      "label": "Google"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-keycloak",
+                      "label": "Keycloak"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-okta",
+                      "label": "Okta"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-multiresource",
+                      "label": "Multiple OAuth 2.0 Servers"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-forward-proxy",
+                      "label": "Forward Proxy with Keycloak"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-proxy",
+                      "label": "OAuth2 Proxy with Keycloak"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "oauth2-examples-idp-initiated",
+                      "label": "Identity Provider Initiated Logon"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "troubleshooting-oauth2",
+                  "label": "Troubleshooting OAuth 2"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "ldap",
+              "label": "LDAP"
+            },
+            {
+              "type": "doc",
+              "id": "auth-cache-backend",
+              "label": "Cache"
+            },
+            {
+              "type": "doc",
+              "id": "auth-notification",
+              "label": "Authentication Failure Notifications"
+            },
+            {
+              "type": "doc",
+              "id": "user-limits",
+              "label": "Per User Resource Limits"
+            },
+            {
+              "type": "doc",
+              "id": "authentication",
+              "label": "AMQP 0-9-1 Authentication Mechanisms"
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "policies",
+          "label": "Policies"
+        },
+        {
+          "type": "doc",
+          "id": "parameters",
+          "label": "Runtime Parameters"
+        },
+        {
+          "type": "category",
+          "label": "Metadata store",
+          "link": {
+            "type": "doc",
+            "id": "metadata-store/index"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "metadata-store/how-to-enable-khepri",
+              "label": "How to enable Khepri"
+            },
+            {
+              "type": "doc",
+              "id": "metadata-store/clustering",
+              "label": "Clustering and Khepri"
+            },
+            {
+              "type": "doc",
+              "id": "metadata-store/everyday-operations",
+              "label": "Everyday Operations with Khepri"
+            },
+            {
+              "type": "doc",
+              "id": "metadata-store/failure-recovery",
+              "label": "Failure recovery with Khepri"
+            },
+            {
+              "type": "doc",
+              "id": "metadata-store/known-issues",
+              "label": "Known issues with Khepri"
+            },
+            {
+              "type": "doc",
+              "id": "metadata-store/khepri-faq",
+              "label": "Khepri FAQ"
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "definitions",
+          "label": "Schema Definitions"
+        },
+        {
+          "type": "category",
+          "label": "Networking",
+          "link": {
+            "type": "doc",
+            "id": "networking"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "ssl/index",
+              "label": "TLS Support"
+            },
+            {
+              "type": "doc",
+              "id": "heartbeats",
+              "label": "Client Heartbeats"
+            },
+            {
+              "type": "doc",
+              "id": "troubleshooting-networking",
+              "label": "Troubleshooting Connectivity"
+            },
+            {
+              "type": "doc",
+              "id": "troubleshooting-ssl",
+              "label": "Troubleshooting TLS"
+            },
+            {
+              "type": "doc",
+              "id": "nettick",
+              "label": "Inter-node Heartbeats"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Clustering",
+          "link": {
+            "type": "doc",
+            "id": "clustering"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "cluster-formation",
+              "label": "Cluster Formation"
+            },
+            {
+              "type": "doc",
+              "id": "partitions",
+              "label": "Network Partitions"
+            },
+            {
+              "type": "doc",
+              "id": "clustering-ssl",
+              "label": "Using TLS for Inter-node Traffic"
+            },
+            {
+              "type": "doc",
+              "id": "ec2",
+              "label": "RabbitMQ on Amazon EC2"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Resource Management",
+          "items": [
+            {
+              "type": "doc",
+              "id": "limits",
+              "label": "Configurable Limits and Timeouts"
+            },
+            {
+              "type": "doc",
+              "id": "memory-use/index",
+              "label": "Analyzing how Memory is Used"
+            },
+            {
+              "type": "category",
+              "label": "Memory and Disk Alarms",
+              "link": {
+                "type": "doc",
+                "id": "alarms"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "memory",
+                  "label": "Memory Alarms"
+                },
+                {
+                  "type": "doc",
+                  "id": "disk-alarms",
+                  "label": "Disk Alarms"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "flow-control",
+              "label": "Flow Control"
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "backup",
+          "label": "Backup and Restore"
+        },
+        {
+          "type": "category",
+          "label": "Tuning",
+          "items": [
+            {
+              "type": "doc",
+              "id": "runtime",
+              "label": "Runtime Tuning"
+            },
+            {
+              "type": "doc",
+              "id": "persistence-conf",
+              "label": "Persistence Configuration"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Deployment Guidelines",
+          "link": {
+            "type": "doc",
+            "id": "production-checklist"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "limits",
+              "label": "Configurable Limits and Timeouts"
+            }
+          ]
+        },
+        {
+          "type": "link",
+          "label": "RabbitMQ on Kubernetes",
+          "href": "/kubernetes/operator/operator-overview"
+        },
+        {
+          "type": "doc",
+          "id": "troubleshooting/index",
+          "label": "Troubleshooting RabbitMQ"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "How to Monitor RabbitMQ",
+      "link": {
+        "type": "doc",
+        "id": "monitoring/index"
+      },
+      "items": [
+        {
+          "type": "doc",
+          "id": "prometheus/index",
+          "label": "Prometheus and Grafana"
+        },
+        {
+          "type": "doc",
+          "id": "event-exchange",
+          "label": "Event Exchange Plugin"
+        },
+        {
+          "type": "doc",
+          "id": "firehose",
+          "label": "Firehose Tracing"
+        }
+      ]
+    }
+  ]
+}

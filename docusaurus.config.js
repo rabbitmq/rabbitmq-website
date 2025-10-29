@@ -67,6 +67,7 @@ const config = {
         // the future docs).
         'current': {
           releases: [
+            {version: '4.2.0', release_date: "2025-10-28", },
           ],
         },
         '4.1': {
@@ -342,9 +343,6 @@ const config = {
               {type: 'html', value: '<strong>Release series</strong>'},
             ],
             dropdownItemsAfter: [
-              {href: 'https://v3-12.rabbitmq.com/documentation.html', label: '3.12'},
-              {to: '/release-information', label: 'Release Information'},
-              //{type: 'html', value: '<strong>Unsupported</strong>'},
             ],
           },
           {
