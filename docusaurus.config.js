@@ -72,11 +72,17 @@ const config = {
         },
         '4.2': {
           releases: [
-            {version: '4.2.0', release_date: "2025-10-28", },
+            {
+              version: '4.2.0',
+              release_date: "2025-10-28",
+            },
           ],
+          end_of_support: "2028-10-30",
+          end_of_community_support: "2026-07-31",
         },
         '4.1': {
           releases: [
+            {version: '4.1.5', release_date: "2025-10-28", },
             {version: '4.1.4', release_date: "2025-09-02", },
             {version: '4.1.3', release_date: "2025-08-05", },
             {version: '4.1.2', release_date: "2025-07-08", },
