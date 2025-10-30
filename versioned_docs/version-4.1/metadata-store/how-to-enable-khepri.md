@@ -21,27 +21,7 @@ user should be aware of.
 While Khepri is fully supported since RabbitMQ 4.0.x, it does not have the 17
 years of extensive use that Mnesia has. We encourage all RabbitMQ users to test
 Khepri thoroughly before adopting it in production.
-
-It will be **possible to upgrade from 4.1.x to future releases** with Khepri
-enabled.
 :::
-
-## Terminology
-
-The [feature flags](../feature-flags) subsystem uses the words *stable* and
-*experimental* to qualify feature flags maturity.
-
-An *experimental* feature flag is used in two situations:
-
-1. To introduce changes to get feedback early during the development. These
-   changes could be reverted, upgrading a RabbitMQ node with such a feature
-   flag enabled may not bo possible and support may not be provided.
-2. For features the RabbitMQ team committed to and provides support for, until
-   it is ready to be enabled by default, possibly replacing an older system.
-
-Khepri in RabbitMQ 3.13.x was in the first group. Be reassured that Khepri in
-RabbitMQ 4.0 and onward is in that second group and is therefore fully
-supported.
 
 ## On a brand new RabbitMQ node
 
@@ -72,13 +52,13 @@ supported.
     <TabItem value="bash" label="bash" default>
     ```bash
     # Opt-in to enable Khepri.
-    rabbitmqctl enable_feature_flag --experimental khepri_db
+    rabbitmqctl enable_feature_flag --opt-in khepri_db
     ```
     </TabItem>
     <TabItem value="PowerShell" label="PowerShell">
     ```PowerShell
     # Opt-in to enable Khepri.
-    rabbitmqctl.bat enable_feature_flag --experimental khepri_db
+    rabbitmqctl.bat enable_feature_flag --opt-in khepri_db
     ```
     </TabItem>
     </Tabs>
@@ -112,13 +92,7 @@ nodes with Khepri are clustered together.
 
 4.  Navigate to *"Admin > Feature Flags"*.
 
-5.  Tick *"I understand the risk"* and click the *"Enable"* button:
-
-    <figure className={diagramStyles.diagram}>
-    <EnableInUI/>
-    <figcaption>The experimental feature flags section in the management
-    UI</figcaption>
-    </figure>
+5.  Enable `khepri_db`.
 
 ### Using an Environment Variable
 

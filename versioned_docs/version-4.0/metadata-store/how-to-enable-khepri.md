@@ -21,9 +21,6 @@ user should be aware of.
 While Khepri is fully supported in RabbitMQ 4.0.x, it does not have the 17
 years of extensive use that Mnesia has. We encourage all RabbitMQ users to
 test Khepri thoroughly before adopting it in production.
-
-It will be **possible to upgrade from 4.0.x to future releases** with Khepri
-enabled.
 :::
 
 ## Terminology
@@ -72,13 +69,13 @@ supported.
     <TabItem value="bash" label="bash" default>
     ```bash
     # Opt-in to enable Khepri.
-    rabbitmqctl enable_feature_flag --experimental khepri_db
+    rabbitmqctl enable_feature_flag --opt-in khepri_db
     ```
     </TabItem>
     <TabItem value="PowerShell" label="PowerShell">
     ```PowerShell
     # Opt-in to enable Khepri.
-    rabbitmqctl.bat enable_feature_flag --experimental khepri_db
+    rabbitmqctl.bat enable_feature_flag --opt-in khepri_db
     ```
     </TabItem>
     </Tabs>
@@ -112,13 +109,7 @@ nodes with Khepri are clustered together.
 
 4.  Navigate to *"Admin > Feature Flags"*.
 
-5.  Tick *"I understand the risk"* and click the *"Enable"* button:
-
-    <figure className={diagramStyles.diagram}>
-    <EnableInUI/>
-    <figcaption>The experimental feature flags section in the management
-    UI</figcaption>
-    </figure>
+5.  Enable `khepri_db`.
 
 ### Using an Environment Variable
 
