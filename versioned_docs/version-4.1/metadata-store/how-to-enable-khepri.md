@@ -6,7 +6,6 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 import diagramStyles from './diagram.module.css';
-import EnableInUI from './enable-khepri_db-in_management-ui.svg';
 
 # How to Enable Khepri
 
