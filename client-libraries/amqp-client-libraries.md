@@ -195,7 +195,7 @@ connection.close();
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Opening a connection"
-// open a connection from the environment setting   
+// open a connection from the environment setting
 IConnection connection = await environment.CreateConnectionAsync();
 
 //open a connection from the environment with different settings
@@ -213,7 +213,7 @@ await connection.CloseAsync();
 <TabItem value="python" label="Python">
 
 ```python title="Opening a connection"
-# open a connection from the environment setting   
+# open a connection from the environment setting
 connection = environment.connection()
 
 # close the connection when it is no longer necessary
@@ -226,7 +226,7 @@ connection.close()
 <TabItem value="Go" label="Go">
 
 ```Go title="Opening a connection"
-// open a connection from the environment setting   
+// open a connection from the environment setting
 connection, err := env.NewConnection(context.Background())
 
 // close the connection when it is no longer necessary
@@ -268,7 +268,7 @@ Publisher publisher = connection.publisherBuilder()
     .exchange("foo").key("bar")
     .build();
 // ...
-// close the publisher when it is no longer necessary 
+// close the publisher when it is no longer necessary
 publisher.close();
 ```
 
@@ -277,12 +277,12 @@ publisher.close();
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Creating a publisher"
-// The publisher can use exchange (optionally with a key) or queue to publish messages. 
+// The publisher can use exchange (optionally with a key) or queue to publish messages.
 IPublisher publisher = await connection.PublisherBuilder().Exchange("foo").Key("bar")
     .BuildAsync();
 
 // ...
-// close the publisher when it is no longer necessary 
+// close the publisher when it is no longer necessary
 await publisher.CloseAsync();
 publisher.Dispose();
 ```
@@ -292,11 +292,11 @@ publisher.Dispose();
 <TabItem value="python" label="Python">
 
 ```python title="Creating a publisher"
-# The publisher can use exchange (optionally with a key) or queue to publish messages. 
+# The publisher can use exchange (optionally with a key) or queue to publish messages.
 # You can use the AddressHelper utility class to get the addr from the exchange name and the key
 exchange_address = AddressHelper.exchange_address("foo", "bar")
 publisher = connection.publisher(addr)
-# close the publisher when it is no longer necessary 
+# close the publisher when it is no longer necessary
 publisher.close()
 ```
 
@@ -312,7 +312,7 @@ publisher, err := amqpConnection.NewPublisher(context.Background(), &rmq.Exchang
         Key:      "bar",
     }, nil)
 
-// close the publisher when it is no longer necessary 
+// close the publisher when it is no longer necessary
 publisher.close()
 ```
 
@@ -378,7 +378,7 @@ publisher.publish(message, context -> {
 // create the message
 var message = new AmqpMessage("Hello");
 // publish the message and deal with broker feedback
-// The result is synchronous, use a `List<Task<PublishResult>>` to increase the performances 
+// The result is synchronous, use a `List<Task<PublishResult>>` to increase the performances
 PublishResult pr = await publisher.PublishAsync(message);
   switch (pr.Outcome.State)
     {
@@ -386,7 +386,7 @@ PublishResult pr = await publisher.PublishAsync(message);
             // the broker accepted (confirmed) the message
             break;
         case OutcomeState.Released:
-            // the broker could not route the message anywhere 
+            // the broker could not route the message anywhere
             break;
         case OutcomeState.Rejected:
             // at least one queue rejected the message
@@ -409,7 +409,7 @@ match status.remote_state:
     case OutcomeState.ACCEPTED:
         # the broker accepted (confirmed) the message
     case OutcomeState.RELEASED:
-        # the broker could not route the message anywhere 
+        # the broker could not route the message anywhere
     case OutcomeState.REJECTED:
         # at least one queue rejected the message
 ```
@@ -425,20 +425,20 @@ message =  rmq.NewMessage([]byte("Hello")
 // publish the message and deal with broker feedback
 publishResult, err := publisher.Publish(context.Background(),message)
 if err != nil {
-    // there is an error 
+    // there is an error
 }
     switch publishResult.Outcome.(type) {
         case *rmq.StateAccepted:
             // the broker accepted (confirmed) the message
             break
         case *rmq.StateReleased:
-           // the broker could not route the message anywhere 
+           // the broker could not route the message anywhere
             break
         case *rmq.StateRejected:
             // at least one queue rejected the message
             stateType := publishResult.Outcome.(*rmq.StateRejected)
             if stateType.Error != nil {
-                // in case there is error 
+                // in case there is error
             }
             break
         default:
@@ -560,13 +560,13 @@ publisher, err := connection.NewPublisher(context.Background(), &ExchangeAddress
 publisher, err := connection.NewPublisher(context.Background(), &ExchangeAddress{
             Exchange: "foo",
         }, nil)
-    
+
 
 // publish to a queue
 publisher, err := connection.NewPublisher(context.Background(), &QueueAddress{
-    Queue: "some-queue"}, 
+    Queue: "some-queue"},
     nil)
-        
+
 ```
 
 </TabItem>
@@ -664,7 +664,7 @@ await aPublisher.PublishAsync(message);
 publisher = connection.publisher()
 
 # publish to an exchange with a routing key
-# You can use the AddressHelper.message_to_address_helper 
+# You can use the AddressHelper.message_to_address_helper
 # utility class to set the destination in the message
 message = Message(body="Hello!")
 exchange_address = AddressHelper.exchange_address("foo", "bar")
@@ -694,7 +694,7 @@ msg, err = NewMessageWithAddress([]byte("hello"), &ExchangeAddress{
             Key:      "bar",
         })
 
-// create a message with a queue 
+// create a message with a queue
 msg, err = NewMessageWithAddress([]byte("hello"), &QueueAddress{
     Queue: "some-queue"})
 
@@ -702,7 +702,7 @@ msg, err = NewMessageWithAddress([]byte("hello"), &QueueAddress{
 // use the publish
 publishResult, err = publisher.Publish(context.Background(), msg)
 // ...
-        
+
 ```
 
 </TabItem>
@@ -736,7 +736,7 @@ const publishResult = await publisher.publish(message);
 
 #### Support for Streams
 
-If a message is meant to go to a [stream](/docs/streams), it is possible to set its [filter value](/docs/streams#filtering) with the `x-stream-filter-value` message annotation:
+If a message is meant to go to a [stream](/docs/streams), it is possible to set its [filter value](/docs/stream-filtering) with the `x-stream-filter-value` message annotation:
 
 <Tabs groupId="languages">
 <TabItem value="java" label="Java">
@@ -750,7 +750,7 @@ publisher.publish(message, context -> {
 ```
 </TabItem>
 <TabItem value="csharp" label="C#">
-    
+
 ```csharp title="Setting the stream filter value in a message annotation"
 var message = new AmqpMessage(body);
 message.Annotation("x-stream-filter-value", "invoices");// set filter value
@@ -849,9 +849,9 @@ class MyMessageHandler(AMQPMessagingHandler):
         # event.message.body is a byte array. If you have string
         # you can use Converter utility class, like:
         # my_body_string=Converter.bytes_to_string(event.message.body)
-        
+
         self.delivery_context.accept(event)# settle the message
-        
+
 queue_address = AddressHelper.queue_address("some-queue")
 consumer = connection.consumer(queue_address, message_handler=MyMessageHandler())
 consumer.run()
@@ -1000,7 +1000,7 @@ Consumer consumer = connection.consumerBuilder()
     .messageHandler((context, message) -> {
         // message processing
     })
-    .build(); 
+    .build();
 ```
 
 </TabItem>
@@ -1047,7 +1047,7 @@ consumer = consumer_connection.consumer(
 
 <TabItem value="Go" label="Go">
 ```Go title="Attaching to the beginning of a stream"
-consumer, err := connection.NewConsumer(context.Background(), qName, 
+consumer, err := connection.NewConsumer(context.Background(), qName,
     &StreamConsumerOptions{
             Offset: &OffsetFirst{},
         })
@@ -1072,7 +1072,7 @@ const consumer = await connection.createConsumer({
 
 </Tabs>
 
-There is also support for [stream filtering](/docs/streams#filtering) configuration:
+There is also support for [stream filtering](/docs/stream-filtering) configuration:
 
 <Tabs groupId="languages">
 <TabItem value="java" label="Java">
@@ -1080,10 +1080,10 @@ There is also support for [stream filtering](/docs/streams#filtering) configurat
 ```java title="Configuring stream filtering"
 Consumer consumer = connection.consumerBuilder()
     .queue("some-stream")
-    .stream() 
-        .filterValues("invoices", "orders") 
-        .filterMatchUnfiltered(true) 
-    .builder() 
+    .stream()
+        .filterValues("invoices", "orders")
+        .filterMatchUnfiltered(true)
+    .builder()
     .messageHandler((ctx, msg) -> {
         String filterValue = (String) msg.annotation("x-stream-filter-value");
         // there must be some client-side filter logic
@@ -1103,8 +1103,8 @@ Consumer consumer = connection.consumerBuilder()
 IConsumer consumer = await connection.ConsumerBuilder()
     .Queue("some-stream")
     .Stream()
-    .FilterValues(["invoices", "orders"]) 
-    .FilterMatchUnfiltered(true) 
+    .FilterValues(["invoices", "orders"])
+    .FilterMatchUnfiltered(true)
     .Builder()
     .MessageHandler(async (context, message) => {
         string filterValue = (string)message.Annotation("x-stream-filter-value");
@@ -1113,7 +1113,7 @@ IConsumer consumer = await connection.ConsumerBuilder()
             // message processing
         }
         context.Accept();
-            
+
         }
 ).BuildAndStartAsync();
 ```
@@ -1134,7 +1134,7 @@ class MyMessageHandler(AMQPMessagingHandler):
             ### message processing
 
         self.delivery_context.accept(event)
-        
+
 stream_address = AddressHelper.queue_address("some-stream")
 consumer = consumer_connection.consumer(
     stream_address,
@@ -1157,7 +1157,7 @@ deliveryContext, err := consumer.Receive(context.Background())
 var filterValue string
 filterValue = deliveryContext.Message().Annotations["x-stream-filter-value"].(string)
 if filterValue == "orders" || filterValue == "invoices"  {
- // 
+ //
 }
 err = deliveryContext.Accept(context.Background())
 ```
@@ -1799,7 +1799,7 @@ bind_name = management.bind(
 <TabItem value="Go" label="Go">
 
 ```go title="Binding a queue to an exchange"
-// ExchangeToQueueBindingSpecification implements BindingSpecification interface 
+// ExchangeToQueueBindingSpecification implements BindingSpecification interface
 bindingPath, err := management.Bind(context.TODO(), &rmq.ExchangeToQueueBindingSpecification{
         SourceExchange:   "my-exchange",
         DestinationQueue: "my-queue",
@@ -1852,7 +1852,7 @@ await bindingSpec.BindAsync();
 <TabItem value="python" label="Python">
 
 ```python title="Binding an exchange to another exchange"
-    
+
 binding_exchange_queue_path = management.bind(
     ExchangeToExchangeBindingSpecification(
         source_exchange="my-exchange",
@@ -1866,7 +1866,7 @@ binding_exchange_queue_path = management.bind(
 <TabItem value="Go" label="Go">
 
 ```go title="Binding a exchange to an exchange"
-// ExchangeToExchangeBindingSpecification implements BindingSpecification interface 
+// ExchangeToExchangeBindingSpecification implements BindingSpecification interface
 bindingPath, err := management.Bind(context.TODO(), &rmq.ExchangeToExchangeBindingSpecification{
         SourceExchange:   "my-exchange",
         DestinationExchange: "my-other-exchange",
@@ -1977,14 +1977,14 @@ Connection connection = environment.connectionBuilder()
 <TabItem value="csharp" label="C#">
 
 ```csharp title="Attach an event to the ChangeState"
-connection.ChangeState += ( 
+connection.ChangeState += (
      sender, // the sender instance ( in this case the connection)
      fromState, // the previous state
      toState, // the current (new) state
      e // the cause of the failure (in case of failure)
      ) =>
 {
-  
+
 };
 ```
 
@@ -1993,7 +1993,7 @@ connection.ChangeState += (
 <TabItem value="python" label="Python">
 
 ```python title="Attach an event to the ChangeState"
-# CURRENTLY NOT IMPLEMENTED 
+# CURRENTLY NOT IMPLEMENTED
 ```
 
 </TabItem>
@@ -2006,8 +2006,8 @@ stateChanged := make(chan *rmq.StateChanged, 1)
 go func(ch chan *rmq.StateChanged) {
         for statusChanged := range ch {
             // statusChanged.From from status
-            // statusChanged.To to status 
-            // StateClosed has the func GetError() in case of error 
+            // statusChanged.To to status
+            // StateClosed has the func GetError() in case of error
 
         }
     }(stateChanged)
@@ -2186,7 +2186,7 @@ await AmqpConnection.CreateAsync(
 <TabItem value="Go" label="Go">
 
 ```go title=" "
-    // to the BackOffReconnectInterval the client adds a random 500 ms 
+    // to the BackOffReconnectInterval the client adds a random 500 ms
     env := NewEnvironment("amqp://", &AmqpConnOptions{
             RecoveryConfiguration: &RecoveryConfiguration{
                 ActiveRecovery:           true,
