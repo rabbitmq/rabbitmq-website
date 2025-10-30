@@ -46,8 +46,8 @@ Long term support is available to the users who [hold a valid commercial support
 Older releases not listed in the table above are unsupported.
 :::
 
-RabbitMQ 4.1 is the release series currently [under active development](https://github.com/rabbitmq/rabbitmq-server).
-It is expected to be released in the first half of 2025.
+RabbitMQ 4.3 is the release series currently [under active development](https://github.com/rabbitmq/rabbitmq-server).
+It is expected to be released in the first half of 2026.
 
 
 ## Support Policy {#support-policy}
