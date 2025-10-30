@@ -67,6 +67,11 @@ const config = {
         // the future docs).
         'current': {
           releases: [
+            {version: '4.3.0', release_date: "2026-04-28", },
+          ],
+        },
+        '4.2': {
+          releases: [
             {version: '4.2.0', release_date: "2025-10-28", },
           ],
         },
