@@ -135,6 +135,12 @@ In this example, we assume that we want to recreate server-2. Adjust the command
    * `rabbitmq-queues grow rabbit@RMQ_NAME-server-2.RMQ_NAME-nodes.NAMESPACE all`
    * `rabbitmq-streams add_replica STREAM_NAME rabbit@RMQ_NAME-server-2.RMQ_NAME-nodes.NAMESPACE`
 
+:::important
+[In RabbitMQ 4.1 and 4.2, server-0 is special](https://www.rabbitmq.com/blog/2025/04/04/new-k8s-peer-discovery).
+If you need to recreate the node with `-0` suffix, you need to expliclty make it join the existing cluster
+(eg. `rabbitmqctl join_cluster rabbit@RMQ_NAME-server-1`). Otherwise it'll run as a standalone node.
+:::
+
 ### Pods Are Stuck in the Terminating State {#pods-stuck-in-terminating-state}
 
 symptom: "After deleting a RabbitmqCluster instance, some Pods
