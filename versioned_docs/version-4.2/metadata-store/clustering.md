@@ -28,10 +28,20 @@ level</figcaption>
 
 With Khepri, a cluster can be formed using the regular methods:
 
-* using [CLI tools](../cli)
-* using [peer discovery](../cluster-formation)
+* using a [peer discovery mechanism](../cluster-formation) (highly recommended for deployment automation)
+* manually using [CLI tools](../cli) (most suitable for development and test environments)
 
 See the [clustering guide](../clustering) for a complete description.
+
+:::important
+
+When forming a cluster using CLI tools, note that
+starting with RabbitMQ 4.1.0, nodes no longer need to be stopped and reset
+before joining another node.
+
+`rabbitmqctl join_cluster` performs the necessary preparations.
+
+:::
 
 Here is an example using the CLI:
 
