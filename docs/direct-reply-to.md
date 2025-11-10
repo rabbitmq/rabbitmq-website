@@ -178,6 +178,39 @@ CompletableFuture<Message> responseFuture = requester.publish(request);
 Message response = responseFuture.get(10, TimeUnit.SECONDS);
 ```
 </TabItem>
+<TabItem value="C#" label="C#">
+A complete example is available in the [RabbitMQ Amqp1.0 .NET Client repo](
+https://github.com/rabbitmq/rabbitmq-amqp-dotnet-client/tree/main/docs/Examples/Rpc)
+```csharp
+const string requestQueue = "amqp10.net-request-queue";
+
+// create the responder
+IResponder responder = await connection.ResponderBuilder().
+    RequestQueue(requestQueue).Handler(
+    (context, message) =>
+    {
+        // "message" parameter is the incoming message
+        Trace.WriteLine(TraceLevel.Information, $"[Responder] Message received: {message.BodyAsString()} ");
+    
+        // create a reply message
+        IMessage reply = context.Message("reply message");
+        return Task.FromResult(reply);
+     
+    }
+).BuildAsync();
+
+// create the requester, it uses direct reply-to by default
+IRequester requester = await connection.RequesterBuilder().RequestAddress().
+        Queue(requestQueue).Requester().BuildAsync();
+
+IMessage response = await requester.PublishAsync(
+            new AmqpMessage("Hello"));
+Trace.WriteLine(TraceLevel.Information, $"[Requester] Response received: {response.BodyAsString()}");
+       
+```
+
+</TabItem>
+
 <TabItem value="Erlang" label="Erlang">
 ```erlang
 %% 1. Requester attaches its receiving link.
