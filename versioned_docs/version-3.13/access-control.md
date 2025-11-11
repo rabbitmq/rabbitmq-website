@@ -1,5 +1,5 @@
 ---
-title: Authentication, Authorisation, Access Control
+title: Authentication, Authorization, Access Control
 ---
 
 <!--
@@ -22,34 +22,34 @@ limitations under the License.
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Authentication, Authorisation, Access Control
+# Authentication, Authorization, Access Control
 
 ## Overview {#overview}
 
-This document describes [authentication](#authentication) and [authorisation](#authorisation) features
+This document describes [authentication](#authentication) and [authorization](#authorization) features
 in RabbitMQ. Together they allow the operator to control access to the system.
 
 Different users can be granted access only to specific [virtual hosts](./vhosts). Their
 permissions in each virtual host also can be limited.
 
 RabbitMQ supports two major [authentication mechanisms](#mechanisms)
-as well as several [authentication and authorisation backends](#backends).
+as well as several [authentication and authorization backends](#backends).
 
-This guide covers a variety of authentication, authorisation and user management topics such as
+This guide covers a variety of authentication, authorization and user management topics such as
 
  * [Access control essentials](#basics)
  * [Default virtual host and user](#default-state)
  * [Connectivity limitations](#loopback-users) imposed on the default user
- * [Authorisation and resource permissions](#authorisation)
+ * [Authorization and resource permissions](#authorization)
  * How to [manage users and permissions](#user-management) using CLI tools
  * How to change an authentication or authorization [backend used](#backends), or use a combination of backends
  * How to [authenticate clients using their TLS certificate information](#certificate-authentication)
- * How to limit [access to topics on a topic exchange](#topic-authorisation)
+ * How to limit [access to topics on a topic exchange](#topic-authorization)
  * [User tags](#user-tags) and how they are used
  * How to rotate credentials and [revoke access](#revoke) for a user
  * [Shell escaping](#passwords-and-shell-escaping) of characters in generated passwords
  * How to [pre-create users](#seeding) and their permissions
- * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz)
+ * Troubleshooting of [authentication](#troubleshooting-authn) and [authorization failures](#troubleshooting-authz)
 
 [Password-based](./passwords) authentication has a companion guide.
 Two closely related topics of [OAuth 2 support](./oauth2) and  [TLS support](./ssl), including x.509-certificate based authentication,
@@ -58,11 +58,11 @@ are covered in dedicated guides.
 
 ## Terminology and Definitions {#terminology-and-definitions}
 
-Authentication and authorisation are often confused or used
+Authentication and authorization are often confused or used
 interchangeably. That's wrong and in RabbitMQ, the two are
 separated. For the sake of simplicity, we'll define
 authentication as "identifying who the user is" and
-authorisation as "determining what the user is and isn't allowed to do."
+authorization as "determining what the user is and isn't allowed to do."
 
 
 ## The Basics {#basics}
@@ -105,7 +105,7 @@ to reasonably secure generated value that won't be known to the public.
 
 After an application connects to RabbitMQ and before it can perform operations, it must
 authenticate, that is, present and prove its identity. With that identity, RabbitMQ nodes can
-look up its permissions and [authorize](#authorisation) access to resources
+look up its permissions and [authorize](#authorization) access to resources
 such as [virtual hosts](./vhosts), queues, exchanges, and so on.
 
 Two primary ways of authenticating a client are [username/password pairs](./passwords)
@@ -353,7 +353,7 @@ rabbitmqadmin.exe users delete --name "username"
 
 ### Granting Permissions to a User {#grant-permissions}
 
-To grant [permissions](#authorisation) to a user in a [virtual host](./vhosts), use `rabbitmqctl set_permissions` or `rabbitmqadmin declare permissions`:
+To grant [permissions](#authorization) to a user in a [virtual host](./vhosts), use `rabbitmqctl set_permissions` or `rabbitmqadmin declare permissions`:
 
 <Tabs groupId="examples">
 <TabItem value="bash" label="rabbitmqctl with bash" default>
@@ -401,7 +401,7 @@ rabbitmqadmin.exe declare permissions ^
 
 ### Clearing Permissions of a User in a Virtual Host
 
-To revoke [permissions](#authorisation) from a user in a [virtual host](./vhosts), use `rabbitmqctl clear_permissions` or `rabbitmqadmin delete permissions`:
+To revoke [permissions](#authorization) from a user in a [virtual host](./vhosts), use `rabbitmqctl clear_permissions` or `rabbitmqadmin delete permissions`:
 
 <Tabs groupId="examples">
 <TabItem value="bash" label="rabbitmqctl with bash" default>
@@ -531,7 +531,7 @@ That requires the use of the [advanced configuration file](./configure#advanced-
 This topic is covered in more detail in [Configuration Value Encryption](./configure#configuration-encryption).
 
 
-## Authorisation: How Permissions Work {#authorisation}
+## authorization: How Permissions Work {#authorization}
 
 When a RabbitMQ client establishes a connection to a
 server and [authenticates](#authentication), it specifies a virtual host within which it intends
@@ -598,7 +598,7 @@ perform permission checks.
 | PUBLISH        |                      |           | amq.topic |          |
 | PUBLISH        | non-default exchange |           | exchange  |          |
 
-`PUBLISH` operation also requires passing [topic authorisation](#topic-authorisation).
+`PUBLISH` operation also requires passing [topic authorization](#topic-authorization).
 
 </TabItem>
 </Tabs>
@@ -655,44 +655,44 @@ Please refer to the [management plugin guide](./management#permissions) to learn
 more about what tags are supported and how they limit management UI access.
 
 
-## Topic Authorisation {#topic-authorisation}
+## Topic authorization {#topic-authorization}
 
-RabbitMQ supports topic authorisation for topic exchanges. The routing key of a message
+RabbitMQ supports topic authorization for topic exchanges. The routing key of a message
 published to a topic exchange is taken into account when
-publishing authorisation is enforced (e.g. in RabbitMQ default authorisation backend,
+publishing authorization is enforced (e.g. in RabbitMQ default authorization backend,
 the routing key is matched against a regular expression to decide whether the message can be
 routed downstream or not).
-Topic authorisation targets protocols like STOMP and MQTT, which are structured
+Topic authorization targets protocols like STOMP and MQTT, which are structured
 around topics and use topic exchanges under the hood.
 
-Topic authorisation is an additional layer on top of
+Topic authorization is an additional layer on top of
 existing checks for publishers. Publishing a
 message to a topic-typed exchange will go through both the
 <code>basic.publish</code> and the routing key checks.
 The latter is never called if the former refuses access.
 
-Topic authorisation can also be enforced for topic consumers.
+Topic authorization can also be enforced for topic consumers.
 Note that it works differently for different protocols. The concept
-of topic authorisation only really makes sense for the topic-oriented protocols such as MQTT
+of topic authorization only really makes sense for the topic-oriented protocols such as MQTT
 and STOMP. In AMQP 0-9-1, for example, consumers consume from queues
 and thus the standard resource permissions apply. In addition for AMQP 0-9-1,
 binding routing keys between an AMQP 0-9-1 topic exchange and
 a queue/exchange are checked against the topic permissions configured, if any.
-For more information about how RabbitMQ handles authorisation for topics, please see
+For more information about how RabbitMQ handles authorization for topics, please see
 the [STOMP](./stomp) and [MQTT](./mqtt)
 documentation guides.
 
-When default authorisation backend is used, publishing to a
+When default authorization backend is used, publishing to a
 topic exchange or consuming from a topic is always authorised
 if no topic permissions
 are defined (which is the case on a fresh RabbitMQ
-installation). With this authorisation backend, topic
-authorisation is optional: you don't need to approve any
-exchanges. To use topic authorisation therefore you need to opt in
+installation). With this authorization backend, topic
+authorization is optional: you don't need to approve any
+exchanges. To use topic authorization therefore you need to opt in
 and define topic permissions for one or more exchanges. For details please see
 the [rabbitmqctl man page](./man/rabbitmqctl.8).
 
-Internal (default) authorisation backend supports variable expansion
+Internal (default) authorization backend supports variable expansion
 in permission patterns.
 Three variables are supported: <code>username</code>, <code>vhost</code>,
 and `client_id`. Note that `client_id` only
@@ -700,13 +700,13 @@ applies to MQTT. For example, if `tonyg` is the
 connected user, the permission `^{username}-.*` is expanded to
 `^tonyg-.*`
 
-If a different authorisation backend (e.g. [LDAP](./ldap),
+If a different authorization backend (e.g. [LDAP](./ldap),
 [HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/v3.13.x/deps/rabbitmq_auth_backend_http),
 [OAuth 2](./oauth2)) is used, please refer
 to the documentation of those backends.
 
-If a custom authorisation backend is used, topic
-authorisation is enforced by implementing the
+If a custom authorization backend is used, topic
+authorization is enforced by implementing the
 <code>check_topic_access</code> callback of the
 <code>rabbit_authz_backend</code> behavior.
 
@@ -745,26 +745,26 @@ With external [authN backends](#backends) such as [LDAP](./ldap), user accounts 
 therefore the credential rotation routine will also be external to RabbitMQ.
 
 
-## Authentication and Authorisation Backends {#backends}
+## Authentication and authorization Backends {#backends}
 
-Authentication and authorisation are pluggable. Plugins can provide implementations
+Authentication and authorization are pluggable. Plugins can provide implementations
 of:
 
  * authentication ("authn") backends: they determine client identity and decide whether the client should be allowed to connect
- * authorisation ("authz") backends: they determine whether an identified (authenticated) client is authorized to perform a certain operation
+ * authorization ("authz") backends: they determine whether an identified (authenticated) client is authorized to perform a certain operation
 
 It is possible and common for a plugin to provide both backends. RabbitMQ ships with
-the following [built-in plugins](./plugins) which provide both authentication and authorisation backends:
+the following [built-in plugins](./plugins) which provide both authentication and authorization backends:
 
 * [LDAP](./ldap)
 * [HTTP](https://github.com/rabbitmq/rabbitmq-server/tree/v3.13.x/deps/rabbitmq_auth_backend_http)
 
-The following built-in plugins provide authorisation backend implementations:
+The following built-in plugins provide authorization backend implementations:
 
 * [OAuth2](./oauth2)
 
 Some plugins such as [Source IP range one](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range)
-also only provide an authorisation backend.
+also only provide an authorization backend.
 
 Authentication is supposed to be handled by the internal database, LDAP, etc.
 
@@ -781,7 +781,7 @@ several authentication backends are used then the first
 positive result returned by a backend in the chain is
 considered to be final. This should not be confused with
 mixed backends (for example, using LDAP for authentication and internal
-backend for authorisation).
+backend for authorization).
 
 The following example configures RabbitMQ to use the internal backend
 only (and is the default):
@@ -818,7 +818,7 @@ auth_backends.1 = rabbit_auth_backend_ip_range
 When using third party plugins, providing a full module name is necessary.
 
 The following example configures RabbitMQ to use the [LDAP backend](./ldap)
-for both authentication and authorisation. Internal database will not be consulted:
+for both authentication and authorization. Internal database will not be consulted:
 
 ```ini
 auth_backends.1 = ldap
@@ -850,7 +850,7 @@ auth_http.topic_path = http://my-authenticator-app/auth/topic
 ```
 
 The following example configures RabbitMQ to use the internal
-database for authentication and the [source IP range backend](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range) for authorisation:
+database for authentication and the [source IP range backend](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range) for authorization:
 
 ```ini
 # rabbitmq.conf
@@ -861,7 +861,7 @@ auth_backends.1.authz = rabbit_auth_backend_ip_range
 ```
 
 The following example configures RabbitMQ to use the [LDAP backend](./ldap)
-for authentication and the internal backend for authorisation:
+for authentication and the internal backend for authorization:
 
 ```ini
 # rabbitmq.conf
@@ -872,7 +872,7 @@ auth_backends.1.authz = internal
 
 The example below is fairly advanced. It will check LDAP
 first. If the user is found in LDAP then the password will be
-checked against LDAP and subsequent authorisation checks will
+checked against LDAP and subsequent authorization checks will
 be performed against the internal database (therefore users in
 LDAP must exist in the internal database as well, but do not
 need a password there). If the user is not found in LDAP then
@@ -1077,7 +1077,7 @@ authentication failures will result in a visible returned error, exception or ot
 a problem used in a particular programming language or environment.
 
 
-## Troubleshooting Authorisation {#troubleshooting-authz}
+## Troubleshooting authorization {#troubleshooting-authz}
 
 :::tip
 Inspecting [server logs](./logging) is crucially important when investigating authorization-related
@@ -1103,7 +1103,7 @@ access to vhost '/' refused for user 'user2'
 ### Insufficient Permissions
 
 Another very common scenario is that the permissions are defined but they are
-[insufficient for the operations that the client tries to perform](#authorisation).
+[insufficient for the operations that the client tries to perform](#authorization).
 
 In this case the connection will be accepted
 
@@ -1156,7 +1156,7 @@ rabbitmqadmin.exe users permissions --vhost "gw1"
 </TabItem>
 </Tabs>
 
-Authorisation failures (permission violations) are logged with the following messages:
+authorization failures (permission violations) are logged with the following messages:
 
 ```ini
 2019-03-25 12:30:05.209 [error] <0.1627.0> Channel error on connection <0.1618.0> (127.0.0.1:63881 -> 127.0.0.1:5672, vhost: 'gw1', user: 'user2'), channel 1:
