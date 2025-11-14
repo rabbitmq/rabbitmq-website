@@ -295,10 +295,10 @@ to simulate different workloads.
 Their goal is to exercise all metrics in the RabbitMQ Overview dashboard. These examples are meant to be
 edited and extended as developers and operators see fit when exploring various metrics, their thresholds and behaviour.
 
-To deploy a workload app, run `docker-compose -f docker-compose-overview.yml up -d`.
+To deploy a workload app, run `docker compose -f docker-compose-overview.yml up -d`.
 The same command will redeploy the app after the file has been updated.
 
-To delete all workload containers, run `docker-compose -f docker-compose-overview.yml down` or
+To delete all workload containers, run `docker compose -f docker-compose-overview.yml down` or
 
 ```bash
 gmake down
@@ -320,7 +320,7 @@ For example, the `docker-compose-dist-tls.yml` Compose manifest is meant to stre
 the [inter-node communication links](./clustering). This workload uses a lot of system resources.
 `docker-compose-qq.yml` contains a quorum queue workload.
 
-To stop and delete all containers used by the workloads, run `docker-compose -f [file] down` or
+To stop and delete all containers used by the workloads, run `docker compose -f [file] down` or
 
 ```bash
 make down
