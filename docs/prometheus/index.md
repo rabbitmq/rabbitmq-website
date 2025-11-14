@@ -107,8 +107,10 @@ Their installation is out of scope of this guide. Use
 git version
 ```
 
+> docker-compose CLI is deprecated, use `docker compose` instead
+
 ```bash
-docker info && docker-compose version
+docker info && docker compose version
 ```
 
 on the command line to verify that the necessary tools are available.
@@ -130,11 +132,11 @@ Next use Docker Compose manifests to run a pre-configured RabbitMQ cluster, a Pr
 workload that will produce the metrics displayed in the RabbitMQ overview dashboard:
 
 ```bash
-docker-compose -f docker-compose-metrics.yml up -d
-docker-compose -f docker-compose-overview.yml up -d
+docker compose -f docker-compose-metrics.yml up -d
+docker compose -f docker-compose-overview.yml up -d
 ```
 
-The `docker-compose` commands above can also be executed with a `make` target:
+The `docker compose` commands above can also be executed with a `make` target:
 
 ```bash
 make metrics overview
