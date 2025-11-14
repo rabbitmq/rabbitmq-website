@@ -107,8 +107,10 @@ Their installation is out of scope of this guide. Use
 git version
 ```
 
+> docker-compose CLI is deprecated, use `docker compose` instead
+
 ```bash
-docker info && docker-compose version
+docker info && docker compose version
 ```
 
 on the command line to verify that the necessary tools are available.
@@ -130,11 +132,11 @@ Next use Docker Compose manifests to run a pre-configured RabbitMQ cluster, a Pr
 workload that will produce the metrics displayed in the RabbitMQ overview dashboard:
 
 ```bash
-docker-compose -f docker-compose-metrics.yml up -d
-docker-compose -f docker-compose-overview.yml up -d
+docker compose -f docker-compose-metrics.yml up -d
+docker compose -f docker-compose-overview.yml up -d
 ```
 
-The `docker-compose` commands above can also be executed with a `make` target:
+The `docker compose` commands above can also be executed with a `make` target:
 
 ```bash
 make metrics overview
@@ -293,10 +295,10 @@ to simulate different workloads.
 Their goal is to exercise all metrics in the RabbitMQ Overview dashboard. These examples are meant to be
 edited and extended as developers and operators see fit when exploring various metrics, their thresholds and behaviour.
 
-To deploy a workload app, run `docker-compose -f docker-compose-overview.yml up -d`.
+To deploy a workload app, run `docker compose -f docker-compose-overview.yml up -d`.
 The same command will redeploy the app after the file has been updated.
 
-To delete all workload containers, run `docker-compose -f docker-compose-overview.yml down` or
+To delete all workload containers, run `docker compose -f docker-compose-overview.yml down` or
 
 ```bash
 gmake down
@@ -318,7 +320,7 @@ For example, the `docker-compose-dist-tls.yml` Compose manifest is meant to stre
 the [inter-node communication links](./clustering). This workload uses a lot of system resources.
 `docker-compose-qq.yml` contains a quorum queue workload.
 
-To stop and delete all containers used by the workloads, run `docker-compose -f [file] down` or
+To stop and delete all containers used by the workloads, run `docker compose -f [file] down` or
 
 ```bash
 make down
