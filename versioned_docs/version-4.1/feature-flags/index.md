@@ -656,7 +656,7 @@ The following feature flags are provided by plugin
   </thead>
   <tbody>
     <tr>
-      <td></td>
+      <td>4.0.0</td>
       <td>3.13.0</td>
       <td>mqtt_v5</td>
       <td>
@@ -664,7 +664,7 @@ The following feature flags are provided by plugin
       </td>
     </tr>
     <tr>
-      <td></td>
+      <td>4.0.0</td>
       <td>3.12.0</td>
       <td>delete_ra_cluster_mqtt_node</td>
       <td>
@@ -672,7 +672,7 @@ The following feature flags are provided by plugin
       </td>
     </tr>
     <tr>
-      <td></td>
+      <td>4.0.0</td>
       <td>3.12.0</td>
       <td>rabbit_mqtt_qos0_queue</td>
       <td>
