@@ -1084,7 +1084,7 @@ mechanism which first looks for `sub` and then `client_id`.
 Some OAuth 2.0 providers requires certain query parameters in the OpenId Discovery endpoint. For
 instance, Microsoft Entra ID requires a query parameter called `appid` when the application uses
 custom signing keys. The discovery endpoint returns an OpenId configuration tailored for the
-application that matches the `appid`. For instance, the `jkws_uri` endpoint returned in the OpenId
+application that matches the `appid`. For instance, the `jwks_uri` endpoint returned in the OpenId
 configuration has already the query parameters sent to the discovery endpoint.
 
 Here is an example of setting these parameters including the rest of the variables used to build the
