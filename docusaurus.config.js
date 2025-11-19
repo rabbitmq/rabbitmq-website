@@ -250,6 +250,11 @@ const config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/rabbitmq/rabbitmq-website/tree/main/',
+          versions: {
+            '3.13': {
+              banner: 'none'
+            },
+          },
         },
         blog: {
           blogSidebarCount: 0,
