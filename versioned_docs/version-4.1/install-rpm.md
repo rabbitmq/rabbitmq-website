@@ -71,11 +71,11 @@ or ship without much or any testing on older distributions or OS kernel versions
 
 Older distributions can also lack a recent enough version of OpenSSL.
 [Supported Erlang versions](./which-erlang) **cannot be used on distributions that do not provide OpenSSL 1.1** as a system library.
-CentOS 7 and Fedora releases older than 26 are examples of such distributions.
+CentOS 7 is an example of such a distribution.
 
 Currently the list of supported RPM-based distributions includes
 
- * Fedora 40 through 42
+ * Fedora 41 through 43
  * [CentOS Stream](https://centos.org/centos-stream/) 9.x
  * RedHat Enterprise Linux 9.x and 8.x (versions covered by [full support](https://access.redhat.com/support/policy/updates/errata))
  * Amazon Linux 2023
@@ -95,6 +95,13 @@ In environments where `sudo` isn't available, consider using the
 [generic binary build](./install-generic-unix).
 
 
+## Repository Update Frequency {#mirror-updates}
+
+The repositories (mirrors) mentioned in this guide are updated every two to four weeks.
+This means that the contents of the repositories can be missing the latest patch release(s)
+of RabbitMQ and Erlang/OTP for up to a few weeks depending on their release schedule.
+
+
 ## Install Erlang {#install-erlang}
 
 Before installing RabbitMQ, you must install a [supported version](./which-erlang) of Erlang/OTP.
@@ -106,7 +113,7 @@ There are three alternative sources for modern Erlang on RPM-based distributions
  * Team RabbitMQ produces [a package](https://github.com/rabbitmq/erlang-rpm) stripped
    down to only provide those components needed to run
    RabbitMQ. This is the recommended option.
- * Fedora provides [up-to-date Erlang packages](https://packages.fedoraproject.org/pkgs/erlang/erlang/)
+ * Fedora provides [up-to-date Erlang 26 packages](https://packages.fedoraproject.org/pkgs/erlang/erlang/)
  * [Erlang Solutions](https://www.erlang-solutions.com/resources/download.html) produces packages that are usually reasonably up to
    date and involve installation of a potentially excessive list of dependencies
 
