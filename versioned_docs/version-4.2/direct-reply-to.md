@@ -279,42 +279,37 @@ end.
 ```
 </TabItem>
 <TabItem value="Go" label="Go">
-A complete example is available in the [tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/rpc_amqp10.go).
+
+A complete example is available in the [client repo](https://github.com/rabbitmq/rabbitmq-amqp-go-client/blob/main/docs/examples/rpc_echo_server/main.go)
+
+A complete example with the [Azure amqp client](https://github.com/Azure/go-amqp/) is available in the [tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/rpc_amqp10.go).
+
 ```go
-// RPC client creates a receiver
-receiver, err := session.NewReceiver(ctx, "", &amqp.ReceiverOptions{
-    SourceCapabilities:        []string{"rabbitmq:volatile-queue"},
-    SourceExpiryPolicy:        amqp.ExpiryPolicyLinkDetach,
-    DynamicAddress:            true,
-    RequestedSenderSettleMode: amqp.SenderSettleModeSettled.Ptr(),
-})
+const requestQueue = "go-amqp1.0-request-queue"
 
-// RPC client uses the generated address when sending a request
-replyAddress := receiver.Address()
-requestMsg := &amqp.Message{
-    Properties: &amqp.MessageProperties{
-        MessageID: messageID,
-        ReplyTo:   &replyAddress,
-    },
-    Data: ...,
+// RPC client creates a responder
+responder, err := conn.NewResponder(context.TODO(), rabbitmqamqp.ResponderOptions{
+        RequestQueue: requestQueue,
+        Handler: func(ctx context.Context, request *amqp.Message) (*amqp.Message, error) {
+            return request, nil
+        },
+    })
+
+
+requester, err := clientConn.NewRequester(context.TODO(), &rabbitmqamqp.RequesterOptions{
+        RequestQueueName: requestQueue,
+        // the option to enable the DirectReplyTo feature
+        DirectReplyTo: true,
+    })
+
+
+resp, err := requester.Publish(context.TODO(), amqp.NewMessage([]byte("hello")))
+m, ok := <-resp
+if !ok {
+    fmt.Println("timed out waiting for response")
+    continue
 }
-
-// RPC server extracts the message ID and reply-to address
-
-msg, _ := receiver.Receive(ctx, nil)
-_ = receiver.AcceptMessage(ctx, msg)
-messageID := msg.Properties.MessageID.(string)
-replyTo := *msg.Properties.ReplyTo
-
-// RPC server uses the reply-to value and message ID in its response
-sender, _ := session.NewSender(ctx, replyTo, nil)
-
-replyMsg := &amqp.Message{
-    Properties: &amqp.MessageProperties{
-        CorrelationID: messageID,
-    },
-    Data: ...,
-}
+fmt.Printf("response: %s\n", m.GetData())
 ```
 </TabItem>
 </Tabs>
