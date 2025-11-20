@@ -137,31 +137,29 @@ the default user will be refused with a [log message](./logging) similar to this
 [error] <0.918.0> PLAIN login refused: user 'guest' can only connect via localhost
 ```
 
+:::tip
+
 The recommended way to address this in production systems
 is to create a new user with generated credentials, or set of users, with the permissions
 to access the necessary virtual hosts. This can be done
-using [CLI tools](./cli), [HTTP API or definitions import](./management).
-
-:::danger
-
-[Fedora Linux's RabbitMQ package](https://packages.fedoraproject.org/pkgs/rabbitmq-server/rabbitmq-server/) is
-[patched](https://src.fedoraproject.org/rpms/rabbitmq-server/blob/f41/f/rabbitmq-server-0001-Allow-guest-login-from-non-loopback-connections.patch)
-to allow for remote connections with well known credentials.
-
-This practice is very strongly recommended against.
-Fedora Linux users should consider installing RabbitMQ from [Team RabbitMQ's package
-repositories](/docs/install-rpm/) and avoid using the distribution-packaged version unless this serious
-distribution-specific security flaw is [addressed](https://bugzilla.redhat.com/show_bug.cgi?id=2333073).
+using [a definitions file](./definitions#import-on-boot), [CLI tools](./cli), or the [HTTP API](./http-api-reference).
 
 :::
 
-This is configured via the <code>loopback_users</code> item
-in the [configuration file](./configure#configuration-files).
+The list of loopback users is configured via the <code>loopback_users</code> item
+in the [configuration file](./configure#configuration-files). It includes one entry by default: the user `guest`,
+which has well known default credentials.
+
+:::danger
 
 It is possible to allow the <code>guest</code> user to connect
-from a remote host by setting the
-<code>loopback_users</code> configuration to
-<code>none</code>.
+from a remote host by setting the `loopback_users` configuration key to `none`.
+
+Allowing remote connections for the default user with well known default credentials
+is very strongly recommended against: doing so will dramatically reduce the security of the
+cluster.
+
+:::
 
 A minimalistic [RabbitMQ config file](./configure)
 which allows remote connections for <code>guest</code> looks like so:
@@ -170,7 +168,7 @@ which allows remote connections for <code>guest</code> looks like so:
 # DANGER ZONE!
 #
 # allowing remote connections for default user is highly discouraged
-# as it dramatically decreases the security of the system. Delete the default user
+# as it dramatically decreases the security of the cluster. Delete the default user
 # instead and create a new one with generated secure credentials, or use JWT tokens,
 # or x.509 certificates for clients to authenticate themselves
 loopback_users = none
