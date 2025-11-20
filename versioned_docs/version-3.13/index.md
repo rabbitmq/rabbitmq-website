@@ -22,6 +22,11 @@ import {
     RabbitMQServerReleaseBranch,
     RabbitMQServerVersion,
 } from '@site/src/components/RabbitMQServer';
+import Admonition from '@theme/Admonition';
+
+<Admonition type="warning" icon="" title="" className="margin-top--sm">
+  This is documentation for RabbitMQ <strong>3.13</strong>, which is no longer actively maintained by the open source community but is commercially supported through VMware Tanzu RabbitMQ through Dec 30, 2027.
+</Admonition>
 
 # RabbitMQ <RabbitMQServerReleaseBranch/> Documentation
 
