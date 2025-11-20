@@ -148,7 +148,7 @@ the default user will be refused with a [log message](./logging) similar to this
 The recommended way to address this in production systems
 is to create a new user with generated credentials, or set of users, with the permissions
 to access the necessary virtual hosts. This can be done
-using [a definitions file](./definitions#import-on-boot), [CLI tools](./cli), or the [HTTP API](./http-api-reference).
+using [a definitions file](./definitions#import-on-boot), [CLI tools](./cli), or the [HTTP API](./management).
 
 :::
 
