@@ -296,6 +296,15 @@ cluster_formation.peer_discovery_backend = dns
 cluster_formation.dns.hostname = discovery.eng.example.local
 ```
 
+### DNS Peer Discovery and the Parallel Cluster Formation Race Condition
+
+The DNS peer discovery backend does not use locking to prevent the [inherent race condition](#initial-formation-race-condition) during parallel initial cluster formation and requires a random startup delay to be injected by the deployment tooling.
+
+A random value in the 1 to 20 second range is recommended
+for most environments. In the environments where nodes are dynamically registered
+with the DNS system and it can take time, use a broader range, such as 1 to 60 seconds.
+
+
 ### Host File Modifications in Containerized Environments
 
 :::warning
@@ -1351,6 +1360,12 @@ forming the cluster (seeding) or joining a peer. What locks are used varies from
  * Classic config file, K8s, and AWS backends use a built-in [locking library](https://erlang.org/doc/man/global.html#set_lock-3) provided by the runtime
  * The Consul peer discovery backend sets a lock in Consul
  * The etcd peer discovery backend sets a lock in etcd
+
+The [DNS peer discovery mechanism](#peer-discovery-dns) does not use locking and requires a random startup delay
+to be injected by the deployment tooling. A random value in the 1 to 20 second range is recommended
+for most environments. In the environments where nodes are dynamically registered
+with the DNS system and it can take time, use a broader range, such as 1 to 60 seconds.
+
 
 ## Node Health Checks and Forced Removal {#node-health-checks-and-cleanup}
 
