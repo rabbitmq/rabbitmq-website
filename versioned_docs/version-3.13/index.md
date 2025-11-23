@@ -24,18 +24,14 @@ import {
 } from '@site/src/components/RabbitMQServer';
 import Admonition from '@theme/Admonition';
 
-<Admonition type="warning" icon="" title="" className="margin-top--sm">
-  This is documentation for RabbitMQ <strong>3.13</strong>, which is no longer actively maintained by the open source community but is commercially supported through VMware Tanzu RabbitMQ through Dec 30, 2027.
-</Admonition>
-
 # RabbitMQ <RabbitMQServerReleaseBranch/> Documentation
 
 Welcome to RabbitMQ documentation!
 
-:::note
-You are currently viewing the documentation for <strong>RabbitMQ
-<RabbitMQServerVersion/></strong>.
-:::
+<Admonition type="warning" icon="" title="" className="margin-top--sm">
+    This is documentation for RabbitMQ <strong>3.13</strong>, a series out of community support:
+    new patch releases in this series are only available to paying customers through <a href="/release-information">through Dec 30, 2027</a>.
+</Admonition>
 
 <div class="docs-tips">
 <div class="docs-tip-version-menu">
