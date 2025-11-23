@@ -22,15 +22,16 @@ import {
     RabbitMQServerReleaseBranch,
     RabbitMQServerVersion,
 } from '@site/src/components/RabbitMQServer';
+import Admonition from '@theme/Admonition';
 
 # RabbitMQ <RabbitMQServerReleaseBranch/> Documentation
 
 Welcome to RabbitMQ documentation!
 
-:::note
-You are currently viewing the documentation for <strong>RabbitMQ
-<RabbitMQServerVersion/></strong>.
-:::
+<Admonition type="warning" icon="" title="" className="margin-top--sm">
+    This is documentation for RabbitMQ <strong>3.13</strong>, a series out of community support:
+    new patch releases in this series are only available to paying customers through <a href="/release-information">through Dec 30, 2027</a>.
+</Admonition>
 
 <div class="docs-tips">
 <div class="docs-tip-version-menu">
