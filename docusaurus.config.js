@@ -72,6 +72,7 @@ const config = {
         },
         '4.2': {
           releases: [
+            {version: '4.2.1', release_date: "2025-11-23", },
             {
               version: '4.2.0',
               release_date: "2025-10-28",
