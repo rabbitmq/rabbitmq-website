@@ -315,8 +315,8 @@ As soon as a quorum queue receives a message with a priority set it will enable
 prioritization.
 
 Quorum queues internally only support two priorities: high and normal. Messages without
-a priority set will be mapped to normal as will priorities 0 - 4. Messages with a
-priority higher than 4 will be mapped to high.
+a priority set or having priorities in the [0, 4] range will be considered to be of normal priority.
+Messages with a priority higher than 4 will be considered to be of high priority.
 
 High priority messages will be favoured over normal priority messages at a ratio
 of 2:1, i.e. for every 2 high priority message the queue will deliver 1 normal priority

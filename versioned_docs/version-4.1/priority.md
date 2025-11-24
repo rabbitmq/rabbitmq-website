@@ -1,5 +1,5 @@
 ---
-title: Classic Queues Support Priorities
+title: Priority Support in Queues
 ---
 <!--
 Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Classic Queues Support Priorities
+# Priority Support in Queues
 
 ## Pre-requisites
 
@@ -43,7 +43,7 @@ Priority queues deliver messages in the order of message priorities. A message p
 at publishing time.
 
 Consider a queue with three messages, A, B and C, published with equal priorities and enqueued in that order
-into a "regular" quorum queue:
+into a "regular" classic queue:
 
 | Message | Enqueueing Order | Priority |
 |---------|------------------|----------|
@@ -87,13 +87,23 @@ while keeping the standard delivery behavior, and offer [better runtime parallel
 
 ## Declaration and Supported Priority Ranges {#declaration}
 
-Classic queues support priorities in the [0, 255] range. Quorum queues support a much smaller range: 1 through 4.
+### Classic Queues
 
-For this reason and others, **using from 2 to 4 priorities is highly recommended** for classic queues (a single priority does not make much practical sense).
+Classic queues support priorities in the [0, 255] range.
 
-Specifically in the case of classic queues, higher priority values will use more CPU and memory resources: RabbitMQ needs to internally maintain a sub-queue for each priority from 1, up to the maximum value configured for a given queue.
+Specifically in the case of classic queues, higher priority values will use more CPU and memory resources:
+RabbitMQ needs to internally maintain a sub-queue for each priority from 1, up to the maximum value configured for a given queue.
 
-A queue can become a priority queue by using client-provided [optional arguments](./queues#optional-arguments).
+:::tip
+
+Using a single digit number of priorities is highly recommended for classic queues.
+It is both sufficient for nearly every use case, and has a reasonable overhead per queue.
+
+:::
+
+### Configuring the Maximum Number of Priorities
+
+The maximum number of classic queue priorities can be configured using client-provided [optional arguments](./queues#optional-arguments).
 
 Declaring a queue as a priority queue [using policies](#using-policies) is [not supported by design](#using-policies).
 For the reasons why, refer to [Why Policy Definition is not Supported for Priority Queues](#using-policies).
@@ -118,6 +128,25 @@ Publishers can then publish prioritised messages using the
 `priority` field of
 `basic.properties`. Larger numbers indicate higher
 priority.
+
+### Quorum Queues
+
+Quorum queues internally only support two priorities: high and normal. Messages without
+a priority set or having priorities in the [0, 4] range will be considered to be of normal priority.
+
+Messages with a priority higher than 4 will be considered to be of high priority.
+
+Now, consider a priority quorum queue with the same messages, but with different priorities:
+
+| Message | Enqueueing Order | Priority |
+|---------|------------------|----------|
+| A       | 1                | 1        |
+| B       | 2                | 2        |
+| C       | 3                | 8        |
+
+These messages will be dispatched (sent) to a consumer (or multiple consumers) in the following order: C, A, B.
+Message C will be considered a high priority message, while A and B will
+both have normal priority.
 
 ## Priority Queue Behaviour {#behaviour}
 
@@ -146,8 +175,8 @@ published with the maximum priority.
 
 ## Maximum Number of Priorities and Resource Usage {#resource-usage}
 
-For environments that adopt publishing with priorities and priority queues, using **from 2 to 4 priorities** is highly recommended.
-If you must go higher than 4, using up to 10 priorities is usually sufficient (keep it to a single digit number).
+For environments that adopt publishing with priorities and priority queues, using **a low single digit number of priorities**
+is highly recommended.
 
 With classic queues, using more priorities consumes more CPU resources by using more Erlang processes.
 [Runtime scheduling](./runtime) would also be affected.

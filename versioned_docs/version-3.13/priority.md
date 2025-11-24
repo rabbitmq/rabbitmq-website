@@ -1,5 +1,5 @@
 ---
-title: Classic Queues Support Priorities
+title: Priority Support in Queues
 ---
 <!--
 Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Classic Queues Support Priorities
+# Priority Support in Queues
 
 ## Pre-requisites
 
@@ -87,11 +87,23 @@ while keeping the standard delivery behavior, and offer [better runtime parallel
 
 ## Declaration and Supported Priority Ranges {#declaration}
 
-Classic queues support priorities in the [1, 255] range. However, **using from 2 to 4 priorities is highly recommended** (a single priority does not make much practical sense).
+### Classic Queues
 
-Higher priority values will use more CPU and memory resources: RabbitMQ needs to internally maintain a sub-queue for each priority from 1, up to the maximum value configured for a given queue.
+Classic queues support priorities in the [1, 255] range.
 
-A classic queue can become a priority queue by using client-provided [optional arguments](./queues#optional-arguments).
+Higher priority values will use more CPU and memory resources:
+RabbitMQ needs to internally maintain a sub-queue for each priority from 1, up to the maximum value configured for a given queue.
+
+:::tip
+
+Using a single digit number of priorities is highly recommended for classic queues.
+It is both sufficient for nearly every use case, and has a reasonable overhead per queue.
+
+:::
+
+### Configuring the Maximum Number of Priorities
+
+The maximum number of classic queue priorities can be configured using client-provided [optional arguments](./queues#optional-arguments).
 
 Declaring a classic queue as a priority queue [using policies](#using-policies) is [not supported by design](#using-policies).
 For the reasons why, refer to [Why Policy Definition is not Supported for Priority Queues](#using-policies).
@@ -143,8 +155,8 @@ published with the maximum priority.
 
 ## Maximum Number of Priorities and Resource Usage {#resource-usage}
 
-For environments that adopt publishing with priorities and priority queues, using **from 2 to 4 priorities** is highly recommended.
-If you must go higher than 4, using up to 10 priorities is usually sufficient (keep it to a single digit number).
+For environments that adopt publishing with priorities and priority queues, using **a low single digit number of priorities**
+is highly recommended.
 
 With classic queues, using more priorities consumes more CPU resources by using more Erlang processes.
 [Runtime scheduling](./runtime) would also be affected.
