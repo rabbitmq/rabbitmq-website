@@ -137,7 +137,10 @@ The following shows the supported upgrade paths.
 
 | From     | To     |
 |----------|--------|
+| 4.1.x    | 4.2.x  |
+| 4.0.x    | 4.2.x  |
 | 4.0.x    | 4.1.x  |
+| 3.13.x   | 4.2.x  |
 | 3.13.x   | 4.1.x  |
 | 3.13.x   | 4.0.x  |
 | 3.12.x   | 3.13.x |
@@ -357,7 +360,7 @@ rabbitmq-upgrade.bat revive
 </Tabs>
 
 The command exists to roll back (to the extent possible) the effects of the `drain` command.
-It is only necessary to run this command if you decided you can't restart the node as planned. 
+It is only necessary to run this command if you decided you can't restart the node as planned.
 
 It is **not** necessary to revive a node after it was restarted/upgraded, because the restart
 automatically takes the node out of maintenance mode.
@@ -411,5 +414,3 @@ Many client libraries libraries support host lists, for example:
 * [Java client](https://rabbitmq.github.io/rabbitmq-java-client/api/current/com/rabbitmq/client/ConnectionFactory.html#newConnection%28com.rabbitmq.client.Address%5B%5D%29)
 * [.NET client](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/main/projects/RabbitMQ.Client/client/api/ConnectionFactory.cs#L392)
 * [Bunny](http://api.rubybunny.info/Bunny/Session.html#constructor_details)
-
-
