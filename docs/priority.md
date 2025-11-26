@@ -173,6 +173,25 @@ higher than the queue's maximum are treated as if they were
 published with the maximum priority.
 
 
+## Low Message Priority and the Resource Starvation Problem {#resource-starvation}
+
+A common issue with priority-based message delivery is [resource starvation](https://en.wikipedia.org/wiki/Starvation_(computer_science)).
+In the context of priority queues, this means that only messages with higher priorities
+are delivered, and lower-priority messages are never delivered.
+
+Both classic and quorum queues in RabbitMQ prevent starvation.
+
+Classic queues' priority implementation uses sub-queues. For every delivery cycle, the queue will
+deliver the messages in the highest-priority sub-queue first, then proceed to the next-highest-priority sub-queue,
+all the way to the lowest-priority sub-queue.
+
+High-priority messages enqueued during a delivery cycle will be delivered
+during the next cycle, preventing starvation.
+
+Quorum queues always deliver a proportion of normal-priority messages for every
+batch of high-priority messages, which prevents starvation.
+
+
 ## Maximum Number of Priorities and Resource Usage {#resource-usage}
 
 For environments that adopt publishing with priorities and priority queues, using **a low single digit number of priorities**
