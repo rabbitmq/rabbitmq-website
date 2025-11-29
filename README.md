@@ -134,8 +134,8 @@ When a new version series comes out, a separate edition of the docs must
 be explicitly added using
 
 ```shell
-# adds a series for 4.2.x
-npm run docusaurus docs:version 4.2
+# adds a series for 4.3.x
+npm run docusaurus docs:version 4.3
 ```
 
 
