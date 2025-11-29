@@ -197,8 +197,8 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
     Reliable publishing with publisher confirms
 
     * [Java](tutorials/tutorial-seven-java)
-    * [C#](tutorials/tutorial-seven-dotnet)
     * [Kotlin](tutorials/tutorial-seven-kotlin)
+    * [C#](tutorials/tutorial-seven-dotnet)
     * [PHP](tutorials/tutorial-seven-php)
   </td>
   <td class="tutorial-empty"></td>
