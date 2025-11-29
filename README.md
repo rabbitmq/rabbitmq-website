@@ -30,8 +30,8 @@ branch and directory:
 |---------------------|--------|---------------|-----------|
 | Development version (4.3) | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `docs` | [`www.rabbitmq.com/docs/next`](https://www.rabbitmq.com/docs/next) |
 | 4.2 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.2` | [`www.rabbitmq.com/docs`](https://www.rabbitmq.com/docs) |
-| 4.1 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.1` | [`www.rabbitmq.com/docs`](https://www.rabbitmq.com/docs/4.1) |
-| 4.0 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.0` | [`www.rabbitmq.com/docs`](https://www.rabbitmq.com/docs/4.0) |
+| 4.1 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.1` | [`www.rabbitmq.com/docs/4.1`](https://www.rabbitmq.com/docs/4.1) |
+| 4.0 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.0` | [`www.rabbitmq.com/docs/4.0`](https://www.rabbitmq.com/docs/4.0) |
 | 3.13 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-3.13` | [`www.rabbitmq.com/docs/3.13`](https://www.rabbitmq.com/docs/3.13) |
 | 3.12 | [`v3.12.x`](https://github.com/rabbitmq/rabbitmq-website/tree/v3.12.x) | root | (no longer available) |
 
