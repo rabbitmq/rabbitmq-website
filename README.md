@@ -17,7 +17,7 @@ Sorry about this annoyance and thank you!
 ### TL;DR
 
 This repository contains documentation guides for multiple RabbitMQ release series.
-At the moment they are `4.2.x` (in development), `4.1.x`, `4.0.x`, and `3.13.x`.
+At the moment they are `4.3.x` (in development), `4.2.x`, `4.1.x`, `4.0.x`, and `3.13.x`.
 
 Therefore, the very first question to consder before making any changes is:
 what editions (versions) does my change apply to? Should I update just the next release edition,
