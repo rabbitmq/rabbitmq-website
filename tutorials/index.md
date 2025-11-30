@@ -72,6 +72,7 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
 
     * [Python](tutorials/tutorial-one-python)
     * [Java](tutorials/tutorial-one-java)
+    * [Kotlin](tutorials/tutorial-one-kotlin)
     * [Ruby](tutorials/tutorial-one-ruby)
     * [PHP](tutorials/tutorial-one-php)
     * [C#](tutorials/tutorial-one-dotnet)
@@ -92,6 +93,7 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
 
     * [Python](tutorials/tutorial-two-python)
     * [Java](tutorials/tutorial-two-java)
+    * [Kotlin](tutorials/tutorial-two-kotlin)
     * [Ruby](tutorials/tutorial-two-ruby)
     * [PHP](tutorials/tutorial-two-php)
     * [C#](tutorials/tutorial-two-dotnet)
@@ -112,6 +114,7 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
 
     * [Python](tutorials/tutorial-three-python)
     * [Java](tutorials/tutorial-three-java)
+    * [Kotlin](tutorials/tutorial-three-kotlin)
     * [Ruby](tutorials/tutorial-three-ruby)
     * [PHP](tutorials/tutorial-three-php)
     * [C#](tutorials/tutorial-three-dotnet)
@@ -134,6 +137,7 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
 
     * [Python](tutorials/tutorial-four-python)
     * [Java](tutorials/tutorial-four-java)
+    * [Kotlin](tutorials/tutorial-four-kotlin)
     * [Ruby](tutorials/tutorial-four-ruby)
     * [PHP](tutorials/tutorial-four-php)
     * [C#](tutorials/tutorial-four-dotnet)
@@ -154,6 +158,7 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
 
     * [Python](tutorials/tutorial-five-python)
     * [Java](tutorials/tutorial-five-java)
+    * [Kotlin](tutorials/tutorial-five-kotlin)
     * [Ruby](tutorials/tutorial-five-ruby)
     * [PHP](tutorials/tutorial-five-php)
     * [C#](tutorials/tutorial-five-dotnet)
@@ -174,6 +179,7 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
 
     * [Python](tutorials/tutorial-six-python)
     * [Java](tutorials/tutorial-six-java)
+    * [Kotlin](tutorials/tutorial-six-kotlin)
     * [Ruby](tutorials/tutorial-six-ruby)
     * [PHP](tutorials/tutorial-six-php)
     * [C#](tutorials/tutorial-six-dotnet)
@@ -191,6 +197,7 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
     Reliable publishing with publisher confirms
 
     * [Java](tutorials/tutorial-seven-java)
+    * [Kotlin](tutorials/tutorial-seven-kotlin)
     * [C#](tutorials/tutorial-seven-dotnet)
     * [PHP](tutorials/tutorial-seven-php)
   </td>
