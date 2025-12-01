@@ -936,6 +936,7 @@ but must have consistent [guardrails](./limits).
 ## In this example, "limits" is the operator policy name.
 default_policies.operator.limits.vhost_pattern = ^prod-.*
 default_policies.operator.limits.queue_pattern = .*
+default_policies.operator.limits.apply_to = queues
 default_policies.operator.limits.max_length = 10000
 default_policies.operator.limits.message_ttl = 86400000
 ```
