@@ -178,6 +178,12 @@ the threshold, due to the fact that the total amount of system
 RAM is queried.
 
 
+## Memory Allocators {#allocators}
+
+Runtime's memory allocation settings can affect a node's memory footprint.
+This topic is covered in the [Runtime guide](./runtime).
+
+
 ## Running RabbitMQ in Containers and on Kubernetes {#containers}
 
 :::tip

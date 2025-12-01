@@ -257,6 +257,8 @@ Here are the allocator arguments used by default:
 RABBITMQ_DEFAULT_ALLOC_ARGS="+MBas ageffcbf +MHas ageffcbf +MBlmbcs 512 +MHlmbcs 512 +MMmcs 30"
 ```
 
+### General Tuning Recommendations {#allocator-tuning}
+
 Instead of overriding `RABBITMQ_DEFAULT_ALLOC_ARGS`, add flags that should be overridden to `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS`. They
 will take precedence over the default ones. So a node started with the following `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` value
 
@@ -270,18 +272,42 @@ will use in the following effective allocator settings:
 "+MBas ageffcbf +MHas ageffcbf +MBlmbcs 512 +MHlmbcs 8192 +MMmcs 30"
 ```
 
-For some workloads a larger preallocated area reduce allocation rate and memory fragmentation.
-To configure the node to use a preallocated area of 1 GB, add `+MMscs 1024` to VM startup arguments
+### Using Larger Contiguous Memory Blocks (Super Carriers) {#allocator-super-carriers}
+
+The runtime can be configured to pre-allocate a large region of memory on node boot.
+For some workloads, this can significantly reduce memory fragmentation and allocation latency, increasing throughput.
+
+To configure the node to use a preallocated area of 1 GiB (1024 MiB), add `+MMscs 1024` to VM startup arguments
 using `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS`:
 
 ```bash
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+MMscs 1024"
 ```
 
-The value is in MB. The following example will preallocate a larger, 4 GB area:
+The value is in MiB. The following example will preallocate a larger, 4 GiB area:
 
 ```bash
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+MMscs 4096"
+```
+
+An additional flag, `+MMscrpm`, controls how the pre-allocated memory is reserved at node startup:
+
+ * With `+MMscrpm true` (default), physical memory is reserved at node startup
+ * With `+MMscrpm false`, only virtual address space is reserved (on Linux, [using `MAP_NORESERVE`](https://man7.org/linux/man-pages/man2/mmap.2.html)); physical memory is allocated on-demand
+
+### Carrier Size Limits {#allocator-carrier-size}
+
+The `+MBlmbcs` and `+MHlmbcs` (for "largest multiblock carrier size") flags control how large the memory blocks
+allocated by the runtime (called carriers) can grow.
+
+Workloads with larger messages can potentially benefit from an increased limit:
+
+```bash
+# Increases binary carrier limit to 2048 KiB (2 MiB)
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+MBlmbcs 2048"
+
+# Increases binary carrier limit to 8192 KiB (8 MiB) for workloads with even larger messages
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+MBlmbcs 8192"
 ```
 
 To learn about other available settings, see [runtime documentation on allocators](http://erlang.org/doc/man/erts_alloc.html).
