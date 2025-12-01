@@ -50,9 +50,8 @@ on behalf of the consumer.
 >
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
-> for RabbitMQ in [many different
-> languages](/client-libraries/devtools). We'll
-> use the [Kourier](https://github.com/NathanFallet/Kourier) client library for Kotlin.
+> for RabbitMQ in [many different languages](/client-libraries/devtools). We'll
+> use the [Kourier](https://github.com/kourier-amqp/kourier) client library for Kotlin.
 >
 > Kourier is a modern, coroutine-based AMQP 0-9-1 client for Kotlin. To use it in your project,
 > add the following dependency:
@@ -60,14 +59,14 @@ on behalf of the consumer.
 > **Gradle (Kotlin DSL):**
 > ```kotlin
 > dependencies {
->     implementation("dev.kourier:kourier-amqp:1.0.0")
+>     implementation("dev.kourier:amqp-client:x.x.x")
 > }
 > ```
 >
 > **Gradle (Groovy DSL):**
 > ```groovy
 > dependencies {
->     implementation 'dev.kourier:kourier-amqp:1.0.0'
+>     implementation 'dev.kourier:amqp-client:x.x.x'
 > }
 > ```
 >
@@ -75,10 +74,13 @@ on behalf of the consumer.
 > ```xml
 > <dependency>
 >     <groupId>dev.kourier</groupId>
->     <artifactId>kourier-amqp</artifactId>
->     <version>1.0.0</version>
+>     <artifactId>amqp-client-jvm</artifactId>
+>     <version>x.x.x</version>
 > </dependency>
 > ```
+>
+> We recommend checking the [Kourier release page](https://github.com/kourier-amqp/kourier/releases)
+> for the latest version number, replacing `x.x.x` above with the latest stable release.
 
 Now we have the Kotlin client library set up, we can write some code.
 
