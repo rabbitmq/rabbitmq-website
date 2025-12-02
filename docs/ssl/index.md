@@ -1399,7 +1399,7 @@ explains what TLS versions are supported by what JDK and .NET releases.
 Oracle JDK has a [public roadmap on cryptography](https://java.com/en/jre-jdk-cryptoroadmap.html) and related standards
 that outlines when certain cipher suites or TLS versions will be deprecated or removed.
 
-## Public Key Usage Options {#key-usage}
+## Public Extended Key Usage Options (EKUs) {#key-usage}
 
 Public keys (certificates) have a number of fields that describe the intended usage scenarios for the key.
 The fields limit how the key is allowed to be used by various tools.
@@ -1418,12 +1418,19 @@ This guide will cover them with some intentional oversimplification. Broadly spe
 Some fields are boolean values, others are of different types such as a set of options (bits) that can be set or unset.
 
 Data services are largely agnostic to the constraints and key usage options used. However, some are essential
-to the use cases described in this guide:
+to the use cases described in this guide.
 
- * Server authentication (provide server node's identity to the client)
- * Client authentication (provide client's identity to the server)
- * Verification of digital signatures
- * Key encipherment
+For servers, they are
+
+ * `TLS Server Authentication` (provide RabbitMQ node's identity to clients)
+ * `Digital Signature` (verification of digital signatures)
+ * `Key Encipherment`
+
+For clients, they are
+
+ * `TLS Client Authentication` (provides client's identity to RabbitMQ nodes, proxies)
+ * `Digital Signature` (verification of digital signatures)
+ * `Key Encipherment`
 
 The first two options are used for [peer verification](#peer-verification). They must be set for the server and client certificates,
 respectively, at public key generation time. A certificate can have both options set at the same time.
