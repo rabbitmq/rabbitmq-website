@@ -42,7 +42,7 @@ connections:
  * How to generate self-signed certificates for development and QA environments [with tls-gen](#automated-certificate-generation) or [manually](#manual-certificate-generation)
  * TLS configuration in [Java](#java-client) and [.NET](#dotnet-client) clients
  * [Peer (certificate chain) verification](#peer-verification) of client connections or mutual ("mTLS")
- * Public [key usage extensions](#key-usage) relevant to RabbitMQ
+ * Public [extended key usage](#key-usage) options (EKUs) relevant to RabbitMQ server and clients
  * How to control what [TLS version](#tls-versions) and [cipher suite](#cipher-suites) are enabled
  * [TLSv1.3](#tls1.3) support
  * Tools that can be used to [evaluate a TLS setup](#tls-evaluation-tools)
@@ -1416,8 +1416,23 @@ For clients, they are
  * `Digital Signature` (verification of digital signatures)
  * `Key Encipherment`
 
-The first two options are used for [peer verification](#peer-verification). They must be set for the server and client certificates,
-respectively, at public key generation time. A certificate can have both options set at the same time.
+Specifically `TLS Server Authentication` and `TLS Client Authentication` are used for [peer verification](#peer-verification).
+They must be set for the server and client certificates,
+respectively, at public key generation time.
+
+:::tip
+
+Only one of the `Authentication` EKUs should be set in most cases: the `TLS Server Authentication` for the certificates that RabbitMQ nodes
+will use, and the `TLS Client Authentication` for the certificates that clients (applications) will use.
+
+Setting both on a single certificate is no longer considered to be a good (secure) industry practice:
+
+ * [Source one](https://security.googleblog.com/2025/05/sustaining-digital-certificate-security-chrome-root-store-changes.html)
+ * [Source two](https://googlechrome.github.io/chromerootprogram/)
+ * [Source three](https://www.sectigo.com/blog/tls-client-authentication-public-ca-end-2026)
+ * [Source four](https://knowledge.digicert.com/alerts/sunsetting-client-authentication-eku-from-digicert-public-tls-certificates)
+
+:::
 
 [tls-gen](#automated-certificate-generation) will make sure that these constraints and extensions are correctly set.
 When [generating certificates manually](#manual-certificate-generation), this is a responsibility of
@@ -1443,7 +1458,8 @@ To see what constraints and extensions are set for a public key, use the `openss
 openssl x509 -in /path/to/certificate.pem -text -noout
 ```
 
-Its output will include a nested list of extensions and constraints that looks similar to this:
+Its output will include a nested list of extensions and constraints that looks similar to this
+(this is a client certificate example):
 
 ```ini
 X509v3 extensions:
@@ -1461,8 +1477,7 @@ certificate and can be used for key encipherment and digital signature.
 
 For the purpose of this guide, this is a suitable certificate (public key) to be used for client connections.
 
-Below is an example of a public key suitable certificate for server authentication (provides a RabbitMQ node identity)
-as well as client authentication (perhaps for the sake of usability):
+Below is an example of a public key suitable certificate for server authentication (providing a RabbitMQ node's identity to clients):
 
 ```ini
 X509v3 extensions:
@@ -1471,7 +1486,7 @@ X509v3 extensions:
     X509v3 Key Usage:
         Digital Signature, Key Encipherment
     X509v3 Extended Key Usage:
-        TLS Web Server Authentication, TLS Web Client Authentication
+        TLS Web Server Authentication
 ```
 
 
