@@ -98,6 +98,47 @@ const sidebars = {
         },
         {
             type: 'category',
+            label: 'Kotlin',
+            items: [
+                {
+                    type: 'doc',
+                    id: 'tutorial-one-kotlin',
+                    label: 'Hello World',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-two-kotlin',
+                    label: 'Work Queues',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-three-kotlin',
+                    label: 'Publish/Subscribe',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-four-kotlin',
+                    label: 'Routing',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-five-kotlin',
+                    label: 'Topics',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-six-kotlin',
+                    label: 'RPC',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-seven-kotlin',
+                    label: 'Publisher Confirms',
+                },
+            ]
+        },
+        {
+            type: 'category',
             label: 'Ruby',
             items: [
                 {
