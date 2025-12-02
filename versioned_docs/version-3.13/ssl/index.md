@@ -1406,13 +1406,13 @@ to the use cases described in this guide.
 
 For servers, they are
 
- * `TLS Server Authentication` (provide RabbitMQ node's identity to clients)
+ * `TLS Server Authentication` (a.k.a. `id-kp-serverAuth`, provide RabbitMQ node's identity to clients)
  * `Digital Signature` (verification of digital signatures)
  * `Key Encipherment`
 
 For clients, they are
 
- * `TLS Client Authentication` (provides client's identity to RabbitMQ nodes, proxies)
+ * `TLS Client Authentication` (a.k.a. `id-kp-clientAuth`, provides client's identity to RabbitMQ nodes, proxies)
  * `Digital Signature` (verification of digital signatures)
  * `Key Encipherment`
 
