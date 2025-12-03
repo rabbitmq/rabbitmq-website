@@ -222,7 +222,7 @@ Miscellaneous projects:
 
 ## Visualisation {#viz}
 
- * [Rabbit Viz](https://plexsystems.github.io/rabbit-viz/), a tool for visualizing [exported definition files](/docs/backup#rabbitmq-definitions).
+ * [RabbitGUI](https://rabbitgui.com), a tool for vizualizing and managing dead letter queues.
 
 
 ## Unity 3D {#unity-dev}
