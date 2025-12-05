@@ -100,7 +100,7 @@
           </div>
         </dd>
         <dt >
-#### <code class="Cm">restart_stream</code> <var class="Ar">stream</var> <code class="Fl">--vhost</code> <var class="Ar">virtual-host</var> <code class="Fl">---preferred-leader-node</code> <var class="Ar">node</var> {#restart_stream}
+#### <code class="Cm">restart_stream</code> <var class="Ar">stream</var> <code class="Fl">--vhost</code> <var class="Ar">virtual-host</var> <code class="Fl">--preferred-leader-node</code> <var class="Ar">node</var> {#restart_stream}
         </dt>
         <dd>
           <p class="Pp">Restarts a stream including all of it's replicas. The optional preferred node flag instructs the command to try to place the leader on a specific node during the restart.</p>
