@@ -575,7 +575,8 @@ The next sections configure these resources in the management UI.
 
 #### How OAuth 2.0 resources are presented to users
 
-When there are more than one OAuth 2.0 resource configured in the management UI, RabbitMQ shows a drop-down list in addition to the button with the label *Click here to logon*. The drop-down list has one option per resource. The label of the option is by default the resource's id however you can ovrride it.
+When there are more than one OAuth 2.0 resource configured in the management UI, RabbitMQ shows a drop-down list in addition to the button with the label *Click here to logon*. The drop-down list has one option per resource. The label of the option is by default the resource's id however you can override it.
+Resources are listed in the same order as they were configured.
 
 It is possible to have some resources configured with `sp_initiated` logon and others with `idp_initiated` logon. And it is also possible to disable a resource, in other words, the resource does not appear as an option in the drop-down.
 
