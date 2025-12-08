@@ -69,7 +69,7 @@ Per connection limits apply to individual client connections.
 | `ssl_handshake_timeout` | integer (milliseconds) | Maximum time allowed for TLS handshake to complete | 5000 (5 seconds) |
 | `heartbeat` | integer (seconds) | [Heartbeat timeout](./heartbeats) value suggested by the server during connection negotiation | 60 |
 | `frame_max` | integer (bytes) | Maximum AMQP 1.0, AMQP 0-9-1 and [RabbitMQ Stream Protocol](./stream) frame size. **Should not be changed**; rely on server and client library defaults. | 131072 (128 KiB) |
-| `initial_frame_max` | integer (bytes) | Maximum frame size before connection tuning. **Should not be changed**; rely on server and client library defaults. | 4096 |
+| `initial_frame_max` | integer (bytes) | Maximum frame size before connection tuning. **Should not be changed**; rely on server and client library defaults. | 8192 |
 
 Some protocols supported by RabbitMQ have their own specific limits.
 
