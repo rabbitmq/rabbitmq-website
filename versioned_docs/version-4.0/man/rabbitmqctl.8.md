@@ -1684,11 +1684,6 @@ max-channels
           <p class="Pp">This command clears the maximum number of connections limit for user "limited_user":</p>
           <p class="Pp"></p>
           <div class="Bd Bd-indent lang-bash">
-            <code class="Li">rabbitmqctl clear_user_limits limited_user 'max-connections'</code>
-          </div>
-          <p class="Pp">This command disables client connections for user "limited_user":</p>
-          <p class="Pp"></p>
-          <div class="Bd Bd-indent lang-bash">
             <code class="Li">rabbitmqctl set_user_limits limited_user '&lcub;"max-connections": 0}'</code>
           </div>
         </dd>
