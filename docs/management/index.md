@@ -380,6 +380,7 @@ To configure OAuth 2.0 in the management UI you need a [minimum configuration](#
     * [Special attention to CSP header `connect-src`](#csp-header)
     * [Identity-Provider initiated logon](#idp-initiated-logon)
     * [Support multiple OAuth 2.0 resources](#support-multiple-resources)
+    * [Preselect or predetermine authentication mechanism](#preselect-auth-mechanism)
 
 ### Minimum configuration {#minimum-configuration}
 
@@ -664,21 +665,20 @@ By default, when users navigate to the management UI home page, they see all ava
 However, in some scenarios, users may be routed to the management UI with an authentication mechanism already preselected or predefined. This allows external systems to guide users to a specific authentication flow.
 
 To preselect or predetermine the authentication mechanism, users must sent to the `/login` endpoint with the 
-appropriate request parameters. And the management ui redirects them back to the home page configured according
+appropriate request parameters. And the management UI redirects them back to the home page configured according
 to their preferred authentication mechanism. 
 
 The following request parameters control the behaviour:
 
 #### Preselection Mode (preferred_auth_mechanism)
 
-Use the `preferred_auth_mechanism` parameter to preselect an authentication method while still showing all options.
+Use the `preferred_auth_mechanism` request parameter to preselect an authentication method while still showing all options.
 
 - **OAuth 2.0 resource**: `preferred_auth_mechanism=oauth2:rabbit_dev`
-  - Preselects the OAuth 2.0 resource server, e.g.  `rabbit_dev`
   - Expands the OAuth 2.0 section and collapses the basic authentication section in the home page
+  - Preselects the OAuth 2.0 resource server, e.g.  `rabbit_dev`
 
 - **Basic authentication**: `preferred_auth_mechanism=basic`
-  - Preselects basic authentication
   - Expands the basic authentication section and collapses the OAuth 2.0 section
   
 #### Strict Mode (strict_auth_mechanism)
