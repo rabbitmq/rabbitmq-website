@@ -2348,12 +2348,30 @@ It will also reuse a connection with the same affinity if the environment has al
 <Tabs groupId="languages">
 <TabItem value="java" label="Java">
 
-```java title="Configuring affinity on a connection"
+```java title="Configuring publish affinity on a connection"
 Connection connection = environment.connectionBuilder()
         .affinity()
             .queue("my-queue")
             .operation(PUBLISH)
             .reuse(true)
+        .connection()
+        .build();
+```
+
+</TabItem>
+
+</Tabs>
+
+Here is another example with the "consume" operation, where the library will favor a node that hosts a queue replica:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Configuring consume affinity on a connection"
+Connection connection = environment.connectionBuilder()
+        .affinity()
+            .queue("my-queue")
+            .operation(CONSUME)
         .connection()
         .build();
 ```
