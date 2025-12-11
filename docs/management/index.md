@@ -399,6 +399,7 @@ depending on your use case:
 - [Identity-Provider initiated logon](#idp-initiated-logon)
 - [Support multiple OAuth 2.0 resources](#support-multiple-resources)
 - [Preselect or predetermine authentication mechanism](#preselect-auth-mechanism)
+- [Troubleshooting](#troubleshooting)
 
 ### Minimum configuration {#minimum-configuration}
 
@@ -609,7 +610,11 @@ The next sections configure these resources in the management UI.
 When there is more than one OAuth 2.0 resource configured in the management UI, RabbitMQ shows a
 drop-down menu in addition to the button with the label **Click here to logon**. The drop-down menu
 has one option per resource. The label of the option is the resource's ID by default, but you can
-override it. Resources are listed in the order in which they were configured.
+override it. 
+
+:::info
+Resources are listed in the order in which they were configured.
+:::
 
 You can have some resources configured with `sp_initiated` log-on and others with `idp_initiated`
 log-on. You can disable a resource so that the resource does not appear as an option in the
@@ -701,7 +706,7 @@ mechanisms and can choose which one to use. However, in some scenarios, users mi
 management UI with an authentication mechanism already preselected or predefined. This allows
 external systems to guide users to a specific authentication flow.
 
-To preselect or predetermine the authentication mechanism, users must send to the `/login` endpoint
+To preselect or predetermine the authentication mechanism, users must be sent to the `/login` endpoint
 with the appropriate request parameters. The management UI then redirects them back to the home page
 configured according to their preferred authentication mechanism.
 
