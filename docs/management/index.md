@@ -717,12 +717,12 @@ The following request parameters control the behaviour:
 Use the `preferred_auth_mechanism` request parameter to preselect an authentication method while
 still showing all options.
 
-- **OAuth 2.0 resource**: `preferred_auth_mechanism=oauth2:rabbit_dev`
+- **OAuth 2.0 resource**: `/login?preferred_auth_mechanism=oauth2:rabbit_dev`
 
   - Expands the OAuth 2.0 section and collapses the basic authentication section in the home page
   - Preselects the OAuth 2.0 resource server, such as `rabbit_dev`
 
-- **Basic authentication**: `preferred_auth_mechanism=basic`
+- **Basic authentication**: `/login?preferred_auth_mechanism=basic`
 
   - Expands the basic authentication section and collapses the OAuth 2.0 section
 
