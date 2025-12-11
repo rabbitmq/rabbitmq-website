@@ -380,6 +380,8 @@ To configure OAuth 2.0 in the management UI you need a [minimum configuration](#
     * [Special attention to CSP header `connect-src`](#csp-header)
     * [Identity-Provider initiated logon](#idp-initiated-logon)
     * [Support multiple OAuth 2.0 resources](#support-multiple-resources)
+    * [Preselect or predetermine authentication mechanism](#preselect-auth-mechanism)
+    * [Troubleshooting](#troubleshooting)
 
 ### Minimum configuration {#minimum-configuration}
 
@@ -575,9 +577,18 @@ The next sections configure these resources in the management UI.
 
 #### How OAuth 2.0 resources are presented to users
 
-When there are more than one OAuth 2.0 resource configured in the management UI, RabbitMQ shows a drop-down list in addition to the button with the label *Click here to logon*. The drop-down list has one option per resource. The label of the option is by default the resource's id however you can ovrride it.
+When there are more than one OAuth 2.0 resource configured in the management UI, RabbitMQ shows a
+drop-down menu in addition to the button with the label **Click here to logon**. The drop-down menu
+has one option per resource. The label of the option is by default the resource's id however you can
+override it. 
 
-It is possible to have some resources configured with `sp_initiated` logon and others with `idp_initiated` logon. And it is also possible to disable a resource, in other words, the resource does not appear as an option in the drop-down.
+:::info
+Resources are listed in the order in which they were configured.
+:::
+
+It is possible to have some resources configured with `sp_initiated` logon and others with
+`idp_initiated` logon. And it is also possible to disable a resource so that the resource does not
+appear as an option in the drop-down menu.
 
 #### Optionally set common settings for all resources
 
@@ -656,6 +667,47 @@ This is the management UI layout for the previous configuration with basic authe
 And this is the management UI with Basic Authentication activated (`management.oauth_disable_basic_auth = false`).
 
 ![More than one OAuth 2.0 resource, with oauth_disable_basic_auth = false](./management-oauth-many-with-basic-auth.png)
+
+### Preselect or predetermine authentication mechanism {#preselect-auth-mechanism}
+
+By default, when users navigate to the management UI home page they see all available authentication
+mechanisms and can choose which one to use. However, in some scenarios, users might be routed to the
+management UI with an authentication mechanism already preselected or predefined. This allows
+external systems to guide users to a specific authentication flow.
+
+To preselect or predetermine the authentication mechanism, users must be sent to the `/login` endpoint
+with the appropriate request parameters. The management UI then redirects them back to the home page
+configured according to their preferred authentication mechanism.
+
+The following request parameters control the behaviour:
+
+#### Preselection Mode (`preferred_auth_mechanism`)
+
+Use the `preferred_auth_mechanism` request parameter to preselect an authentication method while
+still showing all options.
+
+- **OAuth 2.0 resource**: `/login?preferred_auth_mechanism=oauth2:rabbit_dev`
+
+  - Expands the OAuth 2.0 section and collapses the basic authentication section in the home page
+  - Preselects the OAuth 2.0 resource server, such as `rabbit_dev`
+
+- **Basic authentication**: `/login?preferred_auth_mechanism=basic`
+
+  - Expands the basic authentication section and collapses the OAuth 2.0 section
+
+#### Strict Mode (`strict_auth_mechanism`)
+
+Use the `strict_auth_mechanism parameter` to show only the specified authentication method. Other methods are hidden.
+
+- **OAuth 2.0 resource only**: `/login?strict_auth_mechanism=oauth2:rabbit_dev`
+
+  - Shows only the **Click here to login** button for the `rabbit_dev` resource server
+  - No other authentication options are displayed
+
+- **Basic authentication only**: `/login?strict_auth_mechanism=basic`
+
+  - Shows only the basic authentication form
+  - No OAuth 2.0 options are displayed
 
 ### Troubleshooting {#troubleshooting}
 
