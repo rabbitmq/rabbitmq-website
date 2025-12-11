@@ -2122,7 +2122,7 @@ consumer.ChangeState += (sender, fromState, toState, e) =>
 
 ```go title=" "
 
-# CURRENTLY NOT IMPLEMENTED Due Of https://github.com/Azure/go-amqp/issues/99
+# CURRENTLY NOT IMPLEMENTED Due to https://github.com/Azure/go-amqp/issues/99
 ```
 
 </TabItem>
@@ -2329,6 +2329,51 @@ await AmqpConnection.CreateAsync(
 
 ```javascript title="Deactivating recovery"
 await environment.createConnection({ reconnect: false });
+```
+
+</TabItem>
+
+</Tabs>
+
+### Queue Affinity
+
+Applications can declare queue affinity rules when opening a connection.
+The client library will do its best to connect to an appropriate node to enforce these rules.
+This can result in lower intra-cluster traffic, reducing latency and increasing throughput.
+
+In the following example we declare "publish" affinity on a given.
+The library will connect to a node that hosts the queue leader.
+It will also reuse a connection with the same affinity if the environment has already created one.
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Configuring publish affinity on a connection"
+Connection connection = environment.connectionBuilder()
+        .affinity()
+            .queue("my-queue")
+            .operation(PUBLISH)
+            .reuse(true)
+        .connection()
+        .build();
+```
+
+</TabItem>
+
+</Tabs>
+
+Here is another example with the "consume" operation, where the library will favor a node that hosts a queue replica:
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+
+```java title="Configuring consume affinity on a connection"
+Connection connection = environment.connectionBuilder()
+        .affinity()
+            .queue("my-queue")
+            .operation(CONSUME)
+        .connection()
+        .build();
 ```
 
 </TabItem>
