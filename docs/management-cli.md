@@ -57,7 +57,7 @@ are distributed via [GitHub releases](https://github.com/rabbitmq/rabbitmqadmin-
 
 ## Usage
 
-### Exploring Available Command Groups and Sub-Commands
+### Explore Available Command Groups and Sub-Commands
 
 To explore what command groups are available, use
 
@@ -112,7 +112,7 @@ To explore commands in a specific group, use
 rabbitmqadmin {group name} help
 ```
 
-### Exploring the CLI with `help`, `--help`
+### Explore the CLI with `help`, `--help`
 
 To learn about what command groups and specific commands are available, run
 
@@ -234,7 +234,7 @@ Erlang version                                                    27.3.4
 Erlang details                                                    Erlang/OTP 27 [erts-15.2.7] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit]
 ```
 
-### Retrieving Basic Node Information
+### Retrieve Basic Node Information
 
 ``` shell
 rabbitmqadmin show overview
@@ -242,7 +242,7 @@ rabbitmqadmin show overview
 
 will display essential node information in tabular form.
 
-### Retrieving Connection, Queue/Stream, Channel Churn Information
+### Retrieve Connection, Queue/Stream, Channel Churn Information
 
 Helps assess connection, queue/stream, channel [churn metrics](./connections#high-connection-churn) in the cluster.
 
@@ -250,19 +250,19 @@ Helps assess connection, queue/stream, channel [churn metrics](./connections#hig
 rabbitmqadmin show churn
 ```
 
-### Listing Cluster Nodes
+### List Cluster Nodes
 
 ``` shell
 rabbitmqadmin nodes list
 ```
 
-### Listing Virtual Hosts
+### List Virtual Hosts
 
 ``` shell
 rabbitmqadmin vhosts list
 ```
 
-### Listing Users
+### List Users
 
 ``` shell
 rabbitmqadmin users list
@@ -335,7 +335,7 @@ rabbitmqadmin --vhost "events" delete permissions --user "a-user" --idempotently
 rabbitmqadmin users connections --name "a-user"
 ```
 
-### Listing Queues
+### List Queues
 
 ``` shell
 rabbitmqadmin queues list
@@ -345,7 +345,7 @@ rabbitmqadmin queues list
 rabbitmqadmin --vhost "monitoring" queues list
 ```
 
-### Listing Exchanges
+### List Exchanges
 
 ``` shell
 rabbitmqadmin exchanges list
@@ -355,7 +355,7 @@ rabbitmqadmin exchanges list
 rabbitmqadmin --vhost "events" exchanges list
 ```
 
-### Listing Bindings
+### List Bindings
 
 ``` shell
 rabbitmqadmin bindings list
@@ -381,6 +381,30 @@ rabbitmqadmin --vhost "events" bindings declare --source "events.topic" --destin
 
 ```shell
 rabbitmqadmin --vhost "events" bindings delete --source "events.topic" --destination-type "queue" --destination "target.queue" --routing-key "events.order.created"
+```
+
+### Bind an Exchange to a Queue or Another Exchange
+
+The `exchanges bind` command is an alternative to `bindings declare`:
+
+```shell
+rabbitmqadmin --vhost "events" exchanges bind --source "events.topic" --destination-type "queue" --destination "events.processing" --routing-key "user.created"
+```
+
+```shell
+rabbitmqadmin --vhost "events" exchanges bind --source "events.fanout" --destination-type "exchange" --destination "events.archived" --routing-key ""
+```
+
+### Unbind an Exchange from a Queue or Another Exchange
+
+The `exchanges unbind` command is an alternative to `bindings delete`:
+
+```shell
+rabbitmqadmin --vhost "events" exchanges unbind --source "events.topic" --destination-type "queue" --destination "events.processing" --routing-key "user.created"
+```
+
+```shell
+rabbitmqadmin --vhost "events" exchanges unbind --source "events.fanout" --destination-type "exchange" --destination "events.archived" --routing-key ""
 ```
 
 ### Create a Virtual Host
@@ -535,7 +559,7 @@ rabbitmqadmin --vhost "events" queues declare --name "target.stream.name" --type
 rabbitmqadmin --vhost "events" queues declare --name "target.classic.queue.name" --type "classic" --durable true --auto-delete false
 ```
 
-### Listing Streams
+### List Streams
 
 ``` shell
 rabbitmqadmin streams list
@@ -600,7 +624,7 @@ rabbitmqadmin --vhost "events" exchanges delete --name "target.exchange.name"
 rabbitmqadmin --vhost "events" exchanges delete --name "target.exchange.name" --idempotently
 ```
 
-### Listing Connections
+### List Connections
 
 ``` shell
 rabbitmqadmin connections list
@@ -623,7 +647,7 @@ rabbitmqadmin connections close --name "127.0.0.1:5672 -> 127.0.0.1:59876"
 rabbitmqadmin users close_connections --name "a-user"
 ```
 
-### Listing Channels
+### List Channels
 
 ``` shell
 rabbitmqadmin channels list
@@ -634,7 +658,7 @@ rabbitmqadmin channels list
 rabbitmqadmin --vhost "events" channels list
 ```
 
-### Listing Consumers
+### List Consumers
 
 ```shell
 rabbitmqadmin consumers list
@@ -645,7 +669,7 @@ rabbitmqadmin consumers list
 rabbitmqadmin --vhost "events" consumers list
 ```
 
-### Inspecting Node Memory Breakdown
+### Inspect Node Memory Breakdown
 
 There are two commands for reasoning about target [node's memory footprint](./memory-use):
 
@@ -835,6 +859,26 @@ To import definitions from a file, use `definitions import --file /path/to/defin
 
 ```shell
 rabbitmqadmin definitions import --file /path/to/definitions.file.json
+```
+
+### Export Definitions from a Specific Virtual Host
+
+To export definitions for a specific virtual host only:
+
+```shell
+rabbitmqadmin --vhost "events" definitions export_from_vhost --stdout
+```
+
+```shell
+rabbitmqadmin --vhost "events" definitions export_from_vhost --file /path/to/vhost-definitions.json
+```
+
+### Import Virtual Host-specific Definitions
+
+To import definitions into a specific virtual host:
+
+```shell
+rabbitmqadmin --vhost "events" definitions import_into_vhost --file /path/to/vhost-definitions.json
 ```
 
 ### Declare an AMQP 0-9-1 Shovel
@@ -1030,6 +1074,14 @@ rabbitmqadmin health_check protocol_listener --protocol amqp091
 
 These health checks are useful for monitoring scripts and automated cluster health verification.
 
+### Authentication Attempt Statistics
+
+To display authentication attempt statistics for a specific cluster node:
+
+```shell
+rabbitmqadmin auth_attempts stats --node "rabbit@hostname"
+```
+
 ### TLS Configuration
 
 `rabbitmqadmin` supports connecting to RabbitMQ clusters that use [TLS](./ssl) for the HTTP API:
@@ -1077,7 +1129,7 @@ rabbitmqadmin passwords salt_and_hash "my-secret-password" --hashing-algorithm S
 
 This is useful for pre-computing password hashes for user management scripts or when working with RabbitMQ definitions files.
 
-### Listing Policies
+### List Policies
 
 ```shell
 rabbitmqadmin policies list
@@ -1091,19 +1143,19 @@ rabbitmqadmin --vhost "events" policies list_in
 ### Create a Policy
 
 ```shell
-# Create a queue policy for high availability
-rabbitmqadmin --vhost "events" policies declare --name "ha-all" --pattern ".*" --definition '{"ha-mode":"all","ha-sync-mode":"automatic"}' --priority 1
+# Create a policy that sets max-length for all queues
+rabbitmqadmin --vhost "events" policies declare --name "queue-limits" --pattern ".*" --definition '{"max-length":10000}' --priority 1 --apply-to "queues"
 ```
 
 ```shell
 # Create a TTL policy for temporary queues
-rabbitmqadmin --vhost "events" policies declare --name "temp-queues" --pattern "temp\\..*" --definition '{"message-ttl":300000,"expires":600000}' --priority 2
+rabbitmqadmin --vhost "events" policies declare --name "temp-queues" --pattern "temp\\..*" --definition '{"message-ttl":300000,"expires":600000}' --priority 2 --apply-to "queues"
 ```
 
 ### Delete a Policy
 
 ```shell
-rabbitmqadmin --vhost "events" policies delete --name "ha-all"
+rabbitmqadmin --vhost "events" policies delete --name "queue-limits"
 ```
 
 ### List Policies Matching an Object
@@ -1113,7 +1165,47 @@ rabbitmqadmin --vhost "events" policies delete --name "ha-all"
 rabbitmqadmin --vhost "events" policies list_matching_object --name "my.queue" --type "queue"
 ```
 
-### Listing Operator Policies
+### Patch (Perform a Partial Update on) a Policy
+
+```shell
+rabbitmqadmin --vhost "events" policies patch \
+  --name "queue-limits" \
+  --definition '{"max-length": 7777777, "max-length-bytes": 3333333333}'
+```
+
+### Update a Policy Definition Key
+
+```shell
+rabbitmqadmin --vhost "events" policies update_definition \
+  --name "queue-limits" \
+  --definition-key "max-length" \
+  --new-value "5000000"
+```
+
+### Update a Definition Key in All Policies in a Virtual Host
+
+```shell
+rabbitmqadmin --vhost "events" policies update_definitions_of_all_in \
+  --definition-key "max-length" \
+  --new-value "5000000"
+```
+
+### Delete Definition Keys from a Policy
+
+```shell
+rabbitmqadmin --vhost "events" policies delete_definition_keys \
+  --name "queue-limits" \
+  --definition-keys max-length-bytes,max-length
+```
+
+### Delete Definition Keys from All Policies in a Virtual Host
+
+```shell
+rabbitmqadmin --vhost "events" policies delete_definition_keys_from_all_in \
+  --definition-keys max-length,max-length-bytes
+```
+
+### List Operator Policies
 
 ```shell
 rabbitmqadmin operator_policies list
@@ -1137,7 +1229,49 @@ rabbitmqadmin --vhost "events" operator_policies declare --name "queue.max-lengt
 rabbitmqadmin --vhost "events" operator_policies delete --name "queue.max-length"
 ```
 
-### Listing Runtime Parameters
+### Patch an Operator Policy's Definition
+
+```shell
+# Merge keys into an existing operator policy's definition (add or update keys)
+rabbitmqadmin --vhost "events" operator_policies patch --name "queue.max-length" --definition '{"max-length-bytes":1000000}'
+```
+
+### Update a Key in an Operator Policy Definition
+
+```shell
+# Update a specific key in an operator policy definition
+rabbitmqadmin --vhost "events" operator_policies update_definition --name "queue.max-length" --definition-key "max-length" --new-value 20000
+```
+
+### Update a Key in Multiple Operator Policies
+
+```shell
+# Update a specific key in all operator policies in a virtual host
+rabbitmqadmin --vhost "events" operator_policies update_definitions_of_all_in --definition-key "max-length" --new-value 20000
+```
+
+### Delete Keys from an Operator Policy Definition
+
+```shell
+# Delete specific keys from an operator policy definition
+rabbitmqadmin --vhost "events" operator_policies delete_definition_keys --name "queue.max-length" --definition-keys "max-length-bytes"
+```
+
+### Delete Keys from Multiple Operator Policies
+
+```shell
+# Delete specific keys from all operator policies in a virtual host
+rabbitmqadmin --vhost "events" operator_policies delete_definition_keys_from_all_in --definition-keys "max-length-bytes"
+```
+
+### List Objects Matching an Operator Policy
+
+```shell
+# List all queues and streams that match an operator policy
+rabbitmqadmin --vhost "events" operator_policies list_matching_objects --name "queue.max-length"
+```
+
+### List Runtime Parameters
 
 ```shell
 rabbitmqadmin parameters list_all
@@ -1169,7 +1303,7 @@ rabbitmqadmin --vhost "events" parameters clear --name "my-param" --component "m
 rabbitmqadmin --vhost "events" parameters clear --name "my-param" --component "my-component" --idempotently
 ```
 
-### Listing Global Parameters
+### List Global Parameters
 
 ```shell
 rabbitmqadmin global_parameters list
@@ -1263,6 +1397,7 @@ the original version of `rabbitmqadmin`. It can be overridden on the command lin
 rabbitmqadmin --config $HOME/.configuration/rabbitmqadmin.conf --node staging show churn
 ```
 
+
 ## Breaking or Potentially Breaking Changes Compared to v1
 
 ### Some Non-Essential Features Were Dropped
@@ -1351,7 +1486,7 @@ as part of the [management plugin](./management/) and distributed with it.
 
 It is no longer under active development.
 
-### Obtaining `rabbitmqadmin` v1
+### Obtain `rabbitmqadmin` v1
 
 :::important
 
