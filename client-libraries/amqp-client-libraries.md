@@ -2341,7 +2341,7 @@ Applications can declare queue affinity rules when opening a connection.
 The client library will do its best to connect to an appropriate node to enforce these rules.
 This can result in lower intra-cluster traffic, reducing latency and increasing throughput.
 
-In the following example we declare "publish" affinity on a given.
+In the following example we declare "publish" affinity on a given connection.
 The library will connect to a node that hosts the queue leader.
 It will also reuse a connection with the same affinity if the environment has already created one.
 
