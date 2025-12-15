@@ -649,7 +649,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            └─2861 inet_gethost 4
 
 Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 4.2.1. Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 4.2.2. Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Aug 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -707,7 +707,7 @@ The output will look similar to this:
 
 ```ini
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 4.2.1. Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Aug 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 4.2.2. Copyright (c) 2005-2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Aug 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
