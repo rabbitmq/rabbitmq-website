@@ -84,6 +84,8 @@ const config = {
         },
         '4.1': {
           releases: [
+            {version: '4.1.7', release_date: "2025-12-16", },
+            {version: '4.1.6', release_date: "2025-11-18", },
             {version: '4.1.5', release_date: "2025-10-28", },
             {version: '4.1.4', release_date: "2025-09-02", },
             {version: '4.1.3', release_date: "2025-08-05", },
