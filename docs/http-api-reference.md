@@ -1182,6 +1182,10 @@ A list of all permissions for a given user.
 
 A list of all topic permissions for a given user.
 
+### GET /api/users/\{_user_\}/queues
+
+A list of all queues originally declared by a given user.
+
 ### GET /api/user-limits
 
 Lists per-user limits for all users.
