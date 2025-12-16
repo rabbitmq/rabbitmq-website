@@ -216,6 +216,14 @@ The following upstream parameters are only applicable to <a href="./federated-ex
         By default, the internal upstream queue is deleted immediately when a federation link stops.
         Set to `never` to keep the upstream queue around and collect messages even when
         changing federation configuration.
+
+        :::tip
+
+        In the absense of inbound federation links, internal queues will continue accumulating messages until the node runs [out of disk space](./alarms).
+        Therefore this option should be used with a [length limit](./maxlength) defined via a policy and/or the `message-ttl` setting with a reasonable value
+        (say, 8-12 hours).
+
+        :::
       </td>
     </tr>
 
