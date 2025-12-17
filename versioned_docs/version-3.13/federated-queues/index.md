@@ -89,6 +89,16 @@ Brokers running different versions of RabbitMQ can be connected using federation
 Queue federation is also an important component of [Blue Green Deployments](./blue-green-upgrade),
 such as [migrations from RabbitMQ 3.x to 4.x](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way).
 
+## How is Queue Federation Different from Shovels?
+
+Queue federation moves messages from a source queue in the upstream cluster to a destination queue in local (downstream) cluster.
+This, indeed, is very similar to what [shovels](./shovel) do, but with a number of key differences:
+
+| Characteristic    | Shovel                         | Queue Federation                                              |
+|-------------------|--------------------------------|---------------------------------------------------------------|
+| Message movement  | Moves messages unconditionally | Only moves messages if the upstream has no local consumers    |
+| Directionality    | Usually unidirectional         | Can be bi-directional or N-directional with multiple clusters |
+
 ## Limitations {#limitations}
 
 Federated queues include a number of limitations or differences compared to their non-federated peers

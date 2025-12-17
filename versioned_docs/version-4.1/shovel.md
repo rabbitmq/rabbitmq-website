@@ -143,6 +143,17 @@ For AMQP 1.0, messages rejected by the destination will be dropped.
 Most publishing and message properties are controlled by the operator.
 
 
+## How are Shovels Different from Queue Federation?
+
+[Queue federation](./federated-queues) moves messages from a source queue in the upstream cluster to a destination queue in local (downstream) cluster.
+This, indeed, is very similar to what shovels do, but with a number of key differences:
+
+| Characteristic    | Shovel                         | Queue Federation                                              |
+|-------------------|--------------------------------|---------------------------------------------------------------|
+| Message movement  | Moves messages unconditionally | Only moves messages if the upstream has no local consumers    |
+| Directionality    | Always unidirectional          | Can be bi-directional or N-directional with multiple clusters |
+
+
 ## Getting started {#getting-started}
 
 The Shovel plugin is included in the RabbitMQ distribution.
