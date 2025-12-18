@@ -172,20 +172,53 @@ the federation plugin, message are transferred to consumers connected to "green"
 ## Drain Messages {#drain-messages}
 
 The next step would be to switch producers to "green" as well. However, you may
-still have a backlog of messages in "blue". The federation plugin doesn't help
-here because it doesn't **move** messages, it only allows remote consumers to
-dequeue messages.
+still have a backlog of messages in "blue". For the queues that no longer have local
+consumers in "blue", queue federation links will move messages to "green" and its consumers.
 
-In case of a large backlog, use the [Shovel plugin](./shovel-dynamic)
-on "green" to really drain messages in "blue". This would require doing something
-like the following for each queue with a backlog:
+In case of a large backlog, using [shovels](./shovel-dynamic)
+on "green" to move all remaining messages to "blue" can be an option worth considering.
 
+This would require doing something like the following for each queue with a backlog:
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
-rabbitmqctl set_parameter shovel drain-blue \
-'{"src-protocol": "amqp091", "src-uri": "amqp://node-in-blue-cluster", \
-"src-queue": "queue1", "dest-protocol": "amqp091", \
-"dest-uri": "amqp://", "dest-queue": "queue1"}'
+rabbitmqctl set_parameter shovel shovel-blue-to-green-queue1 \
+  '{"src-protocol": "amqp091", "src-uri": "amqp://node-in-blue-cluster", "src-queue": "queue1", "dest-protocol": "amqp091", "dest-uri": "amqp://", "dest-queue": "queue1"}'
 ```
+</TabItem>
+
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash">
+```bash
+rabbitmqadmin shovels declare_amqp091 --name shovel-blue-to-green-queue1 \
+  --source-uri "amqp://node-in-blue-cluster" \
+  --destination-uri "amqp://" \
+  --source-queue "queue1" \
+  --destination-queue "queue1"
+```
+</TabItem>
+
+<TabItem value="PowerShell" label="rabbitmqctl with PowerShell">
+```PowerShell
+rabbitmqctl.bat set_parameter shovel shovel-blue-to-green-queue1 ^
+  "{""src-protocol"": ""amqp091"", ""src-uri"": ""amqp://node-in-blue-cluster"", ""src-queue"": ""queue1"", ^
+   ""dest-protocol"": ""amqp091"", ""dest-uri"": ""amqp://"", ""dest-queue"": ""queue1""}"
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin.exe with PowerShell">
+```PowerShell
+rabbitmqadmin.exe shovels declare_amqp091 --name shovel-blue-to-green-queue1 ^
+  --source-uri "amqp://node-in-blue-cluster" ^
+  --destination-uri "amqp://" ^
+  --source-queue "queue1" ^
+  --destination-queue "queue1"
+```
+</TabItem>
+</Tabs>
+
+Note that using shovel concurrently with queue federation will move messages concurrently, that is,
+in an order that won't match the order in the source queue.
 
 ## Migrate Producers Over {#migrate-producers}
 
