@@ -45,27 +45,30 @@ core RabbitMQ features and do not require or rely on this plugin.
 
 This guide covers:
 
- * [Basic usage](#usage) of management UI
- * The [HTTP API](#http-api) provided by the management plugin
- * General plugin [configuration](#configuration)
- * [Reverse proxy (Nginx or Apache)](#http-api-proxy) in front of the HTTP API
- * How to [enable HTTPS for management UI](#single-listener-https) and its underlying API
- * How this plugin [operates in multi-node clusters](#clustering)
- * How to [disable metric collection](#disable-stats) to use [Prometheus](./prometheus) exclusively for monitoring
- * How to create [a user with limited permissions for monitoring purposes](#monitoring-permissions) only
- * [Authenticating with OAuth 2](#oauth2-authentication)
- * [Strict transport security](#hsts), [Content security policy](#csp), [cross-origin resource sharing](#cors), and [other security-related header](#other-security-headers) control
- * [Statistics collection interval](#statistics-interval)
- * [Message rate mode](#rates-mode) (rate fidelity) and [data retention intervals](#sample-retention)
- * [HTTP API request logging](#http-logging)
- * How to set a [management UI login session timeout](#login-session-timeout)
- * How to [reset statistics database](#reset-stats) used by this plugin
+- [Basic usage](#usage) of management UI
+- The [HTTP API](#http-api) provided by the management plugin
+- General plugin [configuration](#configuration)
+- [Reverse proxy (Nginx or Apache)](#http-api-proxy) in front of the HTTP API
+- How to [enable HTTPS for management UI](#single-listener-https) and its underlying API
+- How this plugin [operates in multi-node clusters](#clustering)
+- How to [disable metric collection](#disable-stats) to use [Prometheus](../prometheus/index.md)
+  exclusively for monitoring
+- How to create [a user with limited permissions for monitoring purposes](#monitoring-permissions)
+  only
+- [Authenticating with OAuth 2](#oauth2-authentication)
+- [Strict transport security](#hsts), [Content security policy](#csp),
+  [cross-origin resource sharing](#cors), and [other security-related header](#other-security-headers)
+  control
+- [Statistics collection interval](#statistics-interval)
+- [Message rate mode](#rates-mode) (rate fidelity) and [data retention intervals](#sample-retention)
+- [HTTP API request logging](#http-logging)
+- How to set a [management UI login session timeout](#login-session-timeout)
+- How to [reset statistics database](#reset-stats) used by this plugin
 
 The plugin also provides extension points that other plugins, such as
 [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_top) or
 [rabbitmq-shovel-management](https://github.com/rabbitmq/rabbitmq-shovel-management),
 use to extend the UI.
-
 
 ## Management UI and External Monitoring Systems {#external-monitoring}
 
@@ -359,33 +362,50 @@ rabbitmqctl set_permissions --vhost "vhost-name" "monitoring" "^$" "^$" "^$"
 You can configure RabbitMQ to use [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_oauth2) to authenticate client applications, however, to use OAuth 2.0 authentication in the management UI, you have to configure it separately.
 
 There are two ways to initiate OAuth 2.0 authentication in the management UI:
-- *Service-Provided Initiated login*. The is the OAuth method and the default way to initiate authentication in the management UI. It uses the [OAuth 2.0 Authorization Code Flow with PKCE](https://datatracker.ietf.org/doc/html/rfc7636) to redirect users to the configured OAuth 2.0 provider to authenticate. When they are authenticated, users get an access token, and are then returned back to the management UI where they are automatically logged in. The management UI is tested against these OAuth 2.0 providers:
 
-  * [UAA](https://github.com/cloudfoundry/uaa)
-  * [Keycloak](https://www.keycloak.org/)
-  * [Auth0](https://auth0.com/)
-  * [Azure](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/auth-oauth2)
-  * [OAuth2 Proxy](https://oauth2-proxy.github.io/oauth2-proxy/)
-  * [Okta](https://www.okta.com)
+- *Service-Provided Initiated login*. The is the OAuth method and the default way to initiate
+  authentication in the management UI. It uses the
+  [OAuth 2.0 Authorization Code Flow with PKCE](https://datatracker.ietf.org/doc/html/rfc7636) to
+  redirect users to the configured OAuth 2.0
+  provider to authenticate. When they are authenticated, users get an access token, and are then
+  returned back to the management UI where they are automatically logged in. The management UI is
+  tested against these OAuth 2.0 providers:
 
-- *Identity-Provider Initiated login*. For this type of login, users must come to RabbitMQ with an access token.This type of authentication is typical in portals which offers access to various applications/services to authenticated users. One of those services could be one or many RabbitMQ clusters. When a user requests access to a RabbitMQ cluster, the portal forwards the user to RabbitMQ's management UI with an access token issued for the user and RabbitMQ cluster. This type of authentication is covered in the sub-section [Identity-Provider initiated logon](#idp-initiated-logon).
+  - [UAA](https://github.com/cloudfoundry/uaa)
+  - [Keycloak](https://www.keycloak.org/)
+  - [Auth0](https://auth0.com/)
+  - [Azure](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/auth-oauth2)
+  - [OAuth2 Proxy](https://oauth2-proxy.github.io/oauth2-proxy/)
+  - [Okta](https://www.okta.com)
 
-To configure OAuth 2.0 in the management UI you need a [minimum configuration](#minimum-configuration). However, you may require additional configuration depending on your use case:
+- *Identity-Provider Initiated login*. For this type of login, users must come to RabbitMQ with an
+  access token.This type of authentication is typical in portals which offers access to various
+  applications/services to authenticated users. One of those services could be one or many RabbitMQ
+  clusters. When a user requests access to a RabbitMQ cluster, the portal forwards the user to
+  RabbitMQ's management UI with an access token issued for the user and RabbitMQ cluster. This type
+  of authentication is covered in the sub-section
+  [Identity-Provider initiated logon](#idp-initiated-logon).
 
-    * [Client secret](#configure-client-secret)
-    * [Allow Basic and OAuth 2 authentication for management HTTP API](#allow-basic-auth-for-http-api)
-    * [Allow Basic and OAuth 2 authentication for management UI](#allow-basic-auth-for-mgt-ui)
-    * [Logging out of the management UI](#about-logout-workflow)
-    * [Configure extra parameters for authorization and token endpoints](#extra-endpoint-params)
-    * [Special attention to CSP header `connect-src`](#csp-header)
-    * [Identity-Provider initiated logon](#idp-initiated-logon)
-    * [Support multiple OAuth 2.0 resources](#support-multiple-resources)
+To configure OAuth 2.0 in the management UI you need a
+[minimum configuration](#minimum-configuration). However, you may require additional configuration
+depending on your use case:
+
+- [Client secret](#configure-client-secret)
+- [Allow Basic and OAuth 2 authentication for management HTTP API](#allow-basic-auth-for-http-api)
+- [Allow Basic and OAuth 2 authentication for management UI](#allow-basic-auth-for-mgt-ui)
+- [Logging out of the management UI](#about-logout-workflow)
+- [Configure extra parameters for authorization and token endpoints](#extra-endpoint-params)
+- [Special attention to CSP header `connect-src`](#csp-header)
+- [Identity-Provider initiated logon](#idp-initiated-logon)
+- [Support multiple OAuth 2.0 resources](#support-multiple-resources)
+- [Preselect or predetermine authentication mechanism](#preselect-auth-mechanism)
+- [Troubleshooting](#troubleshooting)
 
 ### Minimum configuration {#minimum-configuration}
 
 The first section is the minimum configuration required to use OAuth 2.0 authentication in the management UI. The following sections explain how to further configure OAuth 2.0 depending of the use cases.
 
-Given the following configuration of the [OAuth 2.0 plugin](./oauth2):
+Given the following configuration of the [OAuth 2.0 plugin](../oauth2.md):
 
 ```ini
 auth_oauth2.resource_server_id = new_resource_server_id
@@ -401,11 +421,21 @@ management.oauth_scopes = <SPACE-SEPARATED LIST OF SCOPES. See below>
 ```
 
 - `oauth_enabled` is a mandatory field
-- `oauth_client_id` is a mandatory field. It is the OAuth Client Id associated with this RabbitMQ cluster in the OAuth Provider, and it is used to request a token on behalf of the user.
-- `oauth_scopes` is a mandatory field which must be set at all times except in the case when OAuth providers automatically grant scopes associated to the `oauth_client_id`. `oauth_scopes` is a list of space-separated strings that indicate which permissions the application is requesting. Most OAuth providers only issue tokens with the scopes requested during the user authentication. RabbitMQ sends this field along with its `oauth_client_id` during the user authentication. If this field is not set, RabbitMQ defaults to `openid profile`.
+
+- `oauth_client_id` is a mandatory field. It is the OAuth Client Id associated with this RabbitMQ
+  cluster in the OAuth Provider, and it is used to request a token on behalf of the user.
+
+- `oauth_scopes` is a mandatory field which must be set at all times except in the case when OAuth
+  providers automatically grant scopes associated to the `oauth_client_id`. `oauth_scopes` is a list
+  of space-separated strings that indicate which permissions the application is requesting. Most
+  OAuth providers only issue tokens with the scopes requested during the user authentication.
+  RabbitMQ sends this field along with its `oauth_client_id` during the user authentication. If this
+  field is not set, RabbitMQ defaults to `openid profile`.
 
 Given above configuration, when a user visits the management UI, the following two events take place:
-1. RabbitMQ uses the URL found in `auth_oauth2.issuer` to download the OpenID Provider configuration. Learn more in the [OAuth 2.0 guide](./oauth2#discovery-endpoint-params)
+
+1. RabbitMQ uses the URL found in `auth_oauth2.issuer` to download the OpenID Provider
+   configuration. Learn more in the [OAuth 2.0 guide](../oauth2.md#discovery-endpoint-params)
 
     :::warning
     If RabbitMQ cannot download the OpenID provider configuration, it shows an error message and the OAuth 2.0 authentication option will be disabled in the management UI
@@ -420,7 +450,9 @@ Given above configuration, when a user visits the management UI, the following t
     If you used to configure `auth_oauth2.metadata_url` because your provider used a slightly different OpenId Discovery endpoint url, since RabbitMQ 4.1 you should instead configure the correct path and/or include any additional parameters. Please read [this section of the documentation](./oauth2#discovery-endpoint-params) where it is explained how to do it. `auth_oauth2.metadata_url` may be deprecated in future versions.
     :::
 
-2. RabbitMQ displays a button with the label "Click here to login". When the user clicks on the button, the management UI initiates the OAuth 2.0 Authorization Code Flow, which redirects the user to the identity provider to authenticate and get a token.
+2. RabbitMQ displays a button with the label "Click here to login". When the user clicks on the
+   button, the management UI initiates the OAuth 2.0 Authorization Code Flow, which redirects the
+   user to the identity provider to authenticate and get a token.
 
 ### Configure client secret {#configure-client-secret}
 
@@ -575,9 +607,18 @@ The next sections configure these resources in the management UI.
 
 #### How OAuth 2.0 resources are presented to users
 
-When there are more than one OAuth 2.0 resource configured in the management UI, RabbitMQ shows a drop-down list in addition to the button with the label *Click here to logon*. The drop-down list has one option per resource. The label of the option is by default the resource's id however you can ovrride it.
+When there is more than one OAuth 2.0 resource configured in the management UI, RabbitMQ shows a
+drop-down menu in addition to the button with the label **Click here to logon**. The drop-down menu
+has one option per resource. The label of the option is the resource's ID by default, but you can
+override it. 
 
-It is possible to have some resources configured with `sp_initiated` logon and others with `idp_initiated` logon. And it is also possible to disable a resource, in other words, the resource does not appear as an option in the drop-down.
+:::info
+Resources are listed in the order in which they were configured.
+:::
+
+You can have some resources configured with `sp_initiated` log-on and others with `idp_initiated`
+log-on. You can disable a resource so that the resource does not appear as an option in the
+drop-down menu.
 
 #### Optionally set common settings for all resources
 
@@ -620,6 +661,7 @@ management.oauth_resource_servers.1.label = RabbitMQ Production
 
 With this configuration, when the user chooses to option `RabbitMQ Production`, RabbitMQ initiates the *Authorization Code flow* which takes the user to the URL configured in `auth_oauth2.issuer` with
 the following settings:
+
 - `client_id` : `rabbit_prod_mgt_ui`
 - `resource` : `rabbit_prod`
 - `scopes` : `openid rabbitmq.tag:management rabbitmq.read:*/*`
@@ -657,11 +699,51 @@ And this is the management UI with Basic Authentication activated (`management.o
 
 ![More than one OAuth 2.0 resource, with oauth_disable_basic_auth = false](./management-oauth-many-with-basic-auth.png)
 
+### Preselect or predetermine authentication mechanism {#preselect-auth-mechanism}
+
+By default, when users navigate to the management UI home page they see all available authentication
+mechanisms and can choose which one to use. However, in some scenarios, users might be routed to the
+management UI with an authentication mechanism already preselected or predefined. This allows
+external systems to guide users to a specific authentication flow.
+
+To preselect or predetermine the authentication mechanism, users must be sent to the `/login` endpoint
+with the appropriate request parameters. The management UI then redirects them back to the home page
+configured according to their preferred authentication mechanism.
+
+The following request parameters control the behaviour:
+
+#### Preselection Mode (`preferred_auth_mechanism`)
+
+Use the `preferred_auth_mechanism` request parameter to preselect an authentication method while
+still showing all options.
+
+- **OAuth 2.0 resource**: `/login?preferred_auth_mechanism=oauth2:rabbit_dev`
+
+  - Expands the OAuth 2.0 section and collapses the basic authentication section in the home page
+  - Preselects the OAuth 2.0 resource server, such as `rabbit_dev`
+
+- **Basic authentication**: `/login?preferred_auth_mechanism=basic`
+
+  - Expands the basic authentication section and collapses the OAuth 2.0 section
+
+#### Strict Mode (`strict_auth_mechanism`)
+
+Use the `strict_auth_mechanism parameter` to show only the specified authentication method. Other methods are hidden.
+
+- **OAuth 2.0 resource only**: `/login?strict_auth_mechanism=oauth2:rabbit_dev`
+
+  - Shows only the **Click here to login** button for the `rabbit_dev` resource server
+  - No other authentication options are displayed
+
+- **Basic authentication only**: `/login?strict_auth_mechanism=basic`
+
+  - Shows only the basic authentication form
+  - No OAuth 2.0 options are displayed
+
 ### Troubleshooting {#troubleshooting}
 
 [Troubleshooting management UI access in OAuth 2-enabled clusters](./troubleshooting-oauth2#management-ui) is a companion guide
 dedicated to common OAuth 2-specific issues.
-
 
 ## HTTP API {#http-api}
 
@@ -674,10 +756,9 @@ See [HTTP API reference](./http-api-reference/).
 The API is intended to be used for basic observability tasks. [Prometheus and Grafana](./prometheus)
 are recommended for long term metric storage, alerting, anomaly detection, and so on.
 
-Any cluster node with `rabbitmq-management` plugin activated can be
-used for management UI access or HTTP API access.
-It will reach out to other nodes and collect their stats, then aggregate and return a response
-to the client.
+Any cluster node with `rabbitmq-management` plugin activated can be used for management UI access or
+HTTP API access. It will reach out to other nodes and collect their stats, then aggregate and return
+a response to the client.
 
 When using the API in a cluster of nodes, there is no need to contact each node via HTTP API
 individually. Instead, contact a random node or a load balancer that sits in front
@@ -685,8 +766,7 @@ of the cluster.
 
 ### HTTP API Clients and Tooling {#http-api-clients}
 
-[`rabbitmqadmin` v2](./management-cli) is a command line tool
-that interacts with the HTTP API.
+[rabbitmqadmin v2](./management-cli) is a command-line tool that interacts with the HTTP API.
 
 For HTTP API clients in several languages,
 see [Developer Tools](/client-libraries/devtools).
