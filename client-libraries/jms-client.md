@@ -22,13 +22,11 @@ limitations under the License.
 
 ## Introduction {#introduction}
 
-RabbitMQ is not a JMS provider but includes [a plugin](https://github.com/rabbitmq/rabbitmq-server/tree/v3.13.x/deps/rabbitmq_jms_topic_exchange)
-needed to support the JMS Queue and Topic messaging models. [JMS Client
-for RabbitMQ](https://github.com/rabbitmq/rabbitmq-jms-client) implements the JMS specification on top of the
-[RabbitMQ Java client](/client-libraries/java-api-guide), thus allowing new and
-existing JMS applications to connect to RabbitMQ.
+RabbitMQ server together with the [RabbitMQ JMS client](https://github.com/rabbitmq/rabbitmq-jms-client) provides a JMS provider implementation.
+The RabbitMQ JMS client implements the JMS specification on top of the [RabbitMQ Java client](/client-libraries/java-api-guide),
+thus allowing new and existing JMS applications to connect to RabbitMQ.
 
-The plugin and the JMS client are meant to work and be used together.
+The [RabbitMQ JMS Topic Exchange Plugin](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_jms_topic_exchange) and the RabbitMQ JMS client are meant to work and be used together.
 
 See the [RabbitMQ Java libraries support page](./java-versions) for the support timeline
 of the RabbitMQ JMS Client library.
