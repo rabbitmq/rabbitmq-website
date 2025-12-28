@@ -142,7 +142,7 @@ source archive and its associated detached signature from
 the download area:
 
 ```bash
-gpg --verify rabbitmq-server_4.1.4-1_all.deb.asc rabbitmq-server_4.1.4-1_all.deb
+gpg --verify rabbitmq-server_4.1.7-1_all.deb.asc rabbitmq-server_4.1.7-1_all.deb
 # => gpg: Signature made (date elided)
 # => gpg:                using RSA key 0A9AF2115F4687BD29803A206B73A36E6026DFCA
 # => gpg: Good signature from "RabbitMQ Release Signing Key <info@rabbitmq.com>" [unknown]
