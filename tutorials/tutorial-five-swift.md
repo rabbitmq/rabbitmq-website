@@ -8,7 +8,7 @@ import T5DiagramTopicX from '@site/src/components/Tutorials/T5DiagramTopicX.md';
 # RabbitMQ tutorial - Topics
 
 ## Topics
-### (using the [Objective-C client][client])
+### (using [BunnySwift][client])
 
 <TutorialsHelp/>
 
@@ -109,76 +109,129 @@ have two words: `<facility>.<severity>`.
 The code is almost the same as in the
 [previous tutorial][previous].
 
-The code for `emitLogTopic`:
+As always, we need to create an exchange first:
 
 ```swift
-func emitLogTopic(_ msg: String, routingKey: String) {
-    let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
-    conn.start()
-    let ch = conn.createChannel()
-    let x = ch.topic("topic_logs")
-    x.publish(msg.data(using: .utf8), routingKey: routingKey)
-    print("Sent '\(msg)'")
-    conn.close()
-}
+let exchange = try await channel.topic("topic_logs")
 ```
 
-The code for `receiveLogsTopic`:
+And we're ready to send a message:
 
 ```swift
-func receiveLogsTopic(_ routingKeys: [Any]) {
-    let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
-    conn.start()
-    let ch = conn.createChannel()
-    let x = ch.topic("topic_logs")
-    let q = ch.queue("", options: .exclusive)
-    for routingKey: String in routingKeys {
-        q.bind(x, routingKey: routingKey)
+try await channel.basicPublish(
+    body: Data(message.utf8),
+    exchange: exchange.name,
+    routingKey: routingKey
+)
+```
+
+The code for `EmitLogTopic`:
+
+```swift
+import BunnySwift
+import Foundation
+
+@main
+struct EmitLogTopic {
+    static func main() async throws {
+        let connection = try await Connection.open()
+        let channel = try await connection.openChannel()
+        let exchange = try await channel.topic("topic_logs")
+
+        var args = Array(CommandLine.arguments.dropFirst())
+        let routingKey = args.isEmpty ? "anonymous.info" : args.removeFirst()
+        let message = args.isEmpty ? "Hello World!" : args.joined(separator: " ")
+
+        try await channel.basicPublish(
+            body: Data(message.utf8),
+            exchange: exchange.name,
+            routingKey: routingKey
+        )
+        print(" [x] Sent '\(routingKey):\(message)'")
+
+        try await connection.close()
     }
-    print("Waiting for logs.")
-    q.subscribe({(_ message: RMQMessage) -> Void in
-        print("\(message.routingKey):\(String(data: message.body,
-                                              encoding: .utf8))")
-    })
 }
 ```
 
-To receive all the logs:
+[(EmitLogTopic source)][emitlogtopic]
+
+The code for `ReceiveLogsTopic`:
 
 ```swift
-self.receiveLogsTopic(["#"])
+import BunnySwift
+
+@main
+struct ReceiveLogsTopic {
+    static func main() async throws {
+        let bindingKeys = Array(CommandLine.arguments.dropFirst())
+        guard !bindingKeys.isEmpty else {
+            print("Usage: ReceiveLogsTopic [binding_key]...")
+            return
+        }
+
+        let connection = try await Connection.open()
+        let channel = try await connection.openChannel()
+        let exchange = try await channel.topic("topic_logs")
+        let queue = try await channel.queue("", exclusive: true)
+
+        for key in bindingKeys {
+            try await queue.bind(to: exchange, routingKey: key)
+        }
+
+        print(" [*] Waiting for logs. To exit press CTRL+C")
+
+        let consumer = try await channel.basicConsume(
+            queue: queue.name,
+            acknowledgementMode: .automatic
+        )
+        for try await message in consumer {
+            print(" [x] \(message.deliveryInfo.routingKey):\(message.bodyString ?? "")")
+        }
+    }
+}
+```
+
+[(ReceiveLogsTopic source)][receivelogstopic]
+
+To receive all the logs run:
+
+```bash
+swift run ReceiveLogsTopic "#"
 ```
 
 To receive all logs from the facility `kern`:
 
-```swift
-self.receiveLogsTopic(["kern.*"])
+```bash
+swift run ReceiveLogsTopic "kern.*"
 ```
 
 Or if you want to hear only about `critical` logs:
 
-```swift
-self.receiveLogsTopic(["*.critical"])
+```bash
+swift run ReceiveLogsTopic "*.critical"
 ```
 
 You can create multiple bindings:
 
-```swift
-self.receiveLogsTopic(["kern.*", "*.critical"])
+```bash
+swift run ReceiveLogsTopic "kern.*" "*.critical"
 ```
 
 And to emit a log with a routing key `kern.critical` type:
 
-```swift
-self.emitLogTopic("A critical kernel error", routingKey: "kern.critical")
+```bash
+swift run EmitLogTopic "kern.critical" "A critical kernel error"
 ```
 
-Have fun playing with these methods. Note that the code doesn't make
+Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
 
-([source][source])
+Move on to [tutorial 6][next] to learn about *RPC*.
 
-[client]:https://github.com/rabbitmq/rabbitmq-objc-client
-[previous]:./tutorial-four-swift
-[source]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/tutorial5/tutorial5/ViewController.swift
+[client]: https://github.com/rabbitmq/bunny-swift
+[previous]: ./tutorial-four-swift
+[next]: ./tutorial-six-swift
+[emitlogtopic]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/EmitLogTopic/main.swift
+[receivelogstopic]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/ReceiveLogsTopic/main.swift

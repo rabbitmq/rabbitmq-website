@@ -10,16 +10,19 @@ import T1DiagramReceiving from '@site/src/components/Tutorials/T1DiagramReceivin
 
 # RabbitMQ tutorial - "Hello World!"
 
-# Introduction
+## Introduction
 
 <TutorialsHelp/>
 <TutorialsIntro/>
 
 ## "Hello World"
-### (using the Objective-C Client)
+### (using BunnySwift)
 
-In this part of the tutorial we'll write a simple iOS app. It will send a
-single message, and consume that message and log it using `print`.
+In this part of the tutorial we'll write two small programs in Swift: a
+producer that sends a single message, and a consumer that receives
+messages and prints them out. We'll gloss over some of the details in
+the BunnySwift API, concentrating on this very simple thing just to get
+started. It's the "Hello World" of messaging.
 
 In the diagram below, "P" is our producer and "C" is our consumer. The box in
 the middle is a queue - a message buffer that RabbitMQ keeps on behalf of the
@@ -27,114 +30,141 @@ consumer.
 
 <T1DiagramHello/>
 
-> #### The Objective-C client library
+> #### The BunnySwift client library
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
 > languages][devtools]. We'll
-> use the [Objective-C client][client] in this tutorial.
+> use [BunnySwift][client] in this tutorial, a modern Swift client
+> that leverages Swift concurrency with async/await.
 
-### Creating an Xcode project with the RabbitMQ client dependency
+### Setup
 
-Follow the instructions below to create a new Xcode project.
+First, make sure you have RabbitMQ installed and running.
 
-1. Create a new Xcode project with **File** -> **New** -> **Project…**
-1. Choose **iOS Application** -> **Single View Application**
-1. Click **Next**
-1. Give your project a name, e.g. "RabbitTutorial1".
-1. Fill in organization details as you wish.
-1. Choose **Swift** as the language. You won't need **Unit Tests** for the
-   purpose of this tutorial.
-1. Click **Next**
-1. Choose a place to create the project and click **Create**
+BunnySwift requires Swift 6.0 or later. Create a new directory for your
+project and initialize it with Swift Package Manager:
 
-Now we must add the Objective-C client as a dependency. This is done partly
-from the command-line. For detailed instructions, visit [the client's GitHub
-page][client].
+```bash
+mkdir rabbitmq-swift-tutorial
+cd rabbitmq-swift-tutorial
+swift package init --type executable --name Send
+```
 
-Once the client is added as a dependency, build the project with **Product** ->
-**Build** to ensure that it is linked correctly.
+Edit `Package.swift` to add the BunnySwift dependency:
 
+```swift
+// swift-tools-version: 6.0
+import PackageDescription
+
+let package = Package(
+    name: "RabbitMQTutorials",
+    platforms: [.macOS(.v14)],
+    dependencies: [
+        .package(url: "https://github.com/rabbitmq/bunny-swift", from: "0.1.0")
+    ],
+    targets: [
+        .executableTarget(
+            name: "Send",
+            dependencies: [.product(name: "BunnySwift", package: "bunny-swift")]
+        ),
+        .executableTarget(
+            name: "Receive",
+            dependencies: [.product(name: "BunnySwift", package: "bunny-swift")]
+        )
+    ]
+)
+```
+
+Create the source directories:
+
+```bash
+mkdir -p Sources/Send Sources/Receive
+```
+
+Now we have Swift Package Manager set up with the BunnySwift dependency.
 
 ### Sending
 
 <T1DiagramSending/>
 
-To keep things easy for the tutorial, we'll put our send and receive code in
-the same view controller. The sending code will connect to RabbitMQ and send a
-single message.
+We'll call our message publisher (sender) `Send` and our message receiver
+`Receive`. The publisher will connect to RabbitMQ, send a single message,
+then exit.
 
-Let's edit
-[ViewController.swift][controller]
-and start adding code.
-
-#### Importing the framework
-
-First, we import the client framework as a module:
+In
+[`Sources/Send/main.swift`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/Send/main.swift),
+we need to import the library first:
 
 ```swift
-import RMQClient
+import BunnySwift
+import Foundation
 ```
 
-Now we call some send and receive methods from `viewDidLoad`:
+then we can create a connection to the server:
 
 ```swift
-override func viewDidLoad() {
-    super.viewDidLoad()
-    self.send()
-    self.receive()
-}
-```
-
-The send method begins with a connection to the RabbitMQ broker:
-
-```swift
-func send() {
-    print("Attempting to connect to local RabbitMQ broker")
-    let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
-    conn.start()
-}
+@main
+struct Send {
+    static func main() async throws {
+        let connection = try await Connection.open()
 ```
 
 The connection abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us. Here
-we connect to a broker on the local machine with all default settings. A
-logging delegate is used so we can see any errors in the Xcode console.
+we connect to a RabbitMQ node on the local machine with all default settings.
 
-If we wanted to connect to a broker on a different
-machine we'd simply specify its name or IP address using the `initWithUri(delegate:)`
-convenience initializer:
+If we wanted to connect to a node on a different machine or configure
+other connection parameters, we would use:
 
 ```swift
-let conn = RMQConnection(uri: "amqp://myrabbitserver.com:1234",
-                         delegate: RMQConnectionDelegateLogger())
+let connection = try await Connection.open(
+    host: "some-host.example.com",
+    port: 5672,
+    username: "guest",
+    password: "guest"
+)
+```
+
+or specify a URI:
+
+```swift
+let connection = try await Connection.open(uri: "amqp://user:password@host:5672/vhost")
 ```
 
 Next we create a channel, which is where most of the API for getting
 things done resides:
 
 ```swift
-let ch = conn.createChannel()
+        let channel = try await connection.openChannel()
 ```
 
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
 ```swift
-let q = ch.queue("hello")
-ch.defaultExchange().publish("Hello World!".data(using: .utf8), routingKey: q.name)
+        let queue = try await channel.queue("hello")
+
+        try await channel.basicPublish(
+            body: Data("Hello World!".utf8),
+            routingKey: queue.name
+        )
+        print(" [x] Sent 'Hello World!'")
 ```
 
 Declaring a queue is idempotent - it will only be created if it doesn't
-exist already.
+exist already. The message content is a byte array, so you can encode
+whatever you like there.
 
 Lastly, we close the connection:
 
 ```swift
-conn.close()
+        try await connection.close()
+    }
+}
 ```
 
-[Here's the whole controller (including receive)][controller].
+[Here's the complete Send.swift file][send].
 
 > #### Sending doesn't work!
 >
@@ -151,59 +181,97 @@ conn.close()
 
 ### Receiving
 
-That's it for sending. Our `receive` method will spin up a consumer that will
-be pushed messages from RabbitMQ, so unlike `send` which publishes a single
-message, it will wait for a message, log it and then quit.
+That's it for our publisher. Our consumer listens for messages from
+RabbitMQ, so unlike the publisher which publishes a single message, we'll
+keep the consumer running to listen for messages and print them out.
 
 <T1DiagramReceiving/>
 
-Setting up is the same as `send`; we open a connection and a
-channel, and declare the queue from which we're going to consume.
-Note this matches up with the queue that `send` publishes to.
+The code in
+[`Sources/Receive/main.swift`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/Receive/main.swift)
+has the same imports as `Send`:
 
 ```swift
-func receive() {
-    print("Attempting to connect to local RabbitMQ broker")
-    let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
-    conn.start()
-    let ch = conn.createChannel()
-    let q = ch.queue("hello")
-}
+import BunnySwift
 ```
 
-Note that we declare the queue here, as well. Because we might start
-the receiver before the sender, we want to make sure the queue exists
+Setting up is the same as the publisher; we open a connection and a
+channel, and declare the queue from which we're going to consume.
+Note this matches up with the queue that `Send` publishes to.
+
+```swift
+@main
+struct Receive {
+    static func main() async throws {
+        let connection = try await Connection.open()
+        let channel = try await connection.openChannel()
+        let queue = try await channel.queue("hello")
+```
+
+Note that we declare the queue here as well. Because we might start
+the consumer before the publisher, we want to make sure the queue exists
 before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
-queue. Since it will push messages to us asynchronously, we provide a
-callback that will be executed when RabbitMQ pushes messages to
-our consumer. This is what `RMQQueue subscribe()` does.
+queue. BunnySwift returns a consumer that we can iterate over using Swift concurrency.
+We call `basicConsume` and iterate over the messages:
 
 ```swift
-print("Waiting for messages.")
-q.subscribe({(_ message: RMQMessage) -> Void in
-    print("Received \(String(data: message.body, encoding: .utf8))")
-})
+        print(" [*] Waiting for messages. To exit press CTRL+C")
+
+        let consumer = try await channel.basicConsume(
+            queue: queue.name,
+            acknowledgementMode: .automatic
+        )
+        for try await message in consumer {
+            print(" [x] Received '\(message.bodyString ?? "")'")
+        }
+    }
+}
 ```
 
-[Here's the whole controller again (including send)][controller].
+The consumer will continue running, waiting for messages. Use Ctrl-C to stop it.
 
-### Running
+[Here's the complete Receive.swift file][receive].
 
-Now we can run the app. Hit the big play button, or `cmd-R`.
+### Putting it all together
 
-`receive` will log the message it gets from `send` via
-RabbitMQ. The receiver will keep running, waiting for messages (Use the Stop
-button to stop it), so you could try sending messages to the same queue using
-another client.
+Build both programs:
+
+```bash
+swift build
+```
+
+In one terminal, run the consumer:
+
+```bash
+swift run Receive
+# => [*] Waiting for messages. To exit press CTRL+C
+```
+
+Then, in another terminal, run the publisher:
+
+```bash
+swift run Send
+# => [x] Sent 'Hello World!'
+```
+
+The consumer will print the message it gets from the publisher via RabbitMQ.
+
+```bash
+# => [x] Received 'Hello World!'
+```
+
+The consumer will keep running, waiting for messages, so try running the
+publisher again in another terminal.
+
+Congrats! You were able to send and receive a message through RabbitMQ.
 
 If you want to check on the queue, try using `rabbitmqctl list_queues`.
 
-Hello World!
-
 Time to move on to [part 2](./tutorial-two-swift) and build a simple _work queue_.
 
-[client]:https://github.com/rabbitmq/rabbitmq-objc-client
-[controller]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/tutorial1/tutorial1/ViewController.swift
-[devtools]:/client-libraries/devtools
+[client]: https://github.com/rabbitmq/bunny-swift
+[devtools]: /client-libraries/devtools
+[send]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/Send/main.swift
+[receive]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/Receive/main.swift

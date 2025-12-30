@@ -10,7 +10,7 @@ import T4DiagramFull from '@site/src/components/Tutorials/T4DiagramFull.md';
 # RabbitMQ tutorial - Routing
 
 ## Routing
-### (using the [Objective-C client][client])
+### (using [BunnySwift][client])
 
 <TutorialsHelp/>
 
@@ -25,14 +25,13 @@ log file (to save disk space), while still being able to print all of
 the log messages on the console.
 
 
-Bindings
---------
+## Bindings
 
 In previous examples we were already creating bindings. You may recall
 code like:
 
 ```swift
-q.bind(exchange)
+try await queue.bind(to: exchange)
 ```
 
 A binding is a relationship between an exchange and a queue. This can
@@ -40,19 +39,18 @@ be simply read as: the queue is interested in messages from this
 exchange.
 
 Bindings can take an extra `routingKey` parameter. To avoid the
-confusion with an `RMQExchange publish:` parameter we're going to call it a
+confusion with `basicPublish` routing key we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
 ```swift
-q.bind(exchange, routingKey: "black")
+try await queue.bind(to: exchange, routingKey: "black")
 ```
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
 value.
 
-Direct exchange
----------------
+## Direct exchange
 
 Our logging system from the previous tutorial broadcasts all messages
 to all consumers. We want to extend that to allow filtering messages
@@ -81,8 +79,8 @@ In such a setup a message published to the exchange with a routing key
 or `green` will go to `Q2`. All other messages will be discarded.
 
 
-Multiple bindings
------------------
+## Multiple bindings
+
 <T4DiagramMultipleBindings/>
 
 It is perfectly legal to bind multiple queues with the same binding
@@ -93,100 +91,148 @@ queues. A message with routing key `black` will be delivered to both
 `Q1` and `Q2`.
 
 
-Emitting logs
--------------
+## Emitting logs
 
 We'll use this model for our logging system. Instead of `fanout` we'll
 send messages to a `direct` exchange. We will supply the log severity as
-a `routing key`. That way the receiving method will be able to select
+a `routing key`. That way the receiving program will be able to select
 the severity it wants to receive. Let's focus on emitting logs
 first.
 
 As always, we need to create an exchange first:
 
 ```swift
-ch.direct("logs")
+let exchange = try await channel.direct("direct_logs")
 ```
 
 And we're ready to send a message:
 
 ```swift
-let x = ch.direct("logs")
-x.publish(msg.data(using: .utf8), routingKey: severity)
+try await channel.basicPublish(
+    body: Data(message.utf8),
+    exchange: exchange.name,
+    routingKey: severity
+)
 ```
 
 To simplify things we will assume that 'severity' can be one of
 `info`, `warning`, or `error`.
 
 
-Subscribing
------------
+## Subscribing
 
 Receiving messages will work just like in the previous tutorial, with
 one exception - we're going to create a new binding for each severity
 we're interested in.
 
 ```swift
-let q = ch.queue("", options: .exclusive)
 let severities = ["error", "warning", "info"]
-for severity: String in severities {
-    q.bind(x, routingKey: severity)
+for severity in severities {
+    try await queue.bind(to: exchange, routingKey: severity)
 }
 ```
 
-Putting it all together
------------------------
+## Putting it all together
 
 <T4DiagramFull/>
 
 
-The code for the `emitLogDirect` method:
+The code for `EmitLogDirect`:
 
 ```swift
-func emitLogDirect(_ msg: String, severity: String) {
-    let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
-    conn.start()
-    let ch = conn.createChannel()
-    let x = ch.direct("direct_logs")
-    x.publish(msg.data(using: .utf8), routingKey: severity)
-    print("Sent '\(msg)'")
-    conn.close()
-}
-```
+import BunnySwift
+import Foundation
 
-The code for `receiveLogsDirect`:
+@main
+struct EmitLogDirect {
+    static func main() async throws {
+        let connection = try await Connection.open()
+        let channel = try await connection.openChannel()
+        let exchange = try await channel.direct("direct_logs")
 
-```swift
-func receiveLogsDirect() {
-    let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
-    conn.start()
-    let ch = conn.createChannel()
-    let x = ch.direct("direct_logs")
-    let q = ch.queue("", options: .exclusive)
-    let severities = ["error", "warning", "info"]
-    for severity: String in severities {
-        q.bind(x, routingKey: severity)
+        var args = Array(CommandLine.arguments.dropFirst())
+        let severity = args.isEmpty ? "info" : args.removeFirst()
+        let message = args.isEmpty ? "Hello World!" : args.joined(separator: " ")
+
+        try await channel.basicPublish(
+            body: Data(message.utf8),
+            exchange: exchange.name,
+            routingKey: severity
+        )
+        print(" [x] Sent '\(severity):\(message)'")
+
+        try await connection.close()
     }
-    print("Waiting for logs.")
-    q.subscribe({(_ message: RMQMessage) -> Void in
-        print("\(message.routingKey):\(String(data: message.body,
-                                       encoding: .utf8))")
-    })
 }
 ```
 
-To emit an `error` log message just call:
+[(EmitLogDirect source)][emitlogdirect]
+
+The code for `ReceiveLogsDirect`:
 
 ```swift
-self.emitLogDirect("Hi there!", severity: "error")
+import BunnySwift
+
+@main
+struct ReceiveLogsDirect {
+    static func main() async throws {
+        let severities = Array(CommandLine.arguments.dropFirst())
+        guard !severities.isEmpty else {
+            print("Usage: ReceiveLogsDirect [info] [warning] [error]")
+            return
+        }
+
+        let connection = try await Connection.open()
+        let channel = try await connection.openChannel()
+        let exchange = try await channel.direct("direct_logs")
+        let queue = try await channel.queue("", exclusive: true)
+
+        for severity in severities {
+            try await queue.bind(to: exchange, routingKey: severity)
+        }
+
+        print(" [*] Waiting for logs. To exit press CTRL+C")
+
+        let consumer = try await channel.basicConsume(
+            queue: queue.name,
+            acknowledgementMode: .automatic
+        )
+        for try await message in consumer {
+            print(" [x] \(message.deliveryInfo.routingKey):\(message.bodyString ?? "")")
+        }
+    }
+}
 ```
 
-([source code][source])
+[(ReceiveLogsDirect source)][receivelogsdirect]
+
+If you want to save only 'warning' and 'error' (and not 'info') log
+messages to a file, just open a console and type:
+
+```bash
+swift run ReceiveLogsDirect warning error > logs_from_rabbit.log
+```
+
+If you'd like to see all the log messages on your screen, open a new
+terminal and do:
+
+```bash
+swift run ReceiveLogsDirect info warning error
+# => [*] Waiting for logs. To exit press CTRL+C
+```
+
+And, for example, to emit an `error` log message just type:
+
+```bash
+swift run EmitLogDirect error "Run. Run. Or it will explode."
+# => [x] Sent 'error:Run. Run. Or it will explode.'
+```
 
 Move on to [tutorial 5][next] to find out how to listen
 for messages based on a pattern.
 
-[client]:https://github.com/rabbitmq/rabbitmq-objc-client
-[previous]:./tutorial-three-swift
-[next]:./tutorial-five-swift
-[source]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/tutorial4/tutorial4/ViewController.swift
+[client]: https://github.com/rabbitmq/bunny-swift
+[previous]: ./tutorial-three-swift
+[next]: ./tutorial-five-swift
+[emitlogdirect]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/EmitLogDirect/main.swift
+[receivelogsdirect]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/ReceiveLogsDirect/main.swift
