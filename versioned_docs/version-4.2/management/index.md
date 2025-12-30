@@ -379,6 +379,7 @@ To configure OAuth 2.0 in the management UI you need a [minimum configuration](#
     * [Configure extra parameters for authorization and token endpoints](#extra-endpoint-params)
     * [Special attention to CSP header `connect-src`](#csp-header)
     * [Identity-Provider initiated logon](#idp-initiated-logon)
+    * [Logout from Identity-Provider logon](#idp-initiated-logout)
     * [Support multiple OAuth 2.0 resources](#support-multiple-resources)
     * [Preselect or predetermine authentication mechanism](#preselect-auth-mechanism)
     * [Troubleshooting](#troubleshooting)
@@ -557,6 +558,18 @@ With the previous settings, the management UI exposes the HTTP endpoint `/login`
 Additionally, RabbitMQ also accepts a JWT token in the HTTP `Authorization` header when the user lands on the management UI.
 
 With `sp_initiated` logon types, there is no need to configure the `oauth_provider_url` if `auth_oauth2.issuer` was set. However, for `idp_initiated` flows the `auth_oauth2.issuer` url may not necessarily be the url where to send users to authenticate. When this occurs, the `management.oauth_provider_url` overrides the `auth_oauth2.issuer` url.
+
+### Logout from Identity-Provider logon {#idp-initiated-logout}
+
+If `end_session_endpoint` is configured, on logout the user is redirected to that endpoint. Otherwise, the user is redirected to `management.oauth_provider_url`.
+Use `end_session_endpoint` when the identity provider must close the user's session and perform cleanup before redirecting to the identity provider's root URL.
+
+The following example uses a `keycloak` identity provider. The `end_session_endpoint` points to a proxy's `sign_out` endpoint:
+
+```ini
+auth_oauth2.issuer = https://keycloak:8443/realms/test
+auth_oauth2.end_session_endpoint = https://localhost:8442/oauth2/sign_out?rd=https://keycloak:8443/realms/test/protocol/openid-connect/logout
+```
 
 ### Support multiple OAuth 2.0 resources {#support-multiple-resources}
 
