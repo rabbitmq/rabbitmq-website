@@ -69,7 +69,7 @@ A number of beginner-oriented primers on TLS are available elsewhere on the Web:
 
 TLS can be enabled for all protocols supported by RabbitMQ.
 However, this guide primarily focuses on AMQP 1.0 and AMQP 0-9-1 listeners.
-See [MQTT](./mqtt), [STOMP](./stomp), and their [respective WebSocket transport](./web-mqtt) guides
+See [RabbitMQ Stream Protocol](./stream), [MQTT](./mqtt), [STOMP](./stomp), [MQTT-over-WebSockets](./web-mqtt), and [STOMP-over-WebSockets](./web-stomp) guides
 for TLS configuration examples for those protocols.
 
 [HTTP API](./management), [inter-node and CLI tool traffic](./clustering-ssl) can be configured
