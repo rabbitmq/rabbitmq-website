@@ -40,7 +40,7 @@ Alternate Exchange ("AE") is a feature that addresses these use cases.
 
 For any given exchange except for the default one, an AE can be defined by clients using
 [policies](./policies). This is the recommended option
-as policies are significantly simplify changes to such options (e.g. during
+as policies significantly simplify changes to such options (e.g. during
 upgrades).
 
 In modern RabbitMQ versions, the default exchange is a special-cased convention in the code
