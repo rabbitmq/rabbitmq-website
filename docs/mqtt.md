@@ -620,6 +620,21 @@ This option is interpreted in the same way as [consumer prefetch](./consumer-pre
 
 An MQTT 5.0 client can define a lower number by setting [Receive Maximum](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901049) in the `CONNECT` packet.
 
+### Handling Unauthorized Operations {#unauthorized-operations}
+
+The MQTT 5.0 specification is not definitive about what should happen when a client attempts an operation it is not authorized to perform (for example, subscribing to a topic it has no permissions for).
+
+The `mqtt.disconnect_on_unauthorized` configuration key controls this behavior:
+
+```ini
+## When true (default), the connection is closed on unauthorized operations.
+## When false, the connection is maintained and the server responds with
+## appropriate reason codes (e.g. Not Authorized in the SUBACK or PUBACK frame).
+# mqtt.disconnect_on_unauthorized = true
+```
+
+The default value is `true`, reflecting the behavior the MQTT plugin has had since its inception.
+
 
 ## Custom Exchanges {#custom-exchanges}
 
