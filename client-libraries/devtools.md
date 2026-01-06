@@ -79,6 +79,7 @@ Higher level frameworks:
  * [Cambion](https://cambion.whitestone.no/), an MIT licensed open-source distributed application framework for .NET
  * [EasyNetQ](http://easynetq.com), an easy to use, opinionated .NET API for RabbitMQ
  * [MassTransit](https://masstransit.io/), an open-source distributed application framework for .NET.
+ * [Rebus](https://rebus.fm/what-is-rebus/), an MIT licensed open-source service bus for .NET.
 
 Miscellaneous projects:
 
