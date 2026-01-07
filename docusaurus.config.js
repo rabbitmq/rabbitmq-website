@@ -383,7 +383,7 @@ const config = {
 
       announcementBar: {
         id: 'latest-announcement',
-        content: '<div style="font-size: var(--ifm-h4-font-size);"><a target="_blank" href="https://acemq.com/events/rabbitmq-qa-event/#next-live-session">Join a live RabbitMQ Q&A with the core engineering team and AceMQ, our featured partner.</a></div>',
+        content: '<div style="font-size: var(--ifm-h4-font-size);"><a target="_blank" href="https://acemq.com/events/rabbitmq-qa-event/#next-live-session">Join a live RabbitMQ Q&A</a> with the core engineering team and <a target="_blank" href="https://acemq.com/">AceMQ</a>, our featured partner.</div>',
         backgroundColor: 'var(--ifm-color-primary-contrast-background)',
         textColor: 'var(--ifm-font-color-base)',
         isCloseable: true,
