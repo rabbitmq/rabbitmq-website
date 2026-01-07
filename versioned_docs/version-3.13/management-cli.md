@@ -71,9 +71,11 @@ which will output a list of command groups:
 Usage: rabbitmqadmin [OPTIONS] <COMMAND>
 
 Commands:
+  auth_attempts        Authentication attempt statistics
   bindings             Operations on bindings
   channels             Operations on channels
   close                Closes connections
+  config_file          Operations on the local configuration file
   connections          Operations on connections
   declare              Creates or declares objects
   definitions          Operations on definitions (everything except for messages: virtual hosts, queues, streams, exchanges, bindings, users, etc)
@@ -91,6 +93,8 @@ Commands:
   operator_policies    Operations on operator policies
   parameters           Operations on runtime parameters
   passwords            Operations on passwords
+  permissions          Operations on user permissions
+  plugins              List enabled plugins
   policies             Operations on policies
   purge                Purges queues
   queues               Operations on queues
@@ -100,7 +104,9 @@ Commands:
   streams              Operations on streams
   tanzu                Tanzu RabbitMQ-specific commands
   users                Operations on users
+  user_limits          Operations on per-user (resource) limits
   vhosts               Virtual host operations
+  vhost_limits         Operations on virtual host (resource) limits
   help                 Print this message or the help of the given subcommand(s)
 ```
 
@@ -381,6 +387,30 @@ rabbitmqadmin --vhost "events" bindings declare --source "events.topic" --destin
 rabbitmqadmin --vhost "events" bindings delete --source "events.topic" --destination-type "queue" --destination "target.queue" --routing-key "events.order.created"
 ```
 
+### Bind an Exchange to a Queue or Another Exchange
+
+The `exchanges bind` command is an alternative to `bindings declare`:
+
+```shell
+rabbitmqadmin --vhost "events" exchanges bind --source "events.topic" --destination-type "queue" --destination "events.processing" --routing-key "user.created"
+```
+
+```shell
+rabbitmqadmin --vhost "events" exchanges bind --source "events.fanout" --destination-type "exchange" --destination "events.archived" --routing-key ""
+```
+
+### Unbind an Exchange from a Queue or Another Exchange
+
+The `exchanges unbind` command is an alternative to `bindings delete`:
+
+```shell
+rabbitmqadmin --vhost "events" exchanges unbind --source "events.topic" --destination-type "queue" --destination "events.processing" --routing-key "user.created"
+```
+
+```shell
+rabbitmqadmin --vhost "events" exchanges unbind --source "events.fanout" --destination-type "exchange" --destination "events.archived" --routing-key ""
+```
+
 ### Create a Virtual Host
 
 ```shell
@@ -530,6 +560,17 @@ rabbitmqadmin --vhost "events" streams declare --name "events.stream" --expirati
 rabbitmqadmin --vhost "events" streams delete --name "events.stream"
 ```
 
+### Show Stream Details
+
+```shell
+rabbitmqadmin --vhost "events" streams show --name "events.stream"
+```
+
+```shell
+# Show only specific columns
+rabbitmqadmin --vhost "events" streams show --name "events.stream" --columns "name,messages,consumers"
+```
+
 ### Purge a Queue
 
 ```shell
@@ -545,6 +586,17 @@ rabbitmqadmin --vhost "events" queues delete --name "target.queue.name"
 ``` shell
 # --idempotently means that 404 Not Found responses will not be considered errors
 rabbitmqadmin --vhost "events" queues delete --name "target.queue.name" --idempotently
+```
+
+### Show Queue Details
+
+```shell
+rabbitmqadmin --vhost "events" queues show --name "target.queue.name"
+```
+
+```shell
+# Show only specific columns
+rabbitmqadmin --vhost "events" queues show --name "target.queue.name" --columns "name,type,messages,consumers"
 ```
 
 ### Declare an Exchange
@@ -722,6 +774,15 @@ for 100% when computing the relative share in percent for each category.
 Other factors that can affect the precision of percentage values reported  are [runtime allocator](./memory-use#preallocated-memory)
 behavior nuances and the [kernel page cache](./memory-use#page-cache).
 
+An alternative way to access memory breakdown is via the `nodes` command group:
+
+```shell
+rabbitmqadmin nodes memory_breakdown_in_bytes --node 'rabbit@hostname'
+```
+
+```shell
+rabbitmqadmin nodes memory_breakdown_in_percent --node 'rabbit@hostname'
+```
 
 ### List Feature Flags and Their State
 
@@ -838,6 +899,10 @@ rabbitmqadmin definitions import --file /path/to/definitions.file.json
 To export [definitions](./definitions) from a specific virtual host:
 
 ```shell
+rabbitmqadmin --vhost "events" definitions export_from_vhost --stdout
+```
+
+```shell
 rabbitmqadmin --vhost "events" definitions export_from_vhost --file /path/to/vhost-definitions.json
 ```
 
@@ -903,12 +968,54 @@ To list shovels across all virtual hosts, use `shovels list_all`:
 rabbitmqadmin shovels list_all
 ```
 
+### List Shovels in a Virtual Host
+
+```shell
+rabbitmqadmin --vhost "events" shovels list
+```
+
 ### Delete a Shovel
 
 To delete a shovel, use `shovels delete --name`:
 
 ```shell
 rabbitmqadmin shovels delete --name my-amqp091-shovel
+```
+
+### Manage TLS Peer Verification for Shovels
+
+:::warning
+
+These commands should only be used in emergency situations. Disabling TLS peer verification
+reduces security. Always prefer enabling verification with proper certificates.
+
+:::
+
+```shell
+# Disable TLS peer verification for all shovel source URIs (emergency use only)
+rabbitmqadmin --vhost "events" shovels disable_tls_peer_verification_for_all_source_uris
+```
+
+```shell
+# Disable TLS peer verification for all shovel destination URIs (emergency use only)
+rabbitmqadmin --vhost "events" shovels disable_tls_peer_verification_for_all_destination_uris
+```
+
+```shell
+# Enable TLS peer verification for all shovel source URIs with certificate paths
+# Note: paths must be accessible on the RabbitMQ node(s), not the local machine
+rabbitmqadmin --vhost "events" shovels enable_tls_peer_verification_for_all_source_uris \
+  --node-local-ca-certificate-bundle-path /etc/rabbitmq/certs/ca-bundle.pem \
+  --node-local-client-certificate-file-path /etc/rabbitmq/certs/client-cert.pem \
+  --node-local-client-private-key-file-path /etc/rabbitmq/certs/client-key.pem
+```
+
+```shell
+# Enable TLS peer verification for all shovel destination URIs with certificate paths
+rabbitmqadmin --vhost "events" shovels enable_tls_peer_verification_for_all_destination_uris \
+  --node-local-ca-certificate-bundle-path /etc/rabbitmq/certs/ca-bundle.pem \
+  --node-local-client-certificate-file-path /etc/rabbitmq/certs/client-cert.pem \
+  --node-local-client-private-key-file-path /etc/rabbitmq/certs/client-key.pem
 ```
 
 ### List Federation Upstreams
@@ -986,6 +1093,29 @@ To list all [federation links](./federation) across all virtual hosts, use `fede
 rabbitmqadmin federation list_all_links
 ```
 
+### Manage TLS Peer Verification for Federation Upstreams
+
+:::warning
+
+These commands should only be used in emergency situations. Disabling TLS peer verification
+reduces security. Always prefer enabling verification with proper certificates.
+
+:::
+
+```shell
+# Disable TLS peer verification for all federation upstreams (emergency use only)
+rabbitmqadmin --vhost "events" federation disable_tls_peer_verification_for_all_upstreams
+```
+
+```shell
+# Enable TLS peer verification for all federation upstreams with certificate paths
+# Note: paths must be accessible on the RabbitMQ node(s), not the local machine
+rabbitmqadmin --vhost "events" federation enable_tls_peer_verification_for_all_upstreams \
+  --node-local-ca-certificate-bundle-path /etc/rabbitmq/certs/ca-bundle.pem \
+  --node-local-client-certificate-file-path /etc/rabbitmq/certs/client-cert.pem \
+  --node-local-client-private-key-file-path /etc/rabbitmq/certs/client-key.pem
+```
+
 ### Rebalance Queue Leaders
 
 To rebalance quorum queue leaders across cluster nodes, use `rebalance queues`. This operation helps distribute queue leaders more evenly across cluster nodes, which can more evenly distribute load and improve resource utilization, depending on the workload.
@@ -1025,6 +1155,18 @@ rabbitmqadmin auth_attempts stats
 ```shell
 # Get authentication attempt statistics for a specific node
 rabbitmqadmin auth_attempts stats --node "rabbit@hostname"
+```
+
+### List Enabled Plugins
+
+```shell
+# List plugins across all cluster nodes
+rabbitmqadmin plugins list_all
+```
+
+```shell
+# List plugins enabled on a specific node
+rabbitmqadmin plugins list_on_node --node "rabbit@hostname"
 ```
 
 ### Health Checks
@@ -1125,13 +1267,51 @@ rabbitmqadmin --vhost "events" policies list_in
 ### Create a Policy
 
 ```shell
-# Create a policy to set limits on queues
-rabbitmqadmin --vhost "events" policies declare --name "queue-limits" --pattern ".*" --definition '{"max-length":10000,"max-length-bytes":100000000}' --priority 1
+# Create a policy that sets max-length for all queues
+rabbitmqadmin --vhost "events" policies declare --name "queue-limits" --pattern ".*" --definition '{"max-length":10000}' --priority 1 --apply-to "queues"
 ```
 
 ```shell
 # Create a TTL policy for temporary queues
-rabbitmqadmin --vhost "events" policies declare --name "temp-queues" --pattern "temp\\..*" --definition '{"message-ttl":300000,"expires":600000}' --priority 2
+rabbitmqadmin --vhost "events" policies declare --name "temp-queues" --pattern "temp\\..*" --definition '{"message-ttl":300000,"expires":600000}' --priority 2 --apply-to "queues"
+```
+
+### Create a Blanket Policy
+
+A blanket policy is a low-priority policy that matches all objects not matched by any other policy:
+
+```shell
+rabbitmqadmin --vhost "events" policies declare_blanket --name "default-limits" \
+  --apply-to "queues" --definition '{"max-length":100000}'
+```
+
+### Create an Override Policy
+
+An override policy is created from an existing policy with a higher priority, merging additional definition keys:
+
+```shell
+rabbitmqadmin --vhost "events" policies declare_override --name "queue-limits" \
+  --definition '{"max-length-bytes":500000000}'
+```
+
+```shell
+# Specify a custom name for the override policy
+rabbitmqadmin --vhost "events" policies declare_override --name "queue-limits" \
+  --override-name "queue-limits-extended" --definition '{"max-length-bytes":500000000}'
+```
+
+### List Conflicting Policies
+
+Policies with the same priority that could match the same objects are considered conflicting:
+
+```shell
+# List conflicting policies across all virtual hosts
+rabbitmqadmin policies list_conflicting
+```
+
+```shell
+# List conflicting policies in a specific virtual host
+rabbitmqadmin --vhost "events" policies list_conflicting_in
 ```
 
 ### Delete a Policy
@@ -1259,10 +1439,94 @@ rabbitmqadmin parameters list_all
 rabbitmqadmin --vhost "events" parameters list
 ```
 
+### Set a Runtime Parameter
+
+```shell
+# Set a runtime parameter.
+# Note: for federation upstreams and shovels, use the dedicated 'federation' and 'shovels' command groups instead
+rabbitmqadmin --vhost "events" parameters set --name "my-param" --component "my-component" --value '{"key":"value"}'
+```
+
+### Clear a Runtime Parameter
+
+```shell
+# Set a runtime parameter.
+# Note: for federation upstreams and shovels, use the dedicated 'federation' and 'shovels' command groups instead
+rabbitmqadmin --vhost "events" parameters clear --name "my-param" --component "my-component"
+```
+
+```shell
+# Idempotent deletion (does not fail if the parameter doesn't exist)
+rabbitmqadmin --vhost "events" parameters clear --name "my-param" --component "my-component" --idempotently
+```
+
 ### List Global Parameters
 
 ```shell
 rabbitmqadmin global_parameters list
+```
+
+### Set a Global Runtime Parameter
+
+```shell
+rabbitmqadmin global_parameters set --name "cluster_name" --value '"production-cluster"'
+```
+
+### Clear a Global Runtime Parameter
+
+```shell
+rabbitmqadmin global_parameters clear --name "cluster_name"
+```
+
+```shell
+# Idempotent deletion (does not fail if the parameter doesn't exist)
+rabbitmqadmin global_parameters clear --name "cluster_name" --idempotently
+```
+
+### Tanzu RabbitMQ Commands
+
+:::note
+
+These commands are specific to Tanzu RabbitMQ and will not be available in open source RabbitMQ.
+
+:::
+
+#### Schema Definition Sync (SDS)
+
+Schema Definition Sync replicates schema definitions (queues, exchanges, bindings, etc.) across clusters.
+
+```shell
+# Check SDS status on a specific node
+rabbitmqadmin tanzu sds status_on_node --node "rabbit@hostname"
+```
+
+```shell
+# Disable SDS on a specific node
+rabbitmqadmin tanzu sds disable_on_node --node "rabbit@hostname"
+```
+
+```shell
+# Disable SDS cluster-wide
+rabbitmqadmin tanzu sds disable_cluster_wide
+```
+
+```shell
+# Enable SDS on a specific node
+rabbitmqadmin tanzu sds enable_on_node --node "rabbit@hostname"
+```
+
+```shell
+# Enable SDS cluster-wide
+rabbitmqadmin tanzu sds enable_cluster_wide
+```
+
+#### Warm Standby Replication (WSR)
+
+Warm Standby Replication provides disaster recovery capabilities by replicating data to a standby cluster.
+
+```shell
+# Check WSR status on the target node
+rabbitmqadmin tanzu wsr status
 ```
 
 
@@ -1332,6 +1596,52 @@ the original version of `rabbitmqadmin`. It can be overridden on the command lin
 ```shell
 # will use the settings from the section called [staging]
 rabbitmqadmin --config $HOME/.configuration/rabbitmqadmin.conf --node staging show churn
+```
+
+### Show Configuration File Path
+
+```shell
+rabbitmqadmin config_file show_path
+```
+
+### Show Configuration File Contents
+
+```shell
+rabbitmqadmin config_file show
+```
+
+### Add a Node Entry to the Configuration File
+
+```shell
+# Add a new node entry for a staging cluster
+rabbitmqadmin config_file add_node --node staging --host 192.168.20.31 --port 15672 \
+  --username "staging-user" --password "staging-password"
+```
+
+```shell
+# Add a node entry with TLS settings
+rabbitmqadmin config_file add_node --node production --host prod.example.com --port 15671 \
+  --username "prod-user" --password "prod-password" --use-tls \
+  --tls-ca-cert-file /path/to/ca-bundle.pem
+```
+
+```shell
+# Create the configuration file if it does not exist
+rabbitmqadmin config_file add_node --node local --host localhost --port 15672 \
+  --username "guest" --password "guest" --create-file-if-missing
+```
+
+### Update a Node Entry in the Configuration File
+
+```shell
+# Update an existing node entry (or create one if it does not exist)
+rabbitmqadmin config_file update_node --node staging --port 15673 --password "new-password"
+```
+
+### Delete a Node Entry from the Configuration File
+
+```shell
+rabbitmqadmin config_file delete_node --node staging
 ```
 
 

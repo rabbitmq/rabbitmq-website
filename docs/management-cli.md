@@ -479,7 +479,6 @@ Virtual host deletion protection prevents a virtual host from being accidentally
 See the [Virtual Hosts guide](./vhosts#deletion-protection) for more information on deletion protection.
 
 ```shell
-# Enable deletion protection for a virtual host
 rabbitmqadmin vhosts enable_deletion_protection --name "production"
 ```
 
@@ -494,7 +493,6 @@ rabbitmqadmin vhosts enable_deletion_protection --name "staging"
 See the [Virtual Hosts guide](./vhosts#deletion-protection) for more information on deletion protection.
 
 ```shell
-# Disable deletion protection for a virtual host
 rabbitmqadmin vhosts disable_deletion_protection --name "production"
 ```
 
@@ -1315,7 +1313,7 @@ rabbitmqadmin --vhost "events" policies declare_blanket --name "default-limits" 
 
 ### Create an Override Policy
 
-An override policy is created from an existing policy with a higher priority, merging additional keys:
+An override policy is created from an existing policy with a higher priority, merging additional definition keys:
 
 ```shell
 rabbitmqadmin --vhost "events" policies declare_override --name "queue-limits" \
@@ -1475,7 +1473,7 @@ rabbitmqadmin --vhost "events" parameters list
 ### Set a Runtime Parameter
 
 ```shell
-# Set a runtime parameter
+# Set a runtime parameter.
 # Note: for federation upstreams and shovels, use the dedicated 'federation' and 'shovels' command groups instead
 rabbitmqadmin --vhost "events" parameters set --name "my-param" --component "my-component" --value '{"key":"value"}'
 ```
@@ -1483,7 +1481,7 @@ rabbitmqadmin --vhost "events" parameters set --name "my-param" --component "my-
 ### Clear a Runtime Parameter
 
 ```shell
-# Clear (delete) a runtime parameter
+# Set a runtime parameter.
 # Note: for federation upstreams and shovels, use the dedicated 'federation' and 'shovels' command groups instead
 rabbitmqadmin --vhost "events" parameters clear --name "my-param" --component "my-component"
 ```
@@ -1502,14 +1500,12 @@ rabbitmqadmin global_parameters list
 ### Set a Global Runtime Parameter
 
 ```shell
-# Set a global runtime parameter
 rabbitmqadmin global_parameters set --name "cluster_name" --value '"production-cluster"'
 ```
 
 ### Clear a Global Runtime Parameter
 
 ```shell
-# Clear (delete) a global runtime parameter
 rabbitmqadmin global_parameters clear --name "cluster_name"
 ```
 
@@ -1522,7 +1518,7 @@ rabbitmqadmin global_parameters clear --name "cluster_name" --idempotently
 
 :::note
 
-These commands are specific to Tanzu RabbitMQ and may not be available in open source RabbitMQ.
+These commands are specific to Tanzu RabbitMQ and will not be available in open source RabbitMQ.
 
 :::
 
