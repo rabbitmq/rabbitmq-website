@@ -638,6 +638,9 @@ and `tls.crt` for the private key and public certificate respectively.
 
 By default, enabling [TLS for client connections](/docs/ssl) does not disable non-TLS listeners. Therefore, unencrypted connections will still be accepted.
 To disable non-TLS listeners and only accept TLS connections, set `spec.tls.disableNonTLSListeners: true`.
+Note that `disableNonTLSListeners` is a boolean field. This field only accepts `true` or `false` values. The operator
+omits this field when set to `false`, the default value. Note as well that `""` is invalid, and it will be interpreted
+as `false`.
 
 It is also possible to make RabbitMQ [verify peer certificates](/docs/ssl#peer-verification) against a provided CA certificate.
 The same can be done by clients, so peer verification can be mutual ("mTLS").
