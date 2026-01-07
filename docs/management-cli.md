@@ -71,9 +71,11 @@ which will output a list of command groups:
 Usage: rabbitmqadmin [OPTIONS] <COMMAND>
 
 Commands:
+  auth_attempts        Authentication attempt statistics
   bindings             Operations on bindings
   channels             Operations on channels
   close                Closes connections
+  config_file          Operations on the local configuration file
   connections          Operations on connections
   declare              Creates or declares objects
   definitions          Operations on definitions (everything except for messages: virtual hosts, queues, streams, exchanges, bindings, users, etc)
@@ -83,7 +85,6 @@ Commands:
   export               See 'definitions export'
   feature_flags        Operations on feature flags
   federation           Operations on federation upstreams and links
-  get                  Fetches message(s) from a queue or stream via polling. Only suitable for development and test environments.
   global_parameters    Operations on global runtime parameters
   health_check         Runs health checks
   import               See 'definitions import'
@@ -92,8 +93,9 @@ Commands:
   operator_policies    Operations on operator policies
   parameters           Operations on runtime parameters
   passwords            Operations on passwords
+  permissions          Operations on user permissions
+  plugins              List enabled plugins
   policies             Operations on policies
-  publish              Publishes (inefficiently) message(s) to a queue or a stream. Only suitable for development and test environments.
   purge                Purges queues
   queues               Operations on queues
   rebalance            Rebalancing of leader replicas
@@ -102,7 +104,9 @@ Commands:
   streams              Operations on streams
   tanzu                Tanzu RabbitMQ-specific commands
   users                Operations on users
+  user_limits          Operations on per-user (resource) limits
   vhosts               Virtual host operations
+  vhost_limits         Operations on virtual host (resource) limits
   help                 Print this message or the help of the given subcommand(s)
 ```
 
@@ -297,6 +301,11 @@ See the [Access Control guide](./access-control#authorisation) for more informat
 
 ```shell
 # List permissions for all users
+rabbitmqadmin permissions list
+```
+
+```shell
+# Alternative: list all permissions using the 'users permissions' command
 rabbitmqadmin users permissions
 ```
 
@@ -306,12 +315,12 @@ See the [Access Control guide](./access-control#grant-permissions) for more info
 
 ```shell
 # Grant permissions to a user for a virtual host
-rabbitmqadmin --vhost "events" declare permissions --user "a-user" --configure ".*" --read ".*" --write ".*"
+rabbitmqadmin --vhost "events" permissions declare --user "a-user" --configure ".*" --read ".*" --write ".*"
 ```
 
 ```shell
 # Grant limited permissions (read-only for specific queues)
-rabbitmqadmin --vhost "events" declare permissions --user "monitoring" --configure "" --read "^metrics\\..*" --write ""
+rabbitmqadmin --vhost "events" permissions declare --user "monitoring" --configure "" --read "^metrics\\..*" --write ""
 ```
 
 ### Revoke User Permissions
@@ -320,19 +329,19 @@ See the [Access Control guide](./access-control#authorisation) for more informat
 
 ```shell
 # Revoke all permissions for a user in a virtual host
-rabbitmqadmin --vhost "events" delete permissions --user "a-user"
+rabbitmqadmin --vhost "events" permissions delete --user "a-user"
 ```
 
 ```shell
 # Idempotent revocation (does not fail if permissions don't exist)
-rabbitmqadmin --vhost "events" delete permissions --user "a-user" --idempotently
+rabbitmqadmin --vhost "events" permissions delete --user "a-user" --idempotently
 ```
 
 ### List User Connections
 
 ```shell
 # List connections for a specific user
-rabbitmqadmin users connections --name "a-user"
+rabbitmqadmin users connections --username "a-user"
 ```
 
 ### List Queues
@@ -493,55 +502,65 @@ rabbitmqadmin vhosts disable_deletion_protection --name "production"
 
 ```shell
 # List limits for all virtual hosts
-rabbitmqadmin list vhost_limits
+rabbitmqadmin vhost_limits list
 ```
 
 ```shell
 # List limits for a specific virtual host
-rabbitmqadmin --vhost "events" list vhost_limits
+rabbitmqadmin --vhost "events" vhost_limits list
 ```
 
 ### Set a Virtual Host Limit
 
 ```shell
 # Set a limit on maximum number of connections
-rabbitmqadmin --vhost "events" declare vhost_limit --name "max-connections" --value 100
+rabbitmqadmin --vhost "events" vhost_limits declare --name "max-connections" --value 100
 ```
 
 ```shell
 # Set a limit on maximum number of queues
-rabbitmqadmin --vhost "events" declare vhost_limit --name "max-queues" --value 500
+rabbitmqadmin --vhost "events" vhost_limits declare --name "max-queues" --value 500
 ```
 
 ### Delete a Virtual Host Limit
 
 ```shell
-rabbitmqadmin --vhost "events" delete vhost_limit --name "max-connections"
+rabbitmqadmin --vhost "events" vhost_limits delete --name "max-connections"
 ```
 
 ### List User Limits
 
 ```shell
+# List limits for all users
+rabbitmqadmin user_limits list
+```
+
+```shell
 # List limits for a specific user
-rabbitmqadmin list user_limits --user "a-user"
+rabbitmqadmin user_limits list --user "a-user"
+```
+
+```shell
+# Alternative using the 'users' command group
+rabbitmqadmin users limits --user "a-user"
 ```
 
 ### Set a User Limit
 
 ```shell
 # Set a limit on maximum number of connections for a user
-rabbitmqadmin declare user_limit --user "a-user" --name "max-connections" --value 10
+rabbitmqadmin user_limits declare --user "a-user" --name "max-connections" --value 10
 ```
 
 ```shell
 # Set a limit on maximum number of channels for a user
-rabbitmqadmin declare user_limit --user "a-user" --name "max-channels" --value 50
+rabbitmqadmin user_limits declare --user "a-user" --name "max-channels" --value 50
 ```
 
 ### Delete a User Limit
 
 ```shell
-rabbitmqadmin delete user_limit --user "a-user" --name "max-connections"
+rabbitmqadmin user_limits delete --user "a-user" --name "max-connections"
 ```
 
 
@@ -573,13 +592,24 @@ rabbitmqadmin --vhost "events" streams list
 ### Declare a Stream
 
 ```shell
-rabbitmqadmin --vhost "events" streams declare --name "events.stream" --max-age "3D"
+rabbitmqadmin --vhost "events" streams declare --name "events.stream" --expiration "3D"
 ```
 
 ### Delete a Stream
 
 ```shell
 rabbitmqadmin --vhost "events" streams delete --name "events.stream"
+```
+
+### Show Stream Details
+
+```shell
+rabbitmqadmin --vhost "events" streams show --name "events.stream"
+```
+
+```shell
+# Show only specific columns
+rabbitmqadmin --vhost "events" streams show --name "events.stream" --columns "name,messages,consumers"
 ```
 
 ### Purge a Queue
@@ -597,6 +627,17 @@ rabbitmqadmin --vhost "events" queues delete --name "target.queue.name"
 ``` shell
 # --idempotently means that 404 Not Found responses will not be considered errors
 rabbitmqadmin --vhost "events" queues delete --name "target.queue.name" --idempotently
+```
+
+### Show Queue Details
+
+```shell
+rabbitmqadmin --vhost "events" queues show --name "target.queue.name"
+```
+
+```shell
+# Show only specific columns
+rabbitmqadmin --vhost "events" queues show --name "target.queue.name" --columns "name,type,messages,consumers"
 ```
 
 ### Declare an Exchange
@@ -635,16 +676,31 @@ rabbitmqadmin connections list
 rabbitmqadmin --vhost "events" connections list
 ```
 
+```shell
+# List connections for a specific user
+rabbitmqadmin connections list_of_user --username "a-user"
+```
+
 ### Close a Connection
 
 ``` shell
 rabbitmqadmin connections close --name "127.0.0.1:5672 -> 127.0.0.1:59876"
 ```
 
+```shell
+# Alternative using the 'close' command group
+rabbitmqadmin close connection --name "127.0.0.1:5672 -> 127.0.0.1:59876"
+```
+
 ### Close All Connections for a User
 
 ``` shell
-rabbitmqadmin users close_connections --name "a-user"
+rabbitmqadmin connections close_of_user --username "a-user"
+```
+
+```shell
+# Alternative using the 'close' command group
+rabbitmqadmin close user_connections --username "a-user"
 ```
 
 ### List Channels
@@ -750,6 +806,15 @@ for 100% when computing the relative share in percent for each category.
 Other factors that can affect the precision of percentage values reported  are [runtime allocator](./memory-use#preallocated-memory)
 behavior nuances and the [kernel page cache](./memory-use#page-cache).
 
+An alternative way to access memory breakdown is via the `nodes` command group:
+
+```shell
+rabbitmqadmin nodes memory_breakdown_in_bytes --node 'rabbit@hostname'
+```
+
+```shell
+rabbitmqadmin nodes memory_breakdown_in_percent --node 'rabbit@hostname'
+```
 
 ### List Feature Flags and Their State
 
@@ -760,7 +825,7 @@ rabbitmqadmin feature_flags list
 ### Enable a Feature Flag
 
 ```shell
-rabbitmqadmin feature_flags enable rabbitmq_4.0.0
+rabbitmqadmin feature_flags enable --name rabbitmq_4.0.0
 ```
 
 ### Enable All Stable Feature Flags
@@ -892,9 +957,19 @@ rabbitmqadmin shovels declare_amqp091 --name my-amqp091-shovel \
     --destination-uri amqp://username:s3KrE7@source.hostname:5672 \
     --ack-mode "on-confirm" \
     --source-queue "src.queue" \
+    --destination-queue "dest.queue"
+```
+
+```shell
+# When source and destination queues already exist (predeclared topology)
+rabbitmqadmin shovels declare_amqp091 --name my-amqp091-shovel \
+    --source-uri amqp://username:s3KrE7@source.hostname:5672 \
+    --destination-uri amqp://username:s3KrE7@source.hostname:5672 \
+    --ack-mode "on-confirm" \
+    --source-queue "src.queue" \
     --destination-queue "dest.queue" \
-    --predeclared-source false \
-    --predeclared-destination false
+    --predeclared-source \
+    --predeclared-destination
 ```
 
 ### Declare an AMQP 1.0 Shovel
@@ -905,7 +980,7 @@ To declare a [dynamic shovel](./shovel-dynamic) that uses AMQP 1.0 for both sour
 Note that
 
 1. With AMQP 1.0 shovels, credentials in the URI are mandatory (there are no defaults)
-2. With AMQP 1.0 shovels, the topology must be pre-declared (an equivalent of `--predeclared-source true` and `--predeclared-destination true` for AMQP 0-9-1 shovels)
+2. With AMQP 1.0 shovels, the topology must be pre-declared (an equivalent of `--predeclared-source` and `--predeclared-destination` flags for AMQP 0-9-1 shovels)
 3. AMQP 1.0 shovels should use [AMQP 1.0 addresses v2](./amqp#addresses)
 
 ```shell
@@ -925,12 +1000,54 @@ To list shovels across all virtual hosts, use `shovels list_all`:
 rabbitmqadmin shovels list_all
 ```
 
+To list shovels in a specific virtual host:
+
+```shell
+rabbitmqadmin --vhost "events" shovels list
+```
+
 ### Delete a Shovel
 
 To delete a shovel, use `shovels delete --name`:
 
 ```shell
 rabbitmqadmin shovels delete --name my-amqp091-shovel
+```
+
+### Manage TLS Peer Verification for Shovels
+
+:::warning
+
+These commands should only be used in emergency situations. Disabling TLS peer verification
+reduces security. Always prefer enabling verification with proper certificates.
+
+:::
+
+```shell
+# Disable TLS peer verification for all shovel source URIs (emergency use only)
+rabbitmqadmin --vhost "events" shovels disable_tls_peer_verification_for_all_source_uris
+```
+
+```shell
+# Disable TLS peer verification for all shovel destination URIs (emergency use only)
+rabbitmqadmin --vhost "events" shovels disable_tls_peer_verification_for_all_destination_uris
+```
+
+```shell
+# Enable TLS peer verification for all shovel source URIs with certificate paths
+# Note: paths must be accessible on the RabbitMQ node(s), not the local machine
+rabbitmqadmin --vhost "events" shovels enable_tls_peer_verification_for_all_source_uris \
+  --node-local-ca-certificate-bundle-path /etc/rabbitmq/certs/ca-bundle.pem \
+  --node-local-client-certificate-file-path /etc/rabbitmq/certs/client-cert.pem \
+  --node-local-client-private-key-file-path /etc/rabbitmq/certs/client-key.pem
+```
+
+```shell
+# Enable TLS peer verification for all shovel destination URIs with certificate paths
+rabbitmqadmin --vhost "events" shovels enable_tls_peer_verification_for_all_destination_uris \
+  --node-local-ca-certificate-bundle-path /etc/rabbitmq/certs/ca-bundle.pem \
+  --node-local-client-certificate-file-path /etc/rabbitmq/certs/client-cert.pem \
+  --node-local-client-private-key-file-path /etc/rabbitmq/certs/client-key.pem
 ```
 
 ### List Federation Upstreams
@@ -1008,6 +1125,29 @@ To list all [federation links](./federation) across all virtual hosts, use `fede
 rabbitmqadmin federation list_all_links
 ```
 
+### Manage TLS Peer Verification for Federation Upstreams
+
+:::warning
+
+These commands should only be used in emergency situations. Disabling TLS peer verification
+reduces security. Always prefer enabling verification with proper certificates.
+
+:::
+
+```shell
+# Disable TLS peer verification for all federation upstreams (emergency use only)
+rabbitmqadmin --vhost "events" federation disable_tls_peer_verification_for_all_upstreams
+```
+
+```shell
+# Enable TLS peer verification for all federation upstreams with certificate paths
+# Note: paths must be accessible on the RabbitMQ node(s), not the local machine
+rabbitmqadmin --vhost "events" federation enable_tls_peer_verification_for_all_upstreams \
+  --node-local-ca-certificate-bundle-path /etc/rabbitmq/certs/ca-bundle.pem \
+  --node-local-client-certificate-file-path /etc/rabbitmq/certs/client-cert.pem \
+  --node-local-client-private-key-file-path /etc/rabbitmq/certs/client-key.pem
+```
+
 ### Rebalance Queue Leaders
 
 To [rebalance quorum queue](./quorum-queues#member-rebalancing) leaders across cluster nodes, use `rebalance queues`. This operation helps distribute queue leaders more evenly across cluster nodes, which can more evenly distribute load and improve resource utilization, depending on the workload.
@@ -1082,6 +1222,18 @@ To display authentication attempt statistics for a specific cluster node:
 rabbitmqadmin auth_attempts stats --node "rabbit@hostname"
 ```
 
+### List Enabled Plugins
+
+```shell
+# List plugins across all cluster nodes
+rabbitmqadmin plugins list_all
+```
+
+```shell
+# List plugins enabled on a specific node
+rabbitmqadmin plugins list_on_node --node "rabbit@hostname"
+```
+
 ### TLS Configuration
 
 `rabbitmqadmin` supports connecting to RabbitMQ clusters that use [TLS](./ssl) for the HTTP API:
@@ -1152,6 +1304,44 @@ rabbitmqadmin --vhost "events" policies declare --name "queue-limits" --pattern 
 rabbitmqadmin --vhost "events" policies declare --name "temp-queues" --pattern "temp\\..*" --definition '{"message-ttl":300000,"expires":600000}' --priority 2 --apply-to "queues"
 ```
 
+### Create a Blanket Policy
+
+A blanket policy is a low-priority policy that matches all objects not matched by any other policy:
+
+```shell
+rabbitmqadmin --vhost "events" policies declare_blanket --name "default-limits" \
+  --apply-to "queues" --definition '{"max-length":100000}'
+```
+
+### Create an Override Policy
+
+An override policy is created from an existing policy with a higher priority, merging additional keys:
+
+```shell
+rabbitmqadmin --vhost "events" policies declare_override --name "queue-limits" \
+  --definition '{"max-length-bytes":500000000}'
+```
+
+```shell
+# Specify a custom name for the override policy
+rabbitmqadmin --vhost "events" policies declare_override --name "queue-limits" \
+  --override-name "queue-limits-extended" --definition '{"max-length-bytes":500000000}'
+```
+
+### List Conflicting Policies
+
+Policies with the same priority that could match the same objects are considered conflicting:
+
+```shell
+# List conflicting policies across all virtual hosts
+rabbitmqadmin policies list_conflicting
+```
+
+```shell
+# List conflicting policies in a specific virtual host
+rabbitmqadmin --vhost "events" policies list_conflicting_in
+```
+
 ### Delete a Policy
 
 ```shell
@@ -1220,7 +1410,7 @@ rabbitmqadmin --vhost "events" operator_policies list_in
 
 ```shell
 # Create an operator policy to set max queue length
-rabbitmqadmin --vhost "events" operator_policies declare --name "queue.max-length" --pattern ".*" --definition '{"max-length":10000}' --priority 1
+rabbitmqadmin --vhost "events" operator_policies declare --name "queue.max-length" --pattern ".*" --apply-to "queues" --definition '{"max-length":10000}' --priority 1
 ```
 
 ### Delete an Operator Policy
@@ -1264,11 +1454,11 @@ rabbitmqadmin --vhost "events" operator_policies delete_definition_keys --name "
 rabbitmqadmin --vhost "events" operator_policies delete_definition_keys_from_all_in --definition-keys "max-length-bytes"
 ```
 
-### List Objects Matching an Operator Policy
+### List Operator Policies Matching an Object
 
 ```shell
-# List all queues and streams that match an operator policy
-rabbitmqadmin --vhost "events" operator_policies list_matching_objects --name "queue.max-length"
+# List operator policies that match a specific queue
+rabbitmqadmin --vhost "events" operator_policies list_matching_object --name "my.queue" --type "queue"
 ```
 
 ### List Runtime Parameters
@@ -1326,6 +1516,52 @@ rabbitmqadmin global_parameters clear --name "cluster_name"
 ```shell
 # Idempotent deletion (does not fail if the parameter doesn't exist)
 rabbitmqadmin global_parameters clear --name "cluster_name" --idempotently
+```
+
+### Tanzu RabbitMQ Commands
+
+:::note
+
+These commands are specific to Tanzu RabbitMQ and may not be available in open source RabbitMQ.
+
+:::
+
+#### Schema Definition Sync (SDS)
+
+Schema Definition Sync replicates schema definitions (queues, exchanges, bindings, etc.) across clusters.
+
+```shell
+# Check SDS status on a specific node
+rabbitmqadmin tanzu sds status_on_node --node "rabbit@hostname"
+```
+
+```shell
+# Disable SDS on a specific node
+rabbitmqadmin tanzu sds disable_on_node --node "rabbit@hostname"
+```
+
+```shell
+# Disable SDS cluster-wide
+rabbitmqadmin tanzu sds disable_cluster_wide
+```
+
+```shell
+# Enable SDS on a specific node
+rabbitmqadmin tanzu sds enable_on_node --node "rabbit@hostname"
+```
+
+```shell
+# Enable SDS cluster-wide
+rabbitmqadmin tanzu sds enable_cluster_wide
+```
+
+#### Warm Standby Replication (WSR)
+
+Warm Standby Replication provides disaster recovery capabilities by replicating data to a standby cluster.
+
+```shell
+# Check WSR status on the target node
+rabbitmqadmin tanzu wsr status
 ```
 
 
@@ -1395,6 +1631,52 @@ the original version of `rabbitmqadmin`. It can be overridden on the command lin
 ```shell
 # will use the settings from the section called [staging]
 rabbitmqadmin --config $HOME/.configuration/rabbitmqadmin.conf --node staging show churn
+```
+
+### Show Configuration File Path
+
+```shell
+rabbitmqadmin config_file show_path
+```
+
+### Show Configuration File Contents
+
+```shell
+rabbitmqadmin config_file show
+```
+
+### Add a Node Entry to the Configuration File
+
+```shell
+# Add a new node entry for a staging cluster
+rabbitmqadmin config_file add_node --node staging --host 192.168.20.31 --port 15672 \
+  --username "staging-user" --password "staging-password"
+```
+
+```shell
+# Add a node entry with TLS settings
+rabbitmqadmin config_file add_node --node production --host prod.example.com --port 15671 \
+  --username "prod-user" --password "prod-password" --use-tls \
+  --tls-ca-cert-file /path/to/ca-bundle.pem
+```
+
+```shell
+# Create the configuration file if it does not exist
+rabbitmqadmin config_file add_node --node local --host localhost --port 15672 \
+  --username "guest" --password "guest" --create-file-if-missing
+```
+
+### Update a Node Entry in the Configuration File
+
+```shell
+# Update an existing node entry (or create one if it does not exist)
+rabbitmqadmin config_file update_node --node staging --port 15673 --password "new-password"
+```
+
+### Delete a Node Entry from the Configuration File
+
+```shell
+rabbitmqadmin config_file delete_node --node staging
 ```
 
 

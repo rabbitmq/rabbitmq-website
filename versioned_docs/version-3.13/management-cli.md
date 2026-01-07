@@ -83,7 +83,6 @@ Commands:
   export               See 'definitions export'
   feature_flags        Operations on feature flags
   federation           Operations on federation upstreams and links
-  get                  Fetches message(s) from a queue or stream via polling. Only suitable for development and test environments.
   global_parameters    Operations on global runtime parameters
   health_check         Runs health checks
   import               See 'definitions import'
@@ -93,7 +92,6 @@ Commands:
   parameters           Operations on runtime parameters
   passwords            Operations on passwords
   policies             Operations on policies
-  publish              Publishes (inefficiently) message(s) to a queue or a stream. Only suitable for development and test environments.
   purge                Purges queues
   queues               Operations on queues
   rebalance            Rebalancing of leader replicas
@@ -332,7 +330,7 @@ rabbitmqadmin --vhost "events" delete permissions --user "a-user" --idempotently
 
 ```shell
 # List connections for a specific user
-rabbitmqadmin users connections --name "a-user"
+rabbitmqadmin users connections --username "a-user"
 ```
 
 ### List Queues
@@ -523,7 +521,7 @@ rabbitmqadmin --vhost "events" streams list
 ### Declare a Stream
 
 ```shell
-rabbitmqadmin --vhost "events" streams declare --name "events.stream" --max-age "3D"
+rabbitmqadmin --vhost "events" streams declare --name "events.stream" --expiration "3D"
 ```
 
 ### Delete a Stream
@@ -734,7 +732,7 @@ rabbitmqadmin feature_flags list
 ### Enable a Feature Flag
 
 ```shell
-rabbitmqadmin feature_flags enable rabbitmq_4.0.0
+rabbitmqadmin feature_flags enable --name rabbitmq_4.0.0
 ```
 
 ### Enable All Stable Feature Flags
@@ -862,9 +860,19 @@ rabbitmqadmin shovels declare_amqp091 --name my-amqp091-shovel \
     --destination-uri amqp://username:s3KrE7@source.hostname:5672 \
     --ack-mode "on-confirm" \
     --source-queue "src.queue" \
+    --destination-queue "dest.queue"
+```
+
+```shell
+# When source and destination queues already exist (predeclared topology)
+rabbitmqadmin shovels declare_amqp091 --name my-amqp091-shovel \
+    --source-uri amqp://username:s3KrE7@source.hostname:5672 \
+    --destination-uri amqp://username:s3KrE7@source.hostname:5672 \
+    --ack-mode "on-confirm" \
+    --source-queue "src.queue" \
     --destination-queue "dest.queue" \
-    --predeclared-source false \
-    --predeclared-destination false
+    --predeclared-source \
+    --predeclared-destination
 ```
 
 ### Declare an AMQP 1.0 Shovel
@@ -875,7 +883,7 @@ To declare a [dynamic shovel](./shovel-dynamic) that uses AMQP 1.0 for both sour
 Note that
 
 1. With AMQP 1.0 shovels, credentials in the URI are mandatory (there are no defaults)
-2. With AMQP 1.0 shovels, the topology must be pre-declared (an equivalent of `--predeclared-source true` and `--predeclared-destination true` for AMQP 0-9-1 shovels)
+2. With AMQP 1.0 shovels, the topology must be pre-declared (an equivalent of `--predeclared-source` and `--predeclared-destination` flags for AMQP 0-9-1 shovels)
 3. AMQP 1.0 shovels should use AMQP 1.0 addresses v2
 
 ```shell
@@ -1189,7 +1197,7 @@ rabbitmqadmin --vhost "events" operator_policies list_in
 
 ```shell
 # Create an operator policy to set max queue length
-rabbitmqadmin --vhost "events" operator_policies declare --name "queue.max-length" --pattern ".*" --definition '{"max-length":10000}' --priority 1
+rabbitmqadmin --vhost "events" operator_policies declare --name "queue.max-length" --pattern ".*" --apply-to "queues" --definition '{"max-length":10000}' --priority 1
 ```
 
 ### Delete an Operator Policy
@@ -1233,11 +1241,11 @@ rabbitmqadmin --vhost "events" operator_policies delete_definition_keys --name "
 rabbitmqadmin --vhost "events" operator_policies delete_definition_keys_from_all_in --definition-keys "max-length-bytes"
 ```
 
-### List Objects Matching an Operator Policy
+### List Operator Policies Matching an Object
 
 ```shell
-# List all queues and streams that match an operator policy
-rabbitmqadmin --vhost "events" operator_policies list_matching_objects --name "queue.max-length"
+# List operator policies that match a specific queue
+rabbitmqadmin --vhost "events" operator_policies list_matching_object --name "my.queue" --type "queue"
 ```
 
 ### List Runtime Parameters

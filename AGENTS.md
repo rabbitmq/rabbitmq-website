@@ -70,6 +70,12 @@ Other source code elements (React/Docusaurus components, stylesheets) can be fou
  * For `rabbitmq-queues` examples, consult `rabbitmq-queues help`
  * For `rabbitmqadmin` examples, consult `rabbitmqadmin help`
 
+ ## To Never Documented, by Design
+
+ `rabbitmqadmin publish` and `rabbitmqadmin get` command groups are intentionally omitted from the docs
+ because they must not be used in production environments, and therefore they are not worth documenting
+ at all.
+
 ## Dependency Updates
 
  * When updating, adding or removing dependencies, make sure to update `package-lock.json`
