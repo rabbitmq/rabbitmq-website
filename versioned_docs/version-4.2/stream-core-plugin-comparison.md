@@ -40,6 +40,7 @@ Stream core designates stream features in the broker with only default plugins a
 |Offset tracking| Use external store      |  Built-in server-side support ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#consumer-offset-tracking)) or external store      |
 |Publishing deduplication|Not supported       |  Supported ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#outbound-message-deduplication))        |
 |[Super stream](/blog/2022/07/13/rabbitmq-3-11-feature-preview-super-streams) |Not supported       |  Supported         |
+|[Single Active Consumer](./streams#single-active-consumer)|Not supported                      | Supported
 |Throughput| Hundreds of thousands per second | Millions messages per second    |
 |TLS|Supported (default port: 5671)                     | Supported (default port: 5551)
 
