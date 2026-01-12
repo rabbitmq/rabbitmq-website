@@ -24,6 +24,7 @@ This following information is structured into these sections:
 * [Use HashiCorp Vault](#vault)
 * [Verify the Instance is Running](#verify-instance)
 * [Use the RabbitMQ Service in Your App](#use)
+* [Monitor Quorum Status](#quorum-status)
 * [Monitor RabbitMQ Clusters](#monitoring)
 * [Restrict traffic using Network Policies](#network-policies)
 * [Delete a RabbitMQ Instance](#delete)
@@ -724,6 +725,7 @@ spec:
 **Description:** TerminationGracePeriodSeconds is the timeout that each rabbitmqcluster pod will have to run the container preStop lifecycle hook to ensure graceful termination.
 The lifecycle hook checks quorum status of existing quorum queues and synchronization of mirror queues, before safely terminates pods.
 See [rabbitmq-queues check_if_node_is_quorum_critical](/docs/man/rabbitmq-queues.8#check_if_node_is_quorum_critical) for more details.
+For more information about quorum critical status and safe maintenance operations, see [Quorum Status Monitoring](./quorum-status).
 It defaults to 604800 seconds ( a week long) to ensure that the hook can finish running.
 If pods are terminated before the lifecycle hook finishes running, there could be potential data loss.
 
@@ -1307,6 +1309,12 @@ For information about how to start using your apps, see
 [RabbitMQ tutorials](/tutorials)
 and guides on [Connections](/docs/connections), [Publishers](/docs/publishers), and [Consumers](/docs/consumers).
 
+
+## Monitor Quorum Status {#quorum-status}
+
+The `quorumStatus` field in the `RabbitmqCluster` status provides real-time visibility into the quorum health of your cluster. This is particularly important before performing maintenance operations such as rolling updates.
+
+For detailed information about monitoring and using the quorum status field, see [Quorum Status Monitoring](./quorum-status).
 
 ## Monitor RabbitMQ Clusters {#monitoring}
 

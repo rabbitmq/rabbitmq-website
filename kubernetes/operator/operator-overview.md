@@ -28,6 +28,7 @@ Documentation of Cluster Operator spans several guides:
  * [RabbitMQ Plugin for kubectl](./kubectl-plugin)
  * [Using](./using-operator) RabbitMQ Cluster Kubernetes Operator
  * [Monitoring RabbitMQ Clusters on Kubernetes](./operator-monitoring)
+ * [Quorum Status Monitoring](./quorum-status) for RabbitMQ Clusters on Kubernetes
  * [Troubleshooting RabbitMQ Clusters on Kubernetes](./troubleshooting-operator)
  * [Upgrading the RabbitMQ Kubernetes Operators](./upgrade-operator)
  * [Using the RabbitMQ Kubernetes Operators on Openshift](./using-on-openshift)
