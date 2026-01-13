@@ -257,9 +257,12 @@ Here are the essential configuration settings related to TLS:
 
 <table className="plain">
   <thead>
-      <td>Configuration Key</td>
-      <td>Description</td>
+    <tr>
+      <th>Configuration Key</th>
+      <th>Description</th>
+    </tr>
   </thead>
+  <tbody>
     <tr>
       <td><code>listeners.ssl</code></td>
       <td>
@@ -290,6 +293,7 @@ Here are the essential configuration settings related to TLS:
       will be rejected if client fails to provide a certificate
       </td>
     </tr>
+  </tbody>
 </table>
 
 The options are provided in the <a href="./configure#configuration-files">configuration
@@ -817,7 +821,7 @@ To ensure that the above code works as expected with untrusted certificates, set
 a RabbitMQ node with a certificate that has not been imported
 into the key store and watch the connection fail.
 
-#### <a class="anchor" href="#java-client-hostname-verification">Server Hostname Verification</a>
+#### Server Hostname Verification {#java-client-hostname-verification}
 
 Hostname verification must be enabled separately using the
 `ConnectionFactory#enableHostnameVerification()` method. This is done in the example
@@ -1016,9 +1020,12 @@ for all the other fields that we need to set. The fields are:
 
 <table className="plain">
   <thead>
-      <td>Property</td>
-      <td>Description</td>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
   </thead>
+  <tbody>
     <tr>
       <td><code>Ssl.CertPath</code></td>
       <td>
@@ -1047,6 +1054,7 @@ for all the other fields that we need to set. The fields are:
       the certificate that the server sends over.
       </td>
     </tr>
+  </tbody>
 </table>
 
 ### TLS Versions {#dotnet-tls-versions-dotnet-client}
@@ -1197,11 +1205,10 @@ TLS version by default, as demonstrated in the below table.
 <table>
   <thead>
     <tr>
-      <td><strong>Erlang Series</strong></td>
-      <td><strong>TLS Versions Enabled by Default</strong></td>
+      <th>Erlang Series</th>
+      <th>TLS Versions Enabled by Default</th>
     </tr>
   </thead>
-
   <tbody>
     <tr>
       <td>26.x</td>
@@ -1357,10 +1364,13 @@ explains what TLS versions are supported by what JDK and .NET releases.
 
 <table>
   <thead>
-      <td>TLS version</td>
-      <td>Minimum JDK version</td>
-      <td>Minimum .NET version</td>
+    <tr>
+      <th>TLS version</th>
+      <th>Minimum JDK version</th>
+      <th>Minimum .NET version</th>
+    </tr>
   </thead>
+  <tbody>
     <tr>
       <td>TLS 1.3</td>
       <td>JDK 8 <a href="https://www.oracle.com/java/technologies/javase/8u261-relnotes.html">starting with JDK8u261</a>, JDK 11+</td>
@@ -1378,6 +1388,7 @@ explains what TLS versions are supported by what JDK and .NET releases.
       <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a></td>
       <td>.NET 4.5</td>
     </tr>
+  </tbody>
 </table>
 
 Oracle JDK has a [public roadmap on cryptography](https://java.com/en/jre-jdk-cryptoroadmap.html) and related standards

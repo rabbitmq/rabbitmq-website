@@ -94,11 +94,13 @@ source.
 
 <table>
   <thead>
-    <td>Description</td>
-    <td>Download</td>
-    <td>Signature</td>
+    <tr>
+      <th>Description</th>
+      <th>Download</th>
+      <th>Signature</th>
+    </tr>
   </thead>
-
+  <tbody>
   <tr>
     <td>Binary, compiled for JDK 8 (Android 7.0) or newer</td>
     <td>
@@ -118,6 +120,7 @@ source.
       <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.28.0/amqp-client-5.28.0-sources.jar.asc">Signature file</a>
     </td>
   </tr>
+  </tbody>
 </table>
 
 
@@ -133,11 +136,13 @@ download it for off-line use:
 
 <table>
   <thead>
-    <td>Description</td>
-    <td>Download</td>
-    <td>Signature</td>
+    <tr>
+      <th>Description</th>
+      <th>Download</th>
+      <th>Signature</th>
+    </tr>
   </thead>
-
+  <tbody>
   <tr>
     <td> A JAR file containing generated Javadoc documentation </td>
     <td>
@@ -147,6 +152,7 @@ download it for off-line use:
       <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.28.0/amqp-client-5.28.0-javadoc.jar.asc">Signature file</a>
     </td>
   </tr>
+  </tbody>
 </table>
 
 [Javadoc for the latest 4.x series release](https://rabbitmq.github.io/rabbitmq-java-client/api/4.x.x/) is available as well.
@@ -175,11 +181,13 @@ compiling from source code.
 
 <table>
   <thead>
-    <td>Snapshot</td>
-    <td>Clone</td>
-    <td>Repository</td>
+    <tr>
+      <th>Snapshot</th>
+      <th>Clone</th>
+      <th>Repository</th>
+    </tr>
   </thead>
-
+  <tbody>
   <tr>
     <td>
       <a href="https://github.com/rabbitmq/rabbitmq-java-client/tarball/main">Java client</a>
@@ -208,4 +216,5 @@ cd rabbitmq-server/deps/rabbitmq_codegen
       <a href="https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_codegen">Repository on GitHub</a>
     </td>
   </tr>
+  </tbody>
 </table>

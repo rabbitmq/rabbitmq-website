@@ -207,7 +207,7 @@ messages are persistent or not, they are still kept in RAM for fast
 delivery to consumers. Only when memory pressure kicks in, is when
 messages in memory are paged out to disk. Quoting from our code
 comments: The question of whether a message is in RAM and whether it
-is persistent are orthogonal.
+is persistent are orthogonal.
 
 The number of messages that are accounted for during this chunk
 calculation are those messages that are in RAM (in the aforementioned

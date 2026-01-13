@@ -32,11 +32,13 @@ targets what .NET standard (or .NET framework) version.
 
 <table>
   <thead>
-    <td><strong>Library Release Series</strong></td>
-    <td><strong>Required .NET Framework/Standard/Flavor Versions</strong></td>
-    <td>Support status</td>
+    <tr>
+      <th>Library Release Series</th>
+      <th>Required .NET Framework/Standard/Flavor Versions</th>
+      <th>Support status</th>
+    </tr>
   </thead>
-
+  <tbody>
   <tr>
     <td>
       7.x
@@ -96,6 +98,7 @@ targets what .NET standard (or .NET framework) version.
     </td>
     <td>end of life</td>
   </tr>
+  </tbody>
 </table>
 
 ### Licensing {#licensing}

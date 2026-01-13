@@ -828,7 +828,7 @@ To ensure that the above code works as expected with untrusted certificates, set
 a RabbitMQ node with a certificate that has not been imported
 into the key store and watch the connection fail.
 
-#### <a class="anchor" href="#java-client-hostname-verification">Server Hostname Verification</a>
+#### Server Hostname Verification {#java-client-hostname-verification}
 
 Hostname verification must be enabled separately using the
 `ConnectionFactory#enableHostnameVerification()` method. This is done in the example

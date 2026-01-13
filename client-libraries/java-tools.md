@@ -54,10 +54,13 @@ runtracer [proxy-port] [upstream-host] [upstream-port]
 
 <table>
   <thead>
-    <td>Parameter</td>
-    <td>Description</td>
-    <td>Default value</td>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Default value</th>
+    </tr>
   </thead>
+  <tbody>
   <tr>
     <td>proxy-port</td>
     <td>port to listen for incoming client connections on</td>
@@ -73,6 +76,7 @@ runtracer [proxy-port] [upstream-host] [upstream-port]
     <td>port number to use when making an outbound connection</td>
     <td>5672</td>
   </tr>
+  </tbody>
 </table>
 
 ## Download and Source Code {#tracer-download}

@@ -162,11 +162,13 @@ rabbitmqadmin.exe show memory_breakdown_in_bytes
 
 <table>
   <thead>
-      <td>Report Field</td>
-      <td>Category</td>
-      <td>Details</td>
+    <tr>
+      <th>Report Field</th>
+      <th>Category</th>
+      <th>Details</th>
+    </tr>
   </thead>
-
+  <tbody>
     <tr>
       <td>total</td>
       <td></td>
@@ -305,6 +307,7 @@ rabbitmqadmin.exe show memory_breakdown_in_bytes
       All other processes that RabbitMQ cannot categorise
       </td>
     </tr>
+  </tbody>
 </table>
 
 

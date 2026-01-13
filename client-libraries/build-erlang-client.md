@@ -72,10 +72,12 @@ There are other useful `Makefile` targets available in the repository. They incl
 
 <table>
   <thead>
-    <td>Target</td>
-    <td>Description</td>
+    <tr>
+      <th>Target</th>
+      <th>Description</th>
+    </tr>
   </thead>
-
+  <tbody>
   <tr>
     <td>all</td>
     <td>The default target. Builds the client library and all of its dependencies.</td>
@@ -140,4 +142,5 @@ make PLT=/path/to/plt dialyze
     <td>package</td>
     <td>Creates an Erlang archive (binary build) of the library under <code>./PACKAGES</code>.</td>
   </tr>
+  </tbody>
 </table>

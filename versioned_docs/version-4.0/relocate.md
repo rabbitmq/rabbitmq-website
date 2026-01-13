@@ -52,7 +52,7 @@ and so on). Those paths have must exclude a number of characters:
 
 The above characters will render the node unable to start or function as expected (e.g. load plugin code modules and other files).
 
-### <a id="file-permissions" class="anchor" href="#file-permissions">Required File and Directory Permissions</a>
+### Required File and Directory Permissions {#file-permissions}
 
 When changing file or directory locations, it is important to
 make sure that they have sufficient permissions for RabbitMQ
