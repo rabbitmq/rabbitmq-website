@@ -72,7 +72,13 @@ file and directories have sufficient permissions
 ## Environment Variables {#environment-variables}
 
 <table>
-  <th>Name</th><th>Description</th>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
   <tr>
     <td>RABBITMQ_BASE</td>
     <td>
@@ -199,6 +205,7 @@ file and directories have sufficient permissions
       <code>rabbitmqctl wait</code>.
     </td>
   </tr>
+  </tbody>
 </table>
 
 
@@ -213,7 +220,13 @@ some paths is indicated. Debian and RPM package installations use an empty
 default this is `/opt/homebrew` on Apple Silicon-based Macs.
 
 <table>
-  <th>Name</th><th>Location</th>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
   <tr>
     <td>RABBITMQ_BASE</td>
     <td>
@@ -295,13 +308,20 @@ default this is `/opt/homebrew` on Apple Silicon-based Macs.
       `$RABBITMQ_MNESIA_DIR.pid`
     </td>
   </tr>
+  </tbody>
 </table>
 
 
 ## Default Locations on Windows {#windows}
 
 <table>
-  <th>Name</th><th>Location</th>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
   <tr>
     <td>RABBITMQ_BASE</td>
     <td>
@@ -373,6 +393,7 @@ default this is `/opt/homebrew` on Apple Silicon-based Macs.
     <td>RABBITMQ_PID_FILE</td>
     <td>(Not currently supported)</td>
   </tr>
+  </tbody>
 </table>
 
 
@@ -387,7 +408,13 @@ These paths are not relevant for installation options that use the same package 
 customize it, such as the [Homebrew formula](./install-homebrew).
 
 <table>
-  <th>Name</th><th>Location</th>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
   <tr>
     <td>RABBITMQ_BASE</td>
     <td>
@@ -455,4 +482,5 @@ customize it, such as the [Homebrew formula](./install-homebrew).
       `$RABBITMQ_MNESIA_DIR.pid`
     </td>
   </tr>
+  </tbody>
 </table>

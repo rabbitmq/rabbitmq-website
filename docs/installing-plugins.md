@@ -43,21 +43,23 @@ The plugins directory location is determined by the `RABBITMQ_PLUGINS_DIR`> envi
 Its [default location](./relocate) depends on how RabbitMQ was installed. Some common values are:
 
 <table>
-  <tr>
-    <th>Installation method</th>
-    <th>Plugins directory</th>
-  </tr>
+  <thead>
+    <tr>
+      <th>Installation method</th>
+      <th>Plugins directory</th>
+    </tr>
+  </thead>
+  <tbody>
   <tr>
     <th>Debian and RPM packages</th>
     <td>
       <code>/usr/lib/rabbitmq/plugins</code> and <code>/usr/lib/rabbitmq/lib/rabbitmq_server-{<i>version</i>}/plugins</code>.
-      <p>
-        <code>/usr/lib/rabbitmq/plugins</code> is an additional
-        directory where nothing is installed by the RabbitMQ
-        package itself. But it is a fixed non-changing path
-        where external plugins can be installed from Debian/RPM
-        packages or can be put there by a provisioning tool.
-      </p>
+      <br /><br />
+      <code>/usr/lib/rabbitmq/plugins</code> is an additional
+      directory where nothing is installed by the RabbitMQ
+      package itself. But it is a fixed non-changing path
+      where external plugins can be installed from Debian/RPM
+      packages or can be put there by a provisioning tool.
     </td>
   </tr>
   <tr>
@@ -80,6 +82,7 @@ Its [default location](./relocate) depends on how RabbitMQ was installed. Some c
       (depending on RabbitMQ installation path)
     </td>
   </tr>
+  </tbody>
 </table>
 
 

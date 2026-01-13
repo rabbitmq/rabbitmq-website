@@ -639,13 +639,19 @@ semantics, they are limited only to a few arguments:
 <table>
   <thead>
     <tr>
+      <th></th>
+      <th>Classic</th>
+      <th>Quorum</th>
+      <th>Stream</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
       <th>delivery-limit</th>
       <td> </td>
       <td> <span>&#10003;</span> </td>
       <td> </td>
     </tr>
-  </thead>
-  <tbody>
     <tr>
       <th>expires</th>
       <td> <span>&#10003;</span> </td>
@@ -706,6 +712,14 @@ try to not override user-provided policies where possible.
 <table>
   <thead>
     <tr>
+      <th></th>
+      <th>Classic</th>
+      <th>Quorum</th>
+      <th>Stream</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
       <th>delivery-limit</th>
       <td> </td>
       <td>
@@ -715,8 +729,6 @@ try to not override user-provided policies where possible.
       </td>
       <td> </td>
     </tr>
-  </thead>
-  <tbody>
     <tr>
       <th>expires</th>
       <td>

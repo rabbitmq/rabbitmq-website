@@ -886,10 +886,10 @@ The `ackmode` parameter controls how the consumed [messages are acknowledged](./
 The supported values are
 
 <ul>
-  <li>`ack_requeue_true`</li>: requeues the fetched messages
-  <li>`reject_requeue_true`</li>: requeues the fetched messages
-  <li>`ack_requeue_false`</li>: positively acknowledges the messages and marks them for deletion
-  <li>`reject_requeue_false`</li>: negatively acknowledges the messages and marks them for deletion
+  <li>`ack_requeue_true`: requeues the fetched messages</li>
+  <li>`reject_requeue_true`: requeues the fetched messages</li>
+  <li>`ack_requeue_false`: positively acknowledges the messages and marks them for deletion</li>
+  <li>`reject_requeue_false`: negatively acknowledges the messages and marks them for deletion</li>
 </ul>
 
 The `encoding` can be either `"auto"` (the payload will be returned as a UTF-8 encoded string if the payload is valid UTF-8)
@@ -2759,13 +2759,17 @@ When using the query parameters combination of <code>disable_stats</code> and
   </p>
   <p>
     Below are the query parameters that can be used.
+  </p>
 
-    <table>
-      <thead>
-        <tr>Parameter Name</tr>
-        <tr>Data Type</tr>
-        <tr>Description</tr>
-      </thead>
+  <table>
+    <thead>
+      <tr>
+        <th>Parameter Name</th>
+        <th>Data Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
       <tr>
         <td><code>page</code></td>
         <td>Positive integer</td>
@@ -2794,12 +2798,15 @@ When using the query parameters combination of <code>disable_stats</code> and
           Enables regular expression for the param name
         </td>
       </tr>
-    </table>
-  </p>
+    </tbody>
+  </table>
 
   <p>
     Examples:
-    <table>
+  </p>
+
+  <table>
+    <tbody>
       <tr>
         <td><code>http://localhost:15672/api/queues?page=1&page_size=50</code></td>
         <td>
@@ -2818,6 +2825,6 @@ When using the query parameters combination of <code>disable_stats</code> and
           Filter the first exchanges page, 100 elements, with named filtered using the regular expression "^amq"
         </td>
       </tr>
-    </table>
-  </p>
+    </tbody>
+  </table>
 </section>

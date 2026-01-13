@@ -11,7 +11,7 @@ displayed_sidebar: docsSidebar
         <h2 class="docHeading"><a class="anchor" href="#tx">Semantics of tx</a></h2>
         <p>The semantics of AMQP's <span class="code">tx</span> class, as defined in AMQP 0-9-1, and its implementation in different versions of the RabbitMQ server, is often misunderstood. Here is a summary of the behaviour:</p>
         <table>
-            <tbody>
+            <thead>
                 <tr>
                     <th>Feature</th>
                     <th>
@@ -31,6 +31,8 @@ displayed_sidebar: docsSidebar
                         &gt;= 2.8.0
                     </th>
                 </tr>
+            </thead>
+            <tbody>
                 <tr>
                     <td>transactional <span class="code">basic.publish</span></td>
                     <td>yes</td>

@@ -61,12 +61,14 @@ A RabbitMQ node can be configured using a number of mechanisms responsible
 for different areas:
 
 <table>
-      <caption>Ways of configuring RabbitMQ</caption>
+  <caption>Ways of configuring RabbitMQ</caption>
   <thead>
-      <td><strong>Mechanism</strong></td>
-      <td><strong>Description</strong></td>
+    <tr>
+      <th>Mechanism</th>
+      <th>Description</th>
+    </tr>
   </thead>
-
+  <tbody>
     <tr>
       <td>
       [Configuration File(s)](#configuration-files)
@@ -157,6 +159,7 @@ for different areas:
       max number of processes and kernel threads, max resident set size and so on.
       </td>
     </tr>
+  </tbody>
 </table>
 
 Most settings are configured using the first two methods. This guide,
@@ -256,9 +259,9 @@ cannot express. This is covered in more detail in the following sections.
 <table>
   <thead>
     <tr>
-      <td><strong>Configuration File</strong></td>
-      <td><strong>Format Used</strong></td>
-      <td><strong>Purpose</strong></td>
+      <th>Configuration File</th>
+      <th>Format Used</th>
+      <th>Purpose</th>
     </tr>
   </thead>
 
@@ -490,9 +493,9 @@ any configuration files. Users and deployment tool should use the following loca
 <table>
   <thead>
     <tr>
-      <td><strong>Platform</strong></td>
-      <td><strong>Default Configuration File Directory</strong></td>
-      <td><strong>Example Configuration File Paths</strong></td>
+      <th>Platform</th>
+      <th>Default Configuration File Directory</th>
+      <th>Example Configuration File Paths</th>
     </tr>
   </thead>
 

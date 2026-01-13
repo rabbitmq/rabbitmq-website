@@ -24,12 +24,14 @@ displayed_sidebar: docsSidebar
         <a name="release-version-mapping" class="anchor" id="release-version-mapping"></a>
 
         <table class="styled-table">
-            <tbody>
+            <thead>
                 <tr>
                     <th>Protocol Version</th>
                     <th>Documentation (PDF)</th>
                     <th>Machine-Readable Spec (XML)</th>
                 </tr>
+            </thead>
+            <tbody>
                 <tr>
                     <td>AMQP 1.0</td>
                     <td>
@@ -62,12 +64,14 @@ displayed_sidebar: docsSidebar
             The following table describes the current implementation status of the various AMQP protocol message classes.
         </p>
         <table class="amqpRules" border="0" cellPadding="0" cellSpacing="0">
-            <tbody>
+            <thead>
                 <tr>
                     <th>Current Status</th>
                     <th>Class</th>
                     <th>Notes</th>
                 </tr>
+            </thead>
+            <tbody>
                 <tr id="class-status-connection">
                     <td class="statusCell status_ok">ok</td>
                     <td>connection</td>
@@ -109,12 +113,14 @@ displayed_sidebar: docsSidebar
             The following table describes the current implementation status of the various AMQP protocol methods in each class.
         </p>
         <table class="amqpRules" border="0" cellPadding="0" cellSpacing="0">
-            <tbody>
+            <thead>
                 <tr>
                     <th>Current Status</th>
                     <th>Method</th>
                     <th>Notes</th>
                 </tr>
+            </thead>
+            <tbody>
                 <tr id="method-status-connection.start">
                     <td class="statusCell status_ok">ok</td>
                     <td>connection.start</td>
@@ -393,7 +399,7 @@ displayed_sidebar: docsSidebar
             The Reference column contains the class or domain, method, field and rule name where present.
         </p>
         <table class="amqpRules" border="0" cellPadding="0" cellSpacing="0">
-            <tbody>
+            <thead>
                 <tr>
                     <th>Current Status</th>
                     <th>Type</th>
@@ -401,6 +407,8 @@ displayed_sidebar: docsSidebar
                     <th>Reference</th>
                     <th>Text</th>
                 </tr>
+            </thead>
+            <tbody>
                 <tr>
                     <td class="statusCell status_ok">ok</td>
                     <td>MUST NOT</td>
@@ -1843,7 +1851,7 @@ displayed_sidebar: docsSidebar
             The rules listed below are from the PDF version of the 0-9-1 specification, wherever MUST, SHOULD or MAY appear in the text.
         </p>
         <table class="amqpRules" border="0" cellPadding="0" cellSpacing="0">
-            <tbody>
+            <thead>
                 <tr>
                     <th>Current Status</th>
                     <th>Type</th>
@@ -1851,6 +1859,8 @@ displayed_sidebar: docsSidebar
                     <th>Reference</th>
                     <th>Text</th>
                 </tr>
+            </thead>
+            <tbody>
                 <tr>
                     <td class="statusCell status_ok">does, doesn't</td>
                     <td>

@@ -638,11 +638,14 @@ semantics, they are limited only to a few arguments:
 
 <table>
   <thead>
-    <td></td>
-    <td><strong>Classic</strong></td>
-    <td><strong>Quorum</strong></td>
-    <td><strong>Stream</strong></td>
+    <tr>
+      <th></th>
+      <th>Classic</th>
+      <th>Quorum</th>
+      <th>Stream</th>
+    </tr>
   </thead>
+  <tbody>
   <tr>
     <th>delivery-limit</th>
     <td> </td>
@@ -691,6 +694,7 @@ semantics, they are limited only to a few arguments:
     <td> <span>&#10003;</span> </td>
     <td> </td>
   </tr>
+  </tbody>
 </table>
 
 ### Conflict Resolution with Regular Policies {#operator-policy-conflicts}
@@ -707,11 +711,14 @@ try to not override user-provided policies where possible.
 
 <table>
     <thead>
-        <td></td>
-        <td><strong>Classic</strong></td>
-        <td><strong>Quorum</strong></td>
-        <td><strong>Stream</strong></td>
+        <tr>
+            <th></th>
+            <th>Classic</th>
+            <th>Quorum</th>
+            <th>Stream</th>
+        </tr>
     </thead>
+    <tbody>
     <tr>
         <th>delivery-limit</th>
         <td> </td>
@@ -814,6 +821,7 @@ try to not override user-provided policies where possible.
         </td>
         <td> </td>
     </tr>
+    </tbody>
 </table>
 
 When the same key is provided by both [client-provided `x-arguments`](./queues#optional-arguments) and by a user policy,

@@ -896,10 +896,10 @@ The `ackmode` parameter controls how the consumed [messages are acknowledged](./
 The supported values are
 
 <ul>
-  <li>`ack_requeue_true`</li>: requeues the fetched messages
-  <li>`reject_requeue_true`</li>: requeues the fetched messages
-  <li>`ack_requeue_false`</li>: positively acknowledges the messages and marks them for deletion
-  <li>`reject_requeue_false`</li>: negatively acknowledges the messages and marks them for deletion
+  <li>`ack_requeue_true`: requeues the fetched messages</li>
+  <li>`reject_requeue_true`: requeues the fetched messages</li>
+  <li>`ack_requeue_false`: positively acknowledges the messages and marks them for deletion</li>
+  <li>`reject_requeue_false`: negatively acknowledges the messages and marks them for deletion</li>
 </ul>
 
 The `encoding` can be either `"auto"` (the payload will be returned as a UTF-8 encoded string if the payload is valid UTF-8)
@@ -2738,65 +2738,72 @@ When using the query parameters combination of <code>disable_stats</code> and
   </p>
   <p>
     Below are the query parameters that can be used.
-
-    <table>
-  <thead>
-    <tr>Parameter Name</tr>
-    <tr>Data Type</tr>
-    <tr>Description</tr>
-  </thead>
-    <tr>
-      <td><code>page</code></td>
-      <td>Positive integer</td>
-      <td>
-      Page number
-      </td>
-    </tr>
-    <tr>
-      <td><code>page_size</code></td>
-      <td>Positive integer</td>
-      <td>
-      Number of elements for page (default value: 100, maximum supported value: 500)
-      </td>
-    </tr>
-    <tr>
-      <td><code>name</code></td>
-      <td>String</td>
-      <td>
-      Filter by name, for example queue name, exchange name etc.
-      </td>
-    </tr>
-    <tr>
-      <td><code>use_regex</code></td>
-      <td>Boolean</td>
-      <td>
-      Enables regular expression for the param name
-      </td>
-    </tr>
-</table>
   </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Parameter Name</th>
+        <th>Data Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>page</code></td>
+        <td>Positive integer</td>
+        <td>
+          Page number
+        </td>
+      </tr>
+      <tr>
+        <td><code>page_size</code></td>
+        <td>Positive integer</td>
+        <td>
+          Number of elements for page (default value: 100, maximum supported value: 500)
+        </td>
+      </tr>
+      <tr>
+        <td><code>name</code></td>
+        <td>String</td>
+        <td>
+          Filter by name, for example queue name, exchange name etc.
+        </td>
+      </tr>
+      <tr>
+        <td><code>use_regex</code></td>
+        <td>Boolean</td>
+        <td>
+          Enables regular expression for the param name
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
   <p>
     Examples:
-    <table>
-    <tr>
-      <td><code>http://localhost:15672/api/queues?page=1&page_size=50</code></td>
-      <td>
-      Fetches the first queue page with 50 elements
-      </td>
-    </tr>
-    <tr>
-      <td><code>http://localhost:15672/api/queues/my-vhost?page=1&page_size=100&name=&use_regex=false&pagination=true</code></td>
-      <td>
-      Filter the first queues page for the virtual host "my-vhost"
-      </td>
-    </tr>
-    <tr>
-      <td><code>http://localhost:15672/api/exchanges?page=1&page_size=100&name=%5Eamq&use_regex=true&pagination=true</code></td>
-      <td>
-      Filter the first exchanges page, 100 elements, with named filtered using the regular expression "^amq"
-      </td>
-    </tr>
-</table>
   </p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><code>http://localhost:15672/api/queues?page=1&page_size=50</code></td>
+        <td>
+          Fetches the first queue page with 50 elements
+        </td>
+      </tr>
+      <tr>
+        <td><code>http://localhost:15672/api/queues/my-vhost?page=1&page_size=100&name=&use_regex=false&pagination=true</code></td>
+        <td>
+          Filter the first queues page for the virtual host "my-vhost"
+        </td>
+      </tr>
+      <tr>
+        <td><code>http://localhost:15672/api/exchanges?page=1&page_size=100&name=%5Eamq&use_regex=true&pagination=true</code></td>
+        <td>
+          Filter the first exchanges page, 100 elements, with named filtered using the regular expression "^amq"
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </section>

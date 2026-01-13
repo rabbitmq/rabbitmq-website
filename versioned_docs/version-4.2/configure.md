@@ -63,9 +63,12 @@ for different areas:
 <table>
   <caption>Ways of configuring RabbitMQ</caption>
   <thead>
-    <td><strong>Mechanism</strong></td>
-    <td><strong>Description</strong></td>
+    <tr>
+      <th>Mechanism</th>
+      <th>Description</th>
+    </tr>
   </thead>
+  <tbody>
   <tr>
     <td>
       [Configuration File(s)](#configuration-files)
@@ -156,6 +159,7 @@ for different areas:
       max number of processes and kernel threads, max resident set size and so on.
     </td>
   </tr>
+  </tbody>
 </table>
 
 Most settings are configured using the first two methods. This guide,
@@ -255,9 +259,9 @@ cannot express. This is covered in more detail in the following sections.
 <table>
   <thead>
     <tr>
-      <td><strong>Configuration File</strong></td>
-      <td><strong>Format Used</strong></td>
-      <td><strong>Purpose</strong></td>
+      <th>Configuration File</th>
+      <th>Format Used</th>
+      <th>Purpose</th>
     </tr>
   </thead>
   <tbody>
@@ -488,9 +492,9 @@ any configuration files. Users and deployment tool should use the following loca
 <table>
   <thead>
     <tr>
-      <td><strong>Platform</strong></td>
-      <td><strong>Default Configuration File Directory</strong></td>
-      <td><strong>Example Configuration File Paths</strong></td>
+      <th>Platform</th>
+      <th>Default Configuration File Directory</th>
+      <th>Example Configuration File Paths</th>
     </tr>
   </thead>
   <tbody>
@@ -669,7 +673,7 @@ some settings are quite obscure.
       <th><strong>Documentation</strong></th>
     </tr>
   </thead>
-
+  <tbody>
   <tr>
     <td>`listeners.tcp`</td>
     <td>
@@ -1405,6 +1409,7 @@ proxy_protocol = false
       A map of optional node tags (key-value pairs).
     </td>
   </tr>
+  </tbody>
 </table>
 
 The following configuration settings can be set in
@@ -1418,7 +1423,7 @@ under the `rabbit` section.
       <th><strong>Documentation</strong></th>
     </tr>
   </thead>
-
+  <tbody>
   <tr>
     <td>`backing_queue_module`</td>
     <td>
@@ -1483,6 +1488,7 @@ under the `rabbit` section.
       </div>
     </td>
   </tr>
+  </tbody>
 </table>
 
 Several [plugins](./plugins) that ship with RabbitMQ have
