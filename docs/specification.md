@@ -58,8 +58,7 @@ displayed_sidebar: docsSidebar
     </div>
 
     <div class="docSection">
-        <a name="classes" class="anchor" id="classes"></a>
-        <h2 class="docHeading"><a class="anchor" href="#classes">Classes from the AMQP specification, version 0-9-1</a></h2>
+        <h2 class="docHeading" id="classes">Classes from the AMQP specification, version 0-9-1</h2>
         <p>
             The following table describes the current implementation status of the various AMQP protocol message classes.
         </p>
@@ -107,8 +106,7 @@ displayed_sidebar: docsSidebar
     </div>
 
     <div class="docSection">
-        <a name="methods" class="anchor" id="methods"></a>
-        <h2 class="docHeading"><a class="anchor" href="#methods">Methods from the AMQP specification, version 0-9-1</a></h2>
+        <h2 class="docHeading" id="methods">Methods from the AMQP specification, version 0-9-1</h2>
         <p>
             The following table describes the current implementation status of the various AMQP protocol methods in each class.
         </p>
@@ -393,8 +391,7 @@ displayed_sidebar: docsSidebar
     </div>
 
     <div class="docSection">
-        <a name="rules" class="anchor" id="rules"></a>
-        <h2 class="docHeading"><a class="anchor" href="#rules">Rules from the AMQP specification, version 0-9-1</a></h2>
+        <h2 class="docHeading" id="rules">Rules from the AMQP specification, version 0-9-1</h2>
         <p>
             The Reference column contains the class or domain, method, field and rule name where present.
         </p>
@@ -1845,8 +1842,7 @@ displayed_sidebar: docsSidebar
     </div>
 
     <div class="docSection">
-        <a name="rules-pdf" class="anchor" id="rules-pdf"></a>
-        <h2 class="docHeading"><a class="anchor" href="#rules-pdf">Rules from the AMQP specification, version 0-9-1 (PDF)</a></h2>
+        <h2 class="docHeading" id="rules-pdf">Rules from the AMQP specification, version 0-9-1 (PDF)</h2>
         <p>
             The rules listed below are from the PDF version of the 0-9-1 specification, wherever MUST, SHOULD or MAY appear in the text.
         </p>
@@ -2540,8 +2536,7 @@ displayed_sidebar: docsSidebar
     </div>
 
     <div class="docSection">
-        <a name="deprecated-classes" class="anchor" id="deprecated-classes"></a>
-        <h2 class="docHeading"><a class="anchor" href="#deprecated-classes">Deprecated classes</a></h2>
+        <h2 class="docHeading" id="deprecated-classes">Deprecated classes</h2>
         <p>
             The following classes were deprecated in version 0-9-1. RabbitMQ does not implement these classes at all, including when the broker is connected to a version 0-8 client, or when the .NET client is configured to use 0-8.
         </p>

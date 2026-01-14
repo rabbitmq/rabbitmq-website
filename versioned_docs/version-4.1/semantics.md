@@ -7,8 +7,7 @@ displayed_sidebar: docsSidebar
         Here we describe the broker semantics. This should be read together with the AMQP specification.
     </p>
     <div class="docSection">
-        <a name="tx" class="anchor" id="tx"></a>
-        <h2 class="docHeading"><a class="anchor" href="#tx">Semantics of tx</a></h2>
+        <h2 class="docHeading" id="tx">Semantics of tx</h2>
         <p>The semantics of AMQP's <span class="code">tx</span> class, as defined in AMQP 0-9-1, and its implementation in different versions of the RabbitMQ server, is often misunderstood. Here is a summary of the behaviour:</p>
         <table>
   <thead>
@@ -140,8 +139,7 @@ displayed_sidebar: docsSidebar
         </p>
     </div>
     <div class="docSection">
-        <a name="ordering" class="anchor" id="ordering"></a>
-        <h2 class="docHeading"><a class="anchor" href="#ordering">Message ordering guarantees</a></h2>
+        <h2 class="docHeading" id="ordering">Message ordering guarantees</h2>
         <p>
             Section 4.7 of the AMQP 0-9-1 core specification explains the conditions under which ordering is guaranteed: messages published in one channel, passing through one exchange and one queue and one outgoing channel will be received
             in the same order that they were sent. RabbitMQ offers stronger guarantees since release 2.7.0.
@@ -158,8 +156,7 @@ displayed_sidebar: docsSidebar
     </div>
 
     <div class="docSection">
-        <a name="exclusive-durable" class="anchor" id="exclusive-durable"></a>
-        <h2 class="docHeading"><a class="anchor" href="#exclusive-durable">Exclusive queues and durability</a></h2>
+        <h2 class="docHeading" id="exclusive-durable">Exclusive queues and durability</h2>
         <p>
             An exclusive queue is one which is deleted whenever the connection that declares it is closed. Although AMQP 0-9-1 allows you to declare a durable exclusive queue, the durability is meaningless since the queue will vanish anyway
             as soon as the broker stops. Therefore RabbitMQ will ignore the durable flag in a declaration of an exclusive queue and create an exclusive transient queue.

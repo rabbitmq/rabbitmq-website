@@ -1851,7 +1851,7 @@ page attempts to document them.
 <p>
   It should be read in conjunction with the manual page
   for <code>rabbitmqctl</code> (see your installation if on Unix / Linux,
-  or <a href="./rabbitmqctl.8.html">the RabbitMQ website</a> for the latest version).
+  or <a href="./man/rabbitmqctl.8">the RabbitMQ website</a> for the latest version).
 
   Any field which can be returned by a command of the form
 

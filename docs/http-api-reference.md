@@ -75,16 +75,14 @@ sort by more than one field. See the example below.</p>
 with the <code>columns</code> parameter. This is a comma-separated
 list of subfields separated by dots. See the example below.</p>
 
-<p>
-  It is possible to disable the statistics in the GET requests
-  and obtain just the basic information of every object. This reduces
-  considerably the amount of data returned and the memory and resource
-  consumption of each query in the system. For some monitoring and operation
-  purposes, these queries are more appropriate.
+It is possible to disable the statistics in the GET requests
+and obtain just the basic information of every object. This reduces
+considerably the amount of data returned and the memory and resource
+consumption of each query in the system. For some monitoring and operation
+purposes, these queries are more appropriate.
 
-  To opt out of the additional metrics, set the <code>disable_stats</code> query parameter
-  to <code>true</code>
-</p>
+To opt out of the additional metrics, set the `disable_stats` query parameter
+to `true`.
 
 
 ## Deprecated Endpoints
@@ -478,14 +476,11 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 
 ### GET /api/vhosts/\{_vhost_\}/connections
 
-<p>
-  A list of all open connections in a specific virtual host.
-</p>
-<p>
-  Use <a href="#pagination">pagination parameters</a> to list connections,
-  otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
-  Default page size is 100, maximum supported page size is 500.
-</p>
+A list of all open connections in a specific virtual host.
+
+Use [pagination parameters](#pagination) to list connections,
+otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
+Default page size is 100, maximum supported page size is 500.
 
 ### GET /api/connections/\{_name_\}
 
@@ -795,14 +790,11 @@ curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api
 
 ### GET /api/queues/detailed
 
-<p>
-  A list of all queues containing all available information about the queues (over 50 fields per queue).
-</p>
-<p>
-  Use <a href="#pagination">pagination parameters</a> to list queues,
-  otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
-  Default page size is 100, maximum supported page size is 500.
-</p>
+A list of all queues containing all available information about the queues (over 50 fields per queue).
+
+Use [pagination parameters](#pagination) to list queues,
+otherwise this endpoint can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
+Default page size is 100, maximum supported page size is 500.
 
 ### GET /api/queues/\{_vhost_\}
 
@@ -1869,64 +1861,59 @@ command (e.g. queue durability or arguments), most of them
 represent statistics to do with the object in question. This
 page attempts to document them.
 
-<p>
-  It should be read in conjunction with the manual page
-  for <code>rabbitmqctl</code> (see your installation if on Unix / Linux,
-  or <a href="./rabbitmqctl.8.html">the RabbitMQ website</a> for the latest version).
+It should be read in conjunction with the manual page
+for `rabbitmqctl` (see your installation if on Unix / Linux,
+or [the RabbitMQ website](./man/rabbitmqctl.8) for the latest version).
 
-  Any field which can be returned by a command of the form
+Any field which can be returned by a command of the form
 
-  ```shell
-  rabbitmqctl list_{object}
-  ```
+```shell
+rabbitmqctl list_{object}
+```
 
-  ```shell
-  rabbitmqctl list_{object}
-  ```
+```shell
+rabbitmqctl list_{object}
+```
 
-  will also be returned in the
-  equivalent part of the HTTP API, so all those keys are not
-  documented here. However, the HTTP API returns additional metrics compared to the
-  standard [CLI tools](./cli) and [`rabbitmqadmin` v2](./management-cli/) alike.
-</p>
+will also be returned in the
+equivalent part of the HTTP API, so all those keys are not
+documented here. However, the HTTP API returns additional metrics compared to the
+standard [CLI tools](./cli) and [`rabbitmqadmin` v2](./management-cli/) alike.
 
-<h2>_details objects</h2>
-<p>
-  Many fields represent a count of some kind: queue length,
-  messages acknowledged, bytes received and so on. Such absolute
-  counts returned by the HTTP API will often have a
-  corresponding <code>_details</code> object which offers
-  information on how this count has changed. So for example, from
-  a queue:
+## \_details objects
 
-  ```json
-  "messages": 123619,
-  "messages_details": {
-    "avg": 41206.333333333336,
-    "avg_rate": 1030.1583333333333,
-    "rate": 24723.8,
-    "samples": [
-      {
-        "sample": 123619,
-        "timestamp": 1400680560000
-      },
-      {
-        "sample": 0,
-        "timestamp": 1400680500000
-      },
-      {
-        "sample": 0,
-        "timestamp": 1400680440000
-      }
-    ]
-  }
-  ```
-</p>
+Many fields represent a count of some kind: queue length,
+messages acknowledged, bytes received and so on. Such absolute
+counts returned by the HTTP API will often have a
+corresponding `_details` object which offers
+information on how this count has changed. So for example, from
+a queue:
 
-<p>
-  Here we have a <code>messages</code> count (the total messages
-  in the queue), with some additional data:
-</p>
+```json
+"messages": 123619,
+"messages_details": {
+  "avg": 41206.333333333336,
+  "avg_rate": 1030.1583333333333,
+  "rate": 24723.8,
+  "samples": [
+    {
+      "sample": 123619,
+      "timestamp": 1400680560000
+    },
+    {
+      "sample": 0,
+      "timestamp": 1400680500000
+    },
+    {
+      "sample": 0,
+      "timestamp": 1400680440000
+    }
+  ]
+}
+```
+
+Here we have a `messages` count (the total messages
+in the queue), with some additional data:
 
 <table>
   <tr>
@@ -1957,21 +1944,17 @@ page attempts to document them.
   </tr>
 </table>
 
-<p>
-  <code>avg</code>, <code>avg_rate</code> and <code>samples</code>
-  will only appear if you request a specific time period by
-  appending query parameters to the URL. To do this you need to
-  set an age and an increment for the samples you want. The end of
-  the range returned will always correspond to the present.
-</p>
+`avg`, `avg_rate` and `samples`
+will only appear if you request a specific time period by
+appending query parameters to the URL. To do this you need to
+set an age and an increment for the samples you want. The end of
+the range returned will always correspond to the present.
 
-<p>
-  Different types of data take different query parameters to
-  return samples, as in the following table. You can specify more
-  than one set of parameters if the resource you are requesting
-  can generate more than one type of sample (for example, queues
-  can return message rates and queue lengths).
-</p>
+Different types of data take different query parameters to
+return samples, as in the following table. You can specify more
+than one set of parameters if the resource you are requesting
+can generate more than one type of sample (for example, queues
+can return message rates and queue lengths).
 
 <table>
   <tr>
@@ -1992,24 +1975,20 @@ page attempts to document them.
   </tr>
 </table>
 
-<p>
-  For example,
-  appending <code>?lengths_age=3600&lengths_incr=60</code> will
-  return the last hour's data on queue lengths, with a sample for
-  every minute.
-</p>
+For example,
+appending `?lengths_age=3600&lengths_incr=60` will
+return the last hour's data on queue lengths, with a sample for
+every minute.
 
-<h2>message_stats objects</h2>
-<p>
-  Many objects (including queues, exchanges and channels) will
-  return counts of messages passing through them. These are
-  included in a <code>message_stats</code> object (which in turn
-  will contain <code>_details</code> objects for each count, as
-  described above).
-</p>
-<p>
-  These can contain:
-</p>
+## message\_stats objects
+
+Many objects (including queues, exchanges and channels) will
+return counts of messages passing through them. These are
+included in a `message_stats` object (which in turn
+will contain `_details` objects for each count, as
+described above).
+
+These can contain:
 
 <table>
   <tr>
@@ -2091,76 +2070,66 @@ page attempts to document them.
   </tr>
 </table>
 
-<p>
-  Only fields for which some activity has taken place will appear.
-</p>
+Only fields for which some activity has taken place will appear.
 
-<h2>Detailed message stats objects</h2>
-<p>
-  In addition, queues, exchanges and channels can return a
-  breakdown of message stats for each of their neighbours
-  (i.e. adjacent objects in the chain: channel -> exchange ->
-  queue -> channel). This will only happen if
-  the <code>rates_mode</code> configuration item has been switched
-  to <code>detailed</code> from its default of <code>basic</code>.
-</p>
-<p>
-  As this possibly constitutes a large quantity of data, it is also
-  only returned when querying a single channel, queue or exchange
-  rather than a list. Note also that the default sample retention
-  policy means that these detailed message stats do not retain
-  historical data for more than a few seconds.
-</p>
-<p>
-  The detailed message stats objects have different names
-  depending on where they are (documented below). Each set of
-  detailed stats consists of a list of objects with two fields,
-  one identifying the partner object and one <code>stats</code>
-  which is a message_stats object as described above.
-</p>
-<p>
-  Here is an example snippet:
+## Detailed message stats objects
 
-  ```json
-  "incoming": [
-    {
-      "stats": {
-        "publish": 352593,
-        "publish_details": {
-          "rate": 100.2
-        }
-      },
-      "exchange": {
-        "name": "my-exchange",
-        "vhost": "/"
+In addition, queues, exchanges and channels can return a
+breakdown of message stats for each of their neighbours
+(i.e. adjacent objects in the chain: channel -> exchange ->
+queue -> channel). This will only happen if
+the `rates_mode` configuration item has been switched
+to `detailed` from its default of `basic`.
+
+As this possibly constitutes a large quantity of data, it is also
+only returned when querying a single channel, queue or exchange
+rather than a list. Note also that the default sample retention
+policy means that these detailed message stats do not retain
+historical data for more than a few seconds.
+
+The detailed message stats objects have different names
+depending on where they are (documented below). Each set of
+detailed stats consists of a list of objects with two fields,
+one identifying the partner object and one `stats`
+which is a message_stats object as described above.
+
+Here is an example snippet:
+
+```json
+"incoming": [
+  {
+    "stats": {
+      "publish": 352593,
+      "publish_details": {
+        "rate": 100.2
       }
+    },
+    "exchange": {
+      "name": "my-exchange",
+      "vhost": "/"
     }
-    {
-      "stats": {
-        "publish": 543784,
-        "publish_details": {
-          "rate": 54.6
-        }
-      },
-      "exchange": {
-        "name": "amq.topic",
-        "vhost": "/"
+  }
+  {
+    "stats": {
+      "publish": 543784,
+      "publish_details": {
+        "rate": 54.6
       }
+    },
+    "exchange": {
+      "name": "amq.topic",
+      "vhost": "/"
     }
-  ],
-  ```
-</p>
+  }
+],
+```
 
-<p>
-  This queue is currently receiving messages from two exchanges:
-  100.2 msg/s from "my-exchange" and 54.6 msg/s from "amq.topic".
-</p>
+This queue is currently receiving messages from two exchanges:
+100.2 msg/s from "my-exchange" and 54.6 msg/s from "amq.topic".
 
-<h2>/api/overview</h2>
+## /api/overview
 
-<p>
-  This has the following fields:
-</p>
+This has the following fields:
 
 <table>
   <tr>
@@ -2273,11 +2242,9 @@ page attempts to document them.
   </tr>
 </table>
 
-<h2>/api/nodes</h2>
+## /api/nodes
 
-<p>
-  This has the following fields:
-</p>
+This has the following fields:
 
 <table>
   <tr>
@@ -2450,11 +2417,9 @@ page attempts to document them.
   </tr>
 </table>
 
-<h2>/api/nodes/(name)</h2>
+## /api/nodes/(name)
 
-<p>
-  All of the above, plus:
-</p>
+All of the above, plus:
 
 <table>
   <tr>
@@ -2475,28 +2440,22 @@ page attempts to document them.
   </tr>
 </table>
 
-<h2>/api/connections</h2>
-<h2>/api/connections/(name)</h2>
+## /api/connections
+## /api/connections/(name)
 
-<p>
-  See documentation for <code>rabbitmqctl
-  list_connections</code>. No additional fields,
-  although <code>pid</code> is replaced by <code>node</code>.
-</p>
+See documentation for `rabbitmqctl
+list_connections`. No additional fields,
+although `pid` is replaced by `node`.
 
-<p>
-  Note also that while non-AMQP connections will appear in this
-  list (unlike <code>rabbitmqctl list_connections</code>), they
-  will omit many of the connection-level statistics.
-</p>
+Note also that while non-AMQP connections will appear in this
+list (unlike `rabbitmqctl list_connections`), they
+will omit many of the connection-level statistics.
 
-<h2>/api/connections/(name)/channels</h2>
-<h2>/api/channels</h2>
+## /api/connections/(name)/channels
+## /api/channels
 
-<p>
-  See documentation for <code>rabbitmqctl list_channels</code>,
-  with <code>pid</code> replaced by <code>node</code>, plus:
-</p>
+See documentation for `rabbitmqctl list_channels`,
+with `pid` replaced by `node`, plus:
 
 <table>
   <tr>
@@ -2513,11 +2472,9 @@ page attempts to document them.
   </tr>
 </table>
 
-<h2>/api/channels/(name)</h2>
+## /api/channels/(name)
 
-<p>
-  All the above, plus
-</p>
+All the above, plus
 
 <table>
   <tr>
@@ -2541,12 +2498,10 @@ page attempts to document them.
   </tr>
 </table>
 
-<h2>/api/exchanges</h2>
-<h2>/api/exchanges/(vhost)</h2>
+## /api/exchanges
+## /api/exchanges/(vhost)
 
-<p>
-  See documentation for <code>rabbitmqctl list_exchanges</code>, plus:
-</p>
+See documentation for `rabbitmqctl list_exchanges`, plus:
 
 <table>
   <tr>
@@ -2557,11 +2512,9 @@ page attempts to document them.
   </tr>
 </table>
 
-<h2>/api/exchanges/(vhost)/(name)</h2>
+## /api/exchanges/(vhost)/(name)
 
-<p>
-  All the above, plus:
-</p>
+All the above, plus:
 
 <table>
   <tr>
@@ -2580,10 +2533,10 @@ page attempts to document them.
   </tr>
 </table>
 
-<h2>/api/queues</h2>
+## /api/queues
 
-When using the query parameters combination of <code>disable_stats</code> and
-<code>enable_queue_totals</code> this query returns the following fields:
+When using the query parameters combination of `disable_stats` and
+`enable_queue_totals` this query returns the following fields:
 
 <table>
   <tr>
@@ -2660,13 +2613,11 @@ When using the query parameters combination of <code>disable_stats</code> and
   </tr>
 </table>
 
-<h2>/api/queues/(vhost)</h2>
+## /api/queues/(vhost)
 
-<p>
-  See documentation for <code>rabbitmqctl list_queues</code>, with
-  all references to <code>pid</code>s replaced by <code>node</code>s
-  plus:
-</p>
+See documentation for `rabbitmqctl list_queues`, with
+all references to `pid`s replaced by `node`s
+plus:
 
 <table>
   <tr>
@@ -2677,11 +2628,9 @@ When using the query parameters combination of <code>disable_stats</code> and
   </tr>
 </table>
 
-<h2>/api/queues/(vhost)/(name)</h2>
+## /api/queues/(vhost)/(name)
 
-<p>
-  All the above, plus:
-</p>
+All the above, plus:
 
 <table>
   <tr>
@@ -2706,13 +2655,11 @@ When using the query parameters combination of <code>disable_stats</code> and
   </tr>
 </table>
 
-<h2>/api/vhosts/</h2>
-<h2>/api/vhosts/(name)</h2>
+## /api/vhosts/
+## /api/vhosts/(name)
 
-<p>
-  All the fields from <code>rabbitmqctl list_vhosts</code>
-  (i.e. <code>name</code> and <code>tracing</code>) plus:
-</p>
+All the fields from `rabbitmqctl list_vhosts`
+(i.e. `name` and `tracing`) plus:
 
 <table>
   <tr>
@@ -2737,29 +2684,20 @@ When using the query parameters combination of <code>disable_stats</code> and
   </tr>
 </table>
 
-<section id="pagination">
-  <h2> Pagination Parameters</h2>
+## Pagination Parameters {#pagination}
 
-  <p>
-    The pagination can be applied to the endpoints that list
+The pagination can be applied to the endpoints that list
 
-    <ul>
-      <li>queues</li>
-      <li>exchanges</li>
-      <li>connections</li>
-      <li>channels</li>
-    </ul>
-  </p>
+* queues
+* exchanges
+* connections
+* channels
 
-  <p>
-    Without pagination, these endpoints can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
-  </p>
-  <p>
-    Default page size is 100, maximum supported page size is 500.
-  </p>
-  <p>
-    Below are the query parameters that can be used.
-  </p>
+Without pagination, these endpoints can produce very large JSON responses and waste a lot of bandwidth and CPU resources.
+
+Default page size is 100, maximum supported page size is 500.
+
+Below are the query parameters that can be used.
 
   <table>
     <thead>
@@ -2827,4 +2765,3 @@ When using the query parameters combination of <code>disable_stats</code> and
       </tr>
     </tbody>
   </table>
-</section>
