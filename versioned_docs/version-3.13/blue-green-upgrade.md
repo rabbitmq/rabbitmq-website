@@ -39,6 +39,13 @@ for example, from 3.12.x to 4.0.x or from a 3.13.x cluster with Khepri enabled t
 When that migration is done, the old ("blue") cluster is decommissioned (shut down, deleted).
 To simplify the switch, [federated queues](./federated-queues)
 can be used to transfer enqueued messages from the "blue" to the "green" cluster.
+
+:::tip
+
+[`rabbitmqadmin` v2](./management-cli) includes a number of commands specifically designed [for simplifying Blue-Green Deployment migrations](/blog/2025/07/29/latest-benefits-of-rmq-and-migrating-to-qq-along-the-way), in particular from RabbitMQ 3.13.x to 4.x.
+
+:::
+
 ## Preparing the "green" Cluster {#preparation}
 
 After deploying a brand new "green" cluster, there are two steps to follow:
