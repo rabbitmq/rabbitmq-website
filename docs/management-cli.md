@@ -1373,9 +1373,19 @@ rabbitmqadmin --vhost "events" policies update_definition \
 ### Update a Definition Key in All Policies in a Virtual Host
 
 ```shell
+# Re-enable federation by re-introducing the federation-upstream-set key
 rabbitmqadmin --vhost "events" policies update_definitions_of_all_in \
-  --definition-key "max-length" \
-  --new-value "5000000"
+  --definition-key "federation-upstream-set" \
+  --new-value "all"
+```
+
+### Update a Definition Key in All Policies Cluster-Wide
+
+```shell
+# Re-enable federation across all virtual hosts
+rabbitmqadmin policies update_definitions_of_all \
+  --definition-key "federation-upstream-set" \
+  --new-value "all"
 ```
 
 ### Delete Definition Keys from a Policy
@@ -1389,8 +1399,17 @@ rabbitmqadmin --vhost "events" policies delete_definition_keys \
 ### Delete Definition Keys from All Policies in a Virtual Host
 
 ```shell
+# Temporarily disable federation by removing the federation-upstream-set key
 rabbitmqadmin --vhost "events" policies delete_definition_keys_from_all_in \
-  --definition-keys max-length,max-length-bytes
+  --definition-keys federation-upstream-set
+```
+
+### Delete Definition Keys from All Policies Cluster-Wide
+
+```shell
+# Temporarily disable federation across all virtual hosts
+rabbitmqadmin policies delete_definition_keys_from_all \
+  --definition-keys federation-upstream-set
 ```
 
 ### List Operator Policies
