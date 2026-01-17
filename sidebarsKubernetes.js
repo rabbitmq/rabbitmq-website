@@ -44,6 +44,11 @@ const sidebars = {
         },
         {
           type: 'doc',
+          id: 'operator/quorum-status',
+          label: 'Quorum Status',
+        },
+        {
+          type: 'doc',
           id: 'operator/troubleshooting-operator',
           label: 'Troubleshooting',
         },

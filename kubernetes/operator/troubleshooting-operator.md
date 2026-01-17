@@ -131,6 +131,11 @@ In this example, we assume that we want to recreate server-2. Adjust the command
 1. `kubectl delete pv PV_NAME` (only needed if `persistentVolumeReclaimPolicy` is set to `Retain`; this will delete the PV and all the data on this node)
 1. `rabbitmqctl forget_cluster_node rabbit@RMQ_NAME-server-2.RMQ_NAME-nodes.NAMESPACE` (from any of the running nodes) - remove the deleted node from the cluster
 1. `kubectl rabbitmq resume-reconciliation RMQ_NAME` (or delete the label) - the Operator will recreate the StatefulSet, the StatefulSet will recreate the missing pod; the node should join the cluster
+
+:::tip
+Check the quorum status before and after node recreation to ensure the cluster remains healthy. See [Quorum Status Monitoring](./quorum-status) for details.
+:::
+
 1. Expand the quorum queues and streams to the new node:
    * `rabbitmq-queues grow rabbit@RMQ_NAME-server-2.RMQ_NAME-nodes.NAMESPACE all`
    * `rabbitmq-streams add_replica STREAM_NAME rabbit@RMQ_NAME-server-2.RMQ_NAME-nodes.NAMESPACE`
@@ -146,7 +151,9 @@ If you need to recreate the node with `-0` suffix, you need to expliclty make it
 symptom: "After deleting a RabbitmqCluster instance, some Pods
 are stuck in the terminating state. RabbitMQ is still running in the affected Pods."
 
-cause: "The likely cause is a leftover quorum queue in RabbitMQ."
+cause: "The likely cause is a leftover quorum queue in RabbitMQ. Pods with quorum critical status are protected from termination by the preStop hook."
+
+Before force-deleting a pod, check the quorum status of your cluster to understand if the pod is quorum critical. See [Quorum Status Monitoring](./quorum-status) for details on how to check and interpret quorum status.
 
 Potential solution to resolve this issue:
 
