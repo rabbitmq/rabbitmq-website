@@ -1065,3 +1065,10 @@ and routing key is set to the log level.
 Application that would like to consume log entries need to declare a queue
 and bind it to the exchange, using a routing key to filter a specific log level,
 or `#` to consume all log entries allowed by the configured log level.
+
+:::warning
+If you are [importing definitions at boot time](./definitions)
+and have a queue bound to the `amq.rabbitmq.log` exchange, make sure the entry
+`log.exchange = true` appears before `load_definitions`. The `amq.rabbitmq.log`
+exchange must be available before definitions are imported.
+:::
