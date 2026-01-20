@@ -1025,7 +1025,7 @@ consistency, such as pause-minority mode for partition tolerance.
 To create and set a `PodDisruptionBudget` object, first create a file called `rabbitmq-pdb.yaml` that includes:
 
 ```yaml
-    apiVersion: policy/v1beta1
+    apiVersion: policy/v1
     kind: PodDisruptionBudget
     metadata:
       name: pdb-rabbitmq
