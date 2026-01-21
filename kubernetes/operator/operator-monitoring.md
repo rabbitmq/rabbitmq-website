@@ -174,6 +174,8 @@ The [RabbitMQ-Alerts dashboard](https://github.com/rabbitmq/cluster-operator/blo
 
 ## Monitor Cluster Quorum Status {#quorum-status}
 
-In addition to metrics-based monitoring with Prometheus and Grafana, the Cluster Operator provides a `quorumStatus` field in the `RabbitmqCluster` status that indicates the quorum health of your cluster. This field helps operators understand whether it is safe to perform maintenance operations.
+In addition to metrics-based monitoring with Prometheus and Grafana, the Cluster Operator provides a `quorumStatus` field in the `RabbitmqCluster` status
+that indicates the quorum health of the cluster. This field helps operators understand whether it is safe to perform
+maintenance operations such as [rolling upgrades](/docs/upgrade) or rolling restarts for configuration changes.
 
 For detailed information about the quorum status field, including how to check it, interpret different status values, and use it for safe maintenance operations, see [Quorum Status Monitoring](./quorum-status).

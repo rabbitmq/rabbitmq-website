@@ -150,9 +150,9 @@ For more information, see the [RabbitMQ documentation guides](/docs).
 
 The child resources created by the Cluster Operator always have the following set of labels:
 
-* `app.kubernetes.io/name` - the value is the `RabbitmqCluster` name associated to the resource.
-* `app.kubernetes.io/component` - the component it belongs to. Currently always set to `rabbitmq`.
-* `app.kubernetes.io/part-of` - The name of a higher level application this one is part of. Currently always set to `rabbitmq`.
+* `app.kubernetes.io/name`: the value is the `RabbitmqCluster` name associated to the resource.
+* `app.kubernetes.io/component`: the component it belongs to. Currently always set to `rabbitmq`.
+* `app.kubernetes.io/part-of`: The name of a higher level application this one is part of. Currently always set to `rabbitmq`.
 
 The same set of labels is applied to the Pods created by the StatefulSet.
 
@@ -1216,7 +1216,7 @@ kubectl -n NAMESPACE get secret INSTANCE-default-user -o jsonpath="{.data.passwo
 The RabbitMQ Cluster Operator supports storing RabbitMQ admin credentials and RabbitMQ server certificates
 in [HashiCorp Vault](https://www.vaultproject.io/).
 
-Note that the Operator works with Vault [KV secrets engine version 2](https://www.vaultproject.io/docs/secrets/kv/kv-v2) only. 
+Note that the Operator works with Vault [KV secrets engine version 2](https://www.vaultproject.io/docs/secrets/kv/kv-v2) only.
 
 ### Read RabbitMQ Admin Credentials from Vault {#vault-default-user}
 Instead of having the Operator create RabbitMQ admin credentials putting them into a Kubernetes Secret object
@@ -1312,7 +1312,8 @@ and guides on [Connections](/docs/connections), [Publishers](/docs/publishers), 
 
 ## Monitor Quorum Status {#quorum-status}
 
-The `quorumStatus` field in the `RabbitmqCluster` status provides real-time visibility into the quorum health of your cluster. This is particularly important before performing maintenance operations such as rolling updates.
+The `quorumStatus` field in the `RabbitmqCluster` status provides near real-time visibility into the quorum health of the cluster.
+This is particularly important before performing maintenance operations such as [rolling upgrades](/docs/upgrade) or rolling restarts for configuration changes.
 
 For detailed information about monitoring and using the quorum status field, see [Quorum Status Monitoring](./quorum-status).
 

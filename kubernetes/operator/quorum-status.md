@@ -5,21 +5,31 @@ title: Quorum Status Monitoring
 
 ## Introduction
 
-The `quorumStatus` field in the `RabbitmqCluster` status provides real-time visibility into the quorum health of your RabbitMQ cluster. This field helps operators understand whether it is safe to perform maintenance operations, such as scaling down nodes or performing rolling updates.
+The `quorumStatus` field in the `RabbitmqCluster` status provides near real-time visibility into the quorum health of a RabbitMQ cluster.
+This field helps operators understand whether it is safe to perform maintenance operations, such as scaling down nodes or performing
+[rolling upgrades](/docs/upgrade) or rolling restarts for configuration changes.
 
 ### Why Quorum Status Matters
 
-RabbitMQ quorum queues use the Raft consensus algorithm to replicate data across multiple nodes. When a node holds critical quorum queue replicas, shutting it down could result in loss of quorum, making queues unavailable until the node returns. The `quorumStatus` field indicates which nodes, if any, are "quorum critical" and should not be shut down.
+RabbitMQ [quorum queues](/docs/quorum-queues), [streams](/docs/streams), and the [Khepri metadata store](/docs/metadata-store) all use the Raft consensus algorithm to replicate data across multiple nodes.
+When a node holds critical quorum queue replicas, shutting it down could result in loss of quorum, making queues unavailable until the node returns.
+The `quorumStatus` field indicates which nodes, if any, are "quorum critical" and should not be shut down.
+
+:::tip
+
+This guide includes sections on [best practices](#best-practices) and [troubleshooting](#troubleshooting).
+
+:::
 
 ## How It Works
 
-The RabbitMQ Cluster Operator automatically monitors the quorum status of your cluster:
+The Cluster Operator automatically monitors the quorum status of a RabbitMQ cluster:
 
-1. **During Each Reconciliation Loop**: The operator checks the quorum status of all RabbitMQ nodes periodically
-2. **Direct Pod Access**: Each node is checked individually by connecting directly to its pod IP address
-3. **RabbitMQ Management API**: Uses the `/api/health/checks/node-is-quorum-critical` endpoint on each node
-4. **Concurrent Checks**: All nodes are checked in parallel for efficiency
-5. **Status Update**: The `quorumStatus` field is updated with the aggregated result
+1. **During Each Reconciliation Loop**: the operator checks the quorum status of all RabbitMQ nodes periodically
+2. **Direct Pod Access**: each node is checked individually by connecting directly to its pod IP address
+3. **RabbitMQ Management API**: uses the `/api/health/checks/node-is-quorum-critical` [HTTP API endpoint](/docs/http-api-reference#get-apihealthchecksnode-is-quorum-critical) on each node
+4. **Concurrent Checks**: all nodes are checked in parallel for efficiency
+5. **Status Update**: the `quorumStatus` field is updated with the aggregated result
 
 The controller discovers pod IPs using Kubernetes EndpointSlices associated with the headless service, ensuring accurate per-node health checks.
 
@@ -45,7 +55,7 @@ status:
   quorumStatus: "ok (1 unavailable)"
 ```
 
-**Interpretation**: While no critical nodes were detected, you should investigate why some nodes are unavailable before proceeding with maintenance.
+**Interpretation**: while no quorum-critical nodes were detected, human operators should investigate why some nodes are unavailable before proceeding with maintenance.
 
 ### "quorum-critical: pod-name"
 
@@ -56,19 +66,28 @@ status:
   quorumStatus: "quorum-critical: my-cluster-server-0"
 ```
 
-**Warning**: Do not delete or restart pods that are listed as quorum critical, as this could cause queue unavailability or data loss.
+:::danger
+
+Do not delete or restart pods that are listed as quorum critical,
+as this could cause queue unavailability or data loss.
+
+:::
 
 ### "quorum-critical: pod-name1, pod-name2 (N unavailable)"
 
-Multiple pods are quorum critical, and some nodes could not be reached. This can be normal during a rolling restart. Investigate if
-the status persists after completing the rolling restart.
+Multiple pods are quorum critical, and some nodes could not be reached. This is to be expected during a rolling restart.
+Investigate if the status persists after completing the rolling restart.
 
 ```yaml
 status:
   quorumStatus: "quorum-critical: my-cluster-server-0, my-cluster-server-2 (1 unavailable)"
 ```
 
-**Warning**: This indicates a potentially fragile cluster state. Avoid any disruptive operations and investigate the unavailable nodes.
+:::warning
+
+This indicates a potentially fragile cluster state. Avoid any disruptive operations and investigate the unavailable nodes.
+
+:::
 
 ### "unavailable"
 
@@ -79,7 +98,7 @@ status:
   quorumStatus: "unavailable"
 ```
 
-**Interpretation**: The cluster is not operational. Wait for pods to become ready before evaluating quorum status.
+**Interpretation**: the cluster is not operational. Wait for pods to become ready before evaluating quorum status.
 
 ## How to Check Quorum Status
 
@@ -141,45 +160,60 @@ If applications report queue unavailability, check quorum status to identify whi
 
 ### Critical Limitation: Direct RabbitMQ Modifications
 
-**The `quorumStatus` field may not accurately reflect the actual risk if queue membership or quorum queue configurations are modified directly through RabbitMQ, bypassing Kubernetes.**
+:::important
+
+The `quorumStatus` field may not accurately reflect the actual risk if queue membership or quorum queue configurations are modified directly through RabbitMQ
+(CLI tools, HTTP API), bypassing theKubernetes Operator.
+
+:::
 
 For example:
-- Using `rabbitmqctl` to add or remove queue replicas
-- Using the RabbitMQ Management UI to modify queue settings
-- Using external tools or scripts that interact directly with RabbitMQ APIs
 
-If you modify quorum queues outside of Kubernetes, the operator's status may become stale or inaccurate until RabbitMQ's internal state is synchronized. Always use Kubernetes-native approaches for cluster management when possible.
+ * Using `rabbitmq-queues grow` or `rabbitmq-queues shrink` to add or remove queue members (replicas)
+ * Using the RabbitMQ Management UI to modify queue settings
+ * Using external tools or scripts that interact directly with RabbitMQ APIs
+
+If quorum queue membership is modified outside of Kubernetes, the operator's status may become stale or inaccurate until RabbitMQ's
+internal state is synchronized. Always use Kubernetes-native approaches for cluster management when possible.
 
 ### Additional Limitations
 
-**Not Real-Time**: The status is only updated during reconciliation loops (typically every few minutes). The actual quorum state may change between updates.
+**Not Real-Time**: the status is only updated during reconciliation loops (typically every few minutes). The actual quorum state may change between updates.
 
-**Requires Management API Access**: All pods must have accessible management API endpoints. If the management API is unavailable due to network policies, firewall rules, or authentication issues, nodes will be reported as "unavailable."
+**Requires Management API Access**: all pods must have accessible management API endpoints. If the management API is unavailable due to network policies, firewall rules, or authentication issues, nodes will be reported as "unavailable."
 
-**TLS Configuration Required**: If `DisableNonTLSListeners` is set to `true`, TLS must be properly configured with valid certificates. Certificate issues will cause nodes to be reported as "unavailable."
+**TLS Configuration Required**: if `DisableNonTLSListeners` is set to `true`, TLS must be properly configured with valid certificates. Certificate issues will cause nodes to be reported as "unavailable."
 
-**Does Not Prevent Pod Deletion**: The `quorumStatus` field is informational only. The controller does not block pod deletions based on this status. Protection against unsafe shutdowns is provided by the StatefulSet's preStop hooks.
+**Does Not Prevent Pod Deletion**: the `quorumStatus` field is informational only. The controller does not block pod deletions based on this status. Protection against unsafe shutdowns is provided by the StatefulSet's preStop hooks.
 
 ## Integration with StatefulSet PreStop Hooks
 
 It's important to understand the relationship between the `quorumStatus` field and the cluster's deletion protection:
 
-- **Status Reporting**: The controller reports quorum status but does not prevent pod operations
-- **PreStop Hook Protection**: The StatefulSet includes a preStop hook that prevents pod shutdown when the node is quorum critical
-- **Operator Decision Making**: The `quorumStatus` field helps human operators and automation tools make informed decisions before initiating maintenance operations
+ * **Status Reporting**: the controller reports quorum status but does not prevent pod operations
+ * **PreStop Hook Protection**: the StatefulSet includes a preStop hook that prevents pod shutdown when the node is quorum critical
+ * **Operator Decision Making**: the `quorumStatus` field helps human operators and automation tools make informed decisions before initiating maintenance operations
 
 The preStop hook calls the same RabbitMQ health check endpoint and will block pod termination if the node is quorum critical, providing a safety net even if the operator proceeds with a deletion.
+
+## Best Practices
+
+1. **Check Before Scaling**: always check `quorumStatus` before scaling down your cluster
+2. **Monitor Continuously**: integrate quorum status into your monitoring dashboards
+3. **Size Appropriately**: maintain at least 3 nodes (an [odd number](/docs/clustering#node-count)) for quorum queues
+4. **Avoid Manual Changes**: use Kubernetes-native approaches rather than direct RabbitMQ modifications
+5. **Test in Staging**: validate your scaling and maintenance procedures in a non-production environment first
 
 ## Troubleshooting
 
 ### Status Shows "unavailable"
 
 **Possible Causes**:
-- Pods are not ready (still starting up)
-- Network connectivity issues between the controller and pods
-- Management API is not accessible
-- TLS configuration issues (if TLS is enabled)
-- Authentication credentials are incorrect
+ * Pods are not ready (still starting up)
+ * Network connectivity issues between the controller and pods
+ * Management API is not accessible
+ * TLS configuration issues (if TLS is enabled)
+ * Authentication credentials are incorrect
 
 **Resolution Steps**:
 1. Check pod readiness: `kubectl get pods -l app.kubernetes.io/name=<cluster-name>`
@@ -190,9 +224,9 @@ The preStop hook calls the same RabbitMQ health check endpoint and will block po
 ### Status Not Updating
 
 **Possible Causes**:
-- Reconciliation loop is not running
-- Controller is not healthy
-- Cluster resource is not being watched
+ * Reconciliation loop is not running
+ * Controller is not healthy
+ * Cluster resource is not being watched
 
 **Resolution Steps**:
 1. Check controller logs for errors
@@ -203,9 +237,9 @@ The preStop hook calls the same RabbitMQ health check endpoint and will block po
 ### Unexpected "quorum-critical" Status
 
 **Possible Causes**:
-- Uneven distribution of quorum queue replicas
-- Cluster size is too small for the configured queue replication factor
-- Recent node failures have not been rebalanced
+ * Uneven distribution of quorum queue replicas
+ * Cluster size is too small for the configured queue replication factor
+ * Recent node failures have not been rebalanced
 
 **Resolution Steps**:
 1. Check quorum queue distribution in the RabbitMQ Management UI
@@ -225,16 +259,9 @@ The preStop hook calls the same RabbitMQ health check endpoint and will block po
 3. Distribute queues more evenly across nodes
 4. Consider whether all queues need to be quorum queues
 
-## Best Practices
-
-1. **Check Before Scaling**: Always check `quorumStatus` before scaling down your cluster
-2. **Monitor Continuously**: Integrate quorum status into your monitoring dashboards
-3. **Size Appropriately**: Maintain at least 3 nodes for quorum queues (5+ recommended for production)
-4. **Avoid Manual Changes**: Use Kubernetes-native approaches rather than direct RabbitMQ modifications
-5. **Test in Staging**: Validate your scaling and maintenance procedures in a non-production environment first
 
 ## References
 
-- [RabbitMQ Quorum Queues Documentation](https://www.rabbitmq.com/quorum-queues.html)
-- [RabbitMQ Health Checks Documentation](https://www.rabbitmq.com/monitoring.html#health-checks)
-- [Kubernetes StatefulSet Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
+ * [RabbitMQ Quorum Queues Documentation](https://www.rabbitmq.com/quorum-queues.html)
+ * [RabbitMQ Health Checks Documentation](https://www.rabbitmq.com/monitoring.html#health-checks)
+ * [Kubernetes StatefulSet Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
