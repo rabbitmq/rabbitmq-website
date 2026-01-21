@@ -627,6 +627,15 @@ After updating apt preferences it is necessary to run `apt-get update`:
 sudo apt-get update -y
 ```
 
+To pin using the origin value of the Team RabbitMQ repositories, use **`Origin: RabbitMQ`**.
+
+To determine the exact version string to use for pinning (including any package epoch), use `apt-cache policy`:
+
+```bash
+apt-cache policy rabbitmq-server
+apt-cache policy erlang-base
+```
+
 The following preference file example will configure `apt` to install `erlang-*` packages from the Team RabbitMQ
 apt repositories used in the examples above:
 
@@ -656,25 +665,26 @@ Effective package pinning policy can be verified with
 sudo apt-cache policy
 ```
 
-The following preference file example will pin all `erlang-*` packages to 26.2.5.13
-(assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
+The following preference file example will pin all `erlang-*` packages to 26.2.5.13:
 
 ```ini
 # /etc/apt/preferences.d/erlang
 Package: erlang*
+# Note: Erlang packages from Team RabbitMQ use a package epoch.
+# It MUST be included in the version pinning, using the format "1:{version}-{revision}"
 Pin: version 1:26.2.5.13-1
 # Note: priority of 1001 (greater than 1000) allows for downgrading.
 # To make package downgrading impossible, use a value of 999
 Pin-Priority: 1001
 ```
 
-The following preference file example will pin `rabbitmq-server` package to <RabbitMQServerVersion/>
-(assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
+The following preference file example will pin `rabbitmq-server` package to <RabbitMQServerVersion/>:
 
 <CodeBlock>
 {`# /etc/apt/preferences.d/rabbitmq
 Package: rabbitmq-server
-Pin: version 1:${RabbitMQServerVersion()}-${RabbitMQServerPackageRevision({packageType: 'debian'})}
+# Note: RabbitMQ server packages do not use a package epoch
+Pin: version ${RabbitMQServerVersion()}-${RabbitMQServerPackageRevision({packageType: 'debian'})}
 # Note: priority of 1001 (greater than 1000) allows for downgrading.
 # To make package downgrading impossible, use a value of 999
 Pin-Priority: 1001`}
