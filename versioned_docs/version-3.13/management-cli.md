@@ -54,6 +54,13 @@ It is distributed as a native binary.
 Binaries for x86-64 Linux, aarch64 Linux, aarch64 macOS and x86-64 Windows
 are distributed via [GitHub releases](https://github.com/rabbitmq/rabbitmqadmin-ng/releases).
 
+### RabbitMQ Series Compatibility
+
+As of `rabbitmqadmin` 2.23.0, the supported RabbitMQ release series are 4.x, 3.13.x, 3.12.x.
+
+Note all series will support every command and argument, as older series would not have newer
+HTTP API endpoints (or support certain parameters of existing endpoints).
+
 
 ## Usage
 
@@ -1336,7 +1343,7 @@ rabbitmqadmin --vhost "events" policies patch \
   --definition '{"max-length": 7777777, "max-length-bytes": 3333333333}'
 ```
 
-### Update a Key in a Policy Definition
+### Update a Policy Definition Key
 
 ```shell
 rabbitmqadmin --vhost "events" policies update_definition \
@@ -1345,7 +1352,7 @@ rabbitmqadmin --vhost "events" policies update_definition \
   --new-value "5000000"
 ```
 
-### Update a Key in Multiple Policies
+### Update a Definition Key in All Policies in a Virtual Host
 
 ```shell
 # Re-enable federation by re-introducing the federation-upstream-set key
@@ -1354,7 +1361,7 @@ rabbitmqadmin --vhost "events" policies update_definitions_of_all_in \
   --new-value "all"
 ```
 
-### Update a Key in All Policies Cluster-Wide
+### Update a Definition Key in All Policies Cluster-Wide
 
 ```shell
 # Re-enable federation across all virtual hosts
@@ -1363,7 +1370,7 @@ rabbitmqadmin policies update_definitions_of_all \
   --new-value "all"
 ```
 
-### Delete Keys from a Policy Definition
+### Delete Definition Keys from a Policy
 
 ```shell
 rabbitmqadmin --vhost "events" policies delete_definition_keys \
@@ -1371,7 +1378,7 @@ rabbitmqadmin --vhost "events" policies delete_definition_keys \
   --definition-keys max-length-bytes,max-length
 ```
 
-### Delete Keys from Multiple Policies
+### Delete Definition Keys from All Policies in a Virtual Host
 
 ```shell
 # Temporarily disable federation by removing the federation-upstream-set key
@@ -1379,7 +1386,7 @@ rabbitmqadmin --vhost "events" policies delete_definition_keys_from_all_in \
   --definition-keys federation-upstream-set
 ```
 
-### Delete Keys from All Policies Cluster-Wide
+### Delete Definition Keys from All Policies Cluster-Wide
 
 ```shell
 # Temporarily disable federation across all virtual hosts

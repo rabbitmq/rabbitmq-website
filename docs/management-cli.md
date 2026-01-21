@@ -54,6 +54,13 @@ It is distributed as a native binary.
 Binaries for x86-64 Linux, aarch64 Linux, aarch64 macOS and x86-64 Windows
 are distributed via [GitHub releases](https://github.com/rabbitmq/rabbitmqadmin-ng/releases).
 
+### RabbitMQ Series Compatibility
+
+As of `rabbitmqadmin` 2.23.0, the supported RabbitMQ release series are 4.x, 3.13.x, 3.12.x.
+
+Note all series will support every command and argument, as older series would not have newer
+HTTP API endpoints (or support certain parameters of existing endpoints).
+
 
 ## Usage
 
