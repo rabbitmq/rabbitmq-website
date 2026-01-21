@@ -1356,6 +1356,7 @@ rabbitmqadmin --vhost "events" policies list_matching_object --name "my.queue" -
 ### Patch (Perform a Partial Update on) a Policy
 
 ```shell
+# Merge keys into an existing policy's definition (add or update keys)
 rabbitmqadmin --vhost "events" policies patch \
   --name "queue-limits" \
   --definition '{"max-length": 7777777, "max-length-bytes": 3333333333}'

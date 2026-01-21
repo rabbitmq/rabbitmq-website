@@ -1327,53 +1327,64 @@ rabbitmqadmin --vhost "events" policies delete --name "queue-limits"
 rabbitmqadmin --vhost "events" policies list_matching_object --name "my.queue" --type "queue"
 ```
 
-### Patch a Policy's Definition
+### Patch (Perform a Partial Update on) a Policy
 
 ```shell
 # Merge keys into an existing policy's definition (add or update keys)
-rabbitmqadmin --vhost "events" policies patch --name "queue-limits" --definition '{"max-length-bytes":1000000}'
+rabbitmqadmin --vhost "events" policies patch \
+  --name "queue-limits" \
+  --definition '{"max-length": 7777777, "max-length-bytes": 3333333333}'
 ```
 
 ### Update a Key in a Policy Definition
 
 ```shell
-# Update a specific key in a policy definition
-rabbitmqadmin --vhost "events" policies update_definition --name "queue-limits" --definition-key "max-length" --new-value 20000
+rabbitmqadmin --vhost "events" policies update_definition \
+  --name "queue-limits" \
+  --definition-key "max-length" \
+  --new-value "5000000"
 ```
 
 ### Update a Key in Multiple Policies
 
 ```shell
 # Re-enable federation by re-introducing the federation-upstream-set key
-rabbitmqadmin --vhost "events" policies update_definitions_of_all_in --definition-key "federation-upstream-set" --new-value "all"
+rabbitmqadmin --vhost "events" policies update_definitions_of_all_in \
+  --definition-key "federation-upstream-set" \
+  --new-value "all"
 ```
 
 ### Update a Key in All Policies Cluster-Wide
 
 ```shell
 # Re-enable federation across all virtual hosts
-rabbitmqadmin policies update_definitions_of_all --definition-key "federation-upstream-set" --new-value "all"
+rabbitmqadmin policies update_definitions_of_all \
+  --definition-key "federation-upstream-set" \
+  --new-value "all"
 ```
 
 ### Delete Keys from a Policy Definition
 
 ```shell
-# Delete specific keys from a policy definition
-rabbitmqadmin --vhost "events" policies delete_definition_keys --name "queue-limits" --definition-keys "max-length-bytes"
+rabbitmqadmin --vhost "events" policies delete_definition_keys \
+  --name "queue-limits" \
+  --definition-keys max-length-bytes,max-length
 ```
 
 ### Delete Keys from Multiple Policies
 
 ```shell
 # Temporarily disable federation by removing the federation-upstream-set key
-rabbitmqadmin --vhost "events" policies delete_definition_keys_from_all_in --definition-keys "federation-upstream-set"
+rabbitmqadmin --vhost "events" policies delete_definition_keys_from_all_in \
+  --definition-keys federation-upstream-set
 ```
 
 ### Delete Keys from All Policies Cluster-Wide
 
 ```shell
 # Temporarily disable federation across all virtual hosts
-rabbitmqadmin policies delete_definition_keys_from_all --definition-keys "federation-upstream-set"
+rabbitmqadmin policies delete_definition_keys_from_all \
+  --definition-keys federation-upstream-set
 ```
 
 ### List Operator Policies
