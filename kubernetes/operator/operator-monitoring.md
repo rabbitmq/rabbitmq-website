@@ -171,3 +171,11 @@ Follow the instructions in the [Grafana Configuration](/docs/prometheus#grafana-
 Alternatively, if Grafana is deployed by the [Grafana Helm chart](https://github.com/grafana/helm-charts/tree/main/charts/grafana), `kubectl apply` the `ConfigMaps` in the [grafana/dashboards](https://github.com/rabbitmq/cluster-operator/tree/main/observability/grafana/dashboards) directory to import the RabbitMQ Grafana dashboards [using a sidecar container](https://github.com/grafana/helm-charts/tree/main/charts/grafana#sidecar-for-dashboards).
 
 The [RabbitMQ-Alerts dashboard](https://github.com/rabbitmq/cluster-operator/blob/main/observability/grafana/dashboards/rabbitmq-alerts.yml) provides a history of all past RabbitMQ alerts across all RabbitMQ clusters in Kubernetes.
+
+## Monitor Cluster Quorum Status {#quorum-status}
+
+In addition to metrics-based monitoring with Prometheus and Grafana, the Cluster Operator provides a `quorumStatus` field in the `RabbitmqCluster` status
+that indicates the quorum health of the cluster. This field helps operators understand whether it is safe to perform
+maintenance operations such as [rolling upgrades](/docs/upgrade) or rolling restarts for configuration changes.
+
+For detailed information about the quorum status field, including how to check it, interpret different status values, and use it for safe maintenance operations, see [Quorum Status Monitoring](./quorum-status).
