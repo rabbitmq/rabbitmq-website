@@ -152,7 +152,7 @@ Here's an example that creates a virtual host named `qa1` with [quorum queues](.
 a description and two tags:
 
 ```bash
-rabbitmqctl add_vhost qa1 --description "QA env 1" --default-queue-type quorum
+rabbitmqctl add_vhost qa1 --description "QA env 1" --default-queue-type quorum --tags qa1,project-a1
 ```
 
 `rabbitmqctl update_vhost_metadata` can be used to update all or some of the metadata values
