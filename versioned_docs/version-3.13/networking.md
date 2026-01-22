@@ -373,16 +373,16 @@ Please see [Windows Configuration](./windows-configuration) for details.
 The range used by RabbitMQ can also be controlled via two configuration keys
 in `rabbitmq.conf`:
 
- * `inet_dist_listen_min`
- * `inet_dist_listen_max`
+ * `distribution.listener.port_range.min`
+ * `distribution.listener.port_range.max`
 
 They define the range's lower and upper bounds, inclusive.
 
 The example below uses a range with a single port but a value different from default:
 
 ``` ini
-inet_dist_listen_min = 33672
-inet_dist_listen_max = 33672
+distribution.listener.port_range.min = 33672
+distribution.listener.port_range.max = 33672
 ```
 
 To verify what port is used by a node for inter-node and CLI tool communication,

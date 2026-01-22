@@ -1770,9 +1770,9 @@ More variables are covered in the [File and Directory Locations guide](./relocat
     <tr>
       <td>RABBITMQ_DIST_PORT</td>
       <td>
-      Port used for inter-node and CLI tool communication. Ignored if node config
-      file sets `kernel.inet_dist_listen_min` or
-      `kernel.inet_dist_listen_max` keys.
+      Port used for inter-node and CLI tool communication. Ignored if `rabbitmq.conf`
+      sets `distribution.listener.port_range.min` or
+      `distribution.listener.port_range.max`.
       See <a href="./networking">Networking</a> for details, and
       <a href="./windows-configuration">Windows Configuration</a> for Windows-specific details.
 
