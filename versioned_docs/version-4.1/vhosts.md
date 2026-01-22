@@ -149,7 +149,7 @@ Virtual host metadata can be set at creation time or updated later:
 <TabItem value="bash" label="rabbitmqctl with bash" default>
 ```bash
 # Create a virtual host with metadata
-rabbitmqctl add_vhost qa1 --description "QA env 1" --default-queue-type quorum
+rabbitmqctl add_vhost qa1 --description "QA env 1" --default-queue-type quorum --tags qa,project-a
 
 # Update virtual host metadata
 rabbitmqctl update_vhost_metadata qa1 --description "QA environment for issue 1662" --default-queue-type quorum --tags qa,project-a,qa-1662
