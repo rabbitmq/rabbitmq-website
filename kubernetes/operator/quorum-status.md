@@ -44,7 +44,8 @@ For example, for a cluster named `my-rabbit` in namespace `default`:
 - Pod 1: `my-rabbit-server-1.my-rabbit-nodes.default.svc`
 - Pod 2: `my-rabbit-server-2.my-rabbit-nodes.default.svc`
 
-This approach ensures TLS certificate validation works correctly without requiring users to include Pod IP-based DNS entries (`*.pod`) in their certificates.
+This approach ensures [TLS peer verification](/docs/ssl.html#peer-verification) works correctly without requiring users to include Pod
+IP-based DNS entries (`*.pod`) in their certificates.
 
 ## Status Values
 
@@ -187,7 +188,8 @@ internal state is synchronized. Always use Kubernetes-native approaches for clus
 
 **Requires Management API Access**: all pods must have accessible management API endpoints. If the management API is unavailable due to network policies, firewall rules, or authentication issues, nodes will be reported as "unavailable."
 
-**TLS Configuration Required**: if `DisableNonTLSListeners` is set to `true`, TLS must be configured with Pod DNS in SAN. Certificate issues will cause nodes to be reported as "unavailable."
+**TLS Configuration Required**: if `DisableNonTLSListeners` is set to `true`, TLS must be configured with Pod DNS in SAN.
+TLS connectivity ([peer verification](/docs/ssl.html#peer-verification)) issues will cause nodes to be reported as "unavailable."
 
 For example, for a `RabbitmqCluster` named `my-rabbit`:
 
