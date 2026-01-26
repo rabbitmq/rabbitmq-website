@@ -82,6 +82,13 @@ export default function CommercialFeatures() {
                 <img src="/img/bc-vmw-illu-dev-cost-of-migration-drkbg.webp" />
               </div>
               <div className={styles.services_col}>
+                <Heading as="h3">Delayed Message Support with Replication</Heading>
+                <p>
+                  A special Raft-based replicated queue type that supports delayed message publishing.
+                  This delayed message implementation supports replication and very large backlogs.
+                </p>
+              </div>
+              <div className={styles.services_col}>
                 <Heading as="h3">AMQP 1.0 Over WebSockets</Heading>
                 <p>
                   Browser-based applications can communicate with RabbitMQ using
