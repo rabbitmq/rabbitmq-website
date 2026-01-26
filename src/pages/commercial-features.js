@@ -82,6 +82,12 @@ export default function CommercialFeatures() {
                 <img src="/img/bc-vmw-illu-dev-cost-of-migration-drkbg.webp" />
               </div>
               <div className={styles.services_col}>
+                <Heading as="h3">Distributed Shovels</Heading>
+                <p>
+                  Shovels are hosted on all cluster nodes for better scalability.
+                </p>
+              </div>
+              <div className={styles.services_col}>
                 <Heading as="h3">Delayed Message Support with Replication</Heading>
                 <p>
                   A special Raft-based replicated queue type that supports delayed message publishing.
