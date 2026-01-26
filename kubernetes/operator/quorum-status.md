@@ -26,12 +26,25 @@ This guide includes sections on [best practices](#best-practices) and [troublesh
 The Cluster Operator automatically monitors the quorum status of a RabbitMQ cluster:
 
 1. **During Each Reconciliation Loop**: the operator checks the quorum status of all RabbitMQ nodes periodically
-2. **Direct Pod Access**: each node is checked individually by connecting directly to its pod IP address
+2. **Connecting directly to each pod** using its stable DNS name: `<pod-name>.<cluster-name>-nodes.<namespace>.svc`
 3. **RabbitMQ Management API**: uses the `/api/health/checks/node-is-quorum-critical` [HTTP API endpoint](/docs/http-api-reference#get-apihealthchecksnode-is-quorum-critical) on each node
 4. **Concurrent Checks**: all nodes are checked in parallel for efficiency
 5. **Status Update**: the `quorumStatus` field is updated with the aggregated result
 
-The controller discovers pod IPs using Kubernetes EndpointSlices associated with the headless service, ensuring accurate per-node health checks.
+### Connection Method
+
+The operator connects to each pod using StatefulSet stable DNS names. This is particularly important for TLS deployments where certificates have Subject Alternative Names (SANs) for the pod DNS names:
+
+```
+<pod-name>.<headless-service>.<namespace>.svc
+```
+
+For example, for a cluster named `my-rabbit` in namespace `default`:
+- Pod 0: `my-rabbit-server-0.my-rabbit-nodes.default.svc`
+- Pod 1: `my-rabbit-server-1.my-rabbit-nodes.default.svc`
+- Pod 2: `my-rabbit-server-2.my-rabbit-nodes.default.svc`
+
+This approach ensures TLS certificate validation works correctly without requiring users to include Pod IP-based DNS entries (`*.pod`) in their certificates.
 
 ## Status Values
 
@@ -134,15 +147,7 @@ kubectl get rabbitmqcluster my-cluster -o yaml | grep -A 1 quorumStatus
 
 The `quorumStatus` field is particularly useful in the following scenarios:
 
-### Before Scaling Down Operations
-
-Check quorum status before reducing the number of replicas to ensure no critical nodes will be removed:
-
-```bash
-kubectl get rabbitmqcluster my-cluster -o jsonpath='{.status.quorumStatus}'
-# If output is "ok", it's safer to proceed with scaling down
-kubectl scale rabbitmqcluster my-cluster --replicas=2
-```
+<!-- removed scaling down section becase we don't officially support scale down -->
 
 ### During Maintenance Windows
 
@@ -182,7 +187,15 @@ internal state is synchronized. Always use Kubernetes-native approaches for clus
 
 **Requires Management API Access**: all pods must have accessible management API endpoints. If the management API is unavailable due to network policies, firewall rules, or authentication issues, nodes will be reported as "unavailable."
 
-**TLS Configuration Required**: if `DisableNonTLSListeners` is set to `true`, TLS must be properly configured with valid certificates. Certificate issues will cause nodes to be reported as "unavailable."
+**TLS Configuration Required**: if `DisableNonTLSListeners` is set to `true`, TLS must be configured with Pod DNS in SAN. Certificate issues will cause nodes to be reported as "unavailable."
+
+For example, for a `RabbitmqCluster` named `my-rabbit`:
+
+```
+DNS:my-rabbit-server-0.my-rabbit-nodes.default.svc
+DNS:my-rabbit-server-1.my-rabbit-nodes.default.svc
+DNS:my-rabbit-server-2.my-rabbit-nodes.default.svc
+```
 
 **Does Not Prevent Pod Deletion**: the `quorumStatus` field is informational only. The controller does not block pod deletions based on this status. Protection against unsafe shutdowns is provided by the StatefulSet's preStop hooks.
 
