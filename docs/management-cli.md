@@ -56,9 +56,13 @@ are distributed via [GitHub releases](https://github.com/rabbitmq/rabbitmqadmin-
 
 ### RabbitMQ Series Compatibility
 
-As of `rabbitmqadmin` 2.23.0, the supported RabbitMQ release series are 4.x, 3.13.x, 3.12.x.
+As of `rabbitmqadmin` 2.23.0, the tool can be used with the following RabbitMQ release series:
 
-Note all series will support every command and argument, as older series would not have newer
+ * 4.x
+ * 3.13.x
+ * 3.12.x
+
+Not all series will support every command and argument, as older series would not have newer
 HTTP API endpoints (or support certain parameters of existing endpoints).
 
 
