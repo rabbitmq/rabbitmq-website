@@ -37,6 +37,19 @@ method that provides all the functionality of
 `basic.reject` whilst also allowing for bulk
 processing of messages.
 
+## `basic.reject` vs. `basic.nack` {#reject-vs-nack}
+
+While both methods can dead-letter/discard or requeue messages, they have a semantic difference
+related to [poison message handling](./quorum-queues#poison-message-handling):
+
+ * `basic.reject` signals that message processing **failed**. Using this method increments the message's
+    [delivery-count header](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-header).
+ * `basic.nack` signals that the consumer did not process the message, but does **not** count this as failure.
+    Using this method does **not** increment the delivery-count header.
+
+This distinction is important for [quorum queues](./quorum-queues), which support poison message handling:
+when a message's delivery-count exceeds the queue's configured [delivery-limit](./quorum-queues#position-message-handling-configuring-limit)
+(default: 20), the message is dead-lettered or discarded.
 
 ## Usage {#usage}
 
