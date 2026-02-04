@@ -1194,6 +1194,82 @@ consumer.start();
 
 Consider also using the [native stream protocol](/docs/stream) with the stream client library for your preferred programming language when working with streams.
 
+
+#### AMQP 1.0 over WebSocket
+
+AMQP 1.0 over WebSocket is delivered with VMware Tanzu RabbitMQ 4.1. Documentation is available [here.](https://www.rabbitmq.com/blog/2025/04/16/amqp-websocket)
+
+:::note
+Testd with RabbitMQ VMware Tanzu RabbitMQ 4.1 with the `rabbitmq_web_amqp` plugin enabled.
+[See here](https://www.rabbitmq.com/blog/2025/04/16/amqp-websocket) for more details.
+:::
+
+
+<Tabs groupId="languages">
+<TabItem value="java" label="Java">
+</TabItem>
+
+<TabItem value="csharp" label="C#">
+
+```csharp title="Configuring ws connection"
+// Create a ws in rabbitmq in the virtual host ws and user rabbit with password rabbit
+
+const string amqpConnectionString = "ws://rabbit:rabbit@127.0.0.1:15678/ws";
+var cs = new ConnectionSettings(new Uri(amqpConnectionString));
+IEnvironment environment = AmqpEnvironment.Create(cs);
+
+// then use stardard way to send and receive messages
+
+```
+Full example [here](https://github.com/rabbitmq/rabbitmq-amqp-dotnet-client/blob/main/docs/Examples/WebSockets/Program.cs)
+</TabItem>
+
+<TabItem value="python" label="Python">
+    
+```python title="Configuring ws connection"
+
+# Not implemented yet
+```
+
+</TabItem>
+
+<TabItem value="Go" label="Go">
+
+```go title="Configuring ws connection"
+
+    const amqpConnectionString = "ws://127.0.0.1:15678/ws"
+    rmq.Info("[Example]", "Starting web socket connection to", amqpConnectionString)
+    // for anonymous connection use:
+    // env := rmq.NewEnvironment(amqpConnectionString, &rmq.AmqpConnOptions{
+    //  SASLType: amqp.SASLTypeAnonymous(),
+    // })
+    env := rmq.NewEnvironment(amqpConnectionString, &rmq.AmqpConnOptions{
+        SASLType: amqp.SASLTypePlain("rabbit", "rabbit"),
+    })
+
+```
+Full example [here](https://github.com/rabbitmq/rabbitmq-amqp-go-client/blob/main/docs/examples/web_sockets/web_sockets.go)
+
+</TabItem>
+
+<TabItem value="javascript" label="Javascript">
+
+```javascript title="Configuring ws connection"
+ const environment = RabbitmqAmqpClient.createEnvironment({
+        host: "localhost",
+        port: 15678,
+        username: "rabbit",
+        password: "rabbit",
+        webSocket: { implementation: WebSocket },
+      })
+```
+Full example [here](https://github.com/coders51/rabbitmq-amqp-js-client/blob/main/examples/websocket_example.html)
+</TabItem>
+
+
+</Tabs>
+
+
 ## Topology Management
 
 Applications can manage the RabbitMQ's [AMQ 0.9.1 model](/tutorials/amqp-concepts): declaring and deleting exchanges, queues, and bindings.
