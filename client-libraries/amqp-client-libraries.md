@@ -1197,16 +1197,21 @@ Consider also using the [native stream protocol](/docs/stream) with the stream c
 
 #### AMQP 1.0 over WebSocket
 
-AMQP 1.0 over WebSocket is delivered with VMware Tanzu RabbitMQ 4.1. Documentation is available [here.](https://www.rabbitmq.com/blog/2025/04/16/amqp-websocket)
+AMQP 1.0 over WebSocket is supported in VMware Tanzu RabbitMQ. Documentation is available [here.](/blog/2025/04/16/amqp-websocket)
 
 :::note
-Testd with RabbitMQ VMware Tanzu RabbitMQ 4.1 with the `rabbitmq_web_amqp` plugin enabled.
-[See here](https://www.rabbitmq.com/blog/2025/04/16/amqp-websocket) for more details.
+Tested with RabbitMQ VMware Tanzu RabbitMQ 4.1 with `rabbitmq_web_amqp` plugin enabled.
+[See here](/blog/2025/04/16/amqp-websocket) for more details.
 :::
 
 
 <Tabs groupId="languages">
 <TabItem value="java" label="Java">
+
+```java title="Configuring ws connection"
+// Not public yet
+```
+
 </TabItem>
 
 <TabItem value="csharp" label="C#">
