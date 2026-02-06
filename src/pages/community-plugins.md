@@ -109,7 +109,7 @@ here, [get in touch](/contact)!
         <li>Author: <b>Team RabbitMQ</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-routing-node-stamp">rabbitmq/rabbitmq-routing-node-stamp</a></li>
         <li>
-          Maintenance status: superseded by `message_interceptors.incoming.set_header_routing_node.overwrite` in `rabbitmq.conf`
+          Maintenance status: no longer maintained. Use the `message_interceptors.incoming.set_header_routing_node.overwrite` key in `rabbitmq.conf`.
         </li>
       </ul>
     </td>
@@ -127,7 +127,7 @@ here, [get in touch](/contact)!
         <li>Author: <b>Team RabbitMQ</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-message-timestamp">rabbitmq/rabbitmq-message-timestamp</a></li>
         <li>
-          Maintenance status: superseded by `message_interceptors.incoming.set_header_timestamp.overwrite` in `rabbitmq.conf`
+          Maintenance status: no longer maintained. Use the `message_interceptors.incoming.set_header_timestamp.overwrite` key in `rabbitmq.conf`.
         </li>
       </ul>
     </td>
