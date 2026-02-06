@@ -185,7 +185,7 @@ The first three types are covered with examples in the [tutorials](/tutorials).
 
 More exchange types can be provided by [plugins](./plugins).
 [Consistent hashing exchange](https://github.com/rabbitmq/rabbitmq-consistent-hash-exchange/), [random routing exchange](https://github.com/rabbitmq/rabbitmq-random-exchange/),
-[internal event exchange](https://github.com/rabbitmq/rabbitmq-event-exchange/) and [delayed message exchange](https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/) are
+[internal event exchange](https://github.com/rabbitmq/rabbitmq-event-exchange/) are
 exchange plugins that ship with RabbitMQ. Like all plugins they must be enabled
 before they can be used.
 

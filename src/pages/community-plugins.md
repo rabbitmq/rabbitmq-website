@@ -72,7 +72,7 @@ here, [get in touch](/contact)!
       binding time.
       <ul>
         <li><a href="https://github.com/rabbitmq/rabbitmq-rtopic-exchange/releases">Releases</a></li>
-        <li>Author: <b>Alvaro Videla</b></li>
+        <li>Author: <b>Álvaro Videla</b></li>
         <li>Maintainer: <b>Team RabbitMQ</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-rtopic-exchange">rabbitmq/rabbitmq-rtopic-exchange</a></li>
       </ul>
@@ -87,8 +87,12 @@ here, [get in touch](/contact)!
       A plugin that adds delayed-messaging (or scheduled-messaging) to RabbitMQ.
       <ul>
         <li><a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases">Releases</a></li>
-        <li>Author: <b>Alvaro Videla</b></li>
+        <li>Author: <b>Álvaro Videla</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange">rabbitmq/rabbitmq-delayed-message-exchange</a></li>
+        <li>
+          Maintenance status: <a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange?tab=readme-ov-file#why">no longer maintained</a>.
+          See <a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange?tab=readme-ov-file#alternatives-available">Alternatives Available</a>.
+        </li>
       </ul>
     </td>
   </tr>
@@ -104,6 +108,9 @@ here, [get in touch](/contact)!
         <li><a href="https://github.com/rabbitmq/rabbitmq-routing-node-stamp/releases">Releases</a></li>
         <li>Author: <b>Team RabbitMQ</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-routing-node-stamp">rabbitmq/rabbitmq-routing-node-stamp</a></li>
+        <li>
+          Maintenance status: superseded by `message_interceptors.incoming.set_header_routing_node.overwrite` in `rabbitmq.conf`
+        </li>
       </ul>
     </td>
   </tr>
@@ -119,6 +126,9 @@ here, [get in touch](/contact)!
         <li><a href="https://github.com/rabbitmq/rabbitmq-message-timestamp/releases">Releases</a></li>
         <li>Author: <b>Team RabbitMQ</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-message-timestamp">rabbitmq/rabbitmq-message-timestamp</a></li>
+        <li>
+          Maintenance status: superseded by `message_interceptors.incoming.set_header_timestamp.overwrite` in `rabbitmq.conf`
+        </li>
       </ul>
     </td>
   </tr>
@@ -181,7 +191,7 @@ here, [get in touch](/contact)!
       production broker.
       <ul>
         <li><a href="https://github.com/rabbitmq/rabbitmq-boot-steps-visualiser/releases">Releases</a></li>
-        <li>Author: <b>Alvaro Videla</b></li>
+        <li>Author: <b>Álvaro Videla</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-boot-steps-visualiser">rabbitmq/rabbitmq-boot-steps-visualiser</a></li>
       </ul>
     </td>
