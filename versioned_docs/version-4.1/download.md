@@ -102,7 +102,7 @@ Other guides related to Kubernetes:
 
  * <a href={RabbitMQServerPackageURL({packageType: 'windows-installer'})}>Windows Installer</a>
  * <a href={RabbitMQServerPackageURL({packageType: 'debian'})}>Debian, Ubuntu</a>
- * <a href={RabbitMQServerPackageURL({packageType: 'rpm-el8'})}>RHEL, CentOS Stream 9.x, CentOS 8.x</a> | <a href={RabbitMQServerPackageURL({packageType: 'rpm-suse'})}>OpenSUSE</a> | zero dependency [Erlang RPM](https://github.com/rabbitmq/erlang-rpm)
+ * <a href={RabbitMQServerPackageURL({packageType: 'rpm-el8'})}>RHEL, CentOS Stream 9.x, CentOS 8.x</a>  | zero dependency [Erlang RPM](https://github.com/rabbitmq/erlang-rpm)
  * <a href={RabbitMQServerPackageURL({packageType: 'generic-unix'})}>Generic UNIX binary</a>
  * <a href={RabbitMQServerPackageURL({packageType: 'windows-zip'})}>Windows binary</a>
 
