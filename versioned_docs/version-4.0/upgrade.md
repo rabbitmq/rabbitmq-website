@@ -136,7 +136,7 @@ This strategy is only recommended for replacing one node that must be decomissio
 
 ## RabbitMQ Version Upgradability {#rabbitmq-version-upgradability}
 
-You can only upgrade to RabbitMQ 4.0 from RabbitMQ 3.13.x.
+It is possible to upgrade RabbitMQ 3.13.x directly to RabbitMQ 4.0.x.
 
 Don't forget to [enable all stable feature flags](./feature-flags#how-to-enable-feature-flags) while still on 3.13,
 **before** attempting an upgrade to RabbitMQ 4.0, or the upgrade will fail.

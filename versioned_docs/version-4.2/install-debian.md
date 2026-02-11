@@ -36,13 +36,6 @@ import {
 
 This guide covers RabbitMQ installation on Debian, Ubuntu and distributions based on one of them.
 
-RabbitMQ is included in standard Debian and Ubuntu repositories.
-However, the [versions included](https://packages.ubuntu.com/search?keywords=rabbitmq-server&searchon=names&suite=all&section=all) are
-many releases behind [latest RabbitMQ releases](/release-information)
-and may provide RabbitMQ versions that are already [out of support](/release-information).
-
-Team RabbitMQ produces our own Debian packages and distributes them [using Team RabbitMQ's apt repositories](#apt-quick-start).
-
 Key sections of this guide are
 
  * [Ways of installing](#installation-methods) the latest RabbitMQ version on Debian and Ubuntu
@@ -63,6 +56,24 @@ should refer to
 More advanced topics include
 
  * [Version Pinning](#apt-pinning) of apt packages
+
+## Install RabbitMQ from Team RabbitMQ's apt Repositories, Avoid Standard Debian and Ubuntu Repositories
+
+Team RabbitMQ produces our own Debian packages for every release, including patch releases, and distributes them [using Team RabbitMQ's apt repositories](#apt-quick-start).
+
+:::danger
+
+Standard Debian and Ubuntu repositories include a RabbitMQ package, `rabbitmq-server`.
+
+However, the [versions included](https://packages.ubuntu.com/search?keywords=rabbitmq-server&searchon=names&suite=all&section=all) are
+many releases behind latest, and usually are [out of community support](/release-information) or even have reached their End of Life.
+
+For RabbitMQ, the multi-year gaps between Debian releases means that the standard RabbitMQ package in those distributions usually [cannot be upgraded directly](./upgrade#rabbitmq-version-upgradability) from the version available in the previous release.
+
+Learn more in [Feature Flag Graduation](./feature-flags#graduation).
+
+:::
+
 
 ## How to Install Latest RabbitMQ on Debian and Ubuntu {#installation-methods}
 
