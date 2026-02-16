@@ -251,6 +251,18 @@ The [runtime parameter](./parameters) definition (body) in these examples includ
       </td>
     </tr>
     <tr>
+      <td>src-consumer-name</td>
+      <td>
+        <div>
+          Optional consumer name. This value is used as the [consumer tag](./consumers#consumer-tags)
+          when `src-protocol` is set to `amqp091` or `local` and as the link name when `src-protocol`
+          is `amqp10`.
+
+          If not specified, a random value is used.
+        </div>
+      </td>
+    </tr>
+    <tr>
       <td>dest-uri</td>
       <td>
         Same as <code>src-uri</code> above but for destination connection.
