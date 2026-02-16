@@ -133,7 +133,7 @@ The following table compares AMQP 0.9.1 with AMQP 1.0:
 | --- | --- | --- |
 | **Server model defined?** | Yes: exchanges, queues, bindings | No: implementation decides server model |
 | **Standards** | - | [ISO/IEC 19464](https://www.iso.org/standard/64955.html) <br/> [OASIS](https://www.amqp.org/node/102) |
-| **Brokers** | RabbitMQ <br/> SwiftMQ <br/> LavinMQ <br/> Apache Qpid Broker-J | RabbitMQ <br/> Azure Service Bus <br/> Azure Event Hubs <br/> Apache ActiveMQ <br/> Apache Qpid Broker-J <br/> Apache Qpid C++ Broker <br/> IBM MQ <br/> Red Hat AMQ <br/> SwiftMQ <br/> Solace |
+| **Brokers** | RabbitMQ <br/> SwiftMQ <br/> LavinMQ <br/> Apache Qpid Broker-J | RabbitMQ <br/> Azure Service Bus <br/> Azure Event Hubs <br/> Azure IoT Hub <br/> Apache ActiveMQ <br/> Apache Artemis <br/> Apache Qpid Broker-J <br/> Apache Qpid C++ Broker <br/> IBM MQ <br/> Red Hat AMQ <br/> SwiftMQ <br/> Solace |
 | **Client libraries** | large number of well maintained [client libraries and developer tools](/client-libraries/devtools) | smaller ecosystem, but well maintained client libraries for .NET and Java |
 | **Complexity** | medium | high |
 | **Modular architecture?** | No | Yes, layers are: <br/> 1. [Types](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html) <br/> 2. [Transport](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html) <br/> 3. [Messaging](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html) <br/> 4. [Transactions](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transactions-v1.0-os.html) <br/> 5. [Security](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-security-v1.0-os.html) |
