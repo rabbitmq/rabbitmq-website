@@ -178,10 +178,10 @@ for many workloads.
 
 ### Queue and Per-Message TTL
 
-Quorum queues support both [Queue TTL](./ttl#queue-ttl) and message TTL (since RabbitMQ 3.10)
+Quorum queues support both [Queue TTL](./ttl#queue-ttl) and message TTL
 (including [Per-Queue Message TTL in Queues](./ttl#per-queue-message-ttl) and
-[Per-Message TTL in Publishers](./ttl#per-message-ttl-in-publishers)).
-When using any form of message TTL, the memory overhead increases by 2 bytes per message.
+ [Per-Message TTL in Publishers](./ttl#per-message-ttl-in-publishers)).
+When using any form of message TTL, the memory overhead increases by 16 bytes per message.
 
 ### Length Limit
 
