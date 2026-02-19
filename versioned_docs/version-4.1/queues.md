@@ -289,7 +289,7 @@ resources (queues) behind.
 
 RabbitMQ supports a number of queue properties that make sense for the data that is
 transient or client-specific in nature. Some of these settings can be applied to
-durable qeueus but not every combination makes sense.
+durable queues but not every combination makes sense.
 
 :::tip
 Consider using [server-generated names](#names) for temporary queues. Since such queues
