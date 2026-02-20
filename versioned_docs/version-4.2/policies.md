@@ -1030,19 +1030,19 @@ rabbitmqadmin.exe operator_policies patch --name "cq.op-pol.1" --definition "{""
 The new `--definition` object will be merged into the existing policy definition.
 
 In the following example, an existing operator policy named `queues.op-pol.1` in the default virtual host (`/`)
-is updated to enable [queue federation](./federated-queues) to all the configured upstreams for the matched queues,
+is updated to add a [`max-length-bytes` key](./maxlength/) to all the matched queues,
 without affecting the rest of the policy definitions:
 
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash" default>
 ```bash
-rabbitmqadmin operator_policies patch --name "queues.op-pol.1" --definition '{"federation-upstream-set":"all"}'
+rabbitmqadmin operator_policies patch --name "queues.op-pol.1" --definition '{"max-length-bytes":1048576}'
 ```
 </TabItem>
 
 <TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
 ```bash
-rabbitmqadmin.exe operator_policies patch --name "queues.op-pol.1" --definition "{""federation-upstream-set"": ""all""}"
+rabbitmqadmin.exe operator_policies patch --name "queues.op-pol.1" --definition "{""max-length-bytes"": 1048576}"
 ```
 </TabItem>
 </Tabs>
