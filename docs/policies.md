@@ -959,7 +959,7 @@ to [regular policies](#updating).
 
 :::
 
-Anoperator policy can be updated by re-declaring it with a different definition, priority, and so on.
+An operator policy can be updated by re-declaring it with a different definition, priority, and so on.
 This requires the operator to have a full policy definition.
 
 Alternatively, [`rabbitmqadmin` v2](./management-cli) provides commands that can modify
@@ -1038,19 +1038,19 @@ rabbitmqadmin.exe operator_policies patch --name "cq.op-pol.1" --definition "{""
 The new `--definition` object will be merged into the existing policy definition.
 
 In the following example, an existing operator policy named `queues.op-pol.1` in the default virtual host (`/`)
-is updated to add a [`max-length-bytes` key](./maxlength/) to all the matched queues,
+is updated to set a [`message-ttl` key](./ttl) on all the matched queues,
 without affecting the rest of the policy definitions:
 
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash" default>
 ```bash
-rabbitmqadmin operator_policies patch --name "queues.op-pol.1" --definition '{"max-length-bytes":1048576}'
+rabbitmqadmin operator_policies patch --name "queues.op-pol.1" --definition '{"message-ttl": 3600000}'
 ```
 </TabItem>
 
 <TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
 ```bash
-rabbitmqadmin.exe operator_policies patch --name "queues.op-pol.1" --definition "{""max-length-bytes"": 1048576}"
+rabbitmqadmin.exe operator_policies patch --name "queues.op-pol.1" --definition "{""message-ttl"": 3600000}"
 ```
 </TabItem>
 </Tabs>
