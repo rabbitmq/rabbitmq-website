@@ -56,7 +56,7 @@ are distributed via [GitHub releases](https://github.com/rabbitmq/rabbitmqadmin-
 
 ### RabbitMQ Series Compatibility
 
-As of `rabbitmqadmin` 2.23.0, the tool can be used with the following RabbitMQ release series:
+As of `rabbitmqadmin` 2.25.0, the tool can be used with the following RabbitMQ release series:
 
  * 4.x
  * 3.13.x
@@ -321,12 +321,12 @@ See the [Access Control guide](./access-control#grant-permissions) for more info
 
 ```shell
 # Grant permissions to a user for a virtual host
-rabbitmqadmin --vhost "events" declare permissions --user "a-user" --configure ".*" --read ".*" --write ".*"
+rabbitmqadmin --vhost "events" declare permissions --username "a-user" --configure ".*" --read ".*" --write ".*"
 ```
 
 ```shell
 # Grant limited permissions (read-only for specific queues)
-rabbitmqadmin --vhost "events" declare permissions --user "monitoring" --configure "" --read "^metrics\\..*" --write ""
+rabbitmqadmin --vhost "events" declare permissions --username "monitoring" --configure "" --read "^metrics\\..*" --write ""
 ```
 
 ### Revoke User Permissions
@@ -335,12 +335,12 @@ See the [Access Control guide](./access-control#authorisation) for more informat
 
 ```shell
 # Revoke all permissions for a user in a virtual host
-rabbitmqadmin --vhost "events" delete permissions --user "a-user"
+rabbitmqadmin --vhost "events" delete permissions --username "a-user"
 ```
 
 ```shell
 # Idempotent revocation (does not fail if permissions don't exist)
-rabbitmqadmin --vhost "events" delete permissions --user "a-user" --idempotently
+rabbitmqadmin --vhost "events" delete permissions --username "a-user" --idempotently
 ```
 
 ### List User Connections
@@ -536,25 +536,25 @@ rabbitmqadmin --vhost "events" delete vhost_limit --name "max-connections"
 
 ```shell
 # List limits for a specific user
-rabbitmqadmin list user_limits --user "a-user"
+rabbitmqadmin list user_limits --username "a-user"
 ```
 
 ### Set a User Limit
 
 ```shell
 # Set a limit on maximum number of connections for a user
-rabbitmqadmin declare user_limit --user "a-user" --name "max-connections" --value 10
+rabbitmqadmin declare user_limit --username "a-user" --name "max-connections" --value 10
 ```
 
 ```shell
 # Set a limit on maximum number of channels for a user
-rabbitmqadmin declare user_limit --user "a-user" --name "max-channels" --value 50
+rabbitmqadmin declare user_limit --username "a-user" --name "max-channels" --value 50
 ```
 
 ### Delete a User Limit
 
 ```shell
-rabbitmqadmin delete user_limit --user "a-user" --name "max-connections"
+rabbitmqadmin delete user_limit --username "a-user" --name "max-connections"
 ```
 
 
