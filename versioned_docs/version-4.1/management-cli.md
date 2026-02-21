@@ -54,9 +54,16 @@ It is distributed as a native binary.
 Binaries for x86-64 Linux, aarch64 Linux, aarch64 macOS and x86-64 Windows
 are distributed via [GitHub releases](https://github.com/rabbitmq/rabbitmqadmin-ng/releases).
 
+`rabbitmqadmin` is also available from [Team RabbitMQ's Homebrew tap](https://github.com/rabbitmq/homebrew-tap):
+
+```bash
+brew tap rabbitmq/tap
+brew install rabbitmqadmin
+```
+
 ### RabbitMQ Series Compatibility
 
-As of `rabbitmqadmin` 2.25.0, the tool can be used with the following RabbitMQ release series:
+As of `rabbitmqadmin` 2.26.0, the tool can be used with the following RabbitMQ release series:
 
  * 4.x
  * 3.13.x

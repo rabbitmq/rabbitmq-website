@@ -1099,8 +1099,34 @@ DELETE /api/operator-policies/vh.1/policy.name
 
 ### Multiple Policies Have Conflicting Priorities
 
-To verify this hypothesis, list the policies in the virtual host
-and see if any policies have a priority equal to the one you are troubleshooting.
+[`rabbitmqadmin` v2](./management-cli) can list policies with conflicting priorities
+in a specific virtual host or across all virtual hosts:
+
+<Tabs groupId="examples">
+<TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash" default>
+```bash
+# lists policies with conflicting priorities in a specific virtual host
+rabbitmqadmin --vhost "target.vhost" policies list_conflicting_in
+```
+```bash
+# lists policies with conflicting priorities across all virtual hosts
+rabbitmqadmin policies list_conflicting
+```
+</TabItem>
+
+<TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
+```PowerShell
+# lists policies with conflicting priorities in a specific virtual host
+rabbitmqadmin.exe --vhost "target.vhost" policies list_conflicting_in
+```
+```PowerShell
+# lists policies with conflicting priorities across all virtual hosts
+rabbitmqadmin.exe policies list_conflicting
+```
+</TabItem>
+</Tabs>
+
+Alternatively, list all policies in a virtual host and look for equal priorities manually:
 
 <Tabs groupId="examples">
 <TabItem value="bash" label="rabbitmqctl with bash" default>
@@ -1127,16 +1153,11 @@ rabbitmqadmin.exe --vhost "target.vhost" policies list_in
 </TabItem>
 </Tabs>
 
-If the results are empty, this means that no policies in the target virtual host
-have matched the target object (queue, stream, exchange).
-
-[`rabbitmqadmin` v2](./management-cli) additionally can list the policies
-that match a specific object (if any):
+To narrow down which policies affect a specific object, use `list_matching_object`:
 
 <Tabs groupId="examples">
 <TabItem value="rabbitmqadmin" label="rabbitmqadmin with bash" default>
 ```bash
-# lists all policies that match a queue named "a.queue" in a virtual host named "target.vhost"
 rabbitmqadmin --vhost "target.vhost" policies list_matching_object \
     --name "a.queue" \
     --type "queues"
@@ -1144,14 +1165,12 @@ rabbitmqadmin --vhost "target.vhost" policies list_matching_object \
 </TabItem>
 <TabItem value="rabbitmqadmin-PowerShell" label="rabbitmqadmin with PowerShell">
 ```PowerShell
-# lists all policies that match a queue named "a.queue" in a virtual host named "target.vhost"
 rabbitmqadmin.exe --vhost "target.vhost" policies list_matching_object ^
     --name "a.queue" ^
     --type "queues"
 ```
 </TabItem>
 </Tabs>
-
 
 Look for any and all policies that have equal priorities. Only one of them will apply
 to a matching object (queue, stream, exchange), and the selection should be
