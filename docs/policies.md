@@ -689,6 +689,18 @@ semantics, they are limited only to a few arguments:
     <td> </td>
   </tr>
   <tr>
+    <th>overflow</th>
+    <td> <span>&#10003;</span> </td>
+    <td> <span>&#10003;</span> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <th>queue-version</th>
+    <td> <span>&#10003;</span> </td>
+    <td> </td>
+    <td> </td>
+  </tr>
+  <tr>
     <th>target-group-size</th>
     <td> </td>
     <td> <span>&#10003;</span> </td>
@@ -809,6 +821,30 @@ try to not override user-provided policies where possible.
                 <li>lesser value</li>
             </ul>
         </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <th>overflow</th>
+        <td>
+            <ul>
+                <li>operator policy value</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>operator policy value</li>
+            </ul>
+        </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <th>queue-version</th>
+        <td>
+            <ul>
+                <li>operator policy value</li>
+            </ul>
+        </td>
+        <td> </td>
         <td> </td>
     </tr>
     <tr>
