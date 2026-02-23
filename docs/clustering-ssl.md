@@ -246,6 +246,10 @@ separate server certificate and private key files, enables [peer verification](.
 and requires peers to present a certificate:
 
 ```bash
+%% coding: utf-8
+%% This directive tells the Erlang preprocessor to interpret this file
+%% as UTF-8, which is required if any values contain non-ASCII characters
+%% (for example, in the password field).
 [
   {server, [
     {cacertfile, "/full/path/to/ca_certificate.pem"},
@@ -317,6 +321,10 @@ As with other operating systems, more [TLS options](./ssl) are available
 to be set if necessary.
 
 ```bash
+%% coding: utf-8
+%% This directive tells the Erlang preprocessor to interpret this file
+%% as UTF-8, which is required if any values contain non-ASCII characters
+%% (for example, in the password field).
 [
     {server, [
         {cacertfile, "C:/Path/To/ca_certificate.pem"},
