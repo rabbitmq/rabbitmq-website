@@ -132,8 +132,8 @@ export default function Support() {
             <Heading as="h1">AceMQ <small>is our featured authorized partner providing End-to-End RabbitMQ solutions, including: white-glove commercial support and expert services for Tanzu RabbitMQ & RabbitMQ Community Edition. </small></Heading>
             <p><strong>To learn more about AceMQ’s RabbitMQ support, managed services, and RabbitMQ consulting & training offerings, please get in touch below: </strong></p>
             <div>
-              <Link className="button button--primary" to="https://acemq.com/rabbitmq/" rel="noopener">Consulting</Link>&nbsp;
-              <Link className="button button--primary" to="https://acemq.com/rabbitmq/licensing/" rel="noopener">Commercial Support</Link>
+              <Link className="button button--primary" to="https://acemq.com/rabbitmq/" rel="noopener">Services & Support</Link>&nbsp;
+              <Link className="button button--primary" to="https://acemq.com/rabbitmq/licensing/" rel="noopener">Licensing</Link>
             </div>
           </div>
         </div>
