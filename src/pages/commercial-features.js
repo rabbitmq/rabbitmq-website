@@ -14,7 +14,7 @@ export default function CommercialFeatures() {
       <main>
         <div className={[styles.hero, styles.commercial_features_hero].join(" ")}>
           <div className={[styles.container, styles.heroInner].join(" ")}>
-            <Heading as="h1">Commerial Features</Heading>
+            <Heading as="h1">Commercial Features</Heading>
             <div className={styles.commercial_features_cta}>
               <Link
                 className="button button--primary"
