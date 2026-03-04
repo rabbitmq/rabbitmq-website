@@ -53,11 +53,13 @@ and what tools are available for [troubleshooting](#troubleshooting) and [proxyi
 ## Prerequisites {#prerequisites}
 
 RabbitMQ LDAP plugin depends on an LDAP client called `eldap`. The library
-ships with [Erlang/OTP](./which-erlang). On some operating systems, Erlang
-is provided as a group of packages instead of one monolithic package, so
-components such as `eldap` **must be installed separately** from the main runtime.
+is included in the [Erlang/OTP](./which-erlang) distribution on most
+operating systems, including Windows and RPM-based Linux with Team RabbitMQ's [zero dependency Erlang package](./install-rpm).
 
-On Debian and Ubuntu, `eldap` is provided by the `erlang-eldap` package:
+### Missing LDAP Client Packages on Debian, Ubuntu
+
+On Debian and Ubuntu, Erlang/OTP is split into many individual packages. The `eldap` library
+is provided by the `erlang-eldap` package that must be installed separately:
 
 ```bash
 sudo apt-get install -y erlang-eldap
