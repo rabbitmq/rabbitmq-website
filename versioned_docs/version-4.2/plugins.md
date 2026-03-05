@@ -637,7 +637,8 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
 ## Additional Plugins in VMware Tanzu RabbitMQ® {#commercial-plugins}
 
-The table below lists of plugins only available in [Tanuz RabbitMQ®](https://tanzu.vmware.com/rabbitmq).
+The table below lists plugins only available in [Tanzu RabbitMQ®](https://tanzu.vmware.com/rabbitmq).
+For more details, see [Exclusive features in Tanzu RabbitMQ](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/site-tanzu-rabbitmq-features.html).
 
 <table class="plugins">
   <thead>
@@ -649,16 +650,63 @@ The table below lists of plugins only available in [Tanuz RabbitMQ®](https://ta
 
   <tbody>
     <tr>
-      <th>rabbitmq_schema_definition_sync</th>
+      <th>rabbitmq_delayed_queue</th>
       <td>
-        Part of <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html">Warm Standby Replication</a>.
+        Delayed/scheduled message delivery queue type. Messages are held until
+        their scheduled delivery time, with support for both relative delays and
+        absolute timestamps. Uses Ra-based replication and RocksDB for persistence.
+        <ul>
+          <li><a href="https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/site-delayed-queues.html">Documentation for the delayed queues plugin</a></li>
+        </ul>
       </td>
     </tr>
 
     <tr>
-      <th>rabbitmq_standby_replication</th>
+      <th>rabbitmq_distributed_shovel</th>
       <td>
-        Part of <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/1/rmq/standby-replication.html">Warm Standby Replication</a>.
+        An alternative to <code>rabbitmq_shovel</code> that distributes shovels
+        across all cluster nodes using consistent hashing, providing better
+        scalability and fault tolerance for environments with many shovels.
+        <ul>
+          <li><a href="https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/site-distributed-shovels.html">Documentation for the distributed shovels plugin</a></li>
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <th>rabbitmq_schema_definition_sync</th>
+      <td>
+        Part of <a href="https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/site-standby-replication-without-k8s.html">Warm Standby Replication</a>.
+        Continuously replicates schema definitions from an upstream (primary)
+        cluster to one or more downstream (standby) clusters using AMQP 1.0.
+      </td>
+    </tr>
+
+    <tr>
+      <th>rabbitmq_warm_standby</th>
+      <td>
+        Provides the API for enabling and managing
+        <a href="https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/site-standby-replication-without-k8s.html">Warm Standby Replication</a>
+        in cross-data-center deployments.
+      </td>
+    </tr>
+
+    <tr>
+      <th>rabbitmq_web_amqp</th>
+      <td>
+        AMQP 1.0 over WebSocket, enabling browser-based applications to
+        communicate with RabbitMQ using AMQP 1.0.
+        <ul>
+          <li><a href="https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/site-web-amqp.html">Documentation for the AMQP 1.0 over WebSocket plugin</a></li>
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <th>rabbitmq_web_amqp_examples</th>
+      <td>
+        Basic examples of browser applications communicating AMQP 1.0
+        with RabbitMQ over WebSocket.
       </td>
     </tr>
   </tbody>
