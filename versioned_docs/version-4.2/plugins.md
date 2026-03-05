@@ -665,7 +665,7 @@ For more details, see [Exclusive features in Tanzu RabbitMQ](https://techdocs.br
       <th>rabbitmq_distributed_shovel</th>
       <td>
         An alternative to <code>rabbitmq_shovel</code> that distributes shovels
-        across all cluster nodes using consistent hashing, providing better
+        across all cluster nodes, providing better
         scalability and fault tolerance for environments with many shovels.
         <ul>
           <li><a href="https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/site-distributed-shovels.html">Documentation for the distributed shovels plugin</a></li>
@@ -685,9 +685,9 @@ For more details, see [Exclusive features in Tanzu RabbitMQ](https://techdocs.br
     <tr>
       <th>rabbitmq_warm_standby</th>
       <td>
-        Provides the API for enabling and managing
+        Provides a unified API for enabling and managing
         <a href="https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/site-standby-replication-without-k8s.html">Warm Standby Replication</a>
-        in cross-data-center deployments.
+        in cross-data center deployments.
       </td>
     </tr>
 
