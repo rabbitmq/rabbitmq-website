@@ -54,12 +54,12 @@ You can contribute to open source RabbitMQ by helping the community test [previe
 They are marked as pre-releases on GitHub.
 
 
-## VMware Tanzu RabbitMQ® (Commercial Editions)
+## VMware Tanzu RabbitMQ (Commercial Editions)
 
- * [VMware Tanzu RabbitMQ®](https://docs.vmware.com/en/VMware-RabbitMQ/index.html). Tanzu RabbitMQ is available in many packages including OVA and OCI.
- * [VMware Tanzu RabbitMQ® on Kubernetes](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/index.html)
- * [VMware Tanzu RabbitMQ® for Tanzu Application Services](https://docs.vmware.com/en/VMware-RabbitMQ-for-Tanzu-Application-Service/index.html)
-
+ * [VMware Tanzu RabbitMQ OVA](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-ova/4-2/tanzu-rabbitmq-ova-virtual-machine/site-overview.html)
+ * [VMware Tanzu RabbitMQ RPM](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-rpm/4-2/tanzu-rabbitmq-rpm-offering/site-overview.html)
+ * [VMware Tanzu RabbitMQ OCI](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/site-overview.html)
+ * [VMware Tanzu RabbitMQ on Kubernetes](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-on-kubernetes/4-2/tanzu-rabbitmq-kubernetes/overview.html)
 
 ## Kubernetes
 
