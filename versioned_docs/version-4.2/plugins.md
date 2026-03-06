@@ -650,6 +650,16 @@ For more details, see [Exclusive features in Tanzu RabbitMQ](https://techdocs.br
 
   <tbody>
     <tr>
+      <th>inet_tcp_compress_dist</th>
+      <td>
+        Intra-cluster compression substantially reducing traffic between RabbitMQ nodes.
+        <ul>
+          <li><a href="https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/site-clustering-compression-rabbitmq.html">Documentation for intra-cluster compression</a></li>
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
       <th>rabbitmq_delayed_queue</th>
       <td>
         Delayed/scheduled message delivery queue type. Messages are held until
