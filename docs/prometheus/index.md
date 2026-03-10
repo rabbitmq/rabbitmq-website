@@ -550,7 +550,7 @@ This is why there is a separate endpoint for per-object metrics that allows the 
 GET /metrics/detailed
 ```
 
-By default it does not return any metrics. All required metric groups and virtual host filters must be be provided as query
+By default it does not return any metrics. All required metric groups and filters must be provided as query
 parameters. For example,
 
 ```
@@ -562,8 +562,9 @@ interested in.
 
 This endpoint supports the following parameters:
 
-* Zero or more `family` values. Only the requested metric families will be returned. The full list is documented below;
-* Zero or more `vhost`s: if provided, queue related metrics (`queue_coarse_metrics`, `queue_consumer_count`, `queue_metrics`, `queue_delivery_metrics`, `exchange_metrics`, and `queue_exchange_metrics`) will be returned only for the queues in the provided virtual hosts
+* Zero or more `family` values. Only the requested metric families will be returned. The full list is documented below
+* Zero or more `vhost` values: when provided, queue and exchange related metrics (`queue_coarse_metrics`, `queue_consumer_count`, `queue_metrics`, `queue_delivery_metrics`, `exchange_metrics`, `queue_exchange_metrics`, and `ra_metrics`) will be returned only for the queues in the provided virtual hosts
+* Zero or one `queue` value: a regular expression. When provided, only queues whose names match the regex will be included in the response. This applies to all queue-related metric families. Only one `queue` parameter is accepted
 
 The returned metrics use a different prefix: `rabbitmq_detailed_` (instead of `rabbitmq_` used by other  endpoints).
 This means the endpoint can be used together with `GET /metrics` and tools that rely on other endpoints won't be affected.
@@ -578,6 +579,22 @@ GET /metrics/detailed?family=queue_coarse_metrics&family=queue_consumer_count
 provides just enough metrics to determine how many messages are enqueued and how many consumers those queues have.
 In some environments this query is **up to 60 times more efficient** than querying `GET /metrics/per-object` to get
 only a couple of metrics from the response.
+
+#### Filtering by Queue Name {#detailed-endpoint-queue-filter}
+
+The `queue` parameter accepts a regular expression and can be combined with the `vhost` parameter.
+
+To return metrics only for queues whose names start with `orders-`:
+
+```
+GET /metrics/detailed?family=queue_coarse_metrics&queue=^orders-
+```
+
+To combine queue name and virtual host filtering:
+
+```
+GET /metrics/detailed?family=queue_coarse_metrics&vhost=production&queue=^orders-
+```
 
 #### Generic metrics
 
