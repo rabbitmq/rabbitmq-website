@@ -2262,7 +2262,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
         <ul>
           <li>**Generic UNIX package**: `$RABBITMQ_HOME/var/lib/rabbitmq/mnesia`</li>
           <li>**Ubuntu and Debian** packages: `/var/lib/rabbitmq/mnesia/`</li>
-          <li>**RPM**: `/var/lib/rabbitmq/plugins`</li>
+          <li>**RPM**: `/var/lib/rabbitmq/mnesia`</li>
           <li>
             **MacOS (Homebrew)**: `${install_prefix}/var/lib/rabbitmq/mnesia`,
             the Homebrew prefix is usually `/usr/local` or `/opt/homebrew`
