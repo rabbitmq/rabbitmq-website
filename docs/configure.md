@@ -2316,7 +2316,7 @@ More variables are covered in the [File and Directory Locations guide](./relocat
         <ul>
           <li>**Generic UNIX package**: `$RABBITMQ_HOME/plugins`</li>
           <li>**Ubuntu and Debian** packages: `/var/lib/rabbitmq/plugins`</li>
-          <li>**RPM**: `/usr/lib/rabbitmq/lib/rabbitmq_server-version/plugins`</li>
+          <li>**RPM**: `/usr/lib/rabbitmq/lib/rabbitmq_server-version/plugins` for internal plugins and `/usr/lib/rabbitmq/plugins` for external plugins</li>
           <li>
             **MacOS (Homebrew)**: `${install_prefix}/Cellar/rabbitmq/${version}/plugins`,
             the Homebrew prefix is usually `/usr/local` or `/opt/homebrew`
