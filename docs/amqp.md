@@ -301,6 +301,7 @@ This section lists features that RabbitMQ supports exclusively in AMQP 1.0, whic
 * **[Modified Outcome](#modified-outcome)**: Allows a quorum queue consumer to add and modify [message annotations](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-message-annotations) when requeueing or dead lettering a message.
 * **[Sender Settle Mode](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-sender-settle-mode) `mixed`**: Allows a publisher to decide on a per-message basis whether to receive [confirmations](./confirms#publisher-confirms) from the broker.
 * **Detailed Rejection Information**: When RabbitMQ rejects a message, publishers receive the queue name and rejection reason in the [`Rejected` outcome](#outcomes), allowing them to identify which specific queue rejected the message and why. This is particularly useful when multiple queues are bound to a target exchange.
+* **[Link State Properties](#link-state-properties)**: RabbitMQ communicates link state information to consumers via properties in the AMQP 1.0 [flow](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-flow) frame. For example, when consuming from a quorum queue, a consumer is notified whether it is the active consumer or an inactive (waiting) consumer when [single active consumer](./consumers#single-active-consumer) is enabled.
 * **Well defined [types](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html)**
 * **Better defined [message headers](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#section-message-format)**
 * **Enhanced Message Integrity**: Clients can set message hashes, checksums, and digital signatures not only over the message body but also over the [properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-properties) and [application-properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-application-properties) sections, as the bare message is immutable.
@@ -322,6 +323,20 @@ The RabbitMQ team at Broadcom has developed two [AMQP 1.0 client libraries speci
 See the [AMQP client libraries page](/client-libraries/amqp-client-libraries) for more information.
 
 Currently, the AMQP 0.9.1 client ecosystem is more extensive, with a greater number of [AMQP 0.9.1 client libraries](/client-libraries/devtools) supported by the RabbitMQ team at Broadcom.
+
+## Link State Properties {#link-state-properties}
+
+RabbitMQ uses the `properties` field of the AMQP 1.0 [flow](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-flow) frame to communicate link state information to consumers.
+
+Currently, the following link state property is supported:
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `rabbitmq:active` | boolean | Whether this consumer is active and will receive messages. `true` means the consumer is active. `false` means the consumer is inactive (waiting) because [Single Active Consumer (SAC)](./consumers#single-active-consumer) is enabled and another consumer is currently active. |
+
+The `rabbitmq:active` property is sent in a `flow` frame to each consumer of a [quorum queue](./quorum-queues):
+* Immediately after the consumer grants credit for the first time, indicating the initial activity status. For quorum queues without SAC enabled, the value is always `true` since every consumer is active.
+* Whenever the consumer's activity status changes, for example, when a higher-priority consumer attaches to or when the active consumer detaches from a quorum queue with SAC enabled.
 
 ## Limitations
 
