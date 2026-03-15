@@ -2,6 +2,9 @@
 title: Consumers
 displayed_sidebar: docsSidebar
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 <!--
 Copyright (c) 2005-2026 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
@@ -531,11 +534,11 @@ With quorum queues, use [single active consumer](#single-active-consumer) instea
   
 ## Single Active Consumer {#single-active-consumer}
 
-Single active consumer allows to have only one consumer
+Single Active Consumer (SAC) allows to have only one consumer
 at a time consuming from a queue and to fail over to another registered consumer
 in case the active one is cancelled or dies. Consuming with only one consumer
 is useful when messages must be consumed and processed in the same order
-they arrive in the queue.
+they arrive in the queue (see [Preserving message order](./queues#preserving-message-order)).
 
 A typical sequence of events would be the following:
 
@@ -554,10 +557,10 @@ A typical sequence of events would be the following:
 Note that without the single active consumer feature enabled, messages
 would be dispatched to all consumers using round-robin.
 
-:::warning
+:::info
 
-This section covers the single active consumer that's available to AMQP 0-9-1 and AMQP 1.0 clients
-on classic and quorum queues. It is meaningfully different from the [Single Active Consumer feature for streams](./streams#single-active-consumer).
+This section covers the Single Active Consumer feature that's available to AMQP 1.0 and AMQP 0-9-1 clients on classic and quorum queues.
+It is meaningfully different from the [Single Active Consumer feature for streams](./streams#single-active-consumer).
 
 An attempt to enable SAC using an AMQP 0-9-1 client on a stream **will not work**.
 To use SAC on a stream, a [native RabbitMQ stream protocol client](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#single-active-consumer)
@@ -567,8 +570,25 @@ must be used.
 
 ### Enabling Single Active Consumer on Quorum and Classic Queues
 
-Single active consumer can be enabled when declaring a queue, with the
-`x-single-active-consumer` argument set to `true`, e.g. with the Java client:
+SAC can be enabled when declaring a queue, with the
+`x-single-active-consumer` argument set to `true`.
+
+<Tabs groupId="amqp-version">
+<TabItem value="amqp-1.0" label="AMQP 1.0 (Java)" default>
+
+Using the [RabbitMQ AMQP 1.0 Java client](https://github.com/rabbitmq/rabbitmq-amqp-java-client):
+
+```java
+connection.management().queue()
+    .name("my-queue")
+    .quorum()
+    .queue()
+    .singleActiveConsumer(true)
+    .declare();
+```
+
+</TabItem>
+<TabItem value="amqp-0-9-1" label="AMQP 0-9-1 (Java)">
 
 ```java
 Channel ch = ...;
@@ -576,6 +596,9 @@ Map<String, Object> arguments = new HashMap<String, Object>();
 arguments.put("x-single-active-consumer", true);
 ch.queueDeclare("my-queue", false, false, false, arguments);
 ```
+
+</TabItem>
+</Tabs>
 
 ### Difference from Exclusive Consumers
 
@@ -591,6 +614,40 @@ The [management UI](./management) and the
 [CLI](./man/rabbitmqctl.8) can [report](#active-consumer) which consumer is the current
 active one on a queue where the feature is enabled.
 
+### Consumer Activity Notification for AMQP 1.0 Clients {#sac-activity-notification}
+
+AMQP 1.0 clients consuming from a quorum queue receive a [link state property](./amqp#link-state-properties) called `rabbitmq:active` in the AMQP 1.0 [flow](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-flow) frame.
+When SAC is enabled, this property indicates whether the consumer is the active one (`true`) or inactive and waiting (`false`).
+When SAC is not enabled, the value is always `true`.
+
+Each consumer receives this property:
+
+* After granting credit for the first time (initial status)
+* Whenever its activity status changes (only relevant when SAC is enabled)
+
+This feature is specific to AMQP 1.0 and not available for AMQP 0-9-1 clients.
+
+The following Erlang example using the [amqp10_client](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/amqp10_client) library demonstrates receiving activity status notifications:
+
+```erlang
+%% Attach a receiver opting in to receive notifications on link state property changes.
+{ok, Receiver} = amqp10_client:attach_link(
+                   Session,
+                   #{name => <<"my-receiver">>,
+                     role => {receiver, #{address => <<"/queues/my-queue">>}, self()},
+                     snd_settle_mode => unsettled,
+                     notify_when_state_properties_changed => true}),
+receive {amqp10_event, {link, Receiver, attached}} -> ok
+end,
+ok = amqp10_client:flow_link_credit(Receiver, 10, never),
+
+%% Wait for the initial activity status notification.
+receive {amqp10_event,
+            {link, Receiver,
+                {state_properties, #{<<"rabbitmq:active">> := Active}}}} ->
+        io:format("Consumer active: ~p~n", [Active])
+end.
+```
 
 ### Initial SAC Selection {#initial-sac-selection}
 
@@ -605,15 +662,6 @@ Learn more about this behaviour [in the blog post announcing this feature](https
 
 Trying to register an exclusive consumer with SAC will result in
 an error. SAC by definition assumes that there will be multiple consumers online.
-
-### SAC and Channel Prefetch
-
-Messages are always delivered to the active consumer, even if it is
-too busy at some point. This can happen when using manual acknowledgment
-and `basic.qos`, the consumer may be busy dealing with the maximum number of
-unacknowledged messages it requested with `basic.qos`.
-In this case, the other consumers are ignored and
-the delivery is returned to the queue.
 
 ### SAC Cannot Be Enabled with a Policy
 
