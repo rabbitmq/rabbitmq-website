@@ -103,6 +103,14 @@ against the hostname `myhost`.
     </td>
   </tr>
   <tr>
+    <td><code>password</code></td>
+    <td>
+      The passphrase for the private key file specified by
+      <code>keyfile</code>. Only used when <code>keyfile</code>
+      is set and refers to a password-protected private key.
+    </td>
+  </tr>
+  <tr>
     <td>
       <code>verify</code><br/>
       <code>server_name_indication</code>
