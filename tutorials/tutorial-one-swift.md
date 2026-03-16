@@ -61,7 +61,7 @@ let package = Package(
     name: "RabbitMQTutorials",
     platforms: [.macOS(.v14)],
     dependencies: [
-        .package(url: "https://github.com/rabbitmq/bunny-swift", from: "0.11.0")
+        .package(url: "https://github.com/rabbitmq/bunny-swift", from: "0.12.0")
     ],
     targets: [
         .executableTarget(
