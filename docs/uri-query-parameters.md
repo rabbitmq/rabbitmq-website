@@ -103,6 +103,15 @@ against the hostname `myhost`.
     </td>
   </tr>
   <tr>
+    <td><code>password</code></td>
+    <td>
+      The passphrase for the private key (PEM) file specified by
+      <code>keyfile</code>. Only of use for the
+      <code>amqps</code> scheme, when the private key is
+      password-protected.
+    </td>
+  </tr>
+  <tr>
     <td>
       <code>verify</code><br/>
       <code>server_name_indication</code>
