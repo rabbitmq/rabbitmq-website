@@ -529,9 +529,9 @@ With quorum queues, use [single active consumer](#single-active-consumer) instea
 
 ## Single Active Consumer {#single-active-consumer}
 
-Single active consumer allows to have only one consumer
-at a time consuming from a queue and to fail over to another registered consumer
-in case the active one is cancelled or dies. Consuming with only one consumer
+Single active consumer makes it possible to only have one consumer
+at a time consuming from a queue. If the active consumer is cancelled or
+disconnects, another registered consumer takes its place. Consuming with only one consumer
 is useful when messages must be consumed and processed in the same order
 they arrive in the queue.
 
@@ -551,7 +551,7 @@ would be dispatched to all consumers using round-robin.
 
 :::warning
 
-This section covers the single active consumer that's available to AMQP 0-9-1 and AMQP 1.0 clients
+This section covers the single active consumer feature available to AMQP 0-9-1 and AMQP 1.0 clients
 on classic and quorum queues. It is meaningfully different from the [Single Active Consumer feature for streams](./streams#single-active-consumer).
 
 An attempt to enable SAC using an AMQP 0-9-1 client on a stream **will not work**.
