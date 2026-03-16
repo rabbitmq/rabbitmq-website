@@ -69,7 +69,10 @@ var queue = 'task_queue';
 var msg = process.argv.slice(2).join(' ') || "Hello World!";
 
 channel.assertQueue(queue, {
-  durable: true
+  durable: true,
+  arguments: {
+    'x-queue-type': 'quorum'
+  }
 });
 channel.sendToQueue(queue, Buffer.from(msg), {
   persistent: true
@@ -86,7 +89,10 @@ var queue = 'task_queue';
 
 // This makes sure the queue is declared before attempting to consume from it
 channel.assertQueue(queue, {
-  durable: true
+  durable: true,
+  arguments: {
+    'x-queue-type': 'quorum'
+  }
 });
 
 channel.consume(queue, function(msg) {
@@ -273,7 +279,7 @@ First, we need to make sure that the queue will survive a RabbitMQ node restart.
 In order to do so, we need to declare it as _durable_:
 
 ```javascript
-channel.assertQueue('hello', {durable: true});
+channel.assertQueue('hello', {durable: true, arguments: {'x-queue-type': 'quorum'}});
 ```
 
 Although this command is correct by itself, it won't work in our present
@@ -284,7 +290,7 @@ that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
 ```javascript
-channel.assertQueue('task_queue', {durable: true});
+channel.assertQueue('task_queue', {durable: true, arguments: {'x-queue-type': 'quorum'}});
 ```
 
 This `durable` option change needs to be applied to both the producer
@@ -364,7 +370,10 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     var msg = process.argv.slice(2).join(' ') || "Hello World!";
 
     channel.assertQueue(queue, {
-      durable: true
+      durable: true,
+      arguments: {
+        'x-queue-type': 'quorum'
+      }
     });
     channel.sendToQueue(queue, Buffer.from(msg), {
       persistent: true
@@ -398,7 +407,10 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     var queue = 'task_queue';
 
     channel.assertQueue(queue, {
-      durable: true
+      durable: true,
+      arguments: {
+        'x-queue-type': 'quorum'
+      }
     });
     channel.prefetch(1);
     console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);

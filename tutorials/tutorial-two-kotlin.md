@@ -79,7 +79,7 @@ suspend fun newTask(coroutineScope: CoroutineScope, message: String) {
         durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to "quorum")
     )
 
     val properties = properties {
@@ -118,7 +118,7 @@ suspend fun worker(coroutineScope: CoroutineScope) {
         durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to "quorum")
     )
     println(" [*] Waiting for messages. To exit press CTRL+C")
 
@@ -264,7 +264,7 @@ channel.queueDeclare(
     durable = true,
     exclusive = false,
     autoDelete = false,
-    arguments = emptyMap()
+    arguments = mapOf("x-queue-type" to "quorum")
 )
 ```
 
@@ -281,7 +281,7 @@ channel.queueDeclare(
     durable = true,
     exclusive = false,
     autoDelete = false,
-    arguments = emptyMap()
+    arguments = mapOf("x-queue-type" to "quorum")
 )
 ```
 
@@ -373,7 +373,7 @@ suspend fun newTask(coroutineScope: CoroutineScope, message: String) {
         durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to "quorum")
     )
 
     val properties = properties {
@@ -415,7 +415,7 @@ suspend fun worker(coroutineScope: CoroutineScope) {
         durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to "quorum")
     )
     println(" [*] Waiting for messages. To exit press CTRL+C")
 

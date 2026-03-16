@@ -96,6 +96,7 @@ we need to include the library and `use` the necessary classes:
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use PhpAmqpLib\Wire\AMQPTable;
 ```
 
 then we can create a connection to the server:
@@ -119,7 +120,7 @@ To send, we must declare a queue for us to send to; then we can publish a messag
 to the queue:
 
 ```php
-$channel->queue_declare('hello', false, false, false, false);
+$channel->queue_declare('hello', false, true, false, false, false, new AMQPTable(['x-queue-type' => 'quorum']));
 
 $msg = new AMQPMessage('Hello World!');
 $channel->basic_publish($msg, '', 'hello');
@@ -169,6 +170,7 @@ The code (in [`receive.php`](https://github.com/rabbitmq/rabbitmq-tutorials/blob
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use PhpAmqpLib\Wire\AMQPTable;
 ```
 
 Setting up is the same as the publisher; we open a connection and a
@@ -179,7 +181,7 @@ Note this matches up with the queue that `send` publishes to.
 $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
 $channel = $connection->channel();
 
-$channel->queue_declare('hello', false, false, false, false);
+$channel->queue_declare('hello', false, true, false, false, false, new AMQPTable(['x-queue-type' => 'quorum']));
 
 echo " [*] Waiting for messages. To exit press CTRL+C\n";
 ```

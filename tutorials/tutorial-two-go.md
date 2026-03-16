@@ -320,7 +320,9 @@ q, err := ch.QueueDeclare(
   false,        // delete when unused
   false,        // exclusive
   false,        // no-wait
-  nil,          // arguments
+  amqp.Table{
+    "x-queue-type": "quorum",
+  },
 )
 failOnError(err, "Failed to declare a queue")
 ```
@@ -339,7 +341,9 @@ q, err := ch.QueueDeclare(
   false,        // delete when unused
   false,        // exclusive
   false,        // no-wait
-  nil,          // arguments
+  amqp.Table{
+    "x-queue-type": "quorum",
+  },
 )
 failOnError(err, "Failed to declare a queue")
 ```
@@ -452,7 +456,9 @@ func main() {
                 false,        // delete when unused
                 false,        // exclusive
                 false,        // no-wait
-                nil,          // arguments
+                amqp.Table{
+                        "x-queue-type": "quorum",
+                },
         )
         failOnError(err, "Failed to declare a queue")
 
@@ -521,7 +527,9 @@ func main() {
                 false,        // delete when unused
                 false,        // exclusive
                 false,        // no-wait
-                nil,          // arguments
+                amqp.Table{
+                        "x-queue-type": "quorum",
+                },
         )
         failOnError(err, "Failed to declare a queue")
 

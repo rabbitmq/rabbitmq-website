@@ -258,7 +258,7 @@ In order to do so, we need to declare it as _durable_.
 To do so we pass the third parameter to `queue_declare` as `true`:
 
 ```php
-$channel->queue_declare('hello', false, true, false, false);
+$channel->queue_declare('hello', false, true, false, false, false, new AMQPTable(['x-queue-type' => 'quorum']));
 ```
 
 Although this command is correct by itself, it won't work in our present
@@ -269,7 +269,7 @@ that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
 ```php
-$channel->queue_declare('task_queue', false, true, false, false);
+$channel->queue_declare('task_queue', false, true, false, false, false, new AMQPTable(['x-queue-type' => 'quorum']));
 ```
 
 This flag set to `true` needs to be applied to both the producer
@@ -341,11 +341,12 @@ Final code of our `new_task.php` file:
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use PhpAmqpLib\Wire\AMQPTable;
 
 $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
 $channel = $connection->channel();
 
-$channel->queue_declare('task_queue', false, true, false, false);
+$channel->queue_declare('task_queue', false, true, false, false, false, new AMQPTable(['x-queue-type' => 'quorum']));
 
 $data = implode(' ', array_slice($argv, 1));
 if (empty($data)) {
@@ -374,11 +375,12 @@ And our `worker.php`:
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use PhpAmqpLib\Wire\AMQPTable;
 
 $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
 $channel = $connection->channel();
 
-$channel->queue_declare('task_queue', false, true, false, false);
+$channel->queue_declare('task_queue', false, true, false, false, false, new AMQPTable(['x-queue-type' => 'quorum']));
 
 echo " [*] Waiting for messages. To exit press CTRL+C\n";
 

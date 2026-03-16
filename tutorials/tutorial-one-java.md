@@ -84,6 +84,8 @@ we need some classes imported:
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
+
+import java.util.Map;
 ```
 
 Set up the class and name the queue:
@@ -123,7 +125,8 @@ To send, we must declare a queue for us to send to; then we can publish a messag
 to the queue, all of this in the try-with-resources statement:
 
 ```java
-channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+Map<String, Object> args = Map.of("x-queue-type", "quorum");
+channel.queueDeclare(QUEUE_NAME, true, false, false, args);
 String message = "Hello World!";
 channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
 System.out.println(" [x] Sent '" + message + "'");
@@ -164,6 +167,8 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
+
+import java.util.Map;
 ```
 
 The extra `DeliverCallback` interface we'll use to buffer the messages pushed to us by the server.
@@ -183,7 +188,8 @@ public class Recv {
     Connection connection = factory.newConnection();
     Channel channel = connection.createChannel();
 
-    channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+    Map<String, Object> args = Map.of("x-queue-type", "quorum");
+    channel.queueDeclare(QUEUE_NAME, true, false, false, args);
     System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
   }

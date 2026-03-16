@@ -145,10 +145,10 @@ to the queue:
 ```kotlin
 channel.queueDeclare(
     queueName,
-    durable = false,
+    durable = true,
     exclusive = false,
     autoDelete = false,
-    arguments = emptyMap()
+    arguments = mapOf("x-queue-type" to "quorum")
 )
 val message = "Hello World!"
 channel.basicPublish(
@@ -201,10 +201,10 @@ suspend fun receive(coroutineScope: CoroutineScope) {
 
     channel.queueDeclare(
         queueName,
-        durable = false,
+        durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to "quorum")
     )
     println(" [*] Waiting for messages. To exit press CTRL+C")
 
@@ -257,10 +257,10 @@ suspend fun send(coroutineScope: CoroutineScope) {
 
     channel.queueDeclare(
         queueName,
-        durable = false,
+        durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to "quorum")
     )
     val message = "Hello World!"
     channel.basicPublish(
@@ -286,10 +286,10 @@ suspend fun receive(coroutineScope: CoroutineScope) {
 
     channel.queueDeclare(
         queueName,
-        durable = false,
+        durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to "quorum")
     )
     println(" [*] Waiting for messages. To exit press CTRL+C")
 

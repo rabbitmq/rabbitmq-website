@@ -72,7 +72,7 @@ The implementation remains the same apart from the new parameter:
 
     id<RMQChannel> ch = [conn createChannel];
 
-    RMQQueue *q = [ch queue:@"hello"];
+    RMQQueue *q = [ch queue:@"hello" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": @"quorum"}];
 
     NSData *msgData = [msg dataUsingEncoding:NSUTF8StringEncoding];
     [ch.defaultExchange publish:msgData routingKey:q.name];
@@ -259,7 +259,7 @@ First, we need to make sure that the queue will survive a RabbitMQ node restart.
 In order to do so, we need to declare it as _durable_:
 
 ```objectivec
-RMQQueue *q = [ch queue:@"hello" options:AMQQueueDeclareDurable];
+RMQQueue *q = [ch queue:@"hello" options:AMQQueueDeclareDurable arguments:@{@"x-queue-type": @"quorum"}];
 ```
 
 Although this command is correct by itself, it won't work in our present
@@ -270,7 +270,7 @@ that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
 ```objectivec
-RMQQueue *q = [ch queue:@"task_queue" options:AMQQueueDeclareDurable];
+RMQQueue *q = [ch queue:@"task_queue" options:AMQQueueDeclareDurable arguments:@{@"x-queue-type": @"quorum"}];
 ```
 
 This `options:AMQQueueDeclareDurable` change needs to be applied to both the
@@ -340,7 +340,7 @@ Final code of our `newTask:` method:
 
     id<RMQChannel> ch = [conn createChannel];
 
-    RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable];
+    RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": @"quorum"}];
 
     NSData *msgData = [msg dataUsingEncoding:NSUTF8StringEncoding];
     [ch.defaultExchange publish:msgData routingKey:q.name persistent:YES];
@@ -359,7 +359,7 @@ And our `workerNamed:`:
 
     id<RMQChannel> ch = [conn createChannel];
 
-    RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable];
+    RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": @"quorum"}];
 
     [ch basicQos:@1 global:NO];
     NSLog(@"%@: Waiting for messages", name);
