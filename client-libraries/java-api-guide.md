@@ -291,7 +291,7 @@ Connection conn = factory.newConnection("app:audit component:event-consumer");
 
 ## Using Exchanges and Queues {#exchanges-and-queues}
 
-Client applications work with [exchanges] and [queues](/docs/queues),
+Client applications work with [exchanges](/docs/exchanges) and [queues](/docs/queues),
 the high-level [building blocks of the protocol](/tutorials/amqp-concepts).
 These must be declared before they can be used. Declaring either type of object
 simply ensures that one of that name exists, creating it if necessary.
