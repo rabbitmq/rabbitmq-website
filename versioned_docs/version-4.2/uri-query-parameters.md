@@ -105,10 +105,9 @@ against the hostname `myhost`.
   <tr>
     <td><code>password</code></td>
     <td>
-      The passphrase for the private key (PEM) file specified by
-      <code>keyfile</code>. Only of use for the
-      <code>amqps</code> scheme, when the private key is
-      password-protected.
+      The passphrase for the private key file specified by
+      <code>keyfile</code>. Only used when <code>keyfile</code>
+      is set and refers to a password-protected private key.
     </td>
   </tr>
   <tr>
