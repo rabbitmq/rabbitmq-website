@@ -8,6 +8,29 @@ import { CommercialSupportTimelines } from '@site/src/components/CommercialSuppo
 
 import styles from './index.module.css';
 
+function AceMqGlobalPartner() {
+  return (
+    <div className={styles.partner}>
+      <Heading as="h3">AceMQ</Heading>
+      <p>AceMQ is a global RabbitMQ partner specializing exclusively in RabbitMQ services, including expert consulting, support services, and training.</p>
+      <p>Our team delivers hands-on RabbitMQ professional services that help organizations design, deploy, operate, and optimize production RabbitMQ environments across cloud, on-premises, hybrid, and Kubernetes platforms. These services are focused on ensuring reliability, scalability, and operational stability for mission-critical messaging systems.</p>
+      <p>AceMQ works directly with engineering and platform teams to provide deep technical services across the full lifecycle of RabbitMQ environments, including architecture design, operational troubleshooting, platform upgrades, and performance optimization.</p>
+      <Heading as="h4">Core RabbitMQ Services:</Heading>
+      <ul>
+        <li>Architecture & Performance Assessment Services &mdash; Expert reviews focused on scalability, reliability, and production readiness</li>
+        <li>24x7 Global Support Services &mdash; SLA-driven emergency response and operational support from senior RabbitMQ experts, with up to 15-minute response</li>
+        <li>Migration & Upgrade Services  &mdash; Guidance and execution for version upgrades and platform transitions</li>
+        <li>Training & Enablement Services &mdash; Hands-on training and mentoring for platform and development teams</li>
+        <li>Optimization & Scaling Services &mdash; Advanced tuning to improve throughput, durability, and resource efficiency</li>
+      </ul>
+      <div>
+        <Link to="https://acemq.com/rabbitmq/" rel="noopener">Learn More</Link> |&nbsp;
+        <Link to="https://acemq.com/contact-us/" rel="noopener">Get In Touch</Link>
+      </div>
+    </div>
+  )
+}
+
 export default function Support() {
   const {siteConfig} = useDocusaurusContext();
 
@@ -204,6 +227,7 @@ export default function Support() {
               </div>
             </div>
             <Heading id="APac" as="h2">Asia Pacific</Heading>
+            <AceMqGlobalPartner />
             <div className={styles.partner}>
               <Heading as="h3">FiQir Holdings Sdn Bhd</Heading>
               <p className={styles.partner_region}>Offices in: 🇲🇾Malaysia, 🇳🇿New Zealand &mdash; Serving Asia Pacific</p>
@@ -221,6 +245,7 @@ export default function Support() {
               </div>
             </div>
             <Heading id="EMEA" as="h2">EMEA</Heading>
+            <AceMqGlobalPartner />
             <div className={styles.partner}>
               <Heading as="h3">coders51</Heading>
               <p className={styles.partner_region}>Offices in: 🇮🇹Italy</p>
@@ -234,20 +259,6 @@ export default function Support() {
               <div>
                 <Link to="https://www.coders51.com/">Learn More</Link> |&nbsp;
                 <Link to="https://www.coders51.com/#contact-cta">Get In Touch</Link>
-              </div>
-            </div>
-            <div className={styles.partner}>
-              <Heading as="h3">Databorn</Heading>
-              <p className={styles.partner_region}>Offices in: 🇦🇪UAE &mdash; Serving Central Asia & Africa</p>
-              <p>Databorn is a trusted Tanzu IT consulting partner offering data-driven solutions for businesses across the banking, insurance, telco and retail sectors in the Middle East & Africa, Eastern Europe, and Central Asia. Our expertise extends to RabbitMQ, helping enterprises build reliable, scalable, and high-performance messaging architectures.</p>
-              <ul>
-                <li>Expert consulting on RabbitMQ design, deployment, and best practices</li>
-                <li>Seamless integration and support for optimized messaging workflows</li>
-                <li>Performance optimization to enhance throughput, reliability, and scalability</li>
-              </ul>
-              <div>
-                <Link to="https://databorn.ai/data">Learn More</Link> |&nbsp;
-                <Link to="https://databorn.ai/contact">Get In Touch</Link>
               </div>
             </div>
             <div className={styles.partner}>
