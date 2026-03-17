@@ -103,7 +103,7 @@ to the queue:
 
 ```javascript
 const queue = 'hello';
-const msg = 'Hello world';
+const msg = 'Hello World!';
 
 await channel.assertQueue(queue, {
   durable: true,
