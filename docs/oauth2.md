@@ -391,17 +391,23 @@ grants access. Instead, it decodes an access token provided by the client and au
 based on the scopes found in the token.
 
 Tokens must be digitally signed otherwise they are not accepted. RabbitMQ must have the signing key
-to validate the signature. You can either configure the signing keys the OAuth 2.0 provider will
-use, or configure RabbitMQ with one of the following two endpoints:
+to validate the signature. There are three ways to configure how RabbitMQ obtains signing keys:
 
-* **JWKS endpoint**: this is the HTTP endpoint that returns the signing keys used to digitally sign
-  the tokens
+* **Issuer URL** (recommended): configure `auth_oauth2.issuer` with the OpenID Provider's URL.
+  RabbitMQ discovers the JWKS endpoint via the
+  [OpenID Connect Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html) protocol
+  and downloads the signing keys automatically. This is the most commonly used option.
 
-* **OpenID Provider Configuration endpoint**: this endpoint returns the provider's configuration
-  including all of its endpoints, most importantly the **JWKS endpoint**
+* **JWKS endpoint**: configure `auth_oauth2.jwks_uri` with the URL that returns the signing keys
+  used to digitally sign the tokens. Use this when the provider does not support OpenID Connect
+  Discovery or when you need to override the discovered endpoint.
 
-When you configure RabbitMQ with one of two previous endpoints, RabbitMQ must make a HTTP request
-(or two, if you specify the latter endpoint) to download the signing keys. This is an operation that
+* **Static signing keys**: configure the signing keys as local files using
+  `auth_oauth2.signing_keys`. This is useful for environments without network access to the
+  provider or when using symmetric signing keys.
+
+When RabbitMQ is configured with the issuer URL or the JWKS endpoint, it makes an HTTP request
+(or two, when using the issuer URL) to download the signing keys. This is an operation that
 occurs once for any signing key not downloaded yet. When the OAuth 2.0 provider rotates the signing
 keys, newer tokens refer to a new signing key which RabbitMQ does not have yet which triggers
 another download of the newer signing keys.
