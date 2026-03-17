@@ -79,7 +79,7 @@ suspend fun newTask(coroutineScope: CoroutineScope, message: String) {
         durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to Field.LongString("quorum"))
     )
 
     val properties = properties {
@@ -118,7 +118,7 @@ suspend fun worker(coroutineScope: CoroutineScope) {
         durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to Field.LongString("quorum"))
     )
     println(" [*] Waiting for messages. To exit press CTRL+C")
 
@@ -264,7 +264,7 @@ channel.queueDeclare(
     durable = true,
     exclusive = false,
     autoDelete = false,
-    arguments = emptyMap()
+    arguments = mapOf("x-queue-type" to Field.LongString("quorum"))
 )
 ```
 
@@ -281,7 +281,7 @@ channel.queueDeclare(
     durable = true,
     exclusive = false,
     autoDelete = false,
-    arguments = emptyMap()
+    arguments = mapOf("x-queue-type" to Field.LongString("quorum"))
 )
 ```
 
@@ -354,6 +354,7 @@ Putting it all together
 Final code of our `newTask` function:
 
 ```kotlin
+import dev.kourier.amqp.Field
 import dev.kourier.amqp.connection.amqpConfig
 import dev.kourier.amqp.connection.createAMQPConnection
 import dev.kourier.amqp.properties
@@ -373,7 +374,7 @@ suspend fun newTask(coroutineScope: CoroutineScope, message: String) {
         durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to Field.LongString("quorum"))
     )
 
     val properties = properties {
@@ -396,6 +397,7 @@ suspend fun newTask(coroutineScope: CoroutineScope, message: String) {
 And our `worker`:
 
 ```kotlin
+import dev.kourier.amqp.Field
 import dev.kourier.amqp.connection.amqpConfig
 import dev.kourier.amqp.connection.createAMQPConnection
 import kotlinx.coroutines.CoroutineScope
@@ -415,7 +417,7 @@ suspend fun worker(coroutineScope: CoroutineScope) {
         durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to Field.LongString("quorum"))
     )
     println(" [*] Waiting for messages. To exit press CTRL+C")
 

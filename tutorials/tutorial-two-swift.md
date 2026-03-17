@@ -71,7 +71,7 @@ struct NewTask {
     static func main() async throws {
         let connection = try await Connection.open()
         let channel = try await connection.openChannel()
-        let queue = try await channel.queue("task_queue", durable: true)
+        let queue = try await channel.queue("task_queue", type: .quorum, durable: true)
 
         let args = CommandLine.arguments.dropFirst()
         let message = args.isEmpty ? "Hello World!" : args.joined(separator: " ")
@@ -100,7 +100,7 @@ struct Worker {
     static func main() async throws {
         let connection = try await Connection.open()
         let channel = try await connection.openChannel()
-        let queue = try await channel.queue("task_queue", durable: true)
+        let queue = try await channel.queue("task_queue", type: .quorum, durable: true)
 
         try await channel.basicQos(prefetchCount: 1)
         print(" [*] Waiting for messages. To exit press CTRL+C")
@@ -277,7 +277,7 @@ First, we need to make sure that the queue will survive a RabbitMQ node restart.
 In order to do so, we need to declare it as _durable_:
 
 ```swift
-let queue = try await channel.queue("task_queue", durable: true)
+let queue = try await channel.queue("task_queue", type: .quorum, durable: true)
 ```
 
 Although this command is correct by itself, it won't work in our present
@@ -288,7 +288,7 @@ that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
 ```swift
-let queue = try await channel.queue("task_queue", durable: true)
+let queue = try await channel.queue("task_queue", type: .quorum, durable: true)
 ```
 
 This `durable: true` option needs to be applied to both the
@@ -362,7 +362,7 @@ struct NewTask {
     static func main() async throws {
         let connection = try await Connection.open()
         let channel = try await connection.openChannel()
-        let queue = try await channel.queue("task_queue", durable: true)
+        let queue = try await channel.queue("task_queue", type: .quorum, durable: true)
 
         let args = CommandLine.arguments.dropFirst()
         let message = args.isEmpty ? "Hello World!" : args.joined(separator: " ")
@@ -391,7 +391,7 @@ struct Worker {
     static func main() async throws {
         let connection = try await Connection.open()
         let channel = try await connection.openChannel()
-        let queue = try await channel.queue("task_queue", durable: true)
+        let queue = try await channel.queue("task_queue", type: .quorum, durable: true)
 
         try await channel.basicQos(prefetchCount: 1)
         print(" [*] Waiting for messages. To exit press CTRL+C")

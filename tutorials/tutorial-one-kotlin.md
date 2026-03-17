@@ -95,6 +95,7 @@ then exit.
 We need some imports:
 
 ```kotlin
+import dev.kourier.amqp.Field
 import dev.kourier.amqp.Properties
 import dev.kourier.amqp.connection.amqpConfig
 import dev.kourier.amqp.connection.createAMQPConnection
@@ -145,10 +146,10 @@ to the queue:
 ```kotlin
 channel.queueDeclare(
     queueName,
-    durable = false,
+    durable = true,
     exclusive = false,
     autoDelete = false,
-    arguments = emptyMap()
+    arguments = mapOf("x-queue-type" to Field.LongString("quorum"))
 )
 val message = "Hello World!"
 channel.basicPublish(
@@ -201,10 +202,10 @@ suspend fun receive(coroutineScope: CoroutineScope) {
 
     channel.queueDeclare(
         queueName,
-        durable = false,
+        durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to Field.LongString("quorum"))
     )
     println(" [*] Waiting for messages. To exit press CTRL+C")
 
@@ -237,6 +238,7 @@ for (delivery in consumer) {
 You can wrap both functions in a `main` function with a `runBlocking` block:
 
 ```kotlin
+import dev.kourier.amqp.Field
 import dev.kourier.amqp.Properties
 import dev.kourier.amqp.connection.amqpConfig
 import dev.kourier.amqp.connection.createAMQPConnection
@@ -257,10 +259,10 @@ suspend fun send(coroutineScope: CoroutineScope) {
 
     channel.queueDeclare(
         queueName,
-        durable = false,
+        durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to Field.LongString("quorum"))
     )
     val message = "Hello World!"
     channel.basicPublish(
@@ -286,10 +288,10 @@ suspend fun receive(coroutineScope: CoroutineScope) {
 
     channel.queueDeclare(
         queueName,
-        durable = false,
+        durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to Field.LongString("quorum"))
     )
     println(" [*] Waiting for messages. To exit press CTRL+C")
 

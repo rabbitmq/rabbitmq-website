@@ -77,7 +77,7 @@ The server will then use that name to respond using [the default exchange](/docs
 ```go
 q, err := ch.QueueDeclare(
   "",    // name
-  false, // durable
+  false, // durability
   false, // delete when unused
   true,  // exclusive
   false, // noWait
@@ -221,11 +221,13 @@ func main() {
 
         q, err := ch.QueueDeclare(
                 "rpc_queue", // name
-                false,       // durable
+                true,        // durability
                 false,       // delete when unused
                 false,       // exclusive
                 false,       // no-wait
-                nil,         // arguments
+                amqp.Table{
+                        amqp.QueueTypeArg: amqp.QueueTypeQuorum,
+                },
         )
         failOnError(err, "Failed to declare a queue")
 
@@ -337,7 +339,7 @@ func fibonacciRPC(n int) (res int, err error) {
 
         q, err := ch.QueueDeclare(
                 "",    // name
-                false, // durable
+                false, // durability
                 false, // delete when unused
                 true,  // exclusive
                 false, // noWait

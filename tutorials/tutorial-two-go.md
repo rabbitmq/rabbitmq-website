@@ -316,11 +316,13 @@ In order to do so, we need to declare it as _durable_:
 ```go
 q, err := ch.QueueDeclare(
   "hello",      // name
-  true,         // durable
+  true,         // durability
   false,        // delete when unused
   false,        // exclusive
   false,        // no-wait
-  nil,          // arguments
+  amqp.Table{
+    amqp.QueueTypeArg: amqp.QueueTypeQuorum,
+  },
 )
 failOnError(err, "Failed to declare a queue")
 ```
@@ -335,11 +337,13 @@ a queue with different name, for example `task_queue`:
 ```go
 q, err := ch.QueueDeclare(
   "task_queue", // name
-  true,         // durable
+  true,         // durability
   false,        // delete when unused
   false,        // exclusive
   false,        // no-wait
-  nil,          // arguments
+  amqp.Table{
+    amqp.QueueTypeArg: amqp.QueueTypeQuorum,
+  },
 )
 failOnError(err, "Failed to declare a queue")
 ```
@@ -448,11 +452,13 @@ func main() {
 
         q, err := ch.QueueDeclare(
                 "task_queue", // name
-                true,         // durable
+                true,         // durability
                 false,        // delete when unused
                 false,        // exclusive
                 false,        // no-wait
-                nil,          // arguments
+                amqp.Table{
+                        amqp.QueueTypeArg: amqp.QueueTypeQuorum,
+                },
         )
         failOnError(err, "Failed to declare a queue")
 
@@ -517,11 +523,13 @@ func main() {
 
         q, err := ch.QueueDeclare(
                 "task_queue", // name
-                true,         // durable
+                true,         // durability
                 false,        // delete when unused
                 false,        // exclusive
                 false,        // no-wait
-                nil,          // arguments
+                amqp.Table{
+                        amqp.QueueTypeArg: amqp.QueueTypeQuorum,
+                },
         )
         failOnError(err, "Failed to declare a queue")
 

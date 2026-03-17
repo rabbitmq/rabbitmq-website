@@ -79,7 +79,6 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
     * [JavaScript](tutorials/tutorial-one-javascript)
     * [Go](tutorials/tutorial-one-go)
     * [Elixir](tutorials/tutorial-one-elixir)
-    * [Objective-C](tutorials/tutorial-one-objectivec)
     * [Swift](tutorials/tutorial-one-swift)
     * [Spring AMQP](tutorials/tutorial-one-spring-amqp)
   </td>
@@ -100,7 +99,6 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
     * [JavaScript](tutorials/tutorial-two-javascript)
     * [Go](tutorials/tutorial-two-go)
     * [Elixir](tutorials/tutorial-two-elixir)
-    * [Objective-C](tutorials/tutorial-two-objectivec)
     * [Swift](tutorials/tutorial-two-swift)
     * [Spring AMQP](tutorials/tutorial-two-spring-amqp)
   </td>
@@ -121,7 +119,6 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
     * [JavaScript](tutorials/tutorial-three-javascript)
     * [Go](tutorials/tutorial-three-go)
     * [Elixir](tutorials/tutorial-three-elixir)
-    * [Objective-C](tutorials/tutorial-three-objectivec)
     * [Swift](tutorials/tutorial-three-swift)
     * [Spring AMQP](tutorials/tutorial-three-spring-amqp)
   </td>
@@ -144,7 +141,6 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
     * [JavaScript](tutorials/tutorial-four-javascript)
     * [Go](tutorials/tutorial-four-go)
     * [Elixir](tutorials/tutorial-four-elixir)
-    * [Objective-C](tutorials/tutorial-four-objectivec)
     * [Swift](tutorials/tutorial-four-swift)
     * [Spring AMQP](tutorials/tutorial-four-spring-amqp)
   </td>
@@ -165,7 +161,6 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
     * [JavaScript](tutorials/tutorial-five-javascript)
     * [Go](tutorials/tutorial-five-go)
     * [Elixir](tutorials/tutorial-five-elixir)
-    * [Objective-C](tutorials/tutorial-five-objectivec)
     * [Swift](tutorials/tutorial-five-swift)
     * [Spring AMQP](tutorials/tutorial-five-spring-amqp)
   </td>

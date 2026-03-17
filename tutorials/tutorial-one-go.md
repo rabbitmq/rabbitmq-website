@@ -125,11 +125,13 @@ to the queue:
 ```go
 q, err := ch.QueueDeclare(
   "hello", // name
-  false,   // durable
+  true,    // durability
   false,   // delete when unused
   false,   // exclusive
   false,   // no-wait
-  nil,     // arguments
+  amqp.Table{
+    amqp.QueueTypeArg: amqp.QueueTypeQuorum,
+  },
 )
 failOnError(err, "Failed to declare a queue")
 
@@ -213,11 +215,13 @@ defer ch.Close()
 
 q, err := ch.QueueDeclare(
   "hello", // name
-  false,   // durable
+  true,    // durability
   false,   // delete when unused
   false,   // exclusive
   false,   // no-wait
-  nil,     // arguments
+  amqp.Table{
+    amqp.QueueTypeArg: amqp.QueueTypeQuorum,
+  },
 )
 failOnError(err, "Failed to declare a queue")
 ```

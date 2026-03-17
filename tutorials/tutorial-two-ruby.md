@@ -249,7 +249,7 @@ First, we need to make sure that the queue will survive a RabbitMQ node restart.
 In order to do so, we need to declare it as _durable_:
 
 ```ruby
-channel.queue('hello', durable: true)
+channel.quorum_queue('hello')
 ```
 
 Although this command is correct by itself, it won't work in our present
@@ -260,10 +260,10 @@ that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
 ```ruby
-channel.queue('task_queue', durable: true)
+channel.quorum_queue('task_queue')
 ```
 
-This `:durable` option change needs to be applied to both the producer
+This `quorum_queue` change needs to be applied to both the producer
 and consumer code.
 
 At this point we're sure that the `task_queue` queue won't be lost
@@ -332,7 +332,7 @@ connection = Bunny.new(automatically_recover: false)
 connection.start
 
 channel = connection.create_channel
-queue = channel.queue('task_queue', durable: true)
+queue = channel.quorum_queue('task_queue')
 
 message = ARGV.empty? ? 'Hello World!' : ARGV.join(' ')
 
@@ -354,7 +354,7 @@ connection = Bunny.new(automatically_recover: false)
 connection.start
 
 channel = connection.create_channel
-queue = channel.queue('task_queue', durable: true)
+queue = channel.quorum_queue('task_queue')
 
 channel.prefetch(1)
 puts ' [*] Waiting for messages. To exit press CTRL+C'

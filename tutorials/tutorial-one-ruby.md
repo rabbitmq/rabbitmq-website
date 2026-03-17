@@ -111,7 +111,7 @@ To send, we must declare a queue for us to send to; then we can publish a messag
 to the queue:
 
 ```ruby
-queue = channel.queue('hello')
+queue = channel.quorum_queue('hello')
 
 channel.default_exchange.publish('Hello World!', routing_key: queue.name)
 puts " [x] Sent 'Hello World!'"
@@ -166,7 +166,7 @@ connection = Bunny.new
 connection.start
 
 channel = connection.create_channel
-queue = channel.queue('hello')
+queue = channel.quorum_queue('hello')
 ```
 
 Note that we declare the queue here, as well. Because we might start

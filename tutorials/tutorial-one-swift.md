@@ -143,7 +143,7 @@ To send, we must declare a queue for us to send to; then we can publish a messag
 to the queue:
 
 ```swift
-        let queue = try await channel.queue("hello")
+        let queue = try await channel.queue("hello", type: .quorum, durable: true)
 
         try await channel.basicPublish(
             body: Data("Hello World!".utf8),
@@ -205,7 +205,7 @@ struct Receive {
     static func main() async throws {
         let connection = try await Connection.open()
         let channel = try await connection.openChannel()
-        let queue = try await channel.queue("hello")
+        let queue = try await channel.queue("hello", type: .quorum, durable: true)
 ```
 
 Note that we declare the queue here as well. Because we might start

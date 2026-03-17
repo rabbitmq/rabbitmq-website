@@ -279,7 +279,8 @@ In order to do so, we need to declare it as _durable_:
 ```csharp
 await channel.QueueDeclareAsync(queue: "hello",
     durable: true, exclusive: false,
-    autoDelete: false, arguments: null);
+    autoDelete: false,
+    arguments: new Dictionary<string, object?> { { "x-queue-type", "quorum" } });
 ```
 
 Although this command is correct by itself, it won't work in our present

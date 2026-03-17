@@ -193,7 +193,7 @@ end
 {:ok, connection} = AMQP.Connection.open
 {:ok, channel} = AMQP.Channel.open(connection)
 
-AMQP.Queue.declare(channel, "rpc_queue")
+AMQP.Queue.declare(channel, "rpc_queue", durable: true, arguments: [{"x-queue-type", :longstr, "quorum"}])
 AMQP.Basic.qos(channel, prefetch_count: 1)
 AMQP.Basic.consume(channel, "rpc_queue")
 IO.puts " [x] Awaiting RPC requests"

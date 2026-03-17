@@ -93,7 +93,7 @@ just trash the message. Let's create a queue to which the message will
 be delivered, let's name it _hello_:
 
 ```elixir
-AMQP.Queue.declare(channel, "hello")
+AMQP.Queue.declare(channel, "hello", durable: true, arguments: [{"x-queue-type", :longstr, "quorum"}])
 ```
 
 At that point we're ready to send a message. Our first message will
@@ -156,7 +156,7 @@ can run the command as many times as we like, and only one will be
 created.
 
 ```elixir
-AMQP.Queue.declare(channel, "hello")
+AMQP.Queue.declare(channel, "hello", durable: true, arguments: [{"x-queue-type", :longstr, "quorum"}])
 ```
 
 You may ask why we declare the queue again &#8210; we have already declared it
@@ -230,7 +230,7 @@ Full code for `send.exs`:
 ```elixir
 {:ok, connection} = AMQP.Connection.open
 {:ok, channel} = AMQP.Channel.open(connection)
-AMQP.Queue.declare(channel, "hello")
+AMQP.Queue.declare(channel, "hello", durable: true, arguments: [{"x-queue-type", :longstr, "quorum"}])
 AMQP.Basic.publish(channel, "", "hello", "Hello World!")
 IO.puts " [x] Sent 'Hello World!'"
 AMQP.Connection.close(connection)
@@ -254,7 +254,7 @@ end
 
 {:ok, connection} = AMQP.Connection.open
 {:ok, channel} = AMQP.Channel.open(connection)
-AMQP.Queue.declare(channel, "hello")
+AMQP.Queue.declare(channel, "hello", durable: true, arguments: [{"x-queue-type", :longstr, "quorum"}])
 AMQP.Basic.consume(channel, "hello", nil, no_ack: true)
 IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
 

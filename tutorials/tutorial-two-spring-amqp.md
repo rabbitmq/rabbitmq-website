@@ -74,6 +74,7 @@ sender bean.  The configuration is now done.
 
 ```java
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -84,7 +85,7 @@ public class Tut2Config {
 
     @Bean
     public Queue hello() {
-        return new Queue("hello");
+        return QueueBuilder.durable("task_queue").quorum().build();
     }
 
     @Profile("receiver")
@@ -163,7 +164,7 @@ public class Tut2Sender {
 Our receiver, `Tut2Receiver`, simulates an arbitrary length for
 a fake task in the `doWork()` method where the number of dots
 translates into the number of seconds the work will take. Again,
-we leverage a `@RabbitListener` on the `hello` queue and a
+we leverage a `@RabbitListener` on the `task_queue` queue and a
 `@RabbitHandler` to receive the message. The instance that is
 consuming the message is added to our monitor to show
 which instance, the message and the length of time to process
@@ -174,7 +175,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.util.StopWatch;
 
-@RabbitListener(queues = "hello")
+@RabbitListener(queues = "task_queue")
 public class Tut2Receiver {
 
     private final int instance;

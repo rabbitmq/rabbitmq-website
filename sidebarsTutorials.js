@@ -365,37 +365,6 @@ const sidebars = {
         },
         {
             type: 'category',
-            label: 'Objective-C',
-            items: [
-                {
-                    type: 'doc',
-                    id: 'tutorial-one-objectivec',
-                    label: 'Hello World',
-                },
-                {
-                    type: 'doc',
-                    id: 'tutorial-two-objectivec',
-                    label: 'Work Queues',
-                },
-                {
-                    type: 'doc',
-                    id: 'tutorial-three-objectivec',
-                    label: 'Publish/Subscribe',
-                },
-                {
-                    type: 'doc',
-                    id: 'tutorial-four-objectivec',
-                    label: 'Routing',
-                },
-                {
-                    type: 'doc',
-                    id: 'tutorial-five-objectivec',
-                    label: 'Topics',
-                },
-            ]
-        },
-        {
-            type: 'category',
             label: 'Swift',
             items: [
                 {

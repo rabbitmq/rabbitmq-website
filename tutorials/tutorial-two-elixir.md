@@ -262,7 +262,7 @@ First, we need to make sure that the queue will survive a RabbitMQ node restart.
 In order to do so, we need to declare it as _durable_:
 
 ```elixir
-AMQP.Queue.declare(channel, "hello", durable: true)
+AMQP.Queue.declare(channel, "hello", durable: true, arguments: [{"x-queue-type", :longstr, "quorum"}])
 ```
 
 Although this command is correct by itself, it won't work in our
@@ -273,7 +273,7 @@ that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
 ```elixir
-AMQP.Queue.declare(channel, "task_queue", durable: true)
+AMQP.Queue.declare(channel, "task_queue", durable: true, arguments: [{"x-queue-type", :longstr, "quorum"}])
 ```
 
 This `AMQP.Queue.declare` change needs to be applied to both the producer
@@ -340,7 +340,7 @@ Final code of our `new_task.exs` script:
 {:ok, connection} = AMQP.Connection.open
 {:ok, channel} = AMQP.Channel.open(connection)
 
-AMQP.Queue.declare(channel, "task_queue", durable: true)
+AMQP.Queue.declare(channel, "task_queue", durable: true, arguments: [{"x-queue-type", :longstr, "quorum"}])
 
 message =
   case System.argv do
@@ -380,7 +380,7 @@ end
 {:ok, connection} = AMQP.Connection.open
 {:ok, channel} = AMQP.Channel.open(connection)
 
-AMQP.Queue.declare(channel, "task_queue", durable: true)
+AMQP.Queue.declare(channel, "task_queue", durable: true, arguments: [{"x-queue-type", :longstr, "quorum"}])
 AMQP.Basic.qos(channel, prefetch_count: 1)
 
 AMQP.Basic.consume(channel, "task_queue")

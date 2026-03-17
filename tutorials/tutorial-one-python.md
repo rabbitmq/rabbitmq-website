@@ -93,7 +93,7 @@ just drop the message. Let's create a _hello_ queue to which the message will
 be delivered:
 
 ```python
-channel.queue_declare(queue='hello')
+channel.queue_declare(queue='hello', durable=True, arguments={'x-queue-type': 'quorum'})
 ```
 
 At this point we're ready to send a message. Our first message will
@@ -152,7 +152,7 @@ can run the command as many times as we like, and only one will be
 created.
 
 ```python
-channel.queue_declare(queue='hello')
+channel.queue_declare(queue='hello', durable=True, arguments={'x-queue-type': 'quorum'})
 ```
 
 You may ask why we declare the queue again &#8210; we have already declared it
@@ -234,7 +234,7 @@ connection = pika.BlockingConnection(
     pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
-channel.queue_declare(queue='hello')
+channel.queue_declare(queue='hello', durable=True, arguments={'x-queue-type': 'quorum'})
 
 channel.basic_publish(exchange='', routing_key='hello', body='Hello World!')
 print(" [x] Sent 'Hello World!'")
@@ -251,7 +251,7 @@ def main():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
     channel = connection.channel()
 
-    channel.queue_declare(queue='hello')
+    channel.queue_declare(queue='hello', durable=True, arguments={'x-queue-type': 'quorum'})
 
     def callback(ch, method, properties, body):
         print(f" [x] Received {body}")

@@ -270,7 +270,8 @@ In order to do so, we need to declare it as _durable_:
 
 ```java
 boolean durable = true;
-channel.queueDeclare("hello", durable, false, false, null);
+Map<String, Object> args = Map.of("x-queue-type", "quorum");
+channel.queueDeclare("hello", durable, false, false, args);
 ```
 
 Although this command is correct by itself, it won't work in our present
@@ -282,7 +283,8 @@ a queue with different name, for example `task_queue`:
 
 ```java
 boolean durable = true;
-channel.queueDeclare("task_queue", durable, false, false, null);
+Map<String, Object> args = Map.of("x-queue-type", "quorum");
+channel.queueDeclare("task_queue", durable, false, false, args);
 ```
 
 This `queueDeclare` change needs to be applied to both the producer
@@ -357,6 +359,8 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.MessageProperties;
 
+import java.util.Map;
+
 public class NewTask {
 
   private static final String TASK_QUEUE_NAME = "task_queue";
@@ -366,7 +370,8 @@ public class NewTask {
     factory.setHost("localhost");
     try (Connection connection = factory.newConnection();
          Channel channel = connection.createChannel()) {
-        channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
+        Map<String, Object> args = Map.of("x-queue-type", "quorum");
+        channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, args);
 
         String message = String.join(" ", argv);
 
@@ -390,6 +395,8 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
+import java.util.Map;
+
 public class Worker {
 
   private static final String TASK_QUEUE_NAME = "task_queue";
@@ -400,7 +407,8 @@ public class Worker {
     final Connection connection = factory.newConnection();
     final Channel channel = connection.createChannel();
 
-    channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
+    Map<String, Object> args = Map.of("x-queue-type", "quorum");
+    channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, args);
     System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
     channel.basicQos(1);

@@ -249,7 +249,7 @@ First, we need to make sure that the queue will survive a RabbitMQ node restart.
 In order to do so, we need to declare it as _durable_:
 
 ```python
-channel.queue_declare(queue='hello', durable=True)
+channel.queue_declare(queue='hello', durable=True, arguments={'x-queue-type': 'quorum'})
 ```
 
 Although this command is correct by itself, it won't work in our
@@ -260,7 +260,7 @@ that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
 ```python
-channel.queue_declare(queue='task_queue', durable=True)
+channel.queue_declare(queue='task_queue', durable=True, arguments={'x-queue-type': 'quorum'})
 ```
 
 This `queue_declare` change needs to be applied to both the producer
@@ -337,7 +337,7 @@ connection = pika.BlockingConnection(
     pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
-channel.queue_declare(queue='task_queue', durable=True)
+channel.queue_declare(queue='task_queue', durable=True, arguments={'x-queue-type': 'quorum'})
 
 message = ' '.join(sys.argv[1:]) or "Hello World!"
 channel.basic_publish(
@@ -362,7 +362,7 @@ connection = pika.BlockingConnection(
     pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
-channel.queue_declare(queue='task_queue', durable=True)
+channel.queue_declare(queue='task_queue', durable=True, arguments={'x-queue-type': 'quorum'})
 print(' [*] Waiting for messages. To exit press CTRL+C')
 
 

@@ -181,7 +181,10 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     var queue = 'rpc_queue';
 
     channel.assertQueue(queue, {
-      durable: false
+      durable: true,
+      arguments: {
+        'x-queue-type': 'quorum'
+      }
     });
     channel.prefetch(1);
     console.log(' [x] Awaiting RPC requests');
