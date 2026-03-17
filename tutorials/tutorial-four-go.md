@@ -134,7 +134,7 @@ As always, we need to create an exchange first:
 err = ch.ExchangeDeclare(
   "logs_direct", // name
   "direct",      // type
-  true,          // durable
+  false,          // durability
   false,         // auto-deleted
   false,         // internal
   false,         // no-wait
@@ -148,7 +148,7 @@ And we're ready to send a message:
 err = ch.ExchangeDeclare(
   "logs_direct", // name
   "direct",      // type
-  true,          // durable
+  false,          // durability
   false,         // auto-deleted
   false,         // internal
   false,         // no-wait
@@ -185,7 +185,7 @@ we're interested in.
 ```go
 q, err := ch.QueueDeclare(
   "",    // name
-  false, // durable
+  false, // durability
   false, // delete when unused
   true,  // exclusive
   false, // no-wait
@@ -249,7 +249,7 @@ func main() {
         err = ch.ExchangeDeclare(
                 "logs_direct", // name
                 "direct",      // type
-                true,          // durable
+                false,          // durability
                 false,         // auto-deleted
                 false,         // internal
                 false,         // no-wait
@@ -326,7 +326,7 @@ func main() {
         err = ch.ExchangeDeclare(
                 "logs_direct", // name
                 "direct",      // type
-                true,          // durable
+                false,          // durability
                 false,         // auto-deleted
                 false,         // internal
                 false,         // no-wait
@@ -336,7 +336,7 @@ func main() {
 
         q, err := ch.QueueDeclare(
                 "",    // name
-                false, // durable
+                false, // durability
                 false, // delete when unused
                 true,  // exclusive
                 false, // no-wait

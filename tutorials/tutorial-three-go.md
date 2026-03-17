@@ -84,7 +84,7 @@ an exchange of this type, and call it `logs`:
 err = ch.ExchangeDeclare(
   "logs",   // name
   "fanout", // type
-  true,     // durable
+  false,     // durability
   false,    // auto-deleted
   false,    // internal
   false,    // no-wait
@@ -138,7 +138,7 @@ Now, we can publish to our named exchange instead:
 err = ch.ExchangeDeclare(
   "logs",   // name
   "fanout", // type
-  true,     // durable
+  false,     // durability
   false,    // auto-deleted
   false,    // internal
   false,    // no-wait
@@ -188,7 +188,7 @@ as an empty string, we create a non-durable queue with a generated name:
 ```go
 q, err := ch.QueueDeclare(
   "",    // name
-  false, // durable
+  false, // durability
   false, // delete when unused
   true,  // exclusive
   false, // no-wait
@@ -279,7 +279,7 @@ func main() {
         err = ch.ExchangeDeclare(
                 "logs",   // name
                 "fanout", // type
-                true,     // durable
+                false,     // durability
                 false,    // auto-deleted
                 false,    // internal
                 false,    // no-wait
@@ -354,7 +354,7 @@ func main() {
         err = ch.ExchangeDeclare(
                 "logs",   // name
                 "fanout", // type
-                true,     // durable
+                false,     // durability
                 false,    // auto-deleted
                 false,    // internal
                 false,    // no-wait
@@ -364,7 +364,7 @@ func main() {
 
         q, err := ch.QueueDeclare(
                 "",    // name
-                false, // durable
+                false, // durability
                 false, // delete when unused
                 true,  // exclusive
                 false, // no-wait

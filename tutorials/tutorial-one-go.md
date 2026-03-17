@@ -125,7 +125,7 @@ to the queue:
 ```go
 q, err := ch.QueueDeclare(
   "hello", // name
-  true,    // durable
+  true,    // durability
   false,   // delete when unused
   false,   // exclusive
   false,   // no-wait
@@ -215,7 +215,7 @@ defer ch.Close()
 
 q, err := ch.QueueDeclare(
   "hello", // name
-  true,    // durable
+  true,    // durability
   false,   // delete when unused
   false,   // exclusive
   false,   // no-wait
