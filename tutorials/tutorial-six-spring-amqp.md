@@ -135,7 +135,7 @@ Our RPC will work like this:
   * The `Tut6Config` will setup a new `DirectExchange` and a client
   * The client will leverage the `convertSendAndReceive` method, passing the exchange
     name, the routingKey, and the message.
-  * The request is sent to an RPC queue `tut.rpc`.
+  * The request is sent to an RPC queue `rpc`.
   * The RPC worker (aka: server) is waiting for requests on that queue.
     When a request appears, it performs the task and sends a message with the
     result back to the client, using the queue from the `replyTo` field.
@@ -181,7 +181,7 @@ public class Tut6Config {
 
 		@Bean
 		public DirectExchange exchange() {
-			return new DirectExchange("tut.rpc");
+			return new DirectExchange("rpc");
 		}
 
 		@Bean
@@ -196,12 +196,12 @@ public class Tut6Config {
 
 		@Bean
 		public Queue queue() {
-			return QueueBuilder.durable("tut.rpc.requests").quorum().build();
+			return QueueBuilder.durable("rpc_queue").quorum().build();
 		}
 
 		@Bean
 		public DirectExchange exchange() {
-			return new DirectExchange("tut.rpc");
+			return new DirectExchange("rpc");
 		}
 
 		@Bean
@@ -223,7 +223,7 @@ public class Tut6Config {
 
 It sets up our profiles as `tut6` or `rpc`. It also setups a `client` profile
 with 2 beans: the `DirectExchange` we are using and the `Tut6Client` itself.
-We also configure the `server` profile with 3 beans, the `tut.rpc.requests`
+We also configure the `server` profile with 3 beans, the `rpc_queue`
 queue, the `DirectExchange`, which matches the client's exchange, and the binding
 from the queue to the exchange with the `rpc` routing-key.
 
@@ -243,8 +243,8 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
 public class Tut6Server {
 
-	@RabbitListener(queues = "tut.rpc.requests")
-	// @SendTo("tut.rpc.replies") used when the
+	@RabbitListener(queues = "rpc_queue")
+	// @SendTo("rpc_replies") used when the
 	// client doesn't set replyTo.
 	public int fibonacci(int n) {
 		System.out.println(" [x] Received request for " + n);
