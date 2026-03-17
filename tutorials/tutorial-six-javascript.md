@@ -254,7 +254,7 @@ async function main() {
   console.log(' [x] Requesting fib(%d)', num);
 
   const result = await new Promise((resolve) => {
-    // Consume from the Direct Reply-to pseudo-queue (noAck is mandatory)
+    // Consume from the Direct Reply-to pseudo-queue (automatic acknowledgement mode is mandatory)
     channel.consume('amq.rabbitmq.reply-to', (msg) => {
       if (msg.properties.correlationId === correlationId) {
         resolve(msg.content.toString());
