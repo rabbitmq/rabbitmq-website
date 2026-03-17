@@ -116,7 +116,7 @@ To send, we must declare a queue for us to send to; then we can publish a messag
 to the queue:
 
 ```objectivec
-RMQQueue *q = [ch queue:@"hello" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": @"quorum"}];
+RMQQueue *q = [ch queue:@"hello" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": [[RMQLongstr alloc] init:@"quorum"]}];
 [ch.defaultExchange publish:[@"Hello World!" dataUsingEncoding:NSUTF8StringEncoding] routingKey:q.name];
 ```
 
@@ -164,7 +164,7 @@ Note this matches up with the queue that `send` publishes to.
 
     id<RMQChannel> ch = [conn createChannel];
 
-    RMQQueue *q = [ch queue:@"hello" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": @"quorum"}];
+    RMQQueue *q = [ch queue:@"hello" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": [[RMQLongstr alloc] init:@"quorum"]}];
 ```
 
 Note that we declare the queue here, as well. Because we might start

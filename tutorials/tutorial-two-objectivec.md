@@ -72,7 +72,7 @@ The implementation remains the same apart from the new parameter:
 
     id<RMQChannel> ch = [conn createChannel];
 
-    RMQQueue *q = [ch queue:@"hello" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": @"quorum"}];
+    RMQQueue *q = [ch queue:@"hello" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": [[RMQLongstr alloc] init:@"quorum"]}];
 
     NSData *msgData = [msg dataUsingEncoding:NSUTF8StringEncoding];
     [ch.defaultExchange publish:msgData routingKey:q.name];
@@ -259,7 +259,7 @@ First, we need to make sure that the queue will survive a RabbitMQ node restart.
 In order to do so, we need to declare it as _durable_:
 
 ```objectivec
-RMQQueue *q = [ch queue:@"hello" options:AMQQueueDeclareDurable arguments:@{@"x-queue-type": @"quorum"}];
+RMQQueue *q = [ch queue:@"hello" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": [[RMQLongstr alloc] init:@"quorum"]}];
 ```
 
 Although this command is correct by itself, it won't work in our present
@@ -270,10 +270,10 @@ that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
 ```objectivec
-RMQQueue *q = [ch queue:@"task_queue" options:AMQQueueDeclareDurable arguments:@{@"x-queue-type": @"quorum"}];
+RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": [[RMQLongstr alloc] init:@"quorum"]}];
 ```
 
-This `options:AMQQueueDeclareDurable` change needs to be applied to both the
+This `options:RMQQueueDeclareDurable` change needs to be applied to both the
 producer and consumer code.
 
 At this point we're sure that the `task_queue` queue won't be lost
@@ -340,7 +340,7 @@ Final code of our `newTask:` method:
 
     id<RMQChannel> ch = [conn createChannel];
 
-    RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": @"quorum"}];
+    RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": [[RMQLongstr alloc] init:@"quorum"]}];
 
     NSData *msgData = [msg dataUsingEncoding:NSUTF8StringEncoding];
     [ch.defaultExchange publish:msgData routingKey:q.name persistent:YES];
@@ -359,7 +359,7 @@ And our `workerNamed:`:
 
     id<RMQChannel> ch = [conn createChannel];
 
-    RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": @"quorum"}];
+    RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable arguments:@{@"x-queue-type": [[RMQLongstr alloc] init:@"quorum"]}];
 
     [ch basicQos:@1 global:NO];
     NSLog(@"%@: Waiting for messages", name);

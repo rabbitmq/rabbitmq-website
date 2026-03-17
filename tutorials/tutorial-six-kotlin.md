@@ -187,6 +187,7 @@ and it's probably the slowest recursive implementation possible).
 The code for our RPC server:
 
 ```kotlin
+import dev.kourier.amqp.Field
 import dev.kourier.amqp.connection.amqpConfig
 import dev.kourier.amqp.connection.createAMQPConnection
 import dev.kourier.amqp.properties
@@ -203,10 +204,10 @@ suspend fun rpcServer(coroutineScope: CoroutineScope) {
 
     channel.queueDeclare(
         "rpc_queue",
-        durable = false,
+        durable = true,
         exclusive = false,
         autoDelete = false,
-        arguments = emptyMap()
+        arguments = mapOf("x-queue-type" to Field.LongString("quorum"))
     )
 
     channel.basicQos(count = 1u, global = false)
