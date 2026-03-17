@@ -2440,6 +2440,22 @@ Connection connection = environment.connectionBuilder()
 ```
 
 </TabItem>
+<TabItem value="csharp" label="C#">
+
+```csharp title="Configuring publish affinity on a connection"
+ConnectionSettings defaultSettings = ConnectionSettingsBuilder.Create().Uris([
+    new Uri("amqp://localhost:5672"),
+    // ....
+]).Build();
+// creates a copy from default settings and overrides the Affinity settings
+
+IConnection connection = await environment.CreateConnectionAsync(
+    ConnectionSettingsBuilder.From(defaultSettings)
+        .Affinity(new DefaultAffinity("my-queue", Operation.Publish))
+        .Build()).ConfigureAwait(false);
+```
+
+</TabItem>
 
 </Tabs>
 
@@ -2455,6 +2471,23 @@ Connection connection = environment.connectionBuilder()
             .operation(CONSUME)
         .connection()
         .build();
+```
+
+</TabItem>
+<TabItem value="csharp" label="C#">
+
+```csharp title="Configuring consume affinity on a connection"
+IEnvironment environment = AmqpEnvironment.Create(defaultSettings);
+ConnectionSettings defaultSettings = ConnectionSettingsBuilder.Create().Uris([
+    new Uri("amqp://localhost:5672"),
+    // ....
+]).Build();
+
+// creates a copy from default settings and overrides the Affinity settings
+IConnection connection = await environment.CreateConnectionAsync(
+    ConnectionSettingsBuilder.From(defaultSettings)
+        .Affinity(new DefaultAffinity("my-queue", Operation.Consume))
+        .Build()).ConfigureAwait(false);
 ```
 
 </TabItem>
