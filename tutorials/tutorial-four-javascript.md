@@ -6,7 +6,7 @@ Copyright (c) 2005-2026 Broadcom. All Rights Reserved. The term "Broadcom" refer
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
-Version 2.0 (the "License”); you may not use this file except in compliance
+Version 2.0 (the "License"); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -120,9 +120,9 @@ first.
 As always, we need to create an exchange first:
 
 ```javascript
-var exchange = 'direct_logs';
+const exchange = 'direct_logs';
 
-channel.assertExchange(exchange, 'direct', {
+await channel.assertExchange(exchange, 'direct', {
   durable: false
 });
 ```
@@ -130,9 +130,9 @@ channel.assertExchange(exchange, 'direct', {
 And we're ready to send a message:
 
 ```javascript
-var exchange = 'direct_logs';
+const exchange = 'direct_logs';
 
-channel.assertExchange(exchange, 'direct', {
+await channel.assertExchange(exchange, 'direct', {
   durable: false
 });
 channel.publish(exchange, severity, Buffer.from(msg));
@@ -150,9 +150,9 @@ one exception - we're going to create a new binding for each severity
 we're interested in.
 
 ```javascript
-args.forEach(function(severity) {
-  channel.bindQueue(q.queue, exchange, severity);
-});
+for (const severity of args) {
+  await channel.bindQueue(q.queue, exchange, severity);
+}
 ```
 
 Putting it all together
@@ -168,33 +168,30 @@ The code for `emit_log_direct.js` script:
 ```javascript
 #!/usr/bin/env node
 
-var amqp = require('amqplib/callback_api');
+const amqp = require('amqplib');
 
-amqp.connect('amqp://localhost', function(error0, connection) {
-  if (error0) {
-    throw error0;
-  }
-  connection.createChannel(function(error1, channel) {
-    if (error1) {
-      throw error1;
-    }
-    var exchange = 'direct_logs';
-    var args = process.argv.slice(2);
-    var msg = args.slice(1).join(' ') || 'Hello World!';
-    var severity = (args.length > 0) ? args[0] : 'info';
+async function main() {
+  const connection = await amqp.connect('amqp://localhost');
+  const channel = await connection.createChannel();
 
-    channel.assertExchange(exchange, 'direct', {
-      durable: false
-    });
-    channel.publish(exchange, severity, Buffer.from(msg));
-    console.log(" [x] Sent %s: '%s'", severity, msg);
+  const exchange = 'direct_logs';
+  const args = process.argv.slice(2);
+  const msg = args.slice(1).join(' ') || 'Hello World!';
+  const severity = (args.length > 0) ? args[0] : 'info';
+
+  await channel.assertExchange(exchange, 'direct', {
+    durable: false
   });
+  channel.publish(exchange, severity, Buffer.from(msg));
+  console.log(" [x] Sent %s: '%s'", severity, msg);
 
   setTimeout(function() {
     connection.close();
-    process.exit(0)
+    process.exit(0);
   }, 500);
-});
+}
+
+main();
 ```
 
 The code for `receive_logs_direct.js`:
@@ -202,49 +199,42 @@ The code for `receive_logs_direct.js`:
 ```javascript
 #!/usr/bin/env node
 
-var amqp = require('amqplib/callback_api');
+const amqp = require('amqplib');
 
-var args = process.argv.slice(2);
+const args = process.argv.slice(2);
 
-if (args.length == 0) {
+if (args.length === 0) {
   console.log("Usage: receive_logs_direct.js [info] [warning] [error]");
   process.exit(1);
 }
 
-amqp.connect('amqp://localhost', function(error0, connection) {
-  if (error0) {
-    throw error0;
-  }
-  connection.createChannel(function(error1, channel) {
-    if (error1) {
-      throw error1;
-    }
-    var exchange = 'direct_logs';
+async function main() {
+  const connection = await amqp.connect('amqp://localhost');
+  const channel = await connection.createChannel();
 
-    channel.assertExchange(exchange, 'direct', {
-      durable: false
-    });
+  const exchange = 'direct_logs';
 
-    channel.assertQueue('', {
-      exclusive: true
-      }, function(error2, q) {
-        if (error2) {
-          throw error2;
-        }
-      console.log(' [*] Waiting for logs. To exit press CTRL+C');
-
-      args.forEach(function(severity) {
-        channel.bindQueue(q.queue, exchange, severity);
-      });
-
-      channel.consume(q.queue, function(msg) {
-        console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
-      }, {
-        noAck: true
-      });
-    });
+  await channel.assertExchange(exchange, 'direct', {
+    durable: false
   });
-});
+
+  const q = await channel.assertQueue('', {
+    exclusive: true
+  });
+  console.log(' [*] Waiting for logs. To exit press CTRL+C');
+
+  for (const severity of args) {
+    await channel.bindQueue(q.queue, exchange, severity);
+  }
+
+  channel.consume(q.queue, function(msg) {
+    console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
+  }, {
+    noAck: true
+  });
+}
+
+main();
 ```
 
 If you want to save only 'warning' and 'error' (and not 'info') log

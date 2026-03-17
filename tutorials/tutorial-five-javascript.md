@@ -6,7 +6,7 @@ Copyright (c) 2005-2026 Broadcom. All Rights Reserved. The term "Broadcom" refer
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
-Version 2.0 (the "License”); you may not use this file except in compliance
+Version 2.0 (the "License"); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -130,33 +130,30 @@ The code for `emit_log_topic.js`:
 ```javascript
 #!/usr/bin/env node
 
-var amqp = require('amqplib/callback_api');
+const amqp = require('amqplib');
 
-amqp.connect('amqp://localhost', function(error0, connection) {
-  if (error0) {
-    throw error0;
-  }
-  connection.createChannel(function(error1, channel) {
-    if (error1) {
-      throw error1;
-    }
-    var exchange = 'topic_logs';
-    var args = process.argv.slice(2);
-    var key = (args.length > 0) ? args[0] : 'anonymous.info';
-    var msg = args.slice(1).join(' ') || 'Hello World!';
+async function main() {
+  const connection = await amqp.connect('amqp://localhost');
+  const channel = await connection.createChannel();
 
-    channel.assertExchange(exchange, 'topic', {
-      durable: false
-    });
-    channel.publish(exchange, key, Buffer.from(msg));
-    console.log(" [x] Sent %s:'%s'", key, msg);
+  const exchange = 'topic_logs';
+  const args = process.argv.slice(2);
+  const key = (args.length > 0) ? args[0] : 'anonymous.info';
+  const msg = args.slice(1).join(' ') || 'Hello World!';
+
+  await channel.assertExchange(exchange, 'topic', {
+    durable: false
   });
+  channel.publish(exchange, key, Buffer.from(msg));
+  console.log(" [x] Sent %s: '%s'", key, msg);
 
   setTimeout(function() {
     connection.close();
-    process.exit(0)
+    process.exit(0);
   }, 500);
-});
+}
+
+main();
 ```
 
 The code for `receive_logs_topic.js`:
@@ -164,49 +161,42 @@ The code for `receive_logs_topic.js`:
 ```javascript
 #!/usr/bin/env node
 
-var amqp = require('amqplib/callback_api');
+const amqp = require('amqplib');
 
-var args = process.argv.slice(2);
+const args = process.argv.slice(2);
 
-if (args.length == 0) {
+if (args.length === 0) {
   console.log("Usage: receive_logs_topic.js <facility>.<severity>");
   process.exit(1);
 }
 
-amqp.connect('amqp://localhost', function(error0, connection) {
-  if (error0) {
-    throw error0;
-  }
-  connection.createChannel(function(error1, channel) {
-    if (error1) {
-      throw error1;
-    }
-    var exchange = 'topic_logs';
+async function main() {
+  const connection = await amqp.connect('amqp://localhost');
+  const channel = await connection.createChannel();
 
-    channel.assertExchange(exchange, 'topic', {
-      durable: false
-    });
+  const exchange = 'topic_logs';
 
-    channel.assertQueue('', {
-      exclusive: true
-    }, function(error2, q) {
-      if (error2) {
-        throw error2;
-      }
-      console.log(' [*] Waiting for logs. To exit press CTRL+C');
-
-      args.forEach(function(key) {
-        channel.bindQueue(q.queue, exchange, key);
-      });
-
-      channel.consume(q.queue, function(msg) {
-        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-      }, {
-        noAck: true
-      });
-    });
+  await channel.assertExchange(exchange, 'topic', {
+    durable: false
   });
-});
+
+  const q = await channel.assertQueue('', {
+    exclusive: true
+  });
+  console.log(' [*] Waiting for logs. To exit press CTRL+C');
+
+  for (const key of args) {
+    await channel.bindQueue(q.queue, exchange, key);
+  }
+
+  channel.consume(q.queue, function(msg) {
+    console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
+  }, {
+    noAck: true
+  });
+}
+
+main();
 ```
 
 To receive all the logs:
@@ -247,4 +237,3 @@ with more than two routing key parameters.
 and [receive_logs_topic.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/receive_logs_topic.js))
 
 Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](./tutorial-six-javascript)
-

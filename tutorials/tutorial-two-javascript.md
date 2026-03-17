@@ -6,7 +6,7 @@ Copyright (c) 2005-2026 Broadcom. All Rights Reserved. The term "Broadcom" refer
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
-Version 2.0 (the "License”); you may not use this file except in compliance
+Version 2.0 (the "License"); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -65,10 +65,10 @@ program will schedule tasks to our work queue, so let's name it
 `new_task.js`:
 
 ```javascript
-var queue = 'task_queue';
-var msg = process.argv.slice(2).join(' ') || "Hello World!";
+const queue = 'task_queue';
+const msg = process.argv.slice(2).join(' ') || "Hello World!";
 
-channel.assertQueue(queue, {
+await channel.assertQueue(queue, {
   durable: true,
   arguments: {
     'x-queue-type': 'quorum'
@@ -85,10 +85,10 @@ fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.js`:
 
 ```javascript
-var queue = 'task_queue';
+const queue = 'task_queue';
 
 // This makes sure the queue is declared before attempting to consume from it
-channel.assertQueue(queue, {
+await channel.assertQueue(queue, {
   durable: true,
   arguments: {
     'x-queue-type': 'quorum'
@@ -96,7 +96,7 @@ channel.assertQueue(queue, {
 });
 
 channel.consume(queue, function(msg) {
-  var secs = msg.content.toString().split('.').length - 1;
+  const secs = msg.content.toString().split('.').length - 1;
 
   console.log(" [x] Received %s", msg.content.toString());
   setTimeout(function() {
@@ -220,7 +220,7 @@ from the worker, once we're done with a task.
 
 ```javascript
 channel.consume(queue, function(msg) {
-  var secs = msg.content.toString().split('.').length - 1;
+  const secs = msg.content.toString().split('.').length - 1;
 
   console.log(" [x] Received %s", msg.content.toString());
   setTimeout(function() {
@@ -279,7 +279,7 @@ First, we need to make sure that the queue will survive a RabbitMQ node restart.
 In order to do so, we need to declare it as _durable_:
 
 ```javascript
-channel.assertQueue('hello', {durable: true, arguments: {'x-queue-type': 'quorum'}});
+await channel.assertQueue('hello', {durable: true, arguments: {'x-queue-type': 'quorum'}});
 ```
 
 Although this command is correct by itself, it won't work in our present
@@ -290,7 +290,7 @@ that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
 ```javascript
-channel.assertQueue('task_queue', {durable: true, arguments: {'x-queue-type': 'quorum'}});
+await channel.assertQueue('task_queue', {durable: true, arguments: {'x-queue-type': 'quorum'}});
 ```
 
 This `durable` option change needs to be applied to both the producer
@@ -356,35 +356,33 @@ Final code of our `new_task.js` class:
 ```javascript
 #!/usr/bin/env node
 
-var amqp = require('amqplib/callback_api');
+const amqp = require('amqplib');
 
-amqp.connect('amqp://localhost', function(error0, connection) {
-  if (error0) {
-    throw error0;
-  }
-  connection.createChannel(function(error1, channel) {
-    if (error1) {
-      throw error1;
+async function main() {
+  const connection = await amqp.connect('amqp://localhost');
+  const channel = await connection.createChannel();
+
+  const queue = 'task_queue';
+  const msg = process.argv.slice(2).join(' ') || "Hello World!";
+
+  await channel.assertQueue(queue, {
+    durable: true,
+    arguments: {
+      'x-queue-type': 'quorum'
     }
-    var queue = 'task_queue';
-    var msg = process.argv.slice(2).join(' ') || "Hello World!";
-
-    channel.assertQueue(queue, {
-      durable: true,
-      arguments: {
-        'x-queue-type': 'quorum'
-      }
-    });
-    channel.sendToQueue(queue, Buffer.from(msg), {
-      persistent: true
-    });
-    console.log(" [x] Sent '%s'", msg);
   });
+  channel.sendToQueue(queue, Buffer.from(msg), {
+    persistent: true
+  });
+  console.log(" [x] Sent '%s'", msg);
+
   setTimeout(function() {
     connection.close();
-    process.exit(0)
+    process.exit(0);
   }, 500);
-});
+}
+
+main();
 ```
 
 [(new_task.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/new_task.js)
@@ -394,41 +392,38 @@ And our `worker.js`:
 ```javascript
 #!/usr/bin/env node
 
-var amqp = require('amqplib/callback_api');
+const amqp = require('amqplib');
 
-amqp.connect('amqp://localhost', function(error0, connection) {
-  if (error0) {
-    throw error0;
-  }
-  connection.createChannel(function(error1, channel) {
-    if (error1) {
-      throw error1;
+async function main() {
+  const connection = await amqp.connect('amqp://localhost');
+  const channel = await connection.createChannel();
+
+  const queue = 'task_queue';
+
+  await channel.assertQueue(queue, {
+    durable: true,
+    arguments: {
+      'x-queue-type': 'quorum'
     }
-    var queue = 'task_queue';
-
-    channel.assertQueue(queue, {
-      durable: true,
-      arguments: {
-        'x-queue-type': 'quorum'
-      }
-    });
-    channel.prefetch(1);
-    console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
-    channel.consume(queue, function(msg) {
-      var secs = msg.content.toString().split('.').length - 1;
-
-      console.log(" [x] Received %s", msg.content.toString());
-      setTimeout(function() {
-        console.log(" [x] Done");
-        channel.ack(msg);
-      }, secs * 1000);
-    }, {
-      // manual acknowledgment mode,
-      // see /docs/confirms for details
-      noAck: false
-    });
   });
-});
+  channel.prefetch(1);
+  console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
+  channel.consume(queue, function(msg) {
+    const secs = msg.content.toString().split('.').length - 1;
+
+    console.log(" [x] Received %s", msg.content.toString());
+    setTimeout(function() {
+      console.log(" [x] Done");
+      channel.ack(msg);
+    }, secs * 1000);
+  }, {
+    // manual acknowledgment mode,
+    // see /docs/confirms for details
+    noAck: false
+  });
+}
+
+main();
 ```
 
 [(worker.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/worker.js)
