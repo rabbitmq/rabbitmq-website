@@ -47,7 +47,7 @@ connections:
  * [TLSv1.3](#tls1.3) support
  * Tools that can be used to [evaluate a TLS setup](#tls-evaluation-tools)
  * [Certificate and key rotation](#rotation)
- * The [trust store plugin](#trust-store-plugin) for environments where trusted certificates changes frequently
+ * The [trust store plugin](#trust-store-plugin) for environments where trusted certificates change frequently, including [x509 client certificate authentication](#trust-store-x509-auth)
  * Known [attacks on TLS](#major-vulnerabilities) and their mitigation
  * How to use [private key passwords](#private-key-passwords)
 
@@ -2131,16 +2131,140 @@ rabbitmqctl.bat eval -n [target-node@hostname] "ssl:clear_pem_cache()."
 
 [`rabbitmq_trust_store`](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_trust_store) is a plugin that
 targets environments where [peer verification](#peer-verification) is heavily used and the list of trusted certificates is fairly dynamic.
-That is, that the trusted leaf client certificates changes fairly often and it makes more sense to whitelist
+That is, that the trusted leaf client certificates change fairly often and it makes more sense to whitelist
 them than to use certificate revocation or intermediate certificates.
 
-The trust store plugin supports two sources of trusted leaf client certificates:
+Instead of traversing a Certificate Authority hierarchy, the plugin validates client certificates
+against a maintained whitelist of trusted PEM-formatted x.509 certificates. The whitelist is refreshed
+at a configurable interval, allowing certificates to be added or removed without restarting the node
+or affecting existing connections.
 
- * A local directory with certificates
- * A set of HTTPS endpoints that follows a certain convention
+### Certificate Providers {#trust-store-providers}
 
-Please refer to the [doc guide](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_trust_store) of the plugin
-to learn more about how both options can be set up.
+The trust store plugin supports two sources (providers) of trusted leaf client certificates:
+
+ * **Filesystem provider** (default): loads certificates from a local directory
+ * **HTTP provider**: retrieves certificates from a remote HTTPS endpoint
+
+#### Filesystem Provider {#trust-store-filesystem}
+
+To use the filesystem provider, configure a directory that contains the trusted client certificates
+in PEM format:
+
+```ini
+trust_store.directory = /path/to/trust-store/whitelist
+trust_store.refresh_interval = 30
+```
+
+Setting `refresh_interval` to `0` disables automatic reloading.
+
+#### HTTP Provider {#trust-store-http}
+
+To retrieve certificates from a remote HTTPS endpoint:
+
+```ini
+trust_store.providers.1 = http
+trust_store.url = https://certs.example.com/trusted
+trust_store.refresh_interval = 30
+```
+
+The remote server must expose an API that returns a JSON list of certificates:
+
+ * `GET <url>` must return `{"certificates": [{"id": <id>, "path": <relative-url>}, ...]}`
+ * `GET <url>/<relative-url>` must return the PEM-encoded certificate
+
+The provider uses `If-Modified-Since` headers to avoid unnecessary downloads.
+
+If the HTTPS endpoint requires client certificate authentication:
+
+```ini
+trust_store.ssl_options.certfile   = /path/to/client/cert.pem
+trust_store.ssl_options.keyfile    = /path/to/client/key.pem
+trust_store.ssl_options.cacertfile = /path/to/ca/cert.pem
+```
+
+A request timeout can be set with `trust_store.https_request_timeout`.
+
+### Using the Trust Store for x509 Client Certificate Authentication {#trust-store-x509-auth}
+
+The trust store plugin and the
+[`rabbitmq_auth_mechanism_ssl`](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_mechanism_ssl) plugin
+serve two complementary roles:
+
+ * `rabbitmq_trust_store` handles **certificate validation**: is the client certificate in the whitelist?
+ * `rabbitmq_auth_mechanism_ssl` handles **authentication**: extract an identity from the certificate and map it to a RabbitMQ user
+
+Combined with the [EXTERNAL authentication mechanism](./access-control#certificate-authentication),
+they allow clients to authenticate solely with their x.509 certificate.
+
+This setup requires two plugins to be enabled:
+
+```bash
+rabbitmq-plugins enable rabbitmq_trust_store
+rabbitmq-plugins enable rabbitmq_auth_mechanism_ssl
+```
+
+Then configure TLS, the trust store, and the authentication mechanism in `rabbitmq.conf`:
+
+```ini
+# TLS listener
+listeners.ssl.default = 5671
+
+ssl_options.cacertfile = /path/to/ca_certificate.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
+ssl_options.verify     = verify_peer
+ssl_options.fail_if_no_peer_cert = true
+
+# Trust store: directory containing whitelisted client certificates
+trust_store.directory = /path/to/trust-store/whitelist
+trust_store.refresh_interval = 30
+
+# Enable the EXTERNAL mechanism so clients can authenticate with a certificate
+auth_mechanisms.1 = EXTERNAL
+auth_mechanisms.2 = PLAIN
+
+# Extract the username from the certificate's Common Name (CN).
+# Other options: distinguished_name (default), subject_alternative_name
+ssl_cert_login_from = common_name
+```
+
+The `ssl_cert_login_from` setting controls which field of the client certificate is used as the RabbitMQ username:
+
+ * `distinguished_name` (default): uses the full subject DN in RFC 4514 format (for example, `CN=guest,O=client,L=Paris,ST=France,C=FR`)
+ * `common_name`: uses only the CN field (for example, `guest`)
+ * `subject_alternative_name`: uses a SAN entry, configured with `ssl_cert_login_san_type` (for example, `dns`, `email`) and `ssl_cert_login_san_index`
+
+A RabbitMQ user matching the extracted name must exist in the configured
+[authentication / authorisation backend](./access-control#backends).
+Any client-provided password is ignored when the EXTERNAL mechanism is used.
+
+### Inspecting and Refreshing the Whitelist {#trust-store-management}
+
+To list currently loaded certificates:
+
+```bash
+rabbitmqctl eval 'io:format(rabbit_trust_store:list()).'
+```
+
+To manually trigger a whitelist refresh:
+
+```bash
+rabbitmqctl eval 'rabbit_trust_store:refresh().'
+```
+
+### TLS Session Caching {#trust-store-session-caching}
+
+TLS session caching bypasses trust store certificate validation. When a client resumes
+a cached TLS session, the trust store is not consulted. To ensure that removed certificates
+are immediately rejected, disable TLS session caching:
+
+```ini
+ssl_options.reuse_sessions = false
+```
+
+Please refer to the [plugin README](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_trust_store) for
+additional details and advanced configuration options.
 
 
 ## Using TLS in the Erlang Client {#erlang-client}
