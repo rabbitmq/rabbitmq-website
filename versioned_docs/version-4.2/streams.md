@@ -195,10 +195,10 @@ to the log after the consumer starts. The following values are supported:
  * `next` - same as not specifying any offset
  * Offset - a numerical value specifying an exact offset to attach to the log at.
  If this offset does not exist it will clamp to either the start or end of the log respectively.
- * Timestamp - a timestamp value specifying the point in time to attach to the log at.
+ * Timestamp: a timestamp value specifying the point in the stream to attach at, based on message arrival time (not application-provided timestamps).
  It will clamp to the closest offset, if the timestamp is out of range for the stream it will clamp either the start or end of the log respectively.
  With AMQP 0.9.1, the timestamp used is POSIX time with an accuracy of one second, that is the number of seconds since 00:00:00 UTC, 1970-01-01.
- Be aware consumers can receive messages published a bit before the specified timestamp.
+ Since streams are segmented into chunks that share a single timestamp, consumers attach at a chunk boundary and can receive messages published shortly before the specified timestamp.
  * Interval - a string value specifying the time interval relative to current time to attach the log at. Uses the same specification as `x-max-age` (see [Retention](#retention))
 
 The following snippet shows how to use the `first` offset specification:
