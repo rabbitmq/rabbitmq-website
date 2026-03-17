@@ -6,7 +6,7 @@ Copyright (c) 2005-2026 Broadcom. All Rights Reserved. The term "Broadcom" refer
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
-Version 2.0 (the "License”); you may not use this file except in compliance
+Version 2.0 (the "License"); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -81,7 +81,7 @@ and `fanout`. We'll focus on the last one -- the fanout. Let's create
 an exchange of this type, and call it `logs`:
 
 ```javascript
-ch.assertExchange('logs', 'fanout', {durable: false})
+channel.assertExchange('logs', 'fanout', {durable: false})
 ```
 
 The fanout exchange is very simple. As you can probably guess from the
@@ -152,7 +152,7 @@ In the [amqp.node](http://www.squaremobius.net/amqp.node/) client, when we suppl
 as an empty string, we create a non-durable queue with a generated name:
 
 ```javascript
-channel.assertQueue('', {
+const q = await channel.assertQueue('', {
   exclusive: true
 });
 ```
@@ -204,31 +204,28 @@ value is ignored for `fanout` exchanges. Here goes the code for
 ```javascript
 #!/usr/bin/env node
 
-var amqp = require('amqplib/callback_api');
+const amqp = require('amqplib');
 
-amqp.connect('amqp://localhost', function(error0, connection) {
-  if (error0) {
-    throw error0;
-  }
-  connection.createChannel(function(error1, channel) {
-    if (error1) {
-      throw error1;
-    }
-    var exchange = 'logs';
-    var msg = process.argv.slice(2).join(' ') || 'Hello World!';
+async function main() {
+  const connection = await amqp.connect('amqp://localhost');
+  const channel = await connection.createChannel();
 
-    channel.assertExchange(exchange, 'fanout', {
-      durable: false
-    });
-    channel.publish(exchange, '', Buffer.from(msg));
-    console.log(" [x] Sent %s", msg);
+  const exchange = 'logs';
+  const msg = process.argv.slice(2).join(' ') || 'Hello World!';
+
+  await channel.assertExchange(exchange, 'fanout', {
+    durable: false
   });
+  channel.publish(exchange, '', Buffer.from(msg));
+  console.log(" [x] Sent %s", msg);
 
   setTimeout(function() {
     connection.close();
     process.exit(0);
   }, 500);
-});
+}
+
+main();
 ```
 
 [(emit_log.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/emit_log.js)
@@ -245,41 +242,34 @@ The code for `receive_logs.js`:
 ```javascript
 #!/usr/bin/env node
 
-var amqp = require('amqplib/callback_api');
+const amqp = require('amqplib');
 
-amqp.connect('amqp://localhost', function(error0, connection) {
-  if (error0) {
-    throw error0;
-  }
-  connection.createChannel(function(error1, channel) {
-    if (error1) {
-      throw error1;
-    }
-    var exchange = 'logs';
+async function main() {
+  const connection = await amqp.connect('amqp://localhost');
+  const channel = await connection.createChannel();
 
-    channel.assertExchange(exchange, 'fanout', {
-      durable: false
-    });
+  const exchange = 'logs';
 
-    channel.assertQueue('', {
-      exclusive: true
-    }, function(error2, q) {
-      if (error2) {
-        throw error2;
-      }
-      console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q.queue);
-      channel.bindQueue(q.queue, exchange, '');
-
-      channel.consume(q.queue, function(msg) {
-      	if(msg.content) {
-	        console.log(" [x] %s", msg.content.toString());
-	      }
-      }, {
-        noAck: true
-      });
-    });
+  await channel.assertExchange(exchange, 'fanout', {
+    durable: false
   });
-});
+
+  const q = await channel.assertQueue('', {
+    exclusive: true
+  });
+  console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q.queue);
+  channel.bindQueue(q.queue, exchange, '');
+
+  channel.consume(q.queue, function(msg) {
+    if(msg.content) {
+      console.log(" [x] %s", msg.content.toString());
+    }
+  }, {
+    noAck: true
+  });
+}
+
+main();
 ```
 
 [(receive_logs.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/receive_logs.js)
@@ -321,4 +311,3 @@ that's exactly what we intended.
 
 To find out how to listen for a subset of messages, let's move on to
 [tutorial 4](./tutorial-four-javascript)
-
