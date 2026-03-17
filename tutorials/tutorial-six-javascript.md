@@ -6,7 +6,7 @@ Copyright (c) 2005-2026 Broadcom. All Rights Reserved. The term "Broadcom" refer
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
-Version 2.0 (the "License”); you may not use this file except in compliance
+Version 2.0 (the "License"); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -68,22 +68,30 @@ The request-reply pattern in RabbitMQ involves a straightforward interaction bet
 
 A client sends a request message and a server replies with a response message.
 
-In order to receive a response we need to send a 'callback' queue name with the
-request. Such a queue is often [server-named](/docs/queues#server-named-queues) but can also have
-a well-known name (be client-named).
+In order to receive a response the client needs to send a 'callback' queue address with the
+request. One approach is to create a [server-named](/docs/queues#server-named-queues) exclusive queue
+for each client. However, that is inefficient: creating and deleting a queue for each
+RPC exchange is costly, especially in clustered environments where all nodes must agree
+on queue metadata.
 
-The server will then use that name to respond using [the default exchange](/docs/exchanges#default-exchange).
+A better alternative is [Direct Reply-to](/docs/direct-reply-to): instead of declaring
+a real queue, the client consumes from the pseudo-queue `amq.rabbitmq.reply-to` and sets
+that as the `replyTo` property of the request message. RabbitMQ then routes the reply
+directly to the client's channel without ever creating a queue. This is more efficient
+and more robust in clusters.
+
+Direct Reply-to requires the consumer to use `noAck: true` (automatic acknowledgement
+mode), because there is no real queue to return a message to if the client disconnects
+or rejects it.
 
 ```javascript
-channel.assertQueue('', {
-  exclusive: true
-});
+channel.consume('amq.rabbitmq.reply-to', function(msg) {
+  // ... handle the response message ...
+}, { noAck: true });
 
 channel.sendToQueue('rpc_queue', Buffer.from('10'), {
-   replyTo: queue_name
+   replyTo: 'amq.rabbitmq.reply-to'
 });
-
-# ... then code to read a response message from the callback queue ...
 ```
 
 > #### Message properties
@@ -103,10 +111,10 @@ channel.sendToQueue('rpc_queue', Buffer.from('10'), {
 
 ### Correlation Id
 
-Creating a callback queue for every RPC request is inefficient.
-A better way is creating a single callback queue per client.
+With Direct Reply-to, the client uses a single pseudo-queue for all its RPC
+requests on a given channel.
 
-That raises a new issue, having received a response in that queue it's
+That raises an issue: having received a response, it's
 not clear to which request the response belongs. That's when the
 `correlation_id` property is used. We're going to set it to a unique
 value for every request. Later, when we receive a message in the
@@ -130,16 +138,17 @@ gracefully, and the RPC should ideally be idempotent.
 
 Our RPC will work like this:
 
-  * When the Client starts up, it creates an exclusive
-    callback queue.
+  * When the Client starts up, it consumes from the pseudo-queue
+    `amq.rabbitmq.reply-to` using [Direct Reply-to](/docs/direct-reply-to).
+    No queue declaration is needed.
   * For an RPC request, the Client sends a message with two properties:
-    `reply_to`, which is set to the callback queue and `correlation_id`,
+    `reply_to`, which is set to `amq.rabbitmq.reply-to`, and `correlation_id`,
     which is set to a unique value for every request.
   * The request is sent to an `rpc_queue` queue.
   * The RPC worker (aka: server) is waiting for requests on that queue.
     When a request appears, it does the job and sends a message with the
     result back to the Client, using the queue from the `reply_to` field.
-  * The client waits for data on the callback queue. When a message
+  * The client waits for data on the reply-to pseudo-queue. When a message
     appears, it checks the `correlation_id` property. If it matches
     the value from the request it returns the response to the
     application.
@@ -168,42 +177,37 @@ The code for our RPC server [rpc_server.js](https://github.com/rabbitmq/rabbitmq
 ```javascript
 #!/usr/bin/env node
 
-var amqp = require('amqplib/callback_api');
+const amqp = require('amqplib');
 
-amqp.connect('amqp://localhost', function(error0, connection) {
-  if (error0) {
-    throw error0;
-  }
-  connection.createChannel(function(error1, channel) {
-    if (error1) {
-      throw error1;
+async function main() {
+  const connection = await amqp.connect('amqp://localhost');
+  const channel = await connection.createChannel();
+
+  const queue = 'rpc_queue';
+
+  await channel.assertQueue(queue, {
+    durable: true,
+    arguments: {
+      'x-queue-type': 'quorum'
     }
-    var queue = 'rpc_queue';
-
-    channel.assertQueue(queue, {
-      durable: true,
-      arguments: {
-        'x-queue-type': 'quorum'
-      }
-    });
-    channel.prefetch(1);
-    console.log(' [x] Awaiting RPC requests');
-    channel.consume(queue, function reply(msg) {
-      var n = parseInt(msg.content.toString());
-
-      console.log(" [.] fib(%d)", n);
-
-      var r = fibonacci(n);
-
-      channel.sendToQueue(msg.properties.replyTo,
-        Buffer.from(r.toString()), {
-          correlationId: msg.properties.correlationId
-        });
-
-      channel.ack(msg);
-    });
   });
-});
+  channel.prefetch(1);
+  console.log(' [x] Awaiting RPC requests');
+  channel.consume(queue, function reply(msg) {
+    const n = parseInt(msg.content.toString());
+
+    console.log(" [.] fib(%d)", n);
+
+    const r = fibonacci(n);
+
+    channel.sendToQueue(msg.properties.replyTo,
+      Buffer.from(r.toString()), {
+        correlationId: msg.properties.correlationId
+      });
+
+    channel.ack(msg);
+  });
+}
 
 function fibonacci(n) {
   if (n == 0 || n == 1)
@@ -211,6 +215,8 @@ function fibonacci(n) {
   else
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
+
+main();
 ```
 
 The server code is rather straightforward:
@@ -229,59 +235,51 @@ The code for our RPC client [rpc_client.js](https://github.com/rabbitmq/rabbitmq
 ```javascript
 #!/usr/bin/env node
 
-var amqp = require('amqplib/callback_api');
+const amqp = require('amqplib');
 
-var args = process.argv.slice(2);
+const args = process.argv.slice(2);
 
 if (args.length == 0) {
   console.log("Usage: rpc_client.js num");
   process.exit(1);
 }
 
-amqp.connect('amqp://localhost', function(error0, connection) {
-  if (error0) {
-    throw error0;
-  }
-  connection.createChannel(function(error1, channel) {
-    if (error1) {
-      throw error1;
+async function main() {
+  const connection = await amqp.connect('amqp://localhost');
+  const channel = await connection.createChannel();
+
+  const correlationId = generateUuid();
+  const num = parseInt(args[0]);
+
+  console.log(' [x] Requesting fib(%d)', num);
+
+  // Consume from the Direct Reply-to pseudo-queue (noAck is mandatory)
+  channel.consume('amq.rabbitmq.reply-to', function(msg) {
+    if (msg.properties.correlationId == correlationId) {
+      console.log(' [.] Got %s', msg.content.toString());
+      setTimeout(function() {
+        connection.close();
+        process.exit(0);
+      }, 500);
     }
-    channel.assertQueue('', {
-      exclusive: true
-    }, function(error2, q) {
-      if (error2) {
-        throw error2;
-      }
-      var correlationId = generateUuid();
-      var num = parseInt(args[0]);
-
-      console.log(' [x] Requesting fib(%d)', num);
-
-      channel.consume(q.queue, function(msg) {
-        if (msg.properties.correlationId == correlationId) {
-          console.log(' [.] Got %s', msg.content.toString());
-          setTimeout(function() {
-            connection.close();
-            process.exit(0)
-          }, 500);
-        }
-      }, {
-        noAck: true
-      });
-
-      channel.sendToQueue('rpc_queue',
-        Buffer.from(num.toString()),{
-          correlationId: correlationId,
-          replyTo: q.queue });
-    });
+  }, {
+    noAck: true
   });
-});
+
+  channel.sendToQueue('rpc_queue',
+    Buffer.from(num.toString()), {
+      correlationId: correlationId,
+      replyTo: 'amq.rabbitmq.reply-to'
+    });
+}
 
 function generateUuid() {
   return Math.random().toString() +
          Math.random().toString() +
          Math.random().toString();
 }
+
+main();
 ```
 
 Now is a good time to take a look at our full example source code for

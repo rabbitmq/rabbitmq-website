@@ -6,7 +6,7 @@ Copyright (c) 2005-2026 Broadcom. All Rights Reserved. The term "Broadcom" refer
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
-Version 2.0 (the "License”); you may not use this file except in compliance
+Version 2.0 (the "License"); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -77,53 +77,42 @@ we need to require the library first:
 ```javascript
 #!/usr/bin/env node
 
-var amqp = require('amqplib/callback_api');
+const amqp = require('amqplib');
 ```
 
 then connect to RabbitMQ server
 
 ```javascript
-amqp.connect('amqp://localhost', function(error0, connection) {});
+const connection = await amqp.connect('amqp://localhost');
 ```
 
 Next we create a channel, which is where most of the API for getting
 things done resides:
 
 ```javascript
-amqp.connect('amqp://localhost', function(error0, connection) {
-  if (error0) {
-    throw error0;
-  }
-  connection.createChannel(function(error1, channel) {});
-});
+const connection = await amqp.connect('amqp://localhost');
+const channel = await connection.createChannel();
 ```
 
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
 ```javascript
-amqp.connect('amqp://localhost', function(error0, connection) {
-  if (error0) {
-    throw error0;
+const connection = await amqp.connect('amqp://localhost');
+const channel = await connection.createChannel();
+
+const queue = 'hello';
+const msg = 'Hello world';
+
+await channel.assertQueue(queue, {
+  durable: true,
+  arguments: {
+    'x-queue-type': 'quorum'
   }
-  connection.createChannel(function(error1, channel) {
-    if (error1) {
-      throw error1;
-    }
-    var queue = 'hello';
-    var msg = 'Hello world';
-
-    channel.assertQueue(queue, {
-      durable: true,
-      arguments: {
-        'x-queue-type': 'quorum'
-      }
-    });
-
-    channel.sendToQueue(queue, Buffer.from(msg));
-    console.log(" [x] Sent %s", msg);
-  });
 });
+
+channel.sendToQueue(queue, Buffer.from(msg));
+console.log(" [x] Sent %s", msg);
 ```
 
 Declaring a queue is idempotent - it will only be created if it doesn't
@@ -167,7 +156,7 @@ The code (in [`receive.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/
 ```javascript
 #!/usr/bin/env node
 
-var amqp = require('amqplib/callback_api');
+const amqp = require('amqplib');
 ```
 
 Setting up is the same as the publisher; we open a connection and a
@@ -175,23 +164,16 @@ channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `sendToQueue` publishes to.
 
 ```javascript
-amqp.connect('amqp://localhost', function(error0, connection) {
-  if (error0) {
-    throw error0;
-  }
-  connection.createChannel(function(error1, channel) {
-    if (error1) {
-      throw error1;
-    }
-    var queue = 'hello';
+const connection = await amqp.connect('amqp://localhost');
+const channel = await connection.createChannel();
 
-    channel.assertQueue(queue, {
-      durable: true,
-      arguments: {
-        'x-queue-type': 'quorum'
-      }
-    });
-  });
+const queue = 'hello';
+
+await channel.assertQueue(queue, {
+  durable: true,
+  arguments: {
+    'x-queue-type': 'quorum'
+  }
 });
 ```
 
@@ -248,4 +230,3 @@ the publisher from another terminal.
 > ```
 
 Time to move on to [part 2](./tutorial-two-javascript) and build a simple _work queue_.
-
