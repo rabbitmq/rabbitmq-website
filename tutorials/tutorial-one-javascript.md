@@ -80,7 +80,12 @@ we need to require the library first:
 const amqp = require('amqplib');
 ```
 
-then connect to RabbitMQ server
+All of the asynchronous operations below run inside an `async` function so
+that we can use `await`. The snippets that follow show only the relevant
+lines; refer to the [complete send.js](#putting-it-all-together) at the end
+for the full, runnable program.
+
+We connect to RabbitMQ server:
 
 ```javascript
 const connection = await amqp.connect('amqp://localhost');
@@ -90,7 +95,6 @@ Next we create a channel, which is where most of the API for getting
 things done resides:
 
 ```javascript
-const connection = await amqp.connect('amqp://localhost');
 const channel = await connection.createChannel();
 ```
 
@@ -98,9 +102,6 @@ To send, we must declare a queue for us to send to; then we can publish a messag
 to the queue:
 
 ```javascript
-const connection = await amqp.connect('amqp://localhost');
-const channel = await connection.createChannel();
-
 const queue = 'hello';
 const msg = 'Hello world';
 
@@ -159,14 +160,14 @@ The code (in [`receive.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/
 const amqp = require('amqplib');
 ```
 
+As before, the code below runs inside an `async` function; see the
+[complete receive.js](#putting-it-all-together) at the end.
+
 Setting up is the same as the publisher; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `sendToQueue` publishes to.
 
 ```javascript
-const connection = await amqp.connect('amqp://localhost');
-const channel = await connection.createChannel();
-
 const queue = 'hello';
 
 await channel.assertQueue(queue, {
