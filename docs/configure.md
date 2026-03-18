@@ -583,9 +583,23 @@ If `rabbitmq-env.conf` doesn't exist, it can be created manually
 in the location specified by the `RABBITMQ_CONF_ENV_FILE` variable.
 On Windows systems, it is named `rabbitmq-env-conf.bat`.
 
-Windows service users will need to **[re-install the service](#rabbitmq-env-file-windows)** if
-configuration file location or any values in ``rabbitmq-env-conf.bat` have changed.
-Environment variables used by the service would not be updated otherwise.
+:::warning
+When RabbitMQ runs as a Windows service, `rabbitmq-env-conf.bat` is **only read
+at service installation time** (when `rabbitmq-service.bat install` is executed).
+It is **not** re-read when the service starts.
+
+Only a limited set of environment variables defined in `rabbitmq-env-conf.bat`
+are persisted into the Windows service configuration (via [`erlsrv`](https://www.erlang.org/doc/system/erlsrv_cmd.html)):
+`RABBITMQ_NODENAME`, `RABBITMQ_BASE`, `RABBITMQ_CONFIG_FILE`,
+`RABBITMQ_LOG_BASE`, `RABBITMQ_MNESIA_BASE`.
+
+Other environment variables (such as `ERL_EPMD_PORT`) will **not** be
+picked up by the service from `rabbitmq-env-conf.bat`. To make them available
+to the service, define them as **system-wide environment variables**.
+
+If `rabbitmq-env-conf.bat` or any related environment variable values change,
+the service must be **[re-installed](#rabbitmq-env-file-windows)** for the changes to take effect.
+:::
 
 In the context of deployment automation this means that environment variables
 such as `RABBITMQ_BASE` and `RABBITMQ_CONFIG_FILE` should ideally be set before RabbitMQ is installed.
@@ -1971,8 +1985,19 @@ to define environment variables that will be used by the broker.
 Its [location](#config-location) is configurable
 using the `RABBITMQ_CONF_ENV_FILE` environment variable.
 
+:::important
+`rabbitmq-env-conf.bat` is only read when `rabbitmq-service.bat install` is executed.
+Only a limited set of variables from this file are persisted into the Windows service
+configuration (via [`erlsrv`](https://www.erlang.org/doc/system/erlsrv_cmd.html)):
+`RABBITMQ_NODENAME`, `RABBITMQ_BASE`, `RABBITMQ_CONFIG_FILE`,
+`RABBITMQ_LOG_BASE`, `RABBITMQ_MNESIA_BASE`.
+
+For other environment variables to be available to the service,
+set them as **system-wide environment variables**.
+:::
+
 Windows service users will need to **re-install the service** if configuration file location
-or any values in ``rabbitmq-env-conf.bat` changed. Environment variables used by
+or any values in `rabbitmq-env-conf.bat` changed. Environment variables used by
 the service would not be updated otherwise.
 
 This can be done using the installer or on the command line
