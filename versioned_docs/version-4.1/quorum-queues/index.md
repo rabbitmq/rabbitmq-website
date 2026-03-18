@@ -365,9 +365,11 @@ dropped messages are retained for some time after.
 :::important
 
 Starting with RabbitMQ 4.0, the delivery limit for quorum queues defaults to 20.
+To disable it, set `delivery-limit` to `-1` using a [policy](./policies) or the `x-delivery-limit`
+[queue argument](./queues#optional-arguments).
 
-The 3.13.x era behavior where there was no limit can be restored by setting `x-delivery-limit=-1`
-[optional queue argument](./queues#optional-arguments) when declaring a queue.
+The delivery limit is not a dynamic policy setting: once a queue is declared,
+changes to `delivery-limit` in a policy will not take effect.
 
 :::
 
@@ -375,10 +377,11 @@ See [repeated requeues](#repeated-requeues) for more details.
 
 ### Configuring the Limit {#position-message-handling-configuring-limit}
 
-It is possible to set a delivery limit for a queue using a [policy](./policies) argument, `delivery-limit`.
+The delivery limit can be set using the [policy](./policies) key `delivery-limit`
+or the `x-delivery-limit` queue argument. A value of `-1` disables the limit.
 
-The value of `-1`, which disables the limit altogether, cannot be currently set through a policy - this
-can only be done with `x-delivery-limit=-1` queue argument during queue declaration.
+This is not a dynamic policy setting: once a queue is declared,
+policy changes to `delivery-limit` will not take effect.
 
 #### Overriding the Limit
 
