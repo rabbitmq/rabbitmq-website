@@ -47,7 +47,9 @@ connections:
  * [TLSv1.3](#tls1.3) support
  * Tools that can be used to [evaluate a TLS setup](#tls-evaluation-tools)
  * [Certificate and key rotation](#rotation)
- * The [trust store plugin](#trust-store-plugin) for environments where trusted certificates changes frequently
+ * The [Trust Store plugin](#trust-store) for environments where only a set of
+   leaf certificates should be used for peer verification (the chain is not really traversed)
+ * [Client Certificate-based](#trust-store-x509-auth) authentication
  * Known [attacks on TLS](#major-vulnerabilities) and their mitigation
  * How to use [private key passwords](#private-key-passwords)
 
@@ -2122,20 +2124,173 @@ rabbitmqctl.bat eval -n [target-node@hostname] "ssl:clear_pem_cache()."
 </Tabs>
 
 
-## The Trust Store Plugin {#trust-store-plugin}
+## The Trust Store Plugin {#trust-store}
+
+In some environments, there's a set of leaf (client) [trusted certificates](#peer-verification) that must be trusted
+and that's it, the chain is not traversed and the traditional trust roots (CAs) are not used.
+
+This approach is often used in environments where client certificates are also used [as identities](#trust-store-x509-auth),
+must be unique, and churn (change: some are added, others removed) often.
 
 [`rabbitmq_trust_store`](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_trust_store) is a plugin that
-targets environments where [peer verification](#peer-verification) is heavily used and the list of trusted certificates is fairly dynamic.
-That is, that the trusted leaf client certificates changes fairly often and it makes more sense to whitelist
-them than to use certificate revocation or intermediate certificates.
+overrides the peer verification algorithm to do just that: verify that the connected client's certificate
+belongs to a set (a whitelist).
 
-The trust store plugin supports two sources of trusted leaf client certificates:
+The whitelist comes from either a local filesystem directory or an HTTP API endpoint that follows
+a small set of conventions. The list is refreshed at a configurable interval,
+allowing certificates to be added or removed without restarting the node
+or affecting existing connections.
 
- * A local directory with certificates
- * A set of HTTPS endpoints that follows a certain convention
+### Certificate Providers {#trust-store-providers}
 
-Please refer to the [doc guide](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_trust_store) of the plugin
-to learn more about how both options can be set up.
+The trust store supports two sources (providers) of trusted leaf client certificates:
+
+ * **Filesystem provider** (default): loads certificates from a local directory
+ * **HTTPS provider**: retrieves certificates from a remote HTTPS endpoint
+
+#### Filesystem Provider {#trust-store-filesystem}
+
+To use the filesystem provider, configure a directory that contains the trusted client certificates
+in the PEM format:
+
+```ini
+# will monitor `/path/to/trust-store/whitelist` for files additions and deletion
+trust_store.directory = /path/to/trust-store/whitelist
+# scan the above directory every 30 seconds
+trust_store.refresh_interval = 30
+```
+
+Setting `refresh_interval` to `0` will disable automatic reloading.
+
+#### HTTP Provider {#trust-store-http}
+
+To retrieve certificates from a remote HTTPS endpoint that follows
+certain convention:
+
+```ini
+trust_store.providers.1 = http
+trust_store.url = https://certs.example.com/trusted
+trust_store.refresh_interval = 30
+```
+
+#### Provider HTTP API
+
+The remote server must expose an HTTP API that lists certificates
+and allows for fetching individual certificates.
+
+`GET <url>` must respond with a `200 OK` and the following body:
+
+```json
+{
+  "certificates": [
+    {"id": "certificate-1", "path": "/certificates/1.pem"},
+    {"id": "certificate-2", "path": "/certificates/2.pem"}
+    // , ...
+  ]
+}
+```
+
+Certificate IDs must be valid filenames and be unique.
+
+`GET <url>/<relative-url>`, such as `"/certificates/1.pem"` in the example above,
+must respond with a `200 OK` and return a PEM-encoded certificate in its body.
+
+The provider uses the `If-Modified-Since` header to
+avoid unnecessary re-downloads.
+
+If the HTTPS endpoint itself authenticates clients using a x.509 certificate,
+configure its CA certificate bundle, public and private keys:
+
+```ini
+trust_store.ssl_options.certfile   = /path/to/client/client_certificate.pem
+trust_store.ssl_options.keyfile    = /path/to/client/client_key.pem
+trust_store.ssl_options.cacertfile = /path/to/ca/trusted_ca_bundle.pem
+```
+
+Finally, a request timeout can be set with `trust_store.https_request_timeout`.
+
+### Using the Trust Store for Client (x509) Certificate Authentication {#trust-store-x509-auth}
+
+The aforementioned Trust Store plugin and the
+[`rabbitmq_auth_mechanism_ssl`](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_mechanism_ssl) plugin
+serve two complementary roles:
+
+ * `rabbitmq_trust_store` handles **certificate validation**: verifies if the client certificate is on the trusted whitelist
+ * `rabbitmq_auth_mechanism_ssl` handles **client authentication**: extracts an identity from the certificate and maps it to a RabbitMQ user
+
+Combined with the [EXTERNAL authentication mechanism](./access-control#certificate-authentication),
+they allow clients to authenticate with just their x.509 certificate.
+
+This setup requires two plugins to be enabled:
+
+```bash
+rabbitmq-plugins enable rabbitmq_trust_store
+rabbitmq-plugins enable rabbitmq_auth_mechanism_ssl
+```
+
+Then configure TLS, the trust store, and the authentication mechanism in `rabbitmq.conf`:
+
+```ini
+# TLS listener
+listeners.ssl.default = 5671
+
+ssl_options.cacertfile = /path/to/ca_certificate.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
+ssl_options.verify     = verify_peer
+ssl_options.fail_if_no_peer_cert = true
+
+# Trust store: directory containing whitelisted client certificates
+trust_store.directory = /path/to/trust-store/whitelist
+trust_store.refresh_interval = 30
+
+# Enable the EXTERNAL mechanism so clients can authenticate with a certificate
+auth_mechanisms.1 = EXTERNAL
+auth_mechanisms.2 = PLAIN
+
+# Extract the username from the certificate's Common Name (CN) field.
+# Other supported options: distinguished_name (default), subject_alternative_name
+ssl_cert_login_from = common_name
+```
+
+The `ssl_cert_login_from` setting controls which field of the client certificate is used as the RabbitMQ username:
+
+ * `distinguished_name` (default): uses the full subject DN in RFC 4514 format (for example, `CN=guest,O=client,L=Paris,ST=France,C=FR`)
+ * `common_name`: uses only the CN field (for example, `guest`)
+ * `subject_alternative_name`: uses a SAN entry, configured with `ssl_cert_login_san_type` (for example, `dns`, `email`) and an `ssl_cert_login_san_index`
+   to pick a specific entry from a list
+
+A RabbitMQ user matching the extracted name must exist in the configured
+[authentication and authorisation backend(s)](./access-control#backends).
+
+When the `EXTERNAL` mechanism is used, the client-provided password is ignored.
+
+### Inspecting and Refreshing the Whitelist {#trust-store-management}
+
+To list currently loaded certificates:
+
+```bash
+rabbitmqctl eval 'io:format(rabbit_trust_store:list()).'
+```
+
+To manually trigger a whitelist refresh:
+
+```bash
+rabbitmqctl eval 'rabbit_trust_store:refresh().'
+```
+
+### TLS Session Caching {#trust-store-session-caching}
+
+TLS session caching bypasses trust store certificate validation. When a client resumes
+a cached TLS session, the trust store is not consulted. To ensure that removed certificates
+are immediately rejected, disable TLS session caching:
+
+```ini
+ssl_options.reuse_sessions = false
+```
+
+Please refer to the [plugin README](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_trust_store) for
+additional details and advanced configuration options.
 
 
 ## Using TLS in the Erlang Client {#erlang-client}
