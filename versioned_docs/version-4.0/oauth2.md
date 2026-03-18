@@ -340,7 +340,7 @@ grant access. Instead, it decodes an access token provided by the client and aut
 on the scopes found in the token.
 
 Tokens must be digitally signed otherwise they are not accepted. RabbitMQ must have the signing key
-to validate the signature. There are three ways to configure how RabbitMQ obtains signing keys:
+to validate the signature. RabbitMQ can be configured to obtains signing keys in different ways:
 
 * **Issuer URL** (recommended): Configure `auth_oauth2.issuer` with the OpenID Provider's URL.
   RabbitMQ discovers the JWKS endpoint via the
