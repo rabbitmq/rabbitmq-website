@@ -391,7 +391,7 @@ grants access. Instead, it decodes an access token provided by the client and au
 based on the scopes found in the token.
 
 Tokens must be digitally signed otherwise they are not accepted. RabbitMQ must have the signing key
-to validate the signature. There are three ways to configure how RabbitMQ obtains signing keys:
+to validate the signature. RabbitMQ can be configured to obtains signing keys in different ways:
 
 * **Issuer URL** (recommended): configure `auth_oauth2.issuer` with the OpenID Provider's URL.
   RabbitMQ discovers the JWKS endpoint via the
@@ -766,14 +766,14 @@ If `scope_prefix` is configured then scopes are prefixed as follows: `<scope_pre
 For example, if `scope_prefix` is `api://` and the permission is `read:*/*` the scope would be
 `api://read:*/*`
 
-#### Variable expansion 
+#### Variable Expansion
 
-OAuth 2.0 authorisation backend supports variable expansion when checking permission on vhosts and resources 
+OAuth 2.0 authorisation backend supports variable expansion when checking permission on vhosts and resources
 such as queues and exchanges.
 Variabbles can be any JWT claims whose value is a plain string and/or the `vhost` variable.
 
 For example, a user connected with the token below to the vhost `prod` should have a write
-permission on all exchanges starting with `x-prod-`, and any routing key starting with `u-bob-`, 
+permission on all exchanges starting with `x-prod-`, and any routing key starting with `u-bob-`,
 where `bob` comes from the `sub` JWT claim:
 
 ```json
@@ -805,7 +805,7 @@ To publish to a **Topic Exchange**, you need to have the following scope:
 
 > for example `rabbitmq.write:*/*/*`
 
-#### Variable expansion 
+#### Variable Expansion
 
 OAuth 2.0 authorisation backend supports variable expansion when checking permission on topics.
 It supports JWT claims whose value is a plain string, plus the `vhost` variable.
