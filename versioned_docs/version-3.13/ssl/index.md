@@ -47,7 +47,9 @@ connections:
  * [TLSv1.3](#tls1.3) support
  * Tools that can be used to [evaluate a TLS setup](#tls-evaluation-tools)
  * [Certificate and key rotation](#rotation)
- * The [trust store plugin](#trust-store-plugin) for environments where trusted certificates change frequently, including [x509 client certificate authentication](#trust-store-x509-auth)
+ * The [Trust Store plugin](#trust-store) for environments where only a set of
+   leaf certificates should be used for peer verification (the chain is not really traversed)
+ * [Client Certificate-based](#trust-store-x509-auth) authentication
  * Known [attacks on TLS](#major-vulnerabilities) and their mitigation
  * How to use [private key passwords](#private-key-passwords)
 
@@ -2122,40 +2124,48 @@ rabbitmqctl.bat eval -n [target-node@hostname] "ssl:clear_pem_cache()."
 </Tabs>
 
 
-## The Trust Store Plugin {#trust-store-plugin}
+## The Trust Store Plugin {#trust-store}
+
+In some environments, there's a set of leaf (client) [trusted certificates](#peer-verification) that must be trusted
+and that's it, the chain is not traversed and the traditional trust roots (CAs) are not used.
+
+This approach is often used in environments where client certificates are also used [as identities](#trust-store-x509-auth),
+must be unique, and churn (change: some are added, others removed) often.
 
 [`rabbitmq_trust_store`](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_trust_store) is a plugin that
-targets environments where [peer verification](#peer-verification) is heavily used and the list of trusted certificates is fairly dynamic.
-That is, that the trusted leaf client certificates change fairly often and it makes more sense to whitelist
-them than to use certificate revocation or intermediate certificates.
+overrides the peer verification algorithm to do just that: verify that the connected client's certificate
+belongs to a set (a whitelist).
 
-Instead of traversing a Certificate Authority hierarchy, the plugin validates client certificates
-against a maintained whitelist of trusted PEM-formatted x.509 certificates. The whitelist is refreshed
-at a configurable interval, allowing certificates to be added or removed without restarting the node
+The whitelist comes from either a local filesystem directory or an HTTP API endpoint that follows
+a small set of conventions. The list is refreshed at a configurable interval,
+allowing certificates to be added or removed without restarting the node
 or affecting existing connections.
 
 ### Certificate Providers {#trust-store-providers}
 
-The trust store plugin supports two sources (providers) of trusted leaf client certificates:
+The trust store supports two sources (providers) of trusted leaf client certificates:
 
  * **Filesystem provider** (default): loads certificates from a local directory
- * **HTTP provider**: retrieves certificates from a remote HTTPS endpoint
+ * **HTTPS provider**: retrieves certificates from a remote HTTPS endpoint
 
 #### Filesystem Provider {#trust-store-filesystem}
 
 To use the filesystem provider, configure a directory that contains the trusted client certificates
-in PEM format:
+in the PEM format:
 
 ```ini
+# will monitor `/path/to/trust-store/whitelist` for files additions and deletion
 trust_store.directory = /path/to/trust-store/whitelist
+# scan the above directory every 30 seconds
 trust_store.refresh_interval = 30
 ```
 
-Setting `refresh_interval` to `0` disables automatic reloading.
+Setting `refresh_interval` to `0` will disable automatic reloading.
 
 #### HTTP Provider {#trust-store-http}
 
-To retrieve certificates from a remote HTTPS endpoint:
+To retrieve certificates from a remote HTTPS endpoint that follows
+certain convention:
 
 ```ini
 trust_store.providers.1 = http
@@ -2163,34 +2173,53 @@ trust_store.url = https://certs.example.com/trusted
 trust_store.refresh_interval = 30
 ```
 
-The remote server must expose an API that returns a JSON list of certificates:
+#### Provider HTTP API
 
- * `GET <url>` must return `{"certificates": [{"id": <id>, "path": <relative-url>}, ...]}`
- * `GET <url>/<relative-url>` must return the PEM-encoded certificate
+The remote server must expose an HTTP API that lists certificates
+and allows for fetching individual certificates.
 
-The provider uses `If-Modified-Since` headers to avoid unnecessary downloads.
+`GET <url>` must respond with a `200 OK` and the following body:
 
-If the HTTPS endpoint requires client certificate authentication:
-
-```ini
-trust_store.ssl_options.certfile   = /path/to/client/cert.pem
-trust_store.ssl_options.keyfile    = /path/to/client/key.pem
-trust_store.ssl_options.cacertfile = /path/to/ca/cert.pem
+```json
+{
+  "certificates": [
+    {"id": "certificate-1", "path": "/certificates/1.pem"},
+    {"id": "certificate-2", "path": "/certificates/2.pem"}
+    // , ...
+  ]
+}
 ```
 
-A request timeout can be set with `trust_store.https_request_timeout`.
+Certificate IDs must be valid filenames and be unique.
 
-### Using the Trust Store for x509 Client Certificate Authentication {#trust-store-x509-auth}
+`GET <url>/<relative-url>`, such as `"/certificates/1.pem"` in the example above,
+must respond with a `200 OK` and return a PEM-encoded certificate in its body.
 
-The trust store plugin and the
+The provider uses the `If-Modified-Since` header to
+avoid unnecessary re-downloads.
+
+If the HTTPS endpoint itself authenticates clients using a x.509 certificate,
+configure its CA certificate bundle, public and private keys:
+
+```ini
+trust_store.ssl_options.certfile   = /path/to/client/client_certificate.pem
+trust_store.ssl_options.keyfile    = /path/to/client/client_key.pem
+trust_store.ssl_options.cacertfile = /path/to/ca/trusted_ca_bundle.pem
+```
+
+Finally, a request timeout can be set with `trust_store.https_request_timeout`.
+
+### Using the Trust Store for Client (x509) Certificate Authentication {#trust-store-x509-auth}
+
+The aforementioned Trust Store plugin and the
 [`rabbitmq_auth_mechanism_ssl`](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_mechanism_ssl) plugin
 serve two complementary roles:
 
- * `rabbitmq_trust_store` handles **certificate validation**: is the client certificate in the whitelist?
- * `rabbitmq_auth_mechanism_ssl` handles **authentication**: extract an identity from the certificate and map it to a RabbitMQ user
+ * `rabbitmq_trust_store` handles **certificate validation**: verifies if the client certificate is on the trusted whitelist
+ * `rabbitmq_auth_mechanism_ssl` handles **client authentication**: extracts an identity from the certificate and maps it to a RabbitMQ user
 
 Combined with the [EXTERNAL authentication mechanism](./access-control#certificate-authentication),
-they allow clients to authenticate solely with their x.509 certificate.
+they allow clients to authenticate with just their x.509 certificate.
 
 This setup requires two plugins to be enabled:
 
@@ -2219,8 +2248,8 @@ trust_store.refresh_interval = 30
 auth_mechanisms.1 = EXTERNAL
 auth_mechanisms.2 = PLAIN
 
-# Extract the username from the certificate's Common Name (CN).
-# Other options: distinguished_name (default), subject_alternative_name
+# Extract the username from the certificate's Common Name (CN) field.
+# Other supported options: distinguished_name (default), subject_alternative_name
 ssl_cert_login_from = common_name
 ```
 
@@ -2228,11 +2257,13 @@ The `ssl_cert_login_from` setting controls which field of the client certificate
 
  * `distinguished_name` (default): uses the full subject DN in RFC 4514 format (for example, `CN=guest,O=client,L=Paris,ST=France,C=FR`)
  * `common_name`: uses only the CN field (for example, `guest`)
- * `subject_alternative_name`: uses a SAN entry, configured with `ssl_cert_login_san_type` (for example, `dns`, `email`) and `ssl_cert_login_san_index`
+ * `subject_alternative_name`: uses a SAN entry, configured with `ssl_cert_login_san_type` (for example, `dns`, `email`) and an `ssl_cert_login_san_index`
+   to pick a specific entry from a list
 
 A RabbitMQ user matching the extracted name must exist in the configured
-[authentication / authorisation backend](./access-control#backends).
-Any client-provided password is ignored when the EXTERNAL mechanism is used.
+[authentication and authorisation backend(s)](./access-control#backends).
+
+When the `EXTERNAL` mechanism is used, the client-provided password is ignored.
 
 ### Inspecting and Refreshing the Whitelist {#trust-store-management}
 
