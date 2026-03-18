@@ -44,8 +44,9 @@ would like to see added to this list.
 
 ## Load Testing and Workload Simulation {#workload-simulation}
 
- * &#x2713; [PerfTest](https://perftest.rabbitmq.com/) for [quorum](/docs/quorum-queues) and classic queues
+ * &#x2713; [PerfTest](https://perftest.rabbitmq.com/) for [quorum](/docs/quorum-queues) and classic queues with AMQP 0.9.1
  * &#x2713; [Stream PerfTest](https://rabbitmq.github.io/rabbitmq-stream-java-client/stable/htmlsingle/#the-performance-tool) for [streams](/docs/streams)
+ * &#x2713; [OMQ](https://github.com/rabbitmq/omq) for quorum and classic queues and streams with AMQP 1.0, AMQP 0.9.1, STOMP, and MQTT 3.1/3.1.1/5.0
 
 ## Java and Spring {#java-dev}
 
