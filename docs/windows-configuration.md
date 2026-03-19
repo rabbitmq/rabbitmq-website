@@ -40,8 +40,13 @@ firewall but without any anti-virus software.
 
 ## Environment Variables and the Windows Service {#env-vars-windows-service}
 
-When RabbitMQ runs as a Windows service, `rabbitmq-env-conf.bat` is only read
-at service installation time (when `rabbitmq-service.bat install` is executed).
+When RabbitMQ is started interactively using `rabbitmq-server.bat`,
+`rabbitmq-env-conf.bat` is read on every startup, and all environment
+variables defined in it are available to the node.
+
+This is **not** the case when RabbitMQ runs as a Windows service:
+`rabbitmq-env-conf.bat` is only read at service installation time
+(when `rabbitmq-service.bat install` is executed).
 It is not re-read each time the service starts.
 
 Only a limited set of environment variables from `rabbitmq-env-conf.bat` are
