@@ -156,7 +156,6 @@ Miscellaneous projects:
 
  * &#x2713; [Swift 6 AMQP 0-9-1 client](https://github.com/michaelklishin/bunny-swift) from the RabbitMQ team
  * &#x2713; [Swift 6 client for the RabbitMQ HTTP API](https://github.com/michaelklishin/rabbitmq-http-api-client-swift) from the RabbitMQ team
- * [Get Started with RabbitMQ on Android](https://www.cloudamqp.com/blog/2014-10-28-rabbitmq-on-android.html)
 
 ## Swift {#swift-dev}
 
