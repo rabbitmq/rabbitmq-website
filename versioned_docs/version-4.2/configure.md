@@ -583,9 +583,15 @@ If `rabbitmq-env.conf` doesn't exist, it can be created manually
 in the location specified by the `RABBITMQ_CONF_ENV_FILE` variable.
 On Windows systems, it is named `rabbitmq-env-conf.bat`.
 
-Windows service users will need to **[re-install the service](#rabbitmq-env-file-windows)** if
-configuration file location or any values in ``rabbitmq-env-conf.bat` have changed.
+:::important
+
+Windows service users will need to **[re-install the service](#rabbitmq-env-file-windows)** should the configuration file location
+or any values in `rabbitmq-env-conf.bat` change.
 Environment variables used by the service would not be updated otherwise.
+
+:::
+
+To make other environment variables available to the Windows service, define them as system-wide environment variables.
 
 In the context of deployment automation this means that environment variables
 such as `RABBITMQ_BASE` and `RABBITMQ_CONFIG_FILE` should ideally be set before RabbitMQ is installed.
@@ -1971,9 +1977,24 @@ to define environment variables that will be used by the broker.
 Its [location](#config-location) is configurable
 using the `RABBITMQ_CONF_ENV_FILE` environment variable.
 
-Windows service users will need to **re-install the service** if configuration file location
-or any values in ``rabbitmq-env-conf.bat` changed. Environment variables used by
+:::important
+
+Windows service users will need to **re-install the service** should the configuration file location
+or any values in `rabbitmq-env-conf.bat` change. Environment variables used by
 the service would not be updated otherwise.
+
+Only a limited set of variables from the `rabbitmq-env-conf.bat` file are persisted into the Windows service
+configuration (via [`erlsrv`](https://www.erlang.org/doc/system/erlsrv_cmd.html)):
+
+ * `RABBITMQ_NODENAME`
+ * `RABBITMQ_BASE`
+ * `RABBITMQ_CONFIG_FILE`
+ * `RABBITMQ_LOG_BASE`
+ * `RABBITMQ_MNESIA_BASE`
+
+:::
+
+To make other environment variables available to the Windows service, define them as system-wide environment variables.
 
 This can be done using the installer or on the command line
 with administrator permissions:
