@@ -34,6 +34,7 @@ There's also a companion [troubleshooting guide for OAuth 2-specific problems](.
 ### [How to configure it](#how-to-configure-it)
 
 * [Prerequisites](#prerequisites)
+* [Understanding required scopes](#required-scopes)
 * [Configure OAuth 2.0 step by step](#configure-for-openid-connect)
 
 ### [How it works](#how-it-works)
@@ -97,6 +98,32 @@ example, the following configuration adds OAuth 2.0 as the only authentication b
 ```ini
 auth_backends.1 = oauth2
 ```
+
+### Understanding required scopes {#required-scopes}
+
+Before configuring OAuth 2.0, it is important to understand which scopes your tokens must carry.
+
+:::warning
+A common misconception is that the `tag:administrator` scope grants full access to RabbitMQ.
+It does **not**. It only grants access to the [management UI and HTTP API](./management#permissions).
+To publish, consume, or manage messaging resources (queues, exchanges, bindings),
+your tokens must also include the appropriate `configure`, `read`, and `write` scopes.
+:::
+
+All scopes follow the format `<resource_server_id>.<permission>:<vhost>/<resource>[/<routing_key>]`.
+For example, if `resource_server_id` is `rabbitmq`:
+
+| Operation | Required scope(s) | Example |
+|---|---|---|
+| Access management UI | `tag:management` or `tag:administrator` | `rabbitmq.tag:management` |
+| Publish to an exchange | `write` on the exchange | `rabbitmq.write:*/*` |
+| Consume from a queue | `read` on the queue | `rabbitmq.read:*/*` |
+| Declare/delete a queue or exchange | `configure` on the resource | `rabbitmq.configure:*/*` |
+| Bind a queue to a topic exchange | `write` on the queue + `read` on the exchange (both with routing key) | `rabbitmq.write:*/*/*` + `rabbitmq.read:*/*/*` |
+| Full access (all vhosts) | All three permissions | `rabbitmq.configure:*/*` `rabbitmq.read:*/*` `rabbitmq.write:*/*` |
+
+For a complete description of the scope format, including wildcard patterns and variable expansion,
+see [Scope-to-Permission translation](#scope-translation).
 
 ### Configure OAuth 2.0 step by step {#configure-for-openid-connect}
 
