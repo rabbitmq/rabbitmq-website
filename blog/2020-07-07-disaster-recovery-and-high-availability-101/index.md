@@ -7,7 +7,7 @@ authors: [jvanlightly]
 :::warning
 
 This post was written in 2020. Since then, [Tanzu RabbitMQ](https://www.vmware.com/products/app-platform/tanzu-rabbitmq) has added
-a number of disaster recovery features such as [Warm Standby Replication](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-1/tanzu-rabbitmq-oci-image/standby-replication-without-k8s.html).
+a number of disaster recovery features such as [Warm Standby Replication](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-rpm/4-2/tanzu-rabbitmq-rpm-offering/site-standby-replication-without-k8s.html).
 
 :::
 
