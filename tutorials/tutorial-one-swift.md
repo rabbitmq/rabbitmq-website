@@ -61,7 +61,7 @@ let package = Package(
     name: "RabbitMQTutorials",
     platforms: [.macOS(.v14)],
     dependencies: [
-        .package(url: "https://github.com/rabbitmq/bunny-swift", from: "0.12.0")
+        .package(url: "https://github.com/michaelklishin/bunny-swift", from: "0.13.0")
     ],
     targets: [
         .executableTarget(
@@ -271,7 +271,7 @@ If you want to check on the queue, try using `rabbitmqctl list_queues`.
 
 Time to move on to [part 2](./tutorial-two-swift) and build a simple _work queue_.
 
-[client]: https://github.com/rabbitmq/bunny-swift
+[client]: https://github.com/michaelklishin/bunny-swift
 [devtools]: /client-libraries/devtools
 [send]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/Send/main.swift
 [receive]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/Receive/main.swift

@@ -290,7 +290,7 @@ that's exactly what we intended.
 To find out how to listen for a subset of messages, let's move on to
 [tutorial 4](./tutorial-four-swift)
 
-[client]: https://github.com/rabbitmq/bunny-swift
+[client]: https://github.com/michaelklishin/bunny-swift
 [previous]: ./tutorial-two-swift
 [emitlog]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/EmitLog/main.swift
 [receivelogs]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/ReceiveLogs/main.swift

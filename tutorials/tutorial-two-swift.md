@@ -421,7 +421,7 @@ RabbitMQ is restarted.
 Now we can move on to [tutorial 3](./tutorial-three-swift) and learn how
 to deliver the same message to many consumers.
 
-[client]: https://github.com/rabbitmq/bunny-swift
+[client]: https://github.com/michaelklishin/bunny-swift
 [previous]: ./tutorial-one-swift
 [previous-code]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/Send/main.swift
 [newtask]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/NewTask/main.swift

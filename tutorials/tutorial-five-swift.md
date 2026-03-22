@@ -230,7 +230,7 @@ with more than two routing key parameters.
 
 Move on to [tutorial 6][next] to learn about *RPC*.
 
-[client]: https://github.com/rabbitmq/bunny-swift
+[client]: https://github.com/michaelklishin/bunny-swift
 [previous]: ./tutorial-four-swift
 [next]: ./tutorial-six-swift
 [emitlogtopic]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/EmitLogTopic/main.swift

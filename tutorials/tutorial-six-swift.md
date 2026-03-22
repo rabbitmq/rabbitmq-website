@@ -285,6 +285,6 @@ complex (but important) problems, like:
 >If you want to experiment, you may find the [management UI](/docs/management) useful for viewing the queues.
 >
 
-[client]: https://github.com/rabbitmq/bunny-swift
+[client]: https://github.com/michaelklishin/bunny-swift
 [rpcserver]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/RPCServer/main.swift
 [rpcclient]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/RPCClient/main.swift
