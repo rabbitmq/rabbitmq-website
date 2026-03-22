@@ -231,7 +231,7 @@ swift run EmitLogDirect error "Run. Run. Or it will explode."
 Move on to [tutorial 5][next] to find out how to listen
 for messages based on a pattern.
 
-[client]: https://github.com/rabbitmq/bunny-swift
+[client]: https://github.com/michaelklishin/bunny-swift
 [previous]: ./tutorial-three-swift
 [next]: ./tutorial-five-swift
 [emitlogdirect]: https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/Sources/EmitLogDirect/main.swift
