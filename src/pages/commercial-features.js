@@ -121,6 +121,18 @@ export default function CommercialFeatures() {
                   queue, are collected and logged separately.
                 </p>
               </div>
+              <div className={styles.services_col}>
+                <img src="/img/bc-vmw-illu-ai-ml-summarization-drkbg.png" />
+              </div>
+              <div className={styles.services_col}>
+                <Heading as="h3">Stream Browser</Heading>
+                <p>
+                  Gain full operational visibility into your streams directly from the
+                  management UI. The Stream Browser lets operators and developers inspect
+                  stream contents —browsing messages by offset or timestamp,
+                  examining payloads, and diagnosing issues.
+                </p>
+              </div>
             </div>
           </div>
         </div>
