@@ -1712,14 +1712,18 @@ Windows service users will need to **re-install the service** should the configu
 or any values in `rabbitmq-env-conf.bat` change. Environment variables used by
 the service would not be updated otherwise.
 
-Only a limited set of variables from the `rabbitmq-env-conf.bat` file are persisted into the Windows service
-configuration (via [`erlsrv`](https://www.erlang.org/doc/system/erlsrv_cmd.html)):
+At service installation time, the following variables are resolved and embedded in the service
+configuration via [`erlsrv set -env`](https://www.erlang.org/doc/system/erlsrv_cmd.html):
 
- * `RABBITMQ_NODENAME`
+ * `APPDATA`
+ * `ERL_LIBS`
+ * `ERL_MAX_ETS_TABLES`
+ * `ERL_MAX_PORTS`
  * `RABBITMQ_BASE`
  * `RABBITMQ_CONFIG_FILE`
  * `RABBITMQ_LOG_BASE`
  * `RABBITMQ_MNESIA_BASE`
+ * `RABBITMQ_NODENAME`
 
 :::
 
