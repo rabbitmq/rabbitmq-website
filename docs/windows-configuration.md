@@ -40,19 +40,22 @@ firewall but without any anti-virus software.
 
 ## Environment Variables and the Windows Service {#env-vars-windows-service}
 
-When RabbitMQ runs as a Windows service, `rabbitmq-env-conf.bat` is only read
-at service installation time (when `rabbitmq-service.bat install` is executed).
-It is not re-read each time the service starts.
+When RabbitMQ is started interactively (`rabbitmq-server.bat`), `rabbitmq-env-conf.bat`
+is read on every startup. When running as a Windows service, it is only read at service
+installation time (when `rabbitmq-service.bat install` is executed), not on subsequent starts.
 
-Only a limited set of environment variables from `rabbitmq-env-conf.bat` are
-persisted into the Windows service configuration
-(via [`erlsrv`](https://www.erlang.org/doc/system/erlsrv_cmd.html)):
+At service installation time, the following variables are resolved and embedded in the service
+configuration via [`erlsrv set -env`](https://www.erlang.org/doc/system/erlsrv_cmd.html):
 
- * `RABBITMQ_NODENAME`
+ * `APPDATA`
+ * `ERL_LIBS`
+ * `ERL_MAX_ETS_TABLES`
+ * `ERL_MAX_PORTS`
  * `RABBITMQ_BASE`
  * `RABBITMQ_CONFIG_FILE`
  * `RABBITMQ_LOG_BASE`
  * `RABBITMQ_MNESIA_BASE`
+ * `RABBITMQ_NODENAME`
 
 Other environment variables (such as `ERL_EPMD_PORT`) will **not** be picked
 up by the service from `rabbitmq-env-conf.bat`, even after service
