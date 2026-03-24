@@ -117,7 +117,7 @@ export default function CommercialFeatures() {
                 <Heading as="h3">Audit Logging</Heading>
                 <p>
                   VMware Tanzu RabbitMQ on Kubernetes supports audit logging.
-                  Internal events, for example, which user deleted a
+                  Internal events, such as which user deleted a
                   queue, are collected and logged separately.
                 </p>
               </div>
@@ -129,7 +129,7 @@ export default function CommercialFeatures() {
                 <p>
                   Gain full operational visibility into your streams directly from the
                   management UI. The Stream Browser lets operators and developers inspect
-                  stream contents —browsing messages by offset or timestamp,
+                  stream contents — browsing messages by offset or timestamp,
                   examining payloads, and diagnosing issues.
                 </p>
               </div>
