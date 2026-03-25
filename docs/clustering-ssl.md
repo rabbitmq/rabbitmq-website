@@ -1,6 +1,10 @@
 ---
 title: Securing Cluster (Inter-node) and CLI Tool Communication with TLS
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 <!--
 Copyright (c) 2005-2026 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
@@ -57,8 +61,8 @@ Make sure you have them ready before we start.
 Configuring a node to communicate over TLS-enabled connections involves a few
 steps. With [supported Erlang versions](./which-erlang) there are two ways of doing it.
 
-The steps are very similar on all operating systems supported but minor details will be
-[different on Windows](#windows) due to a different shell language.
+The steps are very similar on all operating systems supported. The examples below
+use tabs to show both bash (Linux, macOS) and PowerShell/batch (Windows) variants.
 
 [Strategy one](#linux-strategy-one) involves the following steps:
 
@@ -104,7 +108,7 @@ The certificate can also use a wildcard Subject Alternative Name (SAN) or Common
 that would match every hostname in the cluster.
 
 
-## Strategy One (Using Individual Flags) on Linux, macOS and BSD {#linux-strategy-one}
+## Strategy One (Using Individual Flags) {#linux-strategy-one}
 
 ### Combining Certificate and Private Key {#combined-key-file}
 
@@ -113,18 +117,29 @@ Let's call it a combined keys file. To combined them, simply concatenate the pri
 `server_key.pem` in the example below, to the end of the public key file, `server_certificate.pem`,
 starting with a new line:
 
+<Tabs groupId="shell">
+<TabItem value="bash" label="bash" default>
 ```bash
 cat server_certificate.pem server_key.pem > combined_keys.pem
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+Get-Content server_certificate.pem, server_key.pem | Set-Content combined_keys.pem
+```
+</TabItem>
+</Tabs>
 
-This can be done using a text editor and not just command line tools such as `cat`.
+This can be done using a text editor and not just command line tools.
 
 ### Configuring Individual Runtime Flags for Inter-node TLS {#strategy-one-flags}
 
 Assuming a combined keys file from the section above is ready, next we infer
-the Erlang TLS library path and export `ERL_SSL_PATH` in `rabbitmq-env.conf`
+the Erlang TLS library path and export `ERL_SSL_PATH` in the environment configuration file
 to point at it:
 
+<Tabs groupId="shell">
+<TabItem value="bash" label="bash" default>
 ```bash
 # These commands ensure that `ERL_SSL_PATH` is the first line in
 # /etc/rabbitmq/rabbitmq-env.conf and will preserve the existing
@@ -134,6 +149,19 @@ erl -noinput -eval 'io:format("ERL_SSL_PATH=~s~n", [filename:dirname(code:which(
 cat /tmp/ssl-path.txt /etc/rabbitmq/rabbitmq-env.conf > /tmp/new-rabbitmq-env.conf
 mv -f /tmp/new-rabbitmq-env.conf /etc/rabbitmq/rabbitmq-env.conf
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+erl -noinput -eval 'io:format("ERL_SSL_PATH=~s~n", [filename:dirname(code:which(inet_tls_dist))])' -s init stop > ssl-path.txt
+```
+
+On Windows with `cmd.exe`, use double quotes with escaped inner quotes instead:
+
+```batch
+erl -noinput -eval "io:format(""ERL_SSL_PATH=~s~n"", [filename:dirname(code:which(inet_tls_dist))])" -s init stop > ssl-path.txt
+```
+</TabItem>
+</Tabs>
 
 This makes it possible for the node to load a module, `inet_tls_dist`, which is used for encrypted inter-node
 communication, from the path.
@@ -182,7 +210,12 @@ also must use TLS to talk to the node. Plain TCP connections will be fail.
 This is done very similarly to what the example above does using `SERVER_ADDITIONAL_ERL_ARGS` but this time
 the environment variable is `RABBITMQ_CTL_ERL_ARGS`. It controls runtime flags used by CLI tools.
 
-Here is the complete `/etc/rabbitmq/rabbitmq-env.conf` file:
+Here is the complete environment configuration file:
+
+<Tabs groupId="shell">
+<TabItem value="bash" label="bash" default>
+
+The file is `/etc/rabbitmq/rabbitmq-env.conf`:
 
 ```bash
 # IMPORTANT:
@@ -210,19 +243,51 @@ RABBITMQ_CTL_ERL_ARGS="-pa $ERL_SSL_PATH \
   -ssl_dist_opt server_password password \
   -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+
+The file is `rabbitmq-env-conf.bat`, saved in `%AppData%\RabbitMQ`:
+
+```PowerShell
+@echo off
+rem IMPORTANT:
+rem the following path is system dependent and will vary between Erlang versions
+rem and installation paths
+set SSL_PATH="C:/Program Files/erl10.0.1/lib/ssl-9.0/ebin"
+
+set SERVER_ADDITIONAL_ERL_ARGS=-pa %SSL_PATH% ^
+    -proto_dist inet_tls ^
+    -ssl_dist_opt server_certfile C:/Path/To/combined_keys.pem ^
+    -ssl_dist_opt server_password password ^
+    -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true
+
+rem Same as above but for CLI tools
+set CTL_ERL_ARGS=-pa %SSL_PATH% ^
+    -proto_dist inet_tls ^
+    -ssl_dist_opt server_certfile C:/Path/To/combined_keys.pem ^
+    -ssl_dist_opt server_password password ^
+    -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true
+```
+</TabItem>
+</Tabs>
 
 
-## Strategy Two (Using a Single TLS Option File) on Linux, macOS and BSD {#linux-strategy-two}
+## Strategy Two (Using a Single TLS Option File) {#linux-strategy-two}
 
 ### Using a Separate Setting File for Inter-node TLS {#strategy-two-flags}
 
 Modern Erlang versions support a runtime flag, `-ssl_dist_optfile`,
 that can be used to configure TLS for inter-node communication using a single file.
-This simplifies the arguments passed on the command line itself.
+This simplifies the arguments passed on the command line.
 
-Here is a complete `/etc/rabbitmq/rabbitmq-env.conf` file using this setting.
+Here is a complete environment configuration file using this setting.
 Note that the name of the `-ssl_dist_optfile` file is not significant but
 it must be stored in a location readable by the effective `rabbitmq` user:
+
+<Tabs groupId="shell">
+<TabItem value="bash" label="bash" default>
+
+The file is `/etc/rabbitmq/rabbitmq-env.conf`:
 
 ```bash
 # NOTE: the following path is system dependent and will change between Erlang
@@ -240,12 +305,32 @@ RABBITMQ_CTL_ERL_ARGS="-pa $ERL_SSL_PATH
   -proto_dist inet_tls
   -ssl_dist_optfile /etc/rabbitmq/inter_node_tls.config"
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
 
-Here is an example `/etc/rabbitmq/inter_node_tls.config` file that uses
+The file is `rabbitmq-env-conf.bat`, saved in `%AppData%\RabbitMQ`:
+
+```PowerShell
+@echo off
+rem NOTE: the following path is system dependent and will vary between Erlang versions
+set SSL_PATH="C:/Program Files/erl10.0.1/lib/ssl-9.0/ebin"
+
+set SERVER_ADDITIONAL_ERL_ARGS=-pa %SSL_PATH% ^
+    -proto_dist inet_tls ^
+    -ssl_dist_optfile C:/Users/rmq_user/AppData/Roaming/RabbitMQ/inter_node_tls.config
+
+set CTL_ERL_ARGS=-pa %SSL_PATH% ^
+    -proto_dist inet_tls ^
+    -ssl_dist_optfile C:/Users/rmq_user/AppData/Roaming/RabbitMQ/inter_node_tls.config
+```
+</TabItem>
+</Tabs>
+
+Here is an example `inter_node_tls.config` file that uses
 separate server certificate and private key files, enables [peer verification](./ssl#peer-verification)
-and requires peers to present a certificate:
+and requires peers to present a certificate. On Windows, use forward-slash (`/`) directory delimiters:
 
-```bash
+```erlang
 %% coding: utf-8
 %% This directive tells the Erlang preprocessor to interpret this file
 %% as UTF-8, which is required if any values contain non-ASCII characters
@@ -274,74 +359,3 @@ and requires peers to present a certificate:
 These options are documented further in the [Erlang/OTP documentation](http://erlang.org/doc/apps/ssl/ssl_distribution.html).
 
 
-## Windows {#windows}
-
-Both strategies covered above for Linux, macOS and BSD systems can be used on Windows.
-All fundamentals are the same.
-
-There are, however, some minor differences specific to Windows.
-First, the command that outputs the location of the `inet_tls_dist` module is
-different due to Windows shell parsing rules. it looks like this
-
-```bash
-erl -noinput -eval "io:format(""ERL_SSL_PATH=~s~n"", [filename:dirname(code:which(inet_tls_dist))])" -s init stop
-```
-
-Next, the file containing the [custom environment variables](./configure#customise-environment)
-is named `rabbitmq-env-conf.bat` on Windows. This file **must** be saved to the `%AppData%\RabbitMQ` directory of the administrative
-user that installed RabbitMQ.
-
-Here is a complete `rabbitmq-env-conf.bat` file using the `-ssl_dist_opfile` setting ([strategy two](#linux-strategy-two) covered above).
-Note the use of forward-slash directory delimiters.
-
-```PowerShell
-@echo off
-rem NOTE: If spaces are present in any of these paths,
-rem double quotes must be used.
-
-rem NOTE: the following path is **system dependent** and will vary between Erlang versions
-rem       and installation paths
-set SSL_PATH="C:/Program Files/erl10.0.1/lib/ssl-9.0/ebin"
-
-rem -pa $ERL_SSL_PATH prepends the directory ERL_SSL_PATH points at to the code path
-rem -proto_dist inet_tls tells the runtime to encrypt inter-node communication
-rem -ssl_dist_optfile tells the runtime where to find its inter-node TLS configuration file
-set SERVER_ADDITIONAL_ERL_ARGS=-pa %SSL_PATH% ^
-    -proto_dist inet_tls ^
-    -ssl_dist_optfile C:/Users/rmq_user/AppData/Roaming/RabbitMQ/inter_node_tls.config
-
-rem Same as above but for CLI tools
-set CTL_ERL_ARGS=-pa %SSL_PATH% ^
-    -proto_dist inet_tls ^
-    -ssl_dist_optfile C:/Users/rmq_user/AppData/Roaming/RabbitMQ/inter_node_tls.config
-```
-
-Below is an example `inter_node_tls.config` file.
-As with other operating systems, more [TLS options](./ssl) are available
-to be set if necessary.
-
-```bash
-%% coding: utf-8
-%% This directive tells the Erlang preprocessor to interpret this file
-%% as UTF-8, which is required if any values contain non-ASCII characters
-%% (for example, in the password field).
-[
-    {server, [
-        {cacertfile, "C:/Path/To/ca_certificate.pem"},
-        {certfile, "C:/Path/To/server_certificate.pem"},
-        {keyfile, "C:/Path/To/server_key.pem"},
-        {password, "password-if-keyfile-is-encrypted"},
-        {secure_renegotiate, true},
-        {verify, verify_peer},
-        {fail_if_no_peer_cert, true}
-    ]},
-    {client, [
-        {cacertfile, "C:/Path/To/ca_certificate.pem"},
-        {certfile, "C:/Path/To/client_certificate.pem"},
-        {keyfile, "C:/Path/To/client_key.pem"},
-        {password, "password-if-keyfile-is-encrypted"},
-        {secure_renegotiate, true},
-        {verify, verify_peer}
-    ]}
-].
-```
