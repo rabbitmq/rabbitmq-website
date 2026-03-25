@@ -287,7 +287,8 @@ set SERVER_ADDITIONAL_ERL_ARGS=-pa %SSL_PATH% ^
     -ssl_dist_opt server_password password ^
     -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true
 
-rem Same as above but for CLI tools
+rem Same as above but for CLI tools.
+rem In environment config files, the RABBITMQ_ prefix is dropped
 set CTL_ERL_ARGS=-pa %SSL_PATH% ^
     -proto_dist inet_tls ^
     -ssl_dist_opt server_certfile C:/Path/To/combined_keys.pem ^
@@ -345,6 +346,7 @@ set SERVER_ADDITIONAL_ERL_ARGS=-pa %SSL_PATH% ^
     -proto_dist inet_tls ^
     -ssl_dist_optfile C:/Users/rmq_user/AppData/Roaming/RabbitMQ/inter_node_tls.config
 
+rem In environment config files, the RABBITMQ_ prefix is dropped
 set CTL_ERL_ARGS=-pa %SSL_PATH% ^
     -proto_dist inet_tls ^
     -ssl_dist_optfile C:/Users/rmq_user/AppData/Roaming/RabbitMQ/inter_node_tls.config
