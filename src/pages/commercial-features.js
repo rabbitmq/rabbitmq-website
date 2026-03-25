@@ -129,8 +129,8 @@ export default function CommercialFeatures() {
                 <p>
                   Gain full operational visibility into your streams directly from the
                   management UI. The Stream Browser lets operators and developers inspect
-                  stream contents — browsing messages by offset or timestamp,
-                  examining payloads, and diagnosing issues.
+                  stream contents: browse messages by offset or timestamp,
+                  examine payloads, and diagnose issues.
                 </p>
               </div>
             </div>
