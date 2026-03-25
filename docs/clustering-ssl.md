@@ -86,7 +86,7 @@ With both options environment variables are used to pass those options to the ru
 done using `rabbitmq-env.conf` as explained in the [Configuration guide](./configure#customise-environment).
 
 Once a node has inter-node connection configured with TLS, CLI tools such as `rabbitmqctl` and `rabbitmq-diagnostics`
-also must use TLS to talk to the node. Plain TCP connections will be fail.
+also must use TLS to talk to the node. Plain TCP connections will fail.
 
 ### Deploying Inter-node TLS
 
@@ -169,6 +169,9 @@ communication, from the path.
 Step number two is telling the runtime to use that module using the `-proto_dist inet_tls` runtime flag.
 As with other runtime flags, `SERVER_ADDITIONAL_ERL_ARGS` is the most convenient and compatible to pass them.
 
+<Tabs groupId="shell">
+<TabItem value="bash" label="bash" default>
+
 Please note that the double quotes **must** be used here because the environment variable
 value is multi-line:
 
@@ -184,12 +187,24 @@ SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
   -ssl_dist_opt server_certfile /path/to/combined_keys.pem \
   -ssl_dist_opt server_password password
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+set SERVER_ADDITIONAL_ERL_ARGS=-pa %SSL_PATH% ^
+    -proto_dist inet_tls ^
+    -ssl_dist_opt server_certfile C:/Path/To/combined_keys.pem ^
+    -ssl_dist_opt server_password password
+```
+</TabItem>
+</Tabs>
 
 Next step is to build on the previous example and enable secure renegotiation for
 inter-node TLS connections. While this is optional, it is highly recommended. The same
 `-ssl_dist_opt` can be used to enable more TLS-related settings. They won't be
 covered in this example:
 
+<Tabs groupId="shell">
+<TabItem value="bash" label="bash" default>
 ```bash
 # -pa $ERL_SSL_PATH prepends the directory ERL_SSL_PATH points at to the code path
 # -proto_dist inet_tls tells the runtime to encrypt inter-node communication
@@ -203,9 +218,20 @@ SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
   -ssl_dist_opt server_password password \
   -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
 ```
+</TabItem>
+<TabItem value="PowerShell" label="PowerShell">
+```PowerShell
+set SERVER_ADDITIONAL_ERL_ARGS=-pa %SSL_PATH% ^
+    -proto_dist inet_tls ^
+    -ssl_dist_opt server_certfile C:/Path/To/combined_keys.pem ^
+    -ssl_dist_opt server_password password ^
+    -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true
+```
+</TabItem>
+</Tabs>
 
 Once a node has inter-node connection configured with TLS, CLI tools such as `rabbitmqctl` and `rabbitmq-diagnostics`
-also must use TLS to talk to the node. Plain TCP connections will be fail.
+also must use TLS to talk to the node. Plain TCP connections will fail.
 
 This is done very similarly to what the example above does using `SERVER_ADDITIONAL_ERL_ARGS` but this time
 the environment variable is `RABBITMQ_CTL_ERL_ARGS`. It controls runtime flags used by CLI tools.
@@ -261,7 +287,8 @@ set SERVER_ADDITIONAL_ERL_ARGS=-pa %SSL_PATH% ^
     -ssl_dist_opt server_password password ^
     -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true
 
-rem Same as above but for CLI tools
+rem Same as above but for CLI tools.
+rem In environment config files, the RABBITMQ_ prefix is dropped
 set CTL_ERL_ARGS=-pa %SSL_PATH% ^
     -proto_dist inet_tls ^
     -ssl_dist_opt server_certfile C:/Path/To/combined_keys.pem ^
@@ -319,6 +346,7 @@ set SERVER_ADDITIONAL_ERL_ARGS=-pa %SSL_PATH% ^
     -proto_dist inet_tls ^
     -ssl_dist_optfile C:/Users/rmq_user/AppData/Roaming/RabbitMQ/inter_node_tls.config
 
+rem In environment config files, the RABBITMQ_ prefix is dropped
 set CTL_ERL_ARGS=-pa %SSL_PATH% ^
     -proto_dist inet_tls ^
     -ssl_dist_optfile C:/Users/rmq_user/AppData/Roaming/RabbitMQ/inter_node_tls.config
