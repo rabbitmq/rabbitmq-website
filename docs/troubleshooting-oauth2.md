@@ -72,16 +72,6 @@ The following `rabbitmq.conf` example increases the initial frame size limit to 
 initial_frame_max = 8192
 ```
 
-the same example using `advanced.config`:
-
-```erl
-[
-  {rabbit, [
-    {initial_frame_max, 8192}
-  ]}
-].
-```
-
 #### Reduce the JWT Token Payload Size
 
 JWT token size can often be reduced by dropping certain scopes that are not used by RabbitMQ.

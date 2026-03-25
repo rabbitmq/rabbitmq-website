@@ -918,26 +918,6 @@ which should be used together with the following bits in the [advanced config fi
   ]}].
 ```
 
-When using the [classic config format](./configure#erlang-term-config-file),
-everything is configured in a single file:
-
-```erlang
-[
-  {kernel, [
-    {inet_default_connect_options, [{nodelay, true}]},
-    {inet_default_listen_options,  [{nodelay, true}]}
-  ]},
-  {rabbit, [
-    {tcp_listen_options, [
-                          {backlog,       4096},
-                          {nodelay,       true},
-                          {linger,        {true,0}},
-                          {exit_on_close, false}
-                         ]}
-  ]}
-].
-```
-
 ### Erlang VM I/O Thread Pool Tuning {#tuning-for-large-number-of-connections-async-thread-pool}
 
 Adequate Erlang VM I/O thread pool size is also important when tuning for a large number of
@@ -957,21 +937,6 @@ option:
 ```ini
 tcp_listen_options.backlog = 4096
 tcp_listen_options.nodelay = true
-```
-
-In the [classic config format](./configure#erlang-term-config-file):
-
-```erlang
-[
-  {rabbit, [
-    {tcp_listen_options, [
-                          {backlog,       4096},
-                          {nodelay,       true},
-                          {linger,        {true, 0}},
-                          {exit_on_close, false}
-                         ]}
-  ]}
-].
 ```
 
 Default value is 128. When pending connection queue length grows beyond this value,

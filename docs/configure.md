@@ -293,28 +293,15 @@ cannot express. This is covered in more detail in the following sections.
   </tbody>
 </table>
 
-Compare this examplary `rabbitmq.conf` file
+Here is an example `rabbitmq.conf` file:
 
 ```ini
-# A new style format snippet. This format is used by rabbitmq.conf files.
+# rabbitmq.conf uses the sysctl/ini format
 ssl_options.cacertfile           = /path/to/ca_certificate.pem
 ssl_options.certfile             = /path/to/server_certificate.pem
 ssl_options.keyfile              = /path/to/server_key.pem
 ssl_options.verify               = verify_peer
 ssl_options.fail_if_no_peer_cert = true
-```
-
-to
-
-```erlang
-%% A classic format snippet, now used by advanced.config files.
-[
-  {rabbit, [{ssl_options, [{cacertfile,           "/path/to/ca_certificate.pem"},
-                           {certfile,             "/path/to/server_certificate.pem"},
-                           {keyfile,              "/path/to/server_key.pem"},
-                           {verify,               verify_peer},
-                           {fail_if_no_peer_cert, true}]}]}
-].
 ```
 
 ### The Main Configuration File, rabbitmq.conf {#config-file}
@@ -340,18 +327,6 @@ A minimalistic example configuration file follows:
 listeners.tcp.default = 5673
 ```
 
-The above example is equivalent to the following [classic config format](#config-file-formats):
-
-```erlang
-%% this is a comment
-[
-  {rabbit, [
-      {tcp_listeners, [5673]}
-    ]
-  }
-].
-```
-
 This example will alter the [port RabbitMQ listens on](./networking#ports) for
 AMQP 0-9-1 and AMQP 1.0 client connections from 5672 to 5673.
 
@@ -361,19 +336,6 @@ A minimalistic example that uses value escaping:
 # this is a comment
 default_user = '40696e180b610ed9'
 default_pass = 'efd3!53a9@_2#a08'
-```
-
-which is equivalent to the following [classic config format](#config-file-formats):
-
-```erlang
-%% this is a comment
-[
-  {rabbit, [
-      {default_user, <<"40696e180b610ed9">>},
-      {default_pass, <<"efd3!53a9@_2#a08">>}
-    ]
-  }
-].
 ```
 
 The RabbitMQ server source repository contains [an example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbit/docs/rabbitmq.conf.example)
@@ -1440,12 +1402,7 @@ under the `rabbit` section.
     <td>
       Implementation module for queue contents.
       <div>
-        Default:
-```erlang
-{rabbit, [
-{backing_queue_module, rabbit_variable_queue}
-]}
-```
+        Default: `rabbit_variable_queue`
       </div>
     </td>
   </tr>
@@ -1457,14 +1414,6 @@ under the `rabbit` section.
       lead to data loss!
       <div>
         Default: `16777216`
-```erlang
-{rabbit, [
-%% Changing this for a node
-%% with an existing (initialised) database is dangerous and can
-%% lead to data loss!
-{msg_store_file_size_limit, 16777216}
-]}
-```
       </div>
     </td>
   </tr>
@@ -1475,12 +1424,7 @@ under the `rabbit` section.
         the [tracer](./firehose). You shouldn't
         change this.
         <div>
-          Default:
-```erlang
-{rabbit, [
-{trace_vhosts, []}
-]}
-```
+          Default: `[]`
         </div>
       </td>
     </tr>
@@ -1490,12 +1434,7 @@ under the `rabbit` section.
       After how many queue index journal entries it will be
       flushed to disk.
       <div>
-        Default:
-```erlang
-{rabbit, [
-{queue_index_max_journal_entries, 32768}
-]}
-```
+        Default: `32768`
       </div>
     </td>
   </tr>

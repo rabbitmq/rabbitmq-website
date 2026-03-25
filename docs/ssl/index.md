@@ -337,21 +337,6 @@ ssl_options.verify     = verify_peer
 ssl_options.fail_if_no_peer_cert = true
 ```
 
-TLS settings can also be configured using the [classic config format](./configure#erlang-term-config-file):
-
-```erlang
-[
-  {rabbit, [
-     {ssl_listeners, [5671]},
-     {ssl_options, [{cacertfile, "/path/to/ca_certificate.pem"},
-                    {certfile,   "/path/to/server_certificate.pem"},
-                    {keyfile,    "/path/to/server_key.pem"},
-                    {verify,     verify_peer},
-                    {fail_if_no_peer_cert, true}]}
-   ]}
-].
-```
-
 ### Certificate and Private Key File Paths {#enabling-tls-paths}
 
 RabbitMQ must be able to read its configured CA certificate bundle, server certificate and private key. The files
@@ -398,22 +383,7 @@ ssl_options.keyfile    = /path/to/server_key.pem
 ssl_options.password   = t0p$3kRe7
 ```
 
-The same example using the [classic config format](./configure#erlang-term-config-file):
-
-```erlang
-[
- {rabbit, [
-           {ssl_listeners, [5671]},
-           {ssl_options, [{cacertfile,"/path/to/ca_certificate.pem"},
-                          {certfile,  "/path/to/server_certificate.pem"},
-                          {keyfile,   "/path/to/server_key.pem"},
-                          {password,  "t0p$3kRe7"}
-                         ]}
-          ]}
-].
-```
-
-Classic config file format allows for [config value encryption](./configure#configuration-encryption),
+The [classic config file format](./configure#erlang-term-config-file) (`advanced.config`) allows for [config value encryption](./configure#configuration-encryption),
 which is recommended for passwords.
 
 ## TLS Peer Verification: Who Do You Say You Are? {#peer-verification}
@@ -575,21 +545,6 @@ ssl_options.verify = verify_peer
 ssl_options.fail_if_no_peer_cert = true
 ```
 
-The same example in the [classic config format](./configure#config-file):
-
-```erlang
-[
-{rabbit, [
-   {ssl_listeners, [5671]},
-   {ssl_options, [{cacertfile,"/path/to/ca_certificate.pem"},
-                  {certfile,"/path/to/server_certificate.pem"},
-                  {keyfile,"/path/to/server_key.pem"},
-                  {verify, verify_peer},
-                  {fail_if_no_peer_cert, true}]}
- ]}
-].
-```
-
 How exactly peer verification is configured in client libraries varies from library to library.
 [Java](#java-client) and [.NET](#dotnet-client) client sections cover peer
 verification in those clients.
@@ -642,22 +597,6 @@ ssl_options.keyfile = /path/to/server_key.pem
 ssl_options.verify = verify_peer
 ssl_options.depth  = 2
 ssl_options.fail_if_no_peer_cert = false
-```
-
-The same example in the [classic config format](./configure#config-file):
-
-```erlang
-[
-  {rabbit, [
-     {ssl_listeners, [5671]},
-     {ssl_options, [{cacertfile,"/path/to/ca_certificate.pem"},
-                    {certfile,"/path/to/server_certificate.pem"},
-                    {keyfile,"/path/to/server_key.pem"},
-                    {depth, 2},
-                    {verify,verify_peer},
-                    {fail_if_no_peer_cert,false}]}
-   ]}
-].
 ```
 
 When using RabbitMQ plugins such as [Federation](./federation) or [Shovel](./shovel) with TLS,

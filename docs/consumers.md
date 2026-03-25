@@ -464,18 +464,8 @@ consumer_timeout = 1800000
 consumer_timeout = 3600000
 ```
 
-The timeout can be deactivated using [`advanced.config`](./configure#advanced-config-file). This is **not recommended**:
-
-```erlang
-%% advanced.config
-[
-  {rabbit, [
-    {consumer_timeout, undefined}
-  ]}
-].
-```
-
-Instead of disabling the timeout entirely, consider using a high value (for example, a few hours).
+Disabling the timeout entirely is **not recommended**.
+Instead, consider using a high value (for example, a few hours).
 
 ### Per-queue Configuration
 
