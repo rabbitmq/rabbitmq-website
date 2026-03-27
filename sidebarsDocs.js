@@ -173,6 +173,11 @@ const sidebars = {
             },
             {
               type: 'doc',
+              id: 'modulus-hash-exchange',
+              label: 'Modulus hash exchange',
+            },
+            {
+              type: 'doc',
               id: 'connection-blocked',
               label: 'Blocked Connection Notifications',
             },

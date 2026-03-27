@@ -251,6 +251,8 @@ To keep order with queues:
 * For quorum queues, set a [delivery limit](./quorum-queues#poison-message-handling).
   This ensures messages are requeued at the front of the queue.
 * AMQP 0-9-1: don’t use `basic.get`.  When stopping a consumer, prefer closing the [channel](./channels) over `basic.cancel`.
+* If you need to process messages concurrently while preserving order for each domain entity (e.g. per order ID), you can use the
+  [`x-modulus-hash` exchange](./modulus-hash-exchange) to partition messages across multiple queues, each with a single active consumer.
 
 ## Durability {#durability}
 

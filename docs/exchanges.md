@@ -67,6 +67,7 @@ RabbitMQ ships with multiple exchange types:
  * Direct: covered in [tutorial 4](https://www.rabbitmq.com/tutorials)
  * Default direct exchange: a built-in direct exchange with special characteristics
  * [Local Random](./local-random-exchange)
+ * [Modulus Hash](./modulus-hash-exchange)
  * [JMS Topic](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_jms_topic_exchange/README.md)
  * [Consistent Hashing exchange](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_consistent_hash_exchange)
  * [Random exchange](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_random_exchange)
