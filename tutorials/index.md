@@ -86,7 +86,7 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
   <td id="tutorial-two" style={{verticalAlign: 'top',}}>
     ## 2. Work Queues
 
-    Distributing tasks among workers (the <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/CompetingConsumers.html">competing consumers pattern</a>)
+    Distributing tasks among workers (the <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/CompetingConsumers.html" target="_blank">competing consumers pattern</a>)
 
     <T2DiagramToC/>
 
@@ -168,7 +168,7 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
   <td id="tutorial-six" style={{verticalAlign: 'top',}}>
     ## 6. RPC
 
-    <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/RequestReply.html">Request/reply pattern</a> example
+    <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/RequestReply.html" target="_blank">Request/reply pattern</a> example
 
     <T6DiagramToC/>
 
