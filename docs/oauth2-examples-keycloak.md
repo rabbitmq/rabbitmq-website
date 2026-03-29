@@ -213,6 +213,43 @@ Ensure that you install pika 1.3.
 3. Enter `rabbit_admin` and `rabbit_admin` and you should be redirected back to RabbitMQ Management
    fully logged in.
 
+## Use scopes without any prefix {#use-scopes-without-prefix}
+
+By default, RabbitMQ uses the `resource_server_id` followed by a dot (`.`) as a prefix for all
+scopes. For example, with `resource_server_id = rabbitmq`, the scope for full read access is
+`rabbitmq.read:*/*`. Some environments require scopes without any prefix at all, such as
+`read:*/*` or `tag:administrator`.
+
+To use scopes without any prefix, set `scope_prefix` to an empty string in
+[rabbitmq.conf](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/next/conf/keycloak/rabbitmq.conf):
+
+```ini
+auth_backends.1 = rabbit_auth_backend_oauth2
+
+management.oauth_enabled = true
+management.oauth_client_id = rabbitmq-client-code
+management.oauth_scopes = openid profile tag:administrator
+
+auth_oauth2.resource_server_id = rabbitmq
+auth_oauth2.scope_prefix = ''
+auth_oauth2.additional_scopes_key = extra_scope
+auth_oauth2.issuer = https://keycloak:8443/realms/test
+auth_oauth2.https.cacertfile = /certs/ca_keycloak_certificate.pem
+```
+
+With this configuration, the scopes in the JWT token should not include any prefix:
+
+```json
+{
+  "scope": "openid profile read:*/* write:*/* tag:administrator"
+}
+```
+
+And the Keycloak client scopes should be configured accordingly, using unprefixed scope names such
+as `tag:administrator`, `read:*/*`, `write:*/*`, and `configure:*/*`.
+
+For more information, see the [Scope Prefix](./oauth2#scope-prefix) section.
+
 ## Stop Keycloak
 
 ```bash
