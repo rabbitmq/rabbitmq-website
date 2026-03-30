@@ -431,7 +431,7 @@ The scopes are free form strings.
 By default, `resource_server_id` followed by the dot (`.`) character is the prefix used for scopes
 to avoid scope collisions (or unintended overlap). However, in some environments, it is not possible
 to use `resource_server_id` as the prefix for all scopes. For these environments, there is a new
-variable called `scope_prefix` which overrides the default scope prefix. Empty strings are allowed.
+variable called `scope_prefix` which overrides the default scope prefix.
 
 Given the below configuration, the scope associated with the permission `read:*/*` is `api://read:*/*`.
 
@@ -440,6 +440,28 @@ Given the below configuration, the scope associated with the permission `read:*/
 auth_oauth2.scope_prefix = api://
 ...
 ```
+
+To use scopes without any prefix, set `scope_prefix` to an empty string:
+
+```ini
+auth_backends.1 = rabbit_auth_backend_oauth2
+
+auth_oauth2.resource_server_id = rabbitmq
+auth_oauth2.scope_prefix = ''
+auth_oauth2.issuer = https://idp.example.com/realms/test
+```
+
+In some environments, scopes cannot use any prefix. With an empty `scope_prefix`,
+JWT token scopes use unprefixed names:
+
+```json
+{
+  "scope": "openid profile read:*/* write:*/* tag:administrator"
+}
+```
+
+The identity provider's client scopes must be configured with matching unprefixed names
+(`tag:administrator`, `read:*/*`, `write:*/*`, `configure:*/*`).
 
 ## Signing keys files {#signing-key-files}
 

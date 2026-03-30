@@ -494,13 +494,27 @@ auth_oauth2.scope_prefix = api://
 ...
 ```
 
-To use an empty string as prefix, use this configuration:
+To use scopes without any prefix, set `scope_prefix` to an empty string:
 
 ```ini
-...
+auth_backends.1 = rabbit_auth_backend_oauth2
+
+auth_oauth2.resource_server_id = rabbitmq
 auth_oauth2.scope_prefix = ''
-...
+auth_oauth2.issuer = https://idp.example.com/realms/test
 ```
+
+In some environments, scopes cannot use any prefix. With an empty `scope_prefix`,
+JWT token scopes use unprefixed names:
+
+```json
+{
+  "scope": "openid profile read:*/* write:*/* tag:administrator"
+}
+```
+
+The identity provider's client scopes must be configured with matching unprefixed names
+(`tag:administrator`, `read:*/*`, `write:*/*`, `configure:*/*`).
 
 ## Scope Aliases {#scope-aliases}
 
