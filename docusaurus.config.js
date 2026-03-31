@@ -82,7 +82,7 @@ const config = {
               release_date: "2025-10-28",
             },
           ],
-          end_of_support: "2029-12-31",
+          end_of_support: "2030-06-30",
           end_of_community_support: "2026-07-31",
         },
         '4.1': {
