@@ -64,7 +64,12 @@ Exported definitions use a JSON format. The top-level object contains the follow
 | `bindings` | Array | [Bindings](#bindings-format) |
 
 The version and product fields (`rabbit_version`, `rabbitmq_version`, `product_name`, `product_version`) are informational and ignored during import.
+The `product_name` and `product_version` fields are only present in exports produced via the [management plugin](./management) (HTTP API or `rabbitmqadmin`), not in `rabbitmqctl export_definitions` output.
+
 All array fields are optional during import: omitted sections will simply be skipped.
+Definitions are imported in a fixed order regardless of their position in the JSON file:
+users, virtual hosts, permissions, exchanges, topic permissions, global parameters, policies, runtime parameters, queues, and finally bindings.
+This means, for example, that virtual hosts referenced by queues do not need to appear before them in the file.
 
 ### Users {#users-format}
 
