@@ -354,8 +354,9 @@ As a workaround, add a label or annotation to `users.rabbitmq.com` object to tri
 #### Users with provided username and password {#provided-sec-users}
 
 The Operator also supports creating RabbitMQ users with provided credentials. When creating a user with provided username and password, create a kubernetes
-secret object contains keys `username` and `password` in its Data field. The Operator does not monitor the provided secret object and updating the secret
-object won't update the credentials. As a workaround, add a label or annotation to `users.rabbitmq.com` object to trigger the Operator to reconcile.
+secret object containing keys `username` and `password` in its Data field. The Operator will then generate a new secret with the name of the User object suffixed with '-user-credentials'.
+The Operator does not monitor either the provided secret object or the generated secret object, and updating either secret object won't update the credentials.
+As a workaround, edit the generated secret object, then add a label or annotation to `users.rabbitmq.com` object to trigger the Operator to reconcile.
 
 The following manifest will create a user with username and password provided from secret 'my-rabbit-user' :
 
