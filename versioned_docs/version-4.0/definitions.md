@@ -50,6 +50,8 @@ Exported definitions use a JSON format. The top-level object contains the follow
 |-----|------|-------------|
 | `rabbit_version` | String | RabbitMQ version that produced the export |
 | `rabbitmq_version` | String | Same as `rabbit_version` (present for compatibility) |
+| `product_name` | String | Product name (e.g. `"RabbitMQ"`) |
+| `product_version` | String | Product version string |
 | `users` | Array | [User](#users-format) accounts |
 | `vhosts` | Array | [Virtual hosts](#vhosts-format) |
 | `permissions` | Array | [User permissions](#permissions-format) per virtual host |
@@ -61,6 +63,7 @@ Exported definitions use a JSON format. The top-level object contains the follow
 | `exchanges` | Array | [Exchanges](#exchanges-format) |
 | `bindings` | Array | [Bindings](#bindings-format) |
 
+The version and product fields (`rabbit_version`, `rabbitmq_version`, `product_name`, `product_version`) are informational and ignored during import.
 All array fields are optional during import: omitted sections will simply be skipped.
 
 ### Users {#users-format}
@@ -70,10 +73,10 @@ Each entry in the `users` array represents a user account.
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
 | `name` | String | yes | Username |
-| `password_hash` | String | yes | Hashed password. Can be produced by [`rabbitmqctl hash_password`](./passwords#computing-password-hash) |
-| `hashing_algorithm` | String | no | Hashing function used for the password, e.g. `rabbit_password_hashing_sha256`, `rabbit_password_hashing_sha512`. Defaults to `rabbit_password_hashing_sha256` |
+| `password_hash` | String | yes | Hashed password. See [Computing Password Hashes](./passwords#computing-password-hash) for how to generate one |
+| `hashing_algorithm` | String | no | Hashing function used for the password, e.g. `rabbit_password_hashing_sha256`, `rabbit_password_hashing_sha512` |
 | `tags` | Array of strings | yes | User tags such as `"administrator"`, `"monitoring"`, `"management"`, or custom tags |
-| `limits` | Object | no | Per-user limits (e.g. max connections, max channels) |
+| `limits` | Object | no | Per-user limits, e.g. `{"max-connections": 100, "max-channels": 10}` |
 
 ```json
 {
@@ -92,17 +95,20 @@ Each entry in the `vhosts` array represents a [virtual host](./vhosts).
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
 | `name` | String | yes | Virtual host name |
-| `description` | String | no | Human-readable description |
-| `tags` | Array of strings | no | Virtual host tags |
-| `default_queue_type` | String | no | Default queue type for this vhost (`"classic"`, `"quorum"`, `"stream"`) |
-| `metadata` | Object | no | Contains `description` and `tags` fields (alternative format used in some exports) |
+| `tracing` | Boolean | no | Whether tracing is enabled for this vhost. Defaults to `false` |
+| `metadata` | Object | no | Object containing `description` (String), `tags` (Array of strings), and optionally `default_queue_type` (String: `"classic"`, `"quorum"`, or `"stream"`) |
+
+Recent RabbitMQ versions export `description`, `tags` and `default_queue_type` inside the `metadata` object.
+For backward compatibility, `description` and `tags` are also accepted as direct properties of the vhost object at import time.
 
 ```json
 {
   "name": "/",
+  "tracing": false,
   "metadata": {
     "description": "Default virtual host",
-    "tags": []
+    "tags": [],
+    "default_queue_type": "quorum"
   }
 }
 ```
@@ -232,10 +238,17 @@ Each entry in the `queues` array declares a queue.
 |----------|------|----------|-------------|
 | `name` | String | yes | Queue name |
 | `vhost` | String | yes | Virtual host the queue belongs to |
-| `durable` | Boolean | no | Whether the queue survives broker restart. Defaults to `true` |
-| `auto_delete` | Boolean | no | Whether the queue is deleted when the last consumer unsubscribes. Defaults to `false` |
-| `type` | String | no | Queue type: `"classic"`, `"quorum"`, or `"stream"` |
-| `arguments` | Object | no | Optional queue arguments (e.g. `x-message-ttl`, `x-max-length`) |
+| `durable` | Boolean | no | Whether the queue survives broker restart. Defaults to `true` at import time |
+| `exclusive` | Boolean | no | Whether the queue is exclusive to the declaring connection. Defaults to `false` at import time |
+| `auto_delete` | Boolean | no | Whether the queue is deleted when the last consumer unsubscribes. Defaults to `false` at import time |
+| `type` | String | no | Queue type in exported definitions: `"classic"`, `"quorum"`, or `"stream"`. **Present in exports only**: this field is ignored at import time, use the `x-queue-type` argument instead |
+| `arguments` | Object | no | Queue arguments. Use `"x-queue-type"` to set the queue type at import time (e.g. `{"x-queue-type": "quorum"}`). Other common arguments include `x-message-ttl`, `x-max-length`, `x-dead-letter-exchange` |
+
+:::important
+When writing a definitions file by hand, the queue type must be set via the `x-queue-type` key in `arguments`,
+not via the `type` field. The `type` field is included in exports for informational purposes but is not used during import.
+If neither `x-queue-type` nor `type` is provided, the queue type defaults to the virtual host's `default_queue_type` setting, or `classic` if none is set.
+:::
 
 ```json
 {
@@ -243,8 +256,9 @@ Each entry in the `queues` array declares a queue.
   "vhost": "/",
   "durable": true,
   "auto_delete": false,
-  "type": "quorum",
-  "arguments": {}
+  "arguments": {
+    "x-queue-type": "quorum"
+  }
 }
 ```
 
@@ -257,9 +271,9 @@ Each entry in the `exchanges` array declares an exchange.
 | `name` | String | yes | Exchange name |
 | `vhost` | String | yes | Virtual host the exchange belongs to |
 | `type` | String | yes | Exchange type: `"direct"`, `"fanout"`, `"topic"`, `"headers"`, or a plugin-provided type |
-| `durable` | Boolean | no | Whether the exchange survives broker restart. Defaults to `true` |
-| `auto_delete` | Boolean | no | Whether the exchange is deleted when the last queue unbinds. Defaults to `false` |
-| `internal` | Boolean | no | Whether the exchange is internal (cannot be published to directly). Defaults to `false` |
+| `durable` | Boolean | no | Whether the exchange survives broker restart. Defaults to `true` at import time |
+| `auto_delete` | Boolean | no | Whether the exchange is deleted when the last queue unbinds. Defaults to `false` at import time |
+| `internal` | Boolean | no | Whether the exchange is internal (cannot be published to directly). Defaults to `false` at import time |
 | `arguments` | Object | no | Optional exchange arguments |
 
 ```json
@@ -286,6 +300,7 @@ Each entry in the `bindings` array declares a binding between a source exchange 
 | `destination_type` | String | yes | `"queue"` or `"exchange"` |
 | `routing_key` | String | yes | Binding/routing key |
 | `arguments` | Object | no | Optional binding arguments (used by headers exchanges, for example) |
+| `properties_key` | String | no | Unique binding identifier. Present in exports, not required for import |
 
 ```json
 {
@@ -300,7 +315,8 @@ Each entry in the `bindings` array declares a binding between a source exchange 
 
 ### Minimal Example {#minimal-example}
 
-The following is a minimal but complete definitions file that creates a virtual host, a user, a quorum queue, a topic exchange, and a binding:
+The following is a minimal but complete definitions file that creates a virtual host, a user, a quorum queue, a topic exchange, and a binding.
+Note how the queue type is set via the `x-queue-type` argument:
 
 ```json
 {
@@ -332,8 +348,9 @@ The following is a minimal but complete definitions file that creates a virtual 
       "vhost": "app",
       "durable": true,
       "auto_delete": false,
-      "type": "quorum",
-      "arguments": {}
+      "arguments": {
+        "x-queue-type": "quorum"
+      }
     }
   ],
   "exchanges": [
