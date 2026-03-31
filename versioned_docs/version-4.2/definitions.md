@@ -73,8 +73,9 @@ Each entry in the `users` array represents a user account.
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
 | `name` | String | yes | Username |
-| `password_hash` | String | yes | Hashed password. See [Computing Password Hashes](./passwords#computing-password-hash) for how to generate one |
-| `hashing_algorithm` | String | no | Hashing function used for the password, e.g. `rabbit_password_hashing_sha256`, `rabbit_password_hashing_sha512` |
+| `password_hash` | String | no | Hashed password. See [Computing Password Hashes](./passwords#computing-password-hash) for how to generate one. Either `password_hash` or `password` should be provided |
+| `password` | String | no | Plaintext password (will be hashed by the server at import time). Either `password` or `password_hash` should be provided |
+| `hashing_algorithm` | String | no | Hashing function used for `password_hash`, e.g. `rabbit_password_hashing_sha256`, `rabbit_password_hashing_sha512` |
 | `tags` | Array of strings | yes | User tags such as `"administrator"`, `"monitoring"`, `"management"`, or custom tags |
 | `limits` | Object | no | Per-user limits, e.g. `{"max-connections": 100, "max-channels": 10}` |
 
@@ -107,8 +108,7 @@ For backward compatibility, `description` and `tags` are also accepted as direct
   "tracing": false,
   "metadata": {
     "description": "Default virtual host",
-    "tags": [],
-    "default_queue_type": "quorum"
+    "tags": []
   }
 }
 ```
@@ -239,7 +239,6 @@ Each entry in the `queues` array declares a queue.
 | `name` | String | yes | Queue name |
 | `vhost` | String | yes | Virtual host the queue belongs to |
 | `durable` | Boolean | no | Whether the queue survives broker restart. Defaults to `true` at import time |
-| `exclusive` | Boolean | no | Whether the queue is exclusive to the declaring connection. Defaults to `false` at import time |
 | `auto_delete` | Boolean | no | Whether the queue is deleted when the last consumer unsubscribes. Defaults to `false` at import time |
 | `type` | String | no | Queue type in exported definitions: `"classic"`, `"quorum"`, or `"stream"`. **Present in exports only**: this field is ignored at import time, use the `x-queue-type` argument instead |
 | `arguments` | Object | no | Queue arguments. Use `"x-queue-type"` to set the queue type at import time (e.g. `{"x-queue-type": "quorum"}`). Other common arguments include `x-message-ttl`, `x-max-length`, `x-dead-letter-exchange` |
@@ -247,7 +246,7 @@ Each entry in the `queues` array declares a queue.
 :::important
 When writing a definitions file by hand, the queue type must be set via the `x-queue-type` key in `arguments`,
 not via the `type` field. The `type` field is included in exports for informational purposes but is not used during import.
-If neither `x-queue-type` nor `type` is provided, the queue type defaults to the virtual host's `default_queue_type` setting, or `classic` if none is set.
+If `x-queue-type` is not provided, the queue type defaults to the virtual host's `default_queue_type` setting, or `classic` if none is set.
 :::
 
 ```json
@@ -298,7 +297,7 @@ Each entry in the `bindings` array declares a binding between a source exchange 
 | `vhost` | String | yes | Virtual host |
 | `destination` | String | yes | Destination queue or exchange name |
 | `destination_type` | String | yes | `"queue"` or `"exchange"` |
-| `routing_key` | String | yes | Binding/routing key |
+| `routing_key` | String | no | Binding/routing key. Defaults to `""` (empty string), which is common for fanout and headers exchange bindings |
 | `arguments` | Object | no | Optional binding arguments (used by headers exchanges, for example) |
 | `properties_key` | String | no | Unique binding identifier. Present in exports, not required for import |
 
