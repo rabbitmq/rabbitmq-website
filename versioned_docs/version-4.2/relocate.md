@@ -93,12 +93,9 @@ file and directories have sufficient permissions
   <tr>
     <td>RABBITMQ_CONFIG_FILE</td>
     <td>
-      The path to the configuration file, without
-      the <code>.config</code> extension. If
-      the <a href="./configure#configuration-files">configuration
-      file</a> is present it is used by the server to configure
-      RabbitMQ components. See <a href="./configure">Configuration guide</a>
-      for more information.
+      Main RabbitMQ config file path, for example, <code>/etc/rabbitmq/rabbitmq.conf</code>.
+      Files with a <code>.config</code> (classic Erlang term format) extension are also accepted.
+      See <a href="./configure">Configuration guide</a> for more information.
     </td>
   </tr>
   <tr>
@@ -106,8 +103,8 @@ file and directories have sufficient permissions
     <td>
       Path to a directory of RabbitMQ configuration files in the new-style (.conf) format.
       The files will be loaded in alphabetical order. Prefixing each files with a number
-      is a common practice. See <a href="./configure">Configuration guide</a>
-      for more information.
+      (for example, `000_seed_users_and_permissions.conf`, `010_networking.conf`, `020_tls.conf`) is a common practice.
+      See <a href="./configure">Configuration guide</a> for more information.
     </td>
   </tr>
   <tr>
