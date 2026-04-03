@@ -484,6 +484,7 @@ const config = {
           'php',
           'PowerShell',
           'python',
+          'ruby',
           'shell-session',
           'yaml',
         ],

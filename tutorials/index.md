@@ -193,6 +193,7 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
 
     * [Java](tutorials/tutorial-seven-java)
     * [Kotlin](tutorials/tutorial-seven-kotlin)
+    * [Ruby](tutorials/tutorial-seven-ruby)
     * [C#](tutorials/tutorial-seven-dotnet)
     * [PHP](tutorials/tutorial-seven-php)
   </td>
