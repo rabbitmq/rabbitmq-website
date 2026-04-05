@@ -11,7 +11,7 @@ editions (documented release series):
  * 4.0 with source files under `./versioned_docs/version-4.0`
  * 3.13 with source files under `./versioned_docs/version-3.13`
 
-Some part of the site are not versioned (only have one edition):
+Some parts of the site are not versioned (only have one edition):
 
  * Six or seven tutorials for multiple programming languages under `./tutorials`
  * Client library documentation under `./client-libraries`
@@ -32,14 +32,14 @@ Other source code elements (React/Docusaurus components, stylesheets) can be fou
 ## Multiple Editions
 
  * Many documentation guides are present in all editions
- * Every edition naturally has difference from others
+ * Every edition naturally has differences from others
  * When asked to apply a change present in one edition (e.g. ./docs) to another (say, ./versioned_docs/version-4.1),
    always preserve the structural and semantical differences between the guides
 
 ## Build System
 
  * This website uses Docusaurus
- * Build: `npm run docusaurus '--' build '`
+ * Build: `npm run docusaurus '--' build`
  * Build in development mode (with more details): `npm run docusaurus '--' build '--dev'`
  * Clean: `npm run clean`
  * Start a development server: `npm start`, then consult `http://localhost:3000/docs`
@@ -70,7 +70,7 @@ Other source code elements (React/Docusaurus components, stylesheets) can be fou
  * For `rabbitmq-queues` examples, consult `rabbitmq-queues help`
  * For `rabbitmqadmin` examples, consult `rabbitmqadmin help`
 
- ## To Never Documented, by Design
+## Never Documented, by Design
 
  `rabbitmqadmin publish` and `rabbitmqadmin get` command groups are intentionally omitted from the docs
  because they must not be used in production environments, and therefore they are not worth documenting
