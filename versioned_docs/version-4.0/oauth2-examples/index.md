@@ -71,6 +71,10 @@ which hosts all the scripts required to deploy the examples demonstrated on the 
  * [Google](./oauth2-examples-google)  **NOT SUPPORTED**
  * [Multiple OAuth 2.0 servers and/or audiences](./oauth2-examples-multiresource)
 
+### Reference
+
+ * [Required configuration settings per identity provider](#required-configuration-per-identity-provider)
+
 ## Prerequisites Used by the Examples in This Guide {#prerequisites}
 
  * Docker must be installed
@@ -839,3 +843,82 @@ docker logs producer_with_roles -f
 ```
 
 For more information on this new capability check out the [OAuth 2 guide](./oauth2#rich-authorization-request).
+
+## Required Configuration per Identity Provider {#required-configuration-per-identity-provider}
+
+Each identity provider has its own quirks when it comes to OAuth 2.0 token issuance. This section
+lists the required `rabbitmq.conf` settings specific to each supported provider, beyond the common
+settings (`auth_backends.1 = rabbit_auth_backend_oauth2`, `management.oauth_enabled`, etc.) that
+apply to all providers.
+
+For full working configuration files, see the [rabbitmq-oauth2-tutorial](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf) repository.
+
+### Keycloak {#required-config-keycloak}
+
+| Setting | Value | Notes |
+|---------|-------|-------|
+| `auth_oauth2.resource_server_id` | `rabbitmq` | Must match the audience (`aud`) claim in the token. Requires a **Hardcoded claim** token mapper in Keycloak. |
+| `auth_oauth2.issuer` | `https://{host}:{port}/realms/{realm}` | Keycloak realm URL. |
+| `auth_oauth2.additional_scopes_key` | e.g. `extra_scope` | Keycloak stores roles in custom claims such as `realm_access.roles` or a user-defined claim. Set this to read scopes from those claims. |
+| `auth_oauth2.preferred_username_claims.1` | `user_name` | Keycloak may use non-standard username claims. |
+| `auth_oauth2.https.cacertfile` | `/path/to/ca.pem` | Required when Keycloak uses self-signed TLS certificates. |
+
+**Keycloak-specific behavior**: Keycloak can place roles in several non-standard claim locations
+(`realm_access.roles`, `resource_access.account.roles`, or a custom claim). Use
+`auth_oauth2.additional_scopes_key` to tell RabbitMQ where to find them. Multiple claim paths can be
+specified separated by spaces.
+
+See the [Keycloak example](./oauth2-examples-keycloak) for a step-by-step tutorial.
+
+### Auth0 {#required-config-auth0}
+
+| Setting | Value | Notes |
+|---------|-------|-------|
+| `auth_oauth2.resource_server_id` | `rabbitmq` | Must match the Auth0 API identifier. |
+| `auth_oauth2.issuer` | `https://{tenant}.{region}.auth0.com/` | Auth0 tenant domain (trailing slash required). |
+| `auth_oauth2.additional_scopes_key` | `permissions` | Auth0 places user permissions in the `permissions` claim, not in `scope`. |
+| `auth_oauth2.https.hostname_verification` | `wildcard` | Required for Auth0 HTTPS endpoints. |
+
+**Auth0-specific behavior**: Auth0 requires the `audience` parameter in the authorization and token
+requests so that the issued token includes the correct `aud` claim. Without it, Auth0 issues an
+opaque token that RabbitMQ cannot validate.
+
+See the [Auth0 example](./oauth2-examples-auth0) for a step-by-step tutorial.
+
+### Microsoft Entra ID {#required-config-entra-id}
+
+| Setting | Value | Notes |
+|---------|-------|-------|
+| `auth_oauth2.resource_server_id` | `{Application (client) ID}` | The Entra ID application ID. |
+| `auth_oauth2.issuer` | `https://login.microsoftonline.com/{tenant-ID}/v2.0` | Uses the v2.0 endpoint. |
+| `auth_oauth2.additional_scopes_key` | `roles` | Entra ID places RabbitMQ permissions in the `roles` claim via App Roles. |
+| `auth_oauth2.preferred_username_claims.1` | `name` | Entra ID tokens use `name` for the display name. |
+| `auth_oauth2.preferred_username_claims.2` | `preferred_username` | Fallback to UPN. |
+| `management.oauth_scopes` | `openid profile api://{Application (client) ID}/rabbitmq` | Must use the `api://` scope format registered in Entra ID. |
+| `auth_oauth2.discovery_endpoint_params.appid` | `{Application (client) ID}` | **Only required** if custom signing keys are configured in Entra ID. Without it, RabbitMQ cannot fetch the correct signing keys. |
+
+**Entra ID-specific behavior**: Entra ID requires HTTPS for redirect URIs. The Management UI must
+listen on port 15671 (TLS). The scope format must follow the `api://{client-id}/{scope-name}`
+convention registered in the Entra ID portal.
+
+See the [Microsoft Entra ID example](./oauth2-examples-entra-id) for a step-by-step tutorial.
+
+### Okta {#required-config-okta}
+
+| Setting | Value | Notes |
+|---------|-------|-------|
+| `auth_oauth2.resource_server_id` | `{okta_client_app_ID}` | The Okta application ID. |
+| `auth_oauth2.issuer` | `{okta-domain}/oauth2/default` | Okta default authorization server URL. |
+| `auth_oauth2.additional_scopes_key` | `role` | Okta stores the user role in a custom `role` claim (must be configured in Okta). |
+| `auth_oauth2.verify_aud` | `false` | Okta may not include the expected audience in the token. |
+| `auth_oauth2.scope_prefix` | `okta.` | Used in combination with scope aliases for role mapping. |
+| `auth_oauth2.https.hostname_verification` | `wildcard` | Required for Okta HTTPS endpoints. |
+| `auth_oauth2.scope_aliases.*` | e.g. `admin = okta.read:*/* okta.write:*/* ...` | Maps Okta roles to RabbitMQ permissions. |
+| `auth_oauth2.discovery_endpoint_path` | `.well-known/oauth-authorization-server` | Only if the standard OpenID Connect path does not work. Okta supports both paths. |
+
+**Okta-specific behavior**: Okta requires a custom claim to carry the user role. This claim must be
+created manually in the Okta admin console using an expression like
+`isMemberOfGroupName("admin") ? "admin" : "monitoring"`. Federation Broker Mode must be deactivated,
+and an explicit access policy must be created.
+
+See the [Okta example](./oauth2-examples-okta) for a step-by-step tutorial.
