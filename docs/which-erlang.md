@@ -29,7 +29,8 @@ version-specific notes and [ways of provisioning](#erlang-repositories) recent E
 
 :::warning
 
-Erlang 28 is not currently supported by RabbitMQ.
+Erlang 28 is **only supported for brand new clusters**: upgrades of clusters running RabbitMQ with Khepri on Erlang 27
+to Erlang 28 have a known issue that affects rolling upgrades.
 
 :::
 
@@ -41,12 +42,12 @@ During a transition period of a few months after a new major Erlang/OTP release 
 and the previous oldest series can be supported for a few months in addition
 to the two most recent series.
 
-At the moment the supported series are Erlang `27.x` and `26.x`.
+At the moment the fully supported series are Erlang `27.x` and `26.x`.
 
 ### Erlang 28 Support
 
-Erlang 28 has significant changes around TLS and PKI implementations,
-and is not currently supported by RabbitMQ.
+Erlang 28 is **partially supported** by RabbitMQ 4.2.x: upgrades of clusters running Khepri has known issues
+directly related to the breaking changes in Erlang 28.
 
 ### Erlang 27 Support
 
@@ -105,7 +106,11 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       <td>
         <ul class="notes">
           <li>
-            Erlang 28 is not currently supported by RabbitMQ.
+            Erlang 28 is partially supported starting with RabbitMQ 4.2.0.
+          </li>
+          <li>
+            Erlang 28 is **only supported for brand new clusters**: upgrades of clusters running RabbitMQ with Khepri on Erlang 27
+            to Erlang 28 have a known issue that affects rolling upgrades.
           </li>
           <li>
             The starting with the 4.0.4 release, the 4.0.x release series is compatible with Erlang 27.
