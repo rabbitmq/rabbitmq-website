@@ -95,8 +95,8 @@ This option will require manual installation of all RabbitMQ package dependencie
 RabbitMQ is supported on several major Debian-based distributions that are still covered
 by general ("full", available at no extra cost) support by their primary vendor or developer group.
 
-For Debian, this means that RabbitMQ core team focus around package is on the current and prior release of Debian-based distributions,
-i.e. inline with [distribution EOL policy](https://wiki.debian.org/DebianReleases).
+For Debian, this means that the RabbitMQ core team's packaging focus is on the current and prior release of Debian-based distributions,
+in line with the [Debian distribution EOL policy](https://wiki.debian.org/DebianReleases).
 
 Currently the list of supported Debian-based distributions includes
 
