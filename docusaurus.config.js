@@ -48,7 +48,7 @@ const config = {
   future: {
     v4: true,
     // https://github.com/facebook/docusaurus/blob/main/website/docusaurus.config.ts#L174-L193
-    experimental_faster: {
+    faster: {
       swcJsLoader: true,
       swcJsMinimizer: true,
       swcHtmlMinimizer: true,
@@ -539,6 +539,11 @@ const config = {
 
   markdown: {
     mermaid: true,
+    mdx1Compat: {
+      comments: true,
+      admonitions: true,
+      headingIds: true,
+    },
   },
   themes: [
       '@docusaurus/theme-mermaid',
