@@ -68,7 +68,7 @@ Standard Debian and Ubuntu repositories include a RabbitMQ package, `rabbitmq-se
 However, the [versions included](https://packages.ubuntu.com/search?keywords=rabbitmq-server&searchon=names&suite=all&section=all) are
 many releases behind latest, and usually are [out of community support](/release-information) or even have reached their End of Life.
 
-For RabbitMQ, the multi-year gaps between Debian releases means that the standard RabbitMQ package in those distributions usually [cannot be upgraded directly](./upgrade#rabbitmq-version-upgradability) from the version available in the previous release.
+For RabbitMQ, the multi-year gaps between Debian releases mean that the standard RabbitMQ package in those distributions usually [cannot be upgraded directly](./upgrade#rabbitmq-version-upgradability) from the version available in the previous release.
 
 Learn more in [Feature Flag Graduation](./feature-flags#graduation).
 
