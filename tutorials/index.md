@@ -18,6 +18,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 import T1DiagramToC from '@site/src/components/Tutorials/T1DiagramToC.md';
 import T2DiagramToC from '@site/src/components/Tutorials/T2DiagramToC.md';
 import T3DiagramToC from '@site/src/components/Tutorials/T3DiagramToC.md';
@@ -41,15 +44,111 @@ please see the [installation guide](/docs/download) or use the [community Docker
 Executable versions of these tutorials [are open source](https://github.com/rabbitmq/rabbitmq-tutorials),
 as is [this website](https://github.com/rabbitmq/rabbitmq-website).
 
-There are two groups of tutorials:
+There are three groups of tutorials:
 
- * [RabbitMQ queues](#queue-tutorials)
+ * [RabbitMQ queues with AMQP 1.0](#queue-amqp-tutorials)
+ * [RabbitMQ queues with AMQP 0.9.1](#queue-tutorials)
  * [RabbitMQ streams](#stream-tutorials)
 
 :::info
 This tutorials target RabbitMQ 4.x.
 :::
 
+<Tabs groupId="protocol">
+  <TabItem value="amqp-10" label="AMQP 1.0" default>
+
+### <a id='queue-amqp-tutorials'></a> Queue tutorials with AMQP 1.0
+
+This section covers the modern messaging protocol in RabbitMQ, AMQP 1.0. This protocol works
+out of the box, without enabling any plugin.
+
+<table id="tutorials-amqp10">
+    <colgroup>
+        <col span="1" style={{width: '33%',}}/>
+        <col span="1" style={{width: '33%',}}/>
+        <col span="1" style={{width: '33%',}}/>
+    </colgroup>
+
+  <tr>
+  <td id="tutorial-one" style={{verticalAlign: 'top',}}>
+    ## 1. "Hello World!"
+
+    The simplest thing that does *something*
+
+    <T1DiagramToC/>
+
+    * [Java](tutorials/tutorial-one-java-amqp10)
+    * [C#](tutorials/tutorial-one-dotnet-amqp10)
+    * [Go](tutorials/tutorial-one-go-amqp10)
+  </td>
+
+  <td id="tutorial-two" style={{verticalAlign: 'top',}}>
+    ## 2. Work Queues
+
+    Distributing tasks among workers (the <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/CompetingConsumers.html" target="_blank">competing consumers pattern</a>)
+
+    <T2DiagramToC/>
+
+    * [Java](tutorials/tutorial-two-java-amqp10)
+    * [C#](tutorials/tutorial-two-dotnet-amqp10)
+    * [Go](tutorials/tutorial-two-go-amqp10)
+  </td>
+
+  <td id="tutorial-three" style={{verticalAlign: 'top',}}>
+    ## 3. Publish/Subscribe
+
+    Sending messages to many consumers at once
+
+    <T3DiagramToC/>
+
+    * [Java](tutorials/tutorial-three-java-amqp10)
+    * [C#](tutorials/tutorial-three-dotnet-amqp10)
+    * [Go](tutorials/tutorial-three-go-amqp10)
+  </td>
+  </tr>
+
+  <tr>
+  <td id="tutorial-four" style={{verticalAlign: 'top',}}>
+    ## 4. Routing
+
+    Receiving messages selectively
+
+    <T4DiagramToC/>
+
+    * [Java](tutorials/tutorial-four-java-amqp10)
+    * [C#](tutorials/tutorial-four-dotnet-amqp10)
+    * [Go](tutorials/tutorial-four-go-amqp10)
+  </td>
+
+  <td id="tutorial-five" style={{verticalAlign: 'top',}}>
+    ## 5. Topics
+
+    Receiving messages based on a pattern (topics)
+
+    <T5DiagramToC/>
+
+    * [Java](tutorials/tutorial-five-java-amqp10)
+    * [C#](tutorials/tutorial-five-dotnet-amqp10)
+    * [Go](tutorials/tutorial-five-go-amqp10)
+  </td>
+
+  <td id="tutorial-six" style={{verticalAlign: 'top',}}>
+    ## 6. RPC
+
+    <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/RequestReply.html" target="_blank">Request/reply pattern</a> example
+
+    <T6DiagramToC/>
+
+    * [Java](tutorials/tutorial-six-java-amqp10)
+    * [C#](tutorials/tutorial-six-dotnet-amqp10)
+    * [Go](tutorials/tutorial-six-go-amqp10)
+  </td>
+  </tr>
+</table>
+
+  </TabItem>
+
+  <TabItem value="amqp-091" label="AMQP 0-9-1">
 
 ### Queue tutorials
 
@@ -211,6 +310,8 @@ and take a look at the [Compatibility and Conformance page](/docs/specification)
 to find relevant resources to learn more about AMQP 1.0 and AMQP 0-9-1,
 the two core protocols implemented by RabbitMQ.
 
+  </TabItem>
+</Tabs>
 
 ## Stream tutorials
 
