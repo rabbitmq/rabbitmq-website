@@ -28,6 +28,7 @@ This information includes the following sections:
 * [Use HashiCorp Vault](#vault)
 * [Configure Log Level for the Operator](#operator-log)
 * [Time based Reconciliation](#sync-period)
+* [Monitoring](#monitoring)
 
 :::tip
 
@@ -645,3 +646,7 @@ Note that this frequency applies to all topology objects managed by the Operator
 Depending on how many objects you've created with Topology Operator, reconciling all objects in a frequency
 could cause unnecessary load on both the Operator and the RabbitMQ server.
 Only use this feature if time based reconciliation is required for your use case.
+
+## Monitoring {#monitoring}
+
+The Messaging Topology Operator exposes Prometheus-compatible metrics. See the [Monitoring guide](./topology-operator-metrics) for details.

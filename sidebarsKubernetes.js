@@ -75,6 +75,11 @@ const sidebars = {
         },
         {
           type: 'doc',
+          id: 'operator/topology-operator-metrics',
+          label: 'Monitoring',
+        },
+        {
+          type: 'doc',
           id: 'operator/tls-topology-operator',
           label: 'TLS Support',
         },
