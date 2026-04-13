@@ -92,6 +92,10 @@ export default function CommercialFeatures() {
                 <p>
                   A special Raft-based replicated queue type that supports delayed message publishing.
                   This delayed message implementation supports replication and very large backlogs.
+                  {" "}
+                  <Link to="https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/site-delayed-queues.html">
+                    Learn more about Delayed Queues
+                  </Link>.
                 </p>
               </div>
               <div className={styles.services_col}>
