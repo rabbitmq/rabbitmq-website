@@ -241,7 +241,7 @@ const config = {
       },
 
       // Client releases.
-      java: '5.28.0',
+      java: '5.30.0',
       dotnet: '7.0.0',
     },
   },
