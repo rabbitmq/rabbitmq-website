@@ -441,6 +441,11 @@ management.oauth_client_secret = rabbit_user_client
 management.oauth_scopes = openid profile rabbitmq.*
 ```
 
+:::warning
+When configuring a client secret, ensure that the OAuth client is properly configured in your Identity Provider to only allow Authorization Code with PKCE flows and prevent client credentials flows. The client ID should not be able to obtain tokens using client credentials grant type, as this could pose a security risk in a public application context.
+
+:::
+
 ### Allow Basic and OAuth 2 authentication for Management HTTP API {#allow-basic-auth-for-http-api}
 
 When using `management.oauth_enabled = true`, it is still possible to authenticate
