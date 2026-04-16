@@ -24,7 +24,7 @@
     "clsx": "^2.1.1",
     "cookie": ">=0.7.0",
     "docusaurus-theme-github-codeblock": "^2.0.2",
-    "dompurify": ">=3.3.2",
+    "dompurify": ">=3.4.0",
     "path-to-regexp": ">=8.4.0",
     "prism-react-renderer": "^2.4.1",
     "react": "^18.3.1",
@@ -35,7 +35,7 @@
     "@docusaurus/types": "^3.9.2",
     "baseline-browser-mapping": "^2.9.11",
     "cookie": ">=0.7.0",
-    "dompurify": ">=3.3.2",
+    "dompurify": ">=3.4.0",
     "estree-util-value-to-estree": ">=3.3.3",
     "path-to-regexp": ">=8.4.0",
     "webpack-dev-server": ">= 5.2.1"
