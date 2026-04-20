@@ -152,6 +152,11 @@ These are the possible causes:
 
 ### Not authorized {#not-authorized-error}
 
+This section covers the error that is displayed at login time. If the error is
+displayed when performing an action (for example, creating a queue or consuming
+messages) after a successful login, see
+[Not authorized when performing an action](#not-authorized-after-login-error) instead.
+
 #### Steps to reproduce
 
 Open the root URL of the management UI in the browser. Click on the button "Click here to logon" and
@@ -203,9 +208,10 @@ Not authorized
 #### Troubleshooting
 
 A management-UI tag scope grants access to the management UI but does not by itself
-grant the permissions required by any given action. Tag scopes and per-resource
-permission scopes are independent in the OAuth 2 backend: a tag such as `administrator`
-does not grant `configure`, `read` or `write` on any virtual host or resource.
+grant the permissions required by any given action. In the OAuth 2 backend, tag scopes
+do not imply `configure`, `read` or `write` permissions on any virtual host or
+resource: a tag such as `administrator` must be combined with the relevant
+per-resource permission scopes.
 
 Each action requires its own scope. The complete mapping between operations and the
 required permission is documented in the
@@ -219,7 +225,7 @@ cases are:
 | Consume from or purge a queue                 | `rabbitmq.read:<vhost>/<queue>`                                                                   |
 | Bind or unbind a queue to/from an exchange    | `rabbitmq.write:<vhost>/<queue>` and `rabbitmq.read:<vhost>/<exchange>` (both are required)       |
 | Publish or consume on a topic exchange        | See [Topic Exchange scopes](./oauth2#topic-exchange-scopes) (three-segment form)                  |
-| Create, update or delete a policy             | `rabbitmq.tag:policymaker` (or `rabbitmq.tag:administrator`): policies are gated by a user tag, not by a resource scope |
+| Create, update or delete a policy             | `rabbitmq.tag:policymaker` (or `rabbitmq.tag:administrator`), in addition to at least one resource scope granting access to the target virtual host |
 
 In the scopes above, `rabbitmq` stands for the configured
 [resource_server_id](./oauth2#resource-server-id). When a
