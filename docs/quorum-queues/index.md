@@ -31,24 +31,21 @@ replicated queue based on the [Raft consensus algorithm](https://raft.github.io/
 and should be considered the default choice when needing a replicated, highly
 available queue.
 
-Quorum queues are designed for excellent data safety as well as reliable and fast
-leader election properties to ensure high availability even during upgrades
+Quorum queues are designed for data safety as well as reliable and fast
+leader election properties that ensure high availability even during upgrades
 or other turbulence.
 
-Quorum queues are optimized for certain [use cases](#use-cases) where [data safety](#data-safety) is
-the top priority. This is covered in the [Motivation](#motivation) section.
+Certain [use cases](#use-cases) fit quorum queues better than others and it is
+important to be aware of these when designing systems.
 
-Quorum queues have [differences in behaviour](#behaviour) compared to classic
+There are some [differences in behaviour](#behaviour) compared to classic
 queues as well as some [limitations](#feature-comparison) that it is important
-to be aware of when converting
-an application from using classic to quorum queues.
+to consider when converting from an application using classic queues.
 
-Some features are specific to quorum queues such as [poison message handling](#poison-message-handling)
-, [at least once dead-lettering](#activating-at-least-once-dead-lettering) and
-the `modified` outcome when using [AMQP](./amqp).
-
-For cases that would benefit from replication and repeatable reads, [streams](./streams) may
-be a better option than quorum queues.
+Some new features are specific to quorum queues such as [poison message handling](#poison-message-handling),
+[at least once dead-lettering](#activating-at-least-once-dead-lettering),
+[delayed retry](#delayed-retry), [consumer timeouts](#consumer-timeout),
+and the ability to annotate a message using the `modified` outcome when using [AMQP](./amqp).
 
 Quorum queues and [streams](./streams) are the two replicated data structures
 available. Classic queue mirroring was removed starting with RabbitMQ 4.0.
@@ -57,17 +54,19 @@ available. Classic queue mirroring was removed starting with RabbitMQ 4.0.
 
 Topics covered in this document include:
 
- * [What are quorum queues](#motivation) and why they were introduced
- * [How are they different](#feature-comparison) from classic queues
  * Primary [use cases](#use-cases) of quorum queues and when not to use them
+ * [How are quorum queues different](#feature-comparison) from classic queues
  * How to [declare a quorum queue](#usage)
  * [Replication](#replication)-related topics: [member management](#member-management), [leader rebalancing](#member-rebalancing), optimal number of members, etc
  * What guarantees quorum queues offer in terms of [leader failure handling](#leader-election), [data safety](#data-safety) and [availability](#availability)
  * Continuous [Membership Reconciliation](#member-reconciliation)
  * The additional [dead lettering](#dead-lettering) features supported by quorum queues
+ * [Strict message priorities](#strict-priorities) for message ordering and delivery
+ * [Consumer timeouts](#consumer-timeout) for handling slow or stuck consumers
+ * [Delayed retry](#delayed-retry) mechanism for message redelivery with backoff
  * [Memory and disk footprint](#resource-use) of quorum queues
  * [Performance](#performance) characteristics of quorum queues
- * [Performance tuning](#performance-tuning), both for workloads with [small messages](#performance-tuning-small-messages) and [large messages](#performance-tuning-large-messages)
+ * [Performance tuning](#performance-tuning) for optimal quorum queue operation
  * [Poison message handling](#poison-message-handling) (failure-redelivery loop protection)
  * [Migrating from Mirrored Classic Queues](#migrate-from-cmqs)
  * Options to Relax [Property Equivalence](#relaxed-property-equivalence)
@@ -78,47 +77,51 @@ and more.
 General familiarity with [RabbitMQ clustering](./clustering) would be helpful here when learning more about quorum queues.
 
 
-## Motivation {#motivation}
+## What is a Quorum? {#what-is-quorum}
 
-Quorum queues adopt a different replication
-and consensus protocol and give up support for certain "transient" in nature features, which results in some limitations. These limitations are covered later in this information.
-
-Quorum queues pass a [refactored and more demanding version](https://github.com/rabbitmq/jepsen#jepsen-tests-for-rabbitmq) of the [original Jepsen test](https://aphyr.com/posts/315-jepsen-rabbitmq#rabbit-as-a-queue).
-This ensures they behave as expected under network partitions and failure scenarios.
-The new test runs continuously to spot possible regressions and is enhanced regularly to test new features (e.g. [dead lettering](#dead-lettering)).
-
-### What is a Quorum? {#what-is-quorum}
-
-If intentionally simplified, [quorum](https://en.wikipedia.org/wiki/Quorum_(distributed_computing)) in a distributed system can
-be defined as an agreement between the majority of nodes (`(N/2)+1` where `N` is the total number of
+A [quorum](https://en.wikipedia.org/wiki/Quorum_(distributed_computing)) in a distributed system can
+be defined as an agreement between a majority of members (`(N/2)+1` where `N` is the total number of
 system participants).
 
-When applied to queue mirroring in RabbitMQ [clusters](./clustering)
-this means that the majority of members (including the currently elected queue leader)
-agree on the state of the queue and its contents.
+When applied to queue replication in RabbitMQ [clusters](./clustering)
+it means that the majority of queue members (leader and followers)
+agree on the exact state of the queue and its contents.
 
 
 ## Use Cases {#use-cases}
 
-Quorum queues intended use is in topologies where queues exist for a long time
-and are critical to certain aspects of an application's architecture.
+Quorum queues are _not_ designed to be used for every use case that requires a queue.
+
+The intended use of quorum queues is in topologies where queues typically exist for a long time,
+need high availability and are critical to certain aspects of an application's architecture.
 
 Examples of good use cases would be incoming orders in a sales system
 or votes cast in an electoral system where potentially losing messages
 would have a significant impact on overall system correctness and function.
 
-Quorum queues are _not_ designed to be used for every problem.
 Stock tickers, instant messaging systems and RPC reply queues benefit less or
 not at all from use of quorum queues.
 
-Publishers should [use publisher confirms](./publishers#data-safety) as this is how clients can interact with
-the quorum queue consensus system. Publisher confirms will [only be issued](./confirms#when-publishes-are-confirmed) once
-a published message has been successfully replicated to a quorum of members
+For use cases that need replication and repeatable reads (e.g. fan-out notifications),
+[streams](./streams) may be a better option than quorum queues.
+
+There are no hard limitations on the number of quorum queues that a system
+can sustain. However, if a use case requires more than ~5000 quorum queues it is
+recommended to review the topology and see if some quorum queues
+can be replaced with either classic queues or streams.
+
+Upgrade and failure testing is always recommended irrespective of the number of
+quorum queues in the system.
+
+Publishers should [use publisher confirms](./publishers#data-safety) as this
+is how clients can interact with the quorum queue consensus system.
+Publisher confirms will [only be issued](./confirms#when-publishes-are-confirmed)
+once a published message has been successfully replicated to a quorum of members
 and is considered "safe" within the context of the queue.
 
 Consumers should use [manual acknowledgements](./confirms) to ensure messages that aren't
-successfully processed are returned to the queue so that
-another consumer can re-attempt processing.
+successfully processed are returned to the queue so that another consumer can
+re-attempt processing.
 
 
 #### When Not to Use Quorum Queues
@@ -128,8 +131,8 @@ In some cases quorum queues should not be used. They typically involve:
  * Temporary queues: transient or exclusive queues, high queue churn (declaration and deletion rates)
  * Lowest possible latency: the underlying consensus algorithm has an inherently higher latency due to its data safety features
  * When data safety is not a priority (e.g. applications do not use [manual acknowledgements and publisher confirms](./confirms) are not used)
- * Very long queue backlogs (5M+ messages) ([streams](./stream) are likely to be a better fit)
- * Large fanouts: ([streams](./stream) are likely to be a better fit)
+ * Very long queue backlogs (5M+ messages) ([streams](./streams) are likely to be a better fit)
+ * Large fanouts: ([streams](./streams) are likely to be a better fit)
 
 
 ## Features
@@ -164,13 +167,15 @@ With some queue operations there are minor differences:
 | [Queue TTL](./ttl#queue-ttl) | yes | partially (lease is not renewed on queue re-declaration) |
 | [Queue length limits](./maxlength) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
 | Keeps messages in memory | see [Classic Queues](./classic-queues#memory) | never (see [Resource Use](#resource-use))|
-| [Message priority](./priority) | yes | [yes](./quorum-queues#priorities) |
+| [Message priority](./priority) | yes | [yes, strict](#strict-priorities) |
 | [Single Active Consumer](./consumers#single-active-consumer) | yes | yes |
 | [Consumer exclusivity](./consumers#exclusivity) | yes | no (use [Single Active Consumer](./consumers#single-active-consumer)) |
 | [Consumer priority](./consumer-priority) | yes | yes |
 | [Dead letter exchanges](./dlx) | yes | yes |
 | Adheres to [policies](./policies) | yes | yes (see [Policy support](#policy-support)) |
 | Poison message handling | no | yes |
+| [Consumer timeout](#consumer-timeout) | no | yes |
+| [Delayed retry](#delayed-retry) | no | yes |
 | [Server-named queues](./queues#server-named-queues) | yes | no |
 
 Modern quorum queues also offer [higher throughput and less latency variability](/blog/2022/05/16/rabbitmq-3.10-performance-improvements)
@@ -299,43 +304,265 @@ However, messages that are dead lettered by the source quorum queue will keep th
 This means if dead lettered messages in the target queue should survive a broker restart, the target queue must be durable and
 the message delivery mode must be set to persistent when publishing messages to the source quorum queue.
 
-### Priorities
+### Consumer Priorities
+
+Quorum queues support [consumer priorities](./consumer-priority).
+
+<a id="priorities"></a>
+
+### Message Priorities {#strict-priorities}
 
 :::important
 
-Quorum queue [priority support](./priority) is available as of RabbitMQ 4.0. However, there are differences
-in how quorum queues and classic queues implement priorities.
+Strict message priority support for quorum queues is available as of RabbitMQ 4.3.
 
 :::
 
-Quorum queues support [consumer priorities](./consumer-priority) and starting with 4.0,
-they also support a type of message prioritisation that is quite different
-from [classic queue message priorities](./priority).
+Starting with RabbitMQ 4.3, quorum queues support strict message priorities with 32 priority levels (0-31). Unlike the previous "fair share" approach (2:1 ratio between high and normal priorities), strict priorities ensure that higher priority messages are always delivered before lower priority messages.
 
-Quorum queue message priorities are always active and do not require a policy to work.
-As soon as a quorum queue receives a message with a priority set it will enable
-prioritization.
+Priority levels 0-31 are supported. Priority values higher than 31 will be clamped to 31 (the maximum priority). This allows applications to use standard priority values without worrying about exceeding the maximum.
 
-Quorum queues internally only support two priorities: high and normal. Messages without
-a priority set or having priorities in the [0, 4] range will be considered to be of normal priority.
-Messages with a priority higher than 4 will be considered to be of high priority.
+#### Per-Priority Message Counts
 
-High priority messages will be favoured over normal priority messages at a ratio
-of 2:1, i.e. for every 2 high priority message the queue will deliver 1 normal priority
-message (if available). Hence, quorum queues implement a kind of non-strict,
-"fair share" priority processing. This ensures progress is always made on normal
-priority messages but high priorities are favoured at a ratio of 2:1.
+Each priority level maintains separate message counts that are visible in the Management UI. This allows operators to monitor queue depth per priority and ensure that high-priority messages are not getting stuck behind lower-priority ones.
+
+#### Redelivery of Returned Messages
+
+When messages are returned to the queue (via `reject`, `nack`, or `modify`), they do not retain their original priority. Instead, they are added to the returns queue and are requeued in the exact order they were returned, regardless of their priority.
+
+#### Priority-Aware Message Expiration
+
+Message expiration (TTL) scans now run across all priority levels, ensuring that messages expire in the correct order regardless of their priority level. For each priority level, the scan will only process messages until it encounters the first unexpired message. This prevents low-priority messages from blocking the expiration of high-priority messages that have exceeded their TTL.
+
+#### Management UI Support
+
+The Management UI displays per-priority message counts for each quorum queue, allowing operators to:
+
+* Monitor queue depth broken down by priority level
+* Identify if high-priority messages are being delayed by lower-priority ones
+* Make informed decisions about consumer allocation and queue configuration
+
+### Consumer Timeout {#consumer-timeout}
 
 :::important
-If a high priority message was published before a normal priority one, the high priority
-message will always be delivered first even if it is the normal priority's turn.
+
+Consumer timeout support for quorum queues is available as of RabbitMQ 4.3.
+
 :::
 
-#### More Advanced Scenarios
+Quorum queues support configurable consumer timeouts to handle slow or stuck consumers. When a consumer holds unacknowledged messages beyond the configured timeout period, the messages are automatically returned to the queue and become available for redelivery by another consumer.
 
-For more advanced message priority scenarios, separate queues should be used for different
-message types, one for each type (priority). Queues used for more important message types
-should generally have more (overprovisioned) consumers.
+#### How It Works
+
+When a consumer timeout fires:
+
+1. **For AMQP 1.0 clients**: The broker sends a `DISPOSITION` frame with `state=released` instead of detaching the link. This allows the client to auto-settle the delivery and potentially recover without needing to re-establish the link. Until the consumer settles the timed out message it will not be assigned any further messages.
+
+2. **For AMQP 0.9.1 clients**: The consumer is cancelled (if the client supports the `consumer_cancel_notify` capability), otherwise the channel is closed with a `precondition_failed` error. In both cases, the messages are returned to the queue for redelivery.
+
+3. **For MQTT clients**: The consumer subscription is ended and messages are returned to the queue.
+
+This graceful handling (especially for AMQP 1.0) provides better reliability and reduces connection thrashing compared to forcefully closing the link.
+
+#### Configuration Options
+
+Consumer timeout can be configured at the consumer level, queue level, or globally:
+
+
+##### Consumer Attach Property (AMQP 1.0)
+
+```
+rabbitmq:consumer-timeout
+```
+
+##### Consumer Argument (AMQP 0.9.1)
+
+```
+x-consumer-timeout
+```
+
+Set when creating a consumer to apply the timeout only to that consumer.
+
+##### Queue Argument
+
+```
+x-consumer-timeout
+```
+
+Set when declaring a queue to apply to all consumers of that queue.
+
+##### Policy Key
+
+```
+consumer-timeout
+```
+
+Apply a consumer timeout to all queues matching a pattern.
+
+##### Global Setting
+
+In `rabbitmq.conf`:
+
+```ini
+consumer_timeout = 1800000
+```
+
+The timeout value is specified in milliseconds.
+
+#### Disconnected Consumer Node Timeout
+
+When a consumer's node becomes unreachable due to a network partition, quorum queues will wait a configurable period before returning messages held by that consumer. This is controlled by the `consumer_disconnected_timeout` setting:
+
+##### Policy Key
+
+```
+consumer-disconnected-timeout
+```
+
+##### Global Setting
+
+In `rabbitmq.conf`:
+
+```ini
+consumer_disconnected_timeout = 60000
+```
+
+Default is 60 seconds (60000 milliseconds).
+
+##### Queue Argument
+
+```
+x-consumer-disconnected-timeout
+```
+
+#### Management UI and Monitoring
+
+The Management UI displays:
+
+* Consumer timeout status for each outgoing link (highlighted in yellow when active)
+* Disconnected consumer state
+* Helpful tooltips explaining the consumer timeout feature
+
+Warnings are logged when a consumer timeout occurs, including:
+* Connection name
+* Link name and handle
+* AMQP container ID
+* Queue name
+
+
+### Delayed Retry {#delayed-retry}
+
+:::important
+
+Delayed retry support for quorum queues is available as of RabbitMQ 4.3.
+
+:::
+
+Quorum queues support configurable delayed retry with linear back-off for messages that are returned to the queue. When a message is rejected, nacked, or modified by a consumer, it can be held in a delayed state before becoming available for redelivery. This helps prevent rapid retry loops and implements linear back-off strategies.
+
+#### How It Works
+
+When a message is returned and delayed retry is enabled, the message is held in a delayed queue keyed by its ready-at timestamp. The delay is calculated based on the message's delivery count:
+
+```
+delay = min(min_delay * delivery_count, max_delay)
+```
+
+For example, with `min_delay=1000ms` and `max_delay=30000ms`:
+- First return: 1000ms delay
+- Second return: 2000ms delay
+- Third return: 3000ms delay
+- Fourth return and beyond: 30000ms delay (capped at max_delay)
+
+NB: a message's `delivery-count` is _only_ incremented for failures
+(session/channel crashes and using the `modified` outcome with delivery_failed=true).
+This means not all return types will cause the message to be delayed longer than
+the minimum.
+
+#### Configuration Options
+
+Delayed retry can be configured via queue arguments (at declaration time), queue policies, or both.
+
+##### Queue Arguments
+
+Queue arguments can be set when declaring a queue using AMQP 0.9.1:
+
+- `x-delayed-retry-type` - Retry type: `disabled`, `all`, `failed`, or `returned` (default: `disabled`)
+- `x-delayed-retry-min` - Minimum delay in milliseconds (required if enabled)
+- `x-delayed-retry-max` - Maximum delay in milliseconds (optional)
+
+##### Policy Keys
+
+Policies provide a way to configure delayed retry across multiple queues:
+
+- `delayed-retry-type` - Retry type: `disabled`, `all`, `failed`, or `returned`
+- `delayed-retry-min` - Minimum delay in milliseconds
+- `delayed-retry-max` - Maximum delay in milliseconds
+
+##### Retry Types
+
+- `disabled` - Delayed retry is not applied (default)
+- `all` - All returned messages are delayed, regardless of whether the delivery count was incremented
+- `failed` - Only messages with incremented `delivery-count` are delayed (e.g., via `reject`, AMQP 1.0 `modify` with `delivery_failed=true`, or channel termination with pending messages)
+- `returned` - Only messages without incremented `delivery-count` are delayed (e.g., via `nack` or AMQP 1.0 `modify` with `delivery_failed=false`)
+
+#### Example Configuration
+
+<Tabs groupId="examples">
+<TabItem value="bash" label="bash" default>
+```bash
+rabbitmqctl set_policy qq-delayed-retry \
+    "^critical\." \
+    '{"delayed-retry-type": "all", "delayed-retry-min": 1000, "delayed-retry-max": 30000}' \
+    --priority 10 \
+    --apply-to "quorum_queues"
+```
+</TabItem>
+
+<TabItem value="HTTP API" label="HTTP API">
+```ini
+PUT /api/policies/%2f/qq-delayed-retry
+{"pattern": "^critical\.",
+ "definition": {
+   "delayed-retry-type": "all",
+   "delayed-retry-min": 1000,
+   "delayed-retry-max": 30000
+ },
+ "priority": 10,
+ "apply-to": "quorum_queues"}
+```
+</TabItem>
+
+<TabItem value="Management UI" label="Management UI">
+<ol>
+  <li>Navigate to <code>Admin</code> > <code>Policies</code> > <code>Add / update a policy</code></li>
+  <li>Enter policy name, pattern, and select <code>quorum_queues</code> as the apply-to type</li>
+  <li>
+    Add policy arguments:
+    <ul>
+      <li><code>delayed-retry-type</code> = <code>all</code></li>
+      <li><code>delayed-retry-min</code> = <code>1000</code></li>
+      <li><code>delayed-retry-max</code> = <code>30000</code></li>
+    </ul>
+  </li>
+  <li>Click <code>Add policy</code></li>
+</ol>
+</TabItem>
+</Tabs>
+
+#### Advanced Features
+
+##### Explicit Delivery Time
+
+The `x-opt-delivery-time` annotation can be set on message properties to specify an explicit future delivery time (in milliseconds since epoch). This annotation is only available when using the AMQP `modify` outcome and takes precedence over the calculated linear back-off delay.
+
+#### Management UI and Monitoring
+
+Delayed retry configuration, deferred message counts, and retry status are displayed in the Management UI, allowing operators to:
+
+* View delayed retry configuration for each queue
+* Monitor the number of delayed messages per queue
+* Identify queues with excessive message delays
 
 
 ## Poison Message Handling {#poison-message-handling}
@@ -347,6 +574,22 @@ deletion by RabbitMQ.
 
 Quorum queues keep track of the number of unsuccessful (re)delivery attempts and expose it in the
 "x-delivery-count" header that is included with any redelivered message.
+
+Starting with RabbitMQ 4.3, the delivery limit is based on `delivery-count` rather
+than `acquired-count`. This means that unlimited explicit message returns
+(via `nack` or AMQP 1.0 `modify` with `delivery_failed=false`) are now allowed
+without counting towards the delivery limit. The header `x-acquired-count` has
+been introduced to track the number of times a message was acquired by a consumer,
+alongside `x-delivery-count` which tracks the actual number of failed deliveries.
+
+:::tip
+`x-acquired-count` is the recommended header for tracking the number of times a
+message has been assigned to a consumer.
+It provides more accurate information about the potential number of times
+a message may have been seen by a consumer. Note that
+this counter is incremented when a message is _assigned_ to a consumer. This does
+not mean that a consumer has actually ever seen the message.
+:::
 
 :::important
 
@@ -371,16 +614,38 @@ Starting with RabbitMQ 4.0, the delivery limit for quorum queues defaults to 20.
 The 3.13.x era behavior where there was no limit can be restored by setting `x-delivery-limit=-1`
 [optional queue argument](./queues#optional-arguments) when declaring a queue.
 
+This is _not_ recommended.
+
 :::
 
-See [repeated requeues](#repeated-requeues) for more details.
+### When is delivery count incremented?
 
-### Configuring the Limit {#position-message-handling-configuring-limit}
+| Trigger | `acquired-count` gets incremented | `delivery-count` gets incremented (delivery attempt *failed*) |
+| :--- | :---: | :---: |
+| **AMQP 1.0 `released`** disposition | ✅ | ❌ |
+| **AMQP 1.0 `rejected`** disposition | ✅ | ✅ |
+| **AMQP 1.0 `modified`** disposition with `delivery-failed=false` | ✅ | ❌ |
+| **AMQP 1.0 `modified`** disposition with `delivery-failed=true` | ✅ | ✅ |
+| **AMQP 0.9.1 `basic.nack`** | ✅ | ❌ |
+| **AMQP 0.9.1 `basic.reject`** | ✅ | ✅ |
+| **Client crash / Connection loss** | ✅ | ✅ |
+| **Intra-cluster network partition** (consumer node suspected down) | ✅ | ❌ |
+| **Consumer timeout** (consumer doesn't ack in time) | ✅ | ❌ |
 
-It is possible to set a delivery limit for a queue using a [policy](./policies) argument, `delivery-limit`.
+### Configuring the Limit {#poison-message-handling-configuring-limit}
 
-The value of `-1`, which disables the limit altogether, cannot be currently set through a policy - this
-can only be done with `x-delivery-limit=-1` queue argument during queue declaration.
+It is possible to set a delivery limit for a queue using a [policy](./policies)
+argument, `delivery-limit`.
+
+The value of `-1` disables the limit altogether. It is _not_ recommended that users
+disable this limit as repeated requeues can threaten the stability of a queue or
+RabbitMQ cluster.
+
+Note that since 4.3 the delivery count (against which the delivery limit is evaluated)
+will _only_ be incremented for genuine failures such as session/channel crashes or
+when using the modified outcome with `delivery-failed=true` or basic.reject in
+AMQP 0.9.1.
+
 
 #### Overriding the Limit
 
@@ -571,6 +836,11 @@ policy keys they adhere to.
 | `dead-letter-exchange` | String |
 | `dead-letter-routing-key` | String |
 | `delivery-limit` | Number |
+| `delayed-retry-type` | "disabled", "all", "failed", or "returned" |
+| `delayed-retry-min` | Number (milliseconds) |
+| `delayed-retry-max` | Number (milliseconds) |
+| `consumer-timeout` | Number (milliseconds) |
+| `consumer-disconnected-timeout` | Number (milliseconds) |
 
 
 ## Features that are not Supported
@@ -616,11 +886,11 @@ This is because policy definition or applicable policy can be changed dynamicall
 queue type cannot. It must be specified at the time of declaration.
 
 Declaring a queue with an `x-queue-type` argument set to `quorum` will declare a quorum queue with
-up to three members (default [replication factor](#replication-factor)),
+up to three members (default [group size](#group-size)),
 one per each [cluster node](./clustering).
 
 For example, a cluster of three nodes will have three members, one on each node.
-In a cluster of five nodes, three nodes will have one replica each but two nodes won't host any members.
+In a cluster of five nodes, three nodes will have one member each but two nodes won't host any members.
 
 After declaration a quorum queue can be bound to any exchange just as any other
 RabbitMQ queue.
@@ -644,50 +914,45 @@ With some queue operations there are minor differences:
  * Setting [QoS prefetch](#global-qos) for consumers
 
 
-## Replication Factor and Membership Management {#replication}
+## Group Size and Membership Management {#replication}
 
-When a quorum queue is declared, an initial number of members for it must be started in the cluster.
-By default the number of members to be started is up to three, one per RabbitMQ node in the cluster.
+When a quorum queue is declared, an initial number of members (its "group size")
+must be configured. RabbitMQ defaults this to 3 which is the practical minimum
+number of members to provide high availability.
 
-Three nodes is the **practical minimum** of members for a quorum queue. In RabbitMQ clusters with a larger
-number of nodes, adding more members than a [quorum](#what-is-quorum) (majority) will not provide
-any improvements in terms of [quorum queue availability](#quorum-requirements) but it will consume
-more cluster resources.
+The members of a quorum queue will never share a RabbitMQ node so in order to
+declare a new 3-member quorum queue at least 2 RabbitMQ nodes need to be online
+at the time of declaration.
 
-Therefore the **recommended number of members** for a quorum queue is the quorum of cluster nodes
-(but no fewer than three). This assumes a [fully formed](./cluster-formation) cluster of at least three nodes.
-
-### Controlling the Initial Replication Factor {#replication-factor}
+### Controlling the Initial Group Size {#group-size}
 
 For example, a cluster of three nodes will have three members, one on each node.
-In a cluster of seven nodes, three nodes will have one replica each but four more nodes won't host any members
+In a cluster of seven nodes, three nodes will have one member each but four more nodes won't host any members
 of the newly declared queue.
 
-The replication factor (number of members a queue has) can be configured for quorum queues.
+The group size (the initial number of members) can be configured for quorum queues
+using the `x-quorum-initial-group-size` queue argument.
+The group size argument provided should be an integer that is greater than zero and smaller or
+equal to the currently configured RabbitMQ cluster size.
 
-The minimum factor value that makes practical sense is three.
-It is highly recommended for the factor to be an odd number.
-This way a clear quorum (majority) of nodes can be computed. For example, there is no "majority" of
-nodes in a two node cluster. This is covered with more examples below in the [Fault Tolerance and Minimum Number of Members Online](#quorum-requirements)
-section.
+The minimum value of `x-quorum-initial-group-size` that makes practical sense
+ is three which will support the failure of 1 RabbitMQ node.
 
-This may not be desirable for larger clusters or for cluster with an even number of
-nodes. To control the number of quorum queue members set the
-`x-quorum-initial-group-size` queue argument when declaring the queue. The
-group size argument provided should be an integer that is greater than zero and smaller or
-equal to the current RabbitMQ cluster size. The quorum queue will be
-launched to run on a random subset of RabbitMQ nodes present in the cluster at declaration time.
+As for RabbitMQ cluster sizes it is highly recommended for the quorum queue group
+size to be an odd number.
 
-In case a quorum queue is declared before all cluster nodes have joined the cluster, and the initial replica
-count is greater than the total number of cluster members, the effective value used will
-be equal to the total number of cluster nodes. When more nodes join the cluster, the replica count
-will not be automatically increased but it can be [increased by the operator](#member-management).
+See the [Fault Tolerance and Minimum Number of Members Online](#quorum-requirements)
+section for further details on the quorum semantics.
+
+NB: if a RabbitMQ node is unavailable during a declaration and it is chosen to
+host a quorum queue member this member will be started the next time the node
+is started.
 
 ### Managing Members {#member-management}
 
 Replicas of a quorum queue are explicitly managed by the operator. When a new node is added
-to the cluster, it will host no quorum queue members unless the operator explicitly adds it
-to a member (replica) list of a quorum queue or a set of quorum queues.
+to the cluster, it will host no quorum queue members unless the operator explicitly adds
+a member to a quorum queue or a set of quorum queues.
 
 When a node has to be decommissioned (permanently removed from the cluster), the
 [`forget_cluster_node`](./cli) command will automatically attempt to remove all quorum queue
@@ -726,20 +991,19 @@ that need a member on the new node and then decommission the node it replaces.
 
 ### Queue Leader Location {#leader-placement}
 
-Every quorum queue has a primary replica. That replica is called
-_queue leader_. All queue operations go through the leader
-first and then are replicated to followers. This is necessary to
-guarantee FIFO ordering of messages.
+All operations (state changes) on a quorum queue are sent to a primary member
+called a _leader_ which in turn replicates the operations to the remaining
+members, called _followers_.
 
 To avoid some nodes in a cluster hosting the majority of queue leader
-members and thus handling most of the load, queue leaders should
-be reasonably evenly distributed across cluster nodes.
+members and thus handling most of the load, it may be beneficial if queue leaders
+are reasonably evenly distributed across cluster nodes.
 
 When a new quorum queue is declared, the set of nodes that will host its
 members is randomly picked, but will always include the node the client that
 declares the queue is connected to.
 
-Which replica becomes the initial leader can be controlled using three options:
+Which member becomes the initial leader can be controlled using three options:
 
 1. Setting the `queue-leader-locator` [policy](./policies) key (recommended)
 2. By defining the `queue_leader_locator` key in [the configuration file](./configure#configuration-files) (recommended)
@@ -752,11 +1016,13 @@ Supported queue leader locator values are
    pick the node hosting the minimum number of quorum queue leaders.
    If there are overall more than 1000 queues, pick a random node.
 
-### Rebalancing Replicas {#member-rebalancing}
+### Rebalancing Members {#member-rebalancing}
 
-Once declared, the RabbitMQ quorum queue leaders may be unevenly
+Once declared or after a cluster restart, the RabbitMQ quorum queue leaders may be unevenly
 distributed across the RabbitMQ cluster.
+
 To re-balance use the `rabbitmq-queues rebalance` command.
+
 It is important to know that this does not change the nodes which the quorum queues span.
 To modify the membership instead see [managing members](#member-management).
 
@@ -783,15 +1049,15 @@ rabbitmq-queues rebalance quorum --vhost-pattern "production.*"
 
 :::important
 The continuous membership reconciliation (CMR) feature exists in addition to, and not as a replacement for,
-[explicit replica management](#member-management). In certain cases where nodes are permanently removed
+[explicit member management](#member-management). In certain cases where nodes are permanently removed
 from the cluster, explicitly removing quorum queue members may still be necessary.
 :::
 
-In addition to controlling quorum queue replica membership by using the initial target size and [explicit replica management](#member-management),
-nodes can be configured to automatically try to grow the quorum queue replica membership
+In addition to controlling quorum queue membership by using the initial target size and [explicit member management](#member-management),
+nodes can be configured to automatically try to grow the quorum queue membership
 to a configured target group size by enabling the continuous membership reconciliation feature.
 
-When activated, every quorum queue leader replica will periodically check its current membership group size
+When activated, every quorum queue leader will periodically check its current membership group size
 (the number of configured members), and compare it with the target value.
 
 If a queue is below the target value, RabbitMQ will attempt to grow the queue onto the available nodes that
@@ -804,7 +1070,7 @@ certain events in the cluster, such as an addition of a new node, or permanent n
 or a quorum queue-related policy change.
 
 :::warning
-Note that a node or quorum queue replica failure does not trigger automatic membership reconciliation.
+Note that a node or quorum queue member failure does not trigger automatic membership reconciliation.
 
 If a node is failed in an unrecoverable way and cannot be brought back, it must be explicitly removed from the cluster
 or the operator must opt-in and enable the `quorum_queue.continuous_membership_reconciliation.auto_remove` setting.
@@ -845,7 +1111,7 @@ are expected to come back and only a minority (often just one) node is stopped f
         `quorum_queue.continuous_membership_reconciliation.target_group_size`
       </td>
       <td>
-        The target replica count (group size) for queue members.
+        The target member count (group size) for queue members.
         <div>
           <ul>
             <li>Data type: positive integer</li>
@@ -916,7 +1182,7 @@ are expected to come back and only a minority (often just one) node is stopped f
         `target-group-size`
       </td>
       <td>
-        Defines the target replica count (group size) for matching queues. This policy can be set by users and operators.
+        Defines the target member count (group size) for matching queues. This policy can be set by users and operators.
         <div>
           <ul>
             <li>Data type: positive integer</li>
@@ -942,7 +1208,7 @@ are expected to come back and only a minority (often just one) node is stopped f
         `x-quorum-target-group-size`
       </td>
       <td>
-        Defines the target replica count (group size) for matching queues. This key can be overridden by operator policies.
+        Defines the target member count (group size) for matching queues. This key can be overridden by operator policies.
         <div>
           <ul>
             <li>Data type: positive integer</li>
@@ -959,7 +1225,7 @@ are expected to come back and only a minority (often just one) node is stopped f
 
 A quorum queue relies on a consensus protocol called Raft to ensure data consistency and safety.
 
-Every quorum queue has a primary replica (a *leader* in Raft parlance) and zero or more
+Every quorum queue has a primary member (a *leader* in Raft parlance) and zero or more
 secondary members (called *followers*).
 
 A leader is elected when the cluster is first formed and later if the leader
@@ -970,19 +1236,19 @@ becomes unavailable.
 A quorum queue requires a quorum of the declared nodes to be available
 to function. When a RabbitMQ node hosting a quorum queue's
 *leader* fails or is stopped another node hosting one of that
-quorum queue's *follower* will be elected leader and resume
+quorum queue's *follower* will be elected leader and resume accepting
 operations.
 
-Failed and rejoining followers will re-synchronise ("catch up") with the leader.
-With quorum queues, a temporary replica failure
-does not require a full re-synchronization from the currently elected leader. Only the delta
-will be transferred if a re-joining replica is behind the leader. This "catching up" process
-does not affect leader availability.
+Failed and rejoining followers will automatically resume log replication at the
+point they left off which means there is no special "catch-up" process needed
+and there is no impact on leader availability as was the case with classic
+mirrored queues.
 
-When a new replica is [added](#member-management), it will synchronise the entire queue state
-from the leader.
+When a new member is [added](#member-management), the same log replication process
+will be performed and again there is little impact on the rest of the quorum
+queue cluster.
 
-### Fault Tolerance and Minimum Number of Replicas Online {#quorum-requirements}
+### Fault Tolerance and Minimum Number of Members Online {#quorum-requirements}
 
 Consensus systems can provide certain guarantees with regard to data safety.
 These guarantees do mean that certain conditions need to be met before they
@@ -1034,6 +1300,10 @@ system buffer or otherwise fail to reach the target node or the queue leader.
 
 :::
 
+Quorum queues pass a [refactored and more demanding version](https://github.com/rabbitmq/jepsen#jepsen-tests-for-rabbitmq) of the [original Jepsen test](https://aphyr.com/posts/315-jepsen-rabbitmq#rabbit-as-a-queue).
+This ensures they behave as expected under network partitions and failure scenarios.
+The new test runs continuously to spot possible regressions and is enhanced regularly to test new features (e.g. [dead lettering](#dead-lettering)).
+
 
 ### Availability {#availability}
 
@@ -1050,13 +1320,6 @@ A queue with five members can tolerate two, and so on.
 If a quorum of nodes cannot be recovered (say if 2 out of 3 RabbitMQ nodes are
 permanently lost) the queue is permanently unavailable and
 will need to be force deleted and recreated.
-
-Quorum queue follower members that are disconnected from the leader or participating in a leader
-election will ignore queue operations sent to it until they become aware of a newly elected leader.
-There will be warnings in the log (`received unhandled msg` and similar) about such events.
-As soon as the replica discovers a newly elected leader, it will sync the queue operation
-log entries it does not have from the leader, including the dropped ones. Quorum queue state
-will therefore remain consistent.
 
 
 ### Performance Characteristics {#performance}
@@ -1143,18 +1406,66 @@ The `rabbit` application has several quorum queue related configuration items av
       </td>
       <td>32</td>
     </tr>
+    <tr>
+      <td>rabbit.consumer_timeout</td>
+      <td>
+        Global default consumer timeout in milliseconds for all quorum queues.
+        Can be overridden by policy or queue argument. Set to <code>undefined</code> to disable.
+      </td>
+      <td>undefined</td>
+    </tr>
+    <tr>
+      <td>rabbit.consumer_disconnected_timeout</td>
+      <td>
+        Timeout in milliseconds for returning messages when a consumer's node becomes unreachable
+        due to a network partition. After this timeout, the messages are returned to the queue.
+      </td>
+      <td>60000</td>
+    </tr>
   </tbody>
 </table>
 
+In `rabbitmq.conf`, these can be configured as:
+
+```ini
+consumer_timeout = 1800000
+consumer_disconnected_timeout = 60000
+```
+
 ### Example of a Quorum Queue Configuration
 
-The following `rabbitmq.conf` example modifies all values listed above:
+The following `rabbitmq.conf` example shows both legacy and new configuration options:
 
 ```ini
 quorum_queue.initial_cluster_size = 3
 
 quorum_queue.commands_soft_limit = 32
+
+consumer_timeout = 1800000
+
+consumer_disconnected_timeout = 60000
 ```
+
+### Advanced Quorum Queue Configuration
+
+Starting with RabbitMQ 4.3, all quorum queue Ra system parameters are explicitly configurable via `rabbitmq.conf` using the `quorum_queue.*` namespace. This allows operators to fine-tune Raft log and WAL behavior specifically for quorum queues without affecting other Raft-based features (like streams or Khepri).
+
+:::warning
+These configuration options are for advanced use cases and should typically **not** be changed by users unless advised to do so by RabbitMQ core team members or support.
+:::
+
+| `rabbitmq.conf` Key | Description | Default Value |
+| --- | --- | --- |
+| `quorum_queue.segment_max_size_bytes` | Maximum size of a Raft log segment file | 64000000 (64 MB) |
+| `quorum_queue.segment_max_entries` | Maximum number of entries in a Raft log segment file | 4096 |
+| `quorum_queue.wal_max_size_bytes` | Maximum size of the Write-Ahead Log | 536870912 (512 MB) |
+| `quorum_queue.wal_max_entries` | Maximum number of entries in the Write-Ahead Log | 500000 |
+| `quorum_queue.wal_max_batch_size` | Maximum batch size for WAL writes | 4096 |
+| `quorum_queue.wal_compute_checksums` | Whether to compute checksums for WAL entries | true |
+| `quorum_queue.segment_compute_checksums` | Whether to compute checksums for segment entries | true |
+| `quorum_queue.max_append_entries_rpc_batch_size` | Maximum batch size for append entries RPCs | 16 |
+| `quorum_queue.compress_mem_tables` | Whether to compress memory tables | true |
+| `quorum_queue.snapshot_chunk_size` | Chunk size for snapshot transfers | 1000000 (1 MB) |
 
 ## Options to Relax Property Equivalence Checks {#relaxed-property-equivalence}
 
@@ -1231,6 +1542,30 @@ The memory footprint pattern of quorum queues will typically look like this:
 ![Quorum Queues memory usage pattern](./quorum-queue-memory-usage-pattern.png)
 </figure>
 
+### Log Compaction
+
+Quorum queues maintain a log of all operations (enqueues, acknowledgements, etc.). Over time, as consumers acknowledge messages, much of this log data becomes obsolete and can be reclaimed.
+
+Starting with RabbitMQ 4.3, quorum queues can now reclaim disk space even if:
+
+* Messages are acknowledged out of order
+* Some messages are retained in the queue for extended periods (e.g., by a slow consumer or held as a delayed retry)
+* Acknowledgements arrive at different rates
+
+Previously, a single unacknowledged message could prevent the log from being truncated, leading to unbounded disk growth. With the new log compaction mechanism in Ra v3, the state machine tracks a list of **live raft indexes** (messages that are still unacknowledged or otherwise needed). When a snapshot is taken, the log undergoes compaction:
+
+1. **Minor Compaction**: Runs after every snapshot. It identifies and deletes entire segment files that contain zero live entries.
+2. **Major Compaction**: Runs periodically in the background. It consolidates multiple sparse segments by copying only the remaining live entries into new, smaller segments, and deleting the old ones.
+
+This allows the data for acknowledged messages to be omitted from the snapshot and removed from disk, reducing both snapshot size and write amplification, and safely reclaiming disk space.
+
+For more technical details on the compaction architecture, see the [Ra Log Compaction documentation](https://github.com/rabbitmq/ra/blob/main/docs/internals/COMPACTION.md).
+
+#### Snapshot Throttling
+
+To prevent excessive disk I/O, snapshot frequency is intelligently throttled based on the write-ahead log (WAL) fill ratio. This ensures roughly one snapshot per queue per WAL cycle, optimizing performance for both shallow, fast-flowing queues and deep queues.
+
+
 ### Disk Space
 
 :::important
@@ -1242,60 +1577,55 @@ This follows the [general recommendation for storage](./production-checklist#sto
 :::
 
 With large messages (say, 1 MiB and higher), quorum queue disk footprint can be large.
-Depending on the workload — and in particular, the number of messages pending [consumer acknowledgement](./consumers) —
-the removal of segment files can progress slowly, resulting in a growing disk footprint.
+While RabbitMQ 4.3 significantly improves log compaction, the removal of obsolete data from segment files still requires background processing.
 
 This leads to several recommendations:
 
 1. In environments with heavy quorum queue usage and/or large messages flowing through them,
    it is very important to overprovision disk space, that is, have the extra spare capacity
-2. Quorum queues depend heavily on consumers acknowledging messages in a timely manner,
-   so a [reasonably low delivery acknowledgement timeout](./consumers#acknowledgement-timeout) must be used
-3. With larger messages, [decreasing the number of entries per segment file](#performance-tuning-large-messages) can be beneficial
-   to reduce the size of segment files and allow for more frequent truncation (removal) of those files
+2. While quorum queues no longer strictly require consumers to acknowledge messages in a timely manner to prevent unbounded disk growth, a [reasonably low delivery acknowledgement timeout](./consumers#acknowledgement-timeout) is still recommended to reduce the write amplification overhead of copying unacknowledged messages during major compaction
+3. Consider using [delayed retry](#delayed-retry) to manage message processing with backoff, reducing rapid redelivery loops
 4. Larger messages can be stored in a blob store as an alternative, with relevant metadata being passed around
-   in messages flowing through quorum qeueues
-
-### When Does Segment File Truncation Happen? {#segment-file-truncation}
-
-Segment file truncation happens periodically in response to client operations,
-when it is safe to do so. Quorum queues periodically take checkpoints and snapshots,
-and truncate the segment files that are known to not contain any more "live" (ready for delivery
-or pending consumer acknowledgement) messages.
-
-When there is no client activity, these events won't happen, and neither will segment
-file truncation. If a queue is completely idle and empty but has a large number of
-on disk segment files from an earlier period of peak activity, making sure the queue is
-empty then **purging it** may help force a segment file truncation.
-
-To purge a queue, use
-
- * Using the `Purge Messages` button one the queue's page in the management UI
- * When using AMQP 0-9-1, the `queue.purge` operation, exposed via similarly named functions or methods in most AMQP 0-9-1 client libraries
- * When using AMQP 1.0, similarly named functions or methods in the AMQP 1.0 client libraries maintained by Team RabbitMQ
-
-Note that purging a queue with unacknowedged deliveries won't have the desired effect
-on all the segment files, and possibly no effects at all.
+   in messages flowing through quorum queues
 
 ### Repeatedly Requeued Deliveries (Deliver-Requeue Loops) {#repeated-requeues}
 
-Internally quorum queues are implemented using a log where all operations including
-messages are persisted. To avoid this log growing too large it needs to be
-truncated regularly. To be able to truncate a section of the log all messages
-in that section needs to be acknowledged. Usage patterns that continuously
-[reject or nack](./nack) the same message with the `requeue` flag set to true
-could cause the log to grow in an unbounded fashion and eventually fill
-up the disks. Therefore since RabbitMQ 4.0 a default `delivery-limit` of 20 is
-always set after which the message will be dropped or dead lettered.
+Repeated requeues of the same message (where a consumer continuously rejects or nacks a message with the `requeue` flag set to true) can happen when a consumer encounters a transient error or is unable to process a message. RabbitMQ provides safeguards to prevent this pattern from causing issues.
 
-Messages that are rejected or nacked back to a quorum queue will be
-returned to the _back_ of the queue _if_ no [delivery-limit](#poison-message-handling) is set.
-This avoids the above scenario where repeated re-queues causes the Raft log to grow in an unbounded manner. If a `delivery-limit` is set it will use the original behaviour
-of returning the message near the head of the queue.
+#### Built-in Protections
 
-The old unlimited delivery-limit behaviour can be restored by setting a queue
-argument or policy with a delivery limit of -1. It is not recommended to do
-so but may be needed for 3.13.x compatibility in some rare cases.
+Starting with RabbitMQ 4.0, quorum queues enforce a default `delivery-limit` of 20 based on `delivery-count`. When a message's delivery count exceeds this limit, it is either dropped or [dead-lettered](./dlx) (if a DLX is configured).
+
+However, it's important to note that **requeue operations may not increment the delivery count**. Requeues without incrementing the counter (such as returns via `nack` or AMQP 1.0 `modify` with `delivery_failed=false`) will not count toward the delivery limit, allowing unlimited requeue loops for application-level routing logic. Only actual failed redeliveries (such as via `reject`, AMQP 1.0 `modify` with `delivery_failed=true`, or when a channel/session is terminated with pending unacknowledged messages) increment the delivery count.
+
+#### Recommended Approach: Delayed Retry
+
+Rather than relying on the delivery limit to catch problematic messages, use [delayed retry](#delayed-retry) to implement intelligent backoff:
+
+* **Automatic Backoff**: Delay is applied linearly based on delivery count, reducing server load during transient errors
+* **Configurable Behavior**: Choose to delay all returns, only failed deliveries, or only explicit returns
+* **Better Observability**: Monitor delayed message counts in the Management UI to identify problematic consumers
+* **Flexible Recovery**: Use the timeout mechanism or retry strategies to recover gracefully
+
+This prevents rapid requeue loops from overwhelming the queue and allows the log to be compacted efficiently.
+
+#### Message Return Behavior (RabbitMQ 4.3+)
+
+Starting with RabbitMQ 4.3, the delivery limit is explicitly based on `delivery-count` rather than `acquired-count`. This means:
+
+* Unlimited explicit returns (via `nack` or AMQP 1.0 `modify` with `delivery_failed=false`) are allowed without counting toward the delivery limit
+* Only actual redeliveries (via `reject`, AMQP 1.0 `modify` with `delivery_failed=true`, or channel/session termination with pending messages) increment the counter
+* This provides flexibility for application-level message routing and processing logic
+
+#### Disabling the Delivery Limit
+
+The default delivery limit can be disabled by setting `x-delivery-limit=-1` as a queue argument:
+
+```
+x-delivery-limit = -1
+```
+
+This is only recommended for compatibility with RabbitMQ 3.13.x behavior in rare cases. Modern deployments should use [delayed retry](#delayed-retry) instead.
 
 ### Increased Atom Use {#atom-use}
 
@@ -1329,45 +1659,17 @@ Use the values and recommendations here as a **starting point** and conduct your
 
 ### Tuning: Raft Segment File Entry Count {#segment-entry-count}
 
-#### For Small Messages {#performance-tuning-small-messages}
+:::note
 
-Workloads with small messages and higher message rates can benefit from the following
-configuration change that increases the number of Raft log entries (such as enqueued messages)
-that are allowed in a segment file.
+This tuning parameter is **no longer recommended**. Segments now have a size limit (controlled by `quorum_queue.segment_max_size_bytes`, which defaults to 64000000 bytes or 64 MB) which is the primary factor in segment management. Increasing the number of entries per segment can negatively impact log compaction efficiency.
 
-Having fewer segment files can be beneficial when consuming from a queue with a long backlog:
+:::
 
-```bash
-# Positive values up to 65535 are allowed, the default is 4096.
-# This value is reasonable for workloads with small (say, smaller than 8 kiB) messages
-raft.segment_max_entries = 32768
-```
+In modern RabbitMQ versions, the segment file size is the primary limiting factor for performance and compaction. Manually tuning the entry count can cause segments to become very large before being eligible for compaction, potentially slowing down the removal of obsolete data.
 
-Values greater than `65535` are **not supported**.
+If you need to control the maximum size of Raft log segment files for quorum queues, adjust the `quorum_queue.segment_max_size_bytes` configuration instead.
 
-#### For Large Messages {#performance-tuning-large-messages}
-
-Workloads with large (100s of kilobytes or even a few MiB) messages will benefit from the following
-configuration change that **significantly reduces** the number of Raft log entries (such as enqueued messages)
-that are allowed in a segment file.
-
-Having significantly fewer entries per segment file
-will keep the size of each segment reasonable and allow nodes truncate them
-at a higher rate because each segment file will have a lower probability to have
-a very small number of live messages that keep the entire file around.
-
-As a back-of-the-envelope calculation, consider a workload that enqueues 4096 messages
-of 1 MiB each. That would result in a segment file of over 4 GiB in size, and the entire
-file won't be ready for deletion as long as at least one of those messages is alive
-(was not delivered and confirmed).
-
-For example, to allow only 128 entries per segment file:
-
-```bash
-# The default is 4096.
-# This value is only reasonable for workloads with messages of 1 MiB or even larger
-raft.segment_max_entries = 128
-```
+If you are currently using custom `raft.segment_max_entries` settings in production, consider removing them and relying on the default values and size-based limits.
 
 ### Tuning: Linux Readahead {#performance-tuning-linux-readahead}
 
