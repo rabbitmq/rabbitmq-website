@@ -186,6 +186,72 @@ Follow these steps to find out which scopes or permissions are carried in the to
 11. Once you found the appropriate token's scope attribute, find within the attribute's value any of the scopes listed above. If [auth_oauth2.scope_prefix](./oauth2#scope-prefix) is used, it must be taken into account: the scopes will be named like  `myprefix_tag:administrator`. If [scope aliases](./oauth2-examples#using-scope-aliases) are used, find the scope alias that maps to one of the scopes listed above
 
 
+### Not authorized when performing an action {#not-authorized-after-login-error}
+
+#### Steps to reproduce
+
+The user logs in to the management UI successfully (the token carries one of the
+management-UI tag scopes listed in the [previous section](#not-authorized-error)).
+When the user then attempts any action (browsing a virtual host, declaring or
+deleting a queue or exchange, publishing, consuming, binding, managing a policy),
+the UI displays the following error:
+
+```
+Not authorized
+```
+
+#### Troubleshooting
+
+A management-UI tag scope grants access to the management UI but does not by itself
+grant the permissions required by any given action. Tag scopes and per-resource
+permission scopes are independent in the OAuth 2 backend: a tag such as `administrator`
+does not grant `configure`, `read` or `write` on any virtual host or resource.
+
+Each action requires its own scope. The complete mapping between operations and the
+required permission is documented in the
+[access control permission matrix](./access-control#authorisation). The most common
+cases are:
+
+| Action                                        | Required scope(s)                                                                                 |
+|-----------------------------------------------|---------------------------------------------------------------------------------------------------|
+| Declare or delete a queue or exchange         | `rabbitmq.configure:<vhost>/<name>`                                                               |
+| Publish to an exchange                        | `rabbitmq.write:<vhost>/<exchange>`                                                               |
+| Consume from or purge a queue                 | `rabbitmq.read:<vhost>/<queue>`                                                                   |
+| Bind or unbind a queue to/from an exchange    | `rabbitmq.write:<vhost>/<queue>` and `rabbitmq.read:<vhost>/<exchange>` (both are required)       |
+| Publish or consume on a topic exchange        | See [Topic Exchange scopes](./oauth2#topic-exchange-scopes) (three-segment form)                  |
+| Create, update or delete a policy             | `rabbitmq.tag:policymaker` (or `rabbitmq.tag:administrator`): policies are gated by a user tag, not by a resource scope |
+
+In the scopes above, `rabbitmq` stands for the configured
+[resource_server_id](./oauth2#resource-server-id). When a
+[scope_prefix](./oauth2#scope-prefix) is set, it replaces the `<resource_server_id>.`
+prefix entirely: for example, with `auth_oauth2.scope_prefix = api://`,
+`rabbitmq.read:*/*` becomes `api://read:*/*`. To use `*`, `%` or `/` as a literal
+character inside a vhost or resource pattern (as opposed to the `*` wildcard),
+[URL-encode it](./oauth2#scope-translation).
+
+To inspect the scopes actually carried by the token, follow the same steps as in the
+[previous section](#not-authorized-error) (browser developer tools, *Local Storage*,
+`rabbitmq.credentials`, https://jwt.io). Once the payload is decoded:
+
+* locate the `scope` claim and any claim names configured in
+  `auth_oauth2.additional_scopes_key` (scopes are read from the `scope` claim and,
+  additionally, from every claim listed in `additional_scopes_key`)
+* confirm the token contains the scope required by the attempted action, taking any
+  `auth_oauth2.scope_prefix` into account
+* if [scope aliases](./oauth2-examples#using-scope-aliases) are in use, confirm that
+  at least one alias carried in the token maps to the required scope
+* in a [multi-resource](./oauth2-examples-multiresource) setup, confirm the `aud`
+  claim includes the RabbitMQ `resource_server_id`, otherwise the token is not
+  accepted for that resource
+
+If the required scope is missing, update the identity provider configuration, or the
+mapping of application roles to scopes, to include it. Granting
+`rabbitmq.configure:*/*`, `rabbitmq.read:*/*` and `rabbitmq.write:*/*` together is
+equivalent to full access on every virtual host and should be reserved for
+bootstrapping or superuser identities: production tokens should use vhost- and
+name-scoped patterns.
+
+
 ### OpenId Discovery endpoint unreachable due to bad certificate {#openid-discovery-endpoint-bad-certificate}
 
 This issue is not necessarily specific to the management UI, it may also occur when an application is authenticating via one of the messaging protocols. It occurs when RabbitMQ has to download the OpenId Connect configuration via the url configured in `auth_oauth2.issuer` and the certificate used by the issuer uses a wildcard certificate. This means that the certificate's CN attribute does not match exactly the issuer's domain name. This is very common on SaaS deployments.
