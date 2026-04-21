@@ -111,11 +111,16 @@ of mandatory properties and a map of optional ones:
  * Auto-delete (queue that has had at least one consumer is deleted when last consumer unsubscribes)
  * Arguments (optional; used by plugins and broker-specific features such as message TTL, queue length limit, etc)
 
-Note that **not all property combination make sense** in practice. For example, auto-delete
-and exclusive queues should be [server-named](#server-named-queues). Such queues are supposed to
-be used for client-specific or connection (session)-specific data.
+:::important
 
-When auto-delete or exclusive queues use well-known (static) names, in case of client disconnection
+Note that **not all property combination make sense**. For example,
+exclusive queues should almost always be [server-named](#server-named-queues).
+
+Such queues are supposed to be used for client-specific or connection (session)-specific data.
+
+:::
+
+When exclusive queues use well-known (static) names, in case of client disconnection
 and immediate reconnection there will be a natural race condition between RabbitMQ nodes
 that will delete such queues and recovering clients that will try to re-declare them.
 This can result in client-side connection recovery failure or exceptions, and create unnecessary confusion
@@ -256,7 +261,7 @@ To keep order with queues:
 
 ## Durability {#durability}
 
-Queues can be durable or transient. Metadata of a durable queue is stored on disk,
+Queues can be durable or transient (non-durable). Metadata of a durable queue is stored on disk,
 while metadata of a transient queue is stored in memory when possible.
 The same distinction is made for [messages at publishing time](./publishers#message-properties)
 in some protocols, e.g. AMQP 0-9-1 and MQTT.
@@ -264,12 +269,34 @@ in some protocols, e.g. AMQP 0-9-1 and MQTT.
 In environments and use cases where durability is important, applications
 must use durable queues *and* make sure that [publishers](/docs/publishers) mark published messages as persisted.
 
-Transient queues will be deleted on node boot. They therefore will not survive a node restart,
-by design. Messages in transient queues will also be discarded.
-
 Durable queues will be recovered on node boot, including messages in them published as persistent.
 Messages published as transient will be **discarded** during recovery, even if they were stored
 in durable queues.
+
+Transient queues will be deleted on node boot. They therefore will not survive a node restart,
+by design. Messages in transient queues will also be discarded.
+
+:::warning
+
+Transient (non-durable) non-exclusive classic queues are [deprecated](/release-information/deprecated-features-list/)
+and cannot be declared by default starting with RabbitMQ `4.3.0`.
+
+Please use one of the following:
+
+ * [durable queues](#durability)
+ * [non-durable exclusive queues](#exclusive-queues)
+ * durable queues [with a queue TTL](./ttl#queue-ttl) (a reasonably close equivalent to non-exclusive transient queues)
+
+To explicitly allow transient non-exclusive queues, add the following
+line to `rabbitmq.conf`:
+
+```ini
+# Enables deprecated non-durable (transient) non-exclusive queues
+# (disabled by default as of RabbitMQ `4.3.0`, will be removed in a later version)
+deprecated_features.permit.transient_nonexcl_queues = true
+```
+
+:::
 
 ### How to Choose
 
@@ -304,11 +331,8 @@ transient or client-specific in nature. Some of these settings can be applied to
 durable queues but not every combination makes sense.
 
 :::tip
-Consider using [server-generated names](#names) for temporary queues. Since such queues
+Consider using [server-generated names](#names) for exclusive temporary queues. Since such queues
 are not meant to be shared between N consumers, using unique names makes sense.
-
-Shared temporary queues can lead to a [natural race condition](#shared-temporary-queues) between RabbitMQ node actions
-and recovering clients.
 :::
 
 There are three ways to make queue deleted automatically:
@@ -327,8 +351,23 @@ deleted. For such cases, use exclusive queues or queue TTL.
 
 :::warning
 
-Transient (non-durable) non-exclusive classic queues are [deprecated](/release-information/deprecated-features-list/).
-Use [durable queues](#durability) or [non-durable exclusive queues](#exclusive-queues) instead.
+Transient (non-durable) non-exclusive classic queues are [deprecated](/release-information/deprecated-features-list/)
+and cannot be declared by default starting with RabbitMQ `4.3.0`.
+
+Please use one of the following:
+
+ * [durable queues](#durability)
+ * [non-durable exclusive queues](#exclusive-queues)
+ * durable queues [with a queue TTL](./ttl#queue-ttl) (a reasonably close equivalent to non-exclusive transient queues)
+
+To explicitly allow transient non-exclusive queues, add the following
+line to `rabbitmq.conf`:
+
+```ini
+# Enables deprecated non-durable (transient) non-exclusive queues
+# (disabled by default as of RabbitMQ `4.3.0`, will be removed in a later version)
+deprecated_features.permit.transient_nonexcl_queues = true
+```
 
 [Queue TTL](/docs/ttl#queue-ttl) can be used for cleanup of unused durable queues.
 
