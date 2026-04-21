@@ -98,6 +98,42 @@ const sidebars = {
         },
         {
             type: 'category',
+            label: 'Java (AMQP 1.0)',
+            items: [
+                {
+                    type: 'doc',
+                    id: 'tutorial-one-java-amqp10',
+                    label: 'Hello World',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-two-java-amqp10',
+                    label: 'Work Queues',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-three-java-amqp10',
+                    label: 'Publish/Subscribe',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-four-java-amqp10',
+                    label: 'Routing',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-five-java-amqp10',
+                    label: 'Topics',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-six-java-amqp10',
+                    label: 'RPC',
+                },
+            ]
+        },
+        {
+            type: 'category',
             label: 'Kotlin',
             items: [
                 {
@@ -257,6 +293,42 @@ const sidebars = {
         },
         {
             type: 'category',
+            label: '.NET (AMQP 1.0)',
+            items: [
+                {
+                    type: 'doc',
+                    id: 'tutorial-one-dotnet-amqp10',
+                    label: 'Hello World',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-two-dotnet-amqp10',
+                    label: 'Work Queues',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-three-dotnet-amqp10',
+                    label: 'Publish/Subscribe',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-four-dotnet-amqp10',
+                    label: 'Routing',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-five-dotnet-amqp10',
+                    label: 'Topics',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-six-dotnet-amqp10',
+                    label: 'RPC',
+                },
+            ]
+        },
+        {
+            type: 'category',
             label: 'JavaScript',
             items: [
                 {
@@ -323,6 +395,42 @@ const sidebars = {
                 {
                     type: 'doc',
                     id: 'tutorial-six-go',
+                    label: 'RPC',
+                },
+            ]
+        },
+        {
+            type: 'category',
+            label: 'Go (AMQP 1.0)',
+            items: [
+                {
+                    type: 'doc',
+                    id: 'tutorial-one-go-amqp10',
+                    label: 'Hello World',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-two-go-amqp10',
+                    label: 'Work Queues',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-three-go-amqp10',
+                    label: 'Publish/Subscribe',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-four-go-amqp10',
+                    label: 'Routing',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-five-go-amqp10',
+                    label: 'Topics',
+                },
+                {
+                    type: 'doc',
+                    id: 'tutorial-six-go-amqp10',
                     label: 'RPC',
                 },
             ]
