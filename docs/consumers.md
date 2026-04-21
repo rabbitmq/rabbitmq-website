@@ -422,6 +422,10 @@ See [.NET client guide](/client-libraries/dotnet-api-guide#basic-get) for exampl
 
 ## Delivery Acknowledgement Timeout {#acknowledgement-timeout}
 
+:::important
+Starting with RabbitMQ 4.3, delivery acknowledgement timeouts are only supported by [quorum queues](./quorum-queues).
+:::
+
 RabbitMQ enforces a timeout on consumer delivery acknowledgement.
 This is a **protection mechanism** that detects when consumers do not acknowledge message deliveries.
 Configuring a delivery acknowledgement timeout can help prevent on-disk data compaction
@@ -490,7 +494,7 @@ Whether the timeout should be enforced is evaluated periodically, at one minute 
 
 ```bash
 # override consumer timeout for a group of queues using a policy
-rabbitmqctl set_policy queue_consumer_timeout "with_delivery_timeout\.*" '{"consumer-timeout":3600000}' --apply-to classic_queues
+rabbitmqctl set_policy queue_consumer_timeout "with_delivery_timeout\.*" '{"consumer-timeout":3600000}' --apply-to quorum_queues
 ```
 
 #### Per-queue Delivery Timeouts Using an Optional Queue Argument
