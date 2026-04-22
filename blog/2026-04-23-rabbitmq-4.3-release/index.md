@@ -44,7 +44,7 @@ Almost every minor release has brought enhancements to quorum queues, and Rabbit
 
 Prior to RabbitMQ 4.0, quorum queues did not support message priorities.
 
-[RabbitMQ 4.0 through 4.2 supported two relative priority levels](/blog/2024/08/28/quorum-queues-in-4.0#message-priorities): normal and high.
+RabbitMQ 4.0 through 4.2 supported [two relative priority levels](/blog/2024/08/28/quorum-queues-in-4.0#message-priorities): normal and high.
 If a queue contained both, consumers received a mix at a ratio of two high-priority messages for every one normal-priority message.
 
 RabbitMQ 4.3 introduces support for 32 strict priority levels. Messages with a higher priority are now delivered to consumers strictly before those with a lower priority.

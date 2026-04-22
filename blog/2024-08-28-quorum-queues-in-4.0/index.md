@@ -15,6 +15,13 @@ RabbitMQ 4.0 (currently in beta) includes new quorum queue features:
 
 ## Message Priorities
 
+:::warning
+
+The two-level relative priority system introduced in RabbitMQ 4.0 and described in this section has been superseded.
+RabbitMQ 4.3 introduces [32 strict priority levels](/blog/2026/04/23/rabbitmq-4.3-release#32-message-priorities).
+
+:::
+
 Support for message priorities has been probably the most demanded quorum queue feature,
 mostly requested by existing classic mirrored queue users who wanted to migrate to quorum queues
 (remember, [support for classic queue mirroring was removed for 4.0](https://www.rabbitmq.com/docs/3.13/ha)).
