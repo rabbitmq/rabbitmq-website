@@ -45,7 +45,7 @@ a write-ahead log (WAL), then stores the message on disk on a local Raft log and
 to the followers, and awaits for a confirmation from a majority before sending a confirmation back to the client.
 
 One key difference with CMQs is that the replication part is done in parallel, while CMQs use a chain
-replication algorithm. Another important difference between the two: [quorum queues pass a stricter version of the Jepsen test](/docs/quorum-queues#motivation), while CMQs fail to pass even a less
+replication algorithm. Another important difference between the two: [quorum queues pass a stricter version of the Jepsen test](/docs/quorum-queues#use-cases), while CMQs fail to pass even a less
 demanding original version.
 
 In the event of a leader failure, the up-to-date followers start a voting process, and elect a new

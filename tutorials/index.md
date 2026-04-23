@@ -57,7 +57,7 @@ This tutorials target RabbitMQ 4.x.
 <Tabs groupId="protocol">
   <TabItem value="amqp-10" label="AMQP 1.0" default>
 
-### <a id='queue-amqp-tutorials'></a> Queue tutorials with AMQP 1.0
+### Queue tutorials with AMQP 1.0 {#queue-amqp-tutorials}
 
 This section covers the modern messaging protocol in RabbitMQ, AMQP 1.0. This protocol works
 out of the box, without enabling any plugin.
@@ -150,7 +150,7 @@ out of the box, without enabling any plugin.
 
   <TabItem value="amqp-091" label="AMQP 0-9-1">
 
-### Queue tutorials
+### Queue tutorials {#queue-tutorials}
 
 This section covers the default RabbitMQ protocol, AMQP 0-9-1.
 
@@ -313,7 +313,7 @@ the two core protocols implemented by RabbitMQ.
   </TabItem>
 </Tabs>
 
-## Stream tutorials
+## Stream tutorials {#stream-tutorials}
 
 This section covers [RabbitMQ streams](/docs/streams).
 
