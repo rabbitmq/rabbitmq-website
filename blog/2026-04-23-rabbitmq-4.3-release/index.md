@@ -89,7 +89,7 @@ Before RabbitMQ 4.3, implementing delayed retries required one of two complex wo
       +-------------------+
     ```
     
-    The downside is that RabbitMQ must rewrite the message twice. Furthermore, the default at-most-once dead-letter strategy risks message loss, while [at-least-once dead-lettering](/blog/2022/03/29/at-least-once-dead-lettering) introduces its own [caveates](/blog/2022/03/29/at-least-once-dead-lettering#caveats).
+    The downside is that RabbitMQ must rewrite the message twice. Furthermore, the default at-most-once dead-letter strategy risks message loss, while [at-least-once dead-lettering](/blog/2022/03/29/at-least-once-dead-lettering) introduces its own [caveats](/blog/2022/03/29/at-least-once-dead-lettering#caveats).
 
 2. **Re-publishing to a message scheduler**:
     Alternatively, consumers could re-publish the failed message to a [message scheduler](#message-scheduler).
