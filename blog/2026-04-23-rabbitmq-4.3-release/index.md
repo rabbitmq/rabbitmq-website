@@ -70,45 +70,45 @@ If a consumer cannot process *any* messages — for example, due to an entire do
 Before RabbitMQ 4.3, implementing delayed retries required one of two complex workarounds:
 
 1. **Dead-letter cycles**:
-Consumers could reject the message, routing it to a [dead-letter queue](/docs/dlx).
-This queue would have a [message-TTL](/docs/ttl) configured, after which the message was dead-lettered back to the original queue:
-
-```text
-  +-------------------+    1) Consume        +----------+
-  |  Original Queue   | -------------------> | Consumer |
-  +-------------------+ <------------------- +----------+
-    |                ^      2) Reject
-    |                |
-    |                |
-    | 3) Dead-letter | 4) Dead-letter after TTL
-    |                |
-    v                |
-  +-------------------+
-  | Dead-letter Queue |
-  |    (with TTL)     |
-  +-------------------+
-```
-
-The downside is that RabbitMQ must rewrite the message twice. Furthermore, the default at-most-once dead-letter strategy risks message loss, while [at-least-once dead-lettering](/blog/2022/03/29/at-least-once-dead-lettering) introduces its own [caveates](/blog/2022/03/29/at-least-once-dead-lettering#caveats).
+    Consumers could reject the message, routing it to a [dead-letter queue](/docs/dlx).
+    This queue would have a [message-TTL](/docs/ttl) configured, after which the message was dead-lettered back to the original queue:
+    
+    ```text
+      +-------------------+    1) Consume        +----------+
+      |  Original Queue   | -------------------> | Consumer |
+      +-------------------+ <------------------- +----------+
+        |                ^      2) Reject
+        |                |
+        |                |
+        | 3) Dead-letter | 4) Dead-letter after TTL
+        |                |
+        v                |
+      +-------------------+
+      | Dead-letter Queue |
+      |    (with TTL)     |
+      +-------------------+
+    ```
+    
+    The downside is that RabbitMQ must rewrite the message twice. Furthermore, the default at-most-once dead-letter strategy risks message loss, while [at-least-once dead-lettering](/blog/2022/03/29/at-least-once-dead-lettering) introduces its own [caveates](/blog/2022/03/29/at-least-once-dead-lettering#caveats).
 
 2. **Re-publishing to a message scheduler**:
-Alternatively, consumers could re-publish the failed message to a [message scheduler](#message-scheduler).
-
-```text
-  +-------------------+    1) Consume        +----------+
-  |  Original Queue   | -------------------> | Consumer |
-  +-------------------+ <------------------- +----------+
-          ^                 3) Acknowledge     |
-          |                                    |
-          | 4) Publish after delay             | 2) Re-publish new message with delay
-          |                                    |
-          |                                    |
-  +-------------------+                        |
-  | Message Scheduler | <----------------------+
-  +-------------------+
-```
-
-This also forces the message to be rewritten. Additionally, if a network failure occurs between the client and RabbitMQ *after* the re-publish but *before* the acknowledgement, the message is both re-published and re-queued. This creates duplicates: one copy in the scheduler and another in the original queue.
+    Alternatively, consumers could re-publish the failed message to a [message scheduler](#message-scheduler).
+    
+    ```text
+      +-------------------+    1) Consume        +----------+
+      |  Original Queue   | -------------------> | Consumer |
+      +-------------------+ <------------------- +----------+
+              ^                 3) Acknowledge     |
+              |                                    |
+              | 4) Publish after delay             | 2) Re-publish new message with delay
+              |                                    |
+              |                                    |
+      +-------------------+                        |
+      | Message Scheduler | <----------------------+
+      +-------------------+
+    ```
+    
+    This also forces the message to be rewritten. Additionally, if a network failure occurs between the client and RabbitMQ *after* the re-publish but *before* the acknowledgement, the message is both re-published and re-queued. This creates duplicates: one copy in the scheduler and another in the original queue.
 
 RabbitMQ 4.3 introduces a much cleaner solution:
 The quorum queue simply sets the delayed message aside internally, making it available for redelivery (to any consumer) only after the configured delay elapses.
