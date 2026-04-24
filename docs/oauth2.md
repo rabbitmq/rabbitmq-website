@@ -43,6 +43,7 @@ There's also a companion [troubleshooting guide for OAuth 2-specific problems](.
 * [Token validation](#token-validation)
 * [Token expiration and refresh](#token-expiration)
 * [Scope-to-Permission translation](#scope-translation)
+* [Scope pattern syntax](#scope-pattern-syntax)
 * [Topic Exchange scopes](#topic-exchange-scopes)
 * [Scope and tags](#scope-and-tags)
 
@@ -440,6 +441,7 @@ connect to one of the RabbitMQ's messaging protocols, such as AMQP:
 | `auth_oauth2.resource_server_type`        | The Resource Server Type required when using [Rich Authorization Request](#rich-authorization-request) token format |
 | `auth_oauth2.additional_scopes_key`       | [Configure](#use-different-token-field) the plugin to look for scopes in other fields. |
 | `auth_oauth2.scope_prefix`                | [Configure the prefix for all scopes](#scope-prefix). The default value is `auth_oauth2.resource_server_id` followed by the dot `.` character. |
+| `auth_oauth2.scope_pattern_syntax`        | [How scope patterns match](#scope-pattern-syntax) vhosts, resource names, and topic routing keys. Values: `wildcard` (default) or `regexpr` |
 | `auth_oauth2.preferred_username_claims`   | [List of the JWT claims](#preferred-username-claims) to look for the username associated with the token. |
 | `auth_oauth2.default_key`                 | ID of the default signing key.                               |
 | `auth_oauth2.signing_keys`                | Paths to the [signing key files](#signing-key-files).        |
@@ -614,6 +616,7 @@ RabbitMQ uses the value configured in `auth_oauth2.preferred_username_claims` fo
 | `additional_scopes_key`     | Configure the plugin to look for scopes in other fields (maps to `additional_rabbitmq_scopes` in the old format). |
 | `scope_prefix`              | [Configure the prefix for all scopes](#scope-prefix). The default value is `auth_oauth2.resource_server_id` followed by the dot `.` character. |
 | `scope_aliases`             | [Configure scope aliases](#scope-aliases)                    |
+| `scope_pattern_syntax`      | Same as [`auth_oauth2.scope_pattern_syntax`](#scope-pattern-syntax) at the root; inherited from the root resource server when not set |
 | `preferred_username_claims` | [List of the JWT claims](#preferred-username-claims) to look for the username associated with the token separated by commas. |
 | `oauth_provider_id`         | The identifier of the OAuth Provider associated to this resource. RabbitMQ uses the signing keys issued by this OAuth Provider to validate tokens whose audience matches this resource's id. |
 
@@ -732,14 +735,39 @@ The current scope format is `<permission>:<vhost_pattern>/<name_pattern>[/<routi
 where
 
 * `<permission>` is an access permission (`configure`, `read`, or `write`)
-* `<vhost_pattern>` is a wildcard pattern for vhosts token has access to.
-* `<name_pattern>` is a wildcard pattern for resource name
-* `<routing_key_pattern>` is a wildcard pattern for routing key in topic authorization
+* `<vhost_pattern>` is a pattern for vhosts the token has access to
+* `<name_pattern>` is a pattern for the resource name
+* `<routing_key_pattern>` is a pattern for the routing key in topic authorization
 
-Wildcard patterns are strings with optional wildcard symbols `*` that match
-any sequence of characters.
+Each pattern is compared to the corresponding value (vhost name, resource name, or routing key) using
+the **scope pattern syntax**. The default is
+`wildcard`. When the syntax is `regexpr`, each segment is matched as a
+full-string regular expression instead. See [Scope pattern syntax](#scope-pattern-syntax).
 
-Wildcard patterns match as following:
+#### Scope pattern syntax {#scope-pattern-syntax}
+
+The syntax applies uniformly to `<vhost_pattern>`, `<name_pattern>`, and `<routing_key_pattern>` (when present).
+
+Configure it in `rabbitmq.conf` as follows:
+
+* `auth_oauth2.scope_pattern_syntax` at the root. Default: `wildcard`
+* `auth_oauth2.resource_servers.<index>.scope_pattern_syntax` for a [named resource server](#multiple-resource-servers-configuration). If unset, the value inherited from the merged root resource server is used.
+
+Allowed values:
+
+* `wildcard` — patterns use the rules documented in [Wildcard patterns](#wildcard-patterns)
+* `regexpr` — each pattern segment is matched with a [Perl-compatible regular expression](https://www.erlang.org/doc/man/re) against the **entire** corresponding string. The implementation uses UTF-8 (`unicode` and `ucp` options). 
+
+```ini
+# Example: use regular expressions for all scope pattern segments
+auth_oauth2.scope_pattern_syntax = regexpr
+```
+
+#### Wildcard patterns {#wildcard-patterns}
+
+With `auth_oauth2.scope_pattern_syntax = wildcard` (the default), patterns are strings with optional wildcard symbols `*` that match any sequence of characters.
+
+They match as follows:
 
 * `*` matches any string
 * `foo*` matches any string starting with a `foo`
@@ -754,7 +782,7 @@ There can be multiple wildcards in a pattern:
 **To use special characters such as `*`, `%`, or `/` in a wildcard pattern, the pattern must be
 [URL-encoded](https://en.wikipedia.org/wiki/Percent-encoding).**
 
-These are the usually permissions examples:
+With the default `wildcard` syntax, common permission examples include the following:
 
 - `read:*/*`(`read:*/*/*`) - read permissions to any resource on any vhost
 - `write:*/*`(`write:*/*/*`) - write permissions to any resource on any vhost
@@ -784,7 +812,7 @@ For example, if `scope_prefix` is `api://` and the permission is `read:*/*` the 
 
 OAuth 2.0 authorisation backend supports variable expansion when checking permission on vhosts and resources
 such as queues and exchanges.
-Variabbles can be any JWT claims whose value is a plain string and/or the `vhost` variable.
+Variables can be any JWT claims whose value is a plain string and/or the `vhost` variable.
 
 For example, a user connected with the token below to the vhost `prod` should have a write
 permission on all exchanges starting with `x-prod-`, and any routing key starting with `u-bob-`,
@@ -807,17 +835,17 @@ To bind and/or unbind a queue to/from a **Topic Exchange**, you need to have the
 
 - **write** permission on the queue and routing key -> `rabbitmq.write:<vhost>/<queue>/<routingkey>`
 
-> for example `rabbitmq.write:*/*/*`
+> for example (wilcard syntax) `rabbitmq.write:*/*/*`
 
 - **read** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
 
-> for example `rabbitmq.read:*/*/*`
+> for example (wildcard syntax) `rabbitmq.read:*/*/*`
 
 To publish to a **Topic Exchange**, you need to have the following scope:
 
 - **write** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
 
-> for example `rabbitmq.write:*/*/*`
+> for example (regexp syntax) `rabbitmq.write:.*/.*/.*`
 
 #### Variable Expansion
 
