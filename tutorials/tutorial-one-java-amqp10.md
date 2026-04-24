@@ -58,7 +58,7 @@ on behalf of the consumer.
 > <dependency>
 >   <groupId>com.rabbitmq.client</groupId>
 >   <artifactId>amqp-client</artifactId>
->   <version>0.10.0</version>
+>   <version>1.0.0</version>
 > </dependency>
 > ```
 >
@@ -244,7 +244,7 @@ Create a `pom.xml` that includes the client and the [Exec Maven Plugin](https://
     <dependency>
       <groupId>com.rabbitmq.client</groupId>
       <artifactId>amqp-client</artifactId>
-      <version>0.10.0</version>
+      <version>1.0.0</version>
     </dependency>
   </dependencies>
   <build>
