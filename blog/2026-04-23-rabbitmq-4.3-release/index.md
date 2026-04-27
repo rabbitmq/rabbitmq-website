@@ -252,7 +252,7 @@ RabbitMQ now signals link state information to consumers via AMQP 1.0 [flow fram
 ### JMS Queue Type
 
 VMware Tanzu RabbitMQ 4.3 introduces a purpose-built queue type for [JMS (Java Message Service)](https://jakarta.ee/specifications/messaging/3.1/jakarta-messaging-spec-3.1) applications.
-Backed by Raft, this new queue type provides the same safety guarantees as Quorum Queues: messages and their delivery states are replicated across nodes, ensuring durability and consistency even during network failures.
+Backed by Raft, the new [JMS queue type](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-3/tanzu-rabbitmq-oci-image/site-jms.html) provides the same safety guarantees as Quorum Queues: messages and their delivery states are replicated across nodes, ensuring durability and consistency even during network failures.
 
 This architecture offers a massive advantage over legacy JMS brokers, which typically rely on shared storage (SAN/NAS) or fragile active/passive failovers susceptible to split-brain scenarios and data loss.
 
@@ -308,7 +308,7 @@ producer.send(session.createTextMessage("Delayed payload"));
 
 [Apache Spark](https://spark.apache.org/) is a popular open source project for large-scale data analytics and machine learning workloads.
 
-VMware Tanzu RabbitMQ 4.3 ships a new RabbitMQ Stream Connector for Apache Spark providing high-speed, parallel data transfer between [RabbitMQ Streams](/docs/streams) and an Apache Spark cluster.
+VMware Tanzu RabbitMQ 4.3 ships a new [RabbitMQ Stream Connector for Apache Spark](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rmq-apache-spark/1-0/rmq-apache-spark-connector/overview.html) providing high-speed, parallel data transfer between [RabbitMQ Streams](/docs/streams) and an Apache Spark cluster.
 It bridges the gap between high-throughput messaging and big data processing.
 By combining them, you get a powerful, end-to-end pipeline where RabbitMQ acts as the reliable, high-speed ingestion layer (the "nervous system") and Spark acts as the distributed computing engine (the "brain").
 
@@ -382,7 +382,7 @@ StreamingQuery query = deviceAgg.writeStream()
 
 ### Stream Browser
 
-The Stream Browser is a new Management UI plugin offering direct visibility into your stream contents. Found under the **Stream Browser** tab, it provides:
+The [Stream Browser](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-3/tanzu-rabbitmq-oci-image/site-stream-browser.html) is a new Management UI plugin offering direct visibility into your stream contents. Found under the **Stream Browser** tab, it provides:
 * **Unified Search:** Instantly locate streams and super-streams.
 * **Flexible Navigation:** Start browsing by absolute offset, timestamp, or from the head/tail.
 * **Deep Inspection:** View data in tabular format or expand individual messages to see all AMQP 1.0 sections.
@@ -410,14 +410,14 @@ Due to severe architectural limitations, that plugin has been deprecated and arc
 
 :::
 
-VMware Tanzu RabbitMQ 4.3 replaces it entirely with a new, enterprise-grade **Delayed Queue** plugin:
+VMware Tanzu RabbitMQ 4.3 replaces it entirely with a new, enterprise-grade [Delayed Queue](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-3/tanzu-rabbitmq-oci-image/site-delayed-queues.html) plugin:
 
 * **High Availability:** Fully backed by Raft replication.
 * **Standard Protocols:** Uses standard AMQP 1.0 annotations (`x-opt-delivery-time`, `x-opt-delivery-delay`) for absolute and relative delays.
 * **Pub/Sub Integration:** Seamlessly works with exchanges (e.g., `topic`), ensuring one delayed message can route to many MQTT or JMS subscriptions.
 * **Bounded Memory:** Memory footprint remains flat whether you schedule a thousand or a million messages.
 * **Advanced Operations:** Allows browsing and selective purging of scheduled messages.
-* **Disaster Recovery:** Supports [warm standby replication](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/standby-replication-without-k8s.html) across data centers.
+* **Disaster Recovery:** Supports [warm standby replication](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-3/tanzu-rabbitmq-oci-image/site-standby-replication-without-k8s.html) across data centers.
 
 ### Linter
 
