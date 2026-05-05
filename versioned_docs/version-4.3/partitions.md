@@ -32,8 +32,8 @@ later versions.
 Before RabbitMQ `4.3.0`, this guide covered one specific aspect of [clustering](./clustering):
 network failures between nodes, their effects on Raft cluster majority, and the recovery process.
 
-Starting with RabbitMQ `4.3.0`, several important details have changed, rendering
-this guide significantly shorter:
+Starting with RabbitMQ `4.3.0`, several important details have changed,
+and this guide is now much shorter:
 
  * RabbitMQ now supports only one [metadata](./metadata-store) store: the Raft-based Khepri
  * Mnesia was removed
@@ -56,10 +56,17 @@ failure recovery characteristics.
 
 ## How to Spot Network Partitions
 
-Partitions observed by nodes will be [logged](./logging), as will Raft leader
-election activity.
+Lost connectivity and Raft leader elections are [logged](./logging) on the affected nodes.
 
-The `rabbitmq-diagnostics cluster_status` [CLI command](./cli) will also list partitions.
+`rabbitmq-diagnostics cluster_status` lists reachable peers in the running nodes section;
+an unreachable node will be missing from that list.
+
+To inspect quorum queue and stream member (replica) state, use these [CLI commands](./cli):
+
+ * `rabbitmq-queues quorum_status <queue>`: a quorum queue's leader and followers
+ * `rabbitmq-streams stream_status <stream>`: a stream's leader and replicas
+ * `rabbitmq-diagnostics check_if_node_is_quorum_critical`: warns if taking the
+   target node down would leave any quorum queue or stream without an online majority
 
 ## Partition Effects on Replicated Features {#effects}
 
@@ -89,20 +96,16 @@ For published messages pending a [publisher confirmation](./confirms), this can 
 a negative acknowledgement.
 
 Client operations on replicated queues and streams will be delayed
-until a new leader is elected and known to the node the client
-is (was) connected to.
-
-Start to finish, this usually takes a few seconds, although this depends on
-node and network load.
+until a new leader is elected and known to the node the client is (was) connected to.
+Start to finish, this usually takes a few seconds, depending on node and network load.
 
 The new leader will continue accepting writes and serving reads, replicating
 its state (Raft log) to followers, sending out publisher confirms just
 like before the disconnection event.
 
-Delivered and [not yet confirmed](./confirms) messages will be re-queued
-and later redelivered by the newly elected leader. In this case,
-a consumer can get the same message delivered more than once due
-to such leader disconnects and re-elections.
+Messages delivered to consumers but not yet [acknowledged](./confirms#acknowledgement-modes)
+are re-queued and later redelivered by the new leader, so a consumer may
+receive the same message more than once.
 
 Read availability differs across the three replicated components.
 
@@ -115,6 +118,25 @@ see no new deliveries during the time window when there's no elected leader.
 
 Stream consumers can continue reading already-replicated data from any replica they can reach,
 and are unaffected by the leader change.
+
+#### Effects on Quorum Queues: Publishers
+
+Most published messages do not fail outright; they are retained
+and forwarded to the new leader once it is elected.
+
+[Publisher confirms](./confirms) for those messages will arrive with a delay
+or be rejected with a `basic.nack` in some scenarios. Publishing applications
+can choose to re-publish them later.
+
+#### Effects on Quorum Queues: Consumers
+
+Outstanding [consumer acknowledgement operations](./confirms) (`basic.ack`, `basic.nack`, `basic.reject`)
+are similarly buffered and replayed against the new leader. The same applies to AMQP 1.0
+link credit updates.
+
+Consumer registration (`basic.consume`, AMQP 1.0 link attachment operations) and `basic.get` (polling consumers)
+require a reachable leader and will block until a new one is elected, or fail
+with a client-side timeout if the election does not complete in time.
 
 ### Scenario 2: a Follower Disconnects
 
@@ -140,8 +162,8 @@ not data safety or availability more broadly.
 Reads from the affected quorum queues or streams are unaffected.
 Clients attached to the disconnected node must reconnect to a reachable cluster node.
 
-Khepri always has a replica on every connected cluster node, so such
-scenario is not applicable to it.
+Khepri always has a replica on every connected cluster node, so this
+scenario does not apply to it.
 
 
 ## Partition Recovery {#recovery}
@@ -169,8 +191,10 @@ The data safety and predictable recovery of Raft comes with an operational
 price tag: a majority of members (replicas) must be online and reachable
 at any moment.
 
-If that's not the case, write operations (enqueueing, registering acknowledges,
-metadata store writes) will be rejected.
+If that's not the case, operations that require Raft consensus
+(publishes, consumer acknowledgements, metadata store updates) cannot make
+progress and will either be retained until a majority is restored,
+or fail with a timeout.
 
 Failure tolerance characteristics of Raft clusters of various size can be described
 in a table. Note that this table refers to cluster nodes for Khepri
@@ -209,7 +233,7 @@ the VM being suspended.
 
 Partitions caused by suspend and resume should be treated as any other
 partition type that affects a single node. However, thanks to the
-adaptive statistical failure detector, short suspensions can be
+adaptive failure detector, short suspensions can be
 handled gracefully.
 
 All the Raft-based features will be able to deal with such suspended and resumed

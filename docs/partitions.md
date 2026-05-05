@@ -20,290 +20,240 @@ limitations under the License.
 
 # Clustering and Network Partitions
 
+:::note
+
+This guide was significantly reworked for RabbitMQ `4.3.0` and
+later versions.
+
+:::
+
 ## Introduction
 
-This guide covers one specific aspect of clustering: network
-failures between nodes, their effects and recovery options.
-For a general overview of clustering, see [Clustering](./clustering)
-and [Peer Discovery and Cluster Formation](./cluster-formation) guides.
+Before RabbitMQ `4.3.0`, this guide covered one specific aspect of [clustering](./clustering):
+network failures between nodes, their effects on Raft cluster majority, and the recovery process.
 
-Clustering can be used to achieve different goals: increased
-data safety through replication, increased availability for
-client operations, higher overall throughput and so on.
-Different configurations are optimal for different purposes.
+Starting with RabbitMQ `4.3.0`, several important details have changed,
+and this guide is now much shorter:
 
-Network connection failures between cluster members have an effect on
-data consistency and availability (as in the CAP theorem) to client operations.
-Since different applications have different requirements around consistency
-and can tolerate unavailability to a different extent, different
-[partition handling strategies](#automatic-handling) are available.
+ * RabbitMQ now supports only one [metadata](./metadata-store) store: the Raft-based Khepri
+ * Mnesia was removed
+ * Partition handling strategies, necessary during the Mnesia era, were also removed
 
-## Detecting Network Partitions {#detecting}
+ This means that starting with `4.3.0`, all key replicated features (components) in RabbitMQ
+ are Raft-based:
 
-Nodes determine if its peer is down if another
-node is unable to contact it for a [period of time](./nettick), 60 seconds by default.
-If two nodes come back into contact, both having thought the other is down, the nodes will
-determine that a partition has occurred. This will be written to
-the RabbitMQ log in a form like:
+  * The metadata store (Khepri)
+  * [Quorum queue](./quorum-queues)
+  * [Stream](./streams) coordinators
 
-```
-2020-05-18 06:55:37.324 [error] <0.341.0> Mnesia(rabbit@warp10): ** ERROR ** mnesia_event got {inconsistent_database, running_partitioned_network, rabbit@hostname2}
-```
+In [Tanzu RabbitMQ](/commercial-features) the list of Raft-based features also includes:
 
-Partition presence can be identified via server [logs](./logging),
-[HTTP API](./management) (for [monitoring](./monitoring))
-and a [CLI command](./cli):
+  * Delayed Queues
+  * JMS Queues
 
-```bash
-rabbitmq-diagnostics cluster_status
-```
+See the documentation guides for those features for a more detailed description of their
+failure recovery characteristics.
 
-<code>rabbitmq-diagnostics cluster_status</code> will normally show an
-empty list for partitions:
+## How to Spot Network Partitions
 
-```bash
-rabbitmq-diagnostics cluster_status
-# => Cluster status of node rabbit@warp10 ...
-# => Basics
-# =>
-# => Cluster name: local.1
-# =>
-# => ...edited out for brevity...
-# =>
-# => Network Partitions
-# =>
-# => (none)
-# =>
-# => ...edited out for brevity...
-```
+Lost connectivity and Raft leader elections are [logged](./logging) on the affected nodes.
 
-However, if a network partition has occurred then information
-about partitions will appear there:
+`rabbitmq-diagnostics cluster_status` lists reachable peers in the running nodes section;
+an unreachable node will be missing from that list.
 
-```bash
-rabbitmqctl cluster_status
-# => Cluster status of node rabbit@warp10 ...
-# => Basics
-# =>
-# => Cluster name: local.1
-# =>
-# => ...edited out for brevity...
-# =>
-# => Network Partitions
-# =>
-# => Node flopsy@warp10 cannot communicate with hare@warp10
-# => Node rabbit@warp10 cannot communicate with hare@warp10
-```
+To inspect quorum queue and stream member (replica) state, use these [CLI commands](./cli):
 
-The HTTP API will return partition
-information for each node under <code>partitions</code>
-in <code>GET /api/nodes</code> endpoints.
+ * `rabbitmq-queues quorum_status <queue>`: a quorum queue's leader and followers
+ * `rabbitmq-streams stream_status <stream>`: a stream's leader and replicas
+ * `rabbitmq-diagnostics check_if_node_is_quorum_critical`: warns if taking the
+   target node down would leave any quorum queue or stream without an online majority
 
-The management UI will show a
-warning on the overview page if a partition has occurred.
+## Partition Effects on Replicated Features {#effects}
+
+In addition to the [node-level heartbeats](./nettick), the Raft-based features use
+an [adaptive failure detector](https://github.com/rabbitmq/aten) which
+can detect peer unavailability much earlier than a heartbeat-based mechanism can,
+all while having lower sensitivity to latency spikes.
+
+A network partition prevents two nodes from communicating with one another
+the way they usually do. For Raft clusters such as a quorum queue, a stream or the metadata store,
+there are three key scenarios:
+
+1. A node hosting the currently elected Raft cluster leader is no longer available
+2. A node hosting a follower is no longer available
+3. A node hosting neither a leader nor a follower is no longer available
+
+### Scenario 1: the Leader Disconnects
+
+If the currently elected leader becomes unavailable, the failure will be noticed by
+the rest of the members, which will proceed to trigger a new leader election
+on the majority side of the partition: that is, the group of cluster members
+that can still contact each other and form a [majority](./quorum-queues#quorum-requirements).
+
+During the time window when there is no elected leader in the Raft cluster,
+write operations will be rejected until a new leader is elected.
+For published messages pending a [publisher confirmation](./confirms), this can mean
+a negative acknowledgement.
+
+Client operations on replicated queues and streams will be delayed
+until a new leader is elected and known to the node the client is (was) connected to.
+Start to finish, this usually takes a few seconds, depending on node and network load.
+
+The new leader will continue accepting writes and serving reads, replicating
+its state (Raft log) to followers, sending out publisher confirms just
+like before the disconnection event.
+
+Messages delivered to consumers but not yet [acknowledged](./confirms#acknowledgement-modes)
+are re-queued and later redelivered by the new leader, so a consumer may
+receive the same message more than once.
+
+Read availability differs across the three replicated components.
+
+Some Khepri reads are served from a local cache (the default, eventually consistent path);
+those continue on all reachable nodes. A subset of Khepri operations that use linearizable reads,
+which go through the Raft cluster leader, are paused until a new leader is elected.
+
+Quorum queue deliveries always go through the leader, so their consumers
+see no new deliveries during the time window when there's no elected leader.
+
+Stream consumers can continue reading already-replicated data from any replica they can reach,
+and are unaffected by the leader change.
+
+#### Effects on Quorum Queues: Publishers
+
+Most published messages do not fail outright; they are retained
+and forwarded to the new leader once it is elected.
+
+[Publisher confirms](./confirms) for those messages will arrive with a delay
+or be rejected with a `basic.nack` in some scenarios. Publishing applications
+can choose to re-publish them later.
+
+#### Effects on Quorum Queues: Consumers
+
+Outstanding [consumer acknowledgement operations](./confirms) (`basic.ack`, `basic.nack`, `basic.reject`)
+are similarly buffered and replayed against the new leader. The same applies to AMQP 1.0
+link credit updates.
+
+Consumer registration (`basic.consume`, AMQP 1.0 link attachment operations) and `basic.get` (polling consumers)
+require a reachable leader and will block until a new one is elected, or fail
+with a client-side timeout if the election does not complete in time.
+
+### Scenario 2: a Follower Disconnects
+
+A reconnected Raft member (replica) will discover the currently elected leader
+and receive missing log entries from the leader. In practical
+terms it means that the reconnected member will update its local state
+with that of the cluster leader, with the consistency and data safety guarantees
+of Raft.
+
+On the majority side, reads continue normally. On the disconnected side,
+Khepri serves local cached reads, quorum queue deliveries pause,
+and stream consumers can still read locally-available data.
+
+Once caught up, a follower replica continues operating just like before
+the partition event.
+
+### Scenario 3: a Non-Member Disconnects
+
+If a node that does not host any quorum queue or stream members (replicas) becomes unavailable,
+its disconnection only has effects on cluster capacity,
+not data safety or availability more broadly.
+
+Reads from the affected quorum queues or streams are unaffected.
+Clients attached to the disconnected node must reconnect to a reachable cluster node.
+
+Khepri always has a replica on every connected cluster node, so this
+scenario does not apply to it.
 
 
-## Behavior During a Network Partition {#during}
+## Partition Recovery {#recovery}
 
-While a network partition is in place, the two (or more!) sides
-of the cluster can evolve independently, with both sides
-thinking the other has crashed. This scenario is known as split-brain.
-Queues, bindings, exchanges can
-be created or deleted separately.
+Disconnected nodes will try to reconnect to their peers. This can take some time.
 
-[Quorum queues](./quorum-queues) will elect a new leader on the
-majority side. Quorum queue replicas on the minority side will no longer
-make progress (i.e. accept new messages, deliver to consumers, etc), all this work will be
-done by the new leader.
+A reconnected Raft member (replica) will discover the currently elected leader
+and receive missing log entries from the leader. In practical
+terms it means that the reconnected member will update its local state
+with more recent data from the cluster leader, with the consistency and data safety guarantees
+of Raft.
 
-Unless a [partition handling strategy](#automatic-handling),
-such as <code>pause_minority</code>, is configured to be used,
-the split will continue even after network connectivity is restored.
+If the connectivity disruption was short, this usually means a relatively small amount of data
+to be transferred (adjust "small" by data volumes and velocity in the cluster).
 
+In case of longer disruptions, data volumes can be substantial; while the returning
+member is catching up, it should be considered temporarily unavailable. Such
+catching up nodes also cannot be elected leaders of their Raft clusters
+until they fully catch up.
+
+
+## Raft and the Online Cluster Majority Requirement {#quorum}
+
+The data safety and predictable recovery of Raft comes with an operational
+price tag: a majority of members (replicas) must be online and reachable
+at any moment.
+
+If that's not the case, operations that require Raft consensus
+(publishes, consumer acknowledgements, metadata store updates) cannot make
+progress and will either be retained until a majority is restored,
+or fail with a timeout.
+
+Failure tolerance characteristics of Raft clusters of various size can be described
+in a table. Note that this table refers to cluster nodes for Khepri
+but for quorum queues and streams, this means the number of replicas they
+have (which can be a subset of all cluster nodes).
+
+| Cluster node count | Tolerated number of node failures | Tolerant to a network partition |
+| :------------------: | :-----------------------------: | :-----------------------------: |
+| 1                    | 0                               | not applicable |
+| 2                    | 0                               | no |
+| 3                    | 1                               | yes |
+| 4                    | 1                               | yes if a majority exists on one side |
+| 5                    | 2                               | yes |
+| 6                    | 2                               | yes if a majority exists on one side |
+| 7                    | 3                               | yes |
+| 8                    | 3                               | yes if a majority exists on one side |
+| 9                    | 4                               | yes |
 
 
 ## Partitions Caused by Suspend and Resume {#suspend}
 
-While we refer to "network" partitions, really a partition is
-any case in which the different nodes of a cluster can have
-communication interrupted without any node failing. In addition
-to network failures, suspending and resuming an entire OS can
-also cause partitions when used against running cluster nodes -
+While this guide talks of "network" partitions, a partition more generally is
+any scenario in which the different nodes of a cluster can have
+communication interrupted without any node failing.
+
+In addition to network failures, suspending and resuming an entire OS can
+also cause partitions when used against running cluster nodes
 as the suspended node will not consider itself to have failed, or
 even stopped, but the other nodes in the cluster will consider
 it to have done so.
 
+The most common reason for this to happen is for a virtual machine
+to have been suspended by the hypervisor. Some virtualisation features
+such as migration of a VM from one host to another will tend to involve
+the VM being suspended.
 
-While you could suspend a cluster node by running it on a laptop
-and closing the lid, the most common reason for this to happen
-is for a virtual machine to have been suspended by the
-hypervisor.
+Partitions caused by suspend and resume should be treated as any other
+partition type that affects a single node. However, thanks to the
+adaptive failure detector, short suspensions can be
+handled gracefully.
 
-While it's fine to run RabbitMQ clusters in virtualised environments or containers,
-**make sure that VMs are not suspended while running**.
+All the Raft-based features will be able to deal with such suspended and resumed
+members with the standard data safety guarantees and the online majority
+requirement for availability.
 
-Note that some virtualisation features such as migration of a VM from
-one host to another will tend to involve the VM being suspended.
-
-Partitions caused by suspend and resume will tend to be
-asymmetrical - the suspended node will not necessarily see the
-other nodes as having gone down, but will be seen as down by the
-rest of the cluster. This has particular implications for <a
-href="#pause-minority">pause_minority</a> mode.
-
-
-
-## Recovering From a Split-Brain {#recovering}
-
-To recover from a split-brain, first choose one partition
-which you trust the most. This partition will become the
-authority for the state of the system (schema, messages)
-to use; any changes which have occurred on other partitions will be lost.
-
-Stop all nodes in the other partitions, then start them all up
-again. When they [rejoin the cluster](./clustering#restarting) they
-will restore state from the trusted partition.
-
-Finally, you should also restart all the nodes in the trusted
-partition to clear the warning.
-
-It may be simpler to stop the whole cluster and start it again;
-if so make sure that the <b>first</b> node you start is from the
-trusted partition.
+Thanks to Raft's incremental log recovery, suspended and then resumed
+nodes will have to retrieve only the subset of the log, significantly
+reducing the recovery (unavailability) time window.
 
 
-## Partition Handling Strategies {#automatic-handling}
+## Deprecated `rabbitmq.conf` Keys
 
-RabbitMQ also offers three ways to deal with network partitions
-automatically: <code>pause-minority</code> mode, <code>pause-if-all-down</code>
-mode and <code>autoheal</code> mode. The default behaviour is referred
-to as <code>ignore</code> mode.
+For backwards compatibility, the following [`rabbitmq.conf`](./configure) keys
+related to the partition handling strategy configuration from
+earlier versions are accepted but have **no effect**:
 
-In pause-minority mode RabbitMQ will automatically pause cluster
-nodes which determine themselves to be in a minority (i.e. fewer
-or equal than half the total number of nodes) after seeing other
-nodes go down. It therefore chooses partition tolerance over
-availability from the CAP theorem. This ensures that in the
-event of a network partition, at most the nodes in a single
-partition will continue to run. The minority nodes will pause as
-soon as a partition starts, and will start again when the
-partition ends. This configuration prevents split-brain and
-is therefore able to automatically recover from
-network partitions without inconsistencies.
+* `cluster_partition_handling`
+* `cluster_partition_handling.pause_if_all_down.recover`
+* `cluster_partition_handling.pause_if_all_down.nodes.$name`
 
-In pause-if-all-down mode, RabbitMQ will automatically pause
-cluster nodes which cannot reach any of the listed nodes. In
-other words, all the listed nodes must be down for RabbitMQ to
-pause a cluster node. This is close to the pause-minority mode,
-however, it allows an administrator to decide which nodes to
-prefer, instead of relying on the context. For instance, if the
-cluster is made of two nodes in rack A and two nodes in rack B,
-and the link between racks is lost, pause-minority mode will pause
-all nodes. In pause-if-all-down mode, if the administrator listed
-the two nodes in rack A, only nodes in rack B will pause. Note
-that it is possible the listed nodes get split across both sides
-of a partition: in this situation, no node will pause. That is why
-there is an additional <i>ignore</i>/<i>autoheal</i> argument to
-indicate how to recover from the partition.
-
-In autoheal mode RabbitMQ will automatically decide on a winning
-partition if a partition is deemed to have occurred, and will
-restart all nodes that are not in the winning partition. Unlike
-pause_minority mode it therefore takes effect when a partition
-ends, rather than when one starts.
-
-The winning partition is the one which has the most clients
-connected (or if this produces a draw, the one with the most
-nodes; and if that still produces a draw then one of the
-partitions is chosen in an unspecified way).
-
-You can enable either mode by setting the configuration
-parameter <code>cluster_partition_handling</code>
-for the <code>rabbit</code> application in the [configuration file](./configure#configuration-files) to:
-
-<ul>
-  <li><code>autoheal</code></li>
-  <li><code>pause_minority</code></li>
-  <li><code>pause_if_all_down</code></li>
-</ul>
-
-If using the <code>pause_if_all_down</code> mode, additional parameters are required:
-
-<ul>
-  <li><code>nodes</code>: nodes which should be unavailable to pause</li>
-  <li><code>recover</code>: recover action, can be <code>ignore</code> or <code>autoheal</code></li>
-</ul>
-
-Example [config snippet](./configure#config-file) that uses <code>pause_if_all_down</code>:
-
-```
-cluster_partition_handling = pause_if_all_down
-
-## Recovery strategy. Can be either 'autoheal' or 'ignore'
-cluster_partition_handling.pause_if_all_down.recover = ignore
-
-## Node names to check
-cluster_partition_handling.pause_if_all_down.nodes.1 = rabbit@myhost1
-cluster_partition_handling.pause_if_all_down.nodes.2 = rabbit@myhost2
-```
-
-### Which Mode to Pick? {#options}
-
-It's important to understand that allowing RabbitMQ to deal with
-network partitions automatically comes with trade offs.
-
-As stated in the introduction, to connect RabbitMQ clusters over generally unreliable
-links, prefer [Federation](./federation) or the [Shovel](./shovel).
-
-With that said, here are some guidelines to help the operator determine
-which mode may or may not be appropriate:
-
-<ul>
-  <li>
-    <code>ignore</code>: use when network reliability is the highest practically possible
-    and node availability is of topmost importance. For example, all cluster nodes can
-    be in the same rack or equivalent, connected with a switch, and that switch is also the route
-    to the outside world.
-  </li>
-  <li>
-    <code>pause_minority</code>: appropriate when clustering across racks or availability zones
-    in a single region, and the probability of losing a majority of nodes (zones) at
-    once is considered to be very low. This mode trades off some availability for
-    the ability to automatically recover if/when the lost node(s) come back.
-  </li>
-  <li>
-    <code>autoheal</code>: appropriate when are more concerned with continuity of service
-    than with data consistency across nodes.
-  </li>
-</ul>
-
-### More About Pause-minority Mode {#pause-minority}
-
-The Erlang VM on the paused nodes will continue running but the
-nodes will not listen on any ports or be otherwise available.
-They will check once per second to see if the rest of the cluster has
-reappeared, and start up again if it has.
-
-Note that nodes will not enter the paused state at startup, even
-if they are in a minority then. It is expected that any such
-minority at startup is due to the rest of the cluster not having
-been started yet.
-
-Also note that RabbitMQ will pause nodes which are not in a
-<i>strict</i> majority of the cluster - i.e. containing more
-than half of all nodes. It is therefore not a good idea to
-enable pause-minority mode on a cluster of two nodes since in
-the event of any network partition <b>or node failure</b>, both
-nodes will pause. However, <code>pause_minority</code> mode is
-safer than <code>ignore</code> mode, with regards to integrity.
-For clusters of more than two nodes, especially if the most likely
-form of network partition is that a single minority of nodes
-drops off the network, the availability remains as good as
-with <code>ignore</code> mode.
-
-Note that <code>pause_minority</code> mode will do
-nothing to defend against partitions caused by cluster nodes
-being [suspended](#suspend). This is because
-the suspended node will never see the rest of the cluster
-vanish, so will have no trigger to disconnect itself from the
-cluster.
+These keys should be removed from the configuration files at the
+earliest opportunity.
