@@ -1274,28 +1274,7 @@ tcp_listen_options.keepalive = false
   <tr>
     <td>`cluster_partition_handling`</td>
     <td>
-      How to handle network partitions. Available modes are:
-      <ul>
-        <li>`ignore`</li>
-        <li>`autoheal`</li>
-        <li>`pause_minority`</li>
-        <li>`pause_if_all_down`</li>
-      </ul>
-      `pause_if_all_down` mode requires additional parameters:
-      <ul>
-        <li>`nodes`</li>
-        <li>`recover`</li>
-      </ul>
-      See the
-      [documentation
-      on partitions](./partitions#automatic-handling) for more information.
-
-      <div>
-      Default:
-      ```ini
-      cluster_partition_handling = ignore
-      ```
-      </div>
+      No longer has any effect. See the [Partitions guide](./partitions) for more information.
     </td>
   </tr>
   <tr>
