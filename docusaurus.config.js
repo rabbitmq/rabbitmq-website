@@ -110,7 +110,7 @@ const config = {
               ],
             },
           ],
-          end_of_support: "2028-04-30",
+          end_of_support: "2027-04-30",
           end_of_community_support: "2026-01-31",
         },
         '4.0': {
@@ -134,7 +134,7 @@ const config = {
               ],
             },
           ],
-          end_of_support: "2027-09-30",
+          end_of_support: "2026-09-30",
         },
         '3.13': {
           releases: [
