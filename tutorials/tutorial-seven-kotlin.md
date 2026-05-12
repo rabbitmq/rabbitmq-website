@@ -51,16 +51,61 @@ channel.confirmSelect()
 This method must be called on every channel that you expect to use publisher
 confirms. Confirms should be enabled just once, not for every message published.
 
+### ⚠️ Subscribe *before* publishing
+
+`publishConfirmResponses` is a `SharedFlow` with `replay=0`: emissions made **before** a subscriber attaches
+are silently dropped. The broker can ack a publish in microseconds, so the following pattern is racy:
+
+```kotlin
+channel.basicPublish(...)                                  // ① publish
+val confirm = channel.publishConfirmResponses.first()      // ② subscribe (too late)
+// On a fast/loopback broker, ② can subscribe AFTER the Ack
+// is emitted in step ①'s wake — `.first()` hangs forever.
+```
+
+Always wire the subscriber **before** the operation that triggers the emission. With `async`/`launch`, use
+`CoroutineStart.UNDISPATCHED` so the body runs synchronously up to the first suspension point (the SharedFlow
+subscribe) before `async`/`launch` returns:
+
+```kotlin
+// Correct: subscribe before publish — `await()` is guaranteed to see the Ack.
+val confirmDeferred = async(start = CoroutineStart.UNDISPATCHED) {
+    channel.publishConfirmResponses.first()
+}
+channel.basicPublish(...)
+val confirm = confirmDeferred.await()
+```
+
+The same applies to long-running collectors:
+
+```kotlin
+val confirmJob = launch(start = CoroutineStart.UNDISPATCHED) {
+    channel.publishConfirmResponses.collect { confirm -> /* ... */ }
+}
+// ...now safe to publish: the collector is attached.
+repeat(messageCount) { channel.basicPublish(...) }
+```
+
+This applies to **every** SharedFlow exposed by kourier (`publishConfirmResponses`, `returnResponses`,
+`closedResponses`, `openedResponses`, `flowResponses`). All code examples below already follow this pattern.
+
 ### Strategy #1: Publishing Messages Individually
 
 Let's start with the simplest approach to publishing with confirms,
 that is, publishing a message and waiting synchronously for its confirmation:
 
 ```kotlin
-suspend fun publishMessagesIndividually(channel: AMQPChannel, messages: List<String>) {
+suspend fun publishWithIndividualConfirms(channel: AMQPChannel, messages: List<String>) = coroutineScope {
+    // Enable publisher confirms
     channel.confirmSelect()
 
     for (message in messages) {
+        // Subscribe BEFORE publishing — see "Subscribe before publishing" above.
+        val confirmDeferred = async(start = CoroutineStart.UNDISPATCHED) {
+            channel.publishConfirmResponses.first()
+        }
+
+        // Publish message
         channel.basicPublish(
             message.toByteArray(),
             exchange = "",
@@ -69,9 +114,7 @@ suspend fun publishMessagesIndividually(channel: AMQPChannel, messages: List<Str
         )
 
         // Wait for confirm
-        val confirm = channel.publishConfirmResponses.first()
-
-        when (confirm) {
+        when (val confirm = confirmDeferred.await()) {
             is AMQPResponse.Channel.Basic.PublishConfirm.Ack -> {
                 println("✓ Message confirmed: $message")
             }
@@ -117,22 +160,36 @@ and wait for this whole batch to be confirmed. The following example uses
 a batch of 100:
 
 ```kotlin
-suspend fun publishMessagesInBatch(channel: AMQPChannel, messages: List<String>, batchSize: Int) {
+suspend fun publishWithBatchConfirms(channel: AMQPChannel, messages: List<String>, batchSize: Int) = coroutineScope {
     channel.confirmSelect()
 
     messages.chunked(batchSize).forEach { batch ->
-        // Publish entire batch
+        // Subscribe BEFORE publishing the batch — see "Subscribe before publishing" above.
+        // The broker may bulk-confirm with Ack(multiple=true) so we wait on the highest
+        // deliveryTag covered rather than counting emissions (one Ack(multiple=true) can
+        // cover many tags).
+        val confirms = mutableListOf<AMQPResponse.Channel.Basic.PublishConfirm>()
+        val confirmJob = launch(start = CoroutineStart.UNDISPATCHED) {
+            channel.publishConfirmResponses.collect { confirms += it }
+        }
+
+        // Publish entire batch — capture the last deliveryTag so we know when we're done.
+        var lastTag = 0uL
         batch.forEach { message ->
-            channel.basicPublish(
+            val published = channel.basicPublish(
                 message.toByteArray(),
                 exchange = "",
                 routingKey = "my_queue",
                 properties = Properties()
             )
+            lastTag = published.deliveryTag
         }
 
-        // Wait for all confirms for this batch
-        val confirms = channel.publishConfirmResponses.take(batch.size).toList()
+        // Wait until the highest confirmed tag covers our last publish.
+        while (confirms.maxOfOrNull { it.deliveryTag } != lastTag && confirms.none { it.deliveryTag >= lastTag }) {
+            yield()
+        }
+        confirmJob.cancelAndJoin()
 
         val ackCount = confirms.count { it is AMQPResponse.Channel.Basic.PublishConfirm.Ack }
         val nackCount = confirms.count { it is AMQPResponse.Channel.Basic.PublishConfirm.Nack }
@@ -160,14 +217,17 @@ The broker confirms published messages asynchronously, one just needs to
 register a callback on the client to be notified of these confirms:
 
 ```kotlin
-suspend fun publishMessagesAsync(channel: AMQPChannel, messages: List<String>) {
+suspend fun publishWithAsyncConfirms(channel: AMQPChannel, messages: List<String>) = coroutineScope {
     channel.confirmSelect()
 
     val outstandingConfirms = mutableMapOf<ULong, String>()
     var nextDeliveryTag = 1UL
 
-    // Launch coroutine to handle confirms
-    val confirmJob = launch {
+    // Launch coroutine to handle confirms — UNDISPATCHED so the SharedFlow subscriber
+    // is wired BEFORE we start publishing. Without this, fast brokers can ack the first
+    // few messages before the collector attaches and those acks are silently dropped
+    // (see "Subscribe before publishing" above).
+    val confirmJob = launch(start = CoroutineStart.UNDISPATCHED) {
         channel.publishConfirmResponses.collect { confirm ->
             when (confirm) {
                 is AMQPResponse.Channel.Basic.PublishConfirm.Ack -> {
