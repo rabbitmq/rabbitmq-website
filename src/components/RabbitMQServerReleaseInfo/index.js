@@ -65,7 +65,7 @@ export function RabbitMQServerReleaseInfoTable() {
   const docusaurusVersions = useVersions();
 
   const now = Date.now();
-  const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+  const dateOptions = { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' };
 
   var isLatestReleaseBranch = false;
   var previousReleaseBranch;
@@ -162,7 +162,8 @@ export function RabbitMQServerReleaseInfoTable() {
         } else if (previousReleaseBranch) {
           const prevReleases = previousReleaseBranch.releases;
           const initialPrevRelease = prevReleases[prevReleases.length - 1];
-          endOfCommunitySupportDate = new Date(initialPrevRelease.release_date);
+          const d = new Date(initialPrevRelease.release_date);
+          endOfCommunitySupportDate = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 0));
         } else {
           hasOSSSupport = true;
           endOfCommunitySupportDate = <abbr title="Supported until the next major or minor release branch is published.">Next release</abbr>;

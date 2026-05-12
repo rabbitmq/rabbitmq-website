@@ -3,12 +3,12 @@ import {getReleaseBranches} from '../RabbitMQServerReleaseInfo';
 import styles from "./index.module.css"
 
 function formatDate(date, isReleaseDate) {
-  const year = date.toLocaleDateString("en-US", { year: "numeric" });
-  const month = date.toLocaleDateString("en-US", { month: "short" });
+  const year = date.toLocaleDateString("en-US", { year: "numeric", timeZone: "UTC" });
+  const month = date.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" });
   if (isReleaseDate) {
     return `${month} ${year}`;
   }
-  const day = date.toLocaleDateString("en-US", { day: "numeric" });
+  const day = date.toLocaleDateString("en-US", { day: "numeric", timeZone: "UTC" });
   return `${day} ${month} ${year}`;
 }
 
@@ -55,7 +55,8 @@ function getTimelineRows(releaseBranches) {
       isCommercialSupported
     });
 
-    previousReleaseDate = new Date(minorRelease.release_date);
+    const d = new Date(minorRelease.release_date);
+    previousReleaseDate = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 0));
   }
 
   return rows;
