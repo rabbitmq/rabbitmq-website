@@ -27,7 +27,7 @@ import {
 # Release Information
 
 Use this information to find out what RabbitMQ releases are currently covered
-by community or extended commercial support and what release is coming next.
+by community or extended commercial support.
 
 If you want to upgrade from one release to another, read the documentation and
 the release notes of the target release.
@@ -45,11 +45,3 @@ Long term support is available to the users who [hold a valid commercial support
 :::warning
 Older releases not listed in the table above are unsupported.
 :::
-
-RabbitMQ 4.3 is the release series currently [under active development](https://github.com/rabbitmq/rabbitmq-server).
-It is expected to be released in the first half of 2026.
-
-
-## Support Policy {#support-policy}
-
-For [regularly contributing users](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md), community support is provided via [community resources](/contact). Refer to the previous table for end dates for this support. [Users who do not contribute](https://github.com/rabbitmq/rabbitmq-server/blob/main/COMMUNITY_SUPPORT.md) or do not hold a [valid VMware Tanzu commercial license](/contact?utm_source=rmq_release-information_text&utm_medium=rmq_website&utm_campaign=tanzu#tanzu-rabbitmq) can use community resources for questions but are not entitled to any support from the RabbitMQ Team at Tanzu.
