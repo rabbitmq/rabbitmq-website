@@ -637,13 +637,13 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
 ## Additional Plugins in VMware Tanzu RabbitMQ® {#commercial-plugins}
 
-The table below lists plugins only available in [Tanzu RabbitMQ®](https://tanzu.vmware.com/rabbitmq).
+The table below lists plugins (or Erlang applications) only available in [Tanzu RabbitMQ®](https://tanzu.vmware.com/rabbitmq).
 For more details, see [Exclusive features in Tanzu RabbitMQ](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/site-tanzu-rabbitmq-features.html).
 
 <table class="plugins">
   <thead>
     <tr>
-      <th>Plugin name</th>
+      <th>Plugin / Erlang application</th>
       <th>Description</th>
     </tr>
   </thead>
