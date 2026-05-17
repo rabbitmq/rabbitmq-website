@@ -664,6 +664,75 @@ When using RabbitMQ plugins such as [Federation](./federation) or [Shovel](./sho
 it may be necessary to configure verification depth for the Erlang client that those plugins use under the hood,
 as [explained below](#erlang-client).
 
+### Custom Certificate Verification with verify_fun {#custom-verify-fun}
+
+The standard `verify` option only supports two modes: `verify_peer` and `verify_none`.
+For more advanced certificate verification logic, the Erlang/OTP SSL library
+provides the [`verify_fun`](https://www.erlang.org/doc/apps/ssl/ssl.html) option.
+It allows operators to supply a custom function that is called during X.509 certificate path validation.
+
+Common use cases include:
+
+ * Accepting self-signed certificates under specific conditions
+ * Verifying custom certificate fields (e.g. a specific organizational unit)
+ * Implementing [certificate pinning](https://en.wikipedia.org/wiki/Certificate_pinning)
+
+Since `verify_fun` takes an Erlang function as a value, it cannot be configured
+in `rabbitmq.conf`. Starting with Erlang/OTP 27, the `{Module, Function, InitialState}`
+tuple format can be used in `advanced.config`:
+
+```erlang
+[
+  {rabbit, [
+     {ssl_listeners, [5671]},
+     {ssl_options, [{cacertfile, "/path/to/ca_certificate.pem"},
+                    {certfile,   "/path/to/server_certificate.pem"},
+                    {keyfile,    "/path/to/server_key.pem"},
+                    {verify, verify_peer},
+                    {fail_if_no_peer_cert, true},
+                    {verify_fun, {my_verify, verify_cert, []}}]}
+   ]}
+].
+```
+
+Where `my_verify` is a custom module implementing the callback, for example:
+
+```erlang
+-module(my_verify).
+-export([verify_cert/3]).
+
+verify_cert(_Cert, {bad_cert, _} = Reason, _UserState) ->
+    {fail, Reason};
+verify_cert(_Cert, {extension, _}, UserState) ->
+    {unknown, UserState};
+verify_cert(_Cert, valid, UserState) ->
+    {valid, UserState};
+verify_cert(_Cert, valid_peer, UserState) ->
+    {valid, UserState}.
+```
+
+The callback function receives three arguments:
+
+ * The certificate as an Erlang `#'OTPCertificate'{}` record
+ * An event: `valid`, `valid_peer`, `{bad_cert, Reason}`, or `{extension, #'Extension'{}}`
+ * The current user state (initialized from the third element of the tuple)
+
+It must return one of:
+
+ * `{valid, UserState}` to continue the verification
+ * `{fail, Reason}` to reject the certificate and abort the handshake
+ * `{unknown, UserState}` for extensions that are not recognized (only relevant for `{extension, _}` events)
+
+The custom module must be compiled and placed in a directory included
+in the Erlang code path (e.g. using the `ERL_LIBS` environment variable).
+
+On Erlang/OTP versions older than 27, the `{Module, Function, InitialState}` format
+is not supported. In that case, `verify_fun` must be configured programmatically
+at runtime using the `{fun(), InitialState}` tuple format.
+
+See the [Erlang/OTP ssl module documentation](https://www.erlang.org/doc/apps/ssl/ssl.html) for
+the complete reference.
+
 
 ## Using TLS in the Java Client {#java-client}
 
