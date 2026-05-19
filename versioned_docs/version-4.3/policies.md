@@ -131,7 +131,7 @@ Some optional arguments cannot be configured using a policy. They control variou
 that cannot be changed at runtime. Two key examples are:
 
  * The type of a queue
- * The [maximum number of priorities](./priority) of classic queues
+ * The [maximum number of priorities](./priority) of classic and quorum queues
 
 Those values intentionally cannot be configured by policies: their values are fixed at queue declaration time.
 
