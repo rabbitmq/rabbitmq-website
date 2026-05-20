@@ -261,11 +261,11 @@ In general, priority queues have all the features of standard
 RabbitMQ queues. There are a couple of interactions that developers should be
 aware of.
 
-For classic priority queues, [messages which should expire](./ttl) still only
-expire from the head of the queue. This means that even per-queue TTL can lead
-to expired lower-priority messages getting stuck behind non-expired higher
-priority ones. These messages will never be delivered, but they will appear in
-queue statistics.
+For classic priority queues, [messages are only expired when they reach the
+head of the queue](./ttl). A lower-priority message can therefore exceed its
+TTL while a higher-priority message remains ahead of it. Such expired messages
+are not delivered to consumers, but they appear in queue statistics until they
+reach the head and are removed.
 
 Quorum queues do not have this limitation: TTL scans run across all priority
 levels (see [Priority-Aware Message Expiration](#priority-aware-message-expiration)).
