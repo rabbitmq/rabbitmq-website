@@ -316,29 +316,37 @@ Strict message priority support for quorum queues is available as of RabbitMQ 4.
 
 :::
 
-Starting with RabbitMQ 4.3, quorum queues support strict message priorities with 32 priority levels (0-31). Unlike the previous "fair share" approach (2:1 ratio between high and normal priorities), strict priorities ensure that higher priority messages are always delivered before lower priority messages.
+Quorum queues implement strict priority support with 32 priority levels (0-31): higher priority messages are dispatched ahead of lower priority ones, subject to consumer [prefetch](./confirms#channel-qos-prefetch) and to the [returned messages](#returned-messages) exception described below.
 
-Priority levels 0-31 are supported. Priority values higher than 31 will be clamped to 31 (the maximum priority). This allows applications to use standard priority values without worrying about exceeding the maximum.
+Priorities are clamped to the 0-31 range. Messages without a `priority` property are treated as priority 4 (classic queues default to 0).
+
+#### Priorities Are Always Enabled
+
+Quorum queues always provide the full 0-31 priority range. There is no opt-in argument: `x-max-priority` applies only to classic queues and is ignored by quorum queues.
+
+Using the Java client:
+
+```java
+Channel ch = ...;
+Map<String, Object> args = new HashMap<String, Object>();
+// quorum queues always support priorities; no extra argument needed
+args.put("x-queue-type", "quorum");
+ch.queueDeclare("my-quorum-queue", true, false, false, args);
+```
+
+Publishers set message priority the same way as for classic queues: via the `priority` field of `basic.properties`, with larger numbers indicating higher priority.
 
 #### Per-Priority Message Counts
 
 Each priority level maintains separate message counts that are visible in the Management UI. This allows operators to monitor queue depth per priority and ensure that high-priority messages are not getting stuck behind lower-priority ones.
 
-#### Redelivery of Returned Messages
+#### Redelivery of Returned Messages {#returned-messages}
 
 When messages are returned to the queue (via `reject`, `nack`, or `modify`), they do not retain their original priority. Instead, they are added to the returns queue and are requeued in the exact order they were returned, regardless of their priority.
 
 #### Priority-Aware Message Expiration
 
 Message expiration (TTL) scans now run across all priority levels, ensuring that messages expire in the correct order regardless of their priority level. For each priority level, the scan will only process messages until it encounters the first unexpired message. This prevents low-priority messages from blocking the expiration of high-priority messages that have exceeded their TTL.
-
-#### Management UI Support
-
-The Management UI displays per-priority message counts for each quorum queue, allowing operators to:
-
-* Monitor queue depth broken down by priority level
-* Identify if high-priority messages are being delayed by lower-priority ones
-* Make informed decisions about consumer allocation and queue configuration
 
 ### Consumer Timeout {#consumer-timeout}
 
