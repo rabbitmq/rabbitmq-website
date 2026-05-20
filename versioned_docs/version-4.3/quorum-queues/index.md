@@ -346,7 +346,7 @@ When messages are returned to the queue (via `reject`, `nack`, or `modify`), the
 
 #### Priority-Aware Message Expiration
 
-Message expiration (TTL) scans now run across all priority levels, ensuring that messages expire in the correct order regardless of their priority level. For each priority level, the scan will only process messages until it encounters the first unexpired message. This prevents low-priority messages from blocking the expiration of high-priority messages that have exceeded their TTL.
+Message expiration (TTL) scans run across all priority levels, ensuring that messages expire in the correct order regardless of their priority level. For each priority level, the scan will only process messages until it encounters the first unexpired message. This prevents low-priority messages from blocking the expiration of high-priority messages that have exceeded their TTL.
 
 ### Consumer Timeout {#consumer-timeout}
 

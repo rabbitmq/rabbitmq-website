@@ -193,7 +193,7 @@ When messages are returned to the queue (via `reject`, `nack`, or `modify`), the
 
 #### Priority-Aware Message Expiration
 
-Message expiration (TTL) scans now run across all priority levels, ensuring that messages expire in the correct order regardless of their priority level. For each priority level, the scan will only process messages until it encounters the first unexpired message. This prevents low-priority messages from blocking the expiration of high-priority messages that have exceeded their TTL.
+Message expiration (TTL) scans run across all priority levels, ensuring that messages expire in the correct order regardless of their priority level. For each priority level, the scan will only process messages until it encounters the first unexpired message. This prevents low-priority messages from blocking the expiration of high-priority messages that have exceeded their TTL.
 
 
 ## Low Message Priority and the Resource Starvation Problem {#resource-starvation}
@@ -261,12 +261,14 @@ In general, priority queues have all the features of standard
 RabbitMQ queues. There are a couple of interactions that developers should be
 aware of.
 
-[Messages which should expire](./ttl) still
-only expire from the head of the queue. This means that unlike
-with normal queues, even per-queue TTL can lead to expired
-lower-priority messages getting stuck behind non-expired
-higher priority ones. These messages will never be delivered,
-but they will appear in queue statistics.
+For classic priority queues, [messages which should expire](./ttl) still only
+expire from the head of the queue. This means that even per-queue TTL can lead
+to expired lower-priority messages getting stuck behind non-expired higher
+priority ones. These messages will never be delivered, but they will appear in
+queue statistics.
+
+Quorum queues do not have this limitation: TTL scans run across all priority
+levels (see [Priority-Aware Message Expiration](#priority-aware-message-expiration)).
 
 [Queues which have a max-length set](./maxlength) drop messages as usual from the head of the
 queue to enforce the limit. This means that higher priority
