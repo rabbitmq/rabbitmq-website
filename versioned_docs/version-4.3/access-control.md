@@ -585,12 +585,10 @@ perform permission checks.
 
 | AMQP 0-9-1 Operation    |                             | configure              | write                    | read                    |
 |-------------------------|-----------------------------|------------------------|--------------------------|-------------------------|
-| exchange.declare        | (passive=false)             | exchange               |                          |                         |
-| exchange.declare        | (passive=true)              |                        |                          |                         |
+| exchange.declare        |                             | exchange               |                          |                         |
 | exchange.declare        | (with [AE](./ae))           | exchange               | exchange (AE)            | exchange                |
 | exchange.delete         |                             | exchange               |                          |                         |
-| queue.declare           | (passive=false)             | queue                  |                          |                         |
-| queue.declare           | (passive=true)              |                        |                          |                         |
+| queue.declare           |                             | queue                  |                          |                         |
 | queue.declare           | (with [DLX](./dlx))         | queue                  | exchange (DLX)           | queue                   |
 | queue.delete            |                             | queue                  |                          |                         |
 | exchange.bind           |                             |                        | exchange (destination)   | exchange (source)       |
@@ -601,6 +599,16 @@ perform permission checks.
 | basic.get               |                             |                        |                          | queue                   |
 | basic.consume           |                             |                        |                          | queue                   |
 | queue.purge             |                             |                        |                          | queue                   |
+
+#### On Passive Declarations {#passive-declarations}
+
+Passive declarations (`exchange.declare` and `queue.declare` with the `passive` filed set to `true`) are commonly used by
+clients to verify that a resource exists before using it, without any modifications.
+
+Starting with RabbitMQ `4.3.1`, passive declarations require the user to have **at least one permission**
+on the target resource (the exchange or the queue). Any of `configure`, `write`, or `read` is sufficient;
+unlike a non-passive declaration, which specifically require the `configure` permission
+since they will (re)declare the resource.
 </TabItem>
 
 <TabItem value="amqp-10" label="AMQP 1.0">
