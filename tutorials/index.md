@@ -295,6 +295,7 @@ This section covers the default RabbitMQ protocol, AMQP 0-9-1.
     * [Ruby](tutorials/tutorial-seven-ruby)
     * [C#](tutorials/tutorial-seven-dotnet)
     * [PHP](tutorials/tutorial-seven-php)
+    * [Go](tutorials/tutorial-seven-go)
   </td>
   <td class="tutorial-empty"></td>
   <td class="tutorial-empty"></td>

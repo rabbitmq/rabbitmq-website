@@ -397,6 +397,11 @@ const sidebars = {
                     id: 'tutorial-six-go',
                     label: 'RPC',
                 },
+                {
+                    type: 'doc',
+                    id: 'tutorial-seven-go',
+                    label: 'Publisher Confirms',
+                },
             ]
         },
         {
