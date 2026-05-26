@@ -337,6 +337,7 @@ const config = {
       },
     ],
     "./src/plugins/configure-svgo.js",
+    "docusaurus-plugin-copy-page-button",
   ],
 
   themeConfig:
