@@ -63,10 +63,16 @@ will take three seconds.
 
 We will slightly modify the _send.go_ code from our previous example,
 to allow arbitrary messages to be sent from the command line. This
-program will schedule tasks to our work queue, so let's name it
-`new_task.go`:
+program will schedule tasks to a work queue named `task_queue`
+(instead of `hello`), so let's name the file `new_task.go`:
 
 ```go
+publisher, err := conn.NewPublisher(ctx, &rmq.QueueAddress{Queue: "task_queue"}, nil)
+if err != nil {
+	log.Panicf("Failed to create publisher: %v", err)
+}
+defer func() { _ = publisher.Close(context.Background()) }()
+
 body := bodyFrom(os.Args)
 res, err := publisher.Publish(ctx, rmq.NewMessage([]byte(body)))
 if err != nil {
