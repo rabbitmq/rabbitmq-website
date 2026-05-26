@@ -12,13 +12,13 @@ The process involves one email and one online signature using a legally binding 
 
 Sorry about this annoyance and thank you!
 
-## ContributionWorkflow
+## Contribution Workflow
 
 ### TL;DR
 
 This repository contains documentation guides for multiple RabbitMQ release series.
 
-Therefore, the very first question to consder before making any changes is:
+Therefore, the very first question to consider before making any changes is:
 what editions (versions) does my change apply to? Should I update just the next release edition,
 all `4.x` ones or even `3.13.x`?
 
@@ -150,7 +150,7 @@ The RabbitMQ documentation is dual-licensed under the Apache License 2.0 and
 the Mozilla Public License 2.0. Users can choose any of these licenses
 according to their needs. However, **the blog is excluded from this license and
 remains the intellectual property of Broadcom Inc.** Blog posts may not be
-restributed.
+redistributed.
 
 ### SPDX
 
