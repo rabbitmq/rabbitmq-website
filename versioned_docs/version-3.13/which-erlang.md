@@ -43,6 +43,10 @@ to the two most recent series.
 
 At the moment the supported series are Erlang `27.x` and `26.x`.
 
+### Erlang 29 Support
+
+Erlang 29 is not supported by RabbitMQ 3.13.x.
+
 ### Erlang 28 Support
 
 Erlang 28 has significant changes around TLS and PKI implementations,

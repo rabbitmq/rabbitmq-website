@@ -112,6 +112,9 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       </td>
       <td>
         <ul class="notes">
+        <li>
+            Erlang 29 is not supported by RabbitMQ.
+          </li>
           <li>
             Erlang 28 is partially supported starting with RabbitMQ 4.2.0.
           </li>
