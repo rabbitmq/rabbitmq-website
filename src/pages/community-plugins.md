@@ -216,4 +216,18 @@ here, [get in touch](/contact)!
       </ul>
     </td>
   </tr>
+
+  <tr>
+    <th>rabbitmq_web_ocpp</th>
+  </tr>
+  <tr>
+    <td>
+      Turns the broker into a highly-scalable, memory-efficient and low-latency gateway for EV charge stations. This plugin provides a native thin translator layer for OCPP-over-WebSockets to AMQP protocol. Both OCPP version 1.6J and 2.x are supported, including mTLS auth support for SecurityProfile 3.
+      <ul>
+        <li><a href="https://github.com/vampirebyte/rabbitmq-web-ocpp/releases">Releases</a></li>
+        <li>Authors: <b>Razvan Grigore</b></li>
+        <li>GitHub: <a href="https://github.com/vampirebyte/rabbitmq-web-ocpp">vampirebyte/rabbitmq-web-ocpp</a></li>
+      </ul>
+    </td>
+  </tr>
 </table>
