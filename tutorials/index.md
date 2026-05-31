@@ -51,7 +51,7 @@ There are three groups of tutorials:
  * [RabbitMQ streams](#stream-tutorials)
 
 :::info
-This tutorials target RabbitMQ 4.x.
+These tutorials target RabbitMQ 4.x.
 :::
 
 <Tabs groupId="protocol">
