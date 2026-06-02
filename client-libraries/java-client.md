@@ -74,7 +74,7 @@ If using Gradle:
 
 ```groovy
 dependencies {
-  compile 'com.rabbitmq:amqp-client:5.31.0'
+  implementation 'com.rabbitmq:amqp-client:5.31.0'
 }
 ```
 
