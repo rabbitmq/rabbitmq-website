@@ -1722,11 +1722,23 @@ In `rabbitmq.conf`, values of certain keys can be prefixed with `encrypted`, for
 
 Those keys are:
 
- * `ssl_options.password`
+ * `anonymous_login_pass`
+ * `auth_ldap.ssl_options.password`
+ * `cluster_formation.aws.secret_key`
+ * `cluster_formation.consul.acl_token`
+ * `cluster_formation.consul.ssl_options.password`
+ * `cluster_formation.etcd.password`
+ * `cluster_formation.etcd.ssl_options.password`
  * `default_password`
  * `default_user.$username.password`
+ * `definitions.https.url`
  * `definitions.tls.password`
- * `anonymous_login_pass`
+ * `management.oauth_client_secret`
+ * `management.oauth_resource_servers.$name.oauth_client_secret`
+ * `prometheus.ssl.password`
+ * `ssl_options.password`
+ * `stomp.default_pass`
+ * `tracing.password`
 
 Other keys will not support `encrypted:{value}` values.
 
