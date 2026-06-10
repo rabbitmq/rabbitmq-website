@@ -275,19 +275,19 @@ rabbitmqadmin show churn
 ### List Cluster Nodes
 
 ``` shell
-rabbitmqadmin nodes list
+rabbitmqadmin list nodes
 ```
 
 ### List Virtual Hosts
 
 ``` shell
-rabbitmqadmin vhosts list
+rabbitmqadmin list vhosts
 ```
 
 ### List Users
 
 ``` shell
-rabbitmqadmin users list
+rabbitmqadmin list users
 ```
 
 ### Create a User
@@ -360,31 +360,31 @@ rabbitmqadmin users connections --username "a-user"
 ### List Queues
 
 ``` shell
-rabbitmqadmin queues list
+rabbitmqadmin list queues
 ```
 
 ``` shell
-rabbitmqadmin --vhost "monitoring" queues list
+rabbitmqadmin --vhost "monitoring" list queues
 ```
 
 ### List Exchanges
 
 ``` shell
-rabbitmqadmin exchanges list
+rabbitmqadmin list exchanges
 ```
 
 ``` shell
-rabbitmqadmin --vhost "events" exchanges list
+rabbitmqadmin --vhost "events" list exchanges
 ```
 
 ### List Bindings
 
 ``` shell
-rabbitmqadmin bindings list
+rabbitmqadmin list bindings
 ```
 
 ``` shell
-rabbitmqadmin --vhost "events" bindings list
+rabbitmqadmin --vhost "events" list bindings
 ```
 
 ### Bind a Queue to an Exchange
@@ -669,12 +669,12 @@ rabbitmqadmin --vhost "events" exchanges delete --name "target.exchange.name" --
 ### List Connections
 
 ``` shell
-rabbitmqadmin connections list
+rabbitmqadmin list connections
 ```
 
 ``` shell
 # List connections for a specific virtual host
-rabbitmqadmin --vhost "events" connections list
+rabbitmqadmin --vhost "events" list connections
 ```
 
 ### Close a Connection
@@ -692,23 +692,23 @@ rabbitmqadmin users close_connections --name "a-user"
 ### List Channels
 
 ``` shell
-rabbitmqadmin channels list
+rabbitmqadmin list channels
 ```
 
 ``` shell
 # List channels in a specific virtual host
-rabbitmqadmin --vhost "events" channels list
+rabbitmqadmin --vhost "events" list channels
 ```
 
 ### List Consumers
 
 ```shell
-rabbitmqadmin consumers list
+rabbitmqadmin list consumers
 ```
 
 ```shell
 # List consumers in a specific virtual host
-rabbitmqadmin --vhost "events" consumers list
+rabbitmqadmin --vhost "events" list consumers
 ```
 
 ### Bind an Exchange to a Queue
@@ -1298,7 +1298,7 @@ This is useful for pre-computing password hashes for user management scripts or 
 ### List Policies
 
 ```shell
-rabbitmqadmin policies list
+rabbitmqadmin list policies
 ```
 
 ```shell
@@ -1432,7 +1432,7 @@ rabbitmqadmin policies delete_definition_keys_from_all \
 ### List Operator Policies
 
 ```shell
-rabbitmqadmin operator_policies list
+rabbitmqadmin list operator_policies
 ```
 
 ```shell
