@@ -128,7 +128,7 @@ See also: [open file handles limit](./networking#open-file-handle-limit).
 | `channel_max_per_node` | integer | Maximum number of channels across all connections on a node | unlimited |
 | `ranch_connection_max` | integer | Maximum number of concurrent TCP connections a node will accept; includes [HTTP API](./http-api-reference) connections | unlimited |
 | `stream.max_connections` | integer | Maximum number of concurrent [RabbitMQ Stream Protocol](./stream) client connections a node will accept | unlimited |
-| `max_message_size` | integer (bytes) | Maximum message size that messaging and streaming clients can publish. Messages larger than this will be rejected. Maximum allowed value is 512 MiB. | 134217728 (128 MiB) |
+| `max_message_size` | integer (bytes) | Maximum message size that messaging and streaming clients can publish. Messages larger than this will be rejected. Maximum allowed value is 512 MiB. | 16777216 (16 MiB) |
 | `management.http.max_body_size` | integer (bytes) | Maximum HTTP API request body size | 20971520 (20 MiB) |
 
 ### Per Queue Limits {#per-queue}
