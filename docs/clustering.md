@@ -641,8 +641,9 @@ before joining another node.
 
 :::tip
 
-Consider using one of the [peer discovery mechanisms](./cluster-formation) instead
-of manual cluster formation with CLI tools.
+For production environments, it is strongly recommended to use one of the automated [peer discovery mechanisms](./cluster-formation) instead of manual cluster formation with CLI tools.
+
+Manual cluster formation (`rabbitmqctl join_cluster`) is highly prone to human error and race conditions. Manual CLI joins should be strictly reserved for local development, testing, or specific edge-case recovery scenarios.
 
 :::
 

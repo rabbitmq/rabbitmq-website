@@ -623,6 +623,8 @@ case matters, and these strings must match exactly.
 
 ## Creating a Cluster {#creating}
 
+For production environments, it is strongly recommended to use one of the automated [peer discovery mechanisms](./cluster-formation) instead of manual cluster formation with CLI tools. Manual cluster formation (`rabbitmqctl join_cluster`) is highly prone to human error and race conditions. Manual CLI joins should be strictly reserved for local development, testing, or specific edge-case recovery scenarios.
+
 In order to link up our three nodes in a cluster, we tell
 two of the nodes, say `rabbit@rabbit2` and
 `rabbit@rabbit3`, to join the cluster of the
