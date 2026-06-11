@@ -66,44 +66,43 @@ Let's start with the simplest approach to publishing with confirms,
 that is, publishing a message and waiting synchronously for its confirmation:
 
 ```go
-ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+const confirmTimeout = 5 * time.Second
+ctx, cancel := context.WithTimeout(context.Background(), confirmTimeout)
 defer cancel()
-confirmDeferred := ch.NotifyPublish(make(chan amqp.Confirmation, 1))
 for msg := range messages {
-    err = ch.PublishWithContext(ctx, "", queueName, false, false, amqp.Publishing{
+    confirm, err := ch.PublishWithDeferredConfirmWithContext(ctx, "", queueName, false, false, amqp.Publishing{
 		ContentType: "text/plain",
 		Body:        []byte(msg),
 	})
 	failOnError(err, "Failed to publish a message")
 
 	// Wait for confirmation
-	select {
-	case confirm := <-confirmDeferred:
-		if !confirm.Ack {
-			log.Printf("Message %d was nacked by the broker", confirm.DeliveryTag)
-		}
-	case <-ctx.Done():
-		log.Printf("Timeout waiting for confirmation: %v", ctx.Err())
+	acked, err := confirm.WaitContext(ctx)
+	if err != nil {
+		log.Printf("Confirmation wait failed: %v", err)
 		return
+	}
+	if !acked {
+		log.Printf("Message %d was nacked by the broker", confirm.DeliveryTag)
 	}
 }
 ```
 
-In the previous example we publish a message as usual and wait for its
-confirmation using the channel populated by the `Channel.NotifyPublish` method.
-We use a `select` statement to block until either the confirmation arrives
-or the context times out. If the message is nack-ed (meaning the broker
-could not take care of it for some reason), the `Ack` field of the confirmation
+In the previous example we publish a message using `PublishWithDeferredConfirmWithContext` 
+that returns a deferred confirmation `confirm`.
+We use a `confirm.WaitContext` to block until either the confirmation arrives
+or the context times out. If the message is nacked (meaning the broker
+could not take care of it for some reason), the boolean value returned by `confirm.WaitContext`
 will be `false`. Handling a nack or timeout usually consists of logging an
 error message and/or retrying to send the message.
 
 Different client libraries have different ways to synchronously deal with publisher confirms,
-so make sure to read carefully the documentation of the client you are using.
+so make sure to read the documentation of the client you are using carefully.
 
 This technique is very straightforward but also has a major drawback:
 it **significantly slows down publishing**, as the confirmation of a message blocks the publishing
 of all subsequent messages. This approach is not going to deliver throughput of
-more than a few hundreds of published messages per second. Nevertheless, this can be
+more than a few hundred published messages per second. Nevertheless, this can be
 good enough for some applications.
 
 > #### Are Publisher Confirms Asynchronous?
@@ -112,7 +111,7 @@ good enough for some applications.
 > messages asynchronously but in the first example the code waits
 > synchronously until the message is confirmed. The client actually
 > receives confirms asynchronously and sends them to the Go channel.
-> The `select` block acts as a synchronous wrapper which relies on
+> The `confirm.WaitContext` acts as a synchronous wrapper which relies on
 > these asynchronous notifications under the hood.
 
 
@@ -123,53 +122,49 @@ of messages and wait for this whole batch to be confirmed.
 The following example uses a batch of 100:
 
 ```go
-batchSize := 100
-outstandingMessageCount := 0
-for msg := range messages {
-  err = ch.PublishWithContext(ctx, "", queueName, false, false, amqp.Publishing{
-  	ContentType: "text/plain",
-  	Body:        []byte(body),
-  })
-  failOnError(err, "Failed to publish a message")
-  outstandingMessageCount++
-  if outstandingMessageCount == batchSize {
-  	// Wait for all confirms for this batch
-  	for j := 0; j < batchSize; j++ {
-  		select {
-  		case confirm := <-confirmDeferred:
-  			if !confirm.Ack {
-  				log.Printf("Message %d in batch was nacked", confirm.DeliveryTag)
-  			}
-  		case <-ctx.Done():
-  			log.Printf("Timeout waiting for batch confirmation: %v", ctx.Err())
-  			return
-  		}
-  	}
-  	outstandingMessageCount = 0
-  }
-}
-// Wait for remaining confirms left over in the final uneven batch
-if outstandingMessageCount > 0 {
-	for j := 0; j < outstandingMessageCount; j++ {
-		select {
-		case confirm := <-confirmDeferred:
-			if !confirm.Ack {
-				log.Printf("Message %d in batch was nacked", confirm.DeliveryTag)
-			}
-		case <-ctx.Done():
-			log.Printf("Timeout waiting for remaining batch confirmation: %v", ctx.Err())
-			return
+const batchSize = 100
+confirms := make([]*amqp.DeferredConfirmation, 0, batchSize)
+waitForBatch := func(confirms []*amqp.DeferredConfirmation) bool {
+	ctx, cancel := context.WithTimeout(ctx, confirmTimeout)
+	defer cancel()
+	for _, confirm := range confirms {
+		acked, err := confirm.WaitContext(ctx)
+		if err != nil {
+			log.Printf("Batch confirmation wait failed: %v", err)
+			return false
+		}
+		if !acked {
+			log.Printf("Message %d in batch was nacked", confirm.DeliveryTag)
 		}
 	}
+	return true
+}
+for msg := range messages {
+	confirm, err := ch.PublishWithDeferredConfirmWithContext(ctx, "", queueName, false, false, amqp.Publishing{
+		ContentType: "text/plain",
+		Body:        []byte(msg),
+	})
+	failOnError(err, "Failed to publish a message")
+	confirms = append(confirms, confirm)
+	if len(confirms) == batchSize {
+		// Wait for all confirms for this batch
+		if !waitForBatch(confirms) {
+			return
+		}
+		confirms = confirms[:0]
+	}
+}
+// Wait for remaining confirms left over in the final uneven batch
+if len(confirms) > 0 && !waitForBatch(confirms) {
+	return
 }
 ```
 
 Waiting for a batch of messages to be confirmed improves throughput drastically over
-waiting for a confirm for individual message (up to 20-30 times with a remote RabbitMQ node).
-One drawback is that we do not know exactly what went wrong in case of failure,
-so we may have to keep a whole batch in memory to log something meaningful or
-to re-publish the messages. And this solution is still synchronous, so it
-blocks the publishing of messages.
+waiting for a confirm for individual messages (up to 20-30 times with a remote RabbitMQ node).
+One drawback is that since confirmations don't carry the message payloads, 
+we must keep the whole batch in memory to log something meaningful or to re-publish the failed messages. 
+And this solution is still synchronous, so it blocks the publishing of messages.
 
 
 ### Strategy #3: Handling Publisher Confirms Asynchronously
@@ -178,11 +173,16 @@ The broker confirms published messages asynchronously, one just needs
 to asynchronously read from the confirmation channel to be notified of these confirms:
 
 ```go
+const MessageCount = 100
+confirms := ch.NotifyPublish(make(chan amqp.Confirmation, 100))
 go func() {
-	for {
+	for confirmed := 0; confirmed < MessageCount; confirmed++ {
 		select {
-		case confirm := <-confirmDeferred:
+		case confirm := <-confirms:
 			// ... Verify outstanding confirms using its Sequence number and confirm.DeliveryTag
+		case <-time.After(confirmTimeout):
+			log.Printf("No confirmation received within %v, giving up", confirmTimeout)
+			return		
 		case <-ctx.Done():
 			log.Printf("Timeout waiting for asynchronous confirmation: %v", ctx.Err())
 			return
@@ -190,6 +190,10 @@ go func() {
 	}
 }()
 ```
+In the previous example we publish a message as usual and wait for its
+confirmation using the channel populated by the `Channel.NotifyPublish` method.
+We use a `select` statement to block until either the confirmation arrives
+or the context times out. 
 
 The sequence number can be obtained with `Channel.GetNextPublishSeqNo()`
 before publishing:
@@ -214,30 +218,38 @@ outstandingConfirms.Store(ch.GetNextPublishSeqNo(), body)
 
 The publishing code now tracks outbound messages with a map. We need
 to clean this map when confirms arrive and do something like logging a warning
-when messages are nack-ed:
+when messages are nacked:
 
 ```go
 var outstandingConfirms sync.Map
 go func() {
-	for {
+	for confirmed := 0; confirmed < MessageCount; confirmed++ {
 		select {
-		case confirm := <-confirmDeferred:
+		case confirm := <-confirms:
 			// Clean up map when confirms received
-			if body, exists := outstandingConfirms.LoadAndDelete(confirm.DeliveryTag); exists {
-				if !confirm.Ack {
-					log.Printf("Message with body %s has been nack-ed. Delivery tag: %d", body, confirm.DeliveryTag)
-				}
+			if body, ok := outstandingConfirms.LoadAndDelete(confirm.DeliveryTag); ok && !confirm.Ack {
+				log.Printf("Message with body %s was nacked. Delivery tag: %d", body, confirm.DeliveryTag)
 			}
+		case <-time.After(confirmTimeout):
+			log.Printf("No confirmation received within %v, giving up", confirmTimeout)
+			return
 		case <-ctx.Done():
-			log.Printf("Timeout waiting for asynchronous confirmation: %v", ctx.Err())
 			return
 		}
 	}
 }()
-// ... publishing code
+for i := 0; i < MessageCount; i++ {
+	msg := strconv.Itoa(i)
+	outstandingConfirms.Store(ch.GetNextPublishSeqNo(), msg)
+	err := ch.PublishWithContext(ctx, "", q.Name, false, false, amqp.Publishing{
+		ContentType: "text/plain",
+		Body:        []byte(msg),
+	})
+	failOnError(err, "Failed to publish a message")
+}
 ```
 
-The previous sample contains logic that cleans the map when confirms arrive. The block for nack-ed messages retrieves the message body and issues a warning. Whether messages are confirmed or nack-ed, their corresponding entries in the map must be removed.
+The previous sample contains logic that cleans the map when confirms arrive. The block for nacked messages retrieves the message body and issues a warning. Whether messages are confirmed or nacked, their corresponding entries in the map must be removed.
 
 > #### How to Track Outstanding Confirms?
 >
@@ -247,13 +259,13 @@ The previous sample contains logic that cleans the map when confirms arrive. The
 To sum up, handling publisher confirms asynchronously usually requires the
 following steps:
 
- * provide a way to correlate the publishing sequence number with a message.
- * start a goroutine to read from the confirmation channel to be notified when publisher acks/nacks arrive and perform the appropriate actions, like logging or re-publishing a nack-ed message. The sequence-number-to-message correlation mechanism may also require some cleaning during this step.
- * track the publishing sequence number before publishing a message.
+ * Provide a way to correlate the publishing sequence number with a message.
+ * Start a goroutine to read from the confirmation channel to be notified when publisher acks/nacks arrive and perform the appropriate actions, like logging or re-publishing a nacked message. The sequence-number-to-message correlation mechanism may also require some cleaning during this step.
+ * Track the publishing sequence number before publishing a message.
 
-> #### Re-publishing nack-ed Messages?
+> #### Re-publishing nacked Messages?
 >
-> It can be tempting to re-publish a nack-ed message directly from the confirmation goroutine, but this should be avoided. A better solution consists in sending the nack-ed message through a Go channel to a dedicated publishing goroutine. This ensures your confirmation listener isn't blocked by publishing operations.
+> It can be tempting to re-publish a nacked message directly from the confirmation goroutine, but this should be avoided. A better solution consists in sending the nacked message through a Go channel to a dedicated publishing goroutine. This ensures your confirmation listener isn't blocked by publishing operations.
 
 ### Summary
 
@@ -263,11 +275,11 @@ confirms are asynchronous in nature but it is also possible to handle them synch
 There is no definitive way to implement publisher confirms, this usually comes down
 to the constraints in the application and in the overall system. Typical techniques are:
 
- * publishing messages individually, waiting for the confirmation synchronously: simple, but very
+ * Publishing messages individually, waiting for the confirmation synchronously: simple, but very
  limited throughput.
- * publishing messages in batch, waiting for the confirmation synchronously for a batch: simple, reasonable
+ * Publishing messages in batch, waiting for the confirmation synchronously for a batch: simple, reasonable
  throughput, but hard to reason about when something goes wrong.
- * asynchronous handling: best performance and use of resources, good control in case of error, but
+ * Asynchronous handling: best performance and use of resources, good control in case of error, but
  can be involved to implement correctly.
 
 ## Putting It All Together
@@ -304,6 +316,6 @@ conn, err := amqp.Dial("amqp://remote-user:remote-password@remote-host:5672/")
 
 Remember that batch publishing is simple to implement, but does not make it easy to know
 which message(s) could not make it to the broker in case of negative publisher acknowledgment.
-Handling publisher confirms asynchronously is more involved to implement but provide
+Handling publisher confirms asynchronously is more involved to implement but provides
 better granularity and better control over actions to perform when published messages
-are nack-ed.
+are nacked.
