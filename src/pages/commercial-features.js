@@ -18,7 +18,7 @@ export default function CommercialFeatures() {
             <div className={styles.commercial_features_cta}>
               <Link
                 className="button button--primary"
-                to="mailto:contact-tanzu-data.pdl@broadcom.com"
+                to="https://go-vmware.broadcom.com/contact-us"
               >
                 Contact Us
               </Link>
