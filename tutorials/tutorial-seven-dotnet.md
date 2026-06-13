@@ -35,7 +35,7 @@ broker, meaning they have been taken care of on the server side.
 ### Overview
 
 In this tutorial we're going to use publisher confirms to make sure published
-messages have safely reached the broker. We will cover several strategies to
+messages have safely reached the broker. We will cover several strategies for
 using publisher confirms and explain their pros and cons.
 
 
@@ -49,7 +49,7 @@ via the `CreateChannelOptions` class:
 https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L11-L15
 ```
 
-These options must be passed to every channel that you expect to use publisher
+These options must be passed to every channel that will use publisher
 confirms.
 
 ### Strategy #1: Publishing Messages Individually
@@ -63,11 +63,10 @@ https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirm
 
 In the previous example we publish a message as usual and wait for its
 confirmation by `await`-ing the task returned by `BasicPublishAsync`. The
-`await` returns as soon as the message has been confirmed. If the message is is
+`await` returns as soon as the message has been confirmed. If the message is
 nack-ed or returned (meaning the broker could not take care of it for some
-reason), the method will throw an exception. The handling of the exception
-usually consists in logging an error message and/or retrying to send the
-message.
+reason), the method will throw an exception. Handling the exception usually
+means logging an error message and/or retrying to send the message.
 
 
 ### Strategy #2: Publishing Messages in Batches
@@ -80,7 +79,7 @@ size equal to one-half of the allowed count of outstanding confirmations:
 https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L90-L102
 ```
 
-This method is responsible for awaiting the publisher confirmations for  a given batch of messages:
+This method awaits the publisher confirmations for a given batch of messages:
 
 ```csharp reference
 https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L108-L125
@@ -89,8 +88,8 @@ https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirm
 
 ### Strategy #3: Handling Publisher Confirms in the Application
 
-The broker confirms published messages asynchronously, one just needs to
-register a callback on the client to be notified of these confirms:
+The broker confirms published messages asynchronously. To be notified of these
+confirms, register a callback on the client:
 
 ```csharp reference
 https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs#L193-L216
@@ -103,7 +102,7 @@ parameter (`ea`). For ack and nack, this contains:
  * delivery tag: the sequence number identifying the confirmed or nack-ed
  message. We will see shortly how to correlate it with the published message.
  * multiple: this is a boolean value. If false, only one message is
- confirmed/nack-ed, if true, all messages with a lower or equal sequence number
+ confirmed/nack-ed; if true, all messages with a lower or equal sequence number
  are confirmed/nack-ed.
 
 The sequence number can be obtained with `IChannel#GetNextPublishSequenceNumberAsync` before
@@ -114,7 +113,7 @@ var sequenceNumber = await channel.GetNextPublishSequenceNumberAsync();
 await channel.BasicPublishAsync(exchange, queue, properties, body);
 ```
 
-A performant way to correlate messages with sequence number consists in using a
+A performant way to correlate messages with sequence numbers is to use a
 linked list. Let's assume we want to publish strings because they are easy to
 turn into an array of bytes for publishing.
 
@@ -128,7 +127,7 @@ https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirm
 
 The previous sample contains a callback that cleans the linked list when
 confirms, nacks or returns arrive. Note this callback handles both single and
-multiple confirms. The callback for nack-ed or returns messages issues a
+multiple confirms. The callback for nack-ed or returned messages issues a
 warning. It then re-uses the previous callback to clean the linked list of
 outstanding confirms.
 
@@ -147,7 +146,7 @@ following steps:
 > It can be tempting to re-publish a nack-ed message from the corresponding
 > callback but this should be avoided, as confirm callbacks are
 > dispatched in an I/O thread where channels are not supposed
-> to do operations. A better solution consists in enqueuing the message in an in-memory
+> to do operations. A better solution is to enqueue the message in an in-memory
 > queue which is polled by a publishing thread. A class like `ConcurrentQueue`
 > would be a good candidate to transmit messages between the confirm callbacks
 > and a publishing thread.
@@ -155,11 +154,11 @@ following steps:
 ### Summary
 
 Making sure published messages made it to the broker can be essential in some
-applications. Publisher confirms are a RabbitMQ feature that helps to meet this
-requirement. Publisher confirms are asynchronous in nature but it is also
-possible to handle them synchronously. There is no definitive way to implement
-publisher confirms, this usually comes down to the constraints in the
-application and in the overall system. Typical techniques are:
+applications. Publisher confirms are a RabbitMQ feature that helps meet this
+requirement. Publisher confirms are asynchronous in nature, but it is also
+possible to handle them synchronously. There is no single right way to implement
+publisher confirms; the choice usually comes down to the constraints of the
+application and the overall system. Typical techniques are:
 
 * publishing messages individually, waiting for the confirmation via
 `await`: simple.
@@ -173,7 +172,7 @@ case of error, but can be involved to implement correctly.
 
 The [`PublisherConfirms.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs)
 class contains code for the techniques we covered. We can compile it, execute it as-is and
-see how they each perform:
+see how each of them performs:
 
 ```shell
 dotnet run
@@ -217,5 +216,5 @@ private static Task<IConnection> CreateConnection()
 Remember that batch publishing is simple to implement, but does not make it
 easy to know which message(s) could not make it to the broker in case of
 negative publisher acknowledgment. Handling publisher confirms asynchronously
-is more involved to implement but provide better granularity and better control
-over actions to perform when published messages are nack-ed.
+is more involved to implement but provides better granularity and more control
+over how to react when messages are nack-ed.

@@ -48,8 +48,8 @@ Publisher confirms are enabled at the channel level. To enable them, use the
 channel.confirmSelect()
 ```
 
-This method must be called on every channel that you expect to use publisher
-confirms. Confirms should be enabled just once, not for every message published.
+This method must be called on every channel that will use publisher confirms,
+and only once per channel, not for every published message.
 
 ### Strategy #1: Publishing Messages Individually
 
@@ -88,18 +88,18 @@ In the previous example we publish a message as usual and wait for its
 confirmation with the `first()` call. The method returns as
 soon as the message has been confirmed. If the message is not confirmed
 within the timeout or if it is nack-ed (meaning the broker could not take
-care of it for some reason), the method will throw an exception. The handling
-of the exception usually consists in logging an error message and/or retrying
-to send the message.
+care of it for some reason), the method will throw an exception. Handling the
+exception usually means logging an error message and/or retrying to send the
+message.
 
-Different client libraries have different ways to synchronously deal with publisher
-confirms, so make sure to read carefully the documentation of the client you are using.
+Different client libraries handle synchronous publisher confirms differently,
+so carefully read the documentation of the client you are using.
 
-This technique is very straightforward but also has a major drawback:
+This technique is straightforward but has a major drawback:
 it **significantly slows down publishing**, as the confirmation of a message blocks
-the publishing of all subsequent messages. This approach is not going to
-deliver throughput of more than a few hundreds of published messages per second.
-Nevertheless, this can be good enough for some applications.
+the publishing of all subsequent messages. This approach won't deliver more
+than a few hundred published messages per second. Nevertheless, this can be
+good enough for some applications.
 
 > #### Are Publisher Confirms Asynchronous?
 >
@@ -147,8 +147,8 @@ suspend fun publishMessagesInBatch(channel: AMQPChannel, messages: List<String>,
 }
 ```
 
-Waiting for a batch of messages to be confirmed improves throughput drastically over
-waiting for a confirm for individual message (up to 20-30 times with a remote RabbitMQ node).
+Waiting for a whole batch to be confirmed drastically improves throughput over
+waiting for each message individually (up to 20-30 times with a remote RabbitMQ node).
 One drawback is that we do not know exactly what went wrong in case of failure,
 so we may have to keep a whole batch in memory to log something meaningful or
 to re-publish the messages. And this solution is still synchronous, so it
@@ -156,8 +156,8 @@ blocks the publishing of messages.
 
 ### Strategy #3: Handling Publisher Confirms Asynchronously
 
-The broker confirms published messages asynchronously, one just needs to
-register a callback on the client to be notified of these confirms:
+The broker confirms published messages asynchronously. To be notified of these
+confirms, register a callback on the client:
 
 ```kotlin
 suspend fun publishMessagesAsync(channel: AMQPChannel, messages: List<String>) {
@@ -212,26 +212,25 @@ suspend fun publishMessagesAsync(channel: AMQPChannel, messages: List<String>) {
 }
 ```
 
-In this example we use Kotlin's Flow API to handle confirms asynchronously. We collect
-confirms from the `publishConfirmResponses` flow. The callback will be invoked for each
-confirmed message. We keep track of outstanding confirms with a map. When a confirm arrives,
-we remove the entry from the map. If the confirm indicates that multiple messages have been
+In this example we use Kotlin's Flow API to handle confirms asynchronously,
+collecting each confirmation from the `publishConfirmResponses` flow. We track
+outstanding confirms with a map and remove the entry when a confirm arrives. If the confirm indicates that multiple messages have been
 confirmed (the `multiple` field is `true`), we remove all messages up to and including the
 confirmed delivery tag.
 
-The async approach for handling confirms requires tracking of published messages. We use
-a concurrent map to correlate the publish delivery tag with the message content. This is
-necessary for logging meaningful information or to re-publish a message that has been
-nack-ed. The handling of confirms can also be decomposed into a fire-and-forget approach:
-a background task or flow can handle the confirms and update the map accordingly.
+The async approach for handling confirms requires tracking published messages. We use
+a concurrent map to correlate the publish delivery tag with the message content,
+which makes it possible to log meaningful information or to re-publish a nack-ed
+message. Confirm handling can also be decoupled from publishing entirely: a
+background task or flow can process confirms and update the map.
 
 ### Summary
 
 Making sure published messages made it to the broker can be essential in some applications.
-Publisher confirms are a RabbitMQ feature that helps to meet this requirement. Publisher
-confirms are asynchronous in nature but it is also possible to handle them synchronously.
-There is no definitive way to implement publisher confirms, this usually comes down to
-the constraints in the application and in the overall system. Typical techniques are:
+Publisher confirms are a RabbitMQ feature that helps meet this requirement. Publisher
+confirms are asynchronous in nature, but it is also possible to handle them synchronously.
+There is no single right way to implement publisher confirms; the choice usually comes
+down to the constraints of the application and the overall system. Typical techniques are:
 
 * publish messages individually, wait for the confirmation synchronously: simple, but very
   limited throughput.

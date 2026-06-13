@@ -36,7 +36,7 @@ broker, meaning they have been taken care of on the server side.
 ### Overview
 
 In this tutorial we're going to use publisher confirms to make sure published
-messages have safely reached the broker. We will cover several strategies to
+messages have safely reached the broker. We will cover several strategies for
 using publisher confirms and explain their pros and cons.
 
 
@@ -51,8 +51,8 @@ channel = connection.create_channel
 channel.confirm_select(tracking: true)
 ```
 
-This method must be called on every channel that you expect to use publisher
-confirms. Confirms should be enabled just once, not for every message published.
+This method must be called on every channel that will use publisher confirms,
+and only once per channel, not for every published message.
 The `tracking: true` option is available in Bunny 3.0 and later, and
 provides automatic publisher confirm tracking and backpressure.
 
@@ -84,19 +84,20 @@ end
 ```
 
 In the previous example we publish a message as usual and wait for its
-confirmation with `channel.wait_for_confirms`. The method returns as soon as the
-messages have been confirmed. The method returns `true` if all messages were confirmed successfully, and `false` if any message was nack-ed (meaning the broker could not take care of it for some reason). The handling of
-a `false` return value usually consists in logging an error message and/or retrying to
-send the message.
+confirmation with `channel.wait_for_confirms`. The method returns as soon as
+the messages have been confirmed: `true` if all of them were confirmed
+successfully, `false` if any message was nack-ed (meaning the broker could not
+take care of it for some reason). Handling a `false` return value usually
+means logging an error and/or retrying to send the message.
 
-Different client libraries have different ways to synchronously deal with publisher confirms,
-so make sure to read carefully the documentation of the client you are using.
+Different client libraries handle synchronous publisher confirms differently,
+so carefully read the documentation of the client you are using.
 
-This technique is very straightforward but also has a major drawback:
+This technique is straightforward but has a major drawback:
 it **significantly slows down publishing**, as the confirmation of a message blocks the publishing
-of all subsequent messages. This approach is not going to deliver throughput of
-more than a few hundreds of published messages per second. Nevertheless, this can be
-good enough for some applications.
+of all subsequent messages. This approach won't deliver more than a few hundred
+published messages per second. Nevertheless, this can be good enough for some
+applications.
 
 With `tracking: true`, Bunny automatically limits the number of outstanding
 unconfirmed messages (defaulting to 1000) and blocks the publishing thread if
@@ -152,9 +153,9 @@ blocks the publishing of messages.
 
 ### Strategy #3: Handling Publisher Confirms Asynchronously
 
-The broker confirms published messages asynchronously, one just needs
-to register a callback on the client to be notified of these confirms.
-In Bunny, we can pass a block to `confirm_select` to handle these callbacks:
+The broker confirms published messages asynchronously. To be notified of these
+confirms, register a callback on the client. In Bunny, we can pass a block to
+`confirm_select` to handle these callbacks:
 
 ```ruby
 channel = connection.create_channel
@@ -167,8 +168,8 @@ There are 3 arguments passed to the block:
 
  * `delivery_tag`: a number that identifies the confirmed
  or nack-ed message. We will see shortly how to correlate it with the published message.
- * `multiple`: this is a boolean value. If false, only one message is confirmed/nack-ed, if
- true, all messages with a lower or equal sequence number are confirmed/nack-ed.
+ * `multiple`: this is a boolean value. If false, only one message is confirmed/nack-ed;
+ if true, all messages with a lower or equal sequence number are confirmed/nack-ed.
  * `nack`: this is a boolean value. If true, the message is nack-ed (can be considered lost by the broker).
 
 The sequence number can be obtained with `channel.next_publish_seq_no`
@@ -179,7 +180,7 @@ seq_no = channel.next_publish_seq_no
 channel.basic_publish(body, '', queue.name)
 ```
 
-A simple way to correlate messages with sequence number consists in using a
+A simple way to correlate messages with sequence numbers is to use a
 hash. Let's assume we want to publish strings because they are easy to turn into
 an array of bytes for publishing. Here is a code sample that uses a hash to
 correlate the publishing sequence number with the string body of the message:
@@ -265,7 +266,7 @@ following steps:
 > It can be tempting to re-publish a nack-ed message from the corresponding
 > callback but this should be avoided, as confirm callbacks are
 > dispatched in an I/O thread where channels are not supposed
-> to do operations. A better solution consists in enqueuing the message in an in-memory
+> to do operations. A better solution is to enqueue the message in an in-memory
 > queue which is polled by a publishing thread. A class like `Queue` from the `thread`
 > standard library would be a good candidate to transmit messages between the confirm callbacks
 > and a publishing thread.
@@ -273,7 +274,7 @@ following steps:
 ### Summary
 
 Making sure published messages made it to the broker can be essential in some
-applications. Publisher confirms are a RabbitMQ feature that helps to meet this
+applications. Publisher confirms are a RabbitMQ feature that helps meet this
 requirement.
 
 * publishing messages individually: simple, but lower throughput
@@ -289,7 +290,7 @@ with automatic backpressure and high throughput when combined with `basic_publis
 
 The [`publisher_confirms.rb`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/ruby/publisher_confirms.rb)
 script contains code for the techniques we covered. We can execute it as-is and
-see how they each perform:
+see how each of them performs:
 
 ```shell
 bundle exec ruby publisher_confirms.rb
@@ -328,6 +329,5 @@ now perform similarly, with a small advantage for asynchronous handling of the p
 
 Remember that batch publishing is simple to implement, but does not make it easy to know
 which message(s) could not make it to the broker in case of negative publisher acknowledgment.
-Handling publisher confirms asynchronously is more involved to implement but provide
-better granularity and better control over actions to perform when published messages
-are nack-ed.
+Handling publisher confirms asynchronously is more involved to implement but provides
+better granularity and more control over how to react when messages are nack-ed.

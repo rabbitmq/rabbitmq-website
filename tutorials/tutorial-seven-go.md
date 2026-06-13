@@ -102,9 +102,9 @@ returns `false`. Handling a nack or a timeout usually means logging an error
 and/or retrying to send the message.
 
 Different client libraries handle synchronous publisher confirms differently,
-so make sure to carefully read the documentation of the client you are using.
+so carefully read the documentation of the client you are using.
 
-This technique is very straightforward but also has a major drawback:
+This technique is straightforward but has a major drawback:
 it **significantly slows down publishing**, as the confirmation of a message blocks the publishing
 of all subsequent messages. This approach won't deliver more than a few hundred
 published messages per second. Nevertheless, this can be good enough for some
@@ -299,7 +299,7 @@ Making sure published messages made it to the broker can be essential in some ap
 Publisher confirms are a RabbitMQ feature that helps meet this requirement. Publisher
 confirms are asynchronous in nature, but it is also possible to handle them synchronously.
 There is no single right way to implement publisher confirms; the choice usually comes
-down to the constraints of the application and of the overall system. Typical techniques are:
+down to the constraints of the application and the overall system. Typical techniques are:
 
  * Publishing messages individually, waiting for the confirmation synchronously: simple, but very
  limited throughput.
@@ -345,5 +345,5 @@ Remember that batch publishing is simple to implement, but a `DeferredConfirmati
 identifies a message only by its delivery tag, so the batch must be kept in memory
 to act on a negative publisher acknowledgment, and publishing blocks while each
 batch is confirmed. Handling publisher confirms asynchronously is more involved
-to implement but provides better throughput and better control over actions to
-perform when published messages are nacked.
+to implement but provides better throughput and more control over how to react
+when messages are nacked.

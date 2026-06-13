@@ -40,7 +40,7 @@ side.
 
 In this tutorial we're going to use publisher confirms to make
 sure published messages have safely reached the broker. We will
-cover several strategies to using publisher confirms and explain
+cover several strategies for using publisher confirms and explain
 their pros and cons.
 
 
@@ -55,8 +55,8 @@ $channel = $connection->channel();
 $channel->confirm_select();
 ```
 
-This method must be called on every channel that you expect to use publisher
-confirms. Confirms should be enabled just once, not for every message published.
+This method must be called on every channel that will use publisher confirms,
+and only once per channel, not for every published message.
 
 ### Strategy #1: Publishing Messages Individually
 
@@ -78,17 +78,17 @@ confirmation with the `$channel::wait_for_pending_acks(int|float)` method.
 The method returns as soon as the message has been confirmed. If the
 message is not confirmed within the timeout or if it is nack-ed (meaning
 the broker could not take care of it for some reason), the method will
-throw an exception. The handling of the exception usually consists
-in logging an error message and/or retrying to send the message.
+throw an exception. Handling the exception usually means logging an
+error message and/or retrying to send the message.
 
-Different client libraries have different ways to synchronously deal with publisher confirms,
-so make sure to read carefully the documentation of the client you are using.
+Different client libraries handle synchronous publisher confirms differently,
+so carefully read the documentation of the client you are using.
 
-This technique is very straightforward but also has a major drawback:
+This technique is straightforward but has a major drawback:
 it **significantly slows down publishing**, as the confirmation of a message blocks the publishing
-of all subsequent messages. This approach is not going to deliver throughput of
-more than a few hundreds of published messages per second. Nevertheless, this can be
-good enough for some applications.
+of all subsequent messages. This approach won't deliver more than a few hundred
+published messages per second. Nevertheless, this can be good enough for some
+applications.
 
 > #### Are Publisher Confirms Asynchronous?
 >
@@ -124,8 +124,8 @@ if ($outstanding_message_count > 0) {
 }
 ```
 
-Waiting for a batch of messages to be confirmed improves throughput drastically over
-waiting for a confirm for individual message (up to 20-30 times with a remote RabbitMQ node).
+Waiting for a whole batch to be confirmed drastically improves throughput over
+waiting for each message individually (up to 20-30 times with a remote RabbitMQ node).
 One drawback is that we do not know exactly what went wrong in case of failure,
 so we may have to keep a whole batch in memory to log something meaningful or
 to re-publish the messages. And this solution is still synchronous, so it
@@ -134,8 +134,8 @@ blocks the publishing of messages.
 
 ### Strategy #3: Handling Publisher Confirms Asynchronously
 
-The broker confirms published messages asynchronously, one just needs
-to register a callback on the client to be notified of these confirms:
+The broker confirms published messages asynchronously. To be notified of these
+confirms, register a callback on the client:
 
 ```php
 $channel = $connection->channel();
@@ -155,17 +155,17 @@ $channel->set_nack_handler(
 ```
 
 There are 2 callbacks: one for confirmed messages and one for nack-ed messages
-(messages that can be considered lost by the broker). Each callback has
-`AMQPMessage $message` parameter with returned message, so you don't need to
-handle sequence numbers (delivery tag) to understand which message this callback belongs to.
+(messages that can be considered lost by the broker). Each callback receives
+the affected `AMQPMessage $message`, so there is no need to track sequence
+numbers (delivery tags) to identify the message.
 
 ### Summary
 
 Making sure published messages made it to the broker can be essential in some applications.
-Publisher confirms are a RabbitMQ feature that helps to meet this requirement. Publisher
-confirms are asynchronous in nature but it is also possible to handle them synchronously.
-There is no definitive way to implement publisher confirms, this usually comes down
-to the constraints in the application and in the overall system. Typical techniques are:
+Publisher confirms are a RabbitMQ feature that helps meet this requirement. Publisher
+confirms are asynchronous in nature, but it is also possible to handle them synchronously.
+There is no single right way to implement publisher confirms; the choice usually comes
+down to the constraints of the application and the overall system. Typical techniques are:
 
  * publishing messages individually, waiting for the confirmation synchronously: simple, but very
  limited throughput.
