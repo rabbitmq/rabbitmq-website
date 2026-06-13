@@ -57,7 +57,7 @@ export default function Home() {
                   <Link to="/commercial-features">See our commercial features</Link> and <Link to="/commercial-features#support-timelines">support timelines</Link>.
                 </p>
                 <div>
-                  <Link className="button button--primary" to="mailto:contact-tanzu-data.pdl@broadcom.com">Contact Us</Link>&nbsp;
+                  <Link className="button button--primary" to="https://go-vmware.broadcom.com/contact-us">Contact Us</Link>&nbsp;
                   <Link className="button button--primary" to="/contact#consulting">Find a Partner</Link>
                 </div>
               </section>

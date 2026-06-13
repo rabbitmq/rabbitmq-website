@@ -53,7 +53,7 @@ export default function Support() {
                 <p>Tanzu RabbitMQ is developed by VMware Tanzu, which provides exclusive enterprise features and commercial support. This includes 24/7  experts with defined SLAs and longer term support for the latest versions.</p>
                 <p>
                   <a href="#tanzu-rabbitmq" class="anchor">Learn More</a> |&nbsp;
-                  <a href="mailto:contact-tanzu-data.pdl@broadcom.com">Contact VMware Tanzu</a>
+                  <a href="https://go-vmware.broadcom.com/contact-us">Contact VMware Tanzu</a>
                 </p>
               </section>
               <section>
