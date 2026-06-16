@@ -211,13 +211,12 @@ Miscellaneous projects:
 
 ## C and C++ {#c-dev}
 
- * [RabbitMQ C client](https://github.com/alanxz/rabbitmq-c)
- * [SimpleAmqpClient](https://github.com/alanxz/SimpleAmqpClient), a C++ wrapper around rabbitmq-c
+ * [rmqcpp](https://github.com/bloomberg/rmqcpp), a modern async-capable, testable client for C++ that follows the best practices
  * [amqpcpp](https://github.com/akalend/amqpcpp), a C++ message library for RabbitMQ
  * [AMQP-CPP](https://github.com/CopernicaMarketingSoftware/AMQP-CPP), a C++ RabbitMQ client
  * [Hareflow](https://github.com/coveooss/hareflow), a RabbitMQ stream client for C++
+ * [RabbitMQ C client](https://github.com/alanxz/rabbitmq-c)
  * [RabbitMQ C stream client](https://github.com/GianfrancoGGL/rabbitmq-stream-c-client)
- * [rmqcpp](https://github.com/bloomberg/rmqcpp), reliable message delivery ON by default, easy to use, testable, async-capable C++ API
 
 
 ## Monitoring {#monitoring-tools}
