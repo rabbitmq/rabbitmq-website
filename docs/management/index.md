@@ -55,6 +55,7 @@ This guide covers:
   exclusively for monitoring
 - How to create [a user with limited permissions for monitoring purposes](#monitoring-permissions)
   only
+- How to [encrypt HTTP Basic credentials stored by the management UI](#credentials-encryption)
 - [Authenticating with OAuth 2](#oauth2-authentication)
 - [Strict transport security](#hsts), [Content security policy](#csp),
   [cross-origin resource sharing](#cors), and [other security-related header](#other-security-headers)
@@ -356,6 +357,50 @@ rabbitmqctl set_permissions --vhost "vhost-name" "monitoring" "^$" "^$" "^$"
 </TabItem>
 </Tabs>
 
+
+## Encrypted HTTP Basic Credentials {#credentials-encryption}
+
+By default, the management UI stores HTTP Basic credentials (the `username:password`
+pair) in the browser's `localStorage` as a Base64-encoded string. Anyone who can
+read `localStorage`—for example via browser developer tools or an XSS vulnerability—can
+therefore recover the plaintext username and password.
+
+When `management.credentials_encryption_secret` is set, the server returns a bearer
+token upon a successful login whose value is an encrypted form of the
+`username:password` pair. The management UI stores that token in `localStorage`,
+just as it previously stored the Base64-encoded `username:password`, and uses it
+for every subsequent API request.
+
+This feature applies exclusively to HTTP Basic credentials used by the management UI.
+It has no effect on JWT tokens, OAuth 2.0 access tokens, or any other authentication
+mechanism.
+
+This feature is **opt-in** and has no effect unless the setting is configured.
+When it is configured, the server continues to accept ordinary HTTP `Basic`
+authentication, so REST API clients and command-line tools that use Basic auth
+are unaffected.
+
+:::important
+The secret must be **identical on every node** in the cluster, because any
+node can handle management UI requests. A mismatch between nodes will cause
+authentication failures for users whose requests are routed to a node with
+a different secret.
+:::
+
+To enable HTTP Basic credential encryption, set the secret to any string value:
+
+```ini
+management.credentials_encryption_secret = change-me-to-a-long-random-string
+```
+
+To avoid storing the secret in plaintext, use RabbitMQ's
+[configuration value encryption](./configure#configuration-encryption) feature.
+Encrypt the value with `rabbitmqctl encrypt_conf_value` and use the resulting
+`encrypted:` prefix in the configuration file:
+
+```ini
+management.credentials_encryption_secret = encrypted:<ciphertext produced by rabbitmqctl encrypt_conf_value>
+```
 
 ## Authenticating with OAuth 2 {#oauth2-authentication}
 
