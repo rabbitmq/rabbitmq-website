@@ -76,12 +76,18 @@ CentOS 7 is an example of such a distribution.
 Currently the list of supported RPM-based distributions includes
 
  * Fedora 41 through 43
- * [CentOS Stream](https://centos.org/centos-stream/) 9.x
- * RedHat Enterprise Linux 9.x and 8.x (versions covered by [full support](https://access.redhat.com/support/policy/updates/errata))
+ * [CentOS Stream](https://centos.org/centos-stream/) 10.x and 9.x
+ * Red Hat Enterprise Linux 10.x, 9.x and 8.x (versions covered by [full support](https://access.redhat.com/support/policy/updates/errata))
  * Amazon Linux 2023
- * Rocky Linux 9.x and 8.x ([supported versions](https://wiki.rockylinux.org/rocky/version/))
- * Alma Linux 9.x and 8.x ([supported versions](https://wiki.almalinux.org/release-notes/))
- * Oracle Linux 9.x and 8.x (latest minors only)
+ * Rocky Linux 10.x, 9.x and 8.x ([supported versions](https://wiki.rockylinux.org/rocky/version/))
+ * Alma Linux 10.x, 9.x and 8.x ([supported versions](https://wiki.almalinux.org/release-notes/))
+ * Oracle Linux 10.x, 9.x and 8.x (latest minors only)
+
+:::note[RHEL 10 family of distributions]
+
+The RHEL 10 family of distributions uses the el9 ("modern") repository below; there is no dedicated `el/10` repository at the moment.
+
+:::
 
 The packages may work on other RPM-based distributions
 if [dependencies](#package-dependencies) are satisfied but their testing and support
@@ -175,15 +181,15 @@ and installed with `rpm` directly as explained in the [zero dependency Erlang RP
 
 The contents of the file will vary slightly between distribution families:
 
- * Most recent distributions: modern Fedora Releases, Red Hat 9, CentOS Stream 9, Rocky Linux 9, Alma Linux 9
- * Older distribution: RHEL 8, Rocky Linux 8, Alma Linux 8, Amazon Linux 2023, older Fedora Releases
+ * Modern distributions: modern Fedora releases, Red Hat 9 and 10, CentOS Stream 9 and 10, Rocky Linux 9 and 10, Alma Linux 9 and 10
+ * Older distributions: RHEL 8, Rocky Linux 8, Alma Linux 8, Amazon Linux 2023, older Fedora releases
 
 
 <Tabs groupId="distribution-family-specific">
-<TabItem value="modern-oses" label="Modern Fedora Releases, Red Hat 9, CentOS Stream 9, Rocky Linux 9, Amazon Linux 2023, Oracle Linux 9, Alma Linux 9">
+<TabItem value="modern-oses" label="Modern Fedora releases, Red Hat 9 and 10, CentOS Stream 9 and 10, Rocky Linux 9 and 10, Amazon Linux 2023, Oracle Linux 9 and 10, Alma Linux 9 and 10">
 
 The following example sets up a repository that will install RabbitMQ and its Erlang dependency from
-a Cloudsmith mirror, and targets RHEL 9, CentOS Stream 9, Amazon Linux 2023, modern Fedora releases, Rocky Linux 9, Alma Linux 9, Oracle Linux 9.
+a Cloudsmith mirror, and targets RHEL 9 and 10, CentOS Stream 9 and 10, Amazon Linux 2023, modern Fedora releases, Rocky Linux 9 and 10, Alma Linux 9 and 10, Oracle Linux 9 and 10.
 
 These repository mirrors only provide 64-bit x86 (`amd64`) packages of Erlang.
 
@@ -270,7 +276,7 @@ type=rpm-md
 ```
 </TabItem>
 
-<TabItem value="older-oses" label="RHEL 8, Rocky Linux 8, Alma Linux 8, Oracle Linux 8, Older Fedora Releases">
+<TabItem value="older-oses" label="RHEL 8, Rocky Linux 8, Alma Linux 8, Oracle Linux 8, Older Fedora releases">
 The following example sets up a repository that will install RabbitMQ and its Erlang dependency from
 a Cloudsmith mirror, and targets RHEL 8, Rocky Linux 8, Alma Linux 8. The same repository definition **can be used by older Fedora releases**.
 
@@ -403,7 +409,7 @@ After [downloading](#downloads) the server package, issue the following command 
 ## install these dependencies from standard OS repositories
 dnf install -y logrotate
 
-# The RabbitMQ RPM package is suitable for both RHEL 9 (modern) and RHEL 8-based (older) distributions
+# The RabbitMQ RPM package is suitable for both RHEL 9 and 10 (modern) and RHEL 8-based (older) distributions
 dnf install -y ${RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}`}
 </CodeBlock>
 
@@ -415,7 +421,7 @@ dnf install -y ${RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}`}
 ## install these dependencies from standard OS repositories
 dnf install -y logrotate
 
-# The RabbitMQ RPM package is suitable for both RHEL 9 (modern) and RHEL 8-based (older) distributions
+# The RabbitMQ RPM package is suitable for both RHEL 9 and 10 (modern) and RHEL 8-based (older) distributions
 dnf install -y ${RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}`}
 </CodeBlock>
 
@@ -447,7 +453,7 @@ from [GitHub](https://github.com/rabbitmq/rabbitmq-server/releases).
 
 | Description | Download | Signature |
 |-------------|----------|-----------|
-| RPM for Fedora 38+, RHEL Linux 8.x and 9.x, CentOS Stream 9, Rocky Linux 9, Alma Linux 9, Amazon Linux 2023 | <a href={RabbitMQServerPackageURL({packageType: 'rpm-el8'})}>{RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}</a> | <a href={RabbitMQServerPackageSigURL({packageType: 'rpm-el8'})}>Signature</a> |
+| RPM for Fedora 38+, RHEL Linux 8.x, 9.x and 10.x, CentOS Stream 9 and 10, Rocky Linux 9 and 10, Alma Linux 9 and 10, Amazon Linux 2023 | <a href={RabbitMQServerPackageURL({packageType: 'rpm-el8'})}>{RabbitMQServerPackageFilename({packageType: 'rpm-el8'})}</a> | <a href={RabbitMQServerPackageSigURL({packageType: 'rpm-el8'})}>Signature</a> |
 
 
 ## Run RabbitMQ Server {#running-rpm}
