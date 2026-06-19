@@ -1313,11 +1313,18 @@ The supported headers are:
  * [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)
  * [`X-Xss-Protection`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)
  * [`X-Content-Type-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)
+ * [`Referrer-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy):
+   controls what is included in the `Referer` header when a user navigates from the management UI
+   to an external site (such as documentation links). When not configured, browsers apply their
+   built-in default (`strict-origin-when-cross-origin`), which sends the broker's hostname and port
+   to any external site an admin navigates to. Setting this to `no-referrer` or `same-origin`
+   prevents that disclosure
 
 ```ini
 management.headers.content_type_options = nosniff
 management.headers.xss_protection = 1; mode=block
 management.headers.frame_options = DENY
+management.headers.referrer_policy = no-referrer
 ```
 
 They can be combined with the aforementioned CORS, HSTS, CSP headers:
@@ -1329,6 +1336,7 @@ management.csp.policy = default-src 'self'; script-src 'self' 'unsafe-eval'
 management.headers.content_type_options = nosniff
 management.headers.xss_protection = 1; mode=block
 management.headers.frame_options = DENY
+management.headers.referrer_policy = no-referrer
 ```
 
 ### Login Session Timeout {#login-session-timeout}
