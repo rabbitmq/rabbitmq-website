@@ -42,6 +42,345 @@ which makes it easy to run a warm standby cluster for disaster recovery.
 
 Definition import on node boot is the recommended way of [pre-configuring nodes at deployment time](#import-on-boot).
 
+## Definitions File Format {#file-format}
+
+Exported definitions use a JSON format. The top-level object contains the following keys:
+
+| Key | Type | Description |
+|-----|------|-------------|
+| `rabbit_version` | String | RabbitMQ version that produced the export |
+| `rabbitmq_version` | String | Same as `rabbit_version` (present for compatibility) |
+| `product_name` | String | Product name (e.g. `"RabbitMQ"`) |
+| `product_version` | String | Product version string |
+| `users` | Array | [User](#users-format) accounts |
+| `vhosts` | Array | [Virtual hosts](#vhosts-format) |
+| `permissions` | Array | [User permissions](#permissions-format) per virtual host |
+| `topic_permissions` | Array | [Topic permissions](#topic-permissions-format) per virtual host |
+| `parameters` | Array | [Runtime parameters](#parameters-format) (e.g. federation upstreams, shovels) |
+| `global_parameters` | Array | [Global (cluster-wide) parameters](#global-parameters-format) |
+| `policies` | Array | [Policies](#policies-format) |
+| `queues` | Array | [Queues](#queues-format) |
+| `exchanges` | Array | [Exchanges](#exchanges-format) |
+| `bindings` | Array | [Bindings](#bindings-format) |
+
+The version and product fields (`rabbit_version`, `rabbitmq_version`, `product_name`, `product_version`) are informational and ignored during import.
+The `product_name` and `product_version` fields are only present in exports produced via the [management plugin](./management) (HTTP API or `rabbitmqadmin`), not in `rabbitmqctl export_definitions` output.
+
+All array fields are optional during import: omitted sections will simply be skipped.
+Definitions are imported in a fixed order regardless of their position in the JSON file:
+users, virtual hosts, permissions, exchanges, topic permissions, global parameters, policies, runtime parameters, queues, and finally bindings.
+This means, for example, that virtual hosts referenced by queues do not need to appear before them in the file.
+
+### Users {#users-format}
+
+Each entry in the `users` array represents a user account.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `name` | String | yes | Username |
+| `password_hash` | String | no | Hashed password. See [Computing Password Hashes](./passwords#computing-password-hash) for how to generate one. Either `password_hash` or `password` should be provided |
+| `password` | String | no | Plaintext password (will be hashed by the server at import time). Either `password` or `password_hash` should be provided |
+| `hashing_algorithm` | String | no | Hashing function used for `password_hash`, e.g. `rabbit_password_hashing_sha256`, `rabbit_password_hashing_sha512` |
+| `tags` | Array of strings | yes | User tags such as `"administrator"`, `"monitoring"`, `"management"`, or custom tags |
+| `limits` | Object | no | Per-user limits, e.g. `{"max-connections": 100, "max-channels": 10}` |
+
+```json
+{
+  "name": "admin",
+  "password_hash": "9/1i+jKFRpbTRV1PtRnzFFYibT3cEpP92JeZ8YKGtflf4e/u",
+  "hashing_algorithm": "rabbit_password_hashing_sha256",
+  "tags": ["administrator"],
+  "limits": {}
+}
+```
+
+### Virtual Hosts {#vhosts-format}
+
+Each entry in the `vhosts` array represents a [virtual host](./vhosts).
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `name` | String | yes | Virtual host name |
+| `tracing` | Boolean | no | Whether tracing is enabled for this vhost. Defaults to `false` |
+| `metadata` | Object | no | Object containing `description` (String), `tags` (Array of strings), and optionally `default_queue_type` (String: `"classic"`, `"quorum"`, or `"stream"`) |
+
+Recent RabbitMQ versions export `description`, `tags` and `default_queue_type` inside the `metadata` object.
+For backward compatibility, `description` and `tags` are also accepted as direct properties of the vhost object at import time.
+
+```json
+{
+  "name": "/",
+  "tracing": false,
+  "metadata": {
+    "description": "Default virtual host",
+    "tags": []
+  }
+}
+```
+
+### Permissions {#permissions-format}
+
+Each entry in the `permissions` array grants a user access to resources in a virtual host
+using regex patterns. See the [Access Control guide](./access-control) for details.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `user` | String | yes | Username |
+| `vhost` | String | yes | Virtual host name |
+| `configure` | String | yes | Regex for resources the user can configure |
+| `write` | String | yes | Regex for resources the user can write to |
+| `read` | String | yes | Regex for resources the user can read from |
+
+```json
+{
+  "user": "admin",
+  "vhost": "/",
+  "configure": ".*",
+  "write": ".*",
+  "read": ".*"
+}
+```
+
+### Topic Permissions {#topic-permissions-format}
+
+Each entry in the `topic_permissions` array grants publish/consume permissions
+on a topic exchange. See the [Topic Authorisation guide](./access-control#topic-authorisation) for details.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `user` | String | yes | Username |
+| `vhost` | String | yes | Virtual host name |
+| `exchange` | String | yes | Topic exchange name |
+| `write` | String | yes | Regex for routing keys the user can publish to |
+| `read` | String | yes | Regex for routing keys the user can consume from |
+
+```json
+{
+  "user": "admin",
+  "vhost": "/",
+  "exchange": "amq.topic",
+  "write": "^logs\\..*",
+  "read": "^logs\\..*"
+}
+```
+
+### Runtime Parameters {#parameters-format}
+
+Runtime parameters are used by plugins and features such as [Federation](./federation),
+[Shovels](./shovel), and others. Each parameter belongs to a component and a virtual host.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `component` | String | yes | Component name (e.g. `"federation-upstream"`, `"shovel"`) |
+| `vhost` | String | yes | Virtual host this parameter applies to |
+| `name` | String | yes | Parameter name |
+| `value` | Object | yes | Component-specific configuration |
+
+```json
+{
+  "component": "shovel",
+  "vhost": "/",
+  "name": "my-shovel",
+  "value": {
+    "src-protocol": "amqp091",
+    "src-uri": "amqp://localhost",
+    "src-queue": "source-queue",
+    "dest-protocol": "amqp091",
+    "dest-uri": "amqp://remote-host",
+    "dest-queue": "destination-queue"
+  }
+}
+```
+
+### Global Parameters {#global-parameters-format}
+
+Global parameters are cluster-wide settings that are not scoped to a virtual host.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `name` | String | yes | Parameter name |
+| `value` | Object or String | yes | Parameter value |
+
+```json
+{
+  "name": "cluster_name",
+  "value": "rabbit@my-cluster"
+}
+```
+
+### Policies {#policies-format}
+
+Each entry in the `policies` array defines a [policy](./parameters#policies).
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `vhost` | String | yes | Virtual host this policy applies to |
+| `name` | String | yes | Policy name |
+| `pattern` | String | yes | Regex pattern to match queue/exchange names |
+| `apply-to` | String | no | What the policy applies to: `"queues"`, `"exchanges"`, `"classic_queues"`, `"quorum_queues"`, `"streams"`, or `"all"`. Defaults to `"all"` |
+| `priority` | Integer | no | Policy priority (higher value wins). Defaults to `0` |
+| `definition` | Object | yes | Policy key/value pairs (e.g. `{"max-length": 10000}`) |
+
+```json
+{
+  "vhost": "/",
+  "name": "limit-queue-length",
+  "pattern": "^orders\\.",
+  "apply-to": "queues",
+  "priority": 1,
+  "definition": {
+    "max-length": 50000,
+    "overflow": "reject-publish"
+  }
+}
+```
+
+### Queues {#queues-format}
+
+Each entry in the `queues` array declares a queue.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `name` | String | yes | Queue name |
+| `vhost` | String | yes | Virtual host the queue belongs to |
+| `durable` | Boolean | no | Whether the queue survives broker restart. Defaults to `true` at import time |
+| `auto_delete` | Boolean | no | Whether the queue is deleted when the last consumer unsubscribes. Defaults to `false` at import time |
+| `type` | String | no | Queue type in exported definitions: `"classic"`, `"quorum"`, or `"stream"`. **Present in exports only**: this field is ignored at import time, use the `x-queue-type` argument instead |
+| `arguments` | Object | no | Queue arguments. Use `"x-queue-type"` to set the queue type at import time (e.g. `{"x-queue-type": "quorum"}`). Other common arguments include `x-message-ttl`, `x-max-length`, `x-dead-letter-exchange` |
+
+:::important
+When writing a definitions file by hand, the queue type must be set via the `x-queue-type` key in `arguments`,
+not via the `type` field. The `type` field is included in exports for informational purposes but is not used during import.
+If `x-queue-type` is not provided, the queue type defaults to the virtual host's `default_queue_type` setting, or `classic` if none is set.
+:::
+
+```json
+{
+  "name": "orders.incoming",
+  "vhost": "/",
+  "durable": true,
+  "auto_delete": false,
+  "arguments": {
+    "x-queue-type": "quorum"
+  }
+}
+```
+
+### Exchanges {#exchanges-format}
+
+Each entry in the `exchanges` array declares an exchange.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `name` | String | yes | Exchange name |
+| `vhost` | String | yes | Virtual host the exchange belongs to |
+| `type` | String | yes | Exchange type: `"direct"`, `"fanout"`, `"topic"`, `"headers"`, or a plugin-provided type |
+| `durable` | Boolean | no | Whether the exchange survives broker restart. Defaults to `true` at import time |
+| `auto_delete` | Boolean | no | Whether the exchange is deleted when the last queue unbinds. Defaults to `false` at import time |
+| `internal` | Boolean | no | Whether the exchange is internal (cannot be published to directly). Defaults to `false` at import time |
+| `arguments` | Object | no | Optional exchange arguments |
+
+```json
+{
+  "name": "orders",
+  "vhost": "/",
+  "type": "topic",
+  "durable": true,
+  "auto_delete": false,
+  "internal": false,
+  "arguments": {}
+}
+```
+
+### Bindings {#bindings-format}
+
+Each entry in the `bindings` array declares a binding between a source exchange and a destination (queue or exchange).
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `source` | String | yes | Source exchange name |
+| `vhost` | String | yes | Virtual host |
+| `destination` | String | yes | Destination queue or exchange name |
+| `destination_type` | String | yes | `"queue"` or `"exchange"` |
+| `routing_key` | String | no | Binding/routing key. Defaults to `""` (empty string), which is common for fanout and headers exchange bindings |
+| `arguments` | Object | no | Optional binding arguments (used by headers exchanges, for example) |
+| `properties_key` | String | no | Unique binding identifier. Present in exports, not required for import |
+
+```json
+{
+  "source": "orders",
+  "vhost": "/",
+  "destination": "orders.incoming",
+  "destination_type": "queue",
+  "routing_key": "orders.new",
+  "arguments": {}
+}
+```
+
+### Minimal Example {#minimal-example}
+
+The following is a minimal but complete definitions file that creates a virtual host, a user, a quorum queue, a topic exchange, and a binding.
+Note how the queue type is set via the `x-queue-type` argument:
+
+```json
+{
+  "users": [
+    {
+      "name": "app-user",
+      "password_hash": "9/1i+jKFRpbTRV1PtRnzFFYibT3cEpP92JeZ8YKGtflf4e/u",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": []
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "app"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "app-user",
+      "vhost": "app",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "queues": [
+    {
+      "name": "events",
+      "vhost": "app",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "quorum"
+      }
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "events",
+      "vhost": "app",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "events",
+      "vhost": "app",
+      "destination": "events",
+      "destination_type": "queue",
+      "routing_key": "#",
+      "arguments": {}
+    }
+  ]
+}
+```
+
 ## Definition Export {#export}
 
 Definitions are exported as a JSON file in a number of ways.
