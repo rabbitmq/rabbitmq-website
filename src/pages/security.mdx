@@ -1,0 +1,46 @@
+---
+title: RabbitMQ Security
+description: Security policies, vulnerability reporting, and advisories for RabbitMQ.
+---
+
+import SecurityAdvisoriesTable from '../components/SecurityAdvisoriesTable';
+
+# RabbitMQ Security
+
+As the steward of RabbitMQ, we at Broadcom take the security of RabbitMQ very seriously.
+
+## How to Report a Vulnerability
+
+To responsibly disclose a vulnerability:
+
+1. Navigate to the `Security and quality` tab of the relevant repository on GitHub. For example:
+    * [`rabbitmq/rabbitmq-server`](https://github.com/rabbitmq/rabbitmq-server/security) for the core broker
+    * [`rabbitmq/rabbitmq-amqp-java-client`](https://github.com/rabbitmq/rabbitmq-amqp-java-client/security) for the RabbitMQ AMQP 1.0 Java client
+    * [`rabbitmq/cluster-operator`](https://github.com/rabbitmq/cluster-operator/security) for the RabbitMQ Kubernetes cluster operator
+2. Click `Report a vulnerability` to open a private advisory draft.
+3. Provide details, including steps to reproduce.
+
+If you are unable to use [GitHub Security Advisories](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability), you can email `tnz-rabbitmq-core.pdl@broadcom.com`.
+
+Our team will review the report, triage it, and work with you to resolve the issue privately before issuing a public patch and advisory.
+
+Please do **not** report security vulnerabilities via public GitHub issues, public mailing lists, or public Discord channels.
+
+## Security Advisories
+
+#### For commercial Broadcom / VMware Tanzu Customers
+
+If you are a commercial customer using **VMware Tanzu RabbitMQ** or other commercial distributions, please refer to the [Broadcom Security Advisories](https://support.broadcom.com/web/ecx/security-advisory).
+
+The Broadcom Support Portal is the authoritative source of truth for all commercial releases. It includes comprehensive vulnerability information, including CVEs in dependencies and underlying Erlang runtime that are not listed on this page.
+
+:::tip
+You can search the [Broadcom Security Advisories](https://support.broadcom.com/web/ecx/security-advisory) for a specific RabbitMQ version.
+For example, if you type *RabbitMQ 4.2.8* into the search box, you will see the security advisory for that specific release.
+:::
+
+#### Open Source Advisories
+
+For convenience, the table below lists all public security advisories across the [RabbitMQ](https://github.com/rabbitmq) GitHub organization.
+
+<SecurityAdvisoriesTable />

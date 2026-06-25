@@ -383,6 +383,10 @@ const config = {
             to: '/contact',
           },
           {
+            label: 'Security',
+            to: '/security',
+          },
+          {
             label: 'Commercial Features',
             to: '/commercial-features',
           },
@@ -419,6 +423,10 @@ const config = {
               {
                 label: 'Blog',
                 to: '/blog',
+              },
+              {
+                label: 'Security',
+                to: '/security',
               },
             ],
           },
