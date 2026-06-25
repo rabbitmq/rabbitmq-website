@@ -56,7 +56,7 @@ They are marked as pre-releases on GitHub.
 
 ## VMware Tanzu RabbitMQ (Commercial Editions)
 
- * [VMware Tanzu RabbitMQ OVA](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-ova/4-2/tanzu-rabbitmq-ova-virtual-machine/site-overview.html)
+ * [VMware Tanzu RabbitMQ OVA](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-ova/4-3/tanzu-rabbitmq-ova-virtual-machine/release-notes.html)
  * [VMware Tanzu RabbitMQ RPM](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-rpm/4-2/tanzu-rabbitmq-rpm-offering/site-overview.html)
  * [VMware Tanzu RabbitMQ OCI](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/site-overview.html)
  * [VMware Tanzu RabbitMQ on Kubernetes](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-on-kubernetes/4-2/tanzu-rabbitmq-kubernetes/overview.html)
