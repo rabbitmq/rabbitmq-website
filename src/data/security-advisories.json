@@ -1,0 +1,233 @@
+[
+  {
+    "cve_id": "CVE-2026-57215",
+    "ghsa_id": "GHSA-5cq3-v9jx-p3x3",
+    "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
+    "published_at": "2026-06-24",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Direct-reply-to binding persistence can lead to unauthorized reply-channel injection and persistent phantom",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-5cq3-v9jx-p3x3",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
+  },
+  {
+    "cve_id": "CVE-2026-57216",
+    "ghsa_id": "GHSA-36m6-588r-vqcw",
+    "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
+    "published_at": "2026-06-24",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "AMQP 1.0, AMQP 0-9-1, Stream Protocol loopback enforcement can lead to remote guest sessions due to listener-address loopback checks",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-36m6-588r-vqcw",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
+  },
+  {
+    "cve_id": "CVE-2026-57217",
+    "ghsa_id": "GHSA-gpvw-75h5-3wvx",
+    "patched_versions": "4.2.6, 4.1.11, 4.0.21, 3.13.15",
+    "published_at": "2026-06-24",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Topic authorization can lead to cross-tenant routing-key bypass",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-gpvw-75h5-3wvx",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.21, >= 3.13.0, < 3.13.15"
+  },
+  {
+    "cve_id": "CVE-2026-57218",
+    "ghsa_id": "GHSA-wmrr-4h5v-5ch7",
+    "patched_versions": "4.2.6",
+    "published_at": "2026-06-24",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "AMQP 0-9-1 in combination with OAuth 2: consumer persistence can lead to post-revocation message disclosure",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-wmrr-4h5v-5ch7",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6"
+  },
+  {
+    "cve_id": "CVE-2026-57220",
+    "ghsa_id": "GHSA-f364-87q5-j35q",
+    "patched_versions": "4.2.6",
+    "published_at": "2026-06-24",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Stream listener does not enforce configured frame-size limit during authentication, permitting unauth'd mem-exhaust DoS",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-f364-87q5-j35q",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6"
+  },
+  {
+    "cve_id": "CVE-2026-57221",
+    "ghsa_id": "GHSA-9q2j-2hq8-22r2",
+    "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
+    "published_at": "2026-06-24",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "Passive queue/exchange declaration bypasses authorization checks, leaking queue metadata to unprivileged users",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-9q2j-2hq8-22r2",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
+  },
+  {
+    "cve_id": "CVE-2026-57219",
+    "ghsa_id": "GHSA-pj24-8j6m-vq9q",
+    "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
+    "published_at": "2026-06-24",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Unauthenticated disclosure of OAuth client credentials via an HTTP API endpoint with certain less common OAuth 2 configurations",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-pj24-8j6m-vq9q",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
+  },
+  {
+    "cve_id": "CVE-2026-57214",
+    "ghsa_id": "GHSA-6jfq-prw2-7rwp",
+    "patched_versions": "4.2.5",
+    "published_at": "2026-06-18",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Stored XSS in RabbitMQ management UI",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-6jfq-prw2-7rwp",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.5"
+  },
+  {
+    "cve_id": "CVE-2026-57213",
+    "ghsa_id": "GHSA-qxrp-7cmp-p77h",
+    "patched_versions": "4.2.5, 4.1.10, 4.0.19, 3.13.14",
+    "published_at": "2026-06-18",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "Stored XSS in RabbitMQ federation management plugin via unsanitized consumer_tag rendering",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-qxrp-7cmp-p77h",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.5, >= 4.1.0, < 4.1.10, >= 4.0.0, < 4.0.19, >= 3.13.0, < 3.13.14"
+  },
+  {
+    "cve_id": "CVE-2026-57212",
+    "ghsa_id": "GHSA-5cmq-vp28-xqrj",
+    "patched_versions": "4.2.5, 4.1.10, 4.0.19, 3.13.14",
+    "published_at": "2026-06-18",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "RabbitMQ management HTTP API accepts request bodies larger than configured max_http_body_size",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-5cmq-vp28-xqrj",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.5, >= 4.1.0, < 4.1.10, >= 4.0.0, < 4.0.19, >= 3.13.0, < 3.13.14"
+  },
+  {
+    "cve_id": "CVE-2026-57211",
+    "ghsa_id": "GHSA-7v84-m3g5-vxq6",
+    "patched_versions": "4.2.6, 4.1.11",
+    "published_at": "2026-06-18",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "UNC SSRF affecting RabbitMQ management UI on Windows",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-7v84-m3g5-vxq6",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11"
+  },
+  {
+    "cve_id": "CVE-2026-44839",
+    "ghsa_id": "GHSA-fh5r-jpm3-fjwp",
+    "patched_versions": "4.1.2, 4.0.13",
+    "published_at": "2026-05-06",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "Unsanitized vhost names allow for XSS in management UI",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-fh5r-jpm3-fjwp",
+    "vulnerable_versions": ">= 4.1.0, < 4.1.2, >= 4.0.0, < 4.0.13"
+  },
+  {
+    "cve_id": "CVE-2026-44838",
+    "ghsa_id": "GHSA-x866-xp2g-cx8v",
+    "patched_versions": "4.2.4",
+    "published_at": "2026-05-06",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "RabbitMQ MQTT Topic Permission Authorization Bypass",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-x866-xp2g-cx8v",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.4"
+  },
+  {
+    "cve_id": "CVE-2025-50200",
+    "ghsa_id": "GHSA-gh3x-4x42-fvq8",
+    "patched_versions": "4.0.8, 3.13.8",
+    "published_at": "2025-06-18",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "Node can log Basic Auth header from an HTTP request",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-gh3x-4x42-fvq8",
+    "vulnerable_versions": ">= 4.0.0, < 4.0.8, >= 3.13.0, < 3.13.8"
+  },
+  {
+    "cve_id": "CVE-2025-30219",
+    "ghsa_id": "GHSA-g58g-82mw-9m3p",
+    "patched_versions": "4.0.3, 3.13.8",
+    "published_at": "2025-03-25",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "XSS Vulnerability in an Error Message in Management UI",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-g58g-82mw-9m3p",
+    "vulnerable_versions": ">= 4.0.0, < 4.0.3, >= 3.13.0, < 3.13.8"
+  },
+  {
+    "cve_id": "CVE-2024-51988",
+    "ghsa_id": "GHSA-pj33-75x5-32j4",
+    "patched_versions": "3.12.11",
+    "published_at": "2024-11-06",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "HTTP API's queue deletion endpoint does not verify that the user has a required permission",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-pj33-75x5-32j4",
+    "vulnerable_versions": "> 3.12.7, < 3.12.11"
+  },
+  {
+    "cve_id": "CVE-2023-46118",
+    "ghsa_id": "GHSA-w6cq-9cf4-gqpg",
+    "patched_versions": "3.12.7, 3.11.24",
+    "published_at": "2023-10-23",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "Denial of Service by publishing large messages over the HTTP API",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-w6cq-9cf4-gqpg",
+    "vulnerable_versions": ">= 3.12.0, < 3.12.7, >= 3.11.0, < 3.11.24"
+  },
+  {
+    "cve_id": "CVE-2023-46120",
+    "ghsa_id": "GHSA-mm8h-8587-p46h",
+    "patched_versions": "5.18.0",
+    "published_at": "2023-10-23",
+    "repo": "rabbitmq-java-client",
+    "severity": "medium",
+    "summary": "No message size limit in  RabbitMQ Java client can lead to a remote DoS attack of consumer applications",
+    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-mm8h-8587-p46h",
+    "vulnerable_versions": "< 5.18.0"
+  },
+  {
+    "cve_id": "CVE-2022-31008",
+    "ghsa_id": "GHSA-v9gv-xp36-jgj8",
+    "patched_versions": "3.10.2, 3.9.18, 3.8.32",
+    "published_at": "2022-10-05",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "Predictable credential obfuscation seed value used in Shovel and Federation plugins",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-v9gv-xp36-jgj8",
+    "vulnerable_versions": ">= 3.10.0, <3.10.2, >= 3.9.0, <3.9.18, >= 3.8.0, <3.8.32"
+  },
+  {
+    "cve_id": "CVE-2021-32718",
+    "ghsa_id": "GHSA-c3hj-rg5h-2772",
+    "patched_versions": "3.8.17",
+    "published_at": "2021-06-27",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS) in RabbitMQ management UI",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-c3hj-rg5h-2772",
+    "vulnerable_versions": "< 3.8.17"
+  },
+  {
+    "cve_id": "CVE-2021-32719",
+    "ghsa_id": "GHSA-5452-hxj4-773x",
+    "patched_versions": "3.8.18",
+    "published_at": "2021-06-27",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS) in RabbitMQ federation management plugin",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-5452-hxj4-773x",
+    "vulnerable_versions": "< 3.8.18"
+  }
+]
