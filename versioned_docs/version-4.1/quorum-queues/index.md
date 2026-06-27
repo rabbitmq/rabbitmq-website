@@ -368,10 +368,9 @@ Starting with RabbitMQ 4.0, the delivery limit for quorum queues defaults to 20.
 To disable it, set `delivery-limit` to `-1` using a [policy](./policies) or the `x-delivery-limit`
 [queue argument](./queues#optional-arguments).
 
-A policy can set `delivery-limit` only at queue declaration time. Changing the
-`delivery-limit` of a policy afterwards does not affect existing queues; they
-must be redeclared for the new value to take effect. This restriction is lifted
-in RabbitMQ 4.3.
+Changing the `delivery-limit` in a policy takes effect on existing quorum
+queues; they do not need to be redeclared. RabbitMQ 4.3 refines this behavior
+to apply such policy changes more consistently.
 
 :::
 
@@ -382,9 +381,8 @@ See [repeated requeues](#repeated-requeues) for more details.
 The delivery limit can be set using the [policy](./policies) key `delivery-limit`
 or the `x-delivery-limit` queue argument. A value of `-1` disables the limit.
 
-A policy applies `delivery-limit` only at queue declaration time. Changing it in
-the policy later does not affect existing queues; they must be redeclared. This
-restriction is lifted in RabbitMQ 4.3.
+Changing `delivery-limit` in a policy later takes effect on existing queues
+without redeclaration.
 
 #### Overriding the Limit
 
