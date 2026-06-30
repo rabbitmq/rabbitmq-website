@@ -1471,7 +1471,7 @@ factory.setPort(5671);
 // This code will not perform peer certificate chain verification and prone
 // to man-in-the-middle attacks.
 // See the main TLS guide to learn about peer verification and how to enable it.
-factory.useSslProtocol();
+factory.useTlsWithNoVerification();
 ```
 
 Note the client doesn't enforce any server authentication ([peer certificate chain verification](/docs/ssl#peer-verification)) in the above
