@@ -715,9 +715,10 @@ public class Example1 {
         factory.setHost("localhost");
         factory.setPort(5671);
 
-        factory.useSslProtocol();
-        // Tells the library to setup the default Key and Trust managers for you
+        factory.useTlsWithNoVerification();
+        // Tells the library to setup the no-op Key and Trust managers for you
         // which do not do any form of remote server trust verification
+        // (Never do this in production!)
 
         Connection conn = factory.newConnection();
         Channel channel = conn.createChannel();
