@@ -398,13 +398,13 @@ const config = {
         ],
       },
 
-      announcementBar: {
-        id: 'latest-announcement',
-        content: '<div style="font-size: var(--ifm-h4-font-size);">🎉️ <a href="/blog/2026/04/23/rabbitmq-4.3-release"><strong>RabbitMQ 4.3</strong> is out!</a> 🥳️</div>',
-        backgroundColor: 'var(--ifm-color-primary-contrast-background)',
-        textColor: 'var(--ifm-font-color-base)',
-        isCloseable: true,
-      },
+      // announcementBar: {
+      //   id: 'latest-announcement',
+      //   content: '<div style="font-size: var(--ifm-h4-font-size);">🎉️ <a href="/blog/2026/04/23/rabbitmq-4.3-release"><strong>RabbitMQ 4.3</strong> is out!</a> 🥳️</div>',
+      //   backgroundColor: 'var(--ifm-color-primary-contrast-background)',
+      //   textColor: 'var(--ifm-font-color-base)',
+      //   isCloseable: true,
+      // },
 
       footer: {
         style: 'dark',
