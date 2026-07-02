@@ -216,6 +216,22 @@ For exclusive queues, however, you must decide whether to leave the queue as exc
    which simplifies definitions cleanup. (`rabbitmqadmin` CLI command is also using the plugin behind the scenes).
 3. To quickly move (shovel) the backlog of original queues to the new queues, enable the . The [Shovel plugin](./shovel) can be used to move the backlog of original messages to the new queues. Shovels can be created programmatically using a HTTP API extension or using the RabbitMQ Management UI.
 
+:::tip
+
+If a migration redeclares (or imports) a large number of quorum queues over a single connection, be aware
+of how [quorum queue member placement](./quorum-queues#leader-placement) works: the set of nodes hosting a
+new queue's members is picked at random, but it will always include the node the declaring connection is on.
+Setting `queue-leader-locator` to `balanced` only distributes queue *leaders* evenly across the cluster - it
+has no effect on *member* placement.
+
+As a result, when the group size (number of members) of the new quorum queues is smaller than the cluster
+size, redeclaring or importing many queues over one connection makes that one node a member of every queue,
+even though leaders end up evenly distributed. To avoid overloading a single node this way, spread the
+migration across connections to different nodes, or rebalance membership afterwards with the
+[`rabbitmq-queues` member management commands](./quorum-queues#member-management).
+
+:::
+
 ## Migrate Mirrored Classic Queues to Quorum Queues by Virtual Host {#migrate-the-queues-by-virtual-host}
 
 This procedure to migrate from mirrored classic queues to quorum queues
