@@ -11,6 +11,7 @@ If RabbitMQ Messaging Topology Operator is not installed, see the [quickstart in
 
 This information includes the following sections:
 
+* [Secret Label Requirement](#secret-label-requirement)
 * [Cluster Operator Requirements](#requirements)
 * [Scope across multiple namespaces](#namespace-scope)
 * [Non Operator managed RabbitMQ](#non-operator)
@@ -35,6 +36,30 @@ This information includes the following sections:
 Additional information about using the operator on Openshift can be found in [Using the RabbitMQ Kubernetes Operators on Openshift](./using-on-openshift).
 
 :::
+
+## Secret Label Requirement {#secret-label-requirement}
+
+Starting with Messaging Topology Operator v1.20.0, all Kubernetes Secrets referenced by Messaging Topology Operator custom resources must carry the label `rabbitmq.com/topology-operator: "true"`. This includes secrets used for:
+
+* `importCredentialsSecret` in User resources
+* `connectionSecret` in non-operator-managed RabbitMQ configurations
+* `uriSecret` in Federation and Shovel resources
+* `upstreamSecret` in schema replication resources
+
+The Operator's Secret cache is restricted to labeled secrets for performance and security reasons. The admission webhooks will reject topology resources that reference unlabeled or missing secrets.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-secret
+  labels:
+    rabbitmq.com/topology-operator: "true"
+type: Opaque
+stringData:
+  username: user
+  password: password
+```
 
 ## RabbitMQ Cluster Operator Requirements {#requirements}
 
@@ -112,6 +137,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: my-rabbit-creds
+  labels:
+    rabbitmq.com/topology-operator: "true"  # required label
 type: Opaque
 stringData:
   # has to be an existing user
@@ -133,13 +160,15 @@ spec:
 ```
 * If `rabbitmqClusterReference.namespace` is set, a secret from that namespace will be used:
 
-```bash
+```yaml
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   name: my-rabbit-creds
   namespace: rabbitmq-system
+  labels:
+    rabbitmq.com/topology-operator: "true"  # required label
   annotations:
     # has to be "*" or match namespace name(s) where RabbitMQ objects are deployed
     rabbitmq.com/topology-allowed-namespaces: "qq-namespace"
@@ -163,7 +192,6 @@ spec:
     connectionSecret:
       # has to be an existing secret in the namespace specified in rabbitmqClusterReference.namespace
       name: my-rabbit-creds
-
 ```
 Note that `spec.rabbitmqClusterReference` is an immutable field. For exampe, `connectionSecret`
 name cannot be updated once created.
@@ -182,6 +210,8 @@ kind: Secret
 metadata:
   name: rabbitmq-service-credentials
   namespace: central-vault
+  labels:
+    rabbitmq.com/topology-operator: "true"  # required label
   annotations:
     rabbitmq.com/topology-allowed-namespaces: rabbitmq-service
 type: Opaque
@@ -355,13 +385,26 @@ As a workaround, add a label or annotation to `users.rabbitmq.com` object to tri
 #### Users with provided username and password {#provided-sec-users}
 
 The Operator also supports creating RabbitMQ users with provided credentials. When creating a user with provided username and password, create a kubernetes
-secret object containing keys `username` and `password` in its Data field. The Operator will then generate a new secret with the name of the User object suffixed with '-user-credentials'.
-The Operator does not monitor either the provided secret object or the generated secret object, and updating either secret object won't update the credentials.
-As a workaround, edit the generated secret object, then add a label or annotation to `users.rabbitmq.com` object to trigger the Operator to reconcile.
+secret object containing keys `username` and `password` in its Data field.
 
-The following manifest will create a user with username and password provided from secret 'my-rabbit-user' :
+:::warning
+All secrets referenced via `importCredentialsSecret` must be labeled with `rabbitmq.com/topology-operator: "true"`. The Operator's Secret cache is restricted to labeled secrets, and the admission webhook will reject a User that references an unlabeled or missing secret.
+:::
+
+The following manifest will create a user with username and password provided from secret 'my-rabbit-user':
 
 ```yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-rabbit-user
+  labels:
+    rabbitmq.com/topology-operator: "true"  # required label
+type: Opaque
+stringData:
+  username: import-user-sample
+  password: secure-password
 ---
 apiVersion: rabbitmq.com/v1beta1
 kind: User
@@ -377,6 +420,27 @@ spec:
     name: my-rabbit-user # name of the secret
 ```
 
+#### Automatic password rotation {#auto-password-rotation}
+
+Starting with Messaging Topology Operator v1.20.0, when using `importCredentialsSecret`, the Messaging Topology Operator automatically detects changes to the secret's `password` or `passwordHash` fields and updates the RabbitMQ user's credentials accordingly. No manual reconciliation or annotation changes are required.
+
+This feature is useful when secrets are rotated by external tools like [External Secrets Operator (ESO)](https://external-secrets.io/) or [HashiCorp Vault](https://www.vaultproject.io/). For example:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-rabbit-user
+  labels:
+    rabbitmq.com/topology-operator: "true"
+type: Opaque
+stringData:
+  username: import-user-sample
+  password: new-rotated-password  # Operator detects this change and updates RabbitMQ user
+```
+
+When a user is created with `importCredentialsSecret`, the import secret itself is the source of truth for credentials — no separate `-user-credentials` secret is generated.
+
 #### Users with password hash and password-less users {#provided-sec-users}
 
 Since Topology Operator `v1.15.0`, it is possible to provide the user password using a SHA-512 hash. Other hash algorithms are not supported in the Topology Operator
@@ -388,6 +452,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: my-user-credentials # IMPORTANT: this Secret name must match .spec.importCredentialsSecret.name field in User object
+  labels:
+    rabbitmq.com/topology-operator: "true"  # required label
 type: Opaque
 stringData:
   username: my-user
@@ -415,6 +481,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: my-user-credentials
+  labels:
+    rabbitmq.com/topology-operator: "true"  # required label
 type: Opaque
 stringData:
   username: my-user
@@ -474,9 +542,25 @@ Messaging Topology Operator can define [Federation upstreams](/docs/federation).
 Because a Federation upstream URI contains credentials, it is provided through a Kubernetes Secret object.
 The 'uri' key is mandatory for the Secret object. Its value can be either a single URI or a comma-separated list of URIs.
 
+:::warning
+The secret referenced via `uriSecret` must be labeled with `rabbitmq.com/topology-operator: "true"`.
+:::
+
 The following manifest will define an upstream named 'origin' in a RabbitmqCluster named 'example-rabbit':
 
-```bash
+```yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: federation-uri-secret
+  namespace: rabbitmq-system
+  labels:
+    rabbitmq.com/topology-operator: "true"  # required label
+type: Opaque
+stringData:
+  uri: amqps://user:password@upstream-host:5671
+---
 apiVersion: rabbitmq.com/v1beta1
 kind: Federation
 metadata:
@@ -486,7 +570,7 @@ spec:
   name: "origin"
   uriSecret:
     # secret must be created in the same namespace as this Federation object; in this case 'rabbitmq-system'
-    name: {secret-name}
+    name: federation-uri-secret
   ackMode: "on-confirm"
   rabbitmqClusterReference:
     name: example-rabbit
@@ -502,9 +586,26 @@ Shovel source and destination URIs are provided through a Kubernetes Secret obje
 The Secret Object must contain two keys, 'srcUri' and 'destUri', and the value of each key can be either a single URI
 or a comma-separated list of URIs.
 
+:::warning
+The secret referenced via `uriSecret` must be labeled with `rabbitmq.com/topology-operator: "true"`.
+:::
+
 The following manifest will create a Shovel named 'my-shovel' in a RabbitmqCluster named 'example-rabbit':
 
-```bash
+```yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: shovel-uri-secret
+  namespace: rabbitmq-system
+  labels:
+    rabbitmq.com/topology-operator: "true"  # required label
+type: Opaque
+stringData:
+  srcUri: amqp://user:password@source-host:5672
+  destUri: amqp://user:password@dest-host:5672
+---
 apiVersion: rabbitmq.com/v1beta1
 kind: Shovel
 metadata:
@@ -514,7 +615,7 @@ spec:
   name: "my-shovel"
   uriSecret:
     # secret must be created in the same namespace as this Shovel object; in this case 'rabbitmq-system'
-    name: {secret-name}
+    name: shovel-uri-secret
   srcQueue: "the-source-queue"
   destQueue: "the-destination-queue"
   rabbitmqClusterReference:
