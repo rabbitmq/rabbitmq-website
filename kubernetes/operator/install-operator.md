@@ -28,9 +28,10 @@ This guide covers the installation of the [RabbitMQ Cluster Kubernetes Operator]
 
 The Operator requires
 
-* Kubernetes 1.19 or later (1.25 or later versions are [recommended](/docs/memory-use#page-cache), in particular for environments that use [RabbitMQ Streams](/docs/streams))
+* Kubernetes 1.31 or later
 * The RabbitMQ Operators have been tested on Kubernetes v1.29 to v1.32.
-* [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) that provides a [supported release series of RabbitMQ](/release-information)
+* [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) that provides RabbitMQ 3.13.7 or later from a [supported release series](/release-information)
+* For Cluster Operator versions 2.20 and later, [cert-manager](https://cert-manager.io) must be installed in the cluster
 
 -----
 
