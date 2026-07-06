@@ -42,7 +42,7 @@ During a transition period of a few months after a new major Erlang/OTP release 
 and the previous oldest series can be supported for a few months in addition
 to the two most recent series.
 
-At the moment the fully supported series are Erlang `27.x` and `26.x`.
+At the moment the fully supported series is Erlang `27.x`, with `28.x` partially supported (see below).
 
 ### Erlang 29 Support
 
@@ -50,7 +50,7 @@ Erlang 29 is **not supported** by RabbitMQ 4.3.
 
 ### Erlang 28 Support
 
-Erlang 28 is **partially supported** by RabbitMQ 4.3.x: upgrades of clusters running Khepri has known issues
+Erlang 28 is **partially supported** by RabbitMQ 4.3.x: upgrades of clusters running Khepri have known issues
 directly related to the breaking changes in Erlang 28 that equally affect Erlang 29.
 
 ### Erlang 27 Support
@@ -61,6 +61,8 @@ Erlang 27 is supported starting with RabbitMQ 4.0.4.
 
 Erlang 26 is supported starting with RabbitMQ 3.12.0.
 
+Erlang 26 has reached end of life and is
+**no longer supported**. Users still running Erlang 26 should upgrade to Erlang 27 or 28.
 
 ## RabbitMQ and Erlang/OTP Compatibility Matrix {#compatibility-matrix}
 
@@ -103,7 +105,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       </td>
       <td>
         <ul>
-          <li>26.2</li>
+          <li>27.0</li>
         </ul>
       </td>
       <td>
@@ -121,7 +123,11 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
             to Erlang 28 have a known issue that affects rolling upgrades.
           </li>
           <li>
-            The starting with the 4.0.4 release, the 4.0.x release series is compatible with Erlang 27.
+            Starting with the 4.0.4 release, the 4.0.x release series is compatible with Erlang 27.
+          </li>
+          <li>
+            Erlang 26 has reached end of life and is no longer supported.
+            The minimum required Erlang/OTP version was raised to 27.0 as a result.
           </li>
         </ul>
       </td>
@@ -197,7 +203,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
             be mature and ready for production use.
           </li>
           <li>
-            Erlang 26.1 and later versions <a href="https://github.com/erlang/otp/pull/7392">supports FIPS mode on OpenSSL 3</a>
+            Erlang 26.1 and later versions <a href="https://github.com/erlang/otp/pull/7392">support FIPS mode on OpenSSL 3</a>
           </li>
         </ul>
       </td>
@@ -237,7 +243,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
             be mature enough for production.
           </li>
           <li>
-            Erlang 26.1 and later versions <a href="https://github.com/erlang/otp/pull/7392">supports FIPS mode on OpenSSL 3</a>
+            Erlang 26.1 and later versions <a href="https://github.com/erlang/otp/pull/7392">support FIPS mode on OpenSSL 3</a>
           </li>
         </ul>
       </td>
@@ -412,7 +418,7 @@ See [CentOS, RHEL and Fedora installation guide](./install-rpm) for more informa
 
 It is **highly recommended** that the same major version of
 Erlang is used across all [cluster nodes](./upgrade#rabbitmq-erlang-version-requirement)
-(e.g. `25.x`).
+(e.g. `27.x`).
 
 RabbitMQ will check for internal protocol versions of
 Erlang and its distributed libraries when a node joins a

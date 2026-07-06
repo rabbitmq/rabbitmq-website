@@ -59,12 +59,8 @@ Erlang 27 is supported starting with RabbitMQ 4.0.4.
 
 ### Erlang 26 Support
 
-Erlang 26 is supported starting with RabbitMQ 3.12.0.
-
-Erlang 26 [reached end of life on May 26, 2026](https://endoflife.date/erlang) and is
+Erlang 26 has reached end of life and is
 **no longer supported**. Users still running Erlang 26 should upgrade to Erlang 27 or 28.
-
-
 ## RabbitMQ and Erlang/OTP Compatibility Matrix {#compatibility-matrix}
 
 The table below provides an Erlang compatibility matrix of currently supported RabbitMQ release series.
@@ -129,7 +125,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
             Starting with the 4.0.4 release, the 4.0.x release series is compatible with Erlang 27.
           </li>
           <li>
-            Erlang 26 <a href="https://endoflife.date/erlang">reached end of life on May 26, 2026</a> and is no longer supported.
+            Erlang 26 has reached end of life and is no longer supported.
             The minimum required Erlang/OTP version was raised to 27.0 as a result.
           </li>
         </ul>
