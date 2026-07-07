@@ -1268,11 +1268,13 @@ The supported headers are:
  * [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)
  * [`X-Xss-Protection`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)
  * [`X-Content-Type-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)
+ * [`Referrer-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy): `no-referrer` and `same-origin` prevent the broker hostname from being sent to external documentation sites; omitting the header relies on the browser default (`strict-origin-when-cross-origin`), which leaks the hostname on every external link click
 
 ```ini
 management.headers.content_type_options = nosniff
 management.headers.xss_protection = 1; mode=block
 management.headers.frame_options = DENY
+management.headers.referrer_policy = no-referrer
 ```
 
 They can be combined with the aforementioned CORS, HSTS, CSP headers:
@@ -1284,6 +1286,7 @@ management.csp.policy = default-src 'self'; script-src 'self' 'unsafe-eval'
 management.headers.content_type_options = nosniff
 management.headers.xss_protection = 1; mode=block
 management.headers.frame_options = DENY
+management.headers.referrer_policy = no-referrer
 ```
 
 ### Login Session Timeout {#login-session-timeout}
