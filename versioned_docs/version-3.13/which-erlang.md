@@ -35,13 +35,7 @@ Erlang 28 is not supported by RabbitMQ 3.13.x.
 
 ## Supported Erlang Version Policy {#supported-version-policy}
 
-RabbitMQ generally supports up to [two most recent Erlang release series](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ).
-
-During a transition period of a few months after a new major Erlang/OTP release comes out, usually May to August every calendar year, the newest series won't be immediately supported
-and the previous oldest series can be supported for a few months in addition
-to the two most recent series.
-
-At the moment the supported series are Erlang `27.x` and `26.x`.
+Supported series are Erlang `27.x` and `26.x`.
 
 ### Erlang 29 Support
 
@@ -54,12 +48,11 @@ and is not currently supported by RabbitMQ.
 
 ### Erlang 27 Support
 
-Erlang 27 is supported starting with RabbitMQ 4.0.4.
+Erlang 27 is supported.
 
 ### Erlang 26 Support
 
 Erlang 26 is supported starting with RabbitMQ 3.12.0.
-
 
 ## RabbitMQ and Erlang/OTP Compatibility Matrix {#compatibility-matrix}
 
@@ -79,7 +72,6 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     <tr>
       <td>
       <ul>
-      <li><a href="https://www.rabbitmq.com/blog/2025/02/07/rabbitmq-3.13.8-is-released">3.13.8</a></li>
       <li>3.13.7</li>
       <li>3.13.6</li>
       <li>3.13.5</li>
@@ -115,7 +107,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       be mature and ready for production use.
       </li>
       <li>
-      Erlang 26.1 and later versions <a href="https://github.com/erlang/otp/pull/7392">supports FIPS mode on OpenSSL 3</a>
+      Erlang 26.1 and later versions <a href="https://github.com/erlang/otp/pull/7392">support FIPS mode on OpenSSL 3</a>
       </li>
       </ul>
       </td>
@@ -155,7 +147,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       be mature enough for production.
       </li>
       <li>
-      Erlang 26.1 and later versions <a href="https://github.com/erlang/otp/pull/7392">supports FIPS mode on OpenSSL 3</a>
+      Erlang 26.1 and later versions <a href="https://github.com/erlang/otp/pull/7392">support FIPS mode on OpenSSL 3</a>
       </li>
       </ul>
       </td>
