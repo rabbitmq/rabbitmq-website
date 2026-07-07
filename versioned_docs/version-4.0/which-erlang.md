@@ -35,13 +35,7 @@ Erlang 28 is not supported by RabbitMQ 4.0.x.
 
 ## Supported Erlang Version Policy {#supported-version-policy}
 
-RabbitMQ generally supports up to [two most recent Erlang release series](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ).
-
-During a transition period of a few months after a new major Erlang/OTP release comes out, usually May to August every calendar year, the newest series won't be immediately supported
-and the previous oldest series can be supported for a few months in addition
-to the two most recent series.
-
-At the moment the supported series is Erlang `27.x`.
+The supported series are Erlang `27.x` and `26.x`.
 
 ### Erlang 29 Support
 
@@ -54,12 +48,11 @@ and is not currently supported by RabbitMQ.
 
 ### Erlang 27 Support
 
-Erlang 27 is supported starting with RabbitMQ 4.0.4.
+Erlang 27 is supported.
 
 ### Erlang 26 Support
 
-Erlang 26 has reached end of life and is
-**no longer supported**. Users still running Erlang 26 should upgrade to Erlang 27 or 28.
+Erlang 26 is supported starting with RabbitMQ 3.12.0.
 
 ## RabbitMQ and Erlang/OTP Compatibility Matrix {#compatibility-matrix}
 
@@ -95,7 +88,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       </td>
       <td>
         <ul>
-          <li>27.0</li>
+          <li>26.2</li>
         </ul>
       </td>
       <td>
@@ -110,10 +103,6 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
           </li>
           <li>
             Starting with the 4.0.4 release, the 4.0.x release series is compatible with Erlang 27.
-          </li>
-          <li>
-            Erlang 26 has reached end of life and is no longer supported.
-            The minimum required Erlang/OTP version was raised to 27.0 as a result.
           </li>
         </ul>
       </td>
@@ -400,7 +389,7 @@ See [CentOS, RHEL and Fedora installation guide](./install-rpm) for more informa
 
 It is **highly recommended** that the same major version of
 Erlang is used across all [cluster nodes](./upgrade#rabbitmq-erlang-version-requirement)
-(e.g. `27.x`).
+(e.g. `25.x`).
 
 RabbitMQ will check for internal protocol versions of
 Erlang and its distributed libraries when a node joins a
