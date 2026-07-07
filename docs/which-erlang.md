@@ -149,11 +149,6 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
           <li>
             The 4.0 release series is compatible with Erlang 26.2.
           </li>
-          :::important
-
-            RabbitMQ versions prior to 4.0.4 are not compatible with Erlang 27.
-
-          :::
         </ul>
       </td>
     </tr>
