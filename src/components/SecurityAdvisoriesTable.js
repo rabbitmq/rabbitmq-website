@@ -155,10 +155,10 @@ export default function SecurityAdvisoriesTable() {
     if (filter) {
       const lowerFilter = filter.toLowerCase();
       sortableItems = sortableItems.filter(item => 
-        item.repo.toLowerCase().includes(lowerFilter) ||
-        item.cve_id.toLowerCase().includes(lowerFilter) ||
-        item.ghsa_id.toLowerCase().includes(lowerFilter) ||
-        item.summary.toLowerCase().includes(lowerFilter) ||
+        (item.repo && item.repo.toLowerCase().includes(lowerFilter)) ||
+        (item.cve_id && item.cve_id.toLowerCase().includes(lowerFilter)) ||
+        (item.ghsa_id && item.ghsa_id.toLowerCase().includes(lowerFilter)) ||
+        (item.summary && item.summary.toLowerCase().includes(lowerFilter)) ||
         (item.published_at && item.published_at.toLowerCase().includes(lowerFilter)) ||
         (item.patched_versions && item.patched_versions.toLowerCase().includes(lowerFilter)) ||
         (item.vulnerable_versions && item.vulnerable_versions.toLowerCase().includes(lowerFilter)) ||
@@ -215,7 +215,7 @@ export default function SecurityAdvisoriesTable() {
     <div style={{ marginTop: '20px' }}>
       <input 
         type="text" 
-        placeholder="Filter advisories by CVE ID, Date Published, Severity, Repository, Summary, Affected Versions, or Patched Versions"
+        placeholder="Filter advisories by Advisory ID, CVE ID, Date Published, Severity, Repository, Summary, Affected Versions, or Patched Versions"
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
         style={{ 
@@ -232,7 +232,7 @@ export default function SecurityAdvisoriesTable() {
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', display: 'table' }}>
           <thead>
             <tr>
-              <th style={{ padding: '10px', borderBottom: '2px solid var(--ifm-color-emphasis-300)' }}>CVE ID</th>
+              <th style={{ padding: '10px', borderBottom: '2px solid var(--ifm-color-emphasis-300)' }}>Advisory ID &amp; CVE ID</th>
               <th style={{ cursor: 'pointer', padding: '10px', borderBottom: '2px solid var(--ifm-color-emphasis-300)' }} onClick={() => requestSort('published_at')}>Date Published{getSortIndicator('published_at')}</th>
               <th style={{ cursor: 'pointer', padding: '10px', borderBottom: '2px solid var(--ifm-color-emphasis-300)' }} onClick={() => requestSort('severity')}>Severity{getSortIndicator('severity')}</th>
               <th style={{ cursor: 'pointer', padding: '10px', borderBottom: '2px solid var(--ifm-color-emphasis-300)' }} onClick={() => requestSort('repo')}>Repository{getSortIndicator('repo')}</th>
@@ -245,9 +245,20 @@ export default function SecurityAdvisoriesTable() {
             {sortedAdvisories.map((adv) => (
               <tr key={adv.ghsa_id} style={{ borderBottom: '1px solid var(--ifm-color-emphasis-200)' }}>
                 <td style={{ padding: '10px', whiteSpace: 'nowrap' }}>
-                  <a href={adv.url} target="_blank" rel="noopener noreferrer">
-                    {adv.cve_id || adv.ghsa_id}
-                  </a>
+                  <div style={{ marginBottom: '4px' }}>
+                    <a href={adv.url} target="_blank" rel="noopener noreferrer">
+                      {adv.ghsa_id}
+                    </a>
+                  </div>
+                  <div>
+                    {(adv.cve_id && adv.cve_id.toLowerCase() !== 'pending') ? (
+                      <a href={`https://nvd.nist.gov/vuln/detail/${adv.cve_id}`} target="_blank" rel="noopener noreferrer">
+                        {adv.cve_id}
+                      </a>
+                    ) : (
+                      <span style={{ fontStyle: 'italic', color: 'var(--ifm-color-emphasis-600)' }}>CVE ID pending</span>
+                    )}
+                  </div>
                 </td>
                 <td style={{ padding: '10px', whiteSpace: 'nowrap' }}>{adv.published_at}</td>
                 <td style={{ padding: '10px', fontWeight: 'bold', color: severityColor(adv.severity) }}>
