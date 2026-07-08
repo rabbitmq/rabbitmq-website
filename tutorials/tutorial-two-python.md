@@ -189,7 +189,7 @@ You can increase this timeout as described in
 
 [Manual message acknowledgments](/docs/confirms) are turned on by default. In previous
 examples we explicitly turned them off via the `auto_ack=True`
-flag. It's time to remove this flag and send a proper acknowledgment
+flag. It's time to remove this flag (remove `auto_ack=True` or `auto_ack=False`) and send a proper acknowledgment
 from the worker, once we're done with a task.
 
 ```python
