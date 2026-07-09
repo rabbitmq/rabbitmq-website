@@ -57,8 +57,8 @@ This guide covers:
   only
 - [Authenticating with OAuth 2](#oauth2-authentication)
 - [Strict transport security](#hsts), [Content security policy](#csp),
-  [cross-origin resource sharing](#cors), and [other security-related header](#other-security-headers)
-  control
+  [cross-origin resource sharing](#cors), and [other security-related headers](#other-security-headers)
+  including [hiding the Allow response header](#hide-allow-header)
 - [Statistics collection interval](#statistics-interval)
 - [Message rate mode](#rates-mode) (rate fidelity) and [data retention intervals](#sample-retention)
 - [HTTP API request logging](#http-logging)
@@ -1288,6 +1288,23 @@ management.headers.xss_protection = 1; mode=block
 management.headers.frame_options = DENY
 management.headers.referrer_policy = no-referrer
 ```
+
+#### Hiding the Allow Response Header {#hide-allow-header}
+
+By default, the management plugin includes an
+[`Allow`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Allow) response header on
+every HTTP response. The header lists all HTTP methods accepted by the matched route. Exposing
+this information can aid reconnaissance of the API surface.
+
+When `management.http.hide_allow_header` is set to `true`, the `Allow` header is removed from
+all responses **except** `405 Method Not Allowed`, where [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110#section-10.2.1)
+requires it to be present:
+
+```ini
+management.http.hide_allow_header = true
+```
+
+This setting is disabled (`false`) by default.
 
 ### Login Session Timeout {#login-session-timeout}
 
