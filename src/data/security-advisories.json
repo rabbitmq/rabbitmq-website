@@ -1,6 +1,50 @@
 [
   {
     "cve_id": "",
+    "ghsa_id": "GHSA-qx7j-jv8m-fppr",
+    "patched_versions": "5.31.0",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-java-client",
+    "severity": "medium",
+    "summary": "RabbitMQ Java client malformed body frame triggers raw command assembler exception",
+    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-qx7j-jv8m-fppr",
+    "vulnerable_versions": "<= 5.30.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-5xwg-cfvj-gff5",
+    "patched_versions": "5.33.0",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-java-client",
+    "severity": "low",
+    "summary": "RabbitMQ Java client accepts broker frames larger than the negotiated AMQP frame_max",
+    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-5xwg-cfvj-gff5",
+    "vulnerable_versions": "< 5.33.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-5m9f-rphj-c435",
+    "patched_versions": "5.33.0",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-java-client",
+    "severity": "medium",
+    "summary": "TrustEverythingTrustManager used by default in useSslProtocol() enables MITM",
+    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-5m9f-rphj-c435",
+    "vulnerable_versions": "< 5.33.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-6g32-pxv4-2wfj",
+    "patched_versions": "5.33.0",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-java-client",
+    "severity": "high",
+    "summary": "Unvalidated Class.forName in JSON-RPC ProcedureDescription enables arbitrary class loading",
+    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-6g32-pxv4-2wfj",
+    "vulnerable_versions": "< 5.33.0"
+  },
+  {
+    "cve_id": "",
     "ghsa_id": "GHSA-48hm-chgv-398r",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6, 4.3.1",
     "published_at": "2026-07-09",
@@ -383,6 +427,28 @@
     "summary": "Stream protocol skips per vhost per user connection limits",
     "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-hwqx-2gfg-89qf",
     "vulnerable_versions": ">= 4.2.0, < 4.2.7, >= 4.3.0, < 4.3.1"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-93j5-89vc-pph4",
+    "patched_versions": "5.33.1",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-java-client",
+    "severity": "high",
+    "summary": "ValueReader: Unbounded recursive table/array nesting causes StackOverflowError DoS",
+    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-93j5-89vc-pph4",
+    "vulnerable_versions": "<= 5.33.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-68mj-5wr7-6fgg",
+    "patched_versions": "5.33.1",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-java-client",
+    "severity": "high",
+    "summary": "ValueReader: Oversized LongString/bytes length triggers OOM via unchecked allocation",
+    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-68mj-5wr7-6fgg",
+    "vulnerable_versions": "<= 5.33.0"
   },
   {
     "cve_id": "CVE-2026-57215",
