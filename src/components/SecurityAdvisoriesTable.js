@@ -215,7 +215,7 @@ export default function SecurityAdvisoriesTable() {
     <div style={{ marginTop: '20px' }}>
       <input 
         type="text" 
-        placeholder="Filter advisories by Advisory ID, CVE ID, Date Published, Severity, Repository, Summary, Affected Versions, or Patched Versions"
+        placeholder="Filter advisories ..."
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
         style={{ 
