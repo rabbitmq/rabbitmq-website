@@ -271,7 +271,7 @@ export default function SecurityAdvisoriesTable() {
                 </td>
                 <td style={{ padding: '10px', fontSize: '0.9em' }}>{adv.summary}</td>
                 <td style={{ padding: '10px', fontSize: '0.85em' }}>{formatVulnerableVersions(adv.vulnerable_versions)}</td>
-                <td style={{ padding: '10px' }}>{renderPatchedVersions(adv.repo, adv.patched_versions)}</td>
+                <td style={{ padding: '10px', fontSize: '0.85em' }}>{renderPatchedVersions(adv.repo, adv.patched_versions)}</td>
               </tr>
             ))}
             {sortedAdvisories.length === 0 && (
