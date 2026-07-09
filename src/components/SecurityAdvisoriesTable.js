@@ -138,6 +138,8 @@ const renderPatchedVersions = (repo, versionsStr) => {
 export default function SecurityAdvisoriesTable() {
   const [sortConfig, setSortConfig] = useState({ key: 'published_at', direction: 'desc' });
   const [filter, setFilter] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const severityWeight = (severity) => {
     switch(severity?.toLowerCase()) {
@@ -188,6 +190,19 @@ export default function SecurityAdvisoriesTable() {
     return sortableItems;
   }, [sortConfig, filter]);
 
+  // Reset to first page when filter, sort, or items per page changes
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [filter, sortConfig, itemsPerPage]);
+
+  const totalPages = itemsPerPage === 'all' ? 1 : Math.ceil(sortedAdvisories.length / itemsPerPage);
+  const paginatedAdvisories = itemsPerPage === 'all' 
+    ? sortedAdvisories 
+    : sortedAdvisories.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+      );
+
   const requestSort = (key) => {
     let direction = 'asc';
     if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
@@ -215,7 +230,7 @@ export default function SecurityAdvisoriesTable() {
     <div style={{ marginTop: '20px' }}>
       <input 
         type="text" 
-        placeholder="Filter advisories by Advisory ID, CVE ID, Date Published, Severity, Repository, Summary, Affected Versions, or Patched Versions"
+        placeholder="Filter advisories ..."
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
         style={{ 
@@ -232,19 +247,19 @@ export default function SecurityAdvisoriesTable() {
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', display: 'table' }}>
           <thead>
             <tr>
-              <th style={{ padding: '10px', borderBottom: '2px solid var(--ifm-color-emphasis-300)' }}>Advisory ID &amp; CVE ID</th>
-              <th style={{ cursor: 'pointer', padding: '10px', borderBottom: '2px solid var(--ifm-color-emphasis-300)' }} onClick={() => requestSort('published_at')}>Date Published{getSortIndicator('published_at')}</th>
-              <th style={{ cursor: 'pointer', padding: '10px', borderBottom: '2px solid var(--ifm-color-emphasis-300)' }} onClick={() => requestSort('severity')}>Severity{getSortIndicator('severity')}</th>
-              <th style={{ cursor: 'pointer', padding: '10px', borderBottom: '2px solid var(--ifm-color-emphasis-300)' }} onClick={() => requestSort('repo')}>Repository{getSortIndicator('repo')}</th>
-              <th style={{ padding: '10px', borderBottom: '2px solid var(--ifm-color-emphasis-300)' }}>Summary</th>
-              <th style={{ padding: '10px', borderBottom: '2px solid var(--ifm-color-emphasis-300)' }}>Affected Versions</th>
-              <th style={{ padding: '10px', borderBottom: '2px solid var(--ifm-color-emphasis-300)' }}>Patched Versions</th>
+              <th style={{ padding: '8px', borderBottom: '2px solid var(--ifm-color-emphasis-300)', fontSize: '0.85em' }}>Advisory ID &amp; CVE ID</th>
+              <th style={{ cursor: 'pointer', padding: '8px', borderBottom: '2px solid var(--ifm-color-emphasis-300)', fontSize: '0.85em' }} onClick={() => requestSort('published_at')}>Date Published{getSortIndicator('published_at')}</th>
+              <th style={{ cursor: 'pointer', padding: '8px', borderBottom: '2px solid var(--ifm-color-emphasis-300)', fontSize: '0.85em' }} onClick={() => requestSort('severity')}>Severity{getSortIndicator('severity')}</th>
+              <th style={{ cursor: 'pointer', padding: '8px', borderBottom: '2px solid var(--ifm-color-emphasis-300)', fontSize: '0.85em' }} onClick={() => requestSort('repo')}>Repository{getSortIndicator('repo')}</th>
+              <th style={{ padding: '8px', borderBottom: '2px solid var(--ifm-color-emphasis-300)', fontSize: '0.85em' }}>Summary</th>
+              <th style={{ padding: '8px', borderBottom: '2px solid var(--ifm-color-emphasis-300)', fontSize: '0.85em' }}>Affected Versions</th>
+              <th style={{ padding: '8px', borderBottom: '2px solid var(--ifm-color-emphasis-300)', fontSize: '0.85em' }}>Patched Versions</th>
             </tr>
           </thead>
           <tbody>
-            {sortedAdvisories.map((adv) => (
+            {paginatedAdvisories.map((adv) => (
               <tr key={adv.ghsa_id} style={{ borderBottom: '1px solid var(--ifm-color-emphasis-200)' }}>
-                <td style={{ padding: '10px', whiteSpace: 'nowrap' }}>
+                <td style={{ padding: '8px', whiteSpace: 'nowrap', fontSize: '0.85em' }}>
                   <div style={{ marginBottom: '4px' }}>
                     <a href={adv.url} target="_blank" rel="noopener noreferrer">
                       {adv.ghsa_id}
@@ -260,18 +275,18 @@ export default function SecurityAdvisoriesTable() {
                     )}
                   </div>
                 </td>
-                <td style={{ padding: '10px', whiteSpace: 'nowrap' }}>{adv.published_at}</td>
-                <td style={{ padding: '10px', fontWeight: 'bold', color: severityColor(adv.severity) }}>
+                <td style={{ padding: '8px', whiteSpace: 'nowrap', fontSize: '0.85em' }}>{adv.published_at}</td>
+                <td style={{ padding: '8px', fontWeight: 'bold', color: severityColor(adv.severity), fontSize: '0.85em' }}>
                   {adv.severity ? adv.severity.charAt(0).toUpperCase() + adv.severity.slice(1) : 'Unknown'}
                 </td>
-                <td style={{ padding: '10px' }}>
+                <td style={{ padding: '8px', fontSize: '0.85em' }}>
                   <a href={`https://github.com/rabbitmq/${adv.repo}`} target="_blank" rel="noopener noreferrer">
                     <code>{adv.repo}</code>
                   </a>
                 </td>
-                <td style={{ padding: '10px', fontSize: '0.9em' }}>{adv.summary}</td>
-                <td style={{ padding: '10px', fontSize: '0.85em' }}>{formatVulnerableVersions(adv.vulnerable_versions)}</td>
-                <td style={{ padding: '10px' }}>{renderPatchedVersions(adv.repo, adv.patched_versions)}</td>
+                <td style={{ padding: '8px', fontSize: '0.85em' }}>{adv.summary}</td>
+                <td style={{ padding: '8px', fontSize: '0.85em' }}>{formatVulnerableVersions(adv.vulnerable_versions)}</td>
+                <td style={{ padding: '8px', fontSize: '0.85em' }}>{renderPatchedVersions(adv.repo, adv.patched_versions)}</td>
               </tr>
             ))}
             {sortedAdvisories.length === 0 && (
@@ -282,6 +297,58 @@ export default function SecurityAdvisoriesTable() {
           </tbody>
         </table>
       </div>
+      
+      {sortedAdvisories.length > 0 && (
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '15px', flexWrap: 'wrap', gap: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <div style={{ fontSize: '0.9em', color: 'var(--ifm-color-emphasis-700)' }}>
+              Showing {itemsPerPage === 'all' ? 1 : (currentPage - 1) * itemsPerPage + 1} to {itemsPerPage === 'all' ? sortedAdvisories.length : Math.min(currentPage * itemsPerPage, sortedAdvisories.length)} of {sortedAdvisories.length} advisories
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.9em' }}>
+              <label htmlFor="itemsPerPage">Show:</label>
+              <select 
+                id="itemsPerPage"
+                value={itemsPerPage} 
+                onChange={(e) => setItemsPerPage(e.target.value === 'all' ? 'all' : Number(e.target.value))}
+                style={{ 
+                  padding: '2px 5px', 
+                  borderRadius: '4px',
+                  border: '1px solid var(--ifm-color-emphasis-400)',
+                  backgroundColor: 'var(--ifm-background-surface-color)',
+                  color: 'var(--ifm-font-color-base)'
+                }}
+              >
+                <option value={10}>10</option>
+                <option value={25}>25</option>
+                <option value={50}>50</option>
+                <option value="all">All</option>
+              </select>
+            </div>
+          </div>
+          
+          {itemsPerPage !== 'all' && totalPages > 1 && (
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+              <button 
+                className="button button--secondary button--sm"
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                style={{ cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }}
+              >
+                Previous
+              </button>
+              <span style={{ fontSize: '0.9em' }}>Page {currentPage} of {totalPages || 1}</span>
+              <button 
+                className="button button--secondary button--sm"
+                disabled={currentPage === totalPages || totalPages === 0}
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                style={{ cursor: (currentPage === totalPages || totalPages === 0) ? 'not-allowed' : 'pointer' }}
+              >
+                Next
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
