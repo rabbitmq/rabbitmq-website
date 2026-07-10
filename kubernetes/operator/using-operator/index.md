@@ -20,6 +20,7 @@ This following information is structured into these sections:
 * [Update a RabbitMQ Instance](#update)
 * [Set a Pod Disruption Budget](#set-pdb)
 * [Configure TLS](#tls)
+* [Configure Startup Probes](#startup-probes)
 * [Find Your RabbitmqCluster Service Name and Admin Credentials](#find)
 * [Use HashiCorp Vault](#vault)
 * [Verify the Instance is Running](#verify-instance)
@@ -185,6 +186,9 @@ in the Operator repository on GitHub.
 
 **Description:** Labels and annotations in RabbitmqCluster metadata are propagated to the resources created by
 the Operator. The Pods **do not** inherit these labels and/or annotations.
+
+Some annotations have special meaning to the Operator and control specific behaviors. For example, the `rabbitmq.com/legacy-startup-probe` annotation
+can be used to configure which startup probe mechanism is used. See [Configure Startup Probes](#startup-probes) for details.
 
 **Default Value:** N/A - Empty
 
@@ -1157,6 +1161,37 @@ spec:
       ssl_options.fail_if_no_peer_cert = true
 ```
 
+## Configure Startup Probes {#startup-probes}
+
+This feature is available with Cluster Operator v2.22.0+
+
+The Kubernetes startup probe determines when a RabbitMQ Pod has successfully initialized and is ready to start handling traffic.
+By default, the Cluster Operator uses an HTTP-based health check that queries the `/api/health/checks/reached-target-cluster-size` endpoint.
+This endpoint is available in RabbitMQ 4.2.4 and later, as well as in Tanzu Backports.
+
+For RabbitMQ clusters running older versions (prior to 4.2.4), a legacy startup probe can be configured by setting an annotation on the `RabbitmqCluster` object.
+
+**Default Value:** HTTP-based health check (available in RabbitMQ 4.2.4+)
+
+**Legacy startup probe annotation:**
+
+```yaml
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmqcluster-sample
+  annotations:
+    rabbitmq.com/legacy-startup-probe: "true"
+```
+
+When the annotation `rabbitmq.com/legacy-startup-probe` is set to `"true"`, the Operator will use the legacy startup probe mechanism instead of the modern HTTP-based health check.
+This allows RabbitmqCluster instances to be deployed on older RabbitMQ versions that do not support the `/api/health/checks/reached-target-cluster-size` endpoint.
+
+:::note
+
+Once you have upgraded your RabbitMQ cluster to version 4.2.4 or later, it is recommended to remove this annotation to use the improved HTTP-based health check.
+
+:::
 
 ## Find Your RabbitmqCluster Service Name and Admin Credentials {#find}
 
