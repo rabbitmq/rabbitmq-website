@@ -1,5 +1,16 @@
 [
   {
+    "cve_id": "CVE-2026-61830",
+    "ghsa_id": "GHSA-c7f3-92gv-rj3w",
+    "patched_versions": "2.21.0",
+    "published_at": "2026-07-13",
+    "repo": "cluster-operator",
+    "severity": "medium",
+    "summary": "OS Command Injection in RabbitmqCluster envConfig Field",
+    "url": "https://github.com/rabbitmq/cluster-operator/security/advisories/GHSA-c7f3-92gv-rj3w",
+    "vulnerable_versions": "< 2.21.0"
+  },
+  {
     "cve_id": "",
     "ghsa_id": "GHSA-jh4v-gfqj-7rhx",
     "patched_versions": "5.34.0",
@@ -22,7 +33,7 @@
     "vulnerable_versions": "<= 5.30.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-61634",
     "ghsa_id": "GHSA-5xwg-cfvj-gff5",
     "patched_versions": "5.33.0",
     "published_at": "2026-07-09",
