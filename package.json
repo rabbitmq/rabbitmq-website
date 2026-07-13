@@ -11,8 +11,7 @@
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids",
-    "postinstall": "patch-package"
+    "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
     "@docsearch/core": "^4.5.0",
@@ -38,7 +37,6 @@
     "cookie": ">=0.7.0",
     "dompurify": ">=3.4.11",
     "estree-util-value-to-estree": ">=3.3.3",
-    "patch-package": "^8.0.1",
     "path-to-regexp": ">=8.4.0",
     "webpack-dev-server": ">= 5.2.4"
   },
