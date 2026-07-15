@@ -509,3 +509,9 @@ html[data-theme='dark'] .release-info-grid .release-toggle path {
       display: none !important;
   }
 }
+
+/* Make the security page use the full container width instead of the default 8 columns */
+.security-page .row .col {
+  max-width: 100% !important;
+  flex: 0 0 100% !important;
+}
