@@ -336,7 +336,7 @@ public class NewTask {
 }
 ```
 
-[(NewTask.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-amqp/NewTask.java)
+[(NewTask.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-amqp/src/main/java/NewTask.java)
 
 And `Worker.java`:
 
@@ -396,7 +396,7 @@ public class Worker {
 }
 ```
 
-[(Worker.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-amqp/Worker.java)
+[(Worker.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-amqp/src/main/java/Worker.java)
 
 Using explicit settlement and `initialCredits(1)` you can set up a
 work queue. Quorum queues and durable messages let tasks survive broker restarts as in the AMQP 0-9-1 tutorial.
