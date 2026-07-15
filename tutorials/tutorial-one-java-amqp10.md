@@ -76,7 +76,7 @@ We'll call our message publisher (sender) `Send` and our message consumer (recei
 then exit.
 
 In
-[`Send.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-amqp/Send.java),
+[`Send.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-amqp/src/main/java/Send.java),
 we need some classes imported:
 
 ```java
@@ -149,7 +149,7 @@ try (Publisher publisher = connection.publisherBuilder().queue(QUEUE_NAME).build
 ```
 
 [Here's the whole Send.java
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-amqp/Send.java).
+class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-amqp/src/main/java/Send.java).
 
 > #### Sending doesn't work!
 >
@@ -172,7 +172,7 @@ keep the consumer running to listen for messages and print them out.
 
 <T1DiagramReceiving/>
 
-The code in [`Recv.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-amqp/Recv.java) uses the same environment and connection setup. Open a connection, then declare the same queue so the consumer can start before the publisher:
+The code in [`Recv.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-amqp/src/main/java/Recv.java) uses the same environment and connection setup. Open a connection, then declare the same queue so the consumer can start before the publisher:
 
 ```java
 import com.rabbitmq.client.amqp.Connection;
@@ -223,7 +223,7 @@ Why not use try-with-resources on `Environment` and `Connection` in the consumer
 With AMQP 1.0, the consumer **must settle** each message (`accept`, `discard`, or `requeue`). Here we call `context.accept()` after printing the body.
 
 [Here's the whole Recv.java
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-amqp/Recv.java).
+class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-amqp/src/main/java/Recv.java).
 
 ### Putting it all together
 
