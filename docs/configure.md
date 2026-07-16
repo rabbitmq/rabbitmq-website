@@ -689,8 +689,9 @@ some settings are quite obscure.
     <td>`listeners.tcp`</td>
     <td>
       Ports or hostname/pair on which to listen for "plain" AMQP 0-9-1 and AMQP 1.0 connections
-      (without [TLS](./ssl)). See the [Networking guide](./networking) for more
-      details and examples.
+      (without [TLS](./ssl)). A listener can also bind to a
+      [Unix domain socket](./networking#unix-domain-socket). See the
+      [Networking guide](./networking) for more details and examples.
 
       <div>
         Default:

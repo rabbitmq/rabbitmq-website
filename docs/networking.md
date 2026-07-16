@@ -162,6 +162,39 @@ ssl_options.verify     = verify_peer
 ssl_options.fail_if_no_peer_cert = false
 ```
 
+### Listening on a Unix Domain Socket {#unix-domain-socket}
+
+A listener can bind to a Unix domain socket instead of a TCP interface. This is
+useful when clients connect from the same host and the overhead and attack
+surface of a TCP port are not desirable.
+
+A Unix domain socket listener is configured with the same `listeners.tcp.*` (or
+`listeners.ssl.*`) options as a TCP listener. The value is a socket path
+prefixed with `unix:` (or the equivalent `local:`), followed by `:0` in place of
+a port number:
+
+```ini
+listeners.tcp.1 = unix:/var/run/rabbitmq/rabbitmq.sock:0
+```
+
+The `unix:` and `local:` prefixes are interchangeable. The trailing `:0` is
+required: a Unix domain socket has no port, so the port component must be `0`.
+
+A single node can serve both TCP and Unix domain socket listeners at the same
+time:
+
+```ini
+listeners.tcp.1 = 192.168.1.99:5672
+listeners.tcp.2 = unix:/var/run/rabbitmq/rabbitmq.sock:0
+```
+
+:::info
+
+Clients must support connecting over a Unix domain socket to use this kind of
+listener. Consult the documentation of your client library for details.
+
+:::
+
 
 ## Port Access {#ports}
 
