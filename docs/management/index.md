@@ -1321,6 +1321,26 @@ trailing slash is <em>required</em> in this case.
 management.path_prefix = /my-prefix
 ```
 
+### Restricting Definition Upload to JSON Files {#require-definition-json-extension}
+
+Some deployments require strict filename extension validation for definition file uploads.
+When enabled, the management UI and the server both validate that the uploaded file has a `.json` extension.
+
+On the client side, the management UI sets the `accept=".json"` attribute on the file input,
+which tells the browser to filter the file picker to `.json` files only. On the server side,
+the filename extension is independently validated before the file is processed.
+
+The new configuration setting is `management.require_definition_json_extension`. It defaults
+to `false` for backwards compatibility. Regardless of its value, the server always validates
+that the uploaded content is valid JSON before importing it.
+
+```ini
+management.require_definition_json_extension = true
+```
+
+When enabled, files with a different extension or no extension at all are rejected with an
+HTTP 400 error.
+
 ### Example {#example-config}
 
 An example configuration file for RabbitMQ that switches
