@@ -265,7 +265,7 @@ rabbitmq_global_messages_dead_lettered_maxlen_total{queue_type="rabbit_mqtt_qos0
 
 The [Native MQTT](/blog/2023/03/21/native-mqtt#new-mqtt-qos-0-queue-type) blog post describes the MQTT QoS 0 queue type in more detail.
 
-## Users and Authentication {#authentication}
+## Users and Access {#authentication}
 MQTT clients will be able to connect provided that they have a set of credentials for an existing user with the appropriate permissions.
 
 For an MQTT connection to succeed, it must successfully authenticate and the user must
@@ -331,6 +331,15 @@ If the `mqtt.allow_anonymous` key is set to `false` then clients **must** provid
 The use of anonymous connections is highly discouraged and it is a subject
 to certain limitations (see above) enforced for a reasonable level of security
 by default.
+
+### Authorization and Queue Permissions {#authorization-and-queue-permissions}
+
+RabbitMQ implements MQTT subscriptions by using queues with the queue naming pattern `mqtt-subscription-<MQTT client ID>qos[0|1]` where `<MQTT client ID>` is the MQTT [client identifier](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901059) and `[0|1]` is either `0` for a QoS 0 subscription or `1` for a QoS 1 subscription.
+
+Because MQTT as a protocol does not have the concept of "queues", users coming from other MQTT brokers might wrongly assume that [Topic Permissions](./access-control#topic-authorisation) are the *only* authorization boundary they need to configure.
+However, in RabbitMQ it's recommended to configure variable substitution in permissions so that MQTT clients can strictly only subscribe to their own session queues. For example, restricting queue read access to `^mqtt-subscription-{username}qos.*` or `^mqtt-subscription-{client_id}qos.*`.
+
+Therefore, [topic authorisation](./access-control#topic-authorisation) should be used in combination with [permissions](./access-control#authorisation) on exchanges and queues.
 
 ## Plugin Configuration {#config}
 
