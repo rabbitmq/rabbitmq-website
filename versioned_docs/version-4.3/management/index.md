@@ -1293,8 +1293,8 @@ management.headers.referrer_policy = no-referrer
 
 By default, the management plugin includes an
 [`Allow`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Allow) response header on
-every HTTP response. The header lists all HTTP methods accepted by the matched route. Exposing
-this information can aid reconnaissance of the API surface.
+every HTTP response. The header lists all HTTP methods accepted by the matched route. In some
+cases, operations would prefer to hide this information.
 
 When `management.http.hide_allow_header` is set to `true`, the `Allow` header is removed from
 all responses **except** `405 Method Not Allowed`, where [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110#section-10.2.1)
