@@ -458,7 +458,7 @@ connect to one of the RabbitMQ's messaging protocols, such as AMQP:
 | `auth_oauth2.proxy`                       | Configures explicit [forward proxy](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-0/tanzu-rabbitmq-oci-image/overview.html) used to connect to the `auth_oauth2.issuer` URL. **This is a commercial-only feature**. More information on how to use it can be found on [this example](./oauth2-examples-forward-proxy). |
 | `auth_oauth2.algorithms`                  | Restrict [the usable algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support). |
 | `auth_oauth2.verify_aud`                  | Whether to verify the [token's `aud`](#token-validation) field or not. The default value is `true`. |
-| `auth_oauth2.require_exp`                  | Whether to make the [token's `exp`](#token-validation) field mandatory. The default value is `true`. |
+| `auth_oauth2.require_exp`                 | Whether to make the [token's `exp`](#token-validation) field mandatory. The default value is `true`. |
 | `auth_oauth2.resource_servers`            | [Multiple OAuth 2.0 resources configuration](#multiple-resource-servers-configuration). |
 | `auth_oauth2.oauth_providers`             | [Multiple OAuth 2.0 providers configuration](#multiple-oauth-providers-configuration). |
 | `auth_oauth2.default_oauth_provider`      | ID of the OAuth 2.0 provider used for the `auth_oauth2.resource_servers`, that did not specify any (via the variable `oauth_provider_id`) or when `auth_oauth2.jwks_uri` and `auth_oauth2.issuer` are both missing. |
@@ -617,9 +617,8 @@ RabbitMQ uses the value configured in `auth_oauth2.preferred_username_claims` fo
 | `additional_scopes_key`     | Configure the plugin to look for scopes in other fields (maps to `additional_rabbitmq_scopes` in the old format). |
 | `scope_prefix`              | [Configure the prefix for all scopes](#scope-prefix). The default value is `auth_oauth2.resource_server_id` followed by the dot `.` character. |
 | `scope_aliases`             | [Configure scope aliases](#scope-aliases)                    |
-| `verify_aud`                  | Whether to verify the [token's `aud`](#token-validation) field or not. The default value is `true`. |
-| `require_exp`                  | Whether to make the [token's `exp`](#token-validation) field mandatory. The default value is `true`.  |
-
+| `verify_aud`                | Whether to verify the [token's `aud`](#token-validation) field or not. The default value is `true`. |
+| `require_exp`               | Whether to make the [token's `exp`](#token-validation) field mandatory. The default value is `true`. |
 | `scope_pattern_syntax`      | Same as [auth_oauth2.scope_pattern_syntax](#scope-pattern-syntax) at the root; inherited from the root resource server when not set. |
 | `preferred_username_claims` | [List of the JWT claims](#preferred-username-claims) to look for the username associated with the token separated by commas. |
 | `oauth_provider_id`         | The identifier of the OAuth Provider associated to this resource. RabbitMQ uses the signing keys issued by this OAuth Provider to validate tokens whose audience matches this resource's ID. |
