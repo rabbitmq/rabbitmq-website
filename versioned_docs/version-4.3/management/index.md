@@ -1268,7 +1268,7 @@ The supported headers are:
  * [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)
  * [`X-Xss-Protection`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)
  * [`X-Content-Type-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)
- * [`Referrer-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy): `no-referrer` and `same-origin` prevent the broker hostname from being sent to external documentation sites; omitting the header relies on the browser default (`strict-origin-when-cross-origin`), which leaks the hostname on every external link click
+ * [`Referrer-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy): `no-referrer` and `same-origin` prevent the management UI origin from being sent to external sites; without this header, browsers default to `strict-origin-when-cross-origin`, which does send the origin
 
 ```ini
 management.headers.content_type_options = nosniff
