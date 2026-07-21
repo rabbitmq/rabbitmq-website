@@ -72,6 +72,33 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     <tr>
       <td>
         <ul>
+          <li>4.2.9</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>27.0</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>27.x</li>
+        </ul>
+      </td>
+      <td>
+        <ul class="notes">
+          <li>
+            Erlang 28 is **only supported for brand new clusters**: upgrades of clusters running RabbitMQ with Khepri on Erlang 27
+            to Erlang 28 can run into a known issue that affects mixed-version clusters and thus rolling upgrades.
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <ul>
+          <li>4.2.8</li>
+          <li>4.2.7</li>
           <li>4.2.6</li>
           <li>4.2.5</li>
           <li>4.2.4</li>
