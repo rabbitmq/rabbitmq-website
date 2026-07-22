@@ -1,5 +1,137 @@
 [
   {
+    "cve_id": "CVE-2026-62360",
+    "ghsa_id": "GHSA-hvjc-whr9-649f",
+    "patched_versions": "2.22.0",
+    "published_at": "2026-07-22",
+    "repo": "cluster-operator",
+    "severity": "high",
+    "summary": "Privilege escalation via unfiltered spec.override in RabbitmqCluster",
+    "url": "https://github.com/rabbitmq/cluster-operator/security/advisories/GHSA-hvjc-whr9-649f",
+    "vulnerable_versions": "< 2.22.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-xwwf-m8fg-p9q2",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Denial of Service via Sub-Spec Frame Size Negotiation",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-xwwf-m8fg-p9q2",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-wxx3-cj7g-w73j",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Denial of Service via Synchronous Event Channel Blocking",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-wxx3-cj7g-w73j",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-rm6m-hrcw-jw33",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Consumer Message Flooding via Signed-to-Unsigned Integer Casting in Qos Configuration",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-rm6m-hrcw-jw33",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-r9c8-gcjp-xfwh",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Resource Exhaustion (OOM) via Unbounded Body Buffer Allocation",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-r9c8-gcjp-xfwh",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-j497-x9hr-x34x",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "critical",
+    "summary": "Silent Data Truncation and State Corruption via Shortstr Integer Overflow",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-j497-x9hr-x34x",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-c5pq-fr2g-9jpf",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "critical",
+    "summary": "Protocol Desynchronization and Frame Injection via Integer Overflow in readLongstr",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-c5pq-fr2g-9jpf",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-6c5v-hqjr-5xxp",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Potential Memory Exhaustion/Protocol Violation via Broker-Controlled Oversized Payload in amqp091-go",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-6c5v-hqjr-5xxp",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-4v58-74mf-rjx3",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Denial of Service via Malicious Field Length in AMQP Client",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-4v58-74mf-rjx3",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-465g-fh3v-9jw4",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Connection Configuration Overwrite via Unsanitized TLS Path Parameter Injection",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-465g-fh3v-9jw4",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-33mj-cw25-m34h",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "critical",
+    "summary": "Missing Explicit TLS Minimum Version Configuration In URI Parser",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-33mj-cw25-m34h",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-27gv-rfvv-22mv",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Plaintext Credential Exposure via Exported PLAIN Authentication Struct Fields",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-27gv-rfvv-22mv",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
     "cve_id": "CVE-2026-61830",
     "ghsa_id": "GHSA-c7f3-92gv-rj3w",
     "patched_versions": "2.21.0",
@@ -407,7 +539,7 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.8, >= 4.3.0, < 4.3.2"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-63335",
     "ghsa_id": "GHSA-qx7j-jv8m-fppr",
     "patched_versions": "5.31.0",
     "published_at": "2026-07-09",
@@ -429,7 +561,7 @@
     "vulnerable_versions": "<= 5.33.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-63337",
     "ghsa_id": "GHSA-6g32-pxv4-2wfj",
     "patched_versions": "5.33.0",
     "published_at": "2026-07-09",
@@ -462,7 +594,7 @@
     "vulnerable_versions": "< 5.33.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-63336",
     "ghsa_id": "GHSA-5m9f-rphj-c435",
     "patched_versions": "5.33.0",
     "published_at": "2026-07-09",
@@ -495,17 +627,6 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
   },
   {
-    "cve_id": "CVE-2026-57217",
-    "ghsa_id": "GHSA-gpvw-75h5-3wvx",
-    "patched_versions": "4.2.6, 4.1.11, 4.0.21, 3.13.15",
-    "published_at": "2026-06-24",
-    "repo": "rabbitmq-server",
-    "severity": "high",
-    "summary": "Topic authorization can lead to cross-tenant routing-key bypass",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-gpvw-75h5-3wvx",
-    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.21, >= 3.13.0, < 3.13.15"
-  },
-  {
     "cve_id": "CVE-2026-57220",
     "ghsa_id": "GHSA-f364-87q5-j35q",
     "patched_versions": "4.2.6",
@@ -526,6 +647,17 @@
     "summary": "Passive queue/exchange declaration bypasses authorization checks, leaking queue metadata to unprivileged users",
     "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-9q2j-2hq8-22r2",
     "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
+  },
+  {
+    "cve_id": "CVE-2026-57217",
+    "ghsa_id": "GHSA-gpvw-75h5-3wvx",
+    "patched_versions": "4.2.6, 4.1.11, 4.0.21, 3.13.15",
+    "published_at": "2026-06-24",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Topic authorization can lead to cross-tenant routing-key bypass",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-gpvw-75h5-3wvx",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.21, >= 3.13.0, < 3.13.15"
   },
   {
     "cve_id": "CVE-2026-57215",
