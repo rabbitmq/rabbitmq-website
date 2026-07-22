@@ -1,5 +1,137 @@
 [
   {
+    "cve_id": "CVE-2026-62360",
+    "ghsa_id": "GHSA-hvjc-whr9-649f",
+    "patched_versions": "2.22.0",
+    "published_at": "2026-07-22",
+    "repo": "cluster-operator",
+    "severity": "high",
+    "summary": "Privilege escalation via unfiltered spec.override in RabbitmqCluster",
+    "url": "https://github.com/rabbitmq/cluster-operator/security/advisories/GHSA-hvjc-whr9-649f",
+    "vulnerable_versions": "< 2.22.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-xwwf-m8fg-p9q2",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Denial of Service via Sub-Spec Frame Size Negotiation",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-xwwf-m8fg-p9q2",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-wxx3-cj7g-w73j",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Denial of Service via Synchronous Event Channel Blocking",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-wxx3-cj7g-w73j",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-rm6m-hrcw-jw33",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Consumer Message Flooding via Signed-to-Unsigned Integer Casting in Qos Configuration",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-rm6m-hrcw-jw33",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-r9c8-gcjp-xfwh",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Resource Exhaustion (OOM) via Unbounded Body Buffer Allocation",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-r9c8-gcjp-xfwh",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-j497-x9hr-x34x",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "critical",
+    "summary": "Silent Data Truncation and State Corruption via Shortstr Integer Overflow",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-j497-x9hr-x34x",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-c5pq-fr2g-9jpf",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "critical",
+    "summary": "Protocol Desynchronization and Frame Injection via Integer Overflow in readLongstr",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-c5pq-fr2g-9jpf",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-6c5v-hqjr-5xxp",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Potential Memory Exhaustion/Protocol Violation via Broker-Controlled Oversized Payload in amqp091-go",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-6c5v-hqjr-5xxp",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-4v58-74mf-rjx3",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Denial of Service via Malicious Field Length in AMQP Client",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-4v58-74mf-rjx3",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-465g-fh3v-9jw4",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Connection Configuration Overwrite via Unsanitized TLS Path Parameter Injection",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-465g-fh3v-9jw4",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-33mj-cw25-m34h",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "critical",
+    "summary": "Missing Explicit TLS Minimum Version Configuration In URI Parser",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-33mj-cw25-m34h",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-27gv-rfvv-22mv",
+    "patched_versions": "1.13.0",
+    "published_at": "2026-07-22",
+    "repo": "amqp091-go",
+    "severity": "high",
+    "summary": "Plaintext Credential Exposure via Exported PLAIN Authentication Struct Fields",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-27gv-rfvv-22mv",
+    "vulnerable_versions": "<1.13.0"
+  },
+  {
     "cve_id": "CVE-2026-61830",
     "ghsa_id": "GHSA-c7f3-92gv-rj3w",
     "patched_versions": "2.21.0",
@@ -23,223 +155,25 @@
   },
   {
     "cve_id": "",
-    "ghsa_id": "GHSA-qx7j-jv8m-fppr",
-    "patched_versions": "5.31.0",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-java-client",
-    "severity": "medium",
-    "summary": "RabbitMQ Java client malformed body frame triggers raw command assembler exception",
-    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-qx7j-jv8m-fppr",
-    "vulnerable_versions": "<= 5.30.0"
-  },
-  {
-    "cve_id": "CVE-2026-61634",
-    "ghsa_id": "GHSA-5xwg-cfvj-gff5",
-    "patched_versions": "5.33.0",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-java-client",
-    "severity": "low",
-    "summary": "RabbitMQ Java client accepts broker frames larger than the negotiated AMQP frame_max",
-    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-5xwg-cfvj-gff5",
-    "vulnerable_versions": "< 5.33.0"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-5m9f-rphj-c435",
-    "patched_versions": "5.33.0",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-java-client",
-    "severity": "medium",
-    "summary": "TrustEverythingTrustManager used by default in useSslProtocol() enables MITM",
-    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-5m9f-rphj-c435",
-    "vulnerable_versions": "< 5.33.0"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-6g32-pxv4-2wfj",
-    "patched_versions": "5.33.0",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-java-client",
-    "severity": "high",
-    "summary": "Unvalidated Class.forName in JSON-RPC ProcedureDescription enables arbitrary class loading",
-    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-6g32-pxv4-2wfj",
-    "vulnerable_versions": "< 5.33.0"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-48hm-chgv-398r",
-    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6, 4.3.1",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "medium",
-    "summary": "Atom table exhaustion via stream `chunk_selector`",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-48hm-chgv-398r",
-    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6, >= 4.3.0, < 4.3.1"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-2rf7-f6r6-8rwh",
-    "patched_versions": "4.2.8, 4.3.2",
+    "ghsa_id": "GHSA-x96j-244m-mrr2",
+    "patched_versions": "4.2.7, 4.3.1",
     "published_at": "2026-07-09",
     "repo": "rabbitmq-server",
     "severity": "high",
-    "summary": "Reflected XSS via the OAuth bootstrap JS endpoint",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-2rf7-f6r6-8rwh",
-    "vulnerable_versions": ">= 4.2.0, < 4.2.8, >= 4.3.0, < 4.3.2"
+    "summary": "Atom-table exhaustion via reply-to queue name decoding",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-x96j-244m-mrr2",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.7, >= 4.3.0, < 4.3.1"
   },
   {
     "cve_id": "",
-    "ghsa_id": "GHSA-88vh-gx85-p36m",
-    "patched_versions": "4.2.8, 4.3.2",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "high",
-    "summary": "Plaintext username:password stored in an insecure cookie after successful POST /login",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-88vh-gx85-p36m",
-    "vulnerable_versions": ">= 4.2.0, < 4.2.8, >= 4.3.0, < 4.3.2"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-q286-p3m9-j69f",
-    "patched_versions": "4.2.8, 4.3.2",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "low",
-    "summary": "Non-RFC-conformant cookie name when clearing the auth-mechanism preference",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-q286-p3m9-j69f",
-    "vulnerable_versions": ">= 4.2.0, < 4.2.8, >= 4.3.0, < 4.3.2"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-6v53-r759-jrvx",
+    "ghsa_id": "GHSA-x5h5-588r-cv55",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
     "repo": "rabbitmq-server",
     "severity": "medium",
-    "summary": "Atom table exhaustion via management API node field",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-6v53-r759-jrvx",
+    "summary": "AMQP 1.0 shovel status exposes plaintext URI passwords",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-x5h5-588r-cv55",
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-q8g2-pc7m-m3jw",
-    "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "high",
-    "summary": "AMQP 0-9-1 body assembly never validates accumulated size",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-q8g2-pc7m-m3jw",
-    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-rg5q-vcgf-rfh7",
-    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "medium",
-    "summary": "ReDoS via management API ?name= filter",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-rg5q-vcgf-rfh7",
-    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-7jc3-73v6-rjvc",
-    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6, 4.3.1",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "medium",
-    "summary": "Monitoring-tag user can DELETE shovels",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-7jc3-73v6-rjvc",
-    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6, >= 4.3.0, < 4.3.1"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-g5v3-w5xg-62q2",
-    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6, 4.3.1",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "low",
-    "summary": "Monitoring-tag user can restart federation links",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-g5v3-w5xg-62q2",
-    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6, >= 4.3.0, < 4.3.1"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-j45q-v7g2-82ph",
-    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "low",
-    "summary": "Cross-vhost quorum-queue status and stream tracking disclosure",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-j45q-v7g2-82ph",
-    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-rjcf-35r5-xw38",
-    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "high",
-    "summary": "Stored XSS via TLS peer-certificate DN in management UI",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-rjcf-35r5-xw38",
-    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-j9m2-hw6x-rqr9",
-    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "low",
-    "summary": "protected tag bypass via bulk-delete",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-j9m2-hw6x-rqr9",
-    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-c66h-hf5j-8jf9",
-    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "high",
-    "summary": "Pre-auth AMQP 1.0 array32 zero-width element DoS",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-c66h-hf5j-8jf9",
-    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-gmgx-hhg5-43gr",
-    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "high",
-    "summary": "Web-MQTT decompression bomb",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-gmgx-hhg5-43gr",
-    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-cw8c-4m83-9c6w",
-    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "critical",
-    "summary": "Trust-store whitelist by Issuer+Serial only",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-cw8c-4m83-9c6w",
-    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-7v63-j4gm-p4rh",
-    "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "medium",
-    "summary": "Web-STOMP unbounded pre-auth accumulation",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-7v63-j4gm-p4rh",
-    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
   },
   {
     "cve_id": "",
@@ -254,24 +188,24 @@
   },
   {
     "cve_id": "",
-    "ghsa_id": "GHSA-34jw-rm7g-hph4",
-    "patched_versions": "4.0.22, 4.1.11, 4.2.6",
+    "ghsa_id": "GHSA-rjcf-35r5-xw38",
+    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
     "repo": "rabbitmq-server",
-    "severity": "low",
-    "summary": "Super-stream HTTP creation skips configure-permission check",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-34jw-rm7g-hph4",
-    "vulnerable_versions": ">= 4.0.0, < 4.0.22, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
+    "severity": "high",
+    "summary": "Stored XSS via TLS peer-certificate DN in management UI",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-rjcf-35r5-xw38",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
     "cve_id": "",
-    "ghsa_id": "GHSA-m8pg-4x2h-jvgr",
+    "ghsa_id": "GHSA-rg5q-vcgf-rfh7",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
     "repo": "rabbitmq-server",
     "severity": "medium",
-    "summary": "Consistent-hash exchange unbounded weight",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-m8pg-4x2h-jvgr",
+    "summary": "ReDoS via management API ?name= filter",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-rg5q-vcgf-rfh7",
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
@@ -287,36 +221,80 @@
   },
   {
     "cve_id": "",
-    "ghsa_id": "GHSA-x5h5-588r-cv55",
+    "ghsa_id": "GHSA-q8g2-pc7m-m3jw",
+    "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "AMQP 0-9-1 body assembly never validates accumulated size",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-q8g2-pc7m-m3jw",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-q286-p3m9-j69f",
+    "patched_versions": "4.2.8, 4.3.2",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "Non-RFC-conformant cookie name when clearing the auth-mechanism preference",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-q286-p3m9-j69f",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.8, >= 4.3.0, < 4.3.2"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-p3hp-v9wh-ghm7",
+    "patched_versions": "3.13.17, 4.0.22, 4.1.13, 4.2.6",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "CORS * reflects Origin with Allow-Credentials",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-p3hp-v9wh-ghm7",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.17, >= 4.0.0, < 4.0.22, >= 4.1.0, < 4.1.13, >= 4.2.0, < 4.2.6"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-m8pg-4x2h-jvgr",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
     "repo": "rabbitmq-server",
     "severity": "medium",
-    "summary": "AMQP 1.0 shovel status exposes plaintext URI passwords",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-x5h5-588r-cv55",
+    "summary": "Consistent-hash exchange unbounded weight",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-m8pg-4x2h-jvgr",
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
     "cve_id": "",
-    "ghsa_id": "GHSA-85jr-6rr2-j73r",
+    "ghsa_id": "GHSA-j9m2-hw6x-rqr9",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "protected tag bypass via bulk-delete",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-j9m2-hw6x-rqr9",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-j45q-v7g2-82ph",
+    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "Cross-vhost quorum-queue status and stream tracking disclosure",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-j45q-v7g2-82ph",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-hwqx-2gfg-89qf",
+    "patched_versions": "4.2.7, 4.3.1",
     "published_at": "2026-07-09",
     "repo": "rabbitmq-server",
     "severity": "medium",
-    "summary": "list_to_atom on auth_mechanism URI tokens in amqp_client",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-85jr-6rr2-j73r",
-    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-37wx-r6q9-6fhj",
-    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "critical",
-    "summary": "OAuth2 silent verify_none fallback for JWKS fetch",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-37wx-r6q9-6fhj",
-    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
+    "summary": "Stream protocol skips per vhost per user connection limits",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-hwqx-2gfg-89qf",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.7, >= 4.3.0, < 4.3.1"
   },
   {
     "cve_id": "",
@@ -331,13 +309,57 @@
   },
   {
     "cve_id": "",
-    "ghsa_id": "GHSA-9c4f-rxxm-88q3",
+    "ghsa_id": "GHSA-gmgx-hhg5-43gr",
+    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Web-MQTT decompression bomb",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-gmgx-hhg5-43gr",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-ggrw-qm45-hwpv",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
     "repo": "rabbitmq-server",
     "severity": "medium",
-    "summary": "CSWSH on Web-STOMP / Web-MQTT (no Origin validation)",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-9c4f-rxxm-88q3",
+    "summary": "Admin-only atom exhaustion: atomize_keys on vhost metadata",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-ggrw-qm45-hwpv",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-g5v3-w5xg-62q2",
+    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6, 4.3.1",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "Monitoring-tag user can restart federation links",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-g5v3-w5xg-62q2",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6, >= 4.3.0, < 4.3.1"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-fhwq-9rvh-prj2",
+    "patched_versions": "4.1.13, 4.2.7",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "Monitoring-tag DELETE of auth-attempt metrics",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-fhwq-9rvh-prj2",
+    "vulnerable_versions": ">= 4.1.0, < 4.1.13, >= 4.2.0, < 4.2.7"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-cw8c-4m83-9c6w",
+    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "critical",
+    "summary": "Trust-store whitelist by Issuer+Serial only",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-cw8c-4m83-9c6w",
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
@@ -353,24 +375,35 @@
   },
   {
     "cve_id": "",
-    "ghsa_id": "GHSA-73qp-fwh4-2q5g",
-    "patched_versions": "4.2.7, 4.3.1",
+    "ghsa_id": "GHSA-c66h-hf5j-8jf9",
+    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
     "repo": "rabbitmq-server",
-    "severity": "medium",
-    "summary": "Atom exhaustion: to_atom on runtime-parameter component",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-73qp-fwh4-2q5g",
-    "vulnerable_versions": ">= 4.2.0, < 4.2.7, >= 4.3.0, < 4.3.1"
+    "severity": "high",
+    "summary": "Pre-auth AMQP 1.0 array32 zero-width element DoS",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-c66h-hf5j-8jf9",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
     "cve_id": "",
-    "ghsa_id": "GHSA-ggrw-qm45-hwpv",
+    "ghsa_id": "GHSA-9wm4-9m6g-w38x",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
     "repo": "rabbitmq-server",
     "severity": "medium",
-    "summary": "Admin-only atom exhaustion: atomize_keys on vhost metadata",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-ggrw-qm45-hwpv",
+    "summary": "Shovel DEBUG log of full state exposes decrypted URIs",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-9wm4-9m6g-w38x",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-9c4f-rxxm-88q3",
+    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "CSWSH on Web-STOMP / Web-MQTT (no Origin validation)",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-9c4f-rxxm-88q3",
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
@@ -386,47 +419,69 @@
   },
   {
     "cve_id": "",
-    "ghsa_id": "GHSA-p3hp-v9wh-ghm7",
-    "patched_versions": "3.13.17, 4.0.22, 4.1.13, 4.2.6",
+    "ghsa_id": "GHSA-88vh-gx85-p36m",
+    "patched_versions": "4.2.8, 4.3.2",
     "published_at": "2026-07-09",
     "repo": "rabbitmq-server",
     "severity": "high",
-    "summary": "CORS * reflects Origin with Allow-Credentials",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-p3hp-v9wh-ghm7",
-    "vulnerable_versions": ">= 3.13.0, < 3.13.17, >= 4.0.0, < 4.0.22, >= 4.1.0, < 4.1.13, >= 4.2.0, < 4.2.6"
+    "summary": "Plaintext username:password stored in an insecure cookie after successful POST /login",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-88vh-gx85-p36m",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.8, >= 4.3.0, < 4.3.2"
   },
   {
     "cve_id": "",
-    "ghsa_id": "GHSA-fhwq-9rvh-prj2",
-    "patched_versions": "4.1.13, 4.2.7",
-    "published_at": "2026-07-09",
-    "repo": "rabbitmq-server",
-    "severity": "low",
-    "summary": "Monitoring-tag DELETE of auth-attempt metrics",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-fhwq-9rvh-prj2",
-    "vulnerable_versions": ">= 4.1.0, < 4.1.13, >= 4.2.0, < 4.2.7"
-  },
-  {
-    "cve_id": "",
-    "ghsa_id": "GHSA-9wm4-9m6g-w38x",
+    "ghsa_id": "GHSA-85jr-6rr2-j73r",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
     "repo": "rabbitmq-server",
     "severity": "medium",
-    "summary": "Shovel DEBUG log of full state exposes decrypted URIs",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-9wm4-9m6g-w38x",
+    "summary": "list_to_atom on auth_mechanism URI tokens in amqp_client",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-85jr-6rr2-j73r",
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
     "cve_id": "",
-    "ghsa_id": "GHSA-x96j-244m-mrr2",
+    "ghsa_id": "GHSA-7v63-j4gm-p4rh",
+    "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "Web-STOMP unbounded pre-auth accumulation",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-7v63-j4gm-p4rh",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-7jc3-73v6-rjvc",
+    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6, 4.3.1",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "Monitoring-tag user can DELETE shovels",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-7jc3-73v6-rjvc",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6, >= 4.3.0, < 4.3.1"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-73qp-fwh4-2q5g",
     "patched_versions": "4.2.7, 4.3.1",
     "published_at": "2026-07-09",
     "repo": "rabbitmq-server",
-    "severity": "high",
-    "summary": "Atom-table exhaustion via reply-to queue name decoding",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-x96j-244m-mrr2",
+    "severity": "medium",
+    "summary": "Atom exhaustion: to_atom on runtime-parameter component",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-73qp-fwh4-2q5g",
     "vulnerable_versions": ">= 4.2.0, < 4.2.7, >= 4.3.0, < 4.3.1"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-6v53-r759-jrvx",
+    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "Atom table exhaustion via management API node field",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-6v53-r759-jrvx",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
     "cve_id": "",
@@ -441,14 +496,58 @@
   },
   {
     "cve_id": "",
-    "ghsa_id": "GHSA-hwqx-2gfg-89qf",
-    "patched_versions": "4.2.7, 4.3.1",
+    "ghsa_id": "GHSA-48hm-chgv-398r",
+    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6, 4.3.1",
     "published_at": "2026-07-09",
     "repo": "rabbitmq-server",
     "severity": "medium",
-    "summary": "Stream protocol skips per vhost per user connection limits",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-hwqx-2gfg-89qf",
-    "vulnerable_versions": ">= 4.2.0, < 4.2.7, >= 4.3.0, < 4.3.1"
+    "summary": "Atom table exhaustion via stream `chunk_selector`",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-48hm-chgv-398r",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6, >= 4.3.0, < 4.3.1"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-37wx-r6q9-6fhj",
+    "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "critical",
+    "summary": "OAuth2 silent verify_none fallback for JWKS fetch",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-37wx-r6q9-6fhj",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-34jw-rm7g-hph4",
+    "patched_versions": "4.0.22, 4.1.11, 4.2.6",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "Super-stream HTTP creation skips configure-permission check",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-34jw-rm7g-hph4",
+    "vulnerable_versions": ">= 4.0.0, < 4.0.22, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-2rf7-f6r6-8rwh",
+    "patched_versions": "4.2.8, 4.3.2",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Reflected XSS via the OAuth bootstrap JS endpoint",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-2rf7-f6r6-8rwh",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.8, >= 4.3.0, < 4.3.2"
+  },
+  {
+    "cve_id": "CVE-2026-63335",
+    "ghsa_id": "GHSA-qx7j-jv8m-fppr",
+    "patched_versions": "5.31.0",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-java-client",
+    "severity": "medium",
+    "summary": "RabbitMQ Java client malformed body frame triggers raw command assembler exception",
+    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-qx7j-jv8m-fppr",
+    "vulnerable_versions": "<= 5.30.0"
   },
   {
     "cve_id": "",
@@ -462,6 +561,17 @@
     "vulnerable_versions": "<= 5.33.0"
   },
   {
+    "cve_id": "CVE-2026-63337",
+    "ghsa_id": "GHSA-6g32-pxv4-2wfj",
+    "patched_versions": "5.33.0",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-java-client",
+    "severity": "high",
+    "summary": "Unvalidated Class.forName in JSON-RPC ProcedureDescription enables arbitrary class loading",
+    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-6g32-pxv4-2wfj",
+    "vulnerable_versions": "< 5.33.0"
+  },
+  {
     "cve_id": "",
     "ghsa_id": "GHSA-68mj-5wr7-6fgg",
     "patched_versions": "5.33.1",
@@ -473,37 +583,26 @@
     "vulnerable_versions": "<= 5.33.0"
   },
   {
-    "cve_id": "CVE-2026-57215",
-    "ghsa_id": "GHSA-5cq3-v9jx-p3x3",
-    "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
-    "published_at": "2026-06-24",
-    "repo": "rabbitmq-server",
-    "severity": "high",
-    "summary": "Direct-reply-to binding persistence can lead to unauthorized reply-channel injection and persistent phantom",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-5cq3-v9jx-p3x3",
-    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
+    "cve_id": "CVE-2026-61634",
+    "ghsa_id": "GHSA-5xwg-cfvj-gff5",
+    "patched_versions": "5.33.0",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-java-client",
+    "severity": "low",
+    "summary": "RabbitMQ Java client accepts broker frames larger than the negotiated AMQP frame_max",
+    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-5xwg-cfvj-gff5",
+    "vulnerable_versions": "< 5.33.0"
   },
   {
-    "cve_id": "CVE-2026-57216",
-    "ghsa_id": "GHSA-36m6-588r-vqcw",
-    "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
-    "published_at": "2026-06-24",
-    "repo": "rabbitmq-server",
+    "cve_id": "CVE-2026-63336",
+    "ghsa_id": "GHSA-5m9f-rphj-c435",
+    "patched_versions": "5.33.0",
+    "published_at": "2026-07-09",
+    "repo": "rabbitmq-java-client",
     "severity": "medium",
-    "summary": "AMQP 1.0, AMQP 0-9-1, Stream Protocol loopback enforcement can lead to remote guest sessions due to listener-address loopback checks",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-36m6-588r-vqcw",
-    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
-  },
-  {
-    "cve_id": "CVE-2026-57217",
-    "ghsa_id": "GHSA-gpvw-75h5-3wvx",
-    "patched_versions": "4.2.6, 4.1.11, 4.0.21, 3.13.15",
-    "published_at": "2026-06-24",
-    "repo": "rabbitmq-server",
-    "severity": "high",
-    "summary": "Topic authorization can lead to cross-tenant routing-key bypass",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-gpvw-75h5-3wvx",
-    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.21, >= 3.13.0, < 3.13.15"
+    "summary": "TrustEverythingTrustManager used by default in useSslProtocol() enables MITM",
+    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-5m9f-rphj-c435",
+    "vulnerable_versions": "< 5.33.0"
   },
   {
     "cve_id": "CVE-2026-57218",
@@ -515,6 +614,17 @@
     "summary": "AMQP 0-9-1 in combination with OAuth 2: consumer persistence can lead to post-revocation message disclosure",
     "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-wmrr-4h5v-5ch7",
     "vulnerable_versions": ">= 4.2.0, < 4.2.6"
+  },
+  {
+    "cve_id": "CVE-2026-57219",
+    "ghsa_id": "GHSA-pj24-8j6m-vq9q",
+    "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
+    "published_at": "2026-06-24",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Unauthenticated disclosure of OAuth client credentials via an HTTP API endpoint with certain less common OAuth 2 configurations",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-pj24-8j6m-vq9q",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
   },
   {
     "cve_id": "CVE-2026-57220",
@@ -539,26 +649,37 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
   },
   {
-    "cve_id": "CVE-2026-57219",
-    "ghsa_id": "GHSA-pj24-8j6m-vq9q",
+    "cve_id": "CVE-2026-57217",
+    "ghsa_id": "GHSA-gpvw-75h5-3wvx",
+    "patched_versions": "4.2.6, 4.1.11, 4.0.21, 3.13.15",
+    "published_at": "2026-06-24",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Topic authorization can lead to cross-tenant routing-key bypass",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-gpvw-75h5-3wvx",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.21, >= 3.13.0, < 3.13.15"
+  },
+  {
+    "cve_id": "CVE-2026-57215",
+    "ghsa_id": "GHSA-5cq3-v9jx-p3x3",
     "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
     "published_at": "2026-06-24",
     "repo": "rabbitmq-server",
     "severity": "high",
-    "summary": "Unauthenticated disclosure of OAuth client credentials via an HTTP API endpoint with certain less common OAuth 2 configurations",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-pj24-8j6m-vq9q",
+    "summary": "Direct-reply-to binding persistence can lead to unauthorized reply-channel injection and persistent phantom",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-5cq3-v9jx-p3x3",
     "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
   },
   {
-    "cve_id": "CVE-2026-57214",
-    "ghsa_id": "GHSA-6jfq-prw2-7rwp",
-    "patched_versions": "4.2.5",
-    "published_at": "2026-06-18",
+    "cve_id": "CVE-2026-57216",
+    "ghsa_id": "GHSA-36m6-588r-vqcw",
+    "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
+    "published_at": "2026-06-24",
     "repo": "rabbitmq-server",
-    "severity": "high",
-    "summary": "Stored XSS in RabbitMQ management UI",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-6jfq-prw2-7rwp",
-    "vulnerable_versions": ">= 4.2.0, < 4.2.5"
+    "severity": "medium",
+    "summary": "AMQP 1.0, AMQP 0-9-1, Stream Protocol loopback enforcement can lead to remote guest sessions due to listener-address loopback checks",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-36m6-588r-vqcw",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
   },
   {
     "cve_id": "CVE-2026-57213",
@@ -572,17 +693,6 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.5, >= 4.1.0, < 4.1.10, >= 4.0.0, < 4.0.19, >= 3.13.0, < 3.13.14"
   },
   {
-    "cve_id": "CVE-2026-57212",
-    "ghsa_id": "GHSA-5cmq-vp28-xqrj",
-    "patched_versions": "4.2.5, 4.1.10, 4.0.19, 3.13.14",
-    "published_at": "2026-06-18",
-    "repo": "rabbitmq-server",
-    "severity": "high",
-    "summary": "RabbitMQ management HTTP API accepts request bodies larger than configured max_http_body_size",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-5cmq-vp28-xqrj",
-    "vulnerable_versions": ">= 4.2.0, < 4.2.5, >= 4.1.0, < 4.1.10, >= 4.0.0, < 4.0.19, >= 3.13.0, < 3.13.14"
-  },
-  {
     "cve_id": "CVE-2026-57211",
     "ghsa_id": "GHSA-7v84-m3g5-vxq6",
     "patched_versions": "4.2.6, 4.1.11",
@@ -592,6 +702,28 @@
     "summary": "UNC SSRF affecting RabbitMQ management UI on Windows",
     "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-7v84-m3g5-vxq6",
     "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11"
+  },
+  {
+    "cve_id": "CVE-2026-57214",
+    "ghsa_id": "GHSA-6jfq-prw2-7rwp",
+    "patched_versions": "4.2.5",
+    "published_at": "2026-06-18",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Stored XSS in RabbitMQ management UI",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-6jfq-prw2-7rwp",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.5"
+  },
+  {
+    "cve_id": "CVE-2026-57212",
+    "ghsa_id": "GHSA-5cmq-vp28-xqrj",
+    "patched_versions": "4.2.5, 4.1.10, 4.0.19, 3.13.14",
+    "published_at": "2026-06-18",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "RabbitMQ management HTTP API accepts request bodies larger than configured max_http_body_size",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-5cmq-vp28-xqrj",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.5, >= 4.1.0, < 4.1.10, >= 4.0.0, < 4.0.19, >= 3.13.0, < 3.13.14"
   },
   {
     "cve_id": "CVE-2026-44838",

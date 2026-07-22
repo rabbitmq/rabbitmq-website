@@ -30,7 +30,7 @@ version-specific notes and [ways of provisioning](#erlang-repositories) recent E
 :::warning
 
 Erlang 28 is **only supported for brand new clusters**: upgrades of clusters running RabbitMQ with Khepri on Erlang 27
-to Erlang 28 have a known issue that affects rolling upgrades.
+to Erlang 28 can run into a known issue that affects mixed-version clusters and thus rolling upgrades.
 
 :::
 
@@ -72,8 +72,41 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     <tr>
       <td>
         <ul>
+          <li>4.3.3</li>
+          <li>4.2.9</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>27.0</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>27.x</li>
+        </ul>
+      </td>
+      <td>
+        <ul class="notes">
+          <li>
+            Erlang 29 is not supported by RabbitMQ.
+          </li>
+          <li>
+            Erlang 28 is **only supported for brand new clusters**: upgrades of clusters running RabbitMQ with Khepri on Erlang 27
+            to Erlang 28 can run into a known issue that affects mixed-version clusters and thus rolling upgrades.
+          </li>
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <ul>
+          <li>4.3.2</li>
           <li>4.3.1</li>
           <li>4.3.0</li>
+          <li>4.2.8</li>
+          <li>4.2.7</li>
           <li>4.2.6</li>
           <li>4.2.5</li>
           <li>4.2.4</li>
@@ -96,7 +129,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       </td>
       <td>
         <ul>
-          <li>27.0</li>
+          <li>26.2</li>
         </ul>
       </td>
       <td>
@@ -114,7 +147,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
           </li>
           <li>
             Erlang 28 is **only supported for brand new clusters**: upgrades of clusters running RabbitMQ with Khepri on Erlang 27
-            to Erlang 28 have a known issue that affects rolling upgrades.
+            to Erlang 28 can run into a known issue that affects mixed-version clusters and thus rolling upgrades.
           </li>
           <li>
             Starting with the 4.0.4 release, the 4.0.x release series is compatible with Erlang 27.

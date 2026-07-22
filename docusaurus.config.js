@@ -71,6 +71,7 @@ const config = {
         },
         '4.3': {
           releases: [
+            {version: '4.3.3', release_date: "2026-07-20", },
             {version: '4.3.2', release_date: "2026-06-15", },
             {version: '4.3.1', release_date: "2026-05-20", },
             {version: '4.3.0', release_date: "2026-04-23", },
@@ -80,6 +81,9 @@ const config = {
         },
         '4.2': {
           releases: [
+            {version: '4.2.9', release_date: "2026-07-20", },
+            {version: '4.2.8', release_date: "2026-06-20", },
+            {version: '4.2.7', release_date: "2026-05-21", },
             {version: '4.2.6', release_date: "2026-05-20", },
             {version: '4.2.5', release_date: "2026-03-16", },
             {version: '4.2.4', release_date: "2026-02-17", },

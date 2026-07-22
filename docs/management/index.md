@@ -57,8 +57,8 @@ This guide covers:
   only
 - [Authenticating with OAuth 2](#oauth2-authentication)
 - [Strict transport security](#hsts), [Content security policy](#csp),
-  [cross-origin resource sharing](#cors), and [other security-related header](#other-security-headers)
-  control
+  [cross-origin resource sharing](#cors), and [other security-related headers](#other-security-headers)
+  including [hiding the Allow response header](#hide-allow-header)
 - [Statistics collection interval](#statistics-interval)
 - [Message rate mode](#rates-mode) (rate fidelity) and [data retention intervals](#sample-retention)
 - [HTTP API request logging](#http-logging)
@@ -1268,11 +1268,13 @@ The supported headers are:
  * [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)
  * [`X-Xss-Protection`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)
  * [`X-Content-Type-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)
+ * [`Referrer-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy): `no-referrer` and `same-origin` prevent the management UI origin from being sent to external sites; without this header, browsers default to `strict-origin-when-cross-origin`, which does send the origin
 
 ```ini
 management.headers.content_type_options = nosniff
 management.headers.xss_protection = 1; mode=block
 management.headers.frame_options = DENY
+management.headers.referrer_policy = no-referrer
 ```
 
 They can be combined with the aforementioned CORS, HSTS, CSP headers:
@@ -1284,7 +1286,25 @@ management.csp.policy = default-src 'self'; script-src 'self' 'unsafe-eval'
 management.headers.content_type_options = nosniff
 management.headers.xss_protection = 1; mode=block
 management.headers.frame_options = DENY
+management.headers.referrer_policy = no-referrer
 ```
+
+#### Hiding the Allow Response Header {#hide-allow-header}
+
+By default, the management plugin includes an
+[`Allow`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Allow) response header on
+every HTTP response. The header lists all HTTP methods accepted by the matched route. In some
+cases, operations would prefer to hide this information.
+
+When `management.http.hide_allow_header` is set to `true`, the `Allow` header is removed from
+all responses **except** `405 Method Not Allowed`, where [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110#section-10.2.1)
+requires it to be present:
+
+```ini
+management.http.hide_allow_header = true
+```
+
+This setting is disabled (`false`) by default.
 
 ### Login Session Timeout {#login-session-timeout}
 
@@ -1320,6 +1340,26 @@ trailing slash is <em>required</em> in this case.
 ```ini
 management.path_prefix = /my-prefix
 ```
+
+### Restricting Definition Upload to JSON Files {#require-definition-json-extension}
+
+Some deployments require strict filename extension validation for definition file uploads.
+When enabled, the management UI and the server both validate that the uploaded file has a `.json` extension.
+
+On the client side, the management UI sets the `accept=".json"` attribute on the file input,
+which tells the browser to filter the file picker to `.json` files only. On the server side,
+the filename extension is independently validated before the file is processed.
+
+The new configuration setting is `management.require_definition_json_extension`. It defaults
+to `false` for backwards compatibility. Regardless of its value, the server always validates
+that the uploaded content is valid JSON before importing it.
+
+```ini
+management.require_definition_json_extension = true
+```
+
+When enabled, files with a different extension or no extension at all are rejected with an
+HTTP 400 error.
 
 ### Example {#example-config}
 
