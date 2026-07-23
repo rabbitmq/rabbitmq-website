@@ -12,6 +12,17 @@
   },
   {
     "cve_id": "",
+    "ghsa_id": "GHSA-w6mq-4qpx-v7mh",
+    "patched_versions": "4.3.4, 4.2.10, 4.1.15, 4.0.24",
+    "published_at": "2026-07-23",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "RabbitMQ AMQP 1.0 parser: amplification memory-exhaustion DoS via zero-width array aggregation",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-w6mq-4qpx-v7mh",
+    "vulnerable_versions": ">= 4.3.0, < 4.3.4, >= 4.2.0, < 4.2.10, >= 4.1.0, < 4.1.15, >= 4.0.0, < 4.0.24"
+  },
+  {
+    "cve_id": "",
     "ghsa_id": "GHSA-qw3h-qqm9-jrw8",
     "patched_versions": "4.3.3, 4.2.9, 4.1.14, 4.0.23, 3.13.18",
     "published_at": "2026-07-23",
@@ -53,6 +64,17 @@
     "summary": "Shovel does not format state logged by the crash reporter and can leave unencrypted credentials in a crash dump file",
     "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-q44f-9vc5-grh7",
     "vulnerable_versions": ">= 4.3.0, < 4.3.3, >= 4.2.0, < 4.2.9, >= 4.1.0, < 4.1.14, >= 4.0.0, < 4.0.23"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-p35w-6mx2-q4pc",
+    "patched_versions": "4.3.4, 4.2.10, 4.1.15, 4.0.24",
+    "published_at": "2026-07-23",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "AMQP 1.0 symbolic body descriptor prefix collisions bypass validation",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-p35w-6mx2-q4pc",
+    "vulnerable_versions": ">= 4.3.0, < 4.3.4, >= 4.2.0, < 4.2.10, >= 4.1.0, < 4.1.15, >= 4.0.0, < 4.0.24"
   },
   {
     "cve_id": "",
