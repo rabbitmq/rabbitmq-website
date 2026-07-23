@@ -721,6 +721,57 @@ The following values are valid:
 * `lc4`: four characters, lower case, e.g. `dbug` or `warn`
 * `uc4`: four characters, upper case, e.g. `DBUG` or `WARN`
 
+### Term Depth Limit {#depth}
+
+Some log messages contain deeply nested Erlang terms, such as large data
+structures embedded in crash reports. The depth to which such terms are
+printed can be capped so that deeper sub-terms are truncated and replaced
+with `...`. This keeps individual log entries from growing very large.
+
+The depth can be set per log output:
+
+``` ini
+# Truncate terms nested deeper than 20 levels.
+log.file.formatter.depth = 20
+```
+
+As with the other settings in this section, the key can also be one of
+`log.console.formatter.depth`, `log.exchange.formatter.depth` or
+`log.syslog.formatter.depth`.
+
+The following values are valid:
+
+* `unlimited`: do not truncate terms (the default)
+* a positive integer: the maximum term depth to print
+
+When an explicit depth is set, values below `5` are raised to `5`.
+
+When a formatter's depth is left at the default (`unlimited`), RabbitMQ
+falls back to the value of the older, global `log.error_logger_format_depth`
+setting (covered below), if one is set.
+
+#### Global Term Depth Limit {#error-logger-format-depth}
+
+`log.error_logger_format_depth` is an older, global setting that applies to
+all log outputs at once. It is provided for backwards compatibility and maps
+to the `error_logger_format_depth` Erlang `kernel` variable.
+
+``` ini
+# Applies to all log outputs unless a per-output
+# 'log.*.formatter.depth' is set.
+log.error_logger_format_depth = 30
+```
+
+The following values are valid:
+
+* `unlimited`: do not truncate terms
+* a positive integer: the maximum term depth to print
+
+When an integer is set, values below `10` are raised to `10`.
+
+The per-output `log.*.formatter.depth` settings take precedence: this global
+setting is only used for outputs whose depth is left at the default.
+
 ### Log Message Format
 
 :::warning
