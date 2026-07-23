@@ -24,7 +24,7 @@ gh api "orgs/$ORG/security-advisories" --paginate -q '
     url: .html_url,
     vulnerable_versions: ([.vulnerabilities[].vulnerable_version_range] | map(select(length > 0)) | join(", ")),
     patched_versions: ([.vulnerabilities[].patched_versions] | map(select(length > 0)) | join(", "))
-  }) | sort_by([.published_at, .repo, .ghsa_id]) | reverse
-' | jq -s 'add' > "$OUT_FILE"
+  })
+' | jq -s 'add | sort_by([.published_at, .repo, .ghsa_id]) | reverse' > "$OUT_FILE"
 
 echo "Successfully wrote $(jq length "$OUT_FILE") advisories to $OUT_FILE"

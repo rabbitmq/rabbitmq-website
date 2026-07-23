@@ -803,6 +803,17 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
   },
   {
+    "cve_id": "CVE-2026-57217",
+    "ghsa_id": "GHSA-gpvw-75h5-3wvx",
+    "patched_versions": "4.2.6, 4.1.11, 4.0.21, 3.13.15",
+    "published_at": "2026-06-24",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Topic authorization can lead to cross-tenant routing-key bypass",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-gpvw-75h5-3wvx",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.21, >= 3.13.0, < 3.13.15"
+  },
+  {
     "cve_id": "CVE-2026-57220",
     "ghsa_id": "GHSA-f364-87q5-j35q",
     "patched_versions": "4.2.6",
@@ -823,17 +834,6 @@
     "summary": "Passive queue/exchange declaration bypasses authorization checks, leaking queue metadata to unprivileged users",
     "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-9q2j-2hq8-22r2",
     "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
-  },
-  {
-    "cve_id": "CVE-2026-57217",
-    "ghsa_id": "GHSA-gpvw-75h5-3wvx",
-    "patched_versions": "4.2.6, 4.1.11, 4.0.21, 3.13.15",
-    "published_at": "2026-06-24",
-    "repo": "rabbitmq-server",
-    "severity": "high",
-    "summary": "Topic authorization can lead to cross-tenant routing-key bypass",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-gpvw-75h5-3wvx",
-    "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.21, >= 3.13.0, < 3.13.15"
   },
   {
     "cve_id": "CVE-2026-57215",
