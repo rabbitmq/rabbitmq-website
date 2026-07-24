@@ -476,6 +476,7 @@ levels or to different files. The categories are:
  * `queue`: queue logs. Mostly debug messages.
  * `federation`: federation plugin logs.
  * `upgrade`: verbose upgrade logs. These can be excessive.
+ * `user`: authentication events. Successful logins are logged at the `info` level, failed login attempts at the `warning` level.
  * `default`: all other log entries. You cannot override file location for this category.
 
 It is possible to configure a different log level or file location for each message category
