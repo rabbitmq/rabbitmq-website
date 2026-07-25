@@ -89,7 +89,7 @@ Next, create a `pom.xml` file with the RabbitMQ Stream Java client as a dependen
 
 Next, let's create two files for the message producer (sender) and the message consumer (receiver) part of this tutorial.
 They will be called  [`Send.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Send.java) and
-[`Receiver.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Receiver.java), respectively.
+[`Receive.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java-stream-mvn/src/main/java/Receive.java), respectively.
 
 The producer will connect to RabbitMQ, send a single message, then exit. The consumer will consume and print it
 to standard output.

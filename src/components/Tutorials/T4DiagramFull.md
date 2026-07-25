@@ -1,7 +1,7 @@
 ```mermaid
 flowchart LR
     P((P))
-    X{{direct}}
+    X{{X}}
     Q1[[amq.gen-S9b…]]
     Q2[[amq.gen-Ag1…]]
     C1((C₁))
