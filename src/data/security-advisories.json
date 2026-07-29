@@ -11,7 +11,7 @@
     "vulnerable_versions": ">= 4.3.0, < 4.3.3, >= 4.2.0, < 4.2.9, >= 4.1.0, < 4.1.14, >= 4.0.0, < 4.0.23"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67414",
     "ghsa_id": "GHSA-w6mq-4qpx-v7mh",
     "patched_versions": "4.3.4, 4.2.10, 4.1.15, 4.0.24",
     "published_at": "2026-07-23",
@@ -22,7 +22,7 @@
     "vulnerable_versions": ">= 4.3.0, < 4.3.4, >= 4.2.0, < 4.2.10, >= 4.1.0, < 4.1.15, >= 4.0.0, < 4.0.24"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67409",
     "ghsa_id": "GHSA-qw3h-qqm9-jrw8",
     "patched_versions": "4.3.3, 4.2.9, 4.1.14, 4.0.23, 3.13.18",
     "published_at": "2026-07-23",
@@ -33,7 +33,7 @@
     "vulnerable_versions": ">= 4.3.0, < 4.3.3, >= 4.2.0, < 4.2.9, >= 4.1.0, < 4.1.14, >= 4.0.0, < 4.0.23, >= 3.13.0, < 3.13.18"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67227",
     "ghsa_id": "GHSA-q7x8-97rh-cr24",
     "patched_versions": "4.0.22, 4.1.14, 4.2.7, 4.3.1",
     "published_at": "2026-07-23",
@@ -44,7 +44,7 @@
     "vulnerable_versions": ">= 4.0.0, < 4.0.22, >= 4.1.0, < 4.1.14, >= 4.2.0, < 4.2.7, >= 4.3.0, < 4.3.1"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67407",
     "ghsa_id": "GHSA-q46v-hrvq-hp24",
     "patched_versions": "4.3.3, 4.2.9, 4.1.14, 4.0.23",
     "published_at": "2026-07-23",
@@ -55,7 +55,7 @@
     "vulnerable_versions": ">= 4.3.2, < 4.3.3, >= 4.2.0, < 4.2.9, >= 4.1.0, < 4.1.14, >= 4.0.0, < 4.0.23"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67406",
     "ghsa_id": "GHSA-q44f-9vc5-grh7",
     "patched_versions": "4.3.3, 4.2.9, 4.1.14, 4.0.23",
     "published_at": "2026-07-23",
@@ -66,7 +66,7 @@
     "vulnerable_versions": ">= 4.3.0, < 4.3.3, >= 4.2.0, < 4.2.9, >= 4.1.0, < 4.1.14, >= 4.0.0, < 4.0.23"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67416",
     "ghsa_id": "GHSA-p35w-6mx2-q4pc",
     "patched_versions": "4.3.4, 4.2.10, 4.1.15, 4.0.24",
     "published_at": "2026-07-23",
@@ -77,7 +77,7 @@
     "vulnerable_versions": ">= 4.3.0, < 4.3.4, >= 4.2.0, < 4.2.10, >= 4.1.0, < 4.1.15, >= 4.0.0, < 4.0.24"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67410",
     "ghsa_id": "GHSA-f9f2-q3jf-wfj3",
     "patched_versions": "4.3.3, 4.2.9",
     "published_at": "2026-07-23",
@@ -88,7 +88,7 @@
     "vulnerable_versions": ">= 4.3.0, < 4.3.3, >= 4.2.0, < 4.2.9"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67413",
     "ghsa_id": "GHSA-chxf-3hfg-j8f7",
     "patched_versions": "4.2.9, 4.3.3, 4.1.14, 4.0.23",
     "published_at": "2026-07-23",
@@ -99,7 +99,7 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.9, >= 4.3.0, < 4.3.3, >= 4.1.0, < 4.1.14, >= 4.0.0, < 4.0.23"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67415",
     "ghsa_id": "GHSA-8mpg-qw9r-m5cr",
     "patched_versions": "4.3.3, 4.2.9",
     "published_at": "2026-07-23",
@@ -110,7 +110,7 @@
     "vulnerable_versions": ">= 4.3.0, < 4.3.3, >= 4.2.0, < 4.2.9"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67411",
     "ghsa_id": "GHSA-4r6f-9cpw-f6g6",
     "patched_versions": "4.3.3, 4.2.9, 4.1.14, 4.0.23, 3.13.18",
     "published_at": "2026-07-23",
@@ -121,7 +121,7 @@
     "vulnerable_versions": ">= 4.3.0, < 4.3.3, >= 4.2.0, < 4.2.9, >= 4.1.0, < 4.1.14, >= 4.0.0, < 4.0.23, >= 3.13.0, < 3.13.18"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67412",
     "ghsa_id": "GHSA-42pc-678q-v8qj",
     "patched_versions": "4.3.3, 4.2.9, 4.1.14, 4.0.24, 3.13.18",
     "published_at": "2026-07-23",
@@ -132,7 +132,7 @@
     "vulnerable_versions": ">= 4.3.0, < 4.3.3, >= 4.2.0, < 4.2.9, >= 4.1.0, < 4.1.14, >= 4.0.0, < 4.0.24, >= 3.13.0, < 3.13.18"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67226",
     "ghsa_id": "GHSA-34c7-r8w9-5wv8",
     "patched_versions": "4.0.22, 4.1.14, 4.2.7",
     "published_at": "2026-07-23",
@@ -143,7 +143,7 @@
     "vulnerable_versions": ">= 4.0.0, < 4.0.22, >= 4.1.0, < 4.1.14, >= 4.2.0, < 4.2.7"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67408",
     "ghsa_id": "GHSA-2hm4-4438-49q8",
     "patched_versions": "4.3.3, 4.2.9, 4.1.11",
     "published_at": "2026-07-23",
@@ -154,7 +154,7 @@
     "vulnerable_versions": ">= 4.3.0, < 4.3.3, >= 4.2.0, < 4.2.9, >= 4.1.0, < 4.1.11"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67239",
     "ghsa_id": "GHSA-xm9p-57xv-vxwc",
     "patched_versions": "3.13.18, 4.0.23, 4.1.14, 4.2.9, 4.3.3",
     "published_at": "2026-07-22",
@@ -165,7 +165,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.18, >= 4.0.0, < 4.0.23, >= 4.1.0, < 4.1.14, >= 4.2.0, < 4.2.9, >= 4.3.0, < 4.3.3"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67242",
     "ghsa_id": "GHSA-rrj4-g94f-rqj9",
     "patched_versions": "4.2.9, 4.3.3",
     "published_at": "2026-07-22",
@@ -176,7 +176,7 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.9, >= 4.3.0, < 4.3.3"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67241",
     "ghsa_id": "GHSA-rg2g-289m-xhhw",
     "patched_versions": "4.2.9, 4.3.3",
     "published_at": "2026-07-22",
@@ -187,7 +187,7 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.9, >= 4.3.0, < 4.3.3"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67223",
     "ghsa_id": "GHSA-9x7r-g78c-5835",
     "patched_versions": "3.13.18, 4.0.23, 4.1.14, 4.2.9, 4.3.3",
     "published_at": "2026-07-22",
@@ -352,7 +352,7 @@
     "vulnerable_versions": "< 5.34.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67238",
     "ghsa_id": "GHSA-x96j-244m-mrr2",
     "patched_versions": "4.2.7, 4.3.1",
     "published_at": "2026-07-09",
@@ -363,7 +363,7 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.7, >= 4.3.0, < 4.3.1"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67221",
     "ghsa_id": "GHSA-x5h5-588r-cv55",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -374,7 +374,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-66080",
     "ghsa_id": "GHSA-wg79-5449-m728",
     "patched_versions": "4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -385,7 +385,7 @@
     "vulnerable_versions": ">= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-66077",
     "ghsa_id": "GHSA-rjcf-35r5-xw38",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -396,7 +396,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-66074",
     "ghsa_id": "GHSA-rg5q-vcgf-rfh7",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -407,7 +407,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67220",
     "ghsa_id": "GHSA-r3qr-4h63-mvj2",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -418,7 +418,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67235",
     "ghsa_id": "GHSA-q8g2-pc7m-m3jw",
     "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
     "published_at": "2026-07-09",
@@ -429,7 +429,7 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67234",
     "ghsa_id": "GHSA-q286-p3m9-j69f",
     "patched_versions": "4.2.8, 4.3.2",
     "published_at": "2026-07-09",
@@ -440,7 +440,7 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.8, >= 4.3.0, < 4.3.2"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-66070",
     "ghsa_id": "GHSA-p3hp-v9wh-ghm7",
     "patched_versions": "3.13.17, 4.0.22, 4.1.13, 4.2.6",
     "published_at": "2026-07-09",
@@ -451,7 +451,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.17, >= 4.0.0, < 4.0.22, >= 4.1.0, < 4.1.13, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67219",
     "ghsa_id": "GHSA-m8pg-4x2h-jvgr",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -462,7 +462,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-66078",
     "ghsa_id": "GHSA-j9m2-hw6x-rqr9",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -473,7 +473,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-66076",
     "ghsa_id": "GHSA-j45q-v7g2-82ph",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -484,7 +484,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-66067",
     "ghsa_id": "GHSA-hwqx-2gfg-89qf",
     "patched_versions": "4.2.7, 4.3.1",
     "published_at": "2026-07-09",
@@ -495,7 +495,7 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.7, >= 4.3.0, < 4.3.1"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67224",
     "ghsa_id": "GHSA-h7cq-qrr8-7vgc",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6, 4.3.1",
     "published_at": "2026-07-09",
@@ -506,7 +506,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6, >= 4.3.0, < 4.3.1"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67232",
     "ghsa_id": "GHSA-gmgx-hhg5-43gr",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -517,7 +517,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67229",
     "ghsa_id": "GHSA-ggrw-qm45-hwpv",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -528,7 +528,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-66075",
     "ghsa_id": "GHSA-g5v3-w5xg-62q2",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6, 4.3.1",
     "published_at": "2026-07-09",
@@ -539,7 +539,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6, >= 4.3.0, < 4.3.1"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-66069",
     "ghsa_id": "GHSA-fhwq-9rvh-prj2",
     "patched_versions": "4.1.13, 4.2.7",
     "published_at": "2026-07-09",
@@ -550,7 +550,7 @@
     "vulnerable_versions": ">= 4.1.0, < 4.1.13, >= 4.2.0, < 4.2.7"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67231",
     "ghsa_id": "GHSA-cw8c-4m83-9c6w",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -561,7 +561,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67225",
     "ghsa_id": "GHSA-c8c4-gvv4-8j3q",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -572,7 +572,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-66079",
     "ghsa_id": "GHSA-c66h-hf5j-8jf9",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -583,7 +583,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-66068",
     "ghsa_id": "GHSA-9wm4-9m6g-w38x",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -594,7 +594,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67405",
     "ghsa_id": "GHSA-9c4f-rxxm-88q3",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -605,7 +605,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-66071",
     "ghsa_id": "GHSA-89p2-f5cv-x5cg",
     "patched_versions": "3.13.15, 4.0.22, 4.1.11, 4.2.6, 4.3.1",
     "published_at": "2026-07-09",
@@ -616,7 +616,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.22, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6, >= 4.3.0, < 4.3.1"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67236",
     "ghsa_id": "GHSA-88vh-gx85-p36m",
     "patched_versions": "4.2.8, 4.3.2",
     "published_at": "2026-07-09",
@@ -627,7 +627,7 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.8, >= 4.3.0, < 4.3.2"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67222",
     "ghsa_id": "GHSA-85jr-6rr2-j73r",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -638,7 +638,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67230",
     "ghsa_id": "GHSA-7v63-j4gm-p4rh",
     "patched_versions": "4.2.6, 4.1.11, 4.0.20, 3.13.15",
     "published_at": "2026-07-09",
@@ -649,7 +649,7 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.6, >= 4.1.0, < 4.1.11, >= 4.0.0, < 4.0.20, >= 3.13.0, < 3.13.15"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67233",
     "ghsa_id": "GHSA-7jc3-73v6-rjvc",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6, 4.3.1",
     "published_at": "2026-07-09",
@@ -660,7 +660,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6, >= 4.3.0, < 4.3.1"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67228",
     "ghsa_id": "GHSA-73qp-fwh4-2q5g",
     "patched_versions": "4.2.7, 4.3.1",
     "published_at": "2026-07-09",
@@ -671,7 +671,7 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.7, >= 4.3.0, < 4.3.1"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-66073",
     "ghsa_id": "GHSA-6v53-r759-jrvx",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -682,7 +682,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67240",
     "ghsa_id": "GHSA-59c5-553c-57m2",
     "patched_versions": "4.2.7, 4.3.1",
     "published_at": "2026-07-09",
@@ -693,7 +693,7 @@
     "vulnerable_versions": ">= 4.2.0, < 4.2.7, >= 4.3.0, < 4.3.1"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-66072",
     "ghsa_id": "GHSA-48hm-chgv-398r",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6, 4.3.1",
     "published_at": "2026-07-09",
@@ -704,7 +704,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6, >= 4.3.0, < 4.3.1"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67404",
     "ghsa_id": "GHSA-37wx-r6q9-6fhj",
     "patched_versions": "3.13.15, 4.0.20, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -715,7 +715,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.15, >= 4.0.0, < 4.0.20, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67218",
     "ghsa_id": "GHSA-34jw-rm7g-hph4",
     "patched_versions": "4.0.22, 4.1.11, 4.2.6",
     "published_at": "2026-07-09",
@@ -726,7 +726,7 @@
     "vulnerable_versions": ">= 4.0.0, < 4.0.22, >= 4.1.0, < 4.1.11, >= 4.2.0, < 4.2.6"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-67237",
     "ghsa_id": "GHSA-2rf7-f6r6-8rwh",
     "patched_versions": "4.2.8, 4.3.2",
     "published_at": "2026-07-09",
