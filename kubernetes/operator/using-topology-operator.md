@@ -1,6 +1,9 @@
 ---
 title: Using the RabbitMQ Messaging Topology Kubernetes Operator
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Using the RabbitMQ Messaging Topology Kubernetes Operator
 
 Use this information to learn how to deploy Custom Resource objects that will be managed by the Messaging Topology Operator.
@@ -698,7 +701,39 @@ spec:
 
 ### Shovel Protocols {#shovel-protocols}
 
-Shovel supports both AMQP 0.9.1 and AMQP 1.0. Set `spec.srcProtocol` and/or `spec.destProtocol` to configure which protocol Shovel uses to connect to the source and destination; when omitted, it defaults to `amqp091`. Some fields are protocol-specific: `srcQueue`, `srcExchange`, `srcExchangeKey`, `srcConsumerArgs`, `destQueue`, `destExchange`, `destExchangeKey`, and `destPublishProperties` only apply to `amqp091`; `srcAddress`, `destAddress`, `destApplicationProperties`, `destProperties`, and `destMessageAnnotations` only apply to `amqp10`.
+Shovel supports both AMQP 0.9.1 and AMQP 1.0. Set `spec.srcProtocol` and/or `spec.destProtocol` to configure which protocol Shovel uses to connect to the source and destination; when omitted, it defaults to `amqp091`. Some fields only apply to one of the two protocols, as shown below.
+
+<Tabs groupId="protocol">
+<TabItem value="amqp-091" label="AMQP 0-9-1" default>
+
+These fields apply when `srcProtocol` and/or `destProtocol` are `amqp091` (the default when omitted):
+
+| Field | Side | Notes |
+|-------|------|-------|
+| `srcQueue` | source | Source queue name. |
+| `srcExchange` / `srcExchangeKey` | source | Source exchange and routing key. |
+| `srcConsumerArgs` | source | Arbitrary map of consumer arguments, for example `x-priority`. |
+| `srcQueueArgs` | source | Arbitrary map of queue arguments; only used if Shovel auto-declares the source queue. |
+| `destQueue` | destination | Destination queue name. |
+| `destExchange` / `destExchangeKey` | destination | Destination exchange and routing key. |
+| `destPublishProperties` | destination | Arbitrary map of AMQP 0.9.1 message properties to overwrite on shovelled messages, for example `delivery_mode`. |
+| `destQueueArgs` | destination | Arbitrary map of queue arguments; only used if Shovel auto-declares the destination queue. |
+
+</TabItem>
+<TabItem value="amqp-10" label="AMQP 1.0">
+
+These fields apply when `srcProtocol` and/or `destProtocol` are `amqp10`:
+
+| Field | Side | Notes |
+|-------|------|-------|
+| `srcAddress` | source | **Required** when `srcProtocol` is `amqp10`. |
+| `destAddress` | destination | **Required** when `destProtocol` is `amqp10`. |
+| `destApplicationProperties` | destination | Arbitrary map of AMQP 1.0 application properties to set on shovelled messages. |
+| `destProperties` | destination | Arbitrary map of AMQP 1.0 message properties to set on shovelled messages. |
+| `destMessageAnnotations` | destination | Arbitrary map of AMQP 1.0 message annotations to set on shovelled messages. |
+
+</TabItem>
+</Tabs>
 
 The following manifest shovels messages between exchanges (rather than queues), tuning the acknowledgement mode, prefetch count, reconnect delay, and automatic deletion:
 
