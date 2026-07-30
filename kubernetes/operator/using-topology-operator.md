@@ -1,6 +1,9 @@
 ---
 title: Using the RabbitMQ Messaging Topology Kubernetes Operator
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Using the RabbitMQ Messaging Topology Kubernetes Operator
 
 Use this information to learn how to deploy Custom Resource objects that will be managed by the Messaging Topology Operator.
@@ -576,6 +579,56 @@ spec:
     name: example-rabbit
 ```
 
+:::important
+
+A `Federation` object only declares the upstream, equivalent to `rabbitmqctl set_parameter federation-upstream`. On its own, it does not cause any exchange or queue to federate.
+Activation happens by creating a [Policy](#queues-policies) whose `definition` sets `federation-upstream` (or `federation-upstream-set`) to the value of this object's `spec.name`, as shown below.
+
+:::
+
+The following manifest applies the 'origin' upstream declared above to every exchange whose name matches the pattern `^fanout`, in the same vhost as the Federation object:
+
+```yaml
+apiVersion: rabbitmq.com/v1beta1
+kind: Policy
+metadata:
+  name: federation-policy
+  namespace: rabbitmq-system
+spec:
+  name: federation-policy
+  pattern: "^fanout"
+  applyTo: "exchanges"
+  definition:
+    federation-upstream: "origin" # must match the 'name' of a Federation object in the same vhost
+  rabbitmqClusterReference:
+    name: example-rabbit
+```
+
+To federate queues instead, use `applyTo: "queues"` in the `Policy` object; queue federation does not require declaring an exchange or binding.
+
+### Federation Field Reference {#federation-field-reference}
+
+`spec` on a `Federation` object supports the following fields. For the meaning of each parameter on the RabbitMQ side, see the [Federation Reference](/docs/federation-reference).
+
+| Field | Type | Required | Default | Notes |
+|-------|------|----------|---------|-------|
+| `name` | string | yes | | Name of the upstream in RabbitMQ; not necessarily the same as `metadata.name`. Cannot be updated. |
+| `vhost` | string | no | `/` | Virtual host the upstream is declared in. Cannot be updated. |
+| `rabbitmqClusterReference` | object | yes | | Reference to the target `RabbitmqCluster`, or a `connectionSecret` for a [non-Operator-managed RabbitMQ](#non-operator). Cannot be updated. |
+| `uriSecret` | object | yes | | Reference to a Secret containing key `uri` (one URI, or several separated by `,`). Must carry the `rabbitmq.com/topology-operator: "true"` label. The Secret it points to can be swapped after creation. |
+| `ackMode` | string | no | `on-confirm` | One of `on-confirm`, `on-publish`, `no-ack`. |
+| `prefetch-count` | integer | no | `0` (unlimited) | Note the hyphenated field name; every other integer field on this object uses camelCase. |
+| `reconnectDelay` | integer | no | `0` | Seconds to wait before reconnecting after being disconnected from the upstream. |
+| `trustUserId` | boolean | no | `false` | Whether to preserve the `user-id` validated property on federated messages. |
+| `expires` | integer | no | | Milliseconds the upstream's internal link queue may remain unused before it is removed. |
+| `messageTTL` | integer | no | | Seconds after which messages in the upstream's internal queue expire. |
+| `maxHops` | integer | no | | Maximum number of federation links a message may traverse. |
+| `exchange` | string | no | | Overrides the exchange name used on the upstream side, when it differs from the downstream exchange name. Rarely needed; does not itself activate federation (use a `Policy`, see above). |
+| `queue` | string | no | | Same as `exchange`, but for queue federation. |
+| `queueType` | string | no | `classic` | One of `classic`, `quorum`. Queue type of the internal upstream queue used by **exchange** federation. Changing this value deletes and recreates that queue, which can lose in-flight messages, unless `resourceCleanupMode: never` is set. |
+| `resourceCleanupMode` | string | no | `default` | One of `default`, `never`. Whether the upstream's internal queue is deleted as soon as its federation link stops; `never` retains it (and it keeps collecting messages) until manually removed. |
+| `deletionPolicy` | string | no | `delete` | One of `delete`, `retain`. See [Delete a Resource](#delete). |
+
 More [federation examples](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/federations).
 
 ## Shovel {#shovel}
@@ -621,6 +674,156 @@ spec:
   rabbitmqClusterReference:
     name: example-rabbit
 ```
+
+A common use case for queue-to-queue Shovels is migrating messages from a classic queue to a quorum queue without downtime, in the same or a different RabbitmqCluster. The following manifest also sets a consumer argument on the source queue and a publish property on the destination queue, and retains the shovel definition in RabbitMQ if this custom resource is deleted:
+
+```yaml
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Shovel
+metadata:
+  name: shovel-migration-example
+  namespace: rabbitmq-system
+spec:
+  name: "migrate-to-quorum"
+  uriSecret:
+    name: shovel-uri-secret
+  srcQueue: "classic-queue"
+  srcConsumerArgs:
+    x-priority: 10
+  destQueue: "quorum-queue"
+  destPublishProperties:
+    delivery_mode: 2 # persistent
+  deletionPolicy: retain # keep the shovel running in RabbitMQ even if this Shovel object is deleted
+  rabbitmqClusterReference:
+    name: example-rabbit
+```
+
+### Shovel Protocols {#shovel-protocols}
+
+Shovel supports both AMQP 0.9.1 and AMQP 1.0. Set `spec.srcProtocol` and/or `spec.destProtocol` to configure which protocol Shovel uses to connect to the source and destination; when omitted, it defaults to `amqp091`. Some fields only apply to one of the two protocols, as shown below.
+
+<Tabs groupId="protocol">
+<TabItem value="amqp-091" label="AMQP 0-9-1" default>
+
+These fields apply when `srcProtocol` and/or `destProtocol` are `amqp091` (the default when omitted):
+
+| Field | Side | Notes |
+|-------|------|-------|
+| `srcQueue` | source | Source queue name. |
+| `srcExchange` / `srcExchangeKey` | source | Source exchange and routing key. |
+| `srcConsumerArgs` | source | Arbitrary map of consumer arguments, for example `x-priority`. |
+| `srcQueueArgs` | source | Arbitrary map of queue arguments; only used if Shovel auto-declares the source queue. |
+| `destQueue` | destination | Destination queue name. |
+| `destExchange` / `destExchangeKey` | destination | Destination exchange and routing key. |
+| `destPublishProperties` | destination | Arbitrary map of AMQP 0.9.1 message properties to overwrite on shovelled messages, for example `delivery_mode`. |
+| `destQueueArgs` | destination | Arbitrary map of queue arguments; only used if Shovel auto-declares the destination queue. |
+
+</TabItem>
+<TabItem value="amqp-10" label="AMQP 1.0">
+
+These fields apply when `srcProtocol` and/or `destProtocol` are `amqp10`:
+
+| Field | Side | Notes |
+|-------|------|-------|
+| `srcAddress` | source | **Required** when `srcProtocol` is `amqp10`. |
+| `destAddress` | destination | **Required** when `destProtocol` is `amqp10`. |
+| `destApplicationProperties` | destination | Arbitrary map of AMQP 1.0 application properties to set on shovelled messages. |
+| `destProperties` | destination | Arbitrary map of AMQP 1.0 message properties to set on shovelled messages. |
+| `destMessageAnnotations` | destination | Arbitrary map of AMQP 1.0 message annotations to set on shovelled messages. |
+
+</TabItem>
+</Tabs>
+
+The following manifest shovels messages between exchanges (rather than queues), tuning the acknowledgement mode, prefetch count, reconnect delay, and automatic deletion:
+
+```yaml
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Shovel
+metadata:
+  name: shovel-exchange-example
+  namespace: rabbitmq-system
+spec:
+  name: "exchange-shovel"
+  uriSecret:
+    name: shovel-uri-secret
+  srcExchange: "source-exchange"
+  srcExchangeKey: "routing-key"
+  destExchange: "destination-exchange"
+  destExchangeKey: "routing-key"
+  ackMode: "on-confirm"
+  prefetchCount: 100
+  reconnectDelay: 5
+  deleteAfter: "50" # shovel deletes itself after shovelling 50 messages; can also be 'never' (default) or 'queue-length'
+  rabbitmqClusterReference:
+    name: example-rabbit
+```
+
+The following manifest uses AMQP 1.0 to connect to both the source and the destination. `srcAddress` and `destAddress` are required whenever the corresponding protocol is `amqp10`:
+
+```yaml
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Shovel
+metadata:
+  name: shovel-amqp10-example
+  namespace: rabbitmq-system
+spec:
+  name: "amqp10-shovel"
+  uriSecret:
+    name: shovel-uri-secret
+  srcProtocol: "amqp10"
+  srcAddress: "/source-queue" # required because srcProtocol is amqp10
+  destProtocol: "amqp10"
+  destAddress: "/destination-queue" # required because destProtocol is amqp10
+  rabbitmqClusterReference:
+    name: example-rabbit
+```
+
+### Shovel Field Reference {#shovel-field-reference}
+
+`spec` on a `Shovel` object supports the following fields. For the meaning of each parameter on the RabbitMQ side, see the [Shovel Reference](/docs/shovel-dynamic).
+
+| Field | Type | Required | Default | Notes |
+|-------|------|----------|---------|-------|
+| `name` | string | yes | | Name of the shovel in RabbitMQ; not necessarily the same as `metadata.name`. Cannot be updated. |
+| `vhost` | string | no | `/` | Virtual host the shovel is declared in. Cannot be updated. |
+| `rabbitmqClusterReference` | object | yes | | Reference to the target `RabbitmqCluster`, or a `connectionSecret` for a [non-Operator-managed RabbitMQ](#non-operator). Cannot be updated. |
+| `uriSecret` | object | yes | | Reference to a Secret containing keys `srcUri` and `destUri` (each one URI, or several separated by `,`). Must carry the `rabbitmq.com/topology-operator: "true"` label. The Secret it points to can be swapped after creation. |
+| `ackMode` | string | no | `on-confirm` | One of `on-confirm`, `on-publish`, `no-ack`. |
+| `prefetchCount` | integer | no | `0` (unlimited) | |
+| `reconnectDelay` | integer | no | `0` | Seconds to wait before reconnecting after being disconnected. |
+| `addForwardHeaders` | boolean | no | `false` | Adds `x-shovelled` headers to shovelled messages. |
+| `deleteAfter` | string | no | `never` | `never`, `queue-length`, or a positive integer as a string (number of messages to move before deleting the shovel). |
+| `srcDeleteAfter` | string | no | | Same semantics as `deleteAfter`, applied on the source side only. |
+| `srcPrefetchCount` | integer | no | `0` | |
+| `deletionPolicy` | string | no | `delete` | One of `delete`, `retain`. See [Delete a Resource](#delete). |
+
+Source-side fields (all optional):
+
+| Field | Protocol | Notes |
+|-------|----------|-------|
+| `srcProtocol` | | `amqp091` (default) or `amqp10`. |
+| `srcQueue` | amqp091 | Source queue name. |
+| `srcExchange` / `srcExchangeKey` | amqp091 | Source exchange and routing key. |
+| `srcConsumerArgs` | amqp091 | Arbitrary map of consumer arguments, for example `x-priority`. |
+| `srcQueueArgs` | amqp091 | Arbitrary map of queue arguments; only used if Shovel auto-declares the source queue. |
+| `srcAddress` | amqp10 | **Required** when `srcProtocol` is `amqp10`. |
+
+Destination-side fields (all optional):
+
+| Field | Protocol | Notes |
+|-------|----------|-------|
+| `destProtocol` | | `amqp091` (default) or `amqp10`. |
+| `destQueue` | amqp091 | Destination queue name. |
+| `destExchange` / `destExchangeKey` | amqp091 | Destination exchange and routing key. |
+| `destPublishProperties` | amqp091 | Arbitrary map of AMQP 0.9.1 message properties to overwrite on shovelled messages, for example `delivery_mode`. |
+| `destQueueArgs` | amqp091 | Arbitrary map of queue arguments; only used if Shovel auto-declares the destination queue. |
+| `destAddForwardHeaders` | amqp091 | Adds forward headers on the destination side. |
+| `destAddTimestampHeader` | amqp091 | Adds a timestamp header on the destination side. |
+| `destAddress` | amqp10 | **Required** when `destProtocol` is `amqp10`. |
+| `destApplicationProperties` / `destProperties` / `destMessageAnnotations` | amqp10 | Arbitrary maps of AMQP 1.0 message metadata to set on shovelled messages. |
 
 More [shovels examples](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/shovels).
 
