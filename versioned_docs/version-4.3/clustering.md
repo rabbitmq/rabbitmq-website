@@ -545,12 +545,7 @@ Non-replicated classic queues can also be used in clusters. Their behaviour in c
 depends on [queue durability](./queues#durability).
 
 RabbitMQ clustering has several modes of dealing with [network partitions](./partitions),
-primarily consistency oriented. Clustering is meant to be used across LAN. It is
-not recommended to run clusters that span WAN.
-The [Shovel](./shovel) or
-[Federation](./federation)
-plugins are better solutions for connecting brokers across a
-WAN. Note that [Shovel and Federation are not equivalent to clustering](./distributed).
+primarily consistency oriented.
 
 ### Metrics and Statistics {#clustering-and-stats}
 
@@ -562,6 +557,124 @@ to retrieve their data and then produces an aggregated result.
 In older (long unmaintained) versions [RabbitMQ management plugin](./management) used
 a dedicated node for stats collection and aggregation.
 
+## Clusters Spanning Multiple Data Centers {#wan}
+
+RabbitMQ clustering is designed for a Local Area Network (LAN), where the round-trip
+time (RTT) between nodes is well below a millisecond. This remains the recommended
+deployment model.
+
+Several components replicate data across nodes use the Raft consensus algorithm.
+These include [quorum queues](./quorum-queues) and the [Khepri metadata store](./metadata-store).
+A cluster can therefore also be stretched across availability zones
+or data centers in order to tolerate the loss of an entire site. This works, but it
+requires deliberate planning: it changes the latency characteristics of the cluster,
+and it only delivers the intended fault tolerance if nodes are distributed correctly.
+
+### How Much Latency Is Acceptable? {#wan-latency}
+
+Link *stability* matters more than absolute latency. A link with a consistent 50 ms RTT
+is a better foundation for a cluster than a 10 ms link that occasionally stalls for
+several seconds. Measure the p99 and maximum RTT over days rather than the average
+over minutes, and watch for packet loss.
+
+As a rule of thumb:
+
+| p99 RTT between nodes | Assessment |
+|---|---|
+| Under 1 ms | A LAN, the recommended deployment model |
+| 1 ms to 10 ms | Typical of availability zones within a single cloud region. Works well with default settings |
+| 10 ms to 100 ms | Viable across data centers or regions. Plan for the latency cost described below and monitor for unnecessary leader elections |
+| Above 100 ms, or any link with visible packet loss | Not recommended for clustering. Use [Shovel](./shovel) or [Federation](./federation) to connect separate clusters instead |
+
+### Use at Least Three Data Centers {#wan-topology}
+
+Raft-based components remain available only as long as a *majority* of their replicas
+is reachable. This has a direct consequence for site layout:
+
+ * **Two data centers provide no protection against a site failure.** One of the two sites
+   will always hold the majority of the nodes. If that site is lost, quorum queues and the
+   metadata store become unavailable, so the cluster does not survive the failure of the
+   site that matters
+ * **Three data centers are the practical minimum.** A three node cluster with one node
+   per site (or a five node cluster distributed as 2/2/1) tolerates the loss of any one site
+
+### The Cost of Higher Latency {#wan-latency-cost}
+
+Inter-site latency is paid on every replicated operation:
+
+ * **Publisher confirms.** A quorum queue acknowledges a message once a majority of replicas
+   has persisted the message. For a three replica quorum queue the leader needs one follower,
+   so the publisher confirm latency will always be higher than the RTT to the *nearest* other replica
+   plus the time both nodes take to write to disk.
+ * **Metadata operations.** Declaring topologies including queues, exchanges, and bindings
+   are replicated through the metadata store and pay the same round trip.
+
+None of this can be tuned away. It is inherent to replicating data across a distance.
+
+### Does the Configuration Need Tuning? {#wan-tuning}
+
+**Usually not.** RabbitMQ detects unresponsive cluster nodes using an *adaptive* failure
+detector: it continuously measures how regularly it hears from each peer and compares the
+current period of silence against that history. Because it learns the normal behaviour of
+the link, it accommodates the higher and more variable latency of a WAN without any
+configuration changes.
+
+In addition, the detector is only consulted every five seconds, and a node that is briefly
+considered unreachable is normally seen as reachable again before any leader election
+starts. Short latency spikes therefore rarely cause a change of leadership.
+
+Tune only in response to an observed problem. The symptom to look for is repeated leader
+elections in the [server logs](./logging) at times when no node was actually restarted or
+unreachable:
+
+```
+queue 'orders' in vhost '/': detected a new leader {'%2F_orders',rabbit@node2} in term 7
+```
+
+A single such message accompanies every legitimate leader change and is entirely normal.
+Recurring messages for the same queues on a cluster whose nodes never went down indicate
+that the failure detector is reacting to latency spikes on the inter-site link. In that
+case, increase its poll interval in `rabbitmq.conf`:
+
+```ini
+# How often the failure detector re-evaluates its peers, in milliseconds.
+# The default is 5000 (5 seconds). Increase it if latency spikes on the
+# inter-site link cause leader elections while all nodes are healthy.
+raft.adaptive_failure_detector.poll_interval = 10000
+```
+
+This is a trade-off, and what it costs is availability during a *silent* network failure:
+one where packets stop being delivered but the inter-node connections are not closed. Only
+in that case does the cluster depend entirely on the failure detector, and it can then take
+up to roughly twice the poll interval before an election for a new leader begins. With a
+10 second poll interval, quorum queues whose leader was in the isolated site can be
+unavailable for around 20 seconds.
+
+Failures that close connections cleanly, such as a node crash, a broker restart or a host
+shutdown, are detected immediately regardless of this setting, and a new leader is normally
+elected within about a second.
+
+### Other Considerations {#wan-other}
+
+ * **Enable TLS for inter-node traffic.** Traffic between data centers usually leaves a
+   trusted network. See [TLS for inter-node communication](./clustering-ssl)
+ * **Do not lower `net_ticktime`.** [This setting](./nettick) governs the runtime's own
+   connection monitoring and defaults to 60 seconds. The failure detector described above
+   already provides faster failover, and lowering `net_ticktime` on a
+   variable-latency link risks dropping inter-node connections unnecessarily, which is
+   considerably more disruptive
+ * **Monitor the inter-node communication buffer.** More data is in flight at any moment on
+   a high latency link. If this buffer fills up, inter-node traffic is delayed, including the
+   failure detector's liveness signals. Its size is reported by the
+   [Prometheus plugin](./prometheus) and can be increased as described in
+   [Inter-node Communication Buffer Size](./runtime#distribution-buffer)
+
+### When to Use Shovel or Federation Instead {#wan-alternatives}
+
+If the inter-site link cannot provide a stable, low loss and low latency connection,
+connect independent clusters using the [Shovel](./shovel) or [Federation](./federation)
+plugins instead. Both transfer messages asynchronously and require no consensus across the link,
+so they tolerate high latency, packet loss and extended outages better than a stretched cluster does.
 
 ## Clustering Transcript with `rabbitmqctl` {#manual-transcript}
 
