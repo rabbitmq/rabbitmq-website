@@ -213,12 +213,12 @@ The configuration entries have [TLS counterparts](#tls) (`advertised_tls_host` a
 
 ### Maximum Frame Size {#frame-size}
 
-RabbitMQ Stream protocol uses a maximum frame size limit. The default is 1 MiB and the value
-can be increased if necessary:
+RabbitMQ Stream protocol uses a maximum frame size limit. The default is 20 MiB and the value
+can be adapted if necessary:
 
 ```ini
 # in bytes
-stream.frame_max = 2097152
+stream.frame_max = 10485760
 ```
 
 
