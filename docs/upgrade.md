@@ -123,12 +123,18 @@ This strategy is only recommended for replacing one node that must be decomissio
 
 ## RabbitMQ Version Upgradability {#rabbitmq-version-upgradability}
 
-It is possible to upgrade RabbitMQ 3.13.x directly to version up to RabbitMQ 4.3.x.
+:::warning
+
+RabbitMQ `3.13.x` users must first upgrade to `4.2.x`, then to `4.3.x`.
+
+:::
+
+Upgrading to `4.3.x` is only possible from `4.2.x`.
 
 All [stable feature flags must be enabled](./feature-flags#how-to-enable-feature-flags),
 **before** an upgrade, or the upgrade may fail.
 
-If you are not on RabbitMQ 3.13 yet, refer to the table below to understand your upgrade path.
+Refer to the table below to understand your upgrade path.
 
 <details>
   <summary>Release Series Upgradeability</summary>
@@ -137,6 +143,7 @@ The following shows the supported upgrade paths.
 
 | From     | To     |
 |----------|--------|
+| 4.2.x    | 4.3.x  |
 | 4.1.x    | 4.2.x  |
 | 4.0.x    | 4.2.x  |
 | 4.0.x    | 4.1.x  |
