@@ -91,6 +91,12 @@ The upstream definition object can contain the following keys:
         See the <a href="./uri-query-parameters">query parameter reference</a> for the underlying client library extensions
         (including those for <a href="./ssl">TLS</a>) which are available to federation.
 
+        A URI that does not include credentials connects as the default user (<code>guest</code>),
+        whose connectivity is <a href="./access-control#loopback-users">restricted to `localhost`</a>.
+
+        In production environments, the default user <a href="./production-checklist#users">should use a generated username and password</a>,
+        or deleted entirely in favor of a manually created user.
+
         The value can either be a string, or a list of
         strings. If more than one string is provided, the federation
         plugin will randomly pick <b>one</b> URI from the list when attempting to connect. This can

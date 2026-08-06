@@ -304,6 +304,14 @@ The body in this example includes a few keys:
 
 There are other Shovel definition keys that will be covered later in this guide.
 
+### On URIs without Credentials
+
+A URI that does not include credentials connects as the default user (<code>guest</code>),
+whose connectivity is <a href="./access-control#loopback-users">restricted to `localhost`</a>.
+
+In production environments, the default user <a href="./production-checklist#users">should use a generated username and password</a>,
+or deleted entirely in favor of a manually created user.
+
 ### Pre-declared Topology {#predeclared-topology}
 
 Shovels can use a pre-declared topology instead of declaring its source and destination.
