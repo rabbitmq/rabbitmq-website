@@ -748,7 +748,7 @@
     "vulnerable_versions": "<= 5.30.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-69220",
     "ghsa_id": "GHSA-93j5-89vc-pph4",
     "patched_versions": "5.33.1",
     "published_at": "2026-07-09",
@@ -770,7 +770,7 @@
     "vulnerable_versions": "< 5.33.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-69219",
     "ghsa_id": "GHSA-68mj-5wr7-6fgg",
     "patched_versions": "5.33.1",
     "published_at": "2026-07-09",
