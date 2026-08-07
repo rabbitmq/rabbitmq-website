@@ -608,6 +608,19 @@ When `cluster_formation.consul.svc_addr_auto` is set to `false`,
 service name will be taken as is from `cluster_formation.consul.svc_addr`.
 When it is set to `true`, other options explained below come into play.
 
+:::important
+
+Setting `cluster_formation.consul.use_longname` to `true` configures the Consul
+peer discovery plugin to use long node names. It does not, however, make RabbitMQ nodes use them.
+
+To make the nodes use long names, make sure the
+[`RABBITMQ_USE_LONGNAME`](./configure#supported-environment-variables) is set to
+`true` for every cluster node, including any that might join the cluster later.
+
+See [Node Names](./clustering#node-names) in the Clustering guide to learn more.
+
+:::
+
 In the following example, the service address reported to Consul is
 hardcoded to `hostname1.rmq.eng.example.local` instead of being computed automatically
 from the environment:
