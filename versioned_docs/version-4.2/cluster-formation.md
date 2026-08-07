@@ -610,11 +610,14 @@ When it is set to `true`, other options explained below come into play.
 
 :::important
 
-Setting `cluster_formation.consul.use_longname` to `true` does not, by itself, make
-RabbitMQ use long node names. To use long names with Consul peer discovery,
-[`RABBITMQ_USE_LONGNAME`](./configure#supported-environment-variables) must also be
-set to `true` on every cluster node (including any that join later). See
-[Node Names](./clustering#node-names) for background.
+Setting `cluster_formation.consul.use_longname` to `true` configures the Consul
+peer discovery plugin to use long node names. It does not, however, make RabbitMQ nodes use them.
+
+To make the nodes use long names, make sure the
+[`RABBITMQ_USE_LONGNAME`](./configure#supported-environment-variables) is set to
+`true` for every cluster node, including any that might join the cluster later.
+
+See [Node Names](./clustering#node-names) in the Clustering guide to learn more.
 
 :::
 
