@@ -94,7 +94,7 @@ Other guides related to Kubernetes:
 
  * [VMware Tanzu RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
  * [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/install-operator) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
- * [VMware Tanzu RabbitMQ® on Kubernetes](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/3.13/tanzu-rabbitmq-kubernetes/installation.html)
+ * [VMware Tanzu RabbitMQ® on Kubernetes](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-on-kubernetes/4-0/tanzu-rabbitmq-kubernetes/overview.html)
  * [Amazon MQ for RabbitMQ](https://aws.amazon.com/amazon-mq/)
  * [Amazon EC2](./ec2)
 
