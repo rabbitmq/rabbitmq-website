@@ -265,7 +265,6 @@ Miscellaneous projects:
  * &#x2713; [RabbitMQ CLI tools](/docs/cli)
  * &#x2713; [rabbitmqadmin](/docs/management-cli), a command line tool that targets RabbitMQ HTTP API
  * [amqp-utils](https://github.com/dougbarth/amqp-utils), command line utils for interacting with an AMQP based queue (in Ruby)
- * [amqptools](https://github.com/rmt/amqptools), command line AMQP clients (in C)
  * [rabtap](https://github.com/jandelgado/rabtap), RabbitMQ wire tap and swiss army knife command line tool (in go)
 
 
