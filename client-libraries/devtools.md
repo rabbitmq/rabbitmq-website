@@ -316,8 +316,6 @@ Miscellaneous projects:
  * [XMPP adaptor](https://github.com/ericliang/rabbitmq-xmpp)
  * [Delphi/Free Pascal RabbitMQ Client](http://www.habarisoft.com/habari_rabbitmq.html)
  * [bevis](https://github.com/bkjones/bevis): a syslog listener that forwards messages over RabbitMQ
- * [rabbitmq-memcached](http://code.google.com/p/rabbitmq-memcached/): a memcached adapter for RabbitMQ that allows you to use the memcache protocol to
-   get or publish a message from or to RabbitMQ
  * [flume-amqp-plugin](https://github.com/stampy88/flume-amqp-plugin):
    a plugin for [Flume](https://github.com/cloudera/flume/wiki) (a Hadoop data loader) that allows you to use a RabbitMQ node as a data source.
  * [Fudge Messaging Format](http://kirkwylie.blogspot.com/2009/11/announcing-release-of-fudge-messaging.html):
