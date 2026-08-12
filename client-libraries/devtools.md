@@ -260,7 +260,6 @@ Miscellaneous projects:
 
 * [Oracle Stored Procedures for RabbitMQ](https://github.com/pmq/rabbitmq-oracle-stored-procedures) integration.
 * [RabbitMQ component for SQL Server Integration Services (SSIS)](https://github.com/kzhen/SSISRabbitMQ).
-* [RabbitMQ integration with PostgreSQL](https://github.com/aweber/pgsql-listen-exchange)'s LISTEN notifications.
 * [RabbitMQ Riak Exchange](https://github.com/jbrisbin/riak-exchange): a custom exchange type for RabbitMQ that uses Riak as a backing store.
 * [Riak RabbitMQ postcommit Hook](https://github.com/jbrisbin/riak-rabbitmq-commit-hooks): a postcommit hook for Riak that sends any modified entries to RabbitMQ.
 
