@@ -228,7 +228,7 @@ Miscellaneous projects:
 
 ## Unity 3D {#unity-dev}
 
- * [Unity 3D RabbitMQ Client](https://github.com/CymaticLabs/Unity3D.Amqp)
+ * [Unity 3D RabbitMQ Client](https://github.com/meverett/Unity3D.Amqp)
 
 
 ## Erlang {#erlang-dev}
