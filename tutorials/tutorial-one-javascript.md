@@ -37,7 +37,7 @@ import T1DiagramReceiving from '@site/src/components/Tutorials/T1DiagramReceivin
 In this part of the tutorial we'll write two small programs in Javascript; a
 producer that sends a single message, and a consumer that receives
 messages and prints them out.  We'll gloss over some of the detail in
-the [amqp.node](http://www.squaremobius.net/amqp.node/) API, concentrating on this very simple thing just to get
+the [amqp.node](https://amqp-node.github.io/amqplib/) API, concentrating on this very simple thing just to get
 started. It's the "Hello World" of messaging.
 
 In the diagram below, "P" is our producer and "C" is our consumer. The
@@ -51,7 +51,7 @@ on behalf of the consumer.
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
 > languages](/client-libraries/devtools). We'll
-> use the [amqp.node client](http://www.squaremobius.net/amqp.node/) in this tutorial.
+> use the [amqp.node client](https://amqp-node.github.io/amqplib/) in this tutorial.
 >
 > First, install amqp.node using [npm](https://www.npmjs.com):
 >
