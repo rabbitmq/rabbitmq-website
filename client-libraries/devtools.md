@@ -166,7 +166,7 @@ Miscellaneous projects:
 
  * [amqprs](https://github.com/gftea/amqprs), async Rust client, easy-to-use APIs, lock-free, tokio-based
  * &#x2713; [RabbitMQ Stream Rust client](https://github.com/rabbitmq/rabbitmq-stream-rust-client)
- * [Lapin](https://github.com/sozu-proxy/lapin), a mature Rust client
+ * [Lapin](https://github.com/amqp-rs/lapin), a mature Rust client
  * [amiquip](https://crates.io/crates/amiquip), a RabbitMQ client written in pure Rust
 
 ## Crystal {#crystal-dev}
