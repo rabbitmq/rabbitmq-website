@@ -112,9 +112,8 @@ Other guides related to Kubernetes:
  * [Debian](./install-debian#apt-quick-start)
  * [RPM](./install-rpm#dnf-repositories)
 
-## Provisioning Tools (Puppet, etc)
+## Provisioning Tools
 
- * [Puppet module](https://github.com/puppetlabs/puppetlabs-rabbitmq)
  * [Kurtosis Starlark package](https://github.com/kurtosis-tech/rabbitmq-package)
 
 

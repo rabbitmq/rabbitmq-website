@@ -253,9 +253,8 @@ Miscellaneous projects:
  * A [RabbitMQ client for OCaml](https://github.com/andersfugmann/amqp-client)
 
 
-## Provisioning (Puppet, Docker, etc) {#operations}
+## Provisioning (Docker, Kurtosis, etc) {#operations}
 
-* [Puppet RabbitMQ Module](https://github.com/puppetlabs/puppetlabs-rabbitmq)
 * [RabbitMQ Docker image](https://hub.docker.com/_/rabbitmq/)
 * [Kurtosis Starlark package](https://github.com/kurtosis-tech/rabbitmq-package)
 

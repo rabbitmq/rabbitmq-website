@@ -75,10 +75,7 @@ Please consult the installation guides for
 A wide variety of deployment tools can be used to automate
 RabbitMQ deployment.
 
-  * [Community Docker image](https://hub.docker.com/_/rabbitmq/) ([on GitHub](https://github.com/docker-library/rabbitmq))
-  * [Puppet module](https://github.com/puppetlabs/puppetlabs-rabbitmq)
-
-are some popular options.
+The [Community Docker image](https://hub.docker.com/_/rabbitmq/) ([on GitHub](https://github.com/docker-library/rabbitmq)) is a popular option.
 
 
 ## Durable Storage on EBS Volumes {#ebs}
