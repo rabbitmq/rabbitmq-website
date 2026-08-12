@@ -92,7 +92,7 @@ Miscellaneous projects:
  * [AMQP::Client](https://github.com/cloudamqp/amqp-client.rb), a lightweight and high performance AMQP Ruby client
  * [March Hare](http://rubymarchhare.info), a JRuby RabbitMQ client
  * [Sneakers](http://jondot.github.io/sneakers/), a fast background processing framework for Ruby and RabbitMQ
- * [Hutch](https://github.com/gocardless/hutch), a conventions-based framework for writing (Ruby) services that communicate over RabbitMQ.
+ * [Hutch](https://github.com/ruby-amqp/hutch), a conventions-based framework for writing (Ruby) services that communicate over RabbitMQ.
  * [Ruby RabbitMQ HTTP API client](https://github.com/ruby-amqp/rabbitmq_http_api_client)
  * [Ruby RabbitMQ clients blog](http://blog.rubyrabbitmq.info)
  * [Ruby RabbitMQ clients mailing list](http://groups.google.com/group/ruby-amqp/)
