@@ -196,7 +196,7 @@ Miscellaneous projects:
 
 ### Clojure
 
- * [Langohr, a Clojure RabbitMQ client built on top of the official Java one](http://clojurerabbitmq.info)
+ * [Langohr, a Clojure RabbitMQ client built on top of the official Java one](https://github.com/michaelklishin/langohr)
  * [Bunnicula, Component based framework for Clojure built on top of the official Java one](https://github.com/nomnom-insights/nomnom.bunnicula)
 
 ### JRuby
