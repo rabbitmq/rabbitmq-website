@@ -103,7 +103,7 @@ Miscellaneous projects:
  * &#x2713; [RabbitMQ AMQP 1.0 Python client](https://github.com/rabbitmq/rabbitmq-amqp-python-client/) and the [AMQP 1.0 client library guide](./amqp-client-libraries),
  * &#x2713; [pika](http://pypi.python.org/pypi/pika), a pure-Python AMQP 0-9-1 client ([source code](https://github.com/pika/pika),
    [API reference](http://readthedocs.org/docs/pika/en/latest/index.html))
- * &#x2713; [rstream](https://github.com/qweeze/rstream): RabbitMQ Stream Python client
+ * &#x2713; [rstream](https://github.com/rabbitmq-community/rstream): RabbitMQ Stream Python client
  * [rbfly](https://gitlab.com/wrobell/rbfly): RabbitMQ Stream Python client
  * [aio-pika](https://github.com/mosquito/aio-pika), a pure-Python AMQP 0-9-1 client built for Python 3 and asyncio ([source code](https://github.com/mosquito/aio-pika),
    [API reference](https://aio-pika.readthedocs.org/))
