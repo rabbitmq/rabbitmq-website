@@ -56,8 +56,6 @@ would like to see added to this list.
  * &#x2713; [RabbitMQ Stream Java client](https://github.com/rabbitmq/rabbitmq-stream-java-client)
  * &#x2713; [RabbitMQ JMS client](./jms-client)
  * &#x2713; [RabbitMQ AMQP 0.9.1 Java client](./java-client) and its [developer guide](./java-api-guide)
- * [Reactor RabbitMQ](https://github.com/reactor/reactor-rabbitmq), a reactive API for RabbitMQ based on
-   [Reactor](https://projectreactor.io/) and [RabbitMQ Java client](./java-client)
 
 ### Spring Framework
 
