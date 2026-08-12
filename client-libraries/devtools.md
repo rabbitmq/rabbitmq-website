@@ -296,7 +296,7 @@ Miscellaneous projects:
 
 ## COBOL {#cobol-dev}
 
- * [Using rabbitmq-c From COBOL](http://assortedrambles.blogspot.ru/2013/04/using-rabbitmq-from-cobol_9584.html)
+ * [Using rabbitmq-c From COBOL](https://assortedrambles.blogspot.com/2013/04/using-rabbitmq-from-cobol_9584.html)
 
 
 ## Traffic Capture and Protocol Analysis {#protocol-analysis}
