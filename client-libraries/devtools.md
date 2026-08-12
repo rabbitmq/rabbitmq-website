@@ -279,8 +279,6 @@ Miscellaneous projects:
 
  * [RabbitMQ Global Fanout Exchange](https://github.com/videlalvaro/rabbitmq-global-fanout-exchange): a custom exchange type that fans out messages
    to every queue in the broker no matter what the   bindings or vhosts.
- * [RabbitMQ Recent History Exchange](https://github.com/videlalvaro/rabbitmq-recent-history-exchange): a custom exchange type that keeps track of the last 20 messages
-   that have passed through such that newly bound queues receive a recent message history.
  * [SMTP gateway for RabbitMQ](https://github.com/gotthardp/rabbitmq-email)
 
 
