@@ -148,7 +148,6 @@ Miscellaneous projects:
  * &#x2713; [RabbitMQ Stream Go client](https://github.com/rabbitmq/rabbitmq-stream-go-client)
  * &#x2713; [RabbitMQ AMQP 0.9.1 Go client](https://github.com/rabbitmq/amqp091-go)
  * Rabbit Hole, [RabbitMQ HTTP API client for Go](https://github.com/michaelklishin/rabbit-hole)
- * [amqpc](https://github.com/gocardless/amqpc), a load testing tool for RabbitMQ clusters
 
 
 ## iOS and Android {#ios-android}
