@@ -432,6 +432,10 @@ const config = {
                 to: '/blog',
               },
               {
+                label: 'Compare with Other Brokers',
+                to: '/docs/compare',
+              },
+              {
                 label: 'Security',
                 to: '/security',
               },
