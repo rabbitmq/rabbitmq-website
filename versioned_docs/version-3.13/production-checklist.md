@@ -377,6 +377,19 @@ Please refer to the [TLS guide](./ssl) to learn more.
 Note that TLS can have significant impact on overall system throughput,
 including CPU usage of both RabbitMQ and applications that use it.
 
+### Encryption at Rest {#security-encryption-at-rest}
+
+RabbitMQ itself does not encrypt data it writes to disk, such as message payloads or
+metadata. This is by design: two alternatives outside RabbitMQ
+address this need better.
+
+ * **Encrypt the underlying storage.** Full-disk or volume-level encryption (for example, [LUKS](https://gitlab.com/cryptsetup/cryptsetup), or
+   encrypted cloud block storage) protects *all* data at rest with hardware-accelerated performance.
+ * **Use end-to-end encryption.** Client applications that require message contents to stay
+   confidential even from anyone with access to the broker itself, including its administrators,
+   should encrypt payloads before publishing and decrypt them after consuming.
+   The broker then only ever sees and stores opaque encrypted bytes.
+
 
 ## Networking Configuration {#networking}
 
