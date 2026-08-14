@@ -381,15 +381,11 @@ including CPU usage of both RabbitMQ and applications that use it.
 ### Encryption at Rest {#security-encryption-at-rest}
 
 RabbitMQ itself does not encrypt data it writes to disk, such as message payloads or
-[metadata](./metadata-store). This is by design: two alternatives outside RabbitMQ
-address this need better.
+[metadata](./metadata-store). This is by design - Encryption on the server side has negative performance impacts, as the server will need to encrypt and decrypt the payload. Furthermore, there is also an operational cost involved of managing encryption keys. We recommend the following alternatives that address data encryption needs better, without impacting performance or adding operational burden
 
  * **Encrypt the underlying storage.** Full-disk or volume-level encryption (for example, [LUKS](https://gitlab.com/cryptsetup/cryptsetup), or
    encrypted cloud block storage) protects *all* data at rest with hardware-accelerated performance.
- * **Use end-to-end encryption.** Client applications that require message contents to stay
-   confidential even from anyone with access to the broker itself, including its administrators,
-   should encrypt payloads before publishing and decrypt them after consuming.
-   The broker then only ever sees and stores opaque encrypted bytes.
+ * **Use end-to-end encryption.** Client applications can encrypt payloads before publishing and decrypt them after consuming. This ensures that message contents stay confidential even from anyone with access to the broker itself, including its administrators. Since, the broker then only ever sees and stores opaque encrypted bytes, this is the most secure option.
 
 
 ## Networking Configuration {#networking}
