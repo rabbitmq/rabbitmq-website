@@ -1,5 +1,148 @@
 [
   {
+    "cve_id": "",
+    "ghsa_id": "GHSA-pj8f-mw2q-3xjj",
+    "patched_versions": "4.2.10, 4.3.5",
+    "published_at": "2026-08-18",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "RabbitMQ consistent-hash exchange: empty array crashes DLX queue processes",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-pj8f-mw2q-3xjj",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.10, >= 4.3.0, < 4.3.5"
+  },
+  {
+    "cve_id": "CVE-2026-67418",
+    "ghsa_id": "GHSA-jv99-v328-mvmm",
+    "patched_versions": "3.13.19, 4.0.24, 4.1.15, 4.2.10, 4.3.5",
+    "published_at": "2026-08-18",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "MQTT 5.0: inapplicable PUBLISH property disconnects matching subscribers",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-jv99-v328-mvmm",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.19, >= 4.0.0, < 4.0.24, >= 4.1.0, < 4.1.15, >= 4.2.0, < 4.2.10, >= 4.3.0, < 4.3.5"
+  },
+  {
+    "cve_id": "CVE-2026-67419",
+    "ghsa_id": "GHSA-h964-v5mf-22cq",
+    "patched_versions": "4.3.5",
+    "published_at": "2026-08-18",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Consecutive topic wildcards cause combinatorial routing work",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-h964-v5mf-22cq",
+    "vulnerable_versions": ">= 4.3.0, < 4.3.5"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-cfqc-c682-93mm",
+    "patched_versions": "4.2.10, 4.3.5",
+    "published_at": "2026-08-18",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "RabbitMQ Web STOMP: compressed pre-authentication messages exhaust broker memory",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-cfqc-c682-93mm",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.10, >= 4.3.0, < 4.3.5"
+  },
+  {
+    "cve_id": "CVE-2026-67420",
+    "ghsa_id": "GHSA-86fm-44m9-rqjx",
+    "patched_versions": "3.13.19, 4.0.24, 4.1.15, 4.2.10, 4.3.5",
+    "published_at": "2026-08-18",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "RabbitMQ OAuth credential refresh retains revoked runtime tags",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-86fm-44m9-rqjx",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.19, >= 4.0.0, < 4.0.24, >= 4.1.0, < 4.1.15, >= 4.2.0, < 4.2.10, >= 4.3.0, < 4.3.5"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-6xpg-rfmh-grhq",
+    "patched_versions": "3.13.19, 4.0.24, 4.1.15, 4.2.10, 4.3.5",
+    "published_at": "2026-08-18",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "STOMP pre-authentication frame size limit is not enforced",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-6xpg-rfmh-grhq",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.19, >= 4.0.0, < 4.0.24, >= 4.1.0, < 4.1.15, >= 4.2.0, < 4.2.10, >= 4.3.0, < 4.3.5"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-6gmw-wxch-cvvc",
+    "patched_versions": "3.13.19, 4.0.24, 4.1.15, 4.2.10, 4.3.5",
+    "published_at": "2026-08-18",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "Shovel URI credentials disclosed to read-only monitoring users via the shovel management HTTP API",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-6gmw-wxch-cvvc",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.19, >= 4.0.0, < 4.0.24, >= 4.1.0, < 4.1.15, >= 4.2.0, < 4.2.10, >= 4.3.0, < 4.3.5"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-6chv-gv3h-cvcj",
+    "patched_versions": "4.2.10, 4.3.5",
+    "published_at": "2026-08-18",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "RabbitMQ direct reply-to: forged suffix fanout causes quadratic mailbox memory",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-6chv-gv3h-cvcj",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.10, >= 4.3.0, < 4.3.5"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-6588-rqcr-59pw",
+    "patched_versions": "4.3.5",
+    "published_at": "2026-08-18",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "AMQP 1.0 post-body properties bypass user-ID validation and reach consumers",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-6588-rqcr-59pw",
+    "vulnerable_versions": ">= 4.3.0, < 4.3.5"
+  },
+  {
+    "cve_id": "CVE-2026-67421",
+    "ghsa_id": "GHSA-6256-27fm-4rgr",
+    "patched_versions": "3.13.19, 4.0.24, 4.1.15, 4.2.10, 4.3.5",
+    "published_at": "2026-08-18",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "Stored HTML Injection in RabbitMQ Management OAuth Error Handling",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-6256-27fm-4rgr",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.19, >= 4.0.0, < 4.0.24, >= 4.1.0, < 4.1.15, >= 4.2.0, < 4.2.10, >= 4.3.0, < 4.3.5"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-4826-gphh-vw3x",
+    "patched_versions": "4.2.10, 4.3.5",
+    "published_at": "2026-08-18",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "MQTT 5.0: Receive Maximum zero disables delivery credit",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-4826-gphh-vw3x",
+    "vulnerable_versions": ">= 4.2.0, < 4.2.10, >= 4.3.0, < 4.3.5"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-3526-xvv4-q9mr",
+    "patched_versions": "3.13.19, 4.0.24, 4.1.15, 4.2.10, 4.3.5",
+    "published_at": "2026-08-18",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "RabbitMQ administrator RCE through reflected Erlang distribution authentication",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-3526-xvv4-q9mr",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.19, >= 4.0.0, < 4.0.24, >= 4.1.0, < 4.1.15, >= 4.2.0, < 4.2.10, >= 4.3.0, < 4.3.5"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-27gv-h5q6-cpwg",
+    "patched_versions": "3.13.19, 4.0.24, 4.1.15, 4.2.10, 4.3.5",
+    "published_at": "2026-08-18",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "RabbitMQ policymaker RCE through federation-management nonmember RPC and distribution reflection",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-27gv-h5q6-cpwg",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.19, >= 4.0.0, < 4.0.24, >= 4.1.0, < 4.1.15, >= 4.2.0, < 4.2.10, >= 4.3.0, < 4.3.5"
+  },
+  {
     "cve_id": "CVE-2026-61837",
     "ghsa_id": "GHSA-w9hf-476r-443x",
     "patched_versions": "4.3.3, 4.2.9, 4.1.14, 4.0.23",
