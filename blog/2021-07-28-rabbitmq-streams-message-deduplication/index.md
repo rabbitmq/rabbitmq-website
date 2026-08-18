@@ -342,5 +342,8 @@ This blog covered the deduplication feature of RabbitMQ Streams.
 * the broker can detect and filter out duplicate messages
 * a name for the producing application and a publishing ID are required to enable deduplication
 * the producer name must be unique and re-used between the application restarts
-* the publishing ID is a strictly increasing sequence, it is usually the identifier of a given message (e.g. primary key for a database record, line in a file)
+* the publishing ID is a strictly increasing sequence, it is usually the identifier of a given message (e.g. primary key for a database record, line in a file, or the offset of a message in a source stream)
 * applications should query the broker for the last publishing ID they used to restart where they left off
+
+Using the offset of a source stream message as the publishing ID is what makes effectively-once processing possible in a read-process-write loop, where an application consumes from one stream and publishes the result to another. This is the same class of guarantee other systems call exactly-once.
+See [Effectively-Once Stream Processing](/docs/stream-effectively-once-processing) for the details.

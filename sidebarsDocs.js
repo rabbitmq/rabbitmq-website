@@ -302,6 +302,11 @@ const sidebars = {
               id: 'stream-filtering',
               label: 'Stream Filtering',
             },
+            {
+              type: 'doc',
+              id: 'stream-effectively-once-processing',
+              label: 'Effectively-Once Stream Processing',
+            },
           ],
         },
         {

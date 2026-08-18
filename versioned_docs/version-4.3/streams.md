@@ -663,6 +663,8 @@ See your favorite [stream client library](./stream) documentation for more infor
 
 See also the [deduplication blog post](/blog/2021/07/28/rabbitmq-streams-message-deduplication) for a step-by-step example.
 
+[Effectively-Once Stream Processing](./stream-effectively-once-processing) shows how to use the offset of a source stream message as the publishing ID, which makes a read-process-write loop effectively-once (what other systems call exactly-once).
+
 ## Limitations {#limitations}
 
 ### Message Encoding {#limitations-message-encoding}
