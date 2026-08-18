@@ -62,8 +62,7 @@ Three things follow from it:
 :::note Effectively-once, not exactly-once execution
 
 "Effectively-once" describes the **effect** on the target stream: the result appears there exactly once, never duplicated, never lost.
-It does not mean the processing step executes exactly one time.
-After a crash, the application may run it again for source messages it already produced a result for — this is why [determinism](#requirements) matters: re-running it has to produce the same result, so the broker's deduplication can recognize it as the same result and discard it.
+It does not mean the processing step executes exactly one time: after a crash, the application may run it again for source messages it already produced a result for.
 
 Other stream processing systems have the same characteristic under a different name.
 Kafka's transactional exactly-once semantics, for example, can also re-execute a processing step after a crash — what is guaranteed is the effect it commits downstream, not the number of times it runs.
@@ -79,12 +78,12 @@ sequenceDiagram
 
     A->>S: consume from offset 0
     S-->>A: messages at offsets 0, 1, 2
-    Note over A: process deterministically
+    Note over A: process
     A->>T: publish 1 message<br/>publishing ID = 2
     Note over T: message and publishing ID 2<br/>stored together
     T-->>A: confirm
     S-->>A: messages at offsets 3, 4
-    Note over A: process deterministically
+    Note over A: process
     A->>T: publish 1 message<br/>publishing ID = 4
     Note over T: message and publishing ID 4<br/>stored together
     Note over A: 💥 crashes before the confirm arrives
@@ -136,21 +135,20 @@ Re-processing offset `0` is harmless: the result is published with publishing ID
 ## Processing Several Source Messages at a Time {#batching}
 
 The loop does **not** have to process one source message at a time.
-It can consume and process any number of source messages, as long as it publishes **exactly one** message to the target stream for them, using the offset of the last one as the publishing ID.
+It can consume and process any number of source messages, as long as it publishes their result to the target stream as a single atomic write, carrying a single publishing ID: the offset of the last source message it covers.
 
-RabbitMQ (currently) has no way to publish several messages atomically, so a result that spans several messages could be half-written by a crash, and the publishing ID would no longer be a reliable resume point.
-If several logical records have to be produced together, put them into a single [message](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#section-message-format).
+A single message is still the right default: it is the simplest option, and nothing in this guide requires more.
+If a processing step genuinely has to produce several separate output messages, use [sub-entry batching](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression) instead of publishing them separately: it groups them into one chunk entry under one publishing ID, so the whole group is written, and deduplicated, together — a crash cannot leave only part of it stored — while consumers still see the individual messages at their own offsets.
 
 ## Requirements {#requirements}
 
 Effectively-once holds only if all of the following are true.
 
-* **Exactly one message is published to the target stream per processing step.** See [above](#batching).
-* **Processing is deterministic.** The same source messages must always produce the same result, because after a crash the application may process them again. Avoid timestamps, random values and lookups whose answers change over time in the result.
+* **The target stream receives one write, carrying one publishing ID, per processing step.** A single message is the common case; a sub-entry batch works too, since it is written and deduplicated as one unit. See [above](#batching).
 * **Publishing to the target stream is the only side effect.** Deduplication protects the target stream, nothing else. A processing step that also writes to a database or calls an HTTP API can repeat that side effect after a crash.
 * **Only one instance publishes under a given producer name at a time.** Deduplication does not support concurrent publishing under the same name. Use the [single active consumer](./streams#single-active-consumer) feature on the source stream to make sure only one instance is processing.
 * **The producer name is stable across restarts and unique per target stream.** Publishing IDs are tracked per stream and producer name. Use a descriptive name such as `invoicer`, not a value that changes on every start.
-* **Results are published in order and none is skipped.** Publishing the next result moves the resume point past the previous one, so a result that fails to be published must not be silently dropped. Configure the producer to keep retrying rather than to time out, and stop the loop on a permanent publishing error.
+* **Results are published in order and none is skipped.** Publishing the next result moves the resume point past the previous one, so a result that fails to be published must not be silently dropped. Configure the producer to keep retrying rather than to time out, and stop the loop on a permanent publishing error. This does not mean waiting for each confirmation before publishing the next result: pipelining several results at once, from the same producer, is fine — the broker still processes them in the order they were sent.
 
 :::note
 
@@ -163,7 +161,7 @@ With the stream Java client this means `noTrackingStrategy()` plus a `consumerUp
 
 ## Use Cases {#use-cases}
 
-The pattern fits whenever a processing step naturally produces a single result message.
+The pattern fits whenever a processing step naturally produces a single result, published as one message or one sub-entry batch.
 
 * **Windowed aggregation.** Read all events of a time window or a fixed count and publish one aggregate: a per-minute rollup, an hourly summary, a running total. Many messages in, one message out.
 * **Batching for a slower downstream stage.** Read many small events and publish one envelope message, so the next stage does fewer and larger units of work.
@@ -201,7 +199,7 @@ environment.consumerBuilder()
     .messageHandler((context, message) -> {
         window.add(message);
         if (window.size() == 10) {
-            // Deterministic: the same window always produces the same result.
+            // The aggregate should be stable across re-runs: a crash can replay this window.
             byte[] result = aggregate(window);
             Message out = producer.messageBuilder()
                 // the offset of the last source message in this window
