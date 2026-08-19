@@ -47,7 +47,7 @@ started.  It's the "Hello World" of RabbitMQ Streams.
 > protocol for [RabbitMQ streams](/docs/streams). There are a number of clients
 > for RabbitMQ in [many different
 > languages](/client-libraries/devtools), see the stream client libraries for each language.
-> We'll use the [Python (rstream) stream client](https://github.com/qweeze/rstream) original built by George Fortunatov now supported by RabbitMQ.
+> We'll use the [Python (rstream) stream client](https://github.com/rabbitmq-community/rstream) original built by George Fortunatov now supported by RabbitMQ.
 >
 > The client supports [Python >= 3.9](https://www.python.org/downloads/).
 > This tutorial will use rstream client 0.19.1 version.

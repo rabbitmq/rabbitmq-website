@@ -36,7 +36,7 @@ import TutorialsIntro from '@site/src/components/Tutorials/TutorialsStreamIntro.
 This part of the tutorial consists in writing two programs in Python; a producer that sends a wave of messages with a marker message at the end, and a consumer that receives messages and stops when it gets the marker message.
 It shows how a consumer can navigate through a stream and can even restart where it left off in a previous execution.
 
-This tutorial uses the [rstream Python client](https://github.com/qweeze/rstream).
+This tutorial uses the [rstream Python client](https://github.com/rabbitmq-community/rstream).
 Make sure to follow [the setup steps](/tutorials/tutorial-one-python-stream#setup) from the first tutorial.
 
 An executable version of this tutorial can be found in the [RabbitMQ tutorials repository](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python-stream/).
@@ -384,7 +384,7 @@ async def consume():
         await consumer.subscribe(
             stream=STREAM_NAME,
              # We explicitely need to assign a name to the consumer
-            subscriber_name="subscriber_1",       
+            subscriber_name="subscriber_1",
             callback=on_message,
             decoder=amqp_decoder,
             offset_specification=ConsumerOffsetSpecification(
@@ -420,7 +420,7 @@ First message received.
 Done consuming, first offset 0, last offset 99.
 ```
 
-There is nothing surprising there: the consumer got the messages from the beginning of the stream and stopped when it reached the marker message. 
+There is nothing surprising there: the consumer got the messages from the beginning of the stream and stopped when it reached the marker message.
 
 Let's start it another time:
 
@@ -445,4 +445,4 @@ Consuming applications are likely to keep track of the point they reached in a s
 They can use the built-in server-side offset tracking feature as demonstrated in this tutorial.
 They are also free to use any other data store solution for this task.
 
-See the [RabbitMQ blog](https://www.rabbitmq.com/blog/2021/09/13/rabbitmq-streams-offset-tracking) and [rstream documentation](https://github.com/qweeze/rstream?tab=readme-ov-file#server-side-offset-tracking) for more information on offset tracking.
+See the [RabbitMQ blog](https://www.rabbitmq.com/blog/2021/09/13/rabbitmq-streams-offset-tracking) and [rstream documentation](https://github.com/rabbitmq-community/rstream?tab=readme-ov-file#server-side-offset-tracking) for more information on offset tracking.
