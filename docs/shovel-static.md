@@ -183,6 +183,28 @@ They are described in the table below.
         </div>
       </td>
     </tr>
+    <tr>
+      <td>delete-after-duration</td>
+      <td>
+        <div>
+          A time-to-live for the shovel, in seconds. When time is up, the shovel stops,
+          regardless of how many messages it has transferred by that point. AMQP 0-9-1,
+          AMQP 1.0 and local shovels all support this setting. The countdown starts when the shovel
+          connects to its source, and restarts if the shovel reconnects.
+        </div>
+
+```erlang
+{delete_after_duration, 3600}
+```
+        <div>
+          Values below a configurable minimum (60 seconds by default) are
+          automatically increased to it. The minimum is controlled by the
+          <code>shovel.delete_after_duration_floor</code> key in
+          <code>rabbitmq.conf</code> and cannot be set below 15 seconds. See
+          <a href="./shovel-dynamic#time-based-deletion">Time-Based Deletion</a>.
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>
 

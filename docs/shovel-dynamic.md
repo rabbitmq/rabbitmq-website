@@ -540,6 +540,34 @@ curl -v -u guest:guest -X DELETE http://localhost:15672/api/parameters/shovel/%2
 ```
 
 
+### Time-Based Deletion (Shovel TTL) {#time-based-deletion}
+
+A dynamic shovel can be given a time-to-live using the optional
+`src-delete-after-duration` source setting, a positive integer in seconds.
+When time is up, the shovel stops, regardless of how many
+messages it has transferred by that point. AMQP 0-9-1, AMQP 1.0 and local
+shovels all support this setting.
+
+The countdown starts when the shovel connects to its source, and restarts
+if the shovel reconnects, for example, after a node restart or a network failure.
+
+`src-delete-after-duration` is independent of [`src-delete-after`](#amqp091-reference),
+which deletes a shovel after a certain number of messages have been transferred.
+When both are set, the condition reached first deletes the shovel.
+
+The value has a configurable minimum, 60 seconds by default. Values below the
+minimum are automatically increased to it, and a warning is logged.
+The minimum can be adjusted using `shovel.delete_after_duration_floor` key in
+`rabbitmq.conf`:
+
+```ini
+# lowers the src-delete-after-duration minimum to 30 seconds
+shovel.delete_after_duration_floor = 30
+```
+
+The minimum cannot be set below 15 seconds to discourage very short-lived shovels
+and thus expensive shovel churn.
+
 ## AMQP 0-9-1 Shovel Definition Reference {#amqp091-reference}
 
 There are several Shovel properties that haven't been covered in the above example.
@@ -610,6 +638,20 @@ the declaration process.
           If set to an integer, then the shovel will transfer that
           number of messages before deleting itself. This option cannot
           be used together with <code>ack-mode</code> set to <code>no-ack</code>.
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>src-delete-after-duration</td>
+      <td>
+        <div>
+          A time-to-live for the shovel, in seconds. When the time is up,
+          the shovel will delete itself. See
+          <a href="#time-based-deletion">Time-Based Deletion</a>.
+        </div>
+        <div>
+          Values below a configurable minimum (60 seconds by default) are
+          automatically increased to it.
         </div>
       </td>
     </tr>
@@ -866,6 +908,20 @@ counterparts.
         </div>
       </td>
     </tr>
+    <tr>
+      <td>src-delete-after-duration</td>
+      <td>
+        <div>
+          A time-to-live for the shovel, in seconds. When the interval elapses,
+          the shovel will delete itself. See
+          <a href="#time-based-deletion">Time-Based Deletion</a>.
+        </div>
+        <div>
+          Values below a configurable minimum (60 seconds by default) are
+          automatically increased to it.
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -940,6 +996,20 @@ the declaration process.
           If set to an integer, then the shovel will transfer that
           number of messages before deleting itself. This option cannot
           be used in conjunction with <code>ack-mode : no-ack</code>.
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>src-delete-after-duration</td>
+      <td>
+        <div>
+          A time-to-live for the shovel, in seconds. When the time is up,
+          the shovel will delete itself. See
+          <a href="#time-based-deletion">Time-Based Deletion</a>.
+        </div>
+        <div>
+          Values below a configurable minimum (60 seconds by default) are
+          automatically increased to it.
         </div>
       </td>
     </tr>
