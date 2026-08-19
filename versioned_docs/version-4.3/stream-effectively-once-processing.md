@@ -135,16 +135,25 @@ Re-processing offset `0` is harmless: the result is published with publishing ID
 ## Processing Several Source Messages at a Time {#batching}
 
 The loop does **not** have to process one source message at a time.
-It can consume and process any number of source messages, as long as it publishes their result to the target stream as a single atomic write, carrying a single publishing ID: the offset of the last source message it covers.
+It can consume and process any number of source messages, as long as it publishes a single result for them, carrying a single publishing ID: the offset of the last source message the result covers.
 
-A single message is still the right default: it is the simplest option, and nothing in this guide requires more.
-If a processing step genuinely has to produce several separate output messages, use [sub-entry batching](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression) instead of publishing them separately: it groups them into one chunk entry under one publishing ID, so the whole group is written, and deduplicated, together — a crash cannot leave only part of it stored — while consumers still see the individual messages at their own offsets.
+## Publishing One Result per Processing Step {#result}
+
+Whether a processing step covers one source message or a thousand, publish **one message** to the target stream as its result.
+That is what the vast majority of applications need, and it is all this guide requires: one message, one publishing ID, one atomic write.
+
+Only rarely does a step have to make several logically independent messages appear in the target stream atomically.
+Publishing them as separate messages with separate publishing IDs is not an option — a crash can leave only some of them stored.
+There are two ways to keep them together instead:
+
+* **Pack them into a single message.** Streams store messages in the [AMQP 1.0 message format](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#section-message-format), which allows several [data sections](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-data) in one message — one section per logical message. Consumers read the sections back out of the single message they receive.
+* **Use [sub-entry batching](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression).** It groups several messages into one chunk entry under one publishing ID, so the whole group is written, and deduplicated, together, while consumers still see the individual messages at their own offsets.
 
 ## Requirements {#requirements}
 
 Effectively-once holds only if all of the following are true.
 
-* **The target stream receives one write, carrying one publishing ID, per processing step.** A single message is the common case; a sub-entry batch works too, since it is written and deduplicated as one unit. See [above](#batching).
+* **The target stream receives one write, carrying one publishing ID, per processing step.** A single message is the common case; a sub-entry batch works too, since it is written and deduplicated as one unit. See [above](#result).
 * **Publishing to the target stream is the only side effect.** Deduplication protects the target stream, nothing else. A processing step that also writes to a database or calls an HTTP API can repeat that side effect after a crash.
 * **Only one instance publishes under a given producer name at a time.** Deduplication does not support concurrent publishing under the same name. Use the [single active consumer](./streams#single-active-consumer) feature on the source stream to make sure only one instance is processing.
 * **The producer name is stable across restarts and unique per target stream.** Publishing IDs are tracked per stream and producer name. Use a descriptive name such as `invoicer`, not a value that changes on every start.
@@ -161,7 +170,7 @@ With the stream Java client this means `noTrackingStrategy()` plus a `consumerUp
 
 ## Use Cases {#use-cases}
 
-The pattern fits whenever a processing step naturally produces a single result, published as one message or one sub-entry batch.
+The pattern fits whenever a processing step naturally produces a single result.
 
 * **Windowed aggregation.** Read all events of a time window or a fixed count and publish one aggregate: a per-minute rollup, an hourly summary, a running total. Many messages in, one message out.
 * **Batching for a slower downstream stage.** Read many small events and publish one envelope message, so the next stage does fewer and larger units of work.
