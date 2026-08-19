@@ -191,23 +191,26 @@ OffsetSpecification start = lastPublishingId == 0
                                        // re-processing it is safe
     : OffsetSpecification.offset(lastPublishingId + 1);
 
-List<Message> window = new ArrayList<>();
+final Object windowLock = new Object();
+List<Message> window = new ArrayList<>(10);
 
 environment.consumerBuilder()
     .stream("source-stream")
     .offset(start)
     .messageHandler((context, message) -> {
-        window.add(message);
-        if (window.size() == 10) {
-            // The aggregate should be stable across re-runs: a crash can replay this window.
-            byte[] result = aggregate(window);
-            Message out = producer.messageBuilder()
-                // the offset of the last source message in this window
-                .publishingId(context.offset())
-                .addData(result)
-                .build();
-            producer.send(out, confirmationStatus -> { });
-            window.clear();
+        synchronized (windowLock) {
+            window.add(message);
+            if (window.size() == 10) {
+                // The aggregate should be stable across re-runs: a crash can replay this window.
+                byte[] result = aggregate(window);
+                Message out = producer.messageBuilder()
+                    // the offset of the last source message in this window
+                    .publishingId(context.offset())
+                    .addData(result)
+                    .build();
+                producer.send(out, confirmationStatus -> { });
+                window.clear();
+            }
         }
     })
     .build();
