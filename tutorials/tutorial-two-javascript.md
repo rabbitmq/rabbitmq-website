@@ -433,7 +433,7 @@ work queue. The durability options let the tasks survive even if
 RabbitMQ is restarted.
 
 For more information on `Channel` methods and message properties, you can browse the
-[amqplib docs](https://amqp-node.github.io/amqplib//channel_api.html).
+[amqplib docs](https://amqp-node.github.io/amqplib/channel_api.html).
 
 Now we can move on to [tutorial 3](./tutorial-three-javascript) and learn how
 to deliver the same message to many consumers.
