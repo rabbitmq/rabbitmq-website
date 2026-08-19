@@ -115,6 +115,8 @@ On startup, the application:
 2. Asks the broker for the last publishing ID of that producer name.
 3. Resumes consuming the source stream at that offset plus one. See the note below for the special case of `0`.
 
+If the target is a super stream, the last publishing ID has to be collected from every partition — see [Publishing to a Super Stream](#super-stream).
+
 The interesting case is a crash between publishing a result and receiving its confirmation, because the application cannot know whether the result was stored.
 It does not need to know.
 Both outcomes end up correct:
@@ -148,6 +150,16 @@ There are two ways to keep them together instead:
 
 * **Pack them into a single message.** Streams store messages in the [AMQP 1.0 message format](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#section-message-format), which allows several [data sections](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-data) in one message — one section per logical message. Consumers read the sections back out of the single message they receive.
 * **Use [sub-entry batching](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression).** It groups several messages into one chunk entry under one publishing ID, so the whole group is written, and deduplicated, together, while consumers still see the individual messages at their own offsets.
+
+### Publishing to a Super Stream {#super-stream}
+
+The target can be a [super stream](./streams#super-streams).
+A super stream is not a single stream but a set of partitions, each a regular stream that keeps its own last publishing ID per producer name, so the loop has one resume point per partition instead of a single one.
+
+Two rules turn them back into one:
+
+* **Publish one result at a time.** Wait for the confirmation of a result before publishing the next one, so that there is never more than one un-confirmed result across the whole super stream.
+* **Resume from the highest publishing ID.** On startup, query the last publishing ID of the producer name on every partition and resume consuming the source stream at the highest of these values plus one.
 
 ## Requirements {#requirements}
 
