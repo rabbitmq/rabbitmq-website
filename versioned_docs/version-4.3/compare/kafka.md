@@ -488,8 +488,8 @@ correlated-failure exposure.
 
 What differs is having the choice at all. **In Kafka, adopting queue semantics does not
 change the durability story**: share groups consume from ordinary topics, so a work queue is
-stored exactly like an event stream and inherits the same page-cache exposure — with
-`flush.messages`, discouraged as above, the only lever. That matters because queueing
+stored exactly like an event stream and inherits the same page-cache exposure — with the
+discouraged `flush.messages`/`flush.ms` settings as the only levers. That matters because queueing
 workloads, such as orders, payments and jobs you must not drop, are usually the ones where
 durability matters most. In RabbitMQ you choose per destination: a stream where Kafka's trade
 is the right one, a quorum queue where it is not, in the same cluster.
