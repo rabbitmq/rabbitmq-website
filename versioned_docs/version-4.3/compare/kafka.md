@@ -878,7 +878,7 @@ dates to that here.
 * **Kafka Streams.** A Java stream processing library — joins, windows, aggregations, state
   stores, exactly-once — running in your Java application with no separate cluster.
 
-## Which one for which use case {#use-cases}
+## What's the best broker for my use case? {#use-cases}
 
 With the mechanics on the table, here is how they cash out per workload. Most people
 arrive at this page with a use case in mind, so this is the short answer — and every entry traces back to something
