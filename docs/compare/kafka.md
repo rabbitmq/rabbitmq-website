@@ -530,7 +530,9 @@ Kafka's architecture cannot give you all three: pick at most two, and the one yo
 
 :::
 
-**Enterprise disaster recovery.** [VMware Tanzu RabbitMQ](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-on-kubernetes/4-3/tanzu-rabbitmq-kubernetes/standby-replication.html) adds continuous schema and data replication to standby clusters in
+### Disaster recovery {#disaster-recovery}
+
+[VMware Tanzu RabbitMQ](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-on-kubernetes/4-3/tanzu-rabbitmq-kubernetes/standby-replication.html) adds continuous schema and data replication to standby clusters in
 other data centres, so a site can be promoted after a disaster. Kafka's equivalent,
 MirrorMaker 2, ships with Apache Kafka and is built on Kafka Connect; richer
 multi-region capabilities come from commercial Kafka vendors.
