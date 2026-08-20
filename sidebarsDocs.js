@@ -808,6 +808,18 @@ const sidebars = {
         },
       ],
     },
+    {
+      type: 'category',
+      label: 'Compare with Other Brokers',
+      link: {type: 'doc', id: 'compare/index'},
+      items: [
+        {
+          type: 'doc',
+          id: 'compare/kafka',
+          label: 'Apache Kafka',
+        },
+      ],
+    },
   ],
 };
 
