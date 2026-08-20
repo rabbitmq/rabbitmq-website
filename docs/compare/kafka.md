@@ -659,7 +659,7 @@ out. The differences are in granularity and in what comes built in.
 | Transport encryption | TLS on every protocol, including inter-node | TLS on client and inter-broker listeners |
 | Authentication | [SASL](https://datatracker.ietf.org/doc/html/rfc4422): Username/password, mTLS, [x.509 certificates](../access-control#certificate-authentication), [LDAP](../ldap), [OAuth 2.0 / OIDC](../oauth2), pluggable backends | SASL: GSSAPI (Kerberos), PLAIN, SCRAM-SHA-256/512, OAUTHBEARER; mTLS |
 | Authorisation | Per-[vhost](../vhosts) and per-user [permissions](../access-control#authorisation) supporting regular expressions, [topic authorisations](../access-control#topic-authorisation), [ACLs](../access-control#authorisation) | ACLs per resource, prefixed ACLs |
-| Tenant isolation | [Virtual hosts](../vhosts): true namespaces with their own exchanges, queues, users, permissions and [limits](../vhosts#limits) | Topic naming conventions plus prefixed ACLs plus quotas |
+| Tenant isolation | [Virtual hosts](../vhosts): namespaces with their own exchanges, queues, permissions and [limits](../vhosts#limits) | Topic naming conventions plus prefixed ACLs plus quotas |
 | Resource protection | Per-vhost and per-user connection, and queue [limits](../limits) | Client and broker quotas, request rate throttling |
 | Credential management | Management UI, HTTP API, CLI, definitions import/export | CLI, Admin API |
 
