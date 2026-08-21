@@ -399,16 +399,35 @@ erlang_mnesia_held_locks{node="rabbit@65f1a10aaffa",cluster="rabbit@65f1a10aaffa
 Notice that RabbitMQ exposes the metrics on a dedicated TCP port, `15692` by
 default.
 
-### Enable Authentication (Optional)
+### Enable Authentication (Optional) {#authentication}
 
-Optionally, you can enable HTTP authentication for the metrics endpoint.
-If you want to do this, add:
+Optionally, you can enable HTTP authentication for the `/metrics` endpoint.
+When enabled, the endpoint accepts two authentication methods:
 
-```
+- **HTTP Basic Auth**: credentials of a RabbitMQ user that has the `monitoring` or `administrator` [user tag](./access-control#user-tags)
+- **OAuth 2.0 Bearer tokens**: a JWT passed via the HTTP `Authorization` header whose scopes map to the `monitoring` or `administrator` tag, when the [OAuth 2.0 authentication backend](./oauth2) is configured
+
+To enable authentication, add the following to the [configuration file](./configure#configuration-files):
+
+```ini
 prometheus.authentication.enabled = true
 ```
 
-to the RabbitMQ configuration file.
+#### Scraping an Authenticated Endpoint
+
+To scrape an authenticated endpoint, configure the Prometheus scrape job with credentials.
+
+For **Basic Auth**:
+
+```yaml
+scrape_configs:
+  - job_name: rabbitmq
+    static_configs:
+      - targets: ['rabbitmq-host:15692']
+    basic_auth:
+      username: monitoring_user
+      password: monitoring_user_password
+```
 
 ### Prometheus Configuration {#prometheus-configuration}
 
