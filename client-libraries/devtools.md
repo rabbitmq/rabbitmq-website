@@ -140,6 +140,7 @@ Miscellaneous projects:
    automatic error recovery, redelivery flood protection, transparent encryption and channel pooling.
  * [node-rabbitmq-client](https://github.com/cody-greene/node-rabbitmq-client): RabbitMQ (AMQP 0-9-1) client library with auto-reconnect, zero dependencies, TypeScript support, and Promise-based API.
  * [ComQ](https://github.com/toa-io/comq): Production grade RPC and pub/sub.
+ * [Rabbit Relay](https://github.com/bitspacerlabs/rabbit-relay): a TypeScript-first RabbitMQ framework for Node.js built on top of [amqplib](https://github.com/amqp-node/amqplib), with typed/versioned events, publisher confirms, bounded retries and dead-letter queues, RPC, reconnect recovery, topology planning/validation/diff CLI, and OpenTelemetry.
 
 
 ## Go {#go-dev}
