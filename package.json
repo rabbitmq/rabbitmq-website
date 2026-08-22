@@ -33,7 +33,7 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.10.1",
     "@docusaurus/types": "^3.10.1",
-    "baseline-browser-mapping": "^2.11.12",
+    "baseline-browser-mapping": "^2.11.15",
     "cookie": ">=0.7.0",
     "dompurify": ">=3.4.13",
     "estree-util-value-to-estree": ">=3.3.3",
