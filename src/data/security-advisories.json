@@ -1,6 +1,17 @@
 [
   {
     "cve_id": "",
+    "ghsa_id": "GHSA-h6w7-qmcm-q6xr",
+    "patched_versions": "5.35.0",
+    "published_at": "2026-08-21",
+    "repo": "rabbitmq-java-client",
+    "severity": "medium",
+    "summary": "RabbitMQ Java client: plaintext broker credentials leaked in exception message from ConnectionFactoryConfigurator.load()",
+    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-h6w7-qmcm-q6xr",
+    "vulnerable_versions": "<= 5.34.0"
+  },
+  {
+    "cve_id": "",
     "ghsa_id": "GHSA-pj8f-mw2q-3xjj",
     "patched_versions": "4.2.10, 4.3.5",
     "published_at": "2026-08-18",
@@ -141,6 +152,17 @@
     "summary": "RabbitMQ policymaker RCE through federation-management nonmember RPC and distribution reflection",
     "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-27gv-h5q6-cpwg",
     "vulnerable_versions": ">= 3.13.0, < 3.13.19, >= 4.0.0, < 4.0.24, >= 4.1.0, < 4.1.15, >= 4.2.0, < 4.2.10, >= 4.3.0, < 4.3.5"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-w6r9-248c-frg8",
+    "patched_versions": "1.14",
+    "published_at": "2026-08-18",
+    "repo": "amqp091-go",
+    "severity": "medium",
+    "summary": "Pre-negotiation frame limit is not enforced to 4KB",
+    "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-w6r9-248c-frg8",
+    "vulnerable_versions": "< 1.14"
   },
   {
     "cve_id": "CVE-2026-61837",
@@ -352,7 +374,7 @@
     "vulnerable_versions": "< 2.22.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-77403",
     "ghsa_id": "GHSA-xwwf-m8fg-p9q2",
     "patched_versions": "1.13.0",
     "published_at": "2026-07-22",
@@ -363,7 +385,7 @@
     "vulnerable_versions": "<1.13.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-77409",
     "ghsa_id": "GHSA-wxx3-cj7g-w73j",
     "patched_versions": "1.13.0",
     "published_at": "2026-07-22",
@@ -374,7 +396,7 @@
     "vulnerable_versions": "<1.13.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-77406",
     "ghsa_id": "GHSA-rm6m-hrcw-jw33",
     "patched_versions": "1.13.0",
     "published_at": "2026-07-22",
@@ -385,7 +407,7 @@
     "vulnerable_versions": "<1.13.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-77410",
     "ghsa_id": "GHSA-r9c8-gcjp-xfwh",
     "patched_versions": "1.13.0",
     "published_at": "2026-07-22",
@@ -396,7 +418,7 @@
     "vulnerable_versions": "<1.13.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-77408",
     "ghsa_id": "GHSA-j497-x9hr-x34x",
     "patched_versions": "1.13.0",
     "published_at": "2026-07-22",
@@ -407,7 +429,7 @@
     "vulnerable_versions": "<1.13.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-77411",
     "ghsa_id": "GHSA-c5pq-fr2g-9jpf",
     "patched_versions": "1.13.0",
     "published_at": "2026-07-22",
@@ -429,7 +451,7 @@
     "vulnerable_versions": "<1.13.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-77412",
     "ghsa_id": "GHSA-4v58-74mf-rjx3",
     "patched_versions": "1.13.0",
     "published_at": "2026-07-22",
@@ -440,7 +462,7 @@
     "vulnerable_versions": "<1.13.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-77404",
     "ghsa_id": "GHSA-465g-fh3v-9jw4",
     "patched_versions": "1.13.0",
     "published_at": "2026-07-22",
@@ -451,7 +473,7 @@
     "vulnerable_versions": "<1.13.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-77405",
     "ghsa_id": "GHSA-33mj-cw25-m34h",
     "patched_versions": "1.13.0",
     "published_at": "2026-07-22",
@@ -462,7 +484,7 @@
     "vulnerable_versions": "<1.13.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-77407",
     "ghsa_id": "GHSA-27gv-rfvv-22mv",
     "patched_versions": "1.13.0",
     "published_at": "2026-07-22",
@@ -484,7 +506,7 @@
     "vulnerable_versions": "< 2.21.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-75516",
     "ghsa_id": "GHSA-jh4v-gfqj-7rhx",
     "patched_versions": "5.34.0",
     "published_at": "2026-07-10",
