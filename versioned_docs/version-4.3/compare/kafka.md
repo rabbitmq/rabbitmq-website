@@ -1020,6 +1020,7 @@ After all, one solution is cheaper to operate than two different solutions.
 * [Streams: past, present, and future](https://www.youtube.com/watch?v=i3zB5VDMMV8&list=PLvL2NEhYV4ZsALsESTtvpUSSnB-ut0SRJ&index=5) — RabbitMQ Summit 2023
 * [RabbitMQ Streams — extreme performance with unrivalled flexibility](https://www.youtube.com/watch?v=gbf1_aqVKL0) — VMware Tanzu Webinar 2023
 * [Spring for RabbitMQ Super Streams and SQL filters](https://www.youtube.com/watch?v=lbhGFw1GKQ0) — Spring I/O 2026
+* [RabbitMQ vs Kafka: How to Choose an Event-Streaming Broker](https://blogs.vmware.com/tanzu/rabbitmq-event-streaming-broker/)
 
 :::info
 
