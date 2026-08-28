@@ -14,7 +14,7 @@
     "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
-    "@docsearch/core": "^5.0.2",
+    "@docsearch/core": "^5.0.4",
     "@docusaurus/core": "^3.10.1",
     "@docusaurus/faster": "^3.10.1",
     "@docusaurus/preset-classic": "^3.10.1",
