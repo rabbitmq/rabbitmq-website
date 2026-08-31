@@ -1636,7 +1636,7 @@ hostname = "localhost"
 port = 15672
 username = "lolz"
 password = "lolz"
-vhost = '/'
+virtual_host = '/'
 
 [staging]
 hostname = "192.168.20.31"
@@ -1785,7 +1785,7 @@ hostname = "localhost"
 port = 15672
 username = "lolz"
 password = "lolz"
-vhost = '/'
+virtual_host = '/'
 
 [staging]
 hostname = "192.168.20.31"
