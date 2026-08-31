@@ -1647,8 +1647,14 @@ password = "staging-1d20cfbd9d"
 [production]
 hostname = "(redacted)"
 port = 15671
-username = "user-2ca6bae15ff6b79e92"
-password = "user-92ee4c479ae604cc72"
+
+username = "user-efe1f4d763f6"
+password = "(redacted)"
+
+tls = true
+ca_certificate_bundle_path = "/path/to/ca_certificate.pem"
+client_certificate_file_path = "/path/to/client_certificate.pem"
+client_private_key_file_path = "/path/to/client_key.pem"
 ```
 
 Instead of specifying `--hostname` or `--username` on the command line to connect to
@@ -1790,8 +1796,14 @@ password = "staging-1d20cfbd9d"
 [production]
 hostname = "(redacted)"
 port = 15671
+
 username = "user-efe1f4d763f6"
 password = "(redacted)"
+
+tls = true
+ca_certificate_bundle_path = "/path/to/ca_certificate.pem"
+client_certificate_file_path = "/path/to/client_certificate.pem"
+client_private_key_file_path = "/path/to/client_key.pem"
 ```
 
 
