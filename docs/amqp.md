@@ -308,6 +308,7 @@ This section lists features that RabbitMQ supports exclusively in AMQP 1.0, whic
 * **Better defined [message headers](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#section-message-format)**
 * **Enhanced Message Integrity**: Clients can set message hashes, checksums, and digital signatures not only over the message body but also over the [properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-properties) and [application-properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-application-properties) sections, as the bare message is immutable.
 * **Stream Message Fidelity**: No loss of headers fidelity when storing or retrieving a message from a [stream](./streams), since streams store messages in AMQP 1.0 encoded format.
+* **[Enforcement of Connection Uniqueness](#enforcement-of-connection-uniqueness)**: A client can request that RabbitMQ guarantee at most one connection with a given container ID exists at any point in time on a given virtual host.
 
 ### AMQP 0.9.1 Features
 This section lists features that RabbitMQ supports exclusively in AMQP 0.9.1, which are currently not available in AMQP 1.0:
@@ -339,6 +340,43 @@ Currently, the following link state property is supported:
 The `rabbitmq:active` property is sent in a `flow` frame to each consumer of a [quorum queue](./quorum-queues):
 * Immediately after the consumer grants credit for the first time, indicating the initial activity status. For quorum queues without SAC enabled, the value is always `true` since every consumer is active.
 * Whenever the consumer's activity status changes, for example, when a higher-priority consumer attaches to or when the active consumer detaches from a quorum queue with SAC enabled.
+
+## Enforcement of Connection Uniqueness
+
+The AMQP 1.0 specification allows multiple concurrent connections to share the same [container ID](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-open). Some applications, however, require a guarantee that at most one connection with a given container ID exists at any point in time. A common example is a JMS client using JMS over AMQP 1.0: the JMS client ID is carried as the AMQP 1.0 container ID, and the JMS specification requires that a given client ID be used by only one connection at a time.
+
+RabbitMQ implements the OASIS [Enforcing Connection Uniqueness Version 1.0](https://docs.oasis-open.org/amqp/soleconn/v1.0/soleconn-v1.0.pdf) extension, commonly referred to as "sole connection" enforcement, to provide this guarantee.
+
+### How It Works
+
+A client opts in by offering the `sole-connection-for-container` capability when opening a connection. RabbitMQ only offers this capability back, and therefore only enforces uniqueness, when the client requests it: connections that do not request the capability are not affected in any way.
+
+When the capability is used, RabbitMQ tracks the connection's container ID scoped to the [virtual host](./vhosts) the connection was opened on. The same container ID can therefore be used concurrently by connections to different virtual hosts without conflict.
+
+If a second connection with the same container ID is opened on the same virtual host, RabbitMQ applies one of two enforcement policies, requested by the client via the `sole-connection-enforcement-policy` connection property:
+
+* `refuse-connection` (the default when the client requests the capability but does not specify a policy): the new connection is refused with an `amqp:invalid-field` error identifying `container-id` as the offending field.
+* `close-existing`: the existing connection is closed with a `resource-locked` error, and the new connection takes its place.
+
+In both cases, the connection currently holding the container ID is only ever replaced by a new connection authenticated as the *same* user. A connection from a different user is always refused, regardless of the requested policy, so that one user cannot hijack a container ID owned by another user. If the existing connection is no longer alive (for example, its owning node has crashed), the new connection is allowed to take over even under the `refuse-connection` policy.
+
+RabbitMQ only ever advertises the `weak` sole connection detection policy. Connections that do not request the `sole-connection-for-container` capability are never checked at all.
+
+### Feature Flag and Storage
+
+Sole connection enforcement is available as of RabbitMQ 4.4 and requires the corresponding [feature flag](./feature-flags) to be enabled.
+
+Container IDs are tracked in a dedicated store, independent from the main [metadata store](./metadata-store), replicated across cluster nodes using the same underlying technologies (Khepri, Raft). This store is only started the first time a client actually uses the sole connection capability, so clusters that do not use the feature incur no additional cost. Once started, cluster membership of this store automatically grows and shrinks to track which nodes are part of the RabbitMQ cluster.
+
+### Settings
+
+The following settings, set in [`rabbitmq.conf`](./configure#config-file), control the behavior of the store used by this feature:
+
+| `rabbitmq.conf` Setting | Type | Description | Default |
+|---------|------|-------------|---------|
+| `sole_connection.tick_interval` | positive integer (milliseconds) | How often the store checks whether its membership needs to grow or shrink to match the RabbitMQ cluster | 30000 (30 seconds) |
+| `sole_connection.leader_wait_retry_timeout` | positive integer (milliseconds) | How long to wait for a Raft leader to be elected when the store is bootstrapped or a node joins it | 300000 (5 minutes) |
+| `sole_connection.default_timeout` | positive integer (milliseconds) | Timeout applied to operations performed against the store | 20000 (20 seconds) |
 
 ## Limitations
 
