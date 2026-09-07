@@ -685,6 +685,47 @@ spec:
     disableNonTLSListeners: true
 ```
 
+### Automated Inter-Node mTLS {#inter-node-tls}
+
+**Description:** Automates mutual TLS (mTLS) for [inter-node (Erlang distribution) traffic](/docs/clustering-ssl)
+using the [cert-manager CSI driver](https://cert-manager.io/docs/usage/csi-driver/). When enabled, the operator
+mounts a certificate issued directly to each Pod by the CSI driver, and configures RabbitMQ to require and verify
+peer certificates on the inter-node connections. There is no need to provision Secrets or write `envConfig`
+or `override` fields by hand, and certificates are reissued automatically whenever the cluster is scaled.
+
+This feature requires both [cert-manager](https://cert-manager.io/docs/installation/) and the
+[cert-manager-csi-driver](https://cert-manager.io/docs/usage/csi-driver/) to be installed in the Kubernetes
+cluster. The operator does not install or verify the presence of either.
+
+Set `spec.tls.interNode.enabled: true` and point `spec.tls.interNode.issuerRef` at a cert-manager `Issuer` or
+`ClusterIssuer`. The issuer **must be a CA-type issuer**: a `SelfSigned` or ACME issuer will not provide the CA
+certificate that inter-node TLS verification requires, and RabbitMQ nodes will fail to start. `issuerRef.kind`
+defaults to `Issuer`, which must exist in the same Namespace as the `RabbitmqCluster`; use `ClusterIssuer` to
+share one issuer across RabbitMQ clusters in different Namespaces.
+
+This field was introduced in Cluster Operator 2.23.0.
+
+**Default Value:** N/A
+
+**Example:**
+
+```yaml
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmqcluster-sample
+spec:
+  tls:
+    interNode:
+      enabled: true
+      issuerRef:
+        name: rabbitmq-ca-issuer
+        kind: Issuer
+```
+
+See the [full worked example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/mtls-inter-node),
+including a sample CA issuer, validation steps, and troubleshooting guidance.
+
 ### Automatically Enabling Feature Flags (added in version 2.15.0) {#autoEnableAllFeatureFlags}
 
 **Description:** When set to true, operator will run `rabbitmqctl enable_feature_flag all` whenever the cluster is updated.
@@ -963,6 +1004,14 @@ The configurations are listed in the table below.
     </tr>
     <tr>
       <td>
+        <code>spec.tls.interNode</code>
+      </td>
+      <td>
+        Automates mutual TLS for inter-node traffic using the cert-manager CSI driver. See <a href='#inter-node-tls'>Automated Inter-Node mTLS</a>.
+      </td>
+    </tr>
+    <tr>
+      <td>
         <code>spec.rabbitmq.additionalPlugins</code>
       </td>
       <td>
@@ -1077,7 +1126,7 @@ For more information about concepts mentioned above, see:
 
 Transport Layer Security (TLS) is a protocol for encrypting network traffic. <a href="/docs/ssl">RabbitMQ supports TLS</a>, and the cluster operator simplifies the process of configuring a RabbitMQ cluster with [TLS](#one-way-tls) or
 [mutual TLS (mTLS)](#mutual-tls) encrypted traffic between clients and the cluster, as well
-as supporting [encrypting RabbitMQ inter-node traffic with mTLS](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/mtls-inter-node).
+as [automating encrypted, mutually authenticated RabbitMQ inter-node traffic](#inter-node-tls).
 A [basic overview of TLS](/docs/ssl#certificates-and-keys) is helpful for understanding this guide.
 
 ### TLS encrypting traffic between clients and RabbitMQ {#one-way-tls}
