@@ -153,11 +153,10 @@ auth_oauth2.https.cacertfile = <path_to_your_ca_cert>
 :::
 
 :::warning
-RabbitMQ uses the issuer URL to request the OpenID configuration from the OpenID discovery endpoint. This configuration contains metadata such as the issuer and endpoint URIs. RabbitMQ rejects configurations with an invalid issuer or URIs.
+RabbitMQ uses the issuer URL to request the OpenID configuration from the OpenID discovery endpoint. This configuration contains metadata such as the issuer and endpoint URIs. RabbitMQ rejects the discovery response if the issuer or endpoint URIs are invalid.
 
 See [Discovery Payload validation](#discovery-payload-validation) for details on validation rules and how to disable them if the identity provider is not fully OpenID Connect compliant.
 :::
-
 
 #### Step 3: Configure which token's attributes contain the username {#step3}
 
