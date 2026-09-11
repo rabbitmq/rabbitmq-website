@@ -54,6 +54,7 @@ There's also a companion [troubleshooting guide for OAuth 2-specific problems](.
 * [Use a different token field for the scope](#use-different-token-field)
 * [Preferred username claims](#preferred-username-claims)
 * [Discovery Endpoint params](#discovery-endpoint-params)
+* [Discovery Payload validation](#discovery-payload-validation)
 * [Requesting Party Token](#requesting-party-token)
 * [Rich Authorization Request](#rich-authorization-request)
 
@@ -150,6 +151,13 @@ auth_oauth2.https.cacertfile = <path_to_your_ca_cert>
 ```
 
 :::
+
+:::warning
+RabbitMQ uses the issuer URL to request the OpenID configuration from the OpenID discovery endpoint. This configuration contains metadata such as the issuer and endpoint URIs. RabbitMQ rejects configurations with an invalid issuer or URIs.
+
+See [Discovery Payload validation](#discovery-payload-validation) for details on validation rules and how to disable them if the identity provider is not fully OpenID Connect compliant.
+:::
+
 
 #### Step 3: Configure which token's attributes contain the username {#step3}
 
@@ -459,6 +467,8 @@ connect to one of the RabbitMQ's messaging protocols, such as AMQP:
 | `auth_oauth2.algorithms`                  | Restrict [the usable algorithms](https://github.com/potatosalad/erlang-jose#algorithm-support). |
 | `auth_oauth2.verify_aud`                  | Whether to verify the [token's `aud`](#token-validation) field or not. The default value is `true`. |
 | `auth_oauth2.require_exp`                 | Whether to make the [token's `exp`](#token-validation) field mandatory. The default value is `true`. |
+| `auth_oauth2.discovery.verify_https_endpoints` | Whether to verify that endpoint URIs in the [OpenID discovery payload](#discovery-payload-validation) use HTTPS if present. The default value is `true`. |
+| `auth_oauth2.discovery.verify_issuer`          | Whether to require the issuer to be present in the [OpenID discovery payload](#discovery-payload-validation) and verify that it matches the discovery URI and uses HTTPS. The default value is `true`. |
 | `auth_oauth2.resource_servers`            | [Multiple OAuth 2.0 resources configuration](#multiple-resource-servers-configuration). |
 | `auth_oauth2.oauth_providers`             | [Multiple OAuth 2.0 providers configuration](#multiple-oauth-providers-configuration). |
 | `auth_oauth2.default_oauth_provider`      | ID of the OAuth 2.0 provider used for the `auth_oauth2.resource_servers`, that did not specify any (via the variable `oauth_provider_id`) or when `auth_oauth2.jwks_uri` and `auth_oauth2.issuer` are both missing. |
@@ -1157,6 +1167,34 @@ This is the URL built to access the OpenId Discovery endpoint:
 
 ```console
 https://myissuer.com/v2/.well-known/authorization-server?param1=value1&param2=value2
+```
+
+### Discovery Payload validation {#discovery-payload-validation}
+
+When RabbitMQ retrieves the OpenID configuration document from the discovery endpoint, it validates the payload before using the returned metadata.
+
+By default, RabbitMQ performs the following validations:
+
+* **Issuer Verification (`verify_issuer`)**: Requires the `issuer` attribute to be present in the discovery payload, use the `https` scheme, and match or be a prefix of the discovery endpoint URI. For example, if the discovery endpoint is `https://auth.example.com/tenant1/.well-known/openid-configuration`:
+  * **Valid issuers**: `https://auth.example.com/tenant1` or `https://auth.example.com`
+  * **Invalid issuer**: `https://different-auth.example.com` (host mismatch)
+* **Endpoint HTTPS Scheme (`verify_https_endpoints`)**: Verifies that endpoint URIs present in the payload (`jwks_uri`, `token_endpoint`, `authorization_endpoint`, and `end_session_endpoint`) use the `https` scheme. Optional endpoint URIs that are not present in the payload are skipped
+
+These validations adhere to the OpenID Connect Discovery 1.0 specification. In non-production or test environments where identity providers use HTTP or non-standard issuer URLs, these checks can be disabled in `rabbitmq.conf`:
+
+```ini
+# Disable HTTPS scheme validation for optional endpoint URIs
+auth_oauth2.discovery.verify_https_endpoints = false
+
+# Disable required presence, HTTPS scheme, and matching validation for the issuer
+auth_oauth2.discovery.verify_issuer = false
+```
+
+When using [multiple OAuth 2.0 providers](#multiple-oauth-providers), these settings can be configured per provider:
+
+```ini
+auth_oauth2.oauth_providers.dev.discovery.verify_https_endpoints = false
+auth_oauth2.oauth_providers.dev.discovery.verify_issuer = false
 ```
 
 ### Requesting Party Token {#requesting-party-token}
