@@ -157,7 +157,7 @@ here, [get in touch](/contact)!
   </tr>
   <tr>
     <td>
-      Accepts a pre-issued HS256 JWT (a <code>token:&lt;jwt&gt;</code> credential whose payload carries a <code>sub</code> claim, as issued by Pulsar/AoP-based brokers) in the AMQP password field, alongside internal username/password authentication on the <b>same account</b>. Lets clients migrating from such deployments to native RabbitMQ keep authenticating unchanged. The signing key is configurable; authorization is delegated to the internal backend.
+      Accepts a pre-issued JWT bearer token (a <code>token:&lt;jwt&gt;</code> credential whose payload carries a <code>sub</code> claim, as issued by Apache Pulsar and AoP-based brokers) in the AMQP password field, alongside internal username/password authentication on the <b>same account</b>, so clients migrating from such deployments to native RabbitMQ keep authenticating unchanged. Verifies HS256/384/512 with a shared secret and RS/ES with a public key, enforces <code>exp</code>, <code>nbf</code> and an optional audience, and delegates authorization to the internal backend.
       <ul>
         <li><a href="https://github.com/martinx/rabbitmq-auth-backend-aoptoken/releases">Releases</a></li>
         <li>Author: <b>martinx</b></li>
