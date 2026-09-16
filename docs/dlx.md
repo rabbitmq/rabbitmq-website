@@ -295,6 +295,20 @@ with configured dead-letter-exchange exchange 'amq.topic' in vhost 'my-vhost'
 and configured dead-letter-routing-key 'my-app.events.type.abc'
 ```
 
+### Dead Lettering and Resource Alarms {#dead-lettering-and-resource-alarms}
+
+Dead lettering is an internal operation: it is not subject to [resource alarm](./alarms)-triggered
+blocking of publishers. When a [disk alarm](./disk-alarms) is triggered, all connections that
+publish messages are blocked, but consumers can continue to deliver and reject (or nack) messages.
+
+This means that if consumers reject messages from a queue that has a dead letter exchange configured,
+the dead letter target queue will continue to grow even while the disk alarm is active.
+In the worst case, this can exhaust all remaining disk space.
+
+To guard against this, apply a [queue length limit](./maxlength) to dead letter target queues.
+With an `overflow` setting of `drop-head`, excess messages will be discarded
+rather than accumulating without bound.
+
 ### Re-Publishing with Publisher Confirms
 
 By default, dead-lettered messages are re-published *without* publisher
