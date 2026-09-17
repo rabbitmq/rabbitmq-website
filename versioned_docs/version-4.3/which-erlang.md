@@ -73,6 +73,30 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       <td>
         <ul>
           <li>4.3.6</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>27.0</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>28.x</li>
+        </ul>
+      </td>
+      <td>
+        <ul class="notes">
+          <li>
+            Erlang 28.5 provides support for Post-Quantum Cryptography.
+          </li>
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <ul>
           <li>4.3.5</li>
           <li>4.3.4</li>
           <li>4.3.3</li>
