@@ -40,12 +40,14 @@ The fully supported series is Erlang `27.x`, with `28.x` partially supported (se
 
 ### Erlang 29 Support
 
-Erlang 29 is **not supported** by RabbitMQ 4.3.
+Erlang 29 is supported by RabbitMQ 4.3. However, currently not all packages list that version
+as supported.
 
 ### Erlang 28 Support
 
-Erlang 28 is **partially supported** by RabbitMQ 4.3.x: upgrades of clusters running Khepri have known issues
-directly related to the breaking changes in Erlang 28 that equally affect Erlang 29.
+Erlang 28 is fully supported starting with RabbitMQ `4.3.6`.
+
+Erlang 28.5 provides support for several Post-Quantum cryptography algorithms.
 
 ### Erlang 27 Support
 
