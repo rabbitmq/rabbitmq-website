@@ -384,7 +384,7 @@ Cookie CLI Switch
 --erlang-cookie value set? false
 --erlang-cookie value length: 0
 
-Env variable  (Deprecated)
+Env variable
 
 RABBITMQ_ERLANG_COOKIE value set? false
 RABBITMQ_ERLANG_COOKIE value length: 0
