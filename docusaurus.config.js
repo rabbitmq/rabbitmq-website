@@ -71,6 +71,7 @@ const config = {
         },
         '4.3': {
           releases: [
+            {version: '4.3.6', release_date: "2026-09-16", },
             {version: '4.3.5', release_date: "2026-08-17", },
             {version: '4.3.4', release_date: "2026-07-23", },
             {version: '4.3.3', release_date: "2026-07-20", },
