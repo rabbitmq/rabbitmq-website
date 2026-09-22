@@ -1338,8 +1338,9 @@ TLSv1.3 support requires the node to be [running on Erlang 27 or 26](./which-erl
 Clients that use older runtimes (e.g. JDK, .NET, Python) without TLSv1.3 support
 **will not be able to connect** to RabbitMQ nodes that are configured to only accept TLSv1.3 connections.
 
-Because TLSv1.3 shares no cipher suites with earlier TLS versions, when enabling TLSv1.3,
-list a set of TLSv1.3-specific cipher suites:
+Because TLSv1.3 shares no cipher suites with earlier TLS versions, when enabling TLSv1.3, list a set of TLSv1.3-specific cipher suites.
+Additionally, TLS 1.3 utilizes `supported_groups` for key exchange configuration.
+In Erlang 28, this setting allows administrators to enable post-quantum safe key exchange algorithms.
 
 ```ini
 listeners.ssl.1 = 5671
@@ -1357,6 +1358,14 @@ ssl_options.ciphers.2  = TLS_AES_128_GCM_SHA256
 ssl_options.ciphers.3  = TLS_CHACHA20_POLY1305_SHA256
 ssl_options.ciphers.4  = TLS_AES_128_CCM_SHA256
 ssl_options.ciphers.5  = TLS_AES_128_CCM_8_SHA256
+
+# Configures supported groups for TLS 1.3 key exchange.
+# Enables post-quantum safe cryptography using hybrid X25519 + ML-KEM-768 (requires Erlang 28).
+ssl_options.supported_groups.1 = x25519mlkem768
+
+# Fall back to widely supported algorithms to ensure interoperability with older clients.
+ssl_options.supported_groups.2 = x25519
+ssl_options.supported_groups.3 = secp256r1
 ```
 
 Explicit cipher suite configuration may also be necessary on the client side.
