@@ -738,7 +738,6 @@ For example, prefer to structure your topic as `city/name` instead of `continent
 Each topic level in a topic filter currently creates its own entry in the database used by RabbitMQ.
 Therefore, creating and deleting many subscriptions will be faster when there are fewer topic levels.
 Also, routing messages with fewer topic levels is faster.
-1. In workloads with high subscription churn, increase Mnesia configuration parameter `dump_log_write_threshold` (e.g. `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-mnesia dump_log_write_threshold 20000"`)
 1. When connecting many clients, increase the maximum number of Erlang processes (e.g. `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+P 10000000`)
 and the maximum number of open ports (e.g. `ERL_MAX_PORTS=10000000`).
 
