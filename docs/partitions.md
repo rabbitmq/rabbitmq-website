@@ -46,12 +46,9 @@ and this guide is now much shorter:
   * [Quorum queue](./quorum-queues)
   * [Stream](./streams) coordinators
 
-In [Tanzu RabbitMQ](/commercial-features) the list of Raft-based features also includes:
+In [Tanzu RabbitMQ](/commercial-features), JMS queues are Raft-based as well.
 
-  * Delayed Queues
-  * JMS Queues
-
-See the documentation guides for those features for a more detailed description of their
+See the documentation guide for that feature for a more detailed description of its
 failure recovery characteristics.
 
 ## How to Spot Network Partitions

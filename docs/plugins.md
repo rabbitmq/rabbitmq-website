@@ -660,18 +660,6 @@ For more details, see [Exclusive features in Tanzu RabbitMQ](https://techdocs.br
     </tr>
 
     <tr>
-      <th>rabbitmq_delayed_queue</th>
-      <td>
-        Delayed/scheduled message delivery queue type. Messages are held until
-        their scheduled delivery time, with support for both relative delays and
-        absolute timestamps. Uses Ra-based replication and RocksDB for persistence.
-        <ul>
-          <li><a href="https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-2/tanzu-rabbitmq-oci-image/site-delayed-queues.html">Documentation for the delayed queues plugin</a></li>
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
       <th>rabbitmq_distributed_shovel</th>
       <td>
         An alternative to <code>rabbitmq_shovel</code> that distributes shovels
