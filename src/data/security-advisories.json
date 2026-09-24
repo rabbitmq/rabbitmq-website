@@ -1,6 +1,61 @@
 [
   {
     "cve_id": "",
+    "ghsa_id": "GHSA-j6hc-926v-qwq2",
+    "patched_versions": "4.3.6, 4.2.11",
+    "published_at": "2026-09-18",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "RabbitMQ STOMP consumers retain OAuth queue access after JWT expiration",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-j6hc-926v-qwq2",
+    "vulnerable_versions": ">= 4.3.0, < 4.3.6, >= 4.2.0, < 4.2.11"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-6jvc-jx8w-m757",
+    "patched_versions": "4.3.6, 4.2.11",
+    "published_at": "2026-09-18",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "RabbitMQ Stream Publisher Management API Discloses Unauthorized Vhost and Stream Existence",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-6jvc-jx8w-m757",
+    "vulnerable_versions": ">= 4.3.0, < 4.3.6, >= 4.2.0, < 4.2.11"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-5jgm-jxp7-gwjh",
+    "patched_versions": "4.3.5",
+    "published_at": "2026-09-18",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "MQTT retained message store has no size or count limit and is never reclaimed",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-5jgm-jxp7-gwjh",
+    "vulnerable_versions": ">= 4.3.0, < 4.3.5"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-342v-cj47-c9g8",
+    "patched_versions": "4.3.6, 4.2.11",
+    "published_at": "2026-09-18",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "Cross-vhost Stream consumer virtual-host existence disclosure",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-342v-cj47-c9g8",
+    "vulnerable_versions": ">= 4.3.0, < 4.3.6, >= 4.2.0, < 4.2.11"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-7822-rcf6-97fx",
+    "patched_versions": "5.36.0",
+    "published_at": "2026-09-17",
+    "repo": "rabbitmq-java-client",
+    "severity": "medium",
+    "summary": "Malformed UTF-8 in shortstr properties permanently disables RPC consumers",
+    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-7822-rcf6-97fx",
+    "vulnerable_versions": "<= 5.35.0"
+  },
+  {
+    "cve_id": "",
     "ghsa_id": "GHSA-h6w7-qmcm-q6xr",
     "patched_versions": "5.35.0",
     "published_at": "2026-08-21",
@@ -440,7 +495,7 @@
     "vulnerable_versions": "<1.13.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-79921",
     "ghsa_id": "GHSA-6c5v-hqjr-5xxp",
     "patched_versions": "1.13.0",
     "published_at": "2026-07-22",
