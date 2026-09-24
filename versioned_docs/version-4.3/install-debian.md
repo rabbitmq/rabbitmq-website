@@ -100,7 +100,7 @@ in line with the [Debian distribution EOL policy](https://wiki.debian.org/Debian
 
 Currently the list of supported Debian-based distributions includes
 
- * Ubuntu 20.04 (Focal), 22.04 (Jammy) and 24.04 (Noble)
+ * Ubuntu 20.04 (Focal), 22.04 (Jammy), 24.04 (Noble), and 26.04 (Resolute)
  * Debian Bullseye (11), Bookworm (12), and Trixie (13)
 
 The package may work on other Debian-based distributions
@@ -173,7 +173,7 @@ this script must be modified to provision a supported Erlang series [from Launch
 :::
 
 <Tabs groupId="distribution-specific">
-<TabItem value="ubuntu-noble" label="Ubuntu 24.04" default>
+<TabItem value="ubuntu-noble" label="Ubuntu 26.04 and 24.04" default>
 ```bash
 #!/bin/sh
 
@@ -447,8 +447,14 @@ must be placed under the `/etc/apt/sources.list.d/` directory.
 
 The contents of the file will vary slightly based on the distribution used.
 
+:::note[Ubuntu 26.04 "Resolute Raccoon"]
+
+The Ubuntu 26.04 "resolute" family of distributions uses the Ubuntu 24.04 "noble" repository below; there is no dedicated `resolute` repository at the moment.
+
+:::
+
 <Tabs groupId="distribution-specific">
-<TabItem value="ubuntu-noble" label="Ubuntu 24.04" default>
+<TabItem value="ubuntu-noble" label="Ubuntu 26.04 and 24.04" default>
 ```bash
 sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
 ## Modern Erlang/OTP releases
@@ -1012,7 +1018,7 @@ The file should have a repository (apt source file) definition line. Its
 contents will vary from Ubuntu version to Ubuntu version.
 
 <Tabs groupId="distribution-specific">
-<TabItem value="ubuntu-noble" label="Ubuntu 24.04" default>
+<TabItem value="ubuntu-noble" label="Ubuntu 26.04 and 24.04" default>
 ```bash
 # This Launchpad PPA repository provides Erlang packages produced by the RabbitMQ team
 #
