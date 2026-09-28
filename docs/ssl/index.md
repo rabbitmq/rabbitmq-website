@@ -1338,8 +1338,9 @@ TLSv1.3 support requires the node to be [running on Erlang 27 or 26](./which-erl
 Clients that use older runtimes (e.g. JDK, .NET, Python) without TLSv1.3 support
 **will not be able to connect** to RabbitMQ nodes that are configured to only accept TLSv1.3 connections.
 
-Because TLSv1.3 shares no cipher suites with earlier TLS versions, when enabling TLSv1.3,
-list a set of TLSv1.3-specific cipher suites:
+Because TLSv1.3 shares no cipher suites with earlier TLS versions, when enabling TLSv1.3, list a set of TLSv1.3-specific cipher suites.
+Additionally, TLS 1.3 utilizes `supported_groups` for key exchange configuration.
+In Erlang 28, this setting allows administrators to enable post-quantum safe key exchange algorithms.
 
 ```ini
 listeners.ssl.1 = 5671
@@ -1357,6 +1358,14 @@ ssl_options.ciphers.2  = TLS_AES_128_GCM_SHA256
 ssl_options.ciphers.3  = TLS_CHACHA20_POLY1305_SHA256
 ssl_options.ciphers.4  = TLS_AES_128_CCM_SHA256
 ssl_options.ciphers.5  = TLS_AES_128_CCM_8_SHA256
+
+# Configures supported groups for TLS 1.3 key exchange.
+# Enables post-quantum safe cryptography using hybrid X25519 + ML-KEM-768 (requires Erlang 28).
+ssl_options.supported_groups.1 = x25519mlkem768
+
+# Fall back to widely supported algorithms to ensure interoperability with older clients.
+ssl_options.supported_groups.2 = x25519
+ssl_options.supported_groups.3 = secp256r1
 ```
 
 Explicit cipher suite configuration may also be necessary on the client side.
@@ -1563,18 +1572,14 @@ ssl_options.versions.1 = tlsv1.2
 ssl_options.verify = verify_peer
 ssl_options.fail_if_no_peer_cert = false
 
-ssl_options.ciphers.1  = ECDHE-ECDSA-AES256-GCM-SHA384
-ssl_options.ciphers.2  = ECDHE-RSA-AES256-GCM-SHA384
-ssl_options.ciphers.3  = ECDH-ECDSA-AES256-GCM-SHA384
-ssl_options.ciphers.4  = ECDH-RSA-AES256-GCM-SHA384
-ssl_options.ciphers.5  = DHE-RSA-AES256-GCM-SHA384
-ssl_options.ciphers.6  = DHE-DSS-AES256-GCM-SHA384
-ssl_options.ciphers.7  = ECDHE-ECDSA-AES128-GCM-SHA256
-ssl_options.ciphers.8  = ECDHE-RSA-AES128-GCM-SHA256
-ssl_options.ciphers.9  = ECDH-ECDSA-AES128-GCM-SHA256
-ssl_options.ciphers.10 = ECDH-RSA-AES128-GCM-SHA256
-ssl_options.ciphers.11 = DHE-RSA-AES128-GCM-SHA256
-ssl_options.ciphers.12 = DHE-DSS-AES128-GCM-SHA256
+ssl_options.ciphers.1 = ECDHE-ECDSA-AES256-GCM-SHA384
+ssl_options.ciphers.2 = ECDHE-RSA-AES256-GCM-SHA384
+ssl_options.ciphers.3 = ECDHE-ECDSA-CHACHA20-POLY1305
+ssl_options.ciphers.4 = ECDHE-RSA-CHACHA20-POLY1305
+ssl_options.ciphers.5 = ECDHE-ECDSA-AES128-GCM-SHA256
+ssl_options.ciphers.6 = ECDHE-RSA-AES128-GCM-SHA256
+ssl_options.ciphers.7 = DHE-RSA-AES256-GCM-SHA384
+ssl_options.ciphers.8 = DHE-RSA-AES128-GCM-SHA256
 
 # these MUST be disabled if TLSv1.3 is used
 ssl_options.honor_cipher_order = true
@@ -1601,16 +1606,12 @@ In the [classic config format](./configure#erlang-term-config-file):
                           {ciphers,  [
                             "ECDHE-ECDSA-AES256-GCM-SHA384",
                             "ECDHE-RSA-AES256-GCM-SHA384",
-                            "ECDH-ECDSA-AES256-GCM-SHA384",
-                            "ECDH-RSA-AES256-GCM-SHA384",
-                            "DHE-RSA-AES256-GCM-SHA384",
-                            "DHE-DSS-AES256-GCM-SHA384",
+                            "ECDHE-ECDSA-CHACHA20-POLY1305",
+                            "ECDHE-RSA-CHACHA20-POLY1305",
                             "ECDHE-ECDSA-AES128-GCM-SHA256",
                             "ECDHE-RSA-AES128-GCM-SHA256",
-                            "ECDH-ECDSA-AES128-GCM-SHA256",
-                            "ECDH-RSA-AES128-GCM-SHA256",
-                            "DHE-RSA-AES128-GCM-SHA256",
-                            "DHE-DSS-AES128-GCM-SHA256"
+                            "DHE-RSA-AES256-GCM-SHA384",
+                            "DHE-RSA-AES128-GCM-SHA256"
                             ]}
                          ]}
           ]}
@@ -1722,10 +1723,18 @@ To run `testssl.sh`, provide an endpoint to test in the form of `{hostname}:5671
 ./testssl.sh localhost:5671
 ```
 
+:::info
+
+The overall grade of "T" and the zeroed-out raw scores at the bottom of the testssl.sh output below are artifacts of using a self-signed certificate for local testing.
+Because the tool's rating module strictly enforces the SSL Labs grading system, any break in the chain of trust immediately caps the score, regardless of how robust the underlying encryption is.
+In a production environment with a publicly trusted certificate, this exact TLS configuration would receive top marks.
+
+:::
+
 ### Evaluation of a TLS 1.3 Setup
 
 The following example configuration that accepts TLSv1.3 connections passes key
-`testssl.sh` tests on Erlang 26:
+`testssl.sh` tests on Erlang 28:
 
 ```ini
 listeners.ssl.1 = 5671
@@ -1745,6 +1754,10 @@ ssl_options.ciphers.3  = TLS_CHACHA20_POLY1305_SHA256
 ssl_options.ciphers.4  = TLS_AES_128_CCM_SHA256
 ssl_options.ciphers.5  = TLS_AES_128_CCM_8_SHA256
 
+ssl_options.supported_groups.1 = x25519mlkem768
+ssl_options.supported_groups.2 = x25519
+ssl_options.supported_groups.3 = secp256r1
+
 ssl_options.honor_cipher_order   = true
 ssl_options.honor_ecc_order      = true
 ```
@@ -1752,19 +1765,19 @@ ssl_options.honor_ecc_order      = true
 This TLSv1.3-exclusive setup is reported as not vulnerable:
 
 ```ini
-  Using "OpenSSL 3.3.1 4 Jun 2024 (Library: OpenSSL 3.3.1 4 Jun 2024)" [~94 ciphers]
- on [redacted]:/opt/homebrew/bin/openssl
- (built: "Jun  4 12:53:04 2024", platform: "darwin64-arm64-cc")
+  Using OpenSSL 1.0.2-bad (Mar 28 2025)  [~179 ciphers]
+  on [redacted]:./bin/openssl.Linux.x86_64
 
+ Start 2026-09-22 08:06:43        -->> 127.0.0.1:5671 (localhost) <<--
 
- Start 2024-08-08 11:56:02                -->> 127.0.0.1:5671 (localhost) <<--
-
- A record via:           /etc/hosts
+ A record via:           /etc/hosts 
  rDNS (127.0.0.1):       localhost.
+
  Service detected:       Couldn't determine what's running on port 5671, assuming no HTTP service => skipping all HTTP checks
+ localhost:5671 appeared to support TLS 1.3 ONLY. Thus switched automagically from
+ "./bin/openssl.Linux.x86_64" to "/usr/bin/openssl".
 
-
- Testing protocols via sockets except NPN+ALPN
+ Testing protocols via sockets except NPN+ALPN 
 
  SSLv2      not offered (OK)
  SSLv3      not offered (OK)
@@ -1772,10 +1785,10 @@ This TLSv1.3-exclusive setup is reported as not vulnerable:
  TLS 1.1    not offered
  TLS 1.2    not offered
  TLS 1.3    offered (OK): final
- NPN/SPDY   not offered
+ NPN/SPDY   There's no such thing as NPN on TLS 1.3-only hosts
  ALPN/HTTP2 not offered
 
- Testing cipher categories
+ Testing cipher categories 
 
  NULL ciphers (no encryption)                      not offered (OK)
  Anonymous NULL Ciphers (no authentication)        not offered (OK)
@@ -1787,79 +1800,80 @@ This TLSv1.3-exclusive setup is reported as not vulnerable:
  Forward Secrecy strong encryption (AEAD ciphers)  offered (OK)
 
 
- Testing server's cipher preferences
+ Testing server's cipher preferences 
 
 Hexcode  Cipher Suite Name (OpenSSL)       KeyExch.   Encryption  Bits     Cipher Suite Name (IANA/RFC)
 -----------------------------------------------------------------------------------------------------------------------------
 SSLv2
- -
+ - 
 SSLv3
- -
+ - 
 TLSv1
- -
+ - 
 TLSv1.1
- -
+ - 
 TLSv1.2
- -
-TLSv1.3 (listed by strength)
- x1302   TLS_AES_256_GCM_SHA384            ECDH 253   AESGCM      256      TLS_AES_256_GCM_SHA384
- x1303   TLS_CHACHA20_POLY1305_SHA256      ECDH 253   ChaCha20    256      TLS_CHACHA20_POLY1305_SHA256
- x1301   TLS_AES_128_GCM_SHA256            ECDH 253   AESGCM      128      TLS_AES_128_GCM_SHA256
- x1304   TLS_AES_128_CCM_SHA256            ECDH 253   AESCCM      128      TLS_AES_128_CCM_SHA256
- x1305   TLS_AES_128_CCM_8_SHA256          ECDH 253   AESCCM8     128      TLS_AES_128_CCM_8_SHA256
+ - 
+TLSv1.3 (server order)
+ x1302   TLS_AES_256_GCM_SHA384            ECDH 253   AESGCM      256      TLS_AES_256_GCM_SHA384                             
+ x1301   TLS_AES_128_GCM_SHA256            ECDH 253   AESGCM      128      TLS_AES_128_GCM_SHA256                             
+ x1303   TLS_CHACHA20_POLY1305_SHA256      ECDH 253   ChaCha20    256      TLS_CHACHA20_POLY1305_SHA256                       
+ x1304   TLS_AES_128_CCM_SHA256            ECDH 253   AESCCM      128      TLS_AES_128_CCM_SHA256                             
+ x1305   TLS_AES_128_CCM_8_SHA256          ECDH 253   AESCCM8     128      TLS_AES_128_CCM_8_SHA256                           
 
- Has server cipher order?     no (TLS 1.3 only)
- (limited sense as client will pick)
+ Has server cipher order?     yes (TLS 1.3 only)
 
- Testing robust forward secrecy (FS) -- omitting Null Authentication/Encryption, 3DES, RC4
 
- FS is offered (OK)           TLS_AES_256_GCM_SHA384 TLS_CHACHA20_POLY1305_SHA256 TLS_AES_128_GCM_SHA256 TLS_AES_128_CCM_SHA256 TLS_AES_128_CCM_8_SHA256
- Elliptic curves offered:     prime256v1 secp384r1 X25519 X448
- TLS 1.3 sig_algs offered:    RSA-PSS-RSAE+SHA256 RSA-PSS-RSAE+SHA384 RSA-PSS-RSAE+SHA512
+ Testing robust forward secrecy (FS) -- omitting Null Authentication/Encryption, 3DES, RC4 
 
- Testing server defaults (Server Hello)
+ FS is offered (OK)           TLS_AES_256_GCM_SHA384 TLS_CHACHA20_POLY1305_SHA256 TLS_AES_128_GCM_SHA256
+                              TLS_AES_128_CCM_SHA256 TLS_AES_128_CCM_8_SHA256 
+ KEMs offered                 None
+ Elliptic curves offered:     prime256v1 X25519 
+ TLS 1.3 sig_algs offered:    RSA-PSS-RSAE+SHA512 RSA-PSS-RSAE+SHA384 RSA-PSS-RSAE+SHA256 
 
- TLS extensions (standard)    "key share/#51" "supported versions/#43" "signature algorithms/#13" "certificate authorities/#47"
+ Testing server defaults (Server Hello) 
+
+ TLS extensions (standard)    "signature algorithms/#13" "supported versions/#43" "certificate authorities/#47"
+                              "unknown/#50" "key share/#51"
  Session Ticket RFC 5077 hint no -- no lifetime advertised
  SSL Session ID support       no
  Session Resumption           Tickets no, ID: no
- TLS clock skew               Random values, no fingerprinting possible
+ TLS clock skew               Random values, no fingerprinting possible 
  Certificate Compression      none
- Client Authentication        optional
- CA List for Client Auth      L=$$$$,CN=TLSGenSelfSignedtRootCA 2022-03-22T11:27:45.010198
+ Client Authentication        none
  Signature Algorithm          SHA256 with RSA
  Server key size              RSA 2048 bits (exponent is 65537)
  Server key usage             Digital Signature, Key Encipherment
  Server extended key usage    TLS Web Server Authentication
  Serial                       01 (OK: length 1)
- Fingerprints                 SHA1 A4346FA6FDC61FCD4C0199EA14B8AE0F5D5121B1
-                              SHA256 C81025DA6F9BB646239659420D58E73F62CEB7D2AD5AC13FF12A9DE057394953
- Common Name (CN)             [redacted]
- subjectAltName (SAN)         [redacted] localhost
+ Fingerprints                 SHA1 32D53F328AB12C7D104558B63B37D6E4F5765521
+                              SHA256 9D73DBACDF70A9292A221003788F5C4D4E938FAD7FACB0383083031D9A1B46DB
+ Common Name (CN)             [redacted] 
+ subjectAltName (SAN)         [redacted] localhost 
  Trust (hostname)             Ok via SAN (same w/o SNI)
  Chain of trust               NOT ok (self signed CA in chain)
- EV cert (experimental)       no
- Certificate Validity (UTC)   2779 >= 60 days (2022-03-22 07:27 --> 2032-03-19 07:27)
+ EV cert (experimental)       no 
+ Certificate Validity (UTC)   3635 >= 60 days (2026-09-07 15:15 --> 2036-09-04 15:15)
                               >= 10 years is way too long
  ETS/"eTLS", visibility info  not present
- Certificate Revocation List  --
+ Certificate Revocation List  http://crl-server:8000/basic.crl
  OCSP URI                     --
-                              NOT ok -- neither CRL nor OCSP URI provided
  OCSP stapling                not offered
  OCSP must staple extension   --
  DNS CAA RR (experimental)    not offered
  Certificate Transparency     N/A
  Certificates provided        2
- Issuer                       TLSGenSelfSignedtRootCA 2022-03-22T11:27:45.010198
- Intermediate cert validity   #1: ok > 40 days (2032-03-19 07:27). $$$$ <-- $$$$
+ Issuer                       TLSGenSelfSignedRootCA 2026-09-07T15:15:53.868925
+ Intermediate cert validity   #1: ok > 40 days (2036-09-04 15:15). TLSGenSelfSignedRootCA 2026-09-07T15:15:53.868925 <-- TLSGenSelfSignedRootCA 2026-09-07T15:15:53.868925
  Intermediate Bad OCSP (exp.) Ok
 
 
- Testing vulnerabilities
+ Testing vulnerabilities 
 
  Heartbleed (CVE-2014-0160)                not vulnerable (OK), no heartbeat extension
  CCS (CVE-2014-0224)                       not vulnerable (OK)
- Ticketbleed (CVE-2016-9244), experiment.  (applicable only for HTTPS)
+ Ticketbleed (CVE-2016-9244), experiment.  (applicable only for HTTP service)
  ROBOT                                     Server does not support any cipher suites that use RSA key transport
  Secure Renegotiation (RFC 5746)           not vulnerable (OK)
  Secure Client-Initiated Renegotiation     not vulnerable (OK)
@@ -1870,7 +1884,7 @@ TLSv1.3 (listed by strength)
  FREAK (CVE-2015-0204)                     not vulnerable (OK)
  DROWN (CVE-2016-0800, CVE-2016-0703)      not vulnerable on this host and port (OK)
                                            make sure you don't use this certificate elsewhere with SSLv2 enabled services, see
-                                           https://search.censys.io/search?resource=hosts&virtual_hosts=INCLUDE&q=C81025DA6F9BB646239659420D58E73F62CEB7D2AD5AC13FF12A9DE057394953
+                                           https://search.censys.io/search?resource=hosts&virtual_hosts=INCLUDE&q=9D73DBACDF70A9292A221003788F5C4D4E938FAD7FACB0383083031D9A1B46DB
  LOGJAM (CVE-2015-4000), experimental      not vulnerable (OK): no DH EXPORT ciphers, no DH key detected with <= TLS 1.2
  BEAST (CVE-2011-3389)                     not vulnerable (OK), no SSL3 or TLS1
  LUCKY13 (CVE-2013-0169), experimental     not vulnerable (OK)
@@ -1879,31 +1893,63 @@ TLSv1.3 (listed by strength)
 
 Could not determine the protocol, only simulating generic clients.
 
- Running client simulations via sockets
+ Running client simulations via sockets 
 
  Browser                      Protocol  Cipher Suite Name (OpenSSL)       Forward Secrecy
 ------------------------------------------------------------------------------------------------
+ Android 7.0 (native)         No connection
  Android 8.1 (native)         No connection
- Android 9.0 (native)         TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
- Android 10.0 (native)        TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
- Android 11 (native)          TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
- Android 12 (native)          TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Android 9.0 (native)         TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Android 10.0 (native)        TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Android 11/12 (native)       TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Android 13/14 (native)       TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Android 15 (native)          TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Chrome 101 (Win 10)          TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Chromium 137 (Win 11)        TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Firefox 100 (Win 10)         TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Firefox 137 (Win 11)         TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ IE 8 Win 7                   No connection
+ IE 11 Win 7                  No connection
+ IE 11 Win 8.1                No connection
+ IE 11 Win Phone 8.1          No connection
+ IE 11 Win 10                 No connection
+ Edge 15 Win 10               No connection
+ Edge 101 Win 10 21H2         TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Edge 133 Win 11 23H2         TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Safari 18.4 (iOS 18.4)       TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Safari 15.4 (macOS 12.3.1)   TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Safari 18.4 (macOS 15.4)     TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
  Java 7u25                    No connection
- Java 8u161                   No connection
- Java 11.0.2 (OpenJDK)        TLSv1.3   TLS_AES_128_GCM_SHA256            256 bit ECDH (P-256)
+ Java 8u442 (OpenJDK)         TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Java 11.0.2 (OpenJDK)        TLSv1.3   TLS_AES_256_GCM_SHA384            256 bit ECDH (P-256)
  Java 17.0.3 (OpenJDK)        TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
- go 1.17.8                    TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
- LibreSSL 2.8.3 (Apple)       No connection
+ Java 21.0.6 (OpenJDK)        TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ go 1.17.8                    TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ LibreSSL 3.3.6 (macOS)       TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
  OpenSSL 1.0.2e               No connection
- OpenSSL 1.1.0l (Debian)      No connection
  OpenSSL 1.1.1d (Debian)      TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
- OpenSSL 3.0.3 (git)          TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ OpenSSL 3.0.15 (Debian)      TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ OpenSSL 3.5.0 (git)          TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Apple Mail (16.0)            No connection
+ Thunderbird (91.9)           TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+
+
+ Rating (experimental) 
+
+ Rating specs (not complete)  SSL Labs's 'SSL Server Rating Guide' (version 2009r from 2025-05-16)
+ Specification documentation  https://github.com/ssllabs/research/wiki/SSL-Server-Rating-Guide
+ Protocol Support (weighted)  0 (0)
+ Key Exchange     (weighted)  0 (0)
+ Cipher Strength  (weighted)  0 (0)
+ Final Score                  0
+ Overall Grade                T
+ Grade cap reasons            Grade capped to T. Issues with chain of trust (self signed CA in chain)
 ```
 
 ### Evaluation of a TLS 1.2 Setup with Restricted Cipher Suites
 
 The following example configuration that accepts TLSv1.2 connections passes key
-`testssl.sh` tests on Erlang 26.2:
+`testssl.sh` tests on Erlang 28:
 
 ```ini
 listeners.ssl.default  = 5671
@@ -1923,37 +1969,30 @@ ssl_options.honor_ecc_order      = true
 ssl_options.client_renegotiation = false
 ssl_options.secure_renegotiate   = true
 
-ssl_options.ciphers.1  = ECDHE-ECDSA-AES256-GCM-SHA384
-ssl_options.ciphers.2  = ECDHE-RSA-AES256-GCM-SHA384
-ssl_options.ciphers.3  = ECDH-ECDSA-AES256-GCM-SHA384
-ssl_options.ciphers.4  = ECDH-RSA-AES256-GCM-SHA384
-ssl_options.ciphers.5  = DHE-RSA-AES256-GCM-SHA384
-ssl_options.ciphers.6  = DHE-DSS-AES256-GCM-SHA384
-ssl_options.ciphers.7  = ECDHE-ECDSA-AES128-GCM-SHA256
-ssl_options.ciphers.8  = ECDHE-RSA-AES128-GCM-SHA256
-ssl_options.ciphers.9  = ECDH-ECDSA-AES128-GCM-SHA256
-ssl_options.ciphers.10 = ECDH-RSA-AES128-GCM-SHA256
-ssl_options.ciphers.11 = DHE-RSA-AES128-GCM-SHA256
-ssl_options.ciphers.12 = DHE-DSS-AES128-GCM-SHA256
+ssl_options.ciphers.1 = ECDHE-ECDSA-AES256-GCM-SHA384
+ssl_options.ciphers.2 = ECDHE-RSA-AES256-GCM-SHA384
+ssl_options.ciphers.3 = ECDHE-ECDSA-CHACHA20-POLY1305
+ssl_options.ciphers.4 = ECDHE-RSA-CHACHA20-POLY1305
+ssl_options.ciphers.5 = ECDHE-ECDSA-AES128-GCM-SHA256
+ssl_options.ciphers.6 = ECDHE-RSA-AES128-GCM-SHA256
+ssl_options.ciphers.7 = DHE-RSA-AES256-GCM-SHA384
+ssl_options.ciphers.8 = DHE-RSA-AES128-GCM-SHA256
 ```
 
 This TLSv1.2-enabled setup is reported as not vulnerable to a set of known
 high profile vulnerabilities:
 
 ```ini
- Using "OpenSSL 3.3.1 4 Jun 2024 (Library: OpenSSL 3.3.1 4 Jun 2024)" [~94 ciphers]
- on [redacted]:/opt/homebrew/bin/openssl
- (built: "Jun  4 12:53:04 2024", platform: "darwin64-arm64-cc")
+  Using OpenSSL 1.0.2-bad (Mar 28 2025)  [~179 ciphers]
+  on [redacted]:./bin/openssl.Linux.x86_64
 
+ Start 2026-09-22 08:35:40        -->> 127.0.0.1:5671 (localhost) <<--
 
- Start 2024-08-08 13:42:36                -->> 127.0.0.1:5671 (localhost) <<--
-
- A record via:           /etc/hosts
+ A record via:           /etc/hosts 
  rDNS (127.0.0.1):       localhost.
- Service detected:       certificate-based authentication without providing client certificate and private key => skipping all HTTP checks
+ Service detected:       Couldn't determine what's running on port 5671, assuming no HTTP service => skipping all HTTP checks
 
-
- Testing protocols via sockets except NPN+ALPN
+ Testing protocols via sockets except NPN+ALPN 
 
  SSLv2      not offered (OK)
  SSLv3      not offered (OK)
@@ -1964,7 +2003,7 @@ high profile vulnerabilities:
  NPN/SPDY   not offered
  ALPN/HTTP2 not offered
 
- Testing cipher categories
+ Testing cipher categories 
 
  NULL ciphers (no encryption)                      not offered (OK)
  Anonymous NULL Ciphers (no authentication)        not offered (OK)
@@ -1976,118 +2015,154 @@ high profile vulnerabilities:
  Forward Secrecy strong encryption (AEAD ciphers)  offered (OK)
 
 
- Testing server's cipher preferences
+ Testing server's cipher preferences 
 
 Hexcode  Cipher Suite Name (OpenSSL)       KeyExch.   Encryption  Bits     Cipher Suite Name (IANA/RFC)
 -----------------------------------------------------------------------------------------------------------------------------
 SSLv2
- -
+ - 
 SSLv3
- -
+ - 
 TLSv1
- -
+ - 
 TLSv1.1
- -
+ - 
 TLSv1.2 (server order)
- xc030   ECDHE-RSA-AES256-GCM-SHA384       ECDH 253   AESGCM      256      TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
- x9f     DHE-RSA-AES256-GCM-SHA384         DH 2048    AESGCM      256      TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
- xc02f   ECDHE-RSA-AES128-GCM-SHA256       ECDH 253   AESGCM      128      TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
- x9e     DHE-RSA-AES128-GCM-SHA256         DH 2048    AESGCM      128      TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+ xc030   ECDHE-RSA-AES256-GCM-SHA384       ECDH 253   AESGCM      256      TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384              
+ xcca8   ECDHE-RSA-CHACHA20-POLY1305       ECDH 253   ChaCha20    256      TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256        
+ xc02f   ECDHE-RSA-AES128-GCM-SHA256       ECDH 253   AESGCM      128      TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256              
+ x9f     DHE-RSA-AES256-GCM-SHA384         DH 2048    AESGCM      256      TLS_DHE_RSA_WITH_AES_256_GCM_SHA384                
+ x9e     DHE-RSA-AES128-GCM-SHA256         DH 2048    AESGCM      128      TLS_DHE_RSA_WITH_AES_128_GCM_SHA256                
 TLSv1.3
- -
+ - 
 
  Has server cipher order?     yes (OK)
 
 
- Testing robust forward secrecy (FS) -- omitting Null Authentication/Encryption, 3DES, RC4
+ Testing robust forward secrecy (FS) -- omitting Null Authentication/Encryption, 3DES, RC4 
 
- FS is offered (OK)           ECDHE-RSA-AES256-GCM-SHA384 DHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-AES128-GCM-SHA256 DHE-RSA-AES128-GCM-SHA256
- Elliptic curves offered:     prime256v1 secp384r1 secp521r1 brainpoolP256r1 brainpoolP384r1 brainpoolP512r1 X25519 X448
+ FS is offered (OK)           ECDHE-RSA-AES256-GCM-SHA384 DHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-CHACHA20-POLY1305
+                              ECDHE-RSA-AES128-GCM-SHA256 DHE-RSA-AES128-GCM-SHA256 
+ KEMs offered                 None
+ Elliptic curves offered:     prime256v1 secp384r1 secp521r1 brainpoolP256r1 brainpoolP384r1 brainpoolP512r1 
+                              X25519 X448 
  DH group offered:            RFC3526/Oakley Group 14 (2048 bits)
- TLS 1.2 sig_algs offered:    RSA+SHA256 RSA+SHA384 RSA+SHA512 RSA-PSS-RSAE+SHA256
+ TLS 1.2 sig_algs offered:    RSA-PSS-RSAE+SHA512 RSA-PSS-RSAE+SHA384 RSA-PSS-RSAE+SHA256 RSA+SHA512 RSA+SHA384 
+                              RSA+SHA256 
 
- Testing server defaults (Server Hello)
+ Testing server defaults (Server Hello) 
 
- TLS extensions (standard)    "renegotiation info/#65281" "EC point formats/#11" "max fragment length/#1"
+ TLS extensions (standard)    "max fragment length/#1" "EC point formats/#11" "renegotiation info/#65281"
  Session Ticket RFC 5077 hint no -- no lifetime advertised
  SSL Session ID support       yes
- Session Resumption           Tickets no, Client Auth: ID resumption test not supported
+ Session Resumption           Tickets no, ID: no
  TLS clock skew               -1 sec from localtime
- Client Authentication        required
- CA List for Client Auth      L=$$$$,CN=TLSGenSelfSignedtRootCA 2022-03-22T11:27:45.010198
+ Client Authentication        optional
+ CA List for Client Auth      L=$$$$,CN=TLSGenSelfSignedRootCA 2026-09-07T15:15:53.868925
  Signature Algorithm          SHA256 with RSA
  Server key size              RSA 2048 bits (exponent is 65537)
  Server key usage             Digital Signature, Key Encipherment
  Server extended key usage    TLS Web Server Authentication
  Serial                       01 (OK: length 1)
- Fingerprints                 SHA1 A4346FA6FDC61FCD4C0199EA14B8AE0F5D5121B1
-                              SHA256 C81025DA6F9BB646239659420D58E73F62CEB7D2AD5AC13FF12A9DE057394953
- Common Name (CN)             [redacted]
- subjectAltName (SAN)         [redacted] localhost
+ Fingerprints                 SHA1 32D53F328AB12C7D104558B63B37D6E4F5765521
+                              SHA256 9D73DBACDF70A9292A221003788F5C4D4E938FAD7FACB0383083031D9A1B46DB
+ Common Name (CN)             [redacted] 
+ subjectAltName (SAN)         [redacted] localhost 
  Trust (hostname)             Ok via SAN (same w/o SNI)
  Chain of trust               NOT ok (self signed CA in chain)
- EV cert (experimental)       no
- Certificate Validity (UTC)   2779 >= 60 days (2022-03-22 07:27 --> 2032-03-19 07:27)
+ EV cert (experimental)       no 
+ Certificate Validity (UTC)   3635 >= 60 days (2026-09-07 15:15 --> 2036-09-04 15:15)
                               >= 10 years is way too long
  ETS/"eTLS", visibility info  not present
- Certificate Revocation List  --
+ Certificate Revocation List  http://crl-server:8000/basic.crl
  OCSP URI                     --
-                              NOT ok -- neither CRL nor OCSP URI provided
  OCSP stapling                not offered
  OCSP must staple extension   --
  DNS CAA RR (experimental)    not offered
- Certificate Transparency     --
+ Certificate Transparency     N/A
  Certificates provided        2
- Issuer                       TLSGenSelfSignedtRootCA 2022-03-22T11:27:45.010198
- Intermediate cert validity   #1: ok > 40 days (2032-03-19 07:27). $$$$ <-- $$$$
+ Issuer                       TLSGenSelfSignedRootCA 2026-09-07T15:15:53.868925
+ Intermediate cert validity   #1: ok > 40 days (2036-09-04 15:15). TLSGenSelfSignedRootCA 2026-09-07T15:15:53.868925 <-- TLSGenSelfSignedRootCA 2026-09-07T15:15:53.868925
  Intermediate Bad OCSP (exp.) Ok
 
 
- Testing vulnerabilities
+ Testing vulnerabilities 
 
  Heartbleed (CVE-2014-0160)                not vulnerable (OK), no heartbeat extension
  CCS (CVE-2014-0224)                       not vulnerable (OK)
- Ticketbleed (CVE-2016-9244), experiment.  not vulnerable (OK), no session ticket extension
+ Ticketbleed (CVE-2016-9244), experiment.  (applicable only for HTTP service)
  ROBOT                                     Server does not support any cipher suites that use RSA key transport
  Secure Renegotiation (RFC 5746)           supported (OK)
- Secure Client-Initiated Renegotiation     not having provided client certificate and private key file, the client x509-based authentication prevents this from being tested
- CRIME, TLS (CVE-2012-4929)                not vulnerable (OK)
- BREACH (CVE-2013-3587)                    not having provided client certificate and private key file, the client x509-based authentication prevents this from being tested
+ Secure Client-Initiated Renegotiation     not vulnerable (OK)
+ CRIME, TLS (CVE-2012-4929)                not vulnerable (OK) (not using HTTP anyway)
  POODLE, SSL (CVE-2014-3566)               not vulnerable (OK), no SSLv3 support
  TLS_FALLBACK_SCSV (RFC 7507)              No fallback possible (OK), no protocol below TLS 1.2 offered
  SWEET32 (CVE-2016-2183, CVE-2016-6329)    not vulnerable (OK)
  FREAK (CVE-2015-0204)                     not vulnerable (OK)
  DROWN (CVE-2016-0800, CVE-2016-0703)      not vulnerable on this host and port (OK)
                                            make sure you don't use this certificate elsewhere with SSLv2 enabled services, see
-                                           https://search.censys.io/search?resource=hosts&virtual_hosts=INCLUDE&q=C81025DA6F9BB646239659420D58E73F62CEB7D2AD5AC13FF12A9DE057394953
+                                           https://search.censys.io/search?resource=hosts&virtual_hosts=INCLUDE&q=9D73DBACDF70A9292A221003788F5C4D4E938FAD7FACB0383083031D9A1B46DB
  LOGJAM (CVE-2015-4000), experimental      common prime with 2048 bits detected: RFC3526/Oakley Group 14 (2048 bits),
                                            but no DH EXPORT ciphers
  BEAST (CVE-2011-3389)                     not vulnerable (OK), no SSL3 or TLS1
  LUCKY13 (CVE-2013-0169), experimental     not vulnerable (OK)
- Winshock (CVE-2014-6321), experimental    not vulnerable (OK) - CAMELLIA or ECDHE_RSA GCM ciphers found
+ Winshock (CVE-2014-6321), experimental    not vulnerable (OK) - ARIA, CHACHA or CCM ciphers found
  RC4 (CVE-2013-2566, CVE-2015-2808)        no RC4 ciphers detected (OK)
 
 Could not determine the protocol, only simulating generic clients.
 
- Running client simulations via sockets
+ Running client simulations via sockets 
 
  Browser                      Protocol  Cipher Suite Name (OpenSSL)       Forward Secrecy
 ------------------------------------------------------------------------------------------------
+ Android 7.0 (native)         TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       256 bit ECDH (P-256)
  Android 8.1 (native)         TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
  Android 9.0 (native)         TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
  Android 10.0 (native)        TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
- Android 11 (native)          TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
- Android 12 (native)          TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ Android 11/12 (native)       TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ Android 13/14 (native)       TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ Android 15 (native)          TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ Chrome 101 (Win 10)          TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ Chromium 137 (Win 11)        TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ Firefox 100 (Win 10)         TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ Firefox 137 (Win 11)         TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ IE 8 Win 7                   No connection
+ IE 11 Win 7                  TLSv1.2   DHE-RSA-AES256-GCM-SHA384         2048 bit DH  
+ IE 11 Win 8.1                TLSv1.2   DHE-RSA-AES256-GCM-SHA384         2048 bit DH  
+ IE 11 Win Phone 8.1          No connection
+ IE 11 Win 10                 TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       384 bit ECDH (P-384)
+ Edge 15 Win 10               TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ Edge 101 Win 10 21H2         TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ Edge 133 Win 11 23H2         TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ Safari 18.4 (iOS 18.4)       TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ Safari 15.4 (macOS 12.3.1)   TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ Safari 18.4 (macOS 15.4)     TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
  Java 7u25                    No connection
- Java 8u161                   TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       521 bit ECDH (P-521)
+ Java 8u442 (OpenJDK)         TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
  Java 11.0.2 (OpenJDK)        TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       521 bit ECDH (P-521)
  Java 17.0.3 (OpenJDK)        TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ Java 21.0.6 (OpenJDK)        TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
  go 1.17.8                    TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
- LibreSSL 2.8.3 (Apple)       TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ LibreSSL 3.3.6 (macOS)       TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
  OpenSSL 1.0.2e               TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       521 bit ECDH (P-521)
- OpenSSL 1.1.0l (Debian)      TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
  OpenSSL 1.1.1d (Debian)      TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
- OpenSSL 3.0.3 (git)          TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ OpenSSL 3.0.15 (Debian)      TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ OpenSSL 3.5.0 (git)          TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+ Apple Mail (16.0)            TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       521 bit ECDH (P-521)
+ Thunderbird (91.9)           TLSv1.2   ECDHE-RSA-AES256-GCM-SHA384       253 bit ECDH (X25519)
+
+
+ Rating (experimental) 
+
+ Rating specs (not complete)  SSL Labs's 'SSL Server Rating Guide' (version 2009r from 2025-05-16)
+ Specification documentation  https://github.com/ssllabs/research/wiki/SSL-Server-Rating-Guide
+ Protocol Support (weighted)  0 (0)
+ Key Exchange     (weighted)  0 (0)
+ Cipher Strength  (weighted)  0 (0)
+ Final Score                  0
+ Overall Grade                T
+ Grade cap reasons            Grade capped to T. Issues with chain of trust (self signed CA in chain)
+ Grade warning                TLS 1.3 is not supported
 ```
 
 ## TLS Certificate and Private Key Rotation {#rotation}
