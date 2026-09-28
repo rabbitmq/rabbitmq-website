@@ -149,6 +149,24 @@ here, [get in touch](/contact)!
 </table>
 
 
+## Authentication {#authentication}
+
+<table  className="plugins">
+  <tr>
+    <th>rabbitmq_auth_backend_aoptoken</th>
+  </tr>
+  <tr>
+    <td>
+      Accepts a pre-issued JWT bearer token (a <code>token:&lt;jwt&gt;</code> credential whose payload carries a <code>sub</code> claim, as issued by Apache Pulsar and AoP-based brokers) in the AMQP password field, alongside internal username/password authentication on the <b>same account</b>, so clients migrating from such deployments to native RabbitMQ keep authenticating unchanged. Verifies HS256/384/512 with a shared secret and RS/ES with a public key, enforces <code>exp</code>, <code>nbf</code> and an optional audience, and delegates authorization to the internal backend. Publishes an audit event for every verified token.
+      <ul>
+        <li><a href="https://github.com/msgyard/rabbitmq-auth-backend-aoptoken/releases">Releases</a></li>
+        <li>Author: <b>martinx</b></li>
+        <li>GitHub: <a href="https://github.com/msgyard/rabbitmq-auth-backend-aoptoken">msgyard/rabbitmq-auth-backend-aoptoken</a></li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
 ## Management {#mgmt}
 
 <table  className="plugins">
