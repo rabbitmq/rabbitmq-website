@@ -223,7 +223,7 @@ Miscellaneous projects:
 ## Visualisation {#viz}
 
  * [RabbitGUI](https://rabbitgui.com), a tool for vizualizing and managing dead letter queues.
- * [Warren](https://warrenops.io), a self-hosted web console for dead-lettered messages: browse a dead-letter queue without consuming it, read the `x-death` history, and republish selected messages to their original exchange and routing key over AMQP 0-9-1 with publisher confirms, with an audit log of every action. Uses the HTTP API for reads.
+ * [Warren](https://warrenops.io), a Web UI for browsing dead-lettered messages
 
 
 ## Unity 3D {#unity-dev}
@@ -303,16 +303,16 @@ Miscellaneous projects:
  * [Wireshark](/amqp-wireshark) is the world's foremost
    network protocol analyzer
 
+## Specialized Proxies
+
+ * [AMQProxy](https://github.com/cloudamqp/amqproxy): an AMQP 0-9-1 proxy, with connection and channel pooling/reusing
+ * [Arke](https://github.com/sassoftware/arke/): a gRPC proxy that can publish to and consume from RabbitMQ over AMQP 0-9-1
 
 ## Miscellaneous {#miscellaneous}
 
- * [XMPP adaptor](https://github.com/ericliang/rabbitmq-xmpp)
- * [Delphi/Free Pascal RabbitMQ Client](http://www.habarisoft.com/habari_rabbitmq.html)
  * [bevis](https://github.com/bkjones/bevis): a syslog listener that forwards messages over RabbitMQ
  * [flume-amqp-plugin](https://github.com/stampy88/flume-amqp-plugin):
    a plugin for [Flume](https://github.com/cloudera/flume/wiki) (a Hadoop data loader) that allows you to use a RabbitMQ node as a data source.
- * [Fudge Messaging Format](http://kirkwylie.blogspot.com/2009/11/announcing-release-of-fudge-messaging.html):
-   fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It is messaging protocol-agnostic.
- * [AMQProxy](https://github.com/cloudamqp/amqproxy): An AMQP 0-9-1 proxy, with connection and channel pooling/reusing
- * [amqpcat](https://github.com/cloudamqp/amqpcat): A netcat-like CLI tool for producing and consuming AMQP 0-9-1 messages.
- * [Arke](https://github.com/sassoftware/arke/): A high-performance gRPC proxy written in Go that acts as a gateway for publishing and consuming via RabbitMQ AMQP 0-9-1.
+ * [Delphi/Free Pascal RabbitMQ Client](http://www.habarisoft.com/habari_rabbitmq.html)
+ * [amqpcat](https://github.com/cloudamqp/amqpcat): a netcat-like CLI tool for producing and consuming AMQP 0-9-1 messages
+ * [XMPP adaptor](https://github.com/ericliang/rabbitmq-xmpp)
