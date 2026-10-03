@@ -314,3 +314,4 @@ Miscellaneous projects:
    fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It is messaging protocol-agnostic.
  * [AMQProxy](https://github.com/cloudamqp/amqproxy): An AMQP 0-9-1 proxy, with connection and channel pooling/reusing
  * [amqpcat](https://github.com/cloudamqp/amqpcat): A netcat-like CLI tool for producing and consuming AMQP 0-9-1 messages.
+ * [Arke](https://github.com/sassoftware/arke/): A high-performance gRPC proxy written in Go that acts as a gateway for publishing and consuming via RabbitMQ AMQP 0-9-1.
