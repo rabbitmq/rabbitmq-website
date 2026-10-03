@@ -223,6 +223,7 @@ Miscellaneous projects:
 ## Visualisation {#viz}
 
  * [RabbitGUI](https://rabbitgui.com), a tool for vizualizing and managing dead letter queues.
+ * [Warren](https://warrenops.io), a self-hosted web console for dead-lettered messages: browse a dead-letter queue without consuming it, read the `x-death` history, and republish selected messages to their original exchange and routing key over AMQP 0-9-1 with publisher confirms, with an audit log of every action. Uses the HTTP API for reads.
 
 
 ## Unity 3D {#unity-dev}
