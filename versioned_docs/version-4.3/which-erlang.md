@@ -31,12 +31,11 @@ version-specific notes and [ways of provisioning](#erlang-repositories) recent E
 
 ### Erlang 29 Support
 
-Erlang 29 is supported starting with RabbitMQ `4.3.6`. However, currently not all packages list that version
-as supported.
+Erlang 29 is supported starting with RabbitMQ `4.4.0` and `4.3.7`.
 
 ### Erlang 28 Support
 
-Erlang 28 is fully supported starting with RabbitMQ `4.3.6`.
+Erlang 28 is fully supported starting with RabbitMQ `4.4.0` and `4.3.6`.
 
 Erlang 28.5 provides support for several Post-Quantum cryptography algorithms.
 
