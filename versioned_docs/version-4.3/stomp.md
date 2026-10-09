@@ -423,6 +423,9 @@ Hello World!
 
 This frame creates a temporary queue (with a generated name) that is private
 to the session and automatically subscribes to that queue.
+
+Temporary queues are [server-named](./queues#server-named-queues) that use the `amq.gen-*` prefix.
+
 A different session that uses `reply-to:/temp-queue/foo` will have a new,
 distinct queue created.
 
@@ -506,9 +509,10 @@ Policies make it possible to use more RabbitMQ features with STOMP:
  * [Queue leases and per-queue message TTL](./ttl)
  * [Queue length limits](./maxlength)
 
-All server-named queues created by the STOMP plugin are prefixed with `stomp-`
-which makes it easy to match the queues in a policy. For example, to limit
-STOMP queue length to 1000 messages, create the following policy:
+Queues created for topic and exchange subscriptions without an `x-queue-name`
+header are named `stomp-subscription-*`, which makes it easy to match them in a [policy](./policies).
+
+For example, to limit the length of subscription queues to 1000 messages, create the following policy:
 
 ```bash
 rabbitmqctl set_policy stomp-queues "^stomp-" '{"max-length":1000}' --apply-to queues
