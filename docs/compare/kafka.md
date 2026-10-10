@@ -361,7 +361,9 @@ transient faults worth retrying, another for business-logic errors a human must 
 another for unknown schemas.
 
 **[Poison message handling](../quorum-queues#poison-message-handling).** A message that
-keeps failing is dead-lettered instead of looping forever.
+keeps failing stops being redelivered once it reaches the delivery limit, and is
+dead-lettered if dead-lettering is configured. Kafka share groups also stop at a delivery count
+limit; the difference is where the message goes afterwards (see [below](#share-groups)).
 
 **[Consumer timeouts](../quorum-queues#consumer-timeout).** A stuck consumer's messages
 are returned and handed to a healthy one.
@@ -382,7 +384,8 @@ retention expires.
 Share groups close a real gap. It is worth being precise about what they do, because the marketing around them is not.
 
 They **do** give you: many consumers per partition, per-message acknowledgement, durable
-per-message delivery counting with a configurable limit, a 30-second default acquisition
+per-message delivery counting with a configurable limit (poison message handling: a record that
+reaches the limit is no longer redelivered), a 30-second default acquisition
 lock released automatically if a consumer dies, and explicit `release` / `reject` / `renew`
 delivery states. If your requirement is *"spread work items across a variable pool of consumers
 and retry the failures"*, that is now a thing Kafka can do.
@@ -392,11 +395,12 @@ What Kafka share groups do not change is the storage layer underneath:
 * **Acknowledging does not delete.** The message stays in the partition until retention
   removes it, so you size disk for your retention window rather than your backlog.
 * **No per-message TTL, priorities, delays, deferral, or consumer-annotated returns.**
-* **No dead-letter routing.** Rejecting archives the message for that share group; where it
+* **No dead-letter routing.** A rejected message, or one that reaches the delivery count limit
+  (5 by default, `group.share.delivery.count.limit`), is archived for that share group; where it
   should go and how it gets reprocessed is yours to build.
 * **Head-of-line blocking is reduced, not eliminated.** A share group's in-flight window runs
   from the share-partition start offset to the last offset fetched, and that whole span is
-  capped — 2000 offsets by default (`share.partition.max.record.locks`). The start offset
+  capped — 2000 offsets by default (`group.share.partition.max.record.locks`). The start offset
   advances only once *every* earlier message has reached a terminal state, and messages above
   an unfinished one cannot leave the window even after they are acknowledged. So a single
   message that is still in flight — whether it keeps failing or is simply slow — pins the
