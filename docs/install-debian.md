@@ -1022,8 +1022,6 @@ contents will vary from Ubuntu version to Ubuntu version.
 <TabItem value="ubuntu-noble" label="Ubuntu 26.04 and 24.04" default>
 ```bash
 # This Launchpad PPA repository provides Erlang packages produced by the RabbitMQ team
-#
-# Replace $distribution with the name of the Ubuntu release used
 deb [arch=amd64 signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu noble main
 deb-src [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu noble main
 ```
@@ -1033,8 +1031,6 @@ deb-src [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] ht
 <TabItem value="ubuntu-jammy" label="Ubuntu 22.04">
 ```bash
 # This Launchpad PPA repository provides Erlang packages produced by the RabbitMQ team
-#
-# Replace $distribution with the name of the Ubuntu release used
 deb [arch=amd64 signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu jammy main
 deb-src [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu jammy main
 ```
@@ -1043,8 +1039,6 @@ deb-src [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] ht
 <TabItem value="ubuntu-focal" label="Ubuntu 20.04">
 ```bash
 # This Launchpad PPA repository provides Erlang packages produced by the RabbitMQ team
-#
-# Replace $distribution with the name of the Ubuntu release used
 deb [arch=amd64 signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu focal main
 deb-src [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu focal main
 ```
