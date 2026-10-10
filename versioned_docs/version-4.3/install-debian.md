@@ -957,6 +957,7 @@ on Launchpad:
 
 The Erlang repositores on Launchpad currently target the following Ubuntu distributions:
 
+ * Ubuntu 26.04 (Resolute), using the Ubuntu 24.04 (Noble) repository
  * Ubuntu 24.04 (Noble)
  * Ubuntu 22.04 (Jammy)
 
