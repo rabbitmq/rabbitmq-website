@@ -235,7 +235,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
           </li>
           <li>
             Starting with Erlang 26, <a href="./ssl#peer-verification">TLS client peer verification</a> is enabled by default by the TLS implementation.
-            If client TLS certificate and key pair is not configured, TLS-enabled <a href="./shovel#ssl">Shovels</a>, <a href="./federation#tls-connections">Federation links</a> and <a href="./ldap#tls">LDAP server connections</a>
+            If client TLS certificate and key pair is not configured, TLS-enabled <a href="./shovel#tls">Shovels</a>, <a href="./federation#tls-connections">Federation links</a> and <a href="./ldap#tls">LDAP server connections</a>
             will fail. If peer verification is not necessary, it can be disabled.
           </li>
           <li>
@@ -344,7 +344,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
           </li>
           <li>
             Starting with Erlang 26, <a href="./ssl#peer-verification">TLS client peer verification</a> is enabled by default by the TLS implementation.
-            If client TLS certificate and key pair is not configured, TLS-enabled <a href="./shovel#ssl">Shovels</a>, <a href="./federation#tls-connections">Federation links</a> and <a href="./ldap#tls">LDAP server connections</a>
+            If client TLS certificate and key pair is not configured, TLS-enabled <a href="./shovel#tls">Shovels</a>, <a href="./federation#tls-connections">Federation links</a> and <a href="./ldap#tls">LDAP server connections</a>
             will fail. If peer verification is not necessary, it can be disabled.
           </li>
           <li>
@@ -385,7 +385,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
           </li>
           <li>
             Starting with Erlang 26, <a href="./ssl#peer-verification">TLS client peer verification</a> is enabled by default by the TLS implementation.
-            If client TLS certificate and key pair is not configured, TLS-enabled <a href="./shovel#ssl">Shovels</a>, <a href="./federation#tls-connections">Federation links</a> and <a href="./ldap#tls">LDAP server connections</a>
+            If client TLS certificate and key pair is not configured, TLS-enabled <a href="./shovel#tls">Shovels</a>, <a href="./federation#tls-connections">Federation links</a> and <a href="./ldap#tls">LDAP server connections</a>
             will fail. If peer verification is not necessary, it can be disabled.
           </li>
           <li>

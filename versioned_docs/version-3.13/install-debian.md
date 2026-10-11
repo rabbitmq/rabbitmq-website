@@ -157,7 +157,7 @@ apt repositories:
   </tbody>
 </table>
 
-This guide will focus on the <a href="#apt-repositories-erlang">Debian repositories</a> maintained by Team RabbitMQ and <a href="#apt-launchpad-erlang">on Launchpad</a>.
+This guide will focus on the <a href="#apt-repositories">Debian repositories</a> maintained by Team RabbitMQ and <a href="#apt-launchpad-erlang">on Launchpad</a>.
 
 
 ## Apt with Team RabbitMQ's Repositories: a Quick Start Script {#apt-quick-start}
