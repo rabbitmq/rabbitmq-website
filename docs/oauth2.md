@@ -403,6 +403,8 @@ to validate the signature. RabbitMQ can be configured to obtains signing keys in
   used to digitally sign the tokens. Use this when the provider does not support OpenID Connect
   Discovery or when you need to override the discovered endpoint.
 
+* **Issuer URL with JWKS discovery**: configure `auth_oauth2.issuer` and let RabbitMQ discover the `jwks_uri` endpoint and then download the signing keys.
+
 * **Static signing keys**: configure the signing keys as local files using
   `auth_oauth2.signing_keys`. This is useful for environments without network access to the
   provider or when using symmetric signing keys.
