@@ -100,7 +100,7 @@ in line with the [Debian distribution EOL policy](https://wiki.debian.org/Debian
 
 Currently the list of supported Debian-based distributions includes
 
- * Ubuntu 20.04 (Focal), 22.04 (Jammy), 24.04 (Noble), and 26.04 (Resolute)
+ * Ubuntu 22.04 (Jammy), 24.04 (Noble), and 26.04 (Resolute)
  * Debian Bullseye (11), Bookworm (12), and Trixie (13)
 
 The package may work on other Debian-based distributions
@@ -230,43 +230,6 @@ deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-server/ubuntu/jammy jammy main
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-server/ubuntu/jammy jammy main
-EOF
-
-## Update package indices
-sudo apt-get update -y
-
-## Install Erlang packages
-sudo apt-get install -y erlang-base \
-                        erlang-asn1 erlang-crypto erlang-eldap erlang-ftp erlang-inets \
-                        erlang-mnesia erlang-os-mon erlang-parsetools erlang-public-key \
-                        erlang-runtime-tools erlang-snmp erlang-ssl \
-                        erlang-syntax-tools erlang-tftp erlang-tools erlang-xmerl
-
-## Install rabbitmq-server and its dependencies
-sudo apt-get install rabbitmq-server -y --fix-missing
-```
-</TabItem>
-
-<TabItem value="ubuntu-focal" label="Ubuntu 20.04">
-```bash
-#!/bin/sh
-
-sudo apt-get install curl gnupg apt-transport-https -y
-
-## Team RabbitMQ's signing key
-curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/com.rabbitmq.team.gpg > /dev/null
-
-## Add apt repositories maintained by Team RabbitMQ
-sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Modern Erlang/OTP releases
-##
-deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-erlang/ubuntu/focal focal main
-deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-erlang/ubuntu/focal focal main
-
-## Latest RabbitMQ releases
-##
-deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-server/ubuntu/focal focal main
-deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-server/ubuntu/focal focal main
 EOF
 
 ## Update package indices
@@ -483,22 +446,6 @@ deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb
 ##
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-server/ubuntu/jammy jammy main
 deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-server/ubuntu/jammy jammy main
-EOF
-```
-</TabItem>
-
-<TabItem value="ubuntu-focal" label="Ubuntu 20.04">
-```bash
-sudo tee /etc/apt/sources.list.d/rabbitmq.list <<EOF
-## Modern Erlang/OTP releases
-##
-deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-erlang/ubuntu/focal focal main
-deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-erlang/ubuntu/focal focal main
-
-## Provides modern RabbitMQ releases
-##
-deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb1.rabbitmq.com/rabbitmq-server/ubuntu/focal focal main
-deb [arch=amd64 signed-by=/usr/share/keyrings/com.rabbitmq.team.gpg] https://deb2.rabbitmq.com/rabbitmq-server/ubuntu/focal focal main
 EOF
 ```
 </TabItem>
@@ -1036,13 +983,6 @@ deb-src [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] ht
 ```
 </TabItem>
 
-<TabItem value="ubuntu-focal" label="Ubuntu 20.04">
-```bash
-# This Launchpad PPA repository provides Erlang packages produced by the RabbitMQ team
-deb [arch=amd64 signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu focal main
-deb-src [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu focal main
-```
-</TabItem>
 </Tabs>
 
 ### Install Erlang Packages {#installing-erlang-package}
