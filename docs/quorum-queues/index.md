@@ -59,6 +59,7 @@ Topics covered in this document include:
  * How to [declare a quorum queue](#usage)
  * [Replication](#replication)-related topics: [member management](#member-management), [leader rebalancing](#member-rebalancing), optimal number of members, etc
  * What guarantees quorum queues offer in terms of [leader failure handling](#leader-election), [data safety](#data-safety) and [availability](#availability)
+ * [Availability zone-aware](#az-aware-placement) member placement
  * Continuous [Membership Reconciliation](#member-reconciliation)
  * The additional [dead lettering](#dead-lettering) features supported by quorum queues
  * [Strict message priorities](#priorities) for message ordering and delivery
@@ -1021,6 +1022,64 @@ Supported queue leader locator values are
  * `balanced`: If there are overall less than 1000 queues (classic queues, quorum queues, and streams),
    pick the node hosting the minimum number of quorum queue leaders.
    If there are overall more than 1000 queues, pick a random node.
+
+### Availability Zone-Aware Member Placement {#az-aware-placement}
+
+By default, when a cluster has more nodes than the requested number of quorum queue members,
+one member is placed on the node the declaring client is connected to and the others
+are picked from the remaining nodes, preferring those that are running at the time of declaration.
+This placement is not aware of the infrastructure topology, so all members of a queue
+can end up in the same availability zone (AZ).
+
+Starting with RabbitMQ 4.4, members can be spread evenly across availability zones.
+The zone of a node is expressed using a [node tag](./configure#node-tags). For example,
+the following `rabbitmq.conf` snippet tags a node as belonging to zone `az1`:
+
+```ini
+node_tags.az = az1
+```
+
+AZ-aware placement is then activated by naming the tag key that carries the zone information.
+This can be done in one of the following ways:
+
+ 1. Setting the `member-placement-tag` [policy](./policies) or operator policy key
+ 2. Using the `x-member-placement-tag` [optional queue argument](./queues#optional-arguments)
+ 3. Defining the `quorum_queue.member_placement_tag` key in [the configuration file](./configure#configuration-files)
+
+The value of all three is a non-empty string, the key of a node tag (`az` in the example above).
+If more than one is set, the policy takes precedence over the queue argument,
+which in turn takes precedence over the configuration file. An operator policy value overrides
+a user policy value.
+
+```ini
+# rabbitmq.conf
+quorum_queue.member_placement_tag = az
+```
+
+```bash
+rabbitmqctl set_policy qq-az-aware "^orders\." '{"member-placement-tag": "az"}' --apply-to queues
+```
+
+With AZ-aware placement in effect, members are spread evenly across nodes with different tag values.
+For example, in a cluster of seven nodes where three nodes are tagged `az = az1`, two are tagged `az = az2`
+and two are tagged `az = az3`, every 3-member quorum queue will have one member in each of the three zones.
+
+Within a zone, members are distributed in the same way as without AZ awareness:
+while the total number of queues is below the limit (1000 by default), nodes hosting the fewest members are
+chosen to keep the distribution perfectly even, above it nodes are picked randomly.
+Running nodes are preferred over those that are not running.
+
+Things to keep in mind:
+
+ * Unlike the default placement, the node the declaring client is connected to is not necessarily
+   a member of the queue
+ * If none of the nodes in the cluster has the configured tag, a warning is logged and the default placement is used
+ * Nodes without the tag are treated as a separate group of their own
+ * The `queue-leader-locator` setting still controls which of the selected members becomes the leader
+   (with `client-local`, a node that is not a member is replaced by a balanced pick)
+
+When a placement tag is in effect for a queue, an `AZ` column is added to the member table
+displayed by `rabbitmq-queues quorum_status`.
 
 ### Rebalancing Members {#member-rebalancing}
 
