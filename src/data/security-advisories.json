@@ -1,5 +1,16 @@
 [
   {
+    "cve_id": "CVE-2026-106121",
+    "ghsa_id": "GHSA-cqgh-8p3p-mx4m",
+    "patched_versions": "5.37.0",
+    "published_at": "2026-10-01",
+    "repo": "rabbitmq-java-client",
+    "severity": "medium",
+    "summary": "JSONReader in the default JSON-RPC mapper never terminates on truncated input, causing DoS",
+    "url": "https://github.com/rabbitmq/rabbitmq-java-client/security/advisories/GHSA-cqgh-8p3p-mx4m",
+    "vulnerable_versions": "<= 5.36.0"
+  },
+  {
     "cve_id": "",
     "ghsa_id": "GHSA-j6hc-926v-qwq2",
     "patched_versions": "4.3.6, 4.2.11",
@@ -44,7 +55,7 @@
     "vulnerable_versions": ">= 4.3.0, < 4.3.6, >= 4.2.0, < 4.2.11"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-106122",
     "ghsa_id": "GHSA-7822-rcf6-97fx",
     "patched_versions": "5.36.0",
     "published_at": "2026-09-17",
@@ -55,7 +66,7 @@
     "vulnerable_versions": "<= 5.35.0"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-106123",
     "ghsa_id": "GHSA-h6w7-qmcm-q6xr",
     "patched_versions": "5.35.0",
     "published_at": "2026-08-21",
@@ -209,7 +220,7 @@
     "vulnerable_versions": ">= 3.13.0, < 3.13.19, >= 4.0.0, < 4.0.24, >= 4.1.0, < 4.1.15, >= 4.2.0, < 4.2.10, >= 4.3.0, < 4.3.5"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-107386",
     "ghsa_id": "GHSA-w6r9-248c-frg8",
     "patched_versions": "1.14",
     "published_at": "2026-08-18",
