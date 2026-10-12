@@ -44,8 +44,15 @@ export function getLatestRelease(branch) {
     return undefined;
   }
 
-  const release = releaseBranch.releases[0] || undefined;
-  return release;
+  // `download_version` overrides the default (the latest patch release)
+  if (releaseBranch.download_version) {
+    const overridden = releaseBranch.releases.find((r) => r.version === releaseBranch.download_version);
+    if (overridden) {
+      return overridden;
+    }
+  }
+
+  return releaseBranch.releases[0] || undefined;
 }
 
 export function getLatestVersion(branch) {
