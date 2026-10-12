@@ -101,7 +101,7 @@ const renderPatchedVersions = (repo, versionsStr) => {
               }}
               title={`Available to open source users and VMware Tanzu RabbitMQ customers`}
             >
-              {chunk} (OSS)
+              {chunk} (OSS &amp; Enterprise Support)
             </a>
           );
         } else {
@@ -126,7 +126,7 @@ const renderPatchedVersions = (repo, versionsStr) => {
               }}
               title="Available only to VMware Tanzu RabbitMQ customers"
             >
-              {chunk} (Enterprise Support)
+              {chunk} (Enterprise Support Only)
             </a>
           );
         }
