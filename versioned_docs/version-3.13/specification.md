@@ -45,7 +45,7 @@ displayed_sidebar: docsSidebar
       <td>AMQP 0-9-1 plus RabbitMQ extensions</td>
       <td>
       <a href="https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/pdf/amqp0-9-1.pdf">Specification</a> |
-      <a href="/amqp-0-9-1-errata">Errata document</a>
+      <a href="/amqp-0-9-1-errata">Errata document</a> |
       <a href="https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/pdf/amqp-xml-doc0-9-1.pdf">Generated Reference</a>
       </td>
       <td>
