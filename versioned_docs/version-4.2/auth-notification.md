@@ -34,7 +34,7 @@ for clients that advertise their capacity to receive such notifications.
 ## How it Works {#usage}
 
 The broker will report failures differently depending on the presence of the
-<code>authentication_failure_close</code> <a href="./consumer-cancel#capabilities">capability</a>.
+<code>authentication_failure_close</code> <a href="./connections#capabilities">capability</a>.
 If this capability is absent then authentication failures are reported
 in the legacy fashion: by abruptly closing the network connection. If this
 capability is present then the broker will send a <code>connection.close</code>
