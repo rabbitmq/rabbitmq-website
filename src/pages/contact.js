@@ -82,8 +82,8 @@ export default function Support() {
             <Heading as="h1">VMware Tanzu RabbitMQ</Heading>
             <Heading as="h4">Commercial RabbitMQ includes both 24/7 support and features not available in the open source version.</Heading>
 
-            <Tabs>
-              <TabItem value="feature-1" label="Commercial Support">
+            <Tabs queryString="tab">
+              <TabItem value="commercial-support" label="Commercial Support">
                 <Heading as="h2">Around the clock, around the globe support</Heading>
                 <div className={styles.flex_columns}>
                   <section>
@@ -110,10 +110,10 @@ export default function Support() {
                   </section>
                 </div>
               </TabItem>
-              <TabItem value="feature-2" label="Support Timelines" default>
+              <TabItem value="support-timelines" label="Support Timelines" default>
                 <CommercialSupportTimelines />
               </TabItem>
-              <TabItem value="feature-3" label="Enterprise Features">
+              <TabItem value="enterprise-features" label="Enterprise Features">
                 <Heading as="h2">Exclusive capabilities supporting your mission-critical apps</Heading>
                 <div className={styles.flex_columns}>
                   <section>

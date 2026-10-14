@@ -1,6 +1,16 @@
 import Link from '@docusaurus/Link';
-import {getReleaseBranches} from '../RabbitMQServerReleaseInfo';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import SupportTimeline from './SupportTimeline';
 import styles from "./index.module.css"
+
+const supportPhaseLabels = {
+  oss: 'Community support',
+  enterprise: 'Commercial support',
+  expert: 'Supported with Expert Services',
+  future: 'Future release',
+};
+
+const DAY = 24 * 60 * 60 * 1000;
 
 function formatDate(date, isReleaseDate) {
   const year = date.toLocaleDateString("en-US", { year: "numeric", timeZone: "UTC" });
@@ -12,8 +22,29 @@ function formatDate(date, isReleaseDate) {
   return `${day} ${month} ${year}`;
 }
 
-function getTimelineRows(releaseBranches) {
-  const now = Date.now();
+function getTimelineRow({release, releaseDateValue, endOfCommunitySupportDate, endOfCommercialSupportDate, isPlanned = false}, now) {
+  const isCommunitySupported = !isPlanned && (endOfCommunitySupportDate === undefined || endOfCommunitySupportDate.getTime() + DAY > now);
+  const isCommercialSupported = !isPlanned && endOfCommercialSupportDate.getTime() + DAY > now;
+  const supportPhase = isPlanned ? 'future' : isCommunitySupported ? 'oss' : isCommercialSupported ? 'enterprise' : 'expert';
+
+  return {
+    release,
+    releaseDate: `${formatDate(releaseDateValue, true)}${isPlanned ? ' (Future)' : ''}`,
+    endOfCommunitySupport: endOfCommunitySupportDate === undefined
+      ? 'Next Release'
+      : formatDate(endOfCommunitySupportDate, false),
+    endOfCommercialSupport: formatDate(endOfCommercialSupportDate, false),
+    isCommunitySupported,
+    isCommercialSupported,
+    supportPhase,
+    releaseDateValue,
+    endOfCommunitySupportDate,
+    endOfCommercialSupportDate,
+    isPlanned,
+  };
+}
+
+function getTimelineRows(releaseBranches, plannedReleases, now) {
   const rows = [];
   let previousReleaseDate;
 
@@ -37,38 +68,50 @@ function getTimelineRows(releaseBranches) {
 
     const endOfCommercialSupportDate = new Date(releaseBranch.end_of_support);
 
-    const isCommunitySupported = endOfCommunitySupportDate === undefined || endOfCommunitySupportDate > now;
-    const isCommercialSupported = endOfCommercialSupportDate > now;
-
-    const endOfCommunitySupport =
-        endOfCommunitySupportDate === undefined
-            ? 'Next Release'
-            : formatDate(endOfCommunitySupportDate, false);
-    const endOfCommercialSupport = formatDate(endOfCommercialSupportDate, false);
-
-    rows.push({
+    rows.push(getTimelineRow({
       release: branch,
-      releaseDate: formatDate(releaseDate, true),
-      endOfCommunitySupport,
-      endOfCommercialSupport,
-      isCommunitySupported,
-      isCommercialSupported
-    });
+      releaseDateValue: releaseDate,
+      endOfCommunitySupportDate,
+      endOfCommercialSupportDate
+    }, now));
 
     const d = new Date(minorRelease.release_date);
     previousReleaseDate = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 0));
   }
 
-  return rows;
+  for (const release of plannedReleases) {
+    // Published release metadata replaces the plan as soon as it is available.
+    if (rows.some((row) => row.release === release.version)) {
+      continue;
+    }
+    rows.push(getTimelineRow({
+      release: release.version,
+      // A planned month does not specify a release day; plot its first day.
+      releaseDateValue: new Date(`${release.release_month}-01`),
+      endOfCommunitySupportDate: new Date(release.end_of_community_support),
+      endOfCommercialSupportDate: new Date(release.end_of_support),
+      isPlanned: true,
+    }, now));
+  }
+
+  return rows.sort((a, b) => b.releaseDateValue - a.releaseDateValue);
+}
+
+export function useSupportTimelineData() {
+  const {siteConfig} = useDocusaurusContext();
+  const {rabbitmq: releaseBranches} = siteConfig.customFields.releaseBranches;
+  const plannedReleases = siteConfig.customFields.plannedRabbitMQReleases || [];
+  const now = Date.now();
+  const rows = getTimelineRows(releaseBranches, plannedReleases, now);
+
+  return {rows, now};
 }
 
 export function CommercialSupportTimelines() {
-  const releaseBranches = getReleaseBranches();
-
-  const rows = getTimelineRows(releaseBranches);
+  const {rows, now} = useSupportTimelineData();
 
   return (
-    <div className="release-information">
+    <div className={`release-information ${styles.supportTimelines}`}>
       <table className={styles.timelines_table}>
         <thead>
           <tr>
@@ -81,12 +124,17 @@ export function CommercialSupportTimelines() {
         <tbody>
           {rows.map((row) => (
             <tr key={row.release}>
-              <td>{row.release}</td>
-              <td>{row.releaseDate}</td>
-              <td className={row.isCommunitySupported ? styles.supported : styles.unsupported}>
+              <td>
+                <span className={styles.release}>
+                  <span className={`${styles.status} ${styles[row.supportPhase]}`} role="img" aria-label={supportPhaseLabels[row.supportPhase]} />
+                  {row.release}
+                </span>
+              </td>
+              <td className={row.isPlanned ? undefined : styles.past}>{row.releaseDate}</td>
+              <td className={!row.isPlanned && !row.isCommunitySupported ? styles.past : undefined}>
                 {row.endOfCommunitySupport}
               </td>
-              <td className={row.isCommercialSupported ? styles.supported : styles.unsupported}>
+              <td className={!row.isPlanned && !row.isCommercialSupported ? styles.past : undefined}>
                 {row.endOfCommercialSupport}
               </td>
             </tr>
@@ -96,15 +144,7 @@ export function CommercialSupportTimelines() {
       <p>
         *End of Commercial Support dates are indicative. Official commercial support lifecycle information can be found on the <Link to="https://support.broadcom.com/web/ecx/productlifecycle">Broadcom support portal</Link>.
       </p>
-      <div>
-        <strong>Legend:</strong>
-        <dl className="release-legend">
-          <dt className="supported-release latest-release"></dt>
-          <dd>Latest release series, fully supported</dd>
-          <dt className="unsupported-release"></dt>
-          <dd>Older release series, unsupported</dd>
-        </dl>
-      </div>
+      <SupportTimeline rows={rows} now={now} />
     </div>
   );
 }
