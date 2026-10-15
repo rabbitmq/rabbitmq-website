@@ -53,3 +53,7 @@
 .past {
   color: var(--ifm-color-emphasis-600);
 }
+
+.supportCell {
+  color: #111;
+}

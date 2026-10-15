@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {useVersions} from '@docusaurus/plugin-content-docs/client';
+import {useSupportTimelineData} from '../CommercialSupportTimelines';
+import SupportTimeline from '../CommercialSupportTimelines/SupportTimeline';
+import supportStyles from '../CommercialSupportTimelines/index.module.css';
 
 import UnfoldIcon from './unfold-toggle.svg';
 
@@ -71,7 +74,7 @@ export function RabbitMQServerReleaseInfoTable() {
   const releaseBranches = getReleaseBranches();
   const docusaurusVersions = useVersions();
 
-  const now = Date.now();
+  const {rows: supportRows, now} = useSupportTimelineData();
   const dateOptions = { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' };
 
   var isLatestReleaseBranch = false;
@@ -84,6 +87,8 @@ export function RabbitMQServerReleaseInfoTable() {
     const docusaurusVersion = docusaurusVersions.find((v) => v.name === branch);
 
     const releaseBranch = releaseBranches[branch];
+    const supportRow = supportRows.find((row) => row.release === branch);
+    const supportPhase = supportRow?.supportPhase || 'future';
     const releases = releaseBranch.releases || [];
     const isReleased = typeof releaseBranch.end_of_support !== 'undefined';
     var isLatestReleaseForBranch = true;
@@ -160,8 +165,6 @@ export function RabbitMQServerReleaseInfoTable() {
 
       var endOfCommunitySupportDate = "-";
       let endOfCommercialSupportDate = "-";
-      var hasOSSSupport = false;
-      let hasCommercialSupported = false;
       if (releaseBranch.end_of_support) {
         /* Release branch is supported. */
         if (releaseBranch.end_of_community_support) {
@@ -172,7 +175,6 @@ export function RabbitMQServerReleaseInfoTable() {
           const d = new Date(initialPrevRelease.release_date);
           endOfCommunitySupportDate = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 0));
         } else {
-          hasOSSSupport = true;
           endOfCommunitySupportDate = <abbr title="Supported until the next major or minor release branch is published.">Next release</abbr>;
         }
         endOfCommercialSupportDate = new Date(releaseBranch.end_of_support);
@@ -180,28 +182,23 @@ export function RabbitMQServerReleaseInfoTable() {
 
       {
         const date = endOfCommunitySupportDate;
-        var className;
         var content;
         if (date instanceof Date) {
-          const supported = date > now;
-          className = supported ? "supported-release" : "unsupported-release";
           content = date.toLocaleDateString("en-GB", dateOptions);
         } else {
-          className = hasOSSSupport ?
-            "supported-release" : "unsupported-release";
           content = date;
         }
         endOfCommunitySupportDate = <div className={[
           "release-eos",
           "release-eos-community",
-          className,
+          supportStyles.supportCell,
+          supportStyles[supportPhase],
           latestReleaseBranchClassName,
           isLatestReleaseForBranch ? "" : showClassName
         ].join(' ')}>{content}</div>;
       }
 
       if (endOfCommercialSupportDate instanceof Date) {
-        hasCommercialSupported = endOfCommercialSupportDate > now;
         endOfCommercialSupportDate = endOfCommercialSupportDate.toLocaleDateString("en-GB", dateOptions);
       }
 
@@ -259,7 +256,8 @@ export function RabbitMQServerReleaseInfoTable() {
           <div className={[
             "release-eos",
             "release-eos-commercial",
-            hasCommercialSupported ? 'supported-release latest-release' : 'unsupported-release',
+            supportStyles.supportCell,
+            supportStyles[supportRow?.isCommercialSupported ? 'enterprise' : supportPhase],
             isLatestReleaseForBranch ? "" : showClassName
           ].join(' ')}>{endOfCommercialSupportDate}</div>
         </>
@@ -274,7 +272,7 @@ export function RabbitMQServerReleaseInfoTable() {
   }
 
   return (
-    <div className="release-information">
+    <div className={`release-information ${supportStyles.supportTimelines}`}>
       <div className="release-info-overflow">
         <div className="release-info-grid">
           <div className={[
@@ -308,20 +306,6 @@ export function RabbitMQServerReleaseInfoTable() {
         </div>
       </div>
 
-      <strong>Legend:</strong>
-      <dl className="release-legend">
-        <dt className="supported-release latest-release"></dt>
-        <dd>Latest release series, fully supported</dd>
-        <dt className="unsupported-release"></dt>
-        <dd>Older release series, unsupported</dd>
-        {(typeof releaseBranches['current'].releases !== 'undefined' &&
-          releaseBranches['current'].releases.length > 0) ?
-          <>
-            <dt className="unsupported-release future-release"></dt>
-            <dd>Future version, unsupported</dd>
-          </> :
-          <></>
-        }
-      </dl>
+      <SupportTimeline rows={supportRows} now={now} />
     </div>);
 }

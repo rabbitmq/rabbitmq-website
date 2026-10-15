@@ -97,12 +97,18 @@ function getTimelineRows(releaseBranches, plannedReleases, now) {
   return rows.sort((a, b) => b.releaseDateValue - a.releaseDateValue);
 }
 
-export function CommercialSupportTimelines() {
+export function useSupportTimelineData() {
   const {siteConfig} = useDocusaurusContext();
   const {rabbitmq: releaseBranches} = siteConfig.customFields.releaseBranches;
   const plannedReleases = siteConfig.customFields.plannedRabbitMQReleases || [];
   const now = Date.now();
   const rows = getTimelineRows(releaseBranches, plannedReleases, now);
+
+  return {rows, now};
+}
+
+export function CommercialSupportTimelines() {
+  const {rows, now} = useSupportTimelineData();
 
   return (
     <div className={`release-information ${styles.supportTimelines}`}>
