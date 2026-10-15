@@ -226,19 +226,7 @@ html[data-theme='dark'] .mermaid-msg > rect {
  * ------------------------------------------------------------------- */
 
 .release-information {
-  --ri-color-latest: #d4f4b4;
-  --ri-color-supported: #fef8c6;
-  --ri-color-unsupported: #fdb3ab;
-  --ri-color-future: #c1e6f5;
-
   --ri-version-col-width: 76px;
-}
-
-html[data-theme='dark'] .release-information {
-  --ri-color-latest: #3c7700;
-  --ri-color-supported: #b09e00;
-  --ri-color-unsupported: #880d00;
-  --ri-color-future: #005c82;
 }
 
 .release-info-grid {
@@ -385,58 +373,6 @@ html[data-theme='dark'] .release-info-grid .release-toggle path {
 
 .release-info-header.release-version {
   grid-column: 3 / span 2;
-}
-
-.release-info-grid .supported-release {
-  background-color: var(--ri-color-supported);
-}
-
-.release-info-grid .supported-release.latest-release {
-  background-color: var(--ri-color-latest);
-}
-
-.release-info-grid .unsupported-release {
-  background-color: var(--ri-color-unsupported);
-}
-
-.release-info-grid .unsupported-release.future-release {
-  background-color: var(--ri-color-future);
-}
-
-.release-legend {
-  display: grid;
-  grid-template-columns: max-content auto;
-  margin-top: 0;
-  margin-left: 1em;
-}
-
-.release-legend dt {
-  grid-column-start: 1;
-  width: 1em;
-  height: 1em;
-  border: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
-  margin-top: 0.4em;
-}
-
-.release-legend dt.supported-release {
-  background-color: var(--ri-color-supported);
-}
-
-.release-legend dt.latest-release {
-  background-color: var(--ri-color-latest);
-}
-
-.release-legend dt.unsupported-release {
-  background-color: var(--ri-color-unsupported);
-}
-
-.release-legend dt.future-release {
-  background-color: var(--ri-color-future);
-}
-
-.release-legend dd {
-  grid-column-start: 2;
-  margin-left: 0.5em;
 }
 
 @media (min-width: 1440px) {

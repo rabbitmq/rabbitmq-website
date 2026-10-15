@@ -1,0 +1,184 @@
+.supportTimeline {
+  margin: 2rem 0;
+  padding: 1.5rem 2rem;
+  background: #f5f8fa;
+  color: #111;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.chartScroll {
+  padding: 0 2rem 0.5rem 0;
+  overflow-x: auto;
+}
+
+.chart {
+  position: relative;
+  min-width: 560px;
+  margin-left: 68px;
+  padding-bottom: 38px;
+}
+
+.axis {
+  position: absolute;
+  inset: 30px 0 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.year {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid #dfe3e7;
+}
+
+.year span {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  transform: translateX(-50%);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.releases {
+  padding-top: 30px;
+}
+
+.release {
+  position: relative;
+  height: 26px;
+  margin: 4px 0;
+}
+
+.releaseLabel {
+  position: absolute;
+  top: 0;
+  left: -68px;
+  height: 26px;
+  padding: 0 8px;
+  font-weight: 700;
+  line-height: 26px;
+  white-space: nowrap;
+}
+
+.bar {
+  position: absolute;
+  top: 0;
+  height: 26px;
+}
+
+.ossBar {
+  top: 12px;
+  height: 14px;
+  background: var(--support-oss);
+}
+
+.oss {
+  background: var(--support-oss);
+}
+
+.enterprise {
+  background: var(--support-enterprise);
+}
+
+.expert {
+  background: var(--support-expert);
+}
+
+.future {
+  background: var(--support-future);
+}
+
+.currentDate {
+  position: absolute;
+  top: 25px;
+  bottom: 20px;
+  border-left: 2px dotted #086dc3;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.currentDate time {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  transform: translateX(-50%);
+  color: #086dc3;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.showMore {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #086dc3;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.showMore:hover {
+  text-decoration: underline;
+}
+
+.chevron {
+  width: 7px;
+  height: 7px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+}
+
+.expanded {
+  transform: rotate(225deg) translate(-2px, -1px);
+}
+
+.legend {
+  margin: 2rem 0 0;
+  padding: 1.5rem 2rem;
+  border: 3px solid #dfe3e7;
+  background: #fff;
+}
+
+.legendItem {
+  position: relative;
+  margin: 0.6rem 0;
+  padding-left: 30px;
+}
+
+.legendItem dt {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.legendItem dd {
+  margin: 0;
+}
+
+.swatch {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.legend a {
+  color: #086dc3;
+}
+
+@media (max-width: 600px) {
+  .supportTimeline {
+    padding: 1rem;
+  }
+
+  .legend {
+    padding: 1rem;
+  }
+}

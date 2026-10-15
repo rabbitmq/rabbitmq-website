@@ -1,3 +1,11 @@
+.supportTimelines {
+  /* Shared support colors for the table, timeline, and legend. */
+  --support-oss: #ec9e6d;
+  --support-enterprise: #adebbd;
+  --support-expert: #e6d58a;
+  --support-future: #caecfd;
+}
+
 .timelines_table {
   display: table;
   width: 100%;
@@ -12,10 +20,40 @@
   width: 28%;
 }
 
-.supported {
-  background-color: var(--ri-color-latest);
+.release {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
 }
 
-.unsupported {
-  background-color: var(--ri-color-unsupported);
+.status {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.oss {
+  background-color: var(--support-oss);
+}
+
+.enterprise {
+  background-color: var(--support-enterprise);
+}
+
+.expert {
+  background-color: var(--support-expert);
+}
+
+.future {
+  background-color: var(--support-future);
+}
+
+.past {
+  color: var(--ifm-color-emphasis-600);
+}
+
+.supportCell {
+  color: #111;
 }
