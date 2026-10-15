@@ -1,8 +1,8 @@
 .supportTimelines {
-  /* Shared by the table, timeline, and legend; sampled from the Spring reference. */
-  --support-oss: #aae489;
-  --support-enterprise: #fbe99a;
-  --support-expert: #4295c2;
+  /* Shared support colors for the table, timeline, and legend. */
+  --support-oss: #ec9e6d;
+  --support-enterprise: #adebbd;
+  --support-expert: #e6d58a;
   --support-future: #caecfd;
 }
 
