@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {useVersions} from '@docusaurus/plugin-content-docs/client';
+import Heading from '@theme/Heading';
 import {useSupportTimelineData} from '../CommercialSupportTimelines';
 import SupportTimeline from '../CommercialSupportTimelines/SupportTimeline';
 import supportStyles from '../CommercialSupportTimelines/index.module.css';
@@ -306,6 +307,7 @@ export function RabbitMQServerReleaseInfoTable() {
         </div>
       </div>
 
+      <Heading as="h2" id="support-timelines">Support Timelines</Heading>
       <SupportTimeline rows={supportRows} now={now} />
     </div>);
 }
