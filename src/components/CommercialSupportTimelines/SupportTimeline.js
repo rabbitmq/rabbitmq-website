@@ -25,6 +25,7 @@ export default function SupportTimeline({rows, now}) {
     ...visibleRows.map((row) => row.releaseDateValue.getUTCFullYear())
   );
   const futureYear = Math.max(
+    2032,
     new Date(now).getUTCFullYear(),
     ...rows.map((row) => row.endOfCommercialSupportDate.getUTCFullYear())
   ) + 1;
