@@ -218,6 +218,7 @@ Miscellaneous projects:
 ## Monitoring {#monitoring-tools}
 
  * See [Monitoring](/docs/monitoring) and [Prometheus](/docs/prometheus) guides.
+ * [SolidPing](https://github.com/fclairamb/solidping): an opinionated open source, self-hosted uptime monitor that relies on the RabbitMQ HTTP API
 
 
 ## Visualisation {#viz}
