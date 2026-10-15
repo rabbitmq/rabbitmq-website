@@ -218,7 +218,7 @@ Miscellaneous projects:
 ## Monitoring {#monitoring-tools}
 
  * See [Monitoring](/docs/monitoring) and [Prometheus](/docs/prometheus) guides.
- * [SolidPing](https://github.com/fclairamb/solidping), an open source, self-hosted uptime monitor. Its RabbitMQ check connects over AMQP 0-9-1 (and can read a queue's message and consumer counts) or uses the management HTTP API to report resource alarms and memory and disk free thresholds.
+ * [SolidPing](https://github.com/fclairamb/solidping): an opinionated open source, self-hosted uptime monitor that relies on the RabbitMQ HTTP API
 
 
 ## Visualisation {#viz}
