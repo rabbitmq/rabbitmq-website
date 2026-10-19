@@ -1,0 +1,8 @@
+.diagram tspan[fill="#000000"] {
+  fill: var(--docsearch-text-color) !important;
+}
+
+.diagram rect[stroke="#000000"],
+.diagram path[stroke="#000000"] {
+  stroke: var(--docsearch-text-color) !important;
+}
