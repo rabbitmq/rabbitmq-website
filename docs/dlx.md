@@ -281,6 +281,22 @@ It is possible to form a cycle of message dead-lettering where the same message 
 For example, this can happen when a queue "dead-letters" messages to the default exchange without specifying a dead-letter routing key.
 To prevent automatic infinite message looping within RabbitMQ, RabbitMQ will detect a cycle and drop the message *if there was no rejection in the entire cycle*.
 
+### Delayed Retries {#delayed-retries}
+
+A common pattern for retrying messages after a transient failure is a dead-letter cycle:
+the consumer rejects the message, which is dead-lettered to a queue with a [message TTL](./ttl),
+from which it is dead-lettered back to the original queue once the TTL expires.
+
+[Quorum queues](./quorum-queues) natively support [delayed retry](./quorum-queues#delayed-retry),
+which is the recommended approach for this use case. Compared to a dead-letter cycle, delayed retry
+
+ * does not rewrite the message, lowering resource overhead
+ * does not risk message loss, unlike [at-most-once dead-lettering](./quorum-queues#dead-lettering)
+ * supports linear back-off per queue and explicit per-message delivery times
+
+Dead lettering remains the right tool for messages that cannot be processed at all, for example,
+those that exceed the [delivery limit](./quorum-queues#poison-message-handling).
+
 ## Safety {#safety}
 
 Dead-lettering is a form of message publishing, and as any form of publishing,
