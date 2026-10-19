@@ -27,8 +27,9 @@ branch and directory:
 
 | Version of RabbitMQ | Branch | Sub-directory | Served at |
 |---------------------|--------|---------------|-----------|
-| Development version (4.4) | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `docs` | [`www.rabbitmq.com/docs/next`](https://www.rabbitmq.com/docs/next) |
-| 4.3 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.3` | [`www.rabbitmq.com/docs`](https://www.rabbitmq.com/docs) |
+| Development version (5.0) | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `docs` | [`www.rabbitmq.com/docs/next`](https://www.rabbitmq.com/docs/next) |
+| 4.4 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.4` | [`www.rabbitmq.com/docs`](https://www.rabbitmq.com/docs) |
+| 4.3 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.3` | [`www.rabbitmq.com/docs/4.3`](https://www.rabbitmq.com/docs/4.3) |
 | 4.2 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.2` | [`www.rabbitmq.com/docs/4.2`](https://www.rabbitmq.com/docs/4.2) |
 | 4.1 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.1` | [`www.rabbitmq.com/docs/4.1`](https://www.rabbitmq.com/docs/4.1) |
 | 4.0 | [`main`](https://github.com/rabbitmq/rabbitmq-website/tree/main) | `versioned_docs/version-4.0` | [`www.rabbitmq.com/docs/4.0`](https://www.rabbitmq.com/docs/4.0) |
@@ -134,8 +135,8 @@ When a new version series comes out, a separate edition of the docs must
 be explicitly added using
 
 ```shell
-# adds a series for 4.3.x
-npm run docusaurus docs:version 4.3
+# adds a series for 5.0.x
+npm run docusaurus docs:version 5.0
 ```
 
 
