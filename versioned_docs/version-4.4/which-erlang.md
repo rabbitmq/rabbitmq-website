@@ -35,7 +35,7 @@ Erlang 29 is supported starting with RabbitMQ `4.4.0` and `4.3.7`.
 
 ### Erlang 28 Support
 
-Erlang 28 is fully supported starting with RabbitMQ `4.4.0` and `4.3.6`.
+Erlang 28 is fully supported starting with RabbitMQ `4.3.7` and `4.4.0`.
 
 Erlang 28.5 provides support for several Post-Quantum cryptography algorithms.
 
