@@ -1708,6 +1708,8 @@ In `rabbitmq.conf`, values of certain keys can be prefixed with `encrypted`, for
 Those keys are:
 
  * `anonymous_login_pass`
+ * `auth_ldap.dn_lookup_bind.password`
+ * `auth_ldap.other_bind.password`
  * `auth_ldap.ssl_options.password`
  * `cluster_formation.aws.secret_key`
  * `cluster_formation.consul.acl_token`
