@@ -64,6 +64,35 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     <tr>
       <td>
         <ul>
+          <li>4.4.0</li>
+          <li>4.3.7</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>27.0</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>29.x</li>
+        </ul>
+      </td>
+      <td>
+        <ul class="notes">
+          <li>
+            Erlang 29 is now supported by RabbitMQ.
+          </li>
+          <li>
+            Erlang 28.5 provides support for Post-Quantum Cryptography.
+          </li>
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <ul>
           <li>4.3.6</li>
         </ul>
       </td>
