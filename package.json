@@ -38,7 +38,7 @@
     "dompurify": ">=3.4.17",
     "estree-util-value-to-estree": ">=3.3.3",
     "path-to-regexp": ">=8.4.0",
-    "webpack-dev-server": "^5.2.6"
+    "webpack-dev-server": "^6.1.0"
   },
   "overrides": {
     "qs": "^6.16.0",
