@@ -1151,6 +1151,19 @@ factory.setAutomaticRecoveryEnabled(true);
 factory.setTopologyRecoveryEnabled(false);
 ```
 
+:::important
+
+When topology recovery is enabled, applications should not attempt to recover topology themselves,
+in particular consumers. Manual recovery should be reserved for cases where automatic
+topology recovery fails.
+
+Redundant recovery can be harmful. For example, registering a consumer with the same consumer tag
+as one restored by topology recovery is a [connection-level protocol error](/docs/connections#error-handling):
+RabbitMQ closes the connection with all of its channels. This triggers another
+recovery attempt, which can turn into an endless recovery loop.
+
+:::
+
 ### Failure Detection and Recovery Limitations {#automatic-recovery-limitations}
 
 Automatic connection recovery has a number of limitations and intentional
