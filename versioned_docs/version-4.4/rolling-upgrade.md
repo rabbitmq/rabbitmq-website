@@ -30,9 +30,11 @@ cluster as a whole remains available throughout the process
 (unless it only has one node, of course).
 
 :::important
-Rolling upgrades don't support skipping versions, except patch releases (for example you **can** upgrade directly
-from 3.13.0 to 3.13.7 but you **cannot** upgrade directly from 3.12.x to 4.0). Moreover, for specific upgrades,
-additional constraints may apply. Please refer to the [version upgradability](./upgrade#rabbitmq-version-upgradability) table for more information.
+Rolling upgrades can skip patch releases within the same release series (for example, from `4.2.0` to `4.2.5`).
+Skipping release series is only supported for the paths listed in the
+[version upgradability](./upgrade#rabbitmq-version-upgradability) table.
+For example, `4.2.x` can be upgraded directly to `4.4.x`, while `3.13.x` and `4.0.x`
+must first be upgraded to `4.2.x` before upgrading to `4.4.x`.
 :::
 
 ## Before the Upgrade {#before}
