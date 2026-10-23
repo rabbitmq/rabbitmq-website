@@ -125,11 +125,15 @@ This strategy is only recommended for replacing one node that must be decomissio
 
 :::warning
 
-RabbitMQ `3.13.x` users must first upgrade to `4.2.x`, then to `4.3.x`.
+RabbitMQ `3.13.x`, `4.0.x`, and `4.1.x` users must first upgrade to `4.2.x`
+before performing a rolling upgrade to `4.3.x` or `4.4.x`.
 
 :::
 
-Upgrading to `4.3.x` is only possible from `4.2.x`.
+Rolling upgrades to `4.3.x` are only supported from `4.2.x`.
+Rolling upgrades to `4.4.x` are only supported from `4.2.x` or `4.3.x`.
+
+Rolling upgrades between patch releases within the same release series are also supported.
 
 All [stable feature flags must be enabled](./feature-flags#how-to-enable-feature-flags),
 **before** an upgrade, or the upgrade may fail.
@@ -139,10 +143,12 @@ Refer to the table below to understand your upgrade path.
 <details>
   <summary>Release Series Upgradeability</summary>
 
-The following shows the supported upgrade paths.
+The following shows the supported rolling upgrade paths between release series.
 
 | From     | To     |
 |----------|--------|
+| 4.3.x    | 4.4.x  |
+| 4.2.x    | 4.4.x  |
 | 4.2.x    | 4.3.x  |
 | 4.1.x    | 4.2.x  |
 | 4.0.x    | 4.2.x  |
