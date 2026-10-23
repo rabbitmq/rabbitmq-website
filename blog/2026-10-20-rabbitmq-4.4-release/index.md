@@ -285,7 +285,7 @@ flowchart TB
 This happens frequently in practice: load balancers distribute client connections across nodes, and leaders end up wherever elections place them after restarts or upgrades.
 The existing [`rabbitmq-queues rebalance`](/docs/quorum-queues#member-rebalancing) command balances the *number* of leaders per node, but it doesn't know where the traffic comes from.
 
-The new leader migration plugin in Tanzu RabbitMQ 4.4 places leaders based on traffic:
+The new [leader migration plugin](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-4/tanzu-rabbitmq-oci-image/site-leader-migration.html) in Tanzu RabbitMQ 4.4 places leaders based on traffic:
 * Each quorum queue tracks how many bytes are published to it via each node.
 * Periodically, each node checks the queues it leads. If another member's node receives significantly more ingress than the current leader's node, the plugin transfers leadership there.
 * Warm-up periods, per-queue cooldowns, and a rate limit on transfers prevent leaders from flapping when traffic patterns briefly change.
@@ -388,7 +388,7 @@ Only messages that match bindings in the downstream cluster cross the network.
 The existing federation plugin (v1) allocates resources per federated exchange: several [connections](/docs/connections) and [channels](/docs/channels), plus a queue on the upstream cluster.
 This works well for tens of exchanges, but some deployments federate an exchange per tenant, device, or business entity. With hundreds or thousands of exchanges, the overhead adds up to hundreds or thousands of connections.
 
-Tanzu RabbitMQ 4.4 introduces exchange federation v2, a new plugin designed for this scale.
+Tanzu RabbitMQ 4.4 introduces [exchange federation v2](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-oci/4-4/tanzu-rabbitmq-oci-image/site-federation-v2.html), a new plugin designed for this scale.
 Instead of per-exchange links, v2 shares one link per virtual host and upstream, regardless of how many exchanges are federated:
 
 ```mermaid
