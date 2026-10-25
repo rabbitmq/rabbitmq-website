@@ -1,5 +1,60 @@
 [
   {
+    "cve_id": "",
+    "ghsa_id": "GHSA-mhh3-4wv2-rrj7",
+    "patched_versions": "4.3.7, 4.2.12, 4.1.17, 3.13.21",
+    "published_at": "2026-10-25",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "SASL credentials are not redacted from `amqp10_client` crash dumps and `sys:get_status` output",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-mhh3-4wv2-rrj7",
+    "vulnerable_versions": ">= 4.3.0, < 4.3.7, >= 4.2.0, < 4.2.12, >= 4.1.0, < 4.1.17, >= 3.13.0, < 3.13.21"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-g73v-gcjq-2g4h",
+    "patched_versions": "4.3.7, 4.2.12, 4.1.17",
+    "published_at": "2026-10-25",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "AMQP message conversion can repeatedly disconnect AMQP 0-9-1 consumers",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-g73v-gcjq-2g4h",
+    "vulnerable_versions": ">= 4.3.0, < 4.3.7, >= 4.2.0, < 4.2.12, >= 4.1.0, < 4.1.17"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-9h6g-46wc-m2f5",
+    "patched_versions": "4.3.7, 4.2.12, 4.1.17, 3.13.21",
+    "published_at": "2026-10-25",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Memory DoS via incomplete AMQP 0-9-1 messages",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-9h6g-46wc-m2f5",
+    "vulnerable_versions": ">= 4.3.0, < 4.3.7, >= 4.2.0, < 4.2.12, >= 4.1.0, < 4.1.17, >= 3.13.0, < 3.13.21"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-6wvj-vwrc-wcrm",
+    "patched_versions": "3.13.21, 4.1.17, 4.2.12, 4.3.7",
+    "published_at": "2026-10-25",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "HTML injection in management UI OAuth login warning",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-6wvj-vwrc-wcrm",
+    "vulnerable_versions": ">= 3.13.0, < 3.13.21, >= 4.1.0, < 4.1.17, >= 4.2.0, < 4.2.12, >= 4.3.0, < 4.3.7"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-3wxh-g236-vm46",
+    "patched_versions": "4.3.7, 4.2.12, 4.1.17, 3.13.21",
+    "published_at": "2026-10-25",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "LDAP authentication failures allow unauthenticated log amplification",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-3wxh-g236-vm46",
+    "vulnerable_versions": ">= 4.3.0, < 4.3.7, >= 4.2.0, < 4.2.12, >= 4.1.0, < 4.1.17, >= 3.13.0, < 3.13.21"
+  },
+  {
     "cve_id": "CVE-2026-106121",
     "ghsa_id": "GHSA-cqgh-8p3p-mx4m",
     "patched_versions": "5.37.0",
