@@ -124,6 +124,7 @@ Miscellaneous projects:
  * [RabbitMqBundle](https://github.com/php-amqplib/rabbitmqbundle) incorporates RabbitMQ messaging with the Symfony2 web framework
  * [PECL AMQP library](http://pecl.php.net/package/amqp) built on top of the [RabbitMQ C client](https://github.com/alanxz/rabbitmq-c)
  * [Thumper](https://github.com/php-amqplib/Thumper) a library of messaging patterns
+ * [Rabbit RS](https://github.com/Goopil/php-rabbit-rs) a RabbitMQ transport for PHP and Laravel built on a native Rust runtime
  * [CAMQP](http://www.yiiframework.com/extension/amqp/) an extension for the Yii framework providing a gateway for RabbitMQ messaging
  * [AMQP Interop](https://github.com/queue-interop/queue-interop#amqp-interop) is a set of unified AMQP 0-9-1 interfaces in PHP and their implementations
  * [Bowler](https://github.com/Vinelab/bowler) is a RabbitMQ client abstraction for Laravel
