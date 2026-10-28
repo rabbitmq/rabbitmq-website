@@ -841,7 +841,7 @@ To bind and/or unbind a queue to/from a **Topic Exchange**, you need to have the
 
 - **write** permission on the queue and routing key -> `rabbitmq.write:<vhost>/<queue>/<routingkey>`
 
-> for example (wilcard syntax) `rabbitmq.write:*/*/*`
+> for example (wildcard syntax) `rabbitmq.write:*/*/*`
 
 - **read** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
 
@@ -851,7 +851,7 @@ To publish to a **Topic Exchange**, you need to have the following scope:
 
 - **write** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
 
-> for example (regexp syntax) `rabbitmq.write:.*/.*/.*`
+> for example (regex syntax) `rabbitmq.write:.*/.*/.*`
 
 #### Variable Expansion
 
