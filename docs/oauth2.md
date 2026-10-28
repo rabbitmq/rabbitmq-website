@@ -441,7 +441,7 @@ connect to one of the RabbitMQ's messaging protocols, such as AMQP:
 | `auth_oauth2.resource_server_type`        | The Resource Server Type required when using [Rich Authorization Request](#rich-authorization-request) token format |
 | `auth_oauth2.additional_scopes_key`       | [Configure](#use-different-token-field) the plugin to look for scopes in other fields. |
 | `auth_oauth2.scope_prefix`                | [Configure the prefix for all scopes](#scope-prefix). The default value is `auth_oauth2.resource_server_id` followed by the dot `.` character. |
-| `auth_oauth2.scope_pattern_syntax`        | [How scope patterns match](#scope-pattern-syntax) vhosts, resource names, and topic routing keys. Values: `wildcard` (default) or `regexpr`. |
+| `auth_oauth2.scope_pattern_syntax`        | [How scope patterns match](#scope-pattern-syntax) vhosts, resource names, and topic routing keys. Values: `wildcard` (default) or `regex`. |
 | `auth_oauth2.preferred_username_claims`   | [List of the JWT claims](#preferred-username-claims) to look for the username associated with the token. |
 | `auth_oauth2.default_key`                 | ID of the default signing key.                               |
 | `auth_oauth2.signing_keys`                | Paths to the [signing key files](#signing-key-files).        |
@@ -741,7 +741,7 @@ where
 * `<routing_key_pattern>` is a pattern for the routing key in topic authorization
 
 Each pattern is compared to the corresponding value (vhost name, resource name, or routing key)
-using the **scope pattern syntax**. The default is `wildcard`. When the syntax is `regexpr`, each
+using the **scope pattern syntax**. The default is `wildcard`. When the syntax is `regex`, each
 segment is matched as a full-string regular expression instead. For more information, see
 [Scope pattern syntax](#scope-pattern-syntax).
 
@@ -759,13 +759,13 @@ Configure it in `rabbitmq.conf` as follows:
 Allowed values:
 
 - `wildcard` — patterns use the rules documented in [Wildcard patterns](#wildcard-patterns)
-- `regexpr` — each pattern segment is matched with a
+- `regex` — each pattern segment is matched with a
   [Perl-compatible regular expression](https://www.erlang.org/doc/man/re) against the **entire**
   corresponding string. The implementation uses UTF-8 (`unicode` and `ucp` options).
 
 ```ini
 # Example: use regular expressions for all scope pattern segments
-auth_oauth2.scope_pattern_syntax = regexpr
+auth_oauth2.scope_pattern_syntax = regex
 ```
 
 #### Wildcard patterns {#wildcard-patterns}
@@ -841,7 +841,7 @@ To bind and/or unbind a queue to/from a **Topic Exchange**, you need to have the
 
 - **write** permission on the queue and routing key -> `rabbitmq.write:<vhost>/<queue>/<routingkey>`
 
-> for example (wilcard syntax) `rabbitmq.write:*/*/*`
+> for example (wildcard syntax) `rabbitmq.write:*/*/*`
 
 - **read** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
 
@@ -851,7 +851,7 @@ To publish to a **Topic Exchange**, you need to have the following scope:
 
 - **write** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
 
-> for example (regexp syntax) `rabbitmq.write:.*/.*/.*`
+> for example (regex syntax) `rabbitmq.write:.*/.*/.*`
 
 #### Variable Expansion
 
