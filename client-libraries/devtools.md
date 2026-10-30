@@ -226,6 +226,7 @@ Miscellaneous projects:
 
  * [RabbitGUI](https://rabbitgui.com), a tool for vizualizing and managing dead letter queues.
  * [Warren](https://warrenops.io), a Web UI for browsing dead-lettered messages
+ * [LibreDB Studio](https://github.com/libredb/libredb-studio), an open source web database IDE that browses virtual hosts, queues, exchanges and streams over the HTTP API and reads stream messages without consuming them (RabbitMQ 4.2 and later)
 
 
 ## Unity 3D {#unity-dev}
