@@ -123,6 +123,11 @@ This strategy is only recommended for replacing one node that must be decomissio
 
 ## RabbitMQ Version Upgradability {#rabbitmq-version-upgradability}
 
+All [stable feature flags must be enabled](./feature-flags#how-to-enable-feature-flags),
+**before** a rolling upgrade, or the upgrade may fail.
+
+Rolling upgrades between patch releases within the same release series are supported.
+
 :::warning
 
 RabbitMQ `3.13.x`, `4.0.x`, and `4.1.x` users must first upgrade to `4.2.x`
@@ -130,18 +135,47 @@ before performing a rolling upgrade to `4.3.x` or `4.4.x`.
 
 :::
 
-Rolling upgrades to `4.3.x` are only supported from `4.2.x`.
-Rolling upgrades to `4.4.x` are only supported from `4.2.x` or `4.3.x`.
 
-Rolling upgrades between patch releases within the same release series are also supported.
+Each arrow represents a supported direct rolling upgrade between release series.
+Follow multiple arrows when intermediate upgrades are required.
 
-All [stable feature flags must be enabled](./feature-flags#how-to-enable-feature-flags),
-**before** an upgrade, or the upgrade may fail.
-
-Refer to the table below to understand your upgrade path.
+```mermaid
+flowchart TB
+    accTitle: Rolling upgrade paths from RabbitMQ 3.13 to 4.4
+    accDescr: 3.13.x can upgrade to 4.0.x, 4.1.x, or 4.2.x. 4.0.x can upgrade to 4.1.x or 4.2.x. 4.1.x can upgrade to 4.2.x. 4.2.x can upgrade to 4.3.x or 4.4.x. 4.3.x can upgrade to 4.4.x.
+    R313["3.13.x"] --> R40["4.0.x"]
+    R313 --> R41["4.1.x"]
+    R313 --> R42["4.2.x"]
+    R40 --> R41
+    R40 --> R42
+    R41 --> R42
+    R42 --> R43["4.3.x"]
+    R42 --> R44["4.4.x"]
+    R43 --> R44
+```
 
 <details>
-  <summary>Release Series Upgradeability</summary>
+  <summary>Upgrade paths from older release series</summary>
+
+The patch version on an arrow identifies the source version listed in the table.
+After reaching `3.13.x`, continue with the diagram above.
+
+```mermaid
+flowchart TB
+    accTitle: Rolling upgrade paths from RabbitMQ 3.7 to 3.13
+    accDescr: 3.7.18 can upgrade to 3.8.x, then 3.9.x, then 3.10.x, then 3.11.x. 3.11.18 can upgrade to 3.12.x, then 3.13.x.
+    R37["3.7.18"] --> R38["3.8.x"]
+    R38 --> R39["3.9.x"]
+    R39 --> R310["3.10.x"]
+    R310 --> R311["3.11.x"]
+    R311 -->|from 3.11.18| R312["3.12.x"]
+    R312 --> R313["3.13.x"]
+```
+
+</details>
+
+<details>
+  <summary>All upgrade paths (table)</summary>
 
 The following shows the supported rolling upgrade paths between release series.
 
