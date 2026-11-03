@@ -25,7 +25,7 @@ See the [Deprecated Features subsystem documentation](/docs/deprecated-features)
 
 | [Deprecated&nbsp;feature](/docs/deprecated-features) | Deprecated&nbsp;since | Removed&nbsp;in | Notes |
 |--------------------|---------------|------------|-------|
-| [`amqp_address_v1`](/docs/amqp#address-v1) | RabbitMQ 4.0 | | Use [AMQP address v2](/docs/amqp#address-v2). |
+| [`amqp_address_v1`](/docs/amqp#addresses) | RabbitMQ 4.0 | | Use [AMQP address v2](/docs/amqp#address-v2). |
 | [`classic_queue_mirroring`](/docs/3.13/ha) | [August&nbsp;2021](/blog/2021/08/21/4.0-deprecation-announcements) | RabbitMQ&nbsp;4.0 | Use [quorum queues](/docs/quorum-queues) and/or [streams](/docs/streams) for data that needs replication. |
 | `global_qos` | [August&nbsp;2021](/blog/2021/08/21/4.0-deprecation-announcements) | | Use [per-consumer QoS](/docs/consumer-prefetch). |
 | `management_metrics_collection` | [August&nbsp;2021](/blog/2021/08/21/4.0-deprecation-announcements) | | Use the [Prometheus plugin](/docs/prometheus). |

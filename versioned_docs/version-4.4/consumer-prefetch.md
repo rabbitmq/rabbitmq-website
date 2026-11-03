@@ -91,6 +91,10 @@ channel.basicConsume("my-queue2", false, consumer2);
 
 ## Multiple Consumers Sharing the Limit {#sharing-the-limit}
 
+Global (per-channel) QoS prefetch is [deprecated](./deprecated-features) and
+disabled by default starting with RabbitMQ 4.3. Use per-consumer prefetch instead.
+The following example applies only when the deprecated feature is explicitly permitted.
+
 The AMQP 0-9-1 specification does not explain what happens if you
 invoke `basic.qos` multiple times with different
 `global` values. RabbitMQ interprets this as meaning

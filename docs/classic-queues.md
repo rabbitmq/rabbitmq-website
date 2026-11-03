@@ -47,15 +47,12 @@ Classic queues do not support [poison message handling](https://en.wikipedia.org
 unlike [quorum queues](./quorum-queues). Classic queues also do not
 support at-least-once dead-lettering, supported by quorum queues.
 
-[Per-consumer QoS prefetch](./consumer-prefetch) should be
-preferred over global QoS prefetch, even though classic queues support
-both options. Global QoS prefetch is a deprecated feature that will be
-removed in **RabbitMQ 4.0**.
+Use [per-consumer QoS prefetch](./consumer-prefetch). Global QoS prefetch is
+[deprecated](./deprecated-features) and disabled by default starting with RabbitMQ 4.3.
 
-While classic queues can be declared as transient, this makes queue
-removal difficult to reason about in case of node restarts during upgrades and such,
-so the use of transient queues is discouraged. Support for transient queues
-is deprecated and will be removed in **RabbitMQ 4.0**.
+Non-durable, non-exclusive classic queues are also deprecated and disabled by
+default starting with RabbitMQ 4.3. Use durable queues or
+[exclusive queues](./queues#exclusive-queues) instead.
 
 Classic queues is a non-replicated queue type starting with RabbitMQ 4.0.
 [Quorum queues](./quorum-queues) and [streams](./streams) provide a better alternative when high availability and
@@ -95,10 +92,7 @@ tracking messages location as well as their position
 in the queue, and it persists this information in the
 index.
 
-Embedded messages are written in its queue index when
-using classic queues version 1; and in its
-**per-queue message store** when using classic
-queues version 2.
+Small messages are written to the **per-queue message store**.
 
 Larger messages are written to a shared message store.
 Each vhost has two such stores: one for persistent
@@ -107,17 +101,13 @@ are usually considered together as the shared message
 store. All queues in the vhost use the same message
 store.
 
+Starting with RabbitMQ 4.4, new shared-store files use the `.sqs` format.
+Existing `.rdq` files remain readable and are not rewritten automatically.
+A node with `.sqs` files cannot be downgraded to RabbitMQ 4.3 or earlier.
+
 ## Classic Queue Storage Implementation Versions {#versions}
 
-There are currently two classic queue versions (implementation).
-Depending on the version, classic queues will
-use a different index for messages, as well
-as operate differently regarding the embedding of small messages in
-the index.
-
-#### Classic Queue Implementation Version 1
-
-RabbitMQ 4.0 removed support for classic queues version 1.
+Classic queues use the version 2 storage implementation. Version 1 is no longer supported.
 
 ### Classic Queue Implementation Version 2
 
@@ -129,28 +119,6 @@ in its index, instead a per-queue message store is used.
 Version 2 was added in **RabbitMQ 3.10.0** and was significantly
 improved in **RabbitMQ 3.12.0**. Version 1 queues are no longer
 supported starting with **RabbitMQ 4.0**.
-
-## Version 1 to Version 2 Migration {#migration}
-
-When a RabbitMQ 4.0 node starts, it will automatically migrate any existing
-v1 queues to v2 (it will rewrite their on-disk representation).
-
-Note that for large queues the conversion
-may take some time and results in the queue being unavailable while
-the conversion is running. As a point of reference, on our test machine,
-the migration takes:
-
-* 2 seconds to migrate 1000 queues with 1000 100-byte messages each
-* 9 seconds to migrate a queue with 1 million 100-byte messages
-* 3 seconds to migrate a queue with 1 million 5000-byte messages
-  (with the default embedding size of 4096 bytes, 5000-byte
-  messages are in the message store so there is less data to migrate)
-
-Given the numbers above, unless there is a lot of queues with a lot of messages,
-the migration should complete in a matter of seconds.
-
-It is possible to perform this migration before upgrading to RabbitMQ 4.0.
-Please refer to the RabbitMQ 3.13 documentation for details.
 
 ## Resource Use with Classic Queues {#resource-use}
 

@@ -362,7 +362,7 @@ Quorum queues support configurable consumer timeouts to handle slow or stuck con
 
 When a consumer timeout fires:
 
-1. **For AMQP 1.0 clients**: The broker sends a `DISPOSITION` frame with `state=released` instead of detaching the link. This allows the client to auto-settle the delivery and potentially recover without needing to re-establish the link. Until the consumer settles the timed out message it will not be assigned any further messages.
+1. **For AMQP 1.0 clients**: The broker reports the `released` outcome for timed-out deliveries using a `disposition` performative. The link remains attached. The consumer must settle the timed-out deliveries before receiving further messages.
 
 2. **For AMQP 0.9.1 clients**: The consumer is cancelled (if the client supports the `consumer_cancel_notify` capability), otherwise the channel is closed with a `precondition_failed` error. In both cases, the messages are returned to the queue for redelivery.
 
@@ -560,7 +560,9 @@ PUT /api/policies/%2f/qq-delayed-retry
 
 ##### Explicit Delivery Time
 
-The `x-opt-delivery-time` annotation can be set on message properties to specify an explicit future delivery time (in milliseconds since epoch). This annotation is only available when using the AMQP `modify` outcome and takes precedence over the calculated linear back-off delay.
+An AMQP 1.0 consumer can set `x-opt-delivery-time` in the `message-annotations` field
+of the `modified` outcome to request redelivery at a future Unix timestamp in milliseconds.
+This takes precedence over the calculated linear back-off delay.
 
 #### Management UI and Monitoring
 

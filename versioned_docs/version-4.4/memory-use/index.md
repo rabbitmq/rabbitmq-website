@@ -259,9 +259,14 @@ reserved_unallocated: 0.0 gb (0.0%)
       <td>Allocated/reserved by the kernel but not the runtime</td>
     </tr>
     <tr>
-      <td>mnesia</td>
+      <td>metadata_store</td>
       <td>Internal Database</td>
-      <td>Virtual hosts, users, permissions, queue metadata and state, exchanges, bindings, runtime parameters and so on.</td>
+      <td>Khepri process memory.</td>
+    </tr>
+    <tr>
+      <td>metadata_store_ets</td>
+      <td>Internal Database</td>
+      <td>Metadata tables for virtual hosts, users, permissions, queues, exchanges, and bindings.</td>
     </tr>
     <tr>
       <td>quorum_ets</td>
@@ -440,10 +445,9 @@ used. This is covered in more detail below.
 
 ### Internal Database {#breakdown-internal-database}
 
-Internal database (Mnesia) tables keep an in-memory copy of all its data (even on disc
-nodes). Typically this will only be large when there are a
-large number of queues, exchanges, bindings, users or
-virtual hosts. Plugins can store data in the same database as well.
+The [metadata store](../metadata-store/index.md) keeps metadata for queues, exchanges,
+bindings, users, and virtual hosts in memory and persists it to disk.
+Its memory use grows with the number of these entities.
 
 ### Management (Stats) Database {#breakdown-management-stats-db}
 

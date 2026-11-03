@@ -62,7 +62,7 @@ Per connection limits apply to individual client connections.
 
 | [`rabbitmq.conf` Setting](./configure) | Type | Description | Default |
 |---------|------|-------------|---------|
-| `channel_max` | integer | Maximum number of AMQP 0-9-1 channels a client can open on a single connection. Protects against applications [leaking channels](./channels#monitoring). Channel number 0 is reserved for internal use. While the default is 2047, values between 16 and 128 are recommended for most use cases. | 2047 |
+| `max_channels_per_connection` | integer | Maximum number of AMQP 0-9-1 channels a client can open on a single connection. Protects against applications [leaking channels](./channels#monitoring). Channel number 0 is reserved for internal use. While the default is 2047, values between 16 and 128 are recommended for most use cases. | 2047 |
 | `session_max_per_connection` | integer | Maximum number of AMQP 1.0 sessions per connection | 1 |
 | `link_max_per_session` | integer | Maximum number of AMQP 1.0 links per session | 10 |
 | `handshake_timeout` | integer (milliseconds) | Maximum time allowed for AMQP 0-9-1 and AMQP 1.0 handshake to complete | 10000 (10 seconds) |
@@ -124,18 +124,23 @@ See also: [open file handles limit](./networking#open-file-handle-limit).
 | [`rabbitmq.conf` Setting](./configure) | Type | Description | Default |
 |---------|------|-------------|---------|
 | `consumer_timeout` | positive integer (milliseconds) | Defines [how long RabbitMQ will wait for delivery acknowledgements](./consumers#acknowledgement-timeout) from consumers | 1800000 (30 minutes) |
-| `connection_max` | integer | Maximum number of concurrent client connections a node will accept | unlimited |
+| `max_connections` | integer | Maximum number of concurrent AMQP 1.0 and AMQP 0-9-1 connections a node will accept | unlimited |
+| `mqtt.max_connections` | integer | Maximum number of concurrent MQTT connections a node will accept | unlimited |
+| `stomp.max_connections` | integer | Maximum number of concurrent STOMP connections a node will accept | unlimited |
 | `channel_max_per_node` | integer | Maximum number of channels across all connections on a node | unlimited |
 | `ranch_connection_max` | integer | Maximum number of concurrent TCP connections a node will accept; includes [HTTP API](./http-api-reference) connections | unlimited |
 | `stream.max_connections` | integer | Maximum number of concurrent [RabbitMQ Stream Protocol](./stream) client connections a node will accept | unlimited |
 | `max_message_size` | integer (bytes) | Maximum message size that messaging and streaming clients can publish. Messages larger than this will be rejected. Maximum allowed value is 512 MiB. | 16777216 (16 MiB) |
 | `management.http.max_body_size` | integer (bytes) | Maximum HTTP API request body size | 20971520 (20 MiB) |
 
+`connection_max` and `channel_max` remain supported aliases for `max_connections`
+and `max_channels_per_connection`, respectively. Prefer the newer names.
+
 ### Per Queue Limits {#per-queue}
 
 Individual queues can have limits configured via [policies](./policies):
 
- * [Queue length limit](./maxlength): limits the maximum number of ready messages or total message bytes in a queue.
+ * [Queue length limit](./maxlength): limits ready messages or their total size. Quorum queues also count delayed messages and messages pending at-least-once dead lettering.
    When the limit is reached, messages are either dropped from the head or new publishes are rejected.
  * [Message TTL](./ttl#per-queue-message-ttl): messages in a queue expire after a specified time period.
  * [Queue TTL](./ttl#queue-ttl): queues are automatically deleted after a period of inactivity.

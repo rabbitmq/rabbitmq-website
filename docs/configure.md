@@ -948,16 +948,16 @@ log.file.level = info
     </td>
   </tr>
   <tr>
-    <td>`channel_max`</td>
+    <td>`max_channels_per_connection`</td>
     <td>
       Maximum permissible number of channels to
-      negotiate with clients, not including a special channel number 0 used in the protocol.
+      negotiate with clients (`channel_max` is a supported alias), not including a special channel number 0 used in the protocol.
       Setting to 0 means "unlimited", a dangerous value since applications sometimes have channel leaks.
       Using more channels increases memory footprint of the broker.
       <div>
         Default:
 ```ini
-channel_max = 2047
+max_channels_per_connection = 2047
 ```
       </div>
     </td>
@@ -1311,33 +1311,7 @@ queue_index_embed_msgs_below = 4096
     </td>
   </tr>
 
-  <tr>
-    <td>`mnesia_table_loading_retry_timeout`</td>
-    <td>
-      Timeout used when waiting for Mnesia tables in a cluster to
-      become available.
-      <div>
-        Default:
-```ini
-mnesia_table_loading_retry_timeout = 30000
-```
-</div>
-    </td>
-  </tr>
 
-  <tr>
-    <td>`mnesia_table_loading_retry_limit`</td>
-    <td>
-      Retries when waiting for Mnesia tables in the cluster startup. Note that
-      this setting is not applied to Mnesia upgrades or node deletions.
-      <div>
-      Default:
-```ini
-mnesia_table_loading_retry_limit = 10
-```
-      </div>
-    </td>
-  </tr>
 
   <tr>
     <td>`queue_leader_locator`</td>

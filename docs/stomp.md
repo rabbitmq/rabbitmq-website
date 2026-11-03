@@ -42,6 +42,11 @@ rabbitmq-plugins enable rabbitmq_stomp
 
 ## Plugin Configuration {#configuration}
 
+### Connection Limit {#connection-limit}
+
+Starting with RabbitMQ 4.4, set `stomp.max_connections` to limit concurrent STOMP
+connections per node. The default is `infinity` (no limit).
+
 ### TCP Listeners {#tcp-listeners}
 
 When no configuration is specified the STOMP Adapter will listen on

@@ -146,11 +146,8 @@ A conversion from AMQP to AMQP 0.9.1 takes place if the message is consumed with
 | basic properties   | timestamp        | timestamp (seconds) |                                       | properties             | creation_time    | timestamp     | converted to ms                     |
 | basic properties   | content-type     | shortstr            |                                       | properties             | content-type     | symbol        |                                     |
 | basic properties   | content-encoding | shortstr            |                                       | properties             | content-encoding | symbol        |                                     |
-| basic properties   | delivery-mode    | octet               |                                       | header                 | durable          | boolean       | previously in x-basic-delivery-mode |
-| basic properties   | priority         | octet               |                                       | header                 | priority         | ubyte         | previously in x-basic-priority      |
-| basic.properties   | headers          |                     | Key=x-amqp-1.0-properties             | properties             | \-               | \-            | legacy 1.0 plugin headers           |
-| basic.properties   | headers          |                     | Key=x-amqp-1.0-application-properties | application properties | \-               | \-            | legacy 1.0 plugin headers           |
-| basic.properties   | headers          |                     | Key=x-amqp-1.0-message-annotations    | message annotations    | \-               | \-            | legacy 1.0 plugin headers           |
+| basic properties   | delivery-mode    | octet               |                                       | header                 | durable          | boolean       |  |
+| basic properties   | priority         | octet               |                                       | header                 | priority         | ubyte         |       |
 | basic properties   | headers          | *                   | Key begins with "x-"                  | message annotations    | Key              | \*            | see type conversion rules           |
 | basic properties   | headers          | table               | Value not array or table              | application properties | Key              | \*            | see type conversion rules           |
 | basic properties   | headers          | table               | Value is array or table               | \-                     | \-               | \-            | not converted                       |

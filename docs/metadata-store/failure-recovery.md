@@ -9,19 +9,8 @@ recovery.
 
 ## Behavior in Cluster Minority
 
-When Mnesia is used as the metadata store backend, RabbitMQ provides [network
-partition recovery strategies](../partitions).
-
-Their role is to take care of conflicts resolution when a cluster is split,
-because nodes on both side will continue to write to the metadata store, based
-on an incomplete view of the cluster. Some strategies prevent the conflicts in
-the first place by stopping the service on the side of the split that has less
-cluster members, i.e., the minority.
-
-Raft, the consensus algorithm implemented by the Ra library and used by quorum
-queues, stream queues and Khepri, only provides one recovery strategy, which
-most closely resembles the `pause_minority` strategy from the set
-of [partition handling strategies](../partitions) developed for Mnesia.
+Khepri, quorum queues, and streams use Raft. Metadata updates require
+an acknowledgement from a majority of cluster members.
 
 When a Khepri member wants to update the metadata store, or needs to perform a
 query that spans all online cluster members, or even wants to change the
@@ -45,11 +34,7 @@ nodes and Raft cannot reach consensus.
 
 ### Is the Behavior Configurable?
 
-Unlike the network partition recovery strategies used with Mnesia, the strategy
-used with Khepri is not configurable: it is the design of the Raft algorithm.
-
-Thanks to this, it is easier to reason about the behavior of RabbitMQ and
-understand what could happen.
+Khepri recovery behavior is determined by Raft and is not configurable.
 
 ## Nodes Failing and Recovering
 

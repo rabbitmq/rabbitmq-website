@@ -1838,15 +1838,6 @@ curl -4u 'guest:guest' -XPOST localhost:15672/api/rebalance/queues/
 
 Returns the username of the authenticated user.
 
-### GET /api/auth
-
-Details about the [OAuth 2](./oauth2/) configuration. It will return HTTP
-status 200 with a body in the following format:
-
-```json
-{"oauth_enabled":"boolean", "oauth_client_id":"string", "oauth_provider_url":"string"}
-```
-
 ### GET /api/extensions
 
 A list of registered extensions to the management plugin.

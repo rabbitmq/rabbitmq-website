@@ -183,7 +183,9 @@ rabbitmqadmin passwords salt_and_hash foobarbaz
 ### Hash via HTTP API
 
 ```bash
-curl -4su guest:guest -X GET localhost:15672/api/auth/hash_password/foobarbaz
+curl -su guest:guest -H "Content-Type: application/json" \
+  -X POST http://localhost:15672/api/auth/hash_password \
+  -d '{"password":"foobarbaz"}'
 
 # Output:
 # {"ok":"TBybOvomyVw6BqBU/fHCEpVhDO7fLdQ4kxZDUpt6hagCxV8I"}

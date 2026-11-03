@@ -328,20 +328,12 @@ This is where Kafka is lacking features that RabbitMQ provides. None of these ar
 day-to-day mechanics of running work through a queue reliably. Each one needs the broker
 to make a decision about one message independently of the rest.
 
-**Message delays.** A publisher can send a message that the queue accepts, replicates and
-confirms immediately but hides from consumers until a chosen time.
-
 **[Delayed retry](../quorum-queues#delayed-retry).** A quorum queue sets a failed
 message aside and makes it available again after a backoff derived from its [delivery count](../quorum-queues#when-is-delivery-count-incremented).
 A consumer can override that per message with an exact [timestamp](../quorum-queues#explicit-delivery-time) — so when a
 downstream API rate-limits *one* tenant with a `Retry-After` header, that single message is
 rescheduled for precisely when the API is ready while everyone else's work continues at
 full speed.
-
-**Message deferral.** A consumer can *park* a message under a token of its choosing and
-request that exact message back later, on demand, when an external condition occurs — a
-supplier confirmation, a file landing, an approval. The message is held durably by the
-queue rather than in consumer memory.
 
 **[Message TTL](../ttl).** Individual messages can have distinct TTLs expiring on their own schedule.
 
@@ -391,7 +383,7 @@ What Kafka share groups do not change is the storage layer underneath:
 
 * **Acknowledging does not delete.** The message stays in the partition until retention
   removes it, so you size disk for your retention window rather than your backlog.
-* **No per-message TTL, priorities, delays, deferral, or consumer-annotated returns.**
+* **No per-message TTL, priorities, delayed retries, or consumer-annotated returns.**
 * **No dead-letter routing.** Rejecting archives the message for that share group; where it
   should go and how it gets reprocessed is yours to build.
 * **Head-of-line blocking is reduced, not eliminated.** A share group's in-flight window runs
@@ -404,7 +396,7 @@ What Kafka share groups do not change is the storage layer underneath:
   no further messages are fetched from that partition at all. The stall lasts
   as long as that one message stays unfinished. In RabbitMQ an unacknowledged message never
   blocks the delivery of another one: other consumers keep receiving work, and a problem
-  message can be dead-lettered, delayed or parked out of the delivery path altogether.
+  message can be dead-lettered or delayed for retry.
 * **Every read is served by the partition leader.** A regular consumer can be steered to a
   nearby follower instead ([KIP-392](https://cwiki.apache.org/confluence/display/KAFKA/KIP-392%3A+Allow+consumers+to+fetch+from+closest+replica)), if the operator configures
   `replica.selector.class` and the consumer sets `client.rack`. That KIP exists because
@@ -825,8 +817,8 @@ Both approaches end in a Grafana dashboard. Only Kafka requires an agent and a m
 
 * **Queue semantics designed as queue semantics**, not a consumption mode over a log:
   [dead-letter routing](../dlx) through [exchanges](../exchanges), [per-message TTL](../ttl), [32 strict priority levels](../quorum-queues#priorities),
-  [delayed retry](../quorum-queues#delayed-retry) with per-message override, message deferral by token, publisher-set
-  delivery delays, consumer-annotated returns via the [modified outcome](/blog/2024/10/11/modified-outcome), [consumer
+  [delayed retry](../quorum-queues#delayed-retry) with per-message override,
+  consumer-annotated returns via the [modified outcome](/blog/2024/10/11/modified-outcome), [consumer
   priorities](../consumer-priority), [single active consumer](../consumers#single-active-consumer) — and a backlog that converges to empty and returns
   the disk space.
 * **replication *and* [fsync](https://man7.org/linux/man-pages/man2/fsync.2.html) by default** on [quorum queues](../quorum-queues), so a site-wide power failure
@@ -889,7 +881,7 @@ explained above.
 | Use case | Recommendation | Why |
 | :-- | :-- | :-- |
 | Task and job queues, background workers | **RabbitMQ** | Exclusive assignment per message, [retries with backoff](../quorum-queues#delayed-retry), [dead-lettering](../dlx), [priorities](../quorum-queues#priorities). Kafka has no native answer to "retry this one job in 90 seconds". |
-| Priority handling, SLAs, expiry, scheduled delivery | **RabbitMQ** | [32 strict priorities](../quorum-queues#priorities), [per-message TTL](../ttl), delayed delivery, deferral. Kafka has none of these. |
+| Priority handling, SLAs, expiry, delayed retries | **RabbitMQ** | [32 strict priorities](../quorum-queues#priorities), [per-message TTL](../ttl), [delayed retry](../quorum-queues#delayed-retry). Kafka has none of these. |
 | Request/reply between services (RPC) | **RabbitMQ** | Efficient [Direct reply-to](../direct-reply-to), [exclusive](../queues#exclusive-queues) queues, per-message correlation. Kafka needs response topics and correlation logic you write yourself. |
 | Microservice event notifications | **RabbitMQ** | [Topic exchanges](../exchanges#topic) route by pattern; a new subscriber is a [binding](../exchanges#what-are-bindings). In Kafka, selective fan-out means new topics or client-side filtering. |
 | Order processing, payments, anything you cannot lose | **RabbitMQ** | [Quorum queues](../quorum-queues) replicate *and* fsync before confirming. Kafka's default is replication only. |
@@ -941,7 +933,7 @@ Share groups add
 cooperative consumption, per-message acknowledgement and durable delivery counting on top
 of a log — genuinely useful, and enough for some work queues. What they do not add is
 the [per-message toolkit](#per-message-toolkit):
-per-message TTL, priorities, delivery delays, delayed retry, deferral, a routable failure
+per-message TTL, priorities, delayed retry, a routable failure
 path, broker-side routing and filtering, custom message interceptors, modification of message
 headers, or reclaiming disk when the work is done; and they still
 cannot fully avoid head-of-line blocking. Crucially, Kafka has weaker [durability](#durability)

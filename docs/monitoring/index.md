@@ -768,8 +768,8 @@ where an operator-defined [readiness probe](https://kubernetes.io/docs/concepts/
 can prevent a deployment from proceeding when the [`OrderedReady` pod management policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees)
 is used (which is not recommended to use with RabbitMQ!) or when a rolling restart is performed.
 
-Given the [peer syncing behavior during node restarts](./clustering#restarting-schema-sync), such a health check can prevent a cluster-wide restart
-from completing in time. Checks that explicitly or implicitly assume a fully booted node that's rejoined
+Because [Khepri requires a majority of nodes](./metadata-store/clustering#restarting-a-cluster-member)
+to complete startup, such a health check can prevent a cluster-wide restart from completing. Checks that explicitly or implicitly assume a fully booted node that's rejoined
 its cluster peers will fail and block further node deployments.
 
 Moreover, most CLI commands (such as `rabbitmq-diagnostics`) has a performance impact because the CLI joins the [Erlang

@@ -346,6 +346,11 @@ mqtt.prefetch         = 10
 mqtt.max_session_expiry_interval_seconds = 86400
 ```
 
+### Connection Limit {#connection-limit}
+
+Set `mqtt.max_connections` to limit concurrent MQTT connections per node.
+The default is `infinity` (no limit).
+
 ### TCP Listeners {#tcp-listeners}
 
 When no configuration is specified the MQTT plugin will listen on

@@ -782,7 +782,7 @@ To migrate existing data, see [Blue/Green deployment strategy](./blue-green-upgr
 ```bash
 # on rabbit2
 ## Note: the original 'rabbitmqctl stop_app/reset/start_app' steps
-##       are no longer necessary starting with RabbitMQ 4.1, with both Khepri and Mnesia.
+##       are no longer necessary starting with RabbitMQ 4.1.
 
 rabbitmqctl join_cluster rabbit@rabbit1
 # => Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
@@ -882,87 +882,10 @@ is stopped, this does not affect the rest of the cluster, although
 client connection distribution, queue replica placement, and load distribution
 of the cluster will change.
 
-### Schema Syncing from Online Peers {#restarting-schema-sync}
+### Cluster Startup {#restarting-schema-sync}
 
-A restarted node will sync the schema
-and other information from its peers on boot. Before this process
-completes, the node **won't be fully started and functional**.
-
-It is therefore important to understand the process node go through when
-they are stopped and restarted.
-
-:::important
-Upon restart the node will try to contact that peer 10 times by
-default, with 30 second response timeouts. This means that by default, all cluster
-members must come online within 5 minutes.
-
-In environments where nodes are deployed and verified sequentially,
-such as Kubernetes with the `OrderedReady` pod management policy,
-the restart can run into deadlock unless [a number of recommendations is followed](#restarting-readiness-probes).
-:::
-
-A stopping node picks an online cluster member (only disc
-nodes will be considered) to sync with after restart. Upon
-restart the node will try to contact that peer 10 times by
-default, with 30 second response timeouts.
-
-In case the peer becomes available in that time interval, the node
-successfully starts, syncs what it needs from the peer and
-keeps going.
-
-If the peer does not become available, the restarted
-node will **give up and voluntarily stop**. Such condition can be
-identified by the timeout (`timeout_waiting_for_tables`) warning messages in the logs
-that eventually lead to node startup failure:
-
-```
-2020-07-27 21:10:51.361 [warning] <0.269.0> Error while waiting for Mnesia tables: {timeout_waiting_for_tables,[rabbit@node2,rabbit@node1],[rabbit_durable_queue]}
-2020-07-27 21:10:51.361 [info] <0.269.0> Waiting for Mnesia tables for 30000 ms, 1 retries left
-2020-07-27 21:11:21.362 [warning] <0.269.0> Error while waiting for Mnesia tables: {timeout_waiting_for_tables,[rabbit@node2,rabbit@node1],[rabbit_durable_queue]}
-2020-07-27 21:11:21.362 [info] <0.269.0> Waiting for Mnesia tables for 30000 ms, 0 retries left
-```
-
-```
-2020-07-27 21:15:51.380 [info] <0.269.0> Waiting for Mnesia tables for 30000 ms, 1 retries left
-2020-07-27 21:16:21.381 [warning] <0.269.0> Error while waiting for Mnesia tables: {timeout_waiting_for_tables,[rabbit@node2,rabbit@node1],[rabbit_user,rabbit_user_permission, …]}
-2020-07-27 21:16:21.381 [info] <0.269.0> Waiting for Mnesia tables for 30000 ms, 0 retries left
-2020-07-27 21:16:51.393 [info] <0.44.0> Application mnesia exited with reason: stopped
-```
-
-```
-2020-07-27 21:16:51.397 [error] <0.269.0> BOOT FAILED
-2020-07-27 21:16:51.397 [error] <0.269.0> ===========
-2020-07-27 21:16:51.397 [error] <0.269.0> Timeout contacting cluster nodes: [rabbit@node1].
-```
-
-When a node has no online peers during shutdown, it will start without
-attempts to sync with any known peers. It does not start as a standalone
-node, however, and peers will be able to rejoin it.
-
-When the entire cluster is brought down therefore, the last node to go down
-is the only one that didn't have any running peers at the time of shutdown.
-That node can start without contacting any peers first.
-Since nodes will try to contact a known peer for up to 5 minutes (by default), nodes
-can be restarted in any order in that period of time. In this case
-they will rejoin each other one by one successfully. This window of time
-can be adjusted using two configuration settings:
-
-```ini
-# wait for 60 seconds instead of 30
-mnesia_table_loading_retry_timeout = 60000
-
-# retry 15 times instead of 10
-mnesia_table_loading_retry_limit = 15
-```
-
-By adjusting these settings and tweaking the time window in which
-known peer has to come back it is possible to account for cluster-wide
-redeployment scenarios that can be longer than 5 minutes to complete.
-
-During [upgrades](./upgrade), sometimes the last node to stop
-must be the first node to be started after the upgrade. That node will be designated to perform
-a cluster-wide schema migration that other nodes can sync from and apply when they
-rejoin.
+A restarting cluster needs a majority of nodes online for Khepri to elect a leader
+and complete startup. See [metadata store clustering](./metadata-store/clustering#restarting-a-cluster-member).
 
 ### Node Restarts, Kubernetes Pod Management and Health Checks (Readiness Probes) {#restarting-readiness-probes}
 
@@ -977,26 +900,26 @@ will typically wait and retry for a period of time. One popular example of such 
 where an operator-defined [readiness probe](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
 can prevent a deployment from proceeding when the [`OrderedReady` pod management policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees) is used. Using the `Parallel` pod management policy helps avoid this problem.
 
-Given the [peer syncing behavior described above](#restarting-schema-sync), such a health check can prevent a cluster-wide restart
-from completing in time. Checks that explicitly or implicitly assume a fully booted node that's rejoined
+Because [Khepri requires a majority of nodes](./metadata-store/clustering#restarting-a-cluster-member)
+to complete startup, such a health check can prevent a cluster-wide restart from completing. Checks that explicitly or implicitly assume a fully booted node that's rejoined
 its cluster peers will fail and block further node deployments.
 
 [Most health check](./monitoring#health-checks), even relatively basic ones, implicitly assume that the node has
-finished booting. They are not suitable for nodes that are [awaiting schema table sync](#restarting-schema-sync) from a peer.
+finished booting. They are not suitable for nodes that are waiting for a cluster majority during startup.
 
 One very common example of such check is
 
 ```bash
 # will exit with an error for the nodes that are currently waiting for
-# a peer to sync schema tables from
+# a cluster majority during startup
 rabbitmq-diagnostics check_running
 ```
 
-One health check that does not expect a node to be fully booted and have schema tables synced is
+One health check that does not require the node to have completed startup is
 
 ```bash
 # a very basic check that will succeed for the nodes that are currently waiting for
-# a peer to sync schema from
+# a cluster majority during startup
 rabbitmq-diagnostics ping
 ```
 
@@ -1323,15 +1246,9 @@ Non-replicated queue and stream contents on a reset node will be lost.
 
 ## Forcing Node Boot in Case of Unavailable Peers {#forced-boot}
 
-In some cases the last node to go
-offline cannot be brought back up. It can be removed from the
-cluster using the `forget_cluster_node` [rabbitmqctl](./cli) command.
-
-Alternatively `force_boot` [rabbitmqctl](./cli) command can be used
-on a node to make it boot without trying to sync with any
-peers (as if they were last to shut down). This is
-usually only necessary if the last node to shut down or a
-set of nodes will never be brought back online.
+Khepri requires a majority of cluster nodes to be available. `force_boot` is
+unsupported. See [metadata store failure recovery](./metadata-store/failure-recovery)
+for recovery behavior and [removing nodes](#removing-nodes) for replacing lost members.
 
 
 ## Upgrading clusters {#upgrading}
