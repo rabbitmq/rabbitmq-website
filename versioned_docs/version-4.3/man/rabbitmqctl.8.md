@@ -111,7 +111,7 @@
         <dd>
           <p class="Pp">Returns a RabbitMQ node to its virgin state.</p>
           <p class="Pp">Removes the node from any cluster it belongs to, removes all data from the management database, such as configured users and vhosts, and deletes all persistent messages.</p>
-          <p class="Pp">For <code class="Cm">reset</code> and <code class="Cm">force_reset</code> to succeed the RabbitMQ application must have been stopped, e.g. with <code class="Cm">stop_app</code>.</p>
+          <p class="Pp">For <code class="Cm">reset</code> to succeed the RabbitMQ application must have been stopped, e.g. with <code class="Cm">stop_app</code>.</p>
           <p class="Pp">For example, to reset the RabbitMQ node:</p>
           <p class="Pp"></p>
           <div class="Bd Bd-indent lang-bash">
@@ -195,7 +195,7 @@ returns a non-zero exit code if the RabbitMQ node is not running
           <p class="Pp">Waits for the RabbitMQ application to start.</p>
           <p class="Pp">This command will wait for the RabbitMQ application to start at the node. It will wait for the pid file to be created if <var class="Ar">pidfile</var> is specified, then for a process with a pid specified in the pid file or the <code class="Fl">--pid</code> argument, and then for the RabbitMQ application to start in that process. It will fail if the process terminates without starting the RabbitMQ application.</p>
           <p class="Pp">If the specified pidfile is not created or the erlang node is not started within <code class="Fl">--timeout</code> the command will fail. The default timeout is 10 seconds.</p>
-          <p class="Pp">A suitable pid file is created by the <a class="Xr" href="rabbitmq-server.8">rabbitmq-server(8)</a> script. By default, this is located in the Mnesia directory. Modify the <code class="Ev">RABBITMQ_PID_FILE</code> environment variable to change the location.</p>
+          <p class="Pp">A suitable pid file is created by the <a class="Xr" href="rabbitmq-server.8">rabbitmq-server(8)</a> script. By default, this is located in the node data directory. Modify the <code class="Ev">RABBITMQ_PID_FILE</code> environment variable to change the location.</p>
           <p class="Pp">For example, this command will return when the RabbitMQ node has started up:</p>
           <p class="Pp"></p>
           <div class="Bd Bd-indent lang-bash">
@@ -219,30 +219,6 @@ returns a non-zero exit code if the RabbitMQ node is not running
           </div>
         </dd>
         <dt >
-#### <code class="Cm">change_cluster_node_type</code> <var class="Ar">type</var> {#change_cluster_node_type}
-        </dt>
-        <dd>
-          <p class="Pp">Changes the type of the cluster node.</p>
-          <p class="Pp">The <var class="Ar">type</var> must be one of the following:</p>
-          <ul class="Bl-bullet Bl-compact">
-            <li id="disc">
-#### <code class="Cm">disc</code> {#change_cluster_node_type}
-            
-</li>
-            <li id="ram">
-#### <code class="Cm">ram</code> {#change_cluster_node_type}
-            
-</li>
-          </ul>
-
-          <p class="Pp">The node must be stopped for this operation to succeed, and when turning a node into a RAM node the node must not be the only disc node in the cluster.</p>
-          <p class="Pp">For example, this command will turn a RAM node into a disc node:</p>
-          <p class="Pp"></p>
-          <div class="Bd Bd-indent lang-bash">
-            <code class="Li">rabbitmqctl change_cluster_node_type disc</code>
-          </div>
-        </dd>
-        <dt >
 #### <code class="Cm">cluster_status</code> {#cluster_status}
         </dt>
         <dd>
@@ -257,29 +233,13 @@ returns a non-zero exit code if the RabbitMQ node is not running
 #### <code class="Cm">force_boot</code> {#force_boot}
         </dt>
         <dd>
-          <p class="Pp">Ensures that the node will start next time, even if it was not the last to shut down.</p>
-          <p class="Pp">Normally when you shut down a RabbitMQ cluster altogether, the first node you restart should be the last one to go down, since it may have seen things happen that other nodes did not. But sometimes that's not possible: for instance, if the entire cluster loses power then all nodes may think they were not the last to shut down.</p>
-          <p class="Pp">In such a case you can invoke <code class="Cm">force_boot</code> while the node is down. This will tell the node to unconditionally start the next time you ask it. Any changes to the cluster after this node shut down will be lost.</p>
-          <p class="Pp">If the last node to go down is permanently lost then you should use <code class="Cm">forget_cluster_node</code> <code class="Fl">--offline</code> instead of this command, as it will ensure that mirrored queues whose leader replica was on the lost node get promoted.</p>
-          <p class="Pp">For example, this will force the node not to wait for other nodes the next time it is started:</p>
-          <p class="Pp"></p>
-          <div class="Bd Bd-indent lang-bash">
-            <code class="Li">rabbitmqctl force_boot</code>
-          </div>
+          <p class="Pp">This command is unsupported with Khepri. See the <a class="Lk" href="../metadata-store/failure-recovery">metadata store recovery guide</a>.</p>
         </dd>
         <dt >
-#### <code class="Cm">force_reset</code> <a class="permalink" href="#(deprecated)"><i class="Em" id="(deprecated)">(deprecated)</i></a> {#force_reset}
+#### <code class="Cm">force_reset</code> {#force_reset}
         </dt>
         <dd>
-          <p class="Pp">Forcefully returns a RabbitMQ node to its virgin state.</p>
-          <p class="Pp">The <code class="Cm">force_reset</code> command differs from <code class="Cm">reset</code> in that it resets the node unconditionally, regardless of the current management database state and cluster configuration. It should only be used as a last resort if the database or cluster configuration has been corrupted.</p>
-####           <p class="Pp" id="deprecated">The <code class="Cm">force_reset</code> command is<b class="Sy">deprecated</b>. It remains available when the Mnesia metadata store is used. It is unsupported with the Khepri metadata store.</p> {#force_reset}
-          <p class="Pp">For <code class="Cm">reset</code> and <code class="Cm">force_reset</code> to succeed the RabbitMQ application must have been stopped, e.g. with <code class="Cm">stop_app</code>.</p>
-          <p class="Pp">For example, to reset the RabbitMQ node:</p>
-          <p class="Pp"></p>
-          <div class="Bd Bd-indent lang-bash">
-            <code class="Li">rabbitmqctl force_reset</code>
-          </div>
+          <p class="Pp">This command is unsupported with Khepri. Use <code class="Cm">reset</code> instead.</p>
         </dd>
         <dt >
 #### <code class="Cm">forget_cluster_node</code> [<code class="Fl">--offline</code>] {#forget_cluster_node}
@@ -300,27 +260,16 @@ returns a non-zero exit code if the RabbitMQ node is not running
           </div>
         </dd>
         <dt >
-#### <code class="Cm">join_cluster</code> <var class="Ar">seed-node</var> [<code class="Fl">--ram</code>] {#join_cluster}
+#### <code class="Cm">join_cluster</code> <var class="Ar">seed-node</var> {#join_cluster}
         </dt>
         <dd>
           <dl class="Bl-tag">
             <dt><var class="Ar">seed-node</var></dt>
             <dd>Existing cluster member (seed node) to cluster with.</dd>
-            <dt >
-#### <code class="Fl">--ram</code> {#ram~2}
-            </dt>
-            <dd>If provided, the node will join the cluster as a RAM node. RAM node use is discouraged. Use only if you understand why exactly you need to use them.</dd>
           </dl>
-          <p class="Pp">Instructs the node to become a member of the cluster that the specified node is in. Before clustering, the node is reset, so be careful when using this command. For this command to succeed the RabbitMQ application must have been stopped, e.g. with <code class="Cm">stop_app</code>.</p>
-          <p class="Pp">Cluster nodes can be of two types: disc or RAM. Disc nodes replicate data in RAM and on disk, thus providing redundancy in the event of node failure and recovery from global events such as power failure across all nodes. RAM nodes replicate data in RAM only (except for queue contents, which can reside on disk if the queue is persistent or too big to fit in memory) and are mainly used for scalability. RAM nodes are more performant only when managing resources (e.g. adding/removing queues, exchanges, or bindings). A cluster must always have at least one disc node and usually should have more than one.</p>
-          <p class="Pp">The node will be a disc node by default. If you wish to create a RAM node, provide the <code class="Fl">--ram</code> flag.</p>
+          <p class="Pp">Instructs the node to become a member of the cluster that the specified node is in. Before clustering, the node is reset, so be careful when using this command. The command performs the necessary preparations; stopping the RabbitMQ application first is not required.</p>
           <p class="Pp">After executing the <code class="Cm">join_cluster</code> command, whenever the RabbitMQ application is started on the current node it will attempt to connect to the nodes that were in the cluster when the node went down.</p>
           <p class="Pp">To leave a cluster, <code class="Cm">reset</code> the node. You can also remove nodes remotely with the <code class="Cm">forget_cluster_node</code> command.</p>
-          <p class="Pp">For example, this command instructs the RabbitMQ node to join the cluster that "hare@elena" is part of, as a ram node:</p>
-          <p class="Pp"></p>
-          <div class="Bd Bd-indent lang-bash">
-            <code class="Li">rabbitmqctl join_cluster hare@elena --ram</code>
-          </div>
           <p class="Pp">To learn more, see the <a class="Lk" href="https://www.rabbitmq.com/docs/clustering">RabbitMQ Clustering guide</a>.</p>
         </dd>
       </dl>

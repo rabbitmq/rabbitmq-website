@@ -426,33 +426,16 @@ See [.NET client guide](/client-libraries/dotnet-api-guide#basic-get) for exampl
 Starting with RabbitMQ 4.3, delivery acknowledgement timeouts are only supported by [quorum queues](./quorum-queues).
 :::
 
-RabbitMQ enforces a timeout on consumer delivery acknowledgement.
-This is a **protection mechanism** that detects when consumers do not acknowledge message deliveries.
-Configuring a delivery acknowledgement timeout can help prevent on-disk data compaction
-and driving nodes out of disk space.
+RabbitMQ limits how long a quorum queue consumer can hold an unacknowledged delivery.
+When the timeout expires, the messages are returned to the queue for redelivery:
 
-### How it works
+ * **AMQP 1.0:** timed-out deliveries receive the `released` outcome; the link remains attached
+ * **AMQP 0-9-1:** the consumer is cancelled if the client supports consumer cancel
+   notifications; otherwise its channel is closed with `PRECONDITION_FAILED`
+ * **MQTT:** the consumer subscription is ended
 
-If a consumer does not ack its delivery within the timeout value,
-its channel is closed with a `PRECONDITION_FAILED` channel exception.
-The message will look like this:
-
-```
-Consumer 'consumer-tag-998754663370' on channel 1 and queue 'qq.1' in vhost '/' has timed out
-waiting for a consumer acknowledgement of a delivery with delivery tag = 10. Timeout used: 180000 ms.
-This timeout value can be configured, see consumers doc guide to learn more
-```
-
-The error is [logged](./logging) by the node to which the consumer was connected.
-All the following deliveries on that channel, from all consumers,
-are then [requeued](./confirms#automatic-requeueing).
-To resolve a `PRECONDITION_FAILED` channel exception, reevaluate your consumer
-and consider increasing the timeout value.
-
-The default timeout value for RabbitMQ is 30 minutes.
-Whether the timeout should be enforced is evaluated periodically, at one minute intervals.
-Values lower than one minute are not supported, and values lower than five minutes
-are not recommended.
+The default timeout is 30 minutes. Increase it for consumers that legitimately
+need longer to process a message.
 
 ### Per-node Configuration
 
@@ -468,19 +451,6 @@ consumer_timeout = 1800000
 consumer_timeout = 3600000
 ```
 
-The timeout can be deactivated using [`advanced.config`](./configure#advanced-config-file). This is **not recommended**:
-
-```erlang
-%% advanced.config
-[
-  {rabbit, [
-    {consumer_timeout, undefined}
-  ]}
-].
-```
-
-Instead of disabling the timeout entirely, consider using a high value (for example, a few hours).
-
 ### Per-queue Configuration
 
 Starting with RabbitMQ 3.12, the timeout value can also be configured per-queue.
@@ -490,7 +460,6 @@ Starting with RabbitMQ 3.12, the timeout value can also be configured per-queue.
 Set the `consumer-timeout` policy key.
 
 The value must be in milliseconds.
-Whether the timeout should be enforced is evaluated periodically, at one minute intervals.
 
 ```bash
 # override consumer timeout for a group of queues using a policy
@@ -501,7 +470,9 @@ rabbitmqctl set_policy queue_consumer_timeout "with_delivery_timeout\.*" '{"cons
 
 Set the `x-consumer-timeout` [optional queue argument](./queues#optional-arguments) on a queue when the queue is declared.
 The timeout is specified in milliseconds.
-Whether the timeout should be enforced is evaluated periodically, at one minute intervals.
+
+A timeout can also be set for an individual consumer. See the
+[quorum queue consumer timeout settings](./quorum-queues#consumer-timeout).
 
 
 ## Limiting the number of Consumers per channel

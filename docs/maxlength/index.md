@@ -35,8 +35,10 @@ In a scenario where the maximum length is defined using both ways, that is, usin
 
 Queue length settings can also be configured using [operator policies](./policies#operator-policies).
 
-In all cases, the number of messages in the **ready** state are used. [Messages unacknowledged by consumers](./confirms)
-do not count towards the limit.
+For classic queues, only messages in the **ready** state count toward the limit.
+Quorum queues also count delayed messages, including delayed retries, and messages
+pending at-least-once dead lettering. [Messages unacknowledged by consumers](./confirms)
+do not count toward the limit.
 
 The number of **ready** messages and their footprint in bytes can be observed
 using the `messages_ready` and `message_bytes_ready` from

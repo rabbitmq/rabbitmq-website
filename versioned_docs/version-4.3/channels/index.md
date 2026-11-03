@@ -204,11 +204,12 @@ The maximum number of channels that can be open on a connection simultaneously
 is negotiated by client and server at connection time. The value is configurable for
 both RabbitMQ and client libraries.
 
-On the server side, the limit is controlled using the `channel_max`:
+On the server side, the limit is controlled using `max_channels_per_connection`
+(`channel_max` remains a supported alias):
 
 ```ini
 # no more 100 channels can be opened on a connection at the same time
-channel_max = 100
+max_channels_per_connection = 100
 ```
 
 Should the configured limit be exceeded, the connection will be closed with a fatal

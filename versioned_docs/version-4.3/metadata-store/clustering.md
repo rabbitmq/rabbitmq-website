@@ -11,12 +11,8 @@ import MetadataStoreMinority from './metadata-store-minority.svg';
 
 # Clustering and Khepri
 
-When RabbitMQ nodes are [clustered](../clustering), they call the metadata
-store backend to create or expand its cluster. This is the case both Mnesia
-and Khepri.
-
-Therefore, [formation](../cluster-formation) or expansion of a Khepri-based
-RabbitMQ cluster is done the same way as with Mnesia.
+When RabbitMQ nodes are [clustered](../clustering), Khepri replicates
+their metadata and tracks cluster membership.
 
 <figure className={diagramStyles.diagram}>
 <MetadataStoreCluster/>
@@ -66,14 +62,6 @@ rabbitmqctl reset
 # Restart the node as a blank one.
 rabbitmqctl start_app
 ```
-
-## When to Enable Khepri?
-
-It is possible to enable Khepri before or after the cluster is created.
-
-When Khepri is enabled, the first step is to [synchronize the cluster view
-from Mnesia to Khepri](./how-to-enable-khepri#migration) if Khepri was enabled
-after the cluster was created.
 
 ## Caveats
 

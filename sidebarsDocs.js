@@ -610,7 +610,7 @@ const sidebars = {
             {
               type: 'doc',
               id: 'metadata-store/how-to-enable-khepri',
-              label: 'How to enable Khepri',
+              label: 'Khepri and Upgrades',
             },
             {
               type: 'doc',

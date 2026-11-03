@@ -412,8 +412,8 @@ a behavior that must be consistent across all cluster nodes, and so on.
       <div>
         :::info
 
-        Khepri is fully supported (just like Mnesia) starting with RabbitMQ 4.0. This feature flag must be
-        explicitly enabled (opt-in) due to its scope.
+        Khepri is fully supported starting with RabbitMQ 4.0, became the default in 4.2,
+        and is required starting with 4.3. Enable this flag before upgrading a 4.2 cluster.
 
         :::
       </div>

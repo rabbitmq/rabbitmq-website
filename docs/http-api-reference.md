@@ -1620,9 +1620,11 @@ A list of client authentication attempts registered by the node.
 
 A list of client authentication attempts grouped by remote address and username.
 
-### GET /api/auth/hash_password/\{_password_\}
+### POST /api/auth/hash_password
 
 Hashes the provided [password](./passwords) according to the currently configured password hashing algorithm.
+
+The request body must be a JSON object with a `password` string.
 
 #### Examples
 
@@ -1638,7 +1640,9 @@ rabbitmqadmin passwords salt_and_hash "my-secret-password" --hashing-algorithm S
 </TabItem>
 <TabItem value="curl" label="curl" default>
 ```bash
-curl -sL -u guest:guest -H "Accept: application/json" http://127.0.0.1:15672/api/auth/hash_password/my-secret-password
+curl -s -u guest:guest -H "Content-Type: application/json" \
+  -X POST http://localhost:15672/api/auth/hash_password \
+  -d '{"password":"my-secret-password"}'
 ```
 </TabItem>
 </Tabs>
@@ -1837,15 +1841,6 @@ curl -4u 'guest:guest' -XPOST localhost:15672/api/rebalance/queues/
 ### GET /api/whoami
 
 Returns the username of the authenticated user.
-
-### GET /api/auth
-
-Details about the [OAuth 2](./oauth2/) configuration. It will return HTTP
-status 200 with a body in the following format:
-
-```json
-{"oauth_enabled":"boolean", "oauth_client_id":"string", "oauth_provider_url":"string"}
-```
 
 ### GET /api/extensions
 

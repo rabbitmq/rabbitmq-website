@@ -16,10 +16,8 @@ updates (writes/deletes or cluster membership changes).
 
 ## Consistency Model and Visibility Guarantees
 
-Khepri has an important difference from Mnesia when it comes to schema
-modifications such as queue or stream declarations, or binding declarations.
-These changes won’t be noticeable with many workloads but can affect some, in
-particular, certain integration tests.
+Metadata changes are committed by a majority of cluster nodes.
+Other nodes may observe them after a short delay.
 
 ### Example Scenarios
 
@@ -38,8 +36,7 @@ There is only one client. The client performs the following steps:
 <figcaption>Scenario A</figcaption>
 </figure>
 
-In this scenario, there should be no observable difference in behavior.
-Client’s expectations will be met.
+In this scenario, the client’s expectations will be met.
 
 <figure style={{width: "inherit",}}>
 <div className={"figure"}>
@@ -57,9 +54,8 @@ same virtual host. Node R2 has no client connections.
 <figcaption>Scenario B</figcaption>
 </figure>
 
-In this scenario, on step three Mnesia would return when **all** cluster nodes
-have committed an update. Khepri, however, will return when **a majority** of
-nodes, including the node handling Client One’s operations, have returned.
+In this scenario, step three completes when **a majority** of nodes,
+including the node handling Client One’s operations, have committed the update.
 
 This may include nodes R1 and R2 but not node R3, meaning that message M
 published by Client Two connected to node R3 in the above example **is not
@@ -98,15 +94,8 @@ certain condition that indicates that the topology is in place.
 
 ## Client Resource Declaration on the Cluster Minority Side
 
-The topology that defines how messages are routed is stored in the metadata
-store. The way to declare a resource remains the same regardless of the active
-metadata store backend.
-
-However, where it was possible to declare a queue with Mnesia even if the
-majority of the cluster was either down or unreachable, the same operation with
-Khepri will timeout. This way the client can react appropriately to the issue,
-instead of hoping for the best with the various network partition recovery
-strategies that are implemented on top of Mnesia.
+Resource declarations require a majority of cluster nodes to be available.
+If the node cannot reach a majority, the operation will time out.
 
 Here is an example of the PerfTest tool trying to declare the exchange and
 queue it needs in a cluster where only 1 out of 5 nodes is running:

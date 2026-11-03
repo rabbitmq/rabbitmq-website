@@ -76,25 +76,11 @@ RabbitMQ implements the powerful and flexible [AMQ 0.9.1 model](/tutorials/amqp-
 Therefore, AMQP clients talking to RabbitMQ send messages to exchanges and consume messages from queues.
 Hence, the AMQP addresses that RabbitMQ understands and resolves contain exchange names, queue names, and routing keys.
 
-RabbitMQ 4.0 introduces a new RabbitMQ specific AMQP address format, v2.
-The old RabbitMQ 3.x address format is referred to as v1.
+### RabbitMQ Address Scheme {#address-v2}
 
-:::important
+#### Target Address {#target-address-v2}
 
-AMQP clients should use address format v2.
-
-:::
-
-Address format v1 is deprecated in RabbitMQ 4.0 and will be unsupported in a future RabbitMQ version.
-Whether format v1 is still supported is determined by the [deprecated feature flag](https://github.com/rabbitmq/rabbitmq-server/pull/7390) `amqp_address_v1` whose deprecation phase is `permitted_by_default` in RabbitMQ 4.0.
-
-### Address v2
-
-This section defines the new v2 address formats.
-
-#### Target Address v2
-
-The possible v2 [target address](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-target) formats are:
+The possible [target address](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-target) formats are:
 
 
 1. `/exchanges/:exchange/:routing-key`
@@ -138,9 +124,9 @@ If a publishing application needs to publish (send) messages to
 * a small number of different destinations: prefer opening one link per destination with one of the first three formats
 * a large number of different destinations: prefer the 4th (null) format defining each destination in the `to` field
 
-#### Source Address v2
+#### Source Address {#source-address-v2}
 
-The only valid v2 [source address](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-source) string format is
+The only valid [source address](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-source) string format is
 
 1. `/queues/:queue`
 
@@ -149,84 +135,15 @@ The queue must exist.
 
 #### Percent-encoding
 
-Address format v2 requires exchange names, routing keys, and queue names to be percent-encoded according to [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986#section-2.1).
+Exchange names, routing keys, and queue names must be percent-encoded according to [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986#section-2.1).
 
 For example, a client that wants to send to exchange `amq.direct` with routing key `my-routing_key/123` must use target address `/exchanges/amq.direct/my-routing_key%2F123`.
 
-Note that percent-encoding in address format v2 must be applied to all AMQP fields that require an `address`:
+Percent-encoding must be applied to all AMQP fields that require an `address`:
 * `address` field in [target](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-target)
 * `address` field in [source](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-source)
 * `to` field in message [properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-properties)
 * `reply-to` field in message [properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-properties)
-
-### Address v1
-
-:::warning
-
-This section lists the **deprecated** v1 address string formats.
-
-:::
-
-#### Target Address v1
-
-1. `/exchange/:exchange/:routing-key`
-2. `/exchange/:exchange`
-3. `/topic/:routing-key`
-4. `/amq/queue/:queue`
-5. `/queue/:queue`
-6. `:queue`
-7. `/queue`
-
-The 1st format `/exchange/:exchange/:routing-key` causes all messages on the given link to be sent to exchange `:exchange` with routing key `:routing-key`.
-The equivalent v2 format is `/exchanges/:exchange/:routing-key`.
-
-The 2nd format `/exchange/:exchange` causes all messages on the given link to be sent to exchange `:exchange` while the routing key can optionally be provided in the
-message `subject` field of the [properties](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-properties) section.
-In v2, defining different routing keys per message requires setting the target address to the AMQP null value and the message `to` field to `/exchanges/:exchange/:routing-key`.
-
-The 3rd format `/topic/:routing-key` causes all messages on the given link to be sent to RabbitMQ's default topic exchange called `amq.topic` with topic `routing-key`.
-In v2, use `/exchanges/amq.topic/:routing-key`.
-
-The 4th format `/amq/queue/:queue` causes all messages on the given link to be sent to queue `:queue` (to be more precise, internally, to the default exchange with routing key `:queue`).
-Queue `:queue` must exist.
-In v2, use `/queues/:queue`.
-
-The 5th format `/queue/:queue` has similar semantics to the 4th format.
-However, RabbitMQ will auto declare queue `:queue`, i.e. create such a queue if it doesn't exist.
-The queue is never auto deleted by RabbitMQ.
-In v2, use `/queues/:queue`.
-RabbitMQ 4.0 allows AMQP clients to create RabbitMQ topologies including queues with client defined queue types, properties, and arguments.
-Hence, there is no need for RabbitMQ itself to auto declare a specific queue for a given queue target address format.
-
-The 6th format `:queue` is redundant to the 5th format.
-
-The 7th format causes the message to be sent to the queue provided in the message `subject` field.
-In v2, to send messages to different queues, set the target address to the AMQP null value and the message `to` field to `/queues/:queue`.
-
-#### Source Address v1
-
-1. `/exchange/:exchange/:binding-key`
-2. `/topic/:binding-key`
-3. `/amq/queue/:queue`
-4. `/queue/:queue`
-5. `:queue`
-
-The 1st format `/exchange/:exchange/:binding-key` causes RabbitMQ to declare a queue and bind that queue to exchange `:exchange` with binding key `:binding-key`.
-Messages are then consumed from that queue.
-
-The 2nd format `/topic/:binding-key` causes RabbitMQ to declare a queue and bind that queue to the default topic exchange `amq.topic` with topic filter `:binding-key`.
-Messages are then consumed from that queue.
-
-The 3rd format `/amq/queue/:queue` causes RabbitMQ to consume from queue `:queue`.
-Queue `:queue` must exist.
-
-The 4th format `/queue/:queue` causes RabbitMQ to declare a queue `:queue` and consume from that queue.
-
-The 5th format `:queue` is redundant to the 4th format.
-
-As explained previously, RabbitMQ 4.0 allows AMQP clients to create RabbitMQ topologies including queues with client defined queue types, properties, and arguments.
-Hence, there is no need for RabbitMQ itself to auto declare a specific queue for a given queue source address format.
-In v2, clients should first declare their own queues and bindings, and then attach with source address `/queues/:queue` which causes the client to consume from that queue.
 
 ## Message Annotations
 
@@ -300,7 +217,7 @@ This section lists features that RabbitMQ supports exclusively in AMQP 1.0, whic
 * **WebSocket**: [VMware Tanzu RabbitMQ](https://www.vmware.com/products/app-platform/tanzu-rabbitmq) supports [AMQP 1.0 over WebSocket](/blog/2025/04/16/amqp-websocket) allowing applications running in a browser to communicate with RabbitMQ using AMQP 1.0.
 * **[Modified Outcome](#modified-outcome)**: Allows a quorum queue consumer to add and modify [message annotations](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-messaging-v1.0-os.html#type-message-annotations) when requeueing or dead lettering a message.
 * **[Explicit Delivery Time](./quorum-queues#explicit-delivery-time)**: A consumer can override the calculated linear back-off delay on a per-message basis by returning a message with the `x-opt-delivery-time` annotation in the `modified` outcome, allowing exact control over redelivery timing. This is useful for entity-specific rate limits.
-* **Deferred Messages**: A consumer can defer (park) a message in the quorum queue for later manual retrieval. Unlike retries, the consumer can explicitly request it again later. This is useful for human-in-the-loop workflows or when processing must wait on an external event, for example deferring a payment notification that arrives before the corresponding order has propagated to the fulfillment system.
+* **[Deferred Messages](./quorum-queues#deferred-messages)**: A consumer can defer a message under an application-defined token and retrieve it when a prerequisite is ready.
 * **[Sender Settle Mode](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-sender-settle-mode) `mixed`**: Allows a publisher to decide on a per-message basis whether to receive [confirmations](./confirms#publisher-confirms) from the broker.
 * **Detailed Rejection Information**: When RabbitMQ rejects a message, publishers receive the queue name and rejection reason in the [`Rejected` outcome](#outcomes), allowing them to identify which specific queue rejected the message and why. This is particularly useful when multiple queues are bound to a target exchange.
 * **[Link State Properties](#link-state-properties)**: RabbitMQ communicates link state information to consumers via properties in the AMQP 1.0 [flow](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-flow) frame. For example, when consuming from a quorum queue, a consumer is notified whether it is the active consumer or an inactive (waiting) consumer when [single active consumer](./consumers#single-active-consumer) is enabled.

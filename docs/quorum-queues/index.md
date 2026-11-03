@@ -64,6 +64,7 @@ Topics covered in this document include:
  * The additional [dead lettering](#dead-lettering) features supported by quorum queues
  * [Strict message priorities](#priorities) for message ordering and delivery
  * [Consumer timeouts](#consumer-timeout) for handling slow or stuck consumers
+ * [Delayed messages](#delayed-messages) and [deferred messages](#deferred-messages)
  * [Delayed retry](#delayed-retry) mechanism for message redelivery with backoff
  * [Memory and disk footprint](#resource-use) of quorum queues
  * [Performance](#performance) characteristics of quorum queues
@@ -363,7 +364,7 @@ Quorum queues support configurable consumer timeouts to handle slow or stuck con
 
 When a consumer timeout fires:
 
-1. **For AMQP 1.0 clients**: The broker sends a `DISPOSITION` frame with `state=released` instead of detaching the link. This allows the client to auto-settle the delivery and potentially recover without needing to re-establish the link. Until the consumer settles the timed out message it will not be assigned any further messages.
+1. **For AMQP 1.0 clients**: The broker reports the `released` outcome for timed-out deliveries using a `disposition` performative. The link remains attached. The consumer must settle the timed-out deliveries before receiving further messages.
 
 2. **For AMQP 0.9.1 clients**: The consumer is cancelled (if the client supports the `consumer_cancel_notify` capability), otherwise the channel is closed with a `precondition_failed` error. In both cases, the messages are returned to the queue for redelivery.
 
@@ -456,6 +457,62 @@ Warnings are logged when a consumer timeout occurs, including:
 * AMQP container ID
 * Queue name
 
+
+### Delayed Messages {#delayed-messages}
+
+Starting with RabbitMQ 4.4, publishers can delay delivery of a message by setting
+`x-opt-delivery-time` to a future Unix timestamp in milliseconds:
+
+For AMQP 1.0, set a message annotation of type `timestamp` or an equivalent integral
+value, such as `long`.
+
+For example, with the [RabbitMQ AMQP 1.0 Java client](https://rabbitmq.github.io/rabbitmq-amqp-java-client/stable/htmlsingle/):
+
+```java
+long deliveryTime = Instant.now().plus(Duration.ofMinutes(15)).toEpochMilli();
+Message message = publisher.message(body).annotation("x-opt-delivery-time", deliveryTime);
+publisher.publish(message, context -> { /* handle confirmation */ });
+```
+
+For AMQP 0-9-1, set the `x-opt-delivery-time` header to a `long` (a Java `Long`).
+
+Routing and replication happen immediately. The queue confirms the message once
+it is safely replicated, but only makes it available to consumers at the specified time.
+No plugin or queue argument is required. Delayed messages count toward queue length limits.
+
+### Deferred Messages {#deferred-messages}
+
+Starting with RabbitMQ 4.4, an AMQP 1.0 consumer can defer a message until a prerequisite
+is ready, then explicitly retrieve it using a token. To defer a message, settle its delivery
+with the `modified` outcome, setting both entries in its `message-annotations` field:
+
+ * `x-opt-deferral-token`: a string of at most 256 UTF-8 bytes, chosen by the application
+ * `x-opt-delivery-time`: a future delivery deadline, in milliseconds since the Unix epoch
+
+Any consumer of the queue can retrieve the message before the deadline by sending
+a [`flow`](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#type-flow)
+performative with the `rabbitmq:deferral-tokens` [link state property](./amqp#link-state-properties)
+set to an array of strings.
+Retrieved messages are delivered ahead of the available backlog, subject to available link credit.
+If a token matches several messages, they are delivered oldest first.
+At the deadline, an unclaimed message becomes available to all consumers again.
+
+With the [RabbitMQ AMQP 1.0 Java client](https://rabbitmq.github.io/rabbitmq-amqp-java-client/stable/htmlsingle/)
+1.7.0 or later, a message handler can defer a delivery:
+
+```java
+// In the message handler, when a prerequisite for order-42 is missing:
+context.defer("order-42", Duration.ofHours(1));
+```
+
+Once the prerequisite is ready, request the message on an open consumer:
+
+```java
+consumer.claimDeferred("order-42");
+```
+
+Process the retrieved delivery and settle it with the `accepted` outcome (`context.accept()`).
+Deferred messages are replicated and count toward queue length limits. After connection recovery, repeat any outstanding claims.
 
 ### Delayed Retry {#delayed-retry}
 
@@ -561,7 +618,10 @@ PUT /api/policies/%2f/qq-delayed-retry
 
 ##### Explicit Delivery Time
 
-The `x-opt-delivery-time` annotation can be set on message properties to specify an explicit future delivery time (in milliseconds since epoch). This annotation is only available when using the AMQP `modify` outcome and takes precedence over the calculated linear back-off delay.
+An AMQP 1.0 consumer can set `x-opt-delivery-time` in the `message-annotations` field
+of the `modified` outcome to request redelivery at a future Unix timestamp in milliseconds.
+This takes precedence over the calculated linear back-off delay.
+Publishers can also set this message annotation to [delay initial delivery](#delayed-messages).
 
 #### Management UI and Monitoring
 

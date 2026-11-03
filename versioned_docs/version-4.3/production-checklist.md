@@ -107,7 +107,8 @@ about their cluster peers. When this is not the case, restarted nodes may be abl
 as new nodes but a [special peer clean up mechanism](./cluster-formation#node-health-checks-and-cleanup)
 would have to be enabled to remove their prior identities.
 
-Transient entities (such as queues) and RAM node support will be removed in RabbitMQ 4.x.
+Use durable queues or exclusive queues. Non-durable, non-exclusive queues
+are deprecated and disabled by default starting with RabbitMQ 4.3.
 
 ### Overprovision Disk Space
 

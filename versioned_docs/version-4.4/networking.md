@@ -914,10 +914,10 @@ but will make management UI less convenient to use for operators.
 
 Channels also consume RAM. By optimising how many channels applications use, that amount
 can be decreased. It is possible to cap the max number of channels on a connection using
-the `channel_max` configuration setting:
+the `max_channels_per_connection` configuration setting:
 
 ```ini
-channel_max = 16
+max_channels_per_connection = 16
 ```
 
 Note that some libraries and tools that build on top of RabbitMQ clients may implicitly require

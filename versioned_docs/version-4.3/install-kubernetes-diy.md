@@ -90,7 +90,7 @@ RabbitMQ pretty much completed the startup process and can indeed accept connect
 
 A TCP check works well in combination with `podManagementPolicy: "Parallel"`. If you want to use `OrderedReady`,
 you should use a readinessProbe which doesn't require the node to be fully booted (which goes against the idea
-of a readinessProbe). One health check that does not expect a node to be fully booted and have schema tables synced is:
+of a readinessProbe). One health check that does not require the node to have completed startup is:
 
 ```yaml
 readinessProbe:
