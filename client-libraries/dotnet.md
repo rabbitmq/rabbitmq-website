@@ -56,7 +56,7 @@ targets what .NET standard (or .NET framework) version.
     <td>
       <a href="https://www.nuget.org/packages/RabbitMQ.Client/6.8.1#supportedframeworks-body-tab">Supported Frameworks</a>
     </td>
-    <td>supported</td>
+    <td>end of life</td>
   </tr>
 
   <tr>
