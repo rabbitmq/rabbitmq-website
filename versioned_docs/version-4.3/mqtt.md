@@ -164,6 +164,10 @@ defines the asterisk sign ("*") to match a single word:
 | + (plus) | * (asterisk) | single-level wildcard (match a single word) |
 | # (hash) | # (hash) | multi-level wildcard (match zero or more words) |
 
+Because of this translation, the asterisk ("*") in an MQTT topic filter acts as a single-level wildcard,
+and topic filters that translate to the same binding key, such as `cities/*` and `cities/+` or
+`cities.london` and `cities/london`, are treated as the same subscription.
+
 ## Using Quorum Queues {#quorum-queues}
 
 Using the `mqtt.durable_queue_type` option, it is possible to opt in to use [quorum queues](./quorum-queues) for subscribers whose MQTT session lasts longer than their MQTT network connection.
