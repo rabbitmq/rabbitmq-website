@@ -226,6 +226,7 @@ Miscellaneous projects:
 
  * [RabbitGUI](https://rabbitgui.com), a tool for vizualizing and managing dead letter queues.
  * [Warren](https://warrenops.io), a Web UI for browsing dead-lettered messages
+ * [OrcaQ](https://github.com/cin12211/orca-q), an open source desktop and web database editor that browses RabbitMQ queues and exchanges and peeks at messages
 
 
 ## Unity 3D {#unity-dev}
