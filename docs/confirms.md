@@ -69,10 +69,12 @@ are very similar features that solve similar problems in different contexts:
 1. Consumer acknowledgements, as the name suggests, cover RabbitMQ communication with consumers
 2. Publisher confirms cover publisher communication with RabbitMQ
 
-The two features, however, are entirely orthogonal and unaware of each other.
+The two features, however, are largely orthogonal and unaware of each other.
 
 **Publisher confirms are not aware of consumers**: they only cover publisher's interactions
 with node it is connected to, and the queue (or [stream](./streams)) leader replica.
+With classic queues, consumers can affect when a confirm is sent
+(see [When Will Published Messages Be Confirmed by the Broker?](#when-publishes-are-confirmed)).
 
 **Consumer acknowledgements are not aware of publishers**: their goal is to confirm
 to a RabbitMQ node that a given delivery was successfully received and processed successfully,
@@ -613,18 +615,27 @@ is true for negative acknowledgements (`basic.nack`).
 
 For routable messages, the `basic.ack` is sent when a
 message has been accepted by all the queues. For persistent
-messages routed to durable queues, this <strong>means persisting
+messages routed to durable queues, this usually <strong>means persisting
 to disk</strong>. For [quorum queues](./quorum-queues),
-this means that a quorum replicas have accepted and confirmed
+this means that a quorum of replicas have accepted and confirmed
 the message to the elected leader.
+
+A durable [classic queue](./classic-queues) can confirm a
+persistent message without writing it to disk. This happens,
+for example, when the queue has no messages ready for delivery
+and hands the message straight to a consumer that uses
+[automatic acknowledgement mode](#acknowledgement-modes). It can
+also happen when a consumer acknowledges the message soon after
+delivery, before it has been written. In both cases the message
+has already been delivered to a consumer, so there is no need to
+write it.
 
 ### Ack Latency for Persistent Messages {#publisher-confirms-latency}
 
 `basic.ack` for a persistent message routed to a
-durable queue will be sent after persisting the message to
-disk. The RabbitMQ message store persists messages to disk in
-batches after an interval (a few hundred milliseconds) to
-minimise the number of fsync(2) calls, or when a queue is idle.
+durable queue is normally sent after the message has been written
+to disk. Classic queues write messages to disk in batches, after
+an interval of 200 milliseconds or when idle.
 
 This means that under a constant load, latency for
 `basic.ack` can reach a few hundred milliseconds. To
@@ -632,6 +643,10 @@ improve throughput, applications are strongly advised to
 process acknowledgements asynchronously (as a stream) or publish
 batches of messages and wait for outstanding confirms. The exact
 API for this varies between client libraries.
+
+Classic queue writes are not followed by `fsync(2)`, so a
+confirmed message can be lost if the host fails before the
+operating system has flushed the data to the storage device.
 
 ### Ordering Considerations for Publisher Confirms {#publisher-confirms-ordering}
 
@@ -667,6 +682,9 @@ guarantee persistence, a client should use confirms.  If the
 publisher's channel had been in confirm mode, the publisher
 would **not** have received an ack for the lost message
 (since the message hadn't been written to disk yet).
+A confirmed message in a classic queue can still be lost if the
+host fails before the data reaches the storage device (see
+[Ack Latency for Persistent Messages](#publisher-confirms-latency)).
 
 
 ## Limitations {#limitations}
