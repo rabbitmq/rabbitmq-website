@@ -32,6 +32,17 @@ would like to see added to this list.
 
 *Note:* items with a check mark (&#x2713;) are officially supported by Team RabbitMQ and VMware.
 
+## Choosing an AMQP Client Library {#choosing-amqp-client}
+
+For new applications, the RabbitMQ team recommends using an [AMQP 1.0 client library](./amqp-client-libraries)
+over an AMQP 0.9.1 client library.
+See [AMQP 1.0 vs. AMQP 0.9.1](/docs/amqp#amqp-10-vs-amqp-091) for a comparison of the protocols.
+
+The AMQP 0.9.1 client libraries supported by the RabbitMQ team continue to receive bug fixes and security fixes.
+When a requested feature is already available in AMQP 1.0 and the corresponding AMQP 1.0 client library,
+or a limitation inherent to AMQP 0.9.1 is already addressed by AMQP 1.0,
+the supported path is to adopt an AMQP 1.0 client library.
+
 ## Management Tools
 
 ### Built-in
