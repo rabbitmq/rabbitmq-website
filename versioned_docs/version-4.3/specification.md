@@ -590,7 +590,7 @@ displayed_sidebar: docsSidebar
                         <div>
                             Until the frame-max has been negotiated, both peers MUST accept frames of up to frame-min-size octets large, and the minimum negotiated value for frame-max is also frame-min-size.
                         </div>
-                        <div class="notes"><span class="leader">Notes: </span>frame-min-size is 4Kb.</div>
+                        <div class="notes"><span class="leader">Notes: </span>frame-min-size is 4096 bytes. RabbitMQ uses 8192 bytes instead: it accepts frames of up to 8192 bytes before negotiation and rejects a negotiated frame-max below that.</div>
                     </td>
                 </tr>
 
