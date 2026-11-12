@@ -245,8 +245,8 @@ be configured to allow for more channels than the server configured maximum.
 Clients that attempt that will run into an error that looks like this in the logs:
 
 ```ini
-2019-02-11 16:03:16.543 [error] <0.882.0> closing AMQP connection <0.882.0> (127.0.0.1:49911 -> 127.0.0.1:5672):
-failed to negotiate connection parameters: negotiated channel_max = 2047 is higher than the maximum allowed value (32)
+2026-11-12 16:03:16.543 [error] <0.882.0> Error on AMQP connection <0.882.0> (127.0.0.1:49911 -> 127.0.0.1:5672, user: 'guest', state: tuning):
+negotiated channel_max = 2047 is higher than the maximum allowed value (32)
 ```
 
 ### Maximum number of Channels per Node
