@@ -38,6 +38,8 @@ For other information like licensing, downloading, dependency management, advanc
 
 ## Overview
 
+For **new** applications, the RabbitMQ team recommends using [AMQP 1.0](/docs/amqp#amqp-10-vs-amqp-091) and these libraries over AMQP 0.9.1 and the [AMQP 0.9.1 client libraries](/client-libraries/devtools).
+
 The RabbitMQ team maintains a set of AMQP 1.0 client libraries [designed and optimized](/blog/2024/08/05/native-amqp#rabbitmq-amqp-10-clients) for RabbitMQ.
 They offer a simple and safe, yet powerful API on top of AMQP 1.0.
 Applications can publish and consume messages with these libraries, as well as manage the server topology in a consistent way across programming languages.

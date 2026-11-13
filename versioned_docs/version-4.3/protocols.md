@@ -31,6 +31,9 @@ RabbitMQ was originally developed to [support AMQP 0-9-1](/amqp-0-9-1-protocol).
 As such this protocol has been the first "core" protocol supported by
 the broker. We have [extended](./extensions) AMQP 0-9-1 in various ways.
 
+AMQP 0-9-1 remains supported, however, for **new** applications the RabbitMQ team recommends
+[AMQP 1.0](#amqp-10) instead.
+
 AMQP 0-9-1 is a binary protocol, and defines quite strong
 messaging semantics. For clients it's a reasonably easy
 protocol to implement, and as such there
@@ -42,7 +45,8 @@ many different programming languages and environments.
 
 ## AMQP 1.0 {#amqp-10}
 
-[AMQP 1.0](./amqp) is a more modern protocol.
+[AMQP 1.0](./amqp) is a more modern protocol and is the protocol recommended for **new** applications.
+See [AMQP 1.0 vs. AMQP 0.9.1](./amqp#amqp-10-vs-amqp-091) for a comparison with AMQP 0-9-1.
 It is an [ISO/IEC 19464](https://www.iso.org/standard/64955.html) and [OASIS](https://www.amqp.org/node/102) standard.
 
 Despite the name, AMQP 1.0 is a very different protocol from AMQP 0-9-1 / 0-9 / 0-8, sharing nothing at the wire level.
