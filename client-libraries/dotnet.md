@@ -25,6 +25,9 @@ limitations under the License.
 The RabbitMQ .NET client is an implementation of an AMQP 0-9-1 client
 library for C# (and, implicitly, other .NET languages).
 
+For **new** applications, the RabbitMQ team recommends [AMQP 1.0](/docs/amqp#amqp-10-vs-amqp-091)
+and the [RabbitMQ AMQP 1.0 .NET client](./amqp-client-libraries) instead.
+
 ### Release Series {#series}
 
 The following table explains what RabbitMQ .NET client release series

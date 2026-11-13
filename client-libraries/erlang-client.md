@@ -23,6 +23,9 @@ limitations under the License.
 The RabbitMQ Erlang client library allows Erlang and Elixir applications
 to connect to and interact with RabbitMQ nodes.
 
+For **new** applications, the RabbitMQ team recommends [AMQP 1.0](/docs/amqp#amqp-10-vs-amqp-091)
+over AMQP 0.9.1.
+
 ## Licensing {#licensing}
 
 The library is [open-source](https://github.com/rabbitmq/rabbitmq-erlang-client/),

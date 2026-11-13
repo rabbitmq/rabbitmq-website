@@ -26,6 +26,8 @@ limitations under the License.
 This guide provides an overview of the AMQP 0-9-1 protocol, one of the protocols
 supported by RabbitMQ.
 
+For **new** applications, the RabbitMQ team recommends [AMQP 1.0](/docs/amqp#amqp-10-vs-amqp-091) over AMQP 0-9-1.
+
 ## High-level Overview of AMQP 0-9-1 and the AMQP Model {#highlevel-overview}
 
 ### What is AMQP 0-9-1? {#what-is-amqp}

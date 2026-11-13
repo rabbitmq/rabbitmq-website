@@ -59,6 +59,9 @@ Developers and Administrators.
 You might want to start with [Getting Started](/tutorials) if you are new to
 RabbitMQ. These tutorials will guide you on how to use RabbitMQ.
 
+For **new** applications, the RabbitMQ team recommends [AMQP 1.0](./amqp.md#amqp-10-vs-amqp-091)
+over AMQP 0.9.1.
+
 If you are familiar with RabbitMQ, go directly to the **How to Use RabbitMQ**
 information to start exploring it.
 

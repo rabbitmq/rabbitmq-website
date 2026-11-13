@@ -22,6 +22,9 @@ limitations under the License.
 
 [AMQP 1.0](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-overview-v1.0-os.html) is supported [natively](/blog/2024/08/05/native-amqp) since RabbitMQ 4.0.
 
+AMQP 1.0 is the recommended protocol for new applications.
+See [AMQP 1.0 vs. AMQP 0.9.1](#amqp-10-vs-amqp-091) for a comparison of the two protocols.
+
 ## Version Negotiation
 
 RabbitMQ natively supports both AMQP 1.0 and AMQP 0.9.1 out of the box, without requiring any additional plugins.
@@ -189,6 +192,11 @@ The following table describes the outcomes when the client is the receiver/consu
 
 As the name suggests, AMQP 1.0 is the more modern protocol.
 It is an [ISO/IEC 19464](https://www.iso.org/standard/64955.html) and [OASIS](https://www.amqp.org/node/102) standard, whereas AMQP 0.9.1 is not an official standard.
+For **new** applications, the RabbitMQ team recommends AMQP 1.0 over AMQP 0.9.1,
+together with the [RabbitMQ AMQP 1.0 client libraries](/client-libraries/amqp-client-libraries).
+AMQP 0.9.1 remains supported, and can be a better fit for existing applications
+or when a required feature is [only available in AMQP 0.9.1](#amqp-091-features).
+
 For a more detailed comparison of the protocols, refer to our [AMQP 1.0 blog posts](/blog/tags/amqp-1-0).
 
 Choosing the right protocol depends on several factors, including:

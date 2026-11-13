@@ -30,9 +30,14 @@ import {
 
 ## AMQP 1.0
 
+[AMQP 1.0](/docs/amqp#amqp-10-vs-amqp-091) is the recommended protocol for **new** applications.
+
  * [Documentation for RabbitMQ AMQP 1.0 libraries](./amqp-client-libraries.md)
 
 ## Java
+
+The libraries in this section are AMQP 0.9.1 clients.
+For **new** applications, the RabbitMQ team recommends the [AMQP 1.0 Java client](./amqp-client-libraries.md) instead.
 
  * [Downloads and Installation](./java-client.md)
  * [API Guide](./java-api-guide.md)
@@ -43,6 +48,9 @@ import {
 
 
 ## .NET/C# #
+
+The library in this section is an AMQP 0.9.1 client.
+For **new** applications, the RabbitMQ team recommends the [AMQP 1.0 .NET client](./amqp-client-libraries.md) instead.
 
  * [Downloads and Installation](./dotnet.md)
  * [API Guide](./dotnet-api-guide.md)

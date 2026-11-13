@@ -28,3 +28,6 @@ If you are new to RabbitMQ, you might want to start with [Getting
 Started](/tutorials). These tutorials will guide you on how to use RabbitMQ.
 The rest of this section contains the reference documentation about RabbitMQ
 features and use cases.
+
+For **new** applications, the RabbitMQ team recommends [AMQP 1.0](./amqp#amqp-10-vs-amqp-091)
+over AMQP 0.9.1.

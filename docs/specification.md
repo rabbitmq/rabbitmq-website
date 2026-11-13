@@ -14,6 +14,10 @@ displayed_sidebar: docsSidebar
             in parallel.
         </p>
         <p>
+            For <strong>new</strong> applications, the RabbitMQ team recommends AMQP 1.0 over AMQP 0-9-1.
+            See <a href="/docs/amqp#amqp-10-vs-amqp-091">AMQP 1.0 vs. AMQP 0.9.1</a> for a comparison of the two protocols.
+        </p>
+        <p>
             The 0-9-1 (with and without extensions) specifications are linked to below for your convenience. To learn more about AMQP 0-9-1, please see
             [AMQP 0-9-1 Overview guide](/tutorials/amqp-concepts), [AMQP 0-9-1 specification PDF](https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/pdf/amqp0-9-1.pdf),
             [AMQP 0-9-1 Reference PDF](https://github.com/rabbitmq/amqp-0.9.1-spec/blob/main/pdf/amqp-xml-doc0-9-1.pdf), and the rest of [documentation](./index.md) for more information.

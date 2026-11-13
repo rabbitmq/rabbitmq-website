@@ -49,7 +49,10 @@ on behalf of the consumer.
 > #### The .NET client library
 >
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
-> general-purpose protocol for messaging. There are a number of clients
+> general-purpose protocol for messaging.
+> For **new** applications, the RabbitMQ team recommends [AMQP 1.0](/docs/amqp#amqp-10-vs-amqp-091),
+> covered by [this version of the tutorial](./tutorial-one-dotnet-amqp10).
+> There are a number of clients
 > for RabbitMQ in [many different
 > languages](/client-libraries/devtools). We'll
 > use the .NET client provided by RabbitMQ.

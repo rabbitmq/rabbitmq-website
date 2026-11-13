@@ -23,7 +23,10 @@ limitations under the License.
 ## Overview {#overview}
 
 The RabbitMQ Java client library allows Java and JVM-based applications
-to connect to and interact with RabbitMQ nodes.
+to connect to and interact with RabbitMQ nodes using AMQP 0.9.1.
+
+For **new** applications, the RabbitMQ team recommends [AMQP 1.0](/docs/amqp#amqp-10-vs-amqp-091)
+and the [RabbitMQ AMQP 1.0 Java client](./amqp-client-libraries) instead.
 
 5.x release series of this library [require JDK 8](./java-versions), both for compilation and at runtime. On Android,
 this means only [Android 7.0 or later](https://developer.android.com/guide/platform/j8-jack.html) versions are supported.

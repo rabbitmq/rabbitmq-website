@@ -62,6 +62,9 @@ These tutorials target RabbitMQ 4.x.
 This section covers the modern messaging protocol in RabbitMQ, AMQP 1.0. This protocol works
 out of the box, without enabling any plugin.
 
+AMQP 1.0 is the recommended protocol for **new** applications.
+See [AMQP 1.0 vs. AMQP 0.9.1](/docs/amqp#amqp-10-vs-amqp-091) for a comparison of the two protocols.
+
 <table id="tutorials-amqp10">
     <colgroup>
         <col span="1" style={{width: '33%',}}/>
@@ -153,6 +156,8 @@ out of the box, without enabling any plugin.
 ### Queue tutorials {#queue-tutorials}
 
 This section covers the default RabbitMQ protocol, AMQP 0-9-1.
+
+For **new** applications, the RabbitMQ team recommends [AMQP 1.0](/docs/amqp#amqp-10-vs-amqp-091) instead.
 
 <table id="tutorials">
     <colgroup>
