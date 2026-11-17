@@ -80,6 +80,7 @@ const config = {
         },
         '4.4': {
           releases: [
+            {version: '4.4.1', release_date: "2026-11-16", },
             {version: '4.4.0', release_date: "2026-10-20", },
           ],
           end_of_support: "2028-10-31",
@@ -87,6 +88,8 @@ const config = {
         },
         '4.3': {
           releases: [
+            {version: '4.3.8', release_date: "2026-11-16", },
+            {version: '4.3.7', release_date: "2026-10-20", },
             {version: '4.3.6', release_date: "2026-09-16", },
             {version: '4.3.5', release_date: "2026-08-17", },
             {version: '4.3.4', release_date: "2026-07-23", },
