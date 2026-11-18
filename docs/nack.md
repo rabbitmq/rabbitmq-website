@@ -33,9 +33,11 @@ provides no support for negatively acknowledging messages in
 bulk.
 
 To solve this, RabbitMQ supports the `basic.nack`
-method that provides all the functionality of
-`basic.reject` whilst also allowing for bulk
-processing of messages.
+method that allows for bulk processing of messages.
+
+The two methods are not interchangeable: for [quorum queues](./quorum-queues),
+only `basic.reject` counts towards the delivery limit.
+See [`basic.reject` vs. `basic.nack`](#reject-vs-nack) below.
 
 ## `basic.reject` vs. `basic.nack` {#reject-vs-nack}
 
@@ -51,6 +53,15 @@ This distinction is important for [quorum queues](./quorum-queues), which suppor
 when a message's delivery-count exceeds the queue's configured [delivery-limit](./quorum-queues#poison-message-handling-configuring-limit)
 (default: 20), the message is dead-lettered or discarded.
 
+When a message is requeued using `basic.reject`, both its `delivery-count` and `acquired-count`
+are incremented. When a message is requeued using `basic.nack`, only its `acquired-count` is incremented,
+so repeatedly requeueing a message with `basic.nack` never causes it to reach the delivery limit.
+See [When is delivery count incremented?](./quorum-queues#when-is-delivery-count-incremented)
+for the full list of triggers.
+
+Applications that rely on the delivery limit to dead-letter messages that repeatedly fail processing
+should use `basic.reject` with the `requeue` flag set to `true`.
+
 ## Usage {#usage}
 
 To reject messages in bulk, clients set the `multiple` flag of the `basic.nack`
@@ -58,6 +69,7 @@ method to `true`. The broker will then reject all
 unacknowledged, delivered messages up to and including the
 message specified in the `delivery_tag` field of the `basic.nack` method. In this respect,
 `basic.nack` complements the bulk acknowledgement semantics of `basic.ack`.
+Messages requeued this way do not count towards the quorum queue delivery limit.
 
 Negative acknowledgements work for both [long running consumers](./consumers)
 and polling-based ones (that use `basic.get`).
@@ -73,16 +85,17 @@ to a position closer to queue head.
 ### Java {#java-examples}
 
 This Java client example rejects a single message consumed via polling (`basic.get`),
-asking the broker to requeue it:
+asking the broker to requeue it. For quorum queues, this counts towards the delivery limit:
 
 ```java
 GetResponse gr = channel.basicGet("some.queue", false);
-channel.basicNack(gr.getEnvelope().getDeliveryTag(), false, true);
+channel.basicReject(gr.getEnvelope().getDeliveryTag(), true);
 ```
 
-This example rejects two messages with a single call to
+This example negatively acknowledges two messages with a single call to
 the broker (the second argument on
-`basicNack` is the `multiple` flag):
+`basicNack` is the `multiple` flag). For quorum queues, these returns
+do not count towards the delivery limit:
 
 ```java
 GetResponse gr1 = channel.basicGet("some.queue", false);
