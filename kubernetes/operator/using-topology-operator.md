@@ -606,6 +606,79 @@ spec:
 
 To federate queues instead, use `applyTo: "queues"` in the `Policy` object; queue federation does not require declaring an exchange or binding.
 
+The following manifests define an upstream with several URIs, and tune the upstream for exchange federation.
+`uri` accepts a comma-separated list; do not add spaces around the commas. RabbitMQ tries the URIs until one connects, so all of them must point to nodes of the same cluster.
+The operator passes each URI to RabbitMQ unchanged, so TLS options such as `cacertfile`, `certfile`, `keyfile`, `verify` and `server_name_indication` go in the URI query string, and the referenced files must exist on the RabbitMQ nodes.
+See the [Federation Reference](/docs/federation-reference) for the available options.
+
+```yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: federation-tls-uri-secret
+  namespace: rabbitmq-system
+  labels:
+    rabbitmq.com/topology-operator: "true"  # required label
+type: Opaque
+stringData:
+  uri: amqps://user:password@upstream-1:5671?cacertfile=/etc/rabbitmq/certs/ca.pem&verify=verify_peer,amqps://user:password@upstream-2:5671?cacertfile=/etc/rabbitmq/certs/ca.pem&verify=verify_peer
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Federation
+metadata:
+  name: federation-quorum-example
+  namespace: rabbitmq-system
+spec:
+  name: "origin-quorum"
+  uriSecret:
+    name: federation-tls-uri-secret
+  queueType: "quorum"           # type of the upstream's internal queue
+  resourceCleanupMode: "never"  # keep the internal queue (and its messages) when the link stops or is reconfigured
+  maxHops: 2
+  expires: 3600000              # milliseconds
+  messageTTL: 60000             # milliseconds
+  trustUserId: false
+  rabbitmqClusterReference:
+    name: example-rabbit
+```
+
+With `resourceCleanupMode: never`, RabbitMQ does not delete the internal upstream queue, so remove it manually when it is no longer needed.
+With the default mode, changing `queueType` deletes and recreates the internal queue, which can lose messages.
+
+The following manifests federate queues named `^orders` in the `orders` vhost, from an upstream declared in the same vhost:
+
+```yaml
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Federation
+metadata:
+  name: federation-queue-example
+  namespace: rabbitmq-system
+spec:
+  name: "orders-origin"
+  vhost: "orders"  # the vhost must already exist, see Virtual Hosts above
+  uriSecret:
+    name: federation-uri-secret
+  rabbitmqClusterReference:
+    name: example-rabbit
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Policy
+metadata:
+  name: federation-queue-policy
+  namespace: rabbitmq-system
+spec:
+  name: federation-queue-policy
+  vhost: "orders"
+  pattern: "^orders"
+  applyTo: "queues"
+  definition:
+    federation-upstream: "orders-origin"
+  rabbitmqClusterReference:
+    name: example-rabbit
+```
+
 ### Federation Field Reference {#federation-field-reference}
 
 `spec` on a `Federation` object supports the following fields. For the meaning of each parameter on the RabbitMQ side, see the [Federation Reference](/docs/federation-reference).
@@ -614,20 +687,30 @@ To federate queues instead, use `applyTo: "queues"` in the `Policy` object; queu
 |-------|------|----------|---------|-------|
 | `name` | string | yes | | Name of the upstream in RabbitMQ; not necessarily the same as `metadata.name`. Cannot be updated. |
 | `vhost` | string | no | `/` | Virtual host the upstream is declared in. Cannot be updated. |
-| `rabbitmqClusterReference` | object | yes | | Reference to the target `RabbitmqCluster`, or a `connectionSecret` for a [non-Operator-managed RabbitMQ](#non-operator). Cannot be updated. |
-| `uriSecret` | object | yes | | Reference to a Secret containing key `uri` (one URI, or several separated by `,`). Must carry the `rabbitmq.com/topology-operator: "true"` label. The Secret it points to can be swapped after creation. |
+| `rabbitmqClusterReference` | object | yes | | Reference to the target `RabbitmqCluster` (`name`, optional `namespace`), or a `connectionSecret` for a [non-Operator-managed RabbitMQ](#non-operator). Set exactly one of `name` or `connectionSecret`. Cannot be updated. |
+| `uriSecret` | object | yes | | Reference (`name`) to a Secret in the same namespace as the `Federation` object, containing key `uri` (one URI, or several separated by `,` with no spaces). Must carry the `rabbitmq.com/topology-operator: "true"` label. The Secret it points to can be swapped after creation. |
 | `ackMode` | string | no | `on-confirm` | One of `on-confirm`, `on-publish`, `no-ack`. |
-| `prefetch-count` | integer | no | `0` (unlimited) | Note the hyphenated field name; every other integer field on this object uses camelCase. |
-| `reconnectDelay` | integer | no | `0` | Seconds to wait before reconnecting after being disconnected from the upstream. |
+| `prefetch-count` | integer | no | `1000` (RabbitMQ default) | Maximum number of deliveries pending acknowledgement on a link. Note the hyphenated field name; every other integer field on this object uses camelCase. |
+| `reconnectDelay` | integer | no | `1` | Seconds to wait before reconnecting after being disconnected from the upstream. |
 | `trustUserId` | boolean | no | `false` | Whether to preserve the `user-id` validated property on federated messages. |
 | `expires` | integer | no | | Milliseconds the upstream's internal link queue may remain unused before it is removed. |
-| `messageTTL` | integer | no | | Seconds after which messages in the upstream's internal queue expire. |
+| `messageTTL` | integer | no | | Milliseconds after which messages in the upstream's internal queue expire. |
 | `maxHops` | integer | no | | Maximum number of federation links a message may traverse. |
 | `exchange` | string | no | | Overrides the exchange name used on the upstream side, when it differs from the downstream exchange name. Rarely needed; does not itself activate federation (use a `Policy`, see above). |
 | `queue` | string | no | | Same as `exchange`, but for queue federation. |
-| `queueType` | string | no | `classic` | One of `classic`, `quorum`. Queue type of the internal upstream queue used by **exchange** federation. Changing this value deletes and recreates that queue, which can lose in-flight messages, unless `resourceCleanupMode: never` is set. |
-| `resourceCleanupMode` | string | no | `default` | One of `default`, `never`. Whether the upstream's internal queue is deleted as soon as its federation link stops; `never` retains it (and it keeps collecting messages) until manually removed. |
+| `queueType` | string | no | `classic` (RabbitMQ default) | One of `classic`, `quorum`. Queue type of the internal upstream queue used by **exchange** federation. Changing this value deletes and recreates that queue, which can lose in-flight messages, unless `resourceCleanupMode: never` is set. |
+| `resourceCleanupMode` | string | no | `default` (RabbitMQ default) | One of `default`, `never`. Whether the upstream's internal queue is deleted as soon as its federation link stops; `never` retains it (and it keeps collecting messages) until manually removed. |
 | `deletionPolicy` | string | no | `delete` | One of `delete`, `retain`. See [Delete a Resource](#delete). |
+
+### Federation Status and Deletion {#federation-status}
+
+The operator sets a `Ready` condition on the `Federation` object: `True` with reason `SuccessfulCreateOrUpdate` once the upstream is declared, or `False` with reason `FailedCreateOrUpdate` and the error in `message` (for example, a missing Secret or a missing `uri` key).
+Inspect it with `kubectl get federation federation-example -o yaml`, or with `kubectl describe`, which also lists the `SuccessfulDeclare` and `FailedDeclare` events.
+
+The webhook rejects updates to `name`, `vhost` and `rabbitmqClusterReference`, and rejects a `uriSecret` (or `connectionSecret`) that is missing the `rabbitmq.com/topology-operator: "true"` label.
+
+Deleting the object with `deletionPolicy: delete` removes the upstream parameter from RabbitMQ; it does not remove any `Policy` that references it.
+`resourceCleanupMode` does not change this behaviour; it only controls what RabbitMQ does with the internal upstream queue.
 
 More [federation examples](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/federations).
 
@@ -781,6 +864,51 @@ spec:
     name: example-rabbit
 ```
 
+The following manifests use several URIs and TLS options on both ends, and declare the shovel in a non-default vhost.
+The operator passes each URI to RabbitMQ unchanged, so TLS options such as `cacertfile`, `certfile`, `keyfile`, `verify` and `server_name_indication` go in the URI query string, and the referenced files must exist on the RabbitMQ nodes.
+Do not add spaces around the commas.
+
+```yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: shovel-tls-uri-secret
+  namespace: rabbitmq-system
+  labels:
+    rabbitmq.com/topology-operator: "true"  # required label
+type: Opaque
+stringData:
+  srcUri: amqps://user:password@source-1:5671?cacertfile=/etc/rabbitmq/certs/ca.pem&verify=verify_peer,amqps://user:password@source-2:5671?cacertfile=/etc/rabbitmq/certs/ca.pem&verify=verify_peer
+  destUri: amqps://user:password@dest-host:5671?cacertfile=/etc/rabbitmq/certs/ca.pem&verify=verify_peer
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Shovel
+metadata:
+  name: shovel-tls-example
+  namespace: rabbitmq-system
+spec:
+  name: "tls-shovel"
+  vhost: "orders"  # the vhost must already exist; the queues below are declared in it
+  uriSecret:
+    name: shovel-tls-uri-secret
+  srcQueue: "the-source-queue"
+  destQueue: "the-destination-queue"
+  rabbitmqClusterReference:
+    name: example-rabbit
+```
+
+### Shovel Status and Deletion {#shovel-status}
+
+The operator sets a `Ready` condition on the `Shovel` object: `True` with reason `SuccessfulCreateOrUpdate` once the shovel is declared, or `False` with reason `FailedCreateOrUpdate` and the error in `message` (for example, a missing Secret or a missing `srcUri` or `destUri` key).
+Inspect it with `kubectl get shovel shovel-example -o yaml`, or with `kubectl describe`, which also lists the `SuccessfulDeclare` and `FailedDeclare` events.
+
+The webhook rejects:
+
+* updates to `name`, `vhost` and `rabbitmqClusterReference`
+* a `uriSecret` (or `connectionSecret`) that is missing the `rabbitmq.com/topology-operator: "true"` label
+* a missing `srcAddress` or `destAddress` when the corresponding protocol is `amqp10`
+
 ### Shovel Field Reference {#shovel-field-reference}
 
 `spec` on a `Shovel` object supports the following fields. For the meaning of each parameter on the RabbitMQ side, see the [Shovel Reference](/docs/shovel-dynamic).
@@ -789,15 +917,15 @@ spec:
 |-------|------|----------|---------|-------|
 | `name` | string | yes | | Name of the shovel in RabbitMQ; not necessarily the same as `metadata.name`. Cannot be updated. |
 | `vhost` | string | no | `/` | Virtual host the shovel is declared in. Cannot be updated. |
-| `rabbitmqClusterReference` | object | yes | | Reference to the target `RabbitmqCluster`, or a `connectionSecret` for a [non-Operator-managed RabbitMQ](#non-operator). Cannot be updated. |
-| `uriSecret` | object | yes | | Reference to a Secret containing keys `srcUri` and `destUri` (each one URI, or several separated by `,`). Must carry the `rabbitmq.com/topology-operator: "true"` label. The Secret it points to can be swapped after creation. |
-| `ackMode` | string | no | `on-confirm` | One of `on-confirm`, `on-publish`, `no-ack`. |
-| `prefetchCount` | integer | no | `0` (unlimited) | |
-| `reconnectDelay` | integer | no | `0` | Seconds to wait before reconnecting after being disconnected. |
+| `rabbitmqClusterReference` | object | yes | | Reference to the target `RabbitmqCluster` (`name`, optional `namespace`), or a `connectionSecret` for a [non-Operator-managed RabbitMQ](#non-operator). Set exactly one of `name` or `connectionSecret`. Cannot be updated. |
+| `uriSecret` | object | yes | | Reference (`name`) to a Secret in the same namespace as the `Shovel` object, containing keys `srcUri` and `destUri` (each one URI, or several separated by `,` with no spaces). Must carry the `rabbitmq.com/topology-operator: "true"` label. The Secret it points to can be swapped after creation. |
+| `ackMode` | string | no | `on-confirm` (RabbitMQ default) | One of `on-confirm`, `on-publish`, `no-ack`. |
+| `prefetchCount` | integer | no | `1000` (RabbitMQ default) | Maximum number of unacknowledged messages copied over the shovel at any one time. |
+| `reconnectDelay` | integer | no | `1` | Seconds to wait before reconnecting after being disconnected. |
 | `addForwardHeaders` | boolean | no | `false` | Adds `x-shovelled` headers to shovelled messages. |
-| `deleteAfter` | string | no | `never` | `never`, `queue-length`, or a positive integer as a string (number of messages to move before deleting the shovel). |
+| `deleteAfter` | string | no | `never` | `never`, `queue-length`, or a positive integer written as a string, for example `"50"` (number of messages to move before deleting the shovel). |
 | `srcDeleteAfter` | string | no | | Same semantics as `deleteAfter`, applied on the source side only. |
-| `srcPrefetchCount` | integer | no | `0` | |
+| `srcPrefetchCount` | integer | no | `1000` (RabbitMQ default) | Prefetch count applied on the source side. |
 | `deletionPolicy` | string | no | `delete` | One of `delete`, `retain`. See [Delete a Resource](#delete). |
 
 Source-side fields (all optional):
