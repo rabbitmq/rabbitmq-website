@@ -649,6 +649,17 @@ without counting towards the delivery limit. The header `x-acquired-count` has
 been introduced to track the number of times a message was acquired by a consumer,
 alongside `x-delivery-count` which tracks the actual number of failed deliveries.
 
+:::important
+
+Applications upgrading from RabbitMQ 4.2 or earlier should review their use of `basic.nack`.
+Before 4.3, a message requeued using `basic.nack` counted towards the delivery limit. Starting with 4.3, it does not.
+
+Consumers that use `basic.nack` with the `requeue` flag set to `true` and rely on the delivery limit
+to dead-letter poison messages should switch to `basic.reject`. Otherwise such messages can be redelivered indefinitely.
+See [`basic.reject` vs. `basic.nack`](./nack#reject-vs-nack).
+
+:::
+
 :::tip
 `x-acquired-count` is the recommended header for tracking the number of times a
 message has been assigned to a consumer.

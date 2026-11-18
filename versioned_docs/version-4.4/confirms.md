@@ -137,7 +137,9 @@ acknowledgements can be positive or negative and use one of the following protoc
 
  * `basic.ack` is used for positive acknowledgements
  * `basic.nack` is used for negative acknowledgements (note: this is a [RabbitMQ extension to AMQP 0-9-1](./nack))
- * `basic.reject` is used for negative acknowledgements but has one limitation compared to `basic.nack`
+ * `basic.reject` is used for negative acknowledgements. Unlike `basic.nack`, it cannot reject multiple deliveries at once,
+   but for [quorum queues](./quorum-queues) it is the only one of the two that counts towards the delivery limit
+   (see [`basic.reject` vs. `basic.nack`](./nack#reject-vs-nack))
 
 How these methods are exposed in client library APIs will be discussed below.
 
@@ -376,6 +378,10 @@ create a requeue/redelivery loop. Such loops can be costly in terms of
 network bandwidth and CPU resources. Consumer implementations can track
 the number of redeliveries and reject messages for good (discard them)
 or schedule requeueing after a delay.
+
+With [quorum queues](./quorum-queues), deliveries requeued using `basic.reject` count towards
+the queue's [delivery limit](./quorum-queues#poison-message-handling), after which they are
+dead-lettered or dropped. Deliveries requeued using `basic.nack` do not count towards the limit.
 
 It is possible to reject or requeue multiple messages at once using the `basic.nack`
 method. This is what differentiates it from `basic.reject`. It accepts an additional
