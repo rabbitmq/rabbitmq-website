@@ -573,7 +573,7 @@ displayed_sidebar: docsSidebar
                 </tr>
 
                 <tr>
-                    <td class="statusCell status_planned">planned</td>
+                    <td class="statusCell status_failing">doesn't</td>
                     <td>MUST</td>
                     <td>server</td>
                     <td>connection / tune-ok / channel-max / upper-limit</td>
@@ -582,6 +582,7 @@ displayed_sidebar: docsSidebar
                             If the client specifies a channel max that is higher than the value provided by the server, the server MUST close the connection without attempting a negotiated close. The server may report the error in some
                             fashion to assist implementors.
                         </div>
+                        <div class="notes"><span class="leader">Notes: </span>RabbitMQ replies with <span class="code">connection.close</span> (530, <span class="code">NOT_ALLOWED</span>) so that the client can see why the connection was refused.</div>
                     </td>
                 </tr>
 
@@ -594,12 +595,12 @@ displayed_sidebar: docsSidebar
                         <div>
                             Until the frame-max has been negotiated, both peers MUST accept frames of up to frame-min-size octets large, and the minimum negotiated value for frame-max is also frame-min-size.
                         </div>
-                        <div class="notes"><span class="leader">Notes: </span>frame-min-size is 4Kb.</div>
+                        <div class="notes"><span class="leader">Notes: </span>frame-min-size is 4096 bytes. RabbitMQ uses 8192 bytes instead: it accepts frames of up to 8192 bytes before negotiation and rejects a negotiated frame-max below that.</div>
                     </td>
                 </tr>
 
                 <tr>
-                    <td class="statusCell status_ok">ok</td>
+                    <td class="statusCell status_failing">doesn't</td>
                     <td>MUST</td>
                     <td>server</td>
                     <td>connection / tune-ok / frame-max / upper-limit</td>
@@ -608,6 +609,7 @@ displayed_sidebar: docsSidebar
                             If the client specifies a frame max that is higher than the value provided by the server, the server MUST close the connection without attempting a negotiated close. The server may report the error in some
                             fashion to assist implementors.
                         </div>
+                        <div class="notes"><span class="leader">Notes: </span>RabbitMQ replies with <span class="code">connection.close</span> (530, <span class="code">NOT_ALLOWED</span>) so that the client can see why the connection was refused.</div>
                     </td>
                 </tr>
 
