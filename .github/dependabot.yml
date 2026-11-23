@@ -7,3 +7,8 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "main"
+    ignore:
+      # webpack-dev-server 6.x is not compatible with Docusaurus 3.x
+      # when the Rspack bundler is used, see rabbitmq/rabbitmq-website#2733
+      - dependency-name: "webpack-dev-server"
+        update-types: ["version-update:semver-major"]
