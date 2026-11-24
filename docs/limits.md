@@ -62,8 +62,8 @@ Per connection limits apply to individual client connections.
 | [`rabbitmq.conf` Setting](./configure) | Type | Description | Default |
 |---------|------|-------------|---------|
 | `max_channels_per_connection` | integer | Maximum number of AMQP 0-9-1 channels a client can open on a single connection. Protects against applications [leaking channels](./channels#monitoring). Channel number 0 is reserved for internal use. While the default is 2047, values between 16 and 128 are recommended for most use cases. | 2047 |
-| `session_max_per_connection` | integer | Maximum number of AMQP 1.0 sessions per connection | 1 |
-| `link_max_per_session` | integer | Maximum number of AMQP 1.0 links per session | 10 |
+| `session_max_per_connection` | integer | Maximum number of AMQP 1.0 sessions per connection | 64 |
+| `link_max_per_session` | integer | Maximum number of AMQP 1.0 links per session | 256 |
 | `handshake_timeout` | integer (milliseconds) | Maximum time allowed for AMQP 0-9-1 and AMQP 1.0 handshake to complete | 10000 (10 seconds) |
 | `ssl_handshake_timeout` | integer (milliseconds) | Maximum time allowed for TLS handshake to complete | 5000 (5 seconds) |
 | `heartbeat` | integer (seconds) | [Heartbeat timeout](./heartbeats) value suggested by the server during connection negotiation | 60 |
