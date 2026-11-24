@@ -752,7 +752,7 @@
             {
               "type": "doc",
               "id": "limits",
-              "label": "Configurable Limits and Timeouts"
+              "label": "Limits and Timeouts"
             },
             {
               "type": "doc",
@@ -818,7 +818,7 @@
             {
               "type": "doc",
               "id": "limits",
-              "label": "Configurable Limits and Timeouts"
+              "label": "Limits and Timeouts"
             }
           ]
         },

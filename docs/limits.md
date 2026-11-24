@@ -1,16 +1,15 @@
 ---
-title: Configurable Limits
+title: Limits and Timeouts
 ---
 
-# Configurable Limits and Timeouts
+# Limits and Timeouts
 
 ## Introduction
 
-This guide provides an overview of the configurable limits and timeouts provided by RabbitMQ.
+This guide provides an overview of the configurable limits and timeouts provided by RabbitMQ,
+followed by the [hardcoded limits](#hardcoded) that cannot be changed.
 
-This guide intentionally leaves out some advanced limits as well as limits that cannot be configured via `rabbitmq.conf`,
-virtual host [metadata](./vhosts#limits), [policies](./policies), or other configuration means,
-but are instead controlled programmatically (for example, by RabbitMQ core or plugins).
+This guide intentionally leaves out some advanced configurable limits.
 
 :::note
 
@@ -160,3 +159,136 @@ When retention limits are reached, the oldest segments are discarded. These can 
 [policies](./policies) or as [optional stream arguments](./streams#declaring) at stream declaration time.
 
 Consult the [streams guide](./streams) to learn more.
+
+
+## Hardcoded Limits {#hardcoded}
+
+The limits below cannot be changed. Most of them bound the resources that client-provided input can use.
+Unless noted otherwise, an operation that exceeds a limit fails with an error.
+
+Most limits that come from a protocol specification are not listed.
+
+### Messages, Queues, Streams and Bindings {#hardcoded-core}
+
+| Limit | Value |
+|-------|-------|
+| Maximum value of `max_message_size` | 512 MiB |
+| Size of binding arguments, encoded as an AMQP 0-9-1 table | 16 KiB |
+| `#` wildcards in a [topic exchange](./exchanges#topic) binding key | 2 |
+| Entries in each of the AMQP 0-9-1 [`CC` and `BCC`](./sender-selected) headers and in the AMQP 1.0 `x-cc` message annotation | 64 |
+| `x-message-ttl` and `x-expires` queue arguments, and the AMQP 0-9-1 `expiration` message property | 10 years (315,360,000,000 ms) |
+| `x-max-priority` of [classic queues](./priority#classic-queues) | 255 |
+| [Quorum queue](./priority#quorum-queues) message priorities. Higher values are treated as 31 | 0 to 31 |
+| `x-name-prefix` of server-named queues | 64 bytes |
+| [Direct reply-to](./direct-reply-to) destinations per published message. Further destinations are ignored | 2 |
+| [Stream](./streams) segment size (`x-stream-max-segment-size-bytes`) | 4096 bytes to 3,000,000,000 bytes |
+| [Stream Bloom filter](./stream-filtering) size (`x-stream-filter-size-bytes`) | 16 to 255 bytes |
+
+### Users, Permissions and Policies {#hardcoded-access-control}
+
+| Limit | Value |
+|-------|-------|
+| Tags per user | 32 |
+| Length of a regular expression in a policy pattern, a [permission](./access-control) or a topic permission | 4096 bytes |
+| Match steps per regular expression evaluation. A match that exceeds the limit counts as no match: a permission check fails and a policy does not apply | 50,000 |
+
+The match step limit also applies to [LDAP](./ldap) `match` queries, federation upstream patterns, the JMS topic exchange and the HTTP API `name` filter.
+
+### AMQP 0-9-1 {#hardcoded-amqp091}
+
+| Limit | Value |
+|-------|-------|
+| Queue names, exchange names, routing keys and consumer tags (AMQP 0-9-1 short strings) | 255 bytes |
+| Minimum `frame_max` that a client can negotiate | 8192 bytes |
+| Replies that a channel has queued for a client that does not read from its socket. The connection is closed when the limit is reached | 4000 replies, or the greater of 32 MiB and twice `max_message_size` |
+
+### AMQP 1.0 {#hardcoded-amqp10}
+
+| Limit | Value |
+|-------|-------|
+| Sections per message | 10,000 |
+| Encoded size of each section before the message body (header, delivery annotations, message annotations, properties, application properties) | 128 KiB |
+| Encoded size of an array descriptor | 64 bytes |
+| Frame size before the `open` frame has been processed, including SASL frames | 8192 bytes |
+| Minimum `idle-time-out` that a client can request | 1 second |
+| Fields in a [property filter expression](./stream-filtering#property-filter-expressions) | 16 |
+| Length of an [SQL filter expression](./stream-filtering#sql-filter-expressions) | 4096 characters |
+| Tokens in an SQL filter expression | 200 |
+| Length of a value matched by a `LIKE` pattern that contains `_` or more than one `%`. Longer values do not match | 4096 bytes |
+| [Deferral tokens](./quorum-queues#deferred-messages) per `flow` frame | 256 |
+| Size of a deferral token | 256 bytes |
+| Message annotations that a [`modified` outcome](./amqp#modified-outcome) can add to a quorum queue message. Further annotations are ignored | 32 |
+| Requests in flight per [AMQP 1.0 management](/client-libraries/amqp-client-libraries#topology-management) link pair | 8 |
+
+A filter expression that exceeds a limit is not applied, and it is left out of the `attach` frame that RabbitMQ sends in response.
+
+### MQTT {#hardcoded-mqtt}
+
+| Limit | Value |
+|-------|-------|
+| Message Expiry Interval. Larger values are lowered to the limit | 10 years (315,360,000 seconds) |
+| Maximum [QoS](./mqtt#qos-2) | 1 |
+
+### STOMP {#hardcoded-stomp}
+
+| Limit | Value |
+|-------|-------|
+| Length of a frame command | 32 bytes |
+| Open transactions per connection | 16 |
+| `SEND`, `ACK` and `NACK` frames per transaction | 1024 |
+| Message body bytes across all open transactions of a connection. The connection is closed when the limit is exceeded | 128 MiB |
+| `priority` header. Values outside the range are clamped | 0 to 255 |
+
+### RabbitMQ Stream Protocol {#hardcoded-stream-protocol}
+
+| Limit | Value |
+|-------|-------|
+| Publishers per connection | 256 |
+| Subscriptions per connection | 256 |
+| Length of a publisher reference, a consumer name and an offset tracking reference | 255 bytes |
+
+### HTTP API {#hardcoded-http-api}
+
+| Limit | Value |
+|-------|-------|
+| Page size (`page_size`) | 500 |
+| Samples per series (the `*_age` parameter divided by the `*_incr` parameter) for endpoints that return a single object | 500 |
+| Samples per series for endpoints that return a list of objects | 60 |
+| Length of a regular expression in the `name` filter (`use_regex=true`) | 1024 bytes |
+| Request body size when creating a binding | 5000 bytes |
+| Memory used to decode a JSON request body, except for definition imports | about 64 MB |
+
+### Prometheus {#hardcoded-prometheus}
+
+| Limit | Value |
+|-------|-------|
+| Length of the `queue` query parameter | 2000 bytes |
+| Match steps of the `queue` regular expression per queue. Queues that exceed the limit are left out of the response | 2000 |
+
+### OAuth 2 {#hardcoded-oauth2}
+
+| Limit | Value |
+|-------|-------|
+| Scopes per token | 2048 |
+| Length of a regular expression scope pattern | 2048 bytes |
+| Match steps per regular expression scope pattern. A match that exceeds the limit counts as no match | 10,000 |
+
+### Shovels and Federation {#hardcoded-shovels-federation}
+
+| Limit | Value |
+|-------|-------|
+| URI length | 64 KiB |
+| [`connection_timeout`](./uri-query-parameters) URI query parameter | 180 seconds |
+| Size of TLS certificate and key files referenced in URIs | 4 MiB |
+| Federation upstream [`max-hops`](./federation-reference) | 32767 |
+| Minimum value of the [`src-delete-after-duration`](./shovel-dynamic) shovel setting | 15 seconds |
+
+### Exchange Type Plugins {#hardcoded-exchange-plugins}
+
+| Limit | Value |
+|-------|-------|
+| Nesting depth of a [JMS topic exchange](./exchanges#jms-topic-exchange) selector | 16 |
+| Digits in a numeric literal of a JMS topic exchange selector | 100 |
+| Length of a JMS topic exchange `LIKE` pattern after conversion to a regular expression | 4096 bytes |
+| Consistent hashing exchange binding weight | 10,000 |
+| `shards-per-node` policy key of the sharding plugin | 4096 |

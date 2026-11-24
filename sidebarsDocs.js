@@ -710,7 +710,7 @@ const sidebars = {
             {
               type: 'doc',
               id: 'limits',
-              label: 'Configurable Limits and Timeouts',
+              label: 'Limits and Timeouts',
             },
             {
               type: 'doc',
@@ -770,7 +770,7 @@ const sidebars = {
             {
               type: 'doc',
               id: 'limits',
-              label: 'Configurable Limits and Timeouts',
+              label: 'Limits and Timeouts',
             },
           ],
         },
