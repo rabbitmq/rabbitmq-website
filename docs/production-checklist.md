@@ -172,6 +172,8 @@ In multi-tenant environments, use a separate vhost for
 each tenant/environment, e.g. `project1_development`,
 `project1_production`, `project2_development`,
 `project2_production`, and so on.
+Virtual hosts provide [soft isolation](./vhosts#multi-tenancy) only.
+Tenants that do not trust each other should use separate clusters.
 
 ### Users {#users}
 

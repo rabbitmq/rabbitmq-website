@@ -28,6 +28,16 @@ Our team will review the report, triage it, and work with you to resolve the iss
 
 Please do **not** report security vulnerabilities via public GitHub issues, public mailing lists, or public Discord channels.
 
+## Scope
+
+Virtual hosts provide [soft multi-tenancy](/docs/vhosts#multi-tenancy): tenants are assumed not to be malicious.
+Tenants that do not trust each other should use separate clusters.
+
+Resource exhaustion by an authenticated user is considered a vulnerability only when a faulty client application
+or client library could plausibly cause it, when it bypasses a configured limit or resource alarm, or when the damage
+persists after a node restart. Input that an authenticated user maliciously crafts to exhaust resources
+is out of scope.
+
 ## Security Advisories
 
 #### For commercial Broadcom / VMware Tanzu Customers

@@ -49,6 +49,23 @@ global permissions but they are an exception to the rule.
 Therefore when talking about user permissions it is very important
 to clarify what virtual host(s) they apply to.
 
+## Multi-Tenancy and Isolation {#multi-tenancy}
+
+Virtual hosts, [permissions](./access-control) and [limits](./limits) provide soft isolation:
+tenants are assumed not to be malicious, and isolation protects them from each other's mistakes,
+not from attacks.
+
+A user cannot access virtual hosts, resources or messages outside their permissions.
+However, all virtual hosts in a cluster share the memory, CPU and disk of its nodes, as well as
+the [metadata store](./metadata-store). [Limits](./limits), [resource alarms](./alarms)
+and [flow control](./flow-control) help protect tenants from an application that, for example,
+publishes faster than consumers can keep up, never acknowledges deliveries or leaks connections.
+They are not designed to protect against a tenant that maliciously crafts input to exhaust shared resources.
+
+For tenants that do not trust each other, hard isolation with a separate cluster
+for each tenant is recommended. Separate clusters also prevent one tenant's workload from
+affecting the latency and throughput of another's.
+
 ## Virtual Hosts and Client Connections {#client-connections}
 
 A virtual host has a name. When an AMQP 0-9-1 client connects to
