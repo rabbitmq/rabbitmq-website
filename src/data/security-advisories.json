@@ -1,6 +1,83 @@
 [
   {
     "cve_id": "",
+    "ghsa_id": "GHSA-w4p7-ffvp-qv8g",
+    "patched_versions": "4.3.7, 4.2.12",
+    "published_at": "2026-11-27",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "Predictable direct reply-to key allows cross-peer reply injection",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-w4p7-ffvp-qv8g",
+    "vulnerable_versions": ">= 4.3.0, < 4.3.7, >= 4.2.0, < 4.2.12"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-hqjp-fc45-wj4f",
+    "patched_versions": "4.4.1, 4.3.8, 4.2.13, 4.1.18, 3.13.22",
+    "published_at": "2026-11-27",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "LDAP backend interpolates identity variables into authorization regexes unescaped, letting a username widen its own ACL",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-hqjp-fc45-wj4f",
+    "vulnerable_versions": ">= 4.4.0, < 4.4.1, >= 4.3.0, < 4.3.8, >= 4.2.0, < 4.2.13, >= 4.1.0, < 4.1.18, >= 3.13.0, < 3.13.22"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-cfvg-5q96-8mhm",
+    "patched_versions": "4.4.1, 4.3.8, 4.2.13",
+    "published_at": "2026-11-27",
+    "repo": "rabbitmq-server",
+    "severity": "critical",
+    "summary": "Unauthenticated OAuth2 token-endpoint proxy allows anonymous privileged token minting",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-cfvg-5q96-8mhm",
+    "vulnerable_versions": ">= 4.4.0, < 4.4.1, >= 4.3.3, < 4.3.8, >= 4.2.9, < 4.2.13"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-c22p-g5xq-x5jm",
+    "patched_versions": "4.4.1, 4.3.8, 4.2.13, 4.1.18, 3.13.22",
+    "published_at": "2026-11-27",
+    "repo": "rabbitmq-server",
+    "severity": "high",
+    "summary": "Cross-Site Request Forgery (CSRF) in Management API via text/plain Interpretation Conflict",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-c22p-g5xq-x5jm",
+    "vulnerable_versions": ">= 4.4.0, < 4.4.1, >= 4.3.0, < 4.3.8, >= 4.2.0, < 4.2.13, >= 4.1.0, < 4.1.18, >= 3.13.0, < 3.13.22"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-8c56-38wg-g99q",
+    "patched_versions": "4.4.1, 4.3.8, 4.2.13, 4.1.18, 3.13.22",
+    "published_at": "2026-11-27",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "Dead Letter Exchange Bypasses Topic-Level Authorization (not Resource-Level)",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-8c56-38wg-g99q",
+    "vulnerable_versions": ">= 4.4.0, < 4.4.1, >= 4.3.0, < 4.3.8, >= 4.2.0, < 4.2.13, >= 4.1.0, < 4.1.18, >= 3.13.0, < 3.13.22"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-6q46-pxw7-rfv2",
+    "patched_versions": "4.4.1, 4.3.8, 4.2.13",
+    "published_at": "2026-11-27",
+    "repo": "rabbitmq-server",
+    "severity": "low",
+    "summary": "RabbitMQ 4.4.0 auth-cache accepts expired OAuth JWTs for new management operations",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-6q46-pxw7-rfv2",
+    "vulnerable_versions": ">= 4.4.0, < 4.4.1, >= 4.3.0, < 4.3.8, >= 4.2.0, < 4.2.13"
+  },
+  {
+    "cve_id": "",
+    "ghsa_id": "GHSA-4965-vg44-xv63",
+    "patched_versions": "4.4.1, 4.3.8, 4.2.13, 4.1.18, 3.13.22",
+    "published_at": "2026-11-27",
+    "repo": "rabbitmq-server",
+    "severity": "medium",
+    "summary": "AMQP 1.0: a float or null annotation in the modified outcome crashes consumer sessions and dead-letter workers",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-4965-vg44-xv63",
+    "vulnerable_versions": ">= 4.4.0, < 4.4.1, >= 4.3.0, < 4.3.8, >= 4.2.0, < 4.2.13, >= 4.1.0, < 4.1.18, >= 3.13.0, < 3.13.22"
+  },
+  {
+    "cve_id": "",
     "ghsa_id": "GHSA-qqh4-4hmj-6ph2",
     "patched_versions": "7.3.0",
     "published_at": "2026-11-24",
@@ -220,7 +297,7 @@
     "vulnerable_versions": ">= 4.3.0, < 4.3.5, >= 3.13.0, < 3.13.19, >= 4.0.0, < 4.0.24, >= 4.1.0, < 4.1.15, >= 4.2.0, < 4.2.10"
   },
   {
-    "cve_id": "",
+    "cve_id": "CVE-2026-137016",
     "ghsa_id": "GHSA-cfqc-c682-93mm",
     "patched_versions": "4.2.10, 4.3.5, 4.0.25, 4.1.16",
     "published_at": "2026-08-18",
